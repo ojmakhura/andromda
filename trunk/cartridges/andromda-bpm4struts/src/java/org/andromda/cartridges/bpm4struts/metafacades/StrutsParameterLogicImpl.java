@@ -152,7 +152,14 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetNullValue()
     {
-        return getType().getJavaNullString();
+        String nullValue = null;
+
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            nullValue = type.getJavaNullString();
+        }
+        return nullValue;
     }
 
     /**
@@ -169,14 +176,17 @@ public class StrutsParameterLogicImpl
         else
         {
             final ClassifierFacade type = getType();
-            if (type.isArrayType() || type.isFileType())
+            if (type != null)
             {
-                resetRequired = true;
-            }
-            else
-            {
-                final String typeName = type.getFullyQualifiedName(true);
-                resetRequired = isValidatorBoolean(typeName);
+                if (type.isArrayType() || type.isFileType())
+                {
+                    resetRequired = true;
+                }
+                else
+                {
+                    final String typeName = type.getFullyQualifiedName(true);
+                    resetRequired = isValidatorBoolean(typeName);
+                }
             }
         }
         return resetRequired;
@@ -446,28 +456,34 @@ public class StrutsParameterLogicImpl
         String typeName = null;
 
         ClassifierFacade type = getType();
-        if (type.isCollectionType() || type.isListType())
+
+        if (type != null)
         {
-            typeName = "java.util.ArrayList";
-        }
-        else if (type.isSetType())
-        {
-            typeName = "java.util.HashSet";
-        }
-        else
-        {
-            typeName = type.getFullyQualifiedName();
+            if (type.isCollectionType() || type.isListType())
+            {
+                typeName = "java.util.ArrayList";
+            }
+            else if (type.isSetType())
+            {
+                typeName = "java.util.HashSet";
+            }
+            else
+            {
+                typeName = type.getFullyQualifiedName();
+            }
         }
         return typeName;
     }
 
     protected boolean handleIsTable()
     {
-        boolean isTable = this.getType() != null;
-        if (isTable)
+        boolean isTable = false;
+
+        ClassifierFacade type = getType();
+        if (type != null)
         {
-            isTable = (getType().isCollectionType() ||
-                    getType().isArrayType()) &&
+            isTable = (type.isCollectionType() ||
+                    type.isArrayType()) &&
                     (!getTableColumnNames().isEmpty());
         }
         return isTable;
@@ -733,18 +749,22 @@ public class StrutsParameterLogicImpl
         {
             if (fieldType == null)
             {
-                final String parameterType = getType().getFullyQualifiedName(true);
-
-                if (!isTableLink())
+                ClassifierFacade type = getType();
+                if (type != null)
                 {
-                    if (getType().isFileType())
-                        widgetType = "file";
-                    else if (isValidatorBoolean(parameterType))
-                        widgetType = "checkbox";
-                    else if (isMultiple())
-                        widgetType = "select";
-                    else
-                        widgetType = "text";
+                    final String parameterType = type.getFullyQualifiedName(true);
+
+                    if (!isTableLink())
+                    {
+                        if (type.isFileType())
+                            widgetType = "file";
+                        else if (isValidatorBoolean(parameterType))
+                            widgetType = "checkbox";
+                        else if (isMultiple())
+                            widgetType = "select";
+                        else
+                            widgetType = "text";
+                    }
                 }
             }
             else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT.equalsIgnoreCase(fieldType))
@@ -796,12 +816,26 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsFile()
     {
-        return getType().isFileType();
+        boolean file = false;
+
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            file = type.isFileType();
+        }
+        return file;
     }
 
     protected boolean handleIsMultiple()
     {
-        return getType().isCollectionType() || getType().isArrayType();
+        boolean multiple = false;
+
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            multiple = type.isCollectionType() || type.isArrayType();
+        }
+        return multiple;
     }
 
     protected String handleGetBackingListName()
@@ -826,11 +860,12 @@ public class StrutsParameterLogicImpl
         if (isActionParameter())
         {
             selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(getWidgetType());
+            ClassifierFacade type = getType();
 
-            if (!selectable)
+            if (!selectable && type!=null)
             {
                 String name = getName();
-                String type = getType().getFullyQualifiedName();
+                String typeName = type.getFullyQualifiedName();
 
                 /**
                  * if the parameter is not selectable but on a targetting page it _is_ selectable we must
@@ -845,10 +880,14 @@ public class StrutsParameterLogicImpl
                     {
                         StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
                         String parameterName = parameter.getName();
-                        String parameterType = parameter.getType().getFullyQualifiedName();
-                        if (name.equals(parameterName) && type.equals(parameterType))
+                        ClassifierFacade parameterType = parameter.getType();
+                        if (parameterType != null)
                         {
-                            selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(parameter.getWidgetType());
+                            String parameterTypeName = parameterType.getFullyQualifiedName();
+                            if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                            {
+                                selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(parameter.getWidgetType());
+                            }
                         }
                     }
                 }
@@ -922,7 +961,14 @@ public class StrutsParameterLogicImpl
      */
     protected boolean handleIsDate()
     {
-        return getType().isDateType();
+        boolean dateType = false;
+
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            dateType = type.isDateType();
+        }
+        return dateType;
     }
 
     /**
@@ -968,29 +1014,36 @@ public class StrutsParameterLogicImpl
      */
     protected String handleGetResetValue()
     {
-        final String name = getName();
-        final String type = getType().getFullyQualifiedName(true);
+        String resetValue = null;
 
-        if (isValidatorString(type)) return "\"" + name + "-test" + "\"";
-        if (isValidatorDate(type)) return "new java.util.Date()";
-
-        if (getType().isPrimitive())
+        ClassifierFacade type = getType();
+        if (type != null)
         {
-            if (isValidatorBoolean(type)) return "false";
-            if (isValidatorFloat(type)) return "(float)" + name.hashCode() / hashCode();
-            if (isValidatorDouble(type)) return "(double)" + name.hashCode() / hashCode();
-            if (isValidatorShort(type)) return "(short)" + name.hashCode();
-            if (isValidatorLong(type)) return "(long)" + name.hashCode();
-            if (isValidatorByte(type)) return "(byte)" + name.hashCode();
-            if (isValidatorChar(type)) return "(char)" + name.hashCode();
-            if (isValidatorInteger(type)) return "(int)" + name.hashCode();
+            final String name = getName();
+            final String typeName = type.getFullyQualifiedName(true);
+
+            if (isValidatorString(typeName)) return "\"" + name + "-test" + "\"";
+            if (isValidatorDate(typeName)) return "new java.util.Date()";
+
+            if (getType().isPrimitive())
+            {
+                if (isValidatorBoolean(typeName)) return "false";
+                if (isValidatorFloat(typeName)) return "(float)" + name.hashCode() / hashCode();
+                if (isValidatorDouble(typeName)) return "(double)" + name.hashCode() / hashCode();
+                if (isValidatorShort(typeName)) return "(short)" + name.hashCode();
+                if (isValidatorLong(typeName)) return "(long)" + name.hashCode();
+                if (isValidatorByte(typeName)) return "(byte)" + name.hashCode();
+                if (isValidatorChar(typeName)) return "(char)" + name.hashCode();
+                if (isValidatorInteger(typeName)) return "(int)" + name.hashCode();
+            }
+
+            final String array = constructArray();
+            if (getType().isArrayType()) return array;
+            if (getType().isCollectionType()) return "java.util.Arrays.asList(" + array + ")";
+
+            resetValue = "\"" + name + "-test" + "\"";
         }
-
-        final String array = constructArray();
-        if (getType().isArrayType()) return array;
-        if (getType().isCollectionType()) return "java.util.Arrays.asList(" + array + ")";
-
-        return "\"" + name + "-test" + "\"";
+        return resetValue;
     }
 
     /**
@@ -1010,54 +1063,58 @@ public class StrutsParameterLogicImpl
 
     protected java.util.Collection handleGetValidatorTypes()
     {
-        final String type = getType().getFullyQualifiedName(true);
-        final String format = getValidatorFormat();
-        final boolean isRangeFormat = (format == null) ? false : isRangeFormat(format);
-
         final Collection validatorTypesList = new ArrayList();
 
-        if (isRequired()) validatorTypesList.add("required");
-
-        if (isValidatorByte(type))
-            validatorTypesList.add("byte");
-        else if (isValidatorShort(type))
-            validatorTypesList.add("short");
-        else if (isValidatorInteger(type))
-            validatorTypesList.add("integer");
-        else if (isValidatorLong(type))
-            validatorTypesList.add("long");
-        else if (isValidatorFloat(type))
-            validatorTypesList.add("float");
-        else if (isValidatorDouble(type))
-            validatorTypesList.add("double");
-        else if (isValidatorDate(type))
-            validatorTypesList.add("date");
-        else if (isValidatorUrl(type))
-            validatorTypesList.add("url");
-
-        if (isRangeFormat)
+        ClassifierFacade type = getType();
+        if (type != null)
         {
-            if (isValidatorInteger(type)) validatorTypesList.add("intRange");
-            if (isValidatorFloat(type)) validatorTypesList.add("floatRange");
-            if (isValidatorDouble(type)) validatorTypesList.add("doubleRange");
-        }
+            final String typeName = type.getFullyQualifiedName(true);
+            final String format = getValidatorFormat();
+            final boolean isRangeFormat = (format == null) ? false : isRangeFormat(format);
 
-        if (format != null && isValidatorString(type))
-        {
-            if (isEmailFormat(format))
-                validatorTypesList.add("email");
-            else if (isCreditCardFormat(format))
-                validatorTypesList.add("creditCard");
-            else if (isMinLengthFormat(format))
-                validatorTypesList.add("minlength");
-            else if (isMaxLengthFormat(format))
-                validatorTypesList.add("maxlength");
-            else if (isPatternFormat(format)) validatorTypesList.add("mask");
-        }
+            if (isRequired()) validatorTypesList.add("required");
 
-        if (getValidWhen() != null)
-        {
-            validatorTypesList.add("validwhen");
+            if (isValidatorByte(typeName))
+                validatorTypesList.add("byte");
+            else if (isValidatorShort(typeName))
+                validatorTypesList.add("short");
+            else if (isValidatorInteger(typeName))
+                validatorTypesList.add("integer");
+            else if (isValidatorLong(typeName))
+                validatorTypesList.add("long");
+            else if (isValidatorFloat(typeName))
+                validatorTypesList.add("float");
+            else if (isValidatorDouble(typeName))
+                validatorTypesList.add("double");
+            else if (isValidatorDate(typeName))
+                validatorTypesList.add("date");
+            else if (isValidatorUrl(typeName))
+                validatorTypesList.add("url");
+
+            if (isRangeFormat)
+            {
+                if (isValidatorInteger(typeName)) validatorTypesList.add("intRange");
+                if (isValidatorFloat(typeName)) validatorTypesList.add("floatRange");
+                if (isValidatorDouble(typeName)) validatorTypesList.add("doubleRange");
+            }
+
+            if (format != null && isValidatorString(typeName))
+            {
+                if (isEmailFormat(format))
+                    validatorTypesList.add("email");
+                else if (isCreditCardFormat(format))
+                    validatorTypesList.add("creditCard");
+                else if (isMinLengthFormat(format))
+                    validatorTypesList.add("minlength");
+                else if (isMaxLengthFormat(format))
+                    validatorTypesList.add("maxlength");
+                else if (isPatternFormat(format)) validatorTypesList.add("mask");
+            }
+
+            if (getValidWhen() != null)
+            {
+                validatorTypesList.add("validwhen");
+            }
         }
 
         return validatorTypesList;
@@ -1100,51 +1157,54 @@ public class StrutsParameterLogicImpl
     {
         final Collection vars = new ArrayList();
 
-        final String type = getType().getFullyQualifiedName(true);
-        final String format = getValidatorFormat();
-        if (format != null)
+        ClassifierFacade type = getType();
+        if (type != null)
         {
-            final boolean isRangeFormat = isRangeFormat(format);
+            final String typeName = type.getFullyQualifiedName(true);
+            final String format = getValidatorFormat();
+            if (format != null)
+            {
+                final boolean isRangeFormat = isRangeFormat(format);
 
-            if (isRangeFormat && (isValidatorInteger(type) || isValidatorFloat(type) || isValidatorDouble(type)))
-            {
-                vars.add(Arrays.asList(new Object[]{"min", getRangeStart(format)}));
-                vars.add(Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+                if (isRangeFormat && (isValidatorInteger(typeName) || isValidatorFloat(typeName) || isValidatorDouble(typeName)))
+                {
+                    vars.add(Arrays.asList(new Object[]{"min", getRangeStart(format)}));
+                    vars.add(Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+                }
+                else if (isValidatorString(typeName))
+                {
+                    if (isMinLengthFormat(format))
+                    {
+                        vars.add(Arrays.asList(new Object[]{"minlength", getMinLengthValue(format)}));
+                    }
+                    else if (isMaxLengthFormat(format))
+                    {
+                        vars.add(Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(format)}));
+                    }
+                    else if (isPatternFormat(format))
+                    {
+                        vars.add(Arrays.asList(new Object[]{"mask", getPatternValue(format)}));
+                    }
+                }
             }
-            else if (isValidatorString(type))
+            if (isValidatorDate(typeName))
             {
-                if (isMinLengthFormat(format))
+                if (format != null && isStrictDateFormat(format))
                 {
-                    vars.add(Arrays.asList(new Object[]{"minlength", getMinLengthValue(format)}));
+                    vars.add(Arrays.asList(new Object[]{"datePatternStrict", getDateFormat()}));
                 }
-                else if (isMaxLengthFormat(format))
+                else
                 {
-                    vars.add(Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(format)}));
+                    vars.add(Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
                 }
-                else if (isPatternFormat(format))
-                {
-                    vars.add(Arrays.asList(new Object[]{"mask", getPatternValue(format)}));
-                }
+            }
+
+            final String validWhen = getValidWhen();
+            if (validWhen != null)
+            {
+                vars.add(Arrays.asList(new Object[]{"test", validWhen}));
             }
         }
-        if (isValidatorDate(type))
-        {
-            if (format != null && isStrictDateFormat(format))
-            {
-                vars.add(Arrays.asList(new Object[]{"datePatternStrict", getDateFormat()}));
-            }
-            else
-            {
-                vars.add(Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
-            }
-        }
-
-        final String validWhen = getValidWhen();
-        if (validWhen != null)
-        {
-            vars.add(Arrays.asList(new Object[]{"test", validWhen}));
-        }
-
         return vars;
     }
 

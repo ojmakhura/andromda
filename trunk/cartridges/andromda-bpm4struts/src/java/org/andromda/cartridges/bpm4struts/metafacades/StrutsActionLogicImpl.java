@@ -12,12 +12,7 @@ import java.util.Map;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.FilteredCollection;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.*;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -142,7 +137,14 @@ public class StrutsActionLogicImpl
 
     protected String handleGetActionPathRoot()
     {
-        return '/' + StringUtilsHelper.upperCamelCaseName(getStrutsActivityGraph().getUseCase().getName());
+        String actionPathRoot = null;
+
+        StrutsUseCase useCase = getUseCase();
+        if (useCase != null)
+        {
+            actionPathRoot = '/' + StringUtilsHelper.upperCamelCaseName(useCase.getName());
+        }
+        return actionPathRoot;
     }
 
     protected String handleGetActionScope()
@@ -168,7 +170,11 @@ public class StrutsActionLogicImpl
 
         if (isUseCaseStart())
         {
-            roleUsers.addAll(getStrutsActivityGraph().getUseCase().getUsers());
+            StrutsUseCase useCase = getUseCase();
+            if (useCase != null)
+            {
+                roleUsers.addAll(useCase.getUsers());
+            }
         }
         else
         {
@@ -197,7 +203,13 @@ public class StrutsActionLogicImpl
         {
             PseudostateFacade pseudostate = (PseudostateFacade) source;
             if (pseudostate.isInitialState())
-                name = getStrutsActivityGraph().getUseCase().getName();
+            {
+                StrutsUseCase useCase = getUseCase();
+                if (useCase != null)
+                {
+                    name = useCase.getName();
+                }
+            }
         }
         else
         {
@@ -220,8 +232,15 @@ public class StrutsActionLogicImpl
 
     protected String handleGetFormBeanName()
     {
-        final String useCaseName = getStrutsActivityGraph().getUseCase().getName();
-        return StringUtilsHelper.lowerCamelCaseName(useCaseName) + getFormBeanClassName();
+        String formBeanName = null;
+
+        StrutsUseCase useCase = getUseCase();
+        if (useCase != null)
+        {
+            String useCaseName = useCase.getName();
+            formBeanName = StringUtilsHelper.lowerCamelCaseName(useCaseName) + getFormBeanClassName();
+        }
+        return formBeanName;
     }
 
     protected String handleGetFormValidationMethodName()
@@ -245,7 +264,14 @@ public class StrutsActionLogicImpl
      */
     public String getPackageName()
     {
-        return getStrutsActivityGraph().getUseCase().getPackageName();
+        String packageName = null;
+
+        StrutsUseCase useCase = getUseCase();
+        if (useCase != null)
+        {
+            packageName = useCase.getPackageName();
+        }
+        return packageName;
     }
 
     /**
@@ -288,7 +314,14 @@ public class StrutsActionLogicImpl
      */
     public String getPackagePath()
     {
-        return '/' + getStrutsActivityGraph().getUseCase().getPackagePath();
+        String packagePath = null;
+
+        StrutsUseCase useCase = getUseCase();
+        if (useCase != null)
+        {
+            packagePath = '/' + useCase.getPackagePath();
+        }
+        return packagePath;
     }
 
     protected String handleGetFullFormBeanPath()
@@ -463,20 +496,23 @@ public class StrutsActionLogicImpl
          */
         if (isUseCaseStart())
         {
-            StrutsUseCase useCase = getStrutsActivityGraph().getUseCase();
-            Collection finalStates = useCase.getReferencingFinalStates();
-            for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
+            StrutsUseCase useCase = getUseCase();
+            if (useCase != null)
             {
-                StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
-                Collection actions = finalState.getActions();
-                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                Collection finalStates = useCase.getReferencingFinalStates();
+                for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
                 {
-                    StrutsAction action = (StrutsAction) actionIterator.next();
-                    Collection parameters = action.getActionParameters();
-                    for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+                    StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
+                    Collection actions = finalState.getActions();
+                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                     {
-                        StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
-                        formFieldMap.put(parameter.getName(), parameter);
+                        StrutsAction action = (StrutsAction) actionIterator.next();
+                        Collection parameters = action.getActionParameters();
+                        for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+                        {
+                            StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
+                            formFieldMap.put(parameter.getName(), parameter);
+                        }
                     }
                 }
             }
@@ -531,24 +567,19 @@ public class StrutsActionLogicImpl
         return formFieldMap.values();
     }
 
-    private Collection deferredOperations = null;
-
     protected Collection handleGetDeferredOperations()
     {
-        if (deferredOperations == null)
+        Collection deferredOperations = new ArrayList();
+        StrutsController controller = getController();
+        if (controller != null)
         {
-            deferredOperations = new ArrayList();
-            StrutsController controller = getController();
-            if (controller != null)
+            Collection operations = controller.getOperations();
+            for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
             {
-                Collection operations = getController().getOperations();
-                for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+                StrutsControllerOperation operation = (StrutsControllerOperation) operationIterator.next();
+                if (operation.getDeferringActions().contains(this))
                 {
-                    StrutsControllerOperation operation = (StrutsControllerOperation) operationIterator.next();
-                    if (operation.getDeferringActions().contains(this))
-                    {
-                        deferredOperations.add(operation);
-                    }
+                    deferredOperations.add(operation);
                 }
             }
         }
