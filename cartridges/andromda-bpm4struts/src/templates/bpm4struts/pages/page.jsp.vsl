@@ -156,6 +156,11 @@
                            decorator="${variable.tableDecoratorFullyQualifiedName}"
 #end
                            export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
+#if ($exportable)
+#set ($exportFileName = "${jsp.name}-${variable.name}")
+#set ($exportFileName = "$str.toWebFileName($exportFileName)")
+                    <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
+#end
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)
 #if ($targetColumns.contains($columnName))
@@ -166,32 +171,24 @@
 #end
 #end
                     <display:column media="$variable.tableExportTypes"
-                        property="$columnName" titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
-                        sortable="$sortable" autolink="true" nulls="false"
-                        paramId="$columnName" />
+                        titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
+                        property="$columnName" autolink="true" nulls="false" paramId="$columnName" />
                     <display:column media="html"
                         headerClass="${columnName}"
                         titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
-                        sortable="$sortable" autolink="false" nulls="false"
-                        paramId="$columnName" >
+                        sortable="$sortable" autolink="false" nulls="false" paramId="$columnName" >
                         <div class="$columnName">
 #renderFormField($variable.tableAction $link "                            ")
                         </div>
                     </display:column>
 #else
                     <display:column media="$variable.tableExportTypes"
-                        property="$columnName" titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
-                        sortable="$sortable" autolink="true" nulls="false"
-                        paramId="$columnName" />
+                        titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
+                        property="$columnName" autolink="true" nulls="false" paramId="$columnName" />
                     <display:column media="html"
                         headerClass="${columnName}"
-                        titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
-                        sortable="$sortable" autolink="true" nulls="false"
-                        paramId="$columnName" >
-                        <div class="${columnName}">
-                            <bean:write name="row" property="$columnName" scope="page"/>
-                        </div>
-                    </display:column>
+                        property="$columnName" titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
+                        sortable="$sortable" autolink="true" nulls="false" paramId="$columnName" />
 #end
 #end
 #end
