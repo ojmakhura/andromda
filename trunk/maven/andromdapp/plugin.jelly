@@ -347,8 +347,9 @@
         <!-- the java source directory to use when creating java source directories -->
         <j:set var="javaSrcDir" value="src/java"/>
 
-        <!-- set the groupId so that it isn't filled by the default provided by maven -->
+        <!-- set some variables so they aren't filled when executing velocity -->
         <j:set var="dummy" value="${pom.setGroupId('${pom.groupId}')}"/>
+        <j:set var="dummy" value="${pom.setArtifactId('${pom.artifactId}')}"/>
 
     </goal>
 </project>
