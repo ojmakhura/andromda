@@ -2,14 +2,16 @@
 
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
-         
+
+    <![CDATA[ filter merge-point ]]>
     <filter>
         <filter-name>ResponseOverrideFilter</filter-name>
         <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
     </filter>
 
+    <![CDATA[ filter-mapping merge-point ]]>
     <filter-mapping>
         <filter-name>ResponseOverrideFilter</filter-name>
         <url-pattern>*.do</url-pattern>
@@ -19,6 +21,7 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
+    <![CDATA[ servlet merge-point ]]>
     <servlet>
         <servlet-name>action</servlet-name>
         <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
@@ -41,20 +44,23 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!-- precompilation merge-point -->
+    <![CDATA[ precompilation merge-point ]]>
+    <![CDATA[ servlet-mapping merge-point ]]>
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
+     <![CDATA[ welcome-file-list merge-point ]]>
         <welcome-file>$welcomeFileName</welcome-file>
     </welcome-file-list>
 
 #if ($security == "true")
 ##
-##  We don't use security-role-refs at this point, maybe in a later step
+## We don't use security-role-refs at this point, maybe in a later step
 ##
+    <![CDATA[ security-constraint merge-point ]]>
 #foreach ($applicationUseCase in $applicationUseCases)
 #foreach ($useCase in $applicationUseCase.allUseCases)
     <security-constraint>
@@ -90,6 +96,7 @@
         </form-login-config>
     </login-config>
 
+    <![CDATA[ security-role merge-point ]]>
 #foreach ($user in $applicationUseCase.allUsers)
     <security-role>
         <role-name>$user.role</role-name>
@@ -99,3 +106,4 @@
 #end
 #end
 </web-app>
+
