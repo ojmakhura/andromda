@@ -104,6 +104,7 @@
         </div>
 
 #if ($class.tabbed)
+#set ($tabSwitchFunction = "selectActionTab")
 #set ($tabMap = $class.tabMap)
         <div class="tabs">
 #foreach ($tab in $tabMap.keySet())
@@ -113,7 +114,7 @@
 #if ($tab == $tabTitle)
                     <div class="selected-tab"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></div>
 #else
-                    <div class="unselected-tab"><a href="javascript:selectActionTab(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
+                    <div class="unselected-tab"><a href="javascript:${tabSwitchFunction}(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
 #end
 #end
                 </div>
@@ -164,20 +165,21 @@
 #else
         //<!--
 #end
-            var actionTab = new Array($class.tabCount);
+#set ($tabSwitchArray = "actionTab")
+            var ${tabSwitchArray} = new Array($class.tabCount);
 #set ($tabMap = $class.tabMap)
 #foreach ($tab in $tabMap.keySet())
 #set ($tabIndex = $velocityCount - 1)
-            actionTab[$tabIndex] = getDiv('actiontab.$tab');
+            ${tabSwitchArray}[$tabIndex] = getDiv('actiontab.$tab');
 #end
 
-            function selectActionTab(tabIndex)
+            function ${tabSwitchFunction}(tabIndex)
             {
-                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=actionTab.length) return;
-                for (var i=0; i<actionTab.length; i++) actionTab[i].style.display = 'none';
-                actionTab[tabIndex].style.display = 'block';
+                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=${tabSwitchArray}.length) return;
+                for (var i=0; i<${tabSwitchArray}.length; i++) ${tabSwitchArray}[i].style.display = 'none';
+                ${tabSwitchArray}[tabIndex].style.display = 'block';
             }
-            this.selectActionTab(0);
+            this.${tabSwitchFunction}(0);
 #if ($xhtml == "true")
         //]]>
 #else
