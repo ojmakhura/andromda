@@ -10,6 +10,7 @@ import org.andromda.core.translation.node.AOperationContextDeclaration;
 import org.andromda.core.translation.syntax.Operation;
 import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -74,8 +75,8 @@ public class ContextElementFinder extends BaseTranslator {
         Expression expression = this.getExpression();
         if (expression != null) {
             String contextElementName = expression.getContextElement();
-            this.contextElement = this.model.findModelElement(
-                 contextElementName.replaceAll("::", "\\."));
+            this.contextElement = this.findModelElement(
+                contextElementName.replaceAll("::", "\\."));
             if (this.contextElement != null) {
                 logger.info("found context element --> '" 
                     + contextElementName + "'");
@@ -117,6 +118,50 @@ public class ContextElementFinder extends BaseTranslator {
                 }
             }
         }
+    }
+    
+    /**
+     * Finds the model element with the given 
+     * <code>modelElementName</code>.  Will find either
+     * the non qualified name or qualified name.  If more
+     * than one model element is found with the non qualified
+     * name an exception will be thrown.
+     * 
+     * @param modelElementName
+     * @return Object the found model element
+     */
+    private Object findModelElement(final String modelElementName) {
+        Object modelElement = null;
+        Collection modelElements = this.model.getModelElements();
+        CollectionUtils.filter(
+            modelElements,
+            new Predicate() {
+                public boolean evaluate(Object object) {
+                    ModelElementFacade modelElement = 
+                        (ModelElementFacade)object;
+                    String elementName = 
+                        StringUtils.trimToEmpty(modelElement.getName());
+                    String name = StringUtils.trimToEmpty(modelElementName);
+                    boolean valid = elementName.equals(name);
+                    if (!valid) {
+                        elementName = 
+                            StringUtils.trimToEmpty(
+                                modelElement.getFullyQualifiedName());                        valid = 
+                        elementName.equals(name);
+                    }
+                    return valid;
+                }
+            });
+        if (modelElements.size() > 1) {
+            throw new ContextElementFinderException(
+                "More than one element named ' " 
+                + modelElementName 
+                + "' was found within your model,"
+                + " please give the fully qualified name");    
+        } else  if (modelElements.size() == 1) {
+            modelElement = modelElements.iterator().next();
+        }
+        return modelElement;
     }
     
     /**
