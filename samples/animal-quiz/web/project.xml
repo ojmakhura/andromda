@@ -36,7 +36,7 @@
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.3</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -44,7 +44,7 @@
         <dependency>
             <groupId>servletapi</groupId>
             <artifactId>servletapi</artifactId>
-            <version>2.3</version>
+            <version>2.4-20040521</version>
         </dependency>
         <dependency>
             <groupId>struts</groupId>
@@ -257,18 +257,33 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        <!-- The next two dependencies (Jasper) are used for precompilation -->
+        <!-- The dependencies are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
             <artifactId>jasper-compiler</artifactId>
-            <version>4.0.4</version>
+            <version>5.0.18</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>tomcat</groupId>
             <artifactId>jasper-runtime</artifactId>
-            <version>4.0.4</version>
+            <version>5.0.18</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>tomcat</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>5.0.18</version>
+        </dependency>
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-el</groupId>
+            <artifactId>commons-el</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
     <build>
