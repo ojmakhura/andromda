@@ -1,15 +1,17 @@
-<project default="build" 
+<project default="build"
 	     xmlns:ant="jelly:ant">
 
   	<!-- ==================================================================
-  			Builds all documentation                                                   
+  			Builds all documentation
   		 ================================================================== -->
   	<goal name="build">
 		<attainGoal name="multiproject:site"/>
+        <!-- unpack the UmlDoc coming with the car-rental-sample so users can browse it -->
+        <ant:unzip src="${maven.docs.dest}/resources/car-rental-umldoc.zip" dest="${maven.docs.dest}"/>
 		<!-- zip it all up -->
 		<ant:zip zipfile="${maven.build.dir}/docs.zip" prefix="docs">
             <ant:zipfileset dir="${maven.docs.dest}"/>
-        </ant:zip>		
-  	</goal> 
-  	  	
+        </ant:zip>
+  	</goal>
+
 </project>
