@@ -150,12 +150,12 @@ $target.getDocumentation("     * ")
 $operation.getDocumentation("     * ")
      */
 #set ($msig = $operation.signature)
-#set ($returntype = $operation.returnType.fullyQualifiedName)
+#set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.hasExceptions())
-    $operation.visibility abstract $returntype ${msig}
+    $operation.visibility abstract $returnType ${msig}
         throws $operation.exceptionList;
 #else
-    $operation.visibility abstract $returntype ${msig};
+    $operation.visibility abstract $returnType ${msig};
 #end
 #end
 
