@@ -246,7 +246,7 @@ public class EntityFacadeLogicImpl
             });
         if (parentEnd != null)
         {
-            parent = parentEnd.getType();
+            parent = parentEnd.getOtherEnd().getType();
         }
         return parent;
     }
