@@ -669,4 +669,9 @@ public class StrutsActionLogicImpl
         // @todo: implement
         return Collections.EMPTY_LIST;
     }
+
+    protected String handleGetStyleClass()
+    {
+        return StringUtilsHelper.lowerCamelCaseName(getActionClassName());
+    }
 }

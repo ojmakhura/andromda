@@ -408,4 +408,9 @@ public class StrutsJspLogicImpl
         // @todo: implement
         return Collections.EMPTY_LIST;
     }
+
+    protected String handleGetCssFileName()
+    {
+        return getFullPath() + ".css";
+    }
 }
