@@ -174,16 +174,15 @@ public class VelocityTemplateEngine implements TemplateEngine {
 	public void processTemplate(
 		String templateFile,
 		Map templateObjects, 
-		StringWriter output) throws Exception {
-        
+		StringWriter output) throws Exception {      
 		final String methodName = "VelocityTemplateEngine.processTemplate";
+        if (logger.isDebugEnabled())
+            logger.debug("performing " + methodName 
+                + " with templateFile '" + templateFile 
+                + "' and templateObjects '"
+                + templateObjects + "'");
 		ExceptionUtils.checkEmpty(methodName, "templateFile", templateFile);
 		ExceptionUtils.checkNull(methodName, "output", output);
-		if (logger.isDebugEnabled())
-			logger.debug("performing " + methodName 
-				+ " with templateFile '" + templateFile 
-				+ "' and output '"
-				+ output + "'");
 		
 		this.velocityContext = new VelocityContext();
 
