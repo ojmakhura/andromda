@@ -12,7 +12,7 @@
     <section name="What is Schema2XMI?">
         <p>
 			Schema2XMI is a generator that will read a database
-			schema and write your schema's into an XMI model.
+			schema and write your schemas into an XMI model.
 			This is useful for a couple of reasons:
 			<ul>
 				<li>
@@ -27,6 +27,34 @@
 				</li>
 			</ul>
         </p>
+    </section>
+	<section name="What kind of modeling will it produce?">
+		<p>
+            The produced XMI model will possess the following attributes:
+		    <ul>
+				<li>
+                    Associations will contain correct multiplicities 
+					based on foreign key relations.					
+				</li>
+				<li>
+					Correct multiplicities on attributes that
+					are nullable vs. non-nullable (0..1 and 1).
+				</li>
+				<li>
+					Composite aggregation will be created on relationships
+					defining cascade deletes.
+				</li>
+				<li>
+					Configurable stereotypes will be added to 
+					classes and identifiers.
+				</li>
+				<li>
+					Optional configurable tagged values for column names 
+					and table names can be added to attributes and
+					tables respectively.
+			    </li>
+		    </ul>			
+		</p>
 		<subsection name="How do I use Schema2XMI?">
 			<p>
 				Schema2XMI is a command line utility that you'll
@@ -87,7 +115,7 @@ Options:
     <arg value="-o"/>
     <arg value="${maven.build.dir}/schema2xmi/transformed.xmi"/>
     <arg value="-t"/>
-    <arg value="[p{Lower}\p{Upper}[_]]*"/>
+    <arg value="[\p{Lower}\p{Upper}[_]]*"/>
     <arg value="-P"/>
     <arg value="org::andromda::sample"/>
     <arg value="-C"/>
