@@ -76,6 +76,7 @@ public class Bpm4StrutsProfile
     public static final boolean TAGGEDVALUE_TABLE_EXPORTABLE_DEFAULT_VALUE = true;
 
     public static final String TAGGEDVALUE_HYPERLINK = "hyperlinkModel";
+    public static final String TAGGEDVALUE_WEBPAGELINK = "hyperlinkTextActive";
 
     private Bpm4StrutsProfile()
     {}
