@@ -30,6 +30,8 @@
     <property reference="validatorPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="errorMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
     <property reference="customResourcesKey" default="custom"/>
+    <!-- generated xml's encoding --> 
+    <property reference="xmlEncoding" default="UTF-8"/>
     <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->
