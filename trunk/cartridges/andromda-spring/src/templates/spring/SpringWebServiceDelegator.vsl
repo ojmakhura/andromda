@@ -2,7 +2,7 @@ package $service.packageName;
 #set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedWebServiceDelegatorName,'.','/')}.java")
 
 /**
- * Web service delegator for <code>$service.fullyQualifiedName</code>.
+ * Web service delegator for {@link $service.fullyQualifiedName}.
  *
  * @see $service.fullyQualifiedName
  */
@@ -10,7 +10,7 @@ public class $service.webServiceDelegatorName
 {
 
     /**
-     * Gets an instance of <code>$service.fullyQualifiedName</code>
+     * Gets an instance of {@link $service.fullyQualifiedName}
      */
 #set ($serviceGetter = "get${service.name}()")
     private final ${service.fullyQualifiedName} $serviceGetter
@@ -32,7 +32,7 @@ public class $service.webServiceDelegatorName
 #end
     {
 #if (!$operation.returnTypePresent)
-        ${serviceGetter}.${operation.name}(${operation.argumentNames});
+        $serviceGetter.$operation.name($operation.argumentNames);
 #else
         return ${serviceGetter}.${operation.name}($operation.argumentNames);
 #end
