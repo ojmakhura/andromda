@@ -15,6 +15,17 @@ service.port=8080
 # The datasource for the application
 dataSource=java:/DefaultDS
 
+# properties for the management of the DB, ignore if you setup/drop
+# your schema manually
+dataSource.driver.jar=${env.JBOSS_HOME}/server/default/lib/hsqldb.jar
+dataSource.driver.class=org.hsqldb.jdbcDriver
+dataSource.url=jdbc:hsqldb:hsql://127.0.0.1:1701
+dataSource.user=sa
+dataSource.password=
+dataSource.sql.init=${basedir}/app/target/hibernate-schema-initialize.sql
+dataSource.sql.drop=${basedir}/app/target/hibernate-schema-remove.sql
+dataSource.sql.load=${basedir}/app/target/db/create-dummy-load.sql
+
 # Change this to generate to the correct MDA database mappings
 # For MySql use: MySQL
 # For Hypersonic use: HypersonicSql
