@@ -26,8 +26,6 @@ public class ModelLoader
 
     private static ModelLoader loader;
 
-    private final String MODELFACADE = "modelFacade";
-    private final String REPOSITORY = "repository";
     private final String LANGUAGE_MAPPINGS_URI = "languageMappingsUri";
 
     /**
@@ -188,7 +186,6 @@ public class ModelLoader
     protected ModelAccessFacade getModelAcessFacade()
     {
         return (ModelAccessFacade)ComponentContainer.instance().findComponent(
-            System.getProperty(MODELFACADE),
             ModelAccessFacade.class);
     }
 
@@ -202,7 +199,6 @@ public class ModelLoader
     protected RepositoryFacade getRepository()
     {
         return (RepositoryFacade)ComponentContainer.instance().findComponent(
-            System.getProperty(REPOSITORY),
             RepositoryFacade.class);
     }
 
