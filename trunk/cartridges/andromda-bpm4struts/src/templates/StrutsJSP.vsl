@@ -54,12 +54,6 @@
     	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
 #end
 ## only load the static javascript when it will actually be used
-#set ($hasTabs = $jsp.tabbed)
-#foreach ($action in $actions)
-#if ($hasTabs == false)
-#set ($hasTabs = $action.tabbed)
-#end
-#end
 #set ($validationDesired = ($clientValidation=='true'))
 #if ($jsp.validationRequired && $validationDesired)
         <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/form-validation.jsp"/>"></script>
@@ -141,38 +135,10 @@
 #end
 #end
 
-#if ($jsp.tabbed)
-#set ($tabSwitchFunction = "selectActionTab")
-#set ($tabMap = $jsp.tabMap)
-        <div class="tabs">
-#foreach ($tab in $tabMap.keySet())
-            <div id="actiontab.${tab}" class="tab">
-                <div class="tab-header">
-#foreach ($tabTitle in $tabMap.keySet())
-#if ($tab == $tabTitle)
-                    <div class="selected-tab"><bean:message key="${jsp.messageKey}.tab.${tabTitle}"/></div>
-#else
-                    <div class="unselected-tab"><a href="javascript:${tabSwitchFunction}(${tabTitle})"><bean:message key="${jsp.messageKey}.tab.${tabTitle}"/></a></div>
-#end
-#end
-                </div>
-                <div class="tab-body">
-#foreach ($tabAction in $tabMap.get($tab))
-#if ($tabAction.tableLinkPresent == false)
-                    <tiles:insert page="${tabAction.fullTilePath}.jsp" flush="false"/>
-#end
-#end
-                </div>
-            </div>
-#end
-        </div>
-
-#else
 #foreach ($action in $actions)
 #if ($action.tableLinkPresent == false)
         <tiles:insert page="${action.fullTilePath}.jsp" flush="false"/>
 
-#end
 #end
 #end
 #foreach ($variable in $pageVariables)
@@ -246,35 +212,6 @@
             </blockquote>
         </div>
 
-#if ($jsp.tabbed)
-        <script type="text/javascript" language="Javascript1.1">
-#if ($xhtml == "true")
-        //<![CDATA[
-#else
-        //<!--
-#end
-#set ($tabSwitchArray = "actionTab")
-            var ${tabSwitchArray} = new Array($jsp.tabCount);
-#set ($tabMap = $jsp.tabMap)
-#foreach ($tab in $tabMap.keySet())
-#set ($tabIndex = $velocityCount - 1)
-            ${tabSwitchArray}[$tabIndex] = getDiv('actiontab.$tab');
-#end
-
-            function ${tabSwitchFunction}(tabIndex)
-            {
-                if (isNaN(tabIndex) || tabIndex<0 || tabIndex>=${tabSwitchArray}.length) return;
-                for (var i=0; i<${tabSwitchArray}.length; i++) ${tabSwitchArray}[i].style.display = 'none';
-                ${tabSwitchArray}[tabIndex].style.display = 'block';
-            }
-            this.${tabSwitchFunction}(0);
-#if ($xhtml == "true")
-        //]]>
-#else
-        //-->
-#end
-        </script>
-#end
     </tiles:put>
 
 </tiles:insert>
