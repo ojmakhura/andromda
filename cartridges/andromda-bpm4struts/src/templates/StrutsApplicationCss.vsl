@@ -254,3 +254,19 @@ div.tabs div.tab div.tab-header div.unselected-tab a
 div.tabs div.tab div.tab-body
 {
 }
+
+#if ($breadCrumbs == "true")
+/* styles for the breadcrumbs */
+
+#breadcrumbs
+{
+    font-size: 86%;
+    color: #999;
+    padding-top: 14px;
+    padding-left: 4px;
+    margin: 0;
+}
+
+#breadcrumbs a:link, #bc a:visited, #bc a:hover { border-bottom: 1px solid #fff; }
+
+#end
