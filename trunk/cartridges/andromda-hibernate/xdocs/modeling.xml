@@ -247,6 +247,23 @@
 			          		Defines is caching is enabled  for this query.
 			          	</td>
 					   </tr>
+					   <tr>
+						<a name="@andromda.hibernate.entity.proxy"/>
+			          	<td>
+			          		@andromda.hibernate.entity.proxy
+			          	</td>
+						<td>
+							<a href="#Entity"><![CDATA[<<Entity>>]]></a>
+						</td>
+			          	<td>
+			          		Defines if a proxy will be enabled for the entity. Overrrides the "hibernateProxy" namespace property.
+			          		<ul>
+                                Permitted values are:
+								<li>true</li>
+								<li>false</li>
+							</ul>
+			          	</td>
+					   </tr>
 					</table>
 					</subsection>
 		        	<subsection name="Service Tagged Values">
