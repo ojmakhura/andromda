@@ -77,7 +77,40 @@
 							can model your finder method body in OCL as well
 							(to keep your model more PIM like).
 			          	</td>
-		        	</tr>					        	        	      	        	        		        	        	        	     	             	        	
+		        	</tr>		
+					<tr>
+						<td>
+	                        @persistence.table
+						</td>
+						<td>
+							<a href="#Entity"><![CDATA[<<Entity>>]]></a>
+						</td>
+						<td>
+							Defines the relational table name for entity persistence.
+						</td>
+					</tr>	
+					<tr>
+						<td>
+	                        @persistence.column
+						</td>
+						<td>
+							Attribute
+						</td>
+						<td>
+							Represents the column name for entity persistence.
+						</td>
+					</tr>	
+					<tr>
+						<td>
+	                        @persistence.column.length
+						</td>
+						<td>
+							Attribute
+						</td>
+						<td>
+							Represents the column length for entity persistence.
+						</td>
+					</tr>		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>
     	</section>
