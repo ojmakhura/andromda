@@ -57,9 +57,11 @@ public class OCLIntrospector
             Throwable cause = ExceptionUtils.getRootCause(th);
             // If cause is an OCLIntrospector throw that exception
             // rather than creating a new one.
-            if ( cause instanceof OCLIntrospectorException ) {
+            if (cause instanceof OCLIntrospectorException)
+            {
                 // Check to see if we are first in the chain.
-                if ( th.getCause() == cause ) {
+                if (th.getCause() == cause)
+                {
                     // We are the first in the chain, print the error msg
                     logger.error(errMsg);
                 }
@@ -160,7 +162,7 @@ public class OCLIntrospector
             }
             if (method == null)
             {
-                throw new OCLIntrospectorException("No property named '" 
+                throw new OCLIntrospectorException("No property named '"
                     + propertyName + "', found on element '" + element + "'");
             }
             property = method.invoke(element, null);
