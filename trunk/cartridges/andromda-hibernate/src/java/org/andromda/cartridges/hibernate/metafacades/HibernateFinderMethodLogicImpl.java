@@ -44,7 +44,7 @@ public class HibernateFinderMethodLogicImpl
             if (queryString != null)
             {
                 // remove any excess whitespace
-                queryString.replaceAll("[$\\s]+", "");
+                queryString = queryString.replaceAll("[$\\s]+", " ");
             }
         }
 
