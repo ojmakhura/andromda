@@ -43,6 +43,7 @@
 		overwrite="true">
 		<modelElements variable="service">
             <modelElement stereotype="WebService"/>
+			<modelElement stereotype="Service"/>
 		</modelElements>
 	</template>     
 	
@@ -72,9 +73,9 @@
 		outlet="axis-configuration" 
 		overwrite="true"
 		outputToSingleFile="true">
-		<modelElements variable="classes">
-            <modelElement stereotype="Service" variable="services"/>
+		<modelElements variable="services">
             <modelElement stereotype="WebService"/>
+			<modelElement stereotype="Service"/>
 		</modelElements>
 	</template>
 	
@@ -86,6 +87,7 @@
 		outputToSingleFile="true">
 		<modelElements variable="services">
             <modelElement stereotype="WebService"/>
+			<modelElement stereotype="Service"/>
 		</modelElements>
 	</template>
 	
@@ -97,6 +99,7 @@
 		required="false">
 		<modelElements variable="service">
             <modelElement stereotype="WebService"/>
+			<modelElement stereotype="Service"/>
 		</modelElements>
 	</template>
 		

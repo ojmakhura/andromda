@@ -41,7 +41,7 @@
         <documentation> 
 $service.getDocumentation("            ", 64, false)
         </documentation>
-        <namespace>${namespace}</namespace>
+        <namespace>${service.namespace}</namespace>
         <parameter name="allowedMethods" value="${service.allowedMethods}"/>
 #parse("templates/webservice/${service.provider}-Globals.vm")       
 #parse("templates/webservice/axis/${service.provider}-provider.vm")
@@ -61,7 +61,7 @@ $service.getDocumentation("            ", 64, false)
 #end
         <typeMapping 
             type="java:${type.fullyQualifiedName}" 
-            xmlns:ns${velocityCount}="${namespace}"
+            xmlns:ns${velocityCount}="${type.namespace}"
 #set ($serialPrefix = "Bean")
 #if ($type.arrayType)
 #set ($serialPrefix = "Array")
@@ -83,7 +83,7 @@ $type.getDocumentation("            ", 64, false)
 #if ($typeMapping.many)
         <typeMapping 
             type="java:${type.fullyQualifiedName}[]" 
-            xmlns:ns${velocityCount}="${namespace}"
+            xmlns:ns${velocityCount}="${type.namespace}"
             qname="ns${velocityCount}:${type.arrayName}" 
             serializer="org.apache.axis.encoding.ser.ArraySerializerFactory"
             deserializer="org.apache.axis.encoding.ser.ArrayDeserializerFactory"
