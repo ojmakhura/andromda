@@ -139,7 +139,7 @@
 				<p class="std">
 					This example call to the andromda task, tells AndroMDA to load 
 					the model from <em>jar:file:/path/to/my/model.zuml!/model.xmi</em> 
-					and generate code both the hibernate and bpm4struts cartridges. Notice
+					and generate code using the hibernate, the ejb and bpm4struts cartridges. Notice
 					how we configure each cartridge through the 
 					<a href="#namespace"><code><![CDATA[<namespace>]]></code></a> 
 					elements.
@@ -184,7 +184,7 @@
 		<property name="controllers" value="${gen.src.dir}"/>
 		<property name="controller-impls" value="${gen.src.dir}"/>
 		<property name="messages" value="${gen.src.dir}"/>
-		<property name="validation" value="${gen.src.dir}"/>
+		<property name="configuration" value="${gen.src.dir}"/>
 		<property name="xdoclet-merge" value="${merge.src.dir}"/>
 	</namespace>
 </andromda>
