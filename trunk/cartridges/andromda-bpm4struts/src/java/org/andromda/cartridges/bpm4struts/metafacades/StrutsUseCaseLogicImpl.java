@@ -26,22 +26,22 @@ public class StrutsUseCaseLogicImpl
     }
 
     // -------------------- business methods ----------------------
-    public String handleGetTitleKey()
+    protected String handleGetTitleKey()
     {
         return StringUtilsHelper.toResourceMessageKey(getName()) + ".title";
     }
 
-    public String handleGetTitleValue()
+    protected String handleGetTitleValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
-    public String handleGetOnlineHelpKey()
+    protected String handleGetOnlineHelpKey()
     {
         return StringUtilsHelper.toResourceMessageKey(getName()) + ".online.help";
     }
 
-    public String handleGetOnlineHelpValue()
+    protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
         StringBuffer buffer = new StringBuffer();
@@ -53,7 +53,7 @@ public class StrutsUseCaseLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
-    public String handleGetActionPath()
+    protected String handleGetActionPath()
     {
         String actionPath = null;
 
@@ -69,7 +69,7 @@ public class StrutsUseCaseLogicImpl
         return actionPath;
     }
 
-    public String handleGetActionPathRoot()
+    protected String handleGetActionPathRoot()
     {
         String actionPathRoot = null;
 
@@ -85,32 +85,32 @@ public class StrutsUseCaseLogicImpl
         return actionPathRoot;
     }
 
-    public String handleGetFullFormBeanPath()
+    protected String handleGetFullFormBeanPath()
     {
         return '/' + getFormBeanPackageName().replace('.', '/') + '/' + StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
     }
 
-    public String handleGetFormBeanName()
+    protected String handleGetFormBeanName()
     {
         return StringUtilsHelper.uncapitalize(getFormBeanClassName());
     }
 
-    public String handleGetFormBeanClassName()
+    protected String handleGetFormBeanClassName()
     {
         return StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
     }
 
-    public String handleGetFormBeanType()
+    protected String handleGetFormBeanType()
     {
         return getFormBeanPackageName() + '.' + getFormBeanClassName();
     }
 
-    public String handleGetFormBeanPackageName()
+    protected String handleGetFormBeanPackageName()
     {
         return getPackageName();
     }
 
-    public String handleGetActionRoles()
+    protected String handleGetActionRoles()
     {
         final Collection users = getAllUsers();
         StringBuffer rolesBuffer = new StringBuffer();
@@ -141,7 +141,7 @@ public class StrutsUseCaseLogicImpl
         return services;
     }
 
-    public java.lang.Object handleGetActivityGraph()
+    protected java.lang.Object handleGetActivityGraph()
     {
         /*
          * In case there is a tagged value pointing to an activity graph, and this graph is found,
@@ -311,7 +311,7 @@ public class StrutsUseCaseLogicImpl
         return finalStatesList;
     }
 
-    public boolean handleIsValidationRequired()
+    protected boolean handleIsValidationRequired()
     {
         final Collection allPages = this.getAllPages();
         for (Iterator iterator = allPages.iterator(); iterator.hasNext();)
@@ -325,7 +325,7 @@ public class StrutsUseCaseLogicImpl
         return false;
     }
 
-    public boolean handleIsApplicationValidationRequired()
+    protected boolean handleIsApplicationValidationRequired()
     {
         final Collection useCases = this.getAllUseCases();
         for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
@@ -389,8 +389,23 @@ public class StrutsUseCaseLogicImpl
         return pageVariables;
     }
 
-    public boolean handleIsApplicationUseCase()
+    protected boolean handleIsApplicationUseCase()
     {
         return hasStereotype(Bpm4StrutsProfile.STEREOTYPE_APPLICATION);
+    }
+
+    protected Collection handleGetReferencingFinalStates()
+    {
+        Collection referencingFinalStates = new ArrayList();
+        Collection allFinalStates = getModel().getAllFinalStates();
+        for (Iterator finalStateIterator = allFinalStates.iterator(); finalStateIterator.hasNext();)
+        {
+            StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
+            if (this.equals(finalState.getTargetUseCase()))
+            {
+                referencingFinalStates.add(finalState);
+            }
+        }
+       return referencingFinalStates;
     }
 }
