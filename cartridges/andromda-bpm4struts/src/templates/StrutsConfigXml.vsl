@@ -70,7 +70,7 @@
             <forward
                 name="$actionForward.forwardName"
                 path="$actionForward.forwardPath"
-                redirect="$actionForward.redirect" />
+                redirect="$action.redirect" />
 #end
         </action>
 #end
