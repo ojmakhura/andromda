@@ -8,7 +8,18 @@
     <property file="${app.root.dir}/build.properties"/>
 
     <property name="jar.bundle.name" value="${application.id}-${ant.project.name}-${application.version}.ear"/>
-    <property name="deployment.descriptor.path" value="${basedir}/src/META-INF/application.xml"/>
+    <property name="deployment.descriptor.path" value="${basedir}/target/META-INF/application.xml"/>
+
+    <filter token="bundle.name" value="${ant.project.name}.ear"/>
+    <filter token="application.id" value="${application.id}"/>
+    <filter token="application.name" value="${application.name}"/>
+    <filter token="application.version" value="${application.version}"/>
+
+    <copy todir="${basedir}/target/META-INF" overwrite="true" filtering="true">
+        <fileset dir="${basedir}/src/META-INF">
+            <include name="*.xml"/>
+        </fileset>
+    </copy>
 
     <target name="clean" description="o Clean up the generated directories">
         <delete dir="${basedir}/target"/>
@@ -35,7 +46,7 @@
                 <include name="commons-logging-*.jar"/>
                 <include name="commons-lang-*.jar"/>
             </fileset>
-            <fileset dir="${basedir}/src" includes="META-INF/*.xml" excludes="META-INF/application.xml"/>
+            <fileset dir="${basedir}/target" includes="META-INF/*.xml" excludes="META-INF/application.xml"/>
         </ear>
 #else
         <property file="${app.root.dir}/ejb/build.properties"/>
