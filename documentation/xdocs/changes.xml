@@ -7,6 +7,17 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.0-RC1" date="2004-12-27" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="update">
+                The Spring cartridge has been updated with an improvement that will make it easier to transform
+                entities into other objects such as value objects. Simply draw a dependency from an entity to a value
+                object and the entity's DAO will support transformation into that value object on it's methods (i.e.
+                when loading an entity instance, or finding a list of entity instances you can optionally pass in
+                a transformation flag argument - by default no transformation is done). You will need to implement
+                the transformation yourself in the entity's DAO, but calls to this method are automatically invoked
+                depending on the transformation flag you are using.
+            </action>
+        </release>
         <release version="3.0M3" date="2004-12-26" description="A stable development release for version 3, milestone 3">
             <action dev="carloslcuenca" type="add" issue="HIB-27">
                 The ability to define the OuterJoin association fetching strategy 
