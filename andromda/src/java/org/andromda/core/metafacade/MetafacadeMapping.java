@@ -47,8 +47,7 @@ public class MetafacadeMapping
         }
         catch (Throwable th)
         {
-            String errMsg = "Error performing setMetafacadeClassName";
-            throw new MetafacadeMappingsException(errMsg, th);
+            throw new MetafacadeMappingsException(th);
         }
     }
     
