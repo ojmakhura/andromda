@@ -31,7 +31,7 @@ public abstract class ${entity.name}Factory {
     */
     public static ${entity.name} create $entity.getOperationCallFromAttributes(false, true)
     {
-        ${entity.name} object = new ${entity.name}Impl();
+        ${entity.name} object = new ${entity.entityImplementationName}();
 
 #foreach ($attribute in $attributes)
 #if (!$attribute.identifier)
@@ -56,7 +56,7 @@ public abstract class ${entity.name}Factory {
     public static $entity.name findByPrimaryKey (net.sf.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
         throws net.sf.hibernate.HibernateException
     {
-        ${entity.name} object = (${entity.name}) session.load(${entity.name}Impl.class, ${primaryKey.name});
+        ${entity.name} object = (${entity.name}) session.load(${entity.entityImplementationName}.class, ${primaryKey.name});
         return object;
     }
 
