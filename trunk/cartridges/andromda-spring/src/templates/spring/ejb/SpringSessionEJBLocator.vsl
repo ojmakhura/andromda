@@ -22,7 +22,7 @@ public class $serviceLocatorName
      */
     private static $serviceLocatorName instance; 
     
-    private $serviceLocatorName()
+    protected $serviceLocatorName()
     {
         // shouldn't be instantiated
     }
