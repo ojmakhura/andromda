@@ -279,7 +279,7 @@ public class MetafacadeMappings
         }
 
         // try getting the mapping with the context since there
-        // wasn't any mapping with the matching stereotype
+        // wasn't any mapping with a matching stereotype
         if (mapping == null && StringUtils.isNotEmpty(context))
         {
             // try constructing key that has the context
@@ -305,7 +305,7 @@ public class MetafacadeMappings
             {
                 mapping = (MetafacadeMapping)mappingMap.get(null);
             }
-        }
+        };
         return mapping;
     }
 
