@@ -5,7 +5,27 @@
     <!-- ===================================================================
          Install the model into the repository
          =================================================================== -->
-  	<goal name="xml.zip:install">
+  	<goal name="xml.zip:install" prereqs="xml.zip:prepare">	
+	    <artifact:install
+	        artifact="${maven.xml.zip.final.name}.xml.zip"
+	        type="xml.zip"
+	        project="${pom}"/> 
+  	</goal>
+  	
+    <!-- ===================================================================
+         Deploy the model into the remote repository
+         =================================================================== -->
+  	<goal name="xml.zip:deploy" prereqs="xml.zip:prepare"> 	
+	    <artifact:deploy
+	        artifact="${maven.xml.zip.final.name}.xml.zip"
+	        type="xml.zip"
+	        project="${pom}"/> 
+  	</goal>
+ 
+    <!-- ===================================================================
+         Prepare the xml.zip for install/deploy
+         =================================================================== --> 	
+  	<goal name="xml.zip:prepare">
 	   <j:set var="maven.xml.zip.final.name" 
 	          value="${maven.build.dir}/${maven.final.name}"/>
   	    <j:set var="modelXml" value="andromda-profile.xml"/>
@@ -17,11 +37,7 @@
 		    tofile="${maven.xml.zip.final.name}.xml"/>
 	    <ant:zip destfile="${maven.xml.zip.final.name}.xml.zip"
 	             basedir="${maven.build.dir}"
-	             includes="*.xml"/>	 	
-	    <artifact:install
-	        artifact="${maven.xml.zip.final.name}.xml.zip"
-	        type="xml.zip"
-	        project="${pom}"/> 
-  	</goal>
+	             includes="*.xml"/>	
+    </goal>
   	  	
 </project>
