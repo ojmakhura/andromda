@@ -74,7 +74,7 @@ public class PackageFacadeLogicImpl
                     fullyQualifiedName,
                     String
                         .valueOf(this
-                            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR))));
+                            .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR))));
     }
 
     protected Collection handleGetOwnedElements()

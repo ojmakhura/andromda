@@ -12,5 +12,5 @@ public class MetafacadeProperties
      * When a model element name is unspecified this is the name used (instead
      * of null).
      */
-    public static final String VALIDATION_NAME_SEPERATOR = "validationNameSeperator";
+    public static final String VALIDATION_NAME_SEPARATOR = "validationNameSeparator";
 }

@@ -61,7 +61,7 @@ public class ModelElementFacadeLogicImpl
                 this.metaObject,
                 String
                     .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)));
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)));
     }
 
     /**
@@ -76,7 +76,7 @@ public class ModelElementFacadeLogicImpl
         {
             fullName = packageName
                 + this
-                    .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)
+                    .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)
                 + fullName;
         }
 
@@ -272,7 +272,7 @@ public class ModelElementFacadeLogicImpl
                 this.getFullyQualifiedName(),
                 String
                     .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)),
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
                 "/");
     }
 
@@ -286,7 +286,7 @@ public class ModelElementFacadeLogicImpl
                 this.getPackageName(),
                 String
                     .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPERATOR)),
+                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
                 "/");
     }
 
@@ -677,7 +677,7 @@ public class ModelElementFacadeLogicImpl
     {
         StringBuffer validationName = new StringBuffer("");
         Object seperator = this
-            .getConfiguredProperty(MetafacadeProperties.VALIDATION_NAME_SEPERATOR);
+            .getConfiguredProperty(MetafacadeProperties.VALIDATION_NAME_SEPARATOR);
         for (ModelElement namespace = metaObject.getNamespace(); namespace != null; namespace = namespace
             .getNamespace())
         {

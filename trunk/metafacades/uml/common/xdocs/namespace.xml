@@ -246,10 +246,10 @@
                 </tr>     
                 <tr>
                     <td>
-                        namespaceSeperator
+                        namespaceSeparator
                     </td>
                     <td>
-                        Used to seperate namespaces within the generated code.  For example
+                        Used to separate namespaces within the generated code.  For example
                         setting this to <code>'.'</code> causes fully qualified names to be defined as
                         <em>some.package.name.SomeClass</em>.
                     </td>
@@ -262,10 +262,10 @@
                 </tr> 	
                 <tr>
                     <td>
-                        relationNameSeperator
+                        relationNameSeparator
                     </td>
                     <td>
-                        The seperator used for constructing a relation name between two associations.
+                        The separator used for constructing a relation name between two associations.
                     </td>
                     <td>
                         No, the default is <code>2</code>.
