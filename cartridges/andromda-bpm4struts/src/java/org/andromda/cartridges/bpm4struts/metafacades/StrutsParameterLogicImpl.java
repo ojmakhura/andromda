@@ -145,7 +145,9 @@ public class StrutsParameterLogicImpl
      */
     public java.lang.String handleGetMessageKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getName());
+        String messageKey = StringUtilsHelper.toResourceMessageKey(getName());
+        StrutsAction action = getAction();
+        return (action == null) ? messageKey : action.getMessageKey() + '.' + messageKey;
     }
 
     /**
@@ -169,7 +171,25 @@ public class StrutsParameterLogicImpl
      */
     public java.lang.String handleGetTitleValue()
     {
-        return getMessageValue();
+        String requiredSuffix = "";
+        if (isRequired())
+        {
+            requiredSuffix = " is required";
+        }
+
+        String dateSuffix = "";
+        if (isDate())
+        {
+            dateSuffix =
+                    (isStrictDateFormat())
+                    ? " (use this strict format: " + getDateFormat() + ")"
+                    : " (use this lenient format: " + getDateFormat() + ")";
+        }
+
+        String documentation = getDocumentation("", 64, true);
+        return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation))
+                ? super.getName() + requiredSuffix + dateSuffix
+                : documentation.replaceAll("\n", "\n<br/>"));
     }
 
     public boolean handleIsCalendarRequired()
