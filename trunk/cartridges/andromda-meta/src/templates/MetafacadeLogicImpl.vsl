@@ -70,7 +70,8 @@ public class ${metafacade.logicImplName}
     /**
      * @see ${metafacade.fullyQualifiedName}#${op.name}(${op.argumentTypeNames})
      */
-    $op.visibility $returnTypeName ${handleMethodName}($typedArgumentList) {
+    $op.visibility $returnTypeName ${handleMethodName}($typedArgumentList) 
+    {
 #end
         // TODO: put your implementation here.
 #if ("void" != $returnTypeName)
