@@ -313,7 +313,7 @@
             context EntityFacade inv : generalization -> notEmpty() implies generalization.oclIsKindOf(EntityFacade)
         </from>
         <to>
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLCollections.notEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"generalization")))).booleanValue()?org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"generalization") instanceof EntityFacade:true));
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLCollections.notEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"generalization")))).booleanValue()?org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"generalization") instanceof org.andromda.translation.query.EntityFacade:true));
         </to>
     </expression>
     
