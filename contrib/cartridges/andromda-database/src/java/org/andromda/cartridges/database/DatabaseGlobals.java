@@ -16,7 +16,7 @@ public class DatabaseGlobals
     /**
      * The default dummy load multiplier.
      */
-    public static final float DUMMYLOAD_MULTIPIER_DEFAULT = 1;
+    public static final float DUMMYLOAD_MULTIPLIER_DEFAULT = 1;
     
     /**
      * The namespace property that stores the primary key constraint prefix.
