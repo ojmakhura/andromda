@@ -1,8 +1,5 @@
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.6.1
-Created-By: Apache Jakarta Maven
-Built-By: Wouter
-Package: org.andromda
-Class-Path:  app-common-1.0-SNAPSHOT.jar commons-beanutils-1.6.1.jar commons-collections-3.0.jar commons-lang-2.0.jar
+Class-Path:  ${applicationId}-common-${applicationVersion}.jar commons-beanutils-1.6.1.jar commons-collections-3.0.jar commons-lang-2.0.jar
              commons-logging-1.0.3.jar hibernate-2.1.2.jar cglib-2.0-rc2.jar dom4j-1.4.jar odmg-3.0.jar ehcache-0.7.jar
              asm-1.4.1.jar
