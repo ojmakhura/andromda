@@ -277,7 +277,7 @@
         ==================================================================-->
     <goal name="andromdapp:init"
           description="private internal goal">
-          <j:while test="${empty(projectCreator)}">
+        <j:while test="${empty(projectCreator)}">
             <i:ask
                 question="Please enter your first and last name (i.e. Chad Brandon):"
                 answer="projectCreator"/>
