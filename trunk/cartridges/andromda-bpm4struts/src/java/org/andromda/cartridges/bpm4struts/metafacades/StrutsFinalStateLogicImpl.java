@@ -69,15 +69,10 @@ public class StrutsFinalStateLogicImpl
             final String name = super.getName();
             if (StringUtils.isNotBlank(name))
             {
-                final Collection useCases = getModel().getAllUseCases();
-                for (Iterator iterator = useCases.iterator(); (targetUseCase == null && iterator.hasNext());)
+                UseCaseFacade useCase = getModel().findUseCaseByName(name);
+                if (useCase instanceof StrutsUseCase)
                 {
-                    UseCaseFacade useCase = (UseCaseFacade) iterator.next();
-                    if (useCase instanceof StrutsUseCase)
-                    {
-                        if (name.equalsIgnoreCase(useCase.getName()))
-                            targetUseCase = useCase;
-                    }
+                    targetUseCase = useCase;
                 }
             }
         }

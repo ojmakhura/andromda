@@ -1,25 +1,26 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
-import org.omg.uml.foundation.core.Attribute;
-import org.omg.uml.foundation.core.Classifier;
-import org.omg.uml.foundation.core.CorePackage;
-import org.omg.uml.foundation.core.ModelElement;
-import org.omg.uml.foundation.core.Stereotype;
+import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
+import org.omg.uml.behavioralelements.commonbehavior.DataValue;
+import org.omg.uml.behavioralelements.statemachines.Event;
+import org.omg.uml.behavioralelements.statemachines.FinalState;
+import org.omg.uml.behavioralelements.statemachines.SignalEvent;
+import org.omg.uml.behavioralelements.statemachines.Transition;
+import org.omg.uml.behavioralelements.usecases.UseCase;
+import org.omg.uml.foundation.core.*;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 import org.omg.uml.modelmanagement.UmlPackage;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Utilities for dealing with UML 1.4 metafacades
@@ -305,5 +306,447 @@ public class UMLMetafacadeUtils
         }
         return isType;
     }
-    
+
+    /**
+     * Tries to find an activity graph which context is the model element with the given id.
+     * Returns null in case no such element exists.
+     */
+    static ActivityGraph getActivityGraphContext(ModelElement modelElement)
+    {
+        ActivityGraph graphContext = null;
+
+        if (modelElement != null)
+        {
+            Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
+            for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext();)
+            {
+                ActivityGraph graph = (ActivityGraph) graphIterator.next();
+                ModelElement contextElement = graph.getContext();
+                if (modelElement.equals(contextElement))
+                {
+                    graphContext = graph;
+                }
+            }
+        }
+
+        return graphContext;
+    }
+
+    /**
+     * Returns the first use-case it can find with the given name.
+     */
+    static UseCase findFirstUseCaseWithName(String name)
+    {
+        return findFirstUseCaseWithNameAndStereotype(name, null);
+    }
+
+    /**
+     * Returns the first use-case it can find with the given name and stereotype, if the stereotype is not specified
+     * (it is null) it will be ignored and the returned use-case may have any arbitrary stereotype.
+     */
+    static UseCase findFirstUseCaseWithNameAndStereotype(String name, String stereotypeName)
+    {
+        UseCase useCaseWithNameAndStereotype = null;
+
+        Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithNameAndStereotype==null;)
+        {
+            UseCase useCase = (UseCase) useCaseIterator.next();
+            if (name.equals(useCase.getName()))
+            {
+                if (stereotypeName == null || isStereotypePresent(useCase, stereotypeName))
+                {
+                    useCaseWithNameAndStereotype = useCase;
+                }
+            }
+        }
+
+        return useCaseWithNameAndStereotype;
+    }
+
+    /**
+     * Returns the first activity graph it can find with the given name.
+     */
+    static ActivityGraph findFirstActivityGraphWithName(String name)
+    {
+        return findFirstActivityGraphWithNameAndStereotype(name, null);
+    }
+
+    /**
+     * Returns the first activity graph it can find with the given name and stereotype, if the stereotype is not specified
+     * (it is null) it will be ignored and the returned activity graph may have any arbitrary stereotype.
+     */
+    static ActivityGraph findFirstActivityGraphWithNameAndStereotype(String name, String stereotypeName)
+    {
+        ActivityGraph graphWithNameAndStereotype = null;
+
+        Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
+        for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext() && graphWithNameAndStereotype==null;)
+        {
+            ActivityGraph graph = (ActivityGraph) graphIterator.next();
+            if (name.equals(graph.getName()))
+            {
+                if (stereotypeName == null || isStereotypePresent(graph, stereotypeName))
+                {
+                    graphWithNameAndStereotype = graph;
+                }
+            }
+        }
+
+        return graphWithNameAndStereotype;
+    }
+
+    /**
+     * Returns true if the given model element has a tag with the given name and value, returns false otherwise.
+     */
+    static boolean isTagPresent(ModelElement element, String tag, Object value)
+    {
+        boolean tagPresent = false;
+
+        Collection taggedValues = element.getTaggedValue();
+        for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext() && !tagPresent;)
+        {
+            TaggedValue taggedValue = (TaggedValue)taggedValueIterator.next();
+            if (tag.equals(taggedValue.getName()))
+            {
+                for (Iterator valueIterator = taggedValue.getDataValue().iterator(); valueIterator.hasNext() && !tagPresent;)
+                {
+                    DataValue dataValue = (DataValue) valueIterator.next();
+                    if (value.equals(dataValue))
+                    {
+                        tagPresent = true;
+                    }
+                }
+                for (Iterator valueIterator = taggedValue.getReferenceValue().iterator(); valueIterator.hasNext() && !tagPresent;)
+                {
+                    Object referenceValue = valueIterator.next();
+                    if (value.equals(referenceValue))
+                    {
+                        tagPresent = true;
+                    }
+                }
+            }
+        }
+        return tagPresent;
+    }
+
+    /**
+     * Returns true if the given model element has a hyperlink with the given value, returns false otherwise.
+     */
+    static boolean isHyperlinkPresent(ModelElement element, Object value)
+    {
+        return isTagPresent(element, "hyperlinkModel", value);
+    }
+
+    static boolean isStereotypePresent(ModelElement element, String stereotypeName)
+    {
+        boolean stereotypePresent = false;
+
+        Collection stereotypes = element.getStereotype();
+        for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext() && !stereotypePresent;)
+        {
+            Stereotype stereotype = (Stereotype) stereotypeIterator.next();
+            if (stereotypeName.equals(stereotype.getName()))
+            {
+                stereotypePresent = true;
+            }
+        }
+        return stereotypePresent;
+    }
+
+    /**
+     * If this activity graph is a direct child element of a use-case (hierarchy-wise) this method returns that
+     * use-case. Returns null if no such use-case exists.
+     */
+    static UseCase getUseCase(ActivityGraph activityGraph)
+    {
+        UseCase stateMachineUseCase = null;
+
+        Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && stateMachineUseCase==null;)
+        {
+            // loop over all use-cases
+            UseCase useCase = (UseCase) useCaseIterator.next();
+            Collection ownedElements = useCase.getOwnedElement();
+            if (ownedElements.contains(activityGraph))
+            {
+                stateMachineUseCase = useCase;
+            }
+        }
+
+        return stateMachineUseCase;
+    }
+
+    /**
+     * Returns the first activity graph this method can find in the elements owned by the argument use-case.
+     * Returns null if no activity graph is found.
+     */
+    static ActivityGraph getFirstActivityGraph(UseCase useCase)
+    {
+        ActivityGraph activityGraph = null;
+
+        Collection ownedElements = useCase.getOwnedElement();
+        for (Iterator iterator = ownedElements.iterator(); iterator.hasNext() && activityGraph==null;)
+        {
+            ModelElement modelElement = (ModelElement) iterator.next();
+            if (modelElement instanceof ActivityGraph)
+            {
+                activityGraph = (ActivityGraph) modelElement;
+            }
+        }
+
+        return activityGraph;
+    }
+
+    /**
+     * Returns the first use-case this method can find with the given tagged value or hyperlink. Both arguments are used
+     * to look for the tagged value but only <code>value</code> is used to search for the hyperlink.
+     */
+    static UseCase findUseCaseWithTaggedValueOrHyperlink(String tag, String value)
+    {
+        UseCase useCaseWithTaggedValue = null;
+
+        Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithTaggedValue==null;)
+        {
+            // loop over all use-cases
+            UseCase useCase = (UseCase) useCaseIterator.next();
+            if (isTagPresent(useCase, tag, value) || isHyperlinkPresent(useCase, value))
+            {
+                useCaseWithTaggedValue = useCase;
+            }
+        }
+
+        return useCaseWithTaggedValue;
+    }
+
+    /**
+     * Returns the first class this method can find with the given tagged value or hyperlink. Both arguments are used
+     * to look for the tagged value but only <code>value</code> is used to search for the hyperlink.
+     */
+    static UmlClass findClassWithTaggedValueOrHyperlink(String tag, String value)
+    {
+        UmlClass classWithTaggedValue = null;
+
+        Collection classes = getModel().getCore().getUmlClass().refAllOfType();
+        for (Iterator classIterator = classes.iterator(); classIterator.hasNext() && classWithTaggedValue==null;)
+        {
+            // loop over all use-cases
+            UmlClass clazz = (UmlClass) classIterator.next();
+            if (isTagPresent(clazz, tag, value) || isHyperlinkPresent(clazz, value))
+            {
+                classWithTaggedValue = clazz;
+            }
+        }
+
+        return classWithTaggedValue;
+    }
+
+    /**
+     * If the argument parameter is on a signal event this method will return that signal event,
+     * null is returned otherwise.
+     */
+    static SignalEvent getSignalEvent(Parameter parameter)
+    {
+        SignalEvent parameterSignalEvent = null;
+
+        if (parameter != null)
+        {
+            Collection allSignalEvents = getModel().getStateMachines().getSignalEvent().refAllOfType();
+            for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext() && parameterSignalEvent==null;)
+            {
+                SignalEvent signalEvent = (SignalEvent) iterator.next();
+                if (signalEvent.getParameter().contains(parameter))
+                {
+                    parameterSignalEvent = signalEvent;
+                }
+            }
+        }
+        return parameterSignalEvent;
+    }
+
+    /**
+     * If the argument event is situated on a transition this method will return that transition,
+     * null is returned otherwise.
+     */
+    static Transition getTransition(Event event)
+    {
+        Transition eventTransition = null;
+
+        if (event != null)
+        {
+            Collection allTransitions = getModel().getStateMachines().getTransition().refAllOfType();
+            for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition==null;)
+            {
+                Transition transition = (Transition) iterator.next();
+                if (event.equals(transition.getTrigger()))
+                {
+                    eventTransition = transition;
+                }
+            }
+        }
+        return eventTransition;
+    }
+
+    /**
+     * If the argument parameter is modeled on an operation this operation will be returned, in any other
+     * case this method returns null.
+     */
+    static Operation getOperation(Parameter parameter)
+    {
+        Operation parameterOperation = null;
+
+        if (parameter != null)
+        {
+            Collection allOperations = getModel().getCore().getOperation().refAllOfType();
+            for (Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation==null;)
+            {
+                Operation operation = (Operation) iterator.next();
+                if (operation.getParameter().contains(parameter))
+                {
+                    parameterOperation = operation;
+                }
+            }
+        }
+        return parameterOperation;
+    }
+
+    static Collection findFinalStatesWithNameOrHyperlink(UseCase useCase)
+    {
+        List finalStates = new ArrayList();
+
+        if (useCase != null && useCase.getName() != null)
+        {
+            String useCaseName = useCase.getName();
+            Collection allFinalStates = getModel().getStateMachines().getFinalState().refAllOfType();
+            for (Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)
+            {
+                FinalState finalState = (FinalState) iterator.next();
+                if (useCaseName != null)
+                {
+                    if (useCaseName.equals(finalState.getName()))
+                    {
+                        finalStates.add(finalState);
+                    }
+                    else
+                    {
+                        if (isHyperlinkPresent(finalState,useCase))
+                        {
+                            finalStates.add(finalState);
+                        }
+                    }
+                }
+                else
+                {
+                    if (isHyperlinkPresent(finalState,useCase))
+                    {
+                        finalStates.add(finalState);
+                    }
+                }
+            }
+        }
+
+        return finalStates;
+    }
+
+    static ActivityGraph getMetaClass(ActivityGraphFacade facade)
+    {
+        ActivityGraph activityGraph = null;
+
+        if (facade != null)
+        {
+            String id = facade.getId();
+            Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
+            for (Iterator iterator = graphs.iterator(); iterator.hasNext() && activityGraph==null;)
+            {
+                ModelElement element = (ModelElement) iterator.next();
+                if (id.equals(element.refMofId()))
+                {
+                    activityGraph = (ActivityGraph) element;
+                }
+            }
+        }
+        return activityGraph;
+    }
+
+    static UseCase getMetaClass(UseCaseFacade facade)
+    {
+        UseCase useCase = null;
+
+        if (facade != null)
+        {
+            String id = facade.getId();
+            Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
+            for (Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase==null;)
+            {
+                ModelElement element = (ModelElement) iterator.next();
+                if (id.equals(element.refMofId()))
+                {
+                    useCase = (UseCase) element;
+                }
+            }
+        }
+        return useCase;
+    }
+
+    static Parameter getMetaClass(ParameterFacade facade)
+    {
+        Parameter parameter = null;
+
+        if (facade != null)
+        {
+            String id = facade.getId();
+            Collection parameters = getModel().getCore().getParameter().refAllOfType();
+            for (Iterator iterator = parameters.iterator(); iterator.hasNext() && parameter==null;)
+            {
+                ModelElement element = (ModelElement) iterator.next();
+                if (id.equals(element.refMofId()))
+                {
+                    parameter = (Parameter) element;
+                }
+            }
+        }
+        return parameter;
+    }
+
+    static Event getMetaClass(EventFacade facade)
+    {
+        Event event = null;
+
+        if (facade != null)
+        {
+            String id = facade.getId();
+            Collection events = getModel().getStateMachines().getEvent().refAllOfType();
+            for (Iterator iterator = events.iterator(); iterator.hasNext() && event==null;)
+            {
+                ModelElement element = (ModelElement) iterator.next();
+                if (id.equals(element.refMofId()))
+                {
+                    event = (Event) element;
+                }
+            }
+        }
+        return event;
+    }
+
+    static ModelElement getMetaClass(ModelElementFacade facade)
+    {
+        ModelElement modelElement = null;
+
+        if (facade != null)
+        {
+            String id = facade.getId();
+            Collection modelElements = getModel().getCore().getModelElement().refAllOfType();
+            for (Iterator iterator = modelElements.iterator(); iterator.hasNext() && modelElement==null;)
+            {
+                ModelElement element = (ModelElement) iterator.next();
+                if (id.equals(element.refMofId()))
+                {
+                    modelElement = element;
+                }
+            }
+        }
+        return modelElement;
+    }
+
 }

@@ -45,7 +45,7 @@
                         <bean:message key="this.table.is.referenced.from" bundle="custom"/>
                         <ul>
                             <c:forEach var="foreignTable" items="${currentTable.importingTables}">
-                                <c:if test="${column.table.name != foreignTable.name}"> <%-- don't render link to yourself --%>
+                                <c:if test="${currentTable.name != foreignTable.name}"> <%-- don't render link to yourself --%>
                                     <c:if test="${acf:contains(metaDataSession.tableNames,foreignTable.name)}"> <%-- only render allowed tables --%>
                                         <li>
                                             <html:link action="/Maintenance/MaintenanceChangeTable" styleClass="foreignTableLink"

@@ -1,10 +1,9 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.TransitionFacade;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Iterator;
 
 
 /**
@@ -129,6 +128,7 @@ public class StrutsTriggerLogicImpl
     {
         /*
          * hack until I find a solution to workaround the JMI multiple inheritance (through interfaces)
+         * @todo: find the solution
          */
         try
         {
@@ -143,20 +143,13 @@ public class StrutsTriggerLogicImpl
 
     protected Object handleGetAction()
     {
-        final Collection transitions = getModel().getAllTransitions();
-        for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
+        StrutsAction triggerAction = null;
+
+        TransitionFacade transition = getModel().getEventTransition(this);
+        if (transition instanceof StrutsAction)
         {
-            Object transitionObject = iterator.next();
-            if (transitionObject instanceof StrutsAction)
-            {
-                StrutsAction action = (StrutsAction) transitionObject;
-                StrutsTrigger trigger = action.getActionTrigger();
-                if (trigger != null && trigger.equals(this))
-                {
-                    return action;
-                }
-            }
+            triggerAction = (StrutsAction)transition;
         }
-        return null;
+        return triggerAction;
     }
 }
