@@ -18,6 +18,7 @@
     <property reference="hibernateInheritanceStrategy" default="subclass"/>
     <property reference="serviceOperationTransactionType" default="PROPAGATION_REQUIRED"/>
     <property reference="ejbServiceOperationTransactionType" default="Required"/>
+    <property reference="serviceHibernateInterceptorEnabled" default="true"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>

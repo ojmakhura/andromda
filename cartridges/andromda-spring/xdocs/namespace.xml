@@ -512,6 +512,18 @@
                         No, default is <code>localhost</code>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        serviceHibernateInterceptorEnabled
+                    </td>
+                    <td>
+                        Whether or not the hibernate interceptor should be enabled
+                        on services.
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>
             </table>
             <subsection name="Hibernate Specific Properties">
                 <table>
