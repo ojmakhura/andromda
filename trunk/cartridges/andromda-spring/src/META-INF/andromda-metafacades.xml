@@ -6,6 +6,7 @@
 		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
 		metafacadeClass="org.andromda.cartridges.spring.metafacades.HibernateFinderMethodLogicImpl">
 		<stereotype>FinderMethod</stereotype>
+        <property reference="hibernateQueryUseNamedParameters" default="false"/>
 	</metafacade>	
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"

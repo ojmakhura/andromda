@@ -7,7 +7,7 @@
 		<!-- replaced when an operation argument is encountered -->
 		<fragment name="argument">
 			<!-- the 'counter' will be replaced by an incrementing number 
-			     each time it is retieved -->
+			     each time it is retrieved -->
 			<kind name="body">
 				?{counter}
 			</kind>

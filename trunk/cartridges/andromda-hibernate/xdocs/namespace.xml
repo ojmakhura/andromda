@@ -429,6 +429,20 @@
                         No
                     </td>
                 </tr>  
+                <tr>
+                    <td>
+                        hibernateQueryNamedParameters
+                    </td>
+                    <td>
+                        Whether or not named parameters (i.e. ':someParameter') or unnamed 
+                        (i.e. '?') parameters should be used in the HQL queries embedded 
+                        within the model.
+                        <strong>NOTE:</strong> Does not apply to queries written in OCL.
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                </tr>   
             </table>
         </section>
     </body>

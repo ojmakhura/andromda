@@ -15,7 +15,7 @@
 		<to>
 			from org.andromda.contracts.LegalAgreement as legalAgreement 
 			join fetch legalAgreement.legalAgreementParties as lap
-			where lower(lap.legalParty.legalPartyName) like ?
+			where lower(lap.legalParty.legalPartyName) like :legalPartyName
 		</to>
 	</expression>
 		
@@ -28,7 +28,7 @@
 		</from>
 		<to>
 			from org.andromda.contracts.Project as project
-			where lower(project.projectName) like ? and lower(project.projectNumber) like ?
+			where lower(project.projectName) like :name and lower(project.projectNumber) like :number
 		</to>
 	</expression>   
 	
@@ -44,9 +44,9 @@
 		</from>
 		<to>
 			from org.andromda.contracts.Project as project
-			where project.type = ? 
-			and project.status = ?
-			and project.wentCurrentDate >= ?
+			where project.type = :type 
+			and project.status = :status
+			and project.wentCurrentDate >= :wentCurrentDate
 		</to>
 	</expression> 
 	
@@ -62,8 +62,8 @@
 		</from>
 		<to>	
 			from org.andromda.contracts.LegalAgreement as la
-			where la.agreementStatus.agreementStatusPk in elements(?) or size(?) = 0 
-			and la.agreementTypePk = ?	
+			where la.agreementStatus.agreementStatusPk in elements(:agreementStatusPks) or size(:agreementStatusPks) = 0 
+			and la.agreementTypePk = :anAgreementTypePk	
 		</to>
 	</expression> 
 	
@@ -102,12 +102,12 @@
 		<to>
 			from org.andromda.contracts.LegalAgreement as legalAgreement 
 				join fetch legalAgreement.legalAgreementParties as legalAgreementParty 
-			where lower(legalAgreement.documentTitle) like ? 
-			and lower(legalAgreementParty.legalParty.legalPartyName) like ? 
-			and lower(legalAgreement.agreementType.agreementTypePk) like ? 
-			and lower(legalAgreement.agreementStatus.agreementStatusPk) like ? 
-			and legalAgreement.person.personPk = ? 
-			and legalAgreement.project.projectPk = ?
+			where lower(legalAgreement.documentTitle) like :aDocumentTitle 
+			and lower(legalAgreementParty.legalParty.legalPartyName) like :aLegalPartyName 
+			and lower(legalAgreement.agreementType.agreementTypePk) like :anAgreementTypePk 
+			and lower(legalAgreement.agreementStatus.agreementStatusPk) like :anAgreementStatusPk 
+			and legalAgreement.person.personPk = :aPersonPk 
+			and legalAgreement.project.projectPk = :aProjectPk
 		</to>
 	</expression> 
 </translation-test>

@@ -337,8 +337,13 @@ public abstract class $entity.daoBaseName
 #if($argument.type.primitive)
 #set ($argumentName = "new ${argument.type.wrapperName}(${argument.name})")
 #end
+#if ($finder.useNamedParameters)
+                queryObject.setParameter("$argumentName", $argumentName);
+#else
                 queryObject.setParameter($count, $argumentName);
 #end
+#end
+       
                 java.util.Collection results = queryObject.list();
                 if (transform)
                 {

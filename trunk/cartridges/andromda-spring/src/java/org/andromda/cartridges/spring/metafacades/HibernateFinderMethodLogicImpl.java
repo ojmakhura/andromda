@@ -24,14 +24,11 @@ public class HibernateFinderMethodLogicImpl
         super(metaObject, context);
     }
 
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.HibernateFinderMethod#getQuery()
-     */
-    public String handleGetQuery()
+    public String getQuery()
     {
         // first see if we can retrieve the query from the super class as an OCL
         // translation
-        String queryString = super.getQuery("query.Hibernate-QL");
+        String queryString = this.getTranslatedQuery();
 
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString))
@@ -46,27 +43,31 @@ public class HibernateFinderMethodLogicImpl
             }
         }
 
-        //if there wasn't any stored query, create one by default.
+        // if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString))
         {
-            String variableName = StringUtils.uncapitalize(this.getOwner().getName());
+            String variableName = StringUtils.uncapitalize(this.getOwner()
+                .getName());
             queryString = "from " + this.getOwner().getFullyQualifiedName()
                 + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
                 queryString = queryString + " where";
-                Collection parameters = this.getArguments();
-                if (parameters != null && !parameters.isEmpty())
+                Collection arrguments = this.getArguments();
+                if (arrguments != null && !arrguments.isEmpty())
                 {
-                    Iterator parameterIt = parameters.iterator();
-                    for (int ctr = 0; parameterIt.hasNext(); ctr++)
+                    Iterator argumentIt = arrguments.iterator();
+                    for (int ctr = 0; argumentIt.hasNext(); ctr++)
                     {
-                        Object test = parameterIt.next();
-                        ParameterFacade param = (ParameterFacade)test;
-                        queryString = queryString + " " 
-                            + variableName + "." + param.getName()
-                            + " = ?";
-                        if (parameterIt.hasNext())
+                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
+                        String parameter = "?";
+                        if (this.isUseNamedParameters())
+                        {
+                            parameter = " = :" + argument.getName();
+                        }
+                        queryString = queryString + " " + variableName + "."
+                            + argument.getName() + " = " + parameter;
+                        if (argumentIt.hasNext())
                         {
                             queryString = queryString + " and";
                         }
@@ -75,6 +76,40 @@ public class HibernateFinderMethodLogicImpl
             }
         }
         return queryString;
+    }
+
+    /**
+     * Stores the translated query so that its only translated once.
+     */
+    private String translatedQuery = null;
+
+    /**
+     * Retrieves the translated query.
+     */
+    private String getTranslatedQuery()
+    {
+        if (this.translatedQuery == null)
+        {
+            this.translatedQuery = super.getQuery("query.Hibernate-QL");
+        }
+        return this.translatedQuery;
+    }
+
+    /**
+     * Stores whether or not named parameters should be used in hibernate
+     * queries.
+     */
+    private static final String USE_NAMED_PARAMETERS = "hibernateQueryUseNamedParameters";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.HibernateFinderMethod#isUseNamedParameters()
+     */
+    protected boolean handleIsUseNamedParameters()
+    {
+        return Boolean.valueOf(
+            String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
+            .booleanValue()
+            || StringUtils.isNotBlank(this.getTranslatedQuery());
     }
 
 }
