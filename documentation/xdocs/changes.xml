@@ -8,7 +8,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-03-28" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-03-29" description="Second release candidate for version 3.0">
+            <action dev="draftdog" type="fix" issue="BPM-81">
+                The calendar support has completely been rewritten, make sure your JSPs reflect the latest changes
+                if you're using the copy-over feature.
+            </action>
         </release>
         <release version="3.0-RC1" date="2005-03-27" description="First release candidate for version 3.0">
             <action dev="draftdog" type="add" issue="HIB-81">
@@ -17,6 +21,10 @@
                 tool when generating the database schema DDL. The
                 <code>@andromda.persistence.foreignkey.constraint</code> tagged value can be used to override the
                 default name.
+            </action>
+            <action dev="draftdog" type="add" >
+                It is now possible to model page-to-page transitions with the bpm4struts cartridge. An intermediate
+                Struts action will transparently be generated.
             </action>
             <action dev="cwbrandon" type="add" issue="SPRING-52">
                 The Spring cartridge now has configurable transactions for Spring service operations.  This change required
