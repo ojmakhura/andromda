@@ -97,11 +97,11 @@
 #foreach ($variable in $jsp.pageVariables)
 #set ($variableName = $variable.name)
 #set ($variableType = $variable.type.fullyQualifiedName)
-        <logic:present name="form" property="$variableName" scope="page">
+        <logic:present name="form" property="$variableName" scope="request">
 #if ($variable.type.getFullyQualifiedName(true) == "datatype.Date")
-            <bean:define id="$variableName" name="form" property="$variableName" type="java.lang.String" scope="page" toScope="page"/>
+            <bean:define id="$variableName" name="form" property="$variableName" type="java.lang.String" scope="request" toScope="page"/>
 #else
-            <bean:define id="$variableName" name="form" property="$variableName" type="$variableType" scope="page" toScope="page"/>
+            <bean:define id="$variableName" name="form" property="$variableName" type="$variableType" scope="request" toScope="page"/>
 #end
         </logic:present>
 
