@@ -30,6 +30,11 @@
 	      	<type>plugin</type>
 	    </dependency>
     	<dependency>
+	      	<groupId>andromda-translation-libraries</groupId>
+	      	<artifactId>andromda-validation-library</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+    	<dependency>
 	      	<groupId>commons-lang</groupId>
 	      	<artifactId>commons-lang</artifactId>
 	      	<version>2.0</version>
