@@ -1,5 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.CallEventFacade;
@@ -132,6 +134,8 @@ public class StrutsActionStateLogicImpl
 
     protected boolean handleIsServerSide()
     {
-        return (this instanceof StrutsJsp) == false;
+        // all except pages
+        // @todo: test metafacade instance rather than stereotype
+        return hasStereotype(Bpm4StrutsProfile.STEREOTYPE_VIEW) == false;
     }
 }
