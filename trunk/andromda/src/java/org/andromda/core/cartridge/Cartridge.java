@@ -77,19 +77,18 @@ public class Cartridge
         final String methodName = "Cartridge.processModelElements";
         ExceptionUtils.checkNull(methodName, "context", context);
         this.context = context;
-        Collection resources = this.getResources();
+        final Collection resources = this.getResources();
 
         if (resources != null && !resources.isEmpty())
         {
-            MetafacadeFactory factory = MetafacadeFactory.getInstance();
+            final MetafacadeFactory factory = MetafacadeFactory.getInstance();
             factory.setModel(context.getModelFacade());
-
-            String previousNamespace = factory.getActiveNamespace();
+            final String previousNamespace = factory.getActiveNamespace();
             factory.setActiveNamespace(this.getName());
-            Iterator resourceIt = resources.iterator();
-            while (resourceIt.hasNext())
+            for (Iterator resourceIterator = resources.iterator(); resourceIterator
+                .hasNext();)
             {
-                Resource resource = (Resource)resourceIt.next();
+                Resource resource = (Resource)resourceIterator.next();
                 if (Template.class.isAssignableFrom(resource.getClass()))
                 {
                     this.processTemplate((Template)resource);
@@ -113,7 +112,7 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
-        ModelElements templateModelElements = template
+        final ModelElements templateModelElements = template
             .getSupportedModeElements();
         // handle the templates WITH model elements
         if (templateModelElements != null && !templateModelElements.isEmpty())
@@ -148,12 +147,9 @@ public class Cartridge
                         return;
                     }
                 }
-
                 Collection metafacades = MetafacadeFactory.getInstance()
                     .createMetafacades(modelElements);
-
                 this.filterModelPackages(metafacades);
-
                 templateModelElement.setMetafacades(metafacades);
             }
             this.processTemplateWithModelElements(template, context);
@@ -185,7 +181,6 @@ public class Cartridge
                     + "' and context ' " + context + "'");
 
         final ModelElements modelElements = template.getSupportedModeElements();
-
         if (modelElements != null && !modelElements.isEmpty())
         {
             final Property outletProperty = Namespaces.instance()
