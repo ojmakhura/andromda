@@ -51,6 +51,14 @@ public class EntityAttributeFacadeLogicImpl
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttributeFacade#isUnique()
+     */
+    public boolean handleIsUnique()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_UNIQUE);
+    }
 
     /**
      * @see org.andromda.metafacades.uml.EntityAttributeFacade#getSqlType()

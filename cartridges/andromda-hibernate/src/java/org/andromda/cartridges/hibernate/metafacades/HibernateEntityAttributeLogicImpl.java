@@ -24,14 +24,6 @@ public class HibernateEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isUnique()
-     */
-    public boolean handleIsUnique()
-    {
-        return this.hasExactStereotype(UMLProfile.STEREOTYPE_UNIQUE);
-    }
-
-    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#getIndex()
      */
     public java.lang.String handleGetIndex()
