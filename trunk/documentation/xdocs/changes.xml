@@ -8,6 +8,14 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-02" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="UMLMETA-13">
+                Entity query operations (i.e. finders) can now be determined though modeling the query
+                flag as true on the operation (for now the finder method stereotype still works, however it is now
+                deprecated in favor of this query flag and will be removed in the future).
+            </action>
+            <action dev="carloslcuenca" type="add" issue="HIB-33">
+                Now it is possible to enable Hibernate proxies for Entities in the hibernate Cartridge.
+            </action>
             <action dev="carloslcuenca" type="add" issue="HIB-33">
                 Now it is possible to enable Hibernate proxies for Entities in the hibernate Cartridge.
             </action>
