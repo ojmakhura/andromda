@@ -7,8 +7,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-01-09" description="First release candidate for version 3.0">
-            <action dev="cwbrandon" type="add">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-01-10" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="fix" issue="HIB-15">
+                Implemented enumeration support for the
+                <a href="andromda-hibernate-cartridge/modeling.html#Enumeration">Hibernate</a> and
+                <a href="andromda-spring-cartridge/modeling.html#Enumeration">Spring</a> cartridges.
+            </action>
+            <action dev="cwbrandon" type="add" issue="OCL-1">
                 <strong>ALL OCL string operations</strong> are now supported by the 
                 <a href="andromda-query-library/index.html">Query Translation Library</a>
             </action>
