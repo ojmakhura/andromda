@@ -4,7 +4,6 @@
 ##  CONSTANTS
 ##
 #set ($actions = $class.actions)
-#set ($incomingActions = $class.incomingActions)
 #set ($useCase = $class.useCase)
 #set ($formBeanName = $useCase.formBeanName)
 #set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
@@ -84,75 +83,12 @@
         <logic:notPresent name="$variable.name" scope="page">
             <h4>Missing from request: $variable.name</h4> <br/>
         </logic:notPresent>
-#end
 
-#set ($isFocusSet = false)## only one field per JSP page can have focus
+#end
 #foreach ($action in $actions)
-        <div class="action">
-            <h3>$action.actionTrigger.name</h3>
-            <div class="trigger">
-#set ($messageKey = $action.messageKey)
-#set ($actionTrigger = $action.actionTrigger)
-#if ($action.isHyperlink())
-#renderHyperlink($action "        ")
-#elseif ($action.isFormPost())
-#set ($actionParameters = $action.actionParameters)
-## ---START--- this next part is to decide which field get focus
-#if ( ($isFocusSet == false) && ($actionParameters.size() > 0) )
-#set ($firstField = $actionParameters.iterator().next())
-#set ($firstFieldName = $firstField.name)
-#set ($isFocusSet = true)
-#if ($firstField.isCollection())
-#set ($firstFieldName = "${firstFieldName}AsArray")
-#end
-#else
-#set ($firstFieldName = false)
-#end
-## ----END---- it has been determined how to specify the focus field
-#if ($action.requiresValidation())
-#set ($onsubmit = "this.name='$action.formBeanName'; return ${action.formValidationMethodName}(this);")
-#else
-#set ($onsubmit = "")
-#end
-#if ($firstFieldName)
-                <html:form action="${action.actionPath}" focus="$firstFieldName" onsubmit="$onsubmit">
-#else
-                <html:form action="${action.actionPath}" onsubmit="$onsubmit">
-#end
-
-#foreach ($field in $actionParameters)
-#if ($field.widgetType == "hidden")
-#renderFormField($action $field "                        ")
-#end
-#end
-
-                <table cellpadding="5" cellspacing="5" border="0">
-#foreach ($field in $actionParameters)
-#if ($field.widgetType != "hidden")
-                <tr>
-                    <td><bean:message key="${messageKey}.$field.messageKey"/></td>
-                    <td>
-#renderFormField($action $field "                        ")
-                    </td>
-                </tr>
-#end
-#end
-                <tr>
-                    <td>
-#renderFormButtons($action "                        ")
-                    </td>
-                </tr>
-                </table>
-                </html:form>
-            </div>
-#end
-            <div class="triggerdoc">
-                <bean:message key="$action.documentationKey"/>
-            </div>
-        </div>
+        <tiles:insert page="${action.fullTilePath}.jsp" flush="false"/>
 
 #end
-
         <blockquote>
             <bean:message key="$class.documentationKey"/>
         </blockquote>
