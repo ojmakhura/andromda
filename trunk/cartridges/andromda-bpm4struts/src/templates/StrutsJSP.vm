@@ -78,7 +78,7 @@ ${indent}</logic:notPresent>
 #macro ( renderFormField $action $field $indent)
 #set ($fieldName = $field.name)
 #set ($widgetType = $field.widgetType)
-#set ($formBeanName = $action.formBeanName)
+#set ($formBeanName = "form")
 #if ($field.readOnly)
 #set ($disabled = 'disabled="true"')
 #set ($readonly = 'readonly="readonly"')
