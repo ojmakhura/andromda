@@ -3,12 +3,13 @@ package org.andromda.cartridges.testsuite;
 import java.io.File;
 
 import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.io.FileUtils;
 
 import junit.framework.TestCase;
 
 /**
- * Compares two files. It checks if both file do exist and if the APIs of both
- * files are equal.
+ * Compares two files. It checks if both file do exist and if the contents of
+ * both files are equal.
  * 
  * @author Chad Brandon
  */
@@ -17,16 +18,28 @@ public class FileComparator
 {
     private File expectedFile;
     private File actualFile;
+    private boolean binary;
 
+    /**
+     * Constructs a new instance of the FileComparator.
+     * 
+     * @param testName the name of the test to run
+     * @param expectedFile the location of the expected file
+     * @param actualFile the location of the actual file.
+     * @param binary whether or not the file is binary, if it is binary contents
+     *        of the binary are not compared as Strings but as binary files.
+     */
     public FileComparator(
-        String methodName,
+        String testName,
         File expectedFile,
-        File actualFile)
+        File actualFile,
+        boolean binary)
     {
         super();
-        this.setName(methodName);
+        this.setName(testName);
         this.expectedFile = expectedFile;
         this.actualFile = actualFile;
+        this.binary = binary;
     }
 
     public void testEquals()
@@ -52,8 +65,17 @@ public class FileComparator
             String expectedContents = ResourceUtils.getContents(expectedFile
                 .toURL());
             String message = "actual file <" + actualFile + "> does not match,";
-            assertEquals(message, expectedContents.trim(), actualContents
-                .trim());
+            if (this.binary)
+            {
+                assertTrue(message, FileUtils.contentEquals(
+                    expectedFile,
+                    actualFile));
+            }
+            else
+            {
+                assertEquals(message, expectedContents.trim(), actualContents
+                    .trim());
+            }
         }
         catch (Throwable th)
         {

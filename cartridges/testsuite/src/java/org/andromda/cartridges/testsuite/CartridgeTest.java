@@ -1,13 +1,15 @@
 package org.andromda.cartridges.testsuite;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.apache.log4j.Logger;
@@ -33,20 +35,21 @@ public class CartridgeTest
      * Points to the directory were the expected files are stored which will be
      * compared to the generated ones.
      */
-    public static final String EXPECTED_DIRECTORY = "expected.dir";
+    private static final String EXPECTED_DIRECTORY = "expected.dir";
 
     /**
      * Points to the directory were the generated files are located.
      */
-    public static final String ACTUAL_DIRECTORY = "actual.dir";
-
-    private static File expectedDir = getDirectory(EXPECTED_DIRECTORY);
-    private static File actualDir = getDirectory(ACTUAL_DIRECTORY);
+    private static final String ACTUAL_DIRECTORY = "actual.dir";
 
     static
     {
         AndroMDALogger.configure();
     }
+
+    private static File expectedDir = getDirectory(EXPECTED_DIRECTORY);
+    private static File actualDir = getDirectory(ACTUAL_DIRECTORY);
+    private static Collection binarySuffixes = getBinarySuffixes();
 
     public CartridgeTest(
         String name)
@@ -74,17 +77,21 @@ public class CartridgeTest
         Iterator iterator = actualFiles.iterator();
         logger.info(" --- Testing " + actualFiles.size()
             + " Generated Files --- ");
+        logger.info("binary suffixes --> " + binarySuffixes);
         for (int ctr = 1; iterator.hasNext(); ctr++)
         {
             File actualFile = (File)iterator.next();
             File expectedFile = getExpectedFile(actualFile);
-            logger.info(ctr + ")");
+            boolean binary = isBinary(actualFile);
+            StringBuffer header = new StringBuffer(ctr + ") binary = " + binary);
+            logger.info(header);
             logger.info("expected --> '" + expectedFile + "'");
             logger.info("actual   --> '" + actualFile + "'");
             suite.addTest(new FileComparator(
                 "testEquals",
                 expectedFile,
-                actualFile));
+                actualFile,
+                binary));
         }
     }
 
@@ -115,14 +122,27 @@ public class CartridgeTest
         return new File(expectedFile);
     }
 
-    private static String getDirectoryName(String propertyKey)
+    /**
+     * Just gets the system property having the given <code>propertyKey</code>,
+     * throwing a run time exception if none exists.
+     * 
+     * @param propertyKey the property key name.
+     * @return the value of the system property
+     */
+    private static String getSystemProperty(String propertyKey)
     {
-        String dirName = System.getProperty(propertyKey);
-        if (dirName == null)
+        String value = System.getProperty(propertyKey);
+        if (value == null)
         {
             throw new RuntimeException("system property <" + propertyKey
                 + "> not set");
         }
+        return value;
+    }
+
+    private static String getDirectoryName(String propertyKey)
+    {
+        String dirName = getSystemProperty(propertyKey);
 
         // Replace the path-separator character in the given directory name
         // by the path-separator character used by the actual system
@@ -131,6 +151,12 @@ public class CartridgeTest
         return dirName;
     }
 
+    /**
+     * Gets the directory from the system property key.
+     * 
+     * @param propertyKey the system property key name.
+     * @return the directory as a File instance.
+     */
     private static File getDirectory(String propertyKey)
     {
         String dirName = getDirectoryName(propertyKey);
@@ -141,6 +167,39 @@ public class CartridgeTest
                 + "> doesn't exist");
         }
         return dir;
+    }
+
+    /**
+     * Checks whether or not the <code>file</code> is a binary file. Does this
+     * by checking to see if the suffix is found in the list of binary suffixes.
+     * 
+     * @param file the file to check
+     * @return true/false
+     */
+    private static boolean isBinary(File file)
+    {
+        String suffix = "";
+        String fileName = file.getName();
+        int dotIndex = fileName.indexOf('.');
+        if (dotIndex != -1)
+        {
+            suffix = fileName.substring(0, dotIndex + 1);
+        }
+        return binarySuffixes.contains(suffix);
+    }
+
+    /**
+     * Gets the binary suffixes for the <code>binary.suffixes</code> system
+     * property. Returns an empty collection if none are found.
+     * 
+     * @return the Collection of binary suffixes. (ie. jpg, jar, zip, etc).
+     */
+    private static Collection getBinarySuffixes()
+    {
+        String suffixes = getSystemProperty("binary.suffixes");
+        String[] suffixArray = suffixes.split("\\s*,\\s*");
+        binarySuffixes = Arrays.asList(suffixArray);
+        return binarySuffixes;
     }
 
     /**
@@ -165,5 +224,11 @@ public class CartridgeTest
                 getAllFiles(file, fileList);
             }
         }
+    }
+
+    public static void main(String args[])
+    {
+
+        System.out.println(CartridgeTest.getBinarySuffixes());
     }
 }
