@@ -3,7 +3,7 @@
 <document>
 
     <properties>
-        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
+        <author email="mattes3@users.sourceforge.net">Matthias Bohlen</author>
         <title>AndroMDA - Meta - Introduction</title>
     </properties>
 
@@ -11,10 +11,19 @@
 
         <section name="AndroMDA Meta Cartridge">
             <p>
-                The purpose of this cartridge is to generate AndroMDA 
-                <a href="../andromda-metafacades/index.html">metafacades</a>. 
-                To learn how to use this cartridge, please see the <a href="modeling.html">Modeling</a>
-                and <a href="namespace.html">Namespace</a> sections.
+                The purpose of this cartridge is to generate AndroMDA
+                <a href="../andromda-metafacades/index.html">metafacades</a>.
+                Metafacades are the object-oriented API that allows
+                access to the model from within the templates. Using metafacades,
+                the templates become much simpler and straightforward because
+                the intelligence and responsibility for code transformation
+                and generation is centralized in Java objects, not
+                in the template script language.
+            </p>
+            <p>
+                To learn how to use this cartridge, please see the
+                <a href="modeling.html">Modeling</a> and
+                <a href="namespace.html">Namespace</a> sections.
             </p>
         </section>
 
