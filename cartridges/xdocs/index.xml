@@ -487,8 +487,8 @@
                   This attribute only makes sense when 
                   <a href="#outputToSingleFile">outputToSingleFile</a>
                   is set to <code>true</code>.
-                  Indicates that when there are no elements 
-                  in the collected elements (i.e. an <em>empty</em> collection),
+                  Indicates that when there are no elements aggregated
+                  (i.e. an <em>empty</em> collection),
                   whether or not the file should still be output.
               </td>
               <td>
@@ -654,7 +654,7 @@
         </table>
        <a name="typeProperty"/>
        <h3><![CDATA[<property/>]]></h3>
-        <p>
+       <p>
             There are <strong>optional</strong> nested <code><![CDATA[<property/>]]></code> elements
             that may be placed directly within a <a href="#type"><code><![CDATA[<type/>]]></code></a>,
             they are used to specify what properties the <a href="../andromda-metafacades/index.html">metafacade</a>
