@@ -39,7 +39,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
-        <url-pattern>$serviceContext</url-pattern>
+        <url-pattern>$servicesPath*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SOAPMonitorService</servlet-name>
@@ -81,7 +81,7 @@
             <description>
                 Secures the $service.name web service.
             </description>
-            <url-pattern>/services/${service.name}</url-pattern>
+            <url-pattern>${servicesPath}${service.name}</url-pattern>
         </web-resource-collection>
         <auth-constraint>
 #foreach ($role in $service.allRoles)
