@@ -8,10 +8,7 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Cookie;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @see org.andromda.adminconsole.maintenance.MaintenanceController
@@ -34,7 +31,7 @@ public class MaintenanceControllerImpl extends MaintenanceController
         }
 
         metadataSession.setCurrentTable( table );
-        form.setTableData( table.findAllRows() );
+        metadataSession.setCurrentTableData( table.findAllRows() );
 
         form.setNameValueList( getMetaDataSession(request).getTableNames().toArray() );
     }
@@ -154,6 +151,54 @@ public class MaintenanceControllerImpl extends MaintenanceController
     public void storePreferences(ActionMapping mapping, StorePreferencesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         Cookie cookie = new Cookie(COOKIE_NAME, form.getUser() + COOKIE_VALUE_SEPARATOR + form.getUrl());
+        cookie.setMaxAge(Integer.MAX_VALUE);
         response.addCookie(cookie);
+    }
+
+    public void applyChanges(ActionMapping mapping, ApplyChangesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        String kind = form.getKind();
+
+        if ("delete".equals(kind))
+        {
+            List selectedData = new ArrayList();
+
+            MetaDataSession metaDataSession = getMetaDataSession(request);
+            List tableData = metaDataSession.getCurrentTableData();
+            Object[] rowNumbers = form.getDeletedRowsAsArray();
+            for (int i = 0; i < rowNumbers.length; i++)
+            {
+                int rowNumber = Integer.parseInt((String)rowNumbers[i]);
+                selectedData.add( tableData.get(rowNumber) );
+            }
+
+            // if the table has a primary key use it to delete the row, otherwise use all columns
+            Table table = metaDataSession.getCurrentTable();
+
+            final Column[] columns =
+                (table.getPrimaryKeyColumnCount() > 0) ? table.getPrimaryKeyColumns() : table.getColumns();
+
+            for (int i = 0; i < selectedData.size(); i++)
+            {
+                RowData rowData = (RowData) selectedData.get(i);
+                table.deleteRow(createCriterion(columns, rowData));
+            }
+        }
+    }
+
+    private Criterion createCriterion(Column[] columns, RowData rowData)
+    {
+        Criterion criterion = null;
+
+        if (columns!=null && columns.length>0)
+        {
+            criterion = Expression.equal(columns[0], rowData.get(columns[0].getName()));
+
+            for (int i = 1; i < columns.length; i++)
+            {
+                criterion = Expression.and( criterion, Expression.equal(columns[i], rowData.get(columns[i].getName())) );
+            }
+        }
+        return criterion;
     }
 }
