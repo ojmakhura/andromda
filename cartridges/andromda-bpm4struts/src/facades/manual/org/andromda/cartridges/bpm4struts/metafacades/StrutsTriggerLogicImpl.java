@@ -1,5 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 
 import java.lang.reflect.Method;
@@ -14,6 +15,8 @@ public class StrutsTriggerLogicImpl
         extends StrutsTriggerLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger
 {
+    private Object controllerCall = null;
+
     // ---------------- constructor -------------------------------
     
     public StrutsTriggerLogicImpl(java.lang.Object metaObject, java.lang.String context)
@@ -110,17 +113,16 @@ public class StrutsTriggerLogicImpl
 
     protected Object handleGetControllerCall()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && controllerCall != null) return controllerCall;
+
         /*
          * hack until I find a solution to workaround the JMI multiple inheritance (through interfaces)
          */
-        Object controllerCall = null;
-
         try
         {
-            Method method = metaObject.getClass().getMethod("getOperation",null);
+            Method method = metaObject.getClass().getMethod("getOperation", null);
             controllerCall = method.invoke(metaObject, null);
-        }
-        catch(Exception ex)
+        } catch (Exception ex)
         {
             controllerCall = null;
         }

@@ -1,6 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.GeneralizationFacade;
 
@@ -18,6 +18,9 @@ public class StrutsUserLogicImpl
         extends StrutsUserLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsUser
 {
+    private Collection generalizedUsers = null;
+    private Collection generalizedByUsers = null;
+
     // ---------------- constructor -------------------------------
     
     public StrutsUserLogicImpl(java.lang.Object metaObject, String context)
@@ -38,20 +41,12 @@ public class StrutsUserLogicImpl
         return getName().toLowerCase();
     }
 
-    public String getMessageKey()
-    {
-        return StringUtilsHelper.toResourceMessageKey(getName());
-    }
-
-    public String getMessageValue()
-    {
-        return StringUtilsHelper.toPhrase(getName());
-    }
-
     // ------------- relations ------------------
 
     public java.util.Collection handleGetGeneralizedUsers()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && generalizedUsers != null) return generalizedUsers;
+
         final Collection parentActors = new LinkedList();
         final Collection generalizations = getGeneralizations();
         for (Iterator iterator = generalizations.iterator(); iterator.hasNext();)
@@ -61,11 +56,13 @@ public class StrutsUserLogicImpl
             if (parent instanceof StrutsUser)
                 parentActors.add(parent);
         }
-        return parentActors;
+        return generalizedUsers = parentActors;
     }
 
     public java.util.Collection handleGetGeneralizedByUsers()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && generalizedByUsers != null) return generalizedByUsers;
+
         final Collection allActors = getModel().getAllActors();
         final Collection childUsers = new LinkedList();
         for (Iterator iterator = allActors.iterator(); iterator.hasNext();)
@@ -73,7 +70,7 @@ public class StrutsUserLogicImpl
             Object object = iterator.next();
             if (object instanceof StrutsUser)
             {
-                StrutsUser anyUser = (StrutsUser)object;
+                StrutsUser anyUser = (StrutsUser) object;
                 Collection generalizedUsers = anyUser.getGeneralizedUsers();
                 for (Iterator userIterator = generalizedUsers.iterator(); userIterator.hasNext();)
                 {
@@ -86,6 +83,6 @@ public class StrutsUserLogicImpl
                 }
             }
         }
-        return childUsers;
+        return generalizedByUsers = childUsers;
     }
 }

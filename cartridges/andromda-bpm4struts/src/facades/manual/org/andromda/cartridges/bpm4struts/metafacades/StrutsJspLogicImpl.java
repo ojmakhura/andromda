@@ -1,10 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -20,6 +21,15 @@ public class StrutsJspLogicImpl
         extends StrutsJspLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp
 {
+    private String packageName = null;
+    private String fullPath = null;
+    private String titleKey = null;
+    private String titleValue = null;
+    private Collection actions = null;
+    private Collection pageVariables = null;
+    private Object useCase = null;
+    private Object forward = null;
+
     // ---------------- constructor -------------------------------
     
     public StrutsJspLogicImpl(Object metaObject, String context)
@@ -35,48 +45,58 @@ public class StrutsJspLogicImpl
     // from org.andromda.metafacades.uml.ModelElementFacade
     public String getPackageName()
     {
-        ClassifierFacade classifier = (ClassifierFacade)getActivityGraph().getContextElement();
-        return classifier.getPackageName();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && packageName != null) return packageName;
+        ClassifierFacade classifier = (ClassifierFacade) getActivityGraph().getContextElement();
+        return packageName = classifier.getPackageName();
     }
 
     public String getTitleKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName()) + ".title";
+        if (Bpm4StrutsProfile.ENABLE_CACHE && titleKey != null) return titleKey;
+        return titleKey = StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName()) + ".title";
     }
 
     public String getTitleValue()
     {
-        return StringUtilsHelper.toPhrase(getName());
+        if (Bpm4StrutsProfile.ENABLE_CACHE && titleValue != null) return titleValue;
+        return titleValue = StringUtilsHelper.toPhrase(getName());
     }
 
     public String getFullPath()
     {
-        return '/' + (getPackageName() + '.' + StringUtilsHelper.toWebFileName(getName())).replace('.', '/');
+        if (Bpm4StrutsProfile.ENABLE_CACHE && fullPath != null) return fullPath;
+        return fullPath = '/' + (getPackageName() + '.' + StringUtilsHelper.toWebFileName(getName())).replace('.', '/');
     }
     // ------------- relations ------------------
 
     protected Object handleGetUseCase()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && useCase != null) return useCase;
+
         final ActivityGraphFacade graph = getActivityGraph();
         if (graph instanceof StrutsActivityGraph)
         {
-            return ((StrutsActivityGraph)graph).getUseCase();
+            return useCase = ((StrutsActivityGraph) graph).getUseCase();
         }
         return null;
     }
 
     protected Collection handleGetActions()
     {
-        return getOutgoing();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actions != null) return actions;
+        return actions = getOutgoing();
     }
 
     protected Object handleGetForward()
     {
-        return getOutgoing().iterator().next();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && forward != null) return forward;
+        return forward = getOutgoing().iterator().next();
     }
 
     protected Collection handleGetPageVariables()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && pageVariables != null) return pageVariables;
+
         final Collection variables = new LinkedList();
         final Collection incoming = getIncoming();
         for (Iterator iterator = incoming.iterator(); iterator.hasNext();)
@@ -84,8 +104,8 @@ public class StrutsJspLogicImpl
             TransitionFacade transition = (TransitionFacade) iterator.next();
             EventFacade trigger = transition.getTrigger();
             if (trigger != null)
-                variables.addAll( trigger.getParameters() );
+                variables.addAll(trigger.getParameters());
         }
-        return variables;
+        return pageVariables = variables;
     }
 }

@@ -17,6 +17,12 @@ public class StrutsParameterLogicImpl
         extends StrutsParameterLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter
 {
+    private String widgetType = null;
+    private String resetValue = null;
+    private Collection validatorTypes = null;
+    private Collection validatorVars = null;
+    private Collection validatorArgs = null;
+
     // ---------------- constructor -------------------------------
     
     public StrutsParameterLogicImpl(java.lang.Object metaObject, java.lang.String context)
@@ -51,11 +57,14 @@ public class StrutsParameterLogicImpl
     public java.lang.String getNullValue()
     {
         final String type = getFullyQualifiedName();
-        if ("boolean".equals(type)) return "false";
-        else if (isPrimitive()) return "0";
+        if ("boolean".equals(type))
+            return "false";
+        else if (isPrimitive())
+            return "0";
 //        else if (isArray()) return "new Object[0]";   // todo we need null or zero length ?
 //        else if (isCollection()) return "java.util.Collections.EMPTY_LIST";   // same for collection
-        else return "null";
+        else
+            return "null";
     }
 
     /**
@@ -101,6 +110,8 @@ public class StrutsParameterLogicImpl
 
     public String getWidgetType()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && widgetType != null) return widgetType;
+
         final String fieldType = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
 
         if (fieldType == null)
@@ -108,36 +119,30 @@ public class StrutsParameterLogicImpl
             final String parameterType = getType().getFullyQualifiedName();
             if (isValidatorBoolean(parameterType)) return "checkbox";
             if (isCollection() || isArray()) return "select";
-            return "text";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_TEXTAREA.equalsIgnoreCase(fieldType))
+            widgetType = "text";
+        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_TEXTAREA.equalsIgnoreCase(fieldType))
         {
-            return "textarea";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType))
+            widgetType = "textarea";
+        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType))
         {
-            return "hidden";
-        }
-        else if (fieldType.toLowerCase().startsWith(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_RADIO))
+            widgetType = "hidden";
+        } else if (fieldType.toLowerCase().startsWith(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_RADIO))
         {
-            return "radio";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType))
+            widgetType = "radio";
+        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType))
         {
-            return "checkbox";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
+            widgetType = "checkbox";
+        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
         {
-            return "select";
-        }
-        else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
+            widgetType = "select";
+        } else if (Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
         {
-            return "password";
-        }
-        else
+            widgetType = "password";
+        } else
         {
-            return (isCollection() || isArray()) ? "select" : "text";
+            widgetType = (isCollection() || isArray()) ? "select" : "text";
         }
+        return widgetType;
     }
 
     public boolean isMultiple()
@@ -168,7 +173,7 @@ public class StrutsParameterLogicImpl
     private String constructArray()
     {
         final String name = getName();
-        return "new " + getBackingListType() + "{\""+name+"-1\", \""+name+"-2\", \""+name+"-3\", \""+name+"-4\", \""+name+"-5\"}";
+        return "new " + getBackingListType() + "{\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" + name + "-5\"}";
     }
 
     public boolean isRequired()
@@ -184,29 +189,32 @@ public class StrutsParameterLogicImpl
     private boolean isTrue(String string)
     {
         return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) ||
-               "on".equalsIgnoreCase(string)  || "1".equalsIgnoreCase(string);
+                "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(string);
     }
 
     public String getResetValue()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && resetValue != null) return resetValue;
+
         final String name = getName();
         final String type = getType().getFullyQualifiedName();
         if (String.class.getName().equals(type)) return "\"" + name + "-test" + "\"";
-        
-        if ("boolean".equals(type)) return "false";
-        if ("float".equals(type)) return "(float)"+name.hashCode() / hashCode();
-        if ("double".equals(type)) return "(double)"+name.hashCode() / hashCode();
-        if ("short".equals(type)) return "(short)"+name.hashCode();
-        if ("long".equals(type)) return "(long)"+name.hashCode();
-        if ("byte".equals(type)) return "(byte)"+name.hashCode();
-        if ("char".equals(type)) return "(char)"+name.hashCode();
-        if ("int".equals(type)) return "(int)"+name.hashCode();
+
+        if ("boolean".equals(type)) resetValue = "false";
+        if ("float".equals(type)) resetValue = "(float)" + name.hashCode() / hashCode();
+        if ("double".equals(type)) resetValue = "(double)" + name.hashCode() / hashCode();
+        if ("short".equals(type)) resetValue = "(short)" + name.hashCode();
+        if ("long".equals(type)) resetValue = "(long)" + name.hashCode();
+        if ("byte".equals(type)) resetValue = "(byte)" + name.hashCode();
+        if ("char".equals(type)) resetValue = "(char)" + name.hashCode();
+        if ("int".equals(type)) resetValue = "(int)" + name.hashCode();
 
         final String array = constructArray();
-        if (isArray()) return array;
-        if (isCollection()) return "java.util.Arrays.asList("+array+")";
+        if (isArray()) resetValue = array;
+        if (isCollection()) resetValue = "java.util.Arrays.asList(" + array + ")";
 
-        return "\"" + name + "-test" + "\"";
+        if (resetValue == null) resetValue = "\"" + name + "-test" + "\"";
+        return resetValue;
     }
 
     protected String getValidatorFormat()
@@ -217,39 +225,50 @@ public class StrutsParameterLogicImpl
 
     public java.util.Collection getValidatorTypes()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && validatorTypes != null) return validatorTypes;
+
         final String type = getType().getFullyQualifiedName();
         final String format = getValidatorFormat();
 
-        final Collection validatorTypes = new LinkedList();
+        final Collection validatorTypesList = new LinkedList();
 
-        if (isRequired()) validatorTypes.add("required");
+        if (isRequired()) validatorTypesList.add("required");
 
-        if (isValidatorByte(type)) validatorTypes.add("byte");
-        else if (isValidatorShort(type)) validatorTypes.add("short");
-        else if (isValidatorLong(type)) validatorTypes.add("long");
-        else if (isValidatorInteger(type)) validatorTypes.add("integer");
-        else if (isValidatorFloat(type)) validatorTypes.add("float");
-        else if (isValidatorDouble(type)) validatorTypes.add("double");
-        else if (isValidatorDate(type)) validatorTypes.add("date");
+        if (isValidatorByte(type))
+            validatorTypesList.add("byte");
+        else if (isValidatorShort(type))
+            validatorTypesList.add("short");
+        else if (isValidatorLong(type))
+            validatorTypesList.add("long");
+        else if (isValidatorInteger(type))
+            validatorTypesList.add("integer");
+        else if (isValidatorFloat(type))
+            validatorTypesList.add("float");
+        else if (isValidatorDouble(type))
+            validatorTypesList.add("double");
+        else if (isValidatorDate(type)) validatorTypesList.add("date");
 
         if (format != null)
         {
             if (isRangeFormat(format))
             {
-                if (isValidatorInteger(type)) validatorTypes.add("intRange");
-                if (isValidatorFloat(type)) validatorTypes.add("floatRange");
-                if (isValidatorDouble(type)) validatorTypes.add("doubleRange");
-            }
-            else if (isValidatorString(type))
+                if (isValidatorInteger(type)) validatorTypesList.add("intRange");
+                if (isValidatorFloat(type)) validatorTypesList.add("floatRange");
+                if (isValidatorDouble(type)) validatorTypesList.add("doubleRange");
+            } else if (isValidatorString(type))
             {
-                if (isEmailFormat(format)) validatorTypes.add("email");
-                else if (isCreditCardFormat(format)) validatorTypes.add("creditCard");
-                else if (isMinLengthFormat(format)) validatorTypes.add("minlength");
-                else if (isMaxLengthFormat(format)) validatorTypes.add("maxlength");
-                else if (isPatternFormat(format)) validatorTypes.add("mask");
+                if (isEmailFormat(format))
+                    validatorTypesList.add("email");
+                else if (isCreditCardFormat(format))
+                    validatorTypesList.add("creditCard");
+                else if (isMinLengthFormat(format))
+                    validatorTypesList.add("minlength");
+                else if (isMaxLengthFormat(format))
+                    validatorTypesList.add("maxlength");
+                else if (isPatternFormat(format)) validatorTypesList.add("mask");
             }
         }
-        return validatorTypes;
+        return validatorTypes = validatorTypesList;
     }
 
     public String getValidatorMsgKey()
@@ -259,26 +278,28 @@ public class StrutsParameterLogicImpl
 
     public java.util.Collection getValidatorArgs(java.lang.String validatorType)
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && validatorArgs != null) return validatorArgs;
+
         final Collection args = new LinkedList();
-        if ( "intRange".equals(validatorType) || "floatRange".equals(validatorType) || "doubleRange".equals(validatorType) )
+        if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) || "doubleRange".equals(validatorType))
         {
             args.add("${var:min}");
             args.add("${var:max}");
-        }
-        else if ( "minlength".equals(validatorType) )
+        } else if ("minlength".equals(validatorType))
         {
             args.add("${var:minlength}");
-        }
-        else if ( "maxlength".equals(validatorType) )
+        } else if ("maxlength".equals(validatorType))
         {
             args.add("${var:maxlength}");
         }
-        return args;
+        return validatorArgs = args;
     }
 
 
     public java.util.Collection getValidatorVars()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && validatorVars != null) return validatorVars;
+
         final Collection vars = new LinkedList();
 
         final String type = getType().getFullyQualifiedName();
@@ -289,37 +310,32 @@ public class StrutsParameterLogicImpl
 
             if (isRangeFormat && (isValidatorInteger(type) || isValidatorFloat(type) || isValidatorDouble(type)))
             {
-                vars.add(Arrays.asList(new Object[] { "min", getRangeStart(format) }));
-                vars.add(Arrays.asList(new Object[] { "max", getRangeEnd(format) }));
-            }
-            else if (isValidatorString(type))
+                vars.add(Arrays.asList(new Object[]{"min", getRangeStart(format)}));
+                vars.add(Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+            } else if (isValidatorString(type))
             {
                 if (isMinLengthFormat(format))
                 {
-                    vars.add(Arrays.asList(new Object[] { "minlength", getMinLengthValue(format) }));
-                }
-                else if (isMaxLengthFormat(format))
+                    vars.add(Arrays.asList(new Object[]{"minlength", getMinLengthValue(format)}));
+                } else if (isMaxLengthFormat(format))
                 {
-                    vars.add(Arrays.asList(new Object[] { "maxlength", getMaxLengthValue(format) }));
-                }
-                else if (isPatternFormat(format))
+                    vars.add(Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(format)}));
+                } else if (isPatternFormat(format))
                 {
-                    vars.add(Arrays.asList(new Object[] { "mask", getPatternValue(format) }));
+                    vars.add(Arrays.asList(new Object[]{"mask", getPatternValue(format)}));
                 }
-            }
-            else if (isValidatorDate(type))
+            } else if (isValidatorDate(type))
             {
                 if (isStrictDateFormat(format))
                 {
-                    vars.add(Arrays.asList(new Object[] { "datePatternStrict", getDateFormat(format) }));
-                }
-                else
+                    vars.add(Arrays.asList(new Object[]{"datePatternStrict", getDateFormat(format)}));
+                } else
                 {
-                    vars.add(Arrays.asList(new Object[] { "datePattern", getDateFormat(format) }));
+                    vars.add(Arrays.asList(new Object[]{"datePattern", getDateFormat(format)}));
                 }
             }
         }
-        return vars;
+        return validatorVars = vars;
     }
 
     public java.lang.String getValidWhen()
@@ -332,7 +348,7 @@ public class StrutsParameterLogicImpl
         final String key = getMessageKey() + '.';
         final Collection optionKeys = new LinkedList();
         final int optionCount = getOptionCount() + 1;
-        for (int i=1; i<optionCount; i++) optionKeys.add(key + i);
+        for (int i = 1; i < optionCount; i++) optionKeys.add(key + i);
         return optionKeys;
     }
 
@@ -346,15 +362,13 @@ public class StrutsParameterLogicImpl
                 try
                 {
                     return Integer.parseInt(fieldType.substring(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.length()).trim());
-                }
-                catch(Exception exception)
+                } catch (Exception exception)
                 {
                     // let the next return statement handle this
                 }
             }
             return 3;
-        }
-        else
+        } else
         {
             return 0;
         }
@@ -408,67 +422,67 @@ public class StrutsParameterLogicImpl
 
     private boolean isEmailFormat(String format)
     {
-        return "email".equalsIgnoreCase(getToken(format,0,2));
+        return "email".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private boolean isCreditCardFormat(String format)
     {
-        return "creditcard".equalsIgnoreCase(getToken(format,0,2));
+        return "creditcard".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private boolean isRangeFormat(String format)
     {
-        return "range".equalsIgnoreCase(getToken(format,0,2));
+        return "range".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private boolean isPatternFormat(String format)
     {
-        return "pattern".equalsIgnoreCase(getToken(format,0,2));
+        return "pattern".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private boolean isStrictDateFormat(String format)
     {
-        return "strict".equalsIgnoreCase(getToken(format,0,2));
+        return "strict".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private boolean isMinLengthFormat(String format)
     {
-        return "minlength".equalsIgnoreCase(getToken(format,0,2));
+        return "minlength".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private boolean isMaxLengthFormat(String format)
     {
-        return "maxlength".equalsIgnoreCase(getToken(format,0,2));
+        return "maxlength".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private String getRangeStart(String format)
     {
-        return getToken(format,1,3);
+        return getToken(format, 1, 3);
     }
 
     private String getRangeEnd(String format)
     {
-        return getToken(format,2,4);
+        return getToken(format, 2, 4);
     }
 
     private String getDateFormat(String format)
     {
-        return (isStrictDateFormat(format)) ? getToken(format,1,3) : getToken(format,0,2);
+        return (isStrictDateFormat(format)) ? getToken(format, 1, 3) : getToken(format, 0, 2);
     }
 
     private String getMinLengthValue(String format)
     {
-        return getToken(format,1,3);
+        return getToken(format, 1, 3);
     }
 
     private String getMaxLengthValue(String format)
     {
-        return getToken(format,1,3);
+        return getToken(format, 1, 3);
     }
 
     private String getPatternValue(String format)
     {
-        return getToken(format,1,3);
+        return getToken(format, 1, 3);
     }
 
     private String getToken(String string, int index, int limit)

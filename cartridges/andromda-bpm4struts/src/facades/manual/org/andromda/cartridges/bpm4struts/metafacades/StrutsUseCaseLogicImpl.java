@@ -1,7 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.*;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 
 import java.util.*;
 
@@ -15,6 +18,15 @@ public class StrutsUseCaseLogicImpl
         extends StrutsUseCaseLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase
 {
+    private Object activityGraph = null;
+    private Collection allServices = null;
+    private Collection allUseCases = null;
+    private Collection allUsers = null;
+    private Object controller = null;
+    private Collection formFields = null;
+    private Collection pages = null;
+    private Collection users = null;
+
     // ---------------- constructor -------------------------------
     
     public StrutsUseCaseLogicImpl(java.lang.Object metaObject, java.lang.String context)
@@ -45,7 +57,7 @@ public class StrutsUseCaseLogicImpl
 
     public String getFullFormBeanPath()
     {
-        return '/' + getFormBeanPackageName().replace('.','/') + '/' + StringUtilsHelper.toJavaClassName(getName()) + "Form";
+        return '/' + getFormBeanPackageName().replace('.', '/') + '/' + StringUtilsHelper.toJavaClassName(getName()) + "Form";
     }
 
     public String getFormBeanName()
@@ -70,12 +82,14 @@ public class StrutsUseCaseLogicImpl
 
     public String getPackagePath()
     {
-        return '/' + getPackageName().replace('.','/');
+        return '/' + getPackageName().replace('.', '/');
     }
 
     // ------------- relations ------------------
     protected Collection handleGetAllServices()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && allServices != null) return allServices;
+
         // find all controller dependencies on <<Service>> classes
         final Collection useCases = getAllUseCases();
         final Collection services = new HashSet();
@@ -84,24 +98,28 @@ public class StrutsUseCaseLogicImpl
             StrutsUseCase useCase = (StrutsUseCase) iterator.next();
             services.addAll(useCase.getController().getServices());
         }
-        return services;
+        return allServices = services;
     }
 
     public java.lang.Object handleGetActivityGraph()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && activityGraph != null) return activityGraph;
+
         Collection ownedElements = getOwnedElements();
         for (Iterator iterator = ownedElements.iterator(); iterator.hasNext();)
         {
             Object obj = iterator.next();
             if (obj instanceof StrutsActivityGraph)
-                return obj;
+                return activityGraph = obj;
         }
         return null;
     }
 
     protected Collection handleGetUsers()
     {
-        final Collection users = new LinkedList();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && users != null) return users;
+
+        final Collection usersList = new LinkedList();
 
         final Collection associationEnds = getAssociationEnds();
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
@@ -109,22 +127,24 @@ public class StrutsUseCaseLogicImpl
             AssociationEndFacade associationEnd = (AssociationEndFacade) iterator.next();
             ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
             if (classifier instanceof StrutsUser)
-                users.add(classifier);
+                usersList.add(classifier);
         }
 
-        return users;
+        return users = usersList;
     }
 
     protected Collection handleGetAllUsers()
     {
-        final Collection allUsers = new HashSet();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && allUsers != null) return allUsers;
+
+        final Collection allUsersList = new HashSet();
         final Collection associatedUsers = getUsers();
         for (Iterator iterator = associatedUsers.iterator(); iterator.hasNext();)
         {
             StrutsUser user = (StrutsUser) iterator.next();
-            collectUsers(user, allUsers);
+            collectUsers(user, allUsersList);
         }
-        return allUsers;
+        return allUsers = allUsersList;
     }
 
     private void collectUsers(StrutsUser user, Collection users)
@@ -144,30 +164,36 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetPages()
     {
-        final Collection pages = new LinkedList();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && pages != null) return pages;
+
+        final Collection pagesList = new LinkedList();
         final Collection allActionStates = getModel().getAllActionStates();
 
         for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
         {
             Object actionState = shieldedElement(actionStateIterator.next());
             if (actionState instanceof StrutsJsp)
-                pages.add(actionState);
+                pagesList.add(actionState);
         }
-        return pages;
+        return pages = pagesList;
     }
 
     protected Collection handleGetAllUseCases()
     {
-        return getModel().getAllUseCases();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && allUseCases != null) return allUseCases;
+        return allUseCases = getModel().getAllUseCases();
     }
 
     protected Object handleGetController()
     {
-        return getActivityGraph().getController();
+        if (Bpm4StrutsProfile.ENABLE_CACHE && controller != null) return controller;
+        return controller = getActivityGraph().getController();
     }
 
     protected Collection handleGetFormFields()
     {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && formFields != null) return formFields;
+
         final Map formFieldsMap = new HashMap();
         final Collection transitions = getActivityGraph().getTransitions();
         for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
@@ -175,7 +201,7 @@ public class StrutsUseCaseLogicImpl
             Object transitionObject = iterator.next();
             if (transitionObject instanceof StrutsAction)
             {
-                Collection parameters = ((StrutsAction)transitionObject).getActionParameters();
+                Collection parameters = ((StrutsAction) transitionObject).getActionParameters();
                 for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
                 {
                     ParameterFacade parameter = (ParameterFacade) parameterIterator.next();
@@ -183,6 +209,6 @@ public class StrutsUseCaseLogicImpl
                 }
             }
         }
-        return formFieldsMap.values();
+        return formFields = formFieldsMap.values();
     }
 }
