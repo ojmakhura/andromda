@@ -488,16 +488,20 @@ public final class OCLCollections
     public static boolean one(Collection collection, Predicate predicate)
     {
         boolean found = false;
-        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+
+        if (collection != null)
         {
-            if (predicate.evaluate(iterator.next()))
+            for (Iterator iterator = collection.iterator(); iterator.hasNext();)
             {
-                if (found)
+                if (predicate.evaluate(iterator.next()))
                 {
-                    found = false;
-                    break;
+                    if (found)
+                    {
+                        found = false;
+                        break;
+                    }
+                    found = true;
                 }
-                found = true;
             }
         }
         return found;
@@ -513,7 +517,9 @@ public final class OCLCollections
      */
     public static boolean one(Object collection, Predicate predicate)
     {
-        return Collection.class.isAssignableFrom(collection.getClass())
+        return
+            collection != null
+            && Collection.class.isAssignableFrom(collection.getClass())
             && one((Collection)collection, predicate);
     }
 
