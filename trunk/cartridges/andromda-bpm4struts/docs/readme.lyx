@@ -1,0 +1,1217 @@
+#LyX 1.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 221
+\textclass article
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\use_natbib 0
+\use_numerical_citations 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+AndroMDA
+\newline 
+Business Process Modeling
+\newline 
+for Struts
+\layout Author
+
+Wouter Zoons, draftdog@users.sourceforge.net
+\layout Abstract
+
+This document describes how to use the Bpm4Struts Cartridge with AndroMDA
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+http://andromda.sourceforge.net
+\end_inset 
+
+.
+ It describes how the application should be modeled, which stereotypes to
+ use, the advantages and possible issues.
+ It is assumed the reader knows at least the MDA
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+http://www.omg.org/mda
+\end_inset 
+
+ basics and has a good understanding of Struts
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+http://jakarta.apache.org
+\end_inset 
+
+.
+\layout Abstract
+
+
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset 
+
+
+\layout Section
+
+Foreword
+\layout Standard
+
+I have had a very hard time trying to explain the details described in this
+ document as the matter is more complicated than it seems at first sight.
+ Re-reading everything I realized people might have trouble understanding
+ certain sections.
+ I recommend taking a look at the example and trying one out for yourself.
+ If something is not clear or you think there are things that can be improved
+ please send an email to the andromda-devel@lists.sourceforge.net mailing
+ list.
+\layout Section
+
+How to install
+\layout Standard
+
+In order to install the cartridge you will need to copy andromda-bpm4struts.jar
+ to the cartridge directory in your AndroMDA installation.
+ Copy to a directory like this : ${andromda.install.path}/cartridges/andromda-bpm4
+struts/.
+\layout Standard
+
+The cartridge will only work with an AndroMDA distribution of version 3.0
+ or higher.
+\layout Section
+
+How to use
+\layout Standard
+
+In your Ant build.xml task you will need to have something like this:
+\layout LyX-Code
+
+<andromda basedir='${basedir}' ...etc...
+ >
+\layout LyX-Code
+
+  <outlet cartridge='bpm4struts' outlet=
+\begin_inset Quotes erd
+\end_inset 
+
+actions
+\begin_inset Quotes erd
+\end_inset 
+
+ dir='${path}'/>
+\layout LyX-Code
+
+  <outlet cartridge='bpm4struts' outlet=
+\begin_inset Quotes erd
+\end_inset 
+
+forms
+\begin_inset Quotes erd
+\end_inset 
+
+ dir='${path}'/>
+\layout LyX-Code
+
+  <outlet cartridge='bpm4struts' outlet=
+\begin_inset Quotes erd
+\end_inset 
+
+config
+\begin_inset Quotes erd
+\end_inset 
+
+ dir='${path}'/>
+\layout LyX-Code
+
+  <outlet cartridge='bpm4struts' outlet=
+\begin_inset Quotes erd
+\end_inset 
+
+pages
+\begin_inset Quotes erd
+\end_inset 
+
+ dir='${path}'/>
+\layout LyX-Code
+
+</andromda>
+\layout Section
+
+Features
+\layout Subsection
+
+Struts (PSM)
+\layout Standard
+
+This cartridge will generate the most important files that you will need
+ to build your Struts application.
+ Although not everything 
+\emph on 
+can
+\emph default 
+ be generated we try to take over as much work as possible, therefore one
+ of the top requirements for this cartridge is: the user needs only to write
+ application specific business-process logic, the rest should be generated
+ from the model.
+\layout Standard
+
+In the Struts MVC framework we consider the following elements:
+\layout Itemize
+
+JSP pages, they represent the views.
+ In each of these pages you will need to code that particular part of the
+ application, this is different in every application.
+\layout Itemize
+
+Form beans, they represent the models.
+ There is no specific logic in these beans as they are used as a common
+ means of data transfer to and from the view.
+\layout Itemize
+
+Actions, they represent the controllers.
+ An action contains the logic to transfer data from the back-end to the
+ front-end (the views).
+ These actions usually do not contain any business logic, instead they only
+ contain 
+\emph on 
+process logic
+\emph default 
+, meaning they delegate to the business objects (such as session facades).
+ It is the responsibility of the actions the control the flow of the application.
+\layout Itemize
+
+Configuration.
+ The Struts configuration file is written in XML and describes which actions
+ use which form beans and can forward control to which pages or controllers.
+ Information contained herein is directly used in the controller classes.
+\layout Subsection
+
+UML (PIM)
+\layout Standard
+
+In order to be able to generate all these elements we will use a common
+ means of describing the application flow: UML.
+ Please note that the UML model will need to follow some strict guidelines,
+ these are not constraints but conventions.
+ Respecting these guidelines in a strict sense will avoid misinterpretation
+ (by human-readers as well as machine-readers).
+ More on this later.
+\layout Standard
+
+What do we have in UML that can help us model our application:
+\layout Itemize
+
+Initial state.
+ The start of the flow.
+ There can be only one.
+\newline 
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/initial-state.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Itemize
+
+Final state.
+ The end of the flow.
+ There may be several ways the flow ends (eg.
+ succesful and unsuccesful).
+\newline 
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/final-state.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Itemize
+
+Action states.
+ An action state represents a condition of a modeled entity for which some
+ action is performed.
+ What this action exactly is supposed to be is undefined.
+ Since we are modeling a Struts front-end I thought it would be intuitive
+ to represent actions triggered from JSP pages this way
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+There already has been some discussion on the AndroMDA mailing list about
+ whether or not JSP pages should be generated from action states.
+ I will not discuss that here now, but there are both advantages and disadvantag
+es of taking this approach.
+\end_inset 
+
+.
+\newline 
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/action-state.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Itemize
+
+Object flow states.
+ These are states that represent a change of state of an object, as opposed
+ to action states there is no view directly associated to an object flow
+ state.
+\newline 
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/object-flow-state.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Itemize
+
+Transitions.
+ Used to indicate a path between states.
+ We have different kinds of transitions:
+\newline 
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/transition.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+ 
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/transition-triggered.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+ 
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/transition-guarded.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+ 
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/transition-triggered-guarded.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Itemize
+
+Merge points.
+ A state should only have a single incoming and outgoing transition, use
+ merge points to bundle several incoming transitions and merge them into
+ a single transition.
+\newline 
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/merge.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Itemize
+
+Decision points.
+ They are the opposite of merge points, a single incoming transition is
+ forked into several outgoing transitions.
+ Which outgoing transition is actually followed at run-time depends on the
+ associated decision process.
+\newline 
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/decision.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Section
+
+Modeling
+\layout Standard
+
+When modeling an application process flow in UML you should not take into
+ account that the end result will be implemented in Struts, it could very
+ well be you change your mind later on and decide to use another technology.
+ That's why you should think about modeling a front-end rather than 
+\emph on 
+web pages
+\emph default 
+ or 
+\emph on 
+GUI windows
+\emph default 
+.
+\layout Standard
+
+First of all it is important to note that you will be modeling on the level
+ of each individual use-case, a use-case combines each unique unit of process
+ logic together.
+ Typically application use-cases could be: 'Login', 'Add item to basket',
+ 'Send purchase order', ...
+ You would then model an activity graph for each such use-case.
+ In order to be able to interconnect the different use-case you would use
+ state charts, these will connect a use-case's final states to the initial
+ states of the next use-cases.
+\layout Subsection
+
+From UML to Struts: An example use-case
+\begin_inset LatexCommand \label{Login example}
+
+\end_inset 
+
+
+\layout Standard
+
+To show you the code generation process I decided to start from an example.
+ Consider the following well known use-case: 'Login'.
+ A user is presented to enter his name and password for verification, if
+ verification succeeds he can continue, otherwise he is prompted again.
+ Here are the diagrams for this use-case:
+\layout Standard
+
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/use-case-login.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+ 
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/class-diagram-login.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\newline 
+What is not shown on these images is that the 'Login' use-case is linked
+ to the 'LoginController' class by means of a tagged value; this is the
+ reason the cartridge will know what classes to generate from the model,
+ more concretely what the attributes of the form are.
+ So exactly what is generated from these simple diagrams
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+Please note that this diagram represents a graphical UML data structure,
+ AndroMDA generates from this data structure rather than from the diagram.
+\end_inset 
+
+ ? Let's take a look.
+\layout Subsubsection
+
+JSP pages
+\layout Standard
+
+For every action state in the graph a corresponding JSP page is generated,
+ from these pages a call to the controller class is made.
+\newline 
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/view-jsp-page.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\newline 
+Notice how the controller action is called with a parameter.
+ In this particular case there is only one trigger (it has not been named
+ and is therefore anonymous) so there will only be a single hyperlink or
+ submit button.
+\layout Subsubsection
+
+Action class
+\layout Standard
+
+First of all we will have an action class generated from this use-case,
+ this class serves as the controller class.
+ There will be an abstract parent class as well as an implementation class.
+ The latter is used to code the link to the business objects, this is done
+ manually.
+\layout Paragraph
+
+Abstract Controller class
+\layout Standard
+
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/controller-abstract.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\newline 
+Notice how the model elements from the use-case's graph have been transformed
+ into Java code:
+\layout Itemize
+
+super class: DispatchAction
+\newline 
+This allows us to bundle different controller calls that logically belong
+ together into one class, DispatchAction classes are designed to do exactly
+ that.
+\layout Itemize
+
+constant fields
+\newline 
+These are derived from the transition guard names, they are the hash code
+ of the toUpperCase() conversion, these values are to be used as return
+ values in the implementation class' decision methods, these return values
+ are checked in this class.
+\layout Itemize
+
+unspecified()
+\newline 
+When the controller is called without any specific target dispatch method
+ name it will simply start the use-case.
+ In this case it will call a forward that will return a JSP page.
+\layout Itemize
+
+enterUsernameandPassword(...)
+\newline 
+This method is called from a JSP page, the model (form) is passed to the
+ controller and the it will be verified if the entered credentials are valid.
+ So after the user has entered his name and password, and has submitted
+ the form this method is called.
+\layout Itemize
+
+userNameAndPasswordVerifies(...)
+\newline 
+You cannot see how this name is derived from the graph, but in fact I named
+ the decision point 
+\begin_inset Quotes eld
+\end_inset 
+
+user name and password verifies ?
+\begin_inset Quotes erd
+\end_inset 
+
+, it's just not showing in the diagram.
+ Note how the result of the verification is used to determine how to proceed
+ next.
+ If the verification failed the same forward that showed the JSP page is
+ called again, otherwise the user profile is loaded in the session and we
+ continue.
+\layout Itemize
+
+setUserProfileLoadedInSession(...)
+\newline 
+This method is responsible of loading and storing the user's profile into
+ the session, this could be a HttpSession or something else depending on
+ the technology you wish to use.
+ Next, the final forward is called to exit this use-case.
+\layout Standard
+
+Please nottice there are some abstract methods being called, they will need
+ to be implemented by the user.
+ They are described next.
+\layout Paragraph
+
+Controller class implementation
+\layout Standard
+
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/controller-implementation.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\newline 
+The controller implementation obviously extends the abstract controller
+ class and implements the abstract methods.
+\layout Itemize
+
+userNameAndPasswordVerifiesImpl(...)
+\newline 
+This method must be implemented to return one of constants defined in the
+ parent class (VERIFIED or NOT_VERIFIED).
+ How this is done depends on the business objects and is left to the user.
+\layout Itemize
+
+setUserProfileLoadnSessionImpl(...)
+\newline 
+Load the user profile in the session, this too is left to the user since
+ it is not described in the UML model.
+\layout Paragraph
+
+Model form
+\layout Standard
+
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/model-form.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\newline 
+This is a simple Bean class, the trigger field is used to store the 'button'
+ used to trigger the call to a controller class.
+ All the other fields represent the input fields that are used in the view
+ (JSP).
+\layout Paragraph
+
+Configuration
+\layout Standard
+
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/configuration.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\newline 
+We can clearly see these distinct parts in the configuration file:
+\layout Itemize
+
+<form-beans>
+\newline 
+For each use case the associated form bean is looked up and added to the
+ list here.
+\layout Itemize
+
+<global-exceptions>
+\newline 
+To be ignored for the moment, it is possible to generate exception handlers
+ from the model but this is still under development.
+\layout Itemize
+
+<global-forwards>
+\newline 
+For each use-case (or workflow for that matter) there will be a forward
+ here that provides the user with an entry point to the use-case.
+ Notice how we 
+\emph on 
+redirect
+\emph default 
+ instead of 
+\emph on 
+forward
+\emph default 
+; this is done to flush any remaining object in the request and start with
+ a new, clean, request.
+\layout Itemize
+
+<action-mappings>
+\newline 
+For each use-case you will find an action mapping entry here, notice the
+ 
+\emph on 
+parameter
+\emph default 
+ attribute, it denotes the name of the request parameter that will determine
+ the dispatch method to call.
+ You can also see that the form bean (model) is put into the request scope
+ for this action, just as it should.
+\newline 
+Next, there are some forward, we have two different kinds of forwards.
+ The first one 'enter.username.and.password' is a forward used internally by
+ the use-case (if you recall, it is called when login fails, the user is
+ again presented the login page), therefore it forwards rather than it redirects
+, this is to keep the form bean in the request
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+Or more correct: to avoid the creation of a new request, in which there
+ would be a new form bean instance.
+\end_inset 
+
+.
+ In this particular case this is no concern, but most of the time it is
+ better to forward than to redirect.
+\newline 
+The other forward represents the final state of the use-case, and this time
+ redirects to the next use-case.
+ This forward is followed when the user has succeeded to login.
+ Because of the simplicity of the UML model we do not have a next use-case
+ (and this is in violation with the correctness), I have indicated this
+ by manually entering the string '[next-use-case-controller-call-here]'
+ at that location in the code.
+ In a correctly modeled application there would be a next use-case, or it
+ would be modeled the use-case would start over again.
+\layout Subsection
+
+Starting from scratch: step by step
+\layout Standard
+
+When you understand what happened in the short example you are ready to
+ try it for yourself, here's a small guide that will help you in the process.
+ This documentation comes with a sample UML project (modeled in Poseidon
+ 1.6), open that project while reading this section, you will much better
+ understand what is going on.
+\layout Subsubsection
+
+Define stereotypes
+\layout Standard
+
+First of all make sure you are able to create your model with some stereotypes,
+ you will need to declare them first
+\layout Itemize
+
+FrontEndWorkFlow, to be applied on UseCase model elements
+\layout Itemize
+
+FrontEndUseCase, also to be applied on UseCase model elements
+\layout Itemize
+
+FrontEndController, to be applied on Class model elements
+\layout Itemize
+
+FrontEndModel, to be applied on Class model elements
+\layout Itemize
+
+FrontEndView, to be applied on ActionState model elements
+\layout Itemize
+
+FrontEndExceptionHandler, to be applied on Class model elements
+\begin_inset Foot
+collapsed true
+
+\layout Standard
+
+Ignore this one for now.
+\end_inset 
+
+
+\layout Subsubsection
+
+Identify and model application workflows
+\layout Standard
+
+You will then need to model the application workflow on the highest level,
+ we call this 
+\emph on 
+coarse-grain 
+\emph default 
+modeling.
+ Basically this comes down to modeling the interconnection of different
+ use-cases.
+\layout Standard
+
+Create a UseCase for each workflow, tag this UseCase with the 'FrontEndWorkflow'
+ stereotype.
+ Add a state graph to this UseCase (you will do this by selecting diagram
+ in your CASE tool, do not confuse state graphs with activity graphs).
+ Model the workflow in this graph.
+\layout Standard
+
+Each state in this workflow will need to be modeled as a individuel UseCase,
+ these are described next.
+\layout Subsubsection
+
+Model each workflow state as a use-case
+\layout Standard
+
+For each state you will create another UseCase model element, this time
+ you will add an activity graph to that UseCase, in there you will model
+ the activity on a lower level, this is called 
+\emph on 
+fine-grain
+\emph default 
+ modeling.
+ When modeling such as use-case you will need to tag each ActionState with
+ the 'FrontEndView' stereotype.
+ The Login UseCase (see 
+\begin_inset LatexCommand \ref{Login example}
+
+\end_inset 
+
+) is such an example.
+ Each such UseCase needs a tagged value that links it to a Class, this is
+ to tell the cartridge which object handles the process control.
+ You do this by using a tag like this, where obviously the right-hand argument
+ is a fully qualified name of a class in the UML model:
+\layout LyX-Code
+
+ControllerClass = org.sample.LoginController
+\layout Standard
+
+Also, do not forget to give this UseCase the 'FrontEndUseCase' stereotype.
+\layout Subsubsection
+
+Create a controller Class for each use-case
+\layout Standard
+
+That's all, simply create the class with the name and the package specified
+ in the tagged value of the UseCase.
+ Use the 'FrontEndController' stereotype here.
+\layout Subsubsection
+
+Optionally create a model Class for each use-case
+\layout Standard
+
+If you wish to use forms with your controller you can optionally define
+ a class that will be used as the form bean, you may add attributes to this
+ class, they will be taken into account by the code generation process.
+ Do not forget to make an association between the controller class and this
+ class.
+ Adding more than one model class to a controller class may give undefined
+ results.
+ Use the 'FrontEndModel' stereotype here.
+\layout Section
+
+UML model constraints
+\layout Standard
+
+Most CASE tools allow a very flexible way of modeling your applications,
+ this is a good thing.
+ However, as a UML model is independent from any implementation technology
+ sometimes this freedom imposes some issues.
+ Therefore this section explains the model constraints you will need to
+ respect when modeling.
+\layout Standard
+
+I decided the most efficient way of explaining these constraints would be
+ to use an EBNF-like syntax, the '::=' shows what state vertex may follow,
+ the '|' means 'or', x+ (where x is a number) means at least x times.
+\layout LyX-Code
+
+
+\begin_inset Graphics
+	filename /home/draftdog/development/projects/open-source/andromda/cartridges/andromda-bpm4struts/docs/model-constraints-ebnf.gif
+	scale 75
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Standard
+
+What is most important here is that a triggered decision point can only
+ occur right after an action state, the reason for this is that a trigger
+ corresponds to a button an a page, and since pages are generated from action
+ states it is pretty easy to see that having triggers on other transitions
+ would be confusing.
+ As an example simply try to find out which trigger belongs to which action
+ state if you have modeled several decision points between your action states
+ and triggers.
+\layout Standard
+
+Also important is that you can only have guarded transitions combined on
+ a decision point, the reason is that while UML allows guards on any transition
+ this is difficult to translate into a Struts front-end.
+ Strictly speaking a guard is evaluated after that transition's trigger
+ has been called, but what happens if the guard fails ? Do we display an
+ error, do we re-start the use-case, ...
+ ? A simple and straightforward solution is to not apply guards as strictly
+ as they are modeled in UML, concretely this means we will never evaluate
+ guards individually, but we will evaluate a single decision point where
+ the guards are possible outcomes.
+ The guard representing the resulting outcome corresponds to the transition
+ that will then be followed.
+\layout LyX-Code
+
+\layout Section
+
+Naming conventions
+\layout Standard
+
+The following rules describe the conversion from names in the UML model's
+ graphs to names in the generated code.
+ You are free to use any name for your model elements, except for classes,
+ you should give them the name you want in the generated code.
+\layout Standard
+
+This means action states, use-cases, ...
+ can have any name, the cartridge will take care of it.
+\layout Paragraph
+
+Web files and forwards
+\layout Standard
+
+All non alphanumeric characters will be discarded and be replaced by a hyphen,
+ all characters will be converted to lowercase.
+ Example
+\layout LyX-Code
+
+this   : enter name & number !
+\layout LyX-Code
+
+becomes: enter-name-number
+\layout Paragraph
+
+Java file names
+\layout Standard
+
+All non alphanumeric characters will be discarded, the character following
+ such discarded character will be uppercased.
+ This first character will also be uppercased.
+ Example
+\layout LyX-Code
+
+this   : enter name & number !
+\layout LyX-Code
+
+becomes: EnterNameNumber
+\layout Section
+
+Cartridge feature matrix
+\layout Standard
+
+
+\begin_inset  Tabular
+<lyxtabular version="3" rows="11" columns="3">
+<features>
+<column alignment="center" valignment="top" leftline="true" width="0">
+<column alignment="center" valignment="top" leftline="true" width="0">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="0">
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\emph on 
+PIM ModelElement
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\emph on 
+Aspect
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\emph on 
+PSM Feature
+\end_inset 
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+UseCase
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+FrontEndUseCase
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+action-mappings, global-forwards
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Action State
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+FrontEndView
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+JSP, dispatch method
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Class
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+FrontEndController
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+DispatchAction
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+FrontEndModel
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Form
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+FrontEndConfig
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+struts-config.xml
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Object Flow State
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+none
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+method
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Final State
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+none
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+forward
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Guarded Decision
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+none
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+method
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Triggered Decision
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+none
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+buttons in JSP
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Initial State
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+none
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+global-forward, unspecified()
+\end_inset 
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset 
+
+
+\the_end
