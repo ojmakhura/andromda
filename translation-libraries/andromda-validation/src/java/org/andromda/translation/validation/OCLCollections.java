@@ -558,6 +558,15 @@ public final class OCLCollections
     {
         return CollectionUtils.select(collection, predicate);
     }
+    
+    /**
+     * Returns a subcollection of the source collection containing all elements
+     * for which the expression evaluates <code>true</code>.
+     */
+    public static Collection select(Object collection, Predicate predicate)
+    {
+        return CollectionUtils.select((Collection)collection, predicate);
+    }
 
     /**
      * @todo: implement

@@ -528,7 +528,7 @@ public class ValidationJavaTranslator
         AActualParameterList list = (AActualParameterList)params
             .getActualParameterList();
         boolean arrow = arrowPropertyCallStack.peek().equals(Boolean.TRUE)
-            && !"".equals(String.valueOf(list).trim());
+            && !String.valueOf(list).trim().equals("");
         {
             newTranslationLayer();
             write("org.andromda.translation.validation.OCLCollections.");
@@ -559,6 +559,11 @@ public class ValidationJavaTranslator
                         write(",");
                         write(features.getProperty(featureCallName));
                         write(" ");
+                        if (OCLBooleanEvaluatingFeatures
+                            .isBooleanFeature(featureCallName))
+                        {
+                            write(BOOLEAN_WRAP_PREFIX);
+                        }
                     }
                     parameterList.getExpression().apply(this);
                 }
@@ -573,6 +578,11 @@ public class ValidationJavaTranslator
                 }
                 if (parameterList.getExpression() != null)
                 {
+                    if (OCLBooleanEvaluatingFeatures
+                        .isBooleanFeature(featureCallName))
+                    {
+                        write(BOOLEAN_WRAP_SUFFIX);
+                    }
                     if (arrow)
                         write(";}}");
                 }
