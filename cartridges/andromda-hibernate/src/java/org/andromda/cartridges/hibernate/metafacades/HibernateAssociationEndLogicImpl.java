@@ -82,7 +82,8 @@ public class HibernateAssociationEndLogicImpl
         boolean lazy = true;
         if (lazyString == null)
         {
-            // check whether or not composition defines eager loading is turned on
+            // check whether or not composition defines eager loading is turned
+            // on
             boolean compositionDefinesEagerLoading = Boolean.valueOf(
                 String.valueOf(this
                     .getConfiguredProperty(COMPOSITION_DEFINES_EAGER_LOADING)))
@@ -210,24 +211,22 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isInheritanceRequired()
+     * Overridden to provide handling of inheritance.
+     * 
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isRequired()
      */
-    protected boolean handleIsInheritanceRequired()
+    public boolean isRequired()
     {
-        boolean required=true;
-        
+        boolean required = super.isRequired();
         Object type = this.getType();
         if (type != null
             && HibernateEntity.class.isAssignableFrom(type.getClass()))
         {
             HibernateEntity entity = (HibernateEntity)type;
-            if (entity.isHibernateInheritanceSubclass() && (entity.getGeneralization()!=null))
+            if (entity.isHibernateInheritanceSubclass()
+                && entity.getGeneralization() != null)
             {
-                required=false;
-            }
-            else
-            {
-                required=this.isRequired();
+                required = false;
             }
         }
         return required;
