@@ -96,8 +96,8 @@
                 </ul>
             </p>
             <p>
-                Optionally you may indicate the relationship to be an <code>aggregation</code> or a
-                <code>composition</code>. You should use aggregation when an entity is part of another one but the
+                Optionally you may indicate the relationship is part of an <code>aggregate</code> or
+                <code>composite</code> association. You should use aggregation when an entity is part of another one but the
                 latter one does not need the former to exist.
                 <ul>
                     <li>aggregation: lazy-loaded, no cascade</li>
