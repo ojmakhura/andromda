@@ -137,7 +137,7 @@
         </java>
     </target>
 
-    <target name="compile" description="o Compile the code" depends="xdoclet-ejb,xdoclet-hibernate,export">
+    <target name="compile" description="o Compile the code" depends="xdoclet-ejb,xdoclet-hibernate">
         <mkdir dir="${basedir}/target/classes"/>
         <javac destdir="${basedir}/target/classes" classpathref="classpath"
                deprecation="true" debug="true" optimize="false">
@@ -168,7 +168,7 @@
         <replace token="${libdir}" file="${basedir}/target/.tmp.mf"/>
     </target>
 
-    <target name="jar" description="o Create the JAR bundles" depends="compile,-manifest">
+    <target name="jar" description="o Create the JAR bundles" depends="compile,export,-manifest">
         <mkdir dir="${basedir}/target"/>
         <jar jarfile="${basedir}/target/${common.jar.bundle.name}">
             <fileset refid="common.classes"/>
