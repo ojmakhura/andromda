@@ -12,7 +12,6 @@ import java.util.Map;
  */
 public class MetafacadeCache
 {
-
     /**
      * The shared metafacade cache instance.
      */
@@ -90,7 +89,7 @@ public class MetafacadeCache
 
     /**
      * Adds the <code>metafacade</code> to the cache according to first
-     * <code>mappingObject</code>, second the <code>metafacade</code> 
+     * <code>mappingObject</code>, second the <code>metafacade</code>
      * Class, third <code>key</code>, and finally by the current the current
      * namespace.
      * 
@@ -125,5 +124,13 @@ public class MetafacadeCache
     public void shutdown()
     {
         this.metafacadeCache.clear();
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return this.metafacadeCache.toString();
     }
 }
