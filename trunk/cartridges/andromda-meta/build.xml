@@ -19,14 +19,18 @@
     <!-- ============================================================= -->
 
     <property name="src.dir"          value="src" />
-    <property name="src.cart.dir"     value="src/java" />
-    <property name="src.dec.gen.dir"  value="src/decorators/generated" />
-    <property name="src.dec.man.dir"  value="src/decorators/manual" />
-    <property name="uml.dir"          value="src/uml" />
+    <property name="src.cart.dir"     value="${src.dir}/java" />
+    <property name="src.dec.gen.dir"  value="${src.dir}/decorators/generated" />
+    <property name="src.dec.man.dir"  value="${src.dir}/decorators/manual" />
+    <property name="uml.dir"          value="${src.dir}/uml" />
+    <property name="src.test.dir"     value="${src.dir}/test/" />
 
-    <property name="build.dir"        value="build" />
-    <property name="build.cart.dir"   value="build/cartridge" />
-    <property name="build.dec.dir"    value="build/decorators" />
+    <property name="build.dir"              value="build" />
+    <property name="build.cart.dir"         value="build/cartridge" />
+    <property name="build.dec.dir"          value="build/decorators" />
+    <property name="build.test.dir"         value="${build.dir}/test" />
+    <property name="build.test.classes.dir" value="${build.test.dir}/classes" />
+    <property name="build.test.reports.dir" value="${build.test.dir}/reports" />
 
     <property name="dist.dir"         value="dist" />
 
@@ -71,7 +75,7 @@
       </copy>
     </target>
 
-    <target name="build" depends="init,compile1,genjava,compile2"
+    <target name="build" depends="compile2"
             description="Builds the objects from the sources">
     </target>
 
@@ -98,7 +102,7 @@
         </copy>
     </target>
 
-    <target name="genjava" depends="init">
+    <target name="genjava" depends="compile1">
 	    <property file="${andromda-meta.home}/andromda-meta.properties"/>
 	
 	    <path id="generate.classpath">
@@ -126,7 +130,7 @@
         </andromda>
     </target>
 
-    <target name="compile2" depends="init"
+    <target name="compile2" depends="genjava"
             description="Builds the decorator objects from the generated and hand-written sources">
         <javac destdir="${build.dec.dir}" includes="**/*.java"
                includeAntRuntime="false">
@@ -140,6 +144,35 @@
         <jar jarfile="${build.dir}/metadecorators.jar">
             <fileset dir="${build.dec.dir}" includes="**/*.class" />
         </jar>
+    </target>
+    
+    <target name="test" depends="compile2">
+        <mkdir dir="${build.test.classes.dir}"/>
+        <mkdir dir="${build.test.reports.dir}"/>
+	    <path id="test.classpath">
+	       <path refid="generate.classpath" />
+           <pathelement location="${build.dir}/metadecorators.jar" />
+	       <pathelement location="${build.test.classes.dir}"/>
+	    </path>
+    
+        <javac debug="true" destdir="${build.test.classes.dir}" includes="**/*.java" includeAntRuntime="false">
+            <src path="${src.test.dir}"/>
+            <classpath refid="test.classpath"/>
+        </javac>
+        <junit printsummary="yes" haltonfailure="false">
+            <classpath>
+                <path refid="test.classpath"/>
+            </classpath>
+
+            <formatter type="plain"/>
+
+            <batchtest fork="yes" todir="${build.test.reports.dir}">
+                <fileset dir="${src.test.dir}">
+                    <include name="**/*Test.java"/>
+                    <exclude name="**/Sample*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
     </target>
 
 </project>
