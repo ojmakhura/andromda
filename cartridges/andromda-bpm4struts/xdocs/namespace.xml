@@ -60,6 +60,12 @@
                     <td>Yes</td>
                 </tr>
                 <tr>
+                    <td>server</td>
+                    <td>The location where to store application server specific configuration, such as users.properties
+                        and roles.properties (in case security has been enabled)</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
                     <td>security</td>
                     <td>Whether or not to render code enabling the security features (true/false)</td>
                     <td>No, default is <code>false</code></td>
