@@ -218,7 +218,7 @@ public class MDRepositoryFacade implements RepositoryFacade
             catch (Throwable th) 
             {
             	String errMsg = "Error performing MDRepositoryFacade.getModel";
-                logger.error(errMsg, th);
+                logger.error(errMsg);
                 throw new RepositoryFacadeException(errMsg, th);
             }
         }
