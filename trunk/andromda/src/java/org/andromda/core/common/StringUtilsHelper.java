@@ -13,20 +13,7 @@ import java.util.regex.Pattern;
  * @author Chris Shaw
  * @author Chad Brandon
  */
-public class StringUtilsHelper {
-
-    /**
-     * <p>Capitalizes a string.  That is, it returns "Hamburger" when
-     * eating a "hamburger".</p>
-     *
-     * @deprecated - use upperCaseFirstLetter
-     *
-     * @param s the input string
-     * @return String the output string
-     */
-    public static String capitalize(String s) {
-        return StringUtils.capitalize(s);
-    }
+public class StringUtilsHelper extends StringUtils {
 
     /**
     * <p>Capitalizes a string. That is, it returns "HamburgerStall"
@@ -36,11 +23,7 @@ public class StringUtilsHelper {
     * @return String the output string.
     */
     public static String upperCaseFirstLetter(String s) {
-        if (s != null && s.length() > 0) {
-            return s.substring(0, 1).toUpperCase() + s.substring(1);
-        } else {
-            return s;
-        }
+       return capitalize(s);
     }
 
     /**
@@ -51,7 +34,7 @@ public class StringUtilsHelper {
     * @return String the output string.
     */
     public static String lowerCaseFirstLetter(String s) {
-    	return StringUtils.uncapitalize(s);
+    	return uncapitalize(s);
     }
 
     /**
