@@ -18,8 +18,12 @@
                 ]]>
             </description>
             <ejb-name>$service.name</ejb-name>
-            <${service.ejbViewType}-home>${service.fullyQualifiedName}Home</${service.ejbViewType}-home>
-            <${service.ejbViewType}>$service.fullyQualifiedName</${service.ejbViewType}>
+#if ($service.ejbRemoteView)
+            <home>${service.fullyQualifiedName}Home</home>
+#else
+            <local-home>${service.fullyQualifiedName}Home</local-home>
+#end
+            <$service.ejbViewType>$service.fullyQualifiedName</$service.ejbViewType>
             <ejb-class>${service.fullyQualifiedName}BeanImpl</ejb-class>
 #if ($service.ejbStateful)
             <session-type>Stateful</session-type>
@@ -40,8 +44,12 @@
 #if (!$service.ejbRemoteView)
 #set ($homeTag = "${serviceRef.ejbViewType}-${homeTag}")
 #end
-                <$homeTag>${serviceRef.fullyQualifiedName}Home</$homeTag>
-                <${serviceRef.ejbViewType}>$serviceRef.fullyQualifiedName</${serviceRef.ejbViewType}>
+#if ($service.ejbRemoteView)
+                <home>${serviceRef.fullyQualifiedName}Home</home>
+#else
+                <local-home>${serviceRef.fullyQualifiedName}Home</local-home>
+#end
+                <$serviceRef.ejbViewType>$serviceRef.fullyQualifiedName</$serviceRef.ejbViewType>
                 <ejb-link>$serviceRef.name</ejb-link>
             </$ejbRefTag>
 #end
