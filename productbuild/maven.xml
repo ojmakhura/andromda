@@ -43,7 +43,7 @@
 
     <!-- ==================================================================
                Deploys all libraries into the remote repository while
-               skipping all tests (allows deploys to occurr faster).
+               skipping all tests (speeds up deployment).
          ================================================================== -->
     <goal name="deploy-no-tests" prereqs="initialize">
         <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
@@ -67,7 +67,7 @@
     </goal>
 
     <!-- ==================================================================
-               Builds ALL documentation and inludes it in the binary dist
+               Builds ALL documentation and includes it in the binary dist
          ================================================================== -->
     <goal name="docs" prereqs="dist-init,initialize">
         <maven:maven descriptor="${basedir}/documentation/project.xml" goals="build"/>
@@ -374,7 +374,7 @@
     </goal>
 
     <!-- =================================================================
-             Copy the repository artifacts to the server.
+             Copy the documentation to the server.
          ================================================================= -->
     <goal name="deploy-docs">
         <!-- rsync the docs first, they should go quite quick unless there are
