@@ -15,8 +15,8 @@
 
     <fileset id="libraries" dir="${app.root.dir}/${lib.dir}" includes="**/*.jar"/>
     <fileset id="classes" dir="${basedir}/${java.build.dir}" includes="**/*.class"/>
-    <fileset id="java-sources" dir="${basedir}/../${ejb.dir}/${java.src.dir}" includes="**/*.java"/>
-    <fileset id="mda-java-sources" dir="${basedir}/../${ejb.dir}/${mda.build.dir}" includes="**/*.java"/>
+    <fileset id="java-sources" dir="${basedir}/../${hibernate.ejb.dir}/${java.src.dir}" includes="**/*.java"/>
+    <fileset id="mda-java-sources" dir="${basedir}/../${hibernate.ejb.dir}/${mda.build.dir}" includes="**/*.java"/>
     <fileset id="gen-java-sources" dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.java"/>
 
     <path id="classpath">
