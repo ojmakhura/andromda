@@ -229,7 +229,7 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
         mergeTranslationLayerAfter();
     }
-      
+
     public void caseAArrowFeatureCall(AArrowFeatureCall node)
     {
         newTranslationLayer();
@@ -239,14 +239,14 @@ public class ValidationJavaTranslator extends BaseTranslator
         {
             node.getArrowFeature().apply(this);
         }
-        AFeatureCallParameters parameters = 
+        AFeatureCallParameters parameters =
             (AFeatureCallParameters)node.getFeatureCallParameters();
         if(parameters.getLParen() != null)
         {
             parameters.getLParen().apply(this);
         }
         mergeTranslationLayerBefore();
-        AActualParameterList parameterList = 
+        AActualParameterList parameterList =
             (AActualParameterList)parameters.getActualParameterList();
         if (parameterList != null) {
             if (parameterList.getExpression() != null) {
@@ -772,9 +772,12 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
     }
 
+    /**
+     * todo: this method very naively replaces every single quote by a double quote, this should be updated
+     */
     public void caseTStringLit(TStringLit tStringLit)
     {
-        final StringBuffer buffer = new StringBuffer(tStringLit.getText());
+        final StringBuffer buffer = new StringBuffer(tStringLit.getText().replace('\'','\"'));
 
 /*
         // remove the leading and trailing single quotes
