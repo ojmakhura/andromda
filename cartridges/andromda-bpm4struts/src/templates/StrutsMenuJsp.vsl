@@ -1,25 +1,48 @@
+<%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 
+<div id="latest-news-title">
+     <h4>Latest News</h4>
+</div>
+
+<div id="latest-news">
+     <p><b>AndroMDA 3.0</b><br/>
+
+     - Completely new engine core<br/>
+     - New cartridges, lots of new features...<br/>
+     </p>
+     <p><a href="http://www.andromda.org" title="AndroMDA homepage">more &raquo;</a></p>
+</div>
+
+<p class="spacer"></p>
+
+<div id="quick-links">
 #set ($useCases = $class.allUseCases)
-<table>
+#if ($useCases.size()>0)
+    <h4><bean:message key="menu.title"/></h4>
+    <ul>
+#end
 #foreach ($useCase in $useCases)
 #set ($roles = $useCase.actionRoles)
-    <tr>
-        <td>
 #set ($security = ($securityEnabled=="true") && ($roles != "") )
 #if ($security)
-            <logic:present role="$roles">
+        <logic:present role="$roles">
 #end
-                <html:link action="$useCase.actionPath" titleKey="$useCase.titleKey">
-                    $useCase.name
-                </html:link>
+            <li><html:link action="$useCase.actionPath" titleKey="$useCase.titleKey">$useCase.name</html:link></li>
 #if ($security)
-            </logic:present>
-            <logic:notPresent role="$roles">
-                <i><font color="#808080">$useCase.name</font></i>
-            </logic:notPresent>
+        </logic:present>
+        <logic:notPresent role="$roles">
+            <li>$useCase.name</li>
+        </logic:notPresent>
+    </ul>
 #end
-        </td>
-    </tr>
 #end
-</table>
+</div>
+
+<div id="andromda-ad">
+    <p class="text">This web application has been generated using AndroMDA&#146;s Bpm4Struts cartridge, check the
+                    <a href="http://team.andromda.org/tiki/tiki-index.php" title="AndroMDA WiKi">WiKi</a>
+                    for more information.</p>
+    <p class="author">The AndroMDA Team &copy; 2004</p>
+</div>
+
