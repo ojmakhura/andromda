@@ -318,6 +318,7 @@
                     to any meta model element of type <em>org.omg.uml.foundation.core.Operation</em>
                     that has the <em>FINDER_METHOD</em> stereotype and is created in the context of
                     <em>org.andromda.cartridges.spring.metafacades.SpringEntity</em>.
+                    <a name="contextAndStereotypeExample"/>
                     <source><![CDATA[ 
 ...
 <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
@@ -336,8 +337,41 @@
                     can take an optional nested <em><![CDATA[<context/>]]></em>
                     element.  This context allows us to specify that a metafacade
                     must be created within the <em>context</em> of another metafacade
-                    in order to be mapped.  Note that you can only specify a single
-                    context per <a href="#mapping"><![CDATA[<mapping/>]]></a>.
+                    in order to be mapped.  Note that <strong>you can only specify a single
+                    context per <a href="#mapping"><![CDATA[<mapping/>]]></a></strong>. 
+                    For example, this here tells AndroMDA to apply the 
+                    <em>org.andromda.metafacades.uml14.EntityAssociationEndFacadeLogicImpl</em>
+                    to any meta model element of type <em>org.omg.uml.foundation.core.AssociationEnd$Impl</em>
+                    when creating the metafacade within the context of <em>org.andromda.metafacades.uml.EntityFacade</em>.
+                    <source><![CDATA[ 
+...
+<metafacade class="org.andromda.metafacades.uml14.EntityAssociationEndFacadeLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+        <context>org.andromda.metafacades.uml.EntityFacade</context>        
+    </mapping>
+</metafacade>
+...
+                    ]]></source>   
+                    As you know, a context can be combined with one or more stereotypes like you saw 
+                    in the example <a href="#contextAndStereotypeExample">above</a>.  It can also be 
+                    combined with one or more <a href="#mappingProperty">propeties</a> within a 
+                    <a href="#mapping"><![CDATA[<mapping/>]]></a> as well.  For example, this here
+                    is used to construct the EntityQueryOperationFacade, it tells AndroMDA to apply
+                    <em>org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl</em> to 
+                    any meta model element of type <em>org.omg.uml.foundation.core.Operation$Impl</em>
+                    when constructed within the context of <em>org.andromda.metafacades.uml.EntityFacade</em>
+                    and when the <em>query</em> <a href="#mappingProperty">property</a> on the metafacade 
+                    evaluates as a valid <a href="#mappingProperty">property</a>.
+                    <source><![CDATA[
+...
+<metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationFacadeLogicImpl">
+    <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <context>org.andromda.metafacades.uml.EntityFacade</context>   
+        <property name="query"/>   
+    </mapping>
+</metafacade>        
+...            
+                    ]]></source>
                 </p>
                 <a name="mappingProperty"/>
                 <h3><![CDATA[<property/>]]></h3>     
