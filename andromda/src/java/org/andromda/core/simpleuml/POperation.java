@@ -98,7 +98,7 @@ public class POperation extends PModelElement implements UMLOperation
             Parameter p = (Parameter) i.next();
             if ( ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind())) 
             {
-               return p;
+               return p.getType();
             }
         }
         

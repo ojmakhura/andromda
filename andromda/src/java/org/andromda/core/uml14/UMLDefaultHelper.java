@@ -9,6 +9,7 @@ import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.common.ScriptHelper;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.foundation.core.TaggedValue;
 import org.omg.uml.modelmanagement.Model;
 
 /**
@@ -46,6 +47,10 @@ public class UMLDefaultHelper
 			return null;
 		}
 		ModelElement modelElement = (ModelElement) object;
+        if (object instanceof TaggedValue)
+        {
+            return getTaggedValueName((TaggedValue)object);
+        }
 
 		return modelElement.getName();
 	}
@@ -101,5 +106,23 @@ public class UMLDefaultHelper
 		return stereoTypeNames;
 	}
 
-
+    private String getTaggedValueName(TaggedValue tgv)
+    {
+        String tgvName = tgv.getName();
+            
+        // sometimes the tag name is on the TagDefinition
+        if ( (tgvName == null) && (tgv.getType() != null) )
+        {
+            tgvName = tgv.getType().getName();
+                
+            // sometimes it is the TagType
+            if (tgvName == null)
+            {
+                tgvName = tgv.getType().getTagType();
+            }
+        }
+                    
+        return tgvName;
+    }
+    
 }

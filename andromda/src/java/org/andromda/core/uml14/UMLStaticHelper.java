@@ -70,6 +70,50 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 		return modelElement.getTaggedValue();
 	}
 
+    /**
+     * Searches a collection of tag values for one with a particular
+     * name
+     * 
+     * @param Collection of taggedValues
+     * @param tagName name of tag for which to search
+     * 
+     * @return value of tag, null if tag not found
+     */
+    public String findTagValue(Collection taggedValues, String tagName)
+    {    
+        for (Iterator i = taggedValues.iterator(); i.hasNext(); )
+        {
+            TaggedValue taggedValue = (TaggedValue)i.next();
+            String tgvName = getName(taggedValue);
+            
+            if (tagName.equals(tgvName))
+            {
+                Iterator it = taggedValue.getDataValue().iterator();
+                if (it.hasNext())
+                {
+                    return it.next().toString();
+                }
+                return null;
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Searches for and returns the value of a given tag on
+     * the specified model element.
+     * 
+     * @param modelElement model element
+     * @param tagName  name of the tag
+     * @return String value of tag, <b>null</b> if tag not found
+     * 
+     */
+    public String findTagValue(
+        ModelElement modelElement, String tagName)
+    {
+        return findTagValue(getTaggedValues(modelElement), tagName);
+    }
     
 	/**
 	 * Returns Association information from the perspective of
@@ -96,35 +140,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	}
 
 
-	/**
-	 * Searches for and returns the value of a given tag on
-     * the specified model element.
-     * 
-	 * @param modelElement model element
-	 * @param tagName  name of the tag
-	 * @return String value of tag, <b>null</b> if tag not found
-     * 
-	 */
-	public String findTaggedValue(
-        ModelElement modelElement, String tagName)
-	{
-		Collection taggedValues = getTaggedValues(modelElement);
-		for (Iterator i = taggedValues.iterator(); i.hasNext(); )
-		{
-			TaggedValue taggedValue = (TaggedValue)i.next();
-			if (tagName.equals(taggedValue.getName()))
-			{
-				Iterator it = taggedValue.getDataValue().iterator();
-				if (it.hasNext())
-				{
-					return it.next().toString();
-				}
-				return null;
-			}
-		}
-		
-		return null;
-	}
+
 		
 	/**
 	 * Searches the given class feature (operation or attribute) for
@@ -141,16 +157,16 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper
 	 * @return String value of tag, <b>null</b> if tag not found
      * 
 	 */
-	public String findTaggedValue(
+	public String findTagValue(
 		StructuralFeature feature, String tagName, boolean follow)
 	{
         if (feature == null) return null;
         
-		String value = findTaggedValue(feature,tagName);
+		String value = findTagValue(feature,tagName);
 		ModelElement element = feature.getType();
 		while ( ( value == null ) && (element != null) ) 
 		{
-			value = findTaggedValue(element,tagName);
+			value = findTagValue(element,tagName);
 			element = getGeneralization(element);
 		}
 			
