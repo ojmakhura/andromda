@@ -2,23 +2,12 @@
 
 <translation-library name="validation">
 
-	<!-- contains the default class name (for this library) that provides the translation processing
-	     of the the translation file (it must implement org.andromda.core.translation.Translator)
-	     (this can also be overridden on each translation element) -->
-	<translator>org.andromda.translation.validation.ValidationJavaTranslator</translator>
-
-	<!-- transformers -->
-    <templateObject
-    	name="stringUtils"
-    	className="org.apache.commons.lang.StringUtils"/>
-
-	<translation name="java">
+	<translation name="Java">
 		<translator>org.andromda.translation.validation.ValidationJavaTranslator</translator>
 		<description>
 			Describes translation fragments that help to
 			generate Java validation code out of OCL expressions.
 		</description>
-		<file>translations/validation/Java.vsl</file>
 	</translation>
 
 </translation-library>
