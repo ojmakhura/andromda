@@ -95,13 +95,13 @@ Please define the test artifact '${context.getVariable('andromda.cartridge.test.
             scope="parent"/>
             
         <j:set 
-            var="output.dir"
-            value="${andromda.cartridge.test.output.dir}"
+            var="actual.dir"
+            value="${andromda.cartridge.test.actual.dir}"
             scope="parent"/>
             
         <j:set 
             var="maven.junit.sysproperties"
-            value="expected.dir output.dir"
+            value="expected.dir actual.dir"
             scope="parent"/>
             
           <attainGoal name="test:single"/>	      
