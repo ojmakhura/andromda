@@ -309,7 +309,7 @@ public abstract class BasePlugin
      */
     protected Logger getLogger()
     {
-        return AndroMDALogger.getPluginLogger(this.name);
+        return AndroMDALogger.getNamespaceLogger(this.name);
     }
 
     /**

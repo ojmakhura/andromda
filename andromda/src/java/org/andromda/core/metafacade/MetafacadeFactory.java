@@ -578,14 +578,14 @@ public class MetafacadeFactory
     }
 
     /**
-     * Gets the correct logger based on whether or not an plugin logger should
+     * Gets the correct logger based on whether or not an namespace logger should
      * be used
      * 
      * @return the logger
      */
-    private Logger getLogger()
+    Logger getLogger()
     {
-        return AndroMDALogger.getPluginLogger(activeNamespace);
+        return AndroMDALogger.getNamespaceLogger(activeNamespace);
     }
 
     /**

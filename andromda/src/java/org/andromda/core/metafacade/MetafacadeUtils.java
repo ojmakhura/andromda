@@ -19,8 +19,6 @@ import org.apache.log4j.Logger;
  */
 class MetafacadeUtils
 {
-    private static Logger logger = Logger.getLogger(MetafacadeUtils.class);
-
     /**
      * Constructs the unique key format expected for this mapping. Note that the
      * only argument required is the <code>object</code>,
@@ -59,9 +57,9 @@ class MetafacadeUtils
                 key.append(suffixIterator.next());
             }
         }
-        if (logger.isDebugEnabled())
-            logger.debug("completed '" + methodName + "' with key --> '" + key
-                + "'");
+        if (getLogger().isDebugEnabled())
+            getLogger().debug(
+                "completed '" + methodName + "' with key --> '" + key + "'");
         return key.toString();
     }
 
@@ -111,24 +109,58 @@ class MetafacadeUtils
      *        properties.
      * @return true/false
      */
-    static boolean propertiesValid(Object object, MetafacadeMapping mapping)
+    static boolean propertiesValid(
+        final MetafacadeBase metafacade,
+        final MetafacadeMapping mapping)
     {
         boolean valid = false;
-        try
+        final Collection properties = mapping.getMappingProperties();
+        if (properties != null && !properties.isEmpty())
         {
-            Iterator properties = mapping.getMappingProperties().iterator();
-            while (properties.hasNext())
+            try
             {
-                final MetafacadeMapping.Property property = (MetafacadeMapping.Property)properties
-                    .next();
-                valid = PropertyUtils.containsValidProperty(object, property
-                    .getName(), property.getValue());
+                if (getLogger().isDebugEnabled())
+                    getLogger().debug(
+                        "evaluating " + properties.size() + " on metafacade '"
+                            + metafacade + "'");
+                Iterator propertyIterator = properties.iterator();
+                while (propertyIterator.hasNext())
+                {
+                    final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator
+                        .next();
+                    valid = PropertyUtils.containsValidProperty(
+                        metafacade,
+                        property.getName(),
+                        property.getValue());
+                    if (getLogger().isDebugEnabled())
+                        getLogger().debug(
+                            "property '" + property.getName()
+                                + "', with value '" + property.getValue()
+                                + "' on metafacade '" + metafacade
+                                + "', evaluated to --> '" + valid + "'");
+                    // if any of the properties is invalid, we break out
+                    // of the loop
+                    if (!valid)
+                    {
+                        break;
+                    }
+                }
             }
-        }
-        catch (Throwable th)
-        {
-            th.printStackTrace();
-            valid = false;
+            catch (Throwable th)
+            {
+                if (getLogger().isDebugEnabled())
+                    getLogger().debug(
+                        "An error occured while "
+                            + "evaluating properties on metafacade '"
+                            + metafacade + "', setting valid to 'false'",
+                        th);
+                valid = false;
+            }
+            if (getLogger().isDebugEnabled())
+                getLogger().debug(
+                    "completed evaluating " + properties.size()
+                        + " properties on metafacade '" + metafacade
+                        + "' with a result of --> '" + valid + "'");
         }
         return valid;
     }
@@ -147,6 +179,11 @@ class MetafacadeUtils
         final Object mappingObject,
         final String context) throws Exception
     {
+        if (getLogger().isDebugEnabled())
+            getLogger().debug(
+                "constructing metafacade from class '" + metafacadeClass
+                    + "' mapping object '" + mappingObject + "', and context '"
+                    + context + "'");
         MetafacadeBase metafacade = (MetafacadeBase)ConstructorUtils
             .invokeConstructor(metafacadeClass, new Object[]
             {
@@ -158,5 +195,16 @@ class MetafacadeUtils
                 java.lang.String.class
             });
         return metafacade;
+    }
+
+    /**
+     * Gets the logger instance which should be used for logging output within
+     * this class.
+     * 
+     * @return the logger instance.
+     */
+    private static Logger getLogger()
+    {
+        return MetafacadeFactory.getInstance().getLogger();
     }
 }
