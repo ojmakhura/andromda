@@ -129,11 +129,12 @@ ${indent}//<![CDATA[
 #else
 ${indent}//<!--
 #end
+#set ($calendarFieldFormat = $dateUtils.formatJavaToPerl($field.dateFormat))
 ${indent}    Calendar.setup({
 ${indent}        inputField     :    "${formBeanName}_${fieldName}",
-${indent}        ifFormat       :    "$dateUtils.formatJavaToPerl($field.dateFormat)",
-${indent}        daFormat       :    "%A, %B %d, %Y",
-${indent}        showsTime      :    true,
+${indent}        ifFormat       :    "$calendarFieldFormat",
+${indent}        daFormat       :    "$calendarFieldFormat",
+${indent}        showsTime      :    $dateUtils.containsTimeFormat($calendarFieldFormat),
 ${indent}        button         :    "${formBeanName}_${fieldName}_trigger",
 ${indent}        singleClick    :    true
 ${indent}    });
