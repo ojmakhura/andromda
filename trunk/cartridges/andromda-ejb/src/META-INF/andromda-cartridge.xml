@@ -11,6 +11,9 @@
     <outlet name="session-impls" />
     <outlet name="entity-impls" />
 
+<!-- library of macros used in templates -->
+    <macrolibrary name="templates/EJB.vm" />
+    
 <!-- the official template definitions -->
     <template
         stereotype="Entity"
@@ -67,7 +70,7 @@
     />
 
 <!--
-     The following two definitions map services to session beans.
+     The following definitions map services to session beans.
      The templates map a service to a session bean
      and the template itself decides to generate a stateless or stateful
      session bean, based on the fact that the UML class contains attributes or not.
