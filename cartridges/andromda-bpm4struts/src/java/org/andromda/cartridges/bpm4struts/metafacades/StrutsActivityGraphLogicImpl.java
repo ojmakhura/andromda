@@ -83,7 +83,8 @@ public class StrutsActivityGraphLogicImpl
                 ModelElementFacade element = (ModelElementFacade) classIterator.next();
                 if (element.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_CONTROLLER))
                 {
-                    String taggedValue = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USE_CASE).toString();
+                    Object value = element.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_USE_CASE);
+                    String taggedValue = value==null?null:value.toString();
                     if (useCaseName.equalsIgnoreCase(taggedValue))
                     {
                         controller = element;

@@ -37,8 +37,9 @@ public class EntityAttributeFacadeLogicImpl
     }
 
     protected String getColumnLength() {
-        return this.findTaggedValue(
-            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH).toString();
+        Object value = this.findTaggedValue(
+            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
+        return value == null ? null : value.toString();
     }
 
     public boolean isIdentifier() {

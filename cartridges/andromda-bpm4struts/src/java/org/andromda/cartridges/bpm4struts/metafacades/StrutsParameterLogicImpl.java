@@ -113,7 +113,8 @@ public class StrutsParameterLogicImpl
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && widgetType != null) return widgetType;
 
-        final String fieldType = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE).toString();
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
+        final String fieldType = value==null?null:value.toString();
 
         if (fieldType == null)
         {
@@ -179,12 +180,14 @@ public class StrutsParameterLogicImpl
 
     public boolean isRequired()
     {
-        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_REQUIRED).toString());
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_REQUIRED);
+        return isTrue(value==null?null:value.toString());
     }
 
     public boolean isReadOnly()
     {
-        return isTrue(findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_READONLY).toString());
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_READONLY);
+        return isTrue(value==null?null:value.toString());
     }
 
     private boolean isTrue(String string)
@@ -220,7 +223,8 @@ public class StrutsParameterLogicImpl
 
     protected String getValidatorFormat()
     {
-        final String format = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_FORMAT).toString();
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_FORMAT);
+        final String format = value==null?null:value.toString();
         return (format == null) ? null : format.trim();
     }
 
@@ -334,7 +338,8 @@ public class StrutsParameterLogicImpl
 
     public java.lang.String getValidWhen()
     {
-        return findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_VALIDWHEN).toString();
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_VALIDWHEN);
+        return value==null?null:value.toString();
     }
 
     public Collection getOptionKeys()
@@ -350,7 +355,8 @@ public class StrutsParameterLogicImpl
     {
         if ("radio".equals(getWidgetType()))
         {
-            String fieldType = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE).toString();
+            Object value = findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE);
+            String fieldType = value==null?null:value.toString();
             if (fieldType.length() > Bpm4StrutsProfile.TAGGED_VALUE_INPUT_TYPE_CHECKBOX.length())
             {
                 try

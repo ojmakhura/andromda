@@ -114,9 +114,9 @@ public class EJBEntityFacadeLogicImpl
             if (target instanceof EJBEntityFacade
                 && assoc.getOtherEnd().isNavigable()) {
                 // Check the integrity constraint
-                String generateCmr =
-                    assoc.getOtherEnd().getAssociation().findTaggedValue(
-                      EJBProfile.TAGGEDVALUE_GENERATE_CMR).toString();
+                    Object value = assoc.getOtherEnd().getAssociation().findTaggedValue(
+                            EJBProfile.TAGGEDVALUE_GENERATE_CMR);
+                    String generateCmr = value==null?null:value.toString();
                 if (target.isAbstract()
                     && !"false".equalsIgnoreCase(generateCmr)) {
                     throw new IllegalStateException(
