@@ -37,7 +37,7 @@
         </requestFlow>
 #end
 ## For now only define the static wsdl with wrapped
-#if ($service.style.equalsIgnoreCase("wrapped"))
+#if ($service.wrappedStyle)
         <wsdlFile>${service.wsdlFile}</wsdlFile>
 #end
         <documentation> 
