@@ -147,15 +147,15 @@ public class MetafacadeMappings
             .getMetafacadeClass());
 
         mapping.setMetafacadeMappings(this);
-        
+
         String key = mapping.getKey();
         if (mapping.hasStereotype())
         {
-            // If the mapping has a stereotype we just add it directly to the 
-            // mappings Map of this MetafacadeMappings instance. 
+            // If the mapping has a stereotype we just add it directly to the
+            // mappings Map of this MetafacadeMappings instance.
             this.mappings.put(key, mapping);
         }
-        else 
+        else
         {
             // Otherwise we place each mapping in another Map
             // keyed by context (if it has a context) or keyed by null, (if
@@ -172,7 +172,7 @@ public class MetafacadeMappings
                 mappingMap = new HashMap();
             }
             mappingMap.put(mapping.getContext(), mapping);
-            this.mappings.put(key, mappingMap);   
+            this.mappings.put(key, mappingMap);
         }
     }
 
@@ -259,9 +259,7 @@ public class MetafacadeMappings
             if (object != null && Map.class.isAssignableFrom(object.getClass()))
             {
                 Map mappingMap = (Map)object;
-                mapping = this.getInheritedContextMapping(
-                    mappingMap,
-                    context);
+                mapping = this.getInheritedContextMapping(mappingMap, context);
             }
             else
             {
@@ -284,27 +282,25 @@ public class MetafacadeMappings
 
     /**
      * <p>
-     * Allows us to get the correct inherited context mapping from
-     * the given <code>context</code> contained in the given 
-     * <code>mappings</code>. 
+     * Allows us to get the correct inherited context mapping from the given
+     * <code>context</code> contained in the given <code>mappings</code>.
      * </p>
-     * <p> 
-     * For example: a Spring cartridge may have a <code>SpringEntity</code> which
-     * extends the basic metafacades' <code>EntityFacade</code>.  Within the basic
-     * metafacades descriptor (i.e. <code>andromda-metafacades.xml</code>), 
-     * EntityFacade could be defined as the context for an 
-     * <code>EntityFacadeAttribute</code> mapping. This method allows us to 
-     * discover the fact that the <code>SpringEntity</code> context inherits 
-     * from the <code>EntityFacade</code> context, thereby inheriting any 
-     * properties of the mapping having the <code>EntityFacade</code>
-     * as its context.
+     * <p>
+     * For example: a Spring cartridge may have a <code>SpringEntity</code>
+     * which extends the basic metafacades' <code>EntityFacade</code>. Within
+     * the basic metafacades descriptor (i.e.
+     * <code>andromda-metafacades.xml</code>), EntityFacade could be defined
+     * as the context for an <code>EntityFacadeAttribute</code> mapping. This
+     * method allows us to discover the fact that the <code>SpringEntity</code>
+     * context inherits from the <code>EntityFacade</code> context, thereby
+     * inheriting any properties of the mapping having the
+     * <code>EntityFacade</code> as its context.
      * </p>
-     *  
-     * @param mappings the Map of MetafacadeMapping instances keyed
-     *        by context.
+     * 
+     * @param mappings the Map of MetafacadeMapping instances keyed by context.
      * @param context the <code>context</code> to begin with.
-     * @return The MetafacadeMapping found having the 
-     *         correct <code>context</code>.
+     * @return The MetafacadeMapping found having the correct
+     *         <code>context</code>.
      */
     private MetafacadeMapping getInheritedContextMapping(
         Map mappings,
@@ -314,7 +310,8 @@ public class MetafacadeMappings
         // save the property references from the orginal mapping so that
         // they aren't overridden by super contexts
         Class contextClass = ClassUtils.loadClass(context);
-        List interfaces = new ArrayList(ClassUtils.getAllInterfaces(contextClass));
+        List interfaces = new ArrayList(ClassUtils
+            .getAllInterfaces(contextClass));
         interfaces.add(0, contextClass);
         if (interfaces != null && !interfaces.isEmpty())
         {
