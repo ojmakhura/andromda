@@ -18,14 +18,12 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_ACTION_RESETTABLE = "@andromda.struts.action.resettable";
     public static final String TAGGEDVALUE_ACTION_SUCCES_MESSAGE = "@andromda.struts.action.success.message";
     public static final String TAGGEDVALUE_ACTION_WARNING_MESSAGE = "@andromda.struts.action.warning.message";
-    public static final String TAGGEDVALUE_ACTION_TABINDEX = "@andromda.struts.action.tabindex";
 
     public static final String TAGGEDVALUE_INPUT_REQUIRED = "@andromda.struts.view.field.required";
     public static final String TAGGEDVALUE_INPUT_READONLY = "@andromda.struts.view.field.readonly";
     public static final String TAGGEDVALUE_INPUT_FORMAT = "@andromda.struts.view.field.format";
     public static final String TAGGEDVALUE_INPUT_TYPE = "@andromda.struts.view.field.type";
     public static final String TAGGEDVALUE_INPUT_VALIDWHEN = "@andromda.struts.view.field.validwhen";
-    public static final String TAGGEDVALUE_INPUT_TABINDEX = "@andromda.struts.view.field.tabindex";
     public static final String TAGGEDVALUE_INPUT_CALENDAR = "@andromda.struts.view.field.calendar";
     public static final String TAGGEDVALUE_INPUT_TABLELINK = "@andromda.struts.view.field.tablelink";
     public static final String TAGGEDVALUE_INPUT_RESET = "@andromda.struts.view.field.reset";
@@ -67,6 +65,5 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_HYPERLINK = "hyperlinkModel";
 
     private Bpm4StrutsProfile()
-    {
-    }
+    {}
 }
