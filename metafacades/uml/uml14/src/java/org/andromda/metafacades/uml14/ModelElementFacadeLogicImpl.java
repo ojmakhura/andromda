@@ -1,15 +1,10 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.core.translation.Expression;
-import org.andromda.core.translation.ExpressionTranslator;
+import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
@@ -24,6 +19,10 @@ import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.modelmanagement.Model;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -349,7 +348,7 @@ public class ModelElementFacadeLogicImpl
     protected Object handleGetRootPackage()
     {
         Object rootPackage = null;
-        Collection rootPackages = 
+        Collection rootPackages =
             ((UmlPackage)MetafacadeFactory.getInstance()
                 .getModel().getModel())
                     .getModelManagement().getModel().refAllOfType();
@@ -411,6 +410,40 @@ public class ModelElementFacadeLogicImpl
         return this.metaObject.getConstraint();
     }
 
+    public Collection handleGetConstraints(final String kind)
+    {
+        try
+        {
+            final Collection filteredConstraints = CollectionUtils.select(getConstraints(),
+                new Predicate()
+                {
+                    public boolean evaluate(Object o)
+                    {
+                        if (o instanceof ConstraintFacade)
+                        {
+                            ConstraintFacade constraint = (ConstraintFacade)o;
+                            return (
+                                   (ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression())
+                                || (ExpressionKinds.DEF.equals(kind) && constraint.isDefinition())
+                                || (ExpressionKinds.INV.equals(kind) && constraint.isInvariant())
+                                || (ExpressionKinds.PRE.equals(kind) && constraint.isPreCondition())
+                                || (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()) );
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            return filteredConstraints;
+        }
+        catch (Exception e)
+        {
+            logger.info(e);
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String, java.lang.String)
      */
@@ -431,13 +464,7 @@ public class ModelElementFacadeLogicImpl
 
         if (constraint != null)
         {
-            Expression translatedConstraint =
-                ExpressionTranslator.instance().translate(
-                    translation,
-                    this.shieldedElement(this.metaObject),
-                    constraint.getBody());
-            translatedExpression =
-                translatedConstraint.getTranslatedExpression();
+            translatedExpression = constraint.getTranslation(translation);
         }
         return translatedExpression;
     }
@@ -466,13 +493,7 @@ public class ModelElementFacadeLogicImpl
             for (int ctr = 0; constraintIt.hasNext(); ctr++) {
                 ConstraintFacade constraint =
                     (ConstraintFacade)constraintIt.next();
-                Expression translatedConstraint =
-                   ExpressionTranslator.instance().translate(
-                       translation,
-                       this.shieldedElement(this.metaObject),
-                       constraint.getBody());
-                translatedExpressions[ctr] =
-                   translatedConstraint.getTranslatedExpression();
+                translatedExpressions[ctr] = constraint.getTranslation(translation);
             }
         }
         return translatedExpressions;
@@ -494,22 +515,22 @@ public class ModelElementFacadeLogicImpl
                 }
             });
         return this.translateConstraints(constraints, translation);
-     }     
-     
+     }
+
      /**
       * @see java.lang.Object#toString()
       */
-     public String toString() 
+     public String toString()
      {
-         StringBuffer toString = 
+         StringBuffer toString =
              new StringBuffer(this.getClass().getName());
          String name = this.getFullyQualifiedName(true);
-         if (StringUtils.isNotEmpty(name)) 
+         if (StringUtils.isNotEmpty(name))
          {
              toString.append("[");
              toString.append(name);
              toString.append("]");
-         }    
+         }
          return toString.toString();
      }
 }
