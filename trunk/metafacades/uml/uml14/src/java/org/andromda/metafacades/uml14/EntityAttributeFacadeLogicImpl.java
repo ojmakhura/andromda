@@ -82,8 +82,11 @@ public class EntityAttributeFacadeLogicImpl
             ClassifierFacade type = this.getType();
             if (type != null)
             {
-                String typeName = type.getFullyQualifiedName(true);
-                String columnLength = this.getColumnLength();
+                // wouter: yeah I know, Chad is going to support enums of all types
+                // so a proper implementation will probably come with that improvement
+                String typeName = (type.isEnumeration())
+                        ? UMLProfile.STRING_TYPE_NAME
+                        : type.getFullyQualifiedName(true);
                 value = this.getSqlMappings().getTo(typeName);
                 if (StringUtils.isBlank(value))
                 {
@@ -94,6 +97,7 @@ public class EntityAttributeFacadeLogicImpl
                             + this.getSqlMappings().getResource()
                             + "' accordingly");
                 }
+                String columnLength = this.getColumnLength();
                 if (StringUtils.isNotEmpty(columnLength))
                 {
                     char beginChar = '(';
