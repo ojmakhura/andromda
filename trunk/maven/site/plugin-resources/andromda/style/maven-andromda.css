@@ -28,6 +28,16 @@ body
     right: 20px;
 }
 
+#banner #printerFriendly
+{
+    position: absolute;
+    top: 34px;
+    right: 28px;
+    width: 30px;
+    height: 30px;
+    background: url(images/printer.gif) no-repeat;
+}
+
 #organizationLogo, #projectLogo
 {
     display: none;

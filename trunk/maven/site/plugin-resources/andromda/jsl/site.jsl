@@ -58,21 +58,11 @@
                 <j:set var="themeUrl" value="${maven.xdoc.theme.url}"/>
                 <util:file var="projectCssFile" name="${maven.docs.src}/style/project.css"/>
 
-                <style type="text/css" media="all"><![CDATA[
-          @import url("${relativePath}/style/maven-base.css");
-                  ]]>
-                    <j:if test="${!empty(themeUrl)}"><![CDATA[
-				    @import url("${maven.xdoc.theme.url}");
-                    ]]></j:if>
-                    <j:if test="${empty(themeUrl)}"><![CDATA[
-				    @import url("${relativePath}/style/maven-${maven.xdoc.theme}.css");
-                    ]]></j:if>
-                    <j:if test="${projectCssFile.exists()}"><![CDATA[
-				    @import url("${relativePath}/style/project.css");
-                    ]]></j:if>
-                </style>
+                <script type="text/javascript" src="${relativePath}/style/styleswitcher.js"></script>
+                <link rel="stylesheet" type="text/css" href="${relativePath}/style/maven-base.css" media="all"/>
+                <link title="default" rel="stylesheet" type="text/css" href="${relativePath}/style/maven-andromda.css" media="screen"/>
+                <link title="printer" rel="stylesheet" type="text/css" href="${relativePath}/style/printer.css" media="all"/>
 
-                <link rel="stylesheet" type="text/css" href="${relativePath}/style/print.css" media="print"/>
                 <meta http-equiv="Content-Type" content="text/html; charset=${outputencoding}"/>
                 <meta name="Description" content="AndroMDA is an open source code generation framework that follows the Model Driven Architecture (MDA) paradigm."></meta>
                 <meta name="keywords" content="MDA, Model Driven Architecture, cartridge, cartridges, PIM, PSM, Platform Independent Model, Platform Specific Model, Project Generator, J2EE, Java, OCL, UML, XMI, JMI, MagicDraw, Poseidon, Free, Open-Source, open source, open, source, sourceforge, sourceforge.net, schema2xmi, Schema2XMI, Translation Library, MDR, metadata, repository, templates, templating, template engine, velocity, maven, ant, animal quiz, online store, Matthias Bohlen, Chad Brandon, Wouter Zoons, Carlos Cuenca, Martin West, application server, jboss"></meta>
@@ -89,6 +79,7 @@
             <x:element name="body">
                 <j:whitespace trim="true">
                     <x:attribute name="class">composite</x:attribute>
+                    <x:attribute name="onload">if (location.search.indexOf('css=printer')>-1) setActiveStyleSheet('printer');</x:attribute>
                     <x:forEach var="attr" select="$doc/document/body/@*">
                         <x:attribute name="${attr.name}">${attr.value}</x:attribute>
                     </x:forEach>
@@ -107,6 +98,10 @@
                             <a id="serverLink" href="${snapshot.docs.link.url}" title="Documentation for nightly builds (updated daily)">Nightly Build Site</a>
                         </j:otherwise>
                     </j:choose>
+
+                    <a href="?css=printer" target="_blank" title="Printer-friendly page">
+                        <div id="printerFriendly"> </div>
+                    </a>
 
                     <!-- organization logo -->
                     <j:set var="logo" value="${pom.organization.logo}"/>
