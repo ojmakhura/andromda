@@ -1,0 +1,10 @@
+<project>
+  		 
+    <!-- Override plugin:deploy so it implements the 
+         muliproject:deploy interface -->
+    <goal name="plugin:deploy">
+        <attainGoal name="plugin:repository-deploy"/>
+    </goal>
+
+</project>
+ 
