@@ -95,7 +95,7 @@
 #if ($variable.table)
 #set ($sortable = $variable.tableSortable)
 #set ($exportable = $variable.tableExportable)
-        <display:table name="sessionScope.${formBeanName}.${variable.name}"
+        <display:table name="sessionScope.${formBeanName}.${variable.name}" id="row"
                        requestURI="<%=request.getRequestURL().toString()%>" 
                        export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
