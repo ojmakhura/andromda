@@ -95,7 +95,7 @@ package $packagename;
  *     type="CMP" cmp-version="2.x"
  *     view-type="local"
  *     local-jndi-name = "ejb/${transform.replace($transform.findFullyQualifiedName($class),'.','/')}/Local"
-#if (!$transform.hasCompleyPrimaryKey($class))
+#if (!$transform.hasComplexPrimaryKey($class))
  *     primkey-field = "$transform.getSimplePkField($class).name"
 #end
  *
