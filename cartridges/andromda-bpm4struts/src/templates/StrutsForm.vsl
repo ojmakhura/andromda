@@ -6,41 +6,6 @@
 #set ($actionParameters = $action.actionParameters)
 #set ($formBeanClassName = $action.formBeanClassName)
 ##
-##  MACROS
-##
-#macro (renderValidation $field)
-#if ($actionParameters.contains($field))
-#set ($validatorTypes = $field.validatorTypes)
-#if (!$validatorTypes.empty)
-    /**
-#foreach ($validatorType in $validatorTypes)
-     * @struts.validator
-     *          type="$validatorType"
-#foreach ($validatorArg in $field.getValidatorArgs($validatorType))
-     *     arg${velocityCount}value="$validatorArg"
-#end
-     *
-#end
-#foreach ($validatorVar in $field.validatorVars)
-     * @struts.validator-var
-     *          name="$validatorVar.get(0)"
-     *         value="$validatorVar.get(1)"
-     *
-#end
-#if ($field.validWhen)
-     * @struts.validator-var
-     *          name="test"
-     *         value="$field.validWhen"
-     *
-#end
-     * @struts.validator-args
-     *  arg0resource="$field.validatorMsgKey"
-     *
-     */
-#end
-#end
-#end
-##
 ##  START TEMPLATE
 ##
 package $action.formBeanPackageName;
@@ -90,12 +55,14 @@ public class $formBeanClassName
 #set ($fieldType = $field.type.fullyQualifiedName)
 #set ($fieldName = $field.name)
 #if ($field.type.collectionType)
-#renderValidation($field)
     public void ${field.setterName}($fieldType $fieldName)
     {
         this.$fieldName = $fieldName;
     }
 
+    /**
+$field.getDocumentation("     * ")
+     */
     public $fieldType ${field.getterName}()
     {
         return this.${fieldName};
@@ -106,6 +73,12 @@ public class $formBeanClassName
         this.$fieldName = ($fieldName == null) ? null : java.util.Arrays.asList($fieldName);
     }
 
+    /**
+     * Returns this collection as an array, if the collection itself would be <code>null</code> this method
+     * will also return <code>null</code>.
+     *
+     * @see ${action.formBeanType}#${field.getterName}
+     */
     public Object[] ${field.getterName}AsArray()
     {
         return ($fieldName == null) ? null : ${fieldName}.toArray();
@@ -116,12 +89,17 @@ public class $formBeanClassName
         this.$fieldName = $fieldName;
     }
 
+    /**
+     * Returns the Date instance representing the <code>$field.name</code> field.
+     *
+     * @see ${action.formBeanType}#${field.getterName}
+     * @see ${action.formBeanType}#${field.getterName}DateFormatter
+     */
     public $fieldType ${field.getterName}AsDate()
     {
         return this.$fieldName;
     }
 
-#renderValidation($field)
     public void ${field.setterName}(java.lang.String ${fieldName})
     {
         if (${fieldName} == null || ${fieldName}.trim().length()==0)
@@ -146,22 +124,43 @@ public class $formBeanClassName
         }
     }
 
+    /**
+$field.getDocumentation("     * ")
+     *
+     * This method returns a <code>java.lang.String</code> instance, in order to get the
+     * <code>java.util.Date</code> instance see the <code>${field.getterName}AsDate()</code>
+     * method.
+     * <p>
+     * The conversion from Date to String (and vice-versa) is done by means of a date formatter, which
+     * can be accessed here: <code>${field.getterName}DateFormatter()</code>.
+     *
+     * @see ${action.formBeanType}#${field.getterName}AsDate
+     * @see ${action.formBeanType}#${field.getterName}DateFormatter
+     */
     public java.lang.String ${field.getterName}()
     {
         return (${fieldName} == null) ? null : ${fieldName}DateFormatter.format($fieldName);
     }
 
+    /**
+     * Returns the date formatter used for the <code>$field.name</code> property.
+     *
+     * @see ${action.formBeanType}#${field.getterName}
+     * @see ${action.formBeanType}#${field.getterName}AsDate
+     */
     public final static java.text.DateFormat ${field.getterName}DateFormatter()
     {
         return ${formBeanClassName}.${fieldName}DateFormatter;
     }
 #else
-#renderValidation($field)
     public void ${field.setterName}($fieldType $fieldName)
     {
         this.$fieldName = $fieldName;
     }
 
+    /**
+$field.getDocumentation("     * ")
+     */
     public $fieldType ${field.getterName}()
     {
         return this.$fieldName;
@@ -225,6 +224,9 @@ public class $formBeanClassName
 
 #end
 #end
+    /**
+     * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
+     */
     public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     {
 #foreach ($field in $fields)
@@ -236,6 +238,10 @@ public class $formBeanClassName
 
 #if ($fields.empty == false)
 #set ($separator = '')
+    /**
+     * Returns a String instance representing the contents of this form, nested collections will also
+     * have their elements printed (one level).
+     */
     public String toString()
     {
         final StringBuffer buffer = new StringBuffer().append("[");
@@ -256,6 +262,9 @@ public class $formBeanClassName
 #end
 
 #if ($collectionPresent)
+    /**
+     * Helper method to convert a collection to a String.
+     */
     private final static String toString(java.util.Collection objects)
     {
         return (objects==null) ? null : toString(objects.toArray());
@@ -263,6 +272,9 @@ public class $formBeanClassName
 
 #end
 #if ($arrayPresent || $collectionPresent)
+    /**
+     * Helper method to convert an array to a String.
+     */
     private final static String toString(Object[] objects)
     {
         if (objects == null)
@@ -281,6 +293,10 @@ public class $formBeanClassName
     }
 #end
 
+    /**
+     * Allows you to clean all values from this form. Objects will be set to <code>null</code>, numeric values will be
+     * set to zero and boolean values will be set to <code>false</code>.
+     */
     public void clean()
     {
 #foreach ($field in $fields)
