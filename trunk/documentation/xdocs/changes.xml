@@ -14,7 +14,9 @@
                 value objects but instead uses the ones generated from the java cartridge, it's just required
                 to set the <a href="andromda-metafacades-uml/namespace.html#useArraysForMultiplicitiesOfTypeMany">useArraysForMultiplicitiesOfTypeMany</a>
                 namespace property to true (so that arrays are generated for association ends with multiplicities
-                of type many).
+                of type many) and make sure you have the 
+                <a href="andromda-java-cartridge/namespace.html#value-objects">value-objects</a> namespace property defined
+                for the java cartridge.
             </action>
             <action dev="draftdog" type="fix" issue="HIB-82">
                 Many-to-many relationships, where only a single table is involved, are not causing the Hibernate
