@@ -8,6 +8,9 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 #foreach ( $dep in $class.dependencies )
 #set ($targetType = $dep.targetElement)
 #if ($targetType)
@@ -29,26 +32,32 @@ import ${targetType.fullyQualifiedName}Home;
 /**
 $class.getDocumentation(" * ")
  *
- * @ejb.bean name="$class.name"
+ * @ejb.bean 
+ *        name="$class.name"
 #if ($stateful)
- *       type="Stateful"
+ *        type="Stateful"
 #else
- *       type="Stateless"
+ *        type="Stateless"
 #end
- *       local-jndi-name="${class.packageName}/${class.name}/LocalHome"
- *       jndi-name="${class.packageName}/${class.name}/Home"
- *       view-type="both"
- * @ejb.interface generate="local,remote"
+ *        jndi-name="ejb/${class.fullyQualifiedName}"
+ *        local-jndi-name="ejb/${class.fullyQualifiedName}/Local"
+ *        view-type="both"
+ * @ejb.interface 
+ *        generate="local,remote"
  *        remote-class="${class.packageName}.${class.name}"
  *        local-class="${class.packageName}.${class.name}Local"
- * @ejb.home generate="local, remote"
+ * @ejb.home 
+ *        generate="local,remote"
  *        remote-class="${class.packageName}.${class.name}Home"
  *        local-class="${class.packageName}.${class.name}LocalHome"
  * @ejb.util generate="physical"
 #foreach ( $dep in $class.dependencies )
 #if ($dep.hasStereotype("ServiceRef"))
  #set ($targetType = $dep.targetElement)
- * @ejb.ejb-ref ejb-name="${targetType.name}" view-type="${targetType.viewType}" ref-name="ejb/${targetType.name}BeanRef"
+ * @ejb.ejb-ref 
+ *        ejb-name="${targetType.name}" 
+ *        view-type="${targetType.viewType}" 
+ *        ref-name="ejb/${targetType.name}BeanRef"
 #end
 #end
 #foreach ( $tgv in $class.taggedValues )
@@ -61,9 +70,10 @@ $class.getDocumentation(" * ")
  * $tag    $tgv.value
 #end
 #end
- *
  */
 public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
+
+    private static final Log logger = LogFactory.getLog(${class.name}.class);
 
 #if ($stateful)
     // --------------- attributes ---------------------
@@ -156,13 +166,9 @@ $op.getDocumentation("     * ")
            throw e;
         }
 #end
-        catch (HibernateException he)
+        catch (Throwable th)
         {
-            throw new EJBException("${class.name}Bean.${op.name}: " + he.getMessage());
-        }
-        catch (NamingException ne)
-        {
-            throw new EJBException("${class.name}Bean.${op.name}: " + ne.getMessage());
+            throw new EJBException("${class.name}Bean.${op.name}: " + th.toString());
         }
         finally
         {
