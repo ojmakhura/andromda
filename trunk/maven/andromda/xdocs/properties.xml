@@ -170,6 +170,21 @@
                             Specifies whether or not AndroMDA should fail on model validation errors.
                             Default is <code>false</code>.
                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           maven.andromda.currentPlugin 
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                        <td>
+                            Specifies the current plugin which this plugin is running within.  You'll
+                            need to specify this property if you want to be able to define namespace
+                            properties when calling this plugin from within another plugin. (i.e. you'd
+                            specify this within the containing plugin:
+                            <em><![CDATA[<j:set var="maven.andromda.currentPlugin" value="${plugin}"/>]]>)</em>.
+                        </td>
                     </tr> 		        	   	    	        		        	        	        	     	             	        	
 				</table>
 	        </subsection>
