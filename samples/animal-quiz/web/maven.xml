@@ -9,25 +9,31 @@
   		
   		<j:set var="webInfDir" value="${maven.war.webapp.dir}/WEB-INF"/>
   		
-        <taskdef name="webdoclet" 
+        <ant:taskdef name="webdoclet"
 				 classname="xdoclet.modules.web.WebDocletTask" 
 				 classpathref="maven.dependency.classpath"/>
 				 
-        <webdoclet destdir="${webInfDir}" 
-        	       force="true" 
-        	       verbose="true" 
+        <ant:webdoclet destdir="${webInfDir}"
+        	       force="true" verbose="true" 
         	       mergedir="${maven.build.src}/merge">
-            <fileset dir="${maven.build.src}">
-                <include name="**/*.java"/>
-            </fileset>
-            <strutsconfigxml version="1.1"/>
-            <strutsvalidationxml/>
-            <deploymentdescriptor 
+            <ant:fileset dir="${maven.build.src}">
+                <ant:include name="**/*.java"/>
+            </ant:fileset>
+            <ant:strutsconfigxml version="1.1"/>
+            <ant:strutsvalidationxml/>
+            <ant:deploymentdescriptor
             	distributable="false" 
             	servletspec="2.3"/>
             <jbosswebxml securitydomain="java:/jaas/other"/>
-        </webdoclet>  
-  		  		
+        </ant:webdoclet>
+
+        <!-- xdoclet generates an invalid validator.xml files if the
+             validator plugin is not used by the application,
+             more specifically it contains an empty formset element
+             which is invalid according to the DTD.  -->
+        <ant:replace file="${webInfDir}/validation.xml" token="&lt;formset&gt;" value=""/>
+        <ant:replace file="${webInfDir}/validation.xml" token="&lt;/formset&gt;" value=""/>
+
   		<!-- add the paths of the generated source to the
   		     maven compile path -->
 	 	<ant:path
@@ -68,7 +74,8 @@
   	<postGoal name="war:webapp">
 		<ant:copy todir="${maven.war.webapp.dir}">
 			<ant:fileset dir="${maven.build.src}">
-				<ant:include name="**/*.jsp"/>
+                <ant:include name="**/*.js"/>
+                <ant:include name="**/*.jsp"/>
 				<ant:include name="**/*.css"/>
                 <ant:include name="WEB-INF/*.xml"/>
 			</ant:fileset>
