@@ -10,17 +10,21 @@ import org.andromda.core.translation.TranslatorException;
  * Any exception thrown by the ${translatorShortName}
  * will be an instance of this class.
  */
-public class ${translatorExceptionShortName} extends TranslatorException {
-
-	public ${translatorExceptionShortName}(Throwable th){
+public class ${translatorExceptionShortName} 
+    extends TranslatorException 
+{
+	public ${translatorExceptionShortName}(Throwable th)
+    {
 		super(th);
 	}
 	
-	public ${translatorExceptionShortName}(String msg) {
+	public ${translatorExceptionShortName}(String msg) 
+    {
 		super(msg);	
 	}
 	
-	public ${translatorExceptionShortName}(String msg, Throwable th) {
+	public ${translatorExceptionShortName}(String msg, Throwable th) 
+    {
 		super(msg, th);	
 	}   
 }	
