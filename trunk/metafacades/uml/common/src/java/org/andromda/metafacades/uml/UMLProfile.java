@@ -206,19 +206,25 @@ public class UMLProfile
 
     /**
      * Used to indentify a boolean type in the model, any other type that will
-     * be identified as a booleon type must specialize this type.
+     * be identified as a boolean type must specialize this type.
      */
     public static final String BOOLEAN_TYPE_NAME = profile.get("BOOLEAN_TYPE");
 
     /**
-     * Used to indentify a boolean type in the model, any other type that will
-     * be identified as a booleon type must specialize this type.
+     * Used to indentify a file type in the model, any other type that will
+     * be identified as a file type must specialize this type.
      */
     public static final String FILE_TYPE_NAME = profile.get("FILE_TYPE");
 
     /**
-     * Used to indentify a boolean type in the model, any other type that will
-     * be identified as a booleon type must specialize this type.
+     * Used to indentify a map type in the model, any other type that will
+     * be identified as a map type must specialize this type.
      */
     public static final String MAP_TYPE_NAME = profile.get("MAP_TYPE");
+    
+    /**
+     * Used to indentify a string type in the model, any other type that will
+     * be identified as a string type must specialize this type.
+     */
+    public static final String STRING_TYPE_NAME = profile.get("STRING_TYPE");
 }

@@ -688,7 +688,7 @@ public class MockClassifierFacade
     /*
      * (non-Javadoc)
      * 
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#getValidationOwner()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getValidationOwner()
      */
     public Object getValidationOwner()
     {
@@ -699,7 +699,7 @@ public class MockClassifierFacade
     /*
      * (non-Javadoc)
      * 
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#getValidationName()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getValidationName()
      */
     public String getValidationName()
     {
@@ -710,7 +710,7 @@ public class MockClassifierFacade
     /*
      * (non-Javadoc)
      * 
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#getInstanceOperations()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceOperations()
      */
     public Collection getInstanceOperations()
     {
@@ -720,7 +720,7 @@ public class MockClassifierFacade
     /*
      * (non-Javadoc)
      * 
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#getStaticOperations()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getStaticOperations()
      */
     public Collection getStaticOperations()
     {
@@ -730,9 +730,19 @@ public class MockClassifierFacade
     /*
      * (non-Javadoc)
      * 
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#isMapType()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isMapType()
      */
     public boolean isMapType()
+    {
+        return false;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isStringType()
+     */
+    public boolean isStringType()
     {
         return false;
     }
