@@ -114,6 +114,9 @@
                         <em>My_Car</em>.
                     </td>
                     <td>
+                        EntityFacade
+                    </td>
+                    <td>
                         No
                     </td>
                 </tr>
@@ -235,6 +238,9 @@
                         and <strong>none</strong>.                        
                     </td>
                     <td>
+                        RoleFacade
+                    </td>
+                    <td>
                         No, the default is <code>none</code>.
                     </td>
                 </tr>     
@@ -243,7 +249,12 @@
                         namespaceSeperator
                     </td>
                     <td>
-                        
+                        Used to seperate namespaces within the generated code.  For example
+                        setting this to '/' causes fully qualified names to be defined as
+                        <em>some.package.name.SomeClass</em>.
+                    </td>
+                    <td>
+                        All elements that construct namespace names.
                     </td>
                     <td>
                         No, the default is <code>'.'</code>.
@@ -256,6 +267,10 @@
                     <td>
                         When a model element name is unspecified this is
                         the name used (instead of null).
+                    </td>
+                    <td>
+                        Configures undefined model element names in model validation
+                        messages.
                     </td>
                     <td>
                         No, the default is <code>undefined</code>.
