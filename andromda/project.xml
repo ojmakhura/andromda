@@ -4,8 +4,9 @@
     <artifactId>andromda-core</artifactId>
     <package>org.andromda.core</package>
     <description>
-		The Core refers to the "engine" of the framework.  The core takes care making all
-		the components of AndroMDA work together.
+		The Core refers to the "engine" of the framework.  The core takes care of making all
+		the components of AndroMDA work together.  This includes plugin discovery (i.e. cartridges,
+		translation-libraries), manufacturing of metafacades, etc.
     </description>
     <shortDescription>The Framework Core</shortDescription>
     <issueTrackingUrl>http://team.andromda.org:8080/jira/BrowseProject.jspa?id=10003&amp;decorator=none</issueTrackingUrl>
