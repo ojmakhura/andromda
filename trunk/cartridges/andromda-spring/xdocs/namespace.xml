@@ -539,6 +539,25 @@
                     <td>
                         No, default is <code>false</code>.
                     </td>
+                </tr>
+                <tr>
+                    <td>
+                        hibernateHbm2DDLAuto
+                    </td>
+                    <td>
+                        Automatically export schema DDL to the database when the SessionFactory 
+                        is created. With create-drop, the database schema will be dropped when 
+                        the SessionFactory is closed explicitely. Permitted values are: 
+                        update | create |  
+                        <ol>
+                            <li>update</li>
+                            <li>create</li>
+                            <li>create-drop</li>
+                        </ol>                        
+                    </td>
+                    <td>
+                        No
+                    </td>
                 </tr>      	
                 </table>
             </subsection>
