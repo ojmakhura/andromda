@@ -95,6 +95,16 @@
             </modelElement> 
 		</modelElements>
 	</template>
+    
+ 	<template 
+		path="templates/spring/SpringWebServiceDelegator.vsl" 
+		outputPattern="$generatedFile" 
+		outlet="services" 
+		overwrite="true">
+		<modelElements variable="service">
+            <modelElement stereotype="WebService"/>
+		</modelElements>
+	</template>
 	
 	<template 
 		path="templates/spring/SpringServiceBase.vsl" 
@@ -242,7 +252,7 @@
 		path="templates/spring/ejb/SpringSessionHome.vsl" 
 		outputPattern="$generatedFile" 
 		outlet="session-ejbs" 
-		overwrite="true"
+		overwrite="false"
 		required="false">
 		<modelElements variable="service">
             <modelElement>
@@ -272,6 +282,7 @@
 		outputPattern="META-INF/ejb-jar.xml" 
 		outlet="session-ejbs" 
 		overwrite="true"
+        required="false"
 		outputToSingleFile="true">
 		<modelElements variable="services">
            <modelElement>
@@ -285,6 +296,7 @@
 		outputPattern="META-INF/jboss.xml" 
 		outlet="session-ejbs" 
 		overwrite="true"
+        required="false"
 		outputToSingleFile="true">
 		<modelElements variable="services">
            <modelElement>

@@ -41,4 +41,9 @@ class SpringGlobals
      * The bean name target suffix
      */
     final static String BEAN_NAME_TARGET_SUFFIX = "Target";
+    
+    /**
+     * The service web service delegator.
+     */
+    final static String WEB_SERVICE_DELEGATOR_SUFFIX = "WSDelegator";
 }
