@@ -594,33 +594,29 @@ public class StrutsParameterLogicImpl
 
     protected String handleGetTableExportTypes()
     {
-        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT);
-        if (taggedValue == null)
+        String exportTypes = null;
+
+        Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT);
+        if (taggedValues.isEmpty())
         {
-            return "all";
+            exportTypes = "xml csv excel";
         }
-        final String formats = String.valueOf(taggedValue).toLowerCase();
-        byte types = 0x00;
+        else
+        {
+            StringBuffer buffer = new StringBuffer();
+            for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            {
+                String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                if (exportType != null)
+                {
+                    buffer.append(exportType);
+                    buffer.append(' ');
+                }
+            }
+            exportTypes = buffer.toString().trim();
+        }
 
-        final byte XML = 0x01;
-        final byte CSV = 0x02;
-        final byte HTML = 0x04;
-        final byte EXCEL = 0x08;
-
-        if (formats.indexOf("xml") > -1) types |= XML;
-        if (formats.indexOf("csv") > -1) types |= CSV;
-        if (formats.indexOf("html") > -1) types |= HTML;
-        if (formats.indexOf("excel") > -1) types |= EXCEL;
-
-        if (types == 0x0F) return "all";
-
-        final StringBuffer buffer = new StringBuffer();
-        if (XML == (types & XML)) buffer.append(" xml");
-        if (CSV == (types & CSV)) buffer.append(" csv");
-        if (HTML == (types & HTML)) buffer.append(" html");
-        if (EXCEL == (types & EXCEL)) buffer.append(" excel");
-
-        return buffer.toString().trim();
+        return exportTypes;
     }
 
     protected boolean handleIsTableExportable()
