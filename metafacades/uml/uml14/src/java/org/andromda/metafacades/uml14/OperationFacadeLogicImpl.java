@@ -229,7 +229,7 @@ public class OperationFacadeLogicImpl
     {
         return metaObject.isAbstract();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isQuery()
      */
@@ -259,20 +259,24 @@ public class OperationFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                DependencyFacade dependency = (DependencyFacade)object;
-                // first check for exception references
-                boolean hasException = dependency
-                    .hasStereotype(UMLProfile.STEREOTYPE_EXCEPTION_REF);
-
-                // if there wasn't any exception reference
-                // now check for actual exceptions
-                if (!hasException)
+                boolean hasException = object instanceof DependencyFacade;
+                if (hasException)
                 {
-                    ModelElementFacade targetElement = dependency
-                        .getTargetElement();
-                    hasException = targetElement != null
-                        && targetElement
-                            .hasStereotype(UMLProfile.STEREOTYPE_EXCEPTION);
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    // first check for exception references
+                    hasException = dependency
+                        .hasStereotype(UMLProfile.STEREOTYPE_EXCEPTION_REF);
+
+                    // if there wasn't any exception reference
+                    // now check for actual exceptions
+                    if (!hasException)
+                    {
+                        ModelElementFacade targetElement = dependency
+                            .getTargetElement();
+                        hasException = targetElement != null
+                            && targetElement
+                                .hasStereotype(UMLProfile.STEREOTYPE_EXCEPTION);
+                    }
                 }
                 return hasException;
             }
