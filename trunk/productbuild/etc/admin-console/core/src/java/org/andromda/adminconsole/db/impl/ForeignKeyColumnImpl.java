@@ -39,9 +39,10 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
 
     public ForeignValue getForeignValue(String columnName, Object value) throws SQLException
     {
+        // no need to query the DB when given the ID you just want to have the ID back
         if (columnName == null)
         {
-            columnName = getImportedColumnName();
+            return new ForeignValue(value,value);
         }
 
         StringBuffer queryBuffer = new StringBuffer();
@@ -80,7 +81,7 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
         queryBuffer.append(" FROM ");
         queryBuffer.append(getImportedTableName());
 
-        return doSelect(queryBuffer.toString(), -1);
+        return doSelect(queryBuffer.toString(), 0);
     }
 
     /**
@@ -93,29 +94,27 @@ public class ForeignKeyColumnImpl extends ColumnImpl implements ForeignKeyColumn
         Connection connection = getMetaData().getConnection();
 
         List values = new ArrayList();
-        int counter = 0;
-        boolean unbounded = (maxReturnCount > 0);
 
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try
         {
             statement = connection.prepareStatement(query);
+            statement.setMaxRows(maxReturnCount);
             resultSet = statement.executeQuery();
 
-            while (resultSet.next() && (unbounded || counter<maxReturnCount))
+            while (resultSet.next())
             {
-                Object primaryKey = resultSet.getObject(0);
-                Object columnValue = resultSet.getObject(1);
+                Object primaryKey = resultSet.getObject(1);
+                Object columnValue = resultSet.getObject(2);
                 values.add(new ForeignValue(primaryKey, columnValue));
-                counter++;
             }
         }
         finally
         {
             close(statement);
             close(resultSet);
-            close(connection);
+            // close(connection);
         }
 
         return values;
