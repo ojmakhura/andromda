@@ -120,9 +120,12 @@ $operation.getDocumentation("     * ")
 #end
     /**
      * Stores a warning message in the request, if any other warning messages exist, this one
-     * is simply be added.
+     * is simply added.
+     *
+     * @param request the request to which the messages will be saved/retrieved.
+     * @arguments any arguments used within the message
      */
-    protected final void saveWarningMessage(HttpServletRequest request, String message)
+    protected final void saveWarningMessage(HttpServletRequest request, String message, String[] arguments)
     {
         ActionMessages messages = (ActionMessages)request.getAttribute("$warningMessagesKey");
         if (messages == null)
@@ -130,14 +133,28 @@ $operation.getDocumentation("     * ")
             messages = new ActionMessages();
             request.setAttribute("$warningMessagesKey", messages);
         }
-        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
+        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
+    }
+    
+    /**
+     * Stores a warning message in the request, if any other warning messages exist, this one
+     * is simply added.
+     *
+     * @param request the request to which the messages will be saved/retrieved.
+     */
+    protected final void saveWarningMessage(HttpServletRequest request, String message)
+    {
+        this.saveWarningMessage(request, message, null);
     }
 
     /**
      * Stores a success message in the request, if any other success messages exist, this one
-     * is simply be added.
+     * is simply added.
+     *
+     * @param request the request to which the messages will be saved/retrieved.
+     * @arguments any arguments used within the message
      */
-    protected final void saveSuccessMessage(HttpServletRequest request, String message)
+    protected final void saveSuccessMessage(HttpServletRequest request, String message, String[] arguments)
     {
         ActionMessages messages = (ActionMessages)request.getAttribute("$successMessagesKey");
         if (messages == null)
@@ -145,14 +162,28 @@ $operation.getDocumentation("     * ")
             messages = new ActionMessages();
             request.setAttribute("$successMessagesKey", messages);
         }
-        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
+        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
+    }
+    
+    /**
+     * Stores a success message in the request, if any other success messages exist, this one
+     * is simply added.
+     *
+     * @param request the request to which the messages will be saved/retrieved.
+     */
+    protected final void saveSuccessMessage(HttpServletRequest request, String message)
+    {
+        this.saveSuccessMessage(request, message, null);
     }
     
     /**
      * Stores a error message in the request, if any other error messages exist, this one
-     * is simply be added.
+     * is simply added.
+     *
+     * @param request the request to which the messages will be saved/retrieved.
+     * @arguments any arguments used within the message
      */
-    protected final void saveErrorMessage(HttpServletRequest request, String message)
+    protected final void saveErrorMessage(HttpServletRequest request, String message, String[] arguments)
     {
         ActionMessages messages = (ActionMessages)request.getAttribute("$errorMessagesKey");
         if (messages == null)
@@ -160,7 +191,18 @@ $operation.getDocumentation("     * ")
             messages = new ActionMessages();
             request.setAttribute("$errorMessagesKey", messages);
         }
-        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
+        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
+    }
+    
+    /**
+     * Stores a error message in the request, if any other error messages exist, this one
+     * is simply added.
+     *
+     * @param request the request to which the messages will be saved/retrieved.
+     */
+    protected final void saveErrorMessage(HttpServletRequest request, String message)
+    {
+        this.saveErrorMessage(request, message, null);
     }
 
 #foreach ($serviceRef in $controller.serviceReferences)
