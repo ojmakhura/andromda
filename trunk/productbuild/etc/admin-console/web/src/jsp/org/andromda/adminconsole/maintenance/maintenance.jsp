@@ -40,17 +40,17 @@
                         <tiles:insert page="/org/andromda/adminconsole/maintenance/maintenance-insert.jsp" flush="false"/>
                     </td>
                 </c:if>
-                <td id="importedTables">
+                <td id="importingTables">
                     <c:if test="${currentTable.importingTablesCount > 0}">
                         <bean:message key="this.table.is.referenced.from" bundle="custom"/>
                         <ul>
-                            <c:forEach var="foreignTable" items="${currentTable.importingTables}">
-                                <c:if test="${currentTable.name != foreignTable.name}"> <%-- don't render link to yourself --%>
-                                    <c:if test="${acf:contains(metaDataSession.tableNames,foreignTable.name)}"> <%-- only render allowed tables --%>
+                            <c:forEach var="foreignTableName" items="${currentTable.importingTableNames}">
+                                <c:if test="${currentTable.name != foreignTableName}"> <%-- don't render link to yourself --%>
+                                    <c:if test="${acf:contains(metaDataSession.tableNames,foreignTableName)}"> <%-- only render allowed tables --%>
                                         <li>
                                             <html:link action="/Maintenance/MaintenanceChangeTable" styleClass="foreignTableLink"
-                                                paramId="name" paramName="foreignTable" paramProperty="name" paramScope="page">
-                                                ${foreignTable.name}
+                                                paramId="name" paramName="foreignTableName" paramScope="page">
+                                                ${foreignTableName}
                                             </html:link>
                                         </li>
                                     </c:if>
