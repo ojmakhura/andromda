@@ -10,7 +10,7 @@
                 <table>
                     <tr>
                         <th>Property</th>
-                        <th>Optional?</th>
+                        <th>Required</th>
                         <th>Description</th>
                     </tr>
                     <tr>
@@ -18,7 +18,7 @@
                             maven.andromda.model.uri
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             <p>
@@ -35,7 +35,7 @@
                             maven.andromda.model.uri.<em>n</em>
                         </td>
                         <td>
-                            Yes, unless <code>maven.andromda.model.uri</code> is <strong>NOT</strong> defined.
+                            Only if <code>maven.andromda.model.uri</code> is defined.
                         </td>
                         <td>
                             <p>
@@ -53,7 +53,7 @@
                             maven.andromda.src.dir
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             <p>
@@ -67,7 +67,7 @@
                             maven.andromda.src.includes
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             <p>
@@ -81,7 +81,7 @@
                             maven.andromda.src.lastModifiedCheck
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             <p>
@@ -96,7 +96,7 @@
                             maven.andromda.processAllModelPackages
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             <p>
@@ -110,7 +110,7 @@
                             maven.andromda.modelPackage.<em>n</em>.name
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             The name of the model package to either process
@@ -124,7 +124,7 @@
                             maven.andromda.modelPackage.<em>n</em>.shouldProcess
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             True/false on whether or not the package specified
@@ -137,7 +137,7 @@
                             maven.andromda.repository.moduleSearchPath.location.<em>n</em>
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             Specifies a path to search when looking for modules used
@@ -152,7 +152,7 @@
                             maven.andromda.modelValidation
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             Specifies whether or not models loaded by AndroMDA will be
@@ -166,7 +166,7 @@
                             maven.andromda.failOnModelValidationErrors
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             Specifies whether or not AndroMDA should fail on model validation errors.
@@ -205,7 +205,7 @@
                            maven.andromda.currentPlugin
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             Specifies the current plugin which this plugin is running within.  You'll
@@ -222,7 +222,7 @@
                 <table>
                     <tr>
                         <th>Property</th>
-                        <th>Optional?</th>
+                        <th>Required</th>
                         <th>Description</th>
                     </tr>
                     <tr>
@@ -230,11 +230,11 @@
                             maven.andromda.schema2xmi.inputModel
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             The URI to the input model. If this isn't
-                            provided, then new a model will be created.
+                            provided, then a new model will be created.
                         </td>
                     </tr>
                     <tr>
@@ -316,7 +316,7 @@
                             maven.andromda.schema2xmi.package
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             Specifies the name of the package to which
@@ -330,7 +330,7 @@
                             maven.andromda.schema2xmi.tablePattern
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             A regular expression pattern for limiting
@@ -345,7 +345,7 @@
                             maven.andromda.schema2xmi.schema
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                              A schema name; must match the schema name as
@@ -359,7 +359,7 @@
                             maven.andromda.schema2xmi.classStereotype
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             A comma seperated list of stereotype(s) to
@@ -372,7 +372,7 @@
                             maven.andromda.schema2xmi.identifierStereotype
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             A comma seperated list of stereotype(s) to
@@ -385,7 +385,7 @@
                             maven.andromda.schema2xmi.tableTaggedValue
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
                             The table name tagged value to add to the
@@ -397,10 +397,10 @@
                             maven.andromda.schema2xmi.columnTaggedValue
                         </td>
                         <td>
-                            Yes
+                            No
                         </td>
                         <td>
-                            The colum name tagged value to add to the
+                            The column name tagged value to add to the
                             generated model class attributes.
                         </td>
                     </tr>

@@ -10,12 +10,12 @@
                 <table>
                     <tr>
                         <th>Property</th>
-                        <th>Optional?</th>
+                        <th>Required</th>
                         <th>Description</th>
                     </tr>
                     <tr>
                         <td>andromda.cartridge.test.model.uri</td>
-                        <td>No</td>
+                        <td>Yes</td>
                         <td>
                             The URI to the model used to run tests.
                             (i.e.<code>andromda.cartridge.test.model.uri=jar:file:${maven.src.dir}/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml</code>).
@@ -23,7 +23,7 @@
                     </tr>
                     <tr>
                         <td>andromda.cartridge.lastModifiedCheck</td>
-                        <td>Yes</td>
+                        <td>No</td>
                         <td>
                             Whether or not to perform a last modified check
                             when deciding whether or not to generate the 
@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td>andromda.cartridge.printreport</td>
-                        <td>Yes</td>
+                        <td>No</td>
                         <td>
                             <p>
                                 If this value is set to false, test run details will appear 
@@ -47,7 +47,7 @@
                     <tr>
                         <td>andromda.cartridge.test.archive</td>
                         <td>                        
-                            Yes, default is <code>${maven.src.dir}/test/expected/cartridge-output.zip</code>                            
+                            No, default is <code>${maven.src.dir}/test/expected/cartridge-output.zip</code>
                         </td>
                         <td>
                             <p>
@@ -61,7 +61,7 @@
                     <tr>
                         <td>andromda.cartridge.test.actual.dir</td>
                         <td>
-                            Yes, default is <code>${maven.build.dir}/cartridge-test/actual</code>.
+                            No, default is <code>${maven.build.dir}/cartridge-test/actual</code>.
                         </td>
                         <td>
                             <p>
@@ -74,7 +74,7 @@
                     <tr>
                         <td>andromda.cartridge.extra.binary.file.suffixes</td>
                         <td>
-                            No, default is <code></code>
+                            No, default is <code>jpg,jpeg,gif,png,jar,zip</code>
                         </td>
                         <td>
                             Specifies any additional, file suffixes which will be 
@@ -88,7 +88,7 @@
 							andromda.cartridge.repository.moduleSearchPath.location.<em>n</em>
 						</td>
 						<td>
-							Yes
+							No
 						</td>
 						<td>
 							Specifies a path to search when looking for modules used
