@@ -38,7 +38,7 @@ public class ${service.name}Impl
         return ($returnTypeName)0;
 #end
 #else
-        throw new java.lang.RuntimeException("${service.fullyQualifiedName}.${signature} Not implemented!");
+        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${signature} Not implemented!");
 #end 
     }
 	
