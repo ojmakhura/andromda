@@ -1,11 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -25,6 +19,9 @@ import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
@@ -48,8 +45,8 @@ public class EntityFacadeLogicImpl
     public void initialize()
     {
         super.initialize();
-        // if there are no identfiers on this entity,
-        // create and add one.
+        // if there are no identifiers on this entity, create and add one.
+        // enumeration don't have identifiers since they are not entities
         if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers())
         {
             this.createIdentifier();
@@ -571,39 +568,4 @@ public class EntityFacadeLogicImpl
         return (String)this
             .getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
     }
-
-    /**
-     * Overwritten because enumeration entities are not allowed to have their auto-created
-     * ID considered as a literal
-     *
-     * @return the attributes minus the identifiers
-     */
-    public Collection getLiterals()
-    {
-        List literals = null;
-
-        if (isEnumeration())
-        {
-            literals = new ArrayList();
-            literals.addAll(getAttributes());
-            literals.removeAll(getIdentifiers());
-        }
-        else
-        {
-            literals = Collections.EMPTY_LIST;
-        }
-
-        return literals;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getEnumerationName()
-     */
-    protected String handleGetEnumerationName()
-    {
-        return (isEnumeration())
-                ? getName() + getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_SUFFIX)
-                : null;
-    }
-
 }

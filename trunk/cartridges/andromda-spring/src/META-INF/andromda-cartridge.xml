@@ -373,9 +373,7 @@
         required="false">
         <modelElements variable="enumeration">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.EntityFacade">
-                    <property name="enumeration" value="true"/>
-                </type>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade"/>
             </modelElement>
         </modelElements>
     </template>
