@@ -469,19 +469,16 @@ public abstract class $entity.daoBaseName
      */
     private final void transformEntities(final int transform, final java.util.Collection entities)
     {
-        if (entities != null && !entities.isEmpty())
+        switch (transform)
         {
-            switch (transform)
-            {
 #foreach ($valueObjectRef in $valueObjectReferences)
-                case $valueObjectRef.transformationConstantName :
-                    ${valueObjectRef.transformationMethodName}(entities);
-                    break;
+            case $valueObjectRef.transformationConstantName :
+                ${valueObjectRef.transformationMethodName}(entities);
+                break;
 #end
-                case $entity.daoNoTransformationConstantName : // fall-through
-                    default:
-                    // do nothing;
-            }
+            case $entity.daoNoTransformationConstantName : // fall-through
+                default:
+                // do nothing;
         }
     }
 
@@ -491,7 +488,14 @@ public abstract class $entity.daoBaseName
      */
     public final void ${valueObjectRef.transformationMethodName}(java.util.Collection entities)
     {
-        org.apache.commons.collections.CollectionUtils.transform(entities, ${valueObjectRef.transformationAnonymousName});
+        if (entities == null)
+        {
+            entities = java.util.Collections.EMPTY_LIST;
+        }
+        else
+        {
+            org.apache.commons.collections.CollectionUtils.transform(entities, ${valueObjectRef.transformationAnonymousName});
+        }
     }
 
     /**
