@@ -52,6 +52,9 @@
 #end
 #if ($sourceEnd.one2Many)
         <set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
+#if($sourceEnd.association.hibernateCacheType!="")
+            <cache usage="$sourceEnd.association.hibernateCacheType" />
+#end            
             <key>
                 <column name="$sourceEnd.columnName"/>
             </key>
