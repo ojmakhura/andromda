@@ -32,8 +32,6 @@ public class EJBProfile extends UMLProfile {
     
     public static final String TAGGEDVALUE_EJB_VIEWTYPE = "@andromda.ejb.viewType";
     
-    public static final String TAGGEDVALUE_EJB_TRANSACTION_TYPE = "@andromda.ejb.transactionType";
-    
     public static final String TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD = "@andromda.ejb.noSyntheticCreateMethod";
 	
 }

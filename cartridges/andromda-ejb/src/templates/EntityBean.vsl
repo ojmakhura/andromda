@@ -37,11 +37,11 @@ $entity.getDocumentation(" * ")
  * @ejb.home generate="false" local-class="${entity.fullyQualifiedName}LocalHome"
  * @ejb.pk generate="false" class="$identifier.type.fullyQualifiedName"
  *
-#set ($classTransaction = $entity.findTaggedValue("@andromda.ejb.transactionType"))
+#set ($classTransaction = $entity.findTaggedValue("@andromda.transaction.type"))
 #if (!$classTransaction || $classTransaction == "")
  * @ejb.transaction type="Supports" //default transaction type
 #else
- * @ejb.transaction type="$classTransaction" //custom transaction type set by @andromda.ejb.transactionType
+ * @ejb.transaction type="$classTransaction" //custom transaction type set by @andromda.transaction.type
 #end
  *
 ## Only generate persistence tags for concrete EJBs.
@@ -106,7 +106,7 @@ $entity.getDocumentation(" * ")
  * @ejb.finder signature="$finder.returnType.fullyQualifiedName $finder.signature"
  *             query="$finder.query"
 #end
-#set ($finderTransaction = $finder.findTaggedValue("@andromda.ejb.transactionType",false))
+#set ($finderTransaction = $finder.findTaggedValue("@andromda.transaction.type",false))
 #if ($finderTransaction)
  *			   transaction-type="$finderTransaction"
 #end
