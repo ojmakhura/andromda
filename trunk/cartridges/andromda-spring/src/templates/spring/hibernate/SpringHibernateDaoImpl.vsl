@@ -49,13 +49,13 @@ public class $entity.daoImplementationName
     /**
      * @see ${entity.fullyQualifiedDaoBaseName}#transformEntity($entity.fullyQualifiedName)
      */ 
-    protected Object transformFinderEntity($entity.fullyQualifiedName entity)
+    protected Object transformEntity($entity.fullyQualifiedName entity)
     {
         /* 
          * This method provides the ability to transform 
-         * your entity finder results into value objects.
-         * If you aren't using value objects, and just
-         * want to return the entities directly, leave 
+         * any returned entity (from finders or a call to load) 
+         * into value objects.  If you aren't using value objects, 
+         * and just want to return the entities directly, leave 
          * this method unchanged
          */
         return entity;

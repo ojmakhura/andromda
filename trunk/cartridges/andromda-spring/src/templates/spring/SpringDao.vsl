@@ -60,6 +60,24 @@ public interface $entity.daoName
      * Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
      */
      public $entity.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
+     
+    /**
+     *  <p> 
+     *    Does the same thing as {@link #load($identifier.type.fullyQualifiedName)}) with an
+     *    additional flag called <code>transform</code>. 
+     *  </p>
+     *  <p>
+     *    if this flag is set to <code>false</code> then
+     *    the returned entity will <strong>not</strong> be transformed during retrieval.  If this flag is 
+     *    <code>true</code> then the entity <strong>WILL BE</strong> passed through an operation 
+     *    which can optionally transform the entity (into a value object for example).  By default, 
+     *    transformation does not occur.
+     *  </p>
+     * 
+     * @param $identifier.name the identifier of the entity to load.
+     * @return either the entity or the object transformed from the entity.
+     */
+     public Object load(boolean transform, $identifier.type.fullyQualifiedName $identifier.name);
 
     /**
      * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
@@ -80,9 +98,6 @@ public interface $entity.daoName
 #end
 #foreach ( $operation in $entity.operations )
 #set ($returnType = $operation.returnType.fullyQualifiedName)
-#if ($operation.query && !$operation.returnType.collectionType)
-#set ($returnType = "Object")
-#end
     /**
 $operation.getDocumentation("     * ")
      */
@@ -93,14 +108,17 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType $operation.signature;
 #end
 #if ($operation.query)
+#if ($operation.query && !$operation.returnType.collectionType)
+#set ($returnType = "Object")
+#end
     /**
      * <p>
      *   Does the same thing as {@link #${operation.getSignature(false)}) with an
      *   additional flag called <code>transform</code> if this flag is set to <code>false</code> then
      *   finder results will not be transformed during retrieval.  If this flag is <code>true</code>
-     *   then finder results <strong>WILL BE</strong> will be passed through an operation which can
-     *   optionally transform the entities (into value objects for example).  By default, transformation
-     *   does not occur.
+     *   then finder results <strong>WILL BE</strong> passed through an operation which can optionally 
+     *   transform the entities (into value objects for example).  By default, transformation does 
+     *   not occur.
      * </p>
      */
 #if ($operation.exceptionsPresent)
