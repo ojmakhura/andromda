@@ -79,7 +79,21 @@ public class $clientServiceLocatorName
             {
                 contextLocation = DEFAULT_CONTEXT_LOCATION;
             }
-            context = new ClassPathXmlApplicationContext(contextLocation);
+#if ($clientServiceLocatorClassloaderSwitching == "on")
+            Thread currentThread = Thread.currentThread();
+            ClassLoader originalClassloader = currentThread.getContextClassLoader();
+            try
+            {
+                currentThread.setContextClassLoader(getClass().getClassLoader());
+#end
+                context = new ClassPathXmlApplicationContext(contextLocation);
+#if ($clientServiceLocatorClassloaderSwitching == "on")
+            }
+            finally
+            {
+                currentThread.setContextClassLoader(originalClassloader);
+            }
+#end
         }
         return context;
     }

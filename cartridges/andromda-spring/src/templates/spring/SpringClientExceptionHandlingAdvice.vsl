@@ -1,0 +1,33 @@
+#parse("templates/spring/SpringGlobals.vm")
+// license-header java merge-point
+/**
+ * This is only generated once! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ */
+#set ($generatedFile = "${clientExceptionHandlingAdviceName}.java")
+#if($stringUtils.isNotEmpty($springTypesPackage))
+package $springTypesPackage;
+#set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/${generatedFile}")
+#end
+
+/**
+ * This advice helps you to put all service related exception handling in one place.
+ */
+public class $clientExceptionHandlingAdviceName 
+    implements org.springframework.aop.ThrowsAdvice
+{
+
+    /**
+     * This method will be invoked each time a {@link org.springframework.remoting.RemoteAccessException}
+     * gets thrown by any service method.
+     *
+     * @param exception The exception that has been thrown by the service.
+     * @throws java.lang.Throwable
+     */
+    public void afterThrowing(org.springframework.remoting.RemoteAccessException exception) 
+        throws Throwable
+    {
+        // Add the logic to handle the exception
+    }
+
+}

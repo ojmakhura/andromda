@@ -140,6 +140,29 @@
 				</tr>
 				<tr>
 					<td>
+						clientServiceLocatorClassloaderSwitching
+					</td>
+					<td>
+						Whether the client service locator should switch classloaders during bean instantiation.
+						This is needed when running in Eclipse.
+					</td>
+					<td>
+						No, default is <code>off</code>.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						clientExceptionHandlingAdviceName
+					</td>
+					<td>
+						The name to give to the one-time generated exception handling advice.
+					</td>
+					<td>
+						No, default is <code>ClientExceptionHandlingAdvice</code>.
+					</td>
+				</tr>
+				<tr>
+					<td>
 						daoNamePattern
 					</td>
 					<td>
