@@ -33,6 +33,15 @@
     </goal> 
  
     <!-- ==================================================================
+               Transfer distribution to team server.
+         ================================================================== --> 	
+    <goal name="xfr-dist" prereqs="initialize">
+        <j:set var="maven.multiproject.includes"
+               value="${component.install.includes}"/>
+        <attainGoal name="multiproject:deploy"/>	  		
+    </goal>
+      
+    <!-- ==================================================================
                Deploys all libraries into the remote repository                                                    
          ================================================================== --> 	
     <goal name="deploy" prereqs="initialize">
