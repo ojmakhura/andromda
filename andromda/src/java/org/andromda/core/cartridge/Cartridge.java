@@ -415,7 +415,7 @@ public class Cartridge
     /**
      * Returns the list of templates configured in this cartridge.
      * 
-     * @param List the template list.
+     * @return List the template list.
      */
     public List getTemplateConfigurations()
     {

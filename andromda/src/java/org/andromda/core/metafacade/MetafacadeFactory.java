@@ -444,7 +444,7 @@ public class MetafacadeFactory
      * @param metaobjects the meta model element.
      * @param contextName the name of the context the meta
      *                    model element is registered under.
-     * @return
+     * @return the Collection of newly created Metafacades.
      */
     protected Collection createMetafacades(
         Collection metaobjects,

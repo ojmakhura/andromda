@@ -69,7 +69,7 @@ public class MetafacadeMapping {
 	/**
 	 * Sets the metafacadeClassName for this mapping.
 	 * 
-	 * @param metafacadeClass The metafacadeClass to set. 
+	 * @param metafacadeClassName The name of the metafaacde class to set. 
 	 */
 	public void setMetafacadeClassName(String metafacadeClassName) {
 		try {
@@ -179,7 +179,7 @@ public class MetafacadeMapping {
 	 * Sets the context to which this mapping
 	 * applies.
 	 * 
-	 * @param metafacadeContext The metafacadeContext to set.
+	 * @param context The metafacade context name to set.
 	 */
 	public void setContext(String context) {
 		this.context = StringUtils.trimToEmpty(context);

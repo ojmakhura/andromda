@@ -127,7 +127,7 @@ public class XmlObjectFactory {
      * in some cases where the underlying parser doesn't support
      * schema validation (such as when performing JUnit tests)
      * 
-     * @param validate true/false
+     * @param validating true/false
      */
     public static void setDefaultValidating(boolean validating) {
         defaultValidating = validating;
@@ -180,8 +180,6 @@ public class XmlObjectFactory {
 	/**
 	 * Returns a configured Object based on the objectXml configuration file
 	 * 
-	 * @param objectRulesXml the path to the XML resource config file that contains
-	 *        the rules about the Object configuration file
 	 * @param objectXml the path to the Object XML config file.
 	 * @return Object the created instance.
 	 */
@@ -230,8 +228,6 @@ public class XmlObjectFactory {
     /**
      * Returns a configured Object based on the objectXml configuration reader.
      * 
-     * @param objectRulesXml the path to the XML resource config file that contains
-     *        the rules about the Object configuration file
      * @param objectXml the path to the Object XML config file.
      * @return Object the created instance.
      */

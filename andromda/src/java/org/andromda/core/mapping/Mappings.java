@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * 
  * <p> The mappings will change based upon the language, database, etc being used. <p>
  * 
- * @see org.andromda.common.XmlObjectFactory
+ * @see org.andromda.core.common.XmlObjectFactory
  * 
  * @author Chad Brandon
  */

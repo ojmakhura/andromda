@@ -57,9 +57,7 @@ public class ModelPackages {
 	 * Sets the packageName and whether or not it should
 	 * be processed.
 	 *  
-	 * @param packageName the name of the package.
-	 * @param process true/false on whether or not it should
-	 *        be processed.
+	 * @param modelPackage the ModelPackage instance.
 	 */
 	public void addPackage(ModelPackage modelPackage) {
 		this.initCollection.add(modelPackage);

@@ -51,7 +51,7 @@ public interface Plugin {
      * Sets the path of the resource from which this
      * plugin is configured.
      * 
-     * @param the resource URL.
+     * @param resource the resource URL.
      */
     public void setResource(URL resource);
     

@@ -215,7 +215,7 @@ public abstract class BaseTranslator extends DepthFirstAdapter implements Transl
      * @param fragmentName the name of the fragment to retrieve from the translation
      * @return String the output String from the translated fragment.
      * 
-     * @see handleTranslationFragment(Node node)
+     * @see #handleTranslationFragment(Node node)
      */
     protected String getTranslationFragment(String fragmentName) {
         final String methodName = "BaseTranslator.getTranslatedFragment";
