@@ -17,14 +17,12 @@ $class.getDocumentation(" * ")
  */
 public class ${class.name} implements java.io.Serializable
 {
-
-#foreach ( $attribute in $class.attributes )
-   private $attribute.type.fullyQualifiedName ${attribute.name};
-#end
+#if (!$class.attributes.empty)
 
    public ${class.name}()
    {
    }
+#end
 
    // constructor using all attributes
    public ${class.name} $class.getAttributesAsList(true)
@@ -44,6 +42,8 @@ public class ${class.name} implements java.io.Serializable
 
 #foreach ( $attribute in $class.attributes )
 #set ($typeName = $attribute.type.fullyQualifiedName)
+    private $typeName $attribute.name;
+
     /**
 $attribute.getDocumentation("    * ")
      */
@@ -52,10 +52,39 @@ $attribute.getDocumentation("    * ")
         return this.${attribute.name};
     }
 
-    $attribute.visibility void ${attribute.setterName}(${typeName} newValue)
+    $attribute.visibility void ${attribute.setterName}(${typeName} $attribute.name)
     {
-        this.${attribute.name} = newValue;
+        this.${attribute.name} = $attribute.name;
     }
 
 #end
+## Generate the relation methods.
+#foreach ( $associationEnd in $class.associationEnds )
+#set ($target = $associationEnd.otherEnd)
+#set ($targetType = $target.type)
+#set ($targetTypeFQName = $targetType.fullyQualifiedName)
+#if ($target.navigable)
+#if ($target.many)
+#set($targetTypeFQName = "java.util.Collection")
+#end
+   private $targetTypeFQName $target.name;
+   
+    /**
+     * Get the ${target.name}
+$target.getDocumentation("     * ")
+     */
+    public $targetTypeFQName ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+    /**
+     * Set the ${target.name}
+     */
+    public void ${target.setterName}($targetTypeFQName ${target.name})
+    {
+        this.${target.name} = ${target.name};
+    }
+#end
+#end ## foreach
 }
