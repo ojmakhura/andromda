@@ -517,7 +517,7 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleGetRpcClassName()
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#getRpcClassName()
      */
     protected String handleGetRpcClassName()
     {
