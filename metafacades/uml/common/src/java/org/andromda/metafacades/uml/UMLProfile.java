@@ -108,10 +108,10 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_EXCEPTION_REF = umlProfile
         .getString("STEREOTYPE_EXCEPTION_REF");
-    
+
     /**
-     * Used to indicate whether or not a parameter is nullable (since
-     * parameters do <strong>NOT</strong> allow specification of multiplicity.
+     * Used to indicate whether or not a parameter is nullable (since parameters
+     * do <strong>NOT </strong> allow specification of multiplicity.
      */
     public static final String STEREOTYPE_NULLABLE = umlProfile
         .getString("STEREOTYPE_NULLABLE");
@@ -148,4 +148,27 @@ public class UMLProfile
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX = umlProfile
         .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX");
 
+    /**
+     * Stores the style of a web service (document, wrapped, rpc).
+     */
+    public static final String TAGGEDVALUE_WEBSERVICE_STYLE = umlProfile
+        .getString("TAGGEDVALUE_WEBSERVICE_STYLE");
+
+    /**
+     * Stores the use of a web service (literal, encoded).
+     */
+    public static final String TAGGEDVALUE_WEBSERVICE_USE = umlProfile
+        .getString("TAGGEDVALUE_WEBSERVICE_USE");
+
+    /**
+     * Stores the provider of the web service (RPC, EJB).
+     */
+    public static final String TAGGEDVALUE_WEBSERVICE_PROVIDER = umlProfile
+        .getString("TAGGEDVALUE_WEBSERVICE_PROVIDER");
+
+    /**
+     * Stores whether or not the web service is secured.
+     */
+    public static final String TAGGEDVALUE_WEBSERVICE_SECURED = umlProfile
+        .getString("TAGGEDVALUE_WEBSERVICE_SECURED");
 }

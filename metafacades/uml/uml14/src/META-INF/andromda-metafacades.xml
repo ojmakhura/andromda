@@ -201,4 +201,9 @@
         metafacadeClass="org.andromda.metafacades.uml14.ServiceFacadeLogicImpl">
         <stereotype>Service</stereotype>
     </metafacade>
+    <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
+        metafacadeClass="org.andromda.metafacades.uml14.ServiceOperationFacadeLogicImpl">
+        <context>org.andromda.metafacades.uml.ServiceFacade</context>
+    </metafacade>
 </metafacades>
