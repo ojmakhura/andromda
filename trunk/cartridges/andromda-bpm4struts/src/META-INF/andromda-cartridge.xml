@@ -350,6 +350,7 @@
         outputPattern="users.properties"
         outlet="server"
         overwrite="true"
+        required="false"
         generateEmptyFiles="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
@@ -361,6 +362,7 @@
         outputPattern="roles.properties"
         outlet="server"
         overwrite="true"
+        required="false"
         generateEmptyFiles="false">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
