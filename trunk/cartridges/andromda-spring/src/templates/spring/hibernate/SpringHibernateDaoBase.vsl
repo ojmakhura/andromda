@@ -314,6 +314,8 @@ public abstract class $entity.daoBaseName
 #set ($argumentName = $argument.name)
 #if($argument.type.primitive)
 #set ($argumentName = "new ${argument.type.wrapperName}($argument.name)")
+#elseif ($argument.type.enumeration)
+#set ($argumentName = "${argument.name}.getValue()")
 #end
 #set ($setParameterOperation = "setParameter")
 #if ($argument.type.collectionType)
