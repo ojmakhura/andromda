@@ -15,12 +15,11 @@ import org.apache.commons.lang.exception.ExceptionUtils;
  * with the trace data if active.
  * 
  * @author Martin West
- *  
  */
 public class ExceptionRecorder
 {
-    
-    /** Andromda version **/
+
+    /** Andromda version * */
     public static String andromda_version = "not set";
 
     /** The exceptions directory name:exceptions. */
@@ -30,14 +29,13 @@ public class ExceptionRecorder
     public static File exceptionDirectory = null;
 
     private static final SimpleDateFormat cvDateFormat = new SimpleDateFormat(
-            "yyMMddHHmmss");
+        "yyMMddHHmmss");
 
     private static final Random ran = new Random();
 
     /** Private constructor, this class is not intended to be instantiated. */
     private ExceptionRecorder()
-    {
-    }
+    {}
 
     /**
      * record writes out the exception to a file along with trace data if
@@ -46,9 +44,7 @@ public class ExceptionRecorder
      * exceptions occur in the same second. Returns the filename of the
      * generated exception report.
      * 
-     * @param Exception
-     *            to record.
-     *  
+     * @param Exception to record.
      */
     public static String record(Throwable th)
     {
@@ -62,11 +58,8 @@ public class ExceptionRecorder
      * exceptions occur in the same second. Returns the filename of the
      * generated exception report.
      * 
-     * @param Message
-     *            to log with the exception report.
-     * @param Exception
-     *            to record.
-     *  
+     * @param Message to log with the exception report.
+     * @param Exception to record.
      */
     public static String record(String errorMessage, Throwable th)
     {
@@ -79,39 +72,36 @@ public class ExceptionRecorder
      * is the timestamp <_nn>is an ascending sequence number when multiple
      * exceptions occur in the same second.
      * 
-     * @param msg
-     *            diagnostic message
-     * @param th
-     *            exception to record.
-     * @param prefix
-     *            for the file name.
+     * @param msg diagnostic message
+     * @param th exception to record.
+     * @param prefix for the file name.
      */
-    public static String record(String msg, Throwable th, String prefix)
+    public static String record(String message, Throwable th, String prefix)
     {
-        PrintWriter pw;
-        String tempname = null;
+        PrintWriter writer;
+        String tempName = null;
         String result = null;
-        File f;
-        Throwable root;
+        File exceptionFile;
         try
         {
-            tempname = getUniqueName(prefix);
-            f = new File(exceptionDirectory, tempname);
-            result = f.getCanonicalPath();
-            pw = new PrintWriter(new FileWriter(f));
-            pw.println("*** Andromda Exception recording ***");
-            pw.println("Andromda Version:" + getAndromdaVersion() );
-            pw.println("Error:" + msg);
-            pw.println("Main exception:" + th.getMessage());
+            tempName = getUniqueName(prefix);
+            exceptionFile = new File(exceptionDirectory, tempName);
+            result = exceptionFile.getCanonicalPath();
+            writer = new PrintWriter(new FileWriter(exceptionFile));
+            writer.println("*** AndroMDA Exception Recording ***");
+            writer.println("Andromda Version:" + getAndromdaVersion());
+            writer.println("Error:" + message);
+            writer.println("Main exception:" + th.getMessage());
             Throwable cause = ExceptionUtils.getRootCause(th);
-            pw.println( "Root exception:" + cause.getMessage());
-            cause.printStackTrace(pw);
-            pw.close();
-        } catch (Throwable ex)
+            writer.println("Root exception:" + cause.getMessage());
+            cause.printStackTrace(writer);
+            writer.close();
+        }
+        catch (Throwable ex)
         {
             System.err
-                    .println("ExceptionRecorder.record error recording exception:"
-                            + th);
+                .println("ExceptionRecorder.record error recording exception:"
+                    + th);
             th.printStackTrace(System.err);
             System.err.println("ExceptionRecorder.record Exception:" + ex);
             ex.printStackTrace(System.err);
@@ -122,21 +112,22 @@ public class ExceptionRecorder
     /** Get a unique file name. */
     protected static synchronized String getUniqueName(String prefix)
     {
-        String tempname = prefix + cvDateFormat.format(new Date()) + ".exc";
+        String tempName = prefix + cvDateFormat.format(new Date()) + ".exc";
         int suffix = 0;
-        File f = new File(exceptionDirectory, tempname);
-        while (f.exists())
+        File exceptionFile = new File(exceptionDirectory, tempName);
+        while (exceptionFile.exists())
         {
-            tempname = prefix + cvDateFormat.format(new Date()) + "_"
-                    + suffix++ + ".exc";
-            f = new File(exceptionDirectory, tempname);
+            tempName = prefix + cvDateFormat.format(new Date()) + "_"
+                + suffix++ + ".exc";
+            exceptionFile = new File(exceptionDirectory, tempName);
             // Give another user an opportunity to
             // grab a file name. Use a random delay to
             // introduce variability
             try
             {
                 Thread.sleep(Math.abs(ran.nextInt() % 100));
-            } catch (InterruptedException e1)
+            }
+            catch (InterruptedException e1)
             {
                 // ignore
             }
@@ -148,14 +139,15 @@ public class ExceptionRecorder
         try
         {
             RandomAccessFile tmpfile;
-            tmpfile = new RandomAccessFile(f, "rw");
+            tmpfile = new RandomAccessFile(exceptionFile, "rw");
             tmpfile.writeChar('t');
             tmpfile.close();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             // ignore
         }
-        return tempname;
+        return tempName;
     } // end method getUniqueName
 
     static
@@ -168,9 +160,10 @@ public class ExceptionRecorder
             {
                 exceptionDirectory.mkdir();
             }
-        } catch (Throwable e)
-        {
-        } finally
+        }
+        catch (Throwable e)
+        {}
+        finally
         {
             if (exceptionDirectory == null)
             {
@@ -194,6 +187,7 @@ public class ExceptionRecorder
     {
         return andromda_version;
     }
+
     /**
      * @param andromda_version The andromda_version to set.
      */
