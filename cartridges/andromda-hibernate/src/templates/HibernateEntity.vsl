@@ -1,13 +1,9 @@
+/**
+ * Attention: Generated source! Do not modify by hand!
+ */
 #set ($packagename = $transform.findPackageName(${class.package}))
 package $packagename;
-
-import java.io.Serializable;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
+##
 #macro ( generateDocumentation $item $indent)
 #foreach ( $tgv in $item.taggedValues )
 #if ($tgv.tag == "documentation")
@@ -23,10 +19,10 @@ ${indent}* </p>
 #end
 #end
 #end
-
+##
 #set ($primKey = $transform.getPrimaryKeyAttribute($class))
 #set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
-
+##
 #foreach ( $assocLink in $class.associationLinks )
     #set ($adata = $transform.getAssociationData($assocLink))
 #if ($adata.target.navigable == "true")
@@ -39,7 +35,7 @@ import $transform.findFullyQualifiedName(${class2});
     #end
 #end
 #end
-
+##
 #foreach ( $dep in $class.dependencies )
     #set ($class2 = $transform.findClassById($dep.targetType))
     #if ($class2)
@@ -71,20 +67,20 @@ import $transform.findFullyQualifiedName(${class2});
 #end
  *
  */
-public abstract class ${class.name}HObj {
+public abstract class ${class.name} {
 
     // --------------- attributes ---------------------
 #foreach ( $att in $class.attributes )
 #set ($atttypename = $transform.findFullyQualifiedName($att.type))
 
-   private $atttypename ${att.name};
+    private $atttypename ${att.name};
    
    /**
 #generateDocumentation ($att "    ")
     *
 #if ($transform.getStereotype($att.id) == "PrimaryKey")
     * @hibernate.id 
-    *     generator="uuid.string"
+    *     generator-class="uuid.string"
     *
 #end
 #set ($attcolumnname = $str.toDatabaseAttributeName(${att.name}, "_"))
@@ -106,6 +102,7 @@ public abstract class ${class.name}HObj {
     {
         this.${att.name} = newValue;
     }
+
 
 #end
 
@@ -136,20 +133,21 @@ public abstract class ${class.name}HObj {
     * @hibernate.collection-one-to-many
     *     class="$targettypename"
     */
-    private Collection ${adata.target.roleName};
-    
-    public Collection get${str.upperCaseFirstLetter($adata.target.roleName)}()
+    public java.util.Collection get${str.upperCaseFirstLetter($adata.target.roleName)}()
     {
         return this.${adata.target.roleName};
     }
 
-    public void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName})
+    public void set${str.upperCaseFirstLetter($adata.target.roleName)}(java.util.Collection ${adata.target.roleName})
     {
-        this.${adata.target.roleName} = (Set) ${adata.target.roleName};
+        this.${adata.target.roleName} = ${adata.target.roleName};
     }
+
+    private java.util.Collection ${adata.target.roleName};
+    
 #end
 #if ($adata.isMany2Many())
-    *
+##
 #set ($sourceKeyAtt  = ${transform.getPrimaryKeyAttribute($sourcetype).name})
 #set ($sourceColumn  = "${str.toDatabaseAttributeName(${adata.source.roleName}, $sep)}$sep$sourceKeyAtt")
 #set ($targetKeyAtt  = ${transform.getPrimaryKeyAttribute($targettype).name})
@@ -164,17 +162,18 @@ public abstract class ${class.name}HObj {
     *     column="$targetColumn"
     *     class="$targettypename"
     */
-    private Collection ${adata.target.roleName};
-    
-    public Collection get${str.upperCaseFirstLetter($adata.target.roleName)}()
+    public java.util.Collection get${str.upperCaseFirstLetter($adata.target.roleName)}()
     {
         return this.${adata.target.roleName};
     }
 
-    public void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName})
+    public void set${str.upperCaseFirstLetter($adata.target.roleName)}(java.util.Collection ${adata.target.roleName})
     {
-        this.${adata.target.roleName} = (Set) ${adata.target.roleName};
+        this.${adata.target.roleName} = ${adata.target.roleName};
     }
+
+    private java.util.Collection ${adata.target.roleName};
+    
 #end
 #if ($adata.isOne2One() || $adata.isMany2One())
 #if ($adata.isMany2One())
@@ -186,8 +185,6 @@ public abstract class ${class.name}HObj {
 #set($foreignKeyColumn = "${str.toDatabaseAttributeName(${adata.target.roleName}, $sep)}$suffix")
     *       column="${foreignKeyColumn}"
     */
-    private ${targettypename} ${adata.target.roleName};
-
     public ${targettypename} get${str.upperCaseFirstLetter($adata.target.roleName)}()
     {
         return this.${adata.target.roleName};
@@ -197,6 +194,9 @@ public abstract class ${class.name}HObj {
     {
         this.${adata.target.roleName} = ${adata.target.roleName};
     }
+
+    private ${targettypename} ${adata.target.roleName};
+
 #end
 
 

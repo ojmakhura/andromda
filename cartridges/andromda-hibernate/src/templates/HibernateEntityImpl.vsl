@@ -1,0 +1,40 @@
+/**
+ * This class is only generated once! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ */
+#set ($packagename = $transform.findPackageName(${class.package}))
+package $packagename;
+
+public abstract class ${class.name}Impl
+       extends ${class.name}
+{
+    // concrete business methods that were declared
+    // abstract in class ${class.name} ...
+
+#foreach ( $op in $class.operations)
+#if ($transform.getStereotype($op.id) != "FinderMethod")
+#set ($msig = $transform.getOperationSignature($op))
+#if ($defaultException)
+    $op.visibility ${msig}
+        throws $defaultException.name {
+#else
+    $op.visibility ${msig} {
+#end
+        // TODO: put your implementation here.
+#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
+#if ("void" != $returntype)
+
+        // Dummy return value, just that the file compiles
+#if (!$str.isPrimitiveType($returntype))
+        return null;
+#elseif ("boolean" == $returntype)
+        return false;
+#else
+        return ($returntype)0;
+#end
+#end
+    }
+
+#end
+#end
+}
