@@ -103,7 +103,7 @@ public class TemplateObject {
 				PropertyUtils.setProperty(templateObject, reference, propertyValue);
 			} catch (Exception ex) {
 				String errMsg = "Error setting property '" 
-					+ name + "' with '" + reference 
+					+ reference + "' with '" + propertyValue 
 					+ "' on templateObject --> '" + templateObject + "'";
 				logger.error(errMsg, ex);
 				//don't throw the exception
