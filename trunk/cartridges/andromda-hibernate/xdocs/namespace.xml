@@ -40,7 +40,7 @@
                     <td>
                         No
                     </td>
-                </tr>  
+                </tr>
                 <tr>
                     <td>
                           entities
@@ -112,7 +112,7 @@
                     </td>
                     <td>
                           The default class to use for Hibernate ID generation (can be overridden
-                          on a per entity basis with the 
+                          on a per entity basis with the
                           <a href="modeling.html#@andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a>
                           tagged value).
                     </td>
@@ -201,8 +201,8 @@
                             <li>Mandatory</li>
                             <li>Never</li>
                         </ul>
-                        <strong>NOTE:</strong> Can be overridden on a per entity basis with the 
-                        <a href="modeling.html#@andromda.transaction.type">@andromda.transaction.type</a> 
+                        <strong>NOTE:</strong> Can be overridden on a per entity basis with the
+                        <a href="modeling.html#@andromda.transaction.type">@andromda.transaction.type</a>
                         tagged value.
                     </td>
                     <td>
@@ -667,8 +667,8 @@
                     </td>
                     <td>
                          The default query cache usage.
-                         Can be overwridden 
-                         <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>. 
+                         Can be overwridden
+                         <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
                          Posible values are:
                          <ul>
                             <li>true</li>
@@ -684,7 +684,8 @@
                         hibernateEntityCache
                     </td>
                     <td>
-                         Defines the default strategy for Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
+                         Defines the default strategy for Entities caching. Can be overwritten using the corresponding
+                         tagged value. Possible values are:
                          <ul>
                                 <li>read-write</li>
                                 <li>nonstrict-read-write</li>
@@ -706,7 +707,7 @@
                     <td>
                         No, default is <code>false</code>.
                     </td>
-                </tr> 
+                </tr>
                 <tr>
                 <a name="hibernateEntityDynamicUpdate"/>
                     <td>
@@ -718,7 +719,7 @@
                     <td>
                         No, default is <code>false</code>.
                     </td>
-                </tr> 
+                </tr>
                  <tr>
                     <td>
                         hibernateAssociationCache
@@ -789,8 +790,8 @@
                     <td>
                         No, default is <code>true</code>.
                     </td>
-                </tr>         
-             </table>       
+                </tr>
+             </table>
             </subsection>
         </section>
     </body>
