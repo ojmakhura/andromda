@@ -26,10 +26,10 @@ public class UMLOperationData
             .getReturnType().getFullyQualifiedName(), operation.getName(), operation
             .getDocumentation("    * "));
 
-        for (Iterator it = operation.getArguments().iterator(); it.hasNext();)
+        for (Iterator iterator = operation.getArguments().iterator(); iterator.hasNext();)
         {
-            ParameterFacade p = (ParameterFacade)it.next();
-            addArgument(new ArgumentData(p.getType().getFullyQualifiedName(), p
+            ParameterFacade parameter = (ParameterFacade)iterator.next();
+            addArgument(new ArgumentData(parameter.getType().getFullyQualifiedName(), parameter
                 .getName()));
         }
     }
