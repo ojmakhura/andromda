@@ -30,7 +30,7 @@ public class SpringEntityAssociationEndLogicImpl
     protected boolean handleIsOne2OnePrimary()
     {
         boolean primaryOne2One = super.isOne2One();
-        SpringEntityAssociationEndLogicImpl otherEnd = (SpringEntityAssociationEndLogicImpl)this
+        SpringEntityAssociationEnd otherEnd = (SpringEntityAssociationEnd)this
             .getOtherEnd();
         if (primaryOne2One)
         {
