@@ -114,9 +114,7 @@ public class ServiceFacadeLogicImpl
         {
             public void execute(Object object)
             {
-                if (object != null
-                    && ServiceOperationFacade.class.isAssignableFrom(object
-                        .getClass()))
+                if (object instanceof ServiceOperationFacade)
                 {
                     roles.addAll(((ServiceOperationFacade)object).getRoles());
                 }
