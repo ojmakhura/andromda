@@ -10,6 +10,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 {
     public void caseAContextDeclaration(AContextDeclaration node)
     {
+        
         newTranslationLayer();
         {
             Object temp[] = node.getContextDeclaration().toArray();
@@ -25,6 +26,9 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     public void caseAClassifierContextDeclaration(AClassifierContextDeclaration node)
     {
+        // explicity call super method so 
+        // that we can set the type of the expression
+        super.inAClassifierContextDeclaration(node);
         Object temp[] = node.getClassifierExpressionBody().toArray();
         for(int i = 0; i < temp.length; i++)
             ((PClassifierExpressionBody) temp[i]).apply(this);
@@ -32,6 +36,9 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     public void caseAOperationContextDeclaration(AOperationContextDeclaration node)
     {
+        // explicity call super method so 
+        // that we can set the type of the expression
+        super.inAOperationContextDeclaration(node);
         Object temp[] = node.getOperationExpressionBody().toArray();
         for(int i = 0; i < temp.length; i++)
             ((POperationExpressionBody) temp[i]).apply(this);
@@ -46,12 +53,18 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     public void caseAInvClassifierExpressionBody(AInvClassifierExpressionBody node)
     {
+        // explicity call super method so 
+        // that we can set the type of the expression
+        super.inAInvClassifierExpressionBody(node);
         node.getExpression().apply(this);
         write(";");
     }
 
     public void caseADefClassifierExpressionBody(ADefClassifierExpressionBody node)
     {
+        // explicity call super method so 
+        // that we can set the type of the expression
+        super.inADefClassifierExpressionBody(node);
         node.getDefinitionExpression().apply(this);
     }
 
