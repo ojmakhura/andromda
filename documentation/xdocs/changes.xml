@@ -8,8 +8,11 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-01-09" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix" issue="CORE-38">
+                Template object properties can not be specified more than once in the andromda-cartridge.xml.
+            </action>
             <action dev="carloslcuenca" type="add" issue="HIB-34">
-                The <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> is now able to define the Cache Settings.
+                The <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> is now able to define query cache Settings.
             </action>
             <action dev="cwbrandon" type="fix">
                 The <a href="andromda-query-library/index.html">Query Translation Library</a> was using the OCL
