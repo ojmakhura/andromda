@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - i18n</title>
+    </properties>
+
+    <body>
+        <pdf href="andromda-bpm4struts-cartridge.pdf"/>
+        <section name="Internationalization">
+            <p>
+                The bpm4struts cartridge has been designed with internationalization <em>(i18n)</em> in mind,
+                a few resource bundles, dictionaries if you will, exist by default; you have the option of translating
+                them to any number of languages of your choice.
+            </p>
+            <p>
+                These resource bundles are listed below, they are output in the <code>messages</code> outlet,
+                which should normally point to <code>/WEB-INF/classes</code>
+            </p>
+            <p>
+                The proper way to create resource bundles for additional languages is to create
+                a file with the same name but suffix it with locale specific codes, this is explained
+                in more detail here:
+                <a href="http://java.sun.com/j2se/1.5.0/docs/api/index.html">http://java.sun.com/j2se/1.5.0/docs/api/index.html</a>.
+                Put this files in the same directory as the original one.
+            </p>
+            <subsection name="application-resources.properties">
+                <p>
+                    This bundle contains labels generated from names in the UML model. These labels are used for
+                    input field labels, tooltips, online help text, etc...
+                </p>
+                <p>
+                    In order to render labels from this bundle you will need to write something like this
+                    (replace <code>label.key</code> by the actual properties' key):
+                </p>
+<source><![CDATA[
+    <bean:message key="label.key"/>
+]]></source>
+            </subsection>
+            <subsection name="custom-resources.properties">
+                <p>
+                    In case you would like to add your own custom messages you can use this bundle, the call
+                    to render messages from this bundle you will need to use the <code>bundle</code> attribute:
+                </p>
+<source><![CDATA[
+    <bean:message key="label.key" bundle="custom"/>
+]]></source>
+            </subsection>
+            <subsection name="displaytag.properties">
+                <p>
+                    The <a href="http://displaytag.sourceforge.net/">displaytag</a> library is used for the
+                    displaying of tables, the paging and sorting features use words that might need
+                    internationalization. A default properties file is generated, containing all possible messages.
+                </p>
+                <p>
+                    You won't need to call the messages in this bundle directly, use the <code>custom</code> bundle
+                    instead.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>
