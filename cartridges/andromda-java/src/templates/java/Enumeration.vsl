@@ -61,7 +61,7 @@ $literal.getDocumentation("     * ")
         if (!literals.contains($value))
         {
             throw new IllegalArgumentException(
-                "invalid value '" + value + "', possible values are: " + values);
+                "invalid value '" + value + "', possible values are: " + literals);
         }
         return new ${enumeration.name}(value);
     }
