@@ -39,10 +39,12 @@
     <postGoal name="war:webapp">
         <ant:copy todir="${maven.war.webapp.dir}">
             <ant:fileset dir="${maven.build.src}">
-                <ant:include name="**/*.js"/>
-                <ant:include name="**/*.jsp"/>
-                <ant:include name="**/*.css"/>
-                <ant:include name="WEB-INF/*.xml"/>
+	            <ant:include name="**/*.png"/>
+	            <ant:include name="**/*.js"/>
+	            <ant:include name="**/*.jsp"/>
+	            <ant:include name="**/*.jspf"/>
+	            <ant:include name="**/*.css"/>
+	            <ant:include name="WEB-INF/*.xml"/>
             </ant:fileset>
         </ant:copy>
     </postGoal>
