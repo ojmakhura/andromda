@@ -1,4 +1,4 @@
-package org.andromda.cartridges.interfaces.test;
+package org.andromda.cartridges.interfaces;
 
 import junit.framework.TestCase;
 
@@ -9,7 +9,7 @@ import org.andromda.cartridges.interfaces.ICartridgeDescriptor;
  * Tests a sample cartridge implementation just to see if the cartridge
  * interface classes work OK.
  * 
- * @see org.andromda.cartridges.interfaces.test.AndroMDATestCartridge
+ * @see org.andromda.cartridges.interfaces.AndroMDATestCartridge
  * @since 01.04.2003
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
 
