@@ -38,7 +38,7 @@
 					AndroMDA, and for that we use the Velocity Template Language (VTL). You 
 					can find a reference of this language <a 
 					href="http://jakarta.apache.org/velocity/vtl-reference-guide.html"> 
-					here</a>. This will show you how to write templates in general. 
+					here</a>. 
 					</p>
 				<p class="std">
 					<b>The scripting object model</b>
@@ -80,9 +80,9 @@
 					above example.  You can see that its defined as <code>$generatedFile</code>.
 					This allows us to set this variable name "$generatedFile" in our template and use the
 					dynamic file name for the outputPattern.  If you want to use the typical
-					output notation of {0}/{1} from AndroMDA 2.x, that is also still available 
-					to you.  If you'll remember from before {0} represents the package name
-					and {1} represents the name of the model element being processed.
+					output notation of <em>{0}/{1}</em> from AndroMDA 2.x, that is also still available 
+					to you.  If you'll remember from before <em>{0}</em> represents the package name
+					and <em>{1}</em> represents the name of the model element being processed.
 				</p>
 			</subsection>
 		</section>
