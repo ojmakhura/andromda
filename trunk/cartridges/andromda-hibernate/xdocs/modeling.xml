@@ -370,6 +370,32 @@
                             (if different than the actual name of the actor).
                         </td>
                     </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.generator.class"/>
+                        <td>
+                            @andromda.hibernate.generator.class
+                        </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                        <td>
+                            Used to define the generator class used for the hibernate entity.
+                            Any of the hibernate generator classes may be used.
+                            <ul>
+                                The possible options are:
+                                <li>increment</li>
+                                <li>identity</li>
+                                <li>sequence</li>
+                                <li>hilo</li>
+                                <li>seqhilo</li>
+                                <li>uuid.hex</li>
+                                <li>uuid.string</li>
+                                <li>native</li>
+                                <li>assigned</li>
+                                <li>foreign</li>
+                            </ul>
+                        </td>
+                    </tr>
                 </table>
             </subsection>
             <subsection name="Service Tagged Values">
@@ -428,7 +454,7 @@
                             @andromda.hibernate.lazy
                         </td>
                         <td>
-                            association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
                         </td>
                         <td>
                             Used to denote how a relationship must be loaded: <code>true</code> for <code>lazy</code>,
@@ -444,7 +470,7 @@
                             @andromda.hibernate.outerjoin
                         </td>
                         <td>
-                            association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
                         </td>
                         <td>
                             Defines if Hibernate will use a outer join for fetching the given assocation end.
@@ -493,29 +519,78 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.generator.class"/>
+                        <a name="@andromda.hibernate.collection.type"/>
                         <td>
-                            @andromda.hibernate.generator.class
+                            @andromda.hibernate.collection.type
                         </td>
                         <td>
-                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
                         </td>
                         <td>
-                            Used to define the generator class used for the hibernate entity.
-                            Any of the hibernate generator classes may be used.
+                            Used to define the default mapping for hibernate collections. 
+                            This value overrides the <a href="namespace.html#hibernateAssociationCollectionType">namespace property</a>.
                             <ul>
                                 The possible options are:
-                                <li>increment</li>
-                                <li>identity</li>
-                                <li>sequence</li>
-                                <li>hilo</li>
-                                <li>seqhilo</li>
-                                <li>uuid.hex</li>
-                                <li>uuid.string</li>
-                                <li>native</li>
-                                <li>assigned</li>
-                                <li>foreign</li>
+                                <li>set</li>
+                                <li>map</li>
+                                <li>bag</li>
+                                <li>list</li>
                             </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.sort.type"/>
+                        <td>
+                            @andromda.hibernate.sort.type
+                        </td>
+                        <td>
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                        </td>
+                        <td>
+                            Used to define how elements will be sorted within the collection defined by the association. (Only available for maps and sets)
+                            This value overrides the <a href="namespace.html#hibernateAssociationSortType">namespace property</a>.
+                            <ul>
+                                The possible options are:
+                                <li>unsorted</li>
+                                <li>natural</li>
+                                <li>Customized comparator class</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.orderByColumns"/>
+                        <td>
+                            @andromda.hibernate.orderByColumns
+                        </td>
+                        <td>
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                        </td>
+                        <td>
+                            Column names that will be used for sorting the collection, with asc or desc optionally.
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.whereClause"/>
+                        <td>
+                            @andromda.hibernate.whereClause
+                        </td>
+                        <td>
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                        </td>
+                        <td>
+                            Sql condition to define a subset of available data for the collection
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.collection.index"/>
+                        <td>
+                            @andromda.hibernate.collection.index
+                        </td>
+                        <td>
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                        </td>
+                        <td>
+                            Column containing the collection index
                         </td>
                     </tr>
                 </table>
