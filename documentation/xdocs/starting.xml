@@ -438,6 +438,8 @@ BUILD SUCCESSFUL
                             <li>maven core <em>(builds the core component, usually hibernate,ejb or spring)</em></li>
                             <li>maven web <em>(builds the web component)</em></li>
                             <li>maven core web <em>(builds the core and web components, in that order)</em></li>
+                            <li>maven mda -Dfilter=spring core deploy <em>(regenerates the spring code, rebuilds
+                                the core component, bundles the .ear and deploys)</em></li>
                         </ul>
                         For more goals take a look in <code>/maven.xml</code>.
                     </li>
