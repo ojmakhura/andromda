@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>AndroMDA Development Maven Plugin Goals</title>
+  	</properties>
+  	<body>
+    	<section name="Goals">
+      		<table>	
+      			<tr>
+      				<th>
+      					Goal
+      				</th>
+      				<th>
+      					Description
+      				</th>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					androdev:test-translation
+      				</td>
+      				<td>
+	        			<p>
+	        				Runs the Translation tests for any translation test XML files found.	
+	        			</p>
+	        			<p>
+	    					A Translation test file is an XML file existing in the directory
+	    					<code><![CDATA[test/translations/<translation-library name>]]></code> that begins
+	    					with 'TranslationTest' and adhere's to the TranslationTest 
+	    					<a href="../androdev-translation-libraries/translation-test-schema.html">Schema</a>. 
+	        			</p>
+	        			<p>
+		        			<strong>NOTE:</strong> To trace the parsing of the expressions being translated, add the 
+		        			property <strong>trace</strong> to your command line
+		        			(i.e. <em>maven androdev:test-translation <strong>-Dtrace=true</strong></em>).  This is helpful when 
+		        			developing a <a href="../androdev-core/apidocs/org/andromda/core/translation/Translator.html">Translator</a> 
+		        			as this allows you to see exactly what/when different fragments of the expression are being parsed.
+		        		</p>
+	        			<p>
+		        			<strong>NOTE:</strong> To test only one translation at a time, add the
+		        			property <strong>translation</strong> to your command line
+		        			(i.e. <em>maven androdev:test-translation <strong>-Dtranslation=query.EJB-QL</strong></em>).  
+		        			This is helpful when either adding a new translation file to your Translation-Library,
+		        			or when testing between multiple translations, and you don't want to have to sort 
+		        			through the output from more than one.
+		        		</p>
+      				</td>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					maven androdev:generate-translation-library
+      				</td>
+      				<td>
+      					Generates the entire initial directory structure and any required files
+      					to begin development of a Translation-Library.
+	        			<p>
+		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
+		        			<strong>translations</strong> properties in order to run this goal 
+		        			(i.e <em>maven androdev:generate-translation-library -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
+		        		</p>
+      				</td>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					androdev:generate-translation-tests
+      				</td>
+      				<td>
+      					Generates test files for each translation specified by the <code>translations</code>
+      					property.
+	        			<p>
+		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
+		        			<strong>translations</strong> properties in order to run this goal 
+		        			(i.e <em>maven androdev:generate-translation-tests -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
+		        		</p>      					
+      				</td>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					androdev:generate-translator
+      				</td>
+      				<td>
+      					Generates the initial Translator file.
+	        			<p>
+		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
+		        			<strong>translations</strong> properties in order to run this goal 
+		        			(i.e <em>maven androdev:generate-translator -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
+		        		</p>         					
+      				</td>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					androdev:generate-translator-exception
+      				</td>
+      				<td>
+      					Generates an exception class extending 
+      					<a href="../andromda-core/apidocs/org/andromda/core/translation/TranslatorException.html">TranslatorException</a> 
+      					for the specified 'library'.  Any exception thrown by the Translator should be an instance of this exception
+      					class.
+	        			<p>
+		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> property in order to run this goal 
+		        			(i.e <em>maven androdev:generate-translator-exception -Dlibrary=query</em>).
+		        		</p>         					
+      				</td>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					androdev:generate-translation-library-descriptor
+      				</td>
+      				<td>
+      					Generates the initial Translation-Library descriptor.
+	        			<p>
+		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
+		        			<strong>translations</strong> properties in order to run this goal 
+		        			(i.e <em>androdev:generate-translation-library-descriptor -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
+		        		</p>         					
+      				</td>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					androdev:generate-translations
+      				</td>
+      				<td>
+      					Generates the initial translation files.
+	        			<p>
+		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
+		        			<strong>translations</strong> properties in order to run this goal 
+		        			(i.e <em>maven androdev:generate-translations -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
+		        		</p>         					
+      				</td>
+      			</tr>
+      			<tr>
+      				<td nowrap="nowrap">
+      					androdev:generate-translation-library-pom
+      				</td>
+      				<td>
+      					Generates an initial POM (project.xml) for a new Translation-Library.
+	        			<p>
+		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
+		        			<strong>translations</strong> properties in order to run this goal 
+		        			(i.e <em>androdev:generate-translation-library-pom -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
+		        		</p>         					
+      				</td>
+      			</tr>
+      			<tr>
+      				<a name="androdev:test-regex"/>
+      				<td nowrap="nowrap">
+      					androdev:test-regex
+      				</td>
+      				<td>
+						 Given a regular expression and an expression, this goal allows us to determine
+						 if the regular expression matches on the expression.  This is used for developing 
+						 Translation-Library fragments, when you want to know if the fragment name is
+						 structured correctly as a regular expression.  Its fast at testing regular expressions if
+						 you use it in conjunction with the the 
+						 <a href="http://maven.apache.org/reference/plugins/console/">Maven Console Plugin</a>.
+						 <strong>NOTE:</strong> two properties are required to run it <code>regex</code> which
+						 specifies the regular expression to test and <code>exp</code>, which is the expression
+						 to test against.
+      				</td>
+      			</tr>
+      		</table>
+    	</section>
+  	</body>
+</document>

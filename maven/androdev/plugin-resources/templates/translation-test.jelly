@@ -1,0 +1,18 @@
+<project xmlns:j="jelly:core">
+
+<j:whitespace trim="no" xmlns="dummy">
+<translation-test>
+
+	<translation name="${library}.${translation}"/>
+	
+	<expression contextType="${maven.androdev.translation.translator.contextType}">
+		<from>
+		</from>
+		<to>
+		</to>
+	</expression>
+	
+</translation-test>
+</j:whitespace>
+
+</project>

@@ -1,0 +1,36 @@
+<project xmlns:j="jelly:core"
+  		 xmlns:ant="jelly:ant"
+  		 xmlns:velocity="jelly:velocity">
+  		 
+    <preGoal name="jar:jar">
+        <j:set var="pluginResources" value="plugin-resources/andromda"/>
+    	<!-- replace the ${pom.currentVersion} in these
+    		 files so we don't need to maintain them between
+    		 different releases -->
+		<velocity:merge
+			name="${maven.build.dest}/plugin.properties"
+			basedir="${basedir}"
+			template="/plugin.properties"/> 
+		<velocity:merge
+			name="${maven.build.dest}/project.xml"
+			basedir="${basedir}"
+			template="/project.xml"/> 
+		<!-- copy over the mappings -->
+		<ant:copy todir="${maven.build.dest}/plugin-resources/mappings">
+			<ant:fileset dir="${mappings.location}"/>
+		</ant:copy>		  
+    </preGoal>
+  	
+  	<!-- this is here because the plugin:install goal incorrectly
+  	     copies to the '${maven.repo.local}/jars directory'
+  	     instead of the '${maven.repo.local}/plugins directory' -->
+  	<postGoal name="plugin:install" > 
+		<ant:copy todir="${maven.repo.local}/${pom.groupId}/plugins">
+			<ant:fileset dir="target">
+				<include name="*.jar"/>
+			</ant:fileset>
+		</ant:copy>	
+  	</postGoal>
+
+</project>
+ 

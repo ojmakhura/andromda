@@ -1,0 +1,80 @@
+<project xmlns:j="jelly:core">
+
+<j:whitespace trim="no" xmlns="dummy">
+<project>
+
+	<id>andromda-${library}-library</id>
+	<name>${translationLibraryName}</name>
+	<shortDescription>${translationLibraryName}</shortDescription>
+	<description>
+		Performs translation of OCL expressions to ${translations}.
+	</description>
+	<package>${maven.androdev.translation.translator.package}</package>
+	
+	<developers>
+		<developer>
+			<name></name>
+			<id>${maven.username}</id>
+			<email></email>
+		</developer>
+	</developers>
+	
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-core</artifactId>
+	      	<version>${maven.androdev.core.version}</version>
+	    </dependency>
+    	<dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.0</version>
+	    </dependency>
+    	<dependency>
+	      	<groupId>commons-logging</groupId>
+	      	<artifactId>commons-logging</artifactId>
+	      	<version>1.0.3</version>
+	    </dependency>
+	</dependencies> 
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+    	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+
+    	<!-- Unit test classes -->
+    	<unitTest>
+	      	<includes>
+	        	<include>**/*Test.java</include>
+	     	</includes>
+			<resources>
+				<resource>
+					<directory>src/test</directory>
+		  			<includes>
+		    			<include>**/*.xml</include>
+		    			<include>**/*.properties</include>
+		  			</includes>
+		  		</resource>
+			</resources>	     	
+    	</unitTest>
+    
+		<resources>
+			<resource>
+				<directory>src/java</directory>
+	  			<includes>
+	    			<include>**/*.xml</include>
+	    			<include>**/*.properties</include>
+	  			</includes>
+	  		</resource>
+	  		<resource>
+				<directory>src</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        		<exclude>test/**/*</exclude>
+	        	</excludes>
+	  		</resource>
+		</resources>
+  	</build>	
+  	
+</project> 	
+</j:whitespace>
+
+</project>

@@ -1,0 +1,27 @@
+<project xmlns:j="jelly:core"
+		 xmlns:util="jelly:util">
+
+<util:tokenize var="translationList" delim=",">${translations}</util:tokenize>
+<j:whitespace trim="no" xmlns="dummy">
+package ${maven.androdev.translation.translator.package};
+
+/**
+ * Performs translation to the following:	
+ * <ul>
+ *     <j:forEach var="translation" items="${translationList}">
+ *     <li>
+ *     		${translation}
+ *     </li>
+ *     </j:forEach>
+ * </ul>
+ *
+ * @author ${maven.username}
+ */
+public class ${translatorShortName} <j:if test="${!empty translatorSuperClass}">extends ${translatorSuperClass}</j:if> {
+
+    /*-------------------------  all handler methods go below here -------------------------*/
+
+}
+</j:whitespace>
+
+</project>

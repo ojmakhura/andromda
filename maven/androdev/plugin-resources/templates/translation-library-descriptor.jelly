@@ -1,0 +1,21 @@
+<project xmlns:j="jelly:core"
+		 xmlns:util="jelly:util">
+
+<util:tokenize var="translationList" delim=",">${translations}</util:tokenize>
+<j:whitespace trim="no" xmlns="dummy">
+<translation-library name="${library}">
+
+  	<translator>${translatorClassName}</translator>
+  	<j:forEach var="translation" items="${translationList}">
+  	<translation name="${translation}">
+    	<description>
+    		Translation fragments to support translation of ${translation}.
+    	</description>
+    	<file>${translationSrcDir}/${translation}.vsl</file>
+  	</translation>
+  	</j:forEach>
+  	
+</translation-library>
+</j:whitespace>
+
+</project>
