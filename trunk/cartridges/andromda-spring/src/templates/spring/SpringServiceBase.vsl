@@ -47,27 +47,26 @@ public abstract class $service.baseName
 
 #end
 #foreach($entityRef in $service.entityReferences)
-#set ($targetElement = $entityRef.targetElement)
-    private $targetElement.fullyQualifiedDaoName $entityRef.name;
+    private $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
     /**
      * Sets the reference to <code>$entityRef.name</code>'s DAO.
      */
-    public void ${entityRef.setterName}(${targetElement.fullyQualifiedDaoName} $entityRef.name)
+    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName)
     {
-        this.$entityRef.name = $entityRef.name;
+        this.$entityRef.daoName = $entityRef.daoName;
     }
 
     /**
      * Gets the reference to <code>$entityRef.name</code>'s DAO.
      */
-    protected $targetElement.fullyQualifiedDaoName get${targetElement.daoName}()
+    protected $entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoGetterName}()
     {
-        return this.$entityRef.name;
+        return this.$entityRef.daoName;
     }
 
 #end
-#foreach ( $operation in $service.operations )
+#foreach ($operation in $service.operations)
     /**
      * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
      */

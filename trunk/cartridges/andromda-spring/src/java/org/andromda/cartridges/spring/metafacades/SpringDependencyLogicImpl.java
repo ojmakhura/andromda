@@ -91,7 +91,42 @@ public class SpringDependencyLogicImpl
     protected String handleGetTransformationToCollectionMethodName()
     {
         return SpringGlobals.TRANSFORMATION_METHOD_PREFIX
-            + StringUtils.capitalize(getName())
+            + StringUtils.capitalize(this.getName())
             + SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getDaoName()
+     */
+    protected String handleGetDaoName()
+    {
+        return this.getDaoNamePattern().replaceAll("\\{0\\}", this.getName());
+    }
+
+    /**
+     * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_PATTERN}
+     * 
+     * @return the DAO name pattern.
+     */
+    private String getDaoNamePattern()
+    {
+        return String.valueOf(this
+            .getConfiguredProperty(SpringGlobals.PROPERTY_DAO_PATTERN));
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getDaoGetterName()
+     */
+    protected String handleGetDaoGetterName()
+    {
+        return "get" + StringUtils.capitalize(this.getDaoName());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getDaoSetterName()
+     */
+    protected String handleGetDaoSetterName()
+    {
+        return "set" + StringUtils.capitalize(this.getDaoName());
     }
 }

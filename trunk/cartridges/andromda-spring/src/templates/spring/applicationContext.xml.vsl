@@ -143,15 +143,14 @@
 ## we need to use the lookup-method as a work-a-round for dependencies
 ## which represent circular references
 #foreach($entityRef in $entity.entityReferences)
-#set ($daoReferenceName = $entityRef.targetElement.getBeanName(false))
 #if (!$entityRef.circularReference)
-        <property name="$daoReferenceName"><ref bean="$daoReferenceName"/></property>
+        <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
 #end
 #foreach($entityRef in $entity.entityReferences)
 #set ($daoReferenceName = $entityRef.targetElement.getBeanName(false))
 #if ($entityRef.circularReference)
-        <lookup-method name="get${entityRef.targetElement.daoName}" bean="$daoReferenceName"/>
+        <lookup-method name="$entityRef.daoGetterName" bean="$entityRef.targetElement.getBeanName(false)"/>
 #end
 #end
     </bean>
@@ -179,22 +178,20 @@
     <bean id="$service.getBeanName(true)" class="$service.fullyQualifiedImplementationName">
 #if ($daosEnabled)
 #foreach($entityRef in $service.entityReferences)
-        <property name="$entityRef.name"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
+        <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
 #end
 ## Because of a bug in Spring with circular references (and using AOP proxies), 
 ## we need to use the lookup-method as a work-a-round for dependencies
 ## which represent circular references
 #foreach($serviceRef in $service.serviceReferences)
-#set ($serviceReferenceName = $serviceRef.targetElement.getBeanName(false))
 #if (!$serviceRef.circularReference)
-        <property name="$serviceReferenceName"><ref bean="$serviceReferenceName"/></property>
+        <property name="$serviceRef.name"><ref bean="$serviceRef.targetElement.beanName"/></property>
 #end
 #end
 #foreach($serviceRef in $service.serviceReferences)
-#set ($serviceReferenceName = $serviceRef.targetElement.getBeanName(false))
 #if ($serviceRef.circularReference)
-        <lookup-method name="get${serviceRef.targetElement.name}" bean="$serviceReferenceName"/>
+        <lookup-method name="$serviceRef.getterName" bean="$serviceRef.targetElement.beanName"/>
 #end
 #end
     </bean>
