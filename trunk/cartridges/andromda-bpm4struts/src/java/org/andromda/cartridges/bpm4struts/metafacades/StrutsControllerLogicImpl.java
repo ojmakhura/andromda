@@ -35,7 +35,7 @@ public class StrutsControllerLogicImpl
      */
     protected java.lang.String handleGetFullPath()
     {
-        return '/' + getUseCase().getPackageName().replace('.', '/') + '/' + getName();
+        return '/' + getPackageName().replace('.', '/') + '/' + getName();
     }
 
     /**
