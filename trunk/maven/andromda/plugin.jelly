@@ -233,7 +233,7 @@
 	    <velocity:merge
 			name="${projectId}/.classpath"
 			basedir="${templatesDir}"
-			template="/.classpath.vm"/>
+			template="/.classpath-${persistenceType}.vm"/>
 	      
 	    <velocity:merge 
 	        name="${projectId}/project.xml"
@@ -274,16 +274,9 @@
 		
 		<ant:mkdir dir="${mdaModelDir}"/>
 
-    	<j:invokeStatic 
-    		var="modelName" 
-    		className="org.apache.commons.lang.StringUtils"
-    		method="deleteWhitespace">
-    		<j:arg value="${projectName}"/>
-    	</j:invokeStatic>
-
 		<!-- process the model file -->
 	    <velocity:merge 
-	      name="${mdaModelDir}/${modelName}.xmi"
+	      name="${mdaModelDir}/${stringUtils.deleteWhitespace(projectName)}.xmi"
 	      basedir="${mdaTemplatesDir}"
 	      template="/src/uml/model.xmi.vm"/>	
 		
@@ -295,7 +288,7 @@
 	    <velocity:merge 
 	      name="${mdaDir}/project.properties"
 	      basedir="${mdaTemplatesDir}"
-	      template="project.properties.vm"/>		     
+	      template="project-${persistenceType}.properties.vm"/>		     
 	      
 		<ant:copy todir="${mdaDir}">
 			<ant:fileset dir="${mdaTemplatesDir}">
@@ -341,10 +334,12 @@
 	<goal name="andromda:generate-common-subproject"
 		  prereqs="andromda:genapp-init">
 				
+		
 		<j:set var="moduleName" value="common"/>
 		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
 		<j:set var="moduleDir" value="${projectId}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
+	    <ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
 		
 	</goal>
 	
@@ -362,19 +357,27 @@
 		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}"/>
 		<j:set var="moduleDir" value="${hibernateDir}"/>
 	    <attainGoal name="andromda:generate-module"/>
+	    
+	    <j:set var="dbConfDir" value="db/conf"/>
+	    <ant:copy todir="${moduleDir}/${dbConfDir}">
+			<ant:fileset dir="${moduleTemplatesDir}/${dbConfDir}">
+				<ant:include name="*"/>
+			</ant:fileset>
+	    </ant:copy>
 		
 		<!-- the hibernate/ejb module -->
 		<j:set var="moduleName" value="ejb"/>
 		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
 		<j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
+	    <ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
 	
 		<!-- the hibernate/sar module -->
 		<j:set var="moduleName" value="sar"/>
 		<j:set var="moduleTemplatesDir" value="${hibernateTemplatesDir}/${moduleName}"/>
 		<j:set var="moduleDir" value="${hibernateDir}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
-		
+	   
 	</goal>
 	
   	<!--==================================================================
@@ -409,11 +412,12 @@
   		==================================================================-->
 	<goal name="andromda:generate-ejb-subproject"
 		  prereqs="andromda:genapp-init">
-		
+		  	
 		<j:set var="moduleName" value="ejb"/>
 		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
 		<j:set var="moduleDir" value="${projectId}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
+		<ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
 		
 	</goal>
 	
@@ -427,6 +431,7 @@
 		<j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
 		<j:set var="moduleDir" value="${projectId}/${moduleName}"/>
 	    <attainGoal name="andromda:generate-module"/>
+		<ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
 		
 	</goal>
 	
@@ -467,20 +472,22 @@
       		var="stringUtils" 
       		className="org.apache.commons.lang.StringUtils"/>
 
-      	<j:set var="capitalizedProjectId" value="${stringUtils.capitalize(projectId)}"/>
+		<j:set var="projectId" value="${stringUtils.deleteWhitespace(projectId)}"/>
     	
         <util:replace 
         	var="packageDir"
         	value="${packageName}" 
         	oldChar="." 
         	newChar="/"/>
-        	
-        <j:set var="andromdaVersion" value="${maven.andromda.genapp.andromda.version}"/>
-        	
+
+        <j:set var="templatesDir" value="${plugin.resources}/andromda/templates/j2ee-app"/>
+        
+        <!-- the java source directory to use when creating java source directories -->
+        <j:set var="javaSrcDir" value="src/java"/>
+        
         <!-- set the groupId so that it isn't filled by the default provided by maven -->
 		<j:set var="dummy" value="${pom.setGroupId('${pom.groupId}')}"/>
-        	
-        <j:set var="templatesDir" value="${plugin.resources}/andromda/templates/j2ee-app"/>
+        
 	</goal>
 	
 </project>
