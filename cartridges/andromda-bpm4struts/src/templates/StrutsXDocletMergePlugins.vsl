@@ -1,8 +1,9 @@
 
-#if ($class.applicationValidationRequired)
+#set ($validationDesired = ($clientValidation=='true' || $serverValidation=='true'))
+#if ($class.applicationValidationRequired && $validationDesired)
   <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
     <set-property property="pathnames" value="/WEB-INF/validation.xml,/WEB-INF/validator-rules.xml"/>
-    <set-property property="stopOnFirstError" value="true"/>
+    <set-property property="stopOnFirstError" value="false"/>
   </plug-in>
 #end
 
@@ -11,3 +12,9 @@
     <set-property property="definitions-parser-validate" value="true"/>
     <set-property property="moduleAware" value="true"/>
   </plug-in>
+
+<!--
+  <plug-in className="net.sf.navigator.menu.MenuPlugIn">
+    <set-property property="menuConfig" value="/WEB-INF/menu-config.xml"/>
+  </plug-in>
+-->
