@@ -101,7 +101,13 @@ $operation.getDocumentation("     ")
         populateForm(form);
 #if ($returnType != "void")
 
+#if ($returnType=="boolean")
+        return false;
+#elseif ($returnType=="int" || $returnType=="float" || $returnType=="double" || $returnType=="short" || $returnType=="char" || $returnType=="short" || $returnType=="long")
+        return 0;
+#else
         return null;
+#end
 #end
     }
 
