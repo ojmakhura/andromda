@@ -7,18 +7,25 @@
   	<name>AndroMDA</name>
 	<currentVersion>3.0-SNAPSHOT</currentVersion>
   	<inceptionYear>2003</inceptionYear>
-  	<organization>
-    	<name>Matthias Bohlen and the AndroMDA Team</name>
-    	<logo>http://www.andromda.org/docs/images/project.png</logo>
-    	<!-- <url></url> -->
-  	</organization>
-  	<!-- <logo>/images/project.png</logo> -->
-  	<url>index.html</url>
+	<organization>
+		<name>AndroMDA Team</name>
+		<url>http://www.andromda.org</url>
+		<logo>/images/andromda-logo.gif</logo>
+	</organization>
+	<package>org.andromda</package>
+	<description>The top level module for all of AndroMDA</description>
+	<shortDescription>AndroMDA (Model Driven Architecture) Framework</shortDescription>
+	<url>http://www.andromda.org/</url>
+  	<logo>/images/sourceforge.bmp</logo>
+  	<url>http://www.sourceforge.net</url>
+	<issueTrackingUrl>http://sourceforge.net/tracker/?group_id=73047&amp;atid=536545</issueTrackingUrl>
+	<siteAddress>www.andromda.org</siteAddress>
+	<siteDirectory>/team.andromda.org/</siteDirectory>
+	<distributionDirectory>/team.andromda.org/builds/</distributionDirectory>
   	<repository>
     	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/</connection>
     	<url>http://cvs.sourceforge.net/viewcvs.py/andromda</url>
   	</repository>
-  	
   	<versions>
     	<version>
       		<id>2.1.2</id>
@@ -36,7 +43,6 @@
       		<tag>V210_final</tag>
     	</version>
   	</versions>
-  	
   	<developers>
     	<developer>
       		<name>Matthias Bohlen</name>
@@ -115,7 +121,6 @@
       		<role>Developer</role>
     	</developer>
   	</developers>
-  	
   	<!-- restrict the reports generated -->
   	<reports>
   		<report>maven-jxr-plugin</report>
@@ -124,5 +129,4 @@
   	    <report>maven-pmd-plugin</report>
   	    <report>maven-jdepend-plugin</report>
   	</reports>
-
 </project>
