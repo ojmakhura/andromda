@@ -43,9 +43,9 @@ src/uml
   		        in a file into the <code>src/uml</code> directory. Open 
   		        MagicDraw and import the basic metafacades module which is 
   		        shipped with AndroMDA. These basic metafacades for UML are in 
-  		        the file <code>metafacades/uml/common/src/uml</code> of the 
-  		        AndroMDA source distribution. You import them using the "File, 
-  		        Import..." menu in MagicDraw. After the import, you should be 
+  		        the model file <code>UMLMetafacadeModel-*.xml.zip</code> 
+				located in the AndroMDA binary distribution.
+  		        You import them using the "File, Import..." menu in MagicDraw. After the import, you should be 
   		        able to see the basic facade classes (like ClassifierFacade, 
   		        etc.) but MagicDraw should show them as read-only.
   		    </p>
