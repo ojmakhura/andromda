@@ -594,24 +594,12 @@ public class WebServiceLogicImpl
             ? (String)property
             : OPERATION_SORT_MODE_NONE;
     }
-
-    private static final String DEFAULT_SECURED = "defaultSecured";
     
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WebServiceLogic#handleIsSecured()
+     * @see org.andromda.cartridges.webservice.metafacades.WebService#isSecured()
      */
     protected boolean handleIsSecured()
     {
-        boolean secured = !this.getAllowedOperations().isEmpty();
-        if (secured)
-        {
-	        secured = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(DEFAULT_SECURED))).booleanValue();
-	        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_SECURED); 
-	        if (value != null)
-	        {
-	            secured = Boolean.valueOf(String.valueOf(value)).booleanValue();
-	        }
-        }
-        return secured;
+        return this.getRoles() != null && !this.getRoles().isEmpty();
     }
 }
