@@ -24,10 +24,10 @@
         
         <j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
  
-        <attainGoal name="andromda:init-classpath${bootstrap}"/>
+        <attainGoal name="andromda:init${bootstrap}"/>
         <!-- add any model dependencies -->
         <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
-
+                
         <ant:taskdef
             name="andromda"
             classname="org.andromda.core.anttasks.AndroMDAGenTask">
@@ -83,11 +83,17 @@
                     </ant:modelPackage>
                     
                 </j:if>
-            </j:forEach>        	
-   
-            <j:forEach var="artifact" items="${pom.artifacts}">
+            </j:forEach>
+            
+            <j:set var="artifacts" value="${pom.artifacts}"/>
+            <!-- if currentPlugin is defined, add its artifacts to the list -->
+            <j:if test="${currentPlugin != null}">
+                <j:set var="dummy" value="${artifacts.addAll(currentPlugin.artifacts)}"/>
+            </j:if>
+            
+            <j:forEach var="artifact" items="${artifacts}">
                            
-                   <j:set var="dependency" value="${artifact.dependency}"/>  
+                <j:set var="dependency" value="${artifact.dependency}"/>  
        
                 <j:choose>
                     <j:when test="${plugin.artifactId eq dependency.artifactId}">
@@ -109,7 +115,7 @@
                         <j:set var="propertyValue" value="${pluginUtils.getDependencyPropertyValue(property)}"/>
                         <j:set var="isIgnored" value="${pluginUtils.isDependencyPropertyIgnored(property)}"/>
                         <j:if test="${propertyName != null and propertyName != ''}">
-                            <property name="${propertyName}" value="${propertyValue}" ignore="${isIgnored}"/>    
+                            <ant:property name="${propertyName}" value="${propertyValue}" ignore="${isIgnored}"/>    
                         </j:if>
                                                 
                     </j:forEach>
@@ -165,11 +171,15 @@
     </goal>
     
     <!-- ================================================================
-           Provides any classpath initialization.
+           Provides any initialization.
          ================================================================ -->
-    <goal name="andromda:init-classpath${bootstrap}"
+    <goal name="andromda:init${bootstrap}"
           description="private interal goal">
+        <j:set var="currentPlugin" value="${maven.andromda.currentPlugin}"/>
         <ant:path id="maven.andromda.classpath">
+            <j:if test="${currentPlugin != null}">
+                <ant:pathelement path="${currentPlugin.dependencyClasspath}"/>
+            </j:if>
             <ant:pathelement path="${plugin.dependencyClasspath}"/>   		
             <ant:path refid="maven.dependency.classpath"/> 
         </ant:path>    
@@ -211,7 +221,7 @@
                 answer="mappingsUri"/>
         </j:while>
         
-        <attainGoal name="andromda:init-classpath${bootstrap}"/>
+        <attainGoal name="andromda:init${bootstrap}"/>
         <!-- add any model dependencies -->
         <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
         
