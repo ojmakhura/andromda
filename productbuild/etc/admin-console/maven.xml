@@ -18,20 +18,17 @@
 
     <goal name="web">
         <maven:maven
-            descriptor="${basedir}/web/project.xml"
-            goals="war:install"/>
+            descriptor="${basedir}/web/project.xml"/>
     </goal>
 
     <goal name="core">
         <maven:maven
-            descriptor="${basedir}/core/project.xml"
-            goals="jar:install"/>
+            descriptor="${basedir}/core/project.xml"/>
     </goal>
 
     <goal name="mda">
         <maven:maven
-            descriptor="${basedir}/mda/project.xml"
-            goals="pom:install"/>
+            descriptor="${basedir}/mda/project.xml"/>
     </goal>
 
     <!-- convenient goals for when testing the admin-console code -->
