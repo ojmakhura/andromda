@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>AndroMDA Development Maven Plugin Properties</title>
+  	</properties>
+  	<body>
+    	<section name="AndroMDA Development Maven Plugin Settings">
+      		<table>
+        		<tr>
+		          	<th>Property</th>
+		          	<th>Optional?</th>
+		          	<th>Description</th>
+        		</tr>
+        		<tr>
+          			<td>maven.androdev.model.uri</td>
+          			<td>Yes</td>
+          			<td>
+          				The URI to the model used to run tests.
+            			<p>Default value is
+              				<code>file:${plugin.resources}/models/uml/contracts.xmi</code>.
+              			</p>
+          			</td>
+        		</tr>
+       			<tr>
+          			<td>maven.androdev.modelFacade</td>
+			        <td>Yes</td>
+			        <td>
+            			<p>
+            				Can be specified to override the default 
+			        		<a href="../andromda-core/apidocs/org/andromda/core/metafacades/ModelAccessFacade.html">ModelFacade</a> implementation.
+            				Default value is defined in the <a href="../andromda-core/index.html">Core</a> .
+            			</p>
+          			</td>
+        		</tr>
+        		<tr>
+	          		<td>maven.androdev.repository</td>
+	          		<td>Yes</td>
+	          		<td>       			
+			            <p>
+			            	Can be specified to override the default 
+			            	<a href="../andromda-core/apidocs/org/andromda/core/repository/RepositoryFacade.html">RepositoryFacade</a> implementation.
+			            	Default value is defined in the <a href="../andromda-core/index.html">Core</a> .
+						</p>
+          			</td>
+        		</tr>
+        		<tr>
+          			<td>maven.androdev.printreport</td>
+          			<td>Yes</td>
+         			<td>
+            			<p>
+            				If this value is set to false, test run details will appear 
+            				on the console as the tests are executed. If not, they are stored in a file in 
+            				the test-reports directory. 
+            				Default value is <code>true</code>.
+              			</p>
+          			</td>
+        		</tr>
+        		<tr>
+          			<td>maven.androdev.translation.file.ext</td>
+          			<td>Yes</td>
+         			<td>
+            			<p>
+            				The extension for generated translation files. 
+            				Default value is <code>vsl</code>.
+              			</p>
+          			</td>
+        		</tr>
+        		<tr>
+          			<td>maven.androdev.translation.translator.package</td>
+          			<td>Yes</td>
+         			<td>
+            			<p>
+            				The package to which Translators will be generated. 
+            				Default value is <code>org.androdev.translation.${library}</code>.
+              			</p>
+          			</td>
+        		</tr>    
+        		<tr>
+          			<td>maven.androdev.translation.translator.superclass</td>
+          			<td>Yes</td>
+         			<td>
+            			<p>
+            				The Translator super class (if empty, the Translator won't have one). 
+            				Default value is 
+            				<a href="../andromda-core/apidocs/org/andromda/core/translation/BaseTranslator.html">org.androdev.core.translation.BaseTranslator</a>.
+              			</p>
+          			</td>
+        		</tr>
+        		<tr>
+          			<td>maven.androdev.translation.translator.contextType</td>
+          			<td>Yes</td>
+         			<td>
+            			<p>
+            				The contextType used with generated test files (the element to which the expressions apply). 
+            				This contextType must be an element contained within the model you're testing with.
+            				Default value is <code>org.androdev.contracts.LegalAgreement</code>.
+              			</p>
+          			</td>
+        		</tr> 
+        		<tr>
+        			<td>maven.androdev.languageMappingsUri</td>
+        			<td>Yes</td>
+        			<td>
+        				<p>
+        					The URI for the language mappings file to use when testing AndroMDA plugins 
+        					(i.e. translation-libraries, etc).  Default value is 
+        					<code>file:${plugin.resources}/mappings/JavaMappings.xml</code>.
+        				</p>
+        			</td>
+        		</tr>         		    		
+      		</table>
+    	</section>
+  	</body>
+</document>

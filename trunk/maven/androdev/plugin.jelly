@@ -1,0 +1,365 @@
+<?xml version="1.0"?>
+
+<project xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+	  	 xmlns:util="jelly:util"
+         xmlns:maven="jelly:maven"
+		 xmlns:license="license"
+		 xmlns:x="jelly:xml">
+
+    <!-- ===================================================================
+         Runs the translator tests                         
+         =================================================================== -->
+    <goal name="androdev:test-translation" 
+    	  description="Runs the translation tests for any translator test XML files beginning with 'Translation-Test'">
+        <ant:echo>+-------------------------------------------+</ant:echo>
+        <ant:echo>|   T E S T I N G   T R A N S L A T I O N   |</ant:echo>
+        <ant:echo>+-------------------------------------------+</ant:echo> 
+
+		<path id="androdev.classpath">
+            <ant:path refid="maven.dependency.classpath"/>
+            <ant:pathelement path="${plugin.dependencyClasspath}"/>        
+		</path>
+	
+		<maven:addPath
+	       	id="maven.dependency.classpath"
+	       	refid="androdev.classpath"/>	
+		
+		<!-- set the testcase to run -->
+		<j:set 
+			var="testcase" 
+			value="org.andromda.translation.testsuite.TranslationTestProcessor" 
+			scope="parent"/>
+
+		<j:set 
+			var="maven.junit.fork" 
+			value="true" 
+			scope="parent"/>
+			
+		<j:set 
+			var="maven.junit.usefile"
+			value="${maven.androdev.printreport}"
+			scope="parent"/>
+
+		<!-- set the properties that we can override from a properties file -->
+		<j:set
+			var="model.xmi"
+			value="${maven.androdev.model.uri}"
+			scope="parent"/>
+			
+		<j:set
+			var="modelFacade"
+			value="${maven.androdev.modelFacade}"
+			scope="parent"/>	
+			
+		<j:set
+			var="repository"
+			value="${maven.androdev.repository}"
+			scope="parent"/>	
+			
+		<j:set
+			var="trace.expression"
+			value="${trace}"
+			scope="parent"/>		
+			
+		<j:set
+			var="translation.name"
+			value="${translation}"
+			scope="parent"/>	
+			
+		<j:set
+			var="languageMappingsUri"
+			value="${maven.androdev.languageMappingsUri}"
+			scope="parent"/>	
+			
+		<j:set 
+			var="maven.junit.sysproperties"
+			value="model.xmi modelFacade repository trace.expression translation.name languageMappingsUri"
+			scope="parent"/>
+			
+      	<attainGoal name="test:single"/>
+      	
+	</goal>
+	
+	<!-- ============================================================================
+		  Generates the initial struture of a Translation-Library
+	     ============================================================================ -->
+	<goal name="androdev:generate-translation-library"
+		  description="Generates the initial struture of a Translation-Library"
+		  prereqs="androdev:validate-generation-params">
+		  
+		<attainGoal name="androdev:generate-translation-library-descriptor"/>
+		<attainGoal name="androdev:generate-translations"/>
+		<attainGoal name="androdev:generate-translator"/>
+		<attainGoal name="androdev:generate-translator-exception"/>
+		<attainGoal name="androdev:generate-translation-tests"/>
+		<attainGoal name="androdev:generate-translation-library-pom"/>
+
+	</goal>
+	
+	<!-- ============================================================================
+		  Generates the initial Translation-Library descriptor
+	     ============================================================================ -->
+	<goal name="androdev:generate-translation-library-descriptor"
+		  description="Generates the initial Translation-Library descriptor"
+		  prereqs="androdev:validate-generation-params,androdev:set-shared-properties">
+		  
+        <ant:echo>+-------------------------------------------------------------------------------------+</ant:echo>
+        <ant:echo>|   G E N E R A T I N G  T R A N S L A T I O N - L I B R A R Y  D E S C R I P T O R   |</ant:echo>
+        <ant:echo>+-------------------------------------------------------------------------------------+</ant:echo> 		
+        
+        <j:set var="srcDir" value="${library}/src"/>
+        <j:set var="metaInfDir" value="${srcDir}/META-INF"/>
+        <j:set var="translationSrcDir" value="translations/${library}"/>
+        <ant:mkdir dir="${metaInfDir}"/>
+
+		<!-- write the Translation-Library descriptor file -->
+    	<j:set var="translationLibraryFile" value="${metaInfDir}/translation-library.xml"/>
+        <ant:echo>Generating translation-library descriptor: ${translationLibraryFile}</ant:echo>
+       
+     	<j:file name="${translationLibraryFile}" trim="false">
+			<j:import file="${plugin.resources}/templates/translation-library-descriptor.jelly" inherit="true"/>
+		</j:file>
+		
+	</goal>
+
+	<!-- ============================================================================
+		  Sets some properties shared by other goals
+	     ============================================================================ -->	
+	<goal name="androdev:set-shared-properties">
+	
+		<!-- check and make sure 'library' is present -->
+      	<maven:param-check value="${library}" fail="true">
+			The name of the Translation-Library must be specified.
+			(i.e. maven androdev:generate-translation-library -Dlibrary=query).
+		</maven:param-check>	
+		
+      	<j:new 
+      		var="stringUtils" 
+      		className="org.apache.commons.lang.StringUtils"/>
+      	
+      	<!-- TODO: need to change this method to 'stringUtils.capitalize(library)'
+      	     when maven uses StringUtils-2.x and above, its using 1.0.1 now and
+      	     'capatilize' doesn't exist on 1.0.1, this method will be come deprecated at some point,
+      	     so we need to change it -->
+      	<j:set var="libraryName" value="${stringUtils.capitalise(library)}"/>
+      	
+      	<j:set var="translatorShortName" value="${libraryName}Translator"/>
+        
+        <j:set 
+        	var="translatorClassName" 
+        	value="${maven.androdev.translation.translator.package}.${translatorShortName}"/>	
+	</goal>
+	
+	<!-- ============================================================================
+		  Generates the initial Translation files
+	     ============================================================================ -->
+	<goal name="androdev:generate-translations"
+		  description="Generates the initial translation files"
+		  prereqs="androdev:validate-generation-params">
+		  
+        <ant:echo>+------------------------------------------------------+</ant:echo>
+        <ant:echo>|   G E N E R A T I N G  T R A N S L A T I O N ( S )   |</ant:echo>
+        <ant:echo>+------------------------------------------------------+</ant:echo> 
+
+        <j:set var="srcDir" value="${library}/src"/>
+        	
+        <j:set var="translationSrcDir" value="${srcDir}/translations/${library}"/>
+        <ant:mkdir dir="${translationSrcDir}"/>
+        
+        <util:tokenize var="translationList" delim=",">${translations}</util:tokenize>
+        
+        <!-- write the translation file(s) -->
+        <j:forEach var="translation" items="${translationList}">
+        	<j:set var="translationFile" value="${translationSrcDir}/${translation}.vsl"/>
+            <ant:echo>Generating translation file: ${translationFile}</ant:echo>
+	        <!-- output the Translation file -->
+	     	<j:file name="${translationFile}" trim="false">
+				<j:import file="${plugin.resources}/templates/translation.jelly" inherit="true"/>
+			</j:file>  
+        </j:forEach>
+		
+	</goal>
+	
+	<!-- ============================================================================
+		  Generates the initial Translator 
+	     ============================================================================ -->
+	<goal name="androdev:generate-translator"
+		  description="Generates the initial Translator"
+		  prereqs="androdev:validate-generation-params,androdev:set-shared-properties">
+
+        <ant:echo>+----------------------------------------------+</ant:echo>
+        <ant:echo>|   G E N E R A T I N G  T R A N S L A T O R   |</ant:echo>
+        <ant:echo>+---------------------------------------------=+</ant:echo> 	
+        
+        <j:set var="srcDir" value="${library}/src/java"/>
+        
+        <util:replace 
+        	var="translatorPackageDir"
+        	value="${maven.androdev.translation.translator.package}" 
+        	oldChar="." 
+        	newChar="/"/>
+        
+       	<ant:mkdir dir="${srcDir}/${translatorPackageDir}"/>
+        	
+        <j:set 
+        	var="translatorFilePath" 
+        	value="${translatorPackageDir}/${translatorShortName}.java"/>
+
+        <j:set var="translatorSuperClass" value="${maven.androdev.translation.translator.superclass}"/>
+                
+        <!-- write the initial Translator file -->
+        <ant:echo>Generating translator file: ${srcDir}/${translatorFilePath}</ant:echo>
+     	<j:file name="${srcDir}/${translatorFilePath}"
+              	omitXmlDeclaration="true"
+              	trim="false">
+			<j:import file="${plugin.resources}/templates/translator.jelly" inherit="true"/>
+        </j:file>
+	
+	</goal>
+	
+	<!-- ============================================================================
+		  Generates a Translator Exception 
+	     ============================================================================ -->
+	<goal name="androdev:generate-translator-exception"
+		  description="Generates a Translator Exception Class"
+		  prereqs="androdev:set-shared-properties">
+
+        <ant:echo>+----------------------------------------------------------------+</ant:echo>
+        <ant:echo>|   G E N E R A T I N G  T R A N S L A T O R  E X C E P T I O N  |</ant:echo>
+        <ant:echo>+----------------------------------------------------------------+</ant:echo> 	
+        
+        <j:set var="srcDir" value="${library}/src/java"/>
+        
+        <util:replace 
+        	var="translatorPackageDir"
+        	value="${maven.androdev.translation.translator.package}" 
+        	oldChar="." 
+        	newChar="/"/>
+        
+       	<ant:mkdir dir="${srcDir}/${translatorPackageDir}"/>
+        	
+        <j:set 
+        	var="translatorFilePath" 
+        	value="${translatorPackageDir}/${translatorShortName}Exception.java"/>
+                
+        <!-- write the initial Translator file -->
+        <ant:echo>Generating translator exception file: ${srcDir}/${translatorFilePath}</ant:echo>
+     	<j:file name="${srcDir}/${translatorFilePath}"
+              	omitXmlDeclaration="true"
+              	trim="false">
+			<j:import file="${plugin.resources}/templates/translator-exception.jelly" inherit="true"/>
+        </j:file>
+	
+	</goal>
+	
+	<!-- ============================================================================
+		  Generates the Translation-Library Translation-Test-* files.
+	     ============================================================================ -->
+	<goal name="androdev:generate-translation-tests"
+		  description="Generates the test XML files for each translation"
+		  prereqs="androdev:validate-generation-params">
+		  
+        <ant:echo>+-------------------------------------------------------------------------+</ant:echo>
+        <ant:echo>|   G E N E R A T I N G  T R A N S L A T I O N - T E S T  F I L E ( S )   |</ant:echo>
+        <ant:echo>+-------------------------------------------------------------------------+</ant:echo> 	
+
+        <j:set var="srcDir" value="${library}/src"/>
+		
+        <util:replace 
+        	var="translationTestDir"
+        	value="${srcDir}/test/translations/${library}" 
+        	oldChar="." 
+        	newChar="/"/>
+		
+       	<ant:mkdir dir="${translationTestDir}"/>
+
+		<util:tokenize var="translationList" delim=",">${translations}</util:tokenize>
+
+        <!-- write a test file for each translation -->
+        <j:forEach var="translation" items="${translationList}">
+        	<j:set var="translationTestFile" value="${translationTestDir}/TranslationTest-${translation}.xml"/>
+            <ant:echo>Generating translation test file: ${srcDir}/${translationTestFile}</ant:echo>
+	        <!-- output the Translation file -->
+	     	<j:file name="${translationTestFile}" trim="false">
+	     		<j:import file="${plugin.resources}/templates/translation-test.jelly" inherit="true"/>
+			</j:file>
+        </j:forEach>
+	</goal>
+	
+	<!-- ============================================================================
+		  Validates that both 'library' and 'translations' properties have been set
+	     ============================================================================ -->	
+	<goal name="androdev:validate-generation-params">
+		<j:set var="failMessage">
+			The name of the Translation-Library and at least one translation must be specified. 
+			(i.e. maven androdev:generate-translation-library -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL).
+		</j:set>
+		  
+      	<maven:param-check value="${library}" fail="true">
+			${failMessage}
+		</maven:param-check>	
+		
+      	<maven:param-check value="${translations}" fail="true">
+			${failMessage}
+		</maven:param-check>	
+	</goal>
+	
+	<!-- ============================================================================
+		  Generates an initial POM (project.xml) for a new Translation-Library
+	     ============================================================================ -->
+	<goal name="androdev:generate-translation-library-pom"
+		  description="Generates an initial POM (project.xml) for a new Translation-Library"
+		  prereqs="androdev:validate-generation-params,androdev:set-shared-properties">
+
+        <ant:echo>+-----------------------------------------------------------------------+</ant:echo>
+        <ant:echo>|   G E N E R A T I N G  T R A N S L A T I O N - L I B R A R Y  P O M   |</ant:echo>
+        <ant:echo>+-----------------------------------------------------------------------+</ant:echo> 
+		  
+		<j:set var="pomDir" value="${library}"/>
+		
+		<j:set var="pomFile" value="${pomDir}/project.xml"/>
+		  
+		<ant:echo>Generating translation-library pom: ${pomFile}</ant:echo>
+		  
+		<j:set var="testDir" value="src/test"/>
+		  
+		<j:set var="translationLibraryName" value="${libraryName} Translation-Library"/>
+		  
+	    <j:file name="${pomFile}" trim="false">
+	        <j:import file="${plugin.resources}/templates/translation-library-pom.jelly" inherit="true"/>
+	    </j:file>
+
+	</goal>
+	
+	<!-- ============================================================================
+		 Given a regular expression and an expression, this goal allows us to determine
+		 if the regular expression matches on the expression.  This is used for developing 
+		 Translation-Library fragments, when you want to know if the fragment name is
+		 structure correctly as a regular expression.  Its fast at testing regular expressions if
+		 you use it in conjunction with the the Maven Console Plugin.
+		 ============================================================================ -->
+	<goal name="androdev:test-regex"
+		  description="Given a regular expression and an expression, this goal allows us to determine
+		 			   if the regular expression matches on the expression.">
+		<j:set var="failMessage">
+			Two properties must be specified 'regex' and 'exp'. The 'regex' is the
+			regular expression, and the 'exp' is what you want to match on. 
+			(i.e. maven androdev:test-regex -Dexp=LegalAgreement.allInstances -Dregex=(\s*LegalAgreement\s*\.)?\s*allInstances.*)
+		</j:set>
+		  
+      	<maven:param-check value="${regex}" fail="true">
+			${failMessage}
+		</maven:param-check>	
+		
+      	<maven:param-check value="${exp}" fail="true">
+			${failMessage}
+		</maven:param-check>	
+		
+		<ant:echo>Expression: '${exp}'</ant:echo>
+		<ant:echo>Regular Expression: '${regex}'</ant:echo>
+		<ant:echo>Expressions Match?: '${exp.matches(regex)}'</ant:echo>
+
+	</goal>	 
+		 
+</project>

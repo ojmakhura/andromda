@@ -1,0 +1,29 @@
+<project xmlns:j="jelly:core"
+		 xmlns:util="jelly:util">
+
+<j:whitespace trim="no" xmlns="dummy">
+package ${maven.androdev.translation.translator.package};
+
+import org.andromda.core.translation.TranslatorException;
+<j:set var="translatorExceptionShortName" value="${translatorShortName}Exception"/>
+/**
+ * Any exception thrown by the ${translatorShortName}
+ * will be an instance of this class.
+ */
+public class ${translatorExceptionShortName} extends TranslatorException {
+
+	public ${translatorExceptionShortName}(Throwable th){
+		super(th);
+	}
+	
+	public ${translatorExceptionShortName}(String msg) {
+		super(msg);	
+	}
+	
+	public ${translatorExceptionShortName}(String msg, Throwable th) {
+		super(msg, th);	
+	}   
+}	
+</j:whitespace>
+
+</project>
