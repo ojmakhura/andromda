@@ -65,4 +65,8 @@
         <from>datatype.decimal</from>
         <to>DECIMAL</to>
     </mapping>
+    <mapping>
+		<from>datatype.Clob</from>
+		<to>TEXT</to>
+	</mapping>
 </mappings>
