@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
  * @author Matthias Bohlen
  * @author Chris Shaw
  * @author Chad Brandon
+ * @author Wouter Zoons
  */
 public class StringUtilsHelper
     extends StringUtils
