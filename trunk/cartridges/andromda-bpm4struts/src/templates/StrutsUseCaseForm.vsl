@@ -135,5 +135,22 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
         }
     }
 
+    public void clean()
+    {
+#foreach ($field in $fields)
+#if ($field.type.primitiveType)
+#if ($field.type.fullyQualifiedName == "boolean")
+        this.$field.name = false;
+#else
+        this.$field.name = 0;
+#end
+#else
+        this.$field.name = null;
+#end
+#if ($field.hasBackingList())
+        this.$field.backingListName = null;
+#end
+#end
+    }
 
 }
