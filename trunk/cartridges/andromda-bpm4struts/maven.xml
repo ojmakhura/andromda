@@ -17,11 +17,11 @@
         <ant:property name="taglib.name" value="andromda-breadcrumbs-taglib"/>
         <!-- Include the taglib code into the resources after compilation -->
         <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/lib"/>
-        <ant:copy file="../../etc/web/taglibs/breadcrumbs/target/${taglib.name}-${pom.currentVersion}.jar"
+        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/${taglib.name}-${pom.currentVersion}.jar"
             tofile="${maven.build.dest}/resources/WEB-INF/lib/${taglib.name}.jar"/>
         <!-- same for the taglibs TLD -->
         <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/tld"/>
-        <ant:copy file="../../etc/web/taglibs/breadcrumbs/target/tld/${taglib.name}-${pom.currentVersion}.tld"
+        <ant:copy file="${maven.repo.local}/${pom.groupId}/tlds/${taglib.name}-${pom.currentVersion}.tld"
             tofile="${maven.build.dest}/resources/WEB-INF/tld/${taglib.name}.tld"/>
     </postGoal>
 
