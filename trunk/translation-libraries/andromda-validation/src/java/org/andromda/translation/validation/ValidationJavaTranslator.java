@@ -1,10 +1,10 @@
 package org.andromda.translation.validation;
 
-import java.util.List;
-import java.util.Stack;
-
 import org.andromda.core.translation.BaseTranslator;
 import org.andromda.core.translation.node.*;
+
+import java.util.List;
+import java.util.Stack;
 
 public class ValidationJavaTranslator extends BaseTranslator
 {
@@ -659,11 +659,13 @@ public class ValidationJavaTranslator extends BaseTranslator
         appendToTranslationLayer(String.valueOf(object));
     }
 
+/*
     private void writeln(Object object)
     {
         write(object);
 //        write(CRLF);
     }
+*/
 
     private StringBuffer newTranslationLayer()
     {
