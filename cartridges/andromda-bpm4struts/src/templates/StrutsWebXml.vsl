@@ -75,7 +75,7 @@
         </web-resource-collection>
         <auth-constraint>
 #foreach ($user in $useCase.users)
-            <role-name>$user.role</role-name>
+            <role-name>$user.name</role-name>
 #end
         </auth-constraint>
         <user-data-constraint>
@@ -99,7 +99,7 @@
     <![CDATA[ security-role merge-point ]]>
 #foreach ($user in $applicationUseCase.allUsers)
     <security-role>
-        <role-name>$user.role</role-name>
+        <role-name>$user.name</role-name>
     </security-role>
 #end
 
