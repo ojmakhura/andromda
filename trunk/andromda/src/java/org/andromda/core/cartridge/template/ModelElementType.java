@@ -70,16 +70,34 @@ public class ModelElementType
             this.value = value;
         }
 
+        /**
+         * Gets the value of the <code>name</code> attribute on the
+         * <code>property</code> element.
+         * 
+         * @return the name
+         */
         String getName()
         {
             return StringUtils.trimToEmpty(this.name);
         }
 
+        /**
+         * Gets the value of the <code>value</code> attribute defined on the
+         * <code>property</code> element.
+         * 
+         * @return the value
+         */
         String getValue()
         {
             return StringUtils.trimToEmpty(this.value);
         }
 
+        /**
+         * Returns true if the property has a <code>value</code> attribute
+         * defined within it.
+         * 
+         * @return true/false
+         */
         boolean hasValue()
         {
             return this.value != null;

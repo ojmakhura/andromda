@@ -182,21 +182,32 @@ public class ModelElement
                         Iterator properties = type.getProperties().iterator();
                         while (properties.hasNext())
                         {
-                            ModelElementType.Property property = (ModelElementType.Property)properties
+                            final ModelElementType.Property property = (ModelElementType.Property)properties
                                 .next();
                             if (PropertyUtils.isReadable(metafacade, property
                                 .getName()))
                             {
-                                Object value = PropertyUtils.getProperty(
+                                final Object value = PropertyUtils.getProperty(
                                     metafacade,
                                     property.getName());
                                 accept = value != null;
                                 // if accept is still true, and the property
                                 // has a value defined
-                                if (accept && property.hasValue())
+                                if (accept)
                                 {
-                                    accept = String.valueOf(value).equals(
-                                        property.getValue());
+                                    final String valueAsString = String
+                                        .valueOf(value);
+                                    if (property.hasValue())
+                                    {
+                                        accept = valueAsString.equals(property
+                                            .getValue());
+                                    }
+                                    else if (Boolean.class
+                                        .isAssignableFrom(value.getClass()))
+                                    {
+                                        accept = Boolean.valueOf(valueAsString)
+                                            .booleanValue();
+                                    }
                                 }
                             }
                         }
