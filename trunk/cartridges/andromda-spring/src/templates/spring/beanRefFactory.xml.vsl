@@ -14,6 +14,7 @@
         <constructor-arg>
            <list>
                 <value>$stringUtils.replace($applicationContext, '/', '.')</value>
+                <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
            </list>
         </constructor-arg>
     </bean>
