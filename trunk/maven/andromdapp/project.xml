@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>maven-andromdapp-plugin</id>
+  	<name>AndroMDApp Maven Plugin</name>
+  	<shortDescription>AndroMDApp Maven Plugin</shortDescription>
+  	<description>
+		Provides the ability to generate AndroMDA J2EE Maven applications.
+  	</description>
+  	<developers>
+    	<developer>
+      		<name>Chad Brandon</name>
+      		<id>cwbrandon</id>
+      		<email>cwbrandon@users.sourceforge.net</email>
+      		<roles>
+      		    <role>Developer</role>
+      		    <role>Documentation</role>
+      		</roles>
+    	</developer>
+  	</developers>
+	<dependencies>
+	    <dependency>
+	      	<groupId>velocity</groupId>
+	      	<artifactId>velocity</artifactId>
+	      	<version>1.4</version>
+	    </dependency>
+	    <dependency>
+	      	<groupId>commons-jelly</groupId>
+	      	<artifactId>commons-jelly-tags-interaction</artifactId>
+	      	<version>20030211.143817</version>
+	    </dependency>
+    	<dependency>
+      		<groupId>commons-jelly</groupId>
+      		<artifactId>commons-jelly-tags-xml</artifactId>
+      		<version>20030211.142705</version>
+    	</dependency>
+    	<dependency>
+      		<groupId>commons-jelly</groupId>
+      		<artifactId>commons-jelly-tags-velocity</artifactId>
+      		<version>20030303.205659</version>
+    	</dependency>
+	</dependencies>	
+  	<build>
+  		<sourceDirectory>src/java</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>.</directory>
+	        	<includes>
+	        		<include>plugin.jelly</include>
+	        		<include>plugin.properties</include>
+	        		<include>project.xml</include>
+	        		<include>plugin-resources/**/*</include>
+	        	</includes>
+	  		</resource>
+    	</resources>
+  	</build>	
+</project>
