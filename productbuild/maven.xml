@@ -40,6 +40,17 @@
                value="${component.install.includes}"/>
         <attainGoal name="multiproject:deploy"/>	  		
     </goal>
+    
+    <!-- ==================================================================
+               Deploys all libraries into the remote repository while 
+               skipping all tests (allows deploys to occurr faster).                                                   
+         ================================================================== --> 	
+    <goal name="deploy-no-tests" prereqs="initialize">
+        <j:set var="maven.multiproject.includes"
+               value="${component.install.includes}"/>
+        <j:set var="maven.test.skip" value="true" scope="parent"/>
+        <attainGoal name="multiproject:deploy"/>	  		
+    </goal>
       
     <!-- ==================================================================
                Clean                                                     
