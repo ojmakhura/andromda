@@ -222,4 +222,30 @@ public class StringUtilsHelperTest extends TestCase
             assertEquals(StringUtilsHelper.prefixWithAPredicate(strings[0]), strings[1]);
         }
     }
+
+    public void testToSingleLine()
+    {
+        final String[][] fixture = new String[][]
+        {
+            new String[] { null, null },
+            new String[] { "", "" },
+            new String[] { " ", "" },
+            new String[] { "\n", "" },
+            new String[] { " \t ", "" },
+            new String[] { "null", "null" },
+            new String[] { "\r\ntest \nthis\n", "test this" },
+            new String[] { "word", "word" },
+            new String[] { " horse ", "horse" },
+            new String[] { " clean me   up   ", "clean me up" },
+            new String[] { "\n\n\r\n\n\n   ", "" },
+            new String[] { "This is\na multiline\n\n?", "This is a multiline ?" },
+            new String[] { "This is \na multiline\n\n?", "This is a multiline ?" }
+        };
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            String[] strings = fixture[i];
+            assertEquals(StringUtilsHelper.toSingleLine(strings[0]), strings[1]);
+        }
+    }
 }
