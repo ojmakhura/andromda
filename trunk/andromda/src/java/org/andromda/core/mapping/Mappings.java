@@ -40,9 +40,15 @@ public class Mappings
 
     /**
      * Contains the set of Mapping objects keyed by the 'type' element defined
-     * within the type mapping XML file.
+     * within the from type mapping XML file.
      */
     private Map mappings = new HashMap();
+    
+    /**
+     * A static mapping containing all logical mappings currently
+     * available.
+     */
+    private static Map logicalMappings = new HashMap();
 
     /**
      * Holds the resource path from which this Mappings object was loaded.
@@ -65,12 +71,16 @@ public class Mappings
         ExceptionUtils.checkEmpty(methodName, "mappingsUri", mappingsUri);
         try
         {
-            Mappings mappings = getInstance(new URL(mappingsUri));
+            Mappings mappings = (Mappings)logicalMappings.get(mappingsUri);
+            if (mappings == null)
+            {
+                mappings = getInstance(new URL(mappingsUri));
+            }
             return mappings;
         }
         catch (Throwable th)
         {
-            String errMsg = "Error performnig " + methodName;
+            String errMsg = "Error performing " + methodName;
             logger.error(errMsg, th);
             throw new MappingsException(errMsg, th);
         }
@@ -198,13 +208,16 @@ public class Mappings
     }
 
     /**
-     * Adds all available <code>mappings</code> from the
+     * Adds a mapping to the globally available mappings, these
+     * are used by this class to instatiate mappings from 
+     * logical names as opposed to physical names.
      * 
-     * @param mappings
+     * @param mappings the Mappings to add to the globally available
+     *        Mapping instances.
      */
-    public void addMappings(Mappings mappings)
+    public static void addLogicalMappings(Mappings mappings)
     {
-        this.mappings.putAll(mappings.mappings);
+        logicalMappings.put(mappings.getName(), mappings);
     }
 
     /**
