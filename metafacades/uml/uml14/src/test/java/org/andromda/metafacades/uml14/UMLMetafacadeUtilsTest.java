@@ -1,6 +1,6 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.core.translation.ExpressionKinds;
+import org.andromda.translation.ocl.ExpressionKinds;
 
 import junit.framework.TestCase;
 

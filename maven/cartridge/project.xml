@@ -42,7 +42,12 @@
         </dependency>
         <dependency>
             <groupId>andromda${bootstrap}</groupId>
-            <artifactId>andromda-validation-library</artifactId>
+            <artifactId>andromda-ocl-translation-core</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>

@@ -600,7 +600,7 @@
          <message priority="info"><![CDATA[Attempting to download andromda-meta-cartridge-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-validation-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-cartridge-plugin-3.0M3-SNAPSHOT.jar.]]></message>
-         <message priority="info"><![CDATA[Attempting to download andromda-query-library-3.0M3-SNAPSHOT.jar.]]></message>
+         <message priority="info"><![CDATA[Attempting to download andromda-ocl-query-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download UMLMetafacadeModel-3.0M3-SNAPSHOT.xml.zip.]]></message>
       </mavengoal>
       <mavengoal name="build:end" time="? seconds" />
@@ -648,7 +648,7 @@
          <message priority="info"><![CDATA[Attempting to download andromda-meta-cartridge-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-validation-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-cartridge-plugin-3.0M3-SNAPSHOT.jar.]]></message>
-         <message priority="info"><![CDATA[Attempting to download andromda-query-library-3.0M3-SNAPSHOT.jar.]]></message>
+         <message priority="info"><![CDATA[Attempting to download andromda-ocl-query-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download UMLMetafacadeModel-3.0M3-SNAPSHOT.xml.zip.]]></message>
       </mavengoal>
       <mavengoal name="build:end" time="? seconds" />
@@ -665,7 +665,7 @@
          <message priority="info"><![CDATA[Attempting to download andromda-meta-cartridge-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-validation-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-cartridge-plugin-3.0M3-SNAPSHOT.jar.]]></message>
-         <message priority="info"><![CDATA[Attempting to download andromda-query-library-3.0M3-SNAPSHOT.jar.]]></message>
+         <message priority="info"><![CDATA[Attempting to download andromda-ocl-query-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download UMLMetafacadeModel-3.0M3-SNAPSHOT.xml.zip.]]></message>
       </mavengoal>
       <mavengoal name="build:end" time="? seconds" />
@@ -732,7 +732,7 @@
          <message priority="info"><![CDATA[Attempting to download andromda-webservice-cartridge-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-java-cartridge-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-bpm4struts-cartridge-3.0M3-SNAPSHOT.jar.]]></message>
-         <message priority="info"><![CDATA[Attempting to download andromda-query-library-3.0M3-SNAPSHOT.jar.]]></message>
+         <message priority="info"><![CDATA[Attempting to download andromda-ocl-query-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[Attempting to download andromda-validation-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[+----------------------------------------]]></message>
          <message priority="info"><![CDATA[| Executing clean:clean Animal Quiz Sample Common]]></message>
@@ -2903,9 +2903,9 @@
          <message priority="info"><![CDATA[    [junit] Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 22.091 sec]]></message>
       </mavengoal>
       <mavengoal name="jar:jar" time="? seconds">
-         <message priority="info"><![CDATA[    [jar] Building jar: /mnt/hdc4/work/andromda/andromda-all/translation-libraries/andromda-query/target/andromda-query-library-3.0M3-SNAPSHOT.jar]]></message>
-         <message priority="info"><![CDATA[INFO  [DefaultArtifactDeployer] Copying: from '/mnt/hdc4/work/andromda/andromda-all/translation-libraries/andromda-query/target/andromda-query-library-3.0M3-SNAPSHOT.jar' to: '/work/maven/repository/andromda/jars/andromda-query-library-3.0M3-SNAPSHOT.jar']]></message>
-         <message priority="info"><![CDATA[INFO  [DefaultArtifactDeployer] Copying: from '/mnt/hdc4/work/andromda/andromda-all/translation-libraries/andromda-query/project.xml' to: '/work/maven/repository/andromda/poms/andromda-query-library-3.0M3-SNAPSHOT.pom']]></message>
+         <message priority="info"><![CDATA[    [jar] Building jar: /mnt/hdc4/work/andromda/andromda-all/translation-libraries/andromda-query/target/andromda-ocl-query-library-3.0M3-SNAPSHOT.jar]]></message>
+         <message priority="info"><![CDATA[INFO  [DefaultArtifactDeployer] Copying: from '/mnt/hdc4/work/andromda/andromda-all/translation-libraries/andromda-query/target/andromda-ocl-query-library-3.0M3-SNAPSHOT.jar' to: '/work/maven/repository/andromda/jars/andromda-ocl-query-library-3.0M3-SNAPSHOT.jar']]></message>
+         <message priority="info"><![CDATA[INFO  [DefaultArtifactDeployer] Copying: from '/mnt/hdc4/work/andromda/andromda-all/translation-libraries/andromda-query/project.xml' to: '/work/maven/repository/andromda/poms/andromda-ocl-query-library-3.0M3-SNAPSHOT.pom']]></message>
          <message priority="info"><![CDATA[INFO  [ReactorTag] +----------------------------------------]]></message>
          <message priority="info"><![CDATA[INFO  [ReactorTag] | Executing multiproject:install-callback EJB Cartridge]]></message>
          <message priority="info"><![CDATA[INFO  [ReactorTag] | Memory: 57M/100M]]></message>
@@ -2917,7 +2917,7 @@
          <message priority="info"><![CDATA[INFO  [DependencyVerifier] Attempting to download andromda-meta-cartridge-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[INFO  [DependencyVerifier] Attempting to download andromda-validation-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[INFO  [DependencyVerifier] Attempting to download andromda-cartridge-plugin-3.0M3-SNAPSHOT.jar.]]></message>
-         <message priority="info"><![CDATA[INFO  [DependencyVerifier] Attempting to download andromda-query-library-3.0M3-SNAPSHOT.jar.]]></message>
+         <message priority="info"><![CDATA[INFO  [DependencyVerifier] Attempting to download andromda-ocl-query-library-3.0M3-SNAPSHOT.jar.]]></message>
          <message priority="info"><![CDATA[INFO  [DependencyVerifier] Attempting to download UMLMetafacadeModel-3.0M3-SNAPSHOT.xml.zip.]]></message>
       </mavengoal>
       <mavengoal name="jar:install" time="? seconds" />

@@ -30,10 +30,27 @@
 	      	</properties>
 	    </dependency>
     	<dependency>
-    	    <groupId>andromda</groupId>
+    	    <groupId>${pom.groupId}</groupId>
     	    <artifactId>andromda-metafacades-uml</artifactId>
     	    <version>${pom.currentVersion}</version>
-    	</dependency>    
+    	</dependency>
+    	<dependency>
+    	    <groupId>${pom.groupId}</groupId>
+    	    <artifactId>andromda-ocl-translation-core</artifactId>
+    	    <version>${pom.currentVersion}</version>
+            <type>jar</type>
+    	</dependency> 
+    	<dependency>
+    	    <groupId>${pom.groupId}</groupId>
+    	    <artifactId>andromda-ocl-validation-library</artifactId>
+    	    <version>${pom.currentVersion}</version>
+            <type>jar</type>
+    	</dependency> 
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>

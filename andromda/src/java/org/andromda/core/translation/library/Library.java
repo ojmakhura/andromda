@@ -1,6 +1,6 @@
 package org.andromda.core.translation.library;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.BasePlugin;
@@ -20,7 +20,7 @@ import org.andromda.core.translation.Translator;
 public class Library
     extends BasePlugin
 {
-    private final Map libraryTranslations = new HashMap();
+    private final Map libraryTranslations = new LinkedHashMap();
 
     /**
      * The default Library constructor.

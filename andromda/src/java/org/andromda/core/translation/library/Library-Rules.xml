@@ -129,14 +129,18 @@
                   pattern="translator"
                   paramnumber="0"/>
 
-            <call-method-rule
-                pattern="template"
-                methodname="setTemplate"
-                paramcount="1" />
+            <!-- add a template to the cartridge -->
+            <pattern value="template">
 
-            <call-param-rule
-                pattern="template"
-                paramnumber="0"/>
+                <set-properties-rule>
+                     <alias attr-name="path" prop-name="template" />
+                </set-properties-rule>
+
+                <set-properties-rule>
+                     <alias attr-name="variable" prop-name="variable" />
+                </set-properties-rule>
+
+            </pattern>
 
             <set-next-rule methodname="addLibraryTranslation" />
 

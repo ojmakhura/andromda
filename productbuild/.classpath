@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="andromda/src/java"/>
-	<classpathentry kind="src" path="translation-libraries/andromda-query/src/java"/>
+	<classpathentry kind="src" path="translation-libraries/ocl/core/src/java"/>
+	<classpathentry kind="src" path="translation-libraries/ocl/core/src/test/java"/>
+	<classpathentry kind="src" path="translation-libraries/ocl/core/target/src/java"/>
+	<classpathentry kind="src" path="translation-libraries/ocl/andromda-query/src/java"/>
+	<classpathentry kind="src" path="translation-libraries/ocl/andromda-validation/src/java"/>
+	<classpathentry kind="src" path="translation-libraries/ocl/testsuite/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-xmlschema/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-xmlschema/target/src"/>
 	<classpathentry kind="src" path="cartridges/andromda-spring/src/java"/>
@@ -13,12 +18,7 @@
 	<classpathentry kind="src" path="templateengines/velocity/src/test/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-webservice/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-webservice/target/src"/>
-	<classpathentry kind="src" path="translation-libraries/andromda-validation/src/java"/>
-	<classpathentry kind="src" path="translation-libraries/andromda-validation/src/test/java"/>
-	<classpathentry kind="src" path="andromda/target/src/java"/>
 	<classpathentry kind="src" path="andromda/src/test/java"/>
-	<classpathentry kind="src" path="metafacades/uml/common/target/src"/>
-	<classpathentry kind="src" path="metafacades/uml/uml14/target/src"/>
 	<classpathentry kind="src" path="metafacades/uml/uml14/src/test/java"/>
 	<classpathentry kind="src" path="metafacades/uml/uml14/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-bpm4struts/target/src"/>
@@ -57,5 +57,9 @@
 	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-1.2-RC2.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-jaxrpc-1.2-RC2.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-digester/jars/commons-digester-1.6.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-jelly/jars/commons-jelly-1.0-RC1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jboss/jars/javassist-2.6.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-metafacades-uml14-3.0-RC1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-metafacades-uml-3.0-RC1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>

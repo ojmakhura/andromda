@@ -91,7 +91,7 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>andromda-validation-library</artifactId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
             <type>jar</type>
         </dependency>
@@ -109,7 +109,7 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>andromda-query-library</artifactId>
+            <artifactId>andromda-ocl-query-library</artifactId>
             <version>${pom.currentVersion}</version>
             <type>jar</type>
             <properties>

@@ -10,7 +10,7 @@
 				Probably the fastest way to get started on writing a Translation-Library
 				is to take a look at the contents of an existing one.  Download and 
 				take a look at the contents of the 
-				<a href="http://team.andromda.org/maven/andromda/jars/andromda-query-library-3.0M3-SNAPSHOT.jar"><em>Query Translation-Library</em></a>.
+				<a href="http://team.andromda.org/maven/andromda/jars/andromda-ocl-query-library-3.0M3-SNAPSHOT.jar"><em>Query Translation-Library</em></a>.
 				In addition, there are sections below which take you through the process step-by-step of generating
 				a Translation-Library structure and then adding the translation capabilities to the generated Translation-Library.
 			</p>
@@ -689,7 +689,7 @@ public class ConstraintTranslator
 				<ul>
 					<li>
 						<strong>NOTE:</strong> You can view the source of the 
-						<a href="../andromda-query-library/apidocs/org/andromda/translation/query/QueryTranslator.html">QueryTranslator</a> 
+						<a href="../andromda-ocl-query-library/apidocs/org/andromda/translation/query/QueryTranslator.html">QueryTranslator</a> 
 						for the query Translation-Library which may help in implementing your Translator.
 					</li>
 				</ul>

@@ -32,15 +32,6 @@ public class LibraryTranslation
      */
     private Library library;
 
-    private String name;
-
-    private String template;
-
-    /**
-     * The Translator implementation to use. This is required.
-     */
-    private String translatorClass;
-
     /**
      * After processing by the CartridgeTemplate engine, will contain the
      * processed translation.
@@ -48,6 +39,13 @@ public class LibraryTranslation
     private Translation translation;
 
     /**
+     * The name of this library translation instance.
+     */
+    private String name;
+
+    /**
+     * Gets the name of this LibraryTranslation.
+     * 
      * @return String
      */
     public String getName()
@@ -66,6 +64,13 @@ public class LibraryTranslation
     }
 
     /**
+     * The path to the template.
+     */
+    private String template;
+
+    /**
+     * Gets the path to the template for this instance.
+     * 
      * @return String
      */
     public String getTemplate()
@@ -74,6 +79,8 @@ public class LibraryTranslation
     }
 
     /**
+     * Sets the path to the template.
+     * 
      * @param template
      */
     public void setTemplate(String template)
@@ -92,6 +99,8 @@ public class LibraryTranslation
     }
 
     /**
+     * Sets the {@link Library} to which this LibraryInstance belongs.
+     * 
      * @param library
      */
     public void setLibrary(Library library)
@@ -100,9 +109,41 @@ public class LibraryTranslation
     }
 
     /**
+     * The name given to the variable containing the context element.
+     */
+    private String variable;
+
+    /**
+     * Gets the variable name which is made available to the translation
+     * template.
+     * 
+     * @return the variable name.
+     */
+    public String getVariable()
+    {
+        return this.variable;
+    }
+
+    /**
+     * Sets the variable name which is made available to the translation
+     * template.
+     * 
+     * @param variable the variable name.
+     */
+    public void setVariable(String variable)
+    {
+        this.variable = variable;
+    }
+
+    /**
+     * The Translator implementation to use. This is required.
+     */
+    private String translatorClass;
+
+    /**
      * Sets the Translator class that will perform the translation processing.
      * 
-     * @param translatorClass
+     * @param translatorClass the class of the translator.
      */
     public void setTranslator(String translatorClass)
     {
@@ -268,7 +309,6 @@ public class LibraryTranslation
             {
                 templateContext = new HashMap();
             }
-
             this.getLibrary().populateTemplateContext(templateContext);
 
             try
