@@ -72,7 +72,7 @@ $operation.getDocumentation("     * ")
 
 #if ($returnType=="boolean")
         return false;
-#elseif ($returnType.primitiveType)
+#elseif ($operation.returnType.primitiveType)
         return 0;
 #else
         return null;
@@ -92,7 +92,11 @@ $operation.getDocumentation("     * ")
     private void populateForm($formBeanClassName form)
     {
 #foreach ($field in $useCase.formFields)
+#if ($field.date)
+        form.${field.setterName}AsDate($field.resetValue);
+#else
         form.${field.setterName}($field.resetValue);
+#end
 #if ($field.hasBackingList())
 #set ($backingListName = $field.backingListName)
 #set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
