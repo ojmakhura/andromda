@@ -22,6 +22,6 @@
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.DataType$Impl"
 		metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateTypeLogicImpl">
-        <property reference="hibernateTypeMappingsUri"/>
+        <property reference="hibernateTypeMappingsUri" default=""/>
 	</metafacade>
 </metafacades>
