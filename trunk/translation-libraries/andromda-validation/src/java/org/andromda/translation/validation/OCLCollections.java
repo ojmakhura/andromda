@@ -424,12 +424,32 @@ public final class OCLCollections
     }
 
     /**
-     * Executes the given closure on each element in the collection. <p/>If the
-     * input collection or closure is null no change will be made.
+     * <p>
+     * Executes every <code>predicate</code> for the given collectoin, if one
+     * evaluates to <code>false</code> this operation returns
+     * <code>false</code>, otherwise <code>true</code> is returned.
+     * </p>
+     * If the input collection or closure is null <code>false</code> is
+     * returned.
+     * 
+     * @return true if every evaluated predicate returns true, false otherwise.
      */
-    public static void forAll(Collection collection, Closure closure)
+    public static boolean forAll(Collection collection, Predicate predicate)
     {
-        CollectionUtils.forAllDo(collection, closure);
+        boolean valid = collection != null;
+        if (valid)
+        {
+            for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+            {
+                Object object = iterator.next();
+                valid = predicate.evaluate(object);
+                if (!valid)
+                {
+                    break;
+                }
+            }
+        }
+        return valid;
     }
 
     /**
@@ -517,8 +537,7 @@ public final class OCLCollections
      */
     public static boolean one(Object collection, Predicate predicate)
     {
-        return
-            collection != null
+        return collection != null
             && Collection.class.isAssignableFrom(collection.getClass())
             && one((Collection)collection, predicate);
     }

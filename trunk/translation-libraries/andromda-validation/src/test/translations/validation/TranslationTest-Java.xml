@@ -72,7 +72,7 @@
                     implies membership.loyaltyAccount->isEmpty()
         </from>
         <to>
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLCollections.forAll(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"partners.deliveredServices"),new org.apache.commons.collections.Closure(){public void execute(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"pointsEarned"),0)&amp;&amp;org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"pointsBurned"),0);}}))).booleanValue()?org.andromda.translation.validation.OCLCollections.isEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"membership.loyaltyAccount")):true));
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.validation.OCLCollections.forAll(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"partners.deliveredServices"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"pointsEarned"),0)&amp;&amp;org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"pointsBurned"),0);}}))).booleanValue()?org.andromda.translation.validation.OCLCollections.isEmpty(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"membership.loyaltyAccount")):true));
         </to>
     </expression>
 
@@ -112,7 +112,7 @@
             inv: customer->forAll( age >= 18 )
         </from>
         <to>
-            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLCollections.forAll(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"customer"),new org.apache.commons.collections.Closure(){public void execute(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.validation.OCLIntrospector.invoke(object,"age"),18);}}));
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLCollections.forAll(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"customer"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.validation.OCLIntrospector.invoke(object,"age"),18);}}));
         </to>
     </expression>
 
@@ -296,6 +296,17 @@
            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"printedName"),org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"customer.title") + "" + org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"customer.name")));
         </to>
     </expression>
+    
+    <!--
+    <expression>
+        <from>
+            context EnumerationFacade inv : attributes -> forAll(attribute1, attribute2 | attribute1.type = attribute2.type)
+        </from>
+        <to>
+            
+        </to>
+    </expression>
+    -->
 
 </translation-test>
 
