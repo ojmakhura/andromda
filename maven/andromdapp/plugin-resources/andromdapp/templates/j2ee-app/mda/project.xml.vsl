@@ -147,7 +147,6 @@
 #end
                 <wsdls>${maven.andromda.webservice.generated.dir}/wsdl</wsdls>
                 <axis-configuration>${maven.andromda.webservice.generated.dir}/axis</axis-configuration>
-                <java-types>${maven.andromda.common.generated.dir}</java-types>
             </properties>
         </dependency>
 #end
@@ -156,11 +155,12 @@
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${andromda}</version>
             <properties>
+#if ($webservice)
+                <useArraysForMultiplicitiesOfTypeMany>true</useArraysForMultiplicitiesOfTypeMany>
+#end
                 <enumerations>${maven.andromda.common.generated.dir}</enumerations>
                 <exceptions>${maven.andromda.common.generated.dir}</exceptions>
-#if (!$webservice)
                 <value-objects>${maven.andromda.common.generated.dir}</value-objects>
-#end
             </properties>
         </dependency>
 #if ($web)
