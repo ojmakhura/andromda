@@ -40,4 +40,10 @@ public class SpringProfile
     public static final String TAGGEDVALUE_HIBERNATE_LAZY = profile
         .get("HIBERNATE_LAZY");
 
+    /**
+     * Stores the hibernate lazy attribute for relationships.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE = profile
+        .get("HIBERNATE_INHERITANCE");
+
 }
