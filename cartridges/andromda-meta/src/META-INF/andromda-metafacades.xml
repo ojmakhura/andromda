@@ -2,7 +2,13 @@
 
 <!-- contains andromda-meta's metafacade mappings -->
 <metafacades namespace="meta">
-	<metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeFacadeLogicImpl">
+    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
-	</metafacade>				
+        <!-- this defines the metamodel version package name
+            (i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc)
+             used by this cartridge to create the generated impl package name, if
+             left empty then the impl package will be the same as the metafacade
+             package (therefore we default to an empty name) -->
+        <property reference="metamodelVersionPackage" default=""/>
+    </metafacade>
 </metafacades>

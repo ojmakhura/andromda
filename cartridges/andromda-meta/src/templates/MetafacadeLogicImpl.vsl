@@ -1,5 +1,5 @@
-#set ($generatedFile = $metafacade.getLogicImplFile($metamodelVersionPackage))
-#set ($packageName = $metafacade.getLogicPackageName($metamodelVersionPackage))
+#set ($generatedFile = $metafacade.logicImplFile)
+#set ($packageName = $metafacade.logicPackageName)
 #if ($packageName)
 package $packageName;
 #end

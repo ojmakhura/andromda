@@ -126,41 +126,56 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getFullyQualifiedLogicImplName()
      */
-    protected String handleGetFullyQualifiedLogicImplName(
-        String metamodelVersionPackage)
+    protected String handleGetFullyQualifiedLogicImplName()
     {
-        return this.getMetafacadeSupportClassName(metamodelVersionPackage, this
-            .getLogicImplName());
+        return this.getMetafacadeSupportClassName(this.getLogicImplName());
     }
 
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getFullyQualifiedLogicName()
      */
-    protected String handleGetFullyQualifiedLogicName(
-        String metamodelVersionPackage)
+    protected String handleGetFullyQualifiedLogicName()
     {
-        return this.getMetafacadeSupportClassName(metamodelVersionPackage, this
-            .getLogicName());
+        return this.getMetafacadeSupportClassName(this.getLogicName());
     }
+    
+    /**
+     * This defines the metamodel version package name 
+     * (i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc) 
+     * used by this cartridge to create the generated impl package name, if
+     * left empty then the impl package will be the same as the metafacade
+     * package (therefore we default to an empty name)
+     */
+    private static final String METAMODEL_VERSION_PACKAGE = "metamodelVersionPackage";
 
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicFile(java.lang.String)
      */
-    protected String handleGetLogicFile(String metamodelVersionPackage)
+    protected String handleGetLogicFile()
     {
-        return this.getFullyQualifiedLogicName(
-            this.getLogicPackageName(metamodelVersionPackage))
+        return this.getFullyQualifiedLogicName()
             .replace('.', '/')
             + ".java";
+    }
+    
+    /**
+     * Gets the metamodel version package name (i.e. org.andromda.metafacades.uml14, 
+     * org.andromda.metafacades.um20, etc) used by this cartridge to create the 
+     * generated impl package name, if left empty then the impl package will 
+     * be the same as the metafacade package (therefore we default to an empty name)
+     */
+    private String getMetaModelVersionPackage()
+    {
+        return String.valueOf(this.getConfiguredProperty(METAMODEL_VERSION_PACKAGE));
     }
 
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicPackageName(java.lang.String)
      */
-    protected String handleGetLogicPackageName(String metamodelVersionPackage)
+    protected String handleGetLogicPackageName()
     {
-        String packageName = StringUtils.trimToEmpty(metamodelVersionPackage);
-        if (StringUtils.isEmpty(metamodelVersionPackage))
+        String packageName = this.getMetaModelVersionPackage();
+        if (StringUtils.isEmpty(packageName))
         {
             packageName = this.getPackageName();
         }
@@ -170,10 +185,9 @@ public class MetafacadeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicImplFile(java.lang.String)
      */
-    protected String handleGetLogicImplFile(String metamodelVersionPackage)
+    protected String handleGetLogicImplFile()
     {
-        return this.getFullyQualifiedLogicImplName(
-            this.getLogicPackageName(metamodelVersionPackage))
+        return this.getFullyQualifiedLogicImplName()
             .replace('.', '/')
             + ".java";
     }
@@ -188,11 +202,10 @@ public class MetafacadeFacadeLogicImpl
      * @return the new metafacade support class name.
      */
     private String getMetafacadeSupportClassName(
-        String metamodelVersionPackage,
         String name)
     {
         StringBuffer fullyQualifiedName = new StringBuffer(this
-            .getLogicPackageName(metamodelVersionPackage));
+            .getLogicPackageName());
         if (StringUtils.isNotBlank(fullyQualifiedName.toString()))
         {
             fullyQualifiedName.append(".");

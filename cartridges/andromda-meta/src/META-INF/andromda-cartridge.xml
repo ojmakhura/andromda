@@ -4,13 +4,6 @@
     <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="metaUtils" className="org.andromda.cartridges.meta.MetaCartridgeUtils"/>
 
-    <!-- this defines the metamodel version package name 
-    	(i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc)
-    	 used by this cartridge to create the generated impl package name, if
-    	 left empty then the impl package will be the same as the metafacade
-    	 package (therefore we default to an empty name) -->
-    <property reference="metamodelVersionPackage" default=""/>
-
     <!-- the template definitions -->
     <template
         path="templates/MetafacadeLogic.vsl"
@@ -18,8 +11,8 @@
         outlet="facade-logics"
         overwrite="true">
         <modelElements variable="metafacade">
-            <modelElement stereotype="metafacade"/>  
-        </modelElements>  
+            <modelElement stereotype="metafacade"/>
+        </modelElements>
     </template>
 
     <template
@@ -28,8 +21,8 @@
         outlet="facade-logic-impls"
         overwrite="false">
         <modelElements variable="metafacade">
-            <modelElement stereotype="metafacade"/>  
-        </modelElements>  
+            <modelElement stereotype="metafacade"/>
+        </modelElements>
     </template>
 
     <template
@@ -38,10 +31,10 @@
         outlet="facades"
         overwrite="true">
         <modelElements variable="metafacade">
-            <modelElement stereotype="metafacade"/>  
-        </modelElements>  
+            <modelElement stereotype="metafacade"/>
+        </modelElements>
     </template>
-    
+
     <template
         path="templates/MetafacadesToImpls.vsl"
         outputPattern="metafacade-impls.properties"
@@ -49,8 +42,8 @@
         overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="metafacades">
-            <modelElement stereotype="metafacade"/>  
-        </modelElements>  
+            <modelElement stereotype="metafacade"/>
+        </modelElements>
     </template>
 
 </cartridge>

@@ -26,8 +26,8 @@
 ##
 ##
 ##
-#set ($generatedFile = $metafacade.getLogicFile($metamodelVersionPackage))
-#set ($packageName = $metafacade.getLogicPackageName($metamodelVersionPackage))
+#set ($generatedFile = $metafacade.logicFile)
+#set ($packageName = $metafacade.logicPackageName)
 #if ($packageName)
 package $packageName;
 #end
@@ -46,7 +46,7 @@ package $packageName;
  *
  * @see $metafacade.fullyQualifiedName
  */
-public abstract class ${metafacade.logicName}
+public abstract class $metafacade.logicName
     extends org.andromda.core.metafacade.MetafacadeBase
     implements $metafacade.fullyQualifiedName
 {
