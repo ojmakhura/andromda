@@ -13,12 +13,25 @@
         <section name="Building AndroMDA">
 
             <p class="std">
-        Building AndroMDA from the source is quite easy. Make sure you have
-                <a href="http://maven.apache.org">Maven</a> installed. Unpack
-                <code>andromda-src-*.zip</code> into a directory of your choice.
-        Change to the directory where you unpacked the contents, and then type:
+                Building AndroMDA from the source is quite easy, just follow these steps:
+                <ol>
+                    <li>
+                       Make sure you have <a href="http://maven.apache.org">Maven</a> installed correctly 
+                       and MAVEN_HOME/bin is in your PATH (so that Windows finds "maven.bat" and *nix 
+                       finds "maven"). 
+                    </li>
+                    <li>
+                        Unpack <code>andromda-src-*.zip</code> into a directory of your choice.
+                    </li>
+                    <li>
+                        "MAVEN_OPTS=-XX:MaxPermSize=128m -Xmx512m" must be set in your environment variables. 
+                    </li>
+                    <li>
+                        Change to the directory where you unpacked the contents, and then type:
+                        <source>maven</source>
+                    </li>
+                </ol>   
             </p>
-            <source>maven</source>
             <p class="std">That's it!  The contents will be
         installed into both your local maven repository (for maven users) and 
         the target/distributions (for those still using Ant).
