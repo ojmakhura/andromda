@@ -42,7 +42,7 @@
 #end
 #end
 #if ($sourceEnd.one2Many)
-#if ($otherEnd.set || $otherEnd.map) 
+#if ($otherEnd.set || $otherEnd.map)
         <$otherEnd.collectionType name="$otherEnd.name" order-by="$otherEnd.orderByColumns" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end#if ($otherEnd.sortType) sort="$otherEnd.sortType"#end>
 #elseif ($otherEnd.bag)
         <$otherEnd.collectionType name="$otherEnd.name" order-by="$otherEnd.orderByColumns" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
