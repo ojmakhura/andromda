@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - The Animal Quiz sample application</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="The Animal Quiz sample application">
+            The animal quiz sample application is part of a set of samples showing what you can do
+            with AndroMDA. In order to get the sources for this sample you are required to download
+            an AndroMDA 3.x distribution.
+            <p class="std">
+                This sample consists of a single use case generated using the following cartridges:
+                <table>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Technology</th>
+                        <th>Cartridge</th>
+                    </tr>
+                    <tr>
+                        <td>Persistence</td>
+                        <td>Hibernate 2.x.y</td>
+                        <td>andromda-hibernate-cartridge</td>
+                    </tr>
+                    <tr>
+                        <td>Business</td>
+                        <td>EJB 2.x</td>
+                        <td>andromda-ejb-cartridge (session beans only)</td>
+                    </tr>
+                    <tr>
+                        <td>Presentation</td>
+                        <td>Struts 1.2 (dev)</td>
+                        <td>andromda-bpm4struts-cartridge</td>
+                    </tr>
+                </table>
+            </p>
+            <p class="std">
+                When playing the game the server will ask you to keep an animal in mind, he will try to guess
+                it until he runs out of guesses.
+            </p>
+            <p class="std">
+                The server will either try to guess your animal or ask a question so it can narrow down the list
+                of possible animals. You will need to answer there question honestly (no cheating! :-) ).
+            </p>
+            <p class="std">
+                There are two scenarios to a game-over. Either the server guessed your animal correctly, either
+                it failed in doing so. In the latter case the server will be curious and will want to know your animal.
+                It will propose you to enter the animal followed by a question that will distinguishes this animal
+                from the last one guessed, this way it is able to use this animal in future games..
+            </p>
+            <p class="std">
+                This application has been generated from a UML model modeled using
+                <a href="http://www.magicdraw.com">MagicDraw 7.5</a>, you can find the model
+                <a href="resources/AnimalQuiz.xml.zip">here</a>, this file contains a zipped XMI 1.4.
+            </p>
+            <p class="std">
+                A running instance of this sample has been put online for everybody to test, check it out here:
+                <a href="http://team.andromda.org:8080/AnimalQuiz">http://team.andromda.org:8080/AnimalQuiz</a>.
+            </p>
+        </section>
+
+    </body>
+</document>
