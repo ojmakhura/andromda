@@ -139,6 +139,7 @@
             </blockquote>
         </div>
 
+#if ($class.tabbed)
         <script type="text/javascript">
         //<![CDATA[
             var tab = new Array($class.tabCount);
@@ -157,6 +158,7 @@
             this.selectTab(0);
         //]]>
         </script>
+#end
     </tiles:put>
 
 </tiles:insert>
