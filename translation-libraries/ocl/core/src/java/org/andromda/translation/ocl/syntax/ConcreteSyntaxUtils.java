@@ -373,13 +373,17 @@ public class ConcreteSyntaxUtils
                 Iterator expressionTailIt = expressionTail.iterator();
                 while (expressionTailIt.hasNext())
                 {
-                    Object tail = expressionTailIt.next();
-                    String tailAsString = TranslationUtils.trimToEmpty(tail);
-                    // we ignore tails that have arrows or are operations
-                    if (tailAsString.indexOf("->") == -1
-                        && TranslationUtils.trimToEmpty(tail).indexOf('(') == -1)
+                    final String tail = TranslationUtils
+                        .trimToEmpty(expressionTailIt.next());
+                    // beak out if we encounter an arrow feature call
+                    if (tail.indexOf(ARROW_FEATURE_CALL) != -1)
                     {
-                        primaryExpression.append(tailAsString);
+                        break;
+                    }
+                    // only append to the expression if not an operation
+                    if (tail.indexOf('(') == -1)
+                    {
+                        primaryExpression.append(tail);
                     }
                 }
             }
@@ -417,6 +421,49 @@ public class ConcreteSyntaxUtils
             }
         }
         return featureCalls;
+    }
+
+    /**
+     * Indicates an arrow feature call.
+     */
+    private static final String ARROW_FEATURE_CALL = "->";
+
+    /**
+     * Gets the navigational path from the given <code>expression</code> that
+     * occurs after an arrow feature call. If the the expression contains an
+     * arrow feature call, then the navigational expression is any expression
+     * navigating on the result of an arrow feature call (otherwise it's an
+     * empty string).
+     * 
+     * @param expression the expression from which to retrieve the navigational
+     *        path.
+     * @return the navigational path.
+     */
+    public static String getArrowFeatureCallResultNavigationalPath(
+        APropertyCallExpression expression)
+    {
+        StringBuffer path = new StringBuffer();
+        final String expressionAsString = TranslationUtils
+            .trimToEmpty(expression);
+        if (expressionAsString.indexOf(ARROW_FEATURE_CALL) != -1)
+        {
+            List featureCalls = getFeatureCalls(expression);
+            int size = featureCalls.size();
+            if (size > 1)
+            {
+                for (int ctr = 1; ctr < size; ctr++)
+                {
+                    String featureCall = TranslationUtils
+                        .trimToEmpty(featureCalls.get(ctr));
+                    path.append(featureCall);
+                    if (ctr != size - 1)
+                    {
+                        path.append('.');
+                    }
+                }
+            }
+        }
+        return path.toString();
     }
 
     /**
