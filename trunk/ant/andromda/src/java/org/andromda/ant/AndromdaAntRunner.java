@@ -1,5 +1,27 @@
 package org.andromda.ant;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Writer;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
 import org.apache.commons.io.CopyUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
@@ -7,12 +29,6 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-
-import java.io.*;
-import java.net.URL;
-import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 /**
  * @todo: document this class
@@ -63,25 +79,25 @@ public class AndromdaAntRunner
         final Map propertiesMap = new HashMap();
 
         String inputValue = null;
-        while (null == (inputValue = promptForInput("developer names"))) ;
+        while (null == (inputValue = promptForInput("developer names")))
         propertiesMap.put("author", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue = promptForInput("application id"))) ;
+        while (null == (inputValue = promptForInput("application id")))
         propertiesMap.put("applicationId", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue = promptForInput("application name"))) ;
+        while (null == (inputValue = promptForInput("application name")))
         propertiesMap.put("applicationName", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue = promptForInput("application version"))) ;
+        while (null == (inputValue = promptForInput("application version")))
         propertiesMap.put("applicationVersion", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
         while (null == (inputValue = promptForInput("persistence type [ejb,hibernate]"))
                 || (!"hibernate".equals(inputValue) && !"ejb".equals(inputValue)))
-            ;
+            
         propertiesMap.put("persistenceType", inputValue);
 
 /*        inputValue = null;
