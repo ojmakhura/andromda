@@ -28,38 +28,31 @@
     	<j:set var="currentBuildDir" value="${maven.build.src}"/>
     	<!-- keep the generation from executing more than once -->
     	<j:if test="${lastBuildDir != currentBuildDir}">
-			<ant:available 
-				file="${maven.src.dir}/uml"
-				type="dir" 
-				property="hasModel"/>
 			
-			<j:set var="skipProcessing" value="${skip.andromda.plugin.processing}"/>
-			<j:if test="${!empty(hasModel) and empty(skipProcessing)}">
-				<attainGoal name="andromda:run"/>
-				<!-- add the paths of the generated source to the
-					 maven compile path -->
-				<ant:path
-					id="metafacade.generated.src"
-					location="${andromda.metafacade.generated.dir}"/>
-				<maven:addPath
-					id="maven.compile.src.set"
-					refid="metafacade.generated.src"/>     	
-				   
-				<j:set var="manualSourceDir" value="${andromda.metafacade.manual.dir}"/>
-				<j:if test="${manualSourceDir != null and manualSourceDir != ''}">
-					<ant:available 
-						property="manualSourcesPresent" 
-						file="${manualSourceDir}"/>   
-					<j:if test="${manualSourcesPresent}">       	     
-						<ant:path
-							id="metafacade.manual.src"
-							location="${andromda.metafacade.manual.dir}"/>
-						<maven:addPath
-							id="maven.compile.src.set"
-							refid="metafacade.manual.src"/>     
-					</j:if>   
-				</j:if>	    	
-			</j:if>
+			<attainGoal name="andromda:run"/>
+			<!-- add the paths of the generated source to the
+				 maven compile path -->
+			<ant:path
+				id="metafacade.generated.src"
+				location="${andromda.metafacade.generated.dir}"/>
+			<maven:addPath
+				id="maven.compile.src.set"
+				refid="metafacade.generated.src"/>     	
+			   
+			<j:set var="manualSourceDir" value="${andromda.metafacade.manual.dir}"/>
+			<j:if test="${manualSourceDir != null and manualSourceDir != ''}">
+				<ant:available 
+					property="manualSourcesPresent" 
+					file="${manualSourceDir}"/>   
+				<j:if test="${manualSourcesPresent}">       	     
+					<ant:path
+						id="metafacade.manual.src"
+						location="${andromda.metafacade.manual.dir}"/>
+					<maven:addPath
+						id="maven.compile.src.set"
+						refid="metafacade.manual.src"/>     
+				</j:if>   
+			</j:if>	    	
 		</j:if>
 		<j:set var="lastBuildDir" value="${currentBuildDir}"/>
     </goal>
