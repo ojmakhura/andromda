@@ -57,15 +57,6 @@
                     <td>Yes</td>
                 </tr>
                 <tr>
-                    <td>xdoclet-merge</td>
-                    <td>
-                        The location to which XDoclet merge files are generated. This cartridge expects XDoclet
-                        to be run on the generated sources, you will need to pass these files as merge files during
-                        this process.
-                    </td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
                     <td>server</td>
                     <td>The location where to store application server specific configuration, such as users.properties
                         and roles.properties (in case security has been enabled)</td>
