@@ -1,3 +1,6 @@
+##
+##  START TEMPLATE
+##
 <%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
@@ -20,32 +23,9 @@
 #set ($useCases = $applicationUseCase.allUseCases)
 #if ($useCases.size()>1)
 <div class="box2">
-    <h4><bean:message key="menu.usecases.title"/></h4>
-    <ul>
-#foreach ($useCase in $useCases)
-#set ($roles = $useCase.actionRoles)
-#set ($securityEnabled = ($security=="true") && ($roles != "") )
-#if ($securityEnabled)
-        <logic:present role="$roles">
-#end
-            <li>
-                <html:link action="$useCase.actionPath" titleKey="$useCase.titleKey">
-                    <bean:message key="$useCase.titleKey"/>
-                </html:link>
-            </li>
-#if ($securityEnabled)
-        </logic:present>
-        <logic:notPresent role="$roles">
-            <li><bean:message key="$useCase.titleKey"/></li>
-        </logic:notPresent>
-#end
-#end
-    </ul>
-#if ($onlineHelp == "true")
-    <a href="" style="display:inline;" onclick="openWindow('<html:rewrite page="/application-help.jsp"/>','onlinehelp',true,false,760,540); return false;">
-        <bean:message key="online.help.href"/>
-    </a>
-#end
+    <menu:useMenuDisplayer name="listMenu" bundle="org.apache.struts.action.MESSAGE">
+        <menu:displayMenu name="$applicationUseCase.titleKey"/>
+    </menu:useMenuDisplayer>
 </div>
 #end
 
