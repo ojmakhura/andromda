@@ -58,10 +58,20 @@
     <expression>
         <from>
             context Customer
+            inv: cards-&gt;select( valid = true )
+        </from>
+        <to>
+            OCLCollections.select(cards,new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.equal(object.valid,true);}})
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context Customer
             inv: program-&gt;size() = cards-&gt;select( valid = true )-&gt;size()
         </from>
         <to>
-            OCLExpressions.equal(OCLCollections.size(program),OCLCollections.size(OCLCollections.select(cards,OCLExpressions.equal(valid,true))))
+            OCLExpressions.equal(OCLCollections.size(program),OCLCollections.size(OCLCollections.select(cards,new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.equal(object.valid,true);}})))
         </to>
     </expression>
 
@@ -72,7 +82,7 @@
                     implies membership.loyaltyAccount-&gt;isEmpty()
         </from>
         <to>
-            (OCLCollections.forAll(partners.deliveredServices,OCLExpressions.equal(pointsEarned,0)&amp;&amp;OCLExpressions.equal(pointsBurned,0))?OCLCollections.isEmpty(membership.loyaltyAccount):true)
+            (OCLCollections.forAll(partners.deliveredServices,new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.equal(object.pointsEarned,0)&amp;&amp;OCLExpressions.equal(object.pointsBurned,0);}})?OCLCollections.isEmpty(membership.loyaltyAccount):true)
         </to>
     </expression>
 
@@ -109,32 +119,10 @@
     <expression>
         <from>
             context LoyaltyProgram
-            inv: partners.deliveredServices.transaction-&gt;select(oclType = Burning)-&gt;collect( points )-&gt;sum() &lt; 10000
-        </from>
-        <to>
-            OCLExpressions.less(OCLCollections.sum(OCLCollections.collect(OCLCollections.select(partners.deliveredServices.transaction,OCLExpressions.equal(oclType,Burning)),points)),10000)
-        </to>
-    </expression>
-
-<!--
-    <expression>
-        <from>
-            context LoyaltyAccount::isEmpty()
-            pre : - - none
-            post: result = (points = 0)
-        </from>
-        <to>
-        </to>
-    </expression>
--->
-
-    <expression>
-        <from>
-            context LoyaltyProgram
             inv: customer-&gt;forAll( age &gt;= 18 )
         </from>
         <to>
-            OCLCollections.forAll(customer,OCLExpressions.greaterOrEqual(age,18))
+            OCLCollections.forAll(customer,new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.greaterOrEqual(object.age,18);}})
         </to>
     </expression>
 
@@ -164,7 +152,7 @@
             inv: customer.card.membership->includes( self )
         </from>
         <to>
-            OCLCollections.includes(customer.card.membership,this)
+            OCLCollections.includes(customer.card.membership,new OCLExpression(){public boolean evaluate(Object object){return object.this;}})
         </to>
     </expression>
 
@@ -230,16 +218,15 @@
         </to>
     </expression>
 
-<!--
     <expression>
         <from>
             context StrutsFinalState::getFullPath()
             pre: getModel().getAllUseCases()->one(name = 'Prince') = true
         </from>
         <to>
+            OCLExpressions.equal(OCLCollections.one(getModel().getAllUseCases(),new OCLExpression(){public boolean evaluate(Object object){return OCLExpressions.equal(object.name,"Prince");}}),true)
         </to>
     </expression>
--->
 
 <!--
     <expression>
