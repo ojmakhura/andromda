@@ -133,6 +133,13 @@ public void someMethod(String className)
                 </li>
                 <li>
                     <p>
+                        <strong>Imports:</strong> Use fully qualified import names when importing classes,
+                        this makes it easier for users not familiar with the code base to see where classes
+                        are coming from.
+                    </p>
+                </li>
+                <li>
+                    <p>
                         <strong>Logging:</strong> Do <strong>NOT</strong> use System.out.println()
                         for debugging purposes in your code, instead use a log4j logger. 
                     </p>
