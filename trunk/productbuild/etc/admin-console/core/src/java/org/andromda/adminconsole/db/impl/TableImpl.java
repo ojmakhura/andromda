@@ -4,6 +4,7 @@ import org.andromda.adminconsole.db.*;
 
 import java.sql.*;
 import java.util.*;
+import java.sql.Date;
 
 public class TableImpl extends DatabaseObject implements Table
 {
@@ -145,7 +146,8 @@ public class TableImpl extends DatabaseObject implements Table
                     Column column = getDatabase().getPool().findColumn(getName(), columnName);
                     if (column == null)
                     {
-                        column = new ColumnImpl(this, columnName);
+                        int dataType = resultSet.getInt("DATA_TYPE");
+                        column = new ColumnImpl(this, columnName, dataType);
                     }
                     columns.put(columnName, column);
                 }
@@ -161,11 +163,9 @@ public class TableImpl extends DatabaseObject implements Table
                 while (resultSet.next())
                 {
                     String columnName = resultSet.getString("COLUMN_NAME");
-                    Column column = getDatabase().getPool().findColumn(getName(), columnName);
-                    if (column == null)
-                    {
-                        column = new PrimaryKeyColumnImpl(this, columnName);
-                    }
+                    Column column = getColumn(columnName);
+                    // create a new, more specific, instance
+                    column = new PrimaryKeyColumnImpl(this, columnName, column.getSqlType());
                     primaryKeys.put(column.getName(), column);
                     columns.put(column.getName(), column);
                 }
@@ -181,11 +181,9 @@ public class TableImpl extends DatabaseObject implements Table
                 while (resultSet.next())
                 {
                     String columnName = resultSet.getString("FKCOLUMN_NAME");
-                    Column column = getDatabase().getPool().findColumn(getName(), columnName);
-                    if (column == null)
-                    {
-                        column = new ForeignKeyColumnImpl(this, columnName);
-                    }
+                    Column column = getColumn(columnName);
+                    // create a new, more specific, instance
+                    column = new ForeignKeyColumnImpl(this, columnName, column.getSqlType());
                     foreignKeys.put(column.getName(), column);
                     columns.put(column.getName(), column);
                 }
@@ -199,7 +197,7 @@ public class TableImpl extends DatabaseObject implements Table
         }
     }
 
-    public int insertRow(Map values) throws SQLException
+    private int insertRow(String[] columnNames, Object[] parameters) throws SQLException
     {
         StringBuffer queryBuffer = new StringBuffer();
         queryBuffer.append("INSERT INTO ");
@@ -207,35 +205,43 @@ public class TableImpl extends DatabaseObject implements Table
 
         queryBuffer.append(" (");
 
-        Set valueEntries = values.entrySet();
-        boolean first = true;
-        for (Iterator iterator = valueEntries.iterator(); iterator.hasNext();)
+        for (int i = 0; i < columnNames.length; i++)
         {
-            if (first) first = false; else queryBuffer.append(',');
-
-            Object value = ((Map.Entry) iterator.next()).getKey();
-            queryBuffer.append(value);
+            if (i>0) queryBuffer.append(',');
+            queryBuffer.append(columnNames[i]);
         }
+
         queryBuffer.append(") values (");
 
-        first = true;
-        for (Iterator iterator = valueEntries.iterator(); iterator.hasNext();)
+        for (int i = 0; i < parameters.length; i++)
         {
-            if (first == false)
-                queryBuffer.append(',');
-            else
-                first = false;
-
-            Object value = ((Map.Entry) iterator.next()).getValue();
-            boolean string = value instanceof String;
-
-            if (string) queryBuffer.append('\'');
-            queryBuffer.append(value);
-            if (string) queryBuffer.append('\'');
+            if (i>0) queryBuffer.append(',');
+            queryBuffer.append('?');
         }
+
         queryBuffer.append(")");
 
-        return executeUpdate(queryBuffer.toString());
+        return executeUpdate(queryBuffer.toString(), columnNames, parameters);
+    }
+
+    public int insertRow(Object[] parameters) throws SQLException
+    {
+        return insertRow(getColumnNames(), parameters);
+    }
+
+    public int insertRow(Map values) throws SQLException
+    {
+        String[] columnNames = new String[values.size()];
+        Object[] parameters = new Object[values.size()];
+
+        int index = 0;
+        for (Iterator iterator=values.entrySet().iterator(); iterator.hasNext();)
+        {
+            Map.Entry entry = (Map.Entry)iterator.next();
+            columnNames[index] = String.valueOf(entry.getKey());
+            parameters[index] = entry.getValue();
+        }
+        return insertRow(columnNames, parameters);
     }
 
     public List findAllRows() throws SQLException
@@ -302,28 +308,50 @@ public class TableImpl extends DatabaseObject implements Table
 
     private int executeUpdate(String query) throws SQLException
     {
+        return executeUpdate(query, null, null);
+    }
+
+    private Column getColumn(String columnName)
+    {
+        return (Column)columns.get(columnName);
+    }
+
+    private void setParameter(PreparedStatement statement, int index, Column column, Object parameter) throws SQLException
+    {
+        if (parameter instanceof String) statement.setString(index, (String)parameter);
+        else if (parameter == null) statement.setNull(index, column.getSqlType());
+        else if (parameter instanceof Integer) statement.setInt(index, ((Integer)parameter).intValue());
+        else if (parameter instanceof Long) statement.setLong(index, ((Long)parameter).longValue());
+        else if (parameter instanceof Boolean) statement.setBoolean(index, ((Boolean)parameter).booleanValue());
+        else if (parameter instanceof Date) statement.setDate(index, (Date)parameter);
+        else if (parameter instanceof Double) statement.setDouble(index, ((Double)parameter).doubleValue());
+        else if (parameter instanceof Float) statement.setFloat(index, ((Float)parameter).floatValue());
+        else if (parameter instanceof Short) statement.setShort(index, ((Short)parameter).shortValue());
+        else if (parameter instanceof Character) statement.setString(index, ((Character)parameter).toString());
+        else throw new IllegalArgumentException(
+                "Invalid object type, cannot set into prepared statement: "+parameter.getClass());
+    }
+
+    private int executeUpdate(String query, String[] columnNames, Object[] parameters) throws SQLException
+    {
         Connection connection = getMetaData().getConnection();
         PreparedStatement statement = null;
         try
         {
             statement = connection.prepareStatement(query);
+
+            if (columnNames != null && parameters != null)
+            {
+                for (int i = 0; i < parameters.length; i++)
+                {
+                    setParameter(statement, i+1, getColumn(columnNames[i]), parameters[i]);
+                }
+            }
+
             int count = statement.executeUpdate();
             return count;
         }
-        finally
-        {
-            if (statement != null)
-            {
-                try
-                {
-                    statement.close();
-                }
-                catch (SQLException e)
-                {
-                    throw new RuntimeException("Unable to close prepared statement", e);
-                }
-            }
-        }
+        finally { close(statement); }
     }
 
     private List executeQuery(String query) throws SQLException

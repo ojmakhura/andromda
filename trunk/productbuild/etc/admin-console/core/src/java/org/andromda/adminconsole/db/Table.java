@@ -30,6 +30,8 @@ public interface Table extends Refreshable
 
     public int insertRow(Map values) throws SQLException;
 
+    public int insertRow(Object[] parameters) throws SQLException;
+
     public List findAllRows() throws SQLException;
 
     public List findRows(Criterion criterion) throws SQLException;
