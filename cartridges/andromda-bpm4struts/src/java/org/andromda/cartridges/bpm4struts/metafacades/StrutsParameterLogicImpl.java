@@ -296,6 +296,7 @@ public class StrutsParameterLogicImpl
         else if (isValidatorShort(type)) validatorTypesList.add("short");
         else if (isValidatorLong(type)) validatorTypesList.add("long");
         else if (isValidatorDate(type)) validatorTypesList.add("date");
+        else if (isValidatorUrl(type) && isUrlFormat(format)) validatorTypesList.add("url");
 
         if (isRangeFormat)
         {
@@ -461,9 +462,19 @@ public class StrutsParameterLogicImpl
         return java.util.Date.class.getName().equals(type) || java.sql.Date.class.getName().equals(type);
     }
 
+    private boolean isValidatorUrl(String type)
+    {
+        return java.net.URL.class.getName().equals(type) || java.net.URI.class.getName().equals(type);
+    }
+
     private boolean isValidatorString(String type)
     {
         return String.class.getName().equals(type);
+    }
+
+    private boolean isUrlFormat(String format)
+    {
+        return "url".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
     private boolean isEmailFormat(String format)
