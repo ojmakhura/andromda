@@ -45,7 +45,7 @@ class HibernateGlobals
     
     /**
      * The namespace property storing default ehCache maxElementsInMemory
-     * Parameter
+     * parameter
      */
     static final String HIBERNATE_EHCACHE_MAX_ELEMENTS = "ehCacheMaxElementsInMemory";
 

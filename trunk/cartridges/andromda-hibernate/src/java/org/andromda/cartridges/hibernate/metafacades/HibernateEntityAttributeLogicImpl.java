@@ -1,9 +1,9 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
-
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute.
- *
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute.
+ * 
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute
  */
 public class HibernateEntityAttributeLogicImpl
@@ -11,25 +11,28 @@ public class HibernateEntityAttributeLogicImpl
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateEntityAttributeLogicImpl (Object metaObject, String context)
+    public HibernateEntityAttributeLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isInheritanceRequired()
+     * Overridden to provide handling of inheritance.
+     * 
+     * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
      */
-    protected boolean handleIsInheritanceRequired()
+    public boolean isRequired()
     {
-        HibernateEntity entity=(HibernateEntity)this.getOwner();
-        if (entity.isHibernateInheritanceSubclass() && (entity.getGeneralization()!=null))
+        boolean required = super.isRequired();
+        HibernateEntity entity = (HibernateEntity)this.getOwner();
+        if (entity.isHibernateInheritanceSubclass()
+            && entity.getGeneralization() != null)
         {
-            return false;
+            required = false;
         }
-        else
-        {
-            return this.isRequired();
-        }
+        return required;
     }
 
 }
