@@ -4,11 +4,18 @@
          xmlns:maven="jelly:maven">
            
     <!-- ==================================================================
-               Installs all libraries in the local repository                                                    
+             Installs all libraries in the local repository                                                    
          ================================================================== -->
     <goal name="install">
         <attainGoal name="multiproject:install"/>	
     </goal> 
+    
+    <!-- ==================================================================
+             Cleans all cartridges                                                   
+         ================================================================== -->
+    <goal name="clean">
+        <attainGoal name="multiproject:clean"/>
+    </goal>
            
     <preGoal name="java:compile"> 
         <attainGoal name="generate-source"/>
