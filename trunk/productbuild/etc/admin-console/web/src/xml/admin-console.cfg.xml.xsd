@@ -57,7 +57,7 @@
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column-configuration"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
-            <xs:attribute name="pageSize" type="xs:integer" default="5"/>
+            <xs:attribute name="pageSize" type="xs:integer" default="10"/>
             <xs:attribute name="maxListSize" type="xs:integer" default="1000"/>
             <xs:attribute name="export" type="xs:boolean" default="true"/>
             <xs:attribute name="displayColumn" type="xs:string"/>
