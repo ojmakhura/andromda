@@ -58,7 +58,7 @@
                  otherwise we'd have naming conflicts with the
                  service classes, normally the service would be
                  on a different machine or in a different app 
-                 that the consumer (so this wouldn't be necessary) -->
+                 than the consumer (so this wouldn't be necessary) -->
             <ant:mapping
                 namespace="http://${decisionServicePackage}"
                 package="${decisionServicePackage}.client"/> 
