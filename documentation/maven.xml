@@ -13,7 +13,7 @@
         <!-- copy the animal-quiz model into the resources directory -->
         <ant:copy file="${samples.dir}/animal-quiz/mda/src/uml/AnimalQuiz.xml.zip" todir="${maven.docs.dest}/resources"/>
         <!-- copy the car-rental-system model into the resources directory -->
-        <ant:copy file="${samples.dir}/car-rental-system/mda/src/uml/CarRentalSystem.zuml" todir="${maven.docs.dest}/resources"/>
+        <ant:copy file="${samples.dir}/car-rental-system/mda/src/uml/CarRentalSystem2Model.xmi" todir="${maven.docs.dest}/resources"/>
         <!-- unpack the UmlDoc coming with the car-rental-sample so users can browse it -->
         <ant:unzip src="${maven.docs.dest}/resources/car-rental-umldoc.zip" dest="${maven.docs.dest}"/>
         <!-- zip it all up -->
