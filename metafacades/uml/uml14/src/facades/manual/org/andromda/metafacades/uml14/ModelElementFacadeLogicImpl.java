@@ -16,6 +16,7 @@ import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Comment;
 import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.modelmanagement.Model;
   
 
@@ -147,15 +148,18 @@ public class ModelElementFacadeLogicImpl
      */
     public String getVisibility()
     {
-        StringBuffer visibility = new StringBuffer();
-        String visibilityString = metaObject.getVisibility().toString();
-        visibility.append(
-                visibilityString.substring(3, visibilityString.length()));
-        if (this.getLanguageMappings() != null) {
-            visibility = new StringBuffer(
-                this.getLanguageMappings().getTo(visibility.toString()));
-        }
-        return visibility.toString();
+		StringBuffer visibility = new StringBuffer();
+		VisibilityKind visibilityKind = metaObject.getVisibility();
+		if (visibilityKind != null) {
+			String visibilityString = visibilityKind.toString();
+			visibility.append(
+					visibilityString.substring(3, visibilityString.length()));
+			if (this.getLanguageMappings() != null) {
+				visibility = new StringBuffer(
+					this.getLanguageMappings().getTo(visibility.toString()));
+			}
+		}
+		return visibility.toString();
     }
     
     /**
