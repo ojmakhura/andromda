@@ -41,6 +41,20 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     }
 
     /**
+     * Returns a collection containing all the state machines found in the
+     * UML model.
+     * <p>
+     * Each element in the collection is an instance of
+     * <code>org.omg.uml.behavioralelements.statemachines.StateMachine</code>.
+     *
+     * @return the StateMachine instances found in the UML model
+     */
+    public Collection getAllStateMachines()
+    {
+        return model.getStateMachines().getStateMachine().refAllOfType();
+    }
+
+    /**
      * Returns a collection containing all the use-cases found in the
      * UML model.
      * <p>
@@ -95,114 +109,114 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     }
 
     /**
-     * Returns the collection of FinalState instances found in the argument activity graph.
+     * Returns the collection of FinalState instances found in the argument StateMachine.
      * <p>
      * Each element in the collection is an instance of
      * <code>org.omg.uml.behavioralelements.statemachines.FinalState</code>
      *
-     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
-     * @return the FinalState instances found in the activity graph
+     * @param stateMachine an StateMachine instance, may not be <code>null</code>
+     * @return the FinalState instances found in the StateMachine
      * @see org.omg.uml.behavioralelements.statemachines.FinalState
      */
-    public Collection getFinalStates(ActivityGraph activityGraph)
+    public Collection getFinalStates(StateMachine stateMachine)
     {
-        return getSubvertices(activityGraph, finalStateFilter);
+        return getSubvertices(stateMachine, finalStateFilter);
     }
 
     /**
-     * Returns the collection of Transition instances found in the argument activity graph.
+     * Returns the collection of Transition instances found in the argument StateMachine.
      * <p>
      * Each element in the collection is an instance of
      * <code>org.omg.uml.behavioralelements.statemachines.Transition</code>
      *
-     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
-     * @return the Transition instances found in the activity graph
+     * @param stateMachine an StateMachine instance, may not be <code>null</code>
+     * @return the Transition instances found in the StateMachine
      * @see org.omg.uml.behavioralelements.statemachines.Transition
      */
-    public Collection getTransitions(ActivityGraph activityGraph)
+    public Collection getTransitions(StateMachine stateMachine)
     {
-        return getSubvertices(activityGraph, transitionFilter);
+        return getSubvertices(stateMachine, transitionFilter);
     }
 
     /**
      * Returns the collection of Pseudostate instances of kind 'initial'
-     * found in the argument activity graph.
+     * found in the argument StateMachine.
      * <p>
      * Each element in the collection is an instance of
      * <code>org.omg.uml.behavioralelements.statemachines.Pseudostate</code>
      *
-     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
-     * @return the collection of initial states found in the activity graph
+     * @param stateMachine an StateMachine instance, may not be <code>null</code>
+     * @return the collection of initial states found in the StateMachine
      * @see org.omg.uml.behavioralelements.statemachines.Pseudostate
      */
-    public Collection getInitialStates(ActivityGraph activityGraph)
+    public Collection getInitialStates(StateMachine stateMachine)
     {
-        return getSubvertices(activityGraph, initialStateFilter);
+        return getSubvertices(stateMachine, initialStateFilter);
     }
 
     /**
-     * Returns the collection of ObjectFlowState instances found in the argument activity graph.
+     * Returns the collection of ObjectFlowState instances found in the argument StateMachine.
      * <p>
      * Each element in the collection is an instance of
      * <code>org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState</code>
      *
-     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
-     * @return the FinalState instances found in the activity graph
+     * @param stateMachine an StateMachine instance, may not be <code>null</code>
+     * @return the FinalState instances found in the StateMachine
      * @see org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState
      */
-    public Collection getObjectFlowStates(ActivityGraph activityGraph)
+    public Collection getObjectFlowStates(StateMachine stateMachine)
     {
-        return getSubvertices(activityGraph, objectFlowStateFilter);
+        return getSubvertices(stateMachine, objectFlowStateFilter);
     }
 
     /**
      * Returns a Collection containing the Pseudostate instances of kind 'choice'
-     * that are model elements in the argument activity graph.
+     * that are model elements in the argument StateMachine.
      * <p>
      * Each element in the collection is an instance of
      * <code>org.omg.uml.behavioralelements.statemachines.Pseudostate</code>
      *
-     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
+     * @param stateMachine a StateMachine instance, may not be <code>null</code>
      * @return the Pseudostate instances of kind 'choice'
-     *    found in the argument ActivityGraph
+     *    found in the argument StateMachine
      * @see org.omg.uml.behavioralelements.statemachines.Pseudostate
      */
-    public Collection getChoices(ActivityGraph activityGraph)
+    public Collection getChoices(StateMachine stateMachine)
     {
-        return getSubvertices(activityGraph, choicePseudostateFilter);
+        return getSubvertices(stateMachine, choicePseudostateFilter);
     }
 
     /**
      * Returns a Collection containing the action states that are
-     * model elements in the argument activity graph.
+     * model elements in the argument StateMachine.
      * <p>
      * Each element in the collection is an instance of
      * <code>org.omg.uml.behavioralelements.activitygraphs.ActionState</code>
      *
-     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
-     * @return the ActionState instances found in the argument ActivityGraph
+     * @param stateMachine a StateMachine instance, may not be <code>null</code>
+     * @return the ActionState instances found in the argument StateMachine
      * @see org.omg.uml.behavioralelements.activitygraphs.ActionState
      */
-    public Collection getActionStates(ActivityGraph activityGraph)
+    public Collection getActionStates(StateMachine stateMachine)
     {
-        return getSubvertices(activityGraph, actionStateFilter);
+        return getSubvertices(stateMachine, actionStateFilter);
     }
 
     /**
      * Returns a collection of vertices that are contained in the argument
-     * ActivityGraph.
+     * StateMachine.
      * <p>
      * The CollectionFilter decides which vertices are being filtered out.
      *
-     * @param activityGraph The graph where the look for vertices, may not be <code>null</code>
+     * @param stateMachine The graph where the look for vertices, may not be <code>null</code>
      * @param collectionFilter the filter that decides which vertices to ignore, may not be <code>null</code>
      * @return A Collection containing only
      *    <code>org.omg.uml.behavioralelements.statemachines.StateVertex</code> instances.
      * @see org.omg.uml.behavioralelements.statemachines.StateVertex
      */
-    public Collection getSubvertices(ActivityGraph activityGraph, CollectionFilter collectionFilter)
+    public Collection getSubvertices(StateMachine stateMachine, CollectionFilter collectionFilter)
     {
-        CompositeState compositeState = (CompositeState) activityGraph.getTop();
+        CompositeState compositeState = (CompositeState) stateMachine.getTop();
         return filter(compositeState.getSubvertex(), collectionFilter);
     }
 
@@ -226,6 +240,33 @@ public class UMLDynamicHelper extends UMLDefaultHelper
         }
         return filteredCollection;
     }
+
+    /**
+     * A filter used to keep only decision points.
+     *
+     * @see #isDecisionPoint(Object object)
+     */
+    public final CollectionFilter decisionPointsFilter =
+        new CollectionFilter()
+        {
+            public boolean accept(Object object)
+            {
+                return isDecisionPoint(object);
+            }
+        };
+
+    /**
+     * A filter used to keep only merge points.
+     *
+     * @see #isMergePoint(Object object)
+     */
+    public final CollectionFilter mergePointsFilter =
+        new CollectionFilter() {
+            public boolean accept(Object object)
+            {
+                return isMergePoint(object);
+            }
+        };
 
     /**
      * A filter used to keep only ObjectFlowState instances.
@@ -336,7 +377,7 @@ public class UMLDynamicHelper extends UMLDefaultHelper
      */
     public StateVertex getLastTransitionTarget(StateVertex stateVertex)
     {
-        if (isActionState(stateVertex) || isChoice(stateVertex) ||
+        if (isActionState(stateVertex) || isDecisionPoint(stateVertex) ||
             isObjectFlowState(stateVertex) || isFinalState(stateVertex))
         {
             return stateVertex;
@@ -437,6 +478,10 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     /**
      * Returns <code>true</code> if the argument is a Pseudostate instance
      * of kind 'choice', <code>false</code> in any other case.
+     * <p>
+     * Please note that as well decision points as merges are represented using
+     * a choice pseudostate. Their difference lies in the number of incoming and
+     * outgoing transitions.
      *
      * @param object an argument to test
      * @return <code>true</code> if the argument is a Pseudostate instance
@@ -445,6 +490,87 @@ public class UMLDynamicHelper extends UMLDefaultHelper
     public boolean isChoice(Object object)
     {
         return PseudostateKindEnum.PK_CHOICE.equals(getPseudostateKind(object));
+    }
+
+    /**
+     * Returns <code>true</code> if the argument state vertex is a pseudostate of kind 'choice', and it has
+     * more than 1 incoming transition.
+     * <p>
+     * Such a pseudostate would be used as a merge state in a UML diagram.
+     *
+     * @param object a choice pseudostate
+     * @return <code>true</code> if there is more than 1 incoming transition, <code>false</code> otherwise
+     * @see #isChoice(Object object)
+     */
+    public boolean isMergePoint(Object object)
+    {
+        if (isPseudostate(object))
+        {
+            Pseudostate pseudostate = (Pseudostate)object;
+            return (isChoice(pseudostate) && (pseudostate.getIncoming().size() > 1));
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Returns <code>true</code> if the argument state vertex is a pseudostate of kind 'choice', and it has
+     * more than 1 outgoing transition.
+     * <p>
+     * Such a pseudostate would be used as a decision point in a UML diagram.
+     *
+     * @param object a choice pseudostate
+     * @return <code>true</code> if there is more than 1 ougoing transition, <code>false</code> otherwise
+     * @see #isChoice(Object object)
+     */
+    public boolean isDecisionPoint(Object object)
+    {
+        if (isPseudostate(object))
+        {
+            Pseudostate pseudostate = (Pseudostate)object;
+            return (isChoice(pseudostate) && (pseudostate.getOutgoing().size() > 1));
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a Collection containing the decision points that are
+     * model elements in the argument activity graph.
+     * <p>
+     * Each element in the collection is an instance of
+     * <code>org.omg.uml.behavioralelements.statemachines.Pseudostate</code>
+     *
+     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
+     * @return the decision points found in the argument ActivityGraph
+     * @see org.omg.uml.behavioralelements.statemachines.Pseudostate
+     * @see #isDecisionPoint(Object object)
+     */
+    public Collection getDecisionPoints(ActivityGraph activityGraph)
+    {
+        return getSubvertices(activityGraph, decisionPointsFilter);
+    }
+
+    /**
+     * Returns a Collection containing the merge points that are
+     * model elements in the argument activity graph.
+     * <p>
+     * Each element in the collection is an instance of
+     * <code>org.omg.uml.behavioralelements.statemachines.Pseudostate</code>
+     *
+     * @param activityGraph an ActivityGraph instance, may not be <code>null</code>
+     * @return the merge points found in the argument ActivityGraph
+     * @see org.omg.uml.behavioralelements.statemachines.Pseudostate
+     * @see #isMergePoint(Object object)
+     */
+    public Collection getMergePoints(ActivityGraph activityGraph)
+    {
+        return getSubvertices(activityGraph, mergePointsFilter);
+
     }
 
     /**
