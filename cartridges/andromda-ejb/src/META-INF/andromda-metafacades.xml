@@ -2,6 +2,7 @@
 
 <!-- contains the ejb cartridge metafacade mappings -->
 <metafacades namespace="ejb">
+	<!-- Entity EJB Metafacades -->
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogicImpl">
@@ -17,14 +18,14 @@
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
+		<stereotype>Entity</stereotype>
 		<property reference="maxSqlNameLength"/>
-		<!-- <stereotype>Entity</stereotype> -->
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
+		<stereotype>Entity</stereotype>
 		<property reference="maxSqlNameLength"/>
-		<!-- <stereotype>Entity</stereotype> -->
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
@@ -39,4 +40,15 @@
 		<property reference="sqlMappingsUri"/>
 		<property reference="jdbcMappingsUri"/>
 	</metafacade>		
+	<!-- Session EJB Metafacades -->
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
+		<stereotype>Service</stereotype>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
+		<stereotype>Service</stereotype>
+	</metafacade>	
 </metafacades>
