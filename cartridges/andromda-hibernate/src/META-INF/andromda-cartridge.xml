@@ -49,6 +49,7 @@
     <property reference="hibernateUseQueryCache" default="false"/>
     <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider"/>
     <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory"/>
+    <property reference="xmlEncoding" default="UTF-8"/>
     <!-- cartridge-property merge-point-->  
 
     <!-- cartridge-resource merge-point -->
