@@ -30,7 +30,7 @@
     <!-- Define our class path -->
     <path id="launch.classpath">
         <pathelement path="${build.classpath}"/>
-        <pathelement path="${java.classpath}"/>
+        <pathelement path="${java.class.path}"/>
     </path>
 
 
