@@ -23,7 +23,7 @@
     <property reference="hibernateTransactionManagerLookup" default=""/>
     <property reference="hibernateUseOuterJoin" default=""/>
     <property reference="hibernateShowSql" default=""/>
-    <property reference="hibernateJndiName" default=""/>
+    <property reference="hibernateJndiName" default="java:/hibernate/SessionFactory"/>
     <property reference="hibernateDialect" default=""/>
     <property reference="hibernateDefaultSchema" default=""/>
     <property reference="hibernateMaxFetchDepth" default=""/>
