@@ -11,11 +11,12 @@
          because of the fact that AndroMDA uses the 'andromda:run' goal
          to build some of its components, such as the metafacades.  This also
          allows us to swich back and forth between normal and 'bootstrap' mode.
-         If the '-Dbootstrap=true' option is set, then this cartridge will be
-         run in bootstrap mode using the AndroMDA bootstrap dependencies instead
-         of the most current dependencies.  A bootstrap dependency has the samef
-         name as a normal dependencies with '-bootstrap' inserted between 
-         the artifactId and the version, for (i.e. andromda-core-bootstrap-3.0.jar).                        
+         If the '-Dmaven.andromda.bootstrap.mode=true' option is set, 
+         then this cartridge will be run in bootstrap mode using the AndroMDA bootstrap 
+         dependencies instead of the most current dependencies.  A bootstrap 
+         dependency has the same name as a normal dependency with '-bootstrap' 
+         inserted between the artifactId and the version 
+         (i.e. andromda-core-bootstrap-3.0.jar).                        
          =================================================================== -->  
 	<goal name="andromda:init">
 		
