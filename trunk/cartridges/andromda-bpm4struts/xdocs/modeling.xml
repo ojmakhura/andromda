@@ -190,11 +190,12 @@
                                 there is a <a href="../andromda-cartridges/index.html#mergeMappingsUri">merge point</a>
                                 that can be used to have them automatically inserted.
                                 Validator values look like this: <code>myValidator</code>,
-                                <code>myValidator(myVar,myArg)</code>, <code>myValidator(myVar2,myArg2)</code>, etc...
+                                <code>myValidator(myVar=myArg)</code>,
+                                <code>myValidator(myVar=myArg,myVar2=myArg2)</code>, etc...
                                 Specify each validator using a new value, don't specify all of them in a single value.
                                 Be careful when using multiple validators with the same 'var' name, the last one
                                 found will be used! Normally speaking this should not happen, so try to avoid it 
-                                (I recommend not using names used by known validators: minlength,
+                                (I recommend against using names used by known validators: minlength,
                                 test, datePattern, ...)
                             </td>
                         </tr>
