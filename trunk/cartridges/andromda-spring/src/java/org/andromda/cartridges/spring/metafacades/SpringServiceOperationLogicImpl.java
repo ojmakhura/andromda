@@ -26,7 +26,7 @@ public class SpringServiceOperationLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringServiceOperation#isWebserviceExposed()
      */
-    public boolean handleIsWebserviceExposed()
+    protected boolean handleIsWebserviceExposed()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION);
     }

@@ -25,7 +25,7 @@ public class HibernateTypeLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.HibernateType#getFullyQualifiedHibernateType()
      */
-    public String handleGetFullyQualifiedHibernateType()
+    protected String handleGetFullyQualifiedHibernateType()
     {
         String fullyQualifiedName = super.getFullyQualifiedName();
         Mappings mappings = this.getHibernateTypeMappings();
