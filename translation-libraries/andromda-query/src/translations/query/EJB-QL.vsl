@@ -46,7 +46,7 @@
                 {0} MEMBER OF {1}
             </kind>
         </fragment>
-        
+
         <!-- Maps the '-> sortedBy(<some expression>)' to the correct handler method -->
         <fragment name="sortedBy${nonEmptyParentheses}"
                   handlerMethod="handleSortedBy"/>
@@ -65,7 +65,7 @@
                 {0} IS EMPTY
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.toLower()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*toLower${emptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -73,7 +73,7 @@
                 LOWER({0})
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.toUpper()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*toUpper${emptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -81,7 +81,7 @@
                 UPPER({0})
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.concat(string)' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*concat${nonEmptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -89,7 +89,7 @@
                 CONCAT({0}, {1})
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.substring(int,int)' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*substring${nonEmptyParentheses}"
                   handlerMethod="handleDotOperation">
@@ -97,7 +97,7 @@
                 SUBSTRING({0}, {1}, {2})
             </kind>
         </fragment>
-        
+
         <!-- This is what is appended when 'string.size()' is encountered in the expression -->
         <fragment name="\s*${navigableName}\s*\.\s*size${emptyParentheses}"
                   handlerMethod="handleDotOperation">
