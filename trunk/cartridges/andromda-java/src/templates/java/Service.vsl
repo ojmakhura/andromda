@@ -4,13 +4,12 @@
 //
 package $service.packageName;
 
-#set ($superclass = $service.generalization)
 /**
 $service.getDocumentation(" * ")   
  */
 public interface $service.name
-#if($superclass)  
-	extends ${superclass.fullyQualifiedName}
+#if($service.generalization)  
+	extends ${service.generalization.fullyQualifiedName}
 #end
 {
 
