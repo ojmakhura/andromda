@@ -281,7 +281,6 @@ public class MetafacadeFactory
                 // endless loops
                 this.addToMetafacadeCache(
                     mappingObject,
-                    metafacadeClass,
                     metafacadeCacheKey,
                     metafacade);
                 metafacade.initialize();
@@ -419,19 +418,17 @@ public class MetafacadeFactory
 
     /**
      * Adds the <code>metafacade</code> to the cache according to first
-     * <code>mappingObject</code>, second <code>metafacadeClass</code>,
+     * <code>mappingObject</code>, second <code>metafacade</code> Class,
      * third <code>key</code>, and finally current the current active
      * namespace.
      * 
      * @param mappingObject the mappingObject for which to cache the metafacade.
-     * @param metafacadeClass the class of the metafacade
      * @param key the unique key by which the metafacade is cached (within the
      *        scope of the <code>mappingObject</code.
      * @param metafacade the metafacade to cache.
      */
     private void addToMetafacadeCache(
         Object mappingObject,
-        Class metafacadeClass,
         Object key,
         MetafacadeBase metafacade)
     {
@@ -442,13 +439,13 @@ public class MetafacadeFactory
             namespaceMetafacadeCache = new HashMap();
         }
         Map metafacadeCache = (Map)namespaceMetafacadeCache
-            .get(metafacadeClass);
+            .get(metafacade.getClass());
         if (metafacadeCache == null)
         {
             metafacadeCache = new HashMap();
         }
         metafacadeCache.put(this.getActiveNamespace() + key, metafacade);
-        namespaceMetafacadeCache.put(metafacadeClass, metafacadeCache);
+        namespaceMetafacadeCache.put(metafacade.getClass(), metafacadeCache);
         this.metafacadeCache.put(mappingObject, namespaceMetafacadeCache);
     }
 
