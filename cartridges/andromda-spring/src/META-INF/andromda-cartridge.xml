@@ -294,7 +294,8 @@
         outputPattern="$applicationContext"
         outlet="spring-configuration"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="entities">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
@@ -343,7 +344,8 @@
         outlet="session-ejbs"
         overwrite="true"
         required="false"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
@@ -357,7 +359,8 @@
         outlet="session-ejbs"
         overwrite="true"
         required="false"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
