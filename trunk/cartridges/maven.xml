@@ -17,7 +17,7 @@
     <preGoal name="site:run-reports">
         <j:set var="docsBuild" value="true"/>
         <attainGoal name="generate-source"/>
-        <attainGoal name="generate-howto-codefiles"/>
+        <attainGoal name="generate-howto-artifacts"/>
     </preGoal>
     
     <!-- ==================================================================
@@ -74,37 +74,25 @@
     </goal>
 
     <!-- ==================================================================
-         Generates the howto code files for the documentation
+         Generates the howto artifacts for the documentation
          ================================================================== -->
-    <goal name="generate-howto-codefiles">
-        <ant:available
-            file="${maven.docs.src}/resources/HowToModel.xml.zip"
-            type="file"
-            property="howtoModelAvailable"/>
-
-        <ant:echo message="${maven.docs.src}/resources/HowToModel.xml.zip"/>
-        <ant:echo message="${howtoModelAvailable}"/>
-        <ant:echo message=""/>
-
-        <!-- Comment out for the moment [MW] -->
-        <!-- j:if test="${howtoModelAvailable}">
-            <j:set var="maven.andromda.model.uri" value="${howto.model.uri}"/>
-            <j:set var="maven.andromda.modelValidation" value="${howto.modelValidation}" defaultValue="true"/>
-            <j:set var="maven.andromda.cartridgeFilter" value="${howto.cartridgeFilter}"/>
-            <j:set var="maven.andromda.modelPackage.0.name" value="${howto.modelPackage.0.name}"/>
-            <j:set var="maven.andromda.modelPackage.0.shouldProcess" value="${howto.modelPackage.0.shouldProcess}"/>
-            <j:set var="howto.property.name.1" value="${howto.property.value.1}"/>
-            <j:set var="${howto.property.name.2}" value="${howto.property.value.2}"/>
-            <j:set var="${howto.property.name.3}" value="${howto.property.value.3}"/>
-            <j:set var="${howto.property.name.4}" value="${howto.property.value.4}"/>
-            <attainGoal name="andromda:run"/>
-        </j:if -->
+    <goal name="generate-howto-artifacts">
+        <j:if test="${context.getVariable('andromda.cartridge.howto.model.uri') != null and docsBuild ne null}">
+            <j:choose>
+                <j:when test="${maven.andromda.bootstrap.mode}">
+                    <attainGoal name="cartridge:generate-howto-artifacts-bootstrap"/>
+                </j:when>
+                <j:otherwise>
+                    <attainGoal name="cartridge:generate-howto-artifacts"/>						
+                </j:otherwise>
+            </j:choose>
+        </j:if>
     </goal>
 
     <preGoal name="test:test">
         <!-- only process the cartridge tests if we have a test cartridge model defined AND
              the docs are NOT being built -->
-        <j:if test="${context.getVariable('andromda.cartridge.model.uri') != null and docsBuild eq null}">
+        <j:if test="${context.getVariable('andromda.cartridge.test.model.uri') != null and docsBuild eq null}">
             <j:choose>
                 <j:when test="${maven.andromda.bootstrap.mode}">
                     <attainGoal name="cartridge:test-bootstrap"/>
