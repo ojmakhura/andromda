@@ -19,7 +19,7 @@
                         <td>
                             <c:if test="${column.foreignKeyColumn}">
                                 <c:set var="foreignTable" value="${column.importedKeyColumn.table}" scope="page"/>
-                                <bean:message key="change.to.table" bundle="custom"/>
+                                <bean:message key="show.table" bundle="custom"/>
                                 <html:link action="/Maintenance/MaintenanceChangeTable" styleClass="foreignTableLink"
                                     paramId="name" paramName="foreignTable" paramProperty="name" paramScope="page">
                                     ${foreignTable.name}
