@@ -49,28 +49,32 @@ public class MetafacadeBase
     {
         return metaObject.hashCode();
     }
-    
+
     /**
-     * Retrieves the <code>owner</code> of this metafacade (for example: an operation owns
-     * its parameters, a class owns its attributes).
+     * Retrieves the <code>owner</code> of this metafacade (for example: an
+     * operation owns its parameters, a class owns its attributes).
      * <p>
-     *   By default <code>null</code> is returned, however this method is overridden by subclasses
-     *   which have a <code>parent</code> or <code>owner</code>.  This is used to give the
-     *   model validation messages more context as to where the validation error occurred.
+     * By default <code>null</code> is returned, however this method is
+     * overridden by subclasses which have a <code>parent</code> or
+     * <code>owner</code>. This is used to give the model validation messages
+     * more context as to where the validation error occurred.
      * </p>
+     * 
      * @return the owner of this metafacade.
      */
     public Object getValidationOwner()
     {
         return null;
     }
-    
+
     /**
-     * Retrieves the <code>name</code> of this metafacade used within the validation messages.
+     * Retrieves the <code>name</code> of this metafacade used within the
+     * validation messages.
      * <p>
-     *   By default <code>null</code> is returned, however this method is overridden by subclasses
-     *   model elements that do have a name.  
+     * By default <code>null</code> is returned, however this method is
+     * overridden by subclasses model elements that do have a name.
      * </p>
+     * 
      * @return the owner of this metafacade.
      */
     public String getValidationName()

@@ -144,13 +144,15 @@ public abstract class BaseTranslator
      * 
      * <pre>
      * 
-     *         &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
-     *                      handlerMethod=&quot;handleAllInstances&quot;&gt;
-     *             &lt;kind name=&quot;body&quot;&gt;
-     *                 from $completeElementName as $lowerCaseElementName 
-     *             &lt;/kind&gt;
-     *         &lt;/fragment&gt;
-     *         
+     *  
+     *          &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
+     *                       handlerMethod=&quot;handleAllInstances&quot;&gt;
+     *              &lt;kind name=&quot;body&quot;&gt;
+     *                  from $completeElementName as $lowerCaseElementName 
+     *              &lt;/kind&gt;
+     *          &lt;/fragment&gt;
+     *          
+     *  
      * </pre>
      * 
      * </p>
@@ -246,12 +248,15 @@ public abstract class BaseTranslator
     }
 
     /**
+     * <p>
+     * <strong>NOTE: </strong> null is allowed for contextElement (even though
+     * it isn't within ExpressionTranslator.translate() since the
+     * TraceTranslator doesn't need a <code>contextElement</code> and we don't
+     * want to slow down the trace by having to read and load a model each time.
+     * </p>
+     * 
      * @see org.andromda.core.translation.ExpressionTranslator#translate(
-     *      java.lang.String, java.lang.Object, java.lang.String) <strong>NOTE:
-     *      </strong> null is allowed for contextElement (even though it isn't
-     *      within ExpressionTranslator.translate() since the TraceTranslator
-     *      doesn't need a <code>contextElement</code> and we don't want to
-     *      slow down the trace by having to read and load a model each time.
+     *      java.lang.String, java.lang.Object, java.lang.String)
      */
     public Expression translate(
         String translationName,
@@ -340,8 +345,8 @@ public abstract class BaseTranslator
      */
     protected void postProcess()
     {
-    //currently does nothing --> sub classes should override to perform
-    //final processing
+        //currently does nothing --> sub classes should override to perform
+        //final processing
     }
 
     /** The Following Are Overriden Parser Generated Methods * */
