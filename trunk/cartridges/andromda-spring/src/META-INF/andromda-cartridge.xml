@@ -99,9 +99,11 @@
 		outputPattern="$generatedFile" 
 		outlet="services" 
 		overwrite="true">
-		<modelElements variable="service">
-            <modelElement stereotype="WebService"/>
-		</modelElements>
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>             
+        </modelElements>
 	</template>
 	
 	<template 

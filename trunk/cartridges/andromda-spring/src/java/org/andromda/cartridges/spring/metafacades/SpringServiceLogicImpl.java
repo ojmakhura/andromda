@@ -1,7 +1,10 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import java.text.MessageFormat;
+import java.util.Collection;
 
+import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -26,7 +29,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbJndiName()
      */
-    public java.lang.String handleGetEjbJndiName()
+    protected java.lang.String handleGetEjbJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this
@@ -41,7 +44,7 @@ public class SpringServiceLogicImpl
         return jndiName.toString();
     }
 
-    public boolean handleHasReferences()
+    protected boolean handleHasReferences()
     {
         return (this.getEntityReferences() != null && !this
             .getEntityReferences().isEmpty())
@@ -52,7 +55,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbImplementationName()
      */
-    public java.lang.String handleGetEjbImplementationName()
+    protected java.lang.String handleGetEjbImplementationName()
     {
         return this.getName() + SpringGlobals.EJB_IMPLEMENTATION_SUFFIX;
     }
@@ -60,7 +63,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#etImplementationName()
      */
-    public java.lang.String handleGetImplementationName()
+    protected java.lang.String handleGetImplementationName()
     {
         return this.getName() + SpringGlobals.IMPLEMENTATION_SUFFIX;
     }
@@ -68,7 +71,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedImplementationName()
      */
-    public java.lang.String handleGetFullyQualifiedEjbImplementationName()
+    protected java.lang.String handleGetFullyQualifiedEjbImplementationName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getEjbPackageName(),
@@ -79,7 +82,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedEjbName()
      */
-    public java.lang.String handleGetFullyQualifiedEjbName()
+    protected java.lang.String handleGetFullyQualifiedEjbName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(this
             .getEjbPackageName(), this.getName(), null);
@@ -88,7 +91,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedImplementationName()
      */
-    public java.lang.String handleGetFullyQualifiedImplementationName()
+    protected java.lang.String handleGetFullyQualifiedImplementationName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -99,7 +102,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getBaseName()
      */
-    public java.lang.String handleGetBaseName()
+    protected java.lang.String handleGetBaseName()
     {
         return this.getName() + SpringGlobals.SERVICE_BASE_SUFFIX;
     }
@@ -107,7 +110,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedBaseName()
      */
-    public java.lang.String handleGetFullyQualifiedBaseName()
+    protected java.lang.String handleGetFullyQualifiedBaseName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -118,7 +121,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbPackageName()
      */
-    public java.lang.String handleGetEjbPackageName()
+    protected java.lang.String handleGetEjbPackageName()
     {
         return MessageFormat.format(
             this.getEjbPackageNamePattern(),
@@ -131,7 +134,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbPackageNamePath()
      */
-    public java.lang.String handleGetEjbPackageNamePath()
+    protected java.lang.String handleGetEjbPackageNamePath()
     {
         return this.getEjbPackageName().replace('.', '/');
     }
@@ -139,7 +142,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getBeanName()
      */
-    public java.lang.String handleGetBeanName()
+    protected java.lang.String handleGetBeanName()
     {
         return this.getBeanName(false);
     }
@@ -147,7 +150,7 @@ public class SpringServiceLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getBeanName(boolean)
      */
-    public java.lang.String handleGetBeanName(boolean targetSuffix)
+    protected java.lang.String handleGetBeanName(boolean targetSuffix)
     {
         StringBuffer beanName = new StringBuffer(StringUtils
             .uncapitalize(StringUtils.trimToEmpty(this.getName())));
@@ -193,5 +196,27 @@ public class SpringServiceLogicImpl
     {
         return this.getFullyQualifiedName()
             + SpringGlobals.WEB_SERVICE_DELEGATOR_SUFFIX;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isWebService()
+     */
+    protected boolean handleIsWebService()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceOperations()
+     */
+    protected Collection handleGetWebServiceOperations()
+    {
+        return new FilteredCollection(this.getOperations())
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((SpringServiceOperation)object).isWebserviceExposed();
+            }
+        };
     }
 }
