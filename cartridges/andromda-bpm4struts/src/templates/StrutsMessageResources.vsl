@@ -47,7 +47,7 @@ errors.email={0} is an invalid e-mail address.
 #
 $useCase.titleKey=$useCase.titleValue
 
-#foreach ($page in $useCase.pages)
+#foreach ($page in $useCase.allPages)
 #
 #   PAGE:       $page.titleValue
 #
