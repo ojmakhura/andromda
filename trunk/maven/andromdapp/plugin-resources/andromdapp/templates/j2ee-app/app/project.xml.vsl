@@ -73,6 +73,9 @@
                 <ear.bundle>true</ear.bundle>
             </properties>
          </dependency>
+         <!-- This dependency causes class loading issues with jboss-tomcat,
+              however other app servers may require it (since it may not
+              be bundled with the server like it is with jboss/tomcat -->
          <dependency>
              <groupId>commons-logging</groupId>
              <artifactId>commons-logging</artifactId>
@@ -81,6 +84,7 @@
                 <ear.bundle>true</ear.bundle>
              </properties>
           </dependency>
+          -->
 #if ($hibernate || $spring)
           <dependency>
               <groupId>hibernate</groupId>
