@@ -55,9 +55,10 @@
     </xs:element>
     <xs:element name="template">
         <xs:complexType>
-            <!-- You can have as many modelElements as you want for a template -->
+            <!-- You can have as many modelElements as you want for a template or
+				 you don't even need to add model elements to your template -->
             <xs:sequence>
-                <xs:element ref="modelElements" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="modelElements" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
             <!-- the template to process -->
             <xs:attribute name="sheet" type="xs:string" use="required"/>
