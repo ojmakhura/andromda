@@ -49,6 +49,33 @@ public class MetafacadeBase
     {
         return metaObject.hashCode();
     }
+    
+    /**
+     * Retrieves the <code>owner</code> of this metafacade (for example: an operation owns
+     * its parameters, a class owns its attributes).
+     * <p>
+     *   By default <code>null</code> is returned, however this method is overridden by subclasses
+     *   which have a <code>parent</code> or <code>owner</code>.  This is used from 
+     * </p>
+     * @return the owner of this metafacade.
+     */
+    public MetafacadeBase getMetafacadeOwner()
+    {
+        return null;
+    }
+    
+    /**
+     * Retrieves the <code>name</code> of this metafacade.
+     * <p>
+     *   By default <code>null</code> is returned, however this method is overridden by subclasses
+     *   model elements that do have a name.  
+     * </p>
+     * @return the owner of this metafacade.
+     */
+    public String getName()
+    {
+        return null;
+    }
 
     /**
      * Validates that this facade's meta object is in a valid state.

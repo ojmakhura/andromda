@@ -16,8 +16,7 @@
             if (!constraintValid)
                 validationMessages.add(
                     new org.andromda.core.metafacade.ModelValidationMessage(
-                        this.getClass(),
-                        this.getName(),
+                        this,
                         "$constraintDocumentation"));
         }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
