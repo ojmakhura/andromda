@@ -1,6 +1,6 @@
 #if ($security == "true")
 
-#foreach ($user in $class.allUsers)
+#foreach ($user in $applicationUseCase.allUsers)
   <security-role>
     <role-name>$user.role</role-name>
   </security-role>

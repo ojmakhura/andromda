@@ -1,4 +1,4 @@
-main.title=$class.name
+main.title=$applicationUseCase.name
 
 #
 #   Messages for the menu
@@ -78,7 +78,7 @@ errors.email={0} is an invalid e-mail address.
 errors.url={0} is an invalid URL.
 
 
-#set ($useCases = $class.allUseCases)
+#set ($useCases = $applicationUseCase.allUseCases)
 
 #foreach ($useCase in $useCases)
 #

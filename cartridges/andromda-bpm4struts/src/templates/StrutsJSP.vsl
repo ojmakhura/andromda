@@ -1,10 +1,10 @@
 #parse("templates/StrutsJSP.vm")
-#set ($generatedFile = "${class.fullPath}.jsp")
+#set ($generatedFile = "${jsp.fullPath}.jsp")
 ##
 ##  CONSTANTS
 ##
-#set ($actions = $class.actions)
-#set ($useCase = $class.useCase)
+#set ($actions = $jsp.actions)
+#set ($useCase = $jsp.useCase)
 #set ($formBeanName = $useCase.formBeanName)
 #set ($formBeanType = $useCase.formBeanType)## this will be the name of the form, as used in this page
 ##
@@ -15,7 +15,7 @@
 <%@ taglib uri="struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="struts-logic.tld" prefix="logic" %>
 #set ($hasTable = false)
-#foreach ($variable in $class.pageVariables)
+#foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
 #set ($hasTable = true)
 #end
@@ -34,7 +34,7 @@
 ##  SETS THE TITLE
 ##
     <tiles:put name="title" type="string">
-        <bean:message key="$class.titleKey"/>
+        <bean:message key="$jsp.titleKey"/>
     </tiles:put>
 
 ##
@@ -42,18 +42,18 @@
 ##
     <tiles:put name="javascript" type="string">
 ## only load the calendar javascript when actually needed
-#if ($class.calendarRequired)
+#if ($jsp.calendarRequired)
     	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
 #end
 ## only load the static javascript when it will actually be used
-#set ($hasTabs = $class.tabbed)
+#set ($hasTabs = $jsp.tabbed)
 #foreach ($action in $actions)
 #if ($hasTabs == false)
 #set ($hasTabs = $action.tabbed)
 #end
 #end
 #set ($validationDesired = ($clientValidation=='true'))
-#if ($class.validationRequired && $validationDesired)
+#if ($jsp.validationRequired && $validationDesired)
         <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/form-validation.jsp"/>"></script>
 #foreach ($action in $actions)
 #if ($action.validationRequired)
@@ -76,13 +76,13 @@
     <tiles:put name="body" type="string">
         <bean:define id="$formBeanName" name="$formBeanName" type="$formBeanType" scope="session" toScope="page"/>
 
-#foreach ($variable in $class.pageVariables)
+#foreach ($variable in $jsp.pageVariables)
 #set ($variableName = $variable.name)
 #set ($variableType = $variable.type.fullyQualifiedName)
         <logic:present name="$formBeanName" property="$variableName" scope="page">
             <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variableType" scope="page" toScope="page"/>
         </logic:present>
-#if ($variable.hasBackingList())
+#if ($variable.backingListPresent)
 #set ($variableName = $variable.backingListName)
         <logic:present name="$formBeanName" property="$variableName" scope="page">
             <bean:define id="$variableName" name="$formBeanName" property="$variableName" type="$variable.backingListType" scope="page" toScope="page"/>
@@ -101,10 +101,11 @@
         --%>
 
         <div>
-            <h1><bean:message key="$class.titleKey"/></h1>
+            <h1><bean:message key="$jsp.titleKey"/></h1>
         </div>
         
-#foreach ($variable in $class.pageVariables)
+#foreach ($variable in $jsp.pageVariables)
+#if (!$variable.table)
         <logic:present name="$variable.name" scope="page">
             <bean:write name="$variable.name" scope="page"/> <br/>
         </logic:present>
@@ -112,19 +113,20 @@
             Missing from request: $variable.name <br/>
         </logic:notPresent>
 #end
+#end
 
-#if ($class.tabbed)
+#if ($jsp.tabbed)
 #set ($tabSwitchFunction = "selectActionTab")
-#set ($tabMap = $class.tabMap)
+#set ($tabMap = $jsp.tabMap)
         <div class="tabs">
 #foreach ($tab in $tabMap.keySet())
             <div id="actiontab.${tab}" class="tab">
                 <div class="tab-header">
 #foreach ($tabTitle in $tabMap.keySet())
 #if ($tab == $tabTitle)
-                    <div class="selected-tab"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></div>
+                    <div class="selected-tab"><bean:message key="${jsp.messageKey}.tab.${tabTitle}"/></div>
 #else
-                    <div class="unselected-tab"><a href="javascript:${tabSwitchFunction}(${tabTitle})"><bean:message key="${class.messageKey}.tab.${tabTitle}"/></a></div>
+                    <div class="unselected-tab"><a href="javascript:${tabSwitchFunction}(${tabTitle})"><bean:message key="${jsp.messageKey}.tab.${tabTitle}"/></a></div>
 #end
 #end
                 </div>
@@ -143,12 +145,15 @@
 
 #end
 #end
-#foreach ($variable in $class.pageVariables)
+#foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
 #set ($sortable = $variable.tableSortable)
 #set ($exportable = $variable.tableExportable)
         <display:table name="sessionScope.${formBeanName}.${variable.name}" id="row"
-                       requestURI="<%=request.getRequestURL().toString()%>" 
+                       requestURI="<%=request.getRequestURL().toString()%>"
+#if ($variable.tableLinksPresent)
+                       decorator="${variable.decoratorPackageName}.${variable.decoratorClassName}"
+#end
                        export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)
@@ -164,11 +169,11 @@
 #end
         <div>
             <blockquote>
-                <bean:message key="$class.documentationKey"/>
+                <bean:message key="$jsp.documentationKey"/>
             </blockquote>
         </div>
 
-#if ($class.tabbed)
+#if ($jsp.tabbed)
         <script type="text/javascript" language="Javascript1.1">
 #if ($xhtml == "true")
         //<![CDATA[
@@ -176,8 +181,8 @@
         //<!--
 #end
 #set ($tabSwitchArray = "actionTab")
-            var ${tabSwitchArray} = new Array($class.tabCount);
-#set ($tabMap = $class.tabMap)
+            var ${tabSwitchArray} = new Array($jsp.tabCount);
+#set ($tabMap = $jsp.tabMap)
 #foreach ($tab in $tabMap.keySet())
 #set ($tabIndex = $velocityCount - 1)
             ${tabSwitchArray}[$tabIndex] = getDiv('actiontab.$tab');

@@ -1,5 +1,5 @@
 #set ($validationDesired = ($clientValidation == 'true'))
-#if ($class.applicationValidationRequired && $validationDesired)
+#if ($applicationUseCase.applicationValidationRequired && $validationDesired)
 <%@ page contentType="application/x-javascript" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
 

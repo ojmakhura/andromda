@@ -19,7 +19,7 @@
 
 <p class="spacer"></p>
 
-#set ($useCases = $class.allUseCases)
+#set ($useCases = $applicationUseCase.allUseCases)
 #if ($useCases.size()>1)
 <div class="box2">
     <h4><bean:message key="menu.title"/></h4>

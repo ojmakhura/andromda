@@ -1,5 +1,5 @@
 #if ($security == "true")
-#set ($users = $class.model.allActors)
+#set ($users = $applicationUseCase.model.allActors)
 #
 # add your users here and give them roles
 # by default the 'admin' user has all roles

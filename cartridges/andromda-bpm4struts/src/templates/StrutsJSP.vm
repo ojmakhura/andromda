@@ -21,7 +21,7 @@ ${indent}  pageContext.setAttribute("$mapName", $mapName, javax.servlet.jsp.Page
 ${indent}%>
 #end
 #foreach ($parameter in $parameters)
-#if ($parameter.hasBackingList())
+#if ($parameter.backingListPresent)
 ${indent}<logic:iterate id="$parameter.name" name="$formBeanName" property="$parameter.backingListName" scope="page">
 ${indent}<%
 ${indent}    ${mapName}.put("$parameter.name", $parameter.name);
@@ -45,7 +45,7 @@ ${indent}            <bean:write name="$mapName" scope="page"/>
 ${indent}        </html:link>
 ${indent}    </p>
 #foreach ($parameter in $parameters)
-#if ($parameter.hasBackingList())
+#if ($parameter.backingListPresent)
 ${indent}    </logic:iterate>
 #end
 #end

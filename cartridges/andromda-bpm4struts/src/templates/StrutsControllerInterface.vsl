@@ -1,13 +1,13 @@
-#set ($generatedFile = "${class.fullPath}Interface.java")
+#set ($generatedFile = "${controller.fullPath}Interface.java")
 ##
 ##  CONSTANTS
 ##
-#set ($useCase = $class.useCase)
+#set ($useCase = $controller.useCase)
 #set ($formBeanClassName = $useCase.formBeanClassName)
 ##
 ##  START TEMPLATE
 ##
-package $class.packageName;
+package $controller.packageName;
 
 import org.apache.struts.action.ActionMapping;
 
@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
-$class.getDocumentation(" * ")
+$controller.getDocumentation(" * ")
  *
-#foreach ($service in $class.services)
+#foreach ($service in $controller.services)
 #set ($serviceName = $service.name)
 #set ($packageName = $service.packageName)
 #set ($ejbRefName = "ejb/${packageName}/${serviceName}")
@@ -34,9 +34,9 @@ $class.getDocumentation(" * ")
  *
 #end
  */
-public interface ${class.name}Interface
+public interface ${controller.name}Interface
 {
-#foreach ($operation in $class.operations)
+#foreach ($operation in $controller.operations)
 #set ($parameters = $operation.arguments)
 #set ($visibility = $operation.visibility)
 #set ($returnType = $operation.returnType.fullyQualifiedName)

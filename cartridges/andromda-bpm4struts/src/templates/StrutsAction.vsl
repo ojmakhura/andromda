@@ -1,20 +1,20 @@
 #parse("templates/StrutsAction.vm")
-#set ($generatedFile = "${class.fullActionPath}.java")
+#set ($generatedFile = "${action.fullActionPath}.java")
 ##
 ##  CONSTANTS
 ##
-#set ($controllerClass = $class.controller)
-#set ($formBeanClassName = $class.activityGraph.useCase.formBeanClassName)
-#set ($roles = $class.actionRoles)
-#set ($actionForwards = $class.actionForwards)
-#set ($actionExceptions = $class.actionExceptions)
-#set ($actionStates = $class.actionStates)
-#set ($decisionTransitions = $class.decisionTransitions)
+#set ($controllerClass = $action.controller)
+#set ($formBeanClassName = $action.activityGraph.useCase.formBeanClassName)
+#set ($roles = $action.actionRoles)
+#set ($actionForwards = $action.actionForwards)
+#set ($actionExceptions = $action.actionExceptions)
+#set ($actionStates = $action.actionStates)
+#set ($decisionTransitions = $action.decisionTransitions)
 #set ($security = ($security=="true") && ($roles != "") )
 ##
 ##  START TEMPLATE
 ##
-package $class.packageName;
+package $action.packageName;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -24,22 +24,22 @@ import org.apache.struts.action.ActionForward;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-#if ($class.hasSuccessMessage())
+#if ($action.hasSuccessMessage())
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 #end
 /**
-$class.getDocumentation(" * ")
+$action.getDocumentation(" * ")
  *
  * @struts.action
- *        path="$class.actionPath"
- *        name="$class.actionName"
-#if ($class.useCaseStart == false)
- *       input="${class.input.fullPath}.jsp"
+ *        path="$action.actionPath"
+ *        name="$action.actionName"
+#if ($action.useCaseStart == false)
+ *       input="${action.input.fullPath}.jsp"
 #end
 #set ($validationDesired = ($serverValidation == 'true'))
-#if ($class.validationRequired && $validationDesired)
+#if ($action.validationRequired && $validationDesired)
  *    validate="true"
 #else
  *    validate="false"
@@ -57,28 +57,28 @@ $class.getDocumentation(" * ")
  *    redirect="false"
  *
 #end
-#foreach ($actionException in $class.actionExceptions)
+#foreach ($actionException in $action.actionExceptions)
  * @struts.action-exception
- *         key="${class.messageKey}.$actionException.exceptionKey"
+ *         key="${action.messageKey}.$actionException.exceptionKey"
  *        type="$actionException.exceptionType"
  *        path="$actionException.exceptionPath"
  *       scope="request"
  *
 #end
-#if ($class.actionExceptions.empty && !$class.useCaseStart)
+#if ($action.actionExceptions.empty && !$action.useCaseStart)
  * @struts.action-exception
- *         key="${class.messageKey}.exception"
+ *         key="${action.messageKey}.exception"
  *        type="java.lang.Exception"
- *        path="${class.input.fullPath}.jsp"
+ *        path="${action.input.fullPath}.jsp"
  *       scope="request"
  *
 #end
  */
-public final class $class.actionClassName extends Action
+public final class $action.actionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-#if ($class.useCaseStart)
+#if ($action.useCaseStart)
         /*
          * Since this action is the first one for this use-case, we need to clean the session-scoped
          * form from any stale data. It is not a good idea to keep data floating between use-cases.
@@ -88,11 +88,11 @@ public final class $class.actionClassName extends Action
         (($formBeanClassName)form).clean();
 
 #end
-        final ActionForward forward = #processTransition($class)
-#if ($class.hasSuccessMessage())
+        final ActionForward forward = #processTransition($action)
+#if ($action.hasSuccessMessage())
 
         ActionMessages messages = new ActionMessages();
-        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("$class.successMessageKey"));
+        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("$action.successMessageKey"));
         saveMessages(request, messages);
 
 #end
