@@ -104,7 +104,15 @@ public final class OCLCollections
      */
     public static boolean notEmpty(Object object)
     {
-        return object != null;
+        boolean notEmpty = object != null;
+        if (notEmpty)
+        {
+            if (Collection.class.isAssignableFrom(object.getClass()))
+            {
+                notEmpty = !((Collection)object).isEmpty();
+            }
+        }
+        return notEmpty;
     }
 
     /**
