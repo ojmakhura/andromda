@@ -8,7 +8,7 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 
 /**
- * Contains utilities used within the WebService cartridge.
+ * Contains utilities used within the Spring cartridge.
  * 
  * @author Chad Brandon
  */
