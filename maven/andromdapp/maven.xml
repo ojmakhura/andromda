@@ -1,6 +1,7 @@
 <project xmlns:j="jelly:core"
   		 xmlns:ant="jelly:ant"
-  		 xmlns:velocity="jelly:velocity">
+  		 xmlns:velocity="jelly:velocity"
+         xmlns:artifact="artifact">
   		 
    <preGoal name="jar:jar">
     	<!-- replace the ${pom.currentVersion} in these
@@ -33,5 +34,14 @@
             <ant:fileset dir="${hibernate.db.conf.location}"/>
         </ant:copy>		
    </preGoal>
+
+    <!-- Install into the local repository -->
+    <postGoal name="plugin:install">
+        <attainGoal name="jar:jar"/>
+		<artifact:install 
+			artifact="${maven.build.dir}/${maven.final.name}.jar" 
+			type="plugin" 
+			project="${pom}"/>	
+    </postGoal>
 
 </project>
