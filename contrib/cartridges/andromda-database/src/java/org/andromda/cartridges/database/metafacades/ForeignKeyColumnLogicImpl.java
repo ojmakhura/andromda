@@ -76,7 +76,7 @@ public class ForeignKeyColumnLogicImpl
     protected String handleGetDummyLoadValue(int index)
     {
         String initialLoadValue = null;
-        NonForeignKeyColumn importedColumn = this.getImportedTable()
+        Column importedColumn = this.getImportedTable()
             .getPrimaryKeyColumn();
         if (importedColumn != null)
         {
