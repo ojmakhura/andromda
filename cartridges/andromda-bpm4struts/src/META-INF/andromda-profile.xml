@@ -70,6 +70,10 @@
         <to>@andromda.struts.view.field.type</to>
     </mapping>
     <mapping>
+        <from>INPUT_RADIO</from>
+        <to>@andromda.struts.view.field.radio</to>
+    </mapping>
+    <mapping>
         <from>INPUT_VALIDWHEN</from>
         <to>@andromda.struts.view.field.validwhen</to>
     </mapping>

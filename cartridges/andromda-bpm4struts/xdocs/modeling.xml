@@ -140,6 +140,19 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>@andromda.struts.view.field.radio</td>
+                            <td>Parameter</td>
+                            <td>integer, or comma-separated list of properties</td>
+                            <td>
+                                Can be used in combination with the <code>@andromda.struts.view.field.type=radio</code>
+                                tagged value. Use it to specify the number of options to render, the values of these
+                                options will always be the same, alternatively
+                                you can specify a comma-separated list of runtime properties if you prefer the values
+                                to be updateable at runtime. If this tagged value is not specified the cartridge will
+                                assume it to have value '3'.
+                            </td>
+                        </tr>
+                        <tr>
                             <td>@andromda.struts.view.field.reset</td>
                             <td>Parameter</td>
                             <td>false</td>
