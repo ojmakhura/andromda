@@ -32,7 +32,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #foreach ($field in $fields)
 #set ($fieldType = $field.type.fullyQualifiedName)
 #set ($fieldName = $field.name)
-#if ($field.isCollectionType())
+#if ($field.type.collectionType)
     public void ${field.setterName}($fieldType $fieldName)
     {
         this.$fieldName = $fieldName;
@@ -45,12 +45,12 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 
     public void ${field.setterName}AsArray(Object[] $fieldName)
     {
-        this.$fieldName = java.util.Arrays.asList($fieldName);
+        this.$fieldName = ($fieldName == null) ? null : java.util.Arrays.asList($fieldName);
     }
 
     public Object[] ${field.getterName}AsArray()
     {
-        return this.${fieldName}.toArray();
+        return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
 #else
     public void ${field.setterName}($fieldType $fieldName)
@@ -95,7 +95,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
         final StringBuffer buffer = new StringBuffer().append('[');
 
 #foreach ($field in $fields)
-#if ($field.arrayType || $field.collectionType)
+#if ($field.type.arrayType || $field.type.collectionType)
         buffer.append("${separator}${field.name}=" + toString(this.${field.getterName}()));
 #else
         buffer.append("${separator}${field.name}=" + String.valueOf(this.${field.getterName}()));
