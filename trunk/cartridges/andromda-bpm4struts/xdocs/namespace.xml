@@ -234,11 +234,9 @@
                         the default pattern supports an exception with an embedded <em>{some.resource.key}</em>
                         type key.
                     </td>
-                    <tr>
-                        <td>
-                            No, default is <code>(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)</code>
-                        </td>
-                    </tr>
+                    <td>
+                        No, default is <code>(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)</code>
+                    </td>
                 </tr>
                 <tr>
                     <td>exceptionHandlerPackage</td>
