@@ -293,10 +293,10 @@ public class MetafacadeBase
      * Package-local setter, called by facade factory. Sets the logger to use
      * inside the facade's code.
      * 
-     * @param l the logger to set
+     * @param logger the logger to set
      */
-    void setLogger(Logger l)
+    void setLogger(Logger logger)
     {
-        logger = l;
+        this.logger = logger;
     }
 }
