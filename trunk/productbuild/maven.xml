@@ -7,7 +7,7 @@
          
   	<!-- ==================================================================
   			 Installs all component libraries into the local repository                                                    
-  		 ================================================================== -->
+         ================================================================== -->
   	<goal name="install-components"> 		
         <j:set var="maven.multiproject.includes"
         	   value="${component.install.includes}"/>
@@ -16,7 +16,7 @@
   	
   	<!-- ==================================================================
   			 Installs all sample libraries into the local repository                                                    
-  		 ================================================================== -->
+         ================================================================== -->
   	<goal name="install-samples">
         <j:set var="maven.multiproject.includes"
         	   value="${sample.install.includes}"/>
@@ -25,7 +25,7 @@
 
   	<!-- ==================================================================
   			 Installs all libraries into the local repository                                                    
-  		 ================================================================== -->
+         ================================================================== -->
   	<goal name="install">
         <j:set var="maven.multiproject.includes"
         	   value="${component.install.includes},${sample.install.includes}"/>
@@ -34,7 +34,7 @@
  
   	<!-- ==================================================================
   			 Deploys all libraries into the remote repository                                                    
-  		 ================================================================== --> 	
+         ================================================================== --> 	
   	<goal name="deploy">
         <j:set var="maven.multiproject.includes"
         	   value="${component.install.includes}"/>
@@ -43,7 +43,7 @@
   	
   	<!-- ==================================================================
   			 Clean                                                     
-  		 ================================================================== -->
+         ================================================================== -->
   	<goal name="clean">  		
         <j:set var="maven.multiproject.includes"
         	   value="${component.install.includes},${sample.install.includes}"/>
@@ -57,10 +57,10 @@
 			</ant:fileset>
 		</ant:delete>
   	</goal> 
-  	    
+  	      
   	<!-- ==================================================================
   			 Builds ALL documentation and inludes it in the binary dist                                          
-  		 ================================================================== --> 
+         ================================================================== --> 
     <goal name="docs" prereqs="dist-init">
 		<maven:maven 
 			descriptor="${basedir}/documentation/project.xml"
@@ -239,8 +239,8 @@
 	</goal>
 		
 	<!-- ==================================================================
-			 Creates the AndroMDA source distribution                                                     
-		 ================================================================== --> 	
+             Creates the AndroMDA source distribution                                                     
+         ================================================================== --> 	
 	<goal name="dist-src">
 		<j:set var="distName" value="${pom.groupId}-src-${pom.currentVersion}"/>
 		<ant:mkdir dir="${distribution.dir}"/>
@@ -257,11 +257,11 @@
 	<!-- ======================== BOOTSTRAP GOALS ======================== -->
 	
 	<!-- =================================================================
-			 Install all bootstrap artifacts to the local repository
-			 IMPORTANT: Since bootstrap dependencies depend on each other,
-			 we need to install them ALL at the end at once (instead of
-			 one at a time).
-		 ================================================================= -->
+             Install all bootstrap artifacts to the local repository
+             IMPORTANT: Since bootstrap dependencies depend on each other,
+             we need to install them ALL at the end at once (instead of
+             one at a time).
+         ================================================================= -->
 	<goal name="bootstrap-install">
 		
 		<attainGoal name="preprocess-bootstrap-modules"/>
@@ -279,17 +279,17 @@
 						
 	</goal>
 			
-		<!-- =================================================================
-				 Deploys all bootstrap artifacts to the remote repository
-				 IMPORTANT: Since bootstrap dependencies depend on each other,
-				 we need to deploy them ALL at the end of the build at once 
-				 (instead of one at a time).  
-				 IMPORTANT: Normally the Maven deploy plugin would
-				 be used, but it isn't possible to use it the way its currently
-				 implemented as it expects each artifact to be deployed 
-				 after its built.  This allows us to deploy them all at
-				 the same time after they've all been built.
-			 ================================================================= -->
+    <!-- =================================================================
+             Deploys all bootstrap artifacts to the remote repository
+             IMPORTANT: Since bootstrap dependencies depend on each other,
+             we need to deploy them ALL at the end of the build at once 
+             (instead of one at a time).  
+             IMPORTANT: Normally the Maven deploy plugin would
+             be used, but it isn't possible to use it the way its currently
+             implemented as it expects each artifact to be deployed 
+             after its built.  This allows us to deploy them all at
+             the same time after they've all been built.
+         ================================================================= -->
 	<goal name="bootstrap-deploy"
 		  description="Deploys a bootstrap jar to the remote repository">
 			
@@ -309,9 +309,9 @@
 	</goal>
 	
 	<!-- =================================================================
-		 Performs preprocessing on the bootstrap modules, basically
-		 executs them and loads the modules and their types into lists.
-		 ================================================================= -->  
+             Performs preprocessing on the bootstrap modules, basically
+             executs them and loads the modules and their types into lists.
+         ================================================================= -->  
 	<goal name="preprocess-bootstrap-modules">
 		
 		<!-- set bootstrap mode to true -->
@@ -350,8 +350,8 @@
 	</goal>
 		
 	<!-- =================================================================
-		 Initializes the bootstrap properties for each bootstrapProject
-		 ================================================================= -->  	
+             Initializes the bootstrap properties for each bootstrapProject
+         ================================================================= -->  	
 	<goal name="initialize-bootstrap-properties">
 		<j:set var="bootstrapSuffix" value="-bootstrap"/>
 		<j:set var="artifactId" value="${bootstrapProject.artifactId}"/>
