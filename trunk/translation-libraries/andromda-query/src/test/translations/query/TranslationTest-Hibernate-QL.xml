@@ -6,11 +6,11 @@
 		
 	<expression>
 		<from>
-			context org::andromda::contracts::LegalAgreement::findByLegalPartyName(aLegalPartyName:String):Collection(LegalAgreement) 
+			context org::andromda::contracts::LegalAgreement::findByLegalPartyName(legalPartyName:String):Collection(LegalAgreement) 
 			body findByLegalPartyNameBody: allInstances() -> select( legalAgreement |
 			legalAgreement.legalAgreementParties->includesAll(legalAgreement.legalAgreementParties->select( lap |
 			StringUtils.isLike(lap.legalParty.legalPartyName,
-			aLegalPartyName))))
+			legalPartyName))))
 		</from>   
 		<to>
 			from org.andromda.contracts.LegalAgreement as legalAgreement 
