@@ -7,7 +7,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-01-04" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-01-06" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="fix">
+                Fixed a *critical* bug in bpm4struts: when an action state would defer to more than one controller 
+                operation the action state's forward would be called after each operation call. This is very dangerous
+                in combination with the session because code is not executed in the expected order anymore.
+            </action>
             <action dev="draftdog" type="add" issue="SITE-15">
                 Added Fujaba Tool Suite 4.2.0 and Fujaba for Eclipse 0.1.0 to the list
                 of <a href="case-tools.html">tested UML tools</a>.
