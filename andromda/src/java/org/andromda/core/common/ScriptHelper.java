@@ -4,10 +4,10 @@ import java.util.Collection;
 
 /**
  * Provides the basic operations needed by the template engine
- * to locate the objects in a model and get sufficient information
- * about those objects to apply templates.
+ * to locate objects in a model and get sufficient information
+ * about those objects to apply code generate templates.
  *
- * @author amowers 
+ * @author Anthony Mowers
  */
 public interface ScriptHelper
 {

@@ -5,11 +5,10 @@ import java.net.URL;
 import java.io.IOException;
 
 /**
- * A facade that is used to hide the underlying data repository technology.
- *
- * A data repository is a facility for loading and retrieving an object model.
+ * A facade that is used to hide the underlying data repository technology.  A data 
+ * repository is a facility for loading and retrieving object models.
  *  
- * @author    amowers
+ * @author    Anthony Mowers
  */
 public interface RepositoryFacade
 {

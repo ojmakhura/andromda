@@ -19,9 +19,9 @@ import org.netbeans.api.xmi.XMIReader;
 import org.netbeans.api.xmi.XMIReaderFactory;
 
 /**
- *  Implements a repository using the NetBeans MDR (MetaDataRepository).
+ *  Implements a repository, for models, using the NetBeans MDR (MetaDataRepository).
  *
- *@author    amowers
+ *@author    Anthony Mowers
  */
 public class MDRepositoryFacade implements RepositoryFacade
 {

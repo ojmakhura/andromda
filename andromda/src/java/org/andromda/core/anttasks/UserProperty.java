@@ -3,7 +3,7 @@ package org.andromda.core.anttasks;
 /**
  * This class represents user properties which are defined
  * in the ant build.xml file as nested tags within the 
- * <code>&lt;uml2ejb&gt;</code> tag. AndroMDAGenTask will collect the
+ * <code>&lt;andromda&gt;</code> tag. AndroMDAGenTask will collect the
  * UserProperty objects and put them into the Velocity
  * context. This makes the name-value-pairs available to
  * templates.
@@ -12,7 +12,7 @@ package org.andromda.core.anttasks;
  * <blockquote><pre>
  * &lt;uml2ejb ...&gt;
  *   &lt;userProperty name="foreignKeySuffix" value="_FK" /&gt;
- * &lt;/uml2ejb&gt;
+ * &lt;/andromda&gt;
  * </pre></blockquote>
  * 
  * @author Matthias Bohlen

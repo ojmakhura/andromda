@@ -37,14 +37,16 @@ import org.andromda.core.common.DbMappingTable;
 import org.andromda.core.dbmapping.Mappings;
 
 /**
- *  <p>
- *
- *  This class represents the <code>&lt;uml2ejb&gt;</code> custom task which can
+ *  This class represents the <code>&lt;andromda&gt;</code> custom task which can
  *  be called from an ant script. 
  * 
- *  </p>
+ *  The &lt;andromda&gt; task facilitates Model Driven Architecture by enabling
+ * the generation of source code, configuration files, and other such artifacts
+ * from a UML model.
+ * 
  *
  *@author    Matthias Bohlen
+ *@author    Anthony Mowers
  */
 public class AndroMDAGenTask extends MatchingTask
 {
@@ -230,7 +232,7 @@ public class AndroMDAGenTask extends MatchingTask
 	/**
 	 *  <p>
 	 *
-	 *  Sets the base directory from which the SimpleOO files are read. This
+	 *  Sets the base directory from which the object model files are read. This
 	 *  defaults to the base directory of the ant project if not provided.</p>
 	 *
 	 *@param  dir  a <code>File</code> with the path to the base directory
@@ -498,9 +500,10 @@ public class AndroMDAGenTask extends MatchingTask
 	/**
 	 *  <p>
 	 *
-	 *  Builds EJBs from Simple-OO models. This is the main entry point of the
-	 *  application. It is called by ant whenever the surrounding task is executed
-	 *  (which could be multiple times).</p>
+	 *  Starts the generation of source code from an object model. 
+     * 
+     *  This is the main entry point of the application. It is called by ant whenever 
+     *  the surrounding task is executed (which could be multiple times).</p>
 	 *
 	 *@throws  BuildException  if something goes wrong
 	 */
@@ -944,6 +947,17 @@ public class AndroMDAGenTask extends MatchingTask
 		return encoding;
 	}
 
+    
+	/**
+	 * Creates and returns a repsository configuration object.  
+     * 
+     * This enables an ANT build script to use the &lt;repository&gt; ant subtask
+     * to configure the model repository used by ANDROMDA during code
+     * generation.
+     * 
+	 * @return RepositoryConfiguration
+	 * @throws BuildException
+	 */
 	public RepositoryConfiguration createRepository()
 		throws BuildException
 	{
@@ -980,6 +994,9 @@ public class AndroMDAGenTask extends MatchingTask
 		}
 	}
 	
+    /**
+     * Context used for doing code generation
+     */
 	private static class Context
 	{
 		RepositoryFacade repository = null;

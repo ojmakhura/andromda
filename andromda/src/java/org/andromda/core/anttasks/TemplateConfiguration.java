@@ -13,7 +13,7 @@ import org.apache.tools.ant.util.FileUtils;
 /**
  * Objects of this class are instantiated when
  * the <code>&lt;template&gt;</code> tag occurs in the build.xml file
- * as a nested tag within the <code>&lt;uml2ejb&gt;</code> tag.
+ * as a nested tag within the <code>&lt;andromda&gt;</code> tag.
  * 
  * @author Matthias Bohlen
  *
@@ -21,10 +21,6 @@ import org.apache.tools.ant.util.FileUtils;
 public class TemplateConfiguration
 {
 
-    /**
-     * Parameterless constructor - is needed by ant.
-     * @see java.lang.Object#Object()
-     */
     public TemplateConfiguration()
     {
     }
