@@ -53,9 +53,6 @@ public class MetafacadeBase
     /**
      * Validates that this facade's meta object is in a valid state.
      * <p>
-     * Classes that extend this base class may choose the override this method
-     * to check whether it is in a valid state.
-     * <p>
      * Validate is called during metafacade creation by the factory. In the
      * lifecycle of a metafacade it is validated only once, this is enforced by
      * the caching within the metafacade factory.
