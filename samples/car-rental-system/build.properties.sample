@@ -1,48 +1,11 @@
-andromda.home = ../../andromda/dist/predist/
+andromda-core.home = ../../andromda/dist/predist/
+andromda-java.home = ../../cartridges/andromda-java/dist/predist/
+andromda-ejb.home = ../../cartridges/andromda-ejb/dist/predist/
+andromda-hibernate.home = ../../cartridges/andromda-hibernate/dist/predist/
+andromda-struts.home = ../../cartridges/andromda-struts/dist/predist/
 
-myant.home = C:/Programming/Jakarta/jakarta-ant-1.5/
-jboss.home = C:/Programming/jboss-3.0.7/
+jboss.home = c:/cygwin/tools/jboss-3.0.4
 
-velocity.home = ${andromda.home}
-xdoclet.home = ${andromda.home}
-log4j.home = ${andromda.home}
-junit.home = ${andromda.home}
-mdr.home = ${andromda.home}
-xdoclet.home = ${andromda.home}/lib/
-commons.home = ${andromda.home}
+j2ee.classpath = ${jboss.home}/server/default/lib/jboss-j2ee.jar:\
+${jboss.home}/server/default/lib/javax.servlet.jar
 
-java-cartridge.home = ../../cartridges/andromda-java/dist/predist/
-ejb-cartridge.home = ../../cartridges/andromda-ejb/dist/predist/
-hibernate-cartridge.home = ../../cartridges/andromda-hibernate/dist/predist/
-struts-cartridge.home = ../../cartridges/andromda-struts/dist/predist/
-
-java-cartridge.libs=${java-cartridge.home}andromda-java.jar
-ejb-cartridge.libs=${ejb-cartridge.home}andromda-ejb.jar
-hibernate-cartridge.libs=${hibernate-cartridge.home}andromda-hibernate.jar
-struts-cartridge.libs=${struts-cartridge.home}andromda-struts.jar:${struts-cartridge.home}lib/struts.jar
-
-andromda.libs = ${andromda.home}andromda.jar
-commons.libs = ${commons.home}lib/commons-digester.jar:${commons.home}lib/commons-beanutils.jar:${commons.home}lib/commons-collections.jar:${commons.home}lib/commons-logging.jar
-log4j.libs = ${log4j.home}lib/commons-logging.jar;${log4j.home}lib/log4j.jar
-velocity.libs = ${velocity.home}lib/velocity-dep-1.2.jar
-junit.libs = ${junit.home}lib/junit.jar
-ant.libs = ${myant.home}lib/ant.jar:${myant.home}lib/optional.jar
-j2ee.libs = ${jboss.home}server/default/lib/jboss-j2ee.jar:${jboss.home}server/default/lib/javax.servlet.jar
-mdr.libs = ${mdr.home}lib/openide-lookup.jar;${mdr.home}lib/openide-fs.jar:${mdr.home}lib/nbmdr.jar;${mdr.home}lib/mdrapi.jar;${mdr.home}lib/jmi.jar;${mdr.home}lib/jmiutils.jar;${mdr.home}lib/jmitoolkit.jar;${mdr.home}lib/mof.jar;${mdr.home}lib/uml14.jar
-hibernate.libs = ${hibernate-cartridge.home}lib/hibernate.jar:${hibernate-cartridge.home}lib/commons-lang.jar:${hibernate-cartridge.home}lib/odmg.jar
-
-xdoclet.libs=${xdoclet.home}/xdoclet-1.2b2.jar:\
-${xdoclet.home}/xdoclet-ejb-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-hibernate-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-jmx-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-java-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-jboss-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-web-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-jdo-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-tjdo-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-xdoclet-module-1.2b2.jar:\
-${xdoclet.home}/xdoclet-xjavadoc-1.2b2.jar:\
-${xdoclet.home}/xdoclet-xjavadoc-uc-1.2b2.jar
-
-cartridges.libs=${java-cartridge.libs}:${ejb-cartridge.libs}:${struts-cartridge.libs}:${hibernate-cartridge.libs}
-build.classpath = ${cartridges.libs}:${andromda.libs}:${xdoclet.libs}:${commons.libs}:${ant.libs}:${velocity.libs}:${log4j.libs}:${j2ee.libs}:${junit.libs}:${mdr.libs}:${hibernate.libs}

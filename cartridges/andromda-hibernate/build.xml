@@ -40,6 +40,7 @@
             description="Builds the distribution structure">
       <copy todir="${dist.stage.dir}/" >
           <fileset dir="${build.dir}" includes="*.jar" />
+          <fileset dir="." includes="andromda-hibernate.properties" />
           <fileset dir="." includes="build.xml" />
           <fileset dir="." includes=".classpath" />
           <fileset dir="." includes=".project" />

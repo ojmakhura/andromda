@@ -15,15 +15,21 @@
     <!-- ============================================================= -->
 
     <target name="buildComponent">
+    	<echo message="cleanComponent ${component.name}"/>
         <ant inheritAll="false" dir="${component.name}" target="dist" />
         <move taskname="${component.name}" todir="${dist.dir}">
-          <fileset dir="../${component.name}/dist">
+          <fileset dir="${component.name}/dist">
             <include name="*.*"/>
           </fileset>
           <mapper type="regexp" from="^(.*)\.(.*)$$" to="\1-${version.suffix}.\2"/>
         </move>
     </target>
 
+	<target name="cleanComponent">
+		<echo message="cleanComponent ${component.name}"/>
+		<ant inheritAll="false" dir="${component.name}" target="clean"/>
+	</target>
+	
     <!-- ============================================================= -->
     <!--               Highlevel user tasks                            -->
     <!-- ============================================================= -->
@@ -39,6 +45,22 @@
         <delete includeEmptyDirs="true" quiet="true">
             <fileset dir="${dist.dir}"/>
         </delete>
+        
+        <antcall target="cleanComponent">
+          <param name="component.name" value="andromda"/>
+        </antcall>
+
+        <antcall target="cleanComponent">
+          <param name="component.name" value="cartridges"/>
+        </antcall>
+
+        <antcall target="cleanComponent">
+          <param name="component.name" value="samples"/>
+        </antcall>
+
+        <antcall target="cleanComponent">
+          <param name="component.name" value="documentation"/>
+        </antcall>
     </target>
 
     <target name="dist" depends="clean,init"
