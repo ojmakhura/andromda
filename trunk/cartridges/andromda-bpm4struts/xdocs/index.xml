@@ -13,7 +13,7 @@
         <section name="Abstract">
             <p class="abstract">
                 These pages describe the 'bpm4struts' cartridge. The shorthand 'bpm4struts' stands for
-                'Business Process Modelling for Struts'. The purpose of this cartridge is to generate
+                'Business Process Modeling for Struts'. The purpose of this cartridge is to generate
                 Struts web pages from an input UML model in which the flow of the application is modelled.
             </p>
         </section>
@@ -38,7 +38,7 @@
             <p class="std">
                 It is important to keep an eye on the big picture. Take a look at your application
                 from a distance, maybe you'll spot some design flaws. This brings us to the most common
-                tools for communicating application architectures: the Unified Modelling Language,
+                tools for communicating application architectures: the Unified Modeling Language,
                 unfortunately not many people believe in it ... and that's understandable, it can be
                 quite a burden to keep the UML model up-to-date (*) when you are already facing the
                 many issues mentioned above; the Model Driven Architecture paradigm solves this problem
@@ -69,7 +69,7 @@
 
         <section name="Goal">
             <p class="std">
-                We aim to have a means of generating a stable and flexible Struts front-end by modelling dynamic
+                We aim to have a means of generating a stable and flexible Struts front-end by modeling dynamic
                 business processes from UML. The transformation from UML to Struts should be open enough to allow anybody
                 to easily update this process, for example by simply editing some templates.
             </p>
@@ -155,7 +155,7 @@
                 your localization (l10n) and internationalization (i18n) settings whenever available.
             </p>
             <p class="std">
-                Bpm4struts will generate a default resource bundle generated in the language used for modelling.
+                Bpm4struts will generate a default resource bundle generated in the language used for modeling.
                 In order to port this file to another language you will need to simply:
                 <ul>
                     <li> copy it into the same directory, suffix the filename with something as "_fr", "_nl", "_de"
@@ -212,7 +212,7 @@
                 There are many ways to solve these typical problems on the web front-end. Personally, I
                 choose not to make use of the session in the web container: as much as possible is done purely
                 in the scope of the requests. This has several advantages: bookmarks always work, the back
-                button will not corrupt any session data, etc... This is important to know when modelling for
+                button will not corrupt any session data, etc... This is important to know when modeling for
                 the bpm4struts cartridge, it allows you to look at each use-case separately and treat them
                 as individual processing units. You will also notice you tend to write better code this way.
             </p>
