@@ -171,9 +171,11 @@
 #set ($link = $tableLink)
 #end
 #end
+#if ($exportable)
                     <display:column media="$variable.tableExportTypes"
                         titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
                         property="$columnName" autolink="true" nulls="false" paramId="$columnName" />
+#end
                     <display:column media="html"
                         headerClass="${columnName}"
                         titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
@@ -183,9 +185,11 @@
                         </div>
                     </display:column>
 #else
+#if ($exportable)
                     <display:column media="$variable.tableExportTypes"
                         titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
                         property="$columnName" autolink="true" nulls="false" paramId="$columnName" />
+#end
                     <display:column media="html"
                         headerClass="${columnName}"
                         property="$columnName" titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)"
