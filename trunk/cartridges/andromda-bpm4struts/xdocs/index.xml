@@ -232,11 +232,45 @@
             </p>
             <p class="std">
                 There are many ways to solve these typical problems on the web front-end. Personally, I
-                choose not to make use of the session in the web container: as much as possible is done purely
+                prefer not to make use of the session in the web container: I like to do as much as possible
                 in the scope of the requests. This has several advantages: bookmarks always work, the back
                 button will not corrupt any session data, etc... This is important to know when modeling for
                 the bpm4struts cartridge, it allows you to look at each use-case separately and treat them
                 as individual processing units. You will also notice you tend to write better code this way.
+            </p>
+            <p class="std">
+                Unfortunately this will render some features impossible to implement. Using only request scope
+                you will have a problem displaying the JSP pages when you are referring them directly instead
+                of going to an action first. An example of this occurring is when Struts declaratively handles
+                an exception, in this case it needs to directly forward to a JSP page. There are two reasons for
+                this:
+                <ol>
+                    <li>By calling another action you risk the chance of having another exception, or even
+                        the same exception again.</li>
+                    <li>It is often simply not possible to determine which was the action that
+                        forwarded to the JSP page, maybe there are two, or even three.</li>
+                </ol>
+                Consider this scenario, it might make things more clear:
+                <ol>
+                    <li>You are on a JSP page with a form</li>
+                    <li>Submit the form to an action</li>
+                    <li>The action executes and throws an exception</li>
+                    <li>The exception is handled by Struts</li>
+                    <li>Struts forwards control back to the JSP page to display an error message</li>
+                </ol>
+                What happens if there are beans on this page that cannot be found in the request ?
+                If you want to go to the action prior to the JSP page, are you sure you can always determine
+                which one it is ?
+            </p>
+            <p class="std">
+                So you see, it is not so evident trying to have all forms in the request scope only. So for
+                this reason I have decided to switch to session scope. This also has some advantages for
+                performance and sometimes it will conveniently prefill input fields from the same use-case.
+                Of course a possible disadvantage is that you might see input field values you are not
+                allowed to see (application security). But this is easy to remedy and will be features in
+                bpm4struts (probably by removing the form from the session once the use-case finishes,
+                by reaching one of its final states; or alternatively, when entering a new use-case all
+                previous form are removed from the session)
             </p>
             <p class="std">
                 Next, we need to consider the communication between the client and the server, what tools to
