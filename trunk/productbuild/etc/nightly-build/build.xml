@@ -39,11 +39,11 @@
     <target name="clean">
         <delete dir="${working.dir}"/>
         <delete dir="${basedir}" includes="build*.log,build*.log.zip"/>
+    	<delete dir="${user.home}/.maven"/>
         <delete>
             <fileset dir="${env.MAVEN_HOME}/plugins">
                 <include name="maven-${project.name}-plugin*/**/*"/>
             </fileset>
-            <fileset dir="${user.home}/.maven"/>
         </delete>
     </target>
     
