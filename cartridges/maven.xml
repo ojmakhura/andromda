@@ -36,6 +36,14 @@
                           targetfile="${model.file}" >
                 <ant:srcfiles dir="${maven.build.src}" includes="**/*"/>
             </ant:uptodate>
+            <!-- add the paths of the generated source to the
+                 maven compile path -->
+            <ant:path
+                id="metafacade.generated.src"
+                location="${andromda.metafacade.generated.dir}"/>
+            <maven:addPath
+                id="maven.compile.src.set"
+                refid="metafacade.generated.src"/>     
         </j:if>	
 
         <!-- keep the generation from executing more than once -->
