@@ -326,7 +326,7 @@ public class Cartridge
      * Perform processing with the <code>template</code>.
      * </p>
      * 
-     * @param template the Template containing the template sheet to process.
+     * @param template the Template containing the template path to process.
      * @param templateContext the context to which variables are added and made
      *        available to the template engine for processing. This will contain
      *        any model elements being made avaiable to the template(s) as well
