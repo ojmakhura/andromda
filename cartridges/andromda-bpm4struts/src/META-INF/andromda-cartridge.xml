@@ -23,6 +23,8 @@
     <property reference="hints" default="true"/>
     <property reference="warningMessagesKey" default="org.andromda.bpm4struts.warningmessages"/>
     <property reference="successMessagesKey" default="org.andromda.bpm4struts.successmessages"/>
+    <property reference="exceptionHandlerPattern" default="(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)"/>
+    <property reference="exceptionHandlerPackage" default="org.andromda.presentation.bpm4struts"/>
 
     <!-- copy resources -->
     <resource
@@ -58,6 +60,13 @@
         <modelElements variable="action">
             <modelElement stereotype="FrontEndEvent"/>
         </modelElements>
+    </template>
+    
+    <template
+        path="templates/StrutsPatternMatchingExceptionHandler.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true">
     </template>
 
     <template
