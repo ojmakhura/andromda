@@ -440,6 +440,11 @@ public class StrutsUseCaseLogicImpl
        return referencingFinalStates;
     }
 
+    protected String handleGetCssFileName()
+    {
+        return getPackagePath() + '/' + StringUtilsHelper.toWebFileName(getName()) + ".css";
+    }
+
     protected TreeNode handleGetApplicationHierarchyRoot()
     {
         UseCaseNode root = new UseCaseNode(this);
