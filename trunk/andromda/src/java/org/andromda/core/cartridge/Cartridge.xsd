@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ========================================================================= 
+<!-- =========================================================================
      This schema defines the andromda-cartridges.xml configuration file.
-     CODING CONVENTION: NO TABS, INDENT 4 SPACES                             
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES
      ========================================================================= -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <xs:element name="cartridge">
@@ -10,9 +10,9 @@
                 <xs:element ref="class" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="templateEngine" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="templateObject" minOccurs="0" maxOccurs="unbounded"/>
-                <!-- these are references to properties that are expected to 
-                     be supplied by the calling client through a <namespace/> element. 
-                     When the property name and its value are supplied in the build 
+                <!-- these are references to properties that are expected to
+                     be supplied by the calling client through a <namespace/> element.
+                     When the property name and its value are supplied in the build
                      file for example, that property is then supplied to the template.  -->
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
                 <!-- a resource defines any non template resource included in the cartridge,
@@ -28,11 +28,11 @@
     </xs:element>
     <xs:element name="property">
         <xs:complexType>
-            <!-- defines a reference to a <property/> element defined within 
+            <!-- defines a reference to a <property/> element defined within
                  a namespace element in your build file -->
             <xs:attribute name="reference" use="required"/>
             <!-- defines the default value of the property if the property isn't supplied -->
-            <xs:attribute name="default" use="optional"/>            
+            <xs:attribute name="default" use="optional"/>
         </xs:complexType>
     </xs:element>
     <!-- this is the grouping of all modelElements supported within a template -->
@@ -60,7 +60,7 @@
                                 <xs:complexType>
                                     <!-- This defines the name of the type's property -->
                                     <xs:attribute name="name" use="required"/>
-                                    <!-- the value of the property must evaluate to 
+                                    <!-- the value of the property must evaluate to
                                          to this value in order to be grouped, if no value
                                          is defined, then just the presence of the property is checked
                                          on the type -->
@@ -76,8 +76,8 @@
             <!-- a stereotype name from the model that will be processed (i.e. entity, enumeration, etc.) -->
             <xs:attribute name="stereotype" use="optional"/>
             <!-- defines the variable name that should be placed into the template engine context,
-                 for all model elements having the modelElement with the stereotype attribute, 
-                 if this is not defined, then the variable from the 
+                 for all model elements having the modelElement with the stereotype attribute,
+                 if this is not defined, then the variable from the
                  enclosing <modelElements/> element will be used. -->
             <xs:attribute name="variable" use="optional"/>
         </xs:complexType>
@@ -96,7 +96,7 @@
         <xs:attribute name="required" type="xs:boolean" use="optional"/>
     </xs:complexType>
     <xs:element name="resource" type="resourceType"/>
-    <xs:element name="template">		
+    <xs:element name="template">
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="resourceType">
@@ -109,9 +109,9 @@
                     <xs:attribute name="generateEmptyFiles" type="xs:boolean"/>
                     <!-- if this flag is set to true, then all model elments
                          processed by the template will be output to one template as
-                         collection of model elements (instead of on a per model 
+                         collection of model elements (instead of on a per model
                          element per file basis) -->
-                    <xs:attribute name="outputToSingleFile" type="xs:string" use="optional"/>				
+                    <xs:attribute name="outputToSingleFile" type="xs:string" use="optional"/>
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>
@@ -121,7 +121,7 @@
             <xs:sequence>
                 <xs:element ref="property" minOccurs="0"/>
             </xs:sequence>
-            <!-- the name of the templateObject (this is the scripting variable name 
+            <!-- the name of the templateObject (this is the scripting variable name
                  made available to the template being processed) -->
             <xs:attribute name="name" type="xs:string" use="required"/>
             <!-- the class of the templateObject (must have a default constructor) -->
@@ -139,7 +139,7 @@
         <xs:complexType>
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
-    </xs:element>	
+    </xs:element>
     <!-- you configure the template engine through here -->
     <xs:element name="templateEngine">
         <xs:complexType>
@@ -149,5 +149,5 @@
             <!-- the class of the TemplateEngine implementation (must have a default constructor) -->
             <xs:attribute name="className" type="xs:string" use="optional"/>
         </xs:complexType>
-    </xs:element>	
+    </xs:element>
 </xs:schema>
