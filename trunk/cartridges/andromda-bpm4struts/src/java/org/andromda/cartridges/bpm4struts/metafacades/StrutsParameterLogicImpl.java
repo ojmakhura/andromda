@@ -138,10 +138,10 @@ public class StrutsParameterLogicImpl
             if (types == 0x0F) return "all";
 
             final StringBuffer buffer = new StringBuffer();
-            if (XML == (types & XML)) buffer.append("xml");
-            if (CSV == (types & CSV)) buffer.append("csv");
-            if (HTML == (types & HTML)) buffer.append("html");
-            if (EXCEL == (types & EXCEL)) buffer.append("excel");
+            if (XML == (types & XML)) buffer.append(" xml");
+            if (CSV == (types & CSV)) buffer.append(" csv");
+            if (HTML == (types & HTML)) buffer.append(" html");
+            if (EXCEL == (types & EXCEL)) buffer.append(" excel");
 
             return buffer.toString().trim();
         }
