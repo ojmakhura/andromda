@@ -594,7 +594,8 @@ public class EntityFacadeLogicImpl
         if (end != null
             && EntityFacade.class.isAssignableFrom(end.getType().getClass()))
         {
-            EntityFacade foreignEntity = (EntityFacade)end.getType();
+            EntityFacade foreignEntity = (EntityFacade)end.getOtherEnd()
+                .getType();
             identifiers = EntityMetafacadeUtils.getIdentifiers(
                 foreignEntity,
                 follow);
