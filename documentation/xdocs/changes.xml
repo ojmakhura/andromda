@@ -9,7 +9,8 @@
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-02-04" description="First release candidate for version 3.0">
             <action dev="cwbrandon" type="add" issue="SPRING-23">
-                Spring DAO names are now completely configurable.
+                Spring DAO names are now completely configurable. Patterns can be configured in the
+                <a href="andromda-spring-cartridge/namespace.html">namespace properties</a> section.
             </action>
             <action dev="cwbrandon" type="add" issue="UMLMETA-13">
                 Entity query operations (i.e. finders) can now be determined though modeling the query
