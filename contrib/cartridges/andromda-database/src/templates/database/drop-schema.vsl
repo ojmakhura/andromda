@@ -11,4 +11,6 @@ WHENEVER OSERROR  EXIT;
 drop table $table.tableName cascade constraints ;
 #end
 
+@drop-sequences.sql
+
 exit;
