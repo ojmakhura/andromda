@@ -1,14 +1,25 @@
-/* This OCL file contains valid OCL syntax which the parser should 
-   be able to successfully parse. */
+/* 
+    This OCL file contains valid OCL syntax which the parser should 
+    be able to successfully parse. 
+*/
 
 -- BODY
 
 context LoyaltyAccount::getCustomerName() : String
     body: Membership.card.owner.name
 
-context org::Bookpart::findAllParts() : Collection (Bookpart)
-    body thisIsUnique :
+context Bookpart::findAllParts() : Collection (Bookpart)
+    body findAllParts :
 	    self.allInstances() -> select(la : Bookpart, la2 : SomeType, la3 : AnotherType | la.title = 'test' and la2.title = 'test')
+	   
+-- DEF
+
+context Customer
+    def: initial : String = name.substring(1,1)
+
+context CustomerCard
+    def: getTotalPoints( d: Date ) : Integer =
+        transactions->select( date.isAfter(d) ).points->sum()
 	    
 -- DERIVE
 

@@ -30,11 +30,6 @@ public class OclParserTest extends TestCase {
      */
 	private String VALID_SYNTAX = PACKAGE_DIR + "/valid-syntax.ocl";
 	
-    /**
-     * Location of a file containing invalidat OCL syntax.
-     */
-	private String INVALID_SYNTAX = PACKAGE_DIR + "/invalid-syntax.ocl";
-	
 	/**
 	 * Constructor for ModelFacadeTest.
 	 * @param testName
