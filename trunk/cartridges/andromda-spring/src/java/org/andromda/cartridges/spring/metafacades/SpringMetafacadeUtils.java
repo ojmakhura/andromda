@@ -21,9 +21,12 @@ class SpringMetafacadeUtils
      * Creates a fully qualified name from the given <code>packageName</code>,
      * <code>name</code>, and <code>suffix</code>.
      * 
-     * @param packageName the name of the model element package.
-     * @param name the name of the model element.
-     * @param suffix the suffix to append.
+     * @param packageName
+     *            the name of the model element package.
+     * @param name
+     *            the name of the model element.
+     * @param suffix
+     *            the suffix to append.
      * @return the new fully qualified name.
      */
     static String getFullyQualifiedName(
@@ -33,7 +36,10 @@ class SpringMetafacadeUtils
     {
         StringBuffer fullyQualifiedName = new StringBuffer(StringUtils
             .trimToEmpty(packageName));
-        fullyQualifiedName.append(".");
+        if (StringUtils.isNotBlank(packageName))
+        {
+            fullyQualifiedName.append(".");
+        }
         fullyQualifiedName.append(StringUtils.trimToEmpty(name));
         if (StringUtils.isNotEmpty(suffix))
         {
@@ -46,8 +52,10 @@ class SpringMetafacadeUtils
      * Creates a fully qualified name from the given <code>packageName</code>,
      * <code>name</code>, and <code>suffix</code>.
      * 
-     * @param packageName the name of the model element package.
-     * @param name the name of the model element.
+     * @param packageName
+     *            the name of the model element package.
+     * @param name
+     *            the name of the model element.
      * @return the new fully qualified name.
      */
     static String getFullyQualifiedName(String packageName, String name)
