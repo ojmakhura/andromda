@@ -25,7 +25,7 @@
             <type>war</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
-                <ear.appxml.war.context-root>/${projectId}</ear.appxml.war.context-root>
+                <ear.appxml.war.context-root>/${pom.groupId}</ear.appxml.war.context-root>
             </properties>
         </dependency>
 #end
@@ -37,7 +37,7 @@
             <type>war</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
-                <ear.appxml.war.context-root>/${projectId}-ws</ear.appxml.war.context-root>
+                <ear.appxml.war.context-root>/${pom.groupId}-ws</ear.appxml.war.context-root>
             </properties>
         </dependency>
 #end
