@@ -352,7 +352,13 @@ public class HibernateAssociationEndLogicImpl
         String indexName = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
         ClassifierFacade type = this.getType();
-        return type.findAttribute(indexName).getName();
+        if (type != null
+                && HibernateEntity.class.isAssignableFrom(type.getClass()))
+            {
+             HibernateEntity entity = (HibernateEntity)type;
+             indexName=entity.findAttribute(indexName).getName();
+            }
+        return indexName;
     }
 
     /**
@@ -395,7 +401,13 @@ public class HibernateAssociationEndLogicImpl
         String indexName = (String)this
             .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
         ClassifierFacade type = this.getType();
-        return type.findAttribute(indexName).getType().getFullyQualifiedName();
+        if (type != null
+                && HibernateEntity.class.isAssignableFrom(type.getClass()))
+            {
+             HibernateEntity entity = (HibernateEntity)type;
+             indexName=entity.findAttribute(indexName).getFullyQualifiedName();
+            }
+        return indexName;
     }
 
 }
