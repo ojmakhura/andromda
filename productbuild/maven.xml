@@ -54,8 +54,17 @@
   	<!-- ==================================================================
   			 Creates the AndroMDA distribution                                                     
   		 ================================================================== --> 	
-    <goal name="dist">
-
+    <goal name="dist-bin">
+		<maven:reactor
+		  basedir="${basedir}"
+		  banner="Gathering project list"
+		  includes="**/project.xml"
+		  excludes="${multiproject.install.excludes}"
+		  postProcessing="true"
+		  ignoreFailures="false"/>  
+		<j:forEach var="reactorProject" items="${reactorProjects}">			
+			<ant:echo>Processing sub dist: ${reactorProject}</ant:echo>
+		</j:forEach> 				
     </goal>
     
   	<!-- ==================================================================
