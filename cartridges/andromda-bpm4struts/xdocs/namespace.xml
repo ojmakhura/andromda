@@ -143,6 +143,19 @@
                         <code>true</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>defaultDateFormat</td>
+                    <td>The default date format to use in case it has not been explicitely
+                        specified, for example for action parameters of type Date.
+                        Take a look
+                        <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html">here</a>
+                        to see how to properly construct date formats.
+                    </td>
+                    <td>
+                        No, default is
+                        <code>dd/MM/yyyy</code>.
+                    </td>
+                </tr>
             </table>
         </section>
     </body>
