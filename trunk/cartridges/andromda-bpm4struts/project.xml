@@ -23,7 +23,7 @@
             <timezone>1</timezone>
     	</developer>
   	</developers>
- 	<dependencies> 
+ 	<dependencies>
      	<dependency>
 	      	<groupId>andromda</groupId>
 	      	<artifactId>maven-andromda-plugin</artifactId>
@@ -46,16 +46,16 @@
 	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-metafacades-uml</artifactId>
 	      	<version>${pom.currentVersion}</version>
-	    </dependency>  
+	    </dependency>
     	<dependency>
 	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-metafacades-uml14</artifactId>
 	      	<version>${pom.currentVersion}</version>
-	    </dependency>  
+	    </dependency>
     	<dependency>
 	      	<groupId>andromda-cartridges</groupId>
 	      	<artifactId>andromda-meta-cartridge</artifactId>
 	      	<version>${pom.currentVersion}</version>
-	    </dependency>     
+	    </dependency>
 	</dependencies>
 </project>
