@@ -1,0 +1,116 @@
+<project xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core">
+
+  	<preGoal name="war:init">
+
+  		<j:set var="webInfDir" value="${maven.war.webapp.dir}/WEB-INF"/>
+
+        <taskdef name="webdoclet"
+				 classname="xdoclet.modules.web.WebDocletTask"
+				 classpathref="maven.dependency.classpath"/>
+
+        <webdoclet destdir="${webInfDir}"
+        	       force="true"
+        	       verbose="true"
+        	       mergedir="${maven.build.src}/merge">
+            <fileset dir="${maven.build.src}">
+                <include name="**/*.java"/>
+            </fileset>
+            <strutsconfigxml version="1.1"/>
+            <strutsvalidationxml/>
+            <deploymentdescriptor
+            	distributable="false"
+            	servletspec="2.3"/>
+            <jbosswebxml securitydomain="java:/jaas/other"/>
+        </webdoclet>
+
+  		<!-- add the paths of the generated source to the
+  		     maven compile path -->
+	 	<ant:path
+	       	id="andromda.struts.gen.src"
+	       	location="${maven.build.src}"/>
+		<maven:addPath
+	       	id="maven.compile.src.set"
+	       	refid="andromda.struts.gen.src"/>
+
+  	</preGoal>
+
+  	<postGoal name="war:webapp">
+		<ant:copy todir="${maven.war.webapp.dir}">
+			<ant:fileset dir="${maven.build.src}">
+				<ant:include name="**/*.jsp"/>
+				<ant:include name="**/*.css"/>
+                <ant:include name="WEB-INF/*.xml"/>
+			</ant:fileset>
+		</ant:copy>
+  	</postGoal>
+
+    <!--
+        | We are going to make a WAR bundle in which the JSPs have been precompiled,
+        | this means we will need to generate the Java source from those JSPs. This is
+        | all done after the war has been generated.
+    -->
+    <postGoal name="ignore::war:war">
+
+        <!-- setting up the directories to work with -->
+        <ant:property name="jsp.precompilation.java" value="${war.precompile.jsp}/jsp-java"/>
+        <ant:property name="jsp.precompilation.classes" value="${war.precompile.jsp}/jsp-classes"/>
+        <ant:property name="jsp.precompilation.servlets" value="${war.precompile.jsp}/jsp-servlets.xml"/>
+        <ant:property name="jsp.precompilation.webapp" value="${maven.war.webapp.dir}"/>
+
+        <!-- clearing old garbage from the target directories -->
+        <ant:delete dir="${war.precompile.jsp}"/>
+        <ant:mkdir dir="${jsp.precompilation.java}"/>
+        <ant:mkdir dir="${jsp.precompilation.classes}"/>
+
+        <!-- the class path for precompilation -->
+        <ant:path id="jsp.precompilation.classpath">
+            <ant:path refid="maven.dependency.classpath"/>
+            <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/classes"/>
+        </ant:path>
+
+        <!-- generating java code from the JSPs -->
+        <ant:echo message="Generating Java sources from JSPs"/>
+        <ant:java classname="org.apache.jasper.JspC" fork="true" classpathref="jsp.precompilation.classpath">
+            <ant:arg value="-d"/>
+            <ant:arg value="${jsp.precompilation.java}"/>
+            <ant:arg value="-webinc"/>
+            <ant:arg value="${jsp.precompilation.servlets}"/>
+            <ant:arg value="-webapp"/>
+            <ant:arg value="${jsp.precompilation.webapp}"/>
+        </ant:java>
+
+        <!-- Compiling the sources generated from the JSPs -->
+        <ant:echo message="Compiling generated java sources"/>
+        <ant:javac srcdir="${jsp.precompilation.java}"
+            classpathref="jsp.precompilation.classpath"
+            destdir="${jsp.precompilation.webapp}/WEB-INF/classes"
+            deprecation="on"/>
+
+        <!-- merging additional web.xml directives -->
+        <ant:echo message="Merging additional web.xml directives"/>
+        <ant:loadfile property="jsp.servlets.text" srcFile="${jsp.precompilation.servlets}"/>
+        <ant:replace file="${jsp.precompilation.webapp}/WEB-INF/web.xml"
+            value="${jsp.servlets.text}"
+            token="&lt;!-- precompilation merge-point --&gt;"/>
+
+        <!-- removing the JSPs files -->
+        <ant:echo message="Deleting JSPs files (all except the welcome page: index.jsp)"/>
+        <ant:delete includeEmptyDirs="true">
+            <ant:fileset dir="${jsp.precompilation.webapp}">
+                <ant:include name="**/*.jsp"/>
+                <ant:exclude name="index.jsp"/>
+            </ant:fileset>
+        </ant:delete>
+
+        <!-- storing this bundle into a new WAR archive -->
+        <ant:echo message="Reconstructing web application WAR bundle"/>
+        <ant:war destfile="${maven.war.build.dir}/${maven.war.final.name}"
+            webxml="${jsp.precompilation.webapp}/WEB-INF/web.xml"
+            basedir="${jsp.precompilation.webapp}"
+            update="false"/>
+
+    </postGoal>
+
+</project>
