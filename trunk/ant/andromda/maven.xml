@@ -20,7 +20,9 @@
 	    <velocity:merge
 			name="${maven.build.dir}/build.xml"
 			basedir="${maven.src.dir}/templates"
-			template="/build.xml.vsl"/> 	
+			template="/build.xml.vsl"/> 
+		<!-- copy over the readme -->
+	    <copy tofile="${maven.build.dir}/readme.txt" file="${maven.src.dir}/templates/readme.txt"/>
     </postGoal>
 
 </project>
