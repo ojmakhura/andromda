@@ -18,6 +18,7 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.core.StructuralFeature;
 import org.omg.uml.foundation.core.TaggedValue;
+import org.omg.uml.modelmanagement.UmlPackage;
 
 /**
  * Extends the UMLDefaultHelper with a set of operations that are useful
@@ -226,7 +227,18 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper {
     }
 
     /**
-     *  Gets the operations of the specified Classifier object.
+     * Returns <code>true</code> if and only if the argument is a
+     * Package.
+     *
+     * @param object The object to test
+     * @return <code>true</code> if the test succeeds, <code>false</code> otherwise
+     */
+    public boolean isPackage(Object object) {
+        return (object instanceof UmlPackage);
+    }
+
+    /**
+     * Gets the operations of the specified Classifier object.
      *
      *@param  object  Classifier object
      *@return  Collection of org.omg.uml.foundation.core.Operation
@@ -318,6 +330,18 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper {
                 return object instanceof Abstraction;
             }
         };
+    }
+
+    /**
+     * Returns a collection of the classes found in the UML model. The collection will only contain
+     * elements of type <code>org.omg.uml.foundation.core.UMLClass</code>.
+     *
+     * @return a collection containing only
+     *  <code>org.omg.uml.foundation.core.UMLClass</code> instances
+     */
+    public Collection getAllClasses()
+    {
+        return model.getCore().getUmlClass().refAllOfType();
     }
 
     /**
