@@ -89,7 +89,6 @@
                 <controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
                 <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
                 <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
-                <xdoclet-merge>${maven.andromda.bpm4struts.generated.dir}/merge</xdoclet-merge>
             </properties>
         </dependency>
         <dependency>
