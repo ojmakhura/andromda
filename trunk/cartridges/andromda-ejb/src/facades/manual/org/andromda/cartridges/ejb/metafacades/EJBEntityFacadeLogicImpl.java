@@ -184,4 +184,18 @@ public class EJBEntityFacadeLogicImpl
         return EJBMetafacadeUtils.getHomeInterfaceName(this);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getEnvironmentEntries(boolean)
+     */
+    public Collection getEnvironmentEntries(boolean follow) {
+        return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getEnvironmentEntries(boolean)
+     */
+    public Collection getConstants(boolean follow) {
+        return EJBMetafacadeUtils.getConstants(this, follow);
+    }
+    
 }

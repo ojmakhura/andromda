@@ -7,9 +7,12 @@ import java.util.List;
 
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 
 /**
@@ -26,7 +29,7 @@ class EJBMetafacadeUtils {
      * @param follow if true, all super type create methods are also retrieved
      * @return Collection of create methods found.
      */
-    public static Collection getCreateMethods(ClassifierFacade classifier, boolean follow) {
+    static Collection getCreateMethods(ClassifierFacade classifier, boolean follow) {
         final String methodName = "EJBMetafacadeUtils.getCreateMethods";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
         Collection retval = new ArrayList();
@@ -115,6 +118,80 @@ class EJBMetafacadeUtils {
         List retval = getInheritedInstanceAttributes(classifier);
         retval.addAll(classifier.getInstanceAttributes());
         return retval;      
+    }
+    
+    /**
+     * Gets all environment entries for the specified <code>classifier</code>.
+     * If <code>follow</code> is true, then a search up the inheritance hierachy
+     * will be performed and all super type environment entries will also
+     * be retrieved.
+     * 
+     * @param classifier the classifier from which to retrieve the env-entries
+     * @param follow true/false on whether or not to 'follow' the inheritance
+     *        hierarchy when retrieving the env-entries.
+     * @return the collection of enviroment entries
+     */
+    static Collection getEnvironmentEntries(ClassifierFacade classifier, boolean follow) {
+        final String methodName = "EJBMetafacadeUtils.getEnvironmentEntries";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+ 
+        Collection attributes = classifier.getStaticAttributes();
+
+        if (follow) {
+	        for (classifier = (ClassifierFacade)classifier.getGeneralization();
+	        	 classifier != null;
+	             classifier = (ClassifierFacade) classifier.getGeneralization()) {
+	            attributes.addAll(classifier.getStaticAttributes());
+	        }
+        }
+        
+        CollectionUtils.filter(
+            attributes, 
+            new Predicate() {
+                public boolean evaluate(Object object) {
+                   return ((AttributeFacade)object).hasStereotype(
+                       EJBProfile.STEREOTYPE_ENV_ENTRY);
+                }
+            });
+
+ 		return attributes;
+    }
+    
+    /**
+     * Gets all constants for the specified <code>classifier</code>.
+     * If <code>follow</code> is true, then a search up the inheritance hierachy
+     * will be performed and all super type constants will also
+     * be retrieved.
+     * 
+     * @param classifier the classifier from which to retrieve the constants
+     * @param follow true/false on whether or not to 'follow' the inheritance
+     *        hierarchy when retrieving the constants.
+     * @return the collection of enviroment entries
+     */
+    static Collection getConstants(ClassifierFacade classifier, boolean follow) {
+        final String methodName = "EJBMetafacadeUtils.getEnvironmentEntries";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+ 
+        Collection attributes = classifier.getStaticAttributes();
+
+        if (follow) {
+	        for (classifier = (ClassifierFacade)classifier.getGeneralization();
+	        	 classifier != null;
+	             classifier = (ClassifierFacade) classifier.getGeneralization()) {
+	            attributes.addAll(classifier.getStaticAttributes());
+	        }
+        }
+        
+        CollectionUtils.filter(
+            attributes, 
+            new Predicate() {
+                public boolean evaluate(Object object) {
+                   return !((AttributeFacade)object).hasStereotype(
+                       EJBProfile.STEREOTYPE_ENV_ENTRY);
+                }
+            });
+
+ 		return attributes;
     }
     
 }

@@ -31,23 +31,26 @@ public interface ${servicename}
 extends $parentInterface#foreach($intf in $class.abstractions),
         $intf.fullyQualifiedName
 #end {
-    // -- accessors for environment entries and constants --
-#foreach($att in $class.staticAttributes)
-#set ($visibility = $att.visibility)
-## Only expose the method to the component interface if it is public.
+    // -- accessors for environment entries --
+#foreach($envEntry in $class.getEnvironmentEntries(true))
 #if($visibility == "public")
-#set($attType = $att.type.fullyQualifiedName)
-#set($AttName = $str.upperCaseFirstLetter($att.name))
     /**
-#if($att.hasStereotype("EnvEntry"))
-     * Get the ${att.name} environment entry
-#else
-#set ($ATT_NAME = $att.name)
-     * Get the $ATT_NAME constant
-#end
-$att.getDocumentation("     * ")
+     * Get the ${envEntry.name} environment entry
+$envEntry.getDocumentation("     * ")
      */
-    public $attType ${att.getterName}() throws java.rmi.RemoteException;
+    public $envEntry.type.fullyQualifiedName ${envEntry.getterName}();
+    
+#end
+#end
+// -- accessors for constants --
+#foreach($constant in $class.constants)
+## Only expose the method to the home interface if it is public.
+#if($constant.visibility == "public")
+    /**
+     * Get the $att.name constant
+$constant.getDocumentation("     * ")
+     */
+    public $constant.type.fullyQualifiedName ${constant.getterName}();
     
 #end
 #end

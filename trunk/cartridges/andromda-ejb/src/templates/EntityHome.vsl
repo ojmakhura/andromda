@@ -27,29 +27,32 @@ $class.getDocumentation(" * ")
  */
 public interface ${entityname}LocalHome  extends $parentInterface {
 ## Only expose JNDI names on concrete EJBs.
-#if (!$class.isAbstract())
+#if (!$class.abstract)
     // -- accessors for environment entries and constants --
 	public static final String COMP_NAME="java:comp/env/${ejbRefName}/Local";
 	public static final String JNDI_NAME="${ejbRefName}/Local";
 #end
 
-#foreach($att in $class.staticAttributes)
-#set ($visibility = $att.visibility.toString())
-## Only expose the method to the home interface if it is public.
-#if($visibility == "public")
-#set($attType = $att.type.fullyQualifiedName)
-#set($AttName = $str.upperCaseFirstLetter($att.name))
-
+#foreach($envEntry in $class.getEnvironmentEntries(true))
+#if($envEntry.visibility == "public")
     /**
-#if($att.hasStereotype("EnvEntry"))
-     * Get the ${att.name} environment entry
-#else
-#set ($ATT_NAME = $att.columnName)
-     * Get the $ATT_NAME constant
-#end
-$att.getDocumentation("     * ")
+     * Get the ${envEntry.name} environment entry
+$envEntry.getDocumentation("     * ")
      */
-    public $attType get$AttName();
+    public $envEntry.type.fullyQualifiedName ${envEntry.getterName}();
+    
+#end
+#end
+// -- accessors for constants --
+#foreach($constant in $class.constants)
+## Only expose the method to the home interface if it is public.
+#if($constant.visibility == "public")
+    /**
+     * Get the $att.name constant
+$constant.getDocumentation("     * ")
+     */
+    public $constant.type.fullyQualifiedName ${constant.getterName}();
+    
 #end
 #end
     // ---------------- home methods  ----------------------
