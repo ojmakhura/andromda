@@ -33,7 +33,7 @@ import org.xml.sax.SAXParseException;
  *   2.) the rules file which tells the apache digester how to populate the java object from the
  *   XML configuration file (MetafacadeMappings-Rules.xml), and 3.) the XSD schema validation 
  *   file (MetafacadeMappings.xsd).  Note that each file is based on the name of the java 
- *   object: 'java object name'.xsd  and'java object name'-Rules.xml'.  After you have these 
+ *   object: 'java object name'.xsd and 'java object name'-Rules.xml'.  After you have these 
  *   three files then you just need to call the method #getInstance(java.net.URL objectClass) 
  *   in this class from the java object you want to configure.  This keeps the dependency 
  *   to digester (or whatever XML configuration tool we are using at the time) to this single file.
