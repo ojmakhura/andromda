@@ -82,7 +82,7 @@ public class Resource
      * @param directory the directory to which output will be written.
      * @return File absolute directory.
      */
-    public File getOutputLocation(String[] arguments, File directory)
+    public File getOutputLocation(Object[] arguments, File directory)
     {
         File file = null;
         // clean any whitespace off the arguments
@@ -90,7 +90,8 @@ public class Resource
         {
             for (int ctr = 0; ctr < arguments.length; ctr++)
             {
-                arguments[ctr] = StringUtils.trimToEmpty(arguments[ctr]);
+                arguments[ctr] = StringUtils.trimToEmpty(String
+                    .valueOf(arguments[ctr]));
             }
             String outputFileName = MessageFormat.format(this
                 .getOutputPattern(), arguments);
