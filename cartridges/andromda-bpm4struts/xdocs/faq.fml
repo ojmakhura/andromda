@@ -241,10 +241,10 @@
                     </li>
                 </ol>
                 <p>
-                    A solution would be to have the displaytag developer factor out the flushing to a boolean
-                    attribute or a configuration option. I have proposed this on their mailing-list, in case they
-                    decide the problem can be solved this way we will simply wait until they release the next time;
-                    otherwise I will post a patched version of their code to the AndroMDA team server, bpm4struts users
+                    A solution would be to have the displaytag developers factor out the flushing to a boolean
+                    attribute or a configuration option. I have proposed this on their mailing-list; in case they
+                    decide the problem can be solved this way we will simply wait until they release the next time,
+                    otherwise I will post a patched version of their code to the AndroMDA team server. Bpm4struts users
                     will then need to use this library instead.
                 </p>
             </answer>
