@@ -31,6 +31,7 @@
 			          	</td>
 		        	</tr>	
 		        	<tr>
+                        <a name="Entity"/>
 			          	<td>
 			          		<strong><![CDATA[<<Entity>>]]></strong>
 			          	</td>
@@ -67,7 +68,23 @@
 							in the Spring applicationContext.xml and within
 							the ServiceBase classes.
 						</td>
-					</tr>		        	        	      	        	        		        	        	        	     	             	        	
+					</tr>		      
+		        	<tr>
+			          	<td>
+							<a name="FinderMethod"/>
+			          		<strong><![CDATA[<<FinderMethod>>]]></strong>
+			          	</td>
+			          	<td>
+			          		Operation
+			          	</td>			       
+			          	<td>
+			          		Identifies an operation as a finder method.  Finder
+							method queries can be defined as an OCL body
+							expression using the <a href="../andromda-query-library/index.html">
+							AndroMDA Query Library</a> or directly as a Hibernate QL using the 
+							<a href="#@andromda.hibernate.query">@andromda.hibernate.query</a> tagged value.
+			          	</td>
+		        	</tr>	  	        	      	        	        		        	        	        	     	             	        	
 		        </table>
     		</subsection>
     		<subsection name="Supported Tagged Values">
@@ -97,10 +114,10 @@
                             @andromda.hibernate.generator.class
 			          	</td>
 						<td>
-                            <strong><![CDATA[<<Entity>>]]></strong>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
 						</td>
 			          	<td>
-                            Used to define the generate class used for the hibernate entity.
+                            Used to define the generator class used for the hibernate entity.
                             Any of the hibernate generator classes may be used.
 			          	</td>
 		        	</tr>					        	        	      	        	        		        	        	        	     	             	        	
