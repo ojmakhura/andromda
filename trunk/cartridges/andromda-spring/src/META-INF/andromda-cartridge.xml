@@ -1,21 +1,14 @@
 <cartridge name="spring">
 	
 	<templateEngine>
-	    <!-- library of macros used in template engine -->
         <macrolibrary name="templates/spring/hibernate/hibernate.hbm.xml.vm" />
+        <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
-
-	<!-- templateObjects -->
     	
-    <templateObject 
-    	name="stringUtils"
-    	className="org.apache.commons.lang.StringUtils"/>    
-        
-    <templateObject 
-    	name="springUtils"
-    	className="org.andromda.cartridges.spring.SpringUtils"/>    
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>        
+    <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils"/>  
+    <!-- cartridge-templateObject merge-point-->  
 	
-    <!-- properties -->
     <property reference="driver" default=""/>
     <property reference="username" default=""/>
     <property reference="password" default=""/>
@@ -63,8 +56,10 @@
 	<property reference="session-ejbs" default=""/>
     <!-- Whether or not parameters should be checked if they're required (on DAOs and services) -->
     <property reference="parameterRequiredCheck" default="true"/>
+    <!-- cartridge-property merge-point -->
+    
+    <!-- cartridge-resource merge-point -->
             	
-	<!-- template definitions -->
 	<template 
 		path="templates/spring/SpringServiceLocator.vsl" 
 		outputPattern="$generatedFile" 
@@ -352,5 +347,7 @@
 		outlet="spring-configuration" 
 		overwrite="true"
 		outputToSingleFile="true"/>
+        
+     <!-- cartridge-template merge-point -->
         	
 </cartridge>
