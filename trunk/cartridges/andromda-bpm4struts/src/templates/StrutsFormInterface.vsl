@@ -115,7 +115,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}(java.util.Map)
+     * @see #${field.setterName}Value(java.lang.String key, Object value)
      */
     public void ${field.setterName}(java.util.Map $fieldName);
     
