@@ -1,54 +1,70 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<!-- contains the ejb cartridge metafacade mappings -->
 <metafacades namespace="ejb">
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-		metafacadeClass="org.andromda.cartridges.ejb.metafacades.ValueObjectFacadeLogicImpl" contextRoot="true">
-		<stereotype>ValueObject</stereotype>
-		<!-- 
-		<property reference="valueObjectPackage" default="{0}/.vo"/>
-		<property reference="valueObjectName" default="{0}Value"/>
-		-->
-		<property reference="valueObjectPackage" default="{0}"/>
-		<property reference="valueObjectName" default="{0}"/>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.Operation$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBOperationFacadeLogicImpl"/>
-	<!-- Entity EJB Metafacades -->
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.Operation$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogicImpl">
-		<stereotype>FinderMethod</stereotype>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacadeLogicImpl">
-		<stereotype>PrimaryKey</stereotype>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl" contextRoot="true">
-		<stereotype>Entity</stereotype>
-		<property reference="jndiNamePrefix" default=""/>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
-		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl" contextRoot="true">
-		<stereotype>Entity</stereotype>
-		<property reference="jndiNamePrefix" default=""/>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogicImpl">
-		<context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
-		<property reference="foreignKeySuffix"/>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.UmlAssociation$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBAssociationFacadeLogicImpl">
-		<context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityAttributeFacadeLogicImpl">
-		<context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
-	</metafacade>
-	<!-- Session EJB Metafacades -->
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
-		<stereotype>Service</stereotype>
-		<property reference="jndiNamePrefix" default=""/>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.Interface$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
-		<stereotype>Service</stereotype>
-		<property reference="jndiNamePrefix" default=""/>
-	</metafacade>
-	<metafacade metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl" metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionAttributeFacadeLogicImpl">
-		<context>org.andromda.cartridges.ejb.metafacades.EJBSessionFacade</context>
-	</metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.ValueObjectFacadeLogicImpl"
+        contextRoot="true">
+        <stereotype>ValueObject</stereotype>
+        <property reference="valueObjectPackage" default="{0}"/>
+        <property reference="valueObjectName" default="{0}"/>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBOperationFacadeLogicImpl"/>
+    <!-- Entity EJB Metafacades -->
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogicImpl">
+        <stereotype>FinderMethod</stereotype>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacadeLogicImpl">
+        <stereotype>PrimaryKey</stereotype>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl" 
+        contextRoot="true">
+        <stereotype>Entity</stereotype>
+        <property reference="jndiNamePrefix" default=""/>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl" 
+        contextRoot="true">
+        <stereotype>Entity</stereotype>
+        <property reference="jndiNamePrefix" default=""/>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogicImpl"/>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlAssociation$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBAssociationFacadeLogicImpl">
+        <context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityAttributeFacadeLogicImpl">
+        <context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
+    </metafacade>
+    <!-- Session EJB Metafacades -->
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
+        <stereotype>Service</stereotype>
+        <property reference="jndiNamePrefix" default=""/>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Interface$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
+        <stereotype>Service</stereotype>
+        <property reference="jndiNamePrefix" default=""/>
+    </metafacade>
+    <metafacade 
+        metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl" 
+        metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBSessionAttributeFacadeLogicImpl">
+        <context>org.andromda.cartridges.ejb.metafacades.EJBSessionFacade</context>
+    </metafacade>
 </metafacades>
