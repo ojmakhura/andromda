@@ -26,8 +26,7 @@ public class HibernateProfile
     /**
      * Stores the hibernate generator class.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS = profile
-        .get("HIBERNATE_GENERATOR_CLASS");
+    public static final String TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS = profile.get("HIBERNATE_GENERATOR_CLASS");
 
     /**
      * Stores a hibernate query string
