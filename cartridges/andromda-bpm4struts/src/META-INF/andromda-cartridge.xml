@@ -36,6 +36,16 @@
         outputPattern="layout/calendar/{0}"
         outlet="pages"
         overwrite="true"/>
+    <resource
+        path="resources/WEB-INF/lib/*.jar"
+        outputPattern="lib/{0}"
+        outlet="configuration"
+        overwrite="true"/>
+    <resource
+        path="resources/WEB-INF/tld/*.tld"
+        outputPattern="tld/{0}"
+        outlet="configuration"
+        overwrite="true"/>
 
     <!-- process templates on model elements -->
     <template

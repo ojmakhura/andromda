@@ -1,17 +1,29 @@
 <project xmlns:ant="jelly:ant">
 
-  	<!-- ==================================================================
-  			 Installs all libraries in the local repository
-  		 ================================================================== -->
-  	<postGoal name="xdoc">
-  		<!-- copy over the online store example model -->
-		<ant:copy todir="${maven.docs.dest}">
-			<ant:fileset dir="../../samples/online-store/mda/src/uml"/>
-		</ant:copy>
+    <!-- ==================================================================
+             Installs all libraries in the local repository
+         ================================================================== -->
+    <postGoal name="xdoc">
+        <!-- copy over the online store example model -->
+        <ant:copy todir="${maven.docs.dest}">
+            <ant:fileset dir="../../samples/online-store/mda/src/uml"/>
+        </ant:copy>
         <!-- we want to generate a pdf from the documentation -->
         <attainGoal name="fo:fo"/>
         <attainGoal name="pdf:pdf"/>
-  	</postGoal>
+    </postGoal>
+
+    <postGoal name="java:compile">
+        <ant:property name="taglib.name" value="andromda-breadcrumbs-taglib"/>
+        <!-- Include the taglib code into the resources after compilation -->
+        <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/lib"/>
+        <ant:copy file="../../etc/web/taglibs/breadcrumbs/target/${taglib.name}-${pom.currentVersion}.jar"
+            tofile="${maven.build.dest}/resources/WEB-INF/lib/${taglib.name}.jar"/>
+        <!-- same for the taglibs TLD -->
+        <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/tld"/>
+        <ant:copy file="../../etc/web/taglibs/breadcrumbs/target/tld/${taglib.name}-${pom.currentVersion}.tld"
+            tofile="${maven.build.dest}/resources/WEB-INF/tld/${taglib.name}.tld"/>
+    </postGoal>
 
 </project>
 
