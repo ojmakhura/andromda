@@ -74,19 +74,19 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
         return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
 #elseif ($field.date)
-    public void ${field.setterName}($fieldType $fieldName)
+    public void ${field.setterName}AsDate($fieldType $fieldName)
     {
         this.$fieldName = $fieldName;
     }
 
-    public $fieldType ${field.getterName}()
+    public $fieldType ${field.getterName}AsDate()
     {
         return this.$fieldName;
     }
 
-    public void ${field.setterName}AsString(String ${fieldName}AsString)
+    public void ${field.setterName}(java.lang.String ${fieldName})
     {
-        if (${fieldName}AsString == null || ${fieldName}AsString.trim().length()==0)
+        if (${fieldName} == null || ${fieldName}.trim().length()==0)
         {
             this.$fieldName = null;
         }
@@ -95,10 +95,10 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
             try
             {
 #if ($fieldType == "java.util.Date")
-                this.$fieldName = ${fieldName}DateFormatter.parse(${fieldName}AsString);
+                this.$fieldName = ${fieldName}DateFormatter.parse(${fieldName});
 #else
 ## this is an attempt to support descendants of java.util.Date, the class needs <init>(long)
-                this.$fieldName = new ${fieldType}(${fieldName}DateFormatter.parse(${fieldName}AsString).getTime());
+                this.$fieldName = new ${fieldType}(${fieldName}DateFormatter.parse(${fieldName}).getTime());
 #end
             }
             catch(java.text.ParseException e)
@@ -108,7 +108,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
         }
     }
 
-    public String ${field.getterName}AsString()
+    public java.lang.String ${field.getterName}()
     {
         return (${fieldName} == null) ? null : ${fieldName}DateFormatter.format($fieldName);
     }
@@ -163,9 +163,6 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #if ($field.type.arrayType || $field.type.collectionType)
         buffer.append("${separator}${field.name}=");
         buffer.append(toString(this.${field.getterName}()));
-#elseif ($field.date)
-        buffer.append("${separator}${field.name}=");
-        buffer.append(${field.getterName}AsString());
 #else
         buffer.append("${separator}${field.name}=");
         buffer.append(String.valueOf(this.${field.getterName}()));
