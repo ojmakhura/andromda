@@ -101,10 +101,11 @@ public class ExceptionRecorder
             writer.println("Error: " + message);
             writer.println("Main Exception: " + throwable.getMessage());
             Throwable cause = ExceptionUtils.getRootCause(throwable);
-            if (cause != null)
+            if (cause == null)
             {
-                writer.println("Root Exception: " + cause);
+                cause = throwable;
             }
+            writer.println("Root Exception: " + cause);
             cause.printStackTrace(writer);
             writer.close();
             AndroMDALogger.info("Exception recorded in --> '" + result + "'");
