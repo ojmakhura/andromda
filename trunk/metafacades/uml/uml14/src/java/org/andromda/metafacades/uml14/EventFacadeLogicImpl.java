@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.omg.uml.behavioralelements.statemachines.Transition;
+import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 
 /**
  * MetafacadeLogic implementation.
@@ -46,4 +47,34 @@ public class EventFacadeLogicImpl
 
         return eventTransition;
     }
+
+    protected Object handleGetActionState()
+    {
+        ActionState eventState = null;
+
+        Collection allActionStates = UMLMetafacadeUtils.getModel().getActivityGraphs().getActionState().refAllOfType();
+        for (Iterator iterator = allActionStates.iterator(); iterator.hasNext() && eventState == null;)
+        {
+            ActionState actionState = (ActionState) iterator.next();
+            if (actionState.getDeferrableEvent().contains(metaObject))
+            {
+                eventState = actionState;
+            }
+        }
+
+        return eventState;
+    }
+
+    public Object getValidationOwner()
+    {
+        Object validationOwner = getTransition();
+
+        if (validationOwner == null)
+        {
+            validationOwner = getActionState();
+        }
+
+        return validationOwner;
+    }
+
 }

@@ -89,6 +89,8 @@ public class PseudostateFacadeLogicImpl
         return isMergePoint;
     }
 
-    // ------------- relations ------------------
-
+    public Object getValidationOwner()
+    {
+        return getActivityGraph();
+    }
 }

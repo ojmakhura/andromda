@@ -1,5 +1,7 @@
 package org.andromda.metafacades.uml14;
 
+
+
 /**
  * MetafacadeLogic implementation.
  * 
@@ -23,5 +25,10 @@ public class GuardFacadeLogicImpl
     protected Object handleGetTransition()
     {
         return metaObject.getTransition();
+    }
+
+    public Object getValidationOwner()
+    {
+        return getTransition();
     }
 }

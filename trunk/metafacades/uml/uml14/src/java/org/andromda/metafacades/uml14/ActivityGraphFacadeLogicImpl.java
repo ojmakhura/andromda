@@ -149,4 +149,20 @@ public class ActivityGraphFacadeLogicImpl
 
         return stateMachineUseCase;
     }
+
+    public Object getValidationOwner()
+    {
+        Object validationOwner = getUseCase();
+
+        if (validationOwner == null)
+        {
+            validationOwner = getActivityGraphContext();
+        }
+        if (validationOwner == null)
+        {
+            validationOwner = getPackage();
+        }
+
+        return validationOwner;
+    }
 }

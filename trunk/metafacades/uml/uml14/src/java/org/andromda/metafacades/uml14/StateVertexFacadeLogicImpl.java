@@ -1,5 +1,7 @@
 package org.andromda.metafacades.uml14;
 
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+
 import java.util.Collection;
 
 /**
@@ -33,5 +35,10 @@ public class StateVertexFacadeLogicImpl
     protected Collection handleGetOutgoing()
     {
         return metaObject.getOutgoing();
+    }
+
+    public Object getValidationOwner()
+    {
+        return getActivityGraph();
     }
 }

@@ -95,4 +95,10 @@ public class UseCaseFacadeLogicImpl
 
         return activityGraph;
     }
+
+
+    public Object getValidationOwner()
+    {
+        return getPackage();
+    }
 }

@@ -1,9 +1,6 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
 
-import org.omg.uml.behavioralelements.statemachines.CompositeState;
-import org.omg.uml.behavioralelements.statemachines.StateMachine;
 
 /**
  * Metaclass facade implementation.
@@ -19,41 +16,5 @@ public class StateFacadeLogicImpl
         String context)
     {
         super(metaObject, context);
-    }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StateDecorator ...
-
-    // ------------- relations ------------------
-
-    /**
-     *
-     */
-    protected Object handleGetActivityGraph()
-    {
-        StateMachine stateMachine = null;
-        CompositeState compositeState = metaObject.getContainer();
-
-        if (compositeState != null)
-        {
-            while (compositeState != null)
-            {
-                stateMachine = compositeState.getStateMachine();
-                compositeState = compositeState.getContainer();
-            }
-        }
-        else
-        {
-            stateMachine = compositeState.getStateMachine();
-        }
-
-        return stateMachine;
-    }
-
-    protected Collection handleGetDeferrableEvents()
-    {
-        return metaObject.getDeferrableEvent();
     }
 }
