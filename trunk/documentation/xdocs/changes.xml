@@ -18,6 +18,16 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">Aug 19, 2004</td>
+                    <td valign="top" class="std">New Bpm4Struts feature</td>
+                    <td valign="top" class="std">
+                        A new namespace property has been added: 'dummyData'. You can either
+                        give it a 'true' or 'false' value. The default is 'true'. If the
+                        value is 'true' a 'dummy data' will be rendered in places like the
+                        controller, if set to 'false' this dummy data will not be generated.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Aug 19, 2004</td>
                     <td valign="top" class="std">Core API change</td>
                     <td valign="top" class="std">
                         toJavaClassName and toJavaMethodName in StringUtilsHelper have been

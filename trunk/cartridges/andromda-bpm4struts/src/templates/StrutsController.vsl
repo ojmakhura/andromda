@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 class $controller.name implements ${controller.name}Interface
 {
+
 #foreach ($operation in $controller.operations)
 #set ($parameters = $operation.arguments)
 #set ($visibility = $operation.visibility)
@@ -60,7 +61,8 @@ $operation.getDocumentation("     * ")
 #foreach ($parameter in $parameters)
         final $parameter.type.fullyQualifiedName $parameter.name = form.${parameter.getterName}();
 #end
-
+#set($allowDummyData = ($dummyData == 'true'))
+#if ($allowDummyData)
         /*
          * By default this method populates the complete form, it is up to you to replace this
          * by those fields that are required (this cannot be determined here because it might be
@@ -68,8 +70,8 @@ $operation.getDocumentation("     * ")
          * parameters)
          */
         populateForm(form);
+#end
 #if ($returnType != "void")
-
 #if ($returnType=="boolean")
         return false;
 #elseif ($operation.returnType.primitiveType)
@@ -79,10 +81,11 @@ $operation.getDocumentation("     * ")
 #end
 #end
     }
-
 #set ($returnType = false)
-#end
 
+#end
+## Only generate the following if we're allowing dummy data
+#if ($allowDummyData) 
     /**
      * This method exists solely to make the application work at runtime by populating
      * the complete form with default values.
@@ -112,7 +115,7 @@ $operation.getDocumentation("     * ")
 #set ($quote = '"')
 #foreach ($field in $useCase.formFields)
 #if ($field.table)
-    private final static java.util.Collection ${field.name}DummyList =
+    private final java.util.Collection ${field.name}DummyList =
         java.util.Arrays.asList( new Object[] {
 #set ($count = 0)
 #foreach ($itemSeparator in [",", ",", ",", ",", ""])
@@ -127,7 +130,7 @@ $operation.getDocumentation("     * ")
 #end
         } );
 
-    public final static class $str.upperCaseFirstLetter($field.name)DummyItem implements java.io.Serializable
+    public final class $str.upperCaseFirstLetter($field.name)DummyItem implements java.io.Serializable
     {
 #set ($constructor = '')
 #set ($paramSeparator = '')
@@ -159,5 +162,6 @@ $operation.getDocumentation("     * ")
 #end
 #end
 
+#end
 }
 #end
