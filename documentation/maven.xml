@@ -1,0 +1,10 @@
+<project default="build">
+
+  	<!-- ==================================================================
+  			Builds all documentation                                                   
+  		 ================================================================== -->
+  	<goal name="build">
+		<attainGoal name="multiproject:site"/>	
+  	</goal> 
+  	  	
+</project>
