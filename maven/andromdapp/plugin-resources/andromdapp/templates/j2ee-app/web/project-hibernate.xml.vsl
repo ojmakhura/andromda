@@ -29,12 +29,12 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.1</version>
+     		<version>${commonsCollections}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-digester</groupId>
 			<artifactId>commons-digester</artifactId>
-			<version>1.5</version>
+			<version>${commonsDigester}</version>
 		    <properties>
 		      	<war.bundle>true</war.bundle>
 		    </properties>
@@ -42,12 +42,12 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.0.4</version>
+			<version>${commonsLogging}</version>
 		</dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>1.1.2dev-20040701</version>
+            <version>${commonsValidator}</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -55,12 +55,12 @@
         <dependency>
             <groupId>servletapi</groupId>
             <artifactId>servletapi</artifactId>
-            <version>2.4-20040521</version>
+            <version>${servletapi}</version>
         </dependency>
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts</artifactId>
-            <version>1.2.1</version>
+            <version>${struts}</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -68,16 +68,7 @@
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
-            <version>1.0-b3</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag-all</artifactId>
-            <version>1.0-b3</version>
-            <type>tld</type>
+            <version>${displaytag}</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -91,91 +82,45 @@
     	<dependency>
     		<groupId>xjavadoc</groupId>
     		<artifactId>xjavadoc</artifactId>
-        	<version>1.0.3</version>
+        	<version>${xjavadoc}</version>
     	</dependency> 
   		<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet</artifactId>
-        	<version>1.2</version>
+        	<version>${xdoclet}</version>
     	</dependency>
   		<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet-xdoclet-module</artifactId>
-        	<version>1.2</version>
+        	<version>${xdoclet}</version>
     	</dependency>
     	<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet-jboss-module</artifactId>
-        	<version>1.2</version>
+        	<version>${xdoclet}</version>
     	</dependency>
     	<dependency>
     		<groupId>xdoclet</groupId>
     		<artifactId>xdoclet-ejb-module</artifactId>
-        	<version>1.2</version>
+        	<version>${xdoclet}</version>
     	</dependency>
     	<!-- This one is needed because jboss-module depends on it -->
     	<dependency>
     		<groupId>xdoclet</groupId>
     		<artifactId>xdoclet-jmx-module</artifactId>
-        	<version>1.2</version>
+        	<version>${xdoclet}</version>
     	</dependency>
 		<!-- ejbdoclet depends on this module for some reason -->
     	<dependency>
      		<groupId>xdoclet</groupId>
       		<artifactId>xdoclet-apache-module</artifactId>
-        	<version>1.2</version>
+        	<version>${xdoclet}</version>
     	</dependency>
     	<dependency>
     		<groupId>xdoclet</groupId>
     		<artifactId>xdoclet-web-module</artifactId>
-        	<version>1.2</version>
+        	<version>${xdoclet}</version>
     	</dependency>
-		<!-- TLDs -->
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts-bean</artifactId>
-            <version>1.2.1</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts-html</artifactId>
-            <version>1.2.1</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts-logic</artifactId>
-            <version>1.2.1</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts-nested</artifactId>
-            <version>1.2.1</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts-tiles</artifactId>
-            <version>1.2.1</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
         <!-- The dependencies are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
@@ -197,12 +142,12 @@
         <dependency>
             <groupId>ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.6.2</version>
+            <version>${ant}</version>
         </dependency>
         <dependency>
             <groupId>commons-el</groupId>
             <artifactId>commons-el</artifactId>
-            <version>1.0</version>
+            <version>${commonsEl}</version>
         </dependency>
 	</dependencies>
   	<build>

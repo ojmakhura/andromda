@@ -41,11 +41,6 @@
         outputPattern="lib/{0}"
         outlet="configuration"
         overwrite="true"/>
-    <resource
-        path="resources/WEB-INF/tld/*.tld"
-        outputPattern="tld/{0}"
-        outlet="configuration"
-        overwrite="true"/>
 
     <!-- process templates on model elements -->
     <template
@@ -241,18 +236,7 @@
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
-
-    <template
-        path="templates/StrutsXDocletMergeTagLibs.vsl"
-        outputPattern="taglibs.xml"
-        outlet="xdoclet-merge"
-        overwrite="true"
-        generateEmptyFiles="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement stereotype="FrontEndApplication"/>
-        </modelElements>
-    </template>
-
+    
     <template
         path="templates/StrutsXDocletMergeWelcomeFiles.vsl"
         outputPattern="welcomefiles.xml"

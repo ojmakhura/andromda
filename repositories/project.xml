@@ -30,13 +30,13 @@
     	<dependency>
 	      	<groupId>commons-collections</groupId>
 	      	<artifactId>commons-collections</artifactId>
-	      	<version>3.1</version>
+     		<version>${commonsCollections}</version>
 	      	<type>test</type>
 	    </dependency>
     	<dependency>
 	      	<groupId>picocontainer</groupId>
 	      	<artifactId>picocontainer</artifactId>
-	      	<version>1.0</version>
+	      	<version>${picocontainer}</version>
 	      	<type>test</type>
 	    </dependency>
 	</dependencies>

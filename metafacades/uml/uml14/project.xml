@@ -37,17 +37,17 @@
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>jmiuml</artifactId>
-     		<version>1.4di</version>
+     		<version>${jmiuml14}</version>
     	</dependency>   
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>jmi</artifactId>
-     		<version>200401240117</version>
+     		<version>${jmi}</version>
     	</dependency>     
     	<dependency> 
     		<groupId>log4j</groupId>
       		<artifactId>log4j</artifactId>
-     		<version>1.2.8</version>
+     		<version>${log4j}</version>
     	</dependency>	
 	</dependencies>	
 </project>

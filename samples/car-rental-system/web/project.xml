@@ -42,40 +42,12 @@
         <dependency>
             <groupId>servletapi</groupId>
             <artifactId>servletapi</artifactId>
-            <version>2.4-20040521</version>
+            <version>${servletapi}</version>
         </dependency>
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts</artifactId>
-            <version>1.2.1</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <!-- TLDs -->
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts-bean</artifactId>
-            <version>1.2.1</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts-html</artifactId>
-            <version>1.2.1</version>
-            <type>tld</type>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts-logic</artifactId>
-            <version>1.2.1</version>
-            <type>tld</type>
+            <version>${struts}</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>

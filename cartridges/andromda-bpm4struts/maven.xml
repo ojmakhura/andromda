@@ -19,10 +19,6 @@
         <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/lib"/>
         <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/${taglib.name}-${pom.currentVersion}.jar"
             tofile="${maven.build.dest}/resources/WEB-INF/lib/${taglib.name}.jar"/>
-        <!-- same for the taglibs TLD -->
-        <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/tld"/>
-        <ant:copy file="${maven.repo.local}/${pom.groupId}/tlds/${taglib.name}-${pom.currentVersion}.tld"
-            tofile="${maven.build.dest}/resources/WEB-INF/tld/${taglib.name}.tld"/>
     </postGoal>
 
 </project>

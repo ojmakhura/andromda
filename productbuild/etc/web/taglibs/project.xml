@@ -17,32 +17,32 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.7.0</version>
+            <version>${commonsBeanutils}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.1</version>
+     		<version>${commonsCollections}</version>
         </dependency>
         <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
-            <version>1.5</version>
+            <version>${commonsDigester}</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.0</version>
+            <version>${commonsLang}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
+            <version>${commonsLogging}</version>
         </dependency>
         <dependency>
             <groupId>servletapi</groupId>
             <artifactId>servletapi</artifactId>
-            <version>2.4-20040521</version>
+            <version>${servletapi}</version>
         </dependency>
         <!-- taglib dependencies -->
         <dependency>
@@ -51,4 +51,30 @@
             <version>5.0.18</version>
         </dependency>
     </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <excludes>
+                    <exclude>java/**/*.java</exclude>
+                    <exclude>uml/**/*</exclude>
+                    <exclude>test/**/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>META-INF/**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>

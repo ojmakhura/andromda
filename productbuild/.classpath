@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="andromda/src/java"/>
+	<classpathentry kind="src" path="cartridges/testsuite/src/java"/>
 	<classpathentry kind="src" path="ant/andromda/src/java"/>
 	<classpathentry kind="src" path="repositories/mdr/src/java"/>
 	<classpathentry kind="src" path="templateengines/velocity/src/java"/>
@@ -34,16 +35,16 @@
 	<classpathentry kind="var" path="MAVEN_REPO/ant/jars/ant-1.6.2.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/picocontainer/jars/picocontainer-1.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-3.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-digester/jars/commons-digester-1.5.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/jmiutils-200401240117.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/mdrapi-200401240117.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/nbmdr-200401240117.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/openide-util-200401141900.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/jmiutils-20040826.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/mdrapi-20040826.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/nbmdr-20040826.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/openide-util-20040826.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/jmiuml-1.4di.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/mof-200401240117.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/jmi-200401240117.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/mof-20030918.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/jmi-20030918.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/velocity/jars/velocity-1.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/servletapi/jars/servletapi-2.4-20040521.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-jaxrpc-1.2-beta-20040626.jar"/>
