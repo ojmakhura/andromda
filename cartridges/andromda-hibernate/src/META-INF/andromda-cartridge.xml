@@ -36,6 +36,7 @@
     <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
     <property reference="hibernateHbm2DDLAuto" default=""/>
     <property reference="hibernateQuerySubstitutions" default=""/>
+    <property reference="hibernateAssociationOuterJoin" default="auto"/>
 
     <template
         path="templates/hibernate/HibernateEntity.vsl"

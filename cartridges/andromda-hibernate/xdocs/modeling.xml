@@ -229,6 +229,23 @@
 							</ol>
 			          	</td>
 					</tr>
+					<tr>
+						<a name="@andromda.hibernate.outerjoin"/>
+			          	<td>
+			          		@andromda.hibernate.outerjoin
+			          	</td>
+						<td>
+							association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+						</td>
+			          	<td>
+			          		Defines if Hibernate will use a outer join for fetching the association end on a Many to One and One to One associations. Permited values are:
+			          		<ol>
+								<li>auto</li>
+								<li>true</li>
+								<li>false</li>
+							</ol>
+			          	</td>
+					</tr>
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">
