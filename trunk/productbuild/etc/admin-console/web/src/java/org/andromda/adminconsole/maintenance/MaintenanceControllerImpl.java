@@ -1,6 +1,7 @@
 package org.andromda.adminconsole.maintenance;
 
 import org.andromda.adminconsole.config.AdminConsoleConfigurator;
+import org.andromda.adminconsole.config.xml.ColumnConfiguration;
 import org.andromda.adminconsole.db.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionMapping;
@@ -157,32 +158,80 @@ public class MaintenanceControllerImpl extends MaintenanceController
 
     public void applyChanges(ActionMapping mapping, ApplyChangesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
+        // get the kind of change to apply (delete/update)
         String kind = form.getKind();
 
+        // the current metadata
+        MetaDataSession metaDataSession = getMetaDataSession(request);
+        List tableData = metaDataSession.getCurrentTableData();
+
+        // the list of rows selected for change
+        Object[] rowNumbers = form.getSelectedRowsAsArray();
+
+        // if the table has a primary key use it to identify the row, otherwise use all columns
+        Table table = metaDataSession.getCurrentTable();
+        final Column[] identityColumns =
+                (table.getPrimaryKeyColumnCount() > 0) ? table.getPrimaryKeyColumns() : table.getColumns();
+
+        // user wants to delete the selected rows
         if ("delete".equals(kind))
         {
+            // collect all selected rows in a list
             List selectedData = new ArrayList();
-
-            MetaDataSession metaDataSession = getMetaDataSession(request);
-            List tableData = metaDataSession.getCurrentTableData();
-            Object[] rowNumbers = form.getDeletedRowsAsArray();
             for (int i = 0; i < rowNumbers.length; i++)
             {
                 int rowNumber = Integer.parseInt((String)rowNumbers[i]);
                 selectedData.add( tableData.get(rowNumber) );
             }
 
-            // if the table has a primary key use it to delete the row, otherwise use all columns
-            Table table = metaDataSession.getCurrentTable();
-
-            final Column[] columns =
-                (table.getPrimaryKeyColumnCount() > 0) ? table.getPrimaryKeyColumns() : table.getColumns();
-
             for (int i = 0; i < selectedData.size(); i++)
             {
                 RowData rowData = (RowData) selectedData.get(i);
-                table.deleteRow(createCriterion(columns, rowData));
+                // find out how this row is uniquely identified in its table
+                Criterion identityCriterion = createCriterion(identityColumns, rowData);
+                // delete this row
+                table.deleteRow(identityCriterion);
             }
+        }
+        // user wants to update the selected rows
+        else if ("update".equals(kind))
+        {
+            // get the columns we might need to set
+            Column[] tableColumns = table.getColumns();
+
+            // this object represents the new data we will persist
+            RowData newRowData = new RowData();
+
+            // get the configurator to find out which column is updateable
+            AdminConsoleConfigurator configurator = getDatabaseLoginSession(request).getConfigurator();
+
+            // loop over the rows the user selected for update
+            for (int i = 0; i < rowNumbers.length; i++)
+            {
+                int rowNumber = Integer.parseInt((String)rowNumbers[i]);
+                RowData rowData = (RowData) tableData.get(rowNumber);
+
+                for (int j = 0; j < tableColumns.length; j++)
+                {
+                    Column column = tableColumns[j];
+                    ColumnConfiguration columnConfiguration = configurator.getConfiguration(column);
+
+                    // only record the parameter when it is allowed for update
+                    if (columnConfiguration.getUpdateable())
+                    {
+                        String parameter = request.getParameter(rowNumber + ":" + column.getName());
+                        newRowData.put(column.getName(), parameter); // @todo type conversion ???
+                    }
+                }
+
+                // create the criterion used to uniquely identify the selected row in its table
+                Criterion identityCriterion = createCriterion(identityColumns, rowData);
+
+                // update the old row by setting only the updateable fields
+                table.updateRow(newRowData, identityCriterion);
+            }
+
+
         }
     }
 
