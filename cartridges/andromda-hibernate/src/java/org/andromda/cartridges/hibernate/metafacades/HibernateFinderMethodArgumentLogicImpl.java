@@ -1,6 +1,7 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ClassifierFacade;
+
 
 /**
  * MetafacadeLogic implementation for
@@ -21,7 +22,7 @@ public class HibernateFinderMethodArgumentLogicImpl
     }
     
     /**
-     * Defines w
+     * Defines if specific setters methods will be created for primite tpyes and dates
      */
     private static final String USE_SPECIALIZED_SETTERS="hibernateQueryUseSpecializedSetters";
     
@@ -34,29 +35,32 @@ public class HibernateFinderMethodArgumentLogicImpl
         boolean specializedSetters=Boolean.valueOf(
                 String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS)))
                 .booleanValue();
-        if (specializedSetters)
-        {
-            if (this.getType().isPrimitive())
-            {
-                setterName.append("set" + this.getType().getWrapperName().replaceAll("(.)*\\.", ""));
-            }
-            else if (this.getType().isDateType()
-                    || this.getType().isStringType())
-            {
-                setterName.append("set" + this.getType().getName());
-            }
-            else
-            {
-                setterName.append("setParameter");
-            }
-        }
-        else
-        {
-                setterName.append("setParameter");
-        }
-        if (this.getType().isCollectionType())
-        {
-            setterName.append("List");
+        ClassifierFacade classifier=this.getType();
+        if (classifier!=null){
+	        if (specializedSetters)
+	        {
+	            if (classifier.isPrimitive())
+	            {
+	                setterName.append("set" + classifier.getWrapperName().replaceAll("(.)*\\.", ""));
+	            }
+	            else if (classifier.isDateType()
+	                    || classifier.isStringType())
+	            {
+	                setterName.append("set" + classifier.getName());
+	            }
+	            else
+	            {
+	                setterName.append("setParameter");
+	            }
+	        }
+	        else
+	        {
+	                setterName.append("setParameter");
+	        }
+	        if (classifier.isCollectionType())
+	        {
+	            setterName.append("List");
+	        }
         }
         return setterName.toString();
     }
