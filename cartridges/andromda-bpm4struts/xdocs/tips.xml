@@ -74,6 +74,31 @@
             </p>
         </section>
 
+        <section name="Dynamic Content">
+            <p>
+                The <a href="howto2.html#Action_States">Action States</a> page explained how you can take control
+                of the HTTP response to return anything you like back to the browser. Nice to know is that
+                you can also use this feature to send downloadable content so the browser will prompt you with
+                a download dialog instead of trying to render everything on screen.
+            </p>
+            <p>
+                Here's an example that will prompt for PDF download, notice how the preferred file name has
+                been specified:
+<source language="java">
+<!--
+byte[] exportBytes = getReportingService().getReport(reportId);
+
+response.setContentType("application/pdf");
+response.setContentLength(exportBytes.length);
+response.setHeader("Content-disposition",
+    "inline; filename=InactiveArticlesReport.pdf");
+
+response.getOutputStream().write(exportBytes);
+-->
+</source>
+            </p>
+        </section>
+
         <section name="Performance">
             <p>
                 You might want to turn on the JSP precompilation feature, it will compile your JSPs into Java files
