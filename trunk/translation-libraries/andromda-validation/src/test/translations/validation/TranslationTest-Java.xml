@@ -276,6 +276,16 @@
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"age") instanceof Integer);
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            context Customer
+            inv: age.oclIsKindOf(java::lang::Integer)
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.validation.OCLResultEnsurer.ensure(org.andromda.translation.validation.OCLIntrospector.invoke(contextElement,"age") instanceof java.lang.Integer);
+        </to>
+    </expression>
 
 </translation-test>
 

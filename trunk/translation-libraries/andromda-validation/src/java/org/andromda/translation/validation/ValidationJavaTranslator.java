@@ -18,10 +18,9 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>
- *  Provides translation of OCL validation constraints to 
- *  the Java language.
+ * Provides translation of OCL validation constraints to the Java language.
  * </p>
- *  
+ * 
  * @author Wouter Zoons
  * @author Chad Brandon
  */
@@ -333,23 +332,31 @@ public class ValidationJavaTranslator
             PFeatureCall featureCall = node.getFeatureCall();
             if (featureCall instanceof AStandardFeatureCall)
             {
-                this.handleDotStandardFeatureCall((AStandardFeatureCall)node.getFeatureCall());
+                this.handleDotStandardFeatureCall((AStandardFeatureCall)node
+                    .getFeatureCall());
             }
             else if (featureCall instanceof AOcliskindofFeatureCall)
             {
-                this.handleDotOclIsKindOfFeatureCall((AOcliskindofFeatureCall)node.getFeatureCall());
+                this
+                    .handleDotOclIsKindOfFeatureCall((AOcliskindofFeatureCall)node
+                        .getFeatureCall());
             }
         }
         outADotPropertyCallExpressionTail(node);
     }
 
     /**
-     * .oclIsKindOf(type) is a special feature defined by OCL on all objects
+     * oclIsKindOf(type) is a special feature defined by OCL on all objects.
      */
-    private void handleDotOclIsKindOfFeatureCall(AOcliskindofFeatureCall featureCall)
+    private void handleDotOclIsKindOfFeatureCall(
+        AOcliskindofFeatureCall featureCall)
     {
         write(" instanceof ");
-        write(((APathName)featureCall.getPathName()).getName().getText());
+        StringBuffer pattern = new StringBuffer("\\s*");
+        pattern.append(PATH_SEPERATOR);
+        pattern.append("\\s*");
+        write(TranslationUtils.trimToEmpty(featureCall.getPathName())
+            .replaceAll(pattern.toString(), "."));
     }
 
     /**
@@ -398,7 +405,8 @@ public class ValidationJavaTranslator
     {
         inAArrowPropertyCallExpressionTail(node);
         node.getArrow().apply(this);
-        this.handleArrowFeatureCall((AStandardFeatureCall)node.getFeatureCall());
+        this
+            .handleArrowFeatureCall((AStandardFeatureCall)node.getFeatureCall());
         outAArrowPropertyCallExpressionTail(node);
     }
 
@@ -1074,7 +1082,16 @@ public class ValidationJavaTranslator
         arrowPropertyCallStack.push(Boolean.FALSE);
     }
 
+    /**
+     * Stores the actual element that is the context of the expression (within
+     * the translated expression).
+     */
     private static final String CONTEXT_ELEMENT_NAME = "contextElement";
+
+    /**
+     * Seperates path names in OCL expressions.
+     */
+    private static final String PATH_SEPERATOR = "::";
 
     /**
      * We need to wrap every expression with a converter so that any expressions
