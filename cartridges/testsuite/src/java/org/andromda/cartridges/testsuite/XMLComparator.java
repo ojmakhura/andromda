@@ -26,18 +26,18 @@ public class XMLComparator
         File actualFile)
     {
         super(s);
-        setExpectedFile(expectedFile);
-        setActualFile(actualFile);
+        this.expectedFile = expectedFile;
+        this.actualFile = actualFile;
     }
 
     public void testXMLEquals()
     {
         try
         {
-            assertTrue("expected file <" + getExpectedFile().getPath()
-                + "> doesn't exist", getExpectedFile().exists());
-            assertTrue("actual file <" + getActualFile().getPath()
-                + "> doesn't exist", getActualFile().exists());
+            assertTrue("expected file <" + expectedFile.getPath()
+                + "> doesn't exist", expectedFile.exists());
+            assertTrue("actual file <" + actualFile.getPath()
+                + "> doesn't exist", actualFile.exists());
             assertXMLEqual(
                 new FileReader(expectedFile.getAbsolutePath()),
                 new FileReader(actualFile.getAbsolutePath()));
@@ -46,25 +46,5 @@ public class XMLComparator
         {
             TestCase.fail(th.toString());
         }
-    }
-
-    private File getExpectedFile()
-    {
-        return expectedFile;
-    }
-
-    private void setExpectedFile(File expectedFile)
-    {
-        this.expectedFile = expectedFile;
-    }
-
-    private File getActualFile()
-    {
-        return actualFile;
-    }
-
-    private void setActualFile(File actualFile)
-    {
-        this.actualFile = actualFile;
     }
 }

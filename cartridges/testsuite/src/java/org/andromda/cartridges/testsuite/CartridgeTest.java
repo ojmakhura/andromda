@@ -57,21 +57,23 @@ public class CartridgeTest
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-
-        // Add the tests which compares all existing expected files against the
-        // generated ones. This makes sure that for each expected an appropriate
-        // file was generated.
         addTests(suite);
-
         return suite;
     }
 
+    /**
+     * Adds tests which compare all actual generated files against the expected
+     * files.
+     * 
+     * @param suite the test suite to which we'll add the tests.
+     */
     private static void addTests(TestSuite suite)
     {
         List actualFiles = new ArrayList();
         getAllFiles(actualDir, actualFiles);
         Iterator iterator = actualFiles.iterator();
-        logger.info(" --- Files Generated: '" + actualFiles.size() + "' --- ");
+        logger.info(" --- Testing " + actualFiles.size()
+            + " Generated Files --- ");
         for (int ctr = 1; iterator.hasNext(); ctr++)
         {
             File actualFile = (File)iterator.next();
@@ -93,15 +95,29 @@ public class CartridgeTest
                     expectedFile,
                     actualFile));
             }
+            else
+            {
+                suite.addTest(new FileComparator(
+                    "testEquals",
+                    expectedFile,
+                    actualFile));
+            }
         }
     }
 
-    private static File getExpectedFile(File file)
+    /**
+     * Contructs the expected file path from the <code>actualFile</code> and
+     * the <code>expectedDir</code> path.
+     * 
+     * @param actualFile the actual generated file
+     * @return the new expected file.
+     */
+    private static File getExpectedFile(File actualFile)
     {
         String expectedFile;
-        String path = file.getPath();
+        String path = actualFile.getPath();
 
-        if (file.getPath().startsWith(expectedDir.getPath()))
+        if (actualFile.getPath().startsWith(expectedDir.getPath()))
         {
             expectedFile = path.substring(expectedDir.getPath().length(), path
                 .length());
