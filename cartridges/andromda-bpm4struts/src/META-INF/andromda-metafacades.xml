@@ -27,6 +27,11 @@
     </metafacade>
 
     <metafacade
+        metaobjectClass="org.omg.uml.modelmanagement.UmlPackage$Impl"
+        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsPackageLogicImpl">
+    </metafacade>
+
+    <metafacade
         metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
         metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
     </metafacade>
