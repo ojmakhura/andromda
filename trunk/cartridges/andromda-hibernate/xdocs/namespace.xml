@@ -153,6 +153,32 @@
                 </tr>
                 <tr>
                     <td>
+                        identifierSequenceSuffix
+                    </td>
+                    <td>
+                        The suffix to use for identifier sequences.   
+                    </td>
+                    <td>
+                        No, the default is <code>_SEQ</code>.
+                    </td>
+                </tr>
+				<tr>
+					<td>
+						entityNamePattern
+					</td>
+					<td>
+						The pattern to use when constructing an entity name.
+						<em>{0}</em> is used to represent the entity name
+						in the model, so if you specified a value of
+						<code>{0}Entity</code> all the entities generated
+						would have a suffix of "Entity".
+					</td>
+					<td>
+						No, default is <code>{0}</code>.
+					</td>
+				</tr>
+                <tr>
+                    <td>
                         serviceOperationTransactionType
                     </td>
                     <td>
@@ -547,35 +573,37 @@
                     </tr>
                     <tr>
                         <td>
-                        hibernateEnableCache
+                            hibernateEnableCache
                         </td>
                         <td>
-                        Enable/Disable hibernate's second level cache features for the cartridge.
+                            Enable/disable hibernate's second level cache features for the cartridge.
                         </td>
                         <td>
-                        No, default is <code>false</code>.
+                            No, default is <code>false</code>.
                         </td>
                    </tr>
                     <tr>
                         <td>
-                        hibernateEnableAssociationsCache
+                            hibernateEnableAssociationsCache
                         </td>
                         <td>
-                        Enable/Disable hibernate's second level cache features for associations between entities. hibernateEnableCache namespace property should also be Enabled.
+                            Enable/disable Hibernate's second level cache feature for entity associations. 
+                            Please <strong>NOTE</strong> that hibernateEnableCache should also be enabled when
+                            specifying this property.
                         </td>
                         <td>
-                        No, default is <code>false</code>.
+                            No, default is <code>false</code>.
                         </td>
                    </tr>
                    <tr>
                         <td>
-                        hibernateEhCacheDiskStore
+                            hibernateEhCacheDiskStore
                         </td>
                         <td>
-                        Defines the path to the directory where cache files will be created
+                            Defines the path to the directory where cache files will be created
                         </td>
                         <td>
-                        No, default is <code>java.io.tmpdir</code>.
+                            No, default is <code>java.io.tmpdir</code>.
                         </td>
                    </tr>
                    <tr>
@@ -616,7 +644,10 @@
                         hibernateUseQueryCache
                     </td>
                     <td>
-                         Default value for the usage of the query cache within finder methods. Can be overwrited with the corresponding tagged value. Posible values are:
+                         The default query cache usage.
+                         Can be overwridden 
+                         <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>. 
+                         Posible values are:
                          <ul>
                             <li>true</li>
                             <li>false</li>
