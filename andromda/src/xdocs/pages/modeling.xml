@@ -13,7 +13,7 @@
     <freetext name="Section 1">
       <h1>Modeling for AndroMDA</h1>
       <p class="std">
-        AndroMDA is an automatic tool without too much intelligence
+        AndroMDA is an automatic tool with a medium amount of intelligence
         built into it. Such a tool always has to rely upon some
         clearly defined preconditions; in the case of AndroMDA, these
         preconditions are <b>modeling conventions</b>. This means
@@ -32,18 +32,22 @@
         in order to keep your freedom of modeling high.
         So, here are the few rules to follow for you when you
         start sketching a design model and you want AndroMDA
-        to generate the EJBs smoothly.
+        to generate your components smoothly.
       </p>
       <p class="std">
         <b>Rule 1: Stereotypes drive code generation!</b>
       </p>
       <p class="std">
-        UML Stereotypes are a kind of "labels" or "tags" that you attach to modeling elements
-        to classify them. <b>Example:</b> You can tag a CustomerService class with a 
-        "StatelessSessionBean" stereotype. AndroMDA sees this stereotype,
-        looks into its internal list of available code generation templates and
-        finds that two templates correspond to this stereotype: StatelessSessionBean.vsl and
-        StatelessSessionBeanImpl.vsl. So, it takes the internal representation 
+        UML Stereotypes are a kind of "labels" that you attach to modeling elements
+        to classify them.
+      </p>
+      <p class="std">
+        <b>Example:</b> You can tag a CustomerService class with a
+        <code>&lt;&lt;process&gt;&gt;</code> stereotype. AndroMDA sees this stereotype,
+        looks into its internal dictionary of available code generation components (called "cartridges") and
+        finds the EJB cartridge, for example. In that cartridge, two templates correspond
+        to this stereotype: StatelessSessionBean.vsl and
+        StatelessSessionBeanImpl.vsl. So, AndroMDA takes the internal representation
         of CustomerService and calls the template processing engine twice,
         using this representation as input. Result: Two output files, called CustomerServiceBean.java
         and CustomerServiceBeanImpl.java. But: this is not the only stereotype
@@ -53,40 +57,103 @@
         <b>The complete list of stereotypes used</b>
       </p>
       <p class="std">
-        AndroMDA uses the following stereotypes on different kinds of model elements to achieve
-        different kinds of goals:
+        AndroMDA uses the following stereotypes on different kinds of model elements, each with
+        its own special meaning or intention:
       </p>
-      <table border="1" cellpadding="4">
+      <table border="1" cellpadding="4" class="std">
         <tr>
-          <td class="std" valign="top"><b>Stereotype</b></td>
-          <td class="std" valign="top"><b>applied to which element?</b></td>
-          <td class="std" valign="top"><b>intended effect</b></td>
+          <td valign="top"><b>Stereotype</b></td>
+          <td valign="top"><b>applied to which element?</b></td>
+          <td valign="top"><b>meaning</b></td>
         </tr>
         <tr>
-          <td class="std" valign="top">StatelessSessionBean<br />
-              EntityBean
-          </td>
-          <td class="std" valign="top">class</td>
-          <td class="std" valign="top">select correct code generation template</td>
+          <td valign="top">entity</td>
+          <td valign="top">class</td>
+          <td valign="top">business object or domain object that knows much and does little</td>
         </tr>
         <tr>
-          <td class="std" valign="top">PrimaryKey</td>
-          <td class="std" valign="top">attribute of a class</td>
-          <td class="std" valign="top">mark attribute as primary key</td>
+          <td valign="top">process</td>
+          <td valign="top">class</td>
+          <td valign="top">dynamic element or activity that does something to the entities</td>
         </tr>
         <tr>
-          <td class="std" valign="top">ejbref</td>
-          <td class="std" valign="top">dependency between class A and class B</td>
-          <td class="std" valign="top">generate EJB reference from ABean to BBean and
-              generate getBLocalHome() in ABean
-          </td>
+          <td valign="top">key</td>
+          <td valign="top">attribute of an entity class</td>
+          <td valign="top">mark attribute as primary key so that the entity can be found in a database system</td>
         </tr>
         <tr>
-          <td class="std" valign="top">exception</td>
-          <td class="std" valign="top">dependency between class A and class B</td>
-          <td class="std" valign="top">generate "throws B" in all business methods of ABean</td>
+          <td valign="top">reference</td>
+          <td valign="top">dependency between class A and class B</td>
+          <td valign="top">make A depend on B when a cartridge needs this info</td>
+        </tr>
+        <tr>
+          <td valign="top">exception</td>
+          <td valign="top">dependency between class A and class B</td>
+          <td valign="top">make B an exception thrown by all business methods of A</td>
+        </tr>
+        <tr>
+          <td valign="top">StrutsAction</td>
+          <td valign="top">class</td>
+          <td valign="top">Action class for struts</td>
+        </tr>
+        <tr>
+          <td valign="top">StrutsForm</td>
+          <td valign="top">class</td>
+          <td valign="top">ActionForm class for struts</td>
+        </tr>
+        <tr>
+          <td valign="top">StrutsJSP</td>
+          <td valign="top">class</td>
+          <td valign="top">JavaServer Page for use with struts</td>
         </tr>
       </table>
+
+      <p class="std">
+        Each cartridge uses the stereotypes to generate code that implements
+        the architectural aspects supported by the particular cartridge. These are
+        the artefacts generated by the EJB, JDO and Hibernate cartridges:
+      </p>
+
+      <table border="1" cellpadding="4" class="std">
+        <tr>
+          <td valign="top"><b>Stereotype</b></td>
+          <td valign="top"><b>EJB</b></td>
+          <td valign="top"><b>JDO</b></td>
+          <td valign="top"><b>Hibernate</b></td>
+        </tr>
+        <tr>
+          <td valign="top">entity</td>
+          <td valign="top">entity bean</td>
+          <td valign="top" colspan="2">POJO with persistence support</td>
+        </tr>
+        <tr>
+          <td valign="top">process</td>
+          <td valign="top">session bean</td>
+          <td valign="top" colspan="2">POJO</td>
+        </tr>
+        <tr>
+          <td valign="top">key</td>
+          <td valign="top">marks attribute as "PK"</td>
+          <td valign="top">marks attribute as ???</td>
+          <td valign="top">marks attribute as "id"</td>
+        </tr>
+        <tr>
+          <td valign="top">reference</td>
+          <td valign="top">ejbref from ABean to BBean and
+                                       getBLocalHome() in ABean
+          <td valign="top" colspan="2">import statement for B in the source file(s) of A</td>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">exception</td>
+          <td valign="top" colspan="3">"throws B" in all business methods of A</td>
+        </tr>
+      </table>
+
+      <p class="std">
+        Note: POJO is an abbreviation for "plain old Java object".
+      </p>
+
       <p class="std">
         A small model, tagged with this kind of stereotypes,
         can be seen in this picture:
@@ -112,7 +179,7 @@
         Then, draw dependencies from all the
         EJB classes in the same component to this same exception class. This will cause
         AndroMDA to generate "throws" clauses which contain this exception class. Throw
-        instances of subclasses of this exception, if you want, but keep the throws-clause 
+        instances of subclasses of this exception, if you want, but keep the throws-clause
         that simple.
       </p>
       <p class="std">
