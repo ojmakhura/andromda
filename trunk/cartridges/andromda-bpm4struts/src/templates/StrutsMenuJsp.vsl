@@ -1,5 +1,6 @@
 <%@ taglib uri="struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="struts-html.tld" prefix="html" %>
+<%@ taglib uri="struts-logic.tld" prefix="logic" %>
 
 #if ($xhtml == "true")
 <html:xhtml/>
@@ -25,8 +26,8 @@
     <ul>
 #foreach ($useCase in $useCases)
 #set ($roles = $useCase.actionRoles)
-#set ($security = ($security=="true") && ($roles != "") )
-#if ($security)
+#set ($securityEnabled = ($security=="true") && ($roles != "") )
+#if ($securityEnabled)
         <logic:present role="$roles">
 #end
             <li>
@@ -34,7 +35,7 @@
                     <bean:message key="$useCase.titleKey"/>
                 </html:link>
             </li>
-#if ($security)
+#if ($securityEnabled)
         </logic:present>
         <logic:notPresent role="$roles">
             <li><bean:message key="$useCase.titleKey"/></li>
