@@ -9,7 +9,6 @@
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     
-    <!-- the official template definitions -->
     <template
         sheet="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
