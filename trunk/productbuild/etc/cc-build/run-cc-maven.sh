@@ -1,11 +1,18 @@
 #! /bin/sh
 
+basename=`basename $0`
+if [ $basename != $0 ]; then
+   dirname=`dirname $0`
+else
+   dirname=`pwd`
+fi
+cd $dirname 
 source set-env.sh
 
 me=`whoami`
                                                                                 
-if [ $me != amartinwest ]; then
-  echo "Must be run as amartinwest"
+if [ $me != $CC_USER ]; then
+  echo "Must be run as $CC_USER"
   exit
 fi
                                                                                 

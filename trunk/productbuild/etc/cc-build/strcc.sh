@@ -1,5 +1,14 @@
 #! /bin/sh
 
+basename=`basename $0`
+if [ $basename != $0 ]; then
+   dirname=`dirname $0`
+else
+   dirname=`pwd`
+fi
+cd $dirname 
+source set-env.sh
+
 if [ -f pid ];then
   echo "CC already running, well the pid file still exsists."
   exit
@@ -10,21 +19,15 @@ if [ -z $CCDIR ]; then
   CCDIR=/usr/local/cruisecontrol/main
   export CCDIR
 fi
-                                                                                
-basename=`basename $0`
-if [ $basename != $0 ]; then
-  dirname=`dirname $0`
-  cd $dirname
-fi
-                                                                                
+                                                                                                                                                                
 me=`whoami`
 if [ $me == root ]; then
-  su -l  amartinwest -c run-maven-cc
+  su -l  $CC_USER -c run-maven-cc
 else
-  if [ $me == amartinwest ]; then
+  if [ $me == $CC_USER ]; then
   ./run-maven-cc
   else
-    echo "Must be root or amartinwest to run this"
+    echo "Must be root or $CC_USER to run this"
   fi
 fi
                                                                                 

@@ -1,10 +1,18 @@
 #! /bin/sh
 
+# TODO this exec doesnt completely work when running
+#      maven, because there are orphan'ed processes.
+#      Need to locate by grep ps -fu $CC_USER
+# TODO Uncomment and correct build.status update
+
 basename=`basename $0`
 if [ $basename != $0 ]; then
-  dirname=`dirname $0`
-  cd $dirname
+   dirname=`dirname $0`
+else
+   dirname=`pwd`
 fi
+cd $dirname 
+source set-env.sh
 
 if [ -f pid ];then
   pstree -p `cat pid`
