@@ -11,6 +11,8 @@ $entity.getDocumentation(" * ")
 public abstract class $entity.entityName
 #if($entity.generalization)  
 	extends ${entity.generalization.fullyQualifiedEntityName}
+#else
+    implements java.io.Serializable
 #end
 {
 
