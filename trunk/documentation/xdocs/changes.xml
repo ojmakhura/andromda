@@ -7,7 +7,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-01-06" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-01-09" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="fix" issue="OCL-7">
+                The <a href="andromda-query-library/index.html">Query Translation Library</a> is now able to correctly handle
+                order by expressions (this is accompished using the standard <em><![CDATA[-> sortedBy(<expression>)]]></em>
+                construct in OCL.
+            </action>            
             <action dev="cwbrandon" type="fix" issue="OCL-7">
                 The <a href="andromda-query-library/index.html">Query Translation Library</a> is now able to correctly handle
                 grouped expressions.
