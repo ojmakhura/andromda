@@ -46,15 +46,15 @@ public class $entity.daoImplementationName
 	
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
-	    /**
-	     * @see ${entity.fullyQualifiedDaoBaseName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
-	     */
-    protected $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity)
+    /**
+     * @see ${entity.fullyQualifiedDaoBaseName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+     */
+    public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity)
     {
+        // put your implementation here
         return null;
     }
 
 #end
-
 }
 #end

@@ -35,6 +35,12 @@ public interface $entity.daoName
      */
     public final static int $valueObjectRef.transformationConstantName = $velocityCount;
 
+    /**
+     * Converts this DAO's entity to a value object of type
+     * {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     */
+    public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName entity);
+
 #end
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
