@@ -92,7 +92,7 @@ public class UMLMetafacadeProperties
     public static final String ARRAY_SUFFIX = "arraySuffix";
 
     /**
-     * Stores the suffix given to persistent enumeration type names.
+     * The seperator for relation names between associations.
      */
-    public static final String ENUMERATION_SUFFIX = "enumerationSuffix";
+    public static final String RELATION_NAME_SEPERATOR = "relationNameSeperator";
 }

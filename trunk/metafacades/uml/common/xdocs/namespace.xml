@@ -262,6 +262,17 @@
                 </tr> 	
                 <tr>
                     <td>
+                        relationNameSeperator
+                    </td>
+                    <td>
+                        The seperator used for constructing a relation name between two associations.
+                    </td>
+                    <td>
+                        No, the default is <code>2</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         undefinedName
                     </td>
                     <td>

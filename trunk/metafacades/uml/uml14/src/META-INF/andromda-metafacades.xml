@@ -54,7 +54,9 @@
         metafacadeClass="org.andromda.metafacades.uml14.AssociationEndFacadeLogicImpl"/>	
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.UmlAssociation$Impl"
-        metafacadeClass="org.andromda.metafacades.uml14.AssociationFacadeLogicImpl"/>	
+        metafacadeClass="org.andromda.metafacades.uml14.AssociationFacadeLogicImpl">
+        <property reference="relationNameSeperator" default="2"/>
+    </metafacade>	
     <metafacade 
         metaobjectClass="org.omg.uml.foundation.core.Dependency$Impl"
         metafacadeClass="org.andromda.metafacades.uml14.DependencyFacadeLogicImpl"/>	

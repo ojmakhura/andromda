@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -57,7 +58,9 @@ public class AssociationFacadeLogicImpl
         String relationName = MetafacadeUtils.toRelationName(
             firstEnd.getName(),
             secondEnd.getName(),
-            "2");
+            String.valueOf(
+                this.getConfiguredProperty(
+                    UMLMetafacadeProperties.RELATION_NAME_SEPERATOR)));
         return relationName;
     }
 
@@ -66,7 +69,8 @@ public class AssociationFacadeLogicImpl
      */
     protected boolean handleIsMany2Many()
     {
-        return ((AssociationEndFacade)this.getAssociationEnds().iterator().next()).isMany2Many();
+        return ((AssociationEndFacade)this.getAssociationEnds().iterator()
+            .next()).isMany2Many();
     }
 
 }
