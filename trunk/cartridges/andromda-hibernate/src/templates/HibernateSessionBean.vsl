@@ -30,7 +30,15 @@ ${indent}* </p>
 ##
 #foreach ( $dep in $class.dependencies )
     #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($transform.getStereotype($dep.id) == "exception")
+    #if ($class2)
+        #if ($transform.getStereotype($dep.id) == "ServiceRef")
+	        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+	        #if ($class2packagename != $packagename)
+import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
+	        #end
+	    #end
+    #end
+    #if ($transform.getStereotype($dep.id) == "Exception")
         #set ($defaultException = $class2)
     #end
 #end
@@ -60,6 +68,12 @@ ${indent}* </p>
  *        remote-class="${packagename}.${class.name}Home"
  *        local-class="${packagename}.${class.name}LocalHome"
  * @ejb.util generate="physical"
+#foreach ( $dep in $class.dependencies )
+#if ($transform.getStereotype($dep.id) == "ServiceRef")
+ #set ($class2 = $transform.findClassById($dep.targetType))
+ * @ejb.ejb-ref ejb-name="${class2.name}" view-type="$transform.getEjbRefViewType(${class2})" ref-name="ejb/${class2.name}BeanRef"
+#end
+#end
 #foreach ( $tgv in $class.taggedValues )
 #if ($tgv.tag != "documentation")
 #if ($tgv.tag == "---")
@@ -243,4 +257,30 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
     {
         return getSessionFactory().openSession();
     }
+
+    // ---------------- accessor methods for (session!) bean references ---------------
+
+#foreach ( $dep in $class.dependencies )
+#if ($transform.getStereotype($dep.id) == "ServiceRef")
+   #set ($referencedClass = $transform.findClassById($dep.targetType))
+   #set ($homeInterfaceName = $transform.getHomeInterfaceName($referencedClass))
+   /**
+    * This is to get the reference to the ${referencedClass.name} bean.
+    * Obtains local home interface from default initial context
+    * @return Local home interface for ${referencedClass.name}. Lookup using bean ref name.
+    */
+    protected static ${homeInterfaceName} get${homeInterfaceName}() throws NamingException
+    {
+        InitialContext initialContext = new InitialContext();
+        try {
+            // Local homes shouldn't be narrowed, as there is no RMI involved.
+            ${homeInterfaceName} home = (${homeInterfaceName}) initialContext.lookup("java:comp/env/ejb/${referencedClass.name}BeanRef");
+            return home;
+        } finally {
+            initialContext.close();
+        }
+    }
+
+#end
+#end
 }
