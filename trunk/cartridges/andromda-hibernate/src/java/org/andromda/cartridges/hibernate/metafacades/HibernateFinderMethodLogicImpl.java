@@ -46,7 +46,7 @@ public class HibernateFinderMethodLogicImpl
         //if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString))
         {
-            queryString = "from  " + this.getOwner().getFullyQualifiedName()
+            queryString = "from " + this.getOwner().getFullyQualifiedName()
                 + " as c";
             if (this.getArguments().size() > 0)
             {
