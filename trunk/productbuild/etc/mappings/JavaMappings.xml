@@ -9,6 +9,22 @@
         <to/>
     </mapping>
     <mapping>
+        <from>concurrent</from>
+        <to/>
+    </mapping>
+    <mapping>
+        <from>guarded</from>
+        <to>synchronized</to>
+    </mapping>
+    <mapping>
+        <from>sequential</from>
+        <to/>
+    </mapping>
+    <mapping>
+        <from>datatype.File</from>
+        <to>java.io.File</to>
+    </mapping>
+    <mapping>
         <from>datatype.String</from>
         <to>java.lang.String</to>
     </mapping>
