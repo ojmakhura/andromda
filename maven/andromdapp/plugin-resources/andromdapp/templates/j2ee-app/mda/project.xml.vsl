@@ -53,7 +53,7 @@
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateTransactionManagerLookup>${hibernate.transaction.manager.lookup}</hibernateTransactionManagerLookup>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
-                <hibernateInheritanceStrategy>class</hibernateInheritanceStrategy>
+                <hibernateInheritanceStrategy>subclass</hibernateInheritanceStrategy>
                 <customTypesPackage>${pom.package}</customTypesPackage>
                 <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
                 <hibernateUseQueryCache>false</hibernateUseQueryCache>
