@@ -23,7 +23,7 @@
       <p class="std">
         The model and the source code of the sample are located
         in the subdirectory <code>samples/car-rental-system/</code> of the AndroMDA source distribution package.
-        The binary distribution contains the deployable *.ear files for JBoss.
+        The binary distribution contains the source to build the deployable *.ear files for JBoss.
         You will notice that the source ZIP does <b>not</b> contain all the classes because
         most of them are generated automatically. So, please run AndroMDA
         using <code>ant -f build.xml</code> to see the whole thing!
