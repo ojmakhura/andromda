@@ -89,8 +89,9 @@ public class CartridgeTest
         {
             File expectedFile = (File)iterator.next();
             File actualFile = getOutputFile(expectedFile);
-            logger.info(numberOfAddedTests + ") comparing expected --> '" 
-                + expectedFile + "' with actual --> '" + actualFile + "'");
+            logger.info(numberOfAddedTests + ")");
+            logger.info("expected --> '" + expectedFile + "'");
+            logger.info("actual   --> '" + actualFile + "'");
             if (expectedFile.getName().endsWith(".java"))
             {
                 suite.addTest(new JavaSourceComparator(
