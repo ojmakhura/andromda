@@ -169,7 +169,7 @@
         </dependency>
 	</dependencies>
   	<build>
-    	<sourceDirectory>src/java</sourceDirectory>
+    	<sourceDirectory>target/src</sourceDirectory>
 		<resources>
 	      	<resource>
 		        <directory>target/src</directory>

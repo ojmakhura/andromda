@@ -26,13 +26,17 @@
         </webdoclet>
 
   		<!-- add the paths of the generated source to the
-  		     maven compile path -->
+  		     maven compile path 
+  		     
+  		     Comment out since everything is generated
+  		     and the source directory is set to the gen src.
+  		     
 	 	<ant:path
 	       	id="andromda.struts.gen.src"
 	       	location="${maven.build.src}"/>
 		<maven:addPath
 	       	id="maven.compile.src.set"
-	       	refid="andromda.struts.gen.src"/>
+	       	refid="andromda.struts.gen.src"/> -->
 
   	</preGoal>
 
