@@ -1,25 +1,26 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.List;
+
 import org.andromda.core.translation.ExpressionKinds;
 import org.andromda.core.translation.ExpressionTranslator;
 
-import java.util.List;
-
-
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.ConstraintFacade.
- *
+ * Metafacade implementation for org.andromda.metafacades.uml.ConstraintFacade.
+ * 
  * @see org.andromda.metafacades.uml.ConstraintFacade
  */
 public class ConstraintFacadeLogicImpl
-       extends ConstraintFacadeLogic
-       implements org.andromda.metafacades.uml.ConstraintFacade
+    extends ConstraintFacadeLogic
+    implements org.andromda.metafacades.uml.ConstraintFacade
 {
     // ---------------- constructor -------------------------------
 
-    public ConstraintFacadeLogicImpl (org.omg.uml.foundation.core.Constraint metaObject, java.lang.String context)
+    public ConstraintFacadeLogicImpl(
+        org.omg.uml.foundation.core.Constraint metaObject,
+        java.lang.String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     // -------------------- business methods ----------------------
@@ -27,9 +28,9 @@ public class ConstraintFacadeLogicImpl
     // concrete business methods that were declared
     // abstract in class ConstraintFacade ...
 
-	/**
-	 * @see org.andromda.metafacades.uml.ConstraintFacade#getBody()
-	 */
+    /**
+     * @see org.andromda.metafacades.uml.ConstraintFacade#getBody()
+     */
     public java.lang.String handleGetBody()
     {
         return this.metaObject.getBody().getBody();
@@ -44,40 +45,72 @@ public class ConstraintFacadeLogicImpl
     {
         Object element = null;
         List elements = this.metaObject.getConstrainedElement();
-        if (elements != null && !elements.isEmpty()) {
+        if (elements != null && !elements.isEmpty())
+        {
             element = elements.get(0);
         }
         return element;
     }
 
+    private static final String KIND_PREFIX_PATTERN = 
+        UMLMetafacadeGlobals.CONSTRAINT_KIND_PREFIX_PATTERN;
+
+    private static final String KIND_SUFFIX_PATTERN = 
+        UMLMetafacadeGlobals.CONSTRAINT_KIND_SUFFIX_PATTERN;
+
+    /**
+     * @see org.andromda.metafacades.uml.ConstraintFacade#isInvariant()
+     */
     public boolean handleIsInvariant()
     {
-        return getBody().matches(".*\\s" + ExpressionKinds.INV + "\\s*.*");
+        return getBody().matches(
+            KIND_PREFIX_PATTERN + ExpressionKinds.INV + KIND_SUFFIX_PATTERN);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ConstraintFacade#isPreCondition()
+     */
     public boolean handleIsPreCondition()
     {
-        return getBody().matches(".*\\s" + ExpressionKinds.PRE + "\\s*.*");
+        return getBody().matches(
+            KIND_PREFIX_PATTERN + ExpressionKinds.PRE + KIND_SUFFIX_PATTERN);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ConstraintFacade#isPostCondition()
+     */
     public boolean handleIsPostCondition()
     {
-        return getBody().matches(".*\\s" + ExpressionKinds.POST + "\\s*.*");
+        return getBody().matches(
+            KIND_PREFIX_PATTERN + ExpressionKinds.POST + KIND_SUFFIX_PATTERN);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ConstraintFacade#isDefinition()
+     */
     public boolean handleIsDefinition()
     {
-        return getBody().matches(".*\\s" + ExpressionKinds.DEF + "\\s*.*");
+        return getBody().matches(
+            KIND_PREFIX_PATTERN + ExpressionKinds.DEF + KIND_SUFFIX_PATTERN);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ConstraintFacade#isBodyExpression()
+     */
     public boolean handleIsBodyExpression()
     {
-        return getBody().matches(".*\\s" + ExpressionKinds.BODY + "\\s*.*");
+        return getBody().matches(
+            KIND_PREFIX_PATTERN + ExpressionKinds.BODY + KIND_SUFFIX_PATTERN);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ConstraintFacade#getTranslation(java.lang.String)
+     */
     public String handleGetTranslation(String language)
     {
         return ExpressionTranslator.instance().translate(
-                language, getContextElement(), getBody()).getTranslatedExpression();
+            language,
+            getContextElement(),
+            getBody()).getTranslatedExpression();
     }
 }
