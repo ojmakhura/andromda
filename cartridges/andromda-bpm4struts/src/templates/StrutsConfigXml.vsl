@@ -96,8 +96,10 @@
     <set-property property="moduleAware" value="true"/>
   </plug-in>
 
+  <!--
   <plug-in className="net.sf.navigator.menu.MenuPlugIn">
     <set-property property="menuConfig" value="/WEB-INF/menu-config.xml"/>
   </plug-in>
-
+  -->
+  
 </struts-config>
