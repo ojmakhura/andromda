@@ -9,7 +9,7 @@
     <div class="trigger">
         <html:form action="/Maintenance/MaintenanceInsert" onsubmit="">
 
-            <input type="hidden" value="${form.table}"/>
+            <input type="hidden" value="${form.name}"/>
 
             <table>
                 <c:forEach items="${metaDataSession.currentTable.columns}" var="column">
@@ -21,7 +21,7 @@
                                 <c:set var="foreignTable" value="${column.importedKeyColumn.table}" scope="page"/>
                                 <bean:message key="change.to.table" bundle="custom"/>
                                 <html:link action="/Maintenance/MaintenanceChangeTable" styleClass="foreignTableLink"
-                                    paramId="table" paramName="foreignTable" paramProperty="name" paramScope="page">
+                                    paramId="name" paramName="foreignTable" paramProperty="name" paramScope="page">
                                     ${foreignTable.name}
                                 </html:link>
                             </c:if>
