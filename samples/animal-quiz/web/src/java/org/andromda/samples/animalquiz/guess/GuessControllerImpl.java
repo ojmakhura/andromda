@@ -30,8 +30,7 @@ final class GuessControllerImpl extends GuessController
      */
     public void getFirstQuestion(ActionMapping mapping, GetFirstQuestionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        DecisionService decisionService = this.getService();
-        VODecisionItem vodi = decisionService.getFirstQuestion();
+        VODecisionItem vodi = this.getDecisionService().getFirstQuestion();
         form.setQuestion(vodi.getPrompt());
         
         // Keep the decision item in the session so that
@@ -55,8 +54,7 @@ final class GuessControllerImpl extends GuessController
 
         if (idNextItem != null)
         {
-            DecisionService decisionService = this.getService();
-            vodi = decisionService.getNextQuestion(idNextItem);
+            vodi = this.getDecisionService().getNextQuestion(idNextItem);
 
             form.setQuestion(vodi.getPrompt());
 
@@ -85,19 +83,9 @@ final class GuessControllerImpl extends GuessController
     public void rememberQuestion(ActionMapping mapping, RememberQuestionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         GuessSessionState sessionState = getGuessSessionState(request);
-
-        DecisionService decisionService = this.getService();
-
-        decisionService.addNewAnimalWithQuestion(sessionState.getLastAnimalName(),
+        this.getDecisionService().addNewAnimalWithQuestion(sessionState.getLastAnimalName(),
                 form.getQuestion(),
                 sessionState.getLastDecisionItem().getId());
-    }
-
-    private DecisionService getService() throws ServiceException
-    {
-        DecisionServiceServiceLocator locator =
-                new DecisionServiceServiceLocator();
-        return locator.getDecisionService();
     }
 
     /**
