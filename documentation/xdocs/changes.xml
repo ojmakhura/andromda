@@ -7,30 +7,30 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0M3-SNAPSHOT" date="2004-12-06">
+        <release version="3.0M3-SNAPSHOT" date="2004-12-10" description="The most recent CVS snapshot for version 3, milestone 3">
+            <action dev="draftdog" type="fix">
+                In bpm4struts it is now possible to send parameters from one action state to another, and this
+                in the scope of an action; it is therefore not needed anymore to have parameters entering or exiting
+                a page, any action state will do. These parameters will also be recorded in the corresponding action
+                form.
+            </action>
             <action dev="draftdog" type="fix">
                 In bpm4struts you must now draw dependencies from the
                 <![CDATA[FrontEndController]]> to the associated
                 <![CDATA[FrontEndSessionObject]]> classes instead of simply using
                 associations.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-12-06">
-            <action dev="amwest" type="add"> The <a 
+            <action dev="amwest" type="add"> The <a
                 href="andromda-hibernate-cartridge/modeling.html">AndroMDA 
                 Hibernate</a> cartridge supports hibernates three inheritance
                 strategies and allows root entities to generated as
                 interfaces. 
                 </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-12-05">
             <action dev="cwbrandon" type="add">
                 The <a href="andromda-spring-cartridge/modeling.html">AndroMDA Spring</a> 
                 cartridge can now model (and have generated) full role 
                 based security for the optional Session EJB wrappers.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-12-05">
             <action dev="cwbrandon" type="add">
                 The ModelElementFacades association to DependencyFacade has been renamed from
                 <code>dependencies</code> to <code>targetDependencies</code>.
@@ -40,14 +40,10 @@
                 <code>sourceDependencies</code> which can retrieve all source dependencies 
                 for a model element.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-12-04">
             <action dev="cwbrandon" type="add">
                 The <a href="andromda-webservice-cartridge/modeling.html">AndroMDA Web Service</a> 
                 cartridge can now have web services secured through modeling.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-12-04">
             <action dev="draftdog" type="add">
                 The bpm4struts generated <code>web.xml</code> file now contains some merge points, similar to
                 <a href="http://xdoclet.sourceforge.net/xdoclet/merge.html">XDoclet</a>. If you want
@@ -55,8 +51,6 @@
                 to insert fragments into the web.xml without
                 <a href="andromda-cartridges/index.html#mergeLocation">overriding the template</a>.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-25">
             <action dev="draftdog" type="add">
                 Added support for lazily loaded relationships collections in
                 <a href="andromda-hibernate-cartridge/modeling.html#@andromda.hibernate.lazy">Hibernate</a> and
@@ -65,23 +59,17 @@
                 but you can always override the default values using the newly define
                 <code>@andromda.hibernate.lazy</code> tagged value.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-23">
             <action dev="draftdog" type="add">
                 Bpm4Struts now supports file uploads, just use the pre-defined
                 <code>datatype.File</code> from the profile (or create it yourself)
                 on an action parameter.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-18">
             <action dev="cwbrandon" type="add">
                 Added new tagged value to BPM4Struts called <code>@andromda.struts.view.field.reset</code>
                 which allows one to specify specific fields that should be reset on a transition.  This
                 is useful when you want certain fields to be reset after action execution but you don't
                 want the entire form to be reset.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-17">
             <action dev="cwbrandon" type="add">
                 BPM4Struts can now extract resource message keys from exceptions thrown from the business
                 tier.  For example, if an operation in your service throws an exception with
@@ -95,27 +83,19 @@
                 <strong>NOTE:</strong> if the pattern can not be found in an exception processing
                 continues as normal and the exception will be displayed.  
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-15">
             <action dev="draftdog" type="add">
                 Table and action now have their own dedicated CSS style, per
                 generated JSP another CSS file will be generate by bpm4struts;
                 in this file you can locally override any defined styles.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-13">
             <action dev="draftdog" type="fix">
                 The 'validwhen' validation feature has finally been implemented. It is now possible with bpm4struts
                 to additionally validate a specific field check for certain runtime conditions. This feature is mostly
                 used to confirm passwords; this example has been added to the online-store.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-12">
             <action dev="draftdog" type="add">
                 Specific generated pieces of JSP code has its own style, a stylesheet is generated for each page.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-11-10">
             <action dev="draftdog" type="update">
                 The bpm4struts cartridge now overwrites all jsps pages and stylesheets upon regeneration.
                 This is very important for users of earlier versions.
@@ -123,8 +103,6 @@
             <action dev="draftdog" type="update">
                 Updated the <a href="starting.html">getting started</a> guide.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-10-22">
             <action dev="draftdog" type="update" issue="BPM-83">
                 This update is the last one that will impact the way users model their Struts application.
                 A change was needed due to a missing feature: "multibox". In order to properly fix it
@@ -169,15 +147,11 @@
                     could properly trigger the sending of the form.
                 </p>
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-10-19">
             <action dev="cwbrandon" type="add">
                 The AndroMDApp Maven plugin has been improved to include Spring
                 and the WebService cartridges as options when generating an AndroMDA
                 powered Maven application.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-10-15">
             <action dev="draftdog" type="fix">
                 AndroMDA now automatically assigns a suitable name to association ends with a
                 'many' cardinality and an empty name. Before only the name of the target classifier
@@ -187,16 +161,12 @@
                 AndroMDA run on your UMl model will result in code that is uncompilable in combination
                 with your existing implementation classes, a simple rename will be sufficient.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-10-11">
             <action dev="draftdog" type="update" issue="UMLMETA-3">
                 The metafacades now have their properties no longer modeled as operations but as attributes,
                 wherever possible. This has no effect on code already generated. In addition boolean accessor
                 methods now have their names properly rendered according to the Java Bean specification
                 (getXXX becomes isXXX).
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-10-08">
             <action dev="draftdog" type="update">
                 The Xdoclet dependency, WebDoclet to be exact, has been removed from the bpm4struts-cartridge;
                 now the
@@ -205,8 +175,6 @@
                 directly by AndroMDA. The Ant-tool and the maven plugins, used to generate a default AndroMDA
                 project, have also been updated to reflect this change.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-10-05">
             <action dev="cwbrandon" type="add">
                 The AndroMDA Spring cartridge (a cartridge based on the
                 <a href="http://www.springframework.org">Spring Framework</a>)
@@ -220,8 +188,6 @@
                 auto-detect the appropriate value. In addition more validation constraints
                 have been added to inform the user of any cartridge modeling errors.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-10-01">
             <action dev="draftdog" type="update" issue="BPM-71">
                 The latest major bpm4struts update did not prove to be a very elegant solution,
                 this led us to revise
@@ -248,8 +214,6 @@
                     codebase using one of the previous AndroMDA versions.
                 </p>
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-29">
             <action dev="draftdog" type="update" issue="BPM-32">
                 Overloaded a controller method for accessing the session objects, the new
                 method allows to choose whether or not to create the session in case it does
@@ -257,8 +221,6 @@
                 <code>true</code>). Also implemented some
                 improvements in handling the session objects and the session itself.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-28">
             <action dev="cwbrandon" type="add">
                 The andromda task and maven plugin, now support an attribute called
                 <code>failOnModelValidationErrors</code> which allows us to
@@ -266,16 +228,12 @@
                 if
                 <strong>ANY</strong> model validation errors occur.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-27">
             <action dev="cwbrandon" type="update">
                 The hibernate cartridge now generates its own hibernate.cfg.xml which
                 means the jboss-service.xml generated by xdoclet is no longer needed.
                 With this change, multiple new namespace properties were added
                 for configuring this configuration file.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-25">
             <action dev="draftdog" type="add" issue="BPM-69">
                 Just like you can use success messages on action transitions we now have
                 the possibility to use warning messages, simply add the tagged value
@@ -286,33 +244,23 @@
                 <strong>any</strong> transition, and you may have
                 more than one message on such a transition (unlimited).
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-23">
             <action dev="draftdog" type="update" issue="BPM-32">
                 The controllers associated to session objects have different methods to
                 access those objects. The 'clearXXX' method has been renamed to 'removeXXX'.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-19">
             <action dev="cwbrandon" type="add">
                 A new namespace property 'versionProperty' has been added, it is used
                 to determine which property/attribute name to use for versioning entities.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-10">
             <action dev="draftdog" type="add">
                 There is a new link in the download section (menu), it is called 'resources' and it
                 will contain resources on AndroMDA such as tutorials and slides.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-09">
             <action dev="draftdog" type="add">
                 A new namespace property is available to set a default date format to use for
                 date fields in your bpm4struts, not specifying this value will use dd/MM/yyyy as the default
                 date format.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-08">
             <action dev="draftdog" type="fix">
                 This change fixes some issues with the most recent updates for bpm4struts:
                 <ol>
@@ -328,8 +276,6 @@
                     <li>It should now be possible to easily send parameters between use-cases</li>
                 </ol>
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-03">
             <action dev="draftdog" type="update">
                 Controllers and their implementation have changed names. The abstract parent
                 classes now no longer have the 'Interface' suffix, the descendants have
@@ -337,8 +283,6 @@
                 and because it is cleaner not to have any suffix on the interface or
                 abstract parents.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-09-02">
             <action dev="draftdog" type="update" issue="BPM-44">
                 It is now possible to specify labels and values differently
                 for selectable parameters such as in comboboxes and lists.
@@ -372,8 +316,6 @@
                 consider looking at the differences manually (we are back at using the Struts HTML
                 tag library instead of the plain old HTML tags directly).
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-29">
             <action dev="cwbrandon" type="update">
                 The
                 <code>validating</code> flag has been renamed to the more
@@ -384,8 +326,6 @@
                 model validation occurs, however its sometimes nice to turn it
                 off for performance reasons (i.e. you have a really big model).
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-28">
             <action dev="draftdog" type="add" issue="BPM-32">
                 We now have session objects, these instances can be handled
                 through protected controller methods. Controller interfaces
@@ -399,8 +339,6 @@
                 Additionally the tabledecorator has been removed, it was only used to render
                 specific HTML code but a more elegant solution has been put in place.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-23">
             <action dev="cwbrandon" type="update">
                 A new namespace property has been added that can be used for
                 <em>any</em> cartridge, its called
@@ -408,8 +346,6 @@
                 more information see
                 <a href="andromda-cartridges/index.html#mergeLocation">Overriding cartridge resources</a>.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-22">
             <action dev="draftdog" type="add" issue="BPM-48">
                 For those who want it online help will be generated
                 for your application, by default it is enabled. You can
@@ -418,8 +354,6 @@
                 It currently supports documentation on use-cases, action
                 transitions, action parameters and pages.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-21">
             <action dev="draftdog" type="update">
                 Tooltips are now handled in JavaScript. We had to remove
                 the doctypes for that to work properly in Firefox and Mozilla.
@@ -427,15 +361,11 @@
                 The reason we have these JS tooltips is that now it can also
                 support images and text of arbitrary length.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-20">
             <action dev="draftdog" type="update">
                 Pattern masks for input field validation must not include
                 the leading '^' and trailing '$' anymore. Some CASE tools
                 such as MagicDraw don't handle them well.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-19">
             <action dev="draftdog" type="update">
                 The table link tagged value changed name:
                 <code>@andromda.struts.action.tablelink</code> is now
@@ -465,13 +395,9 @@
                 renamed to more language generic "upperCamelCaseName"
                 and "lowerCamelCaseName".
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-16">
             <action dev="cwbrandon" type="add">
                 A new namespace property has been added: 'tableNamePrefix'.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-15">
             <action dev="draftdog" type="add" issue="BPM-36">
                 A new namespace property has been added: 'breadCrumbs'. You can either
                 give it a 'true' or 'false' value. The default is 'true'. If the
@@ -484,33 +410,25 @@
                 Required fields now have an asterisk rendered next to their
                 label. (Only if validation has been enabled)
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-13">
             <action dev="draftdog" type="add" issue="BPM-45">
                 Added the following tagged value:
                 <code>@andromda.struts.view.field.tablelink</code>.
                 You can use it to create hyperlinks to actions in the columns of a table.
             </action>
-        </release>
-        <release version="3.0M3-SNAPSHOT" date="2004-08-10">
             <action dev="draftdog" type="add" issue="BPM-23">
                 Date input field now have a popup calendar to choose the date from
                 and have it automaitcally rendered into the appropriate format.
             </action>
         </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-08-08">
+        <release version="3.0M2" date="2004-08-09" description="A stable development release for version 3, milestone 2">
             <action dev="cwbrandon" type="add">
                 Cartridges now allow generation based on metafacade
                 type (and optionally its properties), in addition to stereotypes.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-08-06">
             <action dev="draftdog" type="add" issue="BPM-14">
                 It is now possible to create a hyperlink from a final state to a use-case
                 and have the cartridge interpret it as the next use-case to navigate to.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-08-03">
             <action dev="cwbrandon" type="update">
                 The maven build has been changed
                 <ul>
@@ -528,8 +446,6 @@
                     </li>
                 </ul>
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-07-26">
             <action dev="cwbrandon" type="update">
                 The <![CDATA[<andromda/>]]> Ant task was changed to
                 allow multiple models to be specified using a URL.
@@ -537,8 +453,6 @@
                 and eliminating the modelURL attribute from the <![CDATA[<andromda/>]]>
                 task.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-07-21">
             <action dev="draftdog" type="add">
                 Enabled support for tools that do not allow putting graphs inside use-cases. It is now
                 sufficient to put the
@@ -551,15 +465,11 @@
                 <code>@andromda.struts.controller.usecase</code> tagged value
                 on the controller and assigning it the name of a use-case.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-07-11">
             <action dev="cwbrandon" type="add">
                 Tagged value prefix of "@andromda" was added back to
                 all tagged values.  It was causing naming conflicts
                 with XDoclet tags when it was just "@".
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-07-04">
             <action dev="cwbrandon" type="add">
                 Added new resource element to the andromda-cartridge.xml
                 that allows non template resources (like images, jars, etc)
@@ -575,8 +485,6 @@
                 by setting the 'xhtml' namespace property to 'true' it will
                 render XHTML.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-07-03">
             <action dev="cwbrandon" type="update">
                 The 'sheet' attribute in the template element has been
                 renamed to 'path'.
@@ -589,30 +497,22 @@
                 The 'overWrite' attribute in the template element has been
                 renamed to 'overwrite'.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-07-01">
             <action dev="cwbrandon" type="add">
                 A new feature has been added that will allow users to import legacy database
                 schemas and have an XMI file generated from them. This will make it easier to port
                 development of legacy systems to AndroMDA.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-06-24">
             <action dev="cwbrandon" type="add">
                 A new cartridge is available for publishing services
                 as web-services, this cartridge is to be used in
                 combination with either the EJB, Hibernate,
                 or Java cartridge.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-06-20">
             <action dev="draftdog" type="add">
                 Tabular data can now automatically be displayed using paging,
                 sorting and exporting features, the displaytag tag-library is
                 used.
             </action>
-        </release>
-        <release version="3.0M2-SNAPSHOT" date="2004-06-18">
             <action dev="cwbrandon" type="add">
                 OCL support provides the following features:
                 <ul>
