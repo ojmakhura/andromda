@@ -1,6 +1,7 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -67,7 +68,7 @@ public class EntityFacadeLogicImpl
      */
     public java.util.Collection handleGetQueryOperations(boolean follow)
     {
-        Collection queryOperations = this.getOperations();
+        Collection queryOperations = new HashSet(this.getOperations());
 
         MetafacadeUtils.filterByType(
             queryOperations,
