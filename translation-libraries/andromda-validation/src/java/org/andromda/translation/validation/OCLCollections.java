@@ -425,7 +425,7 @@ public final class OCLCollections
 
     /**
      * Executes the given closure on each element in the collection. <p/>If the
-     * input collection or closure is null, there is no change made.
+     * input collection or closure is null no change will be made.
      */
     public static void forAll(Collection collection, Closure closure)
     {
