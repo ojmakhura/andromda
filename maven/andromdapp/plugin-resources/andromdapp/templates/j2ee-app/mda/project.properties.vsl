@@ -1,6 +1,7 @@
 maven.multiproject.type=pom
 
 maven.andromda.model.uri=file:${maven.src.dir}/uml/${projectNameNoWhitespace}Model.xmi
+maven.andromda.modelValidation=true
 
 # Define the output locations for the cartridge dependencies in the project.xml
 maven.andromda.core.generated.dir=${maven.src.dir}/../../core/target/src
