@@ -14,12 +14,12 @@
         <xsd:schema elementFormDefault="qualified" 
                     targetNamespace="$service.namespace" 
                     xmlns="$xmlSchemaNamespace"> 
-#foreach ( $operation in $service.allowedOperations )
+#foreach ($operation in $service.allowedOperations)
             <xsd:element name="$operation.name">       
 #if (!$operation.arguments.empty)
                 <xsd:complexType>  
                     <xsd:sequence>
-#foreach ( $argument in $operation.arguments )     
+#foreach ($argument in $operation.arguments)     
                         <xsd:element name="$argument.name" type="$argument.type.schemaType" nillable="$argument.nillable"/>
 #end
                      </xsd:sequence>
@@ -40,7 +40,7 @@
 #end
             </xsd:element>
 #end
-#foreach ( $typeMapping in $service.typeMappingElements )  
+#foreach ($typeMapping in $service.typeMappingElements)  
 ## By default set the type as the typeMapping itself,
 ## however if it has a type, use that instead
 #set ($type = $typeMapping)
@@ -68,7 +68,7 @@
 #end
             <xsd:simpleType name="$type.qName">
                 <xsd:restriction base="$enumType">
-#foreach ( $literal in $type.literals ) 
+#foreach ($literal in $type.literals) 
                     <xsd:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}"/>
 #end                   
                 </xsd:restriction>

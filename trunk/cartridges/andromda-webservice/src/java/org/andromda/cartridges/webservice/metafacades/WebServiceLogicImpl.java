@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 import org.andromda.cartridges.webservice.WebServiceUtils;
@@ -178,7 +179,7 @@ public class WebServiceLogicImpl
             paramTypes.addAll(operation.getParameters());
         }
 
-        Collection types = new TreeSet(new TypeComparator());
+        Set types = new TreeSet(new TypeComparator());
         Collection nonArrayTypes = new TreeSet(new TypeComparator());
         Iterator paramTypeIt = paramTypes.iterator();
         // clear out the cache of checkedTypes, otherwise
@@ -229,7 +230,7 @@ public class WebServiceLogicImpl
      */
     private void loadTypes(
         ModelElementFacade modelElement,
-        Collection types,
+        Set types,
         Collection nonArrayTypes)
     {
         final String methodName = "WebServiceImpl.loadTypes";
@@ -254,6 +255,25 @@ public class WebServiceLogicImpl
                             // convert to non-array type since we
                             // check if that one has the stereotype
                             nonArrayType = type.getNonArray();
+
+                            // check to see if the 'types' set says it already
+                            // contains the model element. If it does,
+                            // AND its an association end with a MANY
+                            // multiplicity we remove the existing one (so
+                            // the new one can be added).
+                            // In this way we always make sure association
+                            // ends with many muliplicities always take
+                            // precedence over ones with single multiplicities
+                            // of the same type.
+                            if (types.contains(modelElement)
+                                && modelElement instanceof AssociationEndFacade)
+                            {
+                                if (((AssociationEndFacade)modelElement)
+                                    .isMany())
+                                {
+                                    types.remove(modelElement);
+                                }
+                            }
                             types.add(modelElement);
                             // set the type to the non array type since
                             // that will have the attributes
