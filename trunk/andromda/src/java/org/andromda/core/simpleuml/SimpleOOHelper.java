@@ -83,6 +83,13 @@ public class SimpleOOHelper extends UMLStaticHelper
     }
 
     
+	/**
+	 * Returns a string indicating whether the Bean is
+     * a local or remotely accessable bean.
+     * 
+	 * @param object Bean class
+	 * @return String 'local' or 'remote'
+	 */
     public String getEjbRefViewType(Object object)
     {
         if (ENTITY_BEAN.equals(getStereotype(object)))
@@ -94,10 +101,11 @@ public class SimpleOOHelper extends UMLStaticHelper
     }
        
     /**
-     *  Gets the homeInterfaceName attribute of the UMLScriptHelper object
+     * Returns a string representing the name of the
+     * home interface for the Bean.
      *
-     *@param  object  Description of the Parameter
-     *@return         The homeInterfaceName value
+     *@param  object bean class
+     *@return string homeInterfaceName 
      */
     public String getHomeInterfaceName(Object object)
     {
@@ -109,6 +117,14 @@ public class SimpleOOHelper extends UMLStaticHelper
         return getName(object) + "Home";
     }
 
+	/**
+	 * Returns a string representing the component name
+     * for the Bean appending the 'local' suffix if the
+     * Bean is locally accessable.
+     * 
+	 * @param object
+	 * @return String
+	 */
     public String getComponentInterfaceName(Object object)
     {
         if (getStereotypeNames(object).contains(ENTITY_BEAN))
@@ -120,6 +136,16 @@ public class SimpleOOHelper extends UMLStaticHelper
     }
     
     
+	/**
+	 * Returns a list of attributes for a class. The list is
+     * useful for generating method signatures for constructors and/or
+     * generating code for calling such a constructor
+     * 
+	 * @param object class object
+	 * @param withTypeNames should attribute types appear in the list
+	 * @param includePK should primary key be included in the list
+	 * @return String representation of attribute list
+	 */
     public String getAttributesAsList(
         Object object,
         boolean withTypeNames,
@@ -160,6 +186,13 @@ public class SimpleOOHelper extends UMLStaticHelper
     }
 
     
+	/**
+	 * returns a string representation for the Java signature for
+     * a given operation
+     * 
+	 * @param model element representing the operation
+	 * @return String representation of the operation signature
+	 */
     public String getOperationSignature(Object object)
     {
         if ((object == null) || !(object instanceof Operation))
@@ -234,6 +267,14 @@ public class SimpleOOHelper extends UMLStaticHelper
 
     }
 
+	/**
+	 * Returns the fully qualified name of the given
+     * model element.  The fully qualified name includes
+     * complete package qualified name of the model element.
+     * 
+	 * @param object model element
+	 * @return String fully qualified name
+	 */
     public String findFullyQualifiedName(Object object)
     {
         return getFullyQualifiedName(object);
@@ -308,16 +349,26 @@ public class SimpleOOHelper extends UMLStaticHelper
     }
     
      /**
-     *  Description of the Method
+     * Returns the name of the package that contains the
+     * given model element.
      *
-     *@param  object  Description of the Parameter
-     *@return         Description of the Return Value
+     *@param  object  model element
+     *@return  fully qualified name of the package
      */
     public String findPackageName(Object object)
     {
         return getPackageName(object);
     }
     
+	/**
+	 * Provided only for backward compatability with 
+     * UML2EJB code generation scripts.  It does nothing
+     * in this implementation except return the object that is passed
+     * into it.
+     * 
+	 * @param object
+	 * @return Object
+	 */
     public Object findClassById(Object object)
     {
         if (object instanceof Classifier)
@@ -328,6 +379,14 @@ public class SimpleOOHelper extends UMLStaticHelper
         return null;
     }
     
+	/**
+	 * Provided only for backward compatability with UML2EJB
+     * code generation scripts.   It does not except
+     * return the object that it was passed in.
+     * 
+	 * @param object a model element
+	 * @return the model element that was passed
+	 */
     public Object convertToType(Object object)
     {
         return object;
