@@ -1094,7 +1094,7 @@ public class StrutsParameterLogicImpl
         Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
         for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
         {
-            String validator = (String) iterator.next();
+            String validator = String.valueOf(iterator.next());
             int endIndex = StringUtils.trimToEmpty(validator).indexOf(' ');
             // only add the validator name, ignore the parameters (if any)
             validatorTypesList.add( (endIndex == -1) ? validator : validator.substring(0,endIndex));
@@ -1136,7 +1136,7 @@ public class StrutsParameterLogicImpl
             Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
             for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
-                String validator = (String) iterator.next();
+                String validator = String.valueOf(iterator.next());
 
                 int endIndex = StringUtils.trimToEmpty(validator).indexOf(' ');
                 if (endIndex > -1 && validator.substring(0,endIndex).equals(validatorType))
