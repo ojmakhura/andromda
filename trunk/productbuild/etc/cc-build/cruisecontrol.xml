@@ -15,8 +15,18 @@
       </maven>
     </schedule>
     <log dir="/work/andromda/logs/andromda-all">
-      <!-- merge dir="/work/andromda/andromda-all/target/test-reports">
-      </merge -->
+    <merge dir="/work/andromda/andromda-all/andromda/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/cartridges/andromda-ejb/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/cartridges/andromda-bpm4struts/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/cartridges/andromda-hibernate/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/cartridges/andromda-java/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/cartridges/andromda-meta/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/cartridges/andromda-spring/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/metafacades/uml/uml14/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/repositories/mdr/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/templateengines/velocity/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/translation-libraries/andromda-query/target/test-reports"/>
+    <merge dir="/work/andromda/andromda-all/translation-libraries/andromda-validation/target/test-reports"/>
     </log>
     <publishers>
       <currentbuildstatuspublisher file="/work/andromda/logs/andromda-all/currentbuildstatus.txt">
