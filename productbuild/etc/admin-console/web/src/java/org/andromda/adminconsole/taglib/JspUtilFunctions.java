@@ -9,9 +9,9 @@ import org.andromda.adminconsole.db.RowData;
 
 public class JspUtilFunctions
 {
-    public final static String getInsertJsp(AdminConsoleConfigurator configurator, Column column, RowData rowData)
+    public final static String getInsertJsp(AdminConsoleConfigurator configurator, Column column, Object value)
     {
-        return configurator.getInsertJsp(column, column.getName(), rowData, null);
+        return configurator.getInsertJsp(column, column.getName(), value, null);
     }
 
     public final static String getUpdateJsp(AdminConsoleConfigurator configurator, Column column, RowData rowData, Integer index)
