@@ -11,7 +11,8 @@ import java.net.URL;
 import java.util.Properties;
 
 /**
- * This class provides statistics on how the build.
+ * This class provides statistics on how the build was
+ * done.
  * 
  * @author martin
  *
@@ -66,6 +67,7 @@ public class BuildInformation
 
 
     /**
+     * Return the user name of the id which built the system.
      * @return Returns the Build BUILDER.
      */
     public static String getBUILD_BUILDER()
@@ -73,6 +75,9 @@ public class BuildInformation
         return BUILD_BUILDER;
     }
     /**
+     * Return the timestamp of the build in
+     * yyy-mm-dd hh:mm:ss format but check the filter
+     * in andromda/maven.xml for current setting.
      * @return Returns the BUILD DATE.
      */
     public static String getBUILD_DATE()
@@ -80,6 +85,7 @@ public class BuildInformation
         return BUILD_DATE;
     }
     /**
+     * Return the vendor and jdk version.
      * @return Returns the BUILD JDK.
      */
     public static String getBUILD_JDK()
@@ -87,6 +93,7 @@ public class BuildInformation
         return BUILD_JDK;
     }
     /**
+     * Return the name of the operating system and version.
      * @return Returns the BUILD SYSTEM.
      */
     public static String getBUILD_SYSTEM()
