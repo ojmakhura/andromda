@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 import org.andromda.core.common.ExceptionUtils;
@@ -145,8 +146,13 @@ public class UMLModelAccessFacade
      */
     public Collection getModelElements()
     {
-        return MetafacadeFactory.getInstance().createMetafacades(
-            this.model.getCore().getModelElement().refAllOfType());
+        Collection modelElements = Collections.EMPTY_LIST;
+        if (this.model != null)
+        {
+            modelElements = MetafacadeFactory.getInstance().createMetafacades(
+                this.model.getCore().getModelElement().refAllOfType());
+        }
+        return modelElements;
     }
 
 }

@@ -78,7 +78,8 @@ public interface RepositoryFacade
      * Returns a facade for the top-level model object from the repository. This
      * model object contains all models <code>read</code> into the repository.
      * 
-     * @return the model value
+     * @return the model value (or <code>null</code> if no models exist in the
+     *         repository).
      */
     public ModelAccessFacade getModel();
 }

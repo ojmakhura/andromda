@@ -227,7 +227,14 @@ public class MDRepositoryFacade implements RepositoryFacade
                 throw new RepositoryFacadeException(errMsg, th);
             }
         }
-        this.modelFacade.setModel(this.model);
+        if (this.model != null)
+        {
+            this.modelFacade.setModel(this.model);
+        }
+        else
+        {
+            this.modelFacade = null;
+        }
         return this.modelFacade;
     }
 

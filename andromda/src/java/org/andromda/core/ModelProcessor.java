@@ -23,6 +23,8 @@ import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -74,63 +76,63 @@ public class ModelProcessor
         AndroMDALogger.configure();
         this.printConsoleHeader();
         long startTime = System.currentTimeMillis();
-        try
+        models = this.filterInvalidModels(models);
+        if (models.length > 0)
         {
-            RepositoryFacade repository = (RepositoryFacade)ComponentContainer
-                .instance().findComponent(RepositoryFacade.class);
-
-            if (repository == null)
+            try
             {
-                throw new ModelProcessorException(
-                    "No Repository could be found, "
-                        + "please make sure you have a "
-                        + RepositoryFacade.class.getName()
-                        + " instance on your classpath");
-            }
-
-            if (models != null)
-            {
+                RepositoryFacade repository = (RepositoryFacade)ComponentContainer
+                    .instance().findComponent(RepositoryFacade.class);
+                if (repository == null)
+                {
+                    throw new ModelProcessorException(
+                        "No Repository could be found, "
+                            + "please make sure you have a "
+                            + RepositoryFacade.class.getName()
+                            + " instance on your classpath");
+                }
                 repository.open();
                 process(repository, models);
                 repository.close();
                 repository = null;
             }
-            else
+            finally
             {
-                logger.warn("No models found to process");
+                // log all the error messages
+                Collection messages = MetafacadeFactory.getInstance()
+                    .getValidationMessages();
+                StringBuffer totalMessagesMessage = new StringBuffer();
+                if (messages != null && !messages.isEmpty())
+                {
+                    totalMessagesMessage.append(" - ");
+                    totalMessagesMessage.append(messages.size());
+                    totalMessagesMessage.append(" VALIDATION ERROR(S)");
+                    messages = this.sortValidationMessages(messages);
+                    AndroMDALogger.setSuffix("VALIDATION:ERROR");
+                    Iterator messageIt = messages.iterator();
+                    for (int ctr = 1; messageIt.hasNext(); ctr++)
+                    {
+                        ModelValidationMessage message = (ModelValidationMessage)messageIt
+                            .next();
+                        AndroMDALogger.error(ctr + ") " + message);
+                    }
+                    AndroMDALogger.reset();
+                }
+                AndroMDALogger.info("completed model processing, TIME --> "
+                    + ((System.currentTimeMillis() - startTime) / 1000.0)
+                    + "[s]" + totalMessagesMessage);
+                if (failOnValidationErrors && !messages.isEmpty())
+                {
+                    throw new ModelProcessorException(
+                        "Model validation failed!");
+                }
+                // cleanup any resources used by the factory
+                MetafacadeFactory.getInstance().shutdown();
             }
         }
-        finally
+        else
         {
-            // log all the error messages
-            Collection messages = MetafacadeFactory.getInstance()
-                .getValidationMessages();
-            StringBuffer totalMessagesMessage = new StringBuffer();
-            if (messages != null && !messages.isEmpty())
-            {
-                totalMessagesMessage.append(" - ");
-                totalMessagesMessage.append(messages.size());
-                totalMessagesMessage.append(" VALIDATION ERROR(S)");
-                messages = this.sortValidationMessages(messages);
-                AndroMDALogger.setSuffix("VALIDATION:ERROR");
-                Iterator messageIt = messages.iterator();
-                for (int ctr = 1; messageIt.hasNext(); ctr++)
-                {
-                    ModelValidationMessage message = (ModelValidationMessage)messageIt
-                        .next();
-                    AndroMDALogger.error(ctr + ") " + message);
-                }
-                AndroMDALogger.reset();
-            }
-            AndroMDALogger.info("completed model processing, TIME --> "
-                + ((System.currentTimeMillis() - startTime) / 1000.0) + "[s]"
-                + totalMessagesMessage);
-            if (failOnValidationErrors && !messages.isEmpty())
-            {
-                throw new ModelProcessorException("Model validation failed!");
-            }
-            // cleanup any resources used by the factory
-            MetafacadeFactory.getInstance().shutdown();
+            AndroMDALogger.warn("No model(s) found to process");
         }
     }
 
@@ -145,6 +147,7 @@ public class ModelProcessor
     private void process(RepositoryFacade repository, Model[] models)
     {
         final String methodName = "ModelProcessor.process";
+        // filter out any models that are null or have null URLs
         String cartridgeName = null;
         try
         {
@@ -221,7 +224,8 @@ public class ModelProcessor
                             ignoreNamespace = namespace.isIgnore();
                         }
 
-                        // make sure we ignore the cartridge if the namespace
+                        // make sure we ignore the cartridge if the
+                        // namespace
                         // is set to 'ignore'
                         if ((namespace != null || defaultNamespace != null)
                             && !ignoreNamespace)
@@ -381,6 +385,27 @@ public class ModelProcessor
     public void setLoggingConfigurationUri(String loggingConfigurationUri)
     {
         AndroMDALogger.setLoggingConfigurationUri(loggingConfigurationUri);
+    }
+
+    /**
+     * Filters out any <em>invalid</em> models. This means models that either
+     * are null within the specified <code>models</code> array or those that
+     * don't have URLs set.
+     * 
+     * @param models the models to filter.
+     * @return the array of valid models
+     */
+    public Model[] filterInvalidModels(Model[] models)
+    {
+        Collection validModels = new ArrayList(Arrays.asList(models));
+        CollectionUtils.filter(validModels, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                return object != null && ((Model)object).getUrl() != null;
+            }
+        });
+        return (Model[])validModels.toArray(new Model[0]);
     }
 
     /**
