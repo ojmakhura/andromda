@@ -1,3 +1,4 @@
+#if (!$services.empty)
 #parse("templates/spring/SpringGlobals.vm")
 #if (!$ejbsEnabled)
 //
@@ -106,4 +107,5 @@ public class $serviceLocatorName
 
 #end
 }
+#end
 #end
