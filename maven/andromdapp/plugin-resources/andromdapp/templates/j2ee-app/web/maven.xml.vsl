@@ -6,8 +6,8 @@
 #if ($webservice)
     <!-- =====================================================================
             - Remove the 'ignore::' prefix and configure the <ant:mapping> elements
-              according to the services for which you want to generate JAX-RPC
-              stubs.
+              according to the services for which you want to generate webservice 
+              JAX-RPC stubs.
             - Handles the generation of Axis wsdl2java JAX-RPC client classes
          ===================================================================== -->
     <preGoal name="ignore::war:init">
