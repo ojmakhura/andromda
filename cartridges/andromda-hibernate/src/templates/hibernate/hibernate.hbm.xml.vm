@@ -25,7 +25,7 @@
 #foreach ($attribute in $entity.attributes)
 #if (!$attribute.identifier)
         <property name="$attribute.name" type="$attribute.type.fullyQualifiedHibernateType">
-            <column name="$attribute.columnName" not-null="$attribute.required" unique="$attribute.unique" sql-type="$attribute.sqlType"/>
+            <column name="$attribute.columnName" not-null="$attribute.required" unique="$attribute.unique" sql-type="$attribute.sqlType"#if($attribute.columnIndex) index="$attribute.columnIndex"#end/>
         </property>
 #end
 #end
