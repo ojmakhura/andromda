@@ -240,7 +240,11 @@ public class AttributeFacadeLogicImpl
             value = getDefaultValue();
             value = (value == null) ? getName() : String.valueOf(value);
         }
-
+         
+        if (this.getType().isStringType())
+        {
+            value = "\"" + value + "\"";
+        }
         return value;
     }
 }

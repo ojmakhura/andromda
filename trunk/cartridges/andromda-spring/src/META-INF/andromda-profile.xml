@@ -2,7 +2,7 @@
 <!--
   The default Spring profile mappings.
 -->
-<mappings name="spring"> 
+<mappings name="spring">
     <mapping>
         <from>HIBERNATE_QUERY</from>
         <to>@andromda.hibernate.query</to>

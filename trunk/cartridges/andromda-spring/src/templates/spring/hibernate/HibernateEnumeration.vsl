@@ -20,7 +20,8 @@ import java.util.HashMap;
 $enumeration.getDocumentation(" * ")
  */
 public final class $enumeration.name
-    implements Serializable, Comparable, UserType
+    implements Serializable, 
+            Comparable, UserType
 {
     /**
      * A map holding all the enumeration instances, mapped by their value.
@@ -31,7 +32,7 @@ public final class $enumeration.name
     /**
 $literal.getDocumentation("     * ")
      */
-    public final static $enumeration.name $literal.name = new ${enumeration.name}("$literal.enumerationValue");
+    public final static $enumeration.name $literal.name = new ${enumeration.name}($literal.enumerationValue);
 
 #end
 

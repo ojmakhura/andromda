@@ -42,7 +42,7 @@
         <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" unique="true"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" unique="true"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end#if ($otherEnd.required) not-null="true"#end>
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #else
@@ -52,16 +52,16 @@
 #end
 #if ($sourceEnd.one2Many)
         <set name="$otherEnd.name" order-by="$sourceEnd.columnName" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
-#if($sourceEnd.association.hibernateCacheType!="")
+#if($sourceEnd.association.hibernateCacheType.length != 0)
             <cache usage="$sourceEnd.association.hibernateCacheType" />
-#end            
+#end
             <key>
                 <column name="$sourceEnd.columnName"/>
             </key>
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
         </set>
 #elseif ($sourceEnd.many2One)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end#if ($sourceEnd.required) not-null="true"#end >
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end#if ($otherEnd.required) not-null="true"#end >
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
