@@ -19,7 +19,7 @@
 
     <!-- copy resources -->
     <resource
-        path="resources/**/*.png"
+        path="resources/*.png"
         outputPattern="layout/{0}"
         outlet="pages"
         overwrite="true"/>
@@ -40,7 +40,7 @@
         outputPattern="$generatedFile"
         outlet="actions"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="action">
             <modelElement stereotype="FrontEndEvent"/>
         </modelElements>
     </template>
@@ -51,7 +51,7 @@
         outlet="pages"
         overwrite="false"
         generateEmptyFiles="false">
-        <modelElements variable="class">
+        <modelElements variable="action">
             <modelElement stereotype="FrontEndEvent"/>
         </modelElements>
     </template>
@@ -61,7 +61,7 @@
         outputPattern="$generatedFile"
         outlet="forms"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="action">
             <modelElement stereotype="FrontEndEvent"/>
         </modelElements>
     </template>
@@ -71,7 +71,7 @@
         outputPattern="$generatedFile"
         outlet="forms"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="useCase">
             <modelElement stereotype="FrontEndUseCase"/>
         </modelElements>
     </template>
@@ -81,7 +81,7 @@
         outputPattern="$generatedFile"
         outlet="controller-impls"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="controller">
             <modelElement stereotype="FrontEndController"/>
         </modelElements>
     </template>
@@ -91,7 +91,7 @@
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="controller">
             <modelElement stereotype="FrontEndController"/>
         </modelElements>
     </template>
@@ -101,7 +101,7 @@
         outputPattern="$generatedFile"
         outlet="controllers"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="controller">
             <modelElement stereotype="FrontEndController"/>
         </modelElements>
     </template>
@@ -111,7 +111,7 @@
         outputPattern="$generatedFile"
         outlet="pages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="jsp">
             <modelElement stereotype="FrontEndView"/>
         </modelElements>
     </template>
@@ -122,7 +122,7 @@
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -133,7 +133,7 @@
         outlet="configuration"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -143,7 +143,7 @@
         outputPattern="$welcomeFileName"
         outlet="pages"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -153,7 +153,7 @@
         outputPattern="application-resources.properties"
         outlet="messages"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -163,7 +163,7 @@
         outputPattern="custom-resources.properties"
         outlet="messages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -173,7 +173,7 @@
         outputPattern="struts-message-resources.xml"
         outlet="xdoclet-merge"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -183,7 +183,7 @@
         outputPattern="global-forwards.xml"
         outlet="xdoclet-merge"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -194,7 +194,7 @@
         outlet="xdoclet-merge"
         overwrite="true"
         generateEmptyFiles="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -204,7 +204,7 @@
         outputPattern="servlet-mappings.xml"
         outlet="xdoclet-merge"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -214,7 +214,7 @@
         outputPattern="servlets.xml"
         outlet="xdoclet-merge"
         overwrite="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -225,7 +225,7 @@
         outlet="xdoclet-merge"
         overwrite="true"
         generateEmptyFiles="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -236,7 +236,7 @@
         outlet="xdoclet-merge"
         overwrite="true"
         generateEmptyFiles="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -247,7 +247,7 @@
         outlet="xdoclet-merge"
         overwrite="true"
         generateEmptyFiles="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -258,7 +258,7 @@
         outlet="xdoclet-merge"
         overwrite="true"
         generateEmptyFiles="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -269,7 +269,7 @@
         outlet="xdoclet-merge"
         overwrite="true"
         generateEmptyFiles="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -280,7 +280,7 @@
         outlet="xdoclet-merge"
         overwrite="true"
         generateEmptyFiles="true">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -290,7 +290,7 @@
         outputPattern="login/login-form.jsp"
         outlet="pages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -300,7 +300,7 @@
         outputPattern="login/login-error.jsp"
         outlet="pages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -310,7 +310,7 @@
         outputPattern="layout/menu.jsp"
         outlet="pages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -320,7 +320,7 @@
         outputPattern="layout/main-layout.jsp"
         outlet="pages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -330,7 +330,7 @@
         outputPattern="tiles-defs.xml"
         outlet="configuration"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -341,7 +341,7 @@
             outputPattern="menu-config.xml"
             outlet="configuration"
             overwrite="true">
-            <modelElements variable="class">
+            <modelElements variable="applicationUseCase">
                 <modelElement stereotype="FrontEndApplication"/>
             </modelElements>
         </template>
@@ -352,7 +352,7 @@
         outputPattern="layout/default-application.css"
         outlet="pages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -362,7 +362,7 @@
         outputPattern="layout/default.css"
         outlet="pages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -372,7 +372,7 @@
         outputPattern="layout/messages.jsp"
         outlet="pages"
         overwrite="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -384,7 +384,7 @@
         overwrite="true"
         required="false"
         generateEmptyFiles="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -396,7 +396,7 @@
         overwrite="true"
         required="false"
         generateEmptyFiles="false">
-        <modelElements variable="class">
+        <modelElements variable="applicationUseCase">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
     </template>
@@ -415,6 +415,21 @@
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false">
+    </template>
+
+    <template
+        path="templates/StrutsTableDecorator.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="table">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter">
+                    <property name="tableLinksPresent" value="true"/>
+                </type>
+            </modelElement>
+        </modelElements>
     </template>
 
 </cartridge>
