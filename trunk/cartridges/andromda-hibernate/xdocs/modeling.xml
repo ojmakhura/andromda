@@ -178,22 +178,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.leafimpl"/>
-                        <td>
-                            @andromda.hibernate.leafimpl
-                        </td>
-                        <td>
-                            Attribute
-                        </td>
-                        <td>
-                            Controls whether intermediate or leaf impl classes
-                            are generated. With inheritance strategy subclass or
-                            concrete it is not efficient to generate impls at
-                            intermediate levels which require individual tables.
-                            Default: false.
-                        </td>
-                    </tr>
-                    <tr>
                         <a name="@andromda.persistence.column.index"/>
                         <td>
                             @andromda.persistence.column.index
