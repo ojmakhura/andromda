@@ -236,6 +236,7 @@ public class StrutsUseCaseLogicImpl
     protected Collection handleGetFormFields()
     {
         final Map formFieldsMap = new HashMap();
+
         final Collection transitions = getActivityGraph().getTransitions();
         for (Iterator iterator = transitions.iterator(); iterator.hasNext();)
         {
@@ -250,6 +251,15 @@ public class StrutsUseCaseLogicImpl
                 }
             }
         }
+
+        // this assumes no duplicate names (should be validated before)
+        final Collection controllerArguments = this.getController().getAllArguments();
+        for (Iterator iterator = controllerArguments.iterator(); iterator.hasNext();)
+        {
+            ParameterFacade parameter = (ParameterFacade) iterator.next();
+            formFieldsMap.put(parameter.getName(), parameter);
+        }
+
         return formFieldsMap.values();
     }
 
