@@ -42,7 +42,7 @@
         <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
         <andromda lastModifiedCheck="false" 
                   xmlValidation="${andromda.xmlValidation}"
-                  modelValidation="${andromda.modelValidation}>
+                  modelValidation="${andromda.modelValidation}">
             <model url="file:${basedir}/src/uml/model.xmi"/>
             <mappingsSearchPath>
                 <pathelement location="${basedir}/src/mappings"/>
