@@ -53,11 +53,6 @@
       				<td>
       					Generates the entire initial directory structure and any required files
       					to begin development of a Translation-Library.
-	        			<p>
-		        			<strong>NOTE:</strong> You must specify the <strong>library</strong> and 
-		        			<strong>translations</strong> properties in order to run this goal 
-		        			(i.e <em>maven translation-library:generate-translation-library -Dlibrary=query -Dtranslations=EJB-QL,Hibernate-QL</em>).
-		        		</p>
       				</td>
       			</tr>
       			<tr>
