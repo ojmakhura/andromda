@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * A single child mapping instance belonging to a Mappings instance. It doesn't
