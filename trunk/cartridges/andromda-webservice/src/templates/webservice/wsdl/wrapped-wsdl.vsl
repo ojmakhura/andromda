@@ -155,7 +155,7 @@ $operation.getDocumentation("                ", 64, false)
 $service.getDocumentation("            ", 64, false)
         </wsdl:documentation>
         <wsdl:port binding="${namespacePrefix}:${serviceBindingName}" name="${service.qName}">
-            <wsdlsoap:address location="${wsdlSoapAddress}/${service.name}"/>
+            <wsdlsoap:address location="${wsdlSoapAddress}/${service.qName}"/>
         </wsdl:port>
     </wsdl:service>
 
