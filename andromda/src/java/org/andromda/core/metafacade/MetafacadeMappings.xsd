@@ -21,10 +21,10 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
-                    <!-- deprecated: please using the mapping element
+                    <!-- deprecated: please use the mapping element
                          instead -->
                     <xs:element ref="stereotype" minOccurs="0" maxOccurs="1"/>
-                    <!-- deprecated: please using the mapping element
+                    <!-- deprecated: please use the mapping element
                          instead -->
                     <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
                 </xs:choice>
