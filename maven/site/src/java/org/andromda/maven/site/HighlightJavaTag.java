@@ -46,31 +46,20 @@ public class HighlightJavaTag extends AbstractHighlightTag
 
     protected void highlight(XMLOutput output, String text) throws SAXException
     {
-        boolean inString = false;
-        boolean inChar = false;
+        boolean inLiteral = false;
         StringTokenizer tokenizer = new StringTokenizer(text, " \n\r\t\f\"\'(){}[].,;:?!+-*/%^&|<>=~", true);
         while (tokenizer.hasMoreTokens())
         {
             String token = tokenizer.nextToken();
 
-            if (inString)
+            if (inLiteral)
             {
                 startTokenHighlight(output, getLiteralClass());
                 output.write(token);
                 endTokenHighlight(output);
-                if (token.equals("\""))
+                if (token.equals("\"") || token.equals("\'"))
                 {
-                    inString = false;
-                }
-            }
-            else if (inChar)
-            {
-                startTokenHighlight(output, getLiteralClass());
-                output.write(token);
-                endTokenHighlight(output);
-                if (token.equals("\'"))
-                {
-                    inChar = false;
+                    inLiteral = false;
                 }
             }
             else if (JAVA_KEYWORDS.contains(token))
@@ -87,19 +76,12 @@ public class HighlightJavaTag extends AbstractHighlightTag
             }
             else
             {
-                if (token.equals("\""))
+                if (token.equals("\"") || token.equals("\'"))
                 {
                     startTokenHighlight(output, getLiteralClass());
                     output.write(token);
                     endTokenHighlight(output);
-                    inString = true;
-                }
-                else if (token.equals("\'"))
-                {
-                    startTokenHighlight(output, getLiteralClass());
-                    output.write(token);
-                    endTokenHighlight(output);
-                    inChar = true;
+                    inLiteral = true;
                 }
                 else
                 {
