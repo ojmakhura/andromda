@@ -33,9 +33,18 @@ body
     margin: 0;
 }
 
-#leftColumn li
+#navcolumn li
 {
-    list-style-image: url(../images/square-bullet.jpg);
+    list-style-image: url(images/square.gif);
+}
+
+#navcolumn li.expanded
+{
+    list-style-image: url(images/triangledown.gif);
+}
+#navcolumn li.collapsed
+{
+    list-style-image: url(images/triangleright.gif);
 }
 
 #leftColumn h5
@@ -55,17 +64,6 @@ body
 {
 	color: #51a2ff;
     border-bottom: 1px dotted;
-}
-
-#navcolumn li.expanded
-{
-    background-image: url(../images/expanded.gif);
-    background-repeat: no-repeat;
-}
-#navcolumn li.collapsed
-{
-    background-image: url(../images/collapsed.gif);
-    background-repeat: no-repeat;
 }
 
 #bodyColumn
