@@ -1,0 +1,8 @@
+andromda-core.home = ../../andromda/dist/predist/
+andromda-ejb.home = ../../cartridges/andromda-ejb/dist/predist/
+jboss.home = c:/cygwin/tools/jboss-3.0.4
+
+model = src/uml/blank-model.zargo!/blank-model.xmi
+
+j2ee.classpath= ${jboss.home}/server/default/lib/jboss-j2ee.jar:\
+${jboss.home}/server/default/lib/javax.servlet.jar

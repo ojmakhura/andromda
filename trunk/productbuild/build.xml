@@ -15,7 +15,7 @@
     <!-- ============================================================= -->
 
     <target name="buildComponent">
-        <ant inheritAll="false" dir="../${component.name}" target="dist" />
+        <ant inheritAll="false" dir="${component.name}" target="dist" />
         <move taskname="${component.name}" todir="${dist.dir}">
           <fileset dir="../${component.name}/dist">
             <include name="*.*"/>
