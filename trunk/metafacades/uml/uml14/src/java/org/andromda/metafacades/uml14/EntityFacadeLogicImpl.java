@@ -4,6 +4,8 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EntityAssociationEndFacade;
+import org.andromda.metafacades.uml.EntityAssociationFacade;
 import org.andromda.metafacades.uml.EntityAttributeFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
@@ -98,20 +100,14 @@ public class EntityFacadeLogicImpl
      */
     public java.util.Collection handleGetIdentifiers(boolean follow)
     {
-        Collection identifiers = this.getAttributes();
-        MetafacadeUtils.filterByStereotype(
-            identifiers,
-            UMLProfile.STEREOTYPE_IDENTIFIER);
+        // first check if foreign identifiers are defined
+        Collection identifiers = this.getForeignIdentifiers(follow);
 
-        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null
-            && identifiers.isEmpty() && follow; superClass = (ClassifierFacade)superClass
-            .getGeneralization())
+        // if no foreign identifiers, then we need to get this entity's
+        // identifiers.
+        if (identifiers == null)
         {
-            if (superClass.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
-            {
-                EntityFacade entity = (EntityFacade)superClass;
-                identifiers.addAll(entity.getIdentifiers(follow));
-            }
+            identifiers = EntityMetafacadeUtils.getIdentifiers(this, follow);
         }
         return identifiers;
     }
@@ -154,12 +150,14 @@ public class EntityFacadeLogicImpl
     {
         String tableNamePrefix = StringUtils.trimToEmpty(String.valueOf(this
             .getConfiguredProperty(UMLMetafacadeProperties.TABLE_NAME_PREFIX)));
-        return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-            tableNamePrefix,
-            this,
-            UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-            this.getMaxSqlNameLength(),
-            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+        return EntityMetafacadeUtils
+            .getSqlNameFromTaggedValue(
+                tableNamePrefix,
+                this,
+                UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+                this.getMaxSqlNameLength(),
+                this
+                    .getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**
@@ -568,5 +566,40 @@ public class EntityFacadeLogicImpl
     {
         return (String)this
             .getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
+    }
+
+    /**
+     * Checks to see if this entity has any associations where the foreign
+     * identifier flag may be set, and if so returns the identifier(s) of the
+     * foreign entity.
+     */
+    private Collection getForeignIdentifiers(boolean follow)
+    {
+        Collection identifiers = null;
+        EntityAssociationEndFacade end = (EntityAssociationEndFacade)CollectionUtils
+            .find(this.getAssociationEnds(), new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean valid = false;
+                    if (object != null
+                        && EntityAssociationEndFacade.class
+                            .isAssignableFrom(object.getClass()))
+                    {
+                        EntityAssociationEndFacade end = (EntityAssociationEndFacade)object;
+                        valid = end.isForeignIdentifier();
+                    }
+                    return valid;
+                }
+            });
+        if (end != null
+            && EntityFacade.class.isAssignableFrom(end.getType().getClass()))
+        {
+            EntityFacade foreignEntity = (EntityFacade)end.getType();
+            identifiers = EntityMetafacadeUtils.getIdentifiers(
+                foreignEntity,
+                follow);
+        }
+        return identifiers;
     }
 }

@@ -555,6 +555,12 @@ public class UMLMetafacadeUtils
         return finalStates;
     }
 
+    /**
+     * Finds the given metafacade class for the passed in <code>facade</code>.
+     * 
+     * @param facade the model element facade for which to find the meta class.
+     * @return the meta model element
+     */
     static ActivityGraph getMetaClass(ActivityGraphFacade facade)
     {
         ActivityGraph activityGraph = null;
@@ -577,6 +583,12 @@ public class UMLMetafacadeUtils
         return activityGraph;
     }
 
+    /**
+     * Finds the given metafacade class for the passed in <code>facade</code>.
+     * 
+     * @param facade the model element facade for which to find the meta class.
+     * @return the meta model element
+     */
     static UseCase getMetaClass(UseCaseFacade facade)
     {
         UseCase useCase = null;
@@ -599,6 +611,12 @@ public class UMLMetafacadeUtils
         return useCase;
     }
 
+    /**
+     * Finds the given metafacade class for the passed in <code>facade</code>.
+     * 
+     * @param facade the model element facade for which to find the meta class.
+     * @return the meta model element
+     */
     static Parameter getMetaClass(ParameterFacade facade)
     {
         Parameter parameter = null;
@@ -621,6 +639,12 @@ public class UMLMetafacadeUtils
         return parameter;
     }
 
+    /**
+     * Finds the given metafacade class for the passed in <code>facade</code>.
+     * 
+     * @param facade the model element facade for which to find the meta class.
+     * @return the meta model element
+     */
     static Event getMetaClass(EventFacade facade)
     {
         Event event = null;
@@ -643,6 +667,12 @@ public class UMLMetafacadeUtils
         return event;
     }
 
+    /**
+     * Finds the given metafacade class for the passed in <code>facade</code>.
+     * 
+     * @param facade the model element facade for which to find the meta class.
+     * @return the meta model element
+     */
     static ModelElement getMetaClass(ModelElementFacade facade)
     {
         ModelElement modelElement = null;
