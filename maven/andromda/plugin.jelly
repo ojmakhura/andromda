@@ -3,7 +3,9 @@
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
          xmlns:util="jelly:util"
-         xmlns:maven="jelly:maven">
+         xmlns:maven="jelly:maven"
+         xmlns:i="jelly:interaction"
+         xmlns:velocity="jelly:velocity">
        
     <!-- ===================================================================
          Performs intialization.  Mainly handles the adding of the
@@ -451,7 +453,7 @@
 
       	<j:set var="capitalizedProjectId" value="${stringUtils.capitalize(projectId)}"/>
     	
-        <u:replace 
+        <util:replace 
         	var="packageDir"
         	value="${packageName}" 
         	oldChar="." 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  	<extend>../project.xml</extend>
+  	<extend>../../project.xml</extend>
   	<id>maven-andromda-plugin</id>
   	<name>Maven AndroMDA Plugin</name>
   	<shortDescription>Maven AndroMDA Plugin</shortDescription>
@@ -117,6 +117,33 @@
       		<artifactId>openide-util</artifactId>
      		<version>200401141900</version>
     	</dependency>  
+    	
+    	<!-- dependencies needed for genapp -->
+	    <dependency>
+	      	<groupId>commons-jelly</groupId>
+	      	<artifactId>commons-jelly-tags-interaction</artifactId>
+	      	<version>20030211.143817</version>
+	      	<properties>
+	       		<classloader>root.maven</classloader>
+	      	</properties>
+	    </dependency>
+    	<dependency>
+      		<groupId>commons-jelly</groupId>
+      		<artifactId>commons-jelly-tags-xml</artifactId>
+      		<version>20030211.142705</version>
+      		<url>http://jakarta.apache.org/commons/jelly/libs/xml/</url>
+      		<properties>
+        		<classloader>root.maven</classloader>
+      		</properties>
+    	</dependency>
+    	<dependency>
+      		<groupId>commons-jelly</groupId>
+      		<artifactId>commons-jelly-tags-velocity</artifactId>
+      		<version>20030303.205659</version>
+      		<properties>
+        		<classloader>root.maven</classloader>
+      		</properties>
+    	</dependency>
 	</dependencies>	
   	<build>
   		<sourceDirectory>src/java</sourceDirectory>
