@@ -1,14 +1,13 @@
 package org.andromda.cartridges.database.metafacades;
 
-import org.andromda.cartridges.database.DatabaseProfile;
-import org.andromda.cartridges.database.DatabaseGlobals;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.EntityMetafacadeUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+
+import org.andromda.cartridges.database.DatabaseGlobals;
+import org.andromda.cartridges.database.DatabaseProfile;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 
 
 /**
@@ -45,7 +44,7 @@ public class TableLogicImpl
         // first get the initial load size for this table
         try
         {
-            final String initialLoadSizeString = (String)findTaggedValue(DatabaseProfile.TAGGEDVALUE_DUMMYLOAD_SIZE);
+            final String initialLoadSizeString = (String)this.findTaggedValue(DatabaseProfile.TAGGEDVALUE_DUMMYLOAD_SIZE);
             if (initialLoadSizeString != null)
             {
                 dummyLoadSize = Integer.parseInt(initialLoadSizeString);
@@ -170,10 +169,10 @@ public class TableLogicImpl
      */
     protected String handleGetPrimaryKeyConstraintName()
     {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(this.getConfiguredProperty(DatabaseGlobals.PRIMARY_KEY_CONSTRAINT_PREFIX));
-        buffer.append(getTableName());
-        return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
+        return DatabaseMetafacadeUtils.toSqlIdentifierName(
+            this.getConfiguredProperty(DatabaseGlobals.PRIMARY_KEY_CONSTRAINT_PREFIX),
+            this,
+            this.getMaxSqlNameLength());
     }
 
     /**
