@@ -233,7 +233,7 @@ public class StrutsUseCaseLogicImpl
     {
         final Collection formFields = new LinkedList(); // parameter names are supposed to be unique
 
-        final Collection pages = getAllPages();
+        final Collection pages = getPages();
         for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
         {
             StrutsJsp jsp = (StrutsJsp) pageIterator.next();
