@@ -6,6 +6,8 @@ import org.andromda.adminconsole.config.xml.TableConfiguration;
 import org.andromda.adminconsole.db.*;
 
 import java.io.Reader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.Map;
 public class AdminConsoleConfigurator
 {
     public final static String FILE_NAME = "admin-console.cfg.xml";
+    private final static String DEFAULT_CFG = "default.cfg.xml";
 
     private AdminConsole configuration = null;
     private final WidgetRenderer widgetRenderer = new WidgetRenderer();
@@ -27,6 +30,22 @@ public class AdminConsoleConfigurator
         try
         {
             configuration = AdminConsole.unmarshal(reader);
+        }
+        catch(Exception e)
+        {
+            throw new Exception("Unable to initialize configuration: "+e);
+        }
+    }
+
+    public AdminConsoleConfigurator() throws Exception
+    {
+        try
+        {
+            InputStream instream = Thread.currentThread().getContextClassLoader().getResourceAsStream(AdminConsoleConfigurator.DEFAULT_CFG);
+            Reader reader = new InputStreamReader(instream);
+            configuration = AdminConsole.unmarshal(reader);
+            reader.close();
+            instream.close();
         }
         catch(Exception e)
         {
@@ -173,12 +192,12 @@ public class AdminConsoleConfigurator
     public String getInsertJsp(Column column, String parameterName)
     {
         ColumnConfiguration configuration = getConfiguration(column);
-        return getJsp(column, parameterName, null, !configuration.getInsertable());
+        return getJsp(column, parameterName, "", !configuration.getInsertable());
     }
 
     public String getInsertJsp(Column column, String parameterName, RowData rowData)
     {
         ColumnConfiguration configuration = getConfiguration(column);
-        return getJsp(column, parameterName, (rowData==null)?null:rowData.get(column.getName()), !configuration.getInsertable());
+        return getJsp(column, parameterName, (rowData==null)?"":rowData.get(column.getName()), !configuration.getInsertable());
     }
 }
