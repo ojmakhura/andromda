@@ -179,7 +179,11 @@ ${indent}</html:link>
 ##      P L A I N T E X T
 ##
 #else
+#if ($field.tableLinkColumnName != "")
+#set ($plainText = "row.${field.tableLinkColumnName}")
+#else
 #set ($plainText = "${formBeanName}.${fieldName}")
+#end
 ${indent}${${plainText}}
 #end
 #end
