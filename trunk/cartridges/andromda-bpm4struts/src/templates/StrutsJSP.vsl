@@ -93,12 +93,7 @@
 ##  SETS THE BODY OF THIS PAGE
 ##
     <tiles:put name="body" type="string">
-#foreach ($action in $jsp.incomingActions)
-        <logic:present name="$action.formBeanName" scope="$action.actionScope">
-            <bean:define id="form" name="$action.formBeanName" type="$action.formBeanType" scope="$action.actionScope" toScope="page"/>
-        </logic:present>
-#end
-
+    
 #foreach ($variable in $jsp.pageVariables)
 #set ($variableName = $variable.name)
 #set ($variableType = $variable.type.fullyQualifiedName)
