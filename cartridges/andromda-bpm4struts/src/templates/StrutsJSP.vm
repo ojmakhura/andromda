@@ -13,38 +13,42 @@
 #if ($security)
 ${indent}<logic:present role="$roles">
 #end
+#if(!$parameters.isEmpty())
 #set ($mapName = "$str.toJavaMethodName($triggerKey)Parameters")
 ${indent}<%
 ${indent}  java.util.Map $mapName = new java.util.HashMap();
 ${indent}  pageContext.setAttribute("$mapName", $mapName, javax.servlet.jsp.PageContext.PAGE_SCOPE);
 ${indent}%>
-${indent}<table>
+#end
 #foreach ($parameter in $parameters)
 #if ($parameter.hasBackingList())
-${indent}    <logic:iterate id="$parameter.name" name="$formBeanName" property="$parameter.backingListName" scope="page">
-${indent}    <%
-${indent}        ${mapName}.put("$parameter.name", $parameter.name);
-${indent}    %>
+${indent}<logic:iterate id="$parameter.name" name="$formBeanName" property="$parameter.backingListName" scope="page">
+${indent}<%
+${indent}    ${mapName}.put("$parameter.name", $parameter.name);
+${indent}%>
 #else
-${indent}    <%
-${indent}        ${mapName}.put("$parameter.name", ${formBeanName}.${parameter.getterName}());
-${indent}    %>
+${indent}<%
+${indent}    ${mapName}.put("$parameter.name", ${formBeanName}.${parameter.getterName}());
+${indent}%>
 #end
 #end
-${indent}        <tr>
-${indent}            <td>
-${indent}                <html:link action="$action.actionPath" titleKey="${action.messageKey}.$triggerKey" name="$mapName" scope="page">
-${indent}                    <bean:message key="${action.messageKey}.$triggerKey"/>:
-${indent}                    <bean:write name="$mapName" scope="page"/>
-${indent}                </html:link>
-${indent}            </td>
-${indent}        </tr>
+${indent}    <p>
+#if($parameters.isEmpty())
+${indent}        <html:link action="$action.actionPath" titleKey="${action.messageKey}.$triggerKey" scope="page">
+#else
+${indent}        <html:link action="$action.actionPath" titleKey="${action.messageKey}.$triggerKey" name="$mapName" scope="page">
+#end
+${indent}            <bean:message key="${action.messageKey}.$triggerKey"/>:
+#if(!$parameters.isEmpty())
+${indent}            <bean:write name="$mapName" scope="page"/>
+#end
+${indent}        </html:link>
+${indent}    </p>
 #foreach ($parameter in $parameters)
 #if ($parameter.hasBackingList())
 ${indent}    </logic:iterate>
 #end
 #end
-${indent}</table>
 #if ($security)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
