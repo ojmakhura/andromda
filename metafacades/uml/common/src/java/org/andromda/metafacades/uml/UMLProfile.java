@@ -150,11 +150,11 @@ public class UMLProfile
         .get("PERSISTENCE_COLUMN_INDEX");
     
     /**
-     * Used on an entity to indicate whether an entity should use the identifier
-     * of the entity on ther other side of a relation.
+     * Used on an association end to indicate whether its owning entity should have its
+     * identifier also be the foreign key to the related entity.
      */
-    public static final String TAGGEDVALUE_PERSISTENCE_IDENTIFIER_FOREIGN = profile
-        .get("PERSISTENCE_IDENTIFIER_FOREIGN");
+    public static final String TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER = profile
+        .get("PERSISTENCE_FOREIGN_IDENTIFIER");
 
     /**
      * Stores the style of a web service (document, wrapped, rpc).

@@ -52,4 +52,16 @@ public class EntityAssociationEndFacadeLogicImpl
             .getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.EntityAssociationEndFacade#isForeignIdentifier()
+     */
+    protected boolean handleIsForeignIdentifier()
+    {
+        Object value = this.findTaggedValue(
+            UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
+        boolean test = value != null && Boolean.valueOf(
+            String.valueOf(value)).booleanValue();  
+        return test;        
+    }
+
 }

@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.Collection;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -185,5 +186,32 @@ public class EntityMetafacadeUtils
             }
         }
         return name;
+    }
+    
+    /**
+     * Retrieves the identifiers for the given <code>entity</code>.  If <code>follow</code>
+     * is true then the inheritance hierachy will also be searched.
+     * @param follow a flag indicating whether or not the inheritance hiearchy should
+     *        be followed
+     * @return the collection of identifiers.
+     */
+    public static Collection getIdentifiers(EntityFacade entity, boolean follow)
+    {
+        Collection identifiers = entity.getAttributes();
+        MetafacadeUtils.filterByStereotype(
+            identifiers,
+            UMLProfile.STEREOTYPE_IDENTIFIER);
+
+        for (ClassifierFacade superClass = (ClassifierFacade)entity.getGeneralization(); superClass != null
+             && identifiers.isEmpty() && follow; superClass = (ClassifierFacade)superClass
+            .getGeneralization())
+        {
+            if (superClass.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
+            {
+                EntityFacade facade = (EntityFacade)superClass;
+                identifiers.addAll(facade.getIdentifiers(follow));
+            }
+        }
+        return identifiers;
     }
 }

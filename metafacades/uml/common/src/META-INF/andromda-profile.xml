@@ -82,8 +82,8 @@
         <to>@andromda.persistence.column.index</to>
     </mapping>
     <mapping>
-        <from>PERSISTENCE_IDENTIFIER_FOREIGN</from>
-        <to>@andromda.persistence.identifier.foreign</to>
+        <from>PERSISTENCE_FOREIGN_IDENTIFIER</from>
+        <to>@andromda.persistence.foreign.identifier</to>
     </mapping>
     <mapping>
         <from>WEBSERVICE_STYLE</from>
