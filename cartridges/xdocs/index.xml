@@ -55,19 +55,19 @@
     ...
 </dependencies>
 ]]></source>
-      </p>
-      <a name="mergeLocation"/>
-      <h3>Overriding cartridge resources</h3>
-         <p>
-            Sometimes you may want to change some of the resources a cartridge uses without touching
-            the internals of the cartridge: i.e. you want to add some more stuff to the JSP-pages
+        </p>
+        <a name="mergeLocation"/>
+        <h3>Overriding cartridge resources</h3>
+        <p>
+            Sometimes you may want to override some of the resources a cartridge uses without touching
+            the internals of the cartridge: i.e. you want to add some more stuff to a JSP-page
             that the <a href="../andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>
             generates. Easy to do: just specify a <strong>mergeLocation</strong> when declaring the cartridge-dependency
             and put the replacement-files in that directory (if you generated your project using the Maven
             <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a> plugin you will need to do that in 
             <code>&lt;your-project&gt;/mda/project.xml</code>):
-         </p>
-         <source><![CDATA[
+        </p>
+        <source><![CDATA[
  ...
  <dependency>
      <groupId>andromda</groupId>
@@ -80,11 +80,11 @@
      </properties>
  </dependency>
  ...
-         ]]></source>
-      <p>
-          This way the cartridge will try to load resources (templates, images, etc.) from /opt/templates/
-          prior to loading them from the cartridge-jar.
-      </p>
+]]></source>
+        <p>
+            This way the cartridge will try to load resources (templates, images, etc.) from /opt/templates/
+            prior to loading them from the cartridge-jar.
+        </p>
         <p class="highlight">
            When loading resources from the merge location you will need to respect the same directory structure
            as in the cartridge jar. This means that when the cartridge contains <code>templates/SomeTemplate.vsl</code>
@@ -95,7 +95,7 @@
            Please note that if you're an <strong>Ant</strong> user, you will need to specify the
            <code>mergeLocation</code> as a namespace property:
         </p>
-      <source><![CDATA[
+        <source><![CDATA[
  ...
  <namespace name="hibernate">
      ...
@@ -103,13 +103,76 @@
      ...
  </namespace>
  ...
-            ]]></source>          
+]]></source>      
+      <a name="mergeMappingsUri"/>
+      <h3>Merging cartridge resources</h3>
+      <p>
+        Sometimes you may want to merge (or replace) things in a cartridge: this can be done in templates, within 
+        the andromda-cartrige.xml, or even within the andromda-metafacades.xml. For example within the BPM4Struts cartridge, 
+        the web.xml (or struts-config.xml) may not contain everyting you need (i.e. you may need to add a new <![CDATA[<servlet/>]]> 
+        and <![CDATA[<servlet-mapping/>]]>, some <![CDATA[<context-param/>]]>, or even <![CDATA[<error-page/>]]> definitions). 
+      </p>
+      <p>
+        This is easy to do: just specify a <strong>mergeMappingsUri</strong> namepace property when declaring the 
+        cartridge-dependency and create a new mappings file in which to map what you want merge. 
+      </p>
+      <source><![CDATA[
+...
+<dependency>
+    <groupId>andromda</groupId>
+    <artifactId>andromda-bpm4struts-cartridge</artifactId>
+    <version>${andromda.version}</version>
+    <properties>
+        ...
+        <mergeMappingsUri>file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</mergeMappingsUri>
+        ...
+    </properties>  
+</dependency>
+... 
+]]></source>
+      <p>
+        For example, this fragment below (from a mappings file) says we want to replace anything found 
+        matching <em><![CDATA[<!-- error-page merge-point -->]]></em> (defined in the <![CDATA[<to/>]]>
+        definition) with the <em><![CDATA[<error-page/>]]></em> fragments (found in the from 
+        <![CDATA[<from/>]]> definition):
+     </p>
+     <p class="highlight"> 
+        In reality the contents of the <em>from</em> and <em>to</em> elements MUST be escaped with 
+        a CDATA section.
+     </p>
+      <source><![CDATA[
+...
+<mapping>
+    <from><!-- error-page merge-point --></from>
+    <to>
+<error-page>
+    <error-code>404</error-code>
+    <location>/index.jsp</location>
+</error-page>
+<error-page>
+    <error-code>408</error-code>
+    <location>/index.jsp</location>
+</error-page>
+<error-page>
+    <error-code>400</error-code>
+    <location>/index.jsp</location>
+</error-page>   
+    </to>
+</mapping>
+...
+]]></source>       
+     <p class="highlight"> 
+        If you wanted to add resources (i.e. a new template, image, static file, etc) to a cartridge without modifying the contents
+        of the cartridge, you could use the <a href="#mergeMappingsUri">mergeMappingsUri</a> in combination with the 
+        <a href="#mergeLocation">mergeLocation</a>.  You would use the <a href="#mergeMappingsUri">mergeMappingsUri</a> to define
+        the new template in a cartridge, and use the mergeLocation to specify the actual template.
+     </p>
       <h2>Inside a cartridge</h2>
       <p>
           An AndroMDA cartridge is a "thing" (directory or jar file)
           on the classpath that consists of several items:
       </p>
-      <table border="1" cellpadding="4">
+      <table>
         <tr>
           <th>File</th>
           <th>Contents</th>
