@@ -8,6 +8,9 @@
     </properties>
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-01-09" description="First release candidate for version 3.0">
+            <action dev="carloslcuenca" type="add" issue="HIB-34">
+                The <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> is now able to define the Cache Settings.
+            </action>
             <action dev="cwbrandon" type="fix">
                 The <a href="andromda-query-library/index.html">Query Translation Library</a> was using the OCL
                 <em><![CDATA[exists(<expression>)]]></em> expression incorrectly.  Changed to use the
