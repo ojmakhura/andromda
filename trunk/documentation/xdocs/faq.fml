@@ -29,6 +29,17 @@
 
     <part id="usage">
         <title>Using AndroMDA</title>
+        
+        <faq id="jdk">
+            <question>
+                What JDK can I use with AndroMDA ?  Can I use JDK 1.3?
+            </question>
+            <answer>
+                <p>
+                    AndroMDA will only run correctly with JDK 1.4 or above.
+                </p>
+            </answer>
+        </faq>        
 
         <faq id="reverse">
             <question>
