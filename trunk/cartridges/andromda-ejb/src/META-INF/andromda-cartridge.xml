@@ -1,15 +1,15 @@
 <cartridge name="ejb">
 
-	<templateEngine>
-	    <!-- library of macros used in template engine -->
-        <macrolibrary name="templates/EJB.vm" />
+    <templateEngine>
+        <!-- library of macros used in template engine -->
+       <macrolibrary name="templates/EJB.vm" />
     </templateEngine>
 
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     
-	<!-- the official template definitions -->
+    <!-- the official template definitions -->
     <template
         sheet="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
@@ -50,13 +50,6 @@
         </modelElements>  
     </template>
 
-<!--
-     The following definitions map services to session beans.
-     The templates map a service to a session bean
-     and the template itself decides to generate a stateless or stateful
-     session bean, based on the fact that the UML class contains attributes or not.
-     (Matthias Bohlen)
--->
     <template
         sheet="templates/SessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
