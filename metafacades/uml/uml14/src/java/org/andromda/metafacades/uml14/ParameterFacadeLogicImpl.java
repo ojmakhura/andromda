@@ -1,28 +1,29 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.metafacades.uml.UMLProfile;
-import org.omg.uml.foundation.datatypes.Expression;
-import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
-import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
-import org.omg.uml.foundation.core.Operation;
-import org.omg.uml.behavioralelements.statemachines.SignalEvent;
-
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.metafacades.uml.UMLProfile;
+import org.omg.uml.behavioralelements.statemachines.SignalEvent;
+import org.omg.uml.foundation.core.Operation;
+import org.omg.uml.foundation.datatypes.Expression;
+import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
+import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 
 /**
  * Metaclass facade implementation.
  */
 public class ParameterFacadeLogicImpl
-       extends ParameterFacadeLogic
-       implements org.andromda.metafacades.uml.ParameterFacade
+    extends ParameterFacadeLogic
+    implements org.andromda.metafacades.uml.ParameterFacade
 {
     // ---------------- constructor -------------------------------
 
-    public ParameterFacadeLogicImpl (org.omg.uml.foundation.core.Parameter metaObject, String context)
+    public ParameterFacadeLogicImpl(
+        org.omg.uml.foundation.core.Parameter metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -34,7 +35,6 @@ public class ParameterFacadeLogicImpl
         return (expression == null) ? "" : expression.getBody();
     }
 
-
     // ------------- relations ------------------
 
     /**
@@ -44,14 +44,15 @@ public class ParameterFacadeLogicImpl
     {
         return metaObject.getType();
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#sReturn()
      */
     public boolean handleIsReturn()
     {
         final ParameterDirectionKind kind = metaObject.getKind();
-        return kind != null ? kind.equals(ParameterDirectionKindEnum.PDK_RETURN) : false;
+        return kind != null ? kind
+            .equals(ParameterDirectionKindEnum.PDK_RETURN) : false;
     }
 
     /**
@@ -68,10 +69,12 @@ public class ParameterFacadeLogicImpl
     {
         Operation parameterOperation = null;
 
-        Collection allOperations = UMLMetafacadeUtils.getModel().getCore().getOperation().refAllOfType();
-        for (Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation==null;)
+        Collection allOperations = UMLMetafacadeUtils.getModel().getCore()
+            .getOperation().refAllOfType();
+        for (Iterator iterator = allOperations.iterator(); iterator.hasNext()
+            && parameterOperation == null;)
         {
-            Operation operation = (Operation) iterator.next();
+            Operation operation = (Operation)iterator.next();
             if (operation.getParameter().contains(metaObject))
             {
                 parameterOperation = operation;
@@ -85,10 +88,12 @@ public class ParameterFacadeLogicImpl
     {
         SignalEvent parameterSignalEvent = null;
 
-        Collection allSignalEvents = UMLMetafacadeUtils.getModel().getStateMachines().getSignalEvent().refAllOfType();
-        for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext() && parameterSignalEvent==null;)
+        Collection allSignalEvents = UMLMetafacadeUtils.getModel()
+            .getStateMachines().getSignalEvent().refAllOfType();
+        for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext()
+            && parameterSignalEvent == null;)
         {
-            SignalEvent signalEvent = (SignalEvent) iterator.next();
+            SignalEvent signalEvent = (SignalEvent)iterator.next();
             if (signalEvent.getParameter().contains(metaObject))
             {
                 parameterSignalEvent = signalEvent;

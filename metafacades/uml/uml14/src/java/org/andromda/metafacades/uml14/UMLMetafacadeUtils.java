@@ -1,8 +1,20 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.metafacades.uml.*;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -11,17 +23,17 @@ import org.omg.uml.behavioralelements.commonbehavior.DataValue;
 import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.usecases.UseCase;
-import org.omg.uml.foundation.core.*;
+import org.omg.uml.foundation.core.Attribute;
+import org.omg.uml.foundation.core.Classifier;
+import org.omg.uml.foundation.core.CorePackage;
+import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.foundation.core.Parameter;
+import org.omg.uml.foundation.core.Stereotype;
+import org.omg.uml.foundation.core.TaggedValue;
+import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 import org.omg.uml.modelmanagement.UmlPackage;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Utilities for dealing with UML 1.4 metafacades
@@ -268,13 +280,13 @@ public class UMLMetafacadeUtils
      */
     static boolean isConstraintKind(String expression, String kind)
     {
-        Pattern pattern = Pattern.compile(
-            ".*\\s*" + StringUtils.trimToEmpty(kind) + "\\s*\\w*\\s*:.*",
-            Pattern.DOTALL);
+        Pattern pattern = Pattern
+            .compile(".*\\s*" + StringUtils.trimToEmpty(kind)
+                + "\\s*\\w*\\s*:.*", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(StringUtils.trimToEmpty(expression));
         return matcher.matches();
     }
-    
+
     /**
      * Returns true or false depending on whether or not this Classifier or any
      * of its specializations is of the given type having the specified
@@ -286,7 +298,8 @@ public class UMLMetafacadeUtils
     static boolean isType(ClassifierFacade classifier, String typeName)
     {
         final String type = StringUtils.trimToEmpty(typeName);
-        String name = StringUtils.trimToEmpty(classifier.getFullyQualifiedName(true));
+        String name = StringUtils.trimToEmpty(classifier
+            .getFullyQualifiedName(true));
         boolean isType = name.equals(type);
         // if this isn't a type defined by typeName, see if we can find any
         // types that inherit from the type.
@@ -317,20 +330,27 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * Returns the first use-case it can find with the given name and stereotype, if the stereotype is not specified
-     * (it is null) it will be ignored and the returned use-case may have any arbitrary stereotype.
+     * Returns the first use-case it can find with the given name and
+     * stereotype, if the stereotype is not specified (it is null) it will be
+     * ignored and the returned use-case may have any arbitrary stereotype.
      */
-    static UseCase findFirstUseCaseWithNameAndStereotype(String name, String stereotypeName)
+    static UseCase findFirstUseCaseWithNameAndStereotype(
+        String name,
+        String stereotypeName)
     {
         UseCase useCaseWithNameAndStereotype = null;
 
-        Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithNameAndStereotype==null;)
+        Collection useCases = getModel().getUseCases().getUseCase()
+            .refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator
+            .hasNext()
+            && useCaseWithNameAndStereotype == null;)
         {
-            UseCase useCase = (UseCase) useCaseIterator.next();
+            UseCase useCase = (UseCase)useCaseIterator.next();
             if (name.equals(useCase.getName()))
             {
-                if (stereotypeName == null || isStereotypePresent(useCase, stereotypeName))
+                if (stereotypeName == null
+                    || isStereotypePresent(useCase, stereotypeName))
                 {
                     useCaseWithNameAndStereotype = useCase;
                 }
@@ -349,20 +369,28 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * Returns the first activity graph it can find with the given name and stereotype, if the stereotype is not specified
-     * (it is null) it will be ignored and the returned activity graph may have any arbitrary stereotype.
+     * Returns the first activity graph it can find with the given name and
+     * stereotype, if the stereotype is not specified (it is null) it will be
+     * ignored and the returned activity graph may have any arbitrary
+     * stereotype.
      */
-    static ActivityGraph findFirstActivityGraphWithNameAndStereotype(String name, String stereotypeName)
+    static ActivityGraph findFirstActivityGraphWithNameAndStereotype(
+        String name,
+        String stereotypeName)
     {
         ActivityGraph graphWithNameAndStereotype = null;
 
-        Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
-        for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext() && graphWithNameAndStereotype==null;)
+        Collection graphs = getModel().getActivityGraphs().getActivityGraph()
+            .refAllOfType();
+        for (Iterator graphIterator = graphs.iterator(); graphIterator
+            .hasNext()
+            && graphWithNameAndStereotype == null;)
         {
-            ActivityGraph graph = (ActivityGraph) graphIterator.next();
+            ActivityGraph graph = (ActivityGraph)graphIterator.next();
             if (name.equals(graph.getName()))
             {
-                if (stereotypeName == null || isStereotypePresent(graph, stereotypeName))
+                if (stereotypeName == null
+                    || isStereotypePresent(graph, stereotypeName))
                 {
                     graphWithNameAndStereotype = graph;
                 }
@@ -373,27 +401,32 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * Returns true if the given model element has a tag with the given name and value, returns false otherwise.
+     * Returns true if the given model element has a tag with the given name and
+     * value, returns false otherwise.
      */
     static boolean isTagPresent(ModelElement element, String tag, Object value)
     {
         boolean tagPresent = false;
 
         Collection taggedValues = element.getTaggedValue();
-        for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext() && !tagPresent;)
+        for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator
+            .hasNext()
+            && !tagPresent;)
         {
             TaggedValue taggedValue = (TaggedValue)taggedValueIterator.next();
             if (tag.equals(taggedValue.getName()))
             {
-                for (Iterator valueIterator = taggedValue.getDataValue().iterator(); valueIterator.hasNext() && !tagPresent;)
+                for (Iterator valueIterator = taggedValue.getDataValue()
+                    .iterator(); valueIterator.hasNext() && !tagPresent;)
                 {
-                    DataValue dataValue = (DataValue) valueIterator.next();
+                    DataValue dataValue = (DataValue)valueIterator.next();
                     if (value.equals(dataValue))
                     {
                         tagPresent = true;
                     }
                 }
-                for (Iterator valueIterator = taggedValue.getReferenceValue().iterator(); valueIterator.hasNext() && !tagPresent;)
+                for (Iterator valueIterator = taggedValue.getReferenceValue()
+                    .iterator(); valueIterator.hasNext() && !tagPresent;)
                 {
                     Object referenceValue = valueIterator.next();
                     if (value.equals(referenceValue))
@@ -407,21 +440,26 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * Returns true if the given model element has a hyperlink with the given value, returns false otherwise.
+     * Returns true if the given model element has a hyperlink with the given
+     * value, returns false otherwise.
      */
     static boolean isHyperlinkPresent(ModelElement element, Object value)
     {
         return isTagPresent(element, "hyperlinkModel", value);
     }
 
-    static boolean isStereotypePresent(ModelElement element, String stereotypeName)
+    static boolean isStereotypePresent(
+        ModelElement element,
+        String stereotypeName)
     {
         boolean stereotypePresent = false;
 
         Collection stereotypes = element.getStereotype();
-        for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext() && !stereotypePresent;)
+        for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator
+            .hasNext()
+            && !stereotypePresent;)
         {
-            Stereotype stereotype = (Stereotype) stereotypeIterator.next();
+            Stereotype stereotype = (Stereotype)stereotypeIterator.next();
             if (stereotypeName.equals(stereotype.getName()))
             {
                 stereotypePresent = true;
@@ -431,19 +469,26 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * Returns the first use-case this method can find with the given tagged value or hyperlink. Both arguments are used
-     * to look for the tagged value but only <code>value</code> is used to search for the hyperlink.
+     * Returns the first use-case this method can find with the given tagged
+     * value or hyperlink. Both arguments are used to look for the tagged value
+     * but only <code>value</code> is used to search for the hyperlink.
      */
-    static UseCase findUseCaseWithTaggedValueOrHyperlink(String tag, String value)
+    static UseCase findUseCaseWithTaggedValueOrHyperlink(
+        String tag,
+        String value)
     {
         UseCase useCaseWithTaggedValue = null;
 
-        Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithTaggedValue==null;)
+        Collection useCases = getModel().getUseCases().getUseCase()
+            .refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator
+            .hasNext()
+            && useCaseWithTaggedValue == null;)
         {
             // loop over all use-cases
-            UseCase useCase = (UseCase) useCaseIterator.next();
-            if (isTagPresent(useCase, tag, value) || isHyperlinkPresent(useCase, value))
+            UseCase useCase = (UseCase)useCaseIterator.next();
+            if (isTagPresent(useCase, tag, value)
+                || isHyperlinkPresent(useCase, value))
             {
                 useCaseWithTaggedValue = useCase;
             }
@@ -453,19 +498,23 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * Returns the first class this method can find with the given tagged value or hyperlink. Both arguments are used
-     * to look for the tagged value but only <code>value</code> is used to search for the hyperlink.
+     * Returns the first class this method can find with the given tagged value
+     * or hyperlink. Both arguments are used to look for the tagged value but
+     * only <code>value</code> is used to search for the hyperlink.
      */
     static UmlClass findClassWithTaggedValueOrHyperlink(String tag, String value)
     {
         UmlClass classWithTaggedValue = null;
 
         Collection classes = getModel().getCore().getUmlClass().refAllOfType();
-        for (Iterator classIterator = classes.iterator(); classIterator.hasNext() && classWithTaggedValue==null;)
+        for (Iterator classIterator = classes.iterator(); classIterator
+            .hasNext()
+            && classWithTaggedValue == null;)
         {
             // loop over all use-cases
-            UmlClass clazz = (UmlClass) classIterator.next();
-            if (isTagPresent(clazz, tag, value) || isHyperlinkPresent(clazz, value))
+            UmlClass clazz = (UmlClass)classIterator.next();
+            if (isTagPresent(clazz, tag, value)
+                || isHyperlinkPresent(clazz, value))
             {
                 classWithTaggedValue = clazz;
             }
@@ -481,10 +530,12 @@ public class UMLMetafacadeUtils
         if (useCase != null && useCase.getName() != null)
         {
             String useCaseName = useCase.getName();
-            Collection allFinalStates = getModel().getStateMachines().getFinalState().refAllOfType();
-            for (Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)
+            Collection allFinalStates = getModel().getStateMachines()
+                .getFinalState().refAllOfType();
+            for (Iterator iterator = allFinalStates.iterator(); iterator
+                .hasNext();)
             {
-                FinalState finalState = (FinalState) iterator.next();
+                FinalState finalState = (FinalState)iterator.next();
                 if (useCaseName != null)
                 {
                     if (useCaseName.equals(finalState.getName()))
@@ -493,7 +544,7 @@ public class UMLMetafacadeUtils
                     }
                     else
                     {
-                        if (isHyperlinkPresent(finalState,useCase))
+                        if (isHyperlinkPresent(finalState, useCase))
                         {
                             finalStates.add(finalState);
                         }
@@ -501,7 +552,7 @@ public class UMLMetafacadeUtils
                 }
                 else
                 {
-                    if (isHyperlinkPresent(finalState,useCase))
+                    if (isHyperlinkPresent(finalState, useCase))
                     {
                         finalStates.add(finalState);
                     }
@@ -519,13 +570,15 @@ public class UMLMetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
-            for (Iterator iterator = graphs.iterator(); iterator.hasNext() && activityGraph==null;)
+            Collection graphs = getModel().getActivityGraphs()
+                .getActivityGraph().refAllOfType();
+            for (Iterator iterator = graphs.iterator(); iterator.hasNext()
+                && activityGraph == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    activityGraph = (ActivityGraph) element;
+                    activityGraph = (ActivityGraph)element;
                 }
             }
         }
@@ -539,13 +592,15 @@ public class UMLMetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
-            for (Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase==null;)
+            Collection useCases = getModel().getUseCases().getUseCase()
+                .refAllOfType();
+            for (Iterator iterator = useCases.iterator(); iterator.hasNext()
+                && useCase == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    useCase = (UseCase) element;
+                    useCase = (UseCase)element;
                 }
             }
         }
@@ -559,13 +614,15 @@ public class UMLMetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection parameters = getModel().getCore().getParameter().refAllOfType();
-            for (Iterator iterator = parameters.iterator(); iterator.hasNext() && parameter==null;)
+            Collection parameters = getModel().getCore().getParameter()
+                .refAllOfType();
+            for (Iterator iterator = parameters.iterator(); iterator.hasNext()
+                && parameter == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    parameter = (Parameter) element;
+                    parameter = (Parameter)element;
                 }
             }
         }
@@ -579,13 +636,15 @@ public class UMLMetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection events = getModel().getStateMachines().getEvent().refAllOfType();
-            for (Iterator iterator = events.iterator(); iterator.hasNext() && event==null;)
+            Collection events = getModel().getStateMachines().getEvent()
+                .refAllOfType();
+            for (Iterator iterator = events.iterator(); iterator.hasNext()
+                && event == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    event = (Event) element;
+                    event = (Event)element;
                 }
             }
         }
@@ -599,10 +658,13 @@ public class UMLMetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection modelElements = getModel().getCore().getModelElement().refAllOfType();
-            for (Iterator iterator = modelElements.iterator(); iterator.hasNext() && modelElement==null;)
+            Collection modelElements = getModel().getCore().getModelElement()
+                .refAllOfType();
+            for (Iterator iterator = modelElements.iterator(); iterator
+                .hasNext()
+                && modelElement == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
                     modelElement = element;

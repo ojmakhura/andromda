@@ -79,7 +79,7 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsPrimitive()
     {
-        // If this type has a wrapper then its a primitive, 
+        // If this type has a wrapper then its a primitive,
         // otherwise it isn't
         return this.getWrapperMappings() != null
             && this.getWrapperMappings().containsFrom(
@@ -107,9 +107,11 @@ public class ClassifierFacadeLogicImpl
         String wrapperName = null;
         if (this.getWrapperMappings() != null)
         {
-            if (this.getWrapperMappings().containsFrom(this.getFullyQualifiedName()))
+            if (this.getWrapperMappings().containsFrom(
+                this.getFullyQualifiedName()))
             {
-                wrapperName = this.getWrapperMappings().getTo(this.getFullyQualifiedName());
+                wrapperName = this.getWrapperMappings().getTo(
+                    this.getFullyQualifiedName());
             }
         }
         return wrapperName;
@@ -156,7 +158,9 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsCollectionType()
     {
-        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.COLLECTION_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            MetafacadeDataTypes.COLLECTION_TYPE_NAME);
     }
 
     /**
@@ -164,7 +168,9 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsListType()
     {
-        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.LIST_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            MetafacadeDataTypes.LIST_TYPE_NAME);
     }
 
     /**
@@ -172,7 +178,9 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsSetType()
     {
-        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.SET_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            MetafacadeDataTypes.SET_TYPE_NAME);
     }
 
     /**
@@ -180,7 +188,9 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsDateType()
     {
-        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.DATE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            MetafacadeDataTypes.DATE_TYPE_NAME);
     }
 
     /**
@@ -188,7 +198,9 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsFileType()
     {
-        return UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.FILE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            MetafacadeDataTypes.FILE_TYPE_NAME);
     }
 
     /**
@@ -326,7 +338,7 @@ public class ClassifierFacadeLogicImpl
     {
         return Interface.class.isAssignableFrom(this.metaObject.getClass());
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNonArray()
      */
@@ -382,7 +394,7 @@ public class ClassifierFacadeLogicImpl
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getJavaNullString()
      */
@@ -391,7 +403,9 @@ public class ClassifierFacadeLogicImpl
         String javaNullString = null;
         if (isPrimitive())
         {
-            if (UMLMetafacadeUtils.isType(this, MetafacadeDataTypes.BOOLEAN_TYPE_NAME))
+            if (UMLMetafacadeUtils.isType(
+                this,
+                MetafacadeDataTypes.BOOLEAN_TYPE_NAME))
             {
                 javaNullString = "false";
             }

@@ -1,25 +1,26 @@
 package org.andromda.metafacades.uml14;
 
-import org.omg.uml.behavioralelements.statemachines.Transition;
-
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.omg.uml.behavioralelements.statemachines.Transition;
 
 /**
  * MetafacadeLogic implementation.
- *
+ * 
  * @see org.andromda.metafacades.uml.EventFacade
  */
 public class EventFacadeLogicImpl
-       extends EventFacadeLogic
-       implements org.andromda.metafacades.uml.EventFacade
+    extends EventFacadeLogic
+    implements org.andromda.metafacades.uml.EventFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public EventFacadeLogicImpl (org.omg.uml.behavioralelements.statemachines.Event metaObject, java.lang.String context)
+
+    public EventFacadeLogicImpl(
+        org.omg.uml.behavioralelements.statemachines.Event metaObject,
+        java.lang.String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     protected Collection handleGetParameters()
@@ -31,10 +32,12 @@ public class EventFacadeLogicImpl
     {
         Transition eventTransition = null;
 
-        Collection allTransitions = UMLMetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
-        for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition==null;)
+        Collection allTransitions = UMLMetafacadeUtils.getModel()
+            .getStateMachines().getTransition().refAllOfType();
+        for (Iterator iterator = allTransitions.iterator(); iterator.hasNext()
+            && eventTransition == null;)
         {
-            Transition transition = (Transition) iterator.next();
+            Transition transition = (Transition)iterator.next();
             if (metaObject.equals(transition.getTrigger()))
             {
                 eventTransition = transition;

@@ -3,23 +3,22 @@ package org.andromda.metafacades.uml14;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 
-
 /**
- * 
- *
  * Metaclass facade implementation.
- *
  */
 public class ObjectFlowStateFacadeLogicImpl
-       extends ObjectFlowStateFacadeLogic
-       implements org.andromda.metafacades.uml.ObjectFlowStateFacade
+    extends ObjectFlowStateFacadeLogic
+    implements org.andromda.metafacades.uml.ObjectFlowStateFacade
 {
     // ---------------- constructor -------------------------------
-    
-    public ObjectFlowStateFacadeLogicImpl (org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState metaObject, String context)
+
+    public ObjectFlowStateFacadeLogicImpl(
+        org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
+
     // -------------------- business methods ----------------------
 
     // concrete business methods that were declared
@@ -27,9 +26,9 @@ public class ObjectFlowStateFacadeLogicImpl
 
     // ------------- relations ------------------
 
-   /**
-    *
-    */
+    /**
+     *
+     */
     public Object handleGetStateMachine()
     {
         StateMachine stateMachine = null;
@@ -52,5 +51,5 @@ public class ObjectFlowStateFacadeLogicImpl
     }
 
     // ------------------------------------------------------------
-    
+
 }

@@ -1,45 +1,43 @@
 package org.andromda.metafacades.uml14;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.core.common.HTMLAnalyzer;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.TagDefinition;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.ArrayList;
-
-
 /**
- *
- *
  * Metaclass facade implementation.
- *
  */
 public class TaggedValueFacadeLogicImpl
-       extends TaggedValueFacadeLogic
-       implements org.andromda.metafacades.uml.TaggedValueFacade
+    extends TaggedValueFacadeLogic
+    implements org.andromda.metafacades.uml.TaggedValueFacade
 {
     // ---------------- constructor -------------------------------
 
-    public TaggedValueFacadeLogicImpl (org.omg.uml.foundation.core.TaggedValue metaObject, String context)
+    public TaggedValueFacadeLogicImpl(
+        org.omg.uml.foundation.core.TaggedValue metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.core.metadecorators.uml14.ModelElement#getName()
      */
-    public String getName() 
+    public String getName()
     {
         String name = super.getName();
-        if (StringUtils.isEmpty(name)) 
+        if (StringUtils.isEmpty(name))
         {
             TagDefinition type = this.metaObject.getType();
-            if (type != null) 
+            if (type != null)
             {
                 name = type.getName();
                 // sometimes it is the TagType
-                if (StringUtils.isEmpty(name)) 
+                if (StringUtils.isEmpty(name))
                 {
                     name = type.getTagType();
                 }
@@ -62,7 +60,7 @@ public class TaggedValueFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.TaggedValueFacade#getValue()
      */
-    public java.lang.Object handleGetValue() 
+    public java.lang.Object handleGetValue()
     {
         Collection values = getValues();
         return (values.isEmpty()) ? null : values.iterator().next();
@@ -83,5 +81,5 @@ public class TaggedValueFacadeLogicImpl
             return null;
         }
     }
-    
+
 }

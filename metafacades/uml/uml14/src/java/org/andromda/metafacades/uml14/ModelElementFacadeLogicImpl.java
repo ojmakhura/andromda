@@ -17,6 +17,7 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
+import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Comment;
 import org.omg.uml.foundation.core.Dependency;
@@ -24,7 +25,6 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.UmlPackage;
-import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 
 /**
  * Metaclass facade implementation.
@@ -352,8 +352,8 @@ public class ModelElementFacadeLogicImpl
         }
         if (lineLength < 0)
         {
-            documentation = new StringBuffer(StringUtils.trimToEmpty(documentation.toString())
-                .replaceAll("[$\\s]+", " "));
+            documentation = new StringBuffer(StringUtils.trimToEmpty(
+                documentation.toString()).replaceAll("[$\\s]+", " "));
         }
         return documentation.toString();
     }
@@ -615,10 +615,12 @@ public class ModelElementFacadeLogicImpl
     {
         ActivityGraph graphContext = null;
 
-        Collection graphs = UMLMetafacadeUtils.getModel().getActivityGraphs().getActivityGraph().refAllOfType();
-        for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext();)
+        Collection graphs = UMLMetafacadeUtils.getModel().getActivityGraphs()
+            .getActivityGraph().refAllOfType();
+        for (Iterator graphIterator = graphs.iterator(); graphIterator
+            .hasNext();)
         {
-            ActivityGraph graph = (ActivityGraph) graphIterator.next();
+            ActivityGraph graph = (ActivityGraph)graphIterator.next();
             ModelElement contextElement = graph.getContext();
             if (metaObject.equals(contextElement))
             {

@@ -179,7 +179,6 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * 
      * @see org.andromda.metafacades.uml.OperationFacadeLogic#getParameters()
      */
     protected Collection handleGetParameters()
@@ -188,7 +187,8 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacadeLogic#findTaggedValue(java.lang.String, boolean)
+     * @see org.andromda.metafacades.uml.OperationFacadeLogic#findTaggedValue(java.lang.String,
+     *      boolean)
      */
     public Object handleFindTaggedValue(String name, boolean follow)
     {
@@ -359,17 +359,23 @@ public class OperationFacadeLogicImpl
     {
         return this.getSignature(true, argumentModifier);
     }
-    
-    private String getSignature(boolean withArgumentNames, String argumentModifier)
+
+    private String getSignature(
+        boolean withArgumentNames,
+        String argumentModifier)
     {
         StringBuffer signature = new StringBuffer(this.getName());
         signature.append("(");
-        signature.append(this.getTypedArgumentList(withArgumentNames, argumentModifier));
+        signature.append(this.getTypedArgumentList(
+            withArgumentNames,
+            argumentModifier));
         signature.append(")");
         return signature.toString();
     }
-    
-    private String getTypedArgumentList(boolean withArgumentNames, String modifier)
+
+    private String getTypedArgumentList(
+        boolean withArgumentNames,
+        String modifier)
     {
         StringBuffer sb = new StringBuffer();
         Iterator it = metaObject.getParameter().iterator();
