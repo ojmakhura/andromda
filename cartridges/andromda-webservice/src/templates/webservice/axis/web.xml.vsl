@@ -92,11 +92,13 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+#end
+#end
+#if ($securityEnabled)
     <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>$securityRealm</realm-name>
     </login-config>
-#end
 #end
 #set ($allRoles = $webServiceUtils.getAllRoles($services))
 #foreach ($role in $allRoles)
