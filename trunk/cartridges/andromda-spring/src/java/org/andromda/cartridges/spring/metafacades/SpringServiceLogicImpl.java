@@ -43,7 +43,7 @@ public class SpringServiceLogicImpl
         jndiName.append(this.getFullyQualifiedName());
         return jndiName.toString();
     }
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbImplementationName()
      */
@@ -211,4 +211,34 @@ public class SpringServiceLogicImpl
             }
         };
     }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getDefaultExceptionName()
+     */
+    protected String handleGetDefaultExceptionName()
+    {
+        String name = StringUtils.trimToEmpty(String.valueOf(this
+            .getConfiguredProperty("defaultServiceExceptionNamePattern")));
+        return name.replaceAll("\\{0\\}", this.getName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedDefaultExceptionName()
+     */
+    protected String handleGetFullyQualifiedDefaultExceptionName()
+    {
+        return this.getPackageName() + '.' + this.getDefaultExceptionName();
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#handleIsAllowDefaultServiceException()
+     */
+    protected boolean handleIsAllowDefaultServiceException()
+    {
+        return Boolean.valueOf(
+            String.valueOf(this
+                .getConfiguredProperty("defaultServiceExceptions")))
+            .booleanValue();
+    }
+
 }

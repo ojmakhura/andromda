@@ -274,6 +274,31 @@
                         No, default is <code>handle</code>.
                     </td>
                 </tr>  
+                <tr>
+                    <td>
+                        defaultServiceExceptions
+                    </td>
+                    <td>
+                        Whether or not to generate a default exception for each service.  This exception
+                        will handle unexpected exceptions occuring within the implemented operations.
+                    </td>
+                    <td>
+                        No, default is <code>true</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        defaultServiceExceptionNamePattern
+                    </td>
+                    <td>
+                        The pattern to use when constructing the default service exception name. 
+                        <strong>NOTE:</strong> This propety is only applicable when defaultServiceExceptions
+                        is <code>true</code>.
+                    </td>
+                    <td>
+                        No, default is <code>{0}Exception</code>
+                    </td>
+                </tr>
 			</table>
             <subsection name="Hibernate Specific Properties">
                 <table>

@@ -81,12 +81,36 @@ public abstract class $service.baseName
         }
 #end
 #end
+#set($callIndention = "        ")
+#if ($service.allowDefaultServiceException || $operation.exceptionsPresent)
+#set($callIndention = "${callIndention}    ")
+        try
+        {
+#end
 #set ($call = "this.${operation.implementationCall};")
 #if ($operation.returnTypePresent)
-        return $call
+${callIndention}return $call
 #else
-        $call
+${callIndention}$call
 #end 
+#foreach($exception in $operation.exceptions)
+        }
+        catch ($exception.fullyQualifiedName ex)
+        {
+            throw ex;
+#if (!$service.allowDefaultServiceException)           
+        }
+#end
+#end
+#if ($service.allowDefaultServiceException)
+        }
+        catch (Throwable th)
+        {
+            throw new ${service.fullyQualifiedDefaultExceptionName}(
+                "Error performing '${service.fullyQualifiedName}.${operation.signature}'", 
+                th);
+        }
+#end
     }
     
      /**

@@ -138,6 +138,18 @@
             </modelElement> 
 		</modelElements>
 	</template>
+    
+	<template 
+		path="templates/spring/DefaultServiceException.vsl" 
+		outputPattern="$generatedFile" 
+		outlet="services" 
+		overwrite="true">
+		<modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement> 
+		</modelElements>
+	</template>
 		
 	<template 
 		path="templates/spring/SpringDao.vsl" 
