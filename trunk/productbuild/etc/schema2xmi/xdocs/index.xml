@@ -92,12 +92,12 @@ Options:
     <arg value="org::andromda::sample"/>
     <arg value="-C"/>
     <arg value="entity,persistent"/>
-    <ant:arg value="-I"/>
-    <ant:arg value="identifier"/>
-    <ant:arg value="-V"/>
-    <ant:arg value="@persistence.table"/>
-    <ant:arg value="-v"/>
-    <ant:arg value="@persistence.column"/>
+    <ant value="-I"/>
+    <arg value="identifier"/>
+    <arg value="-V"/>
+    <arg value="@persistence.table"/>
+    <arg value="-v"/>
+    <arg value="@persistence.column"/>
 </java>
 ]]></source>
 		</subsection>
