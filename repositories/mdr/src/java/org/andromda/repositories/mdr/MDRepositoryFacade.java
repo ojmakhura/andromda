@@ -53,10 +53,16 @@ public class MDRepositoryFacade implements RepositoryFacade
      */
     public MDRepositoryFacade()
     {
+        String metamodelUri = "/M2_DiagramInterchangeModel.xml";
         // the default metamodel is now UML 1.4 plus UML 2.0 diagram extensions
         metaModelURL =
-            MDRepositoryFacade.class.getResource("/M2_DiagramInterchangeModel.xml");
+            MDRepositoryFacade.class.getResource(metamodelUri);
 
+        if (metaModelURL == null) {
+            throw new RepositoryFacadeException("Could not find meta model --> ' " 
+                + metamodelUri + "'");   
+        }
+        
         modelURL = null;
         model = null;
     }
