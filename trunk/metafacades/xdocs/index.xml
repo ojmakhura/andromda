@@ -81,19 +81,19 @@
                 extends the class <code>UMLClass</code>? Just like this:
             </p> 
 <source>
-    public class EntityClass extends UMLClass {
-        public void validate() throws ... {
-            // throw exception here if PrimaryKey not found...
-        }
+public class EntityClass extends UMLClass {
+    public void validate() throws ... {
+        // throw exception here if PrimaryKey not found...
     }
+}
 </source>
                 <p>Another example:</p>
 <source>
-    public class SpecialAttribute extends Attribute {
-        public String getGetterName() {
-            return "get" + uppercaseFirstLetter(getName());
-        }
+public class SpecialAttribute extends Attribute {
+    public String getGetterName() {
+        return "get" + uppercaseFirstLetter(getName());
     }
+}
 </source>
             <p> 
                 We could then use the class <code>SpecialAttribute</code> 
@@ -188,8 +188,84 @@
                 For a class with attributes <code>a</code>
                 and <code>b</code>, the method returns <code>"(a, b)"</code>.
             </p>
+        </section>
+
+        <section name="Using metafacades from a template">
             <p>
-                To be continued...
+                Now, how would a template look like that uses these
+                metafacades? Let's have a look at a template from the EJB
+                cartridge which generates an entity bean. There is a section
+                in the template that generates business methods into the
+                bean class - I omit a lot of complexity here and reduce it
+                to the essence of method generation:
+            </p>
+<source>            
+#foreach ( $op in $class.operations)
+#set ($msig = $op.signature)
+#set ($visibility = $op.visibility.toString())
+#set ($returntype = $op.returnType.fullyQualifiedName)
+#if ($op.hasExceptions())
+    $visibility abstract $returntype ${msig}
+        throws $op.exceptionList;
+#else
+    $visibility abstract $returntype ${msig};
+#end
+</source>
+            <p>
+                In this template code sample, you can see that the variable <code>$op</code>
+                iterates over a collection called <code>$class.operations</code>. When the
+                template engine processes the <code>foreach</code> statement, it calls the
+                <code>ClassifierFacade.getOperations()</code> method which corresponds
+                directly to the aggregation <code>operations</code> that you see in the
+                UML diagram above. So, <code>$op</code> is now of type
+                <code>OperationFacade</code>.
+            </p>
+            <p>
+                The next expression that the template engine evaluates is
+                <code>$op.signature</code>. This invokes the method
+                <code>OperationFacade.getSignature()</code>. The facade for
+                operations contains quite a bit of code inside this method
+                as it collects all parameters of the operation, extracts
+                their type and their name and concatenates them, using
+                comma as a separator.
+            </p>
+            <p>
+                Last example: The most interesting statement in the code snippet
+                above is:
+            </p>
+<source>            
+#set ($returntype = $op.returnType.fullyQualifiedName)
+</source>
+            <p>
+                This template engine invokes two methods, here:
+                <code>OperationFacade.getReturnType()</code> and
+                <code>ClassifierFacade.getFullyQualifiedName()</code>. Plain,
+                clear and simple, right? Well, it's really simple except that
+                the description in this paragraph contains a few simplifying lies :-)
+                but continue to read and you will see what I mean...                
+            </p>
+        </section>
+
+        <section name="Where to go from here">
+            <p>
+                If you followed the text until here, you will want to
+                write metafacades for your own cartridge. In that case, 
+                you will most likely have (at least) these questions in mind: 
+            </p>
+            <ul>
+                <li>How do I create a metafacade class?</li>
+                <li>Where do I put it in the source code tree?</li>
+                <li>How do I make AndroMDA instantiate it at the right time?</li>
+                <li>Do I have to rewrite my metafacades each time I use a different
+                    version of UML?</li>
+            </ul>
+            <p>
+                OK, I admit that only smart people will have the last question
+                in mind but I guess you're smart, right? So, please read the
+                next chapters <a href="developing.html">Developing metafacades</a>
+                to see how to create them and
+                <a href="configuring.html">Configuring metafacades</a>
+                to make AndroMDA use them at the right time.
             </p>
         </section>
 
