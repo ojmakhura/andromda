@@ -8,6 +8,8 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.0-RC2-SNAPSHOT" date="2005-03-28" description="Second release candidate for version 3.0">
+        </release>
         <release version="3.0-RC1" date="2005-03-27" description="First release candidate for version 3.0">
             <action dev="draftdog" type="add" issue="HIB-81">
                 The Hibernate cartridge now generates readable foreign key constraint names where possible. This

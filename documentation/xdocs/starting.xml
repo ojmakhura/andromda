@@ -245,7 +245,7 @@
                 Open up a console and type the following at the command prompt (the version property at the end of that
                 line may vary depending on the version you wish to use, the SNAPSHOT suffix denotes it is a
                 nightly-build, stable releases could be: <code>3.0M1, 3.0M2, 3.0M3 or 3.0</code>, at the time of
-                this writing <code>3.0-RC1</code> was the most recent release (meaning the first release candidate
+                this writing <code>3.0-RC2-SNAPSHOT</code> was the most recent release (meaning the first release candidate
                 of AndroMDA 3 was/is still under development).
             </p>
             <p>
@@ -255,7 +255,7 @@
                 <a href="maven-andromdapp-plugin/index.html">here</a>.
             </p>
             <p>
-                <code>maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.0-RC1</code>
+                <code>maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.0-RC2-SNAPSHOT</code>
             </p>
             <pre class="console">
 
@@ -293,9 +293,9 @@ build:start:
 plugin:download-artifact:
     [mkdir] Created dir: C:\Documents and Settings\foo\.maven\repository\andromda\plugins
     [echo] repo is 'http://www.ibiblio.org/maven'
-    [echo] trying to download http://www.ibiblio.org/maven/andromda/plugins/maven-andromdapp-plugin-3.0-RC1.jar
+    [echo] trying to download http://www.ibiblio.org/maven/andromda/plugins/maven-andromdapp-plugin-3.0-RC2-SNAPSHOT.jar
     [echo] repo is 'http://team.andromda.org/maven'
-    [echo] trying to download http://team.andromda.org/maven/andromda/plugins/maven-andromdapp-plugin-3.0-RC1.jar
+    [echo] trying to download http://team.andromda.org/maven/andromda/plugins/maven-andromdapp-plugin-3.0-RC2-SNAPSHOT.jar
 40K downloaded
 
 plugin:download:
