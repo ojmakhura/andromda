@@ -53,13 +53,6 @@
 #end
 #end
 ## 
-## Find the default exception class
-#foreach ( $dep in $class.dependencies )
-#set ($class2 = $dep.targetElement)
-#if ($dep.hasStereotype("Exception"))
-#set ($defaultException = $class2)
-#end
-#end
 ##
 ## Set the "$beanparentclass" property.
 #set ($superclass = $class.generalization)

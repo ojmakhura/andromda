@@ -18,9 +18,6 @@ import ${targetType.fullyQualifiedName}Home;
 #end
 #end
 #end
-#if ($dep.hasStereotype("Exception"))
-#set ($defaultException = $targetType)
-#end
 #end
 ##
 #if ($class.attributes.size() > 0)
@@ -111,9 +108,9 @@ $att.getDocumentation("     * ")
 #set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
 #end
 
-#if ($defaultException)
+#if ($op.hasExceptions())
     protected abstract $op.type.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
-        throws $defaultException.name;
+        throws $op.exceptionList;
 #else
     protected abstract $op.type.fullyQualifiedName handle${str.upperCaseFirstLetter(${op.name})} ($parameters);
 #end
@@ -124,9 +121,9 @@ $op.getDocumentation("     * ")
      * @ejb.interface-method view-type="both"
      * @ejb.transaction type="Required"
      */
-#if ($defaultException)
+#if ($op.hasExceptions())
     $op.visibility $op.type.fullyQualifiedName $msig
-        throws $defaultException.name
+        throws $op.exceptionList
 #else
     $op.visibility $op.type.fullyQualifiedName $msig
 #end
@@ -152,8 +149,8 @@ $op.getDocumentation("     * ")
             handle${str.upperCaseFirstLetter($op.name)}($parameters);
 #end
         }
-#if ($defaultException)
-        catch ($defaultException.name e)
+#foreach ( $exception in $op.exceptions )
+        catch ($exception.fullyQualifiedName e)
         {
            _ctx.setRollbackOnly();
            throw e;

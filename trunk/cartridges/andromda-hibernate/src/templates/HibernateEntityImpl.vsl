@@ -23,8 +23,8 @@ public class ${class.name}Impl
 #if (!$op.hasStereotype("FinderMethod"))
 #set ($msig = $op.signature)
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($defaultException)
-#set ($throws = " throws $defaultException.name")
+#if ($op.hasException())
+#set ($throws = " throws $op.exceptionList")
 #else
 #set ($throws = "")
 #end

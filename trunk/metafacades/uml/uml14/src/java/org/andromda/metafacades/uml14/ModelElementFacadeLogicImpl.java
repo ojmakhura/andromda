@@ -8,8 +8,11 @@ import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.HTMLParagraph;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.Abstraction;
@@ -37,25 +40,16 @@ public class ModelElementFacadeLogicImpl
         super (metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class ModelElementFacade ...
-
-    // ------------- relations ------------------
-
     /**
-     *
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetTaggedValues()
      */
     public java.util.Collection handleGetTaggedValues()
     {
         return metaObject.getTaggedValue();
     }
 
-    // ------------------------------------------------------------
-
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#getPackageName()
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
     public String getPackageName()
     {
@@ -75,8 +69,8 @@ public class ModelElementFacadeLogicImpl
         return packageName;
     }
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#getFullyQualifiedName(boolean)
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName(boolean)
      */
     public java.lang.String getFullyQualifiedName(boolean modelName) 
     {
@@ -101,16 +95,16 @@ public class ModelElementFacadeLogicImpl
         return fullName;
     }   
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#getFullyQualifiedName()
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
     public java.lang.String getFullyQualifiedName() 
     {
         return this.getFullyQualifiedName(false);
     }   
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#findTaggedValue(java.lang.String)
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(java.lang.String)
      */
     public String findTaggedValue(String name)
     {
@@ -133,18 +127,55 @@ public class ModelElementFacadeLogicImpl
         return value;
     }
 
-    /* (non-Javadoc)
-    * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#hasStereotype(String)
-    */
-    public boolean hasStereotype(String stereotypeName)
+    /**
+     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#hasStereotype(String)
+     */
+    public boolean hasStereotype(final String stereotypeName)
     {
-        return this.getStereotypeNames().contains(
-            StringUtils.trimToEmpty(stereotypeName));
-    }
-    // -------------------- business methods ----------------------
+        Collection stereotypes = this.getStereotypes();
 
-    /* (non-Javadoc)
-     * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#getVisibility()
+        boolean hasStereotype = 
+            StringUtils.isNotBlank(stereotypeName) &&
+            stereotypes != null && 
+            !stereotypes.isEmpty();
+
+        if (hasStereotype) 
+        {
+            class StereotypeFilter implements Predicate 
+            {
+                public boolean evaluate(Object object) 
+                {
+                    boolean valid = false;
+                    StereotypeFacade stereotype = (StereotypeFacade)object;
+                    String name = StringUtils.trimToEmpty(stereotype.getName());
+                    valid = stereotypeName.equals(name);
+                    while (!valid && stereotype != null) 
+                    {
+                        stereotype = 
+                            (StereotypeFacade)stereotype.getGeneralization();
+                        valid = stereotype != null && 
+                            StringUtils.trimToEmpty(stereotype.getName()).equals(stereotypeName);
+                    }
+                    return valid;
+                }
+            }
+            hasStereotype = CollectionUtils.find(
+                this.getStereotypes(), 
+                new StereotypeFilter()) != null;
+        }
+        return hasStereotype;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#hasExactStereotype(java.lang.String)
+     */
+    public boolean hasExactStereotype(String stereotypeName) {
+        return this.getStereotypeNames().contains(
+                StringUtils.trimToEmpty(stereotypeName));        
+    }
+   
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getVisibility()
      */
     public String getVisibility()
     {
@@ -177,22 +208,35 @@ public class ModelElementFacadeLogicImpl
         return stereotypeNames;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackagePath()
+     */
     public String getPackagePath()
     {
         return '/' + getPackageName().replace('.','/');
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String)
+     */
     public String getDocumentation(String indent)
     {
         return getDocumentation(indent, 64);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int)
+     */
     public String getDocumentation(String indent, int lineLength)
     {
         return getDocumentation(indent, lineLength, true);
     }
 
-    // todo : the lineLength does not work yet
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
+     * 
+     * TODO: the lineLength does not work yet
+     */
     public String getDocumentation(String indent, int lineLength, boolean htmlStyle)
     {
         if (StringUtils.isEmpty(indent)) {
@@ -252,7 +296,7 @@ public class ModelElementFacadeLogicImpl
         return documentation.toString();
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#getName()
      */
     public String getName()
@@ -260,7 +304,7 @@ public class ModelElementFacadeLogicImpl
         return metaObject.getName();
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#getMetaObject()
      */
     public ModelElement getMetaObject()
@@ -294,15 +338,13 @@ public class ModelElementFacadeLogicImpl
     }
     
     /**
-     * Gets the language mappings that have been
-     * set for this model elemnt.
-     * @return the Mappings instance.
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
     public Mappings getLanguageMappings() {
         return (Mappings)this.getConfiguredProperty(LANGUAGE_MAPPINGS_URI);
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.andromda.core.metadecorators.uml14.ModelElementFacade#handleGetPackage()
      */
     protected Object handleGetPackage()
@@ -324,7 +366,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetDependencies()
      */
-    public java.util.Collection handleGetDependencies()
+    protected java.util.Collection handleGetDependencies()
 	{
     	return new FilteredCollection(metaObject.getClientDependency())
 		{
@@ -335,12 +377,25 @@ public class ModelElementFacadeLogicImpl
 			}
 		};
 	}
+    
+    /**
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetStereotypes()
+     */
+    protected java.util.Collection handleGetStereotypes() {
+    	return this.metaObject.getStereotype();
+    }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetNameSpace()
+     */
     protected Object handleGetNameSpace()
     {
         return metaObject.getNamespace();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetModel()
+     */
     protected Object handleGetModel()
     {
         return MetafacadeFactory.getInstance().getModel().getModel();

@@ -26,10 +26,6 @@ public class ${servicename}BeanImpl extends ${servicename}Bean
 #set ($returntype = $op.type.fullyQualifiedName)
 #set ($msig = $op.signature)
 #set ($visibility = $op.visibility)
-#set ($exceptions = $op.findTaggedValue("@andromda.java.throws"))
-#if (!$exceptions)
-#set ($exceptions = $defaultException.fullyQualifiedName)
-#end
 ## Public static methods are exposed on the home 
 ## interface instead of the component interface and must
 ## be prepended with "ejbHome"
@@ -39,9 +35,9 @@ public class ${servicename}BeanImpl extends ${servicename}Bean
     /**
 $op.getDocumentation("     * ")
      */
-#if ($exceptions)
+#if ($op.hasExceptions())
     $visibility $returntype ${msig}
-        throws $exceptions {
+        throws $op.exceptionList {
 #else
     $visibility $returntype ${msig} {
 #end

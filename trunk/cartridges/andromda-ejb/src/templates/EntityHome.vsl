@@ -67,8 +67,8 @@ $constant.getDocumentation("     * ")
 $op.getDocumentation("    * ")
     */
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($defaultException)
-    public $returntype ${msig} throws $defaultException.name;
+#if ($op.hasExceptions())
+    public $returntype ${msig} throws $op.exceptionList;
 #else
     $visibility $returntype ${msig};
 #end

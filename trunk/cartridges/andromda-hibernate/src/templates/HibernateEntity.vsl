@@ -6,13 +6,6 @@ package $class.packageName;
 #set ($superclass = $class.generalization)
 #set ($primKey = $class.identifiers().iterator().next())
 #set ($primKeyTypeName = $primKey.type.fullyQualifiedName)
-##
-#foreach ( $dep in $class.dependencies )
-    #set ($class2 = $dep.targetElement)
-    #if ($dep.hasStereotype("Exception"))
-        #set ($defaultException = $class2)
-    #end
-#end
 
 /**
 $class.getDocumentation(" * ")
@@ -169,9 +162,9 @@ $op.getDocumentation("    * ")
     */
 #set ($msig = $op.signature)
 #set ($returntype = $op.type.fullyQualifiedName)
-#if ($defaultException)
+#if ($op.hasExceptions())
     $op.visibility abstract $returntype ${msig}
-        throws $defaultException.name;
+        throws $op.exceptionList;
 #else
     $op.visibility abstract $returntype ${msig};
 #end
