@@ -46,7 +46,6 @@ insert into $table.tableName (#columnNames($columns)) values (#dummyLoadValues($
 ##
 #foreach ($tableEntry in $tableMap.entrySet())
 #set ($table = $tableEntry.key)
-#set ($insertAll = $tableEntry.value)
 #if ($table.enumeration==false && $tableEntry.value)
 #set ($columns = $tableEntry.value)
 #if ($columns.size() > 0 && $table.dummyLoadSize > 0)
