@@ -6,23 +6,17 @@
   	</properties>
   	<body>
     	<section name="Java Cartridge Namespace Properties">
+            <p>
+                In addition to the applicable
+                <a href="../andromda-metafacades-uml/namespace.html">UML Metafacade</a> namespace
+                properties which may also be used, this page describes 
+                namespace properties specific to this cartridge only.
+            </p>
 	      	<table>
 	        	<tr>
 		          	<th>Property</th>         	
 		          	<th>Description</th>       	
 		          	<th>Required?</th>	   	 
-	        	</tr>
-	        	<tr>
-		          	<td>
-		          		languageMappingsUri
-		          	</td>
-		          	<td>
-		          		URI specifying the specific mappings from model types to language types. 
-		          		(i.e. <code>file:${basedir}/JavaMappings.xml</code>)
-		          	</td>
-		          	<td>
-		          		Yes
-		          	</td>		          	
 	        	</tr>	
 	        	<tr>
 		          	<td>
