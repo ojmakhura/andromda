@@ -102,22 +102,6 @@
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
     </bean>
 
-#if (!$ejbsEnabled && !$entities.empty)
-    <!-- Entity Transactional Interceptor -->
-    <bean id="entityTransactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
-        <property name="transactionManager"><ref local="transactionManager"/></property>
-        <property name="transactionAttributeSource">
-            <value>
-#foreach($entity in $entities)
-#if (!$entity.abstract)
-                ${entity.fullyQualifiedDaoName}.*=PROPAGATION_REQUIRED
-#end
-#end
-            </value>
-        </property>
-    </bean>
-#end
-
 #end
 #foreach($entity in $entities)
      <!-- $entity.name Entity Proxy -->
@@ -128,9 +112,6 @@
          </property>
          <property name="interceptorNames">
              <list>
-#if (!$ejbsEnabled)
-                 <value>entityTransactionInterceptor</value>
-#end
                  <value>hibernateInterceptor</value>
              </list>
          </property>
