@@ -76,7 +76,7 @@ public class OperationDeclarationImpl
         toString.append(")");
         if (StringUtils.isNotEmpty(this.getReturnType()))
         {
-            toString.append(":");
+            toString.append("::");
             toString.append(this.getReturnType());
         }
         return toString.toString();
