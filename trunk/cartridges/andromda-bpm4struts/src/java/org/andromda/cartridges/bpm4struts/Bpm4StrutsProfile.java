@@ -54,6 +54,8 @@ public class Bpm4StrutsProfile
     public static final boolean TAGGED_VALUE_TABLE_SORTABLE_DEFAULT_VALUE = true;
     public static final boolean TAGGED_VALUE_TABLE_EXPORTABLE_DEFAULT_VALUE = true;
 
+    public static final String TAGGED_VALUE_HYPERLINK = "hyperlinkModel";
+
     /* --------------- Runtime properties ---------------- */
     public static final boolean ENABLE_CACHE = true;
 
