@@ -10,7 +10,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * <p>
  * This class implements the <code>&lt;resource&gt;</code> tag in a cartridge
- * descriptor file and represents the base cartridge resoure element.
+ * descriptor file and represents the base cartridge resource element.
  * </p>
  * 
  * @author Chad Brandon
