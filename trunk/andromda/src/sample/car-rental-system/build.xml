@@ -20,6 +20,7 @@
     <property name="src.app.dir"             value="src/app" />
     <property name="src.common.dir"          value="src/common" />
     <property name="src.ejb.dir"             value="src/ejb" />
+    <property name="src.hibernate.dir"       value="src/hibernate" />
     <property name="src.web.dir"             value="src/web" />
     <property name="src.servlet.dir"         value="${src.web.dir}/servlet" />
     <property name="src.webpages.dir"        value="${src.web.dir}/pages" />
@@ -29,6 +30,9 @@
     <!-- Output directories for generators -->
     <property name="andromda.ejb.bean.dir"    value="${src.ejb.dir}/generated" />
     <property name="andromda.ejb.impl.dir"    value="${src.ejb.dir}/manual" />
+
+    <property name="andromda.hibernate.pojo.dir"  value="${src.hibernate.dir}/generated" />
+    <property name="andromda.hibernate.impl.dir"  value="${src.hibernate.dir}/manual" />
 
     <property name="andromda.web.action.dir"  value="${src.servlet.dir}/manual" />
     <property name="andromda.web.form.dir"    value="${src.servlet.dir}/generated" />
@@ -47,10 +51,12 @@
         <mkdir dir="build"/>
         <mkdir dir="build/earstage"/>
         <mkdir dir="build/ejbstage"/>
+        <mkdir dir="build/hibernatestage"/>
         <mkdir dir="build/webstage/WEB-INF/classes"/>
         <mkdir dir="build/webstage/WEB-INF/lib/tlds"/>
 
         <mkdir dir="${src.ejb.dir}/generated"/>
+        <mkdir dir="${src.hibernate.dir}/generated"/>
         <mkdir dir="${src.servlet.dir}/generated"/>
         <mkdir dir="${src.webconfig.dir}/generated"/>
         <mkdir dir="${andromda.fantasy.dir}"/>
@@ -63,6 +69,7 @@
             <fileset dir="dist"/>
             <fileset dir="build"/>
             <fileset dir="${src.ejb.dir}/generated"/>
+            <fileset dir="${src.hibernate.dir}/generated"/>
             <fileset dir="${src.servlet.dir}/generated"/>
             <fileset dir="${src.webconfig.dir}/generated"/>
             <fileset dir="${andromda.fantasy.dir}"/>
@@ -105,17 +112,39 @@
             <userProperty name="foreignKeySuffix" value="_FK" />
             <userProperty name="testProperty" value="The quick brown fox" />
 
-            <outlet cartridge="ejb"    outlet="beans"   dir="${andromda.ejb.bean.dir}" />
-            <outlet cartridge="ejb"    outlet="impls"   dir="${andromda.ejb.impl.dir}" />
+            <outlet cartridge="ejb"       outlet="beans"   dir="${andromda.ejb.bean.dir}" />
+            <outlet cartridge="ejb"       outlet="impls"   dir="${andromda.ejb.impl.dir}" />
 
-            <outlet cartridge="struts" outlet="forms"   dir="${andromda.web.form.dir}" />
-            <outlet cartridge="struts" outlet="actions" dir="${andromda.web.action.dir}" />
-            <outlet cartridge="struts" outlet="pages"   dir="${andromda.web.page.dir}" />
-            <outlet cartridge="struts" outlet="config"  dir="${src.webconfig.dir}/generated" />
+            <outlet cartridge="hibernate" outlet="pojos"   dir="${andromda.hibernate.pojo.dir}" />
+            <outlet cartridge="hibernate" outlet="impls"   dir="${andromda.hibernate.impl.dir}" />
+
+            <outlet cartridge="struts"    outlet="forms"   dir="${andromda.web.form.dir}" />
+            <outlet cartridge="struts"    outlet="actions" dir="${andromda.web.action.dir}" />
+            <outlet cartridge="struts"    outlet="pages"   dir="${andromda.web.page.dir}" />
+            <outlet cartridge="struts"    outlet="config"  dir="${src.webconfig.dir}/generated" />
 
         </andromda>
     </target>
 
+    <target name="genhibernate" depends="init">
+        <delete>
+            <fileset dir="build/hibernatestage" includes="**/*.hbm.xml"/>
+        </delete>
+
+        <taskdef
+            name="hibernatedoclet"
+            classname="xdoclet.modules.hibernate.HibernateDocletTask"
+            classpathref="build.class.path"
+        />
+
+        <hibernatedoclet destdir="build/hibernatestage">
+            <fileset dir="${andromda.hibernate.pojo.dir}">
+                <include name="**/*.java" />
+            </fileset>
+
+            <hibernate />
+        </hibernatedoclet>
+    </target>
 
     <!-- Let XDoclet generate all remaining EJB sources from the beans -->
     <target name="genejb" depends="init,genjava">
@@ -127,7 +156,7 @@
         <ejbdoclet destdir="${ejbdoclet.output.dir}"
                    ejbspec="2.0"
                    force="false">
-                   
+
             <fileset dir="${andromda.ejb.bean.dir}">
                 <include name="**/*Bean.java" />
             </fileset>
@@ -215,7 +244,7 @@
             <fileset dir="${andromda.home}lib/" includes="struts.jar"/>
         </copy>
         <copy todir="build/webstage/WEB-INF/lib/tlds/">
-            <fileset dir="${strutscartridge.home}/lib/tld/" includes="struts*.tld"/>
+            <fileset dir="${struts-cartridge.home}/lib/tld/" includes="struts*.tld"/>
         </copy>
     </target>
 
