@@ -49,14 +49,7 @@
             in these steps:
             <ul>
               <li class="news">
-                The first step 
-                takes the XMI-formatted output file of the CASE tool
-                and converts it into a format that is easily readable
-                by the AndroMDA Ant task. This format is also XML-based
-                - I call it "SimpleOO".
-              </li>
-              <li class="news">
-                Next, the Ant task reads the SimpleOO model and creates an
+                The Ant task reads the UML model in XMI format and creates an
                 in-memory object model from it that contains the packages, classes,
                 attributes, methods and relationships.
               </li>
@@ -65,13 +58,14 @@
                 engine and processes templates for entity beans,
                 session beans and their implementation classes, 
                 all based on the object model that it created from the
-                transformed CASE tool output.
+                transformed CASE tool output. It shields the complexity
+                of the UML metamodel by a script helper facade.
                 As a result, several Java files are written, the
                 most important of which are called *Bean.java,
                 containing the bean classes.
               </li>
               <li class="news">
-                Now, the Ant script calls the EJBDoclet task which is
+                Now, the Ant script calls the &lt;ejbDoclet&gt; task which is
                 contained in XDoclet. This task reads all the bean classes
                 and generates the bean's interfaces and deployment
                 descriptor elements.
