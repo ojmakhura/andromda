@@ -7,7 +7,14 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2004-12-28" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2004-12-30" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="update">
+                The andromda-profile-XXX.xml.zip has been updated to restrict the values you can assign
+                to a tagged-value, enumerations have been used instead of plain String types.
+                Unfortunately most UML tools will not support this feature, Poseidon included; the reason
+                the fact that tagged-value references are not implemented. MagicDraw, however, has an
+                impeccable support and you'll find it even easier to model than before.
+            </action>
             <action dev="draftdog" type="add">
                 Added a compatibility list of UML tools that have been tested, courtesy of
                 <a href="http://www.daniel-s-haischt.biz/">Daniel S. Haischt</a>. This list has been added
