@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.mapping.Mappings;
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.AssociationEnd;
@@ -60,6 +61,11 @@ public class AssociationEndFacadeLogicImpl
             ClassifierFacade type = this.getType();
             name = StringUtils.uncapitalize(StringUtils.trimToEmpty(type
                 .getName()));
+            // if multiplicity > 1 try to adapt name too
+            if (isMany())
+            {
+                name = StringUtilsHelper.multiply(name);
+            }
         }
         return name;
     }
