@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="carloslcuenca@users.sourceforge.net">Carlos Cuenca</author>
+        <title>AndroMDA - Hibernate - HowTo - Second Level Cache</title>
+    </properties>
+
+    <body>
+        <section name="Hibernate Cartridge Second Level Cache">
+            <subsection name="Hibernate Cartridge Second Level Cache">
+	            <p class="std">
+	            Hibernate uses two different cache for objects. The fist level cache, and the second level cache.
+	            </p>
+	            <p class="std">
+	            The first level cache is associated with the Session object, while the second level cache is associated with 
+	            the hibernate SessionFactory object.
+	            </p>
+	            <p class="std">Currently, the cartridge architecture creates one Session object from the SessionFactory object for each method that is called at 
+	            the EJB?s Services. This means that cache will be only used if one method is accessing the same object in the same method call. 
+	            This can be improved activating the second level cache features that Hibernate Provides.
+	            </p>
+	            <p class="std">
+	            To achieve this task, the cartridge includes support for generating the Hibernate descriptor files will all the possible cache settings included in hibernate specification.
+	            </p>
+	            <p class="std">Additionally, each second level cache manager usually needs its own descriptor file with cache settings specification for the manager. 
+	            The cartridge provides a template for creating the EhCache Manager descriptor file. For other managers, this template could be overwritten to 
+	            generate another manager descriptor files.
+	            </p>
+			</subsection>
+			<subsection name="EHCache">
+            <p class="std">
+            Currently Andromda fully supports EhCache to provide the second level cache features to the cartridge. When enabled, the cartridge will create caches on queries, the hibernate descriptor files,
+             and the <code>EhCache.xml</code> file with the specific configuration.
+            </p>
+        </subsection>
+        </section>
+        <section name="Working with Second Level Cache">
+            <subsection name="Setup">
+                <p class="std">
+                    The cache settings provides support for customize the cache configuration. The namespace properties for the cache settings are the following:
+                    <ul>
+                        <li><a href="namespace.html#SecondLevelCache">hibernateCacheProvider</a>: Specifies the cache provider implementation that will be used for caching services. Default value is <code>net.sf.hibernate.cache.EhCacheProvider</code></li>
+                        <li><a href="namespace.html#SecondLevelCache">hibernateQueryCacheFactory</a>: Factory class for the cache queries. Default value is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code></li>
+                    </ul>
+                </p>
+                <p class="highlight">
+                Currently the cartridge only includes the dependencies for working with EhCache
+                </p>
+            </subsection>
+            <subsection name="Activation">
+            <p class="std">
+                To enable cache features on generated files, the following namespace properties should be used.
+                <ul>
+                    <li><a href="namespace.html#SecondLevelCache">hibernateEnableCache</a>: this property activates the features for the cache on the cartridge. When enabled, the hibernate mapping files will be created with the cache settings, and 
+                    the EhCache descriptor file will be created. Also the hibernate configuration file, will set the hibernate.cache.use_query_cache to true.</li>
+                    <li><a href="namespace.html#SecondLevelCache">hibernateEnableAssociationsCache</a>: this property activates the customized cache settings for each association. When enabled, associations end could contain its own specific configuration. 
+                    Default values for not defined properties will be allowed.</li>
+                </ul>
+            </p>                
+            </subsection>
+            <subsection name="Entities">
+            <p class="std">
+            The cartridge provides a default namespace property for each entity cache settings configuration. These properties will be applied as default, 
+            if there is not a specific tagged value on the entity that overrides the value. Namespace properties for entities are:
+            <ul>
+            <li><a href="namespace.html#SecondLevelCache">hibernateEntityCache</a>: The cartridge default settings for this property is "read-write", other posible values are <code>nonstrict-read-write</code> and  <code> read-only</code></li>
+            </ul>
+            This property can be overwrited with corresponding tagged value:
+            <ul>
+            <li><a href="modeling.html#@andromda.hibernate.entity.cache">@andromda.hibernate.entity.cache</a></li>
+            </ul>
+            </p>
+            <h3>EhCache Configuration for Entities</h3>
+            <p class="std">
+            Namespace properties and tagged values are available to customize <a href="http://ehcache.sourceforge.net/documentation/">EhCache Configuration</a>. 
+	        Namespace properties for EhCache configuration are:
+	            <ul>
+	                <li><a href="namespace.html#SecondLevelCache">ehCacheMaxElementsInMemory</a>: Defines the default maximum number of objects that will be created in memory</li>
+	                <li><a href="namespace.html#SecondLevelCache">ehCacheEternal</a>: Defines a default value for the eternal parameter.</li>
+	                <li><a href="namespace.html#SecondLevelCache">ehCacheTimeToIdleSeconds</a>: Defines the default time to idle for an element before it expires.</li>
+	                <li><a href="namespace.html#SecondLevelCache">ehCacheTimeToLiveSeconds</a>: Defines the default time to live for an element before it expires.</li>
+	                <li><a href="namespace.html#SecondLevelCache">ehCacheOverflowToDisk</a>: Defines the default value for the overflow to disk property.</li>
+	            </ul>
+	            The corresponding tagged values to overwrite the default values are:
+	            <ul>
+	            <li><a href="modeling.html#@andromda.hibernate.ehcache.maxElementsInMemory">@andromda.hibernate.ehcache.maxElementsInMemory</a></li>
+	            <li><a href="modeling.html#@andromda.hibernate.ehcache.eternal">@andromda.hibernate.ehcache.eternal</a></li>
+	            <li><a href="modeling.html#@andromda.hibernate.ehcache.timeToIdleSeconds">@andromda.hibernate.ehcache.timeToIdleSeconds</a></li>
+	            <li><a href="modeling.html#@andromda.hibernate.ehcache.timeToLiveSeconds">@andromda.hibernate.ehcache.timeToLiveSeconds</a></li>
+	            <li><a href="modeling.html#@andromda.hibernate.ehcache.overflowToDisk">@andromda.hibernate.ehcache.overflowToDisk</a></li>
+	            </ul>
+            </p>
+            </subsection>
+            <subsection name="Associations">
+            <p class="std">
+                Associations caching configuration can be configured individually. The namespace default property can be overwriten with the tagged value.
+                Namespace property for EhCache configuration is:
+                <ul>
+                    <li><a href="namespace.html#SecondLevelCache">hibernateAssociationCache</a>: The cartridge default settings for this property is "read-write", other posible values are <code>nonstrict-read-write</code> and  <code> read-only</code></li>
+                </ul>
+                Tagged value:
+                <ul>
+                    <li><a href="modeling.html# @andromda.hibernate.association.cache">@andromda.hibernate.association.cache</a></li>
+                </ul>
+            </p>            
+            </subsection>
+            <subsection name="Finder Methods">
+            <p class="std">
+                The cartridge provides default namespace properties for activating the cache on one query.
+                When enabled the generated code will contain an additional <code>query.setCacheable(true)</code>line.
+                Namespace property for finder methods is:
+                <ul>
+                    <li><a href="namespace.html#SecondLevelCache">hibernateUseQueryCache</a>: The cartridge default settings for this property is "read-write", other posible values are <code>nonstrict-read-write</code> and  <code> read-only</code></li>
+                </ul>
+                This default value will be used for all the queries that are not overwritten with the tagged value:
+                <ul>
+                    <li><a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a></li>
+                </ul>                
+            </p>            
+            </subsection>
+        </section>
+    </body>
+</document>
