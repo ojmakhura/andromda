@@ -14,12 +14,12 @@
 ## only generate this stuff if 'daos' has been defined in a namespace
 #if ($daosEnabled)
     <!-- Hibernate SessionFactory -->
-    <bean id="sessionFactory" class="${sessionFactory}">
+    <bean id="sessionFactory" class="$sessionFactory">
         <property name="dataSource"><ref bean="dataSource"/></property>
         <property name="mappingResources">
             <list>
 #foreach($entity in $entities)
-#if ($entity.generalizations.empty)
+#if ($entity.requiresHibernateMapping)
                 <value>${entity.packagePath}/${entity.entityName}.hbm.xml</value>
 #end
 #end

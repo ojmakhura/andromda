@@ -15,6 +15,7 @@
     <property reference="serviceRemoteServer" default="localhost"/>
     <property reference="entityNamePattern" default="{0}"/>
     <property reference="hibernateQueryUseNamedParameters" default="false"/>
+    <property reference="hibernateInheritanceStrategy" default="subclass"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
