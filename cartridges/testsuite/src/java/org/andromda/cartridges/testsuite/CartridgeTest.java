@@ -28,7 +28,7 @@ public class CartridgeTest
 {
 
     private static final Logger logger = Logger.getLogger(CartridgeTest.class);
-    
+
     /**
      * Points to the directory were the expected files are stored which will be
      * compared to the generated ones.
@@ -38,11 +38,11 @@ public class CartridgeTest
     /**
      * Points to the directory were the generated files are located.
      */
-    public static final String OUTPUT_DIRECTORY = "output.dir";
+    public static final String ACTUAL_DIRECTORY = "actual.dir";
 
     private static File expectedDir = getDirectory(EXPECTED_DIRECTORY);
-    private static File outputDir = getDirectory(OUTPUT_DIRECTORY);
-    
+    private static File actualDir = getDirectory(ACTUAL_DIRECTORY);
+
     static
     {
         AndroMDALogger.configure();
@@ -60,36 +60,23 @@ public class CartridgeTest
 
         // Add the tests which compares all existing expected files against the
         // generated ones. This makes sure that for each expected an appropriate
-        // files was generated.
-        int numberOfTests = addTests(getDirectory(EXPECTED_DIRECTORY), suite);
-
-        List expectedFiles = new ArrayList();
-        createListOfExpectedFiles(outputDir, expectedFiles);
-
-        if (numberOfTests <= expectedFiles.size())
-        {
-            // The generator has generated more files than expected do exist.
-            // In order to find out which one was additionally generated
-            // compare each generated file to the appropriate complement in the
-            // expected directory. The testcase will report if the expected
-            // doesn't exist
-            addTests(outputDir, suite);
-        }
+        // file was generated.
+        addTests(suite);
 
         return suite;
     }
 
-    private static int addTests(File dir, TestSuite suite)
+    private static void addTests(TestSuite suite)
     {
-        int numberOfAddedTests = 1;
-        List expectedFiles = new ArrayList();
-        createListOfExpectedFiles(dir, expectedFiles);
-        Iterator iterator = expectedFiles.iterator();
-        while (iterator.hasNext())
+        List actualFiles = new ArrayList();
+        getAllFiles(actualDir, actualFiles);
+        Iterator iterator = actualFiles.iterator();
+        logger.info(" --- Files Generated: '" + actualFiles.size() + "' --- ");
+        for (int ctr = 1; iterator.hasNext(); ctr++)
         {
-            File expectedFile = (File)iterator.next();
-            File actualFile = getOutputFile(expectedFile);
-            logger.info(numberOfAddedTests + ")");
+            File actualFile = (File)iterator.next();
+            File expectedFile = getExpectedFile(actualFile);
+            logger.info(ctr + ")");
             logger.info("expected --> '" + expectedFile + "'");
             logger.info("actual   --> '" + actualFile + "'");
             if (expectedFile.getName().endsWith(".java"))
@@ -97,7 +84,7 @@ public class CartridgeTest
                 suite.addTest(new JavaSourceComparator(
                     "testAPIEquals",
                     expectedFile,
-                    actualFile));  
+                    actualFile));
             }
             else if (expectedFile.getName().endsWith(".xml"))
             {
@@ -106,29 +93,27 @@ public class CartridgeTest
                     expectedFile,
                     actualFile));
             }
-            numberOfAddedTests++;
         }
-        return numberOfAddedTests;
     }
 
-    private static File getOutputFile(File file)
+    private static File getExpectedFile(File file)
     {
-        String outputFile;
+        String expectedFile;
         String path = file.getPath();
 
         if (file.getPath().startsWith(expectedDir.getPath()))
         {
-            outputFile = path.substring(expectedDir.getPath().length(), path
+            expectedFile = path.substring(expectedDir.getPath().length(), path
                 .length());
-            outputFile = outputDir + outputFile;
+            expectedFile = actualDir + expectedFile;
         }
         else
         {
-            outputFile = path.substring(outputDir.getPath().length(), path
+            expectedFile = path.substring(actualDir.getPath().length(), path
                 .length());
-            outputFile = expectedDir + outputFile;
+            expectedFile = expectedDir + expectedFile;
         }
-        return new File(outputFile);
+        return new File(expectedFile);
     }
 
     private static String getDirectoryName(String propertyKey)
@@ -159,23 +144,26 @@ public class CartridgeTest
         return dir;
     }
 
-    private static void createListOfExpectedFiles(File dir, List fileList)
+    /**
+     * Loads all files find in the <code>directory</code> and adds them to the
+     * <code>fileList</code>.
+     * 
+     * @param directory the directory from which to load all files.
+     * @param fileList the List of files to which we'll add the found files.
+     */
+    private static void getAllFiles(File directory, List fileList)
     {
-        File[] files = dir.listFiles();
+        File[] files = directory.listFiles();
         for (int i = 0; i < files.length; i++)
         {
             File file = files[i];
             if (!file.isDirectory())
             {
-                if (file.getName().endsWith(".java")
-                    || file.getName().endsWith(".xml"))
-                {
-                    fileList.add(file);
-                }
+                fileList.add(file);
             }
             else
             {
-                createListOfExpectedFiles(file, fileList);
+                getAllFiles(file, fileList);
             }
         }
     }
