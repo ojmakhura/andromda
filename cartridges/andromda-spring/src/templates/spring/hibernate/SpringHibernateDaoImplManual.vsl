@@ -21,10 +21,10 @@ public class $entity.daoImplementationName
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.implementationSignature)
-	    /**
-	     * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
-	     */
-    $operation.visibility $returnType.fullyQualifiedName $signature 
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
+     */
+    protected $returnType.fullyQualifiedName $signature 
 #if ($operation.exceptionsPresent)
     	throws $operation.exceptionList
 #end
