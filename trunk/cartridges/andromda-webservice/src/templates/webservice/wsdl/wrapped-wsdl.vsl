@@ -63,7 +63,7 @@
             </xsd:complexType>
 #else
 #if ($type.enumeration)
-#foreach ( $literal in $type.literals ) 
+#foreach ($literal in $type.literals) 
 #set ($enumType = $literal.type.schemaType)
 #end
             <xsd:simpleType name="$type.qName">
@@ -81,10 +81,10 @@ $type.getDocumentation("                        ", 64, false)
                     </xsd:documentation>
                 </xsd:annotation>
                 <xsd:sequence>
-#foreach ( $attribute in $type.attributes ) 
+#foreach ($attribute in $type.attributes) 
                     <xsd:element name="$attribute.name" nillable="$attribute.nillable" type="$attribute.type.schemaType"/>
 #end
-#foreach ( $associationEnd in $type.associationEnds) 
+#foreach ($associationEnd in $type.associationEnds) 
 #set ($otherEnd = $associationEnd.otherEnd)
 #if ($otherEnd.navigable)
 #set ($type = $otherEnd.type)
@@ -105,7 +105,7 @@ $type.getDocumentation("                        ", 64, false)
     </wsdl:types>
    
     <!-- Messages -->
-#foreach ( $operation in $service.allowedOperations )
+#foreach ($operation in $service.allowedOperations)
     <wsdl:message name="${operation.name}${velocityCount}Request">
         <wsdl:part element="${service.namespacePrefix}:${operation.name}" name="parameters"/>
     </wsdl:message>
@@ -116,7 +116,7 @@ $type.getDocumentation("                        ", 64, false)
 
     <!-- Port Type -->
     <wsdl:portType name="$service.qName">
-#foreach ( $operation in $service.allowedOperations )
+#foreach ($operation in $service.allowedOperations)
         <wsdl:operation name="$operation.name">
                 
             <wsdl:documentation> 
@@ -134,7 +134,7 @@ $operation.getDocumentation("                ", 64, false)
     <!-- WSDL Binding -->
     <wsdl:binding name="$serviceBindingName" type="${service.namespacePrefix}:${service.qName}">
         <wsdlsoap:binding style="document" transport="$documentStyleTransportNamespace"/>
-#foreach ( $operation in $service.allowedOperations )
+#foreach ($operation in $service.allowedOperations)
         <wsdl:operation name="$operation.name">
             <wsdlsoap:operation soapAction="$operation.name" style="document"/>
             <wsdl:input name="${operation.name}${velocityCount}Request">
