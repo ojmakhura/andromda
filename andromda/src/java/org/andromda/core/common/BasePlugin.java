@@ -3,9 +3,13 @@ package org.andromda.core.common;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.templateengine.TemplateEngine;
@@ -273,6 +277,43 @@ public abstract class BasePlugin
             }
         }
     }
+    
+    /**
+     * If this plugin's <code>resource</code> is 
+     * found within a archive file, this method
+     * gets the archive to which it belongs.
+     * 
+     * @return the archive as a ZipFile
+     */
+    protected ZipFile getArchive() 
+    {
+        final String methodName = "BasePlugin.getZipFile";
+        try 
+        {
+	        ZipFile zipFile = null;
+	        URL resource = this.getResource();
+	        if (resource != null)
+	        {
+	            String resourceUrl = resource.toString();
+	            final String jarPrefix = "jar:file:";
+	            resourceUrl = resourceUrl.replaceFirst(jarPrefix + '/', "");
+	            resourceUrl = resourceUrl.replaceFirst(jarPrefix, "");
+	            int entryPrefixIndex = resourceUrl.indexOf('!');
+	            if (entryPrefixIndex != -1)
+	            {
+	                resourceUrl = resourceUrl.substring(0, entryPrefixIndex);
+	            }
+	            zipFile = new ZipFile(resourceUrl);
+	        }
+	        return zipFile;
+        } 
+        catch (Throwable th)
+        {
+            String errMsg = "Error performing " + methodName;
+            logger.error(errMsg, th);
+            throw new PluginException(errMsg, th);
+        }
+    }
 
     /**
      * Resets the logger to the default name.
@@ -299,4 +340,33 @@ public abstract class BasePlugin
     {
         return ToStringBuilder.reflectionToString(this);
     }
+ 
+    public static void main(String args[]) 
+    {
+        args = new String[] {"c:/andromda-ant-3.0M1.jar"};
+        if (args.length == 0)
+        {
+            System.out.println("Please specify a jarfile as "
+                + "the argument to this application");
+        }
+ 
+        try
+        {
+            JarFile jarFile = new JarFile(args[0]);
+ 
+            Enumeration entries = jarFile.entries();
+            while (entries.hasMoreElements())
+            {
+                ZipEntry zipEntry = (ZipEntry) entries.nextElement();
+                System.out.println("zipEntry.getName() = " 
+                    + zipEntry.getName());
+            }
+ 
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error reading from jarfile: "+e);
+        }
+    }   
+    
 }
