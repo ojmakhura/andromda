@@ -340,55 +340,7 @@
 			<p class="std">
 				The <a href="#andromda"><code><![CDATA[<andromda>]]></code>
 				</a> task supports a nested <code><![CDATA[<repository>]]></code> tag to
-				use to write extensions to androMDA.
-			</p>
-			<p class="std">
-				AndroMDA by default reads models from XMI files.  If you wanted to change 
-				the default behavior of AndroMDA so that it could read a model from another 
-				format, or repository other than MDR, then this element would be useful for 
-				implementing that sort of extension.  This element is also used to define 
-				the location of other modules/profiles that your model is using via the nested
-				<a href="#moduleSearchPath"><code><![CDATA[<moduleSearchPath>]]></code></a> 
-				element.
-			</p>
-			<h3>Attributes</h3>
-			<table border="1" cellpadding="2" cellspacing="0">
-				<tr>
-					<td valign="top" class="std">
-						<b>Attribute</b>
-					</td>
-					<td valign="top" class="std">
-						<b>Description</b>
-					</td>
-					<td align="center" valign="top" class="std">
-						<b>Required</b>
-					</td>
-				</tr>
-				<tr>
-					<td valign="top" class="std">
-						classname
-					</td>
-					<td valign="top" class="std">
-						Specifies the name of the java class that implements AndroMDA's meta data
-						repository.  One way to write your own meta data repository is by
-						extending the class
-					   <a href="../javadoc/org/andromda/core/mdr/MDRepositoryFacade.html">
-						 MDRepositoryFacade
-					   </a>
-					</td>
-					<td align="center" class="std">No.</td>
-				</tr>
-			</table>
-			<h3>Example</h3>
-			<source><![CDATA[
-<andromda modelURL="jar:file:/path/to/my/model.zuml!/model.xmi"
-          lastModifiedCheck="false">
-	<repository classname="org.andromda.repositories.mdr.MDRepositoryFacade"/>
-	...
-</andromda>
-				]]></source>
-			<p class="std">
-			  The above shows the defaults setup assumed by AndroMDA when there is no repository subtask.
+				use to define any extra repository options (i.e. moduleSearchPath).
 			</p>
 			<h2>
 				<a name="moduleSearchPath"><![CDATA[<moduleSearchPath>]]></a>
