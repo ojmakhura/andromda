@@ -159,6 +159,24 @@
 		      	<war.bundle>true</war.bundle>
 		    </properties>
 		</dependency>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.0-b3</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag-all</artifactId>
+            <version>1.0-b3</version>
+            <type>tld</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
         <!-- The next two dependencies (Jasper) are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
