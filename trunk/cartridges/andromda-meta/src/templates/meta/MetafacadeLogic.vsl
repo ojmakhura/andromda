@@ -127,7 +127,10 @@ public abstract class $metafacade.logicName
         ${indent}$handleMethodPostCondition;
 #if ($attribute.readOnly)
             this.__$memberName = $memberName;
-            this.__${memberName}Set = true;
+            if (isMetafacadePropertyCachingEnabled())
+            {
+                this.__${memberName}Set = true;
+            }
         }
 #end
         return $memberName;
@@ -235,7 +238,10 @@ public abstract class $metafacade.logicName
         ${indent}$handleMethodPostCondition;
 #if ($associationEnd.otherEnd.readOnly)
             this.__$memberName = $memberName;
-            this.__${memberName}Set = true;
+            if (isMetafacadePropertyCachingEnabled())
+            {
+                this.__${memberName}Set = true;
+            }
         }
 #end
         return $memberName;
