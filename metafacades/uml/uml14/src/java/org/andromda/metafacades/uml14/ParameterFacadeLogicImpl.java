@@ -1,6 +1,8 @@
 package org.andromda.metafacades.uml14;
 
 import org.omg.uml.foundation.datatypes.Expression;
+import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
+import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 
 
 /**
@@ -37,6 +39,15 @@ public class ParameterFacadeLogicImpl
     protected Object handleGetType()
     {
         return metaObject.getType();
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#sReturn()
+     */
+    public boolean handleIsReturn()
+    {
+        final ParameterDirectionKind kind = metaObject.getKind();
+        return kind != null ? kind.equals(ParameterDirectionKindEnum.PDK_RETURN) : false;
     }
 
     // ------------------------------------------------------------
