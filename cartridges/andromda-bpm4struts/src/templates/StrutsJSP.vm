@@ -99,11 +99,7 @@ ${indent}</logic:notPresent>
 ##
 ##
 #macro ( renderFormField $action $field $indent)
-#if ($field.date)
-#set ($fieldName = "${field.name}AsString")
-#else
 #set ($fieldName = $field.name)
-#end
 #set ($widgetType = $field.widgetType)
 #set ($formBeanName = $action.activityGraph.useCase.formBeanName)
 ##
