@@ -238,14 +238,14 @@ What do we have in UML that can help us model our application:
 <UL>
 <LI>Initial state. The start of the flow. There can be only one.
 <BR><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_initial-state.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_initial-state.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="initial-state.gif"
+ ALT="Image initial-state.gif">
 </LI>
 <LI>Final state. The end of the flow. There may be several ways the flow
 ends (eg. succesful and unsuccesful).
 <BR><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_final-state.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_final-state.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="final-state.gif"
+ ALT="Image final-state.gif">
 </LI>
 <LI>Action states. An action state represents a condition of a modeled
 entity for which some action is performed. What this action exactly
@@ -254,42 +254,42 @@ I thought it would be intuitive to represent actions triggered from
 JSP pages this way<A NAME="tex2html4"
   HREF="#foot45"><SUP>4</SUP></A>.
 <BR><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_action-state.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_action-state.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="action-state.gif"
+ ALT="Image action-state.gif">
 </LI>
 <LI>Object flow states. These are states that represent a change of state
 of an object, as opposed to action states there is no view directly
 associated to an object flow state.
 <BR><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_object-flow-state.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_object-flow-state.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="object-flow-state.gif"
+ ALT="Image object-flow-state.gif">
 </LI>
 <LI>Transitions. Used to indicate a path between states. We have different
 kinds of transitions:
 <BR><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_transition.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_transition.gif"> <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_transition-triggered.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_transition-triggered.gif"> <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_transition-guarded.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_transition-guarded.gif"> <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_transition-triggered-guarded.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_transition-triggered-guarded.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="transition.gif"
+ ALT="Image transition.gif"> <IMG
+ ALIGN="BOTTOM" BORDER="0" SRC="transition-triggered.gif"
+ ALT="Image transition-triggered.gif"> <IMG
+ ALIGN="BOTTOM" BORDER="0" SRC="transition-guarded.gif"
+ ALT="Image transition-guarded.gif"> <IMG
+ ALIGN="BOTTOM" BORDER="0" SRC="transition-triggered-guarded.gif"
+ ALT="Image transition-triggered-guarded.gif">
 </LI>
 <LI>Merge points. A state should only have a single incoming and outgoing
 transition, use merge points to bundle several incoming transitions
 and merge them into a single transition.
 <BR><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_merge.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_merge.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="merge.gif"
+ ALT="Image merge.gif">
 </LI>
 <LI>Decision points. They are the opposite of merge points, a single incoming
 transition is forked into several outgoing transitions. Which outgoing
 transition is actually followed at run-time depends on the associated
 decision process.
 <BR><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_decision.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_decision.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="decision.gif"
+ ALT="Image decision.gif">
 </LI>
 </UL>
 
@@ -332,10 +332,10 @@ the diagrams for this use-case:
 
 <P>
 <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_use-case-login.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_use-case-login.gif"> <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_class-diagram-login.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_class-diagram-login.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="use-case-login.gif"
+ ALT="Image use-case-login.gif"> <IMG
+ ALIGN="BOTTOM" BORDER="0" SRC="class-diagram-login.gif"
+ ALT="Image class-diagram-login.gif">
 <BR>
 What is not shown on these images is that the 'Login' use-case is
 linked to the 'LoginController' class by means of a tagged value;
@@ -354,8 +354,8 @@ So exactly what is generated from these simple diagrams<A NAME="tex2html5"
 For every action state in the graph a corresponding JSP page is generated,
 from these pages a call to the controller class is made.
 <BR><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_view-jsp-page.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_view-jsp-page.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="view-jsp-page.gif"
+ ALT="Image view-jsp-page.gif">
 <BR>
 Notice how the controller action is called with a parameter. In this
 particular case there is only one trigger (it has not been named and
@@ -382,8 +382,8 @@ to code the link to the business objects, this is done manually.
 
 <P>
 <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_controller-abstract.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_controller-abstract.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="controller-abstract.gif"
+ ALT="Image controller-abstract.gif">
 <BR>
 Notice how the model elements from the use-case's graph have been
 transformed into Java code:
@@ -445,8 +445,8 @@ will need to be implemented by the user. They are described next.
 
 <P>
 <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_controller-implementation.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_controller-implementation.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="controller-implementation.gif"
+ ALT="Image controller-implementation.gif">
 <BR>
 The controller implementation obviously extends the abstract controller
 class and implements the abstract methods.
@@ -475,8 +475,8 @@ since it is not described in the UML model.
 
 <P>
 <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_model-form.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_model-form.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="model-form.gif"
+ ALT="Image model-form.gif">
 <BR>
 This is a simple Bean class, the trigger field is used to store the
 'button' used to trigger the call to a controller class. All the other
@@ -490,8 +490,8 @@ fields represent the input fields that are used in the view (JSP).
 
 <P>
 <IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_configuration.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_configuration.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="configuration.gif"
+ ALT="Image configuration.gif">
 <BR>
 We can clearly see these distinct parts in the configuration file:
 
@@ -681,8 +681,8 @@ x times.
 <DL COMPACT>
 <DT>
 <DD><IMG
- ALIGN="BOTTOM" BORDER="0" SRC="/tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_model-constraints-ebnf.gif"
- ALT="Image /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/_home_draftdog_development_projects_open-source_andromda_cartridges_andromda-bpm4struts_docs_model-constraints-ebnf.gif">
+ ALIGN="BOTTOM" BORDER="0" SRC="model-constraints-ebnf.gif"
+ ALT="Image model-constraints-ebnf.gif">
 </DD>
 </DL>What is most important here is that a triggered decision point can
 only occur right after an action state, the reason for this is that
@@ -804,7 +804,7 @@ Copyright &#169; 1997, 1998, 1999,
 Mathematics Department, Macquarie University, Sydney.
 <P>
 The command line arguments were: <BR>
- <STRONG>latex2html</STRONG> <TT>-no_subdir -split 0 -show_section_numbers /tmp/lyx_tmpdir5243VRebDU/lyx_tmpbuf0/readme.tex</TT>
+ <STRONG>latex2html</STRONG> <TT>-no_subdir -split 0 -show_section_numbers /tmp/lyx_tmpdir5282kR42Z9/lyx_tmpbuf0/readme.tex</TT>
 <P>
 The translation was initiated by draftdog on 2003-10-27
 <BR><HR><H4>Footnotes</H4>
