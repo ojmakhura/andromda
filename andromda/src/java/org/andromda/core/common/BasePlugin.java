@@ -328,7 +328,7 @@ public abstract class BasePlugin
     /**
      * All archive files start with this prefix.
      */
-    private static final String ARCHIVE_PREFIX = "jar:file:";
+    private static final String ARCHIVE_PREFIX = "jar:";
 
     /**
      * Returns true/false on whether or not this plugin is an archive
@@ -358,15 +358,13 @@ public abstract class BasePlugin
             if (resource != null)
             {
                 String resourceUrl = resource.toString();
-                resourceUrl = resourceUrl
-                    .replaceFirst(ARCHIVE_PREFIX + '/', "");
                 resourceUrl = resourceUrl.replaceFirst(ARCHIVE_PREFIX, "");
                 int entryPrefixIndex = resourceUrl.indexOf('!');
                 if (entryPrefixIndex != -1)
                 {
                     resourceUrl = resourceUrl.substring(0, entryPrefixIndex);
                 }
-                archive = new ZipFile(resourceUrl);
+                archive = new ZipFile(new URL(resourceUrl).getFile());
             }
             return archive;
         }
