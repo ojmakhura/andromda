@@ -39,14 +39,11 @@
     </target>
 
     <!--
-         Creates the web pages of www.andromda.org and copies them
-         as part of the AndroMDA distribution into the subdirectory
-         "doc".
-         Runs sample Java source code through a Java2HTML converter.
+         Creates the net content web pages of www.andromda.org.
          Runs website *.xml pages through Anakia to get *.html pages.
          Copies images and stylesheet.
     -->
-    <target name="build" depends="init">
+    <target name="webpages" depends="init">
         <taskdef name="anakia"
                  classname="org.apache.velocity.anakia.AnakiaTask"
                  classpathref="build.class.path"
@@ -74,7 +71,15 @@
                 <include name="**/*.css"/>
             </fileset>
         </copy>
+    </target>
 
+    <!--
+         Creates the entire web pages of www.andromda.org and copies them
+         as part of the AndroMDA distribution into the subdirectory
+         "doc".
+         Runs sample Java source code through a Java2HTML converter.
+    -->
+    <target name="build" depends="init,webpages">
         <taskdef name="java2html"
                  classname="de.java2html.anttasks.J2HTask"
                  classpathref="build.class.path"
