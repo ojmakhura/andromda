@@ -189,7 +189,7 @@ public class StrutsParameterLogicImpl
         String documentation = getDocumentation("", 64, false);
         return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation))
                 ? super.getName() + requiredSuffix + dateSuffix
-                : documentation.trim().replaceAll("\n", "\n<br/>"));
+                : documentation.trim().replaceAll("\n", "<br/>"));
     }
 
     public boolean handleIsCalendarRequired()
