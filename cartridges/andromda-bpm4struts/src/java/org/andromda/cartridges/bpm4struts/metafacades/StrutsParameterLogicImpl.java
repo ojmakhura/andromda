@@ -1012,6 +1012,12 @@ public class StrutsParameterLogicImpl
                 validatorTypesList.add("maxlength");
             else if (isPatternFormat(format)) validatorTypesList.add("mask");
         }
+
+        if (getValidWhen() != null)
+        {
+            validatorTypesList.add("validwhen");
+        }
+
         return validatorTypesList;
     }
 
@@ -1082,6 +1088,13 @@ public class StrutsParameterLogicImpl
                 vars.add(Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
             }
         }
+
+        final String validWhen = getValidWhen();
+        if (validWhen != null)
+        {
+            vars.add(Arrays.asList(new Object[]{"test", validWhen}));
+        }
+
         return vars;
     }
 
