@@ -30,6 +30,8 @@ public class $formBeanClassName
 #end
 #if ($field.file)
     private org.apache.struts.upload.FormFile $field.name = null;
+#elseif($field.type.mapType)
+    private java.util.Map $field.name = new java.util.HashMap();
 #else
     private $field.type.fullyQualifiedName $field.name;
 #end
@@ -53,6 +55,16 @@ public class $formBeanClassName
 #foreach ($field in $fields)
 #set ($fieldType = $field.type.fullyQualifiedName)
 #set ($fieldName = $field.name)
+#if ($field.type.mapType)
+    /**
+     * Resets the given <code>$fieldName</code>.
+     */
+    public void ${field.resetName}()
+    {
+        this.${fieldName}.clear();
+    }
+    
+#else
     /**
      * Resets the given <code>$fieldName</code>.
      */
@@ -60,7 +72,8 @@ public class $formBeanClassName
     {
         this.$fieldName = $field.nullValue;
     }
-
+    
+#end
 #if ($field.type.collectionType)
     public void ${field.setterName}($fieldType $fieldName)
     {
@@ -174,6 +187,29 @@ $field.getDocumentation("     * ")
     {
         return this.$fieldName;
     }
+#elseif ($field.type.mapType)
+	public void ${field.setterName}Value(java.lang.String key, java.lang.Object value) 
+	{
+		this.${fieldName}.put(key, value);
+	}
+
+	public java.lang.Object ${field.getterName}Value(String key) 
+	{
+		return ${fieldName}.get(key);
+	}
+	
+    public void ${field.setterName}(java.util.Map $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public java.util.Map ${field.getterName}()
+    {
+        return this.$fieldName;
+    }
 
 #else
     public void ${field.setterName}($fieldType $fieldName)
@@ -188,6 +224,7 @@ $field.getDocumentation("     * ")
     {
         return this.$fieldName;
     }
+    
 #end
 
 #set ($listType = "Object[]")

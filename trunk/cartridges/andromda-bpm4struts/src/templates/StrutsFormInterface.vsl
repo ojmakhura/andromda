@@ -18,6 +18,12 @@ public interface $operation.interfaceName
 
     public void ${field.setterName}(java.lang.String ${fieldName});
     public java.lang.String ${field.getterName}();
+#elseif ($field.type.mapType)
+    public void ${field.setterName}Value(java.lang.String key, Object value);
+    public java.lang.Object ${field.getterName}Value(java.lang.String key);
+    
+    public void ${field.setterName}(java.util.Map $fieldName);
+    public java.util.Map ${field.getterName}();
 #else
     public void ${field.setterName}($fieldType $fieldName);
     public $fieldType ${field.getterName}();
