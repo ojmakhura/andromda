@@ -204,10 +204,6 @@ public class OclParser extends Parser {
 							+ "\"( name (: type)?, ... , name (: type)? | expression )\"");
 				}
 			}
-
-			if (!valid) {
-
-			}
 			
 			ABarFeatureCallParameterOption barParameterType =
 				(ABarFeatureCallParameterOption) parameterOptions[parameterOptionNum - 1];
