@@ -26,15 +26,6 @@
 
     <template
         stereotype="Entity"
-        sheet="templates/EntityAttrIntf.vsl"
-        outputPattern="{0}/{1}Attr.java"
-        outlet="entity-beans"
-        overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-    />
-
-    <template
-        stereotype="Entity"
         sheet="templates/EntityLocalIntf.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entity-beans"
@@ -42,15 +33,6 @@
         transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
     />
 
-    <template
-        stereotype="Entity"
-        sheet="templates/EntityValue.vsl"
-        outputPattern="{0}/{1}Value.java"
-        outlet="entity-beans"
-        overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-    />
-    
     <template
         stereotype="Entity"
         sheet="templates/EntityHome.vsl"
