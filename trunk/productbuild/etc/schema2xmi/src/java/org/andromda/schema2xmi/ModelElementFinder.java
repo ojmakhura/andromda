@@ -102,7 +102,7 @@ public class ModelElementFinder
      * Finds the model element having the <code>name</code> contained within
      * the <code>elements</code>, returns null if it can't be found.
      * 
-     * @param elements the collectoin of model elements to search
+     * @param elements the collection of model elements to search
      * @param name the name of the model element.
      * @return the found model element or null if not found.
      */
