@@ -176,14 +176,14 @@
                             <a name="maven.andromda.cartridgeFilter">maven.andromda.cartridgeFilter</a>
                         </td>
                         <td>
+                            No
+                        </td>
+                        <td>
                             A comma seperated list of cartridge names (i.e. namespaces) that
                             should be processed by AndroMDA.  If this is not defined, then 
                             <strong>ANY</strong> discovered cartridges will be processed.
                             This is useful when you want to restrict the cartridges that will
                             process the model, in order to speed up the development cycle.
-                        </td>
-                        <td>
-                            No
                         </td>
                     </tr>
                     <tr>
@@ -191,11 +191,11 @@
                             <a name="maven.andromda.loggingConfigurationUri">maven.andromda.loggingConfigurationUri</a>
                         </td>
                         <td>
-                            Specifies the location of an external logging configuration file.  This is useful if you want
-                            to override the default logging behavior of AndroMDA.
+                            No
                         </td>
                         <td>
-                            No
+                            Specifies the location of an external logging configuration file.  This is useful if you want
+                            to override the default logging behavior of AndroMDA (i.e. file:/path/to/external/logging/file/log4j.xml)
                         </td>
                     </tr>
                     <tr>
