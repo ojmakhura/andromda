@@ -62,22 +62,6 @@
                     </tr>
                     <tr>
                           <td>
-                            <a name="FinderMethod"/>
-                              <strong><![CDATA[<<FinderMethod>>]]></strong>
-                          </td>
-                          <td>
-                              Operation
-                          </td>
-                          <td>
-                              Identifies an <strong>entity</strong> operation as a finder method.
-                            Finder method queries can be defined as an OCL body
-                            expression using the <a href="../andromda-query-library/index.html">
-                            AndroMDA Query Library</a> or directly as a Hibernate QL using the
-                            <a href="#@andromda.hibernate.query">@andromda.hibernate.query</a> tagged value.
-                          </td>
-                    </tr>
-                    <tr>
-                          <td>
                             <a name="PrimaryKey"/>
                               <strong><![CDATA[<<PrimaryKey>>]]></strong>
                           </td>
@@ -112,17 +96,17 @@
                     </tr>
                     <tr>
                         <a name="@andromda.hibernate.query"/>
-                          <td>
-                              @andromda.hibernate.query
-                          </td>
                         <td>
-                            <a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
+                            @andromda.hibernate.query
                         </td>
-                          <td>
-                              Defines a hibernate query expression.  Note that you
-                            can model your finder method body in OCL as well
-                            (to keep your model more PIM like).
-                          </td>
+                        <td>
+                            An Entity operation marked as a <code>query</code>.
+                        </td>
+                        <td>
+                            Defines a hibernate query expression.  Note that it's encouraged
+                            to model your query body as an OCL constraint (instead of using
+                            this tagged value).
+                        </td>
                     </tr>
                     <tr>
                         <td>
