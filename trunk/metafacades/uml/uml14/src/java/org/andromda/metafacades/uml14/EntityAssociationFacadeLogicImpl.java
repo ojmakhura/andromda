@@ -6,6 +6,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for
@@ -39,13 +40,21 @@ public class EntityAssociationFacadeLogicImpl
                 .next();
             if (end.isMany2Many())
             {
-                // prevent ClassCastException if the association isn't an EntityFacade
-                if (EntityFacade.class.isAssignableFrom(end.getType().getClass()))
+                // prevent ClassCastException if the association isn't an
+                // EntityFacade
+                if (EntityFacade.class.isAssignableFrom(end.getType()
+                    .getClass()))
                 {
-                    tableName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-                        this,
-                        UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
-                        ((EntityFacade)end.getType()).getMaxSqlNameLength());   
+                    String tableNamePrefix = StringUtils
+                        .trimToEmpty(String
+                            .valueOf(this
+                                .getConfiguredProperty(UMLMetafacadeGlobals.PROPERTY_TABLE_NAME_PREFIX)));
+                    tableName = EntityMetafacadeUtils
+                        .getSqlNameFromTaggedValue(
+                            tableNamePrefix,
+                            this,
+                            UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE,
+                            ((EntityFacade)end.getType()).getMaxSqlNameLength());
                 }
             }
         }

@@ -7,7 +7,6 @@
 
     <!-- externalise the hibernate ID generator class see the hibernate doc for details -->
     <property reference="idGeneratorClass" default="uuid.hex"/>
-    <property reference="tableNamePrefix" default=""/>
     <property reference="versionProperty" default=""/>
     <property reference="driver" default=""/>
     <property reference="username" default=""/>

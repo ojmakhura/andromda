@@ -1,5 +1,6 @@
 package org.andromda.metafacades.uml14;
 
+import org.andromda.metafacades.uml.UMLProfile;
 import org.omg.uml.foundation.datatypes.Expression;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
@@ -19,11 +20,9 @@ public class ParameterFacadeLogicImpl
         super (metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class ParameterDecorator ...
-    
+    /**
+     * @see org.andromda.metafacades.uml14.ParameterFacade#getDefaultValue()
+     */
     public String handleGetDefaultValue()
     {
         final Expression expression = metaObject.getDefaultValue();
@@ -48,6 +47,14 @@ public class ParameterFacadeLogicImpl
     {
         final ParameterDirectionKind kind = metaObject.getKind();
         return kind != null ? kind.equals(ParameterDirectionKindEnum.PDK_RETURN) : false;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.ParameterFacade#isRequired()
+     */
+    protected boolean handleIsRequired()
+    {
+        return !this.hasStereotype(UMLProfile.STEREOTYPE_NULLABLE);
     }
 
     // ------------------------------------------------------------

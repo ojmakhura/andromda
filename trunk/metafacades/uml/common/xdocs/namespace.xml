@@ -105,6 +105,20 @@
 	        	</tr>
                 <tr>
                     <td>
+                        tableNamePrefix
+                    </td>
+                    <td>
+                        The prefix to give all persistent entity table names.  For example
+                        if you had an entity named <em>Car</em> and you defined the tableNamePrefix
+                        as <em>My_</em>, then the table name for the <em>Car</em> entity would be 
+                        <em>My_Car</em>.
+                    </td>
+                    <td>
+                        No
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         foreignKeySuffix
                     </td>
                     <td>

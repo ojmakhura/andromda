@@ -89,16 +89,16 @@
 			          	</td>
 		        	</tr>	
 		        	<tr>
-		        		<a name="Required"/>
+		        		<a name="Nullable"/>
 			          	<td>
-			          		<![CDATA[<<Required>>]]>
+			          		<![CDATA[<<Nullable>>]]>
 			          	</td>
 						<td>
 							Parameter
 						</td>
 			          	<td>
-			          		Allows you to define whether or not operation parameters are <strong>required</strong>
-                            or non <em>nillable</em> (in WSDL terms).
+			          		Allows you to define whether or not operation parameters can be nullable
+                            or <em>nillable</em> (in WSDL terms).
 			          	</td>
 		        	</tr>		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>

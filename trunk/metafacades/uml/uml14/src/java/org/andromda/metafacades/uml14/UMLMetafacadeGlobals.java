@@ -12,6 +12,8 @@ public class UMLMetafacadeGlobals
      */
     public static final char PACKAGE_SEPERATOR = '.';
     
+    public static final String PROPERTY_TABLE_NAME_PREFIX = "tableNamePrefix";
+    
     /**
      * Used to identify collection types in the model, any other type
      * that will be identified as a collection must specialize this type.

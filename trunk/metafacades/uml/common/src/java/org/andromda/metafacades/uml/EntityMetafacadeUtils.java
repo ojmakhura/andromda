@@ -52,12 +52,13 @@ public class EntityMetafacadeUtils
 
         return StringEscapeUtils.escapeSql(sqlName.toString());
     }
-
+    
     /**
      * Gets the SQL name. (i.e. column name, table name, etc.). If it can't find
      * the corresponding tagged value with the specified <code>name</code>,
      * then it uses the element name by default and just returns that.
      * 
+     * @param prefix the optional prefix to add to the sql name (i.e. table name prefix, etc.).
      * @param element from which to retrieve the SQL name.
      * @param name the name of the tagged value.
      * @param nameMaxLength if this is not null, then the name returned will be
@@ -65,13 +66,14 @@ public class EntityMetafacadeUtils
      * @return the SQL name as a String.
      */
     public static String getSqlNameFromTaggedValue(
+        String prefix,
         ModelElementFacade element,
         String name,
         Short nameMaxLength)
     {
-        return getSqlNameFromTaggedValue(element, name, nameMaxLength, null);
+        return getSqlNameFromTaggedValue(prefix, element, name, nameMaxLength, null);
     }
-
+    
     /**
      * Gets the SQL name. (i.e. column name, table name, etc.). If it can't find
      * the corresponding tagged value with the specified <code>name</code>,
@@ -91,6 +93,49 @@ public class EntityMetafacadeUtils
         Short nameMaxLength,
         String suffix)
     {
+        return getSqlNameFromTaggedValue(null, element, name, nameMaxLength, suffix);
+    }
+
+    /**
+     * Gets the SQL name. (i.e. column name, table name, etc.). If it can't find
+     * the corresponding tagged value with the specified <code>name</code>,
+     * then it uses the element name by default and just returns that.
+     * 
+     * @param element from which to retrieve the SQL name.
+     * @param name the name of the tagged value.
+     * @param nameMaxLength if this is not null, then the name returned will be
+     *        trimmed to this length (if it happens to be longer).
+     * @return the SQL name as a String.
+     */
+    public static String getSqlNameFromTaggedValue(
+        ModelElementFacade element,
+        String name,
+        Short nameMaxLength)
+    {
+        return getSqlNameFromTaggedValue(null, element, name, nameMaxLength, null);
+    }
+
+    /**
+     * Gets the SQL name. (i.e. column name, table name, etc.). If it can't find
+     * the corresponding tagged value with the specified <code>name</code>,
+     * then it uses the element name by default and just returns that.
+     * 
+     * @param prefix the optional prefix to add to the sql name (i.e. table name prefix, etc.).
+     * @param element from which to retrieve the SQL name.
+     * @param name the name of the tagged value.
+     * @param nameMaxLength if this is not null, then the name returned will be
+     *        trimmed to this length (if it happens to be longer).
+     * @param suffix the optional suffix to add to the sql name (i.e. foreign
+     *        key suffix, etc.)
+     * @return the SQL name as a String.
+     */
+    public static String getSqlNameFromTaggedValue(
+        String prefix,
+        ModelElementFacade element,
+        String name,
+        Short nameMaxLength,
+        String suffix)
+    {
         if (element != null)
         {
             Object value = element.findTaggedValue(name);
@@ -101,9 +146,13 @@ public class EntityMetafacadeUtils
                 //element name for the name
                 name = element.getName();
                 name = toSqlName(name, "_");
-                if (StringUtils.isNotEmpty(suffix))
+                if (StringUtils.isNotBlank(prefix))
                 {
-                    name = name + suffix;
+                    name = StringUtils.trimToEmpty(prefix) + name;
+                }
+                if (StringUtils.isNotBlank(suffix))
+                {
+                    name = name + StringUtils.trimToEmpty(suffix);
                 }
             }
             name = ensureMaximumNameLength(name, nameMaxLength);

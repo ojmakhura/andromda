@@ -110,11 +110,11 @@ public class UMLProfile
         .getString("STEREOTYPE_EXCEPTION_REF");
     
     /**
-     * Used to indicate whether or not a parameter is required (since
+     * Used to indicate whether or not a parameter is nullable (since
      * parameters do <strong>NOT</strong> allow specification of multiplicity.
      */
-    public static final String STEREOTYPE_REQUIRED = umlProfile
-        .getString("STEREOTYPE_REQUIRED");
+    public static final String STEREOTYPE_NULLABLE = umlProfile
+        .getString("STEREOTYPE_NULLABLE");
 
     /* ----------------- Tagged Values -------------------- */
 

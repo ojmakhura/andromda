@@ -11,7 +11,7 @@ $entity.getDocumentation(" * ")
  *    discriminator-value="$entity.name"
 #else
  * @hibernate.class
- *     table="$tableNamePrefix$entity.tableName"
+ *     table="$entity.tableName"
  * @hibernate.discriminator
  *     column="class"
 #end
@@ -138,7 +138,7 @@ $target.getDocumentation("     * ")
 ##
      * @hibernate.set
      *     lazy="true"
-     *     table="$tableNamePrefix${associationEnd.association.tableName}"
+     *     table="$associationEnd.association.tableName"
 #if (!$associationEnd.managesRelationalLink)
      *     inverse="true"
 #end
