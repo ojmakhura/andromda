@@ -9,7 +9,7 @@
             <p>
                 In addition to the applicable
                 <a href="../andromda-metafacades-uml/namespace.html">UML Metafacade</a> namespace
-                properties which may also be used, this page describes 
+                properties which may also be used, this page describes
                 namespace properties specific to this cartridge only.
             </p>
             <table>
@@ -20,119 +20,126 @@
                 </tr>
                 <tr>
                     <td>
-		          		languageMappingsUri
+                          languageMappingsUri
                     </td>
                     <td>
-		          		URI specifying the specific mappings from model types to language types. 
-		          		(i.e.
+                          URI specifying the specific mappings from model types to language types.
+                          (i.e.
                         <code>file:${basedir}/JavaMappings.xml</code>)
                     </td>
                     <td>
-		          		Yes
+                          Yes
                     </td>
                 </tr>
                 <tr>
                     <td>
-		          		hibernateTypeMappingsUri
+                          hibernateTypeMappingsUri
                     </td>
                     <td>
-		          		URI specifying the specific mappings from model types to hibernate types. 
-		          		(i.e.
+                          URI specifying the specific mappings from model types to hibernate types.
+                          (i.e.
                         <code>file:${basedir}/HibernateTypeMappings.xml</code>). This
-						is not necessary but useful for defining hibernate user types (when
-						hibernate doesn't support a specific type in the manner needed
-						for your application).
+                        is not necessary but useful for defining hibernate user types (when
+                        hibernate doesn't support a specific type in the manner needed
+                        for your application).
                     </td>
                     <td>
-		          		No
+                          No
                     </td>
                 </tr>
                 <tr>
                     <td>
-						customTypesPackage
+                        customTypesPackage
                     </td>
                     <td>
-						The package to which hibernate custom types contained
-						within the cartridge should be output.
+                        The package to which hibernate custom types contained
+                        within the cartridge should be output.
                     </td>
                     <td>
-						No, default is
+                        No, default is
                         <code>org.andromda.persistence.hibernate</code>
                     </td>
                 </tr>
                 <tr>
                     <td>
-		          		entities
+                          entities
                     </td>
                     <td>
-		          		The directory to which hibernate entities are generated.
+                          The directory to which hibernate entities are generated.
                     </td>
                     <td>
-		          		Yes (unless
+                          Yes (unless
                         <code>ignore</code> is specified for this property)
                     </td>
                 </tr>
                 <tr>
                     <td>
-		          		entity-impls
+                          entity-impls
                     </td>
                     <td>
-		          		The location to which hibernate entity implementation files
-		          		are generated.
+                          The location to which hibernate entity implementation files
+                          are generated.
                     </td>
                     <td>
-		          		Yes (unless
+                          Yes (unless
                         <code>ignore</code> is specified for this property)
                     </td>
                 </tr>
                 <tr>
                     <td>
-		          		session-beans
+                          session-beans
                     </td>
                     <td>
-		          		The directory to which Session Bean files are generated.
+                          The directory to which Session Bean files are generated.
                     </td>
                     <td>
-		          		Yes (unless
+                          Yes (unless
                         <code>ignore</code> is specified for this property)
                     </td>
                 </tr>
                 <tr>
                     <td>
-		          		session-impls
+                          session-impls
                     </td>
                     <td>
-		          		The directory to which Session Bean implementation files are generated.
+                          The directory to which Session Bean implementation files are generated.
                     </td>
                     <td>
-		          		Yes (unless
+                          Yes (unless
                         <code>ignore</code> is specified for this property)
                     </td>
                 </tr>
                 <tr>
                     <td>
-						defaultIdentifierType
+                        defaultIdentifierType
                     </td>
                     <td>
-						The type to give default identifiers.
+                         The type to give default identifiers.
+                         This setting is overridden from
+                         <a href="../andromda-metafacades-uml/namespace.html#defaultIdentifierType">
+                         UML Metafacade defaultIdentifierType</a>
+                         in order to make it consistent with idGeneratorClass setting.
+                         If the idGeneratorClass setting is changed then the
+                         defaultIdentifier setting should be consistent with the
+                         change.
                     </td>
                     <td>
-						No, default is
+                        No, default is
                         <code>datatype.String</code>.
                     </td>
                 </tr>
                 <tr>
                     <a name="ejbJndiNamePrefix"/>
                     <td>
-						ejbJndiNamePrefix
+                        ejbJndiNamePrefix
                     </td>
                     <td>
-						The prefix to give to the Session EJB JNDI names (this allows 
-						the same Session EJB to be deployed multiple times in the same 
-						container)
+                        The prefix to give to the Session EJB JNDI names (this allows
+                        the same Session EJB to be deployed multiple times in the same
+                        container)
                     </td>
                     <td>
-						No, default is
+                        No, default is
                         <code>no prefix</code>.
                     </td>
                 </tr>
@@ -153,7 +160,7 @@
                           tableNamePrefix
                     </td>
                     <td>
-                          The string to prepend to each table name. 
+                          The string to prepend to each table name.
                     </td>
                     <td>
                           No, default is the empty string
