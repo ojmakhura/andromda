@@ -19,17 +19,6 @@
 			<ant:fileset dir="${mappings.location}"/>
 		</ant:copy>		  
     </preGoal>
-  	
-  	<!-- this is here because the plugin:install goal incorrectly
-  	     copies to the '${maven.repo.local}/jars directory'
-  	     instead of the '${maven.repo.local}/plugins directory' -->
-  	<postGoal name="plugin:install" > 
-		<ant:copy todir="${maven.repo.local}/${pom.groupId}/plugins">
-			<ant:fileset dir="target">
-				<include name="*.jar"/>
-			</ant:fileset>
-		</ant:copy>	
-  	</postGoal>
 
 </project>
  
