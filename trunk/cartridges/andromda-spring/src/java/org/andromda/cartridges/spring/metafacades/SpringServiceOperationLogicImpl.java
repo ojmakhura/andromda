@@ -68,5 +68,38 @@ public class SpringServiceOperationLogicImpl
                 .valueOf(this
                     .getConfiguredProperty(SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX)));
     }
+    
+    /**
+     * The transation type for Spring service.
+     */
+    private static final String TRANSACTION_TYPE = "transactionType";
+        
+    /**
+     * @see org.andromda.metafacades.uml.ServiceOperationFacade#getTransactionType()
+     */
+    public String getTransactionType()
+    {
+        String transactionType = super.getTransactionType();
+        if (StringUtils.isBlank(transactionType))
+        {
+            transactionType = String.valueOf(this.getConfiguredProperty(TRANSACTION_TYPE));
+        }
+        return transactionType;
+    }
+
+    private static final String EJB_TRANSACTION_TYPE = "ejbTransactionType";
+    
+    /**
+     * @see org.andromda.metafacades.uml.ServiceOperationFacade#getEjbTransactionType()
+     */
+    protected String handleGetEjbTransactionType()
+    {
+        String transactionType = super.getTransactionType();
+        if (StringUtils.isBlank(transactionType))
+        {
+            transactionType = String.valueOf(this.getConfiguredProperty(EJB_TRANSACTION_TYPE));
+        }
+        return transactionType;        
+    }
 
 }

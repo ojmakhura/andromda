@@ -387,6 +387,18 @@
                 </tr>
                 <tr>
                     <td>
+                        transactionType
+                    </td>
+                    <td>
+                        The default transaction type used for operations (when not
+                        wrapping your services with EJBs).
+                    </td>
+                    <td>
+                        No, default is <code>PROPAGATION_REQUIRED</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         implementationOperationNamePrefix
                     </td>
                     <td>
@@ -809,6 +821,18 @@
                         </td>
                         <td>
                             No, default is <code>{0}.ejb</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ejbTransactionType
+                        </td>
+                        <td>
+                            The default transaction type definition used if services are wrapped
+                            with EJBs.
+                        </td>
+                        <td>
+                            No, default is <code>REQUIRED</code>.
                         </td>
                     </tr>
                     <tr>
