@@ -1,0 +1,33 @@
+<project name="andromda-ant" default="init">
+    
+    <description>
+    	
+        This build script creates the lib.zip containing
+    	all dependencies required to run an AndroMDA application
+    	created by the AndroMDA ant tool.
+    	
+    	IMPORTANT: this is intended to be run from the 
+        AndroMDA binary distribution (as it copies all 
+    	required dependencies into the andromda ant 
+    	tool jar).
+	
+    </description>
+
+    <target name="init">
+    	<property name="lib.dir" value="lib"/>
+        <copy todir="${lib.dir}" 
+        	  flatten="true" 
+        	  includeEmptyDirs="false">
+        	<fileset dir="../lib"/>
+        	<fileset dir="../andromda">
+        		<exclude name="**maven**"/>
+        	</fileset>
+        	<fileset dir="../andromda-cartridges"/>
+    	</copy>    	
+		<zip destfile="${lib.dir}.zip">
+			 <zipfileset dir="${lib.dir}" prefix="lib"/>
+	    </zip>
+        <delete dir="${lib.dir}"/>
+    </target>
+
+</project>
