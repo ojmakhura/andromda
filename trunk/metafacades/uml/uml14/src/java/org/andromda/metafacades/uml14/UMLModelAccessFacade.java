@@ -18,6 +18,7 @@ import org.omg.uml.foundation.core.ModelElement;
  * and can therefore be processed by AndroMDA.
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
+ * @author Chad Brandon
  */
 public class UMLModelAccessFacade implements ModelAccessFacade
 {
