@@ -99,6 +99,9 @@ public class CartridgeXmlParser extends DefaultHandler
         }
         else if (qName.equals("template"))
         {
+            String val = attributes.getValue("generateEmptyFiles");
+            boolean generateEmptyFiles = 
+               (val == null) || val.equalsIgnoreCase("true");
             TemplateConfiguration tc =
                 new TemplateConfiguration(
                     desc,
@@ -107,7 +110,8 @@ public class CartridgeXmlParser extends DefaultHandler
                     attributes.getValue("outputPattern"),
                     attributes.getValue("outlet"),
                     attributes.getValue("overWrite").equalsIgnoreCase(
-                        "true"));
+                        "true"),                    
+                    generateEmptyFiles);
             String tcn = attributes.getValue("transformClass");
             if (tcn != null)
             {

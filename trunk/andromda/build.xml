@@ -48,6 +48,7 @@
 
     <path id="test.class.path">
         <pathelement location="${build.test.classes.dir}" />
+        <pathelement location="${test.src.dir}" />
         <path refid="build.class.path"/>
     </path>
 

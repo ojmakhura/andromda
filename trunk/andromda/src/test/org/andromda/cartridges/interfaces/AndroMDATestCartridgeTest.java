@@ -66,8 +66,16 @@ public class AndroMDATestCartridgeTest extends TestCase
         assertTrue(icc.getOutlets().contains("impls"));
 
         assertEquals(
-            "TemplateConfiguration: EntityBean EntityBean.vsl {0}/{1}Bean.java beans true",
+            "TemplateConfiguration: EntityBean EntityBean.vsl {0}/{1}Bean.java beans true true",
             icc.getTemplateConfigurations().get(0).toString());
+            
+        assertEquals(
+            "TemplateConfiguration: EntityBean EntityBeanImpl.vsl {0}/{1}BeanImpl.java impls false true",
+            icc.getTemplateConfigurations().get(1).toString());
+
+        assertEquals(
+            "TemplateConfiguration: EntityBean EntityBeanCMP.vsl {0}/{1}BeanCMP.java beans true false",
+            icc.getTemplateConfigurations().get(2).toString());
     }
 
 }
