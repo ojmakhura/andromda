@@ -411,6 +411,18 @@
                         No, default is <code>/services/</code>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        sessionTimeout
+                    </td>
+                    <td>
+                        The number of minutes the session can be idle before 
+                        timeout occurs.
+                    </td>
+                    <td>
+                        No, default is <code>5</code>.
+                    </td>
+                </tr>
 			</table>
 			<subsection name="WS-Security Specific Properties">
 				<table>

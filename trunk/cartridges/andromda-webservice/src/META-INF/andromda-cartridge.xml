@@ -18,6 +18,7 @@
     <property reference="servicesPath" default="/services/"/>
     <property reference="ejbJndiUrl" default=""/>
     <property reference="ejbNamingContextFactory" default="org.jnp.interfaces.NamingContextFactory"/>
+    <property reference="sessionTimeout" default="5"/>
     
     <!-- default namespaces -->
     <property reference="wsdlSoapNamespace" default="http://schemas.xmlsoap.org/wsdl/soap/"/>
