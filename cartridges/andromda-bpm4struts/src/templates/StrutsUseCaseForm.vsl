@@ -31,11 +31,7 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 #if ($field.type.arrayType)
 #set ($arrayPresent = true)
 #end
-#set ($fieldType = $field.type.fullyQualifiedName)
-#if ($field.date)
-#set ($fieldType = "java.lang.String")
-#end
-    private $fieldType $field.name;
+    private $field.type.fullyQualifiedName $field.name;
 #if ($field.date)
     private final java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
 #end
@@ -56,9 +52,6 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
 
 #foreach ($field in $fields)
 #set ($fieldType = $field.type.fullyQualifiedName)
-#if ($field.date)
-#set ($fieldType = "String")
-#end
 #set ($fieldName = $field.name)
 #if ($field.type.collectionType)
     public void ${field.setterName}($fieldType $fieldName)
