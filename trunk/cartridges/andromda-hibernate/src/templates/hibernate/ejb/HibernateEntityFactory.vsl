@@ -8,7 +8,8 @@ package $entity.packageName;
  * <p>
  * Factory class.
  * Is able to find and create objects of type ${entity.name}.
- * Hibernate inheritance $entity.hibernateInheritanceStrategy
+ * The Hibernate <em>$entity.hibernateInheritanceStrategy</em> inheritance
+ * strategy is followed.
  * Those can be described as follows:
  * </p>
  * @see $entity.fullyQualifiedName
