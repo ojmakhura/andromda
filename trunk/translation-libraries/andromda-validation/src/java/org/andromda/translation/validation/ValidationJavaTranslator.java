@@ -565,26 +565,6 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
     }
 
-    public void caseTOclAsType(TOclAsType tOclAsType)
-    {
-    }
-
-    public void caseTOclInState(TOclInState tOclInState)
-    {
-    }
-
-    public void caseTOclIsKindOf(TOclIsKindOf tOclIsKindOf)
-    {
-    }
-
-    public void caseTOclIsNew(TOclIsNew tOclIsNew)
-    {
-    }
-
-    public void caseTOclIsTypeOf(TOclIsTypeOf tOclIsTypeOf)
-    {
-    }
-
     public void caseTScopeOperator(TScopeOperator tScopeOperator)
     {
     }
