@@ -72,6 +72,7 @@ public abstract class $service.baseName
     	throws $operation.exceptionList 
 #end
     {
+#if ($serviceParameterRequiredCheck.equalsIgnoreCase('true'))
 #foreach ($argument in $operation.arguments)
 #if ($argument.required && !$argument.type.primitive)
         if ($argument.name == null) 
@@ -79,6 +80,7 @@ public abstract class $service.baseName
             throw new IllegalArgumentException(
                 "${service.fullyQualifiedName}.${operation.signature} - '${argument.name}' can not be null");
         }
+#end
 #end
 #end
         try
