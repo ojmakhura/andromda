@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo (2)</title>
+    </properties>
+
+    <body>
+        <section name="Activity Graphs">
+            <p>
+               These graphs allow you to express the way you want your application to behave, this is expressed
+               by means of states and transitions. An activity graph therefore, by definition, is a
+               <em>state machine</em>.
+            </p>
+            <p>
+                Your activity graph should be modeled as a child element of the use-case. In case your modeling
+                tool does not support that you can add a tagged value to the use-case, making it point to the
+                activity graph, like this: <code>@andromda.struts.usecase.activity=My Activity Graph</code>
+            </p>
+            <p>
+                On this page you will see how to use the different states, and how to express the flow from one
+                state into another.
+            </p>
+            <p class="highlight">
+                Custom code (methods) can be executed from an action state, you will learn about that in one of the
+                later sections, click <a href="howto4.html">here</a> to immediately go there.
+            </p>
+            <subsection name="Initial States">
+                <p>
+                    Each use-case needs an <code>initial state</code>, an initial state is displayed as
+                    a solid black disc. It denotes the starting point of the use-case, it can have no incoming
+                    transitions and only one outgoing transition. Only a single initial state is allowed
+                    per activity graph.
+                </p>
+                <p>
+                    Since our example features only one use-case it will therefore
+                    contain exactly one initial state.
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/initial-states.jpg"/>
+                </p>
+            </subsection>
+            <subsection name="Action States">
+                <p>
+                    An action state represents a certain state in which the application can be recorded,
+                    an action state is displayed as a rectangle with rounded corners. In bpm4struts you will
+                    use action states for both server-side states (the controller: struts actions)
+                    as client-side states (the view: JSP, VTL, ...).
+                </p>
+                <p class="highlight">
+                    Make sure the actual name property of each action state is unqiue in the activity graph.
+                    Additionally, make sure the name is properly entered: sometimes people enter the action state's
+                    <em>label</em> in the activity diagram instead of the real name of the element.
+                </p>
+                <p>
+                    Client-side action states are tagged with the <![CDATA[<<FrontEndView>>]]> stereotype,
+                    they represent a JSP and may have multiple outgoing transitions (one per call
+                    to the server). It is not allowed to model a transition between two <![CDATA[<<FrontEndView>>]]>
+                    action states.
+                </p>
+                <p>
+                    Server-side action states do not need any stereotype but can only have a single outgoing
+                    transition.
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/action-states.jpg"/>
+                </p>
+            </subsection>
+            <subsection name="Action Parameters">
+                <p>
+                    Action parameters are parameters modeled on transitions exiting client-side action states
+                    (the ones with the <![CDATA[<<FrontEndView>>]]> stereotype). Whenever you model such a transition
+                    it represents a call to the server from a webpage, usually by sumbitting a form. The parameters
+                    you model will represent the form fields.
+                </p>
+                <p>
+                    Please note that you will need to add the parameters to the transition's <code>trigger</code>,
+                    this trigger should be of type 'signal', but don't worry about that if your UML tool does
+                    not support setting the type of the trigger.
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/action-parameters.jpg"/>
+                </p>
+            </subsection>
+            <subsection name="Page Variables">
+                <p>
+                    Page variables are modeled the same way action parameters are, the only difference is that
+                    you model them on transitions <em>entering</em> a <![CDATA[<<FrontEndView>>]]> action state.
+                    In doing so the modeled parameters will be available in the generated JSP page.
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/page-variables.jpg"/>
+                </p>
+            </subsection>
+            <subsection name="Decision Points">
+                <p>
+                    In some cases action states and transitions just aren't enough, a good example is when you
+                    want to fork the flow based on a specific decision. Suppose you want to follow the first
+                    transition if the user login credentials are valid, and follow the second transition if they
+                    are invalid.
+                </p>
+                <p>
+                    In order to do this we must need to be able to call an operation with a return value, on which
+                    the decision is based. We will see how to do this later, click here
+                    to proceed there now: <a href="howto4">Custom Code</a>.
+                </p>
+                <p>
+                    Finally we must tag the transition indicating when it must be followed, in UML this is done
+                    by means of <em>guards</em>. Not to make things overly complex it is not necessary to model
+                    the OCL for the guard (very few tools properly support this), so instead it will be sufficient
+                    to model the name of the guard, it must match the return value of the method call
+                    (matching is done using <code>String.valueOf(returnValue)</code>).
+                </p>
+                <p>
+                    Some modeling tools do not properly show the name of the guard in the activity diagram, in that
+                    case you might consider copying the name also in the guard's body, this will be ignored by the
+                    cartridge and might show it on screen for clarity.
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/decision-points.jpg"/>
+                </p>
+            </subsection>
+            <subsection name="Final States">
+                <p>
+                    You may have as many final states as you want in an activity graph. In bpm4struts a final state
+                    represents the and of the use-case and the flow into the next use-case. Final states are
+                    displayed as bulls-eyes in activity diagrams.
+                </p>
+                <p>
+                    There are two ways of modeling a final state: either you give it the name of the next use-case
+                    (which can be the same as the current use-case), either you do not name it and you use a hyperlink
+                    to the next use-case (this is not supported in all UML tools).
+                </p>
+                <p>
+                    <img src="resources/howto/org/andromda/test/final-states.jpg"/>
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                Use-cases usually execute custom code, later we will see how to do that, first you will
+                need to understand how to assign a controller to a use-case, this is explained in the
+                <a href="howto3.html">next</a> section.
+            </p>
+        </section>
+    </body>
+</document>

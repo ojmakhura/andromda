@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo (3)</title>
+    </properties>
+
+    <body>
+        <section name="Controllers">
+            <p>
+                Modeling activity graphs allows you to clearly express the way your application flows from one
+                state into another. This already helps a great deal in the code generation process, but all this
+                effort would only make sense when you ould be able to actually insert your own code fragments
+                into this process. UML elegantly allows this.
+            </p>
+            <p>
+                Per use-case you will need to model a class in which you will put all the operations that can be
+                called from within that use-case's activity.
+            </p>
+            <p>
+                You will need to associate this class to the use-case somehow, the cartridge can't just guess which
+                cartridge it corresponds to. Therefore we have two options, depending on the maturity of the UML
+                tool you are using:
+                <ul>
+                    <li>Assign this class as the context of the activity graph (MagicDraw supports this),
+                        this is a standard UML feature that, unfortunately, is often overlooked by CASE tools vendors.
+                    </li>
+                    <li>Add a tagged value to the controller, pointing to the use-case, like this:
+                        <code>@andromda.struts.controller.usecase=My UseCase</code> (the value is the name
+                        of the use-case).
+                    </li>
+                </ul>
+                Either one of these options will do, we recommend using the former because that way you won't need
+                to update the tagged value whenever you decide to change the name of the use-case (which can be a pain).
+            </p>
+            <p>
+                <img src="resources/howto/org/andromda/test/controllers.jpg"/>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Now that we know how to define custom code operations we need to learn how
+                to call them from within your activity graph, <a href="howto4.html">read on</a>.
+            </p>
+        </section>
+    </body>
+</document>

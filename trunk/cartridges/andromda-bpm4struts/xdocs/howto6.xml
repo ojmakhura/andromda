@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo (6)</title>
+    </properties>
+
+    <body>
+        <section name="Security">
+            <p>
+                Adding security to your web application can be done very easily, although in a coarse-grain fashion:
+                you cannot tell the cartridge to allow a specific person access to some page, you would rather
+                express which groups of people have permission to access a specific use-case.
+            </p>
+            <p>
+                Again UML elegantly allows us to model this: just associate actors to you use-cases. When an actor
+                is associated to a use-case it means that all users represented by that actor are allowed to call
+                that use-case's actions: Hyperlinks will be enabled and  the server will allow access to the
+                resources in the use-case' package.
+            </p>
+            <p>
+                When a user is not permitted access to a specific use-case he will find that the hyperlinks to that
+                use-case are rendered in plain text, form buttons are grayed-out, and that the server will
+                not authorize any access to the resources of that use-case.
+            </p>
+            <p>
+                To facilitate the modeling of the user groups using actors, these actors are allowed to generalize
+                other actors, thereby explicitely inheriting the privileges of the parent actor.
+            </p>
+            <p>
+                <img src="resources/howto/org/andromda/test/security.jpg"/>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Next section: <a href="howto7.html">Calling back-end services</a>.
+            </p>
+        </section>
+    </body>
+</document>
