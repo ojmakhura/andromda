@@ -1,4 +1,4 @@
-#if ($entity.entityBusinessOperationsPresent)
+#if ($entity.entityBusinessOperationsPresent && !$entity.enumeration)
 #set ($generatedFile = "${entity.packagePath}/${entity.entityImplementationName}.java")
 /**
  * This is only generated once! It will never be overwritten.
