@@ -83,23 +83,23 @@
             </description>
             <url-pattern>/services/${service.name}</url-pattern>
         </web-resource-collection>
-#foreach ($role in $service.roles)
         <auth-constraint>
+#foreach ($role in $service.roles)
             <role-name>$role.name</role-name>
-        </auth-constraint>
 #end
+        </auth-constraint>
         <user-data-constraint>
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-#end
-#end
-#set ($allRoles = $webServiceUtils.getAllRoles($services))
-#foreach ($role in $allRoles)
     <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>$securityRealm</realm-name>
     </login-config>
+#end
+#end
+#set ($allRoles = $webServiceUtils.getAllRoles($services))
+#foreach ($role in $allRoles)
     <security-role>
         <role-name>$role.name</role-name>
     </security-role>
