@@ -3,6 +3,18 @@
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core">
 
+    <!-- copying custom web files over the generated ones (or just adding them) -->
+<!-- uncomment this section and put files in src/jsp to have them copied over the generated ones
+    <preGoal name="war:init">
+        <ant:delete dir="${war.precompile.jsp}" quiet="true"/>
+        <ant:copy todir="${maven.war.webapp.dir}" overwrite="true">
+            <ant:fileset dir="${maven.src.dir}/jsp">
+                <include name="**/*"/>
+            </ant:fileset>
+        </ant:copy>
+    </preGoal>
+-->
+
 #if ($webservice)
     <!-- =====================================================================
             - Remove the 'ignore::' prefix and configure the <ant:mapping> elements
