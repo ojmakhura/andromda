@@ -22,7 +22,7 @@ maven.andromda.common.generated.dir=${maven.src.dir}/../../common/target/src
 # The hibernate transaction manager to use.
 hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransactionManagerLookup
 #end
-hibernate.db.showsql=true
+hibernate.db.showSql=true
 #if ($spring)
 # The hibernate generator class to use for identifiers
 hibernate.generatorClass=native
