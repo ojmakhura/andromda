@@ -175,7 +175,7 @@ public class StringUtilsHelper
      */
     public static String toResourceMessageKey(String string)
     {
-        return separate(string, ".").toLowerCase();
+        return separate(StringUtils.trimToEmpty(string), ".").toLowerCase();
     }
 
     /**
@@ -198,7 +198,7 @@ public class StringUtilsHelper
      */
     public static String separate(String string, String separator)
     {
-        if ((string == null) || (string.trim().length() == 0))
+        if (StringUtils.isBlank(string))
             return string;
 
         final String[] parts = splitAtCapitalization(string);
@@ -219,7 +219,7 @@ public class StringUtilsHelper
     private static String[] splitAtCapitalization(String string)
     {
         Pattern capitalSequencePattern = Pattern.compile("[A-Z]+");
-        Matcher matcher = capitalSequencePattern.matcher(string);
+        Matcher matcher = capitalSequencePattern.matcher(StringUtils.trimToEmpty(string));
         StringBuffer sb = new StringBuffer();
         while (matcher.find())
         {
@@ -241,7 +241,7 @@ public class StringUtilsHelper
      */
     public static String suffixLines(String multiLines, String suffix)
     {
-        final String[] lines = multiLines.split("\n");
+        final String[] lines = StringUtils.trimToEmpty(multiLines).split("\n");
         final StringBuffer linesBuffer = new StringBuffer();
         for (int i = 0; i < lines.length; i++)
         {
@@ -265,7 +265,7 @@ public class StringUtilsHelper
     {
         String resourceMessage = null;
 
-        if (multiLines != null)
+        if (StringUtils.isNotBlank(multiLines))
         {
             final String suffix = "\\";
             multiLines = suffixLines(multiLines, ' ' + suffix).trim();
