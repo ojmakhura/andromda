@@ -1,17 +1,16 @@
 package org.andromda.translation.validation;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 /**
  * Dynamically invokes operation and property calls on specified
  * <strong>elements</code>.
- *
+ * 
  * @author Wouter Zoons
  * @author Chad Brandon
  */
@@ -86,11 +85,13 @@ public class OCLIntrospector
         }
     }
 
-    private static Object getNestedProperty(Object element, String propertyName) throws Exception
+    private static Object getNestedProperty(Object element, String propertyName)
+        throws Exception
     {
         Object property = null;
 
-        if (element != null && propertyName != null && propertyName.length() > 0)
+        if (element != null && propertyName != null
+            && propertyName.length() > 0)
         {
             int dotIndex = propertyName.indexOf('.');
             if (dotIndex == -1)
@@ -101,118 +102,80 @@ public class OCLIntrospector
             {
                 if (dotIndex >= propertyName.length())
                 {
-                    throw new Exception("Malformed property call: "+propertyName);
+                    throw new Exception("Malformed property call --> '"
+                        + propertyName + "'");
                 }
-                Object nextInstance = getProperty(element, propertyName.substring(0, dotIndex));
-                property = getNestedProperty(nextInstance, propertyName.substring(dotIndex+1));
+                Object nextInstance = getProperty(element, propertyName
+                    .substring(0, dotIndex));
+                property = getNestedProperty(nextInstance, propertyName
+                    .substring(dotIndex + 1));
             }
         }
-
         return property;
     }
 
-    private static Object getProperty(Object element, String propertyName) throws Exception
+    /**
+     * Gets the value of the property with <code>propertyName</code> on the
+     * given <code>element</code>.
+     * 
+     * @param element the element from which to retrieve the property.
+     * @param propertyName the name of the property
+     * @return the resulting property value
+     * @throws InvocationTargetException if an exception occurs during
+     *         invocation
+     * @throws IllegalAccessException if an illegal access exception occurs
+     *         during invocation.
+     */
+    private static Object getProperty(Object element, String propertyName)
+        throws InvocationTargetException,
+            IllegalAccessException
     {
         Object property = null;
-        boolean tryNextCall = true;
-
-        if (element != null || propertyName != null || propertyName.length() > 0)
+        if (element != null || propertyName != null
+            || propertyName.length() > 0)
         {
-            try
+            Method method = getMethod("get", element, propertyName);
+            if (method == null)
             {
-                property = invokeGet(element, propertyName);
-                tryNextCall = false;
+                method = getMethod("is", element, propertyName);
             }
-            catch (NoSuchMethodException e)
-            {
-                // try next call
-            }
-            catch (InvocationTargetException e)
-            {
-                // try next call
-            }
-            catch (IllegalAccessException e)
-            {
-                // try next call
-            }
-            catch (SecurityException e)
-            {
-                // try next call
-            }
-
-            if (tryNextCall)
-            {
-                try
-                {
-                    property = invokeIs(element, propertyName);
-                    tryNextCall = false;
-                }
-                catch (NoSuchMethodException e)
-                {
-                    // try next call
-                }
-                catch (InvocationTargetException e)
-                {
-                    // try next call
-                }
-                catch (IllegalAccessException e)
-                {
-                    // try next call
-                }
-                catch (SecurityException e)
-                {
-                    // try next call
-                }
-            }
-
-            if (tryNextCall)
-            {
-                try
-                {
-                    property = invokeField(element, propertyName);
-                    tryNextCall = false;
-                }
-                catch (NoSuchFieldException e)
-                {
-                    // try next call
-                }
-                catch (IllegalAccessException e)
-                {
-                    // try next call
-                }
-                catch (SecurityException e)
-                {
-                    // try next call
-                }
-            }
+            property = method.invoke(element, null);
         }
-
         return property;
     }
 
-    private static Object invokeGet(Object element, String propertyName)
-            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, SecurityException
+    /**
+     * Retrieves the method from the given <code>element</code> and the given
+     * <code>propertyName</code> by capitalizing the <code>propertyName</code>
+     * 
+     * @param prefix the prefix (either 'get' or 'is')
+     * @param element the element from which to retrieve the moethod
+     * @param propertyName the name of the property
+     * @return the retrieved Method.
+     */
+    private static Method getMethod(
+        String prefix,
+        Object element,
+        String propertyName)
     {
-        Method method = element.getClass().getMethod("get"+StringUtils.capitalize(propertyName), null);
-        return method.invoke(element, null);
+        Method method = null;
+        try
+        {
+            method = element.getClass().getMethod(
+                prefix + StringUtils.capitalize(propertyName),
+                null);
+        }
+        catch (NoSuchMethodException ex)
+        {
+            // ignore
+        }
+        return method;
     }
 
-    private static Object invokeIs(Object element, String propertyName)
-            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, SecurityException
-    {
-        Method method = element.getClass().getMethod("is"+StringUtils.capitalize(propertyName), null);
-        return method.invoke(element, null);
-    }
-
-    private static Object invokeField(Object element, String propertyName)
-            throws NoSuchFieldException, IllegalAccessException, SecurityException
-    {
-        Field field = element.getClass().getField(propertyName);
-        return field.get(element);
-    }
-
-
-    private static Object invokeMethod(Object element, String methodName, Object[] arguments) throws Exception
+    private static Object invokeMethod(
+        Object element,
+        String methodName,
+        Object[] arguments) throws Exception
     {
         Object property = null;
 
@@ -220,7 +183,9 @@ public class OCLIntrospector
         {
             Class[] argumentTypes = getObjectTypes(arguments);
 
-            Method method = element.getClass().getMethod(methodName, argumentTypes);
+            Method method = element.getClass().getMethod(
+                methodName,
+                argumentTypes);
             property = method.invoke(element, arguments);
         }
 
@@ -234,16 +199,15 @@ public class OCLIntrospector
         if (objects != null)
         {
             objectTypes = new Class[objects.length];
-            for (int i = 0; i < objects.length; i++)
+            for (int ctr = 0; ctr < objects.length; ctr++)
             {
-                Object object = objects[i];
+                Object object = objects[ctr];
                 if (object != null)
                 {
-                    objectTypes[i] = object.getClass();
+                    objectTypes[ctr] = object.getClass();
                 }
             }
         }
-
         return objectTypes;
     }
 }
