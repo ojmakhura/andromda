@@ -94,18 +94,21 @@
                 property="srcAvailable"/>
 
             <j:if test="${srcAvailable != null}">
-                    <!-- only attempt to add the generated source if it exists -->
-                    <j:set var="generatedSrc" value="${maven.build.src}"/>
-                    <j:if test="${generatedSrc != null and generatedSrc != ''}">
-                        <!-- add the paths of the generated source to the
-                             maven compile path -->
-                        <ant:path
-                            id="andromda.java.gen.src"
-                            location="${generatedSrc}"/>
-                        <maven:addPath
-                            id="maven.compile.src.set"
-                            refid="andromda.java.gen.src"/>
-                    </j:if>
+                <!-- only attempt to add the generated source if it exists -->
+                <ant:available
+                    file="${maven.build.src}"
+                    type="dir"
+                    property="generatedSrcAvailable"/>
+                <j:if test="${generatedSrcAvailable != null}">
+                    <!-- add the paths of the generated source to the
+                         maven compile path -->
+                    <ant:path
+                        id="andromda.java.gen.src"
+                        location="${generatedSrc}"/>
+                    <maven:addPath
+                        id="maven.compile.src.set"
+                        refid="andromda.java.gen.src"/>
+                </j:if>
             </j:if>
         </j:if>
 
