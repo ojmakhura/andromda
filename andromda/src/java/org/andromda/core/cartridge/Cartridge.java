@@ -429,8 +429,9 @@ public class Cartridge
                     }
                     else
                     {
-                        AndroMDALogger.info("Empty Output: '" + outFile.toURI()
-                            + "' --> not writing");
+                        if (this.logger.isDebugEnabled())
+	                        this.logger.debug("Empty Output: '" + outFile.toURI()
+	                            + "' --> not writing");
                     }
                     AndroMDALogger.reset();
                 }
