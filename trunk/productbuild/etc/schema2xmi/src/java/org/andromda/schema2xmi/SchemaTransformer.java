@@ -443,7 +443,8 @@ public class SchemaTransformer
         umlClass.getStereotype().addAll(
             this.findOrCreateStereotypes(
                 corePackage, 
-                this.classStereotypes));
+                this.classStereotypes,
+                "Class"));
 
         if (this.includeTaggedValues)
         {
@@ -477,10 +478,12 @@ public class SchemaTransformer
     {
         Collection attributes = new ArrayList();
         ResultSet columnRs = metadata.getColumns(null, null, tableName, null);
+        Collection primaryKeyColumns = 
+            this.getPrimaryKeyColumns(metadata, tableName);
         while (columnRs.next())
         {
             String columnName = columnRs.getString("COLUMN_NAME");
-
+            
             // do NOT add foreign key columns as attributes (since
             // they are placed on association ends)
             if (!this.hasForeignKey(tableName, columnName))
@@ -536,7 +539,14 @@ public class SchemaTransformer
                         attribute.getTaggedValue().add(taggedValue);
                     }
                 }
-
+                if (primaryKeyColumns.contains(columnName))
+                {
+                    attribute.getStereotype().addAll(
+                        this.findOrCreateStereotypes(
+                            corePackage,
+                            this.identifierStereotypes,
+                            "Attribute"));
+                }
                 attributes.add(attribute);
                 if (logger.isInfoEnabled())
                     logger
@@ -574,6 +584,29 @@ public class SchemaTransformer
         }
         DbUtils.closeQuietly(columnRs);
         return nullable;
+    }
+    
+    /**
+     * Returns a collection of all primary key column names
+     * for the given <code>tableName</code>.
+     * 
+     * @param metadata
+     * @param tableName
+     * @return collection of primary key names.
+     */
+    private Collection getPrimaryKeyColumns(
+        DatabaseMetaData metadata,
+        String tableName) throws SQLException
+    {
+        Collection primaryKeys = new HashSet();
+        ResultSet primaryKeyRs = 
+            metadata.getPrimaryKeys(null, null, tableName);
+        while (primaryKeyRs.next())
+        {
+            primaryKeys.add(primaryKeyRs.getString("COLUMN_NAME"));
+        }
+        DbUtils.closeQuietly(primaryKeyRs);
+        return primaryKeys;
     }
 
     /**
@@ -728,11 +761,13 @@ public class SchemaTransformer
      * If any of the stereotypes can't be found, they will be created.
      * 
      * @param names comma seperated list of stereotype names
+     * @param baseClass the base class for which the stereotype applies.
      * @return Collection of Stereotypes
      */
     protected Collection findOrCreateStereotypes(
         CorePackage corePackage,
-        String names)
+        String names,
+        String baseClass)
     {
         Collection stereotypes = new HashSet();
         String stereotypeNames[] = names.split(",");
@@ -747,7 +782,7 @@ public class SchemaTransformer
 		            || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
 		        {
 		            Collection baseClasses = new ArrayList();
-		            baseClasses.add("Class");
+		            baseClasses.add(baseClass);
 		            stereotype = 
 		                corePackage.getStereotype().createStereotype(
 		                    name,
