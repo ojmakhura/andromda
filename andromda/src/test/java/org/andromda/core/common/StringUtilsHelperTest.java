@@ -2,6 +2,8 @@ package org.andromda.core.common;
 
 import junit.framework.TestCase;
 
+import java.util.*;
+
 public class StringUtilsHelperTest extends TestCase
 {
     public StringUtilsHelperTest(String format)
@@ -275,5 +277,22 @@ public class StringUtilsHelperTest extends TestCase
             assertEquals(StringUtilsHelper.crunch(strings[0], 10), strings[1]);
         }
 */
+    }
+
+    public void testToStringList()
+    {
+        final Object[][] fixture = new Object[][]
+        {
+            new Object[] { null, "" },
+            new Object[] { Collections.EMPTY_LIST, "" },
+            new Object[] { new ArrayList(), "" },
+            new Object[] { Arrays.asList(new Object[] { "", null, "  ", "qwerty", new Integer(2)}), ",,  ,qwerty,2"}
+        };
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            Object[] objects = fixture[i];
+            assertEquals(StringUtilsHelper.toStringList((Collection)objects[0], ","), objects[1]);
+        }
     }
 }
