@@ -1,6 +1,7 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import org.andromda.core.mapping.Mappings;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for
@@ -55,17 +56,20 @@ public class HibernateTypeLogicImpl
             if (String.class.isAssignableFrom(property.getClass()))
             {
                 uri = (String)property;
-                try
+                if (StringUtils.isNotBlank(uri))
                 {
-                    mappings = Mappings.getInstance(uri);
-                    this.setProperty(propertyName, mappings);
-                }
-                catch (Throwable th)
-                {
-                    String errMsg = "Error getting '" + propertyName
-                        + "' --> '" + uri + "'";
-                    logger.error(errMsg, th);
-                    //don't throw the exception
+	                try
+	                {
+	                    mappings = Mappings.getInstance((String)property);
+	                    this.setProperty(propertyName, mappings);
+	                }
+	                catch (Throwable th)
+	                {
+	                    String errMsg = "Error getting '" + propertyName
+	                        + "' --> '" + uri + "'";
+	                    logger.error(errMsg, th);
+	                    //don't throw the exception
+	                }
                 }
             }
             else
