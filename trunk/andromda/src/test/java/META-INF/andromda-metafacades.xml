@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <metafacades namespace="andromda-test-metafacades" shared="true">
-    <default className="org.andromda.core.metafacade.Metafacade1Impl"/>
+    <default class="org.andromda.core.metafacade.Metafacade1Impl"/>
     <property reference="namespacePropertyOne" default="false"/>
     <property reference="namespacePropertyTwo" default="true"/>
     <metafacade class="org.andromda.core.metafacade.Metafacade1Impl">

@@ -13,7 +13,7 @@
     <property reference="foreignKeySuffix" default="_FK"/>
     <property reference="sqlNameSeparator" default="_"/>
     <property reference="roleNameMask" default="none"/>
-    <default className="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
+    <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>
