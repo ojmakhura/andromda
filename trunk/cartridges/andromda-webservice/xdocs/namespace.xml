@@ -368,13 +368,14 @@
                 </tr>
                 <tr>
                     <td>
-                        serviceContext
+                        servicesPath
                     </td>
                     <td>
-                        The context to use when listing the services.
+                        The path to the location of the services (relative to the 
+                        web application context).
                     </td>
                     <td>
-                        No, default is <code>/services/*</code>
+                        No, default is <code>/services/</code>
                     </td>
                 </tr>
 			</table>
