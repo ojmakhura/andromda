@@ -166,12 +166,12 @@
                  classname="xdoclet.modules.ejb.EjbDocletTask"
                  classpathref="build.class.path"
         />
-
+		
         <ejbdoclet destdir="${ejbdoclet.output.dir}"
                    ejbspec="2.0"
                    force="false">
                    
-            <fileset dir="src">
+            <fileset dir="${andromda.ejb.bean.dir}">
                 <include name="**/*Bean.java" />
             </fileset>
 
