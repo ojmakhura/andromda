@@ -388,13 +388,13 @@ public class MetafacadeFactory
 
     /**
      * Populates the metafacade with the values retrieved from the property references
-     * found in the <code>propertyReferences</code> collection.
+     * found in the <code>propertyReferences</code> Map.
      *
-     * @param propertyReferences the collection of property references which we'll populate.
+     * @param propertyReferences the Map of property references which we'll populate.
      */
     protected void populatePropertyReferences(
         MetafacadeBase metafacade,
-        Collection propertyReferences)
+        Map propertyReferences)
     {
 
         final String methodName =
@@ -405,7 +405,7 @@ public class MetafacadeFactory
             "propertyReferences",
             propertyReferences);
 
-        Iterator referenceIt = propertyReferences.iterator();
+        Iterator referenceIt = propertyReferences.keySet().iterator();
         while (referenceIt.hasNext())
         {
             String reference = (String) referenceIt.next();
@@ -417,10 +417,23 @@ public class MetafacadeFactory
                  metafacade.getPropertyNamespace(),
                  reference))
             {
+                
+                String defaultValue = (String)propertyReferences.get(reference);
+
+                // if we have a default value, then don't warn
+                // that we don't have a property, otherwise we'll
+                // show the warning.
+                boolean showWarning = false;
+                if (defaultValue == null)
+                {
+                    showWarning = true;
+                }
+                
                 Property property =
                     Namespaces.instance().findNamespaceProperty(
                         this.getActiveNamespace(),
-                        reference);
+                        reference,
+                        showWarning);
 
                 // don't attempt to set if the property is null, or it's set to ignore.
                 if (property != null && !property.isIgnore())
@@ -439,6 +452,10 @@ public class MetafacadeFactory
                     {
                        metafacade.setProperty(reference, value);
                     }
+                }
+                else if (defaultValue != null)
+                {
+                    metafacade.setProperty(reference, defaultValue);
                 }
             }
         }

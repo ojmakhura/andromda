@@ -3,15 +3,14 @@ package org.andromda.core.metafacade;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.ResourceFinder;
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -60,7 +59,7 @@ public class MetafacadeMappings {
 	/**
 	 * Contains references to properties populated in the Namespaces.
 	 */
-	private Collection propertyRefs = new HashSet();
+	private Map propertyReferences = new HashMap();
 	
 	/**
 	 * Property references keyed by namespace, these
@@ -167,9 +166,9 @@ public class MetafacadeMappings {
 			String metaobjectClass = (String)keyIt.next();
 			this.addMapping((MetafacadeMapping)mappings.mappings.get(metaobjectClass));
 		}
-		Collection propertyRefs = mappings.propertyRefs;
+		Map propertyRefs = mappings.propertyReferences;
 		if (propertyRefs != null && !propertyRefs.isEmpty()) {
-			this.propertyRefs.addAll(propertyRefs);
+			this.propertyReferences.putAll(propertyRefs);
 		}
 		this.defaultMetafacadeClass = mappings.defaultMetafacadeClass;
 		
@@ -238,19 +237,21 @@ public class MetafacadeMappings {
 		return this.resource;
 	}
 
-	/**
+    /**
 	 * Adds a language mapping reference.  This are used
 	 * to populate metafacade impl classes with mapping
 	 * files (such as those that map from model types to Java, JDBC, SQL
 	 * types, etc). If its added here as opposed to each
 	 * child MetafacadeMapping, then the reference will
 	 * apply to all mappings.
-	 * 
-	 * @param reference
-	 */
-	public void addPropertyReference(String reference) {
-		this.propertyRefs.add(StringUtils.trimToEmpty(reference));
-	}
+     * 
+     * @param reference the name of the reference.
+     * @param defaultValue the default value of the property reference.
+     */
+    public void addPropertyReference(String reference, String defaultValue)
+    {
+        this.propertyReferences.put(reference, defaultValue);
+    }
 	
 	/**
 	 * Returns all property references for this MetafacadeMappings
@@ -259,24 +260,24 @@ public class MetafacadeMappings {
 	 * 
 	 * @param namespace the namespace to search
 	 */
-	public Collection getPropertyReferences(String namespace) {
-		Collection propertyReferences = null;
+	public Map getPropertyReferences(String namespace) {
+		Map propertyReferences = null;
 		if (this.namespacePropertyRefs == null) {
 			this.namespacePropertyRefs = new HashMap();
 		} else {
 			propertyReferences = 
-				(Collection)namespacePropertyRefs.get(namespace);			
+				(Map)namespacePropertyRefs.get(namespace);			
 		}
 		
 		if (propertyReferences == null) {
 			
 			// first load the property references from 
 			// the mappings
-			propertyReferences = new HashSet();
-			propertyReferences.addAll(this.propertyRefs);
+			propertyReferences = new HashMap();
+			propertyReferences.putAll(this.propertyReferences);
 			MetafacadeMappings metafacades = this.getNamespaceMappings(namespace);
 			if (metafacades != null) {
-				propertyReferences.addAll(metafacades.propertyRefs);
+				propertyReferences.putAll(metafacades.propertyReferences);
 			} 	
 			this.namespacePropertyRefs.put(namespace, propertyReferences);
 		}		

@@ -18,11 +18,16 @@
 
 			<call-method-rule
 				methodname="addPropertyReference" 
-				paramcount="1"/>
+				paramcount="2" 
+				paramtypes="java.lang.String,java.lang.String"/>
 				
 	    	<call-param-rule 
 	    		attrname="reference" 
 	    		paramnumber="0" />
+	    		
+            <call-param-rule 
+	            attrname="default" 
+	            paramnumber="1" />
 			
 		</pattern>
 		
@@ -71,13 +76,18 @@
 	 		<!-- add configuration property references to the metafacade -->
 			<pattern value="property">
 	
-				<call-method-rule
-					methodname="addPropertyReference" 
-					paramcount="1"/>
-					
-		    	<call-param-rule 
-		    		attrname="reference" 
-		    		paramnumber="0" />
+                <call-method-rule
+				    methodname="addPropertyReference" 
+				    paramcount="2" 
+				    paramtypes="java.lang.String,java.lang.String"/>
+				
+	    	    <call-param-rule 
+	    		    attrname="reference" 
+	    		    paramnumber="0" />
+	    		
+                <call-param-rule 
+	                attrname="default" 
+	                paramnumber="1" />
 				
 			</pattern>
 		   	

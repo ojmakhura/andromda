@@ -169,7 +169,7 @@ public class Cartridge
 
                         // now place the collections of stereotyped elements
                         // by the given variable names. (skip it the variable
-                        // was NOT defined
+                        // was NOT defined)
                         Iterator stereotypeNames = templateModelElements
                             .stereotypeNames();
                         while (stereotypeNames.hasNext())

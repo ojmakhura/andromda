@@ -106,9 +106,8 @@ public abstract class BasePlugin
     }
 
     /**
-     * Adds the <code>templateObject</code> to the collection of 
-     * template objects that will be made available to the plugin
-     * during processing.
+     * Adds the <code>templateObject</code> to the collection of template
+     * objects that will be made available to the plugin during processing.
      * 
      * @param templateObject the TemplateObject to add.
      */
@@ -160,7 +159,7 @@ public abstract class BasePlugin
      */
     public TemplateEngine getTemplateEngine()
     {
-        return (TemplateEngine) ComponentContainer.instance().findComponent(
+        return (TemplateEngine)ComponentContainer.instance().findComponent(
             TemplateEngine.class);
     }
 
@@ -184,19 +183,20 @@ public abstract class BasePlugin
     {
         this.propertyReferences.put(reference, defaultValue);
     }
-    
+
     /**
-     * Populates the <code>templateContext</code> with the 
-     * properties and template objects defined in the <code>plugin</code>'s
-     * descriptor.  If the <code>templateContext</code> is null, a new
-     * Map instance will be created before populating the context.
+     * Populates the <code>templateContext</code> with the properties and
+     * template objects defined in the <code>plugin</code>'s descriptor. If
+     * the <code>templateContext</code> is null, a new Map instance will be
+     * created before populating the context.
      * 
      * @param templateContext the context of the template to populate.
      */
-    protected void populateTemplateContext(Map templateContext) 
+    protected void populateTemplateContext(Map templateContext)
     {
-        if (templateContext == null) {
-            templateContext = new HashMap();    
+        if (templateContext == null)
+        {
+            templateContext = new HashMap();
         }
         this.addTemplateObjectsToContext(templateContext);
         this.addPropertyReferencesToContext(templateContext);
@@ -218,7 +218,7 @@ public abstract class BasePlugin
             Iterator templateObjectIt = templateObjects.iterator();
             while (templateObjectIt.hasNext())
             {
-                TemplateObject templateObject = (TemplateObject) templateObjectIt
+                TemplateObject templateObject = (TemplateObject)templateObjectIt
                     .next();
                 templateContext.put(templateObject.getName(), templateObject
                     .getTemplateObject());
@@ -242,9 +242,8 @@ public abstract class BasePlugin
             Iterator referenceIt = propertyReferences.keySet().iterator();
             while (referenceIt.hasNext())
             {
-                String reference = (String) referenceIt.next();
-                String defaultValue = (String) propertyReferences
-                    .get(reference);
+                String reference = (String)referenceIt.next();
+                String defaultValue = (String)propertyReferences.get(reference);
 
                 // if we have a default value, then don't warn
                 // that we don't have a property, otherwise we'll
@@ -255,10 +254,11 @@ public abstract class BasePlugin
                     showWarning = true;
                 }
                 // find the property from the namespace
-                Property property = Namespaces.instance().findNamespaceProperty(
-                    this.getName(),
-                    reference,
-                    showWarning);
+                Property property = Namespaces.instance()
+                    .findNamespaceProperty(
+                        this.getName(),
+                        reference,
+                        showWarning);
                 // if property isn't ignore, then add it to
                 // the context
                 if (property != null && !property.isIgnore())

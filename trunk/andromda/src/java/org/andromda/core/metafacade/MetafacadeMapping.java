@@ -1,7 +1,7 @@
 package org.andromda.core.metafacade;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
 import org.apache.commons.lang.StringUtils;
@@ -39,7 +39,7 @@ public class MetafacadeMapping {
 	/**
 	 * Used to hold references to language mapping classes.
 	 */
-	private Collection propertyReferences = new ArrayList();
+	private Map propertyReferences = new HashMap();
 	
 	/**
 	 * The parent mappings instance that owns
@@ -124,18 +124,20 @@ public class MetafacadeMapping {
 	 * child MetafacadeMapping, then the reference will
 	 * apply to all mappings.
 	 * 
-	 * @param reference
-	 */
-	public void addPropertyReference(String reference) {
-		this.propertyReferences.add(StringUtils.trimToEmpty(reference));
-	}
+     * @param reference the name of the reference.
+     * @param defaultValue the default value of the property reference.
+     */
+    public void addPropertyReference(String reference, String defaultValue)
+    {
+        this.propertyReferences.put(reference, defaultValue);
+    }
 	
 	/**
 	 * Returns all mapping references for this
 	 * MetafacadeMapping instance.
 	 *
 	 */
-	public Collection getPropertyReferences() {
+	public Map getPropertyReferences() {
 		return this.propertyReferences;
 	}
 	
