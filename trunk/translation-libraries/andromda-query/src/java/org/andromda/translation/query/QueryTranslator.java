@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.andromda.core.translation.BaseTranslator;
 import org.andromda.core.translation.TranslationUtils;
-import org.andromda.core.translation.node.AFeatureCall;
 import org.andromda.core.translation.node.ALogicalExpressionTail;
 import org.andromda.core.translation.node.AOperationContextDeclaration;
 import org.andromda.core.translation.node.APropertyCallExpression;
 import org.andromda.core.translation.node.ARelationalExpressionTail;
 import org.andromda.core.translation.node.AStandardDeclarator;
+import org.andromda.core.translation.node.AStandardFeatureCall;
 import org.andromda.core.translation.node.PRelationalExpression;
 import org.andromda.core.translation.syntax.VariableDeclaration;
 import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
@@ -239,7 +239,7 @@ public class QueryTranslator
             .getFeatureCalls(propertyCallExpression);
 
         List params = params = ConcreteSyntaxUtils
-            .getParameters((AFeatureCall)featureCalls.get(0));
+            .getParameters((AStandardFeatureCall)featureCalls.get(0));
 
         translation = this.replaceFragment(translation, TranslationUtils
             .deleteWhitespace(params.get(0)), 0);
@@ -270,7 +270,7 @@ public class QueryTranslator
         // since the parameters can only be either dotFeatureCall or
         // arrowFeatureCall we try one or the other.
         String parameters = StringUtils.deleteWhitespace(ConcreteSyntaxUtils
-            .getParametersAsString((AFeatureCall)featureCalls.get(0)));
+            .getParametersAsString((AStandardFeatureCall)featureCalls.get(0)));
 
         String primaryExpression = ConcreteSyntaxUtils
             .getPrimaryExpression(propertyCallExpression);
