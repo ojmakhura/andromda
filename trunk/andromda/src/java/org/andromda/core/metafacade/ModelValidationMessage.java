@@ -76,7 +76,7 @@ public class ModelValidationMessage
                     if (metafacade.getValidationOwner() != null)
                     {
                         // remove package if we have an owner
-                        validationName = validationName.replaceAll("\\w*"
+                        validationName = validationName.replaceAll(".*"
                             + seperator, "");
                     }
                     if (name.length() > 0)
