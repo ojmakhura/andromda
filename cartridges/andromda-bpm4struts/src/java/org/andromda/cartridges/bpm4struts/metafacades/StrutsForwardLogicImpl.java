@@ -174,44 +174,48 @@ public class StrutsForwardLogicImpl
 
     protected Collection handleGetActions()
     {
-        Collection actions = null;
+        Set actions = new HashSet();
+        findActions(actions, new HashSet());
+        return actions;
+    }
 
-        if (this instanceof StrutsAction) // @todo this is not so nice because StrutsAction extends StrutsForward, solution would be to override in StrutsAction
+    private void findActions(Set actions, Set handledForwards)
+    {
+        if (!handledForwards.contains(this))
         {
-            actions = Collections.singletonList(this);
-        }
-        else
-        {
-            StateVertexFacade vertex = getSource();
-            if (vertex instanceof StrutsJsp)
+            handledForwards.add(this);
+            
+            if (this instanceof StrutsAction) // @todo this is not so nice because StrutsAction extends StrutsForward, solution would be to override in StrutsAction
             {
-                StrutsJsp jsp = (StrutsJsp)vertex;
-                actions = jsp.getActions();
+                actions.add(this);
             }
-            else if (vertex instanceof StrutsActionState)
+            else
             {
-                StrutsActionState actionState = (StrutsActionState)vertex;
-                actions = actionState.getContainerActions();
-            }
-            else if (vertex instanceof PseudostateFacade)
-            {
-                PseudostateFacade pseudostate = (PseudostateFacade)vertex;
-                if (pseudostate.isInitialState())
+                StateVertexFacade vertex = getSource();
+                if (vertex instanceof StrutsJsp)
                 {
-                    actions = Collections.EMPTY_LIST;
+                    StrutsJsp jsp = (StrutsJsp)vertex;
+                    actions.addAll(jsp.getActions());
                 }
-                else
+                else if (vertex instanceof StrutsActionState)
                 {
-                    actions = new ArrayList();
-                    Collection incomingForwards = pseudostate.getIncoming();
-                    for (Iterator forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
+                    StrutsActionState actionState = (StrutsActionState)vertex;
+                    actions.addAll(actionState.getContainerActions());
+                }
+                else if (vertex instanceof PseudostateFacade)
+                {
+                    PseudostateFacade pseudostate = (PseudostateFacade)vertex;
+                    if (!pseudostate.isInitialState())
                     {
-                        StrutsForward forward = (StrutsForward) forwardIterator.next();
-                        actions.addAll(forward.getActions());
+                        Collection incomingForwards = pseudostate.getIncoming();
+                        for (Iterator forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
+                        {
+                            StrutsForward forward = (StrutsForward) forwardIterator.next();
+                            actions.addAll(forward.getActions());
+                        }
                     }
                 }
             }
         }
-        return actions;
     }
 }
