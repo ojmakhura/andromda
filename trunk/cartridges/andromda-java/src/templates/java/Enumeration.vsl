@@ -67,6 +67,16 @@ $literal.getDocumentation("     * ")
     }
     
     /**
+     * Gets the underlying value of this type safe enumeration.
+     *
+     * @return the underlying value.
+     */ 
+    public $enumeration.literalType.fullyQualifiedName getValue()
+    {
+        return this.value;
+    }
+    
+    /**
      * Returns an unmodifiable list containing the literals that are known by this enumeration.
      *
      * @return A List containing the actual literals as defined by this enumeration, this list can
