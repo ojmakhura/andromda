@@ -102,6 +102,9 @@
 #if ($stringUtils.isNotBlank($hibernateJdbcUseStreamsForBinary))
                 <prop key="hibernate.use_streams_for_binary">${hibernateJdbcUseStreamsForBinary}</prop>
 #end
+#if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
+                <prop key="hibernate.hbm2ddl.auto">${hibernateHbm2DDLAuto}</prop>
+#end
             </props>
         </property>
     </bean>

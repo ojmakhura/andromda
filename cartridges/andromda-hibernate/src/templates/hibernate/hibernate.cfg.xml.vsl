@@ -70,6 +70,9 @@
 #if ($str.isNotBlank($hibernateJdbcUseStreamsForBinary))
         <property name="use_streams_for_binary">${hibernateJdbcUseStreamsForBinary}</property>
 #end
+#if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
+        <property name="hibernate.hbm2ddl.auto">${hibernateHbm2DDLAuto}</property>
+#end
         <!-- mapping files -->
 #foreach($entity in $entities)
 ## Check if the entity is a root in hibernate terms
