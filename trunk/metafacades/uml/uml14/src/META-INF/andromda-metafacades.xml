@@ -82,6 +82,7 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AttributeFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
+        <property reference="enumerationLiteralNameMask" default="none"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ParameterFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>

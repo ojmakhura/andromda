@@ -50,10 +50,14 @@ public class UMLMetafacadeProperties
     public static final String CONSTRAINT_SUFFIX = "constraintSuffix";
 
     /**
-     * The mask to apply to role names (lowercase, uppercase, camelcase,
-     * nospace, none).
+     * The mask to apply to role names {@see MetafacadeUtils#getMaskedName(String, String)}.
      */
     public static final String ROLE_NAME_MASK = "roleNameMask";
+    
+    /**
+     * The mask to apply to the enumeration name {@see MetafacadeUtils#getMaskedName(String, String)}
+     */
+    public static final String ENUMERATION_LITERAL_NAME_MASK = "enumerationLiteralNameMask";
 
     /**
      * The maximum length a SQL name can be before its truncated.

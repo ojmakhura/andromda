@@ -4,8 +4,11 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.mapping.Mappings;
-import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.MetafacadeUtils;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.EnumerationFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.Multiplicity;
@@ -248,6 +251,23 @@ public class AttributeFacadeLogicImpl
             value = "\"" + value + "\"";
         }
         return value;
+    }
+    
+    /**
+     * Overridden to provide different handling of the name if this
+     * attribute represents a literal.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    protected String handleGetName()
+    {
+        String name = super.handleGetName();
+        if (this.getOwner() instanceof EnumerationFacade)
+        {
+            final String mask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
+            name = MetafacadeUtils.getMaskedName(name, mask);
+        }
+        return name;
     }
     
     /**
