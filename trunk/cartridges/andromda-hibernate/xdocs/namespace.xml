@@ -127,7 +127,7 @@
                           defaultHibernateGeneratorClass
                     </td>
                     <td>
-                          The default class to use for Hibernate ID generation (can be overriden
+                          The default class to use for Hibernate ID generation (can be overridden
                           on a per entity basis with the 
                           <a href="modeling.html#@andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a>
                           tagged value).
@@ -144,7 +144,7 @@
                     </td>
                     <td>
                           Defines the hibernate inheritance strategy (unless
-                          overriden on an entity level by the 
+                          overridden on an entity level by the
                           <a href="#modeling.html#andromda.hibernate.inheritance">@andromda.hibernate.inheritance</a>
                           tagged value, can be the following possible values:
                         <ul>
@@ -217,7 +217,7 @@
                             <li>Mandatory</li>
                             <li>Never</li>
                         </ul>
-                        <strong>NOTE:</strong> Can be overriden on a per entity basis with the 
+                        <strong>NOTE:</strong> Can be overridden on a per entity basis with the 
                         <a href="modeling.html#@andromda.transaction.type">@andromda.transaction.type</a> 
                         tagged value.
                     </td>
