@@ -33,7 +33,7 @@ import org.apache.commons.lang.StringUtils;
 public class Cartridge
     extends BasePlugin
 {
-    private List templates = new ArrayList();
+    private List resources = new ArrayList();
     private CodeGenerationContext context;
 
     /**
@@ -63,9 +63,9 @@ public class Cartridge
 
         this.context = context;
 
-        Collection templates = this.getTemplates();
+        Collection resources = this.getResources();
 
-        if (templates != null && !templates.isEmpty())
+        if (resources != null && !resources.isEmpty())
         {
             MetafacadeFactory factory = MetafacadeFactory.getInstance();
 
@@ -74,61 +74,80 @@ public class Cartridge
             String previousNamespace = factory.getActiveNamespace();
             factory.setActiveNamespace(this.getName());
 
-            Iterator templateIt = templates.iterator();
-            while (templateIt.hasNext())
+            Iterator resourceIt = resources.iterator();
+            while (resourceIt.hasNext())
             {
-                Template template = (Template)templateIt
-                    .next();
-                TemplateModelElements templateModelElements = template
-                    .getSupportedModeElements();
-                // handle the templates WITH model elements
-                if (templateModelElements != null
-                    && !templateModelElements.isEmpty())
+                Resource resource = (Resource)resourceIt.next();
+                if (Template.class.isAssignableFrom(resource.getClass()))
                 {
-                    Iterator stereotypeIt = templateModelElements
-                        .stereotypeNames();
-                    while (stereotypeIt.hasNext())
-                    {
-                        String stereotypeName = (String)stereotypeIt.next();
-                        Collection modelElements = (Collection)this.elementCache
-                            .get(stereotypeName);
-                        if (modelElements == null)
-                        {
-                            modelElements = context.getModelFacade()
-                                .findByStereotype(stereotypeName);
-                            elementCache.put(stereotypeName, modelElements);
-                        }
-
-                        TemplateModelElement templateModelElement = templateModelElements
-                            .getModelElement(stereotypeName);
-
-                        Collection metafacades = MetafacadeFactory
-                            .getInstance().createMetafacades(modelElements);
-
-                        this.filterModelPackages(metafacades);
-
-                        templateModelElement.setModelElements(metafacades);
-                    }
-                    this.processWithModelElements(template, context);
+	                Template template = (Template)resource;
+	                this.processTemplate(template);
                 }
-                else
+                else 
                 {
-                    // handle any templates WITHOUT model elements.
-                    this.processWithoutModelElements(template);
+                    this.processResource(resource);
                 }
             }
             //set the namespace back
             factory.setActiveNamespace(previousNamespace);
         }
     }
+    
+    /**
+     * Processes the given <code>template</code>.
+     * 
+     * @param template the Template instance to process.
+     */
+    protected void processTemplate(Template template)
+    {
+        final String methodName = "Cartridge.processTemplate";
+        ExceptionUtils.checkNull(methodName, "template", template);
+        TemplateModelElements templateModelElements = template
+            .getSupportedModeElements();
+        // handle the templates WITH model elements
+        if (templateModelElements != null
+            && !templateModelElements.isEmpty())
+        {
+            Iterator stereotypeIt = templateModelElements
+                .stereotypeNames();
+            while (stereotypeIt.hasNext())
+            {
+                String stereotypeName = (String)stereotypeIt.next();
+                Collection modelElements = (Collection)this.elementCache
+                    .get(stereotypeName);
+                if (modelElements == null)
+                {
+                    modelElements = context.getModelFacade()
+                        .findByStereotype(stereotypeName);
+                    elementCache.put(stereotypeName, modelElements);
+                }
 
+                TemplateModelElement templateModelElement = templateModelElements
+                    .getModelElement(stereotypeName);
+
+                Collection metafacades = MetafacadeFactory
+                    .getInstance().createMetafacades(modelElements);
+
+                this.filterModelPackages(metafacades);
+
+                templateModelElement.setModelElements(metafacades);
+            }
+            this.processTemplateWithModelElements(template, context);
+        }
+        else
+        {
+            // handle any templates WITHOUT model elements.
+            this.processTemplateWithoutModelElements(template);
+        }
+    }
+    
     /**
      * Processes all <code>modelElements</code> for this template.
      * 
      * @param template the Template object from which we process.
      * @param context the context for the cartridge
      */
-    protected void processWithModelElements(
+    protected void processTemplateWithModelElements(
         Template template,
         CodeGenerationContext context)
     {
@@ -147,8 +166,8 @@ public class Cartridge
         {
             Property outletProperty = Namespaces.instance()
                 .findNamespaceProperty(
-                    this.getName(), 
-                    template.getOutlet(), 
+                    this.getName(),
+                    template.getOutlet(),
                     template.isRequired());
 
             if (outletProperty != null && !outletProperty.isIgnore())
@@ -262,7 +281,7 @@ public class Cartridge
      * 
      * @param template the template to process.
      */
-    protected void processWithoutModelElements(Template template)
+    protected void processTemplateWithoutModelElements(Template template)
     {
         final String methodName = "Cartridge.processWithoutModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
@@ -287,8 +306,7 @@ public class Cartridge
      * Perform processing with the <code>template</code>.
      * </p>
      * 
-     * @param template the Template containing the template sheet
-     *        to process.
+     * @param template the Template containing the template sheet to process.
      * @param templateContext the context to which variables are added and made
      *        available to the template engine for processing. This will contain
      *        any model elements being made avaiable to the template(s) as well
@@ -396,6 +414,17 @@ public class Cartridge
             throw new CartridgeException(errMsg, th);
         }
     }
+    
+    /**
+     * Processes the given <code>resource</code>
+     * 
+     * @param resource the resource to process.
+     */
+    protected void processResource(Resource resource)
+    {
+        final String methodName = "Cartridge.processResource";
+        ExceptionUtils.checkNull(methodName, "resource", resource);
+    }
 
     /**
      * Creates a File object from an output pattern in the template
@@ -454,24 +483,21 @@ public class Cartridge
      * 
      * @return List the template list.
      */
-    public List getTemplates()
+    public List getResources()
     {
-        return templates;
+        return this.resources;
     }
 
     /**
-     * Adds an item to the list of defined template configurations.
+     * Adds an resource to the list of defined resources.
      * 
-     * @param template the new configuration to add
+     * @param resource the new resource to add
      */
-    public void addTemplate(Template template)
+    public void addResource(Resource resource)
     {
-        ExceptionUtils.checkNull(
-            "Cartridge.addTemplate",
-            "template",
-            template);
-        template.setCartridge(this);
-        templates.add(template);
+        ExceptionUtils.checkNull("Cartridge.addResource", "resource", resource);
+        resource.setCartridge(this);
+        resources.add(resource);
     }
 
     /**

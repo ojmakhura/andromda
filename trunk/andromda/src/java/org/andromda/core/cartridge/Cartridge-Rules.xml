@@ -87,6 +87,28 @@
 	      	<set-next-rule methodname="addTemplateObject" />	    		
 		       
 	   	</pattern>
+		
+		<!-- add a resource to the cartridge -->
+		<pattern value="resource">
+			
+	    	<object-create-rule 
+	      		classname="org.andromda.core.cartridge.Resource" />  
+	
+			<set-properties-rule>
+	 			<alias attr-name="path" prop-name="path" />
+	 		</set-properties-rule> 
+			
+			<set-properties-rule>
+	 			<alias attr-name="outlet" prop-name="outlet" />
+	 		</set-properties-rule> 	 	
+			
+			<set-properties-rule>
+	 			<alias attr-name="overwrite" prop-name="overwrite" />
+	 		</set-properties-rule> 	 
+			
+	      	<set-next-rule methodname="addResource" />
+							
+		</pattern>
 	   	
 	   	<!-- add a template to the cartridge -->
 	   	
@@ -153,7 +175,7 @@
                 		    
 	 		</pattern>
 
-	      	<set-next-rule methodname="addTemplate" />
+	      	<set-next-rule methodname="addResource" />
 		       
 	   	</pattern>
 	   	
