@@ -32,7 +32,7 @@ public class AndroMDATestCartridgeTest extends TestCase
     protected void setUp() throws Exception
     {
         fCartridge = new AndroMDATestCartridge();
-        // set validation off since the parser's used by JUnit
+        // set validation off since the parser used by JUnit
         // don't seem to support schema validation
         XmlObjectFactory.setDefaultValidating(false);
         fCartridge.setDescriptor(DefaultCartridgeDescriptor.getInstance(
