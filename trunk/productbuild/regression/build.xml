@@ -161,21 +161,18 @@
         <echo>|   R U N N I N G   R E G R E S S I O N   T E S T   |</echo>
         <echo>|                                                   |</echo>
         <echo>+---------------------------------------------------+</echo>
-        <junit printsummary="yes" haltonfailure="false">
-       
+		<java classname="junit.textui.TestRunner" fork="yes">
+		
             <classpath>
                 <path refid="build.class.path"/>
-            </classpath>
-		
-			<formatter type="plain"/>
-			
+            </classpath>	
+            
             <sysproperty key="andromda.draft.dir" value="${build.compare.dir}"/>
             <sysproperty key="andromda.out.dir" value="${build.generated.dir}"/>	
             
-		  	<test name="org.andromda.cartridges.regression.RegressionTest"
-		  		  todir="${build.reports.dir}">	  	
-		  	</test>
-        </junit>
+            <arg value="org.andromda.cartridges.regression.RegressionTest"/>
+            
+        </java>
 	</target>
 	
 	<target name="generate-compare-data" depends="init">
