@@ -129,8 +129,6 @@ public class MetafacadeMappingsTest
         assertEquals(METAFACADE_CLASS_4, mapping.getMetafacadeClass().getName());
         assertTrue(mapping.getPropertyReferences().isEmpty());
         
-        System.out.println("mapping key yes!: " + mapping.getKey());
-        
         // test a mapping having a context (with using an inherited context)
         mapping = mappings.getMetafacadeMapping(
             MAPPING_OBJECT_4,
