@@ -22,6 +22,16 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>andromda.cartridge.lastModifiedCheck</td>
+                        <td>Yes</td>
+                        <td>
+                            Whether or not to perform a last modified check
+                            when deciding whether or not to generate the 
+                            test output. 
+                            Default is <code>true</code>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>andromda.cartridge.printreport</td>
                         <td>Yes</td>
                         <td>
