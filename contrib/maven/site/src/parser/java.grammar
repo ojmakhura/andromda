@@ -1,0 +1,64 @@
+Package org.andromda.maven.site.highlight.java;
+
+/*******************************************************************
+ * Helpers                                                         *
+ *******************************************************************/
+Helpers
+
+    any = [0..0xffff];
+
+    ht = 0x0009;
+    lf = 0x000a;
+    ff = 0x000c;
+    cr = 0x000d;
+    sp = ' ';
+
+    eol = lf | cr | cr lf;
+    quote = ''' | '"';
+
+    digit = ['0'..'9'];
+    alpha_numeric = ['0'..'9'] | ['a'..'z'] | ['A'..'Z'];
+    character = [any - [lf + [cr + [ht + [ff + [sp + ['/' + [''' + '"']]]]]]]];
+    symbol_character = '/';
+
+    star_slash = '/*';
+    not_star = [any - '*'];
+    not_star_not_slash = [any - ['/' + '*']];
+    not_end_of_line = [any - [cr + lf]];
+
+/*******************************************************************
+ * Tokens                                                          *
+ *******************************************************************/
+Tokens
+
+    symbol = symbol_character;
+
+    block_comment = '/*' not_star* '*'+ (not_star_not_slash not_star* '*'+)* '/';
+    end_of_line_comment = '//' not_end_of_line*;
+
+    numeric_literal = (digit* '.'? digit+) | '0x' alpha_numeric+;
+    string_literal = quote (character | sp | ff | ht | symbol_character)* quote;
+
+    text = (character | ht | ff | eol | sp)*;
+
+/*******************************************************************
+ * Productions                                                     *
+ *******************************************************************/
+Productions
+
+source =
+    block*;
+
+block =
+    {comment} comment |
+    {literal} literal |
+    {symbol} symbol |
+    {text} text;
+
+literal =
+    {string} string_literal |
+    {numeric} numeric_literal;
+
+comment =
+    {block_comment} block_comment |
+    {end_of_line_comment} end_of_line_comment;
