@@ -68,9 +68,12 @@ public class AssociationEndFacadeLogicImpl
         if (StringUtils.isEmpty(name))
         {
             ClassifierFacade type = this.getType();
-            name = StringUtils.uncapitalize(StringUtils.trimToEmpty(type
-                .getName()));
-            if (isMany() && this.isPluralizeAssociationEndNames())
+            if (type != null)
+            {
+                name = StringUtils.uncapitalize(StringUtils.trimToEmpty(type
+                    .getName()));
+            }
+            if (this.isMany() && this.isPluralizeAssociationEndNames())
             {
                 name = StringUtilsHelper.pluralize(name);
             }
@@ -246,9 +249,9 @@ public class AssociationEndFacadeLogicImpl
         if (this.isMany())
         {
             Mappings mappings = getLanguageMappings();
-            return isOrdered() ? mappings
-                .getTo(UMLProfile.LIST_TYPE_NAME) : mappings
-                .getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            return isOrdered()
+                ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
+                : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
         }
 
         // if single element, then return the type
