@@ -1,0 +1,351 @@
+#set ($generatedFile = "${action.fullFormBeanPath}.java")
+##
+##  CONSTANTS
+##
+#set ($hash = "#")
+#set ($fields = $action.actionFormFields)
+#set ($actionParameters = $action.actionParameters)
+#set ($formBeanClassName = $action.formBeanClassName)
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $action.formBeanPackageName;
+
+public class $formBeanClassName
+    extends org.apache.struts.validator.ValidatorForm
+    implements java.io.Serializable
+#foreach ($operation in $action.deferredOperations)
+        , $operation.interfaceName
+#end
+{
+
+#foreach ($field in $fields)
+#if ($field.file)
+    private org.apache.struts.upload.FormFile $field.name = null;
+#elseif($field.type.mapType)
+    private java.util.Map $field.name = new java.util.HashMap();
+#else
+    private $field.type.fullyQualifiedName $field.name;
+#end
+#if ($field.date)
+    private final static java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
+#end
+    private Object[] $field.valueListName;
+    private Object[] $field.labelListName;
+#end
+
+    public $formBeanClassName()
+    {
+#foreach ($field in $fields)
+#if ($field.date)
+#set ($lenient = !$field.strictDateFormat)
+        ${field.name}DateFormatter.setLenient($lenient);
+#end
+#end
+    }
+
+#foreach ($field in $fields)
+#set ($fieldType = $field.type.fullyQualifiedName)
+#set ($fieldName = $field.name)
+#if ($field.type.mapType)
+    /**
+     * Resets the given <code>$fieldName</code>.
+     */
+    public void ${field.resetName}()
+    {
+        this.${fieldName}.clear();
+    }
+    
+#else
+    /**
+     * Resets the given <code>$fieldName</code>.
+     */
+    public void ${field.resetName}()
+    {
+        this.$fieldName = $field.nullValue;
+    }
+    
+#end
+#if ($field.type.collectionType)
+    public void ${field.setterName}($fieldType $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public $fieldType ${field.getterName}()
+    {
+        return this.${fieldName};
+    }
+
+    public void ${field.setterName}AsArray(Object[] $fieldName)
+    {
+        this.$fieldName = ($fieldName == null) ? null : java.util.Arrays.asList($fieldName);
+    }
+
+    /**
+     * Returns this collection as an array, if the collection itself would be <code>null</code> this method
+     * will also return <code>null</code>.
+     *
+     * @see ${action.formBeanType}#${field.getterName}
+     */
+    public Object[] ${field.getterName}AsArray()
+    {
+        return ($fieldName == null) ? null : ${fieldName}.toArray();
+    }
+    
+#elseif ($field.date)
+    public void ${field.setterName}AsDate($fieldType $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    /**
+     * Returns the Date instance representing the <code>$field.name</code> field.
+     *
+     * @see ${action.formBeanType}#${field.getterName}
+     * @see ${action.formBeanType}#${field.getterName}DateFormatter
+     */
+    public $fieldType ${field.getterName}AsDate()
+    {
+        return this.$fieldName;
+    }
+
+    public void ${field.setterName}(java.lang.String ${fieldName})
+    {
+        if (${fieldName} == null || ${fieldName}.trim().length()==0)
+        {
+            this.$fieldName = null;
+        }
+        else
+        {
+            try
+            {
+#if ($fieldType == "java.util.Date")
+                this.$fieldName = ${fieldName}DateFormatter.parse(${fieldName});
+#else
+## this is an attempt to support descendants of java.util.Date, the class needs <init>(long)
+                this.$fieldName = new ${fieldType}(${fieldName}DateFormatter.parse(${fieldName}).getTime());
+#end
+            }
+            catch(java.text.ParseException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     *
+     * This method returns a <code>java.lang.String</code> instance, in order to get the
+     * <code>java.util.Date</code> instance see the <code>${field.getterName}AsDate()</code>
+     * method.
+     * <p>
+     * The conversion from Date to String (and vice-versa) is done by means of a date formatter, which
+     * can be accessed here: <code>${field.getterName}DateFormatter()</code>.
+     *
+     * @see ${action.formBeanType}#${field.getterName}AsDate
+     * @see ${action.formBeanType}#${field.getterName}DateFormatter
+     */
+    public java.lang.String ${field.getterName}()
+    {
+        return (${fieldName} == null) ? null : ${fieldName}DateFormatter.format($fieldName);
+    }
+
+    /**
+     * Returns the date formatter used for the <code>$field.name</code> property.
+     *
+     * @see ${action.formBeanType}#${field.getterName}
+     * @see ${action.formBeanType}#${field.getterName}AsDate
+     */
+    public final static java.text.DateFormat ${field.getterName}DateFormatter()
+    {
+        return ${formBeanClassName}.${fieldName}DateFormatter;
+    }
+
+#elseif ($field.file)
+    public void ${field.setterName}(org.apache.struts.upload.FormFile $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public org.apache.struts.upload.FormFile ${field.getterName}()
+    {
+        return this.$fieldName;
+    }
+#elseif ($field.type.mapType)
+	public void ${field.setterName}Value(java.lang.String key, java.lang.Object value) 
+	{
+		this.${fieldName}.put(key, value);
+	}
+
+	public java.lang.Object ${field.getterName}Value(String key) 
+	{
+		return ${fieldName}.get(key);
+	}
+	
+    public void ${field.setterName}(java.util.Map $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public java.util.Map ${field.getterName}()
+    {
+        return this.$fieldName;
+    }
+
+#else
+    public void ${field.setterName}($fieldType $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public $fieldType ${field.getterName}()
+    {
+        return this.$fieldName;
+    }
+    
+#end
+
+#set ($listType = "Object[]")
+#set ($backingListName = $field.backingListName)
+#set ($backingListMethod = $str.capitalize($backingListName))
+#set ($valueListName = $field.valueListName)
+#set ($valueListMethod = $str.capitalize($valueListName))
+#set ($labelListName = $field.labelListName)
+#set ($labelListMethod = $str.capitalize($labelListName))
+    public $listType get${backingListMethod}()
+    {
+        $listType values = this.${valueListName};
+        $listType labels = this.${labelListName};
+
+        if (values == null || values.length == 0)
+        {
+            return values;
+        }
+
+        if (labels == null || labels.length == 0)
+        {
+            labels = values;
+        }
+
+        final int length = Math.min(labels.length, values.length);
+        Object[] backingList = new Object[length];
+
+        for (int i=0; i<length; i++)
+        {
+            backingList[i] = new LabelValue(labels[i], values[i]);
+        }
+
+        return backingList;
+    }
+
+    public $listType get${valueListMethod}()
+    {
+        return this.$valueListName;
+    }
+
+    public void set${valueListMethod}($listType $valueListName)
+    {
+        this.$valueListName = $valueListName;
+    }
+
+    public $listType get${labelListMethod}()
+    {
+        return this.$labelListName;
+    }
+
+    public void set${labelListMethod}($listType $labelListName)
+    {
+        this.$labelListName = $labelListName;
+    }
+
+#end
+    /**
+     * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
+     */
+    public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
+    {
+#foreach ($field in $fields)
+#if ($field.resetRequired)
+## here we actually set the field to its null value, not its reset value (reset value is for dummy impls)
+        this.$field.name = $field.nullValue;
+#if ($field.selectable && $field.multiple)
+## multi-select fields need to be reset to an empty array (http://struts.apache.org/userGuide/struts-html.html#select)
+        this.$field.valueListName = new Object[0];
+        this.$field.labelListName = new Object[0];
+#end
+#end
+#end
+    }
+
+    public String toString()
+    {
+        org.apache.commons.lang.builder.ToStringBuilder builder =
+            new org.apache.commons.lang.builder.ToStringBuilder(this);
+#foreach ($field in $fields)
+#if ($field.password)
+        builder.append("$field.name", "***");
+#else
+        builder.append("$field.name", this.$field.name);
+#end
+#end
+        return builder.toString();
+    }
+
+    /**
+     * Allows you to clean all values from this form. Objects will be set to <code>null</code>, numeric values will be
+     * set to zero and boolean values will be set to <code>false</code>. Backinglists for selectable fields will
+     * also be set to <code>null</code>.
+     */
+    public void clean()
+    {
+#foreach ($field in $fields)
+        this.$field.name = $field.nullValue;
+#if ($field.selectable)
+        this.$field.valueListName = null;
+        this.$field.labelListName = null;
+#end
+#end
+    }
+
+    public final static class LabelValue
+    {
+        private Object label = null;
+        private Object value = null;
+
+        public LabelValue(Object label, Object value)
+        {
+            this.label = label;
+            this.value = value;
+        }
+
+        public Object getLabel()
+        {
+            return this.label;
+        }
+
+        public Object getValue()
+        {
+            return this.value;
+        }
+
+        public String toString()
+        {
+            return label + "=" + value;
+        }
+    }
+}

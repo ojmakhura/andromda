@@ -1,0 +1,36 @@
+#set ($generatedFile = "${sessionObject.fullPath}.java")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $sessionObject.packageName;
+
+import java.io.Serializable;
+
+/**
+$sessionObject.getDocumentation(" * ")
+ */
+public class $sessionObject.name implements Serializable
+{
+    public final static String SESSION_KEY = "$sessionObject.sessionKey";
+
+#foreach ( $attribute in $sessionObject.attributes )
+#set ($typeName = $attribute.type.fullyQualifiedName)
+    private $typeName $attribute.name;
+
+    /**
+$attribute.getDocumentation("     * ")
+     */
+    $attribute.visibility $typeName ${attribute.getterName}()
+    {
+        return this.${attribute.name};
+    }
+
+    $attribute.visibility void ${attribute.setterName}(${typeName} $attribute.name)
+    {
+        this.${attribute.name} = $attribute.name;
+    }
+
+#end
+
+}
