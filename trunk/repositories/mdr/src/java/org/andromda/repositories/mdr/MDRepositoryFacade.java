@@ -146,7 +146,8 @@ public class MDRepositoryFacade implements RepositoryFacade
     private static final String DEFAULT_ENCODING = "UTF-8";
     
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object, java.lang.String, java.lang.String)
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object,
+     *      java.lang.String, java.lang.String)
      */
     public void writeModel(Object model, String outputLocation, String xmiVersion)
     {
@@ -163,7 +164,8 @@ public class MDRepositoryFacade implements RepositoryFacade
         ExceptionUtils.checkNull(methodName, "model", model);
         ExceptionUtils.checkNull(methodName, "outputLocation", outputLocation);
         ExceptionUtils.checkAssignable(methodName, RefPackage.class, "model", model.getClass());
-        if (StringUtils.isEmpty(xmiVersion)) {
+        if (StringUtils.isEmpty(xmiVersion)) 
+        {
             xmiVersion = DEFAULT_XMI_VERSION;
         }
         if (StringUtils.isEmpty(encoding))
