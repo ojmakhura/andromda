@@ -312,4 +312,19 @@ public class StrutsUseCaseLogicImpl
         }
         return false;
     }
+
+    protected Collection handleGetActions()
+    {
+        Collection actions = new HashSet();
+
+        Collection pages = getPages();
+        for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+        {
+            StrutsJsp jsp = (StrutsJsp) pageIterator.next();
+            actions.addAll(jsp.getActions());
+        }
+        actions.add(getActivityGraph().getFirstAction());
+
+        return actions;
+    }
 }
