@@ -9,6 +9,7 @@ import org.andromda.samples.animalquiz.decisiontree.client.DecisionService;
 import org.andromda.samples.animalquiz.decisiontree.client.DecisionServiceServiceLocator;
 import org.andromda.samples.animalquiz.decisiontree.client.VODecisionItem;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.Action;
   
 /**
  *
@@ -41,7 +42,7 @@ public final class GuessController implements GuessControllerInterface {
      * @return the session state object
      */
     private static GuessSessionState getSessionState(HttpServletRequest request) {
-        final String GUESS_STATE = "guessState";
+        final String GUESS_STATE = "animal.quiz.guess.state";
         HttpSession session = request.getSession();
         GuessSessionState state = (GuessSessionState) session.getAttribute(GUESS_STATE);
         if (state == null) {
@@ -54,9 +55,10 @@ public final class GuessController implements GuessControllerInterface {
     /**
      * Fetches the first question from the business tier and
      * returns the prompt string in the form.
-     * @see GuessControllerInterface#getFirstQuestion(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse) 
+     * @see GuessControllerInterface#getFirstQuestion(Action, ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
     public void getFirstQuestion(
+        Action action,
         ActionMapping mapping,
         GuessForm form,
         HttpServletRequest request,
@@ -76,10 +78,11 @@ public final class GuessController implements GuessControllerInterface {
     /**
      * Checks whether a next decision item is available in the
      * decision tree.
-     * @see GuessControllerInterface#nextDecisionItemAvailable(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse) 
+     * @see GuessControllerInterface#nextDecisionItemAvailable(Action, ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      * @return String "yes" or "no".
      */
     public java.lang.String nextDecisionItemAvailable(
+        Action action,
         ActionMapping mapping,
         GuessForm form,
         HttpServletRequest request,
@@ -109,9 +112,10 @@ public final class GuessController implements GuessControllerInterface {
     /**
      * Stores the name of the animal that the user has given. It is stored
      * inside the session state - no call to the business tier.
-     * @see GuessControllerInterface#rememberAnimal(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse) 
+     * @see GuessControllerInterface#rememberAnimal(Action, ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
     public void rememberAnimal(
+        Action action,
         ActionMapping mapping,
         GuessForm form,
         HttpServletRequest request,
@@ -125,9 +129,10 @@ public final class GuessController implements GuessControllerInterface {
      * Takes the differentiator question that the user has given and creates
      * a new animal in the business tier. If the user answers "yes" to that question
      * during the next run of the game, that animal is presented as a guess.
-     * @see GuessControllerInterface#rememberQuestion(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
+     * @see GuessControllerInterface#rememberQuestion(Action, ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
     public void rememberQuestion(
+        Action action,
         ActionMapping mapping,
         GuessForm form,
         HttpServletRequest request,
@@ -154,9 +159,10 @@ public final class GuessController implements GuessControllerInterface {
 
     /**
      * Checks if the last answer from the user was "yes".
-     * @see GuessControllerInterface#lastAnswerWasYes(ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
+     * @see GuessControllerInterface#lastAnswerWasYes(Action, ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
     public boolean lastAnswerWasYes(
+        Action action,
         ActionMapping mapping,
         GuessForm form,
         HttpServletRequest request,
@@ -167,9 +173,10 @@ public final class GuessController implements GuessControllerInterface {
 
     /**
      * Stores the fact that the last answer from the user was positive.
-     * @see org.andromda.samples.animalquiz.guess.GuessControllerInterface#rememberPositiveAnswer(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.GuessForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see GuessControllerInterface#rememberPositiveAnswer(Action, ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
     public void rememberPositiveAnswer(
+        Action action,
         ActionMapping mapping,
         GuessForm form,
         HttpServletRequest request,
@@ -180,9 +187,10 @@ public final class GuessController implements GuessControllerInterface {
 
     /**
      * Stores the fact that the last answer from the user was negative.
-     * @see org.andromda.samples.animalquiz.guess.GuessControllerInterface#rememberNegativeAnswer(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.GuessForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see GuessControllerInterface#rememberNegativeAnswer(Action, ActionMapping, GuessForm, HttpServletRequest, HttpServletResponse)
      */
     public void rememberNegativeAnswer(
+        Action action,
         ActionMapping mapping,
         GuessForm form,
         HttpServletRequest request,
