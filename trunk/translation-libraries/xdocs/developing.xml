@@ -210,14 +210,16 @@
 						</p>
 						<a name="constraintExpression"/>
 						<source>
-	<![CDATA[<expression>
-		<from>
-			context LegalAgreement 
-			inv: allInstances() -> isUnique(documentTitle) 
-		</from>
-		<to>
-		</to>
-	</expression>]]>
+<![CDATA[
+<expression>
+    <from>
+        context LegalAgreement 
+        inv: allInstances() -> isUnique(documentTitle) 
+	</from>
+    <to>
+	</to>
+</expression>
+]]>
 						</source>
 					</li>
 					<li>
@@ -324,9 +326,12 @@ import org.andromda.core.translation.TranslationUtils;
  *
  * @author Chad Brandon
  */
-public class ConstraintTranslator extends org.andromda.core.translation.BaseTranslator {
+public class ConstraintTranslator 
+    extends org.andromda.core.translation.BaseTranslator 
+{
 
-    public void inAPostfixExpression(APostfixExpression expression) {
+    public void inAPostfixExpression(APostfixExpression expression) 
+    {
     	//ideally, this is the only content that this method should contain
     	//but you may need to do some processing before (or instead of) handling the expression. 
         this.handleTranslationFragment(expression);
@@ -385,12 +390,14 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 							</li>
 						</ul>
 						<source>
-	<!-- This is the start of the constraint ('self.allInstances()', '<element name>.allInstances()', or just 'allInstances()') -->
-	<![CDATA[<fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances().*" handlerMethod="handleAllInstances">
-		<kind name="inv">
-			alter table $constraintTransformer.findTableName($element) add constraint	
-		</kind>	  
-	</fragment>]]>
+<!-- This is the start of the constraint ('self.allInstances()', '<element name>.allInstances()', or just 'allInstances()') -->	
+<![CDATA[
+<fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances().*" handlerMethod="handleAllInstances">
+    <kind name="inv">
+        alter table $constraintTransformer.findTableName($element) add constraint	
+	</kind>	  
+</fragment>
+]]>
 						</source>
 					</li>
 					<li>
@@ -419,9 +426,12 @@ import org.andromda.core.translation.TranslationUtils;
  *
  * @author Chad Brandon
  */
-public class ConstraintTranslator extends org.andromda.core.translation.BaseTranslator {
+public class ConstraintTranslator 
+    extends org.andromda.core.translation.BaseTranslator 
+{
 
-    public void inAPostfixExpression(APostfixExpression expression) {
+    public void inAPostfixExpression(APostfixExpression expression) 
+    {
     	//ideally, this is the only content that this method should contain
     	//but you may need to do some processing before (or instead of) handling the expression. 
         this.handleTranslationFragment(expression);
@@ -431,7 +441,8 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
   
     /*-------------------------  PostfixExpression Handler methods ---------------------*/
     
-    public void handleAllInstances(String translation, Object node) {
+    public void handleAllInstances(String translation, Object node) 
+    {
     	//appended the value from the fragment to the expression buffer
         this.getExpression().appendToTranslatedExpression(translation);
     }
@@ -473,15 +484,17 @@ public class ConstraintTranslator extends org.andromda.core.translation.BaseTran
 						</p>
 						<source>
 
-	<![CDATA[<expression>
-		<from>
-			context LegalAgreement 
-			inv: self.allInstances() -> isUnique(documentTitle) 
-		</from>
-		<to>
-			alter table LegalAgrmt add constraint UniqueLADT UNIQUE (Document_Title)
-		</to>
-	</expression>]]>
+	<![CDATA[
+<expression>
+    <from>
+        context LegalAgreement 
+        inv: self.allInstances() -> isUnique(documentTitle) 
+    </from>
+    <to>
+        alter table LegalAgrmt add constraint UniqueLADT UNIQUE (Document_Title)
+    </to>
+</expression>
+]]>
 						</source>
 					</li>			
 					<li>
