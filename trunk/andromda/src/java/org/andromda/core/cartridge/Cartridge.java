@@ -434,6 +434,7 @@ public class Cartridge
             List contents = this.getContents();
             if (contents != null)
             {
+                AndroMDALogger.setSuffix(this.getName());
                 Iterator contentIt = contents.iterator();
                 while (contentIt.hasNext())
                 {
@@ -448,6 +449,7 @@ public class Cartridge
                         }
                     }
                 }
+                AndroMDALogger.reset();
             }
         }
         else
