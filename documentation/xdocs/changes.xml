@@ -12,7 +12,8 @@
                 Template object properties can now be specified more than once in the andromda-cartridge.xml.
             </action>
             <action dev="carloslcuenca" type="add" issue="HIB-34">
-                The <a href="andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> is now able to define query cache Settings.
+                The <a href="andromda-hibernate-cartridge/index.html">Hibernate</a> and 
+                <a href="andromda-hibernate-spring/index.html">Spring</a> cartridges are now able to define query cache settings.
             </action>
             <action dev="cwbrandon" type="fix">
                 The <a href="andromda-query-library/index.html">Query Translation Library</a> was using the OCL
