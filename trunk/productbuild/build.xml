@@ -38,7 +38,7 @@
     </target>
 
     <target name="dist" depends="clean,init"
-            description="Builds core, cartridges, samples and website">
+            description="Builds core, cartridges, samples and documentation">
 
         <antcall target="buildComponent">
           <param name="component.name" value="andromda"/>
@@ -53,7 +53,7 @@
         </antcall>
 
         <antcall target="buildComponent">
-          <param name="component.name" value="website"/>
+          <param name="component.name" value="documentation"/>
         </antcall>
 
     </target>
