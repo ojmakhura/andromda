@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
@@ -74,6 +75,12 @@ public class ExceptionRecorder
     {
         return record(errorMessage, throwable, "S");
     }
+    
+    /**
+     * The default prefix given, if prefix in {@link #record(String, Throwable, String)
+     * is null.
+     */
+    private static final String DEFAULT_PREFIX = "andromda";
 
     /**
      * <p>
@@ -96,6 +103,10 @@ public class ExceptionRecorder
         String tempName = null;
         String result = null;
         File exceptionFile;
+        if (StringUtils.isEmpty(prefix))
+        {
+            prefix = DEFAULT_PREFIX;
+        }
         try
         {
             tempName = getUniqueName(prefix);
