@@ -12,6 +12,8 @@ web.dir=web
 common.dir=common
 #if ($persistenceType == 'hibernate')
 hibernate.dir=hibernate
+hibernate.ejb.dir=ejb
+hibernate.sar.dir=sar
 #else
 ejb.dir=ejb
 #end
