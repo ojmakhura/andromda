@@ -1,0 +1,224 @@
+#set ($packagename = $transform.findPackageName(${class.package}))
+package $packagename;
+
+import java.io.Serializable;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+#macro ( generateDocumentation $item $indent)
+#foreach ( $tgv in $item.taggedValues )
+#if ($tgv.tag == "documentation")
+#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
+#foreach ( $par in $paras )
+${indent}*
+${indent}* <p>
+#foreach ( $line in $par.lines )
+${indent}* $line
+#end
+${indent}* </p>
+#end
+#end
+#end
+#end
+
+#set ($primKey = $transform.getPrimaryKeyAttribute($class))
+#set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
+
+#foreach ( $assocLink in $class.associationLinks )
+    #set ($adata = $transform.getAssociationData($assocLink))
+#if ($adata.target.navigable == "true")
+    #set ($class2 = $adata.target.type)
+    #if ($class2)
+        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #if ($class2packagename != $packagename)
+import $transform.findFullyQualifiedName(${class2});
+        #end
+    #end
+#end
+#end
+
+#foreach ( $dep in $class.dependencies )
+    #set ($class2 = $transform.findClassById($dep.targetType))
+    #if ($class2)
+        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #if ($class2packagename != $packagename)
+import $transform.findFullyQualifiedName(${class2});
+        #end
+    #end
+    #if ($transform.getStereotype($dep.id) == "exception")
+        #set ($defaultException = $class2)
+    #end
+#end
+
+/**
+#generateDocumentation ($class " ")
+ *
+ * @hibernate.class
+ *         table="$class.name"
+ *
+#foreach ( $tgv in $class.taggedValues )
+#if ($tgv.tag != "documentation")
+#if ($tgv.tag == "---")
+    #set ($tag = "")
+#else
+    #set ($tag = $tgv.tag)
+#end
+ * $tag    $tgv.value
+#end
+#end
+ *
+ */
+public abstract class ${class.name}HObj {
+
+    // --------------- attributes ---------------------
+#foreach ( $att in $class.attributes )
+#set ($atttypename = $transform.findFullyQualifiedName($att.type))
+
+   private $atttypename ${att.name};
+   
+   /**
+#generateDocumentation ($att "    ")
+    *
+#if ($transform.getStereotype($att.id) == "PrimaryKey")
+    * @hibernate.id 
+    *     generator="uuid.string"
+    *
+#end
+#set ($attcolumnname = $str.toDatabaseAttributeName(${att.name}, "_"))
+#set ($attjdbctype   = $transform.findAttributeJDBCType($att))
+#set ($attsqltype    = $transform.findAttributeSQLType($att))
+    * @hibernate.property
+    *
+    * @hibernate.column
+    *     name="$attcolumnname"
+    *     sql-type="$attsqltype"
+    *
+    */
+    public $atttypename get${str.upperCaseFirstLetter(${att.name})}()
+    {
+        return this.${att.name};
+    }
+    
+    public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue)
+    {
+        this.${att.name} = newValue;
+    }
+
+#end
+
+    // ------------- relations ------------------
+
+#set ($sep = "_")
+#set ($suffix = "_FK")
+#foreach ( $assoc in $class.associationLinks )
+    #set ($adata = $transform.getAssociationData($assoc))
+    #set ($sourcetype = $adata.source.type)
+    #set ($targettype = $adata.target.type)
+    #set ($targettypename = $transform.findFullyQualifiedName($targettype))
+#if ($adata.target.navigable == "true")
+   /**
+#generateDocumentation ($adata.target.end "    ")
+##    * multiplicity:     $adata.multiplicities
+##    * source navigable: $adata.source.navigable
+##    * target navigable: $adata.target.navigable
+    *
+#if ($adata.isOne2Many())
+#set($foreignKeyColumn = "${str.toDatabaseAttributeName(${adata.source.roleName}, $sep)}$suffix")
+#set ($foreignKeyAtt = $transform.getPrimaryKeyAttribute($sourcetype))
+    * @hibernate.set
+    *     role="$adata.target.roleName"
+    *     lazy="true"
+    * @hibernate.collection-key
+    *     column="$foreignKeyColumn"
+    * @hibernate.collection-one-to-many
+    *     class="$targettypename"
+    */
+    private Collection ${adata.target.roleName};
+    
+    public Collection get${str.upperCaseFirstLetter($adata.target.roleName)}()
+    {
+        return this.${adata.target.roleName};
+    }
+
+    public void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName})
+    {
+        this.${adata.target.roleName} = (Set) ${adata.target.roleName};
+    }
+#end
+#if ($adata.isMany2Many())
+    *
+#set ($sourceKeyAtt  = ${transform.getPrimaryKeyAttribute($sourcetype).name})
+#set ($sourceColumn  = "${str.toDatabaseAttributeName(${adata.source.roleName}, $sep)}$sep$sourceKeyAtt")
+#set ($targetKeyAtt  = ${transform.getPrimaryKeyAttribute($targettype).name})
+#set ($targetColumn  = "${str.toDatabaseAttributeName(${adata.target.roleName}, $sep)}$sep$targetKeyAtt")
+#set ($joinTableName = ${str.toRelationName($sourceColumn, $targetColumn)})
+    * @hibernate.set
+    *     lazy="true"
+    *     table="$joinTableName"
+    * @hibernate.collection-key
+    *     column="$sourceColumn"
+    * @hibernate.collection-many-to-many
+    *     column="$targetColumn"
+    *     class="$targettypename"
+    */
+    private Collection ${adata.target.roleName};
+    
+    public Collection get${str.upperCaseFirstLetter($adata.target.roleName)}()
+    {
+        return this.${adata.target.roleName};
+    }
+
+    public void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName})
+    {
+        this.${adata.target.roleName} = (Set) ${adata.target.roleName};
+    }
+#end
+#if ($adata.isOne2One() || $adata.isMany2One())
+#if ($adata.isMany2One())
+    *   @hibernate.many-to-one
+#end
+#if ($adata.isOne2One())
+    *   @hibernate.one-to-one
+#end
+#set($foreignKeyColumn = "${str.toDatabaseAttributeName(${adata.target.roleName}, $sep)}$suffix")
+    *       column="${foreignKeyColumn}"
+    */
+    private ${targettypename} ${adata.target.roleName};
+
+    public ${targettypename} get${str.upperCaseFirstLetter($adata.target.roleName)}()
+    {
+        return this.${adata.target.roleName};
+    }
+    
+    public void set${str.upperCaseFirstLetter($adata.target.roleName)}(${targettypename} ${adata.target.roleName})
+    {
+        this.${adata.target.roleName} = ${adata.target.roleName};
+    }
+#end
+
+
+#end
+#end
+
+    // ---------------- business methods  ----------------------
+
+#foreach ( $op in $class.operations)
+#if ($transform.getStereotype($op.id) != "FinderMethod")
+   /**
+#generateDocumentation ($op "    ")
+    *
+    */
+#set ($msig = $transform.getOperationSignature($op))
+#if ($defaultException)
+    $op.visibility abstract ${msig}
+        throws $defaultException.name;
+#else
+    $op.visibility abstract ${msig};
+#end
+#end
+#end
+
+}
