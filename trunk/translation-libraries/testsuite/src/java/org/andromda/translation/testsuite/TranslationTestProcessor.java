@@ -68,12 +68,13 @@ public class TranslationTestProcessor extends TestCase {
 	private TranslationTestProcessor(String testName) {
 		super(testName);	    	
 	}                  
-   
+	
 	/**   
 	 * Assembles test suite if all known tests
 	 * @return non-null test suite
 	 */
 	public static TestSuite suite() throws Exception {	
+		XmlObjectFactory.setDefaultValidating(false);
         ExpressionTranslator.instance().initialize();
 		TranslationTestProcessor.loadTests();	
 		TestSuite suite = new TestSuite();
