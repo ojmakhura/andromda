@@ -39,8 +39,8 @@
                  avoid conflicts with other class names -->
             <!-- add as many mappings you need for each service -->
             <ant:mapping
-                namespace="http://${someService.package}"
-                package="${someService.package}.ws"/>
+                namespace="http://${service.package}"
+                package="${service.package}.ws"/>
         </ant:axis-wsdl2java>
     </preGoal>
 
