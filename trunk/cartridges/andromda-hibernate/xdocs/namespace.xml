@@ -695,6 +695,28 @@
                         No, default is <code>read-write</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        hibernateEntityDynamicInsert
+                    </td>
+                    <td>
+                         Hibernate Entities mapping property. Defines the default value dynamic-insert property on entities.
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        hibernateEntityDynamicUpdate
+                    </td>
+                    <td>
+                         Hibernate Entities mapping property. Defines the default value dynamic-update property on entities.
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                </tr> 
                  <tr>
                     <td>
                         hibernateAssociationCache

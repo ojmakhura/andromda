@@ -32,6 +32,14 @@
         <to>@andromda.hibernate.entity.cache</to>
     </mapping>
     <mapping>
+        <from>HIBERNATE_ENTITY_DYNAMIC_INSERT</from>
+        <to>@andromda.hibernate.entity.dynamicInsert</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_ENTITY_DYNAMIC_UPDATE</from>
+        <to>@andromda.hibernate.entity.dynamicUpdate</to>
+    </mapping>
+    <mapping>
         <from>HIBERNATE_ASSOCIATION_CACHE</from>
         <to>@andromda.hibernate.association.cache</to>
     </mapping>

@@ -71,7 +71,17 @@ public class HibernateProfile
      * Defines the cache type for the Entity
      */
     public static final String TAGGEDVALUE_HIBERNATE_ENTITY_CACHE = profile.get("HIBERNATE_ENTITY_CACHE");
-    
+
+    /**
+     * Defines if the entity will limit the SQL insert statement to properties with values
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT = profile.get("HIBERNATE_ENTITY_DYNAMIC_INSERT");
+
+    /**
+     * Defines if the entity will limit the SQL update statements to properties that are modified
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE = profile.get("HIBERNATE_ENTITY_DYNAMIC_UPDATE");
+
     /**
      * Defines the cache type for an association
      */
