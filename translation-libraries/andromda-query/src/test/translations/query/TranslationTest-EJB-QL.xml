@@ -22,7 +22,7 @@
 	<expression>
 		<from>
 			context org::andromda::contracts::LegalParty::findByLegalPartyName(name:String) : Collection(LegalParty) 
-			body findByLegalPartyNameBody: allInstances()->select( 
+			body : allInstances() -> select ( 
 			party | StringUtils.isLike(party.legalPartyName , name))
 		</from>
 		<to>
