@@ -1,0 +1,162 @@
+/**
+ * Attention: Generated source! Do not modify by hand!
+ */
+package $class.packageName;
+#set ($superclass = $class.generalization)
+
+/**
+$class.getDocumentation(" * ")
+ *
+#if($superclass)
+ * @hibernate.subclass
+ *    discriminator-value="$class.name"
+#else
+ * @hibernate.class
+ *     table="$class.tableName"
+ * @hibernate.discriminator
+ *     column="class"
+#end
+ *
+#foreach ( $tgv in $class.taggedValues )
+#if ($tgv.name != "documentation")
+#if ($tgv.name == "---")
+    #set ($tag = "")
+#else
+    #set ($tag = $tgv.name)
+#end
+ * $tag    $tgv.value
+#end
+#end
+ */
+public abstract class $class.name
+#if($superclass)
+	extends ${superclass.fullyQualifiedName}Impl
+#end
+{
+    // --------------- attributes ---------------------
+#foreach ( $attribute in $class.attributes )
+    private $attribute.type.fullyQualifiedName $attribute.name;
+
+    /**
+$attribute.getDocumentation("     * ")
+     *
+#if ($attribute.identifier)
+     * @hibernate.id
+     *     generator-class="uuid.hex"
+#else
+     * @hibernate.property
+#end
+     *     column="$attribute.columnName"
+     *     type="$attribute.type.fullyQualifiedName"
+     *
+     * @hibernate.column
+     *     name="$attribute.columnName"
+     *     sql-type="$attribute.sqlType"
+     */
+    public $attribute.type.fullyQualifiedName ${attribute.getterName}()
+    {
+        return this.${attribute.name};
+    }
+
+    public void ${attribute.setterName}(${attribute.type.fullyQualifiedName} ${attribute.name})
+    {
+        this.${attribute.name} = $attribute.name;
+    }
+
+#end
+
+    // ------------- relations ------------------
+
+#foreach ( $associationEnd in $class.associationEnds )
+	#set ($target = $associationEnd.otherEnd)
+    #set ($sourceType = $associationEnd.type)
+    #set ($targetType = $target.type)
+    #set ($targetTypeName = $targetType.fullyQualifiedName)
+#if ($target.navigable)
+    /**
+$target.getDocumentation("     * ")
+     *
+#if ($associationEnd.one2Many)
+     * @hibernate.set
+     *     role="$target.name"
+     *     lazy="true"
+     * @hibernate.collection-key
+     *     column="$associationEnd.columnName"
+     * @hibernate.collection-one-to-many
+     *     class="$targetTypeName"
+     */
+    public java.util.Collection ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+    public void ${target.setterName}(java.util.Collection ${target.name})
+    {
+        this.${target.name} = ${target.name};
+    }
+
+    private java.util.Collection ${target.name};
+
+#end
+#if ($associationEnd.many2Many)
+##
+     * @hibernate.set
+     *     lazy="true"
+     *     table="${associationEnd.association.tableName}"
+     * @hibernate.collection-key
+     *     column="$associationEnd.columnName"
+     * @hibernate.collection-many-to-many
+     *     column="$target.columnName"
+     *     class="$targetTypeName"
+     */
+    public java.util.Collection ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+    public void ${target.setterName}(java.util.Collection ${target.name})
+    {
+        this.${target.name} = ${target.name};
+    }
+
+    private java.util.Collection ${target.name};
+
+#end
+#if ($associationEnd.one2One || $associationEnd.many2One)
+     * @hibernate.many-to-one
+     *     column="${target.columnName}"
+     *     class="$targetTypeName"
+     */
+    public ${targetTypeName} ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+    public void ${target.setterName}(${targetTypeName} ${target.name})
+    {
+        this.${target.name} = ${target.name};
+    }
+
+    private ${targetTypeName} ${target.name};
+
+#end
+#end
+#end
+
+    // ---------------- business methods  ----------------------
+
+#foreach ( $operation in $class.businessOperations)
+    /**
+$operation.getDocumentation("     * ")
+     */
+#set ($msig = $operation.signature)
+#set ($returntype = $operation.returnType.fullyQualifiedName)
+#if ($operation.hasExceptions())
+    $operation.visibility abstract $returntype ${msig}
+        throws $operation.exceptionList;
+#else
+    $operation.visibility abstract $returntype ${msig};
+#end
+#end
+
+}

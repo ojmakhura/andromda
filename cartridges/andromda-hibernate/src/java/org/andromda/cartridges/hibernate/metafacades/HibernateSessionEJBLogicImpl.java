@@ -2,22 +2,26 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB.
- *
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB.
+ * 
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB
  */
 public class HibernateSessionEJBLogicImpl
-       extends HibernateSessionEJBLogic
-       implements org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB
+    extends HibernateSessionEJBLogic
+    implements
+    org.andromda.cartridges.hibernate.metafacades.HibernateSessionEJB
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateSessionEJBLogicImpl (Object metaObject, String context)
+    public HibernateSessionEJBLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
+
     // -------------------- business methods ----------------------
 
     /**
@@ -26,7 +30,8 @@ public class HibernateSessionEJBLogicImpl
     public java.lang.String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this
+            .getEjbJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -36,8 +41,7 @@ public class HibernateSessionEJBLogicImpl
         jndiName.append(this.getFullyQualifiedName());
         return jndiName.toString();
     }
-    
-    
+
     /**
      * The prefix to use when creating this EJB's JNDI name.
      */
@@ -46,10 +50,9 @@ public class HibernateSessionEJBLogicImpl
     /**
      * Sets the <code>ejbJndiNamePrefix</code> for this EJB.
      * 
-     * @param ejbJndiNamePrefix the prefix to use when binding
-     *        this EJB to a given JNDI name.  This is useful 
-     *        when you have more than on app using the same EJB
-     *        within the same container.
+     * @param ejbJndiNamePrefix the prefix to use when binding this EJB to a
+     *        given JNDI name. This is useful when you have more than on app
+     *        using the same EJB within the same container.
      */
     public void setEjbJndiNamePrefix(String ejbJndiNamePrefix)
     {
@@ -65,5 +68,5 @@ public class HibernateSessionEJBLogicImpl
     protected String getEjbJndiNamePrefix()
     {
         return (String)this.getConfiguredProperty(EJB_JNDI_NAME_PREFIX);
-    }    
+    }
 }

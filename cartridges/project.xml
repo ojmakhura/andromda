@@ -44,7 +44,7 @@
             <resource>
                 <directory>src</directory>
                 <excludes>
-                    <exclude>**/*.java</exclude>
+                    <exclude>java/**/*.java</exclude>
                     <exclude>uml/**/*</exclude>
                     <exclude>test/**/*</exclude>
                 </excludes>
