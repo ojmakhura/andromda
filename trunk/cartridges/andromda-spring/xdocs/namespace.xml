@@ -402,14 +402,15 @@
                 </tr>
                 <tr>
                     <td>
-                        implementationOperationNamePrefix
+                        implementationOperationNamePattern
                     </td>
                     <td>
-                        The prefix to the give the implementation operations (i.e.
-                        the operations that actually perform the handling of the logic).
+                        The pattern used to the create the implementation operation name 
+                        (i.e. the operations that actually perform the handling of the logic),
+                        where <em>{0}</em> represents the operation name
                     </td>
                     <td>
-                        No, default is <code>handle</code>.
+                        No, default is <code>handle{0}</code>.
                     </td>
                 </tr>
                 <tr>

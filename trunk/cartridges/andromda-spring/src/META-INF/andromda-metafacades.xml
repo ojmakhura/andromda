@@ -71,13 +71,13 @@
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
         </mapping>
-        <property reference="implementationOperationNamePrefix" default="handle"/>
+        <property reference="implementationOperationNamePattern" default="handle{0}"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
         </mapping>
-        <property reference="implementationOperationNamePrefix" default="handle"/>
+        <property reference="implementationOperationNamePattern" default="handle{0}"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
