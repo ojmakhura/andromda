@@ -96,7 +96,8 @@
                  and use it in both /mda/project.xml and this /web/maven.xml, but the thing is that it doesn't really
                  belong in /project.properties unless we move the other web properties there too
                 -->
-            <u:file var="mdaProjectFile" name="${pom.file.parent}/../mda/project.xml"/>
+#set ($pomFileParent = 'pom.file.parent')
+            <u:file var="mdaProjectFile" name="${${pomFileParent}}/../mda/project.xml"/>
             <ant:echo>${mdaProjectFile}</ant:echo>
             <j:invokeStatic var="mdaProject" className="org.apache.maven.MavenUtils" method="getProject">
                 <j:arg type="java.io.File" value="${mdaProjectFile}"/>
