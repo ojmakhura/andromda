@@ -78,7 +78,7 @@
         <ant:loadfile property="jsp.servlets.text" srcFile="${jsp.precompilation.servlets}"/>
         <ant:replace file="${jsp.precompilation.webapp}/WEB-INF/web.xml"
             value="${jsp.servlets.text}"
-            token="&lt;!-- precompilation merge-point --&gt;"/>
+            token="&lt;![CDATA[ precompilation merge-point ]]&gt;"/>
 
         <!-- removing the JSPs files -->
         <ant:echo message="Deleting JSPs files (all except the welcome page)"/>
