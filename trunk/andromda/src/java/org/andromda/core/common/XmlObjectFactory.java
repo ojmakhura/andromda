@@ -3,7 +3,10 @@ package org.andromda.core.common;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.io.StringReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -209,48 +212,8 @@ public class XmlObjectFactory
      */
     public Object getObject(URL objectXml)
     {
-        final String methodName = "XmlObjectFactoryException.getObject";
-        if (logger.isDebugEnabled())
-            logger.debug("performing " + methodName + " with objectXml '"
-                + objectXml + "'");
-
-        ExceptionUtils.checkNull(methodName, "objectXml", objectXml);
-
-        Object object = null;
-        try
-        {
-            InputStream stream = objectXml.openStream();
-            object = this.digester.parse(stream);
-            stream.close();
-            stream = null;
-            if (object == null)
-            {
-                String errMsg = "Was not able to instantiate an object using objectRulesXml '"
-                    + this.objectRulesXml
-                    + "' with objectXml '"
-                    + objectXml
-                    + "', please check either the objectXml "
-                    + "or objectRulesXml file for inconsistencies";
-                logger.error(errMsg);
-                throw new XmlObjectFactoryException(errMsg);
-            }
-        }
-        catch (SAXException ex)
-        {
-            String validationErrorMsg = "VALIDATION FAILED for --> '"
-                + objectXml + "' against SCHEMA --> '" + this.schemaUri
-                + "' --> message: '" + ex.getMessage() + "'";
-            logger.error(validationErrorMsg);
-            throw new XmlObjectFactoryException(validationErrorMsg);
-        }
-        catch (Throwable th)
-        {
-            String errMsg = "Error performing " + methodName
-                + ", XML resource could not be loaded --> '" + objectXml + "'";
-            logger.error(errMsg, th);
-            throw new XmlObjectFactoryException(errMsg, th);
-        }
-        return object;
+        return this.getObject(objectXml != null ? ResourceUtils
+            .getContents(objectXml) : null);
     }
 
     /**
@@ -260,6 +223,20 @@ public class XmlObjectFactory
      * @return Object the created instance.
      */
     public Object getObject(Reader objectXml)
+    {
+        return getObject(ResourceUtils.getContents(objectXml));
+    }
+    
+    private static final Collection mergedStringCache = new ArrayList();
+
+    /**
+     * Returns a configured Object based on the objectXml configuration file
+     * passed in as a String.
+     * 
+     * @param objectXml the path to the Object XML config file.
+     * @return Object the created instance.
+     */
+    private Object getObject(String objectXml)
     {
         final String methodName = "XmlObjectFactoryException.getObject";
         if (logger.isDebugEnabled())
@@ -271,7 +248,8 @@ public class XmlObjectFactory
         Object object = null;
         try
         {
-            object = this.digester.parse(objectXml);
+            object = this.digester.parse(new StringReader(objectXml));
+            objectXml = null;
             if (object == null)
             {
                 String errMsg = "Was not able to instantiate an object using objectRulesXml '"
