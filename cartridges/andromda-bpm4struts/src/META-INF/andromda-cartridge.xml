@@ -19,6 +19,11 @@
         outputPattern="layout/{0}"
         outlet="pages"
         overwrite="true"/>
+    <resource
+        path="resources/layout-*.js"
+        outputPattern="layout/{0}"
+        outlet="pages"
+        overwrite="true"/>
 
     <!-- process templates on model elements -->
     <template
