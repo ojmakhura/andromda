@@ -27,6 +27,9 @@ public final class $formBeanClassName extends $useCase.formBeanClassName impleme
 {
 #foreach ($field in $fields)
 #set ($fieldType = $field.type.fullyQualifiedName)
+#if ($field.date)
+#set ($fieldType = "String")
+#end
 #set ($fieldName = $field.name)
 #set ($validatorTypes = $field.validatorTypes)
 #if (!$validatorTypes.empty)
