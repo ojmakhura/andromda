@@ -8,6 +8,8 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -35,7 +37,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoName()
      */
-    public java.lang.String handleGetDaoName()
+    protected java.lang.String handleGetDaoName()
     {
         return this.getName() + SpringGlobals.DAO_SUFFIX;
     }
@@ -43,7 +45,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedDaoName()
      */
-    public java.lang.String handleGetFullyQualifiedDaoName()
+    protected java.lang.String handleGetFullyQualifiedDaoName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(this
             .getPackageName(), this.getName(), SpringGlobals.DAO_SUFFIX);
@@ -52,7 +54,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoImplementationName()
      */
-    public java.lang.String handleGetDaoImplementationName()
+    protected java.lang.String handleGetDaoImplementationName()
     {
         return this.getName() + SpringGlobals.DAO_IMPLEMENTATION_SUFFIX;
     }
@@ -60,7 +62,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedDaoImplementationName()
      */
-    public java.lang.String handleGetFullyQualifiedDaoImplementationName()
+    protected java.lang.String handleGetFullyQualifiedDaoImplementationName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -71,7 +73,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoBaseName()
      */
-    public java.lang.String handleGetDaoBaseName()
+    protected java.lang.String handleGetDaoBaseName()
     {
         return this.getName() + SpringGlobals.DAO_BASE_SUFFIX;
     }
@@ -79,7 +81,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedDaoBaseName()
      */
-    public java.lang.String handleGetFullyQualifiedDaoBaseName()
+    protected java.lang.String handleGetFullyQualifiedDaoBaseName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(this
             .getPackageName(), this.getName(), SpringGlobals.DAO_BASE_SUFFIX);
@@ -88,7 +90,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getImplementationName()
      */
-    public java.lang.String handleGetEntityImplementationName()
+    protected java.lang.String handleGetEntityImplementationName()
     {
         return this.getEntityName() + SpringGlobals.IMPLEMENTATION_SUFFIX;
     }
@@ -96,7 +98,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedEntityImplementationName()
      */
-    public java.lang.String handleGetFullyQualifiedEntityImplementationName()
+    protected java.lang.String handleGetFullyQualifiedEntityImplementationName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -107,7 +109,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getBeanName(boolean)
      */
-    public java.lang.String handleGetBeanName(boolean targetSuffix)
+    protected java.lang.String handleGetBeanName(boolean targetSuffix)
     {
         StringBuffer beanName = new StringBuffer(StringUtils
             .uncapitalize(StringUtils.trimToEmpty(this.getName())));
@@ -122,7 +124,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getEntityName()
      */
-    public String handleGetEntityName()
+    protected String handleGetEntityName()
     {
         String entityNamePattern = (String)this
             .getConfiguredProperty("entityNamePattern");
@@ -135,7 +137,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedEntityName()
      */
-    public String handleGetFullyQualifiedEntityName()
+    protected String handleGetFullyQualifiedEntityName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(this
             .getPackageName(), this.getEntityName(), null);
@@ -144,7 +146,7 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateGeneratorClass()
      */
-    public String handleGetHibernateGeneratorClass()
+    protected String handleGetHibernateGeneratorClass()
     {
         String hibernateGeneratorClass = (String)this
             .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
@@ -291,4 +293,28 @@ public class SpringEntityLogicImpl
         };
     }
 
+    protected Collection handleGetValueObjectReferences()
+    {
+        return new FilteredCollection(this.getSourceDependencies())
+        {
+            public boolean evaluate(Object object)
+            {
+                ModelElementFacade targetElement = ((DependencyFacade)object)
+                    .getTargetElement();
+                return targetElement != null
+                    && targetElement.hasStereotype("ValueObject");
+            }
+        };
+    }
+
+    protected boolean handleIsDaoImplementationRequired()
+    {
+        return getValueObjectReferences().size() > 0
+                || getDaoBusinessOperations().size() > 0;
+    }
+
+    protected String handleGetDaoNoTransformationConstantName()
+    {
+        return "TRANSFORMATION_NONE";
+    }
 }
