@@ -22,7 +22,7 @@ public class $table.decoratorClassName extends TableDecorator
     // this class uses underscores to avoid naming conflict with user properties
 #foreach ($link in $table.tableLinks)
 
-    public String get$str.upperCaseFirstLetter($link.tableLinkColumnName) ()
+    public String get$str.upperCaseFirstLetter($link.tableLinkColumnName)AsLink()
     {
         try
         {
