@@ -7,7 +7,18 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0M3-SNAPSHOT" date="2004-12-10" description="The most recent CVS snapshot for version 3, milestone 3">
+        <release version="3.0M3-SNAPSHOT" date="2004-12-14" description="The most recent CVS snapshot for version 3, milestone 3">
+            <action dev="draftdog" type="add" issue="BPM-114">
+                The bpm4struts-cartridge now generates more styles in the CSS files that are created for each
+                <![CDATA[<<FrontEndView>>]]>, by default these styles are empty but it is very easy to
+                customize them to fine-tune the layout for your pages.
+                <ol>
+                    <li>form labels and fields</li>
+                    <li>form buttons (submit and reset)</li>
+                    <li>displaytag:table headers</li>
+                    <li>displaytag:table columns</li>
+                </ol>
+            </action>
             <action dev="draftdog" type="fix">
                 In bpm4struts it is now possible to send parameters from one action state to another, and this
                 in the scope of an action; it is therefore not needed anymore to have parameters entering or exiting
@@ -22,8 +33,8 @@
             </action>
             <action dev="draftdog" type="fix">
                 In bpm4struts you must now draw dependencies from the
-                <![CDATA[FrontEndController]]> to the associated
-                <![CDATA[FrontEndSessionObject]]> classes instead of simply using
+                <![CDATA[<<FrontEndController>>]]> to the associated
+                <![CDATA[<<FrontEndSessionObject>>]]> classes instead of simply using
                 associations.
             </action>
             <action dev="amwest" type="add">
