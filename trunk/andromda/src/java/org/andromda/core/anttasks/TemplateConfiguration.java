@@ -31,7 +31,7 @@ public class TemplateConfiguration
 
     /**
      * Constructor which is used to build default
-     * template configurations when initializing the Uml2EjbGenTask.
+     * template configurations when initializing the AndroMDAGenTask.
      * 
      * @param stereotype the name of the stereotype
      * @param sheet name of the style sheet file

@@ -112,12 +112,12 @@
             <fileset dir="${jaxb.src.dir}" includes="**/*"/>
         </copy>
         <copy todir="${dist.stage.dir}sample/">
-            <fileset dir="sample" includes="build.xml"/>
-            <fileset dir="sample" includes="launchbuild.xml"/>
-            <fileset dir="sample" includes="build.properties.sample"/>
-            <fileset dir="sample" includes="CarRentalSystem.zargo"/>
-            <fileset dir="sample" includes="mySpecialTemplates/**"/>
-            <fileset dir="sample" includes="src/**" excludes="src/**/generated/**"/>
+            <fileset dir="src/sample" includes="build.xml"/>
+            <fileset dir="src/sample" includes="launchbuild.xml"/>
+            <fileset dir="src/sample" includes="build.properties.sample"/>
+            <fileset dir="src/sample" includes="CarRentalSystem.zargo"/>
+            <fileset dir="src/sample" includes="mySpecialTemplates/**"/>
+            <fileset dir="src/sample" includes="src/**" excludes="src/**/generated/**"/>
         </copy>
 
         <!-- zip everything into the release archives -->
