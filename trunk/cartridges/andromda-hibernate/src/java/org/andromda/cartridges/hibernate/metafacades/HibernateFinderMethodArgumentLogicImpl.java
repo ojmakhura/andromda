@@ -1,5 +1,6 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument.
@@ -18,7 +19,6 @@ public class HibernateFinderMethodArgumentLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument#getQueryArgumentNameSetter()
      */
@@ -31,5 +31,4 @@ public class HibernateFinderMethodArgumentLogicImpl
         }
         return setterName.toString();
     }
-
 }
