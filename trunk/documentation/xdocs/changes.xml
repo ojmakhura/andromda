@@ -7,7 +7,16 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-03-09" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-03-12" description="First release candidate for version 3.0">
+            <action dev="draftdog" type="add" issue="BPM-13">
+                The bpm4struts cartridge now generates a <code>displaytag.properties</code> file, the labels
+                used by the displaytag library are not internationalized, you will need to update the library
+                to version 1.0.
+            </action>
+            <action dev="draftdog" type="fix">
+                Bpm4Struts templates have moved into cartridge subdirectories and have been given proper
+                names, make sure to update your own templates if you are overriding these resources.
+            </action>
             <action dev="draftdog" type="add" issue="BPM-147">
                 The bpm4struts cartridge now support <a href="http://displaytag.sourceforge.net">displaytag</a>
                 table decorators. Just use the <code>@andromda.struts.view.table.decorator=true</code>
