@@ -34,7 +34,7 @@
                                 tagged value to 'link' in order to achieve that.
                             </li>
                             <li>Due to HTML limitations you can only make links to the same table from a single
-                                table. The reason is that there can be only one form around the table. If you still
+                                action. The reason is that there can be only one form around the table. If you still
                                 want to have multiple actions working on the same table you will need to patch in
                                 manually using JavaScript (setting the target action URL).
                             </li>
@@ -59,7 +59,7 @@
                             yet, it is experimental and is likely to change in the future. The reason it has
                             been put in is to see whether or not it is usable. A restriction currently
                             is that you will not have any way to submit the changes you make in the table,
-                            for that to work we would need to apply some updates to he rendered rows so a submit button
+                            for that to work we would need to apply some updates to the rendered rows so a submit button
                             could properly trigger the sending of the form.
                         </p>
                     </td>
