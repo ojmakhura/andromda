@@ -63,6 +63,10 @@ public class AndromdaAntRunner
         final Map propertiesMap = new HashMap();
 
         String inputValue = null;
+        while (null == (inputValue = promptForInput("developer names"))) ;
+        propertiesMap.put("author", inputValue.replaceAll("[\\s]*", ""));
+
+        inputValue = null;
         while (null == (inputValue = promptForInput("application id"))) ;
         propertiesMap.put("applicationId", inputValue.replaceAll("[\\s]*", ""));
 
