@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+	<name>Car Rental Sample MDA</name>
+	<id>car-rental-sample-mda</id>
+  	<dependencies> 	
+		<dependency> 
+			<groupId>andromda</groupId>
+	  		<artifactId>maven-andromda-plugin</artifactId>
+	 		<version>${pom.currentVersion}</version>
+	 		<type>plugin</type>
+	 		<properties>
+	 			<logical.languageMappingsUri>Java</logical.languageMappingsUri>
+	 			<logical.sqlMappingsUri>Hypersonic</logical.sqlMappingsUri>
+	 			<logical.jdbcMappingsUri>JDBC</logical.jdbcMappingsUri>
+	 			<physical.maxSqlNameLength>30</physical.maxSqlNameLength>
+	 			<physical.foreignKeySuffix>_FK</physical.foreignKeySuffix>
+	 		</properties>	 		
+		</dependency>
+	  	<!-- Specify and configure our cartridges -->
+		<dependency> 
+			<groupId>andromda-cartridges</groupId>
+	  		<artifactId>andromda-ejb-cartridge</artifactId>
+	 		<version>${pom.currentVersion}</version>
+	 		<properties>
+	 			<entity-beans>${maven.andromda.ejb.generated.dir}</entity-beans>
+	 			<session-beans>${maven.andromda.ejb.generated.dir}</session-beans>
+	 			<entity-impls>${maven.andromda.ejb.manual.dir}</entity-impls>
+	 			<session-impls>${maven.andromda.ejb.manual.dir}</session-impls>
+	 		</properties>
+		</dependency>
+		<dependency> 
+			<groupId>andromda-cartridges</groupId>
+	  		<artifactId>andromda-hibernate-cartridge</artifactId>
+	 		<version>${pom.currentVersion}</version>
+	 		<properties>
+	 			<entities>${maven.andromda.hibernate.generated.dir}</entities>
+	 			<entity-impls>${maven.andromda.hibernate.manual.dir}</entity-impls>
+	 			<session-beans>${maven.andromda.hibernate.generated.dir}</session-beans>
+	 			<session-impls>${maven.andromda.hibernate.manual.dir}</session-impls>	
+	 		</properties>
+		</dependency>
+		<dependency> 
+			<groupId>andromda-cartridges</groupId>
+	  		<artifactId>andromda-java-cartridge</artifactId>
+	 		<version>${pom.currentVersion}</version>
+	 		<properties>
+	 			<value-objects>${maven.andromda.java.generated.dir}</value-objects>
+	 		</properties>
+		</dependency>		
+		<dependency> 
+			<groupId>andromda-cartridges</groupId>
+	  		<artifactId>andromda-struts-cartridge</artifactId>
+	 		<version>${pom.currentVersion}</version>
+			<properties>
+				<forms>${maven.andromda.struts.generated.dir}/java</forms>
+				<actions>${maven.andromda.struts.manual.java.dir}</actions>
+				<pages>${maven.andromda.struts.manual.webapp.dir}</pages>
+				<config>${maven.andromda.struts.generated.dir}	</config>	
+			</properties>	 		
+		</dependency>	
+	</dependencies>
+</project>

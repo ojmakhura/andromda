@@ -1,0 +1,116 @@
+<project xmlns:ant="jelly:ant"
+  		 xmlns:maven="jelly:maven"
+  		 xmlns:j="jelly:core"
+  		 xmlns:artifact="artifact">
+  		 
+    <preGoal name="java:compile"> 
+    	
+        <ant:taskdef name="hibernatedoclet" classname="xdoclet.modules.hibernate.HibernateDocletTask">
+            <ant:classpath>
+				<ant:path refid="maven.dependency.classpath"/>
+				<ant:pathelement path="${pom.dependencyClasspath}"/>
+            </ant:classpath>
+        </ant:taskdef>
+        
+        <hibernatedoclet destdir="${xdoclet.hibernate.gen.dir}">
+            <fileset dir="${maven.build.src}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${maven.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+
+            <hibernate version="2.0" />
+
+            <jbossservice
+                destdir="${xdoclet.hibernate.gen.dir}/META-INF"
+                transactionManagerStrategy="net.sf.hibernate.transaction.JBossTransactionManagerLookup"
+                transactionStrategy="net.sf.hibernate.transaction.JTATransactionFactory"
+                userTransactionName="java:/UserTransaction"
+                jndiname="java:/hibernate/SessionFactory"
+                servicename="AnimalQuizSessionFactory"
+                dialect="${xdoclet.hibernate.dialect}"
+                datasource="java:/DefaultDS"
+                showSql="true"
+            />
+        </hibernatedoclet>
+        <!--
+             hibernatedoclet has a bug under Windows: It generates
+             resource references in jboss-service.xml, using "\\"
+             instead of "/" as a package path separator.
+
+             Let's compensate for this using the following "replace" task.
+         -->
+        <replace 
+			file="${xdoclet.hibernate.gen.dir}/META-INF/jboss-service.xml"
+			token="\"
+			value="/">
+        </replace>
+    	
+    </preGoal>
+
+	
+  	<postGoal name="jar:jar">
+				
+		<ant:mkdir dir="${hibernate.schema.output.dir}"/>
+		
+        <ant:path id="schema.classpath">
+            <ant:path refid="maven.dependency.classpath"/>
+        </ant:path>
+
+        <ant:fileset id="hibernate.mapping.files" dir="${maven.build.dest}">
+            <ant:include name="**/*.hbm.xml"/>
+        </ant:fileset>
+
+        <ant:pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
+
+        <ant:java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <ant:arg value="--output=${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"/>
+            <ant:arg value="--text"/>
+            <ant:arg value="--quiet"/>
+            <ant:arg line="${hibernate.mappings}"/>
+            <ant:jvmarg value="-Dhibernate.dialect=${xdoclet.hibernate.dialect}"/>
+            <ant:classpath refid="maven.dependency.classpath" />
+        </ant:java>
+
+        <ant:copy file="${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
+              tofile="${hibernate.schema.output.dir}/hibernate-schema-reinitialize.sql"
+        />      
+        
+        <ant:replaceregexp file="${hibernate.schema.output.dir}/hibernate-schema-initialize.sql"
+                       match="^(alter table .* drop constraint|drop table)"
+                       replace="-- SKIP \1"
+                       flags="i"
+                       byline="true"/>
+
+        <ant:java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <ant:arg value="--output=${hibernate.schema.output.dir}/hibernate-schema-remove.sql"/>
+            <ant:arg value="--text"/>
+            <ant:arg value="--quiet"/>
+            <ant:arg value="--drop"/>
+            <ant:arg line="${hibernate.mappings}"/>
+            <ant:jvmarg value="-Dhibernate.dialect=${xdoclet.hibernate.dialect}"/>
+            <ant:classpath refid="schema.classpath" />
+        </ant:java>
+        
+        <!-- copy the db scripts over to the app target directory -->
+        <ant:copy todir="${hibernate.schema.output.dir}">
+        	<ant:fileset dir="../db/src"/>
+        </ant:copy>
+
+  	</postGoal>
+  	
+    <!-- ===================================================================
+         These is necessary since there isn't any downloadable
+         maven-sar-plugin (when there is, the below goals should be removed).
+         This goals are used by the sample modules.                     
+         =================================================================== -->
+    <goal name="sar:install">
+    	<attainGoal name="jar:jar"/>
+		<artifact:install 
+			artifact="${maven.build.dir}/${maven.final.name}.jar" 
+			type="aspect" 
+			project="${pom}"/>		
+    </goal>
+      		 
+</project>

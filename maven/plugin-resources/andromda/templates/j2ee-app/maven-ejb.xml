@@ -1,0 +1,44 @@
+<project default="install"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven">
+
+   	<!-- ==================================================================
+			Deploy/Undeploy the Application                                                  
+  		 ================================================================== --> 	 
+	<goal name="deploy-app">
+		<maven:maven
+			descriptor="${basedir}/app/project.xml"
+			goals="deploy"/>
+	</goal>
+	
+	<goal name="undeploy-app">
+		<maven:maven
+			descriptor="${basedir}/app/project.xml"
+			goals="undeploy"/>
+	</goal>  	  	  
+	
+	<goal name="web">
+		<maven:maven
+			descriptor="${basedir}/web/project.xml"
+			goals="war:install"/>
+	</goal>	
+	
+	<goal name="ejb">
+		<maven:maven
+			descriptor="${basedir}/ejb/project.xml"
+			goals="ejb:install"/>
+	</goal>	
+	
+	<goal name="common">
+		<maven:maven
+			descriptor="${basedir}/common/project.xml"
+			goals="jar:install"/>
+	</goal>	
+	
+	<goal name="mda">
+		<maven:maven
+			descriptor="${basedir}/mda/project.xml"
+			goals="pom:install"/>
+	</goal>	
+	
+</project>
