@@ -56,6 +56,8 @@ Please define the test artifact '${context.getVariable('andromda.cartridge.test.
             <ant:namespace name="default">
                 <j:set var="index" value="0"/>
                 <j:forEach begin="0" end="${maximum}" indexVar="index">
+                    <!-- we always want the files overwritten -->
+                    <ant:property name="overwrite" value="true"/>
                     <j:set var="propertyVarName" value="andromda.cartridge.test.property.${index}"/>
                     <j:set var="propertyName" value="${context.getVariable(propertyVarName)}"/>
                     <j:set var="valueVarName" value="andromda.cartridge.test.property.${propertyName}"/>
