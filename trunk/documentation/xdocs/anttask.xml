@@ -1,242 +1,369 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-
 <document>
+	<properties>
+		<author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+		<author email="chdbrandon@yahoo.com">Chad Brandon</author>
+		<title>Writing a build script using AndroMDA</title>
+		<gennews>no</gennews>
+	</properties>
+	<body>
+		<section name="The AndroMDA Ant Task">
+			<p class="std">
+			  One of the ways to use AndroMDA, is as a custom task for the famous 
+			  Apache Ant build tool. This page documents the attributes and 
+			  elements of the <![CDATA[<andromda>]]> task.
+		  </p>
+			<h2>
+				<a name="AndroMDA"><![CDATA[<andromda>]]></a>
+			</h2>
+			<p class="std">
+				andromda is the task that generates Java source (or other) files
+				from templates and a metamodel that it loads from a text file 
+				(i.e. an XMI file).
+			</p>
+			<p class="std">
+				To configure your cartridges you'll will use nested 
+				<a href="#namespace"><code><![CDATA[<namespace>]]></code></a> elements.      			
+		  </p>
+			<p class="std">
+				To customize andromda's default behavior then you will possibly use a nested 
+				<a href="#repository">
+					<code><![CDATA[<repository>]]></code>
+				</a> element.   			
+		  </p>
+			<h3>Attributes</h3>
+			<table border="1" cellpadding="2" cellspacing="0">
+				<tr>
+					<td valign="top" class="std">
+						<b>Attribute</b>
+					</td>
+					<td valign="top" class="std">
+						<b>Description</b>
+					</td>
+					<td align="center" valign="top" class="std">
+						<b>Required</b>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">basedir</td>
+					<td valign="top" class="std">
+						Specifies the path to the directory location of your case 
+						tool's model file(s). <strong>NOTE:</strong> if this
+						is NOT specified, you'll need to specify the 
+						<a href="#modelURL">modelURL</a>
+						property to give the URL of a single model to load.
+					</td>
+					<td>
+						Yes (unless modelURL is used).
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						includes
+					</td>
+					<td valign="top" class="std">
+						This is the standard Ant includes 
+						attribute. Specify any files or directories with XMI files 
+						that you <b>do</b> want AndroMDA to try to process.  This is
+						used in conjunction with the <code>basedir</code> property.
+					</td>
+					<td valign="top" align="center" class="std">
+						Yes (unless modelURL is used).
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						excludes
+					</td>
+					<td valign="top" class="std">
+						This is the standard Ant excludes 
+						attribute. Specify any files or directories with XMI files 
+						that you <b>do not</b> want AndroMDA to try to process.  This is
+						used in conjunction with the <code>basedir</code> property.
+					</td>
+					<td valign="top" align="center" class="std">
+						No.
+					</td>
+				</tr>
+				<tr>
+					<a name="modelURL"/>
+					<td valign="top" class="std">
+						modelURL
+					</td>
+					<td valign="top" class="std">
+						It can be used instead of the 
+						include and exclude attributes to point directly at the 
+						location of your XMI file. It is useful if the model file 
+						is in a JAR and you do not want to unzip the jar. Unlike 
+						include it can only be used to process one XMI file. </td>
+					<td valign="top" align="center" class="std">
+						No.
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						lastModifiedCheck
+					</td>
+					<td valign="top" class="std">
+						This turns on or off the ability 
+						to check the last modified date on files in order to 
+						determine whether or not they need to be re-rendered or 
+						not. The value of this attribute can be "true, false, yes, 
+						no". By default, it is true, meaning that the last modified 
+						date should be checked and if the original .xml file has 
+						not changed, then don't process the output file. This 
+						accelerates processing because files that have not changed 
+						will not get reprocessed. 
+					</td>
+					<td valign="top" align="center" class="std">
+						No, defaults to <code>true</code>.
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						<a name="processAllPackages">processAllPackages</a>
+					</td>
+					<td valign="top" class="std">
+						Specifies whether or not to process/generate from all packages 
+						in the model, used in combination with the 
+						<a href="#modelPackage"><code><![CDATA[<modelPackage>]]></code></a> element.						
+					</td>
+					<td>
+						No, defaults to <code>true</code>.
+					</td>
+				</tr>
+			</table>
+			<a name="andromda-example"/>
+			<h3>Example</h3>
+				<p class="std">
+					This example call to the andromda task, tells AndroMDA to load 
+					the model from <em>jar:file:/path/to/my/model.zuml!/model.xmi</em> 
+					and generate code both the hibernate and bpm4struts cartridges. Notice
+					how we configure each cartridge through the 
+					<a href="#namespace"><code><![CDATA[<namespace>]]></code></a> 
+					elements.
+				</p>
+				<source><![CDATA[
+<andromda modelURL="jar:file:/path/to/my/model.zuml!/model.xmi"> 
+	<modelPackage name="my.package.foo" shouldProcess="false"/> 
+	<namespace name="default" ignore="false"> 
+		<property name="languageMappingsUri" value="file:${basedir}/JavaMappings.xml"/> 
+	</namespace> 
+	<namespace name="hibernate" ignore="false"> 
+		<property name="jdbcMappingsUri" value="file:${basedir}/JdbcMappings.xml"/> 
+		<property name="sqlMappingsUri" value="file:${basedir}/HypersonicSqlMappings.xml"/> 
+		<property name="foreignKeySuffix" value="_FK"/> 
+		<property name="maxSqlNameLength" value="30"/> 
+		<property name="entities"      value="${gen.src.dir}" ignore="false"/> 
+		<property name="entity-impls"  value="${gen.src.dir}" ignore="true"/> 
+		<property name="session-beans" value="${gen.src.dir}" ignore="true"/> 
+		<property name="session-impls" value="${gen.src.dir}" ignore="true"/> 
+	</namespace> 
+	<namespace name="bpm4struts" ignore="false"> 
+		<property name="securityEnabled" value="false"/> 
+		<property name="pages" value="${gen.src.dir}"/> 
+		<property name="forms" value="${gen.src.dir}"/> 
+		<property name="actions" value="${gen.src.dir}"/> 
+		<property name="controllers" value="${gen.src.dir}"/> 
+		<property name="controller-impls" value="${gen.src.dir}"/> 
+		<property name="messages" value="${gen.src.dir}"/> 
+		<property name="validation" value="${gen.src.dir}"/> 
+		<property name="xdoclet-merge" value="${merge.src.dir}"/> 
+	</namespace> 
+</andromda3> 
+				]]></source>
+			<h2>
+				<a name="modelPackage"><![CDATA[<modelPackage>]]></a>
+			</h2>
+			<table>
+				<p class="std">
+					The <code><![CDATA[<modelPackage>]]></code> is used in 
+					conjunction with the <code><a href="#processAllPackages">processAllPackages</a></code> 
+					attribute of the <code><a href="#andromda"><![CDATA[<andromda>]]></a></code>
+				    task.  By default all packages are processed. Therefore it is recommended to 
+					turn off the packages which should be not processed.  In other words,
+					if you don't want to generate code from a certain package of a model, 
+					then you can turn of processing for that package and 
+					nothing will be generated from elements that reside in the 
+					package that was turned off.
+				</p>
+				<p class="std">
+					The modelPackage element is optional. 			
+				</p>
+				<tr>
+					<td valign="top" class="std">
+						<b>Attribute</b>
+					</td>
+					<td valign="top" class="std">
+						<b>Description</b>
+					</td>
+					<td align="center" valign="top" class="std">
+						<b>Required</b>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						name
+					</td>
+					<td valign="top" class="std">
+						The fully qualified name of the UML namespace/package.
+					</td>
+					<td align="center" valign="top" class="std">
+						Yes.
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						shouldProcess
+					</td>
+					<td valign="top" class="std">
+						True or false depending on whether or not the package
+						should be processed.  
+					</td>
+					<td align="center" valign="top" class="std">
+						No. Defaults to <code>true</code>.
+					</td>
+				</tr>
+			</table>
+			<h3>Example</h3>
+			<p class="std">
+				The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
+				element:
+			</p>
+			<source><![CDATA[
+<andromda ...> 
+    <modelPackage name="my.package.foo" shouldProcess="true"/> 
+    <modelPackage name="my.package.bar" shouldProcess="false"/> 
+  ... 
+</andromda> 
+				]]></source>
+			<p class="std">
+				The above is equivalent to:
+			</p>
+			<source><![CDATA[
+<andromda ...> 
+    <modelPackage name="my.package.bar" shouldProcess="false"/> 
+    ... 
+</andromda> 
+				]]></source>			
+			<h2>
+				<a name="namespace"><![CDATA[<namespace>]]></a>
+			</h2>
+			<p class="std">
+				The <a href="#andromda"><code><![CDATA[<andromda>]]></code></a> task takes a 
+				nested <code><![CDATA[<namespace>]]></code> element in order to customize
+				the properties of a cartridge.  These properties are used to define the 
+				location of where generated files are written, what language mapping files
+				to use (i.e. JavaMappings.xml, DotNetMappings.xml, etc.) and any other
+				properties that a cartridge and its metafacades might support.
+			</p>
+			<h3>Attributes</h3>
+			<table border="1" cellpadding="2" cellspacing="0">
+				<tr>
+					<td valign="top" class="std">
+						<b>Attribute</b>
+					</td>
+					<td valign="top" class="std">
+						<b>Description</b>
+					</td>
+					<td align="center" valign="top" class="std">
+						<b>Required</b>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						name
+					</td>
+					<td valign="top" class="std">
+						The name of the cartridge you want to use. It must match the name 
+						in a cartridge descriptor (i.e. <em>/META-INF/andromda-cartridge.xml</em>).						
+					</td>
+					<td valign="top" class="std">
+						Yes.
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">
+						ignore
+					</td>
+					<td valign="top" class="std">
+						This is useful if you have a cartridge on your classpath 
+						(since cartridge's are loaded when on your classpath) and you do
+						not want to generate any output from this cartridge, in other
+						words, you want it to be ignored.  If you want to ignore
+						a cartridge, the set this attribute with value of <code>true</code>,
+						otherwise don't set it at all. 
+			  		</td>
+					<td align="center" class="std">
+						No. Defaults to <code>false</code>.
+					</td>
+				</tr>
+			</table>
+			<p class="std">
+				See the <a href="#andromda-example">example</a> above for the correct use of 
+				namespace elements.
+			</p>
+			<h2>
+				<a name="repository"><![CDATA[<repository>]]></a>
+			</h2>
+			<p class="std">
+				The <a href="#andromda"><code><![CDATA[<andromda>]]></code>
+				</a> task supports a nested <code><![CDATA[<repository>]]></code> tag to
+				use to write extensions to androMDA.
+			</p>
+			<p class="std">
+				AndroMDA by default reads models from XMI files.  If you wanted to change AndroMDA so that it could read the
+				model from another format, or source type, then this tag would be useful for implementing that sort of extension.
+			</p>
+			<h3>Attributes</h3>
+			<table border="1" cellpadding="2" cellspacing="0">
+				<tr>
+					<td valign="top" class="std">
+						<b>Attribute</b>
+					</td>
+					<td valign="top" class="std">
+						<b>Description</b>
+					</td>
+					<td align="center" valign="top" class="std">
+						<b>Required</b>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">classname</td>
+					<td valign="top" class="std">
+						Specifies the name of the java class that implements AndroMDA's meta data
+						repository.  One way to write your own meta data repository is by
+						extending the class
+					   <a href="../javadoc/org/andromda/core/mdr/MDRepositoryFacade.html">
+						 MDRepositoryFacade
+					   </a>
+					</td>
+					<td align="center" class="std">No.</td>
+				</tr>
+				<tr>
+					<td valign="top" class="std">transformClassname</td>
+					<td valign="top" class="std">
+					     Specifies the name of the java class that implements the script helper
+						that the velocity code templates access as $transform.
+					</td>
+					<td align="center" class="std">No.</td>
+				</tr>
+			</table>
+			<h3>Example</h3>
+			<source><![CDATA[
+<andromda basedir="${build.dir}/unzipped"
+		  includes="CarRentalSystem15.xmi"
+		  lastModifiedCheck="false">
 
-  <properties>
-    <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
-    <author email="chdbrandon@yahoo.com">Chad Brandon</author>
-    <title>Writing a build script using AndroMDA</title>
-    <gennews>no</gennews>
-  </properties>
+	<repository
+		classname="org.andromda.repositories.mdr.MDRepositoryFacade"
+		transformClassname="org.andromda.core.simpleuml.SimpleOOHelper"/>
 
-  <body>
-
-    <section name="The AndroMDA Ant Task">
-
-      <p class="std">
-          AndroMDA is implemented as a custom task for the build tool Ant.
-          This web page documents the parameters and elements of this task.
-      </p>
-
-      <h2><a name="AndroMDA"><![CDATA[<andromda>]]></a></h2>
-      <h3>Description</h3>
-      <p class="std">andromda is the task that generates Java source (or other) files
-         from templates and a metamodel that it loads from a text file (i.e. an XMI file).</p>
-      <p class="std">If you want to configure the location of the generated files,
-         you will possibly use a nested <a href="#outlet"><code><![CDATA[<outlet>]]></code></a> element.
-      </p>
-      <p class="std">If you want to extend andromda then
-         you will possibly use a nested <a href="#repository"><code><![CDATA[<repository>]]></code></a> element.
-      </p>
-      <h3>Parameters</h3>
-		<table border="1" cellpadding="2" cellspacing="0">
-			<tr>
-				<td valign="top" class="std">
-					<b>Attribute</b>
-				</td>
-				<td valign="top" class="std">
-					<b>Description</b>
-				</td>
-				<td align="center" valign="top" class="std">
-					<b>Required</b>
-				</td>
-			</tr>
-			<tr>
-				<td valign="top" class="std">basedir</td>
-				<td valign="top" class="std">Specifies the path to the 
-					directory location of your case tools XMI files.</td>
-			</tr>
-			<tr>
-				<td align="center" class="std">Yes.</td>
-			</tr>
-			<tr>
-				<td valign="top" class="std">includes</td>
-				<td valign="top" class="std">This is the standard Ant includes 
-					attribute. Specify any files or directories with XMI files 
-					that you <b>do</b> want AndroMDA to try to process.</td>
-				<td valign="top" align="center" class="std">Yes.</td>
-			</tr>
-			<tr>
-				<td valign="top" class="std">excludes</td>
-				<td valign="top" class="std">This is the standard Ant excludes 
-					attribute. Specify any files or directories with XMI files 
-					that you <b>do not</b> want AndroMDA to try to process.</td>
-				<td valign="top" align="center" class="std">No.</td>
-			</tr>
-			<tr>
-				<td valign="top" class="std">modelURL</td>
-				<td valign="top" class="std">It can be used instead of the 
-					include and exclude attributes to point directly at the 
-					location of your XMI file. It is useful if the model file 
-					is in a JAR and you do not want to unzip the jar. Unlike 
-					include it can only be used to process one XMI file. </td>
-				<td valign="top" align="center" class="std">No.</td>
-			</tr>
-			<tr>
-				<td valign="top" class="std">lastModifiedCheck</td>
-				<td valign="top" class="std">This turns on or off the ability 
-					to check the last modified date on files in order to 
-					determine whether or not they need to be re-rendered or 
-					not. The value of this attribute can be "true, false, yes, 
-					no". By default, it is true, meaning that the last modified 
-					date should be checked and if the original .xml file has 
-					not changed, then don't process the output file. This 
-					accelerates processing because files that have not changed 
-					will not get reprocessed. </td>
-				<td valign="top" align="center" class="std">No, defaults to 
-					"true".</td>
-			</tr>
-			<tr>
-				<td valign="top" class="std">velocityPropertiesFile</td>
-				<td valign="top" class="std">This is the path to the 
-					velocity.properties file. It is an optional argument and by 
-					default is set to find the properties file in the same 
-					directory that the JVM was started in. </td>
-				<td valign="top" align="center" class="std">No.</td>
-			</tr>
-		</table>
-	  <h3>Example</h3>
-			<source>
-				<![CDATA[
-	<andromda3 modelURL="jar:file:/path/to/my/model.zuml!/model.xmi"> 
-	  	<modelPackage name="my.package.foo" shouldProcess="false"/> 
-		<namespace name="default" ignore="false"> 
-			<property name="languageMappingsUri" value="file:${basedir}/JavaMappings.xml"/> 
-		</namespace> 
-		<namespace name="hibernate" ignore="false"> 
-			<property name="jdbcMappingsUri" value="file:${basedir}/JdbcMappings.xml"/> 
-			<property name="sqlMappingsUri" value="file:${basedir}/HypersonicSqlMappings.xml"/> 
-			<property name="foreignKeySuffix" value="_FK"/> 
-			<property name="maxSqlNameLength" value="30"/> 
-			<property name="entities"      value="${gen.src.dir}" ignore="false"/> 
-			<property name="entity-impls"  value="${gen.src.dir}" ignore="true"/> 
-			<property name="session-beans" value="${gen.src.dir}" ignore="true"/> 
-			<property name="session-impls" value="${gen.src.dir}" ignore="true"/> 
-		</namespace> 
-		<namespace name="bpm4struts" ignore="false"> 
-			<property name="securityEnabled" value="false"/> 
-			 <property name="pages" value="${gen.src.dir}"/> 
-			 <property name="forms" value="${gen.src.dir}"/> 
-			 <property name="actions" value="${gen.src.dir}"/> 
-			 <property name="controllers" value="${gen.src.dir}"/> 
-			 <property name="controller-impls" value="${gen.src.dir}"/> 
-			 <property name="messages" value="${gen.src.dir}"/> 
-			 <property name="validation" value="${gen.src.dir}"/> 
-			 <property name="xdoclet-merge" value="${merge.src.dir}"/> 
-		</namespace> 
-	</andromda3> 
-				]]>
-			</source>
-			
-      <p class="std">
-        This unzips the Poseidon model into a temporary directory, and finally runs
-        AndroMDA to generate the bean and struts classes as well as the corresponding
-        implementation classes.
-      </p>
-
-      <h2><a name="outlet"><![CDATA[<outlet>]]></a></h2>
-      <p class="std">
-      The <a href="#andromda"><code><![CDATA[<andromda>]]></code></a> task supports a 
-      nested <code><![CDATA[<outlet>]]></code> tag to customize
-      the mappings for output directories where the generate source code will be placed.
-      </p>
-
-      <h3>Parameters</h3>
-
-      <table border="1" cellpadding="2" cellspacing="0">
-        <tr>
-          <td valign="top" class="std"><b>Attribute</b></td>
-          <td valign="top" class="std"><b>Description</b></td>
-          <td align="center" valign="top" class="std"><b>Required</b></td>
-        </tr>
-        <tr>
-          <td valign="top" class="std">cartridge</td>
-          <td valign="top" class="std">Specifies the name of the cartridge for which you are
-                                       going to specify an outlet mapping.
-          </td>
-          <td align="center" class="std">Yes.</td>
-        </tr>
-        <tr>
-          <td valign="top" class="std">outlet</td>
-          <td valign="top" class="std">Specifies the logical name of the outlet as declared
-                                       in the andromda-cartridge.xml file of the cartridge.
-          </td>
-          <td align="center" class="std">Yes.</td>
-        </tr>
-        <tr>
-          <td valign="top" class="std">dir</td>
-          <td valign="top" class="std">Specifies where the files are to be placed that the
-                                       cartridge generates via this outlet.</td>
-          <td align="center" class="std">Yes.</td>
-        </tr>
-      </table>
-
-      <p class="std">
-        See the <code><![CDATA[<andromda>]]></code> example above for the correct use of
-        outlets.
-      </p>
-
-
-	  <h2><a name="repository"><![CDATA[<repository>]]></a></h2>
-      <p class="std">
-        The <a href="#andromda"><code><![CDATA[<andromda>]]></code></a> task 
-        supports a nested <code><![CDATA[<repository>]]></code> tag to
-        use to write extensions to androMDA.
-      </p>
-
-      <p class="std">
-        AndroMDA by default reads models from XMI files.  If you wanted to change AndroMDA so that it could read the
-        model from another format, or source type, then this tag would be useful for implementing that sort of extension.
-      </p>
-      <h3>Parameters</h3>
-
-      <table border="1" cellpadding="2" cellspacing="0">
-        <tr>
-          <td valign="top" class="std"><b>Attribute</b></td>
-          <td valign="top" class="std"><b>Description</b></td>
-          <td align="center" valign="top" class="std"><b>Required</b></td>
-        </tr>
-        <tr>
-          <td valign="top" class="std">classname</td>
-          <td valign="top" class="std">Specifies the name of the java class that implements AndroMDA's meta data
-                                       repository.  One way to write your own meta data repository is by
-                                       extending the class
-                                       <a href="../javadoc/org/andromda/core/mdr/MDRepositoryFacade.html">
-                                         MDRepositoryFacade
-                                       </a>
-          </td>
-          <td align="center" class="std">No.</td>
-        </tr>
-        <tr>
-          <td valign="top" class="std">transformClassname</td>
-          <td valign="top" class="std">Specifies the name of the java class that implements the script helper
-                                       that the velocity code templates access as $transform.
-          </td>
-          <td align="center" class="std">No.</td>
-        </tr>
-      </table>
-
-      <h3>Example</h3>
-			<source>
-				<![CDATA[
-	<andromda basedir="${build.dir}/unzipped"
-			 includes="CarRentalSystem15.xmi"
-			 lastModifiedCheck="false"
-			 typeMappings="${andromda.home}/src/xml/TypeMapping.xml">
-	
-		<repository
-			classname="org.andromda.repositories.mdr.MDRepositoryFacade"
-			transformClassname="org.andromda.core.simpleuml.SimpleOOHelper"/>
-	
-	</andromda>
-				]]>
-			</source>
-			
-      <p class="std">
-          The above shows the defaults setup assumed by AndroMDA when there is no repository subtask.
-      </p>
-
-    </section>
-
-  </body>
+</andromda>
+					]]></source>
+			<p class="std">
+			  The above shows the defaults setup assumed by AndroMDA when there is no repository subtask.
+		  </p>
+		</section>
+	</body>
 </document>
