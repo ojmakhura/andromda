@@ -6,8 +6,14 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.io.Serializable;
 
+/**
+ * An object that can be present in a database.
+ */
 public abstract class DatabaseObject implements Serializable
 {
+    /**
+     * Closes the argument prepared statement.
+     */
     protected static void close(PreparedStatement statement)
     {
         if (statement != null)
@@ -23,6 +29,9 @@ public abstract class DatabaseObject implements Serializable
         }
     }
 
+    /**
+     * Closes the argument resultset.
+     */
     protected static void close(ResultSet resultSet)
     {
         if (resultSet != null)
@@ -39,6 +48,9 @@ public abstract class DatabaseObject implements Serializable
     }
 
 
+    /**
+     * Closes the argument connection.
+     */
     protected static void close(Connection connection)
     {
         if (connection != null)
