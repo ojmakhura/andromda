@@ -41,6 +41,8 @@ public class StrutsActionLogicImpl
     private Boolean isResettable = null;
     private Boolean isUseCaseStart = null;
     private Boolean requiresValidation = null;
+    private String documentationKey = null;
+    private String documentationValue = null;
 
     private Object input = null;
     private Object activityGraph = null;
@@ -297,6 +299,18 @@ public class StrutsActionLogicImpl
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && formBeanType != null) return formBeanType;
         return getPackageName() + '.' + getFormBeanClassName();
+    }
+
+    public String getDocumentationKey()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && documentationKey != null) return documentationKey;
+        return documentationKey = getMessageKey() + '.' + getActionTrigger().getTriggerKey() + ".documentation";
+    }
+
+    public String getDocumentationValue()
+    {
+        if (Bpm4StrutsProfile.ENABLE_CACHE && documentationValue != null) return documentationValue;
+        return documentationValue = StringUtilsHelper.toResourceMessage(getDocumentation(""));
     }
 
     // ------------- relations ------------------
