@@ -1,23 +1,23 @@
 package org.andromda.cartridges.database.metafacades;
 
+import org.andromda.cartridges.database.DatabaseGlobals;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EntityAssociationEndFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
-
-import org.andromda.cartridges.database.DatabaseGlobals;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.EntityAssociationEndFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.AttributeFacade;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 
 /**
  * MetafacadeLogic implementation for
