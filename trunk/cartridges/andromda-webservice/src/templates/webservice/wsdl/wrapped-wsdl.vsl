@@ -67,6 +67,11 @@
 #set ($enumType = $literal.type.schemaType)
 #end
             <xsd:simpleType name="$type.qName">
+                <xsd:annotation>     
+                    <xsd:documentation> 
+$type.getDocumentation("                        ", 64, false)
+                    </xsd:documentation>
+                </xsd:annotation>
                 <xsd:restriction base="$enumType">
 #foreach ($literal in $type.literals) 
                     <xsd:enumeration value="${escapeUtils.escapeXml($literal.enumerationValue.replaceAll('"', ''))}"/>
