@@ -144,12 +144,11 @@ public abstract class $entity.daoBaseName
             {
                 for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
                 {
-                    create(($entity.fullyQualifiedEntityName)entityIterator.next());
+                    create(transform, ($entity.fullyQualifiedEntityName)entityIterator.next());
                 }
                 return null;
             }
         }, true);
-       transformEntities(transform, entities);
        return entities;
    }
 
