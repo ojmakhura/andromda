@@ -91,7 +91,13 @@ public abstract class $service.baseName
      /**
       * Performs the core logic for {@link #${operation.getSignature(false)}}
       */
-    $operation.visibility abstract $operation.returnType.fullyQualifiedName ${operation.implementationSignature};
+#if ($operation.exceptionsPresent)
+    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
+        throws $operation.exceptionList;
+#else
+    $operation.visibility abstract $operation.returnType.fullyQualifiedName ${operation.implementationSignature};  
+#end
+    
 	
 #end
 }
