@@ -23,14 +23,6 @@ public class SpringEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntityAttribute#isUnique()
-     */
-    public boolean handleIsUnique()
-    {
-        return this.hasExactStereotype(UMLProfile.STEREOTYPE_UNIQUE);
-    }
-
-    /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntityAttribute#getIndex()
      */
     public java.lang.String handleGetIndex()
