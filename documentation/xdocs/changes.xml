@@ -8,6 +8,10 @@
     <body>
         <release version="3.0M3-SNAPSHOT" date="2004-11-10">
             <action dev="draftdog" type="update">
+                The bpm4struts cartridge now overwrites all jsps pages and stylesheets upon regeneration.
+                This is very important for users of earlier versions.
+            </action>
+            <action dev="draftdog" type="update">
                 Updated the <a href="starting.html">getting started</a> guide.
             </action>
         </release>
