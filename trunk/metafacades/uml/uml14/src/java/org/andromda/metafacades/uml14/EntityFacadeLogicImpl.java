@@ -1,5 +1,6 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -181,7 +182,8 @@ public class EntityFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getOperationCallFromAttributes(boolean)
      */
-    protected String handleGetOperationCallFromAttributes(boolean withIdentifiers)
+    protected String handleGetOperationCallFromAttributes(
+        boolean withIdentifiers)
     {
         return this.getOperationCallFromAttributes(withIdentifiers, false);
     }
@@ -614,6 +616,26 @@ public class EntityFacadeLogicImpl
             }
         }
         return identifiersAdded;
+    }
+
+    /**
+     * Override to filter out any association ends that point to model elements
+     * other than other entities.
+     * 
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getAssociationEnds()
+     */
+    public Collection handleGetAssociationEnds()
+    {
+        final Collection associationEnds = this.shieldedElements(super
+            .handleGetAssociationEnds());
+        CollectionUtils.filter(associationEnds, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                return ((AssociationEndFacade)object).getOtherEnd().getType() instanceof EntityFacade;
+            }
+        });
+        return associationEnds;
     }
 
     /**
