@@ -4,6 +4,9 @@
 #set ($packagename = $class.package.fullyQualifiedName)
 package $packagename;
 
+import java.util.Map;
+import java.util.HashMap;
+
 ## calculate metaclass and superclass
 #if ($class.metaclassDirectDependency)
 #set ($shieldedMetaclassTypeName = $class.metaclass.fullyQualifiedName)
@@ -61,7 +64,7 @@ public abstract class ${class.name}Logic
 ##
 #set ($memberTypeName = $att.type.fullyQualifiedName)
 #set ($methodName = $att.getterName)
-#set ($memberName = "${att.name}${velocityCount}")## postfix with counter to avoid collisions with other members
+#set ($memberName = "${att.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = "")
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
@@ -100,19 +103,77 @@ public abstract class ${class.name}Logic
     // ---------------- real business methods ----------------------
 
 #foreach ( $op in $ops)
+#set ($hasArguments = ($op.arguments.isEmpty()==false))
 #set ($memberTypeName = $op.type.fullyQualifiedName)
 #set ($methodName = $op.name)
-#set ($memberName = "${methodName}${velocityCount}")## postfix with counter to avoid collisions with other members
+#set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = $op.typedArgumentList)
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
+#set ($innerClassKey = "$str.upperCaseFirstLetter(${memberName})Key")
+#set ($innerClassValue = "$str.upperCaseFirstLetter(${memberName})Value")
 
     $op.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
-    private boolean ${memberName}Set = false;
 #if ($op.hasReturnType())
+#if ($hasArguments)
+    private final Map $memberName = new HashMap(4);
+
+    private class $innerClassKey
+    {
+#foreach ($param in $op.arguments)
+        private $param.type.fullyQualifiedName $param.name;
+#end
+
+        public $innerClassKey($typedArgumentList)
+        {
+#foreach ($param in $op.arguments)
+            this.$param.name = $param.name;
+#end
+        }
+
+        public boolean equals(Object object)
+        {
+            if (object instanceof $innerClassKey)
+            {
+                $innerClassKey that = ($innerClassKey)object;
+                return true
+#foreach ($param in $op.arguments)
+                    && (this.$param.name == that.$param.name)
+#end
+                    ;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /**
+         * @todo: implement hashCode()
+         */
+    }
+
+    private class $innerClassValue
+    {
+        private $memberTypeName value;
+
+        public $innerClassValue($memberTypeName value)
+        {
+            this.value = value;
+        }
+
+        public $memberTypeName getValue()
+        {
+            return this.value;
+        }
+    }
+
+#else
+    private boolean ${memberName}Set = false;
     private $memberTypeName $memberName;
+#end
 #end
 
     private void $handleMethodPreCondition
@@ -126,18 +187,32 @@ public abstract class ${class.name}Logic
     public final $memberTypeName ${methodName}($typedArgumentList)
     {
 #if($op.hasReturnType())
-        // if (${memberName}Set) return $memberName;
+#if ($hasArguments)
+        final Object key = new $innerClassKey($op.argumentNames);
+        if (${memberName}.containsKey(key))
+            return (($innerClassValue)${memberName}.get(key)).getValue();
+#else
+        if (${memberName}Set) return $memberName;
+#end
 #end
         ${handleMethodPreCondition};
 #if($op.hasReturnType())
+#if ($hasArguments)
+        ${memberName}.put(key, new $innerClassValue(${handleMethodName}($op.argumentNames)));
+#else
         $memberName = ${handleMethodName}($op.argumentNames);
+#end
 #else
         ${handleMethodName}($op.argumentNames);
 #end
         ${handleMethodPostCondition};
 #if($op.hasReturnType())
+#if ($hasArguments)
+        return (($innerClassValue)${memberName}.get(key)).getValue();
+#else
         ${memberName}Set = true;
         return $memberName;
+#end
 #end
     }
 
@@ -153,7 +228,7 @@ public abstract class ${class.name}Logic
 ##
 #set ($memberTypeName = $assocEnd.getterSetterTypeName)
 #set ($methodName = "get$str.upperCaseFirstLetter($assocEnd.otherEnd.name)")
-#set ($memberName = "${methodName}${velocityCount}")## postfix with counter to avoid collisions with other members
+#set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
 #set ($typedArgumentList = "")
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
