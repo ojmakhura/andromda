@@ -82,12 +82,12 @@ public abstract class $metafacade.logicName
 ##set ($methodName = $attribute.getterName)
 #set ($fqname = $attribute.type.getFullyQualifiedName(true))
 #if ($fqname == "datatype.boolean")
-#set ($methodName = "is$str.capitalize($attribute.name)")
+#set ($methodName = "is$stringUtils.capitalize($attribute.name)")
 #else
-#set ($methodName = "get$str.capitalize($attribute.name)")
+#set ($methodName = "get$stringUtils.capitalize($attribute.name)")
 #end
 #set ($memberName = "${attribute.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$str.capitalize($methodName)")
+#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
@@ -143,7 +143,7 @@ public abstract class $metafacade.logicName
 #set ($memberTypeName = $operation.returnType.fullyQualifiedName)
 #set ($methodName = $operation.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$str.capitalize($methodName)")
+#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = $operation.typedArgumentList)
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
@@ -186,7 +186,7 @@ public abstract class $metafacade.logicName
 #set ($memberType = $associationEnd.otherEnd.type)
 #set ($methodName = $associationEnd.otherEnd.getterName)
 #set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$str.capitalize($methodName)")
+#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members

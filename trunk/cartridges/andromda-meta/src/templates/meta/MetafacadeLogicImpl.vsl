@@ -28,7 +28,7 @@ public class $metafacade.logicImplName
 
 #foreach ( $attribute in $attributes )
 #set ($methodName = $attribute.getterName)
-#set ($handleMethodName = "handle$str.capitalize($methodName)")
+#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #set ($returnTypeName = $attribute.type.fullyQualifiedName)
     /**
@@ -54,7 +54,7 @@ public class $metafacade.logicImplName
 #if (!$metafacade.operations.empty)
 #foreach ( $operation in $metafacade.operations)
 #set ($methodName = $operation.name)
-#set ($handleMethodName = "handle$str.capitalize($methodName)")
+#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = $operation.typedArgumentList)
 #set ($returnTypeName = $operation.returnType.fullyQualifiedName)
 #if ($defaultException)
@@ -89,7 +89,7 @@ public class $metafacade.logicImplName
 #if ($associationEnd.otherEnd.navigable)
 #set ($memberTypeName = $associationEnd.otherEnd.getterSetterTypeName)
 #set ($methodName = $associationEnd.otherEnd.getterName)
-#set ($handleMethodName = "handle$str.capitalize($methodName)")
+#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = "")
 #if ($associationEnd.otherEnd.many)
 #set ($returnTypeName = $associationEnd.otherEnd.getterSetterTypeName)

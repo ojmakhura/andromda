@@ -8,7 +8,7 @@
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
-    <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
     <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
