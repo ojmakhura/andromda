@@ -1,10 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.core.common.StringUtilsHelper;
+
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
-
-import org.andromda.core.common.StringUtilsHelper;
 
 
 /**
@@ -65,7 +65,7 @@ public class StrutsTriggerLogicImpl
      */
     public java.lang.String handleGetTriggerKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getName());
+        return getAction().getMessageKey() + '.' + StringUtilsHelper.toResourceMessageKey(getName());
     }
 
     /**

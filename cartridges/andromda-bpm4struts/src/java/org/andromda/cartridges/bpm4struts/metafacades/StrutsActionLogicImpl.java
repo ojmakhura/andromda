@@ -317,7 +317,7 @@ public class StrutsActionLogicImpl
 
     public String handleGetDocumentationKey()
     {
-        return getMessageKey() + '.' + getActionTrigger().getTriggerKey() + ".documentation";
+        return getActionTrigger().getTriggerKey() + ".documentation";
     }
 
     public String handleGetDocumentationValue()
