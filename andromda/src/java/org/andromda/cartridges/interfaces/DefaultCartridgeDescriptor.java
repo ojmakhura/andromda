@@ -20,8 +20,10 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
     private ArrayList supportedStereotypes = new ArrayList();
     private ArrayList outlets = new ArrayList();
     private ArrayList templates = new ArrayList();
+    private ArrayList macrolibs = new ArrayList();
     private URL definitionURL;
     private String cartridgeClassName = null;
+
 
     /**
      * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getCartridgeName()
@@ -148,6 +150,24 @@ public class DefaultCartridgeDescriptor implements ICartridgeDescriptor
     public void setCartridgeClassName(String cartridgeClassName)
     {
         this.cartridgeClassName = cartridgeClassName;
+    }
+
+    /**
+     * Adds an item to the list of defined macro libraries.
+     * 
+     * @param libraryName String the name of the library
+     */
+    public void addMacroLibrary(String libraryName)
+    {
+        macrolibs.add(libraryName);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.interfaces.ICartridgeDescriptor#getMacroLibraries()
+     */
+    public List getMacroLibraries()
+    {
+        return macrolibs;
     }
 
 }
