@@ -40,7 +40,7 @@
    <!-- compile java files -->
    <target name="compile" depends="init">
       <javac destdir="${classes.dir}" includes="**/*.java"
-         includeAntRuntime="false">
+         includeAntRuntime="false" debug="on">
          <src path="${java.dir}"/>
          <classpath refid="build.class.path"/>
       </javac>
