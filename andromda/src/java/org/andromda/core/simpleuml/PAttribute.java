@@ -8,7 +8,7 @@ import org.omg.uml.foundation.core.Attribute;
  * dynamic proxy for an Attribute: dynamically supports the UMLAttribute, 
  * and org.omg.uml.foundation.core.Attribute interfaces.
  *
- *@author  Anthony Mowers
+ *@author  <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class PAttribute
 	extends PModelElement

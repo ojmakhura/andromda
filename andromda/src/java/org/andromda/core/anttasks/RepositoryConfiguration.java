@@ -23,7 +23,7 @@ import org.apache.tools.ant.BuildException;
  * read into the MDR UML v1.4 repository </li>
  * </ul>
  * 
- * @author Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  *  
  */
 public class RepositoryConfiguration

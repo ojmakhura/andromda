@@ -9,7 +9,7 @@ import org.omg.uml.foundation.datatypes.VisibilityKind;
  * Implements an enumeration of the four types of operation/attribute visibilities in
  * java: private,public, protected and 'package' level visibility.
  * 
- * @author Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  *
  */
 public class JavaVisibilityEnum implements VisibilityKind

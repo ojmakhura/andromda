@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 /**
  * An exception thrown whenever an error is encountered while parsing meta data.
  * 
- * @author    Anthony Mowers
+ * @author    <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public final class RepositoryReadException extends Exception
 {

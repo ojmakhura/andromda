@@ -39,7 +39,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
  * 
  *
  *@author    Matthias Bohlen
- *@author    Anthony Mowers
+ *@author    <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class AndroMDAGenTask extends MatchingTask {
 	private static final String DEFAULT_DBMAPPING_TABLE_CLASSNAME =

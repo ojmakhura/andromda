@@ -12,7 +12,7 @@ import java.util.Collection;
  * 
  * @see org.andromda.core.common.RepositoryFacade
  * 
- * @author Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public interface ScriptHelper
 {

@@ -22,7 +22,7 @@ import org.netbeans.api.xmi.XMIReaderFactory;
  * Implements an AndroMDA object model repository by using the 
  * <a href="http://mdr.netbeans.org">NetBeans MetaDataRepository</a>.
  *
- * @author    Anthony Mowers
+ * @author <A HREF="http://www.amowers.com">Anthony Mowers</A>
  */
 public class MDRepositoryFacade implements RepositoryFacade
 {

@@ -1,0 +1,49 @@
+<project name="AndroMDA Wizard" default="ejb" basedir=".">
+
+  <property file="wizard.properties"/>
+	
+  <property name="project-template.dir" 
+     value="${basedir}/"/>
+
+  <target name="ejb" depends="check-ejb-environment" 
+    description="creates a new EJB project">
+	
+	<echo message="Creating a new EJB based project"/>
+	<echo message="    project.home = ${project.home}"/>
+	
+    <copy todir="${project.home}">
+      <fileset dir="${project-template.dir}ejbProjectTemplate"/>
+    </copy>
+	
+    <replace file="${project.home}/build.properties"
+	propertyFile="wizard.properties">
+    		
+       <replacefilter token="@ANDROMDA_HOME@" 
+    	  property="andromda.home"/>
+    			
+       <replacefilter token="@JBOSS_HOME@" 
+          property="jboss.home"/>
+    			
+    </replace>
+
+  </target>
+
+  <target name="check-ejb-environment">
+    <antcall target="check-andromda"/>
+    <antcall target="check-jboss"/>
+    <antcall target="check-project"/>
+  </target>
+
+  <target name="check-andromda" unless="andromda.home">
+    <fail>androma.home not set in wizard.properties</fail>
+  </target>
+
+  <target name="check-jboss" unless="jboss.home">
+    <fail>jboss.home not est in wizard.properties</fail>
+  </target>
+
+  <target name="check-project" unless="project.home">
+    <fail> use -Dproject.home=... to set project directory</fail>
+  </target>
+
+</project>
