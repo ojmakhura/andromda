@@ -2,13 +2,8 @@
     <property name="persistence" value="ejb" />
 
 <!-- these are the new, official stereotypes -->
-    <stereotype name="entity" />
-    <stereotype name="service" />
-
-<!-- the following stereotypes are deprecated and will be removed in the next release. -->
-    <stereotype name="EntityBean" />
-    <stereotype name="StatelessSessionBean" />
-    <stereotype name="StatefulSessionBean" />
+    <stereotype name="Entity" />
+    <stereotype name="Service" />
 
 <!-- the outlet names -->
     <outlet name="session-beans" />
@@ -18,7 +13,7 @@
 
 <!-- the official template definitions -->
     <template
-        stereotype="entity"
+        stereotype="Entity"
         sheet="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="entity-beans"
@@ -26,7 +21,7 @@
     />
 
     <template
-        stereotype="entity"
+        stereotype="Entity"
         sheet="templates/EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="entity-impls"
@@ -34,7 +29,7 @@
     />
 
     <template
-        stereotype="entity"
+        stereotype="Entity"
         sheet="templates/EntityBeanCMP.vsl"
         outputPattern="{0}/{1}BeanCMP.java"
         outlet="entity-beans"
@@ -49,7 +44,7 @@
      (Matthias Bohlen)
 -->
     <template
-        stereotype="service"
+        stereotype="Service"
         sheet="templates/SessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
@@ -57,67 +52,11 @@
     />
 
     <template
-        stereotype="service"
+        stereotype="Service"
         sheet="templates/SessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
         overWrite="false"
     />
 
-<!-- the following template definitions use deprecated stereotypes and will be removed in the next release. -->
-    <template
-        stereotype="EntityBean"
-        sheet="templates/EntityBean.vsl"
-        outputPattern="{0}/{1}Bean.java"
-        outlet="entity-beans"
-        overWrite="true"
-    />
-
-    <template
-        stereotype="EntityBean"
-        sheet="templates/EntityBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
-        outlet="entity-impls"
-        overWrite="false"
-    />
-
-    <template
-        stereotype="EntityBean"
-        sheet="templates/EntityBeanCMP.vsl"
-        outputPattern="{0}/{1}BeanCMP.java"
-        outlet="entity-beans"
-        overWrite="true"
-    />
-
-    <template
-        stereotype="StatelessSessionBean"
-        sheet="templates/SessionBean.vsl"
-        outputPattern="{0}/{1}Bean.java"
-        outlet="session-beans"
-        overWrite="true"
-    />
-
-    <template
-        stereotype="StatelessSessionBean"
-        sheet="templates/SessionBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
-        outlet="session-impls"
-        overWrite="false"
-    />
-
-    <template
-        stereotype="StatefulSessionBean"
-        sheet="templates/SessionBean.vsl"
-        outputPattern="{0}/{1}Bean.java"
-        outlet="session-beans"
-        overWrite="true"
-    />
-
-    <template
-        stereotype="StatefulSessionBean"
-        sheet="templates/SessionBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java"
-        outlet="session-impls"
-        overWrite="false"
-    />
 </cartridge>

@@ -22,7 +22,7 @@ ${indent}* </p>
 
 #foreach ( $dep in $class.dependencies )
     #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($transform.getStereotype($dep.id) == "exception")
+    #if ($transform.getStereotype($dep.id) == "Exception")
         #set ($defaultException = $class2)
     #end
 #end
@@ -40,7 +40,7 @@ ${indent}* </p>
  * @ejb.pk generate="false" class="java.lang.String"
  * @ejb.util generate="physical"
 #foreach ( $dep in $class.dependencies )
-#if ($transform.getStereotype($dep.id) == "ejbref")
+#if ($transform.getStereotype($dep.id) == "EntityRef" || $transform.getStereotype($dep.id) == "ServiceRef")
  #set ($class2 = $transform.findClassById($dep.targetType))
  * @ejb.ejb-ref ejb-name="${class2.name}" view-type="$transform.getEjbRefViewType(${class2})" ref-name="ejb/${class2.name}BeanRef"
 #end
@@ -70,12 +70,12 @@ ${indent}* </p>
 #if ($transform.getStereotype($op.id) == "FinderMethod")
  * @ejb:finder signature="${transform.findFullyQualifiedName($op.getType())} ${transform.getOperationSignature($op)}"
 #set($viewtype = "")
-#set($viewtype = $transform.findTagValue($op.taggedValues, "@uml2ejb.viewType"))
+#set($viewtype = $transform.findTagValue($op.taggedValues, "@andromda.ejb.viewType"))
 #if($viewtype == "local" || $viewtype == "remote" || $viewtype == "both")
  *     view-type="$viewtype"
-#end  
+#end
 #set($querystring = "")
-#set($querystring = $transform.findTagValue($op.taggedValues, "@uml2ejb.query"))
+#set($querystring = $transform.findTagValue($op.taggedValues, "@andromda.ejb.query"))
 #if($querystring == "")
 #set($querystring = "SELECT DISTINCT OBJECT(c) FROM $class.name AS c")
 #if($op.parameters.size() >0 )
@@ -273,7 +273,7 @@ public abstract class ${class.name}Bean
     // ---------------- accessor methods for bean references ---------------
 
 #foreach ( $dep in $class.dependencies )
-#if ($transform.getStereotype($dep.id) == "ejbref")
+#if ($transform.getStereotype($dep.id) == "EntityRef" || $transform.getStereotype($dep.id) == "ServiceRef")
    #set ($referencedClass = $transform.findClassById($dep.targetType))
    #set ($homeInterfaceName = $transform.getHomeInterfaceName($referencedClass))
    /**
