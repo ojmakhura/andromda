@@ -175,7 +175,7 @@ ${indent}           <html:optionsCollection name="$formBeanName" property="$fiel
 ${indent}       </html:select>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
-${indent}        <html:text name="$formBeanName" property="$selectProperty" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end readonly="true"/>
+${indent}        <html:select name="$formBeanName" property="$selectProperty" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end disabled="true"/>
 ${indent}    </c:otherwise>
 ${indent}</c:choose>
 ##
