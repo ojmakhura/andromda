@@ -23,6 +23,7 @@
     <property reference="hibernateAssociationCollectionType" default="set"/>
     <property reference="hibernateAssociationSortType" default="unsorted"/>
     <property reference="enumerationNamePattern" default="{0}Enum"/>
+    <property reference="hibernateQueryUseSpecializedSetters" default="true"/>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>ENTITY</stereotype>
