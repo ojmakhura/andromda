@@ -174,7 +174,7 @@ public class Cartridge
         Template template,
         CodeGenerationContext context)
     {
-        final String methodName = "Cartridge.processModelElements";
+        final String methodName = "Cartridge.processTemplateWithModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
         ExceptionUtils.checkNull(methodName, "context", context);
 
@@ -302,7 +302,7 @@ public class Cartridge
      */
     protected void processTemplateWithoutModelElements(Template template)
     {
-        final String methodName = "Cartridge.processWithoutModelElements";
+        final String methodName = "Cartridge.processTemplateWithoutModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
         Property outletProperty = Namespaces.instance().findNamespaceProperty(
             this.getName(),
@@ -485,7 +485,7 @@ public class Cartridge
      */
     private void writeResource(Resource resource, URL resourceUrl)
     {
-        final String methodName = "Cartridge.processResource";
+        final String methodName = "Cartridge.writeResource";
         File outFile = null;
         try
         {
