@@ -118,7 +118,7 @@ public class ModelProcessor
                     }
                     AndroMDALogger.reset();
                 }
-                AndroMDALogger.info("completed model processing, TIME: "
+                AndroMDALogger.info("completed model processing --> TIME: "
                     + ((System.currentTimeMillis() - startTime) / 1000.0)
                     + "[s], RESOURCES WRITTEN: " 
                     + ResourceWriter.instance().getWrittenCount()
