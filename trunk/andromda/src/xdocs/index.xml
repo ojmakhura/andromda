@@ -40,20 +40,25 @@
         which is rock solid.
       </p>
 
-      <p class="std">Currently, we are...</p>
+      <p class="std">Recently, we have...</p>
       <ul>
-        <li class="std">migrating the source files to the new CVS repository</li>
-        <li class="std">changing our base to <a href="http://mdr.netbeans.org/">Netbeans metadata
+        <li class="std">migrated the source files to the new CVS repository</li>
+        <li class="std">changed our base to <a href="http://mdr.netbeans.org/">Netbeans metadata
           repository</a> (MDR), an implementation of the OMG <a href="http://www.dstc.edu.au/Research/Projects/MOF/">MOF</a>
           standard</li>
-        <li class="std">restructuring packages and classes</li>
-        <li class="std">adding support for non-EJB persistence like JDO or Hibernate</li>
-        <li class="std">adding support for more CASE tools (MagicDraw, Together CC, etc.)</li>
-        <li class="std">rewriting the web pages</li>
+        <li class="std">restructured packages and classes</li>
+        <li class="std">added support for more CASE tools (MagicDraw, Together CC)</li>
+        <li class="std">rewritten the web pages</li>
+        <li class="std">made an alpha release 2.0.0</li>
+      </ul>
+      <p class="std">After the alpha release, we will...</p>
+      <ul>
+        <li class="std">add support for non-EJB persistence like JDO or Hibernate</li>
+        <li class="std">add regression testing for the generator's output</li>
       </ul>
 
       <p class="std">
-        Please be patient, migrating the whole stuff into a new project takes more
+        Please be patient, migrating the whole stuff into a new project has taken more
         time than we thought. So, stay tuned, you will see much more here in the
         near future. AndroMDA will be as beautiful as the galaxy, promised!
       </p>
@@ -62,7 +67,7 @@
         Read more about AndroMDA, using the links on the left side menu. If you start
         using AndroMDA, we invite you to subscribe to the project's
         <a href="http://sourceforge.net/mail/?group_id=73047">mailing lists</a>. Another
-        intersting place to watch is the Code Generation Network site where
+        interesting place to watch is the Code Generation Network site where
         you can read an
         <a href="http://www.codegeneration.net/tiki-read_article.php?articleId=8">interview with Matthias Bohlen</a>, the lead engineer
         behind AndroMDA.

@@ -93,7 +93,11 @@
 	</copy>
 
 	<copy todir="${dist.stage.dir}src/">
-	    <fileset dir="src" includes="**/*" excludes="sample/**" />
+	    <fileset dir="${src.dir}">
+	       <exclude name="sample/**" />
+	       <!-- do not include GPL'ed software because ouor license is BSD! -->
+	       <exclude name="bin/java2html.jar" />
+	    </fileset>
 	</copy>
 
       <!-- do not zip from source tree, but ... -->
