@@ -22,7 +22,7 @@
 #set ($constraintKindString = "postcondition")
 #end
         if (false == $constraintTranslation)
-            throw new ModelValidationException(this.getClass(), "While checking for $elementKind $constraintKindString", "$str.toSingleLine($constraintDocumentation)");
+            throw new org.andromda.core.metafacade.ModelValidationException(this.getClass(), this.getName(), "$str.toSingleLine($constraintDocumentation)");
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
 #end##foreach constraint
 #set ($constraint = false)## reset to make sure we do not reuse the last constraint
@@ -35,8 +35,6 @@
 #if ($packageName)
 package $packageName;
 #end
-
-import org.andromda.core.metafacade.ModelValidationException;
 
 ## calculate metaclass and superMetafacade
 #if ($metafacade.metaclassDirectDependency)
@@ -137,7 +135,7 @@ public abstract class ${metafacade.logicName}
 
 #foreach ($op in $ops)
 #set ($hasArguments = (!$op.arguments.empty))
-#set ($memberTypeName = $op.returnType.fullyQualifiedName)
+#set ($memberTypeName = $op.type.fullyQualifiedName)
 #set ($methodName = $op.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
 #set ($handleMethodName = "handle$str.upperCaseFirstLetter($methodName)")
