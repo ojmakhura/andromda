@@ -1,20 +1,18 @@
 package org.andromda.core.uml14;
 
-import org.andromda.core.common.DbMappingTable;
-import org.andromda.core.common.ScriptHelper;
-
-import java.util.Collections;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Vector;
 
-import javax.jmi.reflect.RefPackage;
+import org.andromda.core.common.DbMappingTable;
+import org.andromda.core.common.ScriptHelper;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.modelmanagement.Model;
 
 /**
- * @author amowers
+ * @author Anthony Mowers
  *
  * 
  */

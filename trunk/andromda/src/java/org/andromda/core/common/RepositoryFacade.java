@@ -1,8 +1,7 @@
 package org.andromda.core.common;
 
-import java.io.File;
-import java.net.URL;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * A facade that is used to hide the underlying data repository technology.  A data 

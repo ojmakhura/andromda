@@ -1,8 +1,8 @@
 package org.andromda.core.uml14;
 
-import org.omg.uml.foundation.core.Dependency;
-import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.Attribute;
+import org.omg.uml.foundation.core.Classifier;
+import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.Operation;
 

@@ -1,12 +1,11 @@
 package org.andromda.core.uml14;
 
 
-import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.ModelElement;
 
 
 /**
- * @author amowers
+ * @author Anthony Mowers
  *
  * 
  */

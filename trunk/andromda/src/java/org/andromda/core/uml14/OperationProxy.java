@@ -2,37 +2,26 @@ package org.andromda.core.uml14;
 
 import java.lang.reflect.Method;
 
-import java.util.Collection;
-
-
 import org.omg.uml.foundation.core.Operation;
-import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 
 /**
  *  Description of the Class
  *
- *@author    amowers
+ *@author    Anthony Mowers
  */
-public class OperationProxy
-	extends ModelElementProxy
-	implements UMLOperation
+public class OperationProxy extends ModelElementProxy implements UMLOperation
 {
 	private UMLScriptHelper scriptHelper;
 	private Operation operation;
-	
+
 	private static Method getVisibilityMethod;
-	private static VisibilityKind PRIVATE = 
-		new JavaVisibility("private");
-	private static VisibilityKind PUBLIC =
-		new JavaVisibility("public");
-	private static VisibilityKind PROTECTED =
-		new JavaVisibility("protected");
-	private static VisibilityKind PACKAGE =
-		new JavaVisibility("");
-	
-	
+	private static VisibilityKind PRIVATE = new JavaVisibility("private");
+	private static VisibilityKind PUBLIC = new JavaVisibility("public");
+	private static VisibilityKind PROTECTED = new JavaVisibility("protected");
+	private static VisibilityKind PACKAGE = new JavaVisibility("");
+
 	/**
 	 *  Description of the Method
 	 *
@@ -44,27 +33,19 @@ public class OperationProxy
 		UMLScriptHelper scriptHelper,
 		Operation operation)
 	{
-		Class[] interfaces = new Class[]
-			{
-			UMLOperation.class,
-			Operation.class
-			};
+		Class[] interfaces =
+			new Class[] { UMLOperation.class, Operation.class };
 
-		return (Operation)java.lang.reflect.Proxy.newProxyInstance(
+		return (Operation) java.lang.reflect.Proxy.newProxyInstance(
 			operation.getClass().getClassLoader(),
 			interfaces,
 			new OperationProxy(operation, scriptHelper));
 	}
 
-
-	
-	private OperationProxy(
-		Operation operation,
-		UMLScriptHelper scriptHelper)
+	private OperationProxy(Operation operation, UMLScriptHelper scriptHelper)
 	{
-		super(operation,scriptHelper);
+		super(operation, scriptHelper);
 	}
-
 
 	public Object getId()
 	{
@@ -74,12 +55,12 @@ public class OperationProxy
 	public VisibilityKind getVisibility()
 	{
 		VisibilityKind visibility;
-		
+
 		visibility = operation.getVisibility();
 		if (VisibilityKindEnum.VK_PRIVATE.equals(visibility))
 		{
 			return PRIVATE;
-		} 
+		}
 		else if (VisibilityKindEnum.VK_PROTECTED.equals(visibility))
 		{
 			return PROTECTED;
@@ -88,9 +69,8 @@ public class OperationProxy
 		{
 			return PUBLIC;
 		}
-		
-		return PACKAGE;		
-	}
-	
-}
 
+		return PACKAGE;
+	}
+
+}

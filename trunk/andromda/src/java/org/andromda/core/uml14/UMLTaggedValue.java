@@ -1,7 +1,7 @@
 package org.andromda.core.uml14;
 
 /**
- * @author tony
+ * @author Anthony Mowers
  *
  * 
  */

@@ -1,13 +1,7 @@
 package org.andromda.core.simpleoo;
 
 import org.andromda.core.xml.Association;
-import org.andromda.core.xml.AssociationEnd;
 import org.andromda.core.xml.AssociationLink;
-import org.andromda.core.xml.Multiplicity;
-import org.andromda.core.xml.TaggedValue;
-import org.andromda.core.xml.Type;
-
-import java.util.List;
 
 
 /**
