@@ -10,7 +10,7 @@
     <body>
         <release version="3.0-RC1-SNAPSHOT" date="2005-03-26" description="First release candidate for version 3.0">
             <action dev="draftdog" type="add" issue="HIB-81">
-                The Hibernate cartridge now generates readible foreign key constraint names where possible. This
+                The Hibernate cartridge now generates readable foreign key constraint names where possible. This
                 information is generated into the mapping files and is processed by the <code>SchemaExport</code>
                 tool when generating the database schema DDL. The
                 <code>@andromda.persistence.foreignkey.constraint</code> tagged value can be used to override the
