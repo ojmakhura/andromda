@@ -4,7 +4,6 @@
     <metafacade
         metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
         metafacadeClass="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
-        <property reference="foreignKeySuffix" default="_FK"/>
         <context>org.andromda.metafacades.uml.EntityFacade</context>
     </metafacade>
     <metafacade

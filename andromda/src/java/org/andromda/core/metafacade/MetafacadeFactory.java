@@ -66,10 +66,10 @@ public class MetafacadeFactory
     {
         return factory;
     }
-    
+
     /**
-     * Performs any initialization required by the factory (i.e.
-     * discovering all <code>metafacade</code> mappings, etc).
+     * Performs any initialization required by the factory (i.e. discovering all
+     * <code>metafacade</code> mappings, etc).
      */
     public void initialize()
     {
@@ -290,21 +290,6 @@ public class MetafacadeFactory
                     }
                 }
 
-                // Populate the global metafacade properties
-                // NOTE: ordering here matters, we populate the global
-                // properties BEFORE the context properties so that the
-                // context properties can override (if duplicate properties
-                // exist)
-                this.populatePropertyReferences(metafacade, mappings
-                    .getPropertyReferences(this.getActiveNamespace()));
-
-                if (mapping != null)
-                {
-                    // Populate any context property references (if any)
-                    this.populatePropertyReferences(metafacade, mapping
-                        .getPropertyReferences());
-                }
-
                 metafacade.initialize();
                 // IMPORTANT: we must add the metafacade to the cache
                 // before validate is called below, (so ordering matters here)
@@ -323,6 +308,22 @@ public class MetafacadeFactory
                     this.validationMessages.addAll(validationMessages);
                 }
             }
+
+            // Populate the global metafacade properties
+            // NOTE: ordering here matters, we populate the global
+            // properties BEFORE the context properties so that the
+            // context properties can override (if duplicate properties
+            // exist)
+            this.populatePropertyReferences(metafacade, mappings
+                .getPropertyReferences(this.getActiveNamespace()));
+
+            if (mapping != null)
+            {
+                // Populate any context property references (if any)
+                this.populatePropertyReferences(metafacade, mapping
+                    .getPropertyReferences());
+            }
+
             return metafacade;
         }
         catch (Throwable th)
