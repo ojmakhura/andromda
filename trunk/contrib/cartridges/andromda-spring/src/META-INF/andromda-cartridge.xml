@@ -229,16 +229,4 @@
 		overwrite="true"
 		outputToSingleFile="true"/>
 	
-	<!--
-	<template 
-		path="templates/spring/hibernate/hibernate.cfg.xml.vsl" 
-		outputPattern="hibernate.cfg.xml" 
-		outlet="xmls" 
-		overwrite="true"
-		outputToSingleFile="true">
-		<modelElements variable="entities">
-            <modelElement stereotype="Entity"/>
-		</modelElements>
-	</template>
-	-->
 </cartridge>
