@@ -42,4 +42,31 @@ class HibernateGlobals
      * services).
      */
     static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
+    
+    /**
+     * The namespace property storing default ehCache maxElementsInMemory
+     * Parameter
+     */
+    static final String HIBERNATE_EHCACHE_MAX_ELEMENTS = "ehCacheMaxElementsInMemory";
+
+    /**
+     * The namespace property storing default ehCache eternal parameter
+     */
+    static final String HIBERNATE_EHCACHE_ETERNAL = "ehCacheEternal";
+
+    /**
+     * The namespace property storing default ehCache eternal parameter
+     */
+    static final String HIBERNATE_EHCACHE_TIME_TO_IDLE = "ehCacheTimeToIdleSeconds";
+
+    /**
+     * The namespace property storing default ehCache eternal parameter
+     */
+    static final String HIBERNATE_EHCACHE_TIME_TO_LIVE = "ehCacheTimeToLiveSeconds";
+
+    /**
+     * The namespace property storing default ehCache eternal parameter
+     */
+    static final String HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = "ehCacheOverflowToDisk";
+
 }
