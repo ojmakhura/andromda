@@ -7,7 +7,7 @@
     <property reference="reverseNamespace" default="false"/>
     <property reference="defaultProvider" default="RPC"/>
     <property reference="defaultStyle" default="wrapped"/>
-    <property reference="defaultUse" default="literal"/> 
+    <property reference="defaultUse" default="literal"/>
     <property reference="rpcClassNamePattern" default="{0}.{1}Impl"/>
     <property reference="wsdlOperationSortMode" default="name"/>
     <property reference="testPackageNamePattern" default="{0}.test"/>
@@ -39,7 +39,7 @@
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogicImpl">        
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <context>org.andromda.cartridges.webservice.metafacades.WSDLType</context>
         </mapping>
