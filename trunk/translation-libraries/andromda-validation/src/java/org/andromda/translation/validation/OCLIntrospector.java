@@ -173,7 +173,7 @@ public class OCLIntrospector
                 throw new OCLIntrospectorException("No property named '"
                     + propertyName + "', found on element '" + element + "'");
             }
-            property = method.invoke(element, null);
+            property = method.invoke(element, (Object[])null);
         }
         return property;
     }

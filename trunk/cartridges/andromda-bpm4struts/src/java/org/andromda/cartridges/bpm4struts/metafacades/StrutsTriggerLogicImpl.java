@@ -132,7 +132,7 @@ public class StrutsTriggerLogicImpl
          */
         try
         {
-            Method method = metaObject.getClass().getMethod("getOperation", null);
+            Method method = metaObject.getClass().getMethod("getOperation", (Object[])null);
             return method.invoke(metaObject, null);
         }
         catch (Exception ex)
