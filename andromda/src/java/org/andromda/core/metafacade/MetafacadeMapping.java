@@ -123,6 +123,26 @@ public class MetafacadeMapping
     {
         this.stereotypes.add(Profile.instance().get(stereotype));
     }
+    
+    /**
+     * Gets the stereotypes which apply to this mapping.
+     * 
+     * @return the names of the stereotypes
+     */
+    List getStereotypes()
+    {
+        return this.stereotypes;
+    }
+    
+    /**
+     * Indicates whether or not this mapping has any stereotypes
+     * defined.
+     * @return true/false
+     */
+    boolean hasStereotypes()
+    {
+        return !this.stereotypes.isEmpty();
+    }
 
     /**
      * Used to hold references to language mapping classes.
@@ -224,6 +244,26 @@ public class MetafacadeMapping
     public void setContext(String context)
     {
         this.context = StringUtils.trimToEmpty(context);
+    }
+    
+    /**
+     * Gets the context to which this mapping applies.
+     * 
+     * @return the name of the context
+     */
+    String getContext()
+    {
+        return this.context;
+    }
+    
+    /**
+     * Indicates whether or not this mapping has a context.
+     * 
+     * @return true/false
+     */
+    boolean hasContext()
+    {
+        return StringUtils.isNotEmpty(this.context);
     }
 
     /**

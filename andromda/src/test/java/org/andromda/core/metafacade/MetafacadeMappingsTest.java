@@ -146,8 +146,8 @@ public class MetafacadeMappingsTest
             null,
             STEREOTYPES_3);
         assertNotNull(mapping);
-        assertTrue(mapping.getMetafacadeClass().getName().equals(
-            METAFACADE_CLASS_3));
+        assertFalse(mapping.hasContext());
+        assertEquals(METAFACADE_CLASS_3, mapping.getMetafacadeClass().getName());
         assertTrue(mapping.getPropertyReferences().isEmpty());
 
         // make sure we can't get the mapping that requires 2 stereotypes with
