@@ -106,6 +106,18 @@
                 </tr>
                 <tr>
                     <td>
+                        advice-impls
+                    </td>
+                    <td>
+                        The location to which any advice implementation classes will be generated.  Currently
+                        this is useful when using the cartridge's remoting support.
+                    </td>
+                    <td>
+                        No, however it should be enabled when using Spring's remoting support.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         principalStoreName
                     </td>
                     <td>
