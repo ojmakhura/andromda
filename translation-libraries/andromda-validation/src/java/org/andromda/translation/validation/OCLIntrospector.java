@@ -44,7 +44,6 @@ public class OCLIntrospector
         }
         catch (Throwable th)
         {
-            System.out.println("is readable: "
                 + PropertyUtils.isReadable(element, feature));
             final String errMsg = "Error invoking feature '" + feature
                 + "' on element '" + element + "'";
