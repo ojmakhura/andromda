@@ -14,9 +14,9 @@
                 validationMessages.add(
                     new org.andromda.core.metafacade.ModelValidationMessage(
                         this,
-                        "$constraintDocumentation"));
+                        "$escapeUtils.escapeJava($constraintDocumentation)"));
         }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
-#end##foreach constraint
+#end
 #set ($constraint = false)## reset to make sure we do not reuse the last constraint
-#end##macro
+#end
