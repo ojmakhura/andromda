@@ -13,7 +13,6 @@ import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.MetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.log4j.Logger;
 
 /**
  * <p>
@@ -40,8 +39,6 @@ public class HibernateEntityLogicImpl
     extends HibernateEntityLogic
     implements org.andromda.cartridges.hibernate.metafacades.HibernateEntity
 {
-
-    private Logger hlogger = Logger.getLogger("org.andromda.plugins.hibernate");
 
     public HibernateEntityLogicImpl(
         java.lang.Object metaObject,
@@ -76,7 +73,7 @@ public class HibernateEntityLogicImpl
      */
     public boolean handleIsRootInheritanceEntity()
     {
-        hlogger.info(">>> handleIsRootInheritanceEntity start:" + this + " : "
+        logger.info(">>> handleIsRootInheritanceEntity start:" + this + " : "
             + getInheritance(this));
         boolean result = false;
         GeneralizableElementFacade superElement = this.getGeneralization();
@@ -107,27 +104,27 @@ public class HibernateEntityLogicImpl
                     root.getFullyQualifiedName());
             }
         }
-        hlogger.info("<<< handleIsRootInheritanceEntity return:" + result);
+        logger.info("<<< handleIsRootInheritanceEntity return:" + result);
         return result;
     }
 
-    /*
+    /**
      * Return the entity which is the root in Hibernate terms. If we have class
      * there is one table from where the first Entity which is defined as class.
      * If subclass there are 1 + number of subclasses tables. So if we are the
      * subclass defined Entity or the subclass of a subclass defined Entity we
      * are a root. If concrete we are a root.
      */
-    public GeneralizableElementFacade getRootInheritanceEntity()
+    private GeneralizableElementFacade getRootInheritanceEntity()
     {
-        hlogger.debug(">>> getRootInheritanceEntity start:" + this + " : "
+        logger.debug(">>> getRootInheritanceEntity start:" + this + " : "
             + getInheritance(this));
         GeneralizableElementFacade result = null;
         GeneralizableElementFacade superElement = this.getGeneralization();
         ArrayList hierarchy = new ArrayList();
         while (superElement != null)
         {
-            hlogger.debug("*** getSuperInheritance element:" + superElement
+            logger.debug("*** getSuperInheritance element:" + superElement
                 + " : " + getInheritance(superElement));
             hierarchy.add(superElement);
             superElement = superElement.getGeneralization();
@@ -165,7 +162,7 @@ public class HibernateEntityLogicImpl
             // Must be all concrete, odd
             result = this;
         }
-        hlogger.debug("<<< getRootInheritanceEntity return:" + result);
+        logger.debug("<<< getRootInheritanceEntity return:" + result);
         return result;
     }
 
@@ -175,7 +172,7 @@ public class HibernateEntityLogicImpl
     protected String handleGetInheritanceStrategy()
     {
         String result = null;
-        hlogger.debug(">>> handleGetHibernateInheritance start:" + this);
+        logger.debug(">>> handleGetHibernateInheritance start:" + this);
 
         try
         {
@@ -191,14 +188,10 @@ public class HibernateEntityLogicImpl
         }
         catch (Exception ex)
         {
-            System.out
-                .println("HibernateEntityLogicImpl.handleGetInheritanceStrategy Exception:"
-                    + ex);
-            hlogger.error("*** " + getClass().getName()
+            logger.error("*** " + getClass().getName()
                 + " handleGetInheritanceStrategy exception:" + ex);
-            ex.printStackTrace();
         }
-        hlogger.debug("<<< handleGetHibernateInheritance return:" + result);
+        logger.debug("<<< handleGetHibernateInheritance return:" + result);
         return result;
     }
 
@@ -211,14 +204,14 @@ public class HibernateEntityLogicImpl
      */
     private String getSuperInheritance()
     {
-        hlogger.debug(">>> getSuperInheritance start:" + this + " : "
+        logger.debug(">>> getSuperInheritance start:" + this + " : "
             + getInheritance(this));
         String rootInheritance = null;
         GeneralizableElementFacade superElement = this.getGeneralization();
         ArrayList hierarchy = new ArrayList();
         while (superElement != null)
         {
-            hlogger.debug("*** getSuperInheritance element:" + superElement
+            logger.debug("*** getSuperInheritance element:" + superElement
                 + " : " + getInheritance(superElement));
             hierarchy.add(superElement);
             superElement = superElement.getGeneralization();
@@ -253,7 +246,7 @@ public class HibernateEntityLogicImpl
                 rootInheritance = validateInterfaceInheritance(superclasses);
             }
         }
-        hlogger.debug("<<< getSuperInheritance return:" + rootInheritance);
+        logger.debug("<<< getSuperInheritance return:" + rootInheritance);
 
         return rootInheritance;
     }
@@ -384,7 +377,7 @@ public class HibernateEntityLogicImpl
                 try
                 {
                     EntityAttributeFacade a = (EntityAttributeFacade)o;
-                    hlogger
+                    logger
                         .debug("*** handleGetIdentifierColumn.evaluate check:"
                             + a);
                     result = a.isIdentifier();
@@ -399,7 +392,7 @@ public class HibernateEntityLogicImpl
         attribute = (EntityAttributeFacade)CollectionUtils.find(
             attributes,
             pred);
-        hlogger.debug("*** handleGetIdentifierColumn return:"
+        logger.debug("*** handleGetIdentifierColumn return:"
             + (attribute == null ? null : attribute.getColumnName()));
         columnName = attribute == null ? "ID" : attribute.getColumnName();
         return columnName;
