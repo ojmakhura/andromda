@@ -8,15 +8,15 @@ package $service.packageName;
 #set ($superService = $service.generalization)
 /**
  * <p>
- * Spring Service base class for <code>$service.fullyQualifiedName</code>, 
+ * Spring Service base class for <code>$service.fullyQualifiedName</code>,
  * provides access to all services and entities referenced by this service.
  * </p>
  *
  * @see $service.fullyQualifiedName
  */
 public abstract class $service.baseName
-#if($superService)  
-	extends $superService.fullyQualifiedImplementationName
+#if($superService)
+    extends $superService.fullyQualifiedImplementationName
 #end
     implements $service.fullyQualifiedName
 {
@@ -32,7 +32,7 @@ public abstract class $service.baseName
     {
         this.$serviceRef.name = $serviceRef.name;
     }
-    
+
     /**
      * Gets the reference to <code>$serviceRef.name</code>.
      */
@@ -40,7 +40,7 @@ public abstract class $service.baseName
     {
         return this.$serviceRef.name;
     }
-    
+
 #end
 #foreach($entityRef in $service.entityReferences)
 #set ($targetElement = $entityRef.targetElement)
@@ -53,7 +53,7 @@ public abstract class $service.baseName
     {
         this.$entityRef.name = $entityRef.name;
     }
-    
+
     /**
      * Gets the reference to <code>$entityRef.name</code>'s DAO.
      */
@@ -61,21 +61,21 @@ public abstract class $service.baseName
     {
         return this.$entityRef.name;
     }
-        
+
 #end
 #foreach ( $operation in $service.operations )
-	/**
-	 * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
-	 */
+    /**
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.exceptionsPresent)
-    	throws $operation.exceptionList 
+        throws $operation.exceptionList
 #end
     {
 #if ($serviceParameterRequiredCheck.equalsIgnoreCase('true'))
 #foreach ($argument in $operation.arguments)
 #if ($argument.required && !$argument.type.primitive)
-        if ($argument.name == null) 
+        if ($argument.name == null)
         {
             throw new IllegalArgumentException(
                 "${service.fullyQualifiedName}.${operation.signature} - '${argument.name}' can not be null");
@@ -90,28 +90,28 @@ public abstract class $service.baseName
             return $call
 #else
             $call
-#end 
+#end
         }
 #foreach($exception in $operation.exceptions)
         catch ($exception.fullyQualifiedName ex)
         {
-            throw ex;        
+            throw ex;
         }
 #end
         catch (Throwable th)
         {
             throw new ${service.fullyQualifiedDefaultExceptionName}(
-                "Error performing '${service.fullyQualifiedName}.${operation.signature}' --> " + th, 
+                "Error performing '${service.fullyQualifiedName}.${operation.signature}' --> " + th,
                 th);
         }
     }
-    
+
      /**
       * Performs the core logic for {@link #${operation.getSignature(false)}}
       */
-    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature 
+    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
         throws java.lang.Exception;
-        
+
 #end
 #if ($ejbsEnabled)
     private javax.ejb.SessionContext sessionContext;
@@ -127,7 +127,7 @@ public abstract class $service.baseName
     {
         this.sessionContext = sessionContext;
     }
-    
+
 #end
     /**
      * Gets the current <code>principal</code> if one has been set,
@@ -142,7 +142,7 @@ public abstract class $service.baseName
 #else
 #set ($principalStoreCall = "${principalStoreName}.get();")
 #if($stringUtils.isNotEmpty($springTypesPackage))
-#set ($principalStoreCall = "${springTypesPackage}.${principalStoreCall}")    
+#set ($principalStoreCall = "${springTypesPackage}.${principalStoreCall}")
 #end
         return $principalStoreCall
 #end
