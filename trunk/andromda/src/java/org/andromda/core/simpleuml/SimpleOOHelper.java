@@ -26,7 +26,7 @@ import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 public class SimpleOOHelper extends UMLStaticHelper
 {
     private final static String PRIMARY_KEY = "PrimaryKey";
-    private final static String ENTITY_BEAN = "EntityBean";
+    private final static String ENTITY_BEAN = "Entity";
 
     public Object getModel()
     {
@@ -346,7 +346,8 @@ public class SimpleOOHelper extends UMLStaticHelper
 
     /**
      * <p>Returns the JDBC type for an attribute.  It gets the type
-     * from the tag <code>uml2ejb:JDBCType</code> for this.</p>
+     * from the tag <code>andromda.persistence.JDBCType</code> for this.
+     * </p>
      *
      * @param attribute the attribute
      * @return String the string to be used with JDBC
@@ -356,7 +357,7 @@ public class SimpleOOHelper extends UMLStaticHelper
         if (attribute == null)
             return null;
 
-        String value = findTagValue(attribute, "uml2ejb:JDBCType", true);
+        String value = findTagValue(attribute, "andromda.persistence.JDBCType", true);
 
         if (null == value)
         {
@@ -374,7 +375,7 @@ public class SimpleOOHelper extends UMLStaticHelper
     /**
     * <p>Returns the length for the SQL type of an attribute.  It
     * gets the length from the tag
-    * <code>uml2ejb:SQLFieldLength</code>.  This might return "50"
+    * <code>andromda.persistence.SQLFieldLength</code>.  This might return "50"
     * for a VARCHAR field or "12,2" for a DECIMAL field.</p>
     *
     * @param attribute the attribute
@@ -382,26 +383,24 @@ public class SimpleOOHelper extends UMLStaticHelper
     */
     public String findAttributeSQLFieldLength(Attribute attribute)
     {
-        // String value = findAttributeTagValue(attribute, "uml2ejb:SQLFieldLength", true);
-        String value = null;
+        String value = findTagValue(attribute, "andromda.persistence.SQLFieldLength", true);
         return value;
     }
 
     /**
      * <p>Returns the SQL type for an attribute.  Normally it gets the
-     * type from the tag <code>uml2ejb:SQLType</code>.  If this tag
-     * doesn't exist, it uses {@link
-     * #findAttributeSQLFieldLength(Attribute)
-     * findAttributeSQLFieldLength()} and combines it's result with
-     * the standard SQL type for the attributes type from the
-     * type mapping configuration file.</p>
+     * type from the tag <code>andromda.persistence.SQLType</code>.  If this tag
+     * doesn't exist, it uses {@link #findAttributeSQLFieldLength(Attribute)
+     * findAttributeSQLFieldLength()} and combines it's result with the standard
+     * SQL type for the attributes type from the type mapping configuration
+     * file.</p>
      *
      * @param attribute the attribute
      * @return String the string to be used as SQL type
      */
     public String findAttributeSQLType(Attribute attribute)
     {
-        String value = findTagValue(attribute, "uml2ejb:SQLType", true);
+        String value = findTagValue(attribute, "andromda.persistence.SQLType", true);
 
         if (null == value)
         {
