@@ -19,8 +19,8 @@
                     <th>Required</th>
                 </tr>
                 <tr>
-                    <td>pages</td>
-                    <td>application JSP pages, login pages and stylesheets are outputted here</td>
+                    <td>actions</td>
+                    <td>The location to which Struts actions are generated.</td>
                     <td>Yes</td>
                 </tr>
                 <tr>
@@ -29,8 +29,11 @@
                     <td>Yes</td>
                 </tr>
                 <tr>
-                    <td>actions</td>
-                    <td>The location to which Struts actions are generated.</td>
+                    <td>configuration</td>
+                    <td>
+                        The location to which Struts configuration files are generated. These are the files
+                        that typically appear in WEB-INF, such as validation-rules.xml and tiles-defs.xml.
+                    </td>
                     <td>Yes</td>
                 </tr>
                 <tr>
@@ -49,11 +52,8 @@
                     <td>Yes</td>
                 </tr>
                 <tr>
-                    <td>configuration</td>
-                    <td>
-                        The location to which Struts configuration files are generated. These are the files
-                        that typically appear in WEB-INF, such as validation-rules.xml and tiles-defs.xml.
-                    </td>
+                    <td>pages</td>
+                    <td>application JSP pages, login pages and stylesheets are outputted here</td>
                     <td>Yes</td>
                 </tr>
                 <tr>
@@ -63,37 +63,6 @@
                         and roles.properties (in case security has been enabled)
                     </td>
                     <td>No</td>
-                </tr>
-                <tr>
-                    <td>security</td>
-                    <td>Whether or not to render code enabling the security features (true/false)</td>
-                    <td>No, default is
-                        <code>false</code>
-                    </td>
-                </tr>
-                <tr>
-                    <td>securityRealm</td>
-                    <td>The security realm to use when security is enabled.</td>
-                    <td>
-                        No, default is
-                        <code>other</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>xhtml</td>
-                    <td>true/false on whether or not xhtml should be rendered (instead of just normal html).</td>
-                    <td>
-                        No, default is
-                        <code>false</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>welcomeFileName</td>
-                    <td>The name of the JSP that is the welcome file.</td>
-                    <td>
-                        No, default is
-                        <code>index.jsp</code>.
-                    </td>
                 </tr>
                 <tr>
                     <td>clientValidation</td>
@@ -112,14 +81,34 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>maxBreadCrumbs</td>
-                    <td>
-                        An integer denoting the maximum number of breadcrumbs to appear on a
-                        page, specify zero to disable breadcrumbs
+                    <td>security</td>
+                    <td>Whether or not to render code enabling the security features (true/false)</td>
+                    <td>No, default is
+                        <code>false</code>
                     </td>
+                </tr>
+                <tr>
+                    <td>securityRealm</td>
+                    <td>The security realm to use when security is enabled.</td>
                     <td>
                         No, default is
-                        <code>5</code>.
+                        <code>other</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>welcomeFileName</td>
+                    <td>The name of the JSP that is the welcome file.</td>
+                    <td>
+                        No, default is
+                        <code>index.jsp</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>xhtml</td>
+                    <td>true/false on whether or not xhtml should be rendered (instead of just normal html).</td>
+                    <td>
+                        No, default is
+                        <code>false</code>.
                     </td>
                 </tr>
                 <tr>
@@ -128,6 +117,27 @@
                     <td>
                         No, default is
                         <code>true</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>hints</td>
+                    <td>
+                        True/false on whether or not hints should be rendered in the generated
+                        JSP pages.
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>maxBreadCrumbs</td>
+                    <td>
+                        An integer denoting the maximum number of breadcrumbs to appear on a
+                        page, specify zero to disable breadcrumbs
+                    </td>
+                    <td>
+                        No, default is
+                        <code>5</code>.
                     </td>
                 </tr>
                 <tr>
@@ -150,6 +160,17 @@
                     <td>
                         No, default is
                         <code>dd/MM/yyyy</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>errorMessagesKey</td>
+                    <td>
+                        The key to lookup additional error handler messages from within the request scope, the value will be an
+                        <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
+                        ActionMessages</a> instance
+                    </td>
+                    <td>
+                        No, default is <code>org.andromda.bpm4struts.errormessages</code>.
                     </td>
                 </tr>
                 <tr>
@@ -176,27 +197,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>errorMessagesKey</td>
-                    <td>
-                        The key to lookup additional error handler messages from within the request scope, the value will be an
-                        <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
-                        ActionMessages</a> instance
-                    </td>
-                    <td>
-                        No, default is <code>org.andromda.bpm4struts.errormessages</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>hints</td>
-                    <td>
-                        True/false on whether or not hints should be rendered in the generated
-                        JSP pages.
-                    </td>
-                    <td>
-                        No, default is <code>true</code>.
-                    </td>
-                </tr>
-                <tr>
                     <td>defaultActionRedirect</td>
                     <td>
                         True/false on whether or not redirection should occur on all action forwards.
@@ -206,12 +206,26 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>actionPathPrefix</td>
+                    <td>
+                        The pattern to use when rendering the action paths in <code>struts-config.xml</code>, use
+                        {0} for the package, /${use-case}/${action} is always appended.
+                        For use-case <code>"org.andromda.test.My UseCase"</code> the
+                        <code>"login"</code> action could be rendered using <code>/abc/{0}</code> which would
+                        result in <code>/abc/org/andromda/test/MyUseCase/Login</code>. Make sure to start the prefix
+                        using a forward slash character.
+                    </td>
+                    <td>
+                        No, by default there is no prefix.
+                    </td>
+                </tr>
+                <tr>
                     <td>serviceAccessorPattern</td>
                     <td>
                         The pattern to use when constructing the accessor of a back end
                         service to a controller.  For example say your controller referenced
-                        a service and you were using an axis webservice client stub to access the 
-                        service, the value of your serviceAccessorPattern would be: 
+                        a service and you were using an axis webservice client stub to access the
+                        service, the value of your serviceAccessorPattern would be:
                         <em>new {0}.ws.{1}Locator().get{1}()</em>, where <em>{0}</em> is
                         the package name of the modeled service and <em>{1}</em> is the
                         name of the modeled service.
