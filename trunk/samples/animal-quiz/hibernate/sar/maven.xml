@@ -92,11 +92,6 @@
             <ant:jvmarg value="-Dhibernate.dialect=${xdoclet.hibernate.dialect}"/>
             <ant:classpath refid="schema.classpath" />
         </ant:java>
-        
-        <!-- copy the db scripts over to the app target directory -->
-        <ant:copy todir="${hibernate.schema.output.dir}">
-        	<ant:fileset dir="../db/conf"/>
-        </ant:copy>
 
   	</postGoal>
     
