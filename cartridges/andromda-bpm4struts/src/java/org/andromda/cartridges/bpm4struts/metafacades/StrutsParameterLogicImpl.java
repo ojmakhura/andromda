@@ -717,13 +717,13 @@ public class StrutsParameterLogicImpl
                     if (!isTableLink())
                     {
                         if (type.isFileType())
-                            widgetType = "file";
+                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;
                         else if (isValidatorBoolean(parameterType))
-                            widgetType = "checkbox";
+                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;
                         else if (isMultiple())
-                            widgetType = "select";
+                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT;
                         else
-                            widgetType = "text";
+                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;
                     }
                 }
             }
@@ -1268,8 +1268,7 @@ public class StrutsParameterLogicImpl
     protected boolean handleIsShouldReset()
     {
         boolean shouldReset = false;
-        Object value = this
-                .findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RESET);
+        Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RESET);
         if (value != null)
         {
             shouldReset = Boolean.valueOf(StringUtils.trimToEmpty((String) value)).booleanValue();
@@ -1283,6 +1282,11 @@ public class StrutsParameterLogicImpl
     protected String handleGetResetName()
     {
         return "reset" + StringUtils.capitalize(StringUtils.trimToEmpty(this.getName()));
+    }
+
+    protected boolean handleIsPassword()
+    {
+        return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(getWidgetType());
     }
 
 // ------------------------------------------
