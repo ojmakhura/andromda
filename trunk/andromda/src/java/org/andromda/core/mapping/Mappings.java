@@ -196,6 +196,16 @@ public class Mappings
 
         return StringUtils.trimToEmpty(to);
     }
+    
+    /**
+     * Adds all available <code>mappings</code>
+     * from the 
+     * @param mappings
+     */
+    public void addMappings(Mappings mappings)
+    {
+        this.mappings.putAll(mappings.mappings);
+    }
 
     /**
      * Returns true if the mapping contains the <code>from</code> value

@@ -2,8 +2,6 @@ package org.andromda.core.metafacade;
 
 import java.util.Collection;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -100,33 +98,12 @@ public class MetafacadeBase
     {
         if (metaobjects == null)
         {
-            return null; // a decorated null is still a null! :-)
+            return null; // a facaded null is still a null! :-)
         }
+
         Collection metafacades = MetafacadeFactory.getInstance()
             .createMetafacades(metaobjects, this.getContext());
-        if (StringUtils.isNotEmpty(this.context))
-        {
-            class MetafacadeContextTransformer
-                implements Transformer
-            {
-                public Object transform(Object object)
-                {
-                    MetafacadeBase metafacade = (MetafacadeBase)object;
-                    // keep passing the context along from the
-                    // very first one (i.e. the first metafacade)
 
-                    metafacade.setContext(getContext());
-                    if (logger.isDebugEnabled())
-                        logger.debug("set context as --> '"
-                            + metafacade.getContext() + "'");
-
-                    return metafacade;
-                }
-            }
-            CollectionUtils.transform(
-                metafacades,
-                new MetafacadeContextTransformer());
-        }
         return metafacades;
     }
 
@@ -146,11 +123,15 @@ public class MetafacadeBase
     }
 
     /**
-     * Sets the <code>context<code> for this metafacade
-     *
+     * Sets the <code>context<code> for this metafacade.
+     * This is used by the MetafacadeFactory to set the context 
+     * during metafacade creation when a metafacade represents 
+     * a <code>contextRoot</code>.
      * @param context the context class to set
+     * @see MetafacadeMapping#isContextRoot()
+     * @see MetafacadeFactory#internalCreateMetafacade(Object, String, Class)
      */
-    private void setContext(String context)
+    void setContext(String context)
     {
         this.context = StringUtils.trimToEmpty(context);
     }
@@ -203,10 +184,11 @@ public class MetafacadeBase
     {
         this.namespace = namespace;
     }
-    
+
     /**
-     * Returns true or false depending on whether the <code>property</code>
-     * is registered or not.
+     * Returns true or false depending on whether the <code>property</code> is
+     * registered or not.
+     * 
      * @param property the name of the property to check.
      * @return true/false on whether or not its regisgterd.
      */
@@ -265,15 +247,6 @@ public class MetafacadeBase
             metafacade = MetafacadeFactory.getInstance().createMetafacade(
                 metaObject,
                 this.getContext());
-            // keep passing the context along from the
-            // very first one (i.e. the first metafacade)
-            if (StringUtils.isNotEmpty(this.context))
-            {
-                metafacade.setContext(this.getContext());
-                if (logger.isDebugEnabled())
-                    logger.debug("set context as --> '"
-                        + metafacade.getContext() + "'");
-            }
         }
         return metafacade;
     }

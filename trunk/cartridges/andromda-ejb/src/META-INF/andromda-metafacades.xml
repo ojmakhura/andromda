@@ -17,7 +17,8 @@
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl"
+		contextRoot="true">
 		<stereotype>Entity</stereotype>
 		<property reference="maxSqlNameLength"/>
         <property reference="allowDefaultIdentifiers" default="true"/>
@@ -28,7 +29,8 @@
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
-		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl"
+        contextRoot="true">
 		<stereotype>Entity</stereotype>
 		<property reference="maxSqlNameLength"/>
         <property reference="allowDefaultIdentifiers" default="true"/>

@@ -139,7 +139,8 @@
 	<!-- Entity  metafacades -->
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Classifier$Impl"
-		metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl">
+		metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl"
+		contextRoot="true">
 		<stereotype>Entity</stereotype>
         <!-- Allows us to turn off/on whether or not a default
              identifier should be provided if not is specified. -->
@@ -154,7 +155,8 @@
 	</metafacade>	
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-		metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl">
+		metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl"
+		contextRoot="true">
 		<stereotype>Entity</stereotype>
         <!-- Allows us to turn off/on whether or not a default
              identifier should be provided if not is specified. -->
@@ -169,7 +171,8 @@
 	</metafacade>	
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
-		metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl">
+		metafacadeClass="org.andromda.metafacades.uml14.EntityFacadeLogicImpl"
+		contextRoot="true">
 		<stereotype>Entity</stereotype>
         <!-- Allows us to turn off/on whether or not a default
              identifier should be provided if not is specified. -->
