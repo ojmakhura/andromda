@@ -106,6 +106,5 @@ public class CartridgeTest extends TestCase
         assertNotNull(contents);
         // make sure there's more than 0 contents listed
         TestCase.assertNotSame(new Integer(0), new Integer(contents.size()));
-        System.out.println("the contents!!!: " + contents);
     }
 }
