@@ -1,17 +1,19 @@
 <project default="build"
-	     xmlns:ant="jelly:ant">
+    xmlns:ant="jelly:ant">
 
-  	<!-- ==================================================================
-  			Builds all documentation
-  		 ================================================================== -->
-  	<goal name="build">
-		<attainGoal name="multiproject:site"/>
+    <!-- ==================================================================
+            Builds all documentation
+         ================================================================== -->
+    <goal name="build">
+        <attainGoal name="multiproject:site"/>
+        <!-- copy the animal-quiz model into the resources directory -->
+        <ant:copy file="../samples/animal-quiz/mda/src/uml/AnimalQuiz.xml.zip" todir="${maven.docs.dest}/resources"/>
         <!-- unpack the UmlDoc coming with the car-rental-sample so users can browse it -->
         <ant:unzip src="${maven.docs.dest}/resources/car-rental-umldoc.zip" dest="${maven.docs.dest}"/>
-		<!-- zip it all up -->
-		<ant:zip zipfile="${maven.build.dir}/docs.zip" prefix="docs">
+        <!-- zip it all up -->
+        <ant:zip zipfile="${maven.build.dir}/docs.zip" prefix="docs">
             <ant:zipfileset dir="${maven.docs.dest}"/>
         </ant:zip>
-  	</goal>
+    </goal>
 
 </project>
