@@ -43,18 +43,14 @@ public class MetafacadeFactory
     private final Collection validationMessages = new HashSet();
 
     /**
-     * The cache for already created metafacades.
-     */
-    private final Map metafacadeCache = new HashMap();
-
-    /**
      * Caches the registered properties used within metafacades.
      */
     private final Map registeredProperties = new HashMap();
 
-    // constructor is private to make sure that nobody instantiates it
     private MetafacadeFactory()
-    {}
+    {
+    // make sure nobody instantiates
+    }
 
     /**
      * Whether or not model validation should be performed during metafacade
@@ -84,13 +80,14 @@ public class MetafacadeFactory
 
     /**
      * Sets the active namespace. The AndroMDA core and each cartridge have
-     * their own namespace for facade registrations.
+     * their own namespace for metafacade registration.
      * 
-     * @param namespaceName the name of the namespace
+     * @param namespace the name of the active namespace.
      */
-    public void setActiveNamespace(String namespaceName)
+    public void setActiveNamespace(String activeNamespace)
     {
-        this.activeNamespace = namespaceName;
+        this.activeNamespace = activeNamespace;
+        MetafacadeCache.instance().setNamespace(activeNamespace);
     }
 
     /**
@@ -226,10 +223,12 @@ public class MetafacadeFactory
                 metafacadeCacheKey = metafacadeClass;
             }
 
+            final MetafacadeCache cache = MetafacadeCache.instance();
+
             // attempt to get the metafacade from the cache
             // since we don't want to recreate if one already
             // has been created
-            MetafacadeBase metafacade = this.getFromMetafacadeCache(
+            MetafacadeBase metafacade = cache.get(
                 mappingObject,
                 metafacadeClass,
                 metafacadeCacheKey);
@@ -279,10 +278,7 @@ public class MetafacadeFactory
                 // matters here) do NOT call validate or initialize methods
                 // before adding the metafacade to the cache, this will cause
                 // endless loops
-                this.addToMetafacadeCache(
-                    mappingObject,
-                    metafacadeCacheKey,
-                    metafacade);
+                cache.add(mappingObject, metafacadeCacheKey, metafacade);
                 metafacade.initialize();
                 if (this.modelValidation)
                 {
@@ -373,80 +369,6 @@ public class MetafacadeFactory
             getLogger().error(errMsg, th);
             throw new MetafacadeFactoryException(errMsg, th);
         }
-    }
-
-    /**
-     * <p>
-     * Returns the metafacade from the metafacade cache. The Metafacades are
-     * cached first by according to its <code>mappingObject</code>, then the
-     * <code>metafacadeClass</code>, then according to to the given
-     * <code>key</code> and finally by current active namespace.
-     * </p>
-     * <p>
-     * Metafacades must be cached in order to keep track of the state of its
-     * validation. If we keep creating a new one each time, we can never tell
-     * whether or not a metafacade has been previously validated. Not to mention
-     * tremendous performance gains.
-     * </p>
-     * 
-     * @param mappingObject the mappingObject for which to cache the metafacade.
-     * @param metafacadeClass the class of the metafacade.
-     * @param key the unique key for the given mappingObject
-     * @return MetafacadeBase stored in the cache.
-     */
-    private MetafacadeBase getFromMetafacadeCache(
-        Object mappingObject,
-        Class metafacadeClass,
-        Object key)
-    {
-        MetafacadeBase metafacade = null;
-        Map namespaceMetafacadeCache = (Map)this.metafacadeCache
-            .get(mappingObject);
-        if (namespaceMetafacadeCache != null)
-        {
-            Map metafacadeCache = (Map)namespaceMetafacadeCache
-                .get(metafacadeClass);
-            if (metafacadeCache != null)
-            {
-                metafacade = (MetafacadeBase)metafacadeCache.get(this
-                    .getActiveNamespace()
-                    + key);
-            }
-        }
-        return metafacade;
-    }
-
-    /**
-     * Adds the <code>metafacade</code> to the cache according to first
-     * <code>mappingObject</code>, second <code>metafacade</code> Class,
-     * third <code>key</code>, and finally current the current active
-     * namespace.
-     * 
-     * @param mappingObject the mappingObject for which to cache the metafacade.
-     * @param key the unique key by which the metafacade is cached (within the
-     *        scope of the <code>mappingObject</code.
-     * @param metafacade the metafacade to cache.
-     */
-    private void addToMetafacadeCache(
-        Object mappingObject,
-        Object key,
-        MetafacadeBase metafacade)
-    {
-        Map namespaceMetafacadeCache = (Map)this.metafacadeCache
-            .get(mappingObject);
-        if (namespaceMetafacadeCache == null)
-        {
-            namespaceMetafacadeCache = new HashMap();
-        }
-        Map metafacadeCache = (Map)namespaceMetafacadeCache
-            .get(metafacade.getClass());
-        if (metafacadeCache == null)
-        {
-            metafacadeCache = new HashMap();
-        }
-        metafacadeCache.put(this.getActiveNamespace() + key, metafacade);
-        namespaceMetafacadeCache.put(metafacade.getClass(), metafacadeCache);
-        this.metafacadeCache.put(mappingObject, namespaceMetafacadeCache);
     }
 
     /**
@@ -681,9 +603,9 @@ public class MetafacadeFactory
      */
     public void shutdown()
     {
-        this.metafacadeCache.clear();
         this.registeredProperties.clear();
         this.validationMessages.clear();
+        MetafacadeCache.instance().shutdown();
         MetafacadeMappings.instance().shutdown();
     }
 
