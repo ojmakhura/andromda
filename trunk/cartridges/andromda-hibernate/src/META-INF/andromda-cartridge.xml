@@ -44,6 +44,7 @@
     <property reference="hibernateQuerySubstitutions" default=""/>
     <property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
     <property reference="hibernateEnableCache" default="false"/>
+    <property reference="hibernateEnableAssociationsCache" default="false"/>
     <property reference="hibernateEhCacheDiskStore" default="java.io.tmpdir"/>
     <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider"/>
     <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory"/>

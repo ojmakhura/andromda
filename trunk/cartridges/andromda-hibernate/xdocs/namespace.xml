@@ -556,6 +556,17 @@
                         No, default is <code>false</code>.
                         </td>
                    </tr>
+                    <tr>
+                        <td>
+                        hibernateEnableAssociationsCache
+                        </td>
+                        <td>
+                        Enable/Disable hibernate's second level cache features for associations between entities. hibernateEnableCache namespace property should also be Enabled.
+                        </td>
+                        <td>
+                        No, default is <code>false</code>.
+                        </td>
+                   </tr>
                    <tr>
                         <td>
                         hibernateEhCacheDiskStore
@@ -621,6 +632,22 @@
                     </td>
                     <td>
                          Defines the default strategy for Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
+                         <ul>
+                                <li>read-write</li>
+                                <li>nonstrict-read-write</li>
+                                <li>read-only</li>
+                            </ul>
+                    </td>
+                    <td>
+                        No, default is <code>read-write</code>.
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        hibernateAssociationCache
+                    </td>
+                    <td>
+                         Defines the default strategy for associations between Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
                          <ul>
                                 <li>read-write</li>
                                 <li>nonstrict-read-write</li>
