@@ -2,124 +2,112 @@
 
 <!-- contains the bpm4struts cartridge metafacade mappings -->
 <metafacades namespace="bpm4struts">
-
+    
     <property reference="defaultDateFormat" default="dd/MM/yyyy"/>
     <property reference="defaultActionRedirect" default="false"/>
-
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendServiceLogicImpl">
-        <stereotype>SERVICE</stereotype>
+    
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendServiceLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>SERVICE</stereotype>            
+        </mapping>
         <property reference="serviceAccessorPattern" default=""/>
         <property reference="servicePackageNamePattern" default="{0}"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.usecases.UseCase$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
-        <stereotype>FRONT_END_APPLICATION</stereotype>
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+            <stereotype>FRONT_END_APPLICATION</stereotype>            
+        </mapping>        
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.usecases.UseCase$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
-        <stereotype>FRONT_END_USE_CASE</stereotype>
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+            <stereotype>FRONT_END_USE_CASE</stereotype>            
+        </mapping>        
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.usecases.Actor$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsUserLogicImpl">
-        <stereotype>FRONT_END_USER</stereotype>
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUserLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
+            <stereotype>FRONT_END_USER</stereotype>            
+        </mapping>        
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerLogicImpl">
-        <stereotype>FRONT_END_CONTROLLER</stereotype>
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>FRONT_END_CONTROLLER</stereotype>            
+        </mapping>      
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.modelmanagement.UmlPackage$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsPackageLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsPackageLogicImpl">
+        <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObjectLogicImpl">
-        <stereotype>FrontEndSessionObject</stereotype>
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObjectLogicImpl">        
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>FRONT_END_SESSION_OBJECT</stereotype>
+        </mapping>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.foundation.core.Parameter$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionStateLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionStateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogicImpl">
-        <stereotype>FRONT_END_VIEW</stereotype>
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+            <stereotype>FRONT_END_VIEW</stereotype>
+        </mapping>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.FinalState$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.Transition$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
-        <stereotype>FRONT_END_EVENT</stereotype>
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <stereotype>FRONT_END_EVENT</stereotype>
+        </mapping>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.Transition$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandlerLogicImpl">
-        <stereotype>FRONT_END_EXCEPTION</stereotype>
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandlerLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <stereotype>FRONT_END_EXCEPTION</stereotype>
+        </mapping>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.Transition$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostateLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.TimeEvent$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.TimeEvent$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.ChangeEvent$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.ChangeEvent$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl"/>
     </metafacade>
 
-    <metafacade
-        metaobjectClass="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"
-        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>
     </metafacade>
 
 </metafacades>
