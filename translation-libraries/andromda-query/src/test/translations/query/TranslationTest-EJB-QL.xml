@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+
+<translation-test>
+
+	<translation name="query.EJB-QL"/>
+
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusPerson(aLegalPartyName:String) : Collection (LegalAgreement)
+			body findByTitlePartyTypeStatusPersonBody: allInstances() -> select( legalAgreement |
+			legalAgreement.legalAgreementParties->includesAll(legalAgreement.legalAgreementParties->select( legalAgreementParty |
+			StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName,
+			aLegalPartyName))))
+		</from>   
+		<to>
+			SELECT DISTINCT OBJECT(legalAgreement) FROM LegalAgreement legalAgreement ,
+			IN (legalAgreement.legalAgreementParties) AS legalAgreementParty
+			WHERE LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?1
+		</to>
+	</expression>
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalParty::findByLegalPartyName(name:String) : Collection(LegalParty) 
+			body findByLegalPartyNameBody: allInstances()->select( 
+			legalParty | StringUtils.isLike(legalParty.legalPartyName , name))
+		</from>
+		<to>
+			SELECT DISTINCT OBJECT(legalParty) FROM LegalParty legalParty
+			WHERE LCASE(legalParty.legalPartyName) LIKE ?1
+		</to>
+	</expression>
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalParty::findByPartyNameSubContractor(name:String, isASubContractor:Boolean):Collection(LegalParty)
+			body findByPartyNameSubContractorBody : allInstances()->select( 
+			legalParty | StringUtils.isLike(legalParty.legalPartyName, name) 
+			and legalParty.isSubContractor = isASubContractor)
+		</from>
+		<to>
+			SELECT DISTINCT OBJECT(legalParty) FROM LegalParty legalParty
+			WHERE LCASE(legalParty.legalPartyName) LIKE ?1 AND legalParty.isSubContractor = ?2
+		</to>
+	</expression>
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
+				aDocumentTitle:String, aLegalPartyName:String, anAgreementTypePk:String, 
+				anAgreementStatusPk:String, aPersonPk:Long, aProjectPk:Long):Collection(LegalAgreement) 
+			body findByTitlePartyTypeStatusPersonProjectBody : allInstances() -> select( legalAgreement | 
+			StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle) 
+			and legalAgreement.legalAgreementParties -> includesAll(
+			legalAgreement.legalAgreementParties -> select( legalAgreementParty | 
+			StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName))) 
+			and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) 
+			and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) 
+			and legalAgreement.person.personPk = aPersonPk and legalAgreement.project.projectPk = aProjectPk)
+		</from>
+		<to>
+			SELECT DISTINCT OBJECT(legalAgreement) 
+			FROM LegalAgreement legalAgreement , 
+			IN (legalAgreement.legalAgreementParties) AS legalAgreementParty
+            WHERE LCASE(legalAgreement.documentTitle) LIKE ?1
+            AND LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?2
+            AND LCASE(legalAgreement.agreementType.agreementTypePk) LIKE ?3
+            AND LCASE(legalAgreement.agreementStatus.agreementStatusPk) LIKE ?4
+            AND legalAgreement.person.personPk = ?5
+            AND legalAgreement.project.projectPk = ?6			
+		</to>
+	</expression>
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalAgreement::findByTitlePartyTypeStatusProject(
+				aDocumentTitle:String, 
+				aLegalPartyName:String, 
+				anAgreementTypePk:String, 
+				anAgreementStatusPk:String, 
+				aProjectPk:Long):Collection(LegalAgreement)
+			body findByTitlePartyTypeStatusProjectBody: allInstances()->select( 
+				legalAgreement | StringUtils.isLike(
+					legalAgreement.documentTitle, aDocumentTitle) 
+			and legalAgreement.legalAgreementParties -> includesAll( 
+				legalAgreement.legalAgreementParties -> select( 
+					legalAgreementParty | StringUtils.isLike(
+						legalAgreementParty.legalParty.legalPartyName, aLegalPartyName))) 
+			and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk) 
+			and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk) 
+			and legalAgreement.project.projectPk = aProjectPk)
+ 
+		</from>
+		<to>
+			SELECT DISTINCT OBJECT(legalAgreement) FROM LegalAgreement legalAgreement , 
+			IN (legalAgreement.legalAgreementParties) AS legalAgreementParty
+			WHERE LCASE(legalAgreement.documentTitle) LIKE ?1
+            AND LCASE(legalAgreementParty.legalParty.legalPartyName) LIKE ?2
+ 			AND LCASE(legalAgreement.agreementType.agreementTypePk) LIKE ?3
+ 			AND LCASE(legalAgreement.agreementStatus.agreementStatusPk) LIKE ?4
+ 			AND legalAgreement.project.projectPk = ?5
+		</to>
+	</expression>
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
+			body findAllBody : LegalAgreement.allInstances()
+		</from>
+		<to>
+			SELECT DISTINCT OBJECT(legalAgreement) FROM LegalAgreement legalAgreement
+		</to>
+	</expression>
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalAgreement::findAll():Collection(LegalAgreement)
+			body findAllBody : allInstances()
+		</from>
+		<to>
+			SELECT DISTINCT OBJECT(legalAgreement) FROM LegalAgreement legalAgreement
+		</to>
+	</expression>
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalAgreement::findChildAgreements(primaryKey:Long):Collection(LegalAgreement) 
+			body findChildAgreementsBody : allInstances() -> select( 
+				legalAgreement | legalAgreement.legalAgreements -> includesAll ( 
+					legalAgreement.legalAgreements -> select( childLegalAgreement | childLegalAgreement.parentLegalAgreement.legalAgreementPk = primaryKey)))
+		</from>
+		<to>
+			SELECT DISTINCT OBJECT(legalAgreement) 
+			FROM LegalAgreement legalAgreement , 
+			IN (legalAgreement.legalAgreements) 
+			AS childLegalAgreement 
+           	WHERE childLegalAgreement.parentLegalAgreement.legalAgreementPk = ?1
+		</to>
+	</expression>
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::Project::findByProjectType(
+				aProjectTypePk:Long, 
+				aRequestStatus:String, 
+				aCompareDate:Timestamp):Collection (Project) body findByProjectType : 
+				allInstances() -> select ( 
+					project | project.jobRequestType.jobRequestTypePk = aProjectTypePk  
+						and project.status = aRequestStatus 
+						and project.submittedDate >= aCompareDate)
+		</from>
+		<to>
+			SELECT DISTINCT OBJECT(project) 
+			FROM Project project
+            WHERE project.jobRequestType.jobRequestTypePk = ?1 
+            AND project.status = ?2 
+            AND project.submittedDate >= ?3
+		</to>
+	</expression>  
+	
+	<expression>
+		<from>
+			context org::andromda::contracts::LegalAgreement::findByStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement) 
+			body findByStatusesBody: 
+				allInstances() -> select( 
+					legalAgreement | 
+						agreementStatusPks -> exists(legalAgreement.agreementStatus.agreementStatusPk) 
+							or agreementStatusPks -> isEmpty()
+							and legalAgreement.agreementTypePk = anAgreementTypePk) 
+		</from>
+		<to>	
+			SELECT DISTINCT OBJECT(legalAgreement) 
+			FROM LegalAgreement legalAgreement
+            WHERE legalAgreement.agreementStatus.agreementStatusPk MEMBER OF ?1 OR ?1 IS EMPTY 
+            AND legalAgreement.agreementTypePk = ?2
+		</to>
+	</expression>
+</translation-test>

@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+
+<document> 
+	<properties>
+    	<title>Developing a Translation-Library</title> 
+    </properties>
+  	<body> 
+		<section name="Developing a Translation-Library">
+			<p>
+				Probably the fastest way to get started on writing a Translation-Library
+				is to take a look at the contents of an existing one.  Download and 
+				take a look at the contents of the 
+				<a href="http://team.andromda.org/maven/andromda-translation-libraries/jars/andromda-query-library-3.2-SNAPSHOT.jar"><em>Query Translation-Library</em></a>.
+				In addition, there are sections below which take you through the process step-by-step of generating
+				a Translation-Library structure and then adding the translation capabilities to the generated Translation-Library.
+			</p>
+			<a name="#generatingTranslationLibrary"/>
+			<subsection name="Generating a Translation-Library">					
+				<ol>
+					<li>
+						<p>
+							First make sure you have the <a href="../maven-andromdadev-plugin/index.html">maven-andromdadev-plugin</a> 
+							installed.  
+						</p>
+					</li>
+					<li>
+						<p>
+							Next we need to create the Translation-Library directory that will contain all
+							required resources (you'll be editing these as you develop).  We'll call our 
+							sample Translation-Library 'constraint'.  This is simple with the 
+							<a href="../maven-andromdadev-plugin/index.html">maven-andromdadev-plugin</a>.  After changing 
+							to the directory where you want the 'constraint' Translation-Library to be 
+							generated, just type the following:
+							<ul>
+								<li>
+									<strong>NOTE:</strong> 'library' is the name of the Translation-Library and 'translations'
+									is a comma seperated list of the translation languages you will be developing for this Translation-Library
+								</li>
+							</ul>
+						</p>
+						<source>maven andromdadev:generate-translation-library -Dlibrary=constraint -Dtranslations=Oracle-SQL</source> 
+					</li>
+					<li>
+						<p>
+							After you've successfully generated your Translation-Library development directory.  Change to
+							that directory and take a look at what has been generated (the following table shows what you'll find):
+							<ul>
+								<li>
+									<strong>IMPORTANT:</strong> each one of the resources that is generated at once by the 
+									maven <em>andromdadev:generate-translation-library</em> goal can be generated seperately (you 
+									may want to do this after you've started working on your Translation-Library, if you
+									want to add a new Translation, Translator, etc.). Please see the 
+									<a href="../maven-andromdadev-plugin/goals.html">Maven AndroMDA Plugin</a> documentation 
+									for more information.
+								</li>
+							</ul>
+						</p>
+						<source>cd constraint</source>
+						<table>
+							<tr>
+								<th>
+									Resource
+								</th>
+								<th>
+									Description
+								</th>
+							</tr>
+							<tr>
+								<td>
+									META-INF/translation-library.xml
+								</td>
+								<td>
+									The Translation-Library descriptor file.  Contains the Translator(s) and
+									Translation files supported by this Translation-Library.  Take a look
+									at the <a href="descriptor-schema.html">schema</a> below for more detail.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									project.xml
+								</td>
+								<td>
+									The Maven POM for the constraint Translation-Library. This will allow you to 
+									build it after its been generated.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a name="sqlTranslation"/>
+									translations/constraint/Oracle-SQL.vsl
+								</td>
+								<td>
+									The translation <a href="http://jakarta.apache.org/velocity">Velocity</a> template file.  
+									This allows you to map fragments for Oracle-SQL to OCL fragments which are being parsed. In 
+									addition to a Velocity template file, it's also an XML document. Take a look at
+									this <a href="translation-schema.html">schema</a> for more detail.
+									<ul>
+										<li>
+											<strong>NOTE:</strong> The translation file is named 'Oracle-SQL' because if you'll remember 
+											we gave the 'translations' property a value of 'Oracle-SQL', you'll have a translation 
+											file generated for each comma seperated value specified for the 'translations' 
+											property when using the <a href="../maven-andromdadev-plugin/index.html">maven-andromdadev-plugin</a> 
+										    <code>andromdadev:generate-translation-library</code> goal. 
+										</li>
+										<li>
+											<strong>IMPORTANT:</strong> Each translation file has an instance of 
+											the expression's context element that is passed in from the translate method of the 
+										    <a href="../andromda-core/org/andromda/core/translation/ExpressionTranslator.html">ExpressionTranslator</a>
+											in a scripting variable called <strong>element</strong>.  It
+											can be accessed in the translation template as <em>element</em>. 
+											This allows you to get any information you need from this element and make it available to
+											your translation template during processing. 
+										</li>
+									</ul>									
+								</td>
+							</tr>
+							<tr>
+								<a name="#constraintTranslator"/>
+								<td>
+									src/java/org/andromda/translation/constraint/ConstraintTranslator.java
+								</td>
+								<td>
+									This is the java <a href="../andromda-core/apidocs/org/andromda/core/translation/Translator.html">Translator</a> 
+									class mapped within the Translation-Library descriptor: <a href="descriptor-schema.html">translation-library.xml</a>
+									<ul>
+										<li>
+											<strong>NOTE:</strong> As you'll notice if you look at the descriptor schema, you can have either one Translator
+											instance per descriptor or you can override this default Translation-Library wide Translator with 
+											one per translation.  
+										</li>
+										<li>
+											<strong>NOTE:</strong> Also note that the Translator generated is named 
+											'ConstraintTranslator', this is again named after the library during
+											the generation process.
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									src/java/org/andromda/core/translation/constraint/ConstraintTranslatorException.java
+								</td>
+								<td>
+									This is the java exception class extending the 
+									<a href="../andromda-core/apidocs/org/andromda/core/translation/TranslatorException.html">TranslatorException</a>. 
+									For any exception thrown during processing of the <a href="#constraintTranslator">ConstraintTranslator</a>, 
+									the exception <strong>SHOULD</strong> be an instance of this class.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a name="translatorTestSql"/>
+									test/translations/constraint/TranslationTest-Oracle-SQL.xml
+								</td>
+								<td>
+									This is the XML file that allows you to easily test your Translator/Translation
+									during development of a Translation-Library.  There should be one
+									Translator-Test-*.xml file per translation.   Take a look at its 
+									<a href="translator-test-schema.html">schema</a> for more detail.
+									<ul>
+										<li>
+											<strong>NOTE:</strong> There will be a <code>TranslationTest-*.xml</code> file 
+											generated for every comma seperated value defined by the 'translation' property 
+											from the <code>andromdadev:generate-translation-library</code> goal.
+										</li>
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li>
+						<p>
+							Ok, since you now are within your 'constraint' directory, you can run the 
+							<code>andromdadev:test-translation</code> goal to make sure everything was setup correctly:
+						</p>
+						<source>maven andromdadev:test-translation</source>.  
+					</li>
+					<li>
+						<p>
+							From the previous step, you should have seen some information printed 
+							to the screen and at the end it should say <code>BUILD SUCCESSFUL</code>.  If it failed
+							for some reason, then contact me and let me know, because obviously something isn't right.
+							If all the previous steps have succeeded, you're ready to start developing, congradulations! 
+							Go on to the next section 
+							<a href="#developingTranslationLibrary">Adding Translation Capabilities to your Translation-Library</a>.
+							<ul>
+								<li>
+									<strong>NOTE:</strong> If you're using <a href="http://www.eclipse.org">Eclipse</a> 
+									as your IDE you can execute the default <a href="http://maven.apache.org/reference/plugins/eclipse/">Eclipse plugin</a>
+									goal: <em>'maven eclipse'</em> within your Translation-Library directory and this will generate the 
+									necessary files for you to import your Translation-Library directory as an Eclipse project.
+								</li>
+							</ul>							
+						</p>
+					</li>
+				</ol>
+			</subsection>
+			<a name="developingTranslationLibrary"/>
+			<subsection name="Adding Translation Capabilities to your Translation-Library">	
+				<ol>
+					<li>
+						<p>
+							Now that you've created an empty Translation-Library from the 
+							<a href="#generatingTranslationLibrary">previous</a> section. Its time to start developing your library.
+							The first thing you'll want to do, is add an expression to the body of the 
+							<code><![CDATA[<from/>]]></code> element of your translation test file 
+							<a href="#translatorTestSql">TranslationTest-Oracle-SQL.xml</a>.  Since our example is a 
+							<code>'constraint'</code> Translation-Library, I'll add the expression representing a constraint 
+							that expresses "within all LegalAgreements, documentTitle must be unique".
+						</p>
+						<a name="constraintExpression"/>
+						<source>
+	<![CDATA[<expression contextType="org.andromda.contracts.LegalAgreement">
+		<from>
+			context LegalAgreement 
+			inv: allInstances -> isUnique(documentTitle) 
+		</from>
+		<to>
+		</to>
+	</expression>]]>
+						</source>
+					</li>
+					<li>
+						<a name="executeTranslationTestWithTrace"/>
+						<p>
+							We'll now execute the <em>andromdadev:test-translation</em> goal once again but this time
+							we'll add the '-Dtrace=true' property. Since we've added an expression to the <![CDATA[<from/>]]>
+							element in the previous step, this will allow us to see, in what order and how the OCL parser
+							parses the expression that we added.  This is necessary since we'll need to know what methods
+							to override in our <a href="#constraintTranslator">ConstraintTranslator</a> class to perform 
+							the translation of the expression.
+						</p>
+						<source>maven andromdadev:test-translation -Dtrace=true</source>
+						<p>
+							Your output should look like the following:
+							<source>
+[junit] 13:36:49,795 INFO  [TraceTranslator] ======================== Tracing Expression ========================
+[junit] 13:36:49,795 INFO  [TraceTranslator] context LegalAgreement inv: allInstances -> isUnique(documentTitle)
+[junit] 13:36:49,805 INFO  [TraceTranslator] ======================== ================== ========================
+[junit] 13:36:50,216 WARN  [Fragment] WARNING! No name has been given to a 'kind' element, please check your translation file.
+[junit] 13:36:50,386 INFO  [TraceTranslator] inAContextDeclaration with 'context LegalAgreement inv : allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,386 INFO  [TraceTranslator] inAClassifierContextDeclaration with 'context LegalAgreement inv : allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,406 INFO  [TraceTranslator] inAClassifierExpressionBody with 'inv : allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inAInvClassifierStereotype with 'inv'
+[junit] 13:36:50,416 INFO  [TraceTranslator] outAInvClassifierStereotype with 'inv'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inAExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inALogicalExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inARelationalExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inAAdditiveExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,416 INFO  [TraceTranslator] inAMultiplicativeExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,426 INFO  [TraceTranslator] inAPostfixUnaryExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,426 INFO  [TraceTranslator] inAPostfixExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,426 INFO  [TraceTranslator] inAFeaturePrimaryExpression with 'allInstances'
+[junit] 13:36:50,426 INFO  [TraceTranslator] inAPathName with 'allInstances'
+[junit] 13:36:50,426 INFO  [TraceTranslator] outAPathName with 'allInstances'
+[junit] 13:36:50,426 INFO  [TraceTranslator] outAFeaturePrimaryExpression with 'allInstances'
+[junit] 13:36:50,446 INFO  [TraceTranslator] inAArrowPostfixExpressionTail with '-> isUnique ( documentTitle )'
+[junit] 13:36:50,446 INFO  [TraceTranslator] inAFeatureCall with 'isUnique ( documentTitle )'
+[junit] 13:36:50,446 INFO  [TraceTranslator] inAPathName with 'isUnique'
+[junit] 13:36:50,446 INFO  [TraceTranslator] outAPathName with 'isUnique'
+[junit] 13:36:50,446 INFO  [TraceTranslator] inAFeatureCallParameters with '( documentTitle )'
+[junit] 13:36:50,446 INFO  [TraceTranslator] inAActualParameterList with 'documentTitle'
+[junit] 13:36:50,446 INFO  [TraceTranslator] inAExpression with 'documentTitle'
+[junit] 13:36:50,466 INFO  [TraceTranslator] inALogicalExpression with 'documentTitle'
+[junit] 13:36:50,466 INFO  [TraceTranslator] inARelationalExpression with 'documentTitle'
+[junit] 13:36:50,466 INFO  [TraceTranslator] inAAdditiveExpression with 'documentTitle'
+[junit] 13:36:50,466 INFO  [TraceTranslator] inAMultiplicativeExpression with 'documentTitle'
+[junit] 13:36:50,466 INFO  [TraceTranslator] inAPostfixUnaryExpression with 'documentTitle'
+[junit] 13:36:50,466 INFO  [TraceTranslator] inAPostfixExpression with 'documentTitle'
+[junit] 13:36:50,466 INFO  [TraceTranslator] inAFeaturePrimaryExpression with 'documentTitle'
+[junit] 13:36:50,496 INFO  [TraceTranslator] inAPathName with 'documentTitle'
+[junit] 13:36:50,496 INFO  [TraceTranslator] outAPathName with 'documentTitle'
+[junit] 13:36:50,496 INFO  [TraceTranslator] outAFeaturePrimaryExpression with 'documentTitle'
+[junit] 13:36:50,496 INFO  [TraceTranslator] outAPostfixExpression with 'documentTitle'
+[junit] 13:36:50,496 INFO  [TraceTranslator] outAPostfixUnaryExpression with 'documentTitle'
+[junit] 13:36:50,496 INFO  [TraceTranslator] outAMultiplicativeExpression with 'documentTitle'
+[junit] 13:36:50,496 INFO  [TraceTranslator] outAAdditiveExpression with 'documentTitle'
+[junit] 13:36:50,516 INFO  [TraceTranslator] outARelationalExpression with 'documentTitle'
+[junit] 13:36:50,516 INFO  [TraceTranslator] outALogicalExpression with 'documentTitle'
+[junit] 13:36:50,516 INFO  [TraceTranslator] outAExpression with 'documentTitle'
+[junit] 13:36:50,516 INFO  [TraceTranslator] outAActualParameterList with 'documentTitle'
+[junit] 13:36:50,516 INFO  [TraceTranslator] outAFeatureCallParameters with '( documentTitle )'
+[junit] 13:36:50,516 INFO  [TraceTranslator] outAFeatureCall with 'isUnique ( documentTitle )'
+[junit] 13:36:50,516 INFO  [TraceTranslator] outAArrowPostfixExpressionTail with '-> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outAPostfixExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outAPostfixUnaryExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outAMultiplicativeExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outAAdditiveExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,546 INFO  [TraceTranslator] outARelationalExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outALogicalExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outAExpression with 'allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outAClassifierExpressionBody with 'inv : allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outAClassifierContextDeclaration with 'context LegalAgreement inv : allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] outAContextDeclaration with 'context LegalAgreement inv : allInstances -> isUnique ( documentTitle )'
+[junit] 13:36:50,566 INFO  [TraceTranslator] ========================  Tracing Complete  ========================
+							</source>
+						</p>
+						<a name="overridingParserGeneratedMethod"/>
+						<p>
+ 							In the above output, each method name and its corresponding node value is shown. 
+ 							(i.e. <code>inAClassifierExpressionBody with 'allInstances -> isUnique ( documentTitle )'</code>
+							says the method 'inAPostfixExpression' is being executed with value of 
+							<em>'allInstances -> isUnique ( documentTitle )'</em>.)  This means that if you want to 
+							handle the 'inAPostfixExpression' output, you would override this method in your 
+							<a href="#constraintTranslator">ConstraintTranslator</a> and call the 
+							<a href="../andromda-core/apidocs/org/andromda/core/translation/BaseTranslator.html#handleTranslationFragment(org.andromda.core.parser.node.Node)">handleTranslationFragment(Node node)</a>. 
+							Like so:
+							<source>
+<![CDATA[						
+package org.andromda.translation.constraint;
+
+import org.andromda.core.parser.node.APostfixExpression;
+import org.andromda.core.translation.TranslationUtils;
+
+/**
+ * Performs translation to the following:	
+ * <ul>
+ *     
+ *     <li>
+ *     		Oracle-SQL
+ *     </li>
+ *     
+ * </ul>
+ *
+ * @author brand028
+ */
+public class ConstraintTranslator extends org.andromda.core.translation.BaseTranslator {
+
+    public void inAPostfixExpression(APostfixExpression expression) {
+    	//ideally, this is the only content that this method should contain
+    	//but you may need to do some processing before (or instead of) handling the expression. 
+        this.handleTranslationFragment(expression);
+    }
+    
+    /*-------------------------  all handler methods go below here -------------------------*/
+    
+}			
+]]>					
+							</source>
+						</p>
+					</li>
+					<li>
+						<a name="editingTranslationFragment"/>
+						<p>
+							Next you'll want to open your <a href="#sqlTranslation">Oracle-SQL.vsl</a> translation file and
+							add the following:
+						</p>
+						<ul>
+							<li>
+								Fill in the <code>'name'</code> attribute on the <![CDATA[<kind/>]]> element.  You need
+								to specify the kind name as <strong>inv</strong>.  You also need to give some content
+								to the kind element.  (<strong>NOTE:</strong> If you'll remember from the previous step
+							    the expression type we defined was of type <em>inv</em>. If the expression
+							    had the type <code>'body'</code>, then the kind name would need to be <em>body</em>.  
+							    See the translation file <a href="translation-schema.html">schema</a> for the possible
+							    kind names.)						
+							</li>
+							<li>
+								Fill in the <code>'name'</code> attribute on the <![CDATA[<fragment/>]]> element 
+								with a name or regular expression that will be matched from the OCL expression
+								during translation.  The <a href="#constraintTranslator">ConstraintTranslator</a> 
+								is what will match these fragments during the translation process.  Since our
+								constraint expression <a href="#constraintExpression"></a> begins with <code>allInstances</code>
+								and we know that <code>allInstances</code> can begin with <code>self.allInstances</code>,
+								<code>${element.name}.allInstances</code>, or just plain old <code>allInstances</code>
+								we'll want to give this fragment <code>name</code> a regular expression that will match
+								on one of these three allInstances patterns.
+								<strong>NOTE:</strong> There is a goal called 
+								<a href="../maven-andromdadev-plugin/goals.html#andromdadev:test-regex">andromdadev:test-regex</a> that will
+								allow you to test your regular expressions while writing them for your fragment names which
+								comes in very handy.
+							</li>
+							<li>
+								Fill in the <code>handlerMethod</code> attribute name with the name
+								of the method that will handle processing of this fragment.  We'll call it
+								<code>handleAllInstances</code> since that is what its doing.
+							</li>
+							<li>
+								Add the body of the <em>inv</em> kind element.
+								<strong>NOTE:</strong> the expression <strong>$constraintTransformer.findTableName($element)</strong>
+								allows us to find the SQL table name corresponding to the context ${element} scripting object 
+								always available to a translation template.  You'll have to add the <em>${constraintTransformer}</em>
+								to your translation template by specifying it in your Translation-Library 
+								<a href="descriptor-schema.html">descriptor</a>. 
+							</li>
+						</ul>
+						<source>
+	<!-- This is the start of the constraint ('self.AllInstances', '<element name>.allInstances', or just 'allInstances') -->
+	<![CDATA[<fragment name="(\s*(${elementName}|self)\s*\.)?\s*allInstances.*" handlerMethod="handleAllInstances">
+		<kind name="inv">
+			alter table $constraintTransformer.findTableName($element) add constraint	
+		</kind>	  
+	</fragment>]]>
+						</source>
+					</li>
+					<li>
+						<a name="addingHandlerMethodToTranslator"/>
+						<p>
+							We'll now add the handlerMethod definition to the Translator, what we'll do inside of
+							this method is append the translation value (which is the body of the <em>inv</em> kind
+							element from the previous step) to the expression being translated.						
+						</p>
+							<source>
+<![CDATA[						
+package org.andromda.translation.constraint;
+
+import org.andromda.core.parser.node.APostfixExpression;
+import org.andromda.core.translation.TranslationUtils;
+
+/**
+ * Performs translation to the following:	
+ * <ul>
+ *     
+ *     <li>
+ *     		Oracle-SQL
+ *     </li>
+ *     
+ * </ul>
+ *
+ * @author brand028
+ */
+public class ConstraintTranslator extends org.andromda.core.translation.BaseTranslator {
+
+    public void inAPostfixExpression(APostfixExpression expression) {
+    	//ideally, this is the only content that this method should contain
+    	//but you may need to do some processing before (or instead of) handling the expression. 
+        this.handleTranslationFragment(expression);
+    }
+    
+    /*-------------------------  all handler methods go below here -------------------------*/
+  
+    /*-------------------------  PostfixExpression Handler methods ---------------------*/
+    
+    public void handleAllInstances(String translation, Object node) {
+    	//appended the value from the fragment to the expression buffer
+        this.getExpression().appendToTranslatedExpression(translation);
+    }
+    
+}			
+]]>					
+							</source>
+					</li>
+					<li>
+						<p>
+							Next we'll again run the <em>andromdadev:test-translation</em> method, this 
+							time not adding the <em>-Dtrace=true</em> property.  
+						</p>
+						<source>maven andromdadev:test-translation</source>
+						<p>
+							Your console output should contain the following (in addition to other output). 
+							Notice the line: <em>translated: <![CDATA[-->]]> 'alter table LegalAgrmt add 
+							constraint'</em>.  This line tells you the translation test executed and the
+							'translated' result was the new expression <em>'alter table LegalAgrmt add constraint'</em>.  
+							Also look at the line: <em>expected:   --> ''</em>.  This is telling you 
+							your 'expected' translated result is an empty string (Your goal will be to get these
+							two outputs to equal each other).  Its an empty string because
+							we have yet to add any content to the <![CDATA[<to/>]]> element of your 
+							<a href="#translatorTestSql">TranslationTest-Oracle-SQL.xml</a> file. 
+							We'll do that in the next step.
+						</p>
+						<source>
+[junit] 22:08:40,527 INFO  [ExpressionTranslationTest] translated: --> 'alter table LegalAgrmt add constraint'
+[junit] 22:08:40,527 INFO  [ExpressionTranslationTest] expected:   --> ''
+						</source>
+					</li>		
+					<li>
+						<a name="addExpectedTranslatedValue"/>
+						<p>
+							Now we'll add what we expect the translated result to be. Open up your 
+							<a href="#translatorTestSql">TranslationTest-Oracle-SQL.xml</a> file, and
+							add some content to the <![CDATA[<to/>]]> element body.  What we are adding is
+							what the 'from' element should be translated 'to' in Oracle SQL:
+						</p>
+						<source>
+
+	<![CDATA[<expression contextType="org.andromda.contracts.LegalAgreement">
+		<from>
+			context LegalAgreement 
+			inv: self.allInstances -> isUnique(documentTitle) 
+		</from>
+		<to>
+			alter table LegalAgrmt add constraint UniqueLADT UNIQUE (Document_Title)
+		</to>
+	</expression>]]>
+						</source>
+					</li>			
+					<li>
+						<p>
+							For the final step of our little tutorial, we'll again run the translation test 
+							maven goal: <em>andromdadev:test-translation</em> to see if our 'translated' and 'expected' outputs 
+							match (of course they won't since the only thing we have added to our 
+							<a href="#sqlTranslation">Oracle-SQL.vsl</a> translation file so far is a fragment for 
+							handling the <code>allInstances</code> operation). This time you should at least see that 
+							you have a value for your 'expected' output, and this is good, because you have something 
+							to compare against while adding to your translation template 
+							(<a href="#sqlTranslation">Oracle-SQL.vsl</a>) and translator 
+							(<a href="#constraintTranslator">ConstraintTranslator</a>): 
+						</p>
+						<source>
+[junit] 12:53:52,174 INFO  [ExpressionTranslationTest] translated: --> 'alter table LegalAgrmt add constraint'
+[junit] 12:53:52,174 INFO  [ExpressionTranslationTest] expected:   --> 'alter table LegalAgrmt add constraint UniqueLADT UNIQUE(Document_Title)'
+						</source>
+					</li>
+				</ol>
+			</subsection>
+			<subsection name="Summary">
+				<p>
+					Ok that's it!  You're job now is to continue the process of getting the 'expected' and 'translated' 
+					expressions to equal each other (and get the Junit test cases to pass when running the Maven 
+					<em>andromdadev:test-translation</em> goal) by repeating the steps above.  To summarize 
+					you'll repeat the following steps over and over again until you have the translator 
+					and translations supporting the language you want.
+					<ol>
+						<strong><em>Summary of Steps:</em></strong>
+						<li>
+							<a href="#generatingTranslationLibrary">Generate</a> a Translation-Library if you don't have one.
+						</li>
+						<li>
+							Add an OCL expression to a <a href="#constraintExpression"><![CDATA[<from/>]]></a> element 
+							in your translator test file (Add another <![CDATA[<expression/>]]> element to your test file if
+							you already have one being used for a different test, take a look at the 
+							<a href="translator-test-schema.html">schema</a> for what a <em>TranslationTest-*.xml</em> 
+							can contain).
+						</li>
+						<li>
+							Execute the translator test with command 
+							<a href="#executeTranslationTestWithTrace">maven andromdadev:test-translation -Dtrace=true</a>
+							and decide what parser generated method you need to override in your 
+							<a href="#constraintTranslator">Translator</a> to handle a fragment of the expression: .							
+						</li>
+						<li>
+							Override the <a href="#overridingParserGeneratedMethod">parser generated method</a> 
+							and provide the method to handle a translation fragment.
+						</li>
+						<li>
+							Edit your translation template and fill in 
+							the name, handlerMethod, kind name and kind body to your 
+							<a href="#editingTranslationFragment">translation fragment</a> (or add another fragment
+							if you already have the first generated fragment defined, see the 
+							<a href="translation-schema.html">schema</a> for more information) . 
+						</li>
+						<li>
+							Add the <a href="#addingHandlerMethodToTranslator">handlerMethod</a> from the translation 
+							fragment (from previous step) to your <a href="#constraintTranslator">Translator</a>.
+						</li>
+						<li>
+							Add the expected translated output to your translation test file as the body 
+							of the <a href="#addExpectedTranslatedValue"><![CDATA[<to/>]]></a> element.
+						</li>
+						<li>
+							Execute the translation test with command 
+							<a href="#executeTranslationTestWithTrace">maven andromdadev:test-translation</a>
+							and see if the expressions equal each other and if the tests pass.  
+						</li>
+						<li>
+							Repeat steps <strong>2 - 8</strong> until you have the translator and translations 
+							supporting the language you want.
+						</li>
+					</ol>
+				</p>
+				<ul>
+					<li>
+						<strong>NOTE:</strong> You can view the source of the 
+						<a href="../andromda-query-library/apidocs/org/andromda/translation/query/QueryTranslator.html">QueryTranslator</a> 
+						for the query Translation-Library which may help in implementing your Translator.
+					</li>
+				</ul>
+			</subsection>
+  		</section>
+  	</body> 
+</document>

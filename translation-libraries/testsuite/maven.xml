@@ -1,0 +1,19 @@
+<project xmlns:j="jelly:core"
+         xmlns:maven="jelly:maven"
+  		 xmlns:ant="jelly:ant">
+  		 
+    
+    <!-- ===================================================================
+         Adapts the TraceTranslator to the current parser generated classes
+         =================================================================== -->
+    <postGoal name="java:compile">
+    	<ant:java classname="org.andromda.translation.testsuite.TraceTranslator" fork="true">
+	        <ant:classpath>
+	        	<ant:path refid="maven.dependency.classpath"/>
+	        	<ant:pathelement path="${maven.build.dest}"/>
+	        	<ant:path refid="maven.compile.src.set"/>
+	        </ant:classpath>
+       	</ant:java>    
+    </postGoal>
+  		 
+</project>

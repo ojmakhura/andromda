@@ -1,0 +1,12 @@
+<project default="install"
+         xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core">
+  	
+  	<!-- ==================================================================
+  		     Run the translation tests                                                    
+  		 ================================================================== -->
+  	<goal name="test:test">  		
+        <attainGoal name="androdev:test-translation"/>
+  	</goal> 
+  	  	
+</project>

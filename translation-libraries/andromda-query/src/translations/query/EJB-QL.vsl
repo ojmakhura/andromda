@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+#parse("translations/query/Globals.vm")
+<translation name="EJB-QL">
+
+	<fragments>
+	
+		<!-- replaced when an operation argument is encountered -->
+		<fragment name="argument">
+			<!-- the 'counter' will be replaced by an incrementing number 
+			     each time it is retieved -->
+			<kind name="body">
+				?{counter}
+			</kind>
+		</fragment>
+	
+		<!-- The beginning of each query, this is the fragment
+		     inserted when first 'allInstances' is encountered in the expression -->
+		<fragment name="(\s*${elementName}\s*\.)?\s*allInstances(${emptyParentheses})?\s*->\s*select.*"
+				  handlerMethod="handleSelect">
+			<kind name="body">
+				SELECT DISTINCT OBJECT({0}) FROM $elementName {0}
+			</kind>
+		</fragment>
+		
+		<!-- The beginning of a query that finds allInstances (independant allInstances query) -->
+		<fragment name="(\s*${elementName}\s*\.)?\s*allInstances(${emptyParentheses})?"
+				  handlerMethod="handleSelect">
+			<kind name="body">
+				SELECT DISTINCT OBJECT(${lowerCaseElementName}) FROM $elementName ${lowerCaseElementName}
+			</kind>
+		</fragment>
+		
+		<!-- This is what is appended to the end of the allInstances fragment
+		      when each 'includesAll(<expression>)' is encountered in the expression -->
+		<fragment name="\s*${excludeAllInstances}${navigableName}\s*->\s*select${nonEmptyParentheses}" 
+				  handlerMethod="handleSubSelect">
+			<kind name="body">
+				, IN ({0}) AS {1}
+			</kind>
+		</fragment>		
+		
+		<!-- This is what is appended when '-> exists(<some expression>)' is encountered in the expression -->
+		<fragment name="\s*${navigableName}\s*->\s*exists${nonEmptyParentheses}"
+				  handlerMethod="handleExists">
+			<kind name="body">
+				{0} MEMBER OF {1}
+			</kind>
+		</fragment>
+		
+		<!-- This is what is append when '-> isEmpty()' is encountered in the expression -->
+		<fragment name="\s*${navigableName}\s*->\s*isEmpty${emptyParentheses}"
+				  handlerMethod="handleIsEmpty">
+			<kind name="body">
+				{0} IS EMPTY
+			</kind>			
+		</fragment>
+		
+		<!-- the '{0}' represents the first argument in the 'isLike(<expression>,<expression>)' operation --> 
+		<fragment name="\s*StringUtils\s*.\s*isLike\s*\(.*,.*\)\s*"
+			      handlerMethod="handleIsLike">
+			<kind name="body">
+				LCASE({0}) LIKE {1}
+			</kind>
+		</fragment>
+		
+		
+		<!-- this fragment is appended to the end of the select clause in the translated query -->
+		<fragment name="selectClauseTail">
+			<kind name="body">
+				WHERE
+			</kind>
+		</fragment>
+		
+		<!-- if 'and' is encountered in the expression then 
+			 'and' will just be returned -->
+		<fragment name="and\s*${navigableName}\s*.*"
+				  handlerMethod="handleLogicalExpression">
+			<kind name="body">
+				AND
+			</kind>
+		</fragment>
+		
+		<!-- if 'or' is encountered in the expression then 
+			 'or' will just be returned -->
+		<fragment name="or\s*${navigableName}\s*.*"
+				  handlerMethod="handleLogicalExpression">
+			<kind name="body">
+				OR
+			</kind>
+		</fragment>
+		
+		<fragment name="=\s*${navigableName}"
+				  handlerMethod="handleRelationalExpression">
+			<kind name="body">
+				{0} = {1}
+			</kind>
+		</fragment>
+		
+		<fragment name="&gt;\s*${navigableName}"
+				  handlerMethod="handleRelationalExpression">
+			<kind name="body">
+				{0} &gt; {1}
+			</kind>
+		</fragment>
+		
+		<fragment name="&lt;\s*${navigableName}"
+				  handlerMethod="handleRelationalExpression">
+			<kind name="body">
+				{0} &lt; {1}
+			</kind>
+		</fragment>
+		
+		<fragment name="&lt;&gt;\s*${navigableName}"
+				  handlerMethod="handleRelationalExpression">
+			<kind name="body">
+				{0} not {1}
+			</kind>
+		</fragment>
+		
+		<fragment name="&gt;=\s*${navigableName}"
+				  handlerMethod="handleRelationalExpression">
+			<kind name="body">
+				{0} &gt;= {1}
+			</kind>
+		</fragment>
+		
+		<fragment name="&lt;=\s*${navigableName}"
+				  handlerMethod="handleRelationalExpression">
+			<kind name="body">
+				{0} &lt;= {1}
+			</kind>
+		</fragment>
+		
+	</fragments>
+	
+	#parse("translations/query/Patterns.vm")
+	
+</translation>

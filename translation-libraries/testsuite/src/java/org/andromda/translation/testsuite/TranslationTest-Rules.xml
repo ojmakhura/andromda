@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<!-- these are the digester rules used to load
+     a Library object by Apache Digester -->
+<digester-rules>
+
+	<pattern value="translation-test">
+	
+	    <object-create-rule 
+  			classname="org.andromda.translation.testsuite.TranslationTest" />
+      		
+ 		<pattern value="translation">
+      		
+			<set-properties-rule>
+	 			<alias attr-name="name" prop-name="translation" />
+	 		</set-properties-rule>    
+ 		
+	   	</pattern>   
+      		
+      	<!-- add the TemplateEngine implementation to the Cartridge -->
+      		
+		<pattern value="expression">	
+		
+	    	<object-create-rule 
+	      		classname="org.andromda.translation.testsuite.ExpressionTest" />
+	 		
+	      	<call-method-rule 
+	      		pattern="to" 
+	      		methodname="setTo"
+		        paramcount="1" />
+		   
+			<call-param-rule 
+	      		pattern="to"
+	      		paramnumber="0"/>
+	      		
+	      	<call-method-rule 
+	      		pattern="from" 
+	      		methodname="setFrom"
+		        paramcount="1" />
+		   
+			<call-param-rule 
+	      		pattern="from"
+	      		paramnumber="0"/>
+	
+	      	<set-next-rule methodname="addExpression" />
+	      	
+	   	</pattern>
+	   	
+	</pattern>
+
+</digester-rules>

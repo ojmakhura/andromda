@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>andromda-library-testsuite</id>
+  	<name>AndroMDA Translation-Library Test Suite</name>
+  	<shortDescription>
+  		AndroMDA Translation-Library Test Suite.
+  	</shortDescription>
+  	<description>
+  		Provides an AndroMDA Translation-Library Test Suite, for testing
+  		translation libraries as they're being written.
+  	</description>
+	<package>org.andromda.translation.testsuite</package>
+  	
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-core</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>	 
+		<dependency>
+	      	<groupId>commons-collections</groupId>
+	      	<artifactId>commons-collections</artifactId>
+	      	<version>3.0</version>
+	    </dependency>	       
+    	<dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.0</version>
+	    </dependency>
+    	<dependency> 
+    		<groupId>jboss</groupId>
+      		<artifactId>javassist</artifactId>
+     		<version>2.6</version>
+    	</dependency>	
+    	<dependency> 
+    		<groupId>junit</groupId>
+      		<artifactId>junit</artifactId>
+     		<version>3.8.1</version>
+    	</dependency>  	    
+    	<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency>	
+	</dependencies>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+		<resources>
+	      	<resource>
+		        <directory>src/java</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+    	</resources>
+  	</build>  	
+</project>

@@ -1,0 +1,58 @@
+<document> 
+	<properties>
+    	<title>Translator Test Schema</title> 
+    </properties>
+  	<body>
+		<section name="TranslationTest Schema">
+			<p>
+  				Each Translator Test (TranslationTest-*.xml file) must comply with the following XSD Schema: 
+  			</p>
+  			<source>
+	<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+	
+	<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	
+		<!-- The expression element consisting of 'from' and 'to' elements -->
+		<xs:element name="expression">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element ref="from"/>
+					<xs:element ref="to"/>
+				</xs:sequence>
+				<!-- the element that is the context of the expression (it must
+				     be a model found within the test model being used) -->
+				<xs:attribute name="contextType" type="xs:string" use="required"/>
+			</xs:complexType>
+		</xs:element>
+		<!-- the orginial expression we are translating from -->
+		<xs:element name="from" type="xs:string"/>
+		<!-- what we expect the translated expression to look like after translation -->
+		<xs:element name="to" type="xs:string"/>
+		<xs:element name="translation">
+			<xs:complexType>
+				<!-- the name of the translation to lookup and test, this is the name registered
+				     when the PluginDiscoverer finds and registers the Translation-Library. 
+				     (i.e. to test the query Translation-Library's EJB-QL translation, 
+				     this name would be specified as 'query.EJB-QL', which says the
+				     name of the Translation-Library is 'query' and the translation
+				     to use is 'EJB-QL' -->
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:complexType>
+		</xs:element>
+		<!-- the root element, each TranslationTest file must begin
+		     with this element -->
+		<xs:element name="translator-test">
+			<xs:complexType>
+				<xs:sequence>
+					<!-- only one translation can be tested per TranslationTest file -->
+					<xs:element ref="translation" maxOccurs="1"/>
+					<!-- We can have as many expression elements defined as we like -->
+					<xs:element ref="expression" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+	</xs:schema>]]>
+  			</source>
+  		</section>
+  	</body> 
+</document>
