@@ -114,6 +114,10 @@
         <to>@andromda.struts.view.table.sortable</to>
     </mapping>
     <mapping>
+        <from>TABLE_DECORATOR</from>
+        <to>@andromda.struts.view.table.decorator</to>
+    </mapping>
+    <mapping>
         <from>EXCEPTION_TYPE</from>
         <to>@andromda.struts.exception.type</to>
     </mapping>

@@ -65,6 +65,27 @@
                     <td>No</td>
                 </tr>
                 <tr>
+                    <td>decorators</td>
+                    <td>
+                        The location where the displaytag table decorators will be generated (if any).
+                    </td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>generateTableDecorators</td>
+                    <td>
+                        Whether or not to generate decorators for all tables.
+                    </td>
+                    <td>No, default is <code>false</code></td>
+                </tr>
+                <tr>
+                    <td>tableDecoratorSuffix</td>
+                    <td>
+                        The string to append to table decorator class names.
+                    </td>
+                    <td>No, default is <code>Decorator</code></td>
+                </tr>
+                <tr>
                     <td>clientValidation</td>
                     <td>true/false, denotes if the client should validate user input.</td>
                     <td>

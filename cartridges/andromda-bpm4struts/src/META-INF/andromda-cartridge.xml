@@ -518,6 +518,21 @@
         overwrite="true"
         generateEmptyFiles="false"/>
 
+    <template
+        path="templates/StrutsTableDecorator.vsl"
+        outputPattern="$generatedFile"
+        outlet="decorators"
+        overwrite="false"
+        generateEmptyFiles="false">
+        <modelElements variable="table">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter">
+                    <property name="tableDecoratorRequired"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>

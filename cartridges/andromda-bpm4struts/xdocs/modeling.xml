@@ -268,6 +268,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>@andromda.struts.view.table.decorator</td>
+                            <td>Same as @andromda.struts.view.table.export</td>
+                            <td>false</td>
+                            <td>Whether or not to generate a displaytag table decorator for this table. Can be used
+                                in combination with the <code>generateTableDecorators</code> namespace property.
+                            </td>
+                        </tr>
+                        <tr>
                             <td>@andromda.struts.view.field.tablelink</td>
                             <td>Action parameter</td>
                             <td>N/A</td>

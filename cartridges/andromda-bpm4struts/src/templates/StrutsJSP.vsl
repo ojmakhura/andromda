@@ -152,6 +152,9 @@
 #end
                 <display:table name="${${variable.name}}" id="row"
                            requestURI="${pageContext.request.requestURI}"
+#if ($variable.tableDecoratorRequired)
+                           decorator="${variable.tableDecoratorFullyQualifiedName}"
+#end
                            export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
 #if (!$variable.tableColumnNames.empty)
 #foreach ($columnName in $variable.tableColumnNames)

@@ -48,6 +48,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_TABLE_MAXROWS = profile.get("TABLE_MAXROWS");
     public static final String TAGGEDVALUE_TABLE_EXPORT = profile.get("TABLE_EXPORT");
     public static final String TAGGEDVALUE_TABLE_SORTABLE = profile.get("TABLE_SORTABLE");
+    public static final String TAGGEDVALUE_TABLE_DECORATOR = profile.get("TABLE_DECORATOR");
 
     public static final String TAGGEDVALUE_EXCEPTION_TYPE = profile.get("EXCEPTION_TYPE");
     public static final String TAGGEDVALUE_CONTROLLER_USE_CASE = profile.get("CONTROLLER_USE_CASE");
