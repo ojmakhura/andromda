@@ -20,12 +20,20 @@
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
 		<stereotype>Entity</stereotype>
 		<property reference="maxSqlNameLength"/>
+        <property reference="allowDefaultIdentifiers" default="true"/>
+        <property reference="defaultIdentifier" default="id"/>
+        <property reference="defaultIdentifierType" default="datatype.Long"/>
+	    <property reference="defaultIdentifierVisibility" default="public"/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
 		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
 		<stereotype>Entity</stereotype>
 		<property reference="maxSqlNameLength"/>
+        <property reference="allowDefaultIdentifiers" default="true"/>
+        <property reference="defaultIdentifier" default="id"/>
+        <property reference="defaultIdentifierType" default="datatype.Long"/>
+	    <property reference="defaultIdentifierVisibility" default="public"/>
 	</metafacade>
 	<metafacade 
 		metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
