@@ -6,6 +6,7 @@ import org.omg.uml.foundation.core.TagDefinition;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.ArrayList;
 
 
 /**
@@ -52,7 +53,10 @@ public class TaggedValueFacadeLogicImpl
      */
     public Collection handleGetValues()
     {
-        return metaObject.getDataValue();
+        Collection values = new ArrayList();
+        values.addAll(metaObject.getDataValue());
+        values.addAll(shieldedElements(metaObject.getReferenceValue()));
+        return values;
     }
 
     /**
