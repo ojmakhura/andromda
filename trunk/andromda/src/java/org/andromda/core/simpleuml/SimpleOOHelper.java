@@ -50,7 +50,7 @@ public class SimpleOOHelper extends UMLStaticHelper
     
     public org.andromda.core.uml14.DirectionalAssociationEnd getAssociationData(Object object)
     {
-        if ((object == null) | !(object instanceof AssociationEnd))
+        if ((object == null) || !(object instanceof AssociationEnd))
         {
             return null;
         }
@@ -162,7 +162,7 @@ public class SimpleOOHelper extends UMLStaticHelper
     
     public String getOperationSignature(Object object)
     {
-        if ((object == null) | !(object instanceof Operation))
+        if ((object == null) || !(object instanceof Operation))
         {
             return null;
         }
