@@ -1,6 +1,11 @@
 <cartridge name="ejb">
     <property name="persistence" value="ejb" />
 
+<!-- these are the new, official stereotypes -->
+    <stereotype name="entity" />
+    <stereotype name="process" />
+
+<!-- the following stereotypes are deprecated and will be removed in the next release. -->
     <stereotype name="EntityBean" />
     <stereotype name="StatelessSessionBean" />
     <stereotype name="StatefulSessionBean" />
@@ -8,59 +13,108 @@
     <outlet name="beans" />
     <outlet name="impls" />
 
+<!-- the official template definitions -->
     <template
-	stereotype="EntityBean"
-	sheet="templates/EntityBean.vsl"
-	outputPattern="{0}/{1}Bean.java"
-	outlet="beans"
-	overWrite="true"
+        stereotype="entity"
+        sheet="templates/EntityBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="beans"
+        overWrite="true"
     />
 
     <template
-	stereotype="EntityBean"
-	sheet="templates/EntityBeanImpl.vsl"
-	outputPattern="{0}/{1}BeanImpl.java"
-	outlet="impls"
-	overWrite="false"
+        stereotype="entity"
+        sheet="templates/EntityBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="impls"
+        overWrite="false"
     />
 
     <template
-	stereotype="EntityBean"
-	sheet="templates/EntityBeanCMP.vsl"
-	outputPattern="{0}/{1}BeanCMP.java"
-	outlet="beans"
-	overWrite="true"
+        stereotype="entity"
+        sheet="templates/EntityBeanCMP.vsl"
+        outputPattern="{0}/{1}BeanCMP.java"
+        outlet="beans"
+        overWrite="true"
+    />
+
+<!--
+     The following two definitions map processes to stateless session beans.
+     This is incomplete. The final version should map process to session bean
+     and the template itself should decide to generate a stateless or stateful
+     session bean, based on the fact that the UML class contains attributes or not.
+     (Matthias Bohlen)
+-->
+    <template
+        stereotype="process"
+        sheet="templates/StatelessSessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="beans"
+        overWrite="true"
     />
 
     <template
-	stereotype="StatelessSessionBean"
-	sheet="templates/StatelessSessionBean.vsl"
-	outputPattern="{0}/{1}Bean.java"
-	outlet="beans"
-	overWrite="true"
+        stereotype="process"
+        sheet="templates/StatelessSessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="impls"
+        overWrite="false"
+    />
+
+<!-- the following template definitions use deprecated stereotypes and will be removed in the next release. -->
+    <template
+        stereotype="EntityBean"
+        sheet="templates/EntityBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="beans"
+        overWrite="true"
     />
 
     <template
-	stereotype="StatelessSessionBean"
-	sheet="templates/StatelessSessionBeanImpl.vsl"
-	outputPattern="{0}/{1}BeanImpl.java"
-	outlet="impls"
-	overWrite="false"
+        stereotype="EntityBean"
+        sheet="templates/EntityBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="impls"
+        overWrite="false"
     />
 
     <template
-	stereotype="StatefulSessionBean"
-	sheet="templates/StatefulSessionBean.vsl"
-	outputPattern="{0}/{1}Bean.java"
-	outlet="beans"
-	overWrite="true"
+        stereotype="EntityBean"
+        sheet="templates/EntityBeanCMP.vsl"
+        outputPattern="{0}/{1}BeanCMP.java"
+        outlet="beans"
+        overWrite="true"
     />
 
     <template
-	stereotype="StatefulSessionBean"
-	sheet="templates/StatefulSessionBeanImpl.vsl"
-	outputPattern="{0}/{1}BeanImpl.java"
-	outlet="impls"
-	overWrite="false"
+        stereotype="StatelessSessionBean"
+        sheet="templates/StatelessSessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="beans"
+        overWrite="true"
+    />
+
+    <template
+        stereotype="StatelessSessionBean"
+        sheet="templates/StatelessSessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="impls"
+        overWrite="false"
+    />
+
+    <template
+        stereotype="StatefulSessionBean"
+        sheet="templates/StatefulSessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="beans"
+        overWrite="true"
+    />
+
+    <template
+        stereotype="StatefulSessionBean"
+        sheet="templates/StatefulSessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="impls"
+        overWrite="false"
     />
 </cartridge>
