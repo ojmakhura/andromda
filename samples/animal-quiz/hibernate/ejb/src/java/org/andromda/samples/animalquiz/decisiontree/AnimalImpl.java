@@ -16,7 +16,29 @@ public class AnimalImpl
 
     public java.lang.String getPrompt()
     {
-        return "Is it a(n) " + getName() + "?";
+        return "Is it " + formatAnimalWithPredicate(getName()) + " ?";
     }
 
+    private String formatAnimalWithPredicate(String name)
+    {
+        final StringBuffer formattedBuffer = new StringBuffer();
+
+        formattedBuffer.append("a ");
+        formattedBuffer.append(name);
+
+        char firstChar = name.charAt(0);
+        switch (firstChar)
+        {
+            case 'a':   // fall-through
+            case 'e':   // fall-through
+            case 'i':   // fall-through
+            case 'o':
+                formattedBuffer.insert(1, 'n');
+                break;
+            default:
+                ;
+        }
+
+        return formattedBuffer.toString();
+    }
 }
