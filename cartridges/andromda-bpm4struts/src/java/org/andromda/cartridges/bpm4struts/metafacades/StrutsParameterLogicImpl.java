@@ -470,6 +470,29 @@ public class StrutsParameterLogicImpl
         return isTable;
     }
 
+    protected boolean handleIsTableDecoratorRequired()
+    {
+        boolean required = false;
+
+        if (isTable())
+        {
+            Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_DECORATOR);
+            if (taggedValue != null)
+            {
+                String taggedValueString = String.valueOf(taggedValue);
+                required = Boolean.valueOf(taggedValueString).booleanValue();
+            }
+            else
+            {
+                Object property = getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_GENERATE_TABLE_DECORATORS);
+                String propertyString = String.valueOf(property);
+                required = Boolean.valueOf(propertyString).booleanValue();
+            }
+        }
+
+        return required;
+    }
+
     protected boolean handleIsTableLink()
     {
         return findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TABLELINK) != null;
@@ -575,21 +598,36 @@ public class StrutsParameterLogicImpl
         return getTableLinks().isEmpty() == false;
     }
 
-    protected String handleGetDecoratorPackageName()
+    protected String handleGetTableDecoratorFullyQualifiedName()
     {
-        return getJsp().getPackageName();
+        String name = getTableDecoratorPackageName();
+        name = (StringUtils.trimToEmpty(name) == null) ? "" :  name + '.';
+        return name + getTableDecoratorClassName();
     }
 
-    protected String handleGetDecoratorClassName()
+    protected String handleGetTableDecoratorPackageName()
     {
-        StrutsJsp jsp = getJsp();
-        return StringUtilsHelper.upperCamelCaseName(jsp.getName()) +
-                StringUtilsHelper.upperCamelCaseName(getName()) + "Decorator";
+        final StrutsJsp jsp = getJsp();
+        return (jsp == null) ? null : jsp.getPackageName();
     }
 
-    protected String handleGetDecoratorFullPath()
+    protected String handleGetTableDecoratorClassName()
     {
-        return (getDecoratorPackageName() + '/' + getDecoratorClassName()).replace('.', '/');
+        String tableDecoratorClassName = null;
+
+        final StrutsJsp jsp = getJsp();
+        if (jsp != null)
+        {
+            String suffix = String.valueOf(getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_TABLE_DECORATOR_SUFFIX));
+            tableDecoratorClassName = StringUtilsHelper.upperCamelCaseName(getName()) + suffix;
+        }
+
+        return tableDecoratorClassName;
+    }
+
+    protected String handleGetTableDecoratorFullPath()
+    {
+        return getTableDecoratorFullyQualifiedName().replace('.', '/');
     }
 
     protected String handleGetTableExportTypes()
