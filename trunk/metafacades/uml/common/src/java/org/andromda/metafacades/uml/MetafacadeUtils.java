@@ -102,7 +102,7 @@ public class MetafacadeUtils
      * among all the registered names so far.
      *
      * @param name the name to register
-     * @return the argument, possible tranformed in case it was already registered
+     * @return the argument, possible transformed in case it was already registered
      */
     public static String createUniqueName(String name)
     {
