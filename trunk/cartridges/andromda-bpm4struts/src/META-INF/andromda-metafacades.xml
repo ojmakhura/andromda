@@ -3,6 +3,8 @@
 <!-- contains the bpm4struts cartridge metafacade mappings -->
 <metafacades namespace="bpm4struts">
 
+    <property reference="defaultDateFormat" default="dd/MM/yyyy"/>
+
     <metafacade
         metaobjectClass="org.omg.uml.behavioralelements.usecases.UseCase$Impl"
         metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
