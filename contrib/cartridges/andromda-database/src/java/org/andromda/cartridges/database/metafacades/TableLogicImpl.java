@@ -171,10 +171,8 @@ public class TableLogicImpl
     protected String handleGetPrimaryKeyConstraintName()
     {
         StringBuffer buffer = new StringBuffer();
-
-        buffer.append("XPK");
+        buffer.append(this.getConfiguredProperty(DatabaseGlobals.PRIMARY_KEY_CONSTRAINT_PREFIX));
         buffer.append(getTableName());
-
         return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
     }
 

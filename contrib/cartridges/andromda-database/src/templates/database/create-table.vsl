@@ -41,5 +41,10 @@ CREATE INDEX $foreignKeyColumn.indexName ON $table.tableName
 
 ## Define the PrimaryKey constraint
 /* ------------ primary key contraints ---------------- */
+#if ($table.many2Many)
+ALTER TABLE $table.tableName
+   ADD  ( CONSTRAINT $table.primaryKeyConstraintName PRIMARY KEY ($table.primaryKeyColumns) );
+#else
 ALTER TABLE $table.tableName
    ADD  ( CONSTRAINT $table.primaryKeyConstraintName PRIMARY KEY ($table.primaryKeyColumn.columnName) );
+#end
