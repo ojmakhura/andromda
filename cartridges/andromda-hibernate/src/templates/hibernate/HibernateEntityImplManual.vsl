@@ -11,11 +11,8 @@ package $entity.packageName;
 /**
  * @see $entity.fullyQualifiedEntityName
  */
-#if ($entity.abstract)
-public abstract class $entity.entityImplementationName
-#else
-public class $entity.entityImplementationName
-#end
+
+public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
     extends $entity.fullyQualifiedEntityName
 {
 #foreach ($operation in $entity.businessOperations)
