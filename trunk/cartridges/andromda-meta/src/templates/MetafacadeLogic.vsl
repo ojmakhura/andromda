@@ -104,7 +104,6 @@ public abstract class ${metafacade.logicName}
     */
     public abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
-    private boolean ${memberName}Set = false;
     private $memberTypeName $memberName;
 
     private void $handleMethodPreCondition
@@ -119,11 +118,9 @@ public abstract class ${metafacade.logicName}
 
     public final $memberTypeName ${methodName}()
     {
-        // if (${memberName}Set) return $memberName;
         ${handleMethodPreCondition};
         $memberName = ${handleMethodName}($typedArgumentList);
         ${handleMethodPostCondition};
-        ${memberName}Set = true;
         return $memberName;
     }
 
@@ -142,8 +139,6 @@ public abstract class ${metafacade.logicName}
 #set ($typedArgumentList = $op.typedArgumentList)
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
-#set ($innerClassKey = "$str.upperCaseFirstLetter(${memberName})Key")
-#set ($innerClassValue = "$str.upperCaseFirstLetter(${memberName})Value")
 
     $op.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
@@ -189,7 +184,6 @@ public abstract class ${metafacade.logicName}
 #set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}PreCondition()")
 #set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}PostCondition()")
 ##
-    private boolean ${memberName}Set = false;
     private $memberTypeName $memberName;
 
     private void $handleMethodPreCondition
@@ -210,7 +204,6 @@ public abstract class ${metafacade.logicName}
 
     public final $memberTypeName ${methodName}()
     {
-        // if (${memberName}Set) return $memberName;
         ${handleMethodPreCondition};
 #if ($assocEnd.one2Many || $assocEnd.many2Many)
         $memberName = shieldedElements(${handleMethodName}($typedArgumentList));
@@ -218,7 +211,6 @@ public abstract class ${metafacade.logicName}
         $memberName = ($memberTypeName)shieldedElement(${handleMethodName}($typedArgumentList));
 #end
         ${handleMethodPostCondition};
-        ${memberName}Set = true;
         return $memberName;
     }
 
