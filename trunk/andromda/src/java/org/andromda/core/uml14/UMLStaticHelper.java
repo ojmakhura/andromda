@@ -222,7 +222,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper {
      * @param object The object to test
      * @return <code>true</code> if the test succeeds, <code>false</code> otherwise
      */
-    public boolean isAttribute(Object object) {
+    public static boolean isAttribute(Object object) {
         return (object instanceof Attribute);
     }
 
@@ -352,7 +352,7 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper {
      *
      *@author    Anthony Mowers
      */
-    private abstract static class FilteredCollection extends Vector {
+    private static abstract class FilteredCollection extends Vector {
         /**
          *  Constructor for the FilterCollection object
          *
