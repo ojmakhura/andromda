@@ -23,16 +23,6 @@ import org.apache.struts.action.ActionMessages;
 
 /**
 $controller.getDocumentation(" * ")
- *
-#foreach ($service in $controller.services)
-#set ($serviceName = $service.name)
-#set ($packageName = $service.packageName)
-#set ($ejbRefName = "ejb/${packageName}/${serviceName}")
- * @jboss.ejb-ref-jndi
- *      ref-name="${serviceName}Ref"
- *     jndi-name="${ejbRefName}/Remote"
- *
-#end
  */
 public abstract class ${controller.name} implements java.io.Serializable
 {
@@ -116,7 +106,7 @@ $operation.getDocumentation("     * ")
 
 #foreach ($service in $controller.services)
 #if ($str.isNotBlank($service.accessorImplementation))
-    protected final $service.fullyQualifiedName get${serviceName}()
+    protected final $service.fullyQualifiedName get${service.name}()
     {
         return $service.accessorImplementation;
     }
