@@ -40,7 +40,7 @@
 		<ant:copy todir="${maven.war.webapp.dir}">
 			<ant:fileset dir="${maven.build.src}">
 				<ant:include name="**/*.jsp"/>
-                <ant:include name="WEB-INF/validator-rules.xml"/>
+                <ant:include name="WEB-INF/*.xml"/>
 			</ant:fileset>
 		</ant:copy>
   	</postGoal>
