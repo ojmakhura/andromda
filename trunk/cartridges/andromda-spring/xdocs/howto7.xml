@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - HowTo - Exceptions</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+        <section name="Exceptions">
+            <p>
+                An application is not complete without a proper exception handling in place, this does not need
+                to be complex so it can be very straightforward to model too.
+            </p>
+            <p>
+                Simply model a class and assign it the <![CDATA[<<ApplicationException>>]]> stereotype or
+                the <![CDATA[<<UnexpectedException>>]]> stereotype (you will need to enable the Java cartridge
+                for this to work).
+            </p>
+            <p>
+                Please note that by default an exception will be generated for each service.
+            </p>
+            <p>
+                The next thing to do is draw a dependency from a <![CDATA[<<Entity>>]]> or
+                <![CDATA[<<Service>>]]> to this exception, this will make all operations throw this exception.
+                You may choose to have a single operation throw a specific exception by drawing the dependency
+                from that operation to the exception.
+            </p>
+            <p>
+                <img src="7/uml.png"/>
+            </p>
+            <p class="highlight">
+                A zip bundle containing all these files can be downloaded here:
+                <a href="resources/howto7.zip">howto7.zip</a>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="7/Car.hbm.xml.html"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a href="7/Car.java.html"><code>Car.java</code></a></li>
+                    <li class="impl"><a href="7/CarImpl.java.html"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a href="7/CarDao.java.html"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="7/CarDaoBase.java.html"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="7/CarDaoImpl.java.html"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="7/CarType.java.html"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="7/Person.hbm.xml.html"><code>Person.hbm.xml</code></a></li>
+                    <li class="gen"><a href="7/Person.java.html"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="7/PersonImpl.java.html"><code>PersonImpl.java</code></a></li>
+                    <li class="gen"><a href="7/PersonDao.java.html"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="7/PersonDaoBase.java.html"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="7/PersonDaoImpl.java.html"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="7/RentalService.java.html"><code>RentalService.java</code></a></li>
+                    <li class="gen"><a class="changed" href="7/RentalServiceBase.java.html"><code>RentalServiceBase.java</code></a></li>
+                    <li class="impl"><a href="7/RentalServiceImpl.java.html"><code>RentalServiceImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="7/RentalServiceException.java.html"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="7/ejb/RentalService.java.html"><code>ejb/RentalService.java</code></a></li>
+                    <li class="gen"><a class="changed" href="7/ejb/RentalServiceBean.java.html"><code>ejb/RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="7/ejb/RentalServiceHome.java.html"><code>ejb/RentalServiceHome.java</code></a></li>
+                    <li class="gen"><a href="7/ejb-jar.xml.html"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="7/jboss.xml.html"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="7/applicationContext.xml.html"><code>applicationContext.xml</code></a></li>
+                    <li class="gen"><a href="7/beanRefFactory.xml.html"><code>beanRefFactory.xml</code></a></li>
+                </ul>
+            </p>
+        </section>
+    </body>
+</document>

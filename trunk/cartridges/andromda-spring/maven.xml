@@ -1,0 +1,20 @@
+<project default="xdoc"
+         xmlns:ant="jelly:ant"
+         xmlns:util="jelly:util"
+         xmlns:j="jelly:core">
+
+    <!--
+            unzip all howto files so users can browse their content online
+    -->
+    <preGoal name="xdoc:generate-from-pom">
+        <ant:fileScanner var="howtos">
+            <ant:fileset dir="${maven.docs.src}">
+                <ant:include name="resources/howto*.zip"/>
+            </ant:fileset>
+        </ant:fileScanner>
+        <j:forEach var="howto" items="${howtos.iterator()}">
+            <ant:unzip src="${howto}" dest="${maven.docs.dest}"/>
+        </j:forEach>
+    </preGoal>
+
+</project>

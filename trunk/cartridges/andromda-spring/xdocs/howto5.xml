@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Spring - HowTo (5)</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+        <section name="Enumerations">
+            <p>
+                You might have noticed the <code>carType</code> attribute in the <code>Car</code> entity. It is
+                is a String type while in fact it makes more sense to restrict the set of possible values for
+                this attribute. This can be achieved using <i>type-safe enumerations</i>. This is the topic
+                discussed on this page.
+            </p>
+            <p>
+                Type-safe enumerations are modeled by means of a regular class, only this time you need
+                to use the <![CDATA[<<Enumeration>>]]> stereotype. All attributes on such an enumeration will
+                be known as enumeration literals, they will assume the default values you assign to the attributes,
+                or the name of the attribute in case a default value would be missing.
+            </p>
+            <p>
+                Enumerations are persisted by the Hibernate framework used behind the scenes, so it is
+                no problem to use these enumeration types for entity attributes, in the next picture we
+                have replaced type of the <code>carType</code> attribute in the <code>Car</code> entity
+                from <code>datatype.String</code> to <code>org.andromda.test.CarType</code>.
+            </p>
+            <p>
+                <img src="5/uml.png"/>
+            </p>
+            <p class="highlight">
+                A zip bundle containing all these files can be downloaded here:
+                <a href="resources/howto5.zip">howto5.zip</a>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a class="changed" href="5/Car.hbm.xml.html"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="5/Car.java.html"><code>Car.java</code></a></li>
+                    <li class="impl"><a href="5/CarImpl.java.html"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="5/CarDao.java.html"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="5/CarDaoBase.java.html"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="5/CarDaoImpl.java.html"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="5/CarType.java.html"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="5/Person.hbm.xml.html"><code>Person.hbm.xml</code></a></li>
+                    <li class="gen"><a href="5/Person.java.html"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="5/PersonImpl.java.html"><code>PersonImpl.java</code></a></li>
+                    <li class="gen"><a href="5/PersonDao.java.html"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="5/PersonDaoBase.java.html"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="5/PersonDaoImpl.java.html"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="5/RentalService.java.html"><code>RentalService.java</code></a></li>
+                    <li class="gen"><a href="5/RentalServiceBase.java.html"><code>RentalServiceBase.java</code></a></li>
+                    <li class="impl"><a href="5/RentalServiceImpl.java.html"><code>RentalServiceImpl.java</code></a></li>
+                    <li class="gen"><a href="5/ejb/RentalService.java.html"><code>ejb/RentalService.java</code></a></li>
+                    <li class="gen"><a href="5/ejb/RentalServiceBean.java.html"><code>ejb/RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="5/ejb/RentalServiceHome.java.html"><code>ejb/RentalServiceHome.java</code></a></li>
+                    <li class="gen"><a href="5/ejb-jar.xml.html"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="5/jboss.xml.html"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="5/applicationContext.xml.html"><code>applicationContext.xml</code></a></li>
+                    <li class="gen"><a href="5/beanRefFactory.xml.html"><code>beanRefFactory.xml</code></a></li>
+                </ul>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                We'll learn how to model entity finders and have the Query Language automatically
+                generated, the <a href="howto6.html">next</a> section will go into more details.
+            </p>
+        </section>
+    </body>
+</document>
