@@ -361,7 +361,7 @@ public class OclParser extends Parser {
     }
     
     /** 
-     *  A tree traversal class that searchs for a name in a expression.
+     *  A tree traversal class that searches for a name in a expression.
      */
     private class NameFinder extends DepthFirstAdapter {
 
