@@ -117,7 +117,7 @@ public class ${class.name}Impl extends ${class.name}
 ##    * target navigable: $adata.target.navigable
     *
     */
-    public ${targettypename} handleGet${utrn}()
+    public org.omg.uml.foundation.core.ModelElement handleGet${utrn}()
     {
         // TODO: add your implementation here!
         return null;

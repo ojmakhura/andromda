@@ -127,7 +127,7 @@ public abstract class ${class.name}
     }
 #end
 #if ($adata.isOne2One() || $adata.isMany2One())
-    protected abstract ${targettypename} get${utrn}();
+    protected abstract org.omg.uml.foundation.core.ModelElement handleGet${utrn}();
 
    /**
 #generateDocumentation ($adata.target.end "    ")
