@@ -31,6 +31,10 @@ public class DecoratorBase
      */
     public static Collection decoratedElements(Collection metaobjects)
     {
+        if (metaobjects == null)
+        {
+            return null;   // a decorated null is still a null! :-)
+        }
         ArrayList result = new ArrayList(metaobjects.size());
         DecoratorFactory df = DecoratorFactory.getInstance();
 
@@ -54,7 +58,7 @@ public class DecoratorBase
     {
         if (metaObject == null)
         {
-            return null;
+            return null;   // a decorated null is still a null! :-)
         }
         return DecoratorFactory.getInstance().createDecoratorObject(
             metaObject);
