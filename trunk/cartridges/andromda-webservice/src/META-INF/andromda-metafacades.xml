@@ -15,6 +15,9 @@
     <property reference="testImplementationNamePattern" default="{0}TestImpl"/>
     <property reference="arrayNamePrefix" default="ArrayOf"/>
     <property reference="schemaTypeMappingsUri"/>
+    <property reference="ejbJndiNamePrefix" default=""/>
+    <property reference="ejbInterfacePattern" default="{0}.{1}"/>
+    <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
     </metafacade>
@@ -53,33 +56,21 @@
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>WEBSERVICE</stereotype>
         </mapping>
-        <property reference="ejbJndiNamePrefix" default=""/>
-        <property reference="ejbInterfacePattern" default="{0}.{1}"/>
-        <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
-        <property reference="ejbJndiNamePrefix" default=""/>
-        <property reference="ejbInterfacePattern" default="{0}.{1}"/>
-        <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>WEBSERVICE</stereotype>
         </mapping>
-        <property reference="ejbJndiNamePrefix" default=""/>
-        <property reference="ejbInterfacePattern" default="{0}.{1}"/>
-        <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
-        <property reference="ejbJndiNamePrefix" default=""/>
-        <property reference="ejbInterfacePattern" default="{0}.{1}"/>
-        <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">

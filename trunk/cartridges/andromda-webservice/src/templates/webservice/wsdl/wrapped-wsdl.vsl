@@ -49,7 +49,7 @@
 #end
 ## Handle any type mappings that happen to be associationEnds 
 #if ($typeMapping.many)
-            <xsd:complexType name="$type.arrayName">
+            <xsd:complexType name="$type.wsdlArrayName">
                 <xsd:sequence>
                     <xsd:element name="item" minOccurs="0" maxOccurs="unbounded" form="qualified" type="${type.namespacePrefix}:${type.qName}" /> 
                 </xsd:sequence>
@@ -89,7 +89,7 @@ $type.getDocumentation("                        ", 64, false)
 #if ($otherEnd.navigable)
 #set ($type = $otherEnd.type)
 #if ($otherEnd.many)
-#set ($schemaType = "${type.namespacePrefix}:${type.arrayName}")
+#set ($schemaType = "${type.namespacePrefix}:${type.wsdlArrayName}")
 #else
 #set ($schemaType = "${type.namespacePrefix}:${type.qName}")
 #end                
