@@ -2,6 +2,7 @@ package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,13 +11,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.OutputUtils;
 import org.andromda.core.common.Property;
-import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -80,10 +82,10 @@ public class Cartridge
                 Resource resource = (Resource)resourceIt.next();
                 if (Template.class.isAssignableFrom(resource.getClass()))
                 {
-	                Template template = (Template)resource;
-	                this.processTemplate(template);
+                    Template template = (Template)resource;
+                    this.processTemplate(template);
                 }
-                else 
+                else
                 {
                     this.processResource(resource);
                 }
@@ -92,7 +94,7 @@ public class Cartridge
             factory.setActiveNamespace(previousNamespace);
         }
     }
-    
+
     /**
      * Processes the given <code>template</code>.
      * 
@@ -105,11 +107,9 @@ public class Cartridge
         TemplateModelElements templateModelElements = template
             .getSupportedModeElements();
         // handle the templates WITH model elements
-        if (templateModelElements != null
-            && !templateModelElements.isEmpty())
+        if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            Iterator stereotypeIt = templateModelElements
-                .stereotypeNames();
+            Iterator stereotypeIt = templateModelElements.stereotypeNames();
             while (stereotypeIt.hasNext())
             {
                 String stereotypeName = (String)stereotypeIt.next();
@@ -117,16 +117,16 @@ public class Cartridge
                     .get(stereotypeName);
                 if (modelElements == null)
                 {
-                    modelElements = context.getModelFacade()
-                        .findByStereotype(stereotypeName);
+                    modelElements = context.getModelFacade().findByStereotype(
+                        stereotypeName);
                     elementCache.put(stereotypeName, modelElements);
                 }
 
                 TemplateModelElement templateModelElement = templateModelElements
                     .getModelElement(stereotypeName);
 
-                Collection metafacades = MetafacadeFactory
-                    .getInstance().createMetafacades(modelElements);
+                Collection metafacades = MetafacadeFactory.getInstance()
+                    .createMetafacades(modelElements);
 
                 this.filterModelPackages(metafacades);
 
@@ -140,7 +140,7 @@ public class Cartridge
             this.processTemplateWithoutModelElements(template);
         }
     }
-    
+
     /**
      * Processes all <code>modelElements</code> for this template.
      * 
@@ -414,7 +414,7 @@ public class Cartridge
             throw new CartridgeException(errMsg, th);
         }
     }
-    
+
     /**
      * Processes the given <code>resource</code>
      * 
@@ -424,6 +424,44 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processResource";
         ExceptionUtils.checkNull(methodName, "resource", resource);
+        URL resourceUrl = ResourceUtils.getResource(resource.getPath());
+        if (resourceUrl == null)
+        {
+            throw new CartridgeException("Could not find resource --> '"
+                + resource.getPath() + "'");
+        }
+        try
+        {
+            Property outletProperty = Namespaces.instance()
+                .findNamespaceProperty(
+                    this.getName(),
+                    resource.getOutlet(),
+                    resource.isRequired());
+            if (outletProperty != null && !outletProperty.isIgnore())
+            {
+                // make sure we don't have any back slashes
+                String resourceUri = resourceUrl.toString().replace('\\', '/');
+                String uriSuffix = resourceUri.substring(resourceUri
+                    .lastIndexOf('/'), resourceUri.length());
+                String outletLocation = outletProperty.getValue();
+                if (outletLocation.endsWith("/"))
+                {
+                    // remove the extra slash
+                    outletLocation = outletLocation.replaceFirst("/", "");
+                }
+                File outFile = new File(outletLocation, uriSuffix);
+                OutputUtils.writeUrlToFile(resourceUrl, new File(
+                    outletLocation,
+                    uriSuffix).toString());
+                AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
+            }
+        }
+        catch (Throwable th)
+        {
+            String errMsg = "Error performing " + methodName;
+            logger.error(errMsg, th);
+            throw new CartridgeException(errMsg, th);
+        }
     }
 
     /**
