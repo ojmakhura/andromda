@@ -10,8 +10,10 @@ $service.getDocumentation(" * ")
 public interface ${service.name}LocalHome  
 #if($service.generalization)  
 	extends ${service.generalization.fullyQualifiedName}LocalHome
-#end
+#else
     extends javax.ejb.EJBLocalHome
+#end
+{
 #if (!$service.abstract)
     // -- JNDI entries
 	public static final String COMP_NAME="java:comp/env/${service.jndiName}/Local";
