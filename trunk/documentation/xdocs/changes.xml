@@ -6,6 +6,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.0M3-SNAPSHOT" date="2004-11-13">
+            <action dev="draftdog" type="fix">
+                The 'validwhen' validation feature has finally been implemented. It is now possible with bpm4struts
+                to additionally validate a specific field check for certain runtime conditions. This feature is mostly
+                used to confirm passwords; this example has been added to the online-store.
+            </action>
+        </release>
         <release version="3.0M3-SNAPSHOT" date="2004-11-12">
             <action dev="draftdog" type="add">
                 Specific generated pieces of JSP code has its own style, a stylesheet is generated for each page.
