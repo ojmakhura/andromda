@@ -97,7 +97,7 @@ $field.getDocumentation("     * ")
      * Returns this collection as an array, if the collection itself would be <code>null</code> this method
      * will also return <code>null</code>.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}
+     * @see ${action.formBeanType}#${field.getterName}
      */
     public Object[] ${field.getterName}AsArray()
     {
@@ -113,8 +113,8 @@ $field.getDocumentation("     * ")
     /**
      * Returns the Date instance representing the <code>$field.name</code> field.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}
-     * @see ${action.formBeanType}${hash}${field.getterName}DateFormatter
+     * @see ${action.formBeanType}#${field.getterName}
+     * @see ${action.formBeanType}#${field.getterName}DateFormatter
      */
     public $fieldType ${field.getterName}AsDate()
     {
@@ -155,8 +155,8 @@ $field.getDocumentation("     * ")
      * The conversion from Date to String (and vice-versa) is done by means of a date formatter, which
      * can be accessed here: <code>${field.getterName}DateFormatter()</code>.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}AsDate
-     * @see ${action.formBeanType}${hash}${field.getterName}DateFormatter
+     * @see ${action.formBeanType}#${field.getterName}AsDate
+     * @see ${action.formBeanType}#${field.getterName}DateFormatter
      */
     public java.lang.String ${field.getterName}()
     {
@@ -166,8 +166,8 @@ $field.getDocumentation("     * ")
     /**
      * Returns the date formatter used for the <code>$field.name</code> property.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}
-     * @see ${action.formBeanType}${hash}${field.getterName}AsDate
+     * @see ${action.formBeanType}#${field.getterName}
+     * @see ${action.formBeanType}#${field.getterName}AsDate
      */
     public final static java.text.DateFormat ${field.getterName}DateFormatter()
     {
