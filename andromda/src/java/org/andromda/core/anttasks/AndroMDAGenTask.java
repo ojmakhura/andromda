@@ -29,7 +29,7 @@ import org.apache.tools.ant.taskdefs.MatchingTask;
  * 
  * The &lt;andromda&gt; task facilitates Model Driven Architecture by enabling
  * the generation of source code, configuration files, and other such artifacts
- * from a UML model.
+ * from a MOF model.
  * 
  * @author    <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author    <A HREF="http://www.amowers.com">Anthony Mowers</A>
