@@ -17,7 +17,7 @@ import javax.xml.rpc.ServiceException;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author Chad Brandon
  */
-final class GuessController implements GuessControllerInterface
+final class GuessController extends GuessControllerInterface
 {
 
     /**
