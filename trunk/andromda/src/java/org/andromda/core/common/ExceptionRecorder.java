@@ -25,12 +25,9 @@ public class ExceptionRecorder
     private static final Logger logger = Logger
         .getLogger(ExceptionRecorder.class);
 
-    /** Andromda version */
-    private static String andromdaVersion = "not set";
-    
     /** File header constant */
     static final String FILE_HEADER = "------- AndroMDA Exception Recording -------";
-    
+
     /** Run line system constant */
     static final String RUN_SYSTEM = "Run system .....: ";
     /** Run line jdk constant */
@@ -108,7 +105,7 @@ public class ExceptionRecorder
         String prefix)
     {
         PrintWriter writer;
-        String tempName = null;
+        String uniqueName = null;
         String result = null;
         File exceptionFile;
         if (StringUtils.isEmpty(prefix))
@@ -117,27 +114,36 @@ public class ExceptionRecorder
         }
         try
         {
-            tempName = getUniqueName(prefix);
-            exceptionFile = new File(exceptionDirectory, tempName);
+            BuildInformation buildInformation = BuildInformation.instance();
+            uniqueName = getUniqueName(prefix);
+            exceptionFile = new File(exceptionDirectory, uniqueName);
             result = exceptionFile.getCanonicalPath();
             writer = new PrintWriter(new FileWriter(exceptionFile));
-            writer.println( FILE_HEADER );
-            writer.println("Version ........: " + getAndromdaVersion());
+            writer.println(FILE_HEADER);
+            writer.println("Version ........: "
+                + buildInformation.getBuildVersion());
             writer.println("Error ..........: " + message);
-            writer.println("Build ..........: " + BuildInformation.getBUILD_DATE());
-            writer.println("Build system ...: " + BuildInformation.getBUILD_SYSTEM());
-            writer.println("Build jdk ......: " + BuildInformation.getBUILD_JDK());
-            writer.println("Build builder ..: " + BuildInformation.getBUILD_BUILDER());
+            writer.println("Build ..........: "
+                + buildInformation.getBuildDate());
+            writer.println("Build system ...: "
+                + buildInformation.getBuildSystem());
+            writer.println("Build jdk ......: "
+                + buildInformation.getBuildJdk());
+            writer.println("Build builder ..: "
+                + buildInformation.getBuildBuilder());
             // Place in try/catch in case system is protected.
             try
             {
-                writer.println(RUN_SYSTEM + System.getProperty( "os.name") + System.getProperty( "os.version"));
-                writer.println(RUN_JDK + System.getProperty( "java.vm.vendor") + System.getProperty( "java.vm.version"));
-            } catch (Exception e)
+                writer.println(RUN_SYSTEM + System.getProperty("os.name")
+                    + System.getProperty("os.version"));
+                writer.println(RUN_JDK + System.getProperty("java.vm.vendor")
+                    + System.getProperty("java.vm.version"));
+            }
+            catch (Exception e)
             {
                 // ignore
-                writer.println(RUN_SYSTEM + "Not available");
-                writer.println(RUN_JDK + "Not available");
+                writer.println(RUN_SYSTEM + " unavailable");
+                writer.println(RUN_JDK + " unavailable");
             }
             writer.println("Main Exception .: " + throwable.getMessage());
             Throwable cause = ExceptionUtils.getRootCause(throwable);
@@ -169,14 +175,14 @@ public class ExceptionRecorder
      */
     protected static synchronized String getUniqueName(String prefix)
     {
-        String tempName = prefix + cvDateFormat.format(new Date()) + SUFFIX;
+        String uniqueName = prefix + cvDateFormat.format(new Date()) + SUFFIX;
         int suffix = 0;
-        File exceptionFile = new File(exceptionDirectory, tempName);
+        File exceptionFile = new File(exceptionDirectory, uniqueName);
         while (exceptionFile.exists())
         {
-            tempName = prefix + cvDateFormat.format(new Date()) + "_"
+            uniqueName = prefix + cvDateFormat.format(new Date()) + "_"
                 + suffix++ + SUFFIX;
-            exceptionFile = new File(exceptionDirectory, tempName);
+            exceptionFile = new File(exceptionDirectory, uniqueName);
             // Give another user an opportunity to
             // grab a file name. Use a random delay to
             // introduce variability
@@ -204,7 +210,7 @@ public class ExceptionRecorder
         {
             // ignore
         }
-        return tempName;
+        return uniqueName;
     } // end method getUniqueName
 
     static
@@ -237,25 +243,5 @@ public class ExceptionRecorder
     public static File getExceptionDirectory()
     {
         return exceptionDirectory;
-    }
-
-    /**
-     * Gets the version of AndroMDA.
-     * 
-     * @return Returns the andromdaVersion
-     */
-    public static String getAndromdaVersion()
-    {
-        return andromdaVersion;
-    }
-
-    /**
-     * Sets the version of AndroMDA.
-     * 
-     * @param andromdaVersion The version of AndroMDA.
-     */
-    public static void setAndromdaVersion(String andromdaVersion)
-    {
-        ExceptionRecorder.andromdaVersion = andromdaVersion;
     }
 }

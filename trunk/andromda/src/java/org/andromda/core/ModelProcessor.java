@@ -1,7 +1,5 @@
 package org.andromda.core;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,10 +8,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.BuildInformation;
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
@@ -22,7 +20,6 @@ import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
-import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
@@ -50,49 +47,9 @@ public class ModelProcessor
     private static ModelProcessor instance = null;
 
     /**
-     * Stores the current version of AndroMDA
-     */
-    private static final String VERSION;
-
-    /**
      * Stores whether or not to process all model packages
      */
     private boolean processAllModelPackages = true;
-
-    /**
-     * Find and load the version.
-     */
-    static
-    {
-        final String versionPropertiesUri = "META-INF/andromda-version.properties";
-        final String versionPropertyName = "andromda.version";
-        try
-        {
-            URL versionUri = ResourceUtils.getResource(versionPropertiesUri);
-            if (versionUri == null)
-            {
-                throw new ModelProcessorException("Could not load file --> '"
-                    + versionPropertiesUri + "'");
-            }
-            Properties properties = new Properties();
-            InputStream stream = versionUri.openStream();
-            properties.load(stream);
-            stream.close();
-            stream = null;
-            VERSION = properties.getProperty("andromda.version");
-            if (VERSION == null)
-            {
-                throw new ModelProcessorException("Could not find '"
-                    + versionPropertyName + "' in '" + versionPropertiesUri
-                    + "'");
-            }
-            ExceptionRecorder.setAndromdaVersion(VERSION);
-        }
-        catch (Throwable th)
-        {
-            throw new ModelProcessorException(th);
-        }
-    }
 
     /**
      * Gets the shared instance of the ModelProcessor.
@@ -297,6 +254,11 @@ public class ModelProcessor
             throw new ModelProcessorException(errorMesssage, th);
         }
     }
+    
+    /**
+     * Stores the current version of AndroMDA
+     */
+    private static final String VERSION = BuildInformation.instance().getBuildVersion();
 
     /**
      * Prints the console header.

@@ -3,7 +3,7 @@ package org.andromda.core.common;
 import junit.framework.TestCase;
 
 /**
- * JUnit tests for org.andromda.common.PathMatter
+ * JUnit tests for {@link org.andromda.common.PathMatcher}
  * 
  * @author Chad Brandon
  */

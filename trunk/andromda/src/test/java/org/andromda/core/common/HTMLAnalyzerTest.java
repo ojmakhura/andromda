@@ -6,6 +6,8 @@ import java.util.Iterator;
 import junit.framework.TestCase;
 
 /**
+ * JUnit test for {@link org.andromda.core.common.HTMLAnalyzer}
+ * 
  * @author Matthias Bohlen
  */
 public class HTMLAnalyzerTest
@@ -15,7 +17,7 @@ public class HTMLAnalyzerTest
     /**
      * Constructor for HTMLAnalyzerTest.
      * 
-     * @param arg0
+     * @param name
      */
     public HTMLAnalyzerTest(
         String name)
