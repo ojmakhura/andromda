@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project>
     <extend>../project.xml</extend>
     <artifactId>${pom.groupId}-core</artifactId>
-  	<name>${projectName} Core Business Tier</name>
-  	<shortDescription>The ${pom.name} Component</shortDescription>
+    <name>${projectName} Core Business Tier</name>
+    <shortDescription>The ${pom.name} Component</shortDescription>
     <dependencies>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-mda</artifactId>
-			<version>${pom.currentVersion}</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-common</artifactId>
-			<version>${pom.currentVersion}</version>
-			<properties>
-				<ejb.manifest.classpath>true</ejb.manifest.classpath>
-			</properties>
-		</dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-mda</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-common</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -42,22 +41,22 @@
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
         </dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>2.0.2</version>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.0.2</version>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
-		</dependency>
-		<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm</artifactId>
-			<version>1.4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>1.4.3</version>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
-		</dependency>
+        </dependency>
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
@@ -125,7 +124,7 @@
     <build>
         <sourceDirectory>src/java</sourceDirectory>
         <resources>
-             <resource>
+            <resource>
                 <directory>${maven.build.src}</directory>
                 <excludes>
                     <exclude>**/*.java</exclude>
