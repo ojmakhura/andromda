@@ -21,9 +21,7 @@
                     <td valign="top" class="std">Bpm4Struts change</td>
                     <td valign="top" class="std">
                         The namespace property 'breadCrumbs' (boolean) has been replaced by the property
-                        'maxBreadCrumbs' (integer). To disable breadcrumbs specify zero. In order to properly
-                        use this feature at runtime you will need to include the breadcrumbs taglib, take a look
-                        at the samples' web module dependencies to see how it is done.
+                        'maxBreadCrumbs' (integer). To disable breadcrumbs specify zero.
                     </td>
                 </tr>
                 <tr>
