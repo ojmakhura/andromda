@@ -29,12 +29,11 @@ import org.apache.commons.collections.Predicate;
  * subclass mode.
  * </p>
  * <p>
- * The tagged value of <code>@andromda.hibernate.inheritance</code> is set on the base/root class. All
- *                                 subclasses must then follow the same
- *                                 strategy. NB if the strategy is changed after
- *                                 the initial generation, the impl classes have
- *                                 to be hand modified.
- *                                 </p>
+ * The tagged value of <code>@andromda.hibernate.inheritance</code> 
+ * is set on the base/root class. All subclasses must then follow the same
+ * strategy. NB if the strategy is changed after the initial generation, the 
+ * impl classes have to be hand modified.
+ * </p>
  * @author Martin West
  */
 public class HibernateEntityLogicImpl
