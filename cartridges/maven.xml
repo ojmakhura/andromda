@@ -11,7 +11,6 @@
   	</goal> 
   		 
   	<j:set var="andromda.metafacade.generated.dir" value="${maven.build.src}/andromda/meta"/>
-  	<j:set var="andromda.metafacade.manual.dir" value="${maven.src.dir}/facades/manual"/>
   		 
     <preGoal name="java:compile"> 
    		<attainGoal name="generate-source"/>
@@ -43,13 +42,7 @@
 					location="${andromda.metafacade.generated.dir}"/>
 				<maven:addPath
 					id="maven.compile.src.set"
-					refid="metafacade.generated.src"/>     		     
-				<ant:path
-					id="metafacade.manual.src"
-					location="${andromda.metafacade.manual.dir}"/>
-				<maven:addPath
-					id="maven.compile.src.set"
-					refid="metafacade.manual.src"/>      	
+					refid="metafacade.generated.src"/>     		         	
 			</j:if>
 		</j:if>
 		<j:set var="lastBuildDir" value="${currentBuildDir}"/>
@@ -85,14 +78,10 @@
 		<!-- move the xref docs to the correct location -->
 		<j:set var="jxrDestDir" value="${maven.docs.dest}/xref"/>
 		<j:set var="javaSourceJxr" value="${jxrDestDir}/src/java"/>
-		<j:set var="manualSourceJxr" value="${jxrDestDir}/src/facades/manual"/>
 		<j:set var="generatedSourceJxr" value="${jxrDestDir}/target/src/andromda/meta"/>
 		<ant:available 
 			property="javaJxrPresent" 
-			file="${javaSourceJxr}"/>  
-		<ant:available 
-			property="manualJxrPresent" 
-			file="${manualSourceJxr}"/>   
+			file="${javaSourceJxr}"/>     
 		<ant:available 
 			property="generatedJxrPresent" 
 			file="${generatedSourceJxr}"/>  
@@ -100,9 +89,6 @@
 			<j:if test="${javaJxrPresent}">
 				<ant:fileset dir="${javaSourceJxr}"/>
 			</j:if>			
-			<j:if test="${manualJxrPresent}">
-				<ant:fileset dir="${manualSourceJxr}"/>
-			</j:if>
 			<j:if test="${generatedJxrPresent}">
 				<ant:fileset dir="${generatedSourceJxr}"/>
 			</j:if>
