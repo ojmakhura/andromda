@@ -108,6 +108,34 @@
                     A typical example would to forget to tag the first transition in an activity
                     graph with the FrontEndEvent stereotype.
                 </p>
+                <p>
+                    Here are some common exceptions with a description and their resolution
+                </p>
+                <p>
+                    <table>
+                        <tr>
+                            <th>Exception</th>
+                            <th>Description</th>
+                            <th>Resolution</th>
+                        </tr>
+                        <tr>
+                            <td>NullPointerException at StrutsActionLogicImpl.getPackageName(StrutsActionLogicImpl.java)</td>
+                            <td>The cartridge tried to resolve the package for an action by trying to look for the controller, the controller cas not found.</td>
+                            <td>Make sure all activity graphs have a controller assigned to them.</td>
+                        </tr>
+                        <tr>
+                            <td>ClassCastException at StrutsActivityGraphLogic.getController(StrutsActivityGraphLogic.java)</td>
+                            <td>A controller was found but does not seem suited for bpm4struts.</td>
+                            <td>Make sure all your controller classes have the &lt;&lt;FrontEndController&gt;&gt; stereotype.</td>
+                        </tr>
+                        <tr>
+                            <td>MethodInvocationException at class StrutsTriggerLogicImpl</td>
+                            <td>A method was called on one of the triggers, but some of the required information was not found, such as the name.</td>
+                            <td>Make sure all triggers on transitions going out of a jsp page (action states with the
+                                FrontEndView stereotype) have a suitable name, it may not be empty.</td>
+                        </tr>
+                    </table>
+                </p>
             </answer>
         </faq>
 
