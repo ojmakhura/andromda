@@ -375,8 +375,9 @@
              Copy the distribution to the server.
          ================================================================= -->
     <goal name="deploy-distribution">
-       <!--attainGoal name="deploy-docs"/-->
+       <attainGoal name="deploy-docs"/>
        <attainGoal name="deploy-repository"/>
+       <attainGoal name="deploy-build"/>
     </goal>
         
     <!-- =================================================================
@@ -407,6 +408,11 @@
         <ant:exec executable="rsync">
             <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_tgt}"/>
         </ant:exec>
+    </goal>
+    <!-- =================================================================
+             Copy the build artifacts to the server.
+         ================================================================= -->
+    <goal name="deploy-build">
         <!-- Add -n to test, just lists out the files that would be xfr'ed -->
         <j:set var="rsync_arg1" value="-vCuoprz"/>
         <j:set var="rsync_arg2" value="--include='/distributions/*.zip'"/>
