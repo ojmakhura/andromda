@@ -46,12 +46,12 @@
 		</ant:copy>
   	</postGoal>
 
-<!--
+    <!--
         | We are going to make a WAR bundle in which the JSPs have been precompiled,
         | this means we will need to generate the Java source from those JSPs. This is
         | all done after the war has been generated.
     -->
-    <postGoal name="war:war">
+    <postGoal name="ignore::war:war">
 
         <!-- setting up the directories to work with -->
         <ant:property name="jsp.precompilation.java" value="${war.precompile.jsp}/jsp-java"/>
