@@ -50,9 +50,9 @@ public class SomeClass
                         into that block). Example:
                    </p>
                    <source>
-for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
+for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext();)
 {
-    ModelElement stereotype = (ModelElement)stereotypeIt.next();
+    ModelElement stereotype = (ModelElement)stereotypeIterator.next();
     stereoTypeNames.add(stereotype.getName());
 }                        
                     </source>
@@ -97,7 +97,7 @@ for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
                     <p>
                         <strong>Variable Names:</strong> <em>attr</em> should be written
                         as <code>attribute</code>, <em>collIdents</em> should be 
-                        <code>identifiers</code> (the type is Collection, don?t specify that 
+                        <code>identifiers</code> (the type is Collection, don't specify that
                         in the name), <strong>the code should read as plain English</strong>.
                     </p>
                 </li>
