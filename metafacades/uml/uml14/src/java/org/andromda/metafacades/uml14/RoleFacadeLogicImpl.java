@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.MetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -52,27 +53,36 @@ public class RoleFacadeLogicImpl
      */
     public String getName()
     {
-        String name = super.getName();
-        String mask = StringUtils.trimToEmpty(String.valueOf(this
-            .getConfiguredProperty(MetafacadeProperties.ROLE_NAME_MASK)));
-        if (!mask.equalsIgnoreCase(MASK_NONE))
+        String name;
+        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_ROLE_NAME);
+        if (value != null)
         {
-            if (mask.equalsIgnoreCase(MASK_UPPERCASE))
-            {
-                name = name.toUpperCase();
-            }
-            else if (mask.equalsIgnoreCase(MASK_LOWERCASE))
-            {
-                name = name.toLowerCase();
-            }
-            else if (mask.equalsIgnoreCase(MASK_CAMELCASE))
-            {
-                name = StringUtilsHelper.upperCamelCaseName(name.toLowerCase());
-            }
-            else if (mask.equalsIgnoreCase(MASK_NOSPACE))
-            {
-                name = StringUtils.deleteWhitespace(name);
-            }
+            name = StringUtils.trimToEmpty(String.valueOf(value));
+        }
+        else
+        {
+            name = super.getName();
+	        String mask = StringUtils.trimToEmpty(String.valueOf(this
+	            .getConfiguredProperty(MetafacadeProperties.ROLE_NAME_MASK)));
+	        if (!mask.equalsIgnoreCase(MASK_NONE))
+	        {
+	            if (mask.equalsIgnoreCase(MASK_UPPERCASE))
+	            {
+	                name = name.toUpperCase();
+	            }
+	            else if (mask.equalsIgnoreCase(MASK_LOWERCASE))
+	            {
+	                name = name.toLowerCase();
+	            }
+	            else if (mask.equalsIgnoreCase(MASK_CAMELCASE))
+	            {
+	                name = StringUtilsHelper.upperCamelCaseName(name.toLowerCase());
+	            }
+	            else if (mask.equalsIgnoreCase(MASK_NOSPACE))
+	            {
+	                name = StringUtils.deleteWhitespace(name);
+	            }
+	        }
         }
         return name;
     }
