@@ -84,13 +84,26 @@
         code, won't you?)
       </p>
       <p class="std">
-        I have written some code that implements the logic of the car rental system.
-        When you start the generator using <code>ant -f build.xml</code>
-        or simply <code>ant</code>, you
-        will get a file called <code>car-rental-system.ear</code> which you can
-        deploy directly in JBoss (simply by copying it into JBoss's subdirectory
-        <code>server/default/deploy</code>).
-      </p>
+
+        I have written some code that implements the logic of the car rental
+        system. When you start the generator using <code>ant -f build.xml</code>
+        or simply <code>ant</code>, you will get two files called
+        <code>car-rental-system-ejb.ear</code> and <code>car-rental-system-hibernate.ear</code>
+        which you can deploy directly in JBoss (simply by copying it into
+        JBoss's subdirectory <code>server/default/deploy</code>). JBoss version 3.2.x
+        with Jetty has been successfully tested with this sample.
+        Users reported that it also works with older JBoss releases.
+        Users also reported that it does NOT work when JBoss is bundled with Tomcat
+        instead of Jetty.
+       </p>
+       <p class="std">
+         The hibernate version is deployed by using the <code>car-rental-system-hibernate.ear</code>
+   file.  You will also need to initialize the data base with the DDL schema, using one of
+   the files <code>hibernate-schema-initialize.sql</code>, or <code>hibernate-schema-reinitialize.sql</code>.
+   The file <code>hibernate-schema-remove.sql</code> can be used to remove the tables used by the
+   sample application.  With the HSQLDB database, a utility is available to apply the DDL. Example commands are
+   contained in the directory <code>src/db</code> of the car rental system source tree.
+       </p>
       <p class="std">
         <b>How do I invoke the sample app?</b>
       </p>
