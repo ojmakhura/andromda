@@ -283,18 +283,15 @@ public class $formBeanClassName extends ValidatorForm implements Serializable
         {
             return null;
         }
-        else
+        final StringBuffer buffer = new StringBuffer("[");
+        String prefix = "";
+        for (int i=0; i<objects.length; i++)
         {
-            final StringBuffer buffer = new StringBuffer("[");
-            String prefix = "";
-            for (int i=0; i<objects.length; i++)
-            {
-                buffer.append(prefix);
-                buffer.append(objects[i]);
-                prefix = ",";
-            }
-            return buffer.append("]").toString();
+            buffer.append(prefix);
+            buffer.append(objects[i]);
+            prefix = ",";
         }
+        return buffer.append("]").toString();
     }
 #end
 
