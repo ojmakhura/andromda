@@ -181,6 +181,14 @@ public class ClassifierDecoratorImpl extends ClassifierDecorator
         return sb.toString();
     }
 
+    /* (non-Javadoc)
+     * @see org.andromda.core.metadecorators.uml14.ClassifierDecorator#handleGetPackage()
+     */
+    protected ModelElement handleGetPackage()
+    {
+        return metaObject.getNamespace();
+    }
+
     // ------------------------------------------------------------
 
 }
