@@ -24,8 +24,11 @@
     <target name="compile" description="o Compile the code">
         <mkdir dir="${basedir}/src/java"/>
         <mkdir dir="${basedir}/target/classes"/>
-        <javac srcdir="${basedir}/src/java" destdir="${basedir}/target/classes" classpathref="classpath"
-               deprecation="true" debug="true" optimize="false"/>
+        <javac destdir="${basedir}/target/classes" classpathref="classpath"
+               deprecation="true" debug="true" optimize="false">
+            <src path="${basedir}/src/java"/>
+            <src path="${basedir}/target/src"/> 
+        </javac>
     </target>
 
     <target name="jar" description="o Create the JAR" depends="compile">
