@@ -8,8 +8,8 @@ import org.andromda.core.translation.library.LibraryTranslationFinder;
 import org.apache.log4j.Logger;
 
 /**
- * The "OCL" translator class that all translations are performed through.
- * This is the entry point to the framework.
+ * The <strong>OCL</strong> translator class that all translations
+ * are performed through. This is the entry point to OCL translation.
  * 
  * @author Chad Brandon
  */
@@ -57,9 +57,9 @@ public class ExpressionTranslator {
      *         about the expression.
 	 */
 	public Expression translate(
-			String translationName, 
-            Object contextElement, 
-            String expression) {
+		String translationName, 
+        Object contextElement, 
+        String expression) {
 		final String methodName = "ExpressionTranslator.translate";
 		ExceptionUtils.checkEmpty(methodName, "translationName", translationName);
 		ExceptionUtils.checkEmpty(methodName, "expression", expression);

@@ -78,6 +78,8 @@
             <!-- defines a reference to a <property/> element defined within 
                  a namespace element in your build file -->
             <xs:attribute name="reference" use="required"/>
+            <!-- defines the default value of the property if the property isn't supplied -->
+            <xs:attribute name="default" use="optional"/>    
         </xs:complexType>
     </xs:element>	
 </xs:schema>

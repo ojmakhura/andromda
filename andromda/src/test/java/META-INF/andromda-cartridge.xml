@@ -1,4 +1,11 @@
-<cartridge name="andromda-ejb">
+<cartridge name="andromda-sample">
+	
+    <!-- define template external properties -->
+    <property reference="propertyReferenceWithDefault" default="aDefaultValue"/>
+    <property reference="propertyReferenceNoDefault"/>
+    
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
 
     <template
         sheet="EntityBean.vsl"
