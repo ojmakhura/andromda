@@ -81,10 +81,10 @@ public class $service.testName
 #set ($instanceDef = "$argument.testTypeName $argument.name")
 #if(!$argument.type.primitive)
         $instanceDef = null;
-#elseif ($argumentTypeName.equals("boolean"))
+#elseif ($argument.testTypeName.equals("boolean"))
         $instanceDef = false;
 #else
-        $instanceDef = ($argumentTypeName)0;
+        $instanceDef = ($argument.testTypeName)0;
 #end
 #end
 		try 
