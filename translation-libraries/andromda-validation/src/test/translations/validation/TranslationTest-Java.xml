@@ -61,7 +61,7 @@
             inv: cards-&gt;select( valid = true )
         </from>
         <to>
-            org.andromda.translation.validation.OCLCollections.select(cards,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.equal(object.valid,true);}})
+            org.andromda.translation.validation.OCLCollections.select(cards,new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"valid"),true);}})
         </to>
     </expression>
 
@@ -71,7 +71,7 @@
             inv: program-&gt;size() = cards-&gt;select( valid = true )-&gt;size()
         </from>
         <to>
-            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.size(program),org.andromda.translation.validation.OCLCollections.size(org.andromda.translation.validation.OCLCollections.select(cards,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.equal(object.valid,true);}})))
+            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.size(program),org.andromda.translation.validation.OCLCollections.size(org.andromda.translation.validation.OCLCollections.select(cards,new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"valid"),true);}})))
         </to>
     </expression>
 
@@ -82,7 +82,7 @@
                     implies membership.loyaltyAccount-&gt;isEmpty()
         </from>
         <to>
-            (org.andromda.translation.validation.OCLCollections.forAll(partners.deliveredServices,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.equal(object.pointsEarned,0)&amp;&amp;org.andromda.translation.validation.OCLExpressions.equal(object.pointsBurned,0);}})?org.andromda.translation.validation.OCLCollections.isEmpty(membership.loyaltyAccount):true)
+            (org.andromda.translation.validation.OCLCollections.forAll(partners.deliveredServices,new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"pointsEarned"),0)&amp;&amp;org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"pointsBurned"),0);}})?org.andromda.translation.validation.OCLCollections.isEmpty(membership.loyaltyAccount):true)
         </to>
     </expression>
 
@@ -122,7 +122,7 @@
             inv: customer-&gt;forAll( age &gt;= 18 )
         </from>
         <to>
-            org.andromda.translation.validation.OCLCollections.forAll(customer,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.greaterOrEqual(object.age,18);}})
+            org.andromda.translation.validation.OCLCollections.forAll(customer,new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.greaterOrEqual(org.andromda.translation.validation.OCLIntrospector.invoke(object,"age"),18);}})
         </to>
     </expression>
 
@@ -143,16 +143,6 @@
         </from>
         <to>
             org.andromda.translation.validation.OCLExpressions.equal(this.name,"Edward")
-        </to>
-    </expression>
-
-    <expression>
-        <from>
-            context Membership
-            inv: customer.card.membership->includes( self )
-        </from>
-        <to>
-            org.andromda.translation.validation.OCLCollections.includes(customer.card.membership,new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return object.this;}})
         </to>
     </expression>
 
@@ -224,32 +214,19 @@
             pre: getModel().getAllUseCases()->one(name = 'Prince') = true
         </from>
         <to>
-            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),new org.apache.commons.collections.Predicate(){public boolean evaluate(Object object){return org.andromda.translation.validation.OCLExpressions.equal(object.name,"Prince");}}),true)
+            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"name"),"Prince");}}),true)
         </to>
     </expression>
 
-<!--
     <expression>
         <from>
-            context StrutsFinalState::getFullPath()
-            pre: getModel().getAllUseCases()->one(item | item.name = 'Prince') = true
+            context StrutsUseCase
+            inv: let thisName : String = getName() in getModel().getAllUseCases()->one(getName() = thisName)
         </from>
         <to>
-            org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),
-
-            new Filter()
-            {
-                public boolean filter(Object item)
-                {
-                    return org.andromda.translation.validation.OCLExpressions.equal(MethodUtils.invokeMethod(item,"name",null),"Prince");
-                }
-            }
-
-
-            ),true)
+            {String thisName=getName();org.andromda.translation.validation.OCLCollections.one(getModel().getAllUseCases(),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return org.andromda.translation.validation.OCLExpressions.equal(org.andromda.translation.validation.OCLIntrospector.invoke(object,"getName"),thisName);}})}
         </to>
     </expression>
--->
 
 <!--
     <expression>
