@@ -272,7 +272,7 @@ public class AndroMDAGenTask extends MatchingTask
         initOutletDictionary();
         initCartridges();
         initVelocityPropertiesAndEngine();
-        
+
         // log("Transforming into: " + destDir.getAbsolutePath(), Project.MSG_INFO);
 
         createRepository().createRepository().open();
@@ -321,7 +321,7 @@ public class AndroMDAGenTask extends MatchingTask
     private void initVelocityPropertiesAndEngine() throws BuildException
     {
         ve = new VelocityEngine();
-        
+
         boolean hasProperties = false;
         velocityProperties = new Properties();
 
@@ -369,14 +369,17 @@ public class AndroMDAGenTask extends MatchingTask
         try
         {
             // Tell Velocity it should also use the classpath when searching for templates
-            ExtendedProperties ep = ExtendedProperties.convertProperties(velocityProperties);
+            ExtendedProperties ep =
+                ExtendedProperties.convertProperties(velocityProperties);
 
             ep.addProperty(
                 RuntimeConstants.RESOURCE_LOADER,
                 "andromda.cartridges,file");
-            
+
             ep.setProperty(
-                "andromda.cartridges." + RuntimeConstants.RESOURCE_LOADER + ".class",
+                "andromda.cartridges."
+                    + RuntimeConstants.RESOURCE_LOADER
+                    + ".class",
                 ClasspathResourceLoader.class.getName());
 
             // This is important - Torsten Juergeleit
@@ -385,7 +388,7 @@ public class AndroMDAGenTask extends MatchingTask
             // processing another template file that contains a macro with the
             // same name. This setting forces inline macros to be local, not global.
             ep.setProperty(RuntimeConstants.VM_PERM_INLINE_LOCAL, "true");
-            
+
             ve.setExtendedProperties(ep);
             ve.init();
         }
@@ -611,32 +614,35 @@ public class AndroMDAGenTask extends MatchingTask
                         packageName,
                         outletDictionary);
 
-                try
+                if (outFile != null)
                 {
-                    // do not overwrite already generated file,
-                    // if that is a file that the user wants to edit.
-                    boolean writeOutputFile =
-                        !outFile.exists() || tc.isOverwrite();
-                    // only process files that have changed
-                    if (writeOutputFile
-                        && (lastModifiedCheck == false
-                            || modelLastModified > outFile.lastModified()
-                        /*
-                    *  || styleSheetLastModified > outFile.lastModified()
-                    */
-                        ))
+                    try
                     {
-                        processModelElementWithOneTemplate(
-                            context,
-                            modelElement,
-                            tc.getSheet(),
-                            outFile);
+                        // do not overwrite already generated file,
+                        // if that is a file that the user wants to edit.
+                        boolean writeOutputFile =
+                            !outFile.exists() || tc.isOverwrite();
+                        // only process files that have changed
+                        if (writeOutputFile
+                            && (lastModifiedCheck == false
+                                || modelLastModified > outFile.lastModified()
+                            /*
+                        *  || styleSheetLastModified > outFile.lastModified()
+                        */
+                            ))
+                        {
+                            processModelElementWithOneTemplate(
+                                context,
+                                modelElement,
+                                tc.getSheet(),
+                                outFile);
+                        }
                     }
-                }
-                catch (ClassTemplateProcessingException e)
-                {
-                    outFile.delete();
-                    throw new BuildException(e);
+                    catch (ClassTemplateProcessingException e)
+                    {
+                        outFile.delete();
+                        throw new BuildException(e);
+                    }
                 }
 
                 // restore original script helper in case we were

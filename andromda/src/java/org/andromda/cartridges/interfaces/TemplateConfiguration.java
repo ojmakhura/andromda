@@ -213,7 +213,7 @@ public class TemplateConfiguration
                 cartridgeDescriptor.getCartridgeName(),
                 outlet);
                 
-        return new File(physDir, outputFileName);
+        return physDir == null ? null : new File(physDir, outputFileName);
     }
 
     /**
