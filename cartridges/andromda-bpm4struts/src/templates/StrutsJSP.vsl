@@ -93,10 +93,34 @@
 ##  SETS THE BODY OF THIS PAGE
 ##
     <tiles:put name="body" type="string">
+#foreach ($action in $jsp.incomingActions)
+        <logic:present name="$action.formBeanName" scope="$action.actionScope">
+            <bean:define id="form" name="$action.formBeanName" type="$action.formBeanType" scope="$action.actionScope" toScope="page"/>
+        </logic:present>
+#end
+
+#foreach ($variable in $jsp.pageVariables)
+#set ($variableName = $variable.name)
+#set ($variableType = $variable.type.fullyQualifiedName)
+        <logic:present name="form" property="$variableName" scope="page">
+#if ($variable.type.getFullyQualifiedName(true) == "datatype.Date")
+            <bean:define id="$variableName" name="form" property="$variableName" type="java.lang.String" scope="page" toScope="page"/>
+#else
+            <bean:define id="$variableName" name="form" property="$variableName" type="$variableType" scope="page" toScope="page"/>
+#end
+        </logic:present>
+#if ($variable.backingListPresent)
+#set ($variableName = $variable.backingListName)
+        <logic:present name="form" property="$variableName" scope="page">
+            <bean:define id="$variableName" name="form" property="$variableName" type="$variable.backingListType" scope="page" toScope="page"/>
+        </logic:present>
+#end
+
+#end
 
         <%--
             If you want your own custom messages to be displayed
-            you just need to edit the custom.properties resource bundle.
+            you do just need to edit the custom.properties resource bundle.
 
             These properties can be used like this:
 
@@ -111,7 +135,7 @@
 #end
             <h1><bean:message key="$jsp.titleKey"/></h1>
         </div>
-        
+
 #foreach ($variable in $jsp.pageVariables)
 #if (!$variable.table)
         <c:choose>
