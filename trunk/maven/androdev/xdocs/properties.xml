@@ -17,7 +17,7 @@
           			<td>No</td>
           			<td>
           				The URI to the model used to run tests.
-            			(i.e.<code>maven.androdev.model.uri=jar:file:${maven.src.dir}/test/uml/ContractsModel.xml.zip!ContractsModel.xmi</code>).
+            			(i.e.<code>maven.androdev.model.uri=jar:file:${maven.src.dir}/test/uml/ContractsModel.xml.zip!/ContractsModel.xml</code>).
           			</td>
         		</tr>
        			<tr>
