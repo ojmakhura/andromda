@@ -4,7 +4,7 @@
 
     <properties>
         <author email="mattes3@users.sourceforge.net">Matthias Bohlen</author>
-        <author email="chdbrandon@yahoo.com">Chad Brandon</author>
+        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
         <title>AndroMDA Metafacades</title>
         <gennews>no</gennews>
     </properties>
@@ -200,15 +200,14 @@ public class SpecialAttribute extends Attribute {
                 to the essence of method generation:
             </p>
 <source>            
-#foreach ( $op in $class.operations)
-#set ($msig = $op.signature)
-#set ($visibility = $op.visibility.toString())
-#set ($returntype = $op.returnType.fullyQualifiedName)
-#if ($op.hasExceptions())
-    $visibility abstract $returntype ${msig}
-        throws $op.exceptionList;
+#foreach ( $operation in $class.operations)
+#set ($visibility = $operation.visibility)
+#set ($returntype = $operation.returnType.fullyQualifiedName)
+#if ($operation.hasExceptions())
+    $visibility abstract $returntype $operation.signature
+        throws $operation.exceptionList;
 #else
-    $visibility abstract $returntype ${msig};
+    $visibility abstract $returntype $operation.signature;
 #end
 </source>
             <p>
