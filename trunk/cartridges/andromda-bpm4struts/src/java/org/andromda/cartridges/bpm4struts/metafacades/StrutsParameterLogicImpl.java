@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ClassifierFacade;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -52,10 +53,11 @@ public class StrutsParameterLogicImpl
      */
     public java.lang.String handleGetNullValue()
     {
-        final String type = getFullyQualifiedName();
-        if ("boolean".equals(type))
+        final ClassifierFacade type = getType();
+        final String typeName = type.getFullyQualifiedName();
+        if ("boolean".equals(typeName))
             return "false";
-        else if (getType().isPrimitiveType())
+        else if (type.isPrimitiveType())
             return "0";
 //        else if (isArray()) return "new Object[0]";   //
 //        else if (isCollection()) return "java.util.Collections.EMPTY_LIST";   // same for collection
@@ -68,8 +70,9 @@ public class StrutsParameterLogicImpl
      */
     public boolean handleMustReset()
     {
-        final String type = getFullyQualifiedName();
-        return Boolean.class.getName().equals(type) || "boolean".equals(type) || getType().isArrayType();
+        final ClassifierFacade type = getType();
+        final String typeName = type.getFullyQualifiedName();
+        return Boolean.class.getName().equals(typeName) || "boolean".equals(typeName) || type.isArrayType();
     }
 
     /**
