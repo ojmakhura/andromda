@@ -1,7 +1,11 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EntityAssociationEndFacade;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -13,6 +17,38 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateAssociationEndLogicImpl
     extends HibernateAssociationEndLogic
 {
+    /**
+     * Value for set
+     */
+    private static final String COLLECTION_TYPE_SET = "set";
+
+    /**
+     * Value for map
+     */
+    private static final String COLLECTION_TYPE_MAP = "map";
+
+    /**
+     * Value for bags
+     */
+    private static final String COLLECTION_TYPE_BAG = "bag";
+
+    /**
+     * Value for list
+     */
+    private static final String COLLECTION_TYPE_LIST = "list";
+
+    /**
+     * Stores the valid inheritance strategies.
+     */
+    private static final Collection collectionTypes = new ArrayList();
+
+    static
+    {
+        collectionTypes.add(COLLECTION_TYPE_SET);
+        collectionTypes.add(COLLECTION_TYPE_MAP);
+        collectionTypes.add(COLLECTION_TYPE_BAG);
+        collectionTypes.add(COLLECTION_TYPE_LIST);
+    }
 
     // ---------------- constructor -------------------------------
 
@@ -234,6 +270,125 @@ public class HibernateAssociationEndLogicImpl
             }
         }
         return required;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionType()
+     */
+    protected String handleGetCollectionType()
+    {
+        String collectionType = (String) this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
+        if (collectionType == null)
+        {
+            collectionType = (String) this
+                .getConfiguredProperty(HibernateGlobals.HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
+        }
+        if (collectionTypes.contains(collectionType))
+        {
+            return collectionType;
+        }
+        //in case there is not a valid value, Set will be returned 
+        else
+        {
+            return COLLECTION_TYPE_SET;
+        }
+}
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getSortType()
+     */
+    protected String handleGetSortType()
+    {
+        String sortType = (String) this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE);
+        return sortType;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getOrderByColumns()
+     */
+    protected String handleGetOrderByColumns()
+    {
+        String orderColumns = (String) this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS);
+        if (orderColumns == null)
+        {
+            orderColumns = (String) ((EntityAssociationEndFacade) this.getOtherEnd())
+                .getColumnName();
+
+        }
+        return orderColumns;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getWhereClause()
+     */
+    protected String handleGetWhereClause()
+    {
+        String whereClause = (String) this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE);
+        return whereClause;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isIndexedCollection()
+     */
+    protected boolean handleIsIndexedCollection()
+    {
+        boolean indexed=false;
+        if (this.isOrdered())
+        {
+            if (this.getCollectionType().equals(COLLECTION_TYPE_LIST)
+                    || this.getCollectionType().equals(COLLECTION_TYPE_MAP))
+            {
+                indexed=true;
+            }
+        }
+        return indexed;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexName()
+     */
+    protected String handleGetCollectionIndexName()
+    {
+        String indexName = (String) this
+            .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
+        return indexName;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isMap()
+     */
+    protected boolean handleIsMap()
+    {
+        return this.getCollectionType().equalsIgnoreCase(
+                COLLECTION_TYPE_MAP);
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isList()
+     */
+    protected boolean handleIsList() {
+        return this.getCollectionType().equalsIgnoreCase(
+                COLLECTION_TYPE_LIST);
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isSet()
+     */
+    protected boolean handleIsSet() {
+        return this.getCollectionType().equalsIgnoreCase(
+                COLLECTION_TYPE_SET);
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isBag()
+     */
+    protected boolean handleIsBag() {
+        return this.getCollectionType().equalsIgnoreCase(
+                COLLECTION_TYPE_BAG);
     }
 
 }

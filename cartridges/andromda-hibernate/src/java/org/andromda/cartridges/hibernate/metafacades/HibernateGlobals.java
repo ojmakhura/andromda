@@ -84,4 +84,14 @@ class HibernateGlobals
      */
     static final String HIBERNATE_ENTITY_DYNAMIC_UPDATE = "hibernateEntityDynamicUpdate";
 
+    /**
+     * The namespace property storing default collection type for associations
+     */
+    static final String HIBERNATE_ASSOCIATION_COLLECTION_TYPE = "hibernateAssociationCollectionType";
+
+    /**
+     * The namespace property storing default sort method for collections
+     */
+    static final String HIBERNATE_ASSOCIATION_SORT_TYPE = "hibernateAssociationSortType";
+
 }

@@ -117,4 +117,29 @@ public class HibernateProfile
      */
     public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = profile.get("HIBERNATE_EHCACHE_OVERFLOW_TO_DISK");
 
+    /**
+     * Defines the association collection type
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE = profile.get("HIBERNATE_ASSOCIATION_COLLECTION_TYPE");
+
+    /**
+     * Defines the association sort type.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE = profile.get("HIBERNATE_ASSOCIATION_SORT_TYPE");
+
+    /**
+     * Defines the association order by columns names.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS = profile.get("TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS");
+
+    /**
+     * Defines the association where clause.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE = profile.get("HIBERNATE_ASSOCIATION_WHERE_CLAUSE");
+
+    /**
+     * Defines the index column for hibernate indexed collections
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN = profile.get("HIBERNATE_ASSOCIATION_INDEX_COLUMN");
+
 }
