@@ -18,6 +18,17 @@
                 </tr>
                 <tr>
                     <td valign="top" class="std">Aug 28, 2004</td>
+                    <td valign="top" class="std">New bpm4struts feature</td>
+                    <td valign="top" class="std">
+                        We now have session objects, these instances can be handled
+                        through protected controller methods. Controller interfaces
+                        are abstract classes now, so make sure you use 'extends'
+                        instead of 'implements' when using the cartridge after
+                        this date.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="std">Aug 28, 2004</td>
                     <td valign="top" class="std">Bpm4Struts changes</td>
                     <td valign="top" class="std">
                         The namespace property 'breadCrumbs' (boolean) has been replaced by the property
