@@ -118,7 +118,7 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#load(boolean, $identifier.type.fullyQualifiedName)
      */
-    public Object load(boolean transform, $identifier.type.fullyQualifiedName $identifier.name)
+    public Object load(final boolean transform, final $identifier.type.fullyQualifiedName $identifier.name)
     {
 #set ($argument = $identifier.name)
 #if($identifier.type.primitive)
@@ -133,21 +133,29 @@ public abstract class $entity.daoBaseName
         Object entity = null;
         try
         {
-            entity = ($entity.fullyQualifiedEntityName)
-                this.getHibernateTemplate().load(
-                    ${entity.fullyQualifiedEntityImplementationName}.class, 
-                    $argument);
-            if (transform)
+            org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
             {
-                entity = transform(entity);
-            }
-        }
-        catch (org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException ex)
-        {
+                public Object doInHibernate(net.sf.hibernate.Session session) 
+                    throws net.sf.hibernate.HibernateException
+                {
+                    Object entity = session.load(
+                        ${entity.fullyQualifiedEntityImplementationName}.class, 
+                        $argument);
+                    if (transform)
+                    {
+                        entity = transform(entity);
+                    }
+                    return entity;
+                }
+            };
+	        entity = this.getHibernateTemplate().execute(callback); 
+	    }
+	    catch (org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException ex)
+	    {
             // ignore since we just want null returned if no
             // object can be found
-        }
-        return entity;
+	    }
+	    return entity;
     }
     
      /**
