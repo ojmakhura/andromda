@@ -288,12 +288,8 @@ public class UMLStaticHelper extends UMLDefaultHelper implements ScriptHelper {
         }
 
         GeneralizableElement element = (GeneralizableElement) object;
-        Iterator i =
-            model
-                .getCore()
-                .getAChildGeneralization()
-                .getGeneralization(element)
-                .iterator();
+        Iterator i = element.getGeneralization().iterator();
+           
         if (i.hasNext()) {
             Generalization generalization = (Generalization) i.next();
             return generalization.getParent();
