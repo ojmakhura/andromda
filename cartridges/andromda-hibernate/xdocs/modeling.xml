@@ -258,7 +258,7 @@
                             <a href="#Entity"><![CDATA[<<Entity>>]]></a>
                         </td>
                         <td>
-                            Defines if the entity will limit the SQL insert statement to properties with values. This value overrides the namespace property for this entity.
+                            Defines if the entity will limit the SQL insert statement to properties with values. This value overrides the <a href="namespace.html#hibernateEntityDynamicInsert">namespace property</a> for this entity.
                             <ul>
                                 Permitted values are:
                                 <li>true</li>
@@ -275,7 +275,7 @@
                             <a href="#Entity"><![CDATA[<<Entity>>]]></a>
                         </td>
                         <td>
-                            Defines if the entity will limit the SQL update statements to properties that are modified. This value overrides the namespace property for this entity.
+                            Defines if the entity will limit the SQL update statements to properties that are modified. This value overrides the <a href="namespace.html#hibernateEntityDynamicUpdate">namespace property</a> for this entity.
                             <ul>
                                 Permitted values are:
                                 <li>true</li>
