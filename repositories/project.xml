@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+	<extend>../project.xml</extend>
+  	<id>andromda</id>
+  	<groupId>andromda</groupId>
+  	<name>AndroMDA Repositories</name>
+  	<inceptionYear>2003</inceptionYear>
+  	<currentVersion>3.0-SNAPSHOT</currentVersion>
+  	<organization>
+    	<name>AndroMDA Team</name>
+  	</organization>
+  	<!-- <logo>./images/project.png</logo>
+  	<url>../index.html</url> -->
+  	<repository>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:repositories/${pom.artifactId.replaceAll('andromda-', '').replaceAll('repository', '')}</connection>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/repositories/${pom.artifactId.replaceAll('andromda-', '').replaceAll('repository', '')}</url>
+  	</repository>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+    	<unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+    	<!-- Unit test classes -->
+    	<unitTest>
+	      	<includes>
+	        	<include>**/*Test.java</include>
+	     	</includes>
+			<resources>
+				<resource>
+					<directory>src/test/java</directory>
+					<excludes>
+						<exclude>**/*.java</exclude>
+					</excludes>
+				</resource>
+				<resource>
+					<directory>src/test/uml</directory>
+					<includes>
+						<include>**/*</include>
+					</includes>
+				</resource>
+			</resources>	
+    	</unitTest>
+  	</build>
+  	
+  	<!-- restrict the reports generated -->
+  	<reports>
+  		<report>maven-jxr-plugin</report>
+  		<report>maven-javadoc-plugin</report>
+  	    <report>maven-simian-plugin</report>
+  	    <report>maven-pmd-plugin</report>
+  	    <report>maven-jdepend-plugin</report>
+  	</reports>
+
+</project>

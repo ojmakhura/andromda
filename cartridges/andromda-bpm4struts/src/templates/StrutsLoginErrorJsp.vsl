@@ -1,0 +1,45 @@
+<%@ taglib uri="struts-html.tld" prefix="html" %>
+<%@ taglib uri="struts-bean.tld" prefix="bean" %>
+
+<html:html locale="true">
+
+    <head>
+        <title><bean:message key="main.title"/></title>
+        <html:base/>
+    </head>
+
+    <body>
+
+        <h3><bean:message key="login.failed"/></h3>
+
+        <form name="login" action="j_security_check" method="post">
+            <table>
+                <tr>
+                    <td><bean:message key="login.username"/> :</td>
+                    <td><input type="text" name="j_username"/></td>
+                </tr>
+                <tr>
+                    <td><bean:message key="login.password"/> :</td>
+                    <td><input type="password" name="j_password"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <html:submit titleKey="login.submit.title"><bean:message key="login.submit"/></html:submit>
+                    </td>
+                    <td>
+                        <html:reset titleKey="login.reset.title"><bean:message key="login.reset"/></html:reset>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <script type="text/javascript">
+        <!--
+            document.login.j_username.focus();
+            document.login.j_username.select();
+        //-->
+        </script>
+
+    </body>
+
+</html:html>

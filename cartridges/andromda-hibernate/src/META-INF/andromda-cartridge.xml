@@ -6,54 +6,58 @@
 -->
 
 <cartridge name="hibernate">
-    <property name="persistence" value="hibernate" />
-
-    <stereotype name="Entity" />
-    <stereotype name="Service" />
-
-    <outlet name="entities" />
-    <outlet name="entity-impls" />
-    <outlet name="session-beans" />
-    <outlet name="session-impls" />
+    
+    <!-- define the template objects that are made availble to the template -->
+    <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
 
     <template
-        stereotype="Entity"
         sheet="templates/HibernateEntity.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entities"
-        overWrite="true"
-    />
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="Entity"/>  
+        </modelElements>  
+    </template>
 
     <template
-        stereotype="Entity"
         sheet="templates/HibernateEntityImpl.vsl"
         outputPattern="{0}/{1}Impl.java"
         outlet="entity-impls"
-        overWrite="false"
-    />
+        overWrite="false">
+        <modelElements variable="class">
+            <modelElement stereotype="Entity"/>  
+        </modelElements>  
+    </template>
 
     <template
-        stereotype="Entity"
         sheet="templates/HibernateEntityFactory.vsl"
         outputPattern="{0}/{1}Factory.java"
         outlet="entities"
-        overWrite="true"
-    />
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="Entity"/>   
+        </modelElements> 
+    </template>
 
     <template
-        stereotype="Service"
         sheet="templates/HibernateSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
-        overWrite="true"
-    />
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="Service"/>
+        </modelElements>             
+    </template>
 
     <template
-        stereotype="Service"
         sheet="templates/HibernateSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
-        overWrite="false"
-    />
+        overWrite="false">
+        <modelElements variable="class">
+            <modelElement stereotype="Service"/>
+        </modelElements>    
+    </template>
 
 </cartridge>

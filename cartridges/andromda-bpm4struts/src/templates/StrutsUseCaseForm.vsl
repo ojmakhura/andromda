@@ -1,0 +1,90 @@
+#set ($generatedFile = "${class.fullFormBeanPath}.java")
+##
+##  CONSTANTS
+##
+#set ($formBeanClassName = $class.formBeanClassName)
+#set ($fields = $class.formFields)
+##
+##  START TEMPLATE
+##
+package $class.packageName;
+
+import java.io.Serializable;
+
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.validator.ValidatorForm;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * @struts.form
+ *      name="$class.formBeanName"
+ */
+public class $formBeanClassName extends ValidatorForm implements Serializable
+{
+#foreach ($field in $fields)
+    private $field.type.fullyQualifiedName $field.name;
+#if ($field.hasBackingList())
+    private $field.backingListType $field.backingListName;
+#end
+#end
+
+#foreach ($field in $fields)
+#set ($fieldType = $field.type.fullyQualifiedName)
+#set ($fieldName = $field.name)
+#if ($field.isCollection())
+    public void ${field.setterName}($fieldType $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    public $fieldType ${field.getterName}()
+    {
+        return this.${fieldName};
+    }
+
+    public void ${field.setterName}AsArray(Object[] $fieldName)
+    {
+        this.$fieldName = java.util.Arrays.asList($fieldName);
+    }
+
+    public Object[] ${field.getterName}AsArray()
+    {
+        return this.${fieldName}.toArray();
+    }
+#else
+    public void ${field.setterName}($fieldType $fieldName)
+    {
+        this.$fieldName = $fieldName;
+    }
+
+    public $fieldType ${field.getterName}()
+    {
+        return this.$fieldName;
+    }
+#end
+
+#if ($field.hasBackingList())
+#set ($backingListName = $field.backingListName)
+#set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
+    public void set${backingListMethod}($field.backingListType $backingListName)
+    {
+        this.$backingListName = $backingListName;
+    }
+
+    public $field.backingListType get${backingListMethod}()
+    {
+        return this.$backingListName;
+    }
+
+#end
+#end
+    public void reset(ActionMapping mapping, HttpServletRequest request)
+    {
+#foreach ($field in $fields)
+#if ($field.mustReset())
+        this.$field.name = $field.nullValue;
+#end
+#end
+    }
+}

@@ -1,0 +1,129 @@
+#set ($generatedFile = "${class.fullPath}.java")
+##
+##  CONSTANTS
+##
+#set ($useCase = $class.useCase)
+#set ($formBeanClassName = $useCase.formBeanClassName)
+##
+##  START TEMPLATE
+##
+package $class.packageName;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class $class.name implements ${class.name}Interface
+{
+    private static $class.name instance = null;
+
+    /**
+     * Singleton constructor
+     */
+    private ${class.name}()
+    {
+    }
+
+    /**
+     * Convenient constructor for child classes. It allows classes
+     * that extend this one to set their own static instance without
+     * the need for a protected variable or overwriting the
+     * <code>getInstance()</code> method.
+     */
+    protected ${class.name}($class.name instance)
+    {
+        this.instance = instance;
+    }
+
+    /**
+     * Singleton instance accessor
+     */
+    public static synchronized ${class.name} getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new ${class.name}();
+        }
+        return instance;
+    }
+
+#foreach ($operation in $class.operations)
+#set ($parameters = $operation.parameters)
+#set ($visibility = $operation.visibility)
+#set ($returnType = $operation.type.fullyQualifiedName)
+#if (!$returnType)
+#set ($returnType = "void")
+#end
+    /**
+$operation.getDocumentation("     ")
+#if ($parameters.size() == 0)
+     * <p/>
+     * This method does not receive any parameters through the form bean.
+#elseif ($parameters.size() == 1)
+#set ($parameter = $parameters.iterator().next())
+     * <p/>
+     * This method receives the "$parameter.name" parameter,
+     * it is of type <code>$parameter.type.name</code> and is available
+     * through the argument form bean.
+#else
+     * <p/>
+     * This method receives the following parameters; they are all available
+     * through the argument form bean.
+     * <p/>
+     * <table cellpadding="3" rules="all">
+     *    <tr>
+     *       <th>Parameter Name</th>
+     *       <th>Parameter Type</th>
+     *    </tr>
+#foreach ($parameter in $parameters)
+     *    <tr>
+     *       <td>$parameter.name</td>
+     *       <td>$parameter.type.name</td>
+     *    </tr>
+#end
+     * </table>
+#end
+     */
+    $visibility $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse reponse) throws Exception
+    {
+#foreach ($parameter in $parameters)
+        final $parameter.type.name $parameter.name = form.${parameter.getterName}();
+#end
+
+        /*
+         * By default this method populates the complete form, it is up to you to replace this
+         * by those fields that are required (this cannot be determined here because it might be
+         * the case that many action call this controller method, each with their own set of
+         * parameters)
+         */
+        populateForm(form);
+#if ($returnType != "void")
+
+        return null;
+#end
+    }
+
+#set ($returnType = false)
+#end
+
+    /**
+     * This method exists solely to make the application work at runtime by populating
+     * the complete form with default values.
+     * <p/>
+     * You may remove this method if you want.
+     */
+    private void populateForm($formBeanClassName form)
+    {
+#foreach ($field in $useCase.formFields)
+        form.${field.setterName}($field.resetValue);
+#if ($field.hasBackingList())
+#set ($backingListName = $field.backingListName)
+#set ($backingListMethod = $str.upperCaseFirstLetter($backingListName))
+        form.set${backingListMethod}($field.backingListResetValue);
+#end
+#end
+    }
+}
+

@@ -1,0 +1,28 @@
+//
+// Attention: generated code (by MetafacadeInterface.vsl) - do not modify!
+//
+package ${class.interfacePackageName};
+#set ($myOutputFile = ${class.fullyQualifiedInterfaceName})
+#set ($myOutputFile = ${myOutputFile.replaceAll('\.', '/')})
+#set ($myOutputFile = "${myOutputFile}.java")
+
+/**
+$class.getDocumentation(" * ")
+ *
+ * Metafacade interface to be used by AndroMDA cartridges.
+ */
+public interface $class.name
+#set ($superclass = $class.generalization)
+#if ($superclass)
+       extends $superclass.fullyQualifiedInterfaceName
+#end
+{
+#foreach ( $method in $class.getMethodDataForPSM(false) )
+
+   /**
+$method.getDocumentation("    * ")
+    */
+    ${method.buildMethodDeclaration(true)};
+#end
+
+}

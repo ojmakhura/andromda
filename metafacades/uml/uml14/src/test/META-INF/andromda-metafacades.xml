@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- contains the default metafacade mappings -->
+<metafacades namespace="default">
+	<default className="org.andromda.core.metafacade.TestMetafacade1LogicImpl"/>
+	<metafacade 
+		metaobjectClass="org.andromda.core.metafacade.TestMetaobject1"
+		metafacadeClass="org.andromda.core.metafacade.TestMetafacade1LogicImpl"/>
+	<metafacade 
+		metaobjectClass="org.andromda.core.metafacade.TestMetaobject2"
+		metafacadeClass="org.andromda.core.metafacade.TestMetafacade2LogicImpl"/>
+	<metafacade 
+		metaobjectClass="org.andromda.core.metafacade.TestMetaobject3"
+		metafacadeClass="org.andromda.core.metafacade.TestMetafacade3LogicImpl"/>											
+</metafacades>

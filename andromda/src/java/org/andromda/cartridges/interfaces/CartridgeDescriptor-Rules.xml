@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+
+<!-- these are the digester rules used to load
+     a CartridgeDescriptor object by Apache Digester -->
+<digester-rules>
+
+	<pattern value="cartridge">
+	
+    	<object-create-rule 
+      		classname="org.andromda.cartridges.interfaces.DefaultCartridgeDescriptor" />
+      		
+		<set-properties-rule>
+ 			<alias attr-name="name" prop-name="cartridgeName" />
+ 		</set-properties-rule>      
+ 		
+ 		<pattern value="class">
+            <set-properties-rule>
+                <alias attr-name="name" prop-name="cartridgeClassName" />
+            </set-properties-rule>     		    		    
+ 		</pattern>
+ 		
+       	<!-- add the TemplateEngine implementation to the Cartridge -->
+      		
+		<pattern value="templateEngine">
+		
+			<set-properties-rule>
+	 			<alias attr-name="className" prop-name="templateEngineClass" />
+	 		</set-properties-rule>   
+	 		
+	 		<pattern value="macrolibrary">
+	 		
+                <call-method-rule
+                    methodname="addMacroLibrary" 
+                    paramcount="1" 
+                    paramtypes="java.lang.String"/>
+                    
+                <call-param-rule 
+                    attrname="name" 
+                    paramnumber="0" />
+                    
+             </pattern>
+		       
+	   	</pattern>
+      		
+      	<!-- add the property references to the Cartridge -->
+      		
+		<pattern value="property">
+		
+			<call-method-rule
+				methodname="addPropertyReference" 
+				paramcount="2" 
+				paramtypes="java.lang.String"/>
+				
+	    	<call-param-rule 
+	    		attrname="reference" 
+	    		paramnumber="0" />
+		       
+	   	</pattern>
+	   	
+	   	<!-- add the TemplateObjects to the Cartridge -->
+	   	
+		<pattern value="templateObject">
+		
+		    <object-create-rule 
+      			classname="org.andromda.cartridges.interfaces.TemplateObject" />
+      			
+			<set-properties-rule>
+	 			<alias attr-name="name" prop-name="name" />
+	 		</set-properties-rule>    
+					
+			<set-properties-rule>
+	 			<alias attr-name="className" prop-name="className" />
+	 		</set-properties-rule>    
+	 		
+	 		<!-- add the properties to the TemplateObject -->
+	 		
+			<pattern value="property">
+
+				<call-method-rule
+					methodname="addPropertyReference" 
+					paramcount="1"/>
+					
+		    	<call-param-rule 
+		    		attrname="reference" 
+		    		paramnumber="0" />
+				
+			</pattern>
+	    		
+	      	<set-next-rule methodname="addTemplateObject" />	    		
+		       
+	   	</pattern>
+	   	
+	   	<!-- add the Template to the Cartridge -->
+	   	
+		<pattern value="template">
+		
+	    	<object-create-rule 
+	      		classname="org.andromda.cartridges.interfaces.TemplateConfiguration" />     		
+
+			<set-properties-rule>
+	 			<alias attr-name="sheet" prop-name="sheet" />
+	 		</set-properties-rule> 
+
+			<set-properties-rule>
+	 			<alias attr-name="generateEmptyFiles" prop-name="generateEmptyFiles" />
+	 		</set-properties-rule> 
+
+			<set-properties-rule>
+	 			<alias attr-name="outputPattern" prop-name="outputPattern" />
+	 		</set-properties-rule> 
+	 		
+			<set-properties-rule>
+	 			<alias attr-name="outlet" prop-name="outlet" />
+	 		</set-properties-rule> 	 			      	
+	      		      	 
+			<set-properties-rule>
+	 			<alias attr-name="overWrite" prop-name="overwrite" />
+	 		</set-properties-rule> 	 	 	
+	 		
+			<set-properties-rule>
+	 			<alias attr-name="outputToSingleFile" prop-name="outputToSingleFile" />
+	 		</set-properties-rule> 	 
+	 		
+	 		<pattern value="modelElements">
+	 		    
+                <object-create-rule 
+                    classname="org.andromda.cartridges.interfaces.TemplateModelElements" />   
+                    
+                <set-properties-rule>
+                    <alias attr-name="variable" prop-name="variable" />
+                </set-properties-rule> 	 	 		    
+	 		    
+                <pattern value="modelElement">
+                    
+                    <object-create-rule 
+                        classname="org.andromda.cartridges.interfaces.TemplateModelElement" />                       
+    
+                    <set-properties-rule>
+                        <alias attr-name="stereotype" prop-name="stereotype" />
+                    </set-properties-rule> 
+                        
+                    <set-properties-rule>
+                        <alias attr-name="variable" prop-name="variable" />
+                    </set-properties-rule> 
+                        
+                    <set-next-rule methodname="addModelElement" />
+                    
+                </pattern>	 	 
+                
+                <set-next-rule methodname="setSupportedModelElements" />
+                		    
+	 		</pattern>
+
+	      	<set-next-rule methodname="addTemplateConfiguration" />
+		       
+	   	</pattern>
+	   	
+	</pattern>
+
+</digester-rules>

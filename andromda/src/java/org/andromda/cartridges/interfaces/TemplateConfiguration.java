@@ -3,107 +3,30 @@ package org.andromda.cartridges.interfaces;
 import java.io.File;
 import java.text.MessageFormat;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * This class implements the <code>&lt;template&gt;</code> tag
  * in a cartridge descriptor file.
  * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author Anthony Mowers
+ * @author Chad Brandon
  */
 public class TemplateConfiguration
 {
-    private ICartridgeDescriptor cartridgeDescriptor;
 
     /**
-     * Constructor which is used to build default
-     * template configurations when initializing the AndroMDAGenTask.
-     * 
-     * @param stereotype the name of the stereotype
-     * @param sheet name of the style sheet file
-     * @param outputPattern the pattern to build the output file name
-     * @param outlet the output directory
-     * @param overwrite yes/no whether output file should be overwritten
-     * @param generateEmptyFiles yes/no whether empty output files should be 
-     * produced
+     * The default constructor used by the XmlObjectFactory to 
+     * instantiate the template configuration.
      */
-    public TemplateConfiguration(
-        ICartridgeDescriptor cartridgeDescriptor,
-        String stereotype,
-        String sheet,
-        String outputPattern,
-        String outlet,
-        boolean overwrite,
-        boolean generateEmptyFiles)
-    {
-        this.cartridgeDescriptor = cartridgeDescriptor;
-        this.stereotype = stereotype;
-        this.sheet = sheet;
-        this.outputPattern = outputPattern;
-        this.outlet = outlet;
-        this.overwrite = overwrite;
-        this.generateEmptyFiles = generateEmptyFiles;
+    public TemplateConfiguration() {
+    	this.supportedModelElements = new TemplateModelElements();
     }
 
     /**
-     * Sets the class name of object that the
-     * template code generation scripts will use
-     * to access the object model.  The class must implement
-     * the ScriptHelper interface.
-     * 
-     * <p> This is an optional parameter and if it is not set
-     * it defaults to the default transform class or the
-     * one which was configured using the 
-     * <code>&lt;repository&gt;</code> tag. </p>
-     *	
-     * <p> By writing ones own transformer class some of the
-     * more complicated code generation logic can be moved from
-     * the code generation script and into the transformer
-     * implementation. </p>
-     * 
-     * @see org.andromda.core.common.ScriptHelper
-     * 
-     * @param scriptHelperClassName
-     */
-    public void setTransformClassname(String scriptHelperClassName)
-        throws ClassNotFoundException
-    {
-        transformClass = Class.forName(scriptHelperClassName);
-    }
-
-    /**
-     * Returns the class of the transform object
-     * that will be used to the code generation templates
-     * to access the object model.
-     * 
-     * @return Class	
-     */
-    public Class getTransformClass()
-    {
-        return transformClass;
-    }
-
-    /**
-    * Tells us the stereotype in the UML model that
-    * should drive code generation with this template.
-    * @param stereotype the name of the stereotype
-    */
-    public void setStereotype(String stereotype)
-    {
-        this.stereotype = stereotype;
-    }
-
-    /**
-     * Tells us the stereotype in the UML model that
-     * should drive code generation with this template.
-     * @return String the name of the stereotype
-     */
-    public String getStereotype()
-    {
-        return stereotype;
-    }
-
-    /**
-     * Tells us which Velocity stylesheet to use as a template.
+     * Tells us which VelocityTemplateEngine stylesheet to use as a template.
      * @param sheet points to the script
      */
     public void setSheet(String sheet)
@@ -112,7 +35,7 @@ public class TemplateConfiguration
     }
 
     /**
-     * Tells us which Velocity stylesheet to use as a template.
+     * Tells us which VelocityTemplateEngine stylesheet to use as a template.
      * @return File points to the script
      */
     public String getSheet()
@@ -203,68 +126,119 @@ public class TemplateConfiguration
     /**
      * Returns the fully qualified output file, that means:
      * <ul>
-     * <li>the output pattern has been translated</li>
-     * <li>the output dir name has been prepended</li>
+     *     <li>the output pattern has been translated</li>
+     *     <li>the output dir name has been prepended</li>
      * </ul>
      * 
      * @param inputClassName name of the class from the UML model
      * @param inputPackageName name of the package from the UML model 
      *                         in which the class is contained
-     * @param oldict the dictionary where outlet names can be resolved to
-     *               physical  directories
-     * @return File absolute file
+     * @param directoryUri the directory URI 
+     * @return File absolute directory.
      */
-    public File getFullyQualifiedOutputFile(
+    public File getOutputLocation(
         String inputClassName,
         String inputPackageName,
-        OutletDictionary oldict)
+        File directory) 
     {
         int dotIndex = sheet.indexOf(".");
         String sheetBaseName = sheet.substring(0, dotIndex);
-
-        Object[] arguments =
-            {
+    
+        //clean the strings since they could be null
+        inputClassName = StringUtils.trimToEmpty(inputClassName);
+        inputPackageName = StringUtils.trimToEmpty(inputPackageName);
+        
+        File file = null;
+        if (directory != null) 
+        {
+            Object[] arguments = {
                 inputPackageName.replace('.', File.separatorChar),
                 inputClassName,
-                sheetBaseName,
-                getStereotype()};
-
-        String outputFileName =
-            MessageFormat.format(outputPattern, arguments);
-
-        File physDir = oldict.lookupOutlet(
-                cartridgeDescriptor.getCartridgeName(),
-                outlet);
-                
-        return physDir == null ? null : new File(physDir, outputFileName);
+                sheetBaseName
+            };
+            
+            String outputFileName;
+            //if singleFileOutput is set to true, then
+            //just use the output pattern as the file to
+            //output to, otherwise we replace using message format.
+            if (this.isOutputToSingleFile()) 
+            {
+                outputFileName = outputPattern;
+            } else 
+            {
+                outputFileName = MessageFormat.format(outputPattern, arguments);
+            }
+            
+            file = new File(directory, outputFileName);
+        }
+        return file;
     }
-
+    
+    /**
+     * Tells us the model elements that are supported by 
+     * this template (i.e. will be processed by this template)
+     * 
+     * @return TemplateModelElements all the model elements that
+     *         should be processed by thsi template
+     * 
+     * @see org.andromda.cartridges.interfaces.TemplateModelElements
+     */
+    public TemplateModelElements getSupportedModeElements()
+    {
+        final String methodName = "TemplateConfiguration.getModelElements";
+        if (this.supportedModelElements == null) {
+        	throw new TemplateConfigurationException(methodName
+                + " - supportedModelElements is null!");
+        }
+        return this.supportedModelElements;
+    }
+    
+    /**
+     * Sets the model elements that are suported by this template.
+     * 
+     * @param modelElements the TemplateModelElements instance
+     * 
+     * @see org.andromda.cartridges.interfaces.TemplateModelElements
+     */
+    public void setSupportedModelElements(TemplateModelElements supportedModelElements) 
+    {
+        this.supportedModelElements = supportedModelElements;
+    }    
+    
+    /**
+     * If output to single file is <code>true</code>
+     * then all model elements found by the processor (i.e.
+     * all those having matching modelElements) will be 
+     * output to one file.
+     * 
+     * @return Returns the outputToSingleFile.
+     */
+    public boolean isOutputToSingleFile() {
+        return outputToSingleFile;
+    }
+    
+    /**
+     * @param outputToSingleFile The outputToSingleFile to set.
+     */
+    public void setOutputToSingleFile(boolean outputToSingleFile) {
+        this.outputToSingleFile = outputToSingleFile;
+    }
+    
     /**
      * Just for debugging.
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return "TemplateConfiguration: "
-            + stereotype
-            + " "
-            + sheet
-            + " "
-            + outputPattern
-            + " "
-            + outlet
-            + " "
-            + overwrite
-            + " "
-            + generateEmptyFiles;
+        return ToStringBuilder.reflectionToString(this);
     }
 
-    private String stereotype;
+    private TemplateModelElements supportedModelElements = null;
     private String sheet;
     private String outputPattern;
     private String outlet;
     private boolean overwrite;
     private boolean generateEmptyFiles;
-    private Class transformClass;
+    private boolean outputToSingleFile = false;
 
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../../project.xml</extend>
+	<id>car-rental-sample-hibernate-app</id>
+	<name>Car Rental Sample Hibernate Application</name>
+	<shortDescription>
+		The AndromMDA Car Rental System Sample using 
+		Hibernate for backend persistence.
+	</shortDescription>
+	<dependencies>
+		<!-- we need this dependency because the default maven-ear-plugin
+		     that comes with the current distribution is version 1.2
+		     which doesn't do everything we need -->
+		<dependency>
+			<groupId>maven</groupId>
+			<artifactId>maven-ear-plugin</artifactId>
+			<version>1.4</version>
+			<type>plugin</type>
+		</dependency>
+		<dependency>
+			<groupId>andromda-samples</groupId>
+			<artifactId>car-rental-sample-hibernate-ejb</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>ejb</type>
+	      	<properties>
+	        	<ear.bundle>true</ear.bundle>
+	     	</properties>
+		</dependency>
+		<dependency>
+			<groupId>andromda-samples</groupId>
+			<artifactId>car-rental-sample-common</artifactId>
+			<version>${pom.currentVersion}</version>
+	      	<properties>
+	        	<ear.module>true</ear.module>
+	     	</properties>
+		</dependency>
+		<dependency>
+			<groupId>andromda-samples</groupId>
+			<artifactId>car-rental-sample-hibernate-sar</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>sar</type>
+	      	<properties>
+	        	<ear.bundle>true</ear.bundle>
+	     	</properties>
+		</dependency>
+		<dependency>
+			<groupId>andromda-samples</groupId>
+			<artifactId>car-rental-sample-web</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>war</type>
+	      	<properties>
+	        	<ear.bundle>true</ear.bundle>
+				<ear.appxml.war.context-root>/carrental-ejb</ear.appxml.war.context-root>
+	     	</properties>
+		</dependency>
+	</dependencies> 
+
+</project>

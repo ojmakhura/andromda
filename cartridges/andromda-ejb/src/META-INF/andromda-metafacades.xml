@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- contains the ejb cartridge metafacade mappings -->
+<metafacades namespace="ejb">
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogicImpl">
+		<stereotype>FinderMethod</stereotype>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacadeLogicImpl">
+		<stereotype>PrimaryKey</stereotype>
+		<property reference="sqlMappingsUri"/>
+		<property reference="jdbcMappingsUri"/>
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
+		<property reference="maxSqlNameLength"/>
+		<!-- <stereotype>Entity</stereotype> -->
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Interface$Impl"
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
+		<property reference="maxSqlNameLength"/>
+		<!-- <stereotype>Entity</stereotype> -->
+	</metafacade>
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.AssociationEnd$Impl"
+		metafacadeClass="org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogicImpl">
+		<context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
+		<property reference="foreignKeySuffix"/>
+	</metafacade>			
+	<metafacade 
+		metaobjectClass="org.omg.uml.foundation.core.Attribute$Impl"
+		metafacadeClass="org.andromda.metafacades.uml14.EntityAttributeFacadeLogicImpl">
+		<context>org.andromda.cartridges.ejb.metafacades.EJBEntityFacade</context>
+		<property reference="sqlMappingsUri"/>
+		<property reference="jdbcMappingsUri"/>
+	</metafacade>		
+</metafacades>

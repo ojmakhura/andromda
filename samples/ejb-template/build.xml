@@ -8,7 +8,7 @@
    <property file="${andromda-core.home}/xdoclet.properties"/>
 
    <property name="build.dir" value="build/"/>
-   <property name="gensrc.dir" value="${build.dir}/gensrc/"/>
+   <property name="gensrc.dir" value="${basedir}/${build.dir}/gensrc/"/>
    <property name="classes.dir" value="${build.dir}/classes/"/>
    <property name="dist.dir" value="dist/"/>
 
@@ -44,13 +44,16 @@
      <property name="model" value="jar:file:${basedir}/src/uml/blank-model.zargo!/blank-model.xmi"/>
      <andromda basedir="."
         modelURL="${model}"
-        lastModifiedCheck="true"
-        typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
+        lastModifiedCheck="true">
 
-        <outlet cartridge="ejb" outlet="entity-beans" dir="${gensrc.dir}" />
-        <outlet cartridge="ejb" outlet="entity-impls" dir="${gensrc.dir}" />
-        <outlet cartridge="ejb" outlet="session-beans" dir="${gensrc.dir}" />
-        <outlet cartridge="ejb" outlet="session-impls" dir="${gensrc.dir}" />
+		<namespace name="ejb">
+			<property name="sqlTypeMappings" value=""/>
+			<property name="jdbcTypeMappings" value=""/>
+			<property name="entity-beans" value="${gensrc.dir}"/>
+			<property name="entity-impls" value="${gensrc.dir}"/>
+			<property name="session-beans" value="${gensrc.dir}"/>
+			<property name="session-impls" value="${gensrc.dir}"/>
+		</namespace>
 
      </andromda>
 

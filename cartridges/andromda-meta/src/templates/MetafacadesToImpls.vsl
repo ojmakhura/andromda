@@ -1,0 +1,3 @@
+#foreach ( $metafacade in $metafacades )
+${metafacade.fullyQualifiedInterfaceName}=${metafacade.fullyQualifiedName}LogicImpl
+#end

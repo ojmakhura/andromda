@@ -1,0 +1,34 @@
+<project default="install"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven">
+  	
+   	<!-- ==================================================================
+			Deploy/Undeploy the EJB Application                                                  
+  		 ================================================================== -->  		 
+	<goal name="deploy-ejb-app">
+		<maven:maven
+			descriptor="${basedir}/app/ejb/project.xml"
+			goals="deploy"/>
+	</goal>
+	
+	<goal name="undeploy-ejb-app">
+		<maven:maven
+			descriptor="${basedir}/app/ejb/project.xml"
+			goals="undeploy"/>
+	</goal>
+	
+   	<!-- ==================================================================
+			Deploy the Hibernate Application                                                  
+  		 ================================================================== -->   
+	<goal name="deploy-hibernate-app">
+		<maven:maven
+			descriptor="${basedir}/app/hibernate/project.xml"
+			goals="deploy"/>
+	</goal>
+	
+	<goal name="undeploy-hibernate-app">
+		<maven:maven
+			descriptor="${basedir}/app/hibernate/project.xml"
+			goals="undeploy"/>
+	</goal>  		 	  	
+</project>

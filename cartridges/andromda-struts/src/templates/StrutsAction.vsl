@@ -1,4 +1,4 @@
-#set ($packagename = $transform.findPackageName(${class.package}))
+#set ($packagename = $class.packageName)
 package $packagename;
 
 import java.io.IOException;
@@ -14,47 +14,31 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-#macro ( generateDocumentation $item $indent)
-#foreach ( $tgv in $item.taggedValues )
-#if ($tgv.tag == "documentation")
-#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
-#foreach ( $par in $paras )
-${indent}*
-${indent}* <p>
-#foreach ( $line in $par.lines )
-${indent}* $line
-#end
-${indent}* </p>
-#end
-#end
-#end
-#end
-
-#foreach ( $assocLink in $class.associationLinks )
-    #set ($adata = $transform.getAssociationData($assocLink))
-#if ($adata.target.navigable == "true")
-    #set ($class2 = $adata.target.type)
+#foreach ( $associationEnd in $class.associationEnds )
+#set ($target = $associationEnd.target)
+#if ($target.navigable)
+    #set ($class2 = $target.type)
     #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #set ($class2packagename = ${class2.packageName})
         #if ($class2packagename != $packagename)
-import $transform.findFullyQualifiedName(${class2});
+import ${class2.fullyQualifiedName};
         #end
     #end
 #end
 #end
 
 #foreach ( $dep in $class.dependencies )
-    #set ($class2 = $transform.findClassById($dep.targetType))
+    #set ($class2 = $dep.targetElement)
     #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
+        #set ($class2packagename = $class2.packageName)
         #if ($class2packagename != $packagename)
-import $transform.findFullyQualifiedName(${class2});
+import ${class2.fullyQualifiedName};
         #end
     #end
 #end
 
 /**
-#generateDocumentation ($class " ")
+$class.getDocumentation(" * ");
  *
  *
 #foreach ( $tgv in $class.taggedValues )
@@ -85,11 +69,11 @@ public class ${class.name} extends Action
         // Validate the request parameters specified by the user
         ActionErrors errors = new ActionErrors();
 
-#foreach ( $assocLink in $class.associationLinks )
-    #set ($adata = $transform.getAssociationData($assocLink))
-#if ($adata.target.navigable == "true")
-#if ($adata.target.roleName == "form")
-    #set ($class2 = $adata.target.type)
+#foreach ( $associationEnd in $class.associationEnd )
+#set($target = $associationEnd.otherEnd)
+#if ($target.navigable)
+#if ($target.name == "form")
+    #set ($class2 = $target.type)
     #if ($class2)
         $class2.name myForm = ($class2.name) form;
     #end

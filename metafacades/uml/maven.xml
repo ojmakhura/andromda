@@ -1,0 +1,45 @@
+<project default="install"
+	     xmlns:j="jelly:core"
+  		 xmlns:ant="jelly:ant"
+  		 xmlns:maven="jelly:maven">
+  		 
+  	<!-- ==================================================================
+  			 Installs all libraries in the local repository                                                    
+  		 ================================================================== -->
+  	<goal name="install">
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
+  		 
+  	<j:set var="andromda.metafacade.generated.dir" value="${maven.build.src}/andromda/meta"/>
+  	<j:set var="andromda.metafacade.manual.dir" value="${maven.src.dir}/facades/manual"/>
+  		 
+    <preGoal name="java:compile"> 
+        <attainGoal name="andromda:run"/>
+        <!-- add the paths of the generated source to the
+             maven compile path -->
+        <ant:path
+            id="metafacade.generated.src"
+            location="${andromda.metafacade.generated.dir}"/>
+        <maven:addPath
+            id="maven.compile.src.set"
+            refid="metafacade.generated.src"/>     	
+           
+        <j:set var="manualSourceDir" value="${andromda.metafacade.manual.dir}"/>
+        <j:if test="${manualSourceDir != null and manualSourceDir != ''}">
+            <ant:available 
+                property="manualSourcesPresent" 
+                file="${manualSourceDir}"/>   
+            <j:if test="${manualSourcesPresent}">       	     
+                <ant:path
+                    id="metafacade.manual.src"
+                    location="${andromda.metafacade.manual.dir}"/>
+                <maven:addPath
+                    id="maven.compile.src.set"
+                    refid="metafacade.manual.src"/>     
+            </j:if>   
+        </j:if>	
+    </preGoal>
+  		 
+</project>
+
+

@@ -3,85 +3,12 @@
 ################################################################
 ##
 ##
-## ---------------- macro ejbRefName -----------------
-##
-#macro(ejbRefName $class)ejb/${transform.replace($transform.findPackageName(${class.package}), '.', '/')}/${class.name}#end
-##
-## ---------------- macro firstJavadocParagraph -----------------
-##
-#macro ( firstJavadocParagraph $item $case $default)
-#set ( $parIter = false )
-#foreach ( $tgv in $item.taggedValues )
-#if ( $tgv.tag == "documentation" && !$parIter)
-#set ($parIter = $transform.formatHTMLStringAsParagraphs($tgv.value).iterator())
-#end
-#end
-#set ($text = "")
-#if ($parIter && $parIter.hasNext())
-#foreach ($line in ${parIter.next().lines} )
-#set ($text = "$text $line")
-#end
-#set ($text = ${text.trim()})
-#end
-#if ($text == "")
-#set ($text = "$default")
-#end
-#if ($case == "upper")
-$str.upperCaseFirstLetter($text)
-#elseif ($case == "lower")
-$str.lowerCaseFirstLetter($text)
-#else
-$text
-#end
-#end
-##
-## ---------------- macro remainingJavadocParagraphs -----------------
-##
-#macro ( remainingJavadocParagraphs $item $indent)
-#set ($skip = true)
-#foreach ( $tgv in $item.taggedValues )
-#if ($tgv.tag == "documentation")
-#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
-#foreach ( $par in $paras )
-#if ($skip)
-#set ($skip = false)
-#else
-${indent}*
-${indent}* <p>
-#foreach ( $line in $par.lines )
-${indent}* $line
-#end
-${indent}* </p>
-#end
-#end
-#end
-#end
-#end
-##
-## ---------------- macro generateDocumentation ----------------
-##
-#macro ( generateDocumentation $item $indent)
-#foreach ( $tgv in $item.taggedValues )
-#if ($tgv.tag == "documentation")
-#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
-#foreach ( $par in $paras )
-${indent}*
-${indent}* <p>
-#foreach ( $line in $par.lines )
-${indent}* $line
-#end
-${indent}* </p>
-#end
-#end
-#end
-#end
-##
 ## ---------------- macro copyTaggedValues ----------------
 ##
 #macro (copyTaggedValues $item $indent $exclude)
 #foreach ( $tgv in $class.taggedValues )
-#if ($tgv.tag.startsWith("@") && ! $exclude.contains($tgv.tag))
-${indent}* $tgv.tag $tgv.value
+#if ($tgv.name.startsWith("@") && ! $exclude.contains($tgv.name))
+${indent}* $tgv.name $tgv.value
 #end
 #end
 #end

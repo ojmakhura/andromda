@@ -1,0 +1,82 @@
+#set ($generatedFile = "${class.fullPath}Interface.java")
+##
+##  CONSTANTS
+##
+#set ($useCase = $class.useCase)
+#set ($formBeanClassName = $useCase.formBeanClassName)
+##
+##  START TEMPLATE
+##
+package $class.packageName;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+$class.getDocumentation(" * ")
+ *
+#foreach ($service in $class.services)
+#set ($serviceName = $service.name)
+#set ($packageName = $service.packageName)
+#set ($ejbRefName = "ejb/${packageName}/${serviceName}")
+ * @web.ejb-ref
+ *           name="${serviceName}Ref"
+ *           type="Session"
+ *           home="${packageName}.${serviceName}Home"
+ *         remote="${packageName}.${serviceName}"
+ *           link="${serviceName}"
+ *
+ * @jboss.ejb-ref-jndi
+ *      ref-name="${serviceName}Ref"
+ *     jndi-name="${ejbRefName}/Remote"
+ *
+#end
+ */
+public interface ${class.name}Interface
+{
+#foreach ($operation in $class.operations)
+#set ($parameters = $operation.parameters)
+#set ($visibility = $operation.visibility)
+#set ($returnType = $operation.type.fullyQualifiedName)
+#if (!$returnType)
+#set ($returnType = "void")
+#end
+    /**
+$operation.getDocumentation("     * ")
+#if ($parameters.size() == 0)
+     * <p/>
+     * This method does not receive any parameters through the form bean.
+#elseif ($parameters.size() == 1)
+#set ($parameter = $parameters.iterator().next())
+     * <p/>
+     * This method receives the "$parameter.name" parameter,
+     * it is of type <code>$parameter.type.name</code> and is available
+     * through the argument form bean.
+#else
+     * <p/>
+     * This method receives the following parameters; they are all available
+     * through the argument form bean.
+     * <p/>
+     * <table cellpadding="3" rules="all">
+     *    <tr>
+     *       <th>Parameter Name</th>
+     *       <th>Parameter Type</th>
+     *    </tr>
+#foreach ($parameter in $parameters)
+     *    <tr>
+     *       <td>$parameter.name</td>
+     *       <td>$parameter.type.name</td>
+     *    </tr>
+#end
+     * </table>
+#end
+     */
+    $visibility $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse reponse) throws Exception;
+
+#set ($returnType = false)
+#end
+}
+

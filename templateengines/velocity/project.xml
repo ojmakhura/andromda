@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>andromda-templateengine-velocity</id>
+  	<name>Velocity Template Engine</name>
+  	<shortDescription>The Velocity Template Engine</shortDescription>
+  	<description>
+  		This is the template engine that supports Apache's Velocity
+  		scripting language.
+  	</description>
+  	<package>org.andromda.templateengines.velocity.*</package>
+  	<logo>./images/project.png</logo>
+	<url>../index.html</url>
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-core</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+    	<dependency> 
+    		<groupId>velocity</groupId>
+      		<artifactId>velocity</artifactId>
+     		<version>1.4-rc1</version>
+    	</dependency> 	
+	    <dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.0</version>
+	    </dependency>
+	    <dependency>
+	      	<groupId>commons-collections</groupId>
+	      	<artifactId>commons-collections</artifactId>
+	      	<version>3.0</version>
+	    </dependency>
+		<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency> 
+	</dependencies>	
+</project>

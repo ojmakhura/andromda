@@ -1,12 +1,12 @@
 SIMPLE REPORT
 -------------
-#foreach ( $modelElement in $transform.modelElements )
+#foreach ( $modelElement in $model.rootPackage.modelElements )
 #if ($modelElement.name)
-ELEMENT = $transform.getFullyQualifiedName($modelElement)
-#foreach ( $attribute in $transform.getAttributes($modelElement) )
+ELEMENT = $modelElement.fullyQualifiedName)
+#foreach ( $attribute in $modelElement.attributes)
   attribute $attribute.name
 #end
-#foreach ( $operation in $transform.getOperations($modelElement) )
+#foreach ( $operation in $modelElement.operations )
   operation $operation.name
 #end
 #end   

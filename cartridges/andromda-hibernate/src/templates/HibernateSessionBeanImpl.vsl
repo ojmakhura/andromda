@@ -1,9 +1,9 @@
-#set ($packagename = $transform.findPackageName($class.package))
-package $packagename;
+
+package $class.packageName;
 
 #foreach ( $dep in $class.dependencies )
-    #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($transform.getStereotype($dep.id) == "Exception")
+    #set ($class2 = $dep.targetElement)
+    #if ($dep.hasStereotype("Exception"))
         #set ($defaultException = $class2)
     #end
 #end
@@ -16,20 +16,20 @@ public class ${class.name}BeanImpl
     // abstract in class ${class.name}Bean ...
 
 #foreach ( $op in $class.operations)
-#set ($msig = $transform.getOperationSignature($op))
+#set ($msig = $op.signature)
 
 ##
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
 ##
-#set ($parameterList = $transform.getOperationTypedParameterList($op))
+#set ($parameterList = $op.typedParameterList)
 #if ($parameterList.length() == 0)
 #set ($parameters = "net.sf.hibernate.Session sess")
 #else
 #set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
 #end
 
-#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
+#set ($returntype = $op.type.fullyQualifiedName)
 #if ($defaultException)
     protected $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
         throws $defaultException.name {
@@ -40,7 +40,7 @@ public class ${class.name}BeanImpl
 #if ("void" != $returntype)
 
         // Dummy return value, just that the file compiles
-#if (!$str.isPrimitiveType($returntype))
+#if (!$returntype.primitiveType)
         return null;
 #elseif ("boolean" == $returntype)
         return false;

@@ -1,5 +1,4 @@
-#set ($packagename = $transform.findPackageName($class.package))
-package $packagename;
+package $class.packageName;
 
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
@@ -9,35 +8,19 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
 
-#macro ( generateDocumentation $item $indent)
-#foreach ( $tgv in $item.taggedValues )
-#if ($tgv.tag == "documentation")
-#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
-#foreach ( $par in $paras )
-${indent}*
-${indent}* <p>
-#foreach ( $line in $par.lines )
-${indent}* $line
-#end
-${indent}* </p>
-#end
-#end
-#end
-#end
-##
 #foreach ( $dep in $class.dependencies )
-    #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($class2)
-        #if ($transform.getStereotype($dep.id) == "ServiceRef")
-	        #set ($class2packagename = $transform.findPackageName(${class2.package}))
-	        #if ($class2packagename != $packagename)
-import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
-	        #end
-	    #end
-    #end
-    #if ($transform.getStereotype($dep.id) == "Exception")
-        #set ($defaultException = $class2)
-    #end
+#set ($targetType = $dep.targetElement)
+#if ($targetType)
+#if ($dep.hasStereotype("ServiceRef"))
+#set ($targetTypePackageName = $targetType.packageName)
+#if ($targetTypePackageName != $class.packageName)
+import ${targetType.fullyQualifiedName}Home;
+#end
+#end
+#end
+#if ($dep.hasStereotype("Exception"))
+#set ($defaultException = $targetType)
+#end
 #end
 ##
 #if ($class.attributes.size() > 0)
@@ -47,7 +30,7 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
 #end
 ##
 /**
-#generateDocumentation ($class " ")
+$class.getDocumentation(" * ")
  *
  * @ejb.bean name="$class.name"
 #if ($stateful)
@@ -55,28 +38,28 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
 #else
  *       type="Stateless"
 #end
- *       local-jndi-name="${packagename}/${class.name}/LocalHome"
- *           jndi-name="${packagename}/${class.name}/Home"
+ *       local-jndi-name="${class.packageName}/${class.name}/LocalHome"
+ *           jndi-name="${class.packageName}/${class.name}/Home"
  *       view-type="both"
  * @ejb.interface generate="local,remote"
- *        remote-class="${packagename}.${class.name}"
- *        local-class="${packagename}.${class.name}Local"
+ *        remote-class="${class.packageName}.${class.name}"
+ *        local-class="${class.packageName}.${class.name}Local"
  * @ejb.home generate="local, remote"
- *        remote-class="${packagename}.${class.name}Home"
- *        local-class="${packagename}.${class.name}LocalHome"
+ *        remote-class="${class.packageName}.${class.name}Home"
+ *        local-class="${class.packageName}.${class.name}LocalHome"
  * @ejb.util generate="physical"
 #foreach ( $dep in $class.dependencies )
-#if ($transform.getStereotype($dep.id) == "ServiceRef")
- #set ($class2 = $transform.findClassById($dep.targetType))
- * @ejb.ejb-ref ejb-name="${class2.name}" view-type="$transform.getEjbRefViewType(${class2})" ref-name="ejb/${class2.name}BeanRef"
+#if ($dep.hasStereotype("ServiceRef"))
+ #set ($targetType = $dep.targetElement)
+ * @ejb.ejb-ref ejb-name="${targetType.name}" view-type="${remote}" ref-name="ejb/${targetType}BeanRef"
 #end
 #end
 #foreach ( $tgv in $class.taggedValues )
-#if ($tgv.tag != "documentation")
-#if ($tgv.tag == "---")
+#if ($tgv.name != "documentation")
+#if ($tgv.name == "---")
     #set ($tag = "")
 #else
-    #set ($tag = $tgv.tag)
+    #set ($tag = $tgv.name)
 #end
  * $tag    $tgv.value
 #end
@@ -88,12 +71,12 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
 #if ($stateful)
     // --------------- attributes ---------------------
 #foreach ( $att in $class.attributes )
-#set ($atttypename = $transform.findFullyQualifiedName($att.type))
+#set ($atttypename = $att.type.fullyQualifiedName)
 
    protected ${atttypename} ${att.name};
 
    /**
-#generateDocumentation ($att "    ")
+$att.getDocumentation("     * ")
     *
     * @ejb.interface-method view-type="both"
     * @ejb.transaction      type="Required"
@@ -115,20 +98,20 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
     // ---------------- business methods  ----------------------
 
 #foreach ($op in $class.operations)
-#set ($msig = $transform.getOperationSignature($op))
+#set ($msig = $op.signature)
 
 ##
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
 ##
-#set ($parameterList = $transform.getOperationTypedParameterList($op))
+#set ($parameterList = $op.typedParameterList)
 #if ($parameterList.length() == 0)
 #set ($parameters = "net.sf.hibernate.Session sess")
 #else
 #set ($parameters = "net.sf.hibernate.Session sess, ${parameterList}")
 #end
 
-#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
+#set ($returntype = $op.type.fullyQualifiedName)
 #if ($defaultException)
     protected abstract $returntype handle${str.upperCaseFirstLetter(${op.name})} ($parameters)
         throws $defaultException.name;
@@ -137,7 +120,7 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
 #end
 
    /**
-#generateDocumentation ($op "    ")
+$op.getDocumentation("     * ")
     *
     * @ejb.interface-method view-type="both"
     * @ejb.transaction type="Required"
@@ -157,14 +140,14 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
 ##  Add one additional parameter to the list of parameters:
 ##  a reference to the open Hibernate session.
 ##
-#set ($parameterList = $transform.getOperationParameterNames($op))
+#set ($parameterList = $op.parameterNames)
 #if ($parameterList.length() == 0)
 #set ($parameters = "sess")
 #else
 #set ($parameters = "sess, ${parameterList}")
 #end
 ##
-#set ($returntype = $transform.findFullyQualifiedName($op.getType()))
+#set ($returntype = $op.type.fullyQualifiedName)
 #if ("void" != $returntype)
             return handle${str.upperCaseFirstLetter($op.name)}($parameters);
 #else
@@ -227,15 +210,15 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
     * @ejb.create-method
     * @ejb.transaction type="Required"
     */
-    public void ejbCreate $transform.getAttributesAsList($class, true, false)
+    public void ejbCreate $class.attributesAsList(true)
            throws javax.ejb.CreateException
     {
 #foreach ( $att in $class.attributes)
-        set${str.upperCaseFirstLetter(${att.name})} (${att.name});
+        ${att.setterName} (${att.name});
 #end
     }
 
-    public void ejbPostCreate $transform.getAttributesAsList($class, true, false)
+    public void ejbPostCreate $class.attributesAsList(true)
            throws javax.ejb.CreateException
     {
     }
@@ -274,9 +257,9 @@ public abstract class ${class.name}Bean implements javax.ejb.SessionBean {
     // ---------------- accessor methods for (session!) bean references ---------------
 
 #foreach ( $dep in $class.dependencies )
-#if ($transform.getStereotype($dep.id) == "ServiceRef")
-   #set ($referencedClass = $transform.findClassById($dep.targetType))
-   #set ($homeInterfaceName = $transform.getHomeInterfaceName($referencedClass))
+#if ($dep.hasStereotype("ServiceRef"))
+   #set ($referencedClass = $dep.targetElement)
+   #set ($homeInterfaceName = "${referencedClass.name}Home")
    /**
     * This is to get the reference to the ${referencedClass.name} bean.
     * Obtains local home interface from default initial context

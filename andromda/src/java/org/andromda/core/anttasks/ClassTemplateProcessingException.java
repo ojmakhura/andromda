@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 /**
  * <p>This exception is thrown when something goes wrong during the
- * procesing of a Velocity template script.</p>
+ * procesing of a VelocityTemplateEngine template script.</p>
  * 
  * @author Matthias Bohlen
  */

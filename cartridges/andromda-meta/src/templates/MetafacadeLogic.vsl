@@ -1,0 +1,136 @@
+//
+// Attention: generated code (by Metafacade.vsl) - do not modify!
+//
+#set ($packagename = $class.package.fullyQualifiedName)
+package $packagename;
+
+## calculate metaclass and superclass
+#if ($class.metaclassDirectDependency)
+#set ($shieldedMetaclassTypeName = $class.metaclass.fullyQualifiedName)
+#else
+#set ($shieldedMetaclassTypeName = "java.lang.Object")
+#end
+##
+#set ($superclass = $class.generalization)
+##
+/**
+ * MetafacadeLogic for $shieldedMetaclassTypeName
+ *
+ * @see $class.fullyQualifiedInterfaceName
+ */
+public abstract class ${class.name}Logic
+       extends        org.andromda.core.metafacade.MetafacadeBase
+       implements     $class.fullyQualifiedInterfaceName
+{
+    protected $shieldedMetaclassTypeName metaObject;
+#if ($superclass)
+    private $superclass.fullyQualifiedInterfaceName super_;
+#end
+
+    public ${class.name}Logic ($shieldedMetaclassTypeName metaObject, java.lang.String context) {
+        super (metaObject, getContext(context));
+#if ($superclass)
+        this.super_ = 
+           (${superclass.fullyQualifiedInterfaceName})
+            org.andromda.core.metafacade.MetafacadeFactory
+                .getInstance()
+                .createFacadeImpl(
+                    "${superclass.fullyQualifiedInterfaceName}",
+                    metaObject,
+                    getContext(context));
+#end
+        this.metaObject = metaObject;
+    }
+    
+    /**
+     * Gets the context for this metafacade logic instance.
+     */
+    private static String getContext(String context) {
+    	if (context == null) {
+            context = "${class.fullyQualifiedInterfaceName}";
+        }
+        return context;
+    }
+   
+##
+
+#set ($atts = $class.attributes)
+#if ($atts.size() > 0)
+    // --------------- attributes ---------------------
+#foreach ( $att in $atts )
+#set ($atttypename = $att.type.fullyQualifiedName)
+
+   /**
+	* @see ${att.type.fullyQualifiedName}#${att.getterName}()
+    */
+    public abstract $atttypename ${att.getterName}();
+#end
+#end
+
+#set ($ops = $class.operations)
+#if ($ops.size() > 0)
+    // ---------------- real business methods ----------------------
+
+#foreach ( $op in $ops)
+	/**
+	 * @see ${class.fullyQualifiedInterfaceName}#${op.signature}()
+	 */
+    $op.visibility abstract $op.type.fullyQualifiedName ${op.signature};
+    
+#end
+#end
+##
+#set ($assocEnds = $class.associationEnds)
+#if ($assocEnds.size() > 0)
+    // ------------- relations ------------------
+    
+#foreach ( $assocEnd in $assocEnds )
+#if ($assocEnd.otherEnd.navigable)
+##
+#set ($trn = $assocEnd.otherEnd.name)
+#set ($utrn = $str.upperCaseFirstLetter($trn))
+##
+#set ($returnTypeName = $assocEnd.getterSetterTypeName)
+##
+#if ($assocEnd.one2Many || $assocEnd.many2Many) 
+    protected abstract $returnTypeName handleGet${utrn}();
+    
+	/**
+	 * @see ${class.fullyQualifiedInterfaceName}#${assocEnd.otherEnd.getterName}()
+	 */
+    public $returnTypeName get${utrn}() {
+        return shieldedElements(handleGet${utrn}());
+    }
+#else
+    protected abstract java.lang.Object handleGet${utrn}();
+    
+	/**
+	 * @see ${class.fullyQualifiedInterfaceName}#${assocEnd.otherEnd.getterName}()
+	 */
+    public $returnTypeName get${utrn}() {
+        return 
+            (${returnTypeName})
+            shieldedElement(handleGet${utrn}());
+    }
+#end
+
+#end
+#end
+#end
+##
+#if ($superclass)
+    // ----------- delegates to "superclass" ------------
+    
+#foreach ( $method in $superclass.getMethodDataForPSM(true) )
+    // from ${method.interfaceName}
+	${method.buildMethodDeclaration(true)} {
+#if ($method.hasReturnType())
+        return super_.${method.buildMethodCall()};
+#else
+        super_.${method.buildMethodCall()};
+#end
+	}
+#end
+#end
+##
+}

@@ -1,55 +1,54 @@
 <cartridge name="ejb">
-    <property name="persistence" value="ejb" />
 
-<!-- these are the new, official stereotypes -->
-    <stereotype name="Entity" />
-    <stereotype name="Service" />
+	<templateEngine>
+	    <!-- library of macros used in template engine -->
+        <macrolibrary name="templates/EJB.vm" />
+    </templateEngine>
 
-<!-- the outlet names -->
-    <outlet name="session-beans" />
-    <outlet name="entity-beans" />
-    <outlet name="session-impls" />
-    <outlet name="entity-impls" />
-
-<!-- library of macros used in templates -->
-    <macrolibrary name="templates/EJB.vm" />
+    <!-- define the template objects that are made availble to the template -->
+    <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     
-<!-- the official template definitions -->
+	<!-- the official template definitions -->
     <template
-        stereotype="Entity"
         sheet="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="entity-beans"
-        overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-    />
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="Entity"/>    
+        </modelElements>
+    </template>
 
     <template
-        stereotype="Entity"
         sheet="templates/EntityLocalIntf.vsl"
         outputPattern="{0}/{1}.java"
         outlet="entity-beans"
-        overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-    />
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="Entity"/>    
+        </modelElements>
+    </template>
 
     <template
-        stereotype="Entity"
         sheet="templates/EntityHome.vsl"
         outputPattern="{0}/{1}LocalHome.java"
         outlet="entity-beans"
-        overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-    />
-
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="Entity"/>    
+        </modelElements>
+    </template>
+    
     <template
-        stereotype="Entity"
         sheet="templates/EntityBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="entity-impls"
-        overWrite="false"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-    />
+        overWrite="false">
+        <modelElements variable="class">
+            <modelElement stereotype="Entity"/>  
+        </modelElements>  
+    </template>
 
 <!--
      The following definitions map services to session beans.
@@ -59,61 +58,67 @@
      (Matthias Bohlen)
 -->
     <template
-        stereotype="Service"
         sheet="templates/SessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
-        overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-    />
-
+        overWrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="Service"/>   
+        </modelElements> 
+    </template>
+    
     <template
-        stereotype="Service"
         sheet="templates/SessionLocalIntf.vsl"
         outputPattern="{0}/{1}Local.java"
         outlet="session-beans"
         overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-        generateEmptyFiles="false"
-    />
+        generateEmptyFiles="false">
+        <modelElements variable="class">        
+            <modelElement stereotype="Service"/>
+        </modelElements>       
+    </template>
 
     <template
-        stereotype="Service"
         sheet="templates/SessionRemoteIntf.vsl"
         outputPattern="{0}/{1}.java"
         outlet="session-beans"
         overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-        generateEmptyFiles="false"
-    />
+        generateEmptyFiles="false">
+        <modelElements variable="class">            
+            <modelElement stereotype="Service"/>  
+        </modelElements> 
+    </template>
 
     <template
-        stereotype="Service"
         sheet="templates/SessionLocalHome.vsl"
         outputPattern="{0}/{1}LocalHome.java"
         outlet="session-beans"
         overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-        generateEmptyFiles="false"
-    />
+        generateEmptyFiles="false">
+        <modelElements variable="class">           
+            <modelElement stereotype="Service"/> 
+        </modelElements>   
+    </template>
 
     <template
-        stereotype="Service"
         sheet="templates/SessionRemoteHome.vsl"
         outputPattern="{0}/{1}Home.java"
         outlet="session-beans"
         overWrite="true"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-        generateEmptyFiles="false"
-    />
+        generateEmptyFiles="false">
+        <modelElements variable="class">               
+            <modelElement stereotype="Service"/>  
+        </modelElements>  
+    </template>
 
     <template
-        stereotype="Service"
         sheet="templates/SessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
-        overWrite="false"
-        transformClass="org.andromda.cartridges.ejb.EjbScriptHelper"
-    />
+        overWrite="false">
+        <modelElements variable="class">          
+            <modelElement stereotype="Service"/>   
+        </modelElements> 
+    </template>
     
 </cartridge>

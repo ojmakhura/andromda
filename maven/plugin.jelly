@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+
+<project xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:util="jelly:util"
+         xmlns:maven="jelly:maven">
+       
+    <!-- ===================================================================
+         Performs intialization.  Mainly handles the adding of the
+         the andromda dependencies to the andromda.classpath, this is necessary 
+         because of the fact that AndroMDA uses the 'andromda:run' goal
+         to build some of its components, such as the metafacades.  This also
+         allows us to swich back and forth between normal and 'bootstrap' mode.
+         If the '-Dbootstrap=true' option is set, then this cartridge will be
+         run in bootstrap mode using the AndroMDA bootstrap dependencies instead
+         of the most current dependencies.  A bootstrap dependency has the samef
+         name as a normal dependencies with '-bootrap' inserted between 
+         the artifactId and the version, for (i.e. andromda-core-bootstrap-3.0.jar).                        
+         =================================================================== -->  
+	<goal name="andromda:init">
+		
+		<j:set var="version" value="${maven.andromda.bootstrap.version}"/>		
+		<util:tokenize var="artifacts" delim=",">${maven.andromda.bootstrap.artifacts}</util:tokenize>
+		
+		<j:set var="bootstrapMode" value="${maven.andromda.bootstrap.mode}"/>
+		<ant:path id="andromda.classpath">		  		
+			<ant:pathelement path="${plugin.dependencyClasspath}"/>  	
+            <j:forEach var="artifact" items="${artifacts}">
+            	
+            	<j:new var="mavenUtils" className="org.andromda.maven.MavenPluginUtils"/>
+            	<j:set var="artifactId" value="${mavenUtils.getArtifactId(artifact)}"/>
+            	<j:set var="groupId" value="${mavenUtils.getGroupId(artifact)}"/>
+            	
+            	<j:set var="artifactLocation" value="${maven.repo.local}/${groupId}/jars"/>
+            	
+				<j:choose>
+					<j:set 
+						var="bootstrapArtifactName" 
+						value="${artifactId}-bootstrap-${version}.jar"/>
+					<j:when test="${bootstrapMode}">
+						<!-- make sure we get the bootstrap version since it isn't
+							 a normal maven dependency (but only try to download 
+							 if we are online) -->
+						<j:if test="${context.online}">
+							<ant:get 
+								dest="${artifactLocation}/${bootstrapArtifactName}" 
+								usetimestamp="true" 
+								ignoreerrors="true" 
+								src="${maven.andromda.bootstrap.repos}/${groupId}/jars/${bootstrapArtifactName}"/>
+					    </j:if>
+						<ant:pathelement 
+							location="${artifactLocation}/${bootstrapArtifactName}"/>
+					</j:when>
+					<j:otherwise>
+						<ant:pathelement 
+							path="${artifactLocation}/${artifactId}-${version}.jar"/>
+					</j:otherwise>			
+				</j:choose>
+			</j:forEach>
+            <ant:path refid="maven.dependency.classpath"/>
+		</ant:path>
+	</goal>
+
+    <!-- ===================================================================
+         Call AndroMDA to generate code from the model                             
+         =================================================================== -->
+    <goal name="andromda:run"
+    	  prereqs="andromda:init">
+    	
+    	<j:choose>
+    		<j:when test="${bootstrapMode}">
+				<ant:echo>+---------------------------------------------------------------------------+</ant:echo>
+				<ant:echo>|    R u n n i n g   A n d r o M D A   I n   B O O T S T R A P   M o d e    |</ant:echo>
+				<ant:echo>+---------------------------------------------------------------------------+</ant:echo>      			
+    		</j:when>
+    		<j:otherwise>
+				<ant:echo>+--------------------------------------------+</ant:echo>
+				<ant:echo>|      R u n n i n g    A n d r o M D A      |</ant:echo>
+				<ant:echo>+--------------------------------------------+</ant:echo>     			
+    		</j:otherwise>
+    	</j:choose>
+ 
+  		<ant:taskdef
+            name="andromda"
+            classname="org.andromda.core.anttasks.AndroMDAGenTask"
+            classpathref="andromda.classpath"/>
+            
+        <andromda modelURL="${maven.andromda.model.uri}"
+                  basedir="${maven.andromda.src.dir}"
+                  includes="${maven.andromda.src.includes}"
+                  lastModifiedCheck="${maven.andromda.src.lastModifiedCheck}"
+                  processAllModelPackages="${maven.andromda.processAllModelPackages}">
+             	
+            <!-- set the maximum number of cartridges, and packages that may be set, 
+                 this can always be increased later, but not sure we would ever need to -->
+            <j:set var="maximum" value="30"/>
+
+            <!-- set the modelPackages -->  
+            <j:set var="index" value="0"/>
+            <j:forEach begin="0" end="${maximum}" indexVar="index">
+                <j:set var="indexVarName" value="maven.andromda.modelPackage.${index}.name"/>
+                <j:if test="${context.getVariable(indexVarName) != null}">
+                
+                    <modelPackage>
+                    
+                        <!-- set the name -->
+                        <ant:setProperty 
+                            name="name" 
+                            value="${context.getVariable(indexVarName)}"/>
+                        <!-- set shouldProcess -->
+                        <j:set 
+                            var="indexVarName" 
+                            value="maven.andromda.modelPackage.${index}.shouldProcess"/>
+                        <ant:setProperty 
+                            name="shouldProcess" 
+                            value="${context.getVariable(indexVarName)}"/>         
+                                           
+                    </modelPackage>
+                    
+                </j:if>
+            </j:forEach>        	
+  
+   			<!-- define the modelProcessor context elements -->     		
+            <j:set var="index" value="0"/>
+            <j:forEach begin="0" end="${maximum}" indexVar="index">
+              	<j:set var="indexVarName" value="maven.andromda.namespace.${index}.name"/>
+              	<j:if test="${context.getVariable(indexVarName) != null}">
+              	
+                	<namespace>
+                	
+                        <ant:setProperty 
+                        	name="name" 
+                        	value="${context.getVariable(indexVarName)}"/>
+                        
+                        <j:set var="nestedIndex" value="0"/>
+			            <j:forEach begin="0" end="10" indexVar="nestedIndex">
+			              	<j:set 
+			              		var="nestedVarName" 
+			              		value="maven.andromda.namespace.${index}.property.${nestedIndex}.name"/>
+			              	<j:if test="${context.getVariable(nestedVarName) != null}">
+			                	<property>
+			                        <ant:setProperty 
+			                        	name="name" 
+			                        	value="${context.getVariable(nestedVarName)}"/>      
+			                        <j:set 
+			                        	var="nestedVarName" 
+			                        	value="maven.andromda.namespace.${index}.property.${nestedIndex}.value"/>
+			                        <ant:setProperty 
+			                        	name="value" 
+			                        	value="${context.getVariable(nestedVarName)}"/>	   	
+			                        <j:set 
+			                        	var="nestedVarName" 
+			                        	value="maven.andromda.namespace.${index}.property.${nestedIndex}.ignore"/>
+			                        <ant:setProperty 
+			                        	name="ignore" 
+			                        	value="${context.getVariable(nestedVarName)}"/>					                        	
+			                	</property>
+			              	</j:if>
+			            </j:forEach>
+			            
+                	</namespace>
+                	
+              	</j:if>
+            </j:forEach>
+            
+            <!-- set the repository module search path -->
+            <repository>
+			    <moduleSearchPath>
+                    <j:set var="index" value="0"/>
+                    <j:forEach begin="0" end="${maximum}" indexVar="index">
+                        <j:set var="indexVarName" value="maven.andromda.repository.moduleSearchPath.location.${index}"/>
+                        <j:set var="location" value="${context.getVariable(indexVarName)}"/>
+                        <j:if test="${location != null}">
+                        
+                            <ant:pathelement>
+                                <ant:setProperty 
+                                    name="location" 
+                                    value="${location}"/>                                        
+                            </ant:pathelement>
+                             
+                        </j:if>
+                    </j:forEach>
+                </moduleSearchPath>
+			</repository>
+
+        </andromda>
+      	
+	</goal>
+	
+</project>

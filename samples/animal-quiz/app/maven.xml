@@ -1,0 +1,25 @@
+<project default="install"
+         xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core">
+
+	<ant:property environment="env"/>
+
+    <preGoal name="ear:init">
+        <ant:copy todir="${maven.src.dir}/application/META-INF">
+            <ant:fileset dir="${basedir}/src/META-INF">
+                <ant:include name="**/*.xml"/>
+            </ant:fileset>
+        </ant:copy>
+    </preGoal>
+
+  	<goal name="deploy" prereqs="ear:ear">
+  		<ant:copy file="${maven.build.dir}/${maven.final.name}.ear"
+  			todir="${env.JBOSS_HOME}/server/${jboss.config}/deploy"/>
+  	</goal> 
+  	
+  	<goal name="undeploy">
+  		<ant:delete 
+  			file="${env.JBOSS_HOME}/server/${jboss.config}/deploy/${maven.final.name}.ear"/>
+  	</goal> 
+  	  	
+</project>

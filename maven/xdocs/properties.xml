@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  	<properties>
+    	<title>Maven AndroMDA Plug-in Properties</title>
+  	</properties>
+  	<body>
+    	<section name="Maven AndroMDA Plug-in Settings">
+	      	<table>
+	        	<tr>
+		          	<th>Property</th>
+		          	<th>Optional?</th>	   	          	
+		          	<th>Description</th>       	
+	        	</tr>
+	        	<tr>
+		          	<td>	
+		          		maven.andromda.model.uri         		
+		          	</td>
+		          	<td>
+		          		Yes
+		          	</td>
+		          	<td>
+		          		The URI to the model which will be processed.  If this isn't specified
+		          		then the <code>maven.andromda.src.dir</code> and 
+		          		<code>maven.andromda.src.includes</code> properties will be used.
+		          	</td>
+	        	</tr>
+	        	<tr>
+		          	<td>	
+		          		maven.andromda.src.dir          		
+		          	</td>
+		          	<td>
+		          		Yes
+		          	</td>
+		          	<td>
+		          		The AndroMDA source directory (where any model files to be processed will be 
+		          		found). Default is <code>${maven.src.dir}/uml</code>.
+		          	</td>
+	        	</tr>	    
+	        	<tr>
+	        		<td>
+	        			maven.andromda.src.includes
+	        		</td>
+	        		<td>
+	        			Yes
+	        		</td>
+	        		<td>
+	        			What model files to include from from the <code>maven.andromda.src.dir</code>.
+	        			Default is <code>*.xmi,*.xml</code>.
+	        		</td>
+	        	</tr>  	   
+	        	<tr>
+	        		<td>
+	        			maven.andromda.src.lastModifiedCheck
+	        		</td>
+	        		<td>
+	        			Yes
+	        		</td>
+	        		<td>
+	        			Whether or not to perform a check if the model file(s) was modified
+	        			since the last run occurred. Default is <code>false</code>.
+	        		</td>
+	        	</tr>   
+	        	<tr>
+	        		<td>
+	        			maven.andromda.repository
+	        		</td>
+	        		<td>
+	        			Yes
+	        		</td>
+	        		<td>
+	        			The Repository implementation to use for reading/loading/processing of the model. Default is 
+	        			<em>org.andromda.core.mdr.MDRepository</em>.
+	        		</td>
+	        	</tr>  	  
+	        	<tr>
+	        		<td>
+	        			maven.andromda.modelFacade
+	        		</td>
+	        		<td>
+	        			Yes
+	        		</td>
+	        		<td>
+	        			The ModelFacade implementation to use.  The ModelFacade provides the access to the
+	        			metafacades implementations during template processing.  
+	        			Default is the UML 1.4 implementation <code>org.andromda.metafacades.uml14.Uml14ModelFacade</code>.
+	        		</td>
+	        	</tr>     	 		        	        		        	   	    	        		        	        	        	     	             	        	
+	        </table>
+    	</section>
+  	</body>
+</document>

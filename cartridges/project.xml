@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+	<extend>../project.xml</extend>
+  	<id>andromda</id>
+  	<groupId>andromda-cartridges</groupId>
+  	<name>AndroMDA Cartridges</name>
+  	<inceptionYear>2003</inceptionYear>
+  	<currentVersion>3.0-SNAPSHOT</currentVersion>
+  	<organization>
+    	<name>AndroMDA Team</name>
+  	</organization>
+  	<!-- <logo>./images/project.png</logo>
+  	<url>../index.html</url> -->
+  	<repository>
+    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:cartridges/${pom.artifactId.replaceAll('andromda-', '').replaceAll('cartridge', '')}</connection>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/${pom.artifactId.replaceAll('andromda-', '').replaceAll('cartridge', '')}</url>
+  	</repository>
+ 	<dependencies> 
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>maven-andromda-plugin</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	      	<type>plugin</type>
+	    </dependency>
+	</dependencies>
+  	<build>
+    	<sourceDirectory>src/java</sourceDirectory>
+    	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    
+    	<!-- Unit test classes -->
+    	<unitTest>
+	      	<includes>
+	        	<include>**/Test*.java</include>
+	     	</includes>
+    	</unitTest>
+    
+		<resources>
+			<resource>
+				<directory>src/java</directory>
+	  			<includes>
+	    			<include>**/*.xml</include>
+	    			<include>**/*.properties</include>
+	  			</includes>
+	  		</resource>
+	  		<resource>
+				<directory>src</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        		<exclude>uml/**/*</exclude>
+	        		<exclude>test/**/*</exclude>
+	        	</excludes>
+	  		</resource>
+	  		<resource>
+				<directory>target/src/andromda/meta</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	  		</resource>
+		</resources>
+  	</build>
+  	
+  	<!-- restrict the reports generated -->
+  	<reports>
+  		<report>maven-jxr-plugin</report>
+  		<report>maven-javadoc-plugin</report>
+  	    <report>maven-simian-plugin</report>
+  	    <report>maven-pmd-plugin</report>
+  	    <report>maven-jdepend-plugin</report>
+  	</reports>
+
+</project>

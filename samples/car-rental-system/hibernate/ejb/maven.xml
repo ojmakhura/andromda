@@ -1,0 +1,62 @@
+<project xmlns:ant="jelly:ant"
+  		 xmlns:maven="jelly:maven">
+  		 
+    <preGoal name="java:compile"> 
+    	
+        <ant:taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
+            <ant:classpath>
+				<ant:path refid="maven.dependency.classpath"/>
+				<ant:pathelement path="${pom.dependencyClasspath}"/>
+            </ant:classpath>
+        </ant:taskdef>
+        
+        <ejbdoclet destdir="${maven.build.src}"
+                   ejbspec="2.0"
+                   force="false">
+
+            <fileset dir="${maven.build.src}">
+                <include name="**/*Bean.java" />
+            </fileset>
+
+            <utilobject kind="physical" />
+
+            <remoteinterface/>
+            <homeinterface/>
+            <localinterface/>
+            <localhomeinterface/>
+
+            <deploymentdescriptor
+                destdir="${ejb.descriptor.dir}"/>
+
+            <jboss version="3.0"
+                   xmlencoding="UTF-8"
+                   typemapping="Hypersonic SQL"
+                   datasource="java:/DefaultDS"
+                   destdir="${ejb.descriptor.dir}"/>
+
+        </ejbdoclet>
+        
+        <!--
+             XDoclet stores the *Bean classes into ejb-jar.xml
+             but the used andromda templates have created
+             subclasses *BeanImpl.  Replace
+             the names in the deployment descriptor so that
+             everyone is happy.
+         -->
+        <ant:replace file="${ejb.descriptor.dir}/ejb-jar.xml" 
+        	token="Bean&lt;/ejb-class&gt;"
+        	value="BeanImpl&lt;/ejb-class&gt;">
+        </ant:replace>
+        
+		<!-- add the paths of the generated source to the
+		     maven compile path -->
+	 	<ant:path
+	       	id="andromda.ejb.gen.src"
+	       	location="${maven.build.src}"/>
+		<maven:addPath
+	       	id="maven.compile.src.set"
+	       	refid="andromda.ejb.gen.src"/>
+        
+    </preGoal>
+  		 
+</project>

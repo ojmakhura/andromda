@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>andromda-metafacades-uml14</id>
+  	<name>UML 1.4 Metafacades</name>
+  	<shortDescription>UML 1.4  Metafacade Library</shortDescription>
+  	<description>
+  		The UML 1.4 metafacades.  This is the set of core metafacades
+  		used to provide access the UML 1.4 meta models. 
+  	</description>
+	<dependencies>
+    	<dependency>
+    	    <groupId>andromda</groupId>
+    	    <artifactId>andromda-metafacades-uml</artifactId>
+    	    <version>3.0-SNAPSHOT</version>
+    	</dependency>    
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmiuml</artifactId>
+     		<version>1.4di</version>
+    	</dependency>   
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmi</artifactId>
+     		<version>200401240117</version>
+    	</dependency>     
+	    <dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.0</version>
+	    </dependency>	
+    	<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency>	
+	</dependencies>	
+</project>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<id>andromda-bpm4struts-cartridge</id>
+  	<name>BPM4Struts Cartridge</name>
+  	<shortDescription>Business Process Modeling For Struts</shortDescription>
+  	<description>
+		The Bpm4Struts cartridge is used to generate Struts applications
+        from UML models using both static and dynamic model elements.
+        Generated applications have default security and internationalization
+        implementations and can be deployed as they are.
+  	</description>
+  	<developers>
+    	<developer>
+      		<name>Wouter Zoons</name>
+      		<id>draftdog</id>
+      		<email>draftdog@sourceforge.users.net</email>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+            </roles>
+    	</developer>
+  	</developers>
+ 	<dependencies> 
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-core</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>  
+    	<dependency>
+	      	<groupId>andromda</groupId>
+	      	<artifactId>andromda-metafacades-uml14</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>  
+    	<dependency>
+	      	<groupId>andromda-cartridges</groupId>
+	      	<artifactId>andromda-meta-cartridge</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	    </dependency>     
+	</dependencies>
+</project>

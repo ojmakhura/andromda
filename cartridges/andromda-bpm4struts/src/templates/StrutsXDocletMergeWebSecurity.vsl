@@ -1,0 +1,39 @@
+#set ($useCases = $class.allUseCases)
+
+<!-- TEMPORARILY COMMENTED OUT TO MAKE APPS WORK IN DEVELOPMENT
+
+##
+##  We don't use security-role-refs at this point, maybe in a later step
+##
+
+#foreach ($useCase in $useCases)
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>$useCase.name resources</web-resource-name>
+      <description>
+        This collection bundles all pages and resources
+        as well as the actions called in the "$useCase.name" use-case
+      </description>
+      <url-pattern>${useCase.packagePath}/*</url-pattern>
+      <url-pattern>${useCase.actionPathRoot}/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+#foreach($user in $useCase.users)
+      <role-name>$user.roleName</role-name>
+#end
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+#end
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/login-form.jsp</form-login-page>
+      <form-error-page>/login-error.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+-->
