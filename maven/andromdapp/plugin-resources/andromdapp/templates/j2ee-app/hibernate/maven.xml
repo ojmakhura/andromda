@@ -68,7 +68,7 @@
                 <fileset dir="${maven.src.dir}/java">
                     <include name="**/*.java" />
                 </fileset>
-                <hibernate version="2.0" />
+                <hibernate version="2.1" />
             </hibernatedoclet>
         </j:if>
     </preGoal>
