@@ -590,7 +590,7 @@ public class EjbScriptHelper extends SimpleOOHelper {
      * 
      * @author richard
      */
-    public String getAttributesAsList(Collection attributes,
+    public String getAttributesAsList2(Collection attributes,
                                       boolean includeTypes,
                                       boolean includeNames) {
         if (!includeNames && !includeTypes) {

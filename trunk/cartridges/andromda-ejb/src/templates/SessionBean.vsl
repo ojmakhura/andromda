@@ -290,12 +290,12 @@ public abstract class ${servicename}Bean
      * @ejb.create-method
      * @ejb.transaction type="Required"
      */
-    public void ejbCreate($transform.getAttributesAsList($allAttributes, true, true))
+    public void ejbCreate($transform.getAttributesAsList2($allAttributes, true, true))
            throws javax.ejb.CreateException
     {
 #if(!${inheritedAttributes.isEmpty()})
         // Call ejbCreate method for the super type
-        super.ejbCreate($transform.getAttributesAsList($inheritedAttributes, false, true));
+        super.ejbCreate($transform.getAttributesAsList2($inheritedAttributes, false, true));
 #end
 #foreach ( $att in $transform.getInstanceAttributes($class))
 ## Don't use a setter here - we may have none if the attribute is marked readonly
@@ -303,12 +303,12 @@ public abstract class ${servicename}Bean
 #end
     }
 
-    public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true))
+    public void ejbPostCreate($transform.getAttributesAsList2($allAttributes, true, true))
            throws javax.ejb.CreateException
     {
 #if(!${inheritedAttributes.isEmpty()})
         // Call postCreate method for the super type
-        super.ejbPostCreate($transform.getAttributesAsList($inheritedAttributes, false, true));
+        super.ejbPostCreate($transform.getAttributesAsList2($inheritedAttributes, false, true));
 #end
     }
 #end
