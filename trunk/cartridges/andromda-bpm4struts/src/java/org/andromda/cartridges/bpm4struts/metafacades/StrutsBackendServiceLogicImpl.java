@@ -24,7 +24,7 @@ public class StrutsBackendServiceLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendService#getAccessorImplementation()
      */
-    public java.lang.String handleGetAccessorImplementation() 
+    protected java.lang.String handleGetAccessorImplementation()
     {
         String accessorImplementation = String.valueOf(
             getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_SERVICE_ACCESSOR_PATTERN));

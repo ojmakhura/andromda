@@ -666,7 +666,7 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isRedirect()
      */
-    public boolean handleIsRedirect()
+    protected boolean handleIsRedirect()
     {
         String redirect = (String)this.getConfiguredProperty(
             Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);

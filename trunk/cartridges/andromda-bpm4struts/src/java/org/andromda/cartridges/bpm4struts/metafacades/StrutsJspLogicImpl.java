@@ -301,7 +301,7 @@ public class StrutsJspLogicImpl
         }
     }
 
-    public boolean handleIsDuplicateActionNamePresent()
+    protected boolean handleIsDuplicateActionNamePresent()
     {
         boolean duplicatePresent = false;
 
