@@ -1,21 +1,19 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.metafacades.uml.*;
-import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
+import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
-import org.omg.uml.behavioralelements.statemachines.SignalEvent;
-import org.omg.uml.behavioralelements.statemachines.Transition;
+import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
-import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.core.ModelElement;
-import org.omg.uml.foundation.core.Parameter;
-import org.apache.commons.collections.Predicate;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.LinkedHashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 /**
@@ -65,28 +63,6 @@ public class ModelFacadeLogicImpl
 
 
 
-    protected UseCaseFacade handleGetUseCase(ActivityGraphFacade activityGraph)
-    {
-        UseCase useCase = null;
-        if (activityGraph != null)
-        {
-            ModelElement graphElement = UMLMetafacadeUtils.getMetaClass(activityGraph);
-            useCase = UMLMetafacadeUtils.getUseCase((ActivityGraph)graphElement);
-        }
-        return (UseCaseFacade)shieldedElement(useCase);
-    }
-
-    protected ActivityGraphFacade handleGetActivityGraph(UseCaseFacade useCase)
-    {
-        ActivityGraph activityGraph = null;
-        if (activityGraph != null)
-        {
-            ModelElement element = UMLMetafacadeUtils.getMetaClass(useCase);
-            activityGraph = UMLMetafacadeUtils.getFirstActivityGraph((UseCase)element);
-        }
-        return (ActivityGraphFacade)shieldedElement(activityGraph);
-    }
-
     protected UseCaseFacade handleFindUseCaseWithTaggedValueOrHyperlink(String tag, String value)
     {
         return (UseCaseFacade)shieldedElement(UMLMetafacadeUtils.findUseCaseWithTaggedValueOrHyperlink(tag, value));
@@ -95,17 +71,6 @@ public class ModelFacadeLogicImpl
     protected ClassifierFacade handleFindClassWithTaggedValueOrHyperlink(String tag, String value)
     {
         return (ClassifierFacade)shieldedElement(UMLMetafacadeUtils.findClassWithTaggedValueOrHyperlink(tag, value));
-    }
-
-    protected ActivityGraphFacade handleGetActivityGraphContext(ModelElementFacade modelElement)
-    {
-        ActivityGraph context = null;
-        if (modelElement != null)
-        {
-            ModelElement element = UMLMetafacadeUtils.getMetaClass(modelElement);
-            context = UMLMetafacadeUtils.getActivityGraphContext(element);
-        }
-        return (ActivityGraphFacade)shieldedElement(context);
     }
 
     protected ActivityGraphFacade handleFindActivityGraphByName(String name)
@@ -126,27 +91,6 @@ public class ModelFacadeLogicImpl
     protected UseCaseFacade handleFindUseCaseWithNameAndStereotype(String name, String stereotypeName)
     {
         return (UseCaseFacade)shieldedElement(UMLMetafacadeUtils.findFirstUseCaseWithNameAndStereotype(name, stereotypeName));
-    }
-
-    protected TransitionFacade handleGetParameterTransition(ParameterFacade parameter)
-    {
-        Parameter parameterMetaClass = UMLMetafacadeUtils.getMetaClass(parameter);
-        SignalEvent signalEvent = UMLMetafacadeUtils.getSignalEvent(parameterMetaClass);
-        Transition transition = UMLMetafacadeUtils.getTransition(signalEvent);
-
-        return (TransitionFacade)shieldedElement(transition);
-    }
-
-    protected TransitionFacade handleGetEventTransition(EventFacade event)
-    {
-        Event eventMetaClass = UMLMetafacadeUtils.getMetaClass(event);
-        return (TransitionFacade)shieldedElement(UMLMetafacadeUtils.getTransition(eventMetaClass));
-    }
-
-    protected OperationFacade handleGetParameterOperation(ParameterFacade parameter)
-    {
-        Parameter parameterMetaClass = UMLMetafacadeUtils.getMetaClass(parameter);
-        return (OperationFacade)shieldedElement(UMLMetafacadeUtils.getOperation(parameterMetaClass));
     }
 
     protected Collection handleFindFinalStatesWithNameOrHyperlink(UseCaseFacade useCase)

@@ -10,15 +10,16 @@ import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.behavioralelements.commonbehavior.DataValue;
 import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.behavioralelements.statemachines.FinalState;
-import org.omg.uml.behavioralelements.statemachines.SignalEvent;
-import org.omg.uml.behavioralelements.statemachines.Transition;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.core.*;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 import org.omg.uml.modelmanagement.UmlPackage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -308,31 +309,6 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * Tries to find an activity graph which context is the model element with the given id.
-     * Returns null in case no such element exists.
-     */
-    static ActivityGraph getActivityGraphContext(ModelElement modelElement)
-    {
-        ActivityGraph graphContext = null;
-
-        if (modelElement != null)
-        {
-            Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
-            for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext();)
-            {
-                ActivityGraph graph = (ActivityGraph) graphIterator.next();
-                ModelElement contextElement = graph.getContext();
-                if (modelElement.equals(contextElement))
-                {
-                    graphContext = graph;
-                }
-            }
-        }
-
-        return graphContext;
-    }
-
-    /**
      * Returns the first use-case it can find with the given name.
      */
     static UseCase findFirstUseCaseWithName(String name)
@@ -455,50 +431,6 @@ public class UMLMetafacadeUtils
     }
 
     /**
-     * If this activity graph is a direct child element of a use-case (hierarchy-wise) this method returns that
-     * use-case. Returns null if no such use-case exists.
-     */
-    static UseCase getUseCase(ActivityGraph activityGraph)
-    {
-        UseCase stateMachineUseCase = null;
-
-        Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && stateMachineUseCase==null;)
-        {
-            // loop over all use-cases
-            UseCase useCase = (UseCase) useCaseIterator.next();
-            Collection ownedElements = useCase.getOwnedElement();
-            if (ownedElements.contains(activityGraph))
-            {
-                stateMachineUseCase = useCase;
-            }
-        }
-
-        return stateMachineUseCase;
-    }
-
-    /**
-     * Returns the first activity graph this method can find in the elements owned by the argument use-case.
-     * Returns null if no activity graph is found.
-     */
-    static ActivityGraph getFirstActivityGraph(UseCase useCase)
-    {
-        ActivityGraph activityGraph = null;
-
-        Collection ownedElements = useCase.getOwnedElement();
-        for (Iterator iterator = ownedElements.iterator(); iterator.hasNext() && activityGraph==null;)
-        {
-            ModelElement modelElement = (ModelElement) iterator.next();
-            if (modelElement instanceof ActivityGraph)
-            {
-                activityGraph = (ActivityGraph) modelElement;
-            }
-        }
-
-        return activityGraph;
-    }
-
-    /**
      * Returns the first use-case this method can find with the given tagged value or hyperlink. Both arguments are used
      * to look for the tagged value but only <code>value</code> is used to search for the hyperlink.
      */
@@ -540,75 +472,6 @@ public class UMLMetafacadeUtils
         }
 
         return classWithTaggedValue;
-    }
-
-    /**
-     * If the argument parameter is on a signal event this method will return that signal event,
-     * null is returned otherwise.
-     */
-    static SignalEvent getSignalEvent(Parameter parameter)
-    {
-        SignalEvent parameterSignalEvent = null;
-
-        if (parameter != null)
-        {
-            Collection allSignalEvents = getModel().getStateMachines().getSignalEvent().refAllOfType();
-            for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext() && parameterSignalEvent==null;)
-            {
-                SignalEvent signalEvent = (SignalEvent) iterator.next();
-                if (signalEvent.getParameter().contains(parameter))
-                {
-                    parameterSignalEvent = signalEvent;
-                }
-            }
-        }
-        return parameterSignalEvent;
-    }
-
-    /**
-     * If the argument event is situated on a transition this method will return that transition,
-     * null is returned otherwise.
-     */
-    static Transition getTransition(Event event)
-    {
-        Transition eventTransition = null;
-
-        if (event != null)
-        {
-            Collection allTransitions = getModel().getStateMachines().getTransition().refAllOfType();
-            for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition==null;)
-            {
-                Transition transition = (Transition) iterator.next();
-                if (event.equals(transition.getTrigger()))
-                {
-                    eventTransition = transition;
-                }
-            }
-        }
-        return eventTransition;
-    }
-
-    /**
-     * If the argument parameter is modeled on an operation this operation will be returned, in any other
-     * case this method returns null.
-     */
-    static Operation getOperation(Parameter parameter)
-    {
-        Operation parameterOperation = null;
-
-        if (parameter != null)
-        {
-            Collection allOperations = getModel().getCore().getOperation().refAllOfType();
-            for (Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation==null;)
-            {
-                Operation operation = (Operation) iterator.next();
-                if (operation.getParameter().contains(parameter))
-                {
-                    parameterOperation = operation;
-                }
-            }
-        }
-        return parameterOperation;
     }
 
     static Collection findFinalStatesWithNameOrHyperlink(UseCase useCase)

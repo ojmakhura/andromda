@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
+import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
+import org.omg.uml.foundation.core.ModelElement;
 
 /**
  * Metaclass facade implementation.
@@ -76,4 +78,19 @@ public class UseCaseFacadeLogicImpl
 
     // ------------- relations ------------------
 
+    protected Object handleGetFirstActivityGraph()
+    {
+        ActivityGraph activityGraph = null;
+
+        for (Iterator iterator = metaObject.getOwnedElement().iterator(); iterator.hasNext() && activityGraph==null;)
+        {
+            ModelElement modelElement = (ModelElement) iterator.next();
+            if (modelElement instanceof ActivityGraph)
+            {
+                activityGraph = (ActivityGraph) modelElement;
+            }
+        }
+
+        return activityGraph;
+    }
 }

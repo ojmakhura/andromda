@@ -3,12 +3,7 @@ package org.andromda.cartridges.hibernate.metafacades;
 import java.util.Collection;
 
 import org.andromda.core.mapping.Mappings;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.GeneralizableElementFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.ModelFacade;
-import org.andromda.metafacades.uml.NamespaceFacade;
-import org.andromda.metafacades.uml.PackageFacade;
+import org.andromda.metafacades.uml.*;
 
 
 /**
@@ -496,5 +491,10 @@ public class MockClassifierFacade implements ClassifierFacade {
 
     public boolean isFileType() {
         return false;
+    }
+
+    public ActivityGraphFacade getActivityGraphContext() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

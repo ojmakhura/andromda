@@ -33,12 +33,16 @@ public class StrutsJspLogicImpl
         String packageName = null;
 
         ActivityGraphFacade graph = getActivityGraph();
-        if (graph instanceof StrutsActivityGraph)
+        if (graph != null)
         {
-            StrutsUseCase useCase = ((StrutsActivityGraph) graph).getUseCase();
-            if (useCase != null)
+            UseCaseFacade graphUseCase = graph.getUseCase();
+            if (graphUseCase instanceof StrutsUseCase)
             {
-                packageName = useCase.getPackageName();
+                StrutsUseCase useCase = (StrutsUseCase) graphUseCase;
+                if (useCase != null)
+                {
+                    packageName = useCase.getPackageName();
+                }
             }
         }
         return packageName;

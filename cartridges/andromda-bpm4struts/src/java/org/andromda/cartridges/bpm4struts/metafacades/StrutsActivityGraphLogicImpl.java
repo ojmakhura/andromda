@@ -40,12 +40,7 @@ public class StrutsActivityGraphLogicImpl
 
     protected Object handleGetUseCase()
     {
-        UseCaseFacade useCase = null;
-
-        /*
-         * First check whether this activity graph resides in the namespace of a use-case
-         */
-        useCase = getModel().getUseCase(this);
+        UseCaseFacade useCase = getUseCase();
 
         /*
          * If this was not the case then look for a use-case pointing to this activity graph using a tagged

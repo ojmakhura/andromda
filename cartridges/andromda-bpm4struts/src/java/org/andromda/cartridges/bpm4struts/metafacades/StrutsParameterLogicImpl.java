@@ -5,6 +5,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.EventFacade;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
@@ -32,10 +33,14 @@ public class StrutsParameterLogicImpl
     {
         Object actionObject = null;
 
-        TransitionFacade transition = getModel().getParameterTransition(this);
-        if (transition instanceof StrutsAction)
+        EventFacade event = getEvent();
+        if (event != null)
         {
-            actionObject = transition;
+            TransitionFacade transition = event.getTransition();
+            if (transition instanceof StrutsAction)
+            {
+                actionObject = transition;
+            }
         }
         return actionObject;
     }
@@ -44,18 +49,22 @@ public class StrutsParameterLogicImpl
     {
         Object jspObject = null;
 
-        TransitionFacade transition = getModel().getParameterTransition(this);
-        if (transition instanceof StrutsAction)
+        EventFacade event = getEvent();
+        if (event != null)
         {
-            StrutsAction action = (StrutsAction)transition;
-            jspObject = action.getInput();
-        }
-        else if (transition instanceof StrutsForward)
-        {
-            StrutsForward forward = (StrutsForward)transition;
-            if (forward.isTargettingPage())
+            TransitionFacade transition = event.getTransition();
+            if (transition instanceof StrutsAction)
             {
-                jspObject = forward.getTarget();
+                StrutsAction action = (StrutsAction)transition;
+                jspObject = action.getInput();
+            }
+            else if (transition instanceof StrutsForward)
+            {
+                StrutsForward forward = (StrutsForward)transition;
+                if (forward.isTargettingPage())
+                {
+                    jspObject = forward.getTarget();
+                }
             }
         }
 
@@ -64,7 +73,7 @@ public class StrutsParameterLogicImpl
 
     protected Object handleGetControllerOperation()
     {
-        return getModel().getParameterOperation(this);
+        return getOperation();
     }
 
     protected Collection handleGetFormFields()

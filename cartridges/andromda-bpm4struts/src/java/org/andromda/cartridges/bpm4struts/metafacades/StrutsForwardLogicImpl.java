@@ -10,10 +10,7 @@ import java.util.Set;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.GuardFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.*;
 
 
 /**
@@ -279,7 +276,11 @@ public class StrutsForwardLogicImpl
         StrutsActivityGraph graph = getStrutsActivityGraph();
         if (graph != null)
         {
-            useCase = graph.getUseCase();
+            UseCaseFacade graphUseCase = graph.getUseCase();
+            if (graphUseCase instanceof StrutsUseCase)
+            {
+                useCase = (StrutsUseCase)graphUseCase;
+            }
         }
 
         return useCase;
