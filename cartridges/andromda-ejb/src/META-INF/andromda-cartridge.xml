@@ -1,7 +1,7 @@
 <cartridge name="ejb">
 
     <!-- define the template objects that are made availble to the template -->
-    <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     <!-- cartridge-templateObject merge-point-->
 

@@ -1,5 +1,5 @@
 // license-header java merge-point
-#if ($entity.packageName)
+#if ($stringUtils.isNotBlank($entity.packageName))
 package $entity.packageName;
 #end
 
@@ -20,7 +20,7 @@ public abstract class ${entity.name}BeanImpl
 ## interface instead of the component interface and must
 ## be prepended with "ejbHome"
 #if ($visibility == "public" && $operation.static)
-#set ($signature = "ejbHome${str.capitalize($signature)}")
+#set ($signature = "ejbHome${stringUtils.capitalize($signature)}")
 #end
     /**
      * @see ${entity.fullyQualifiedName}#${operation.getSignature(false)}
