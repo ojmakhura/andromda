@@ -11,7 +11,6 @@ import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.EnumerationLiteralFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -142,9 +141,16 @@ public class ModelElementFacadeLogicImpl
                             {
                                 values.add(((EnumerationLiteralFacade)value).getName());
                             }
+                            else if (value instanceof String)
+                            {
+                                // only add String when they are not blank
+                                String valueString = (String)value;
+                                if (StringUtils.isNotBlank(valueString))
+                                {
+                                    values.add(value);
+                                }
+                            }
                             else
-                            // for the other cases we pass in the object directly
-                            // (otherwise hyperlinking would not work)
                             {
                                 values.add(value);
                             }
