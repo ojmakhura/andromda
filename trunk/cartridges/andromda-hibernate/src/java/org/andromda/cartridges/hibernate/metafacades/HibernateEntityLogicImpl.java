@@ -96,7 +96,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsRootInheritanceEntity()
     {
-        logger.info(">>> handleIsRootInheritanceEntity start:" + this + " : "
+        logger.debug(">>> handleIsRootInheritanceEntity start:" + this + " : "
             + getInheritance(this));
         boolean result = false;
         GeneralizableElementFacade superElement = this.getGeneralization();
@@ -124,7 +124,7 @@ public class HibernateEntityLogicImpl
                     root.getFullyQualifiedName());
             }
         }
-        logger.info("<<< handleIsRootInheritanceEntity return:" + result);
+        logger.debug("<<< handleIsRootInheritanceEntity return:" + result);
         return result;
     }
 
@@ -190,7 +190,7 @@ public class HibernateEntityLogicImpl
     protected String handleGetInheritanceStrategy()
     {
         String result = null;
-        logger.debug(">>> handleGetHibernateInheritance start:" + this);
+        logger.debug(">>> handleGetInheritanceStrategy start:" + this);
 
         try
         {
@@ -211,7 +211,7 @@ public class HibernateEntityLogicImpl
             ExceptionRecorder.record(errorMessage, ex, "hibernate");
             logger.error(errorMessage);
         }
-        logger.debug("<<< handleGetHibernateInheritance return:" + result);
+        logger.debug("<<< handleGetInheritanceStrategy return:" + result);
         return result;
     }
 
@@ -296,6 +296,7 @@ public class HibernateEntityLogicImpl
     private String validateConcreteInheritance(
         GeneralizableElementFacade[] superclasses)
     {
+        logger.debug(">>> validateConcreteInheritance:" + this );
         String result = null;
         String rootInheritance = INHERITANCE_STRATEGY_CONCRETE;
         // Search from root class but 1 to lowest.
@@ -332,6 +333,7 @@ public class HibernateEntityLogicImpl
                 }
             }
         }
+        logger.debug("<<< validateConcreteInheritance:" + result );
         return result;
     }
 
@@ -345,16 +347,16 @@ public class HibernateEntityLogicImpl
     private String validateInterfaceInheritance(
         GeneralizableElementFacade[] superclasses)
     {
+        logger.debug(">>> validateInterfaceInheritance:" + this );
+        logger.debug("*** validateInterfaceInheritance superclasses:" + superclasses.length );
         String result = null;
         int rootSubclassIndex = superclasses.length - 2;
         if (rootSubclassIndex > 0)
         {
             result = getInheritance(superclasses[rootSubclassIndex]);
+            logger.debug("*** validateInterfaceInheritance rootSubclass:" + result );
         }
-        if (result == null)
-        {
-            result = INHERITANCE_STRATEGY_CLASS;
-        }
+        logger.debug("<<< validateInterfaceInheritance:" + result );
         return result;
     }
 
