@@ -25,6 +25,7 @@
 	      		<facade-logics>${basedir}/target/src</facade-logics>
 	      		<facades-to-impls>${basedir}/target/src</facades-to-impls>
 	      		<facade-logic-impls>${basedir}/src/java</facade-logic-impls>
+	      		<metamodelVersionPackage>org.andromda.metafacades.uml14</metamodelVersionPackage>
 	      	</properties>
 	    </dependency>
     	<dependency>

@@ -1,23 +1,23 @@
 //
 // Attention: generated code (by Metafacade.vsl) - do not modify!
 //
-package ${class.interfacePackageName};
-#set ($myOutputFile = ${class.fullyQualifiedInterfaceName})
+package ${metafacade.packageName};
+#set ($myOutputFile = ${metafacade.fullyQualifiedName})
 #set ($myOutputFile = ${myOutputFile.replaceAll('\.', '/')})
 #set ($myOutputFile = "${myOutputFile}.java")
 
 /**
-$class.getDocumentation(" * ")
+$metafacade.getDocumentation(" * ")
  *
  * Metafacade interface to be used by AndroMDA cartridges.
  */
-public interface $class.name
-#set ($superclass = $class.generalization)
-#if ($superclass)
-       extends $superclass.fullyQualifiedInterfaceName
+public interface $metafacade.name
+#set ($superMetafacade = $metafacade.generalization)
+#if ($superMetafacade)
+       extends $superMetafacade.fullyQualifiedName
 #end
 {
-#foreach ( $method in $class.getMethodDataForPSM(false) )
+#foreach ( $method in $metafacade.getMethodDataForPSM(false) )
 
    /**
 $method.documentation
