@@ -1,0 +1,57 @@
+#set ($packagename = $transform.findPackageName($class.package))
+package $packagename;
+
+import java.util.Hashtable;
+import junit.framework.TestCase;
+
+/**
+ * Tests the ${class.name} Stateless Session Bean.
+ */
+public class ${class.name}Test extends TestCase
+{
+    
+    protected ${class.name} service;
+
+    
+    public ${class.name}Test(String name)
+    {
+        super(name);
+    }
+
+	/** Sets up a reference to the service */    
+    public void setUp() throws Exception
+    {
+        // JBoss users can find this info in the jndi.properties file in
+        // the server conf directory, but these defaults should work OK.
+        Hashtable environment = new Hashtable();
+        environment.put(
+            "java.naming.factory.initial",
+            "org.jnp.interfaces.NamingContextFactory");
+        environment.put(
+            "java.naming.factory.url.pkgs",
+            "org.jboss.naming:org.jnp.interfaces");
+        environment.put(
+            "java.naming.provider.url",
+            "localhost");
+        service = ${class.name}Util.getHome(environment).create();
+    }
+
+#foreach ( $op in $class.operations)
+    public void test${str.upperCaseFirstLetter(${op.name})}() throws Exception
+    {   
+#foreach ( $p in $op.parameters)
+#set ($pType = $transform.getFullyQualifiedName($p.type))
+#if (!$str.isPrimitiveType($pType))
+        $pType $p.name = new ${pType}();
+#elseif ("boolean" == $pType)
+        $pType $p.name = false;
+#else
+        $pType $p.name = ($pType)0;
+#end
+#end    
+        service.$transform.getOperationCall($op);      
+    }
+    
+#end
+    
+}

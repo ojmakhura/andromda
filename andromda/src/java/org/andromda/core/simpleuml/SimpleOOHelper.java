@@ -208,7 +208,51 @@ public class SimpleOOHelper extends UMLStaticHelper
         return sb.toString();
     }
 
-    
+    /**
+     * <p>Builds a call to the operation with a list of parameters.
+     * that can easily be used from the Velocity script.</p>
+     * 
+     * <p>This is good to generate business delegates.
+     * See feature request #638931.</p>
+     *
+     * @param o the operation
+     * @return String the complete call to the operation
+     */
+    public String getOperationCall(Object object)
+    {
+        if ((object == null) || !(object instanceof Operation))
+        {
+            return null;
+        }
+        Operation o = (Operation) object;
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append(o.getName());
+        sb.append("(");
+
+        Iterator it = o.getParameter().iterator();
+        
+        boolean commaNeeded = false;
+        while (it.hasNext())
+        {
+            Parameter p = (Parameter) it.next();
+            
+            if (!ParameterDirectionKindEnum.PDK_RETURN.equals(p.getKind()))
+            {
+                if (commaNeeded)
+                {
+                    sb.append(", ");
+                }
+                sb.append(p.getName());
+                commaNeeded = true;
+            } 
+                
+        }
+        sb.append(")");
+
+        return sb.toString();
+    }
+
 	/**
 	 * returns a string representation for the Java signature for
      * a given operation
