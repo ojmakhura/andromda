@@ -58,11 +58,19 @@ $actionState.getDocumentation("     * ")
      */
     private ActionForward ${actionState.actionMethodName}(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
+        ActionForward forward = null;
+        try
+        {
 #foreach ($controllerCall in $actionState.controllerCalls)
-        ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
+            ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
 #end
+        }
+        finally
+        {
 #saveMessages($actionState.forward "        ")
-        return #processTransition($actionState.forward)
+            forward = #processTransition($actionState.forward)
+        }
+        return forward;
     }
 
 #end
