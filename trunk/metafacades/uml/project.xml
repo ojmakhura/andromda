@@ -95,5 +95,11 @@
 	  		</resource>
     	</resources>
   	</build>
+  	
+  	<!-- restrict the reports generated -->
+  	<reports>
+  		<report>maven-jxr-plugin</report>
+  		<report>maven-javadoc-plugin</report>
+  	</reports>
 
 </project>
