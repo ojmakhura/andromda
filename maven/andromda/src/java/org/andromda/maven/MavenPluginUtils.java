@@ -302,23 +302,6 @@ public class MavenPluginUtils {
     }
     
     /**
-     * Removes the <code>remove</code> from the
-     * given <code>path</code> and returns the resulting
-     * string.
-     * @param path the path from which to remove.
-     * @param remove the value to remove.
-     * @return the resulting path with <code>remove</code>
-     *         removed.
-     */
-    public String removeFromPath(String path, String remove) {
-        path = StringUtils.trimToEmpty(path);
-        remove = StringUtils.trimToEmpty(remove);
-        remove = remove.replace('\\', '/');
-        path = path.replace('\\', '/');
-        return StringUtils.replace(path, remove, "");
-    }
-    
-    /**
      * Returns <code>true</code> if the 
      * specified <code>property</code> is
      * ignored.  A property will be ignored if it
