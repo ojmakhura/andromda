@@ -23,6 +23,7 @@ import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
 import org.apache.commons.collections.comparators.ComparatorChain;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -294,8 +295,9 @@ public class ModelProcessor
             ModelValidationMessage a = (ModelValidationMessage)objectA;
             ModelValidationMessage b = (ModelValidationMessage)objectB;
 
-            return collator.compare(a.getMetafacadeClass().getName(), b
-                .getMetafacadeClass().getName());
+            return collator.compare(
+                a.getMetafacadeClass().getName(), 
+                b.getMetafacadeClass().getName());
         }
     }
 
@@ -317,8 +319,9 @@ public class ModelProcessor
             ModelValidationMessage a = (ModelValidationMessage)objectA;
             ModelValidationMessage b = (ModelValidationMessage)objectB;
 
-            return collator.compare(a.getModelElementName(), b
-                .getModelElementName());
+            return collator.compare(
+                StringUtils.trimToEmpty(a.getModelElementName()), 
+                StringUtils.trimToEmpty(b.getModelElementName()));
         }
     }
 }
