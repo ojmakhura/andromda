@@ -7,7 +7,6 @@
 package $service.packageName;
 
 import javax.ejb.EJBException;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import net.sf.hibernate.HibernateException;
@@ -171,11 +170,11 @@ $operation.getDocumentation("     * ")
 
     private SessionFactory getSessionFactory() throws HibernateException, NamingException
     {
-        if(this.sessionFactory == null)
+        if(sessionFactory == null)
         {
-            this.sessionFactory = HibernateUtils.getSessionFactory();
+            sessionFactory = HibernateUtils.getSessionFactory();
         }
-        return this.sessionFactory;
+        return sessionFactory;
     }
 
     private Session getSession() throws HibernateException, NamingException
@@ -194,7 +193,7 @@ $operation.getDocumentation("     * ")
     */
     protected static $homeInterfaceName get${homeInterfaceName}() throws NamingException
     {
-        InitialContext initialContext = new InitialContext();
+        javax.naming.InitialContext initialContext = new javax.naming.InitialContext();
         try
         {
             // Local homes shouldn't be narrowed, as there is no RMI involved.
