@@ -28,7 +28,7 @@
                 userTransactionName="java:/UserTransaction"
                 jndiname="java:/hibernate/SessionFactory"
                 servicename="AnimalQuizSessionFactory"
-                dialect="net.sf.hibernate.dialect.HSQLDialect"
+                dialect="${xdoclet.hibernate.dialect}"
                 datasource="java:/DefaultDS"
                 showSql="true"
             />
@@ -68,7 +68,7 @@
             <ant:arg value="--text"/>
             <ant:arg value="--quiet"/>
             <ant:arg line="${hibernate.mappings}"/>
-            <ant:jvmarg value="-Dhibernate.dialect=net.sf.hibernate.dialect.HSQLDialect"/>
+            <ant:jvmarg value="-Dhibernate.dialect=${xdoclet.hibernate.dialect}"/>
             <ant:classpath refid="maven.dependency.classpath" />
         </ant:java>
 
@@ -88,7 +88,7 @@
             <ant:arg value="--quiet"/>
             <ant:arg value="--drop"/>
             <ant:arg line="${hibernate.mappings}"/>
-            <ant:jvmarg value="-Dhibernate.dialect=net.sf.hibernate.dialect.HSQLDialect"/>
+            <ant:jvmarg value="-Dhibernate.dialect=${xdoclet.hibernate.dialect}"/>
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 
