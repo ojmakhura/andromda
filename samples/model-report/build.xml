@@ -3,86 +3,69 @@
    <property file="build.properties" />
    <property name="andromda-core.home" location="${andromda.home}/andromda-core" />
    <property file="${andromda-core.home}/andromda-core.properties"/>
-   
+
    <!-- directories where build output is written -->
-   <property name="build.dir"	value="build/"/>
-   <property name="dist.dir"	value="dist/"/>
+   <property name="build.dir"   value="build/"/>
+   <property name="dist.dir"    value="dist/"/>
    <property name="classes.dir" value="${build.dir}/classes/"/>
-   <property name="output.dir"	value="${build.dir}/output/"/>
+   <property name="output.dir"  value="${build.dir}/output/"/>
 
    <target name="clean">
-	 <delete dir="${build.dir}"/>
-	 <delete dir="${dist.dir}"/>
+     <delete dir="${build.dir}"/>
+     <delete dir="${dist.dir}"/>
    </target>
 
    <target name="init">
-	 <mkdir dir="${output.dir}"/>
-	 <mkdir dir="${classes.dir}"/>
-	 <mkdir dir="${dist.dir}"/>
+     <mkdir dir="${output.dir}"/>
+     <mkdir dir="${classes.dir}"/>
+     <mkdir dir="${dist.dir}"/>
    </target>
-    
+
    <path id="build.classpath">
      <pathelement path="${andromda-core.classpath}"/>
      <pathelement location="${andromda-core.home}/andromda.jar"/>
    </path>
-   
+
    <path id="classpath">
-	  <path refid="build.classpath"/>
+      <path refid="build.classpath"/>
 
-	  <!-- Tony's cool trick: put a new cartridge on the classpath! -->
-	  <pathelement location="src/andromda-cartridge"/>
+      <!-- Tony's cool trick: put a new cartridge on the classpath! -->
+      <pathelement location="src/andromda-cartridge"/>
 
-	  <pathelement location="${classes.dir}"/>
+      <pathelement location="${classes.dir}"/>
    </path>
 
 
    <target name="compile" depends="init">
-   	 <property name="build.classpath" refid="build.classpath"/>
-   	 <echo message="basedir = ${basedir}" />
+     <property name="build.classpath" refid="build.classpath"/>
+     <echo message="basedir = ${basedir}" />
      <echo message="build.classpath =${build.classpath}" />
-     
-	 <javac srcdir="src/java"
-		 destdir="${classes.dir}"
-		 classpath="${build.classpath}"/>
+
+     <javac srcdir="src/java"
+         destdir="${classes.dir}"
+         classpath="${build.classpath}"/>
    </target>
 
 
    <target name="report" depends="compile,init">
-		
-		<taskdef name="andromda"
-				 classname="org.andromda.core.anttasks.AndroMDAGenTask"
-				 classpathref="classpath"/>
 
-		
+        <taskdef name="andromda"
+                 classname="org.andromda.core.anttasks.AndroMDAGenTask"
+                 classpathref="classpath"/>
+
+
         <property name="model.file.name" location="${model.file}"/>
-		<andromda basedir="."
-				 modelURL="jar:file:${model.file.name}!/${model.xmi}"
-				 lastModifiedCheck="false"
-				 typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
+        <andromda basedir="."
+                 modelURL="jar:file:${model.file.name}!/${model.xmi}"
+                 lastModifiedCheck="false"
+                 typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml">
 
-		  <repository transformClassname="ReportHelper"/>
+          <repository transformClassname="ReportHelper"/>
 
-		  <outlet cartridge="mycartridge" outlet="report" dir="${output.dir}" />
+          <outlet cartridge="mycartridge" outlet="report" dir="${output.dir}" />
 
-		</andromda>
+        </andromda>
 
-	</target>
-
-
-	<target name="dist" depends="clean,init"
-			description="Builds distribution ZIP">
-	  <copy todir="${dist.dir}/predist" >
-			<fileset dir=".">
-			   <exclude name="**/build/**" />
-			   <exclude name="**/dist/**" />
-			   <exclude name="*.log" />
-			   <exclude name="build.properties" />
-			</fileset>
-	  </copy>
-	  <zip zipfile="${dist.dir}/andromda-model-report.zip">
-		  <fileset dir="${dist.dir}/predist" includes="**/*" />
-	  </zip>
-	</target>
-
+    </target>
 
 </project>

@@ -6,7 +6,6 @@
 
     <!-- destination directories -->
     <property name="dist.dir"         value="dist"   />
-    <property name="dist.stage.dir" value="${dist.dir}"/>
 
     <!-- Setup directory structure -->
     <target name="init">
@@ -40,21 +39,19 @@
     <!-- ============================================================= -->
 
     <target name="buildCartridge">
-    	<echo message="buildCartridge ${cartridge.name}"/>
-        <ant inheritAll="false" dir="./${cartridge.name}">
-          <property name="dist.stage.dir" location="${dist.stage.dir}/${cartridge.name}"/>
-        </ant>
-        <copy taskname="${cartridge.name}" todir="${dist.dir}">
+        <echo message="buildCartridge ${cartridge.name}"/>
+        <ant inheritAll="false" dir="./${cartridge.name}" />
+        <copy taskname="${cartridge.name}" todir="${dist.dir}/${cartridge.name}">
           <fileset dir="./${cartridge.name}/dist">
-            <include name="*.*"/>
+            <include name="**/*"/>
           </fileset>
         </copy>
     </target>
 
-	<target name="cleanCartridge">
-		<echo message="cleanCartridge ${cartridge.name}"/>
+    <target name="cleanCartridge">
+        <echo message="cleanCartridge ${cartridge.name}"/>
         <ant inheritAll="false" dir="./${cartridge.name}" target="clean"/>
-	</target>
+    </target>
 
     <target name="dist" depends="clean,init"
             description="Builds core, cartridges, samples and website">

@@ -3,8 +3,8 @@
     <!-- ============================================================= -->
     <!--               Directory settings                              -->
     <!-- ============================================================= -->
-	<property file="build.properties"/>
-	
+    <property file="build.properties"/>
+
     <!-- destination directories -->
     <property name="xdocs.src.dir"    value="xdocs"     />
     <property name="dist.dir"         value="dist"      />
@@ -32,7 +32,7 @@
     </target>
 
     <target name="clean" description="Delete all built files">
-        <delete includeEmptyDirs="true" quiet="true">
+        <delete includeEmptyDirs="true" quiet="true" >
             <fileset dir="${build.dir}"/>
             <fileset dir="${build.doc.dir}"/>
             <fileset dir="${dist.dir}"/>
@@ -107,11 +107,11 @@
 
 
     <target name="dist" depends="clean,build" >
-        <!-- zip everything into the release archives -->
-        <zip zipfile="${dist.dir}/andromda-docs.zip">
+        <!-- copy everything into the release structure -->
+        <copy todir="${dist.dir}">
             <fileset dir="${build.doc.dir}" includes="**/*" />
             <fileset dir="${core.javadoc.dir}" includes="**/*" />
-        </zip>
+        </copy>
     </target>
 
 </project>

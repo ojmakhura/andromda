@@ -14,22 +14,31 @@
 
     <target name="buildComponent">
         <ant inheritAll="false" dir="${basedir}/${component.name}" target="dist">
-          <property name="dist.stage.dir" location="${dist.dir}/samples/${component.name}"/>
           <property name="andromda.home" location="${andromda.home}" />
           <property name="jboss.home" location="${jboss.home}" />
         </ant>
-        <move taskname="${component.name}" todir="${dist.dir}">
+        <move taskname="${component.name}" todir="${dist.dir}/${component.name}">
           <fileset dir="${basedir}/${component.name}/dist">
-            <include name="*.*"/>
+            <include name="**/*"/>
           </fileset>
         </move>
+    </target>
+
+    <target name="copyComponent">
+        <copy taskname="${component.name}" todir="${dist.dir}/${component.name}">
+          <fileset dir="${basedir}/${component.name}">
+            <include name="**/*"/>
+            <exclude name="**/build/**"/>
+            <exclude name="**/dist/**"/>
+          </fileset>
+        </copy>
     </target>
 
     <target name="cleanComponent">
         <echo message="cleanComponent ${component.name}"/>
         <ant inheritAll="false" dir="${basedir}/${component.name}" target="clean" />
     </target>
-    
+
     <!-- ============================================================= -->
     <!--               Highlevel user tasks                            -->
     <!-- ============================================================= -->
@@ -45,9 +54,17 @@
         <delete includeEmptyDirs="true" quiet="true">
             <fileset dir="${dist.dir}"/>
         </delete>
-        
+
         <antcall target="cleanComponent">
           <param name="component.name" value="car-rental-system"/>
+        </antcall>
+
+        <antcall target="cleanComponent">
+          <param name="component.name" value="ejb-template"/>
+        </antcall>
+
+        <antcall target="cleanComponent">
+          <param name="component.name" value="hibernate-template"/>
         </antcall>
 
         <antcall target="cleanComponent">
@@ -56,6 +73,7 @@
 
     </target>
 
+
     <target name="dist" depends="clean,init"
             description="Builds all samples">
 
@@ -63,7 +81,15 @@
           <param name="component.name" value="car-rental-system"/>
         </antcall>
 
-        <antcall target="buildComponent">
+        <antcall target="copyComponent">
+          <param name="component.name" value="ejb-template"/>
+        </antcall>
+
+        <antcall target="copyComponent">
+          <param name="component.name" value="hibernate-template"/>
+        </antcall>
+
+        <antcall target="copyComponent">
           <param name="component.name" value="model-report"/>
         </antcall>
 

@@ -10,7 +10,6 @@
     <property name="build.dir"        value="build" />
     <property name="classes.dir"      value="build/classes" />
     <property name="dist.dir"         value="dist" />
-    <property name="dist.stage.dir"   value="dist/predist" />
 
     <!-- Define our class path -->
     <path id="build.class.path">
@@ -21,7 +20,6 @@
     <target name="init">
         <tstamp/>
         <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.stage.dir}"/>
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${classes.dir}"/>
     </target>
@@ -51,22 +49,13 @@
     <!-- build distribution zip file -->
     <target name="dist" depends="clean,build"
             description="Builds the distribution structure">
-      <copy todir="${dist.stage.dir}/" >
+      <copy todir="${dist.dir}/" >
           <fileset dir="${build.dir}" includes="*.jar" />
           <fileset dir="." includes="andromda-struts.properties" />
-          <fileset dir="." includes="build.xml" />
-          <fileset dir="." includes=".classpath" />
-          <fileset dir="." includes=".project" />
       </copy>
-      <copy todir="${dist.stage.dir}/lib" >
+      <copy todir="${dist.dir}/lib" >
           <fileset dir="${lib.dir}" includes="**/*" />
       </copy>
-      <copy todir="${dist.stage.dir}/src" >
-          <fileset dir="${src.dir}" includes="**/*" />
-      </copy>
-      <zip zipfile="${dist.dir}/andromda-struts.zip">
-          <zipfileset dir="${dist.stage.dir}" includes="**/*" prefix="andromda-struts" />
-      </zip>
     </target>
 
     <!-- build cartridge jar file only -->
