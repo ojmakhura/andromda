@@ -9,7 +9,6 @@
 ##
 package $class.packageName;
 
-import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,22 +33,19 @@ public class $class.name implements ${class.name}Interface
      */
     protected ${class.name}($class.name instance)
     {
-        this.instance = instance;
+        ${class.name}.instance = instance;
     }
 
     /**
      * Singleton instance accessor
      */
-    public static ${class.name} getInstance()
+    public static synchronized ${class.name} getInstance()
     {
-        if (instance == null)
+        if (${class.name}.instance == null)
         {
-            synchronized (instance)
-            {
-                if (instance == null) instance = new ${class.name}();
-            }
+            ${class.name}.instance = new ${class.name}();
         }
-        return instance;
+        return ${class.name}.instance;
     }
 
 #foreach ($operation in $class.operations)
