@@ -183,9 +183,9 @@
 				    task.  By default all packages are processed. Therefore it is recommended to 
 					turn off the packages which should be not processed.  In other words,
 					if you don't want to generate code from a certain package of a model, 
-					then you can turn of processing for that package and 
-					nothing will be generated from elements that reside in the 
-					package that was turned off.
+					then you can create a modelPackage for that package, set the 
+					<em>shouldProcess</em> attribute to <code>false</code>, and any model 
+					elements in that package will not be processed.
 				</p>
 				<p class="std">
 					The modelPackage element is optional. 			
@@ -244,7 +244,7 @@
 <andromda ...> 
     <modelPackage name="my.package.bar" shouldProcess="false"/> 
     ... 
-</andromda> 
+</andromda>
 				]]></source>			
 			<h2>
 				<a name="namespace"><![CDATA[<namespace>]]></a>
@@ -312,8 +312,13 @@
 				use to write extensions to androMDA.
 			</p>
 			<p class="std">
-				AndroMDA by default reads models from XMI files.  If you wanted to change AndroMDA so that it could read the
-				model from another format, or source type, then this tag would be useful for implementing that sort of extension.
+				AndroMDA by default reads models from XMI files.  If you wanted to change 
+				the default behavior of AndroMDA so that it could read a model from another 
+				format, or repository other than MDR, then this element would be useful for 
+				implementing that sort of extension.  This element is also used to define 
+				the location of other modules/profiles that your model is using via the nested
+				<a href="#moduleSearchPath"><code><![CDATA[<moduleSearchPath>]]></code></a> 
+				element.
 			</p>
 			<h3>Attributes</h3>
 			<table border="1" cellpadding="2" cellspacing="0">
@@ -329,7 +334,9 @@
 					</td>
 				</tr>
 				<tr>
-					<td valign="top" class="std">classname</td>
+					<td valign="top" class="std">
+						classname
+					</td>
 					<td valign="top" class="std">
 						Specifies the name of the java class that implements AndroMDA's meta data
 						repository.  One way to write your own meta data repository is by
@@ -340,30 +347,46 @@
 					</td>
 					<td align="center" class="std">No.</td>
 				</tr>
-				<tr>
-					<td valign="top" class="std">transformClassname</td>
-					<td valign="top" class="std">
-					     Specifies the name of the java class that implements the script helper
-						that the velocity code templates access as $transform.
-					</td>
-					<td align="center" class="std">No.</td>
-				</tr>
 			</table>
 			<h3>Example</h3>
 			<source><![CDATA[
-<andromda basedir="${build.dir}/unzipped"
-		  includes="CarRentalSystem15.xmi"
-		  lastModifiedCheck="false">
-
-	<repository
-		classname="org.andromda.repositories.mdr.MDRepositoryFacade"
-		transformClassname="org.andromda.core.simpleuml.SimpleOOHelper"/>
-
+<andromda modelURL="jar:file:/path/to/my/model.zuml!/model.xmi"
+          lastModifiedCheck="false">
+	<repository classname="org.andromda.repositories.mdr.MDRepositoryFacade"/>
+	...
 </andromda>
-					]]></source>
+				]]></source>
 			<p class="std">
 			  The above shows the defaults setup assumed by AndroMDA when there is no repository subtask.
-		  </p>
+			</p>
+			<h2>
+				<a name="moduleSearchPath"><![CDATA[<moduleSearchPath>]]></a>
+			</h2>
+			<p class="std">
+				The <a href="#repository"><code><![CDATA[<repository>]]></code></a> element 
+				takes a nested <code><![CDATA[<moduleSearchPath>]]></code> element in order 
+				to define the location of external modules or profiles that a model being 
+				processed is using.  The <code><![CDATA[<moduleSearchPath>]]></code> takes
+				any valid Ant path element structures.  See 
+				<a href="http://ant.apache.org/manual/using.html#path">Path-like Structures</a>
+				for more information on how to define these paths. 
+			</p>
+			<h3>Example</h3>
+			<p class="std">
+			    The BPM4Struts cartridge metafacade model 
+				extends from the base metafacade model, so we define a 
+				<code><![CDATA[<moduleSearchPath>]]></code> element pointing to 
+				the location for which to find the base metafacade model.
+			</p>
+			<source><![CDATA[
+<andromda modelURL="=jar:file:${src.dir}/uml/BPM4StrutsMetafacadeModel.xml.zip!/BPM4StrutsMetafacadeModel.xml"
+          lastModifiedCheck="false">
+	<repository>
+		<pathelement location="${basedir}/../../metafacades/uml/common/src/uml"/>
+	</repository>
+	...
+</andromda>
+				]]></source>
 		</section>
 	</body>
 </document>
