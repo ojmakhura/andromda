@@ -65,19 +65,34 @@ public class StrutsForwardLogicImpl
     public java.lang.String handleGetForwardPath()
     {
         final StateVertexFacade target = getTarget();
-        if (target instanceof StrutsJsp)
+        if (isTargettingPage())
         {
             return ((StrutsJsp) target).getFullPath() + ".jsp";
-        } else if (target instanceof StrutsFinalState)
+        }
+        else if (isTargettingFinalState())
         {
             return ((StrutsFinalState) target).getFullPath() + ".do";
-        } else
+        }
+        else
             return null;
     }
 
     public String handleGetActionMethodName()
     {
         return StringUtilsHelper.toJavaMethodName(resolveName());
+    }
+
+    public String handleGetTargetNameKey()
+    {
+        if (isTargettingPage())
+        {
+            return ((StrutsJsp) getTarget()).getTitleKey();
+        }
+        else if (isTargettingFinalState())
+        {
+            return ((StrutsFinalState) getTarget()).getTargetUseCase().getTitleKey();
+        }
+        return null;
     }
 
     private String resolveName()
