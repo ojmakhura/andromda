@@ -85,7 +85,7 @@ public class StrutsUseCaseLogicImpl
 
     public String handleGetFormBeanPackageName()
     {
-        return getController().getPackageName();
+        return getPackageName();
     }
 
     public String handleGetActionRoles()

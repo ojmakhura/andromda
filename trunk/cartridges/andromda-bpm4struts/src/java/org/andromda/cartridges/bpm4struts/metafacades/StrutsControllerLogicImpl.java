@@ -34,7 +34,7 @@ public class StrutsControllerLogicImpl
      */
     public java.lang.String handleGetFullPath()
     {
-        return '/' + getFullyQualifiedName().replace('.', '/');
+        return '/' + getUseCase().getPackageName().replace('.', '/') + '/' + getName();
     }
 
     // ------------- relations ------------------
@@ -82,16 +82,25 @@ public class StrutsControllerLogicImpl
         return servicesList;
     }
 
+    private Object useCase = null;
+    private boolean useCaseFound = false;
+
     protected Object handleGetUseCase()
     {
-        final Collection useCases = getModel().getAllUseCases();
-        for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+        if (useCaseFound == false)
         {
-            StrutsUseCase strutsUseCase = (StrutsUseCase) iterator.next();
-            if (this.equals(strutsUseCase.getController()))
-                return strutsUseCase;
+            final Collection useCases = getModel().getAllUseCases();
+            for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
+            {
+                StrutsUseCase strutsUseCase = (StrutsUseCase) iterator.next();
+                if (this.equals(strutsUseCase.getController()))
+                {
+                    useCase = strutsUseCase;
+                    useCaseFound = true;
+                }
+            }
         }
-        return null;
+        return useCase;
     }
 
     protected Collection handleGetAllArguments()
