@@ -8,6 +8,7 @@ import java.util.List;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.node.AActualParameterList;
+import org.andromda.core.translation.node.AArrowPropertyCallExpressionTail;
 import org.andromda.core.translation.node.ACommaExpression;
 import org.andromda.core.translation.node.AFeatureCall;
 import org.andromda.core.translation.node.AFeatureCallParameters;
@@ -373,49 +374,35 @@ public class ConcreteSyntaxUtils
      * retrieved from the parser syntax (since it leaves off any navigational
      * relationships).
      * 
-     * @param expression
-     *            the APosfixExpression instance for which to retrieve the
-     *            primary expression
+     * @param expression the APosfixExpression instance for which to retrieve the
+     *        primary expression
      * @return String the "real" primary expression or the passed in expression.
      */
     public static String getPrimaryExpression(
         APropertyCallExpression expression)
     {
-        final String methodName = "ConcreteSyntaxUtils.getPrimaryExpression";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("performing " + methodName + " with expression --> '"
-                + expression + "'");
-        }
         StringBuffer primaryExpression = new StringBuffer();
         if (expression != null)
         {
             //append the first part of the primary expression
             primaryExpression.append(TranslationUtils.trimToEmpty(expression
                 .getPrimaryExpression()));
-
-            List expressionTail = new ArrayList(
-                expression.getPropertyCallExpressionTail());
-            if (expressionTail.size() > 1)
+            List expressionTail = 
+                expression.getPropertyCallExpressionTail();
+            if (expressionTail.size() > 0)
             {
-                //if it its greater than one, we assume the rest of the primary
-                // expression
-                //is all of the list elements except for the last, so we'll
-                // remove
-                //the last link and concatinate them together to add the rest
-                // of
-                //the primary expression
-                expressionTail.remove(expressionTail.size() - 1);
-                primaryExpression.append(ConcreteSyntaxUtils
-                    .concatContents(expressionTail));
-            }
-
-            if (logger.isDebugEnabled())
-            {
-                logger
-                    .debug("completed " + methodName
-                        + " with primaryExpression --> '" + primaryExpression
-                        + "'");
+                Iterator expressionTailIt = expressionTail.iterator();
+                while (expressionTailIt.hasNext())
+                {
+                    Object tail = expressionTailIt.next();
+                    String tailAsString = TranslationUtils.trimToEmpty(tail);
+                    // we ignore tails that have arrows or are operations
+                    if (tailAsString.indexOf("->") == -1 &&
+                        TranslationUtils.trimToEmpty(tail).indexOf('(') == -1)
+                    {
+                        primaryExpression.append(tailAsString);
+                    }
+                }
             }
         }
         return StringUtils.deleteWhitespace(primaryExpression.toString());

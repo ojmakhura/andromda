@@ -19,11 +19,6 @@ public class EventFacadeLogicImpl
         super (metaObject, context);
     }
 
-    public String handleGetName()
-    {
-        return metaObject.getName();
-    }
-
     public Collection handleGetParameters()
     {
         return metaObject.getParameter();
