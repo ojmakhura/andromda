@@ -1,9 +1,11 @@
 package org.andromda.core.simpleuml;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.andromda.core.common.HTMLAnalyzer;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.uml14.UMLStaticHelper;
 import org.omg.uml.foundation.core.AssociationEnd;
@@ -58,6 +60,27 @@ public class SimpleOOHelper extends UMLStaticHelper
         AssociationEnd ae = (AssociationEnd)object;
         
         return new DirectionalAssociationEnd(this,ae);
+    }
+    
+    /**
+     * <p>Formats an HTML String as a collection of paragraphs.
+     * Each paragraph has a getLines() method that returns a collection
+     * of Strings.</p>
+     * 
+     * @param string the String to be formatted
+     * @return Collection the collection of paragraphs found.
+     */
+    public Collection formatHTMLStringAsParagraphs(String string)
+    {
+        try
+        {
+            return new HTMLAnalyzer().htmlToParagraphs(string);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     
