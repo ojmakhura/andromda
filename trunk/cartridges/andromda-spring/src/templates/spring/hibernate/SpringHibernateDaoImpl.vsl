@@ -1,4 +1,3 @@
-#if (!$entity.operations.empty)
 /**
  * This is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
@@ -45,7 +44,6 @@ public class $entity.daoImplementationName
     }
 	
 #end
-#if(!$entity.getFinders(true).empty)
     /**
      * @see ${entity.fullyQualifiedDaoBaseName}#transformEntity($entity.fullyQualifiedName)
      */ 
@@ -61,6 +59,4 @@ public class $entity.daoImplementationName
         return entity;
     }
     
-#end
 }
-#end
