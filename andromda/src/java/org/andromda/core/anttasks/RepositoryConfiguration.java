@@ -1,8 +1,5 @@
 package org.andromda.core.anttasks;
 
-import org.andromda.core.common.ComponentContainer;
-import org.andromda.core.repository.RepositoryFacade;
-import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.Path;
 

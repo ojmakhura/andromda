@@ -1,18 +1,17 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 
 
 /**

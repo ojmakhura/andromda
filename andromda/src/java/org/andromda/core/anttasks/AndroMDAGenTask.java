@@ -9,17 +9,12 @@ import java.util.Iterator;
 
 import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;
-import org.andromda.core.cartridge.Cartridge;
-import org.andromda.core.common.CodeGenerationContext;
-import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ModelPackage;
 import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.StdoutLogger;
 import org.andromda.core.common.XmlObjectFactory;
-import org.andromda.core.repository.RepositoryFacade;
 import org.apache.log4j.Logger;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
