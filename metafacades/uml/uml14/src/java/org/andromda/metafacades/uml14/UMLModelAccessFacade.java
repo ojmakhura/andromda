@@ -9,8 +9,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
@@ -131,23 +129,12 @@ public class UMLModelAccessFacade implements ModelAccessFacade
         }
         return modelElements;
     }
-        
+
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#findModelElement(java.lang.String)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getModelElements()
      */
-    public Object findModelElement(final String fullyQualifiedName)
+    public Collection getModelElements() 
     {
-        return CollectionUtils.find(
-            this.getModelElements(),
-            new Predicate() {
-                public boolean evaluate(Object object) {
-                    return ((ModelElementFacade)object).getFullyQualifiedName().equals(
-                        StringUtils.trimToEmpty(fullyQualifiedName));
-                }
-            });
-    }
-    
-    private Collection getModelElements() {
         return MetafacadeFactory.getInstance().createMetafacades(
             this.model.getCore().getModelElement().refAllOfType());
     }
