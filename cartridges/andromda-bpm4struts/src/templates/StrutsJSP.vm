@@ -113,7 +113,7 @@ ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <html:$widgetType property="$field.name" titleKey="${messageKey}.${optionKey}.title" value="$optionKey" $disabled/>
+${indent}            <html:$widgetType name="$formBeanName" property="$field.name" titleKey="${messageKey}.${optionKey}.title" value="$optionKey" $disabled/>
 ${indent}            <bean:message key="${messageKey}.$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
@@ -128,7 +128,7 @@ ${indent}</table>
 #else
 #set ($disabled = '')
 #end
-${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field.titleKey" $disabled/>
+${indent}<html:$widgetType name="$formBeanName" property="$field.name" titleKey="${messageKey}.$field.titleKey" $disabled/>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
@@ -138,7 +138,7 @@ ${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field
 #else
 #set ($readonly = '')
 #end
-${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field.titleKey" $readonly/>
+${indent}<html:$widgetType name="$formBeanName" property="$field.name" titleKey="${messageKey}.$field.titleKey" $readonly/>
 ##
 ##      T E X T A R E A
 ##
@@ -148,12 +148,12 @@ ${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field
 #else
 #set ($readonly = '')
 #end
-${indent}<html:$widgetType property="$field.name" titleKey="${messageKey}.$field.titleKey" $readonly/>
+${indent}<html:$widgetType name="$formBeanName" property="$field.name" titleKey="${messageKey}.$field.titleKey" $readonly/>
 ##
 ##      H I D D E N
 ##
 #elseif ($widgetType == 'hidden')
-${indent}<html:$widgetType property="$field.name" />
+${indent}<html:$widgetType name="$formBeanName" property="$field.name" />
 ##
 ##      C O M B O B O X     &      L I S T
 ##
@@ -173,13 +173,13 @@ ${indent}<html:$widgetType property="$field.name" />
 #else
 #set ($selectProperty = "$field.name")
 #end
-${indent}<html:select property="$selectProperty" titleKey="${messageKey}.$field.titleKey" $disabled $multiple>
-${indent}    <html:options property="$field.backingListName"/>
+${indent}<html:select name="$formBeanName" property="$selectProperty" titleKey="${messageKey}.$field.titleKey" $disabled $multiple>
+${indent}    <html:options name="$formBeanName" property="$field.backingListName"/>
 ${indent}</html:select>
 ##
 ##      Any other field will be rendered as plain text (no input)
 ##
 #else
-${indent}<bean:write name="$action.actionName" property="$field.name" scope="request"/>
+${indent}<bean:write name="$formBeanName" property="$field.name" scope="request"/>
 #end
 #end
