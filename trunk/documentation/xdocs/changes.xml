@@ -23,9 +23,9 @@
                         Just like you can use success messages on action transitions we now have
                         the possibility to use warning messages, simply add the tagged value
                         <code>@andromda.struts.action.warning.message</code> to the action
-                        transition and set its value to <code>true</code>.
-                        Warning messages will be rendered in yellow.
-                        In addition messages are now supported on <strong>any</strong> transition, and you may have
+                        transition and set its value to the message you want to have displayed (will be i18n'ed).
+                        Warning messages will be rendered in yellowish.
+                        In addition all messages are now supported on <strong>any</strong> transition, and you may have
                         more than one message on such a transition (unlimited).
                     </td>
                 </tr>
