@@ -1,0 +1,15 @@
+<%@ taglib uri="struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="struts-html.tld" prefix="html" %>
+<%@ taglib uri="struts-logic.tld" prefix="logic" %>
+
+<logic:messagesPresent>
+    <div id="messages">
+        <html:messages id="error">
+            <p class="error"><bean:write name="error"/></p>
+        </html:messages>
+        <html:messages id="message" message="true">
+            <p class="message"><bean:write name="message"/></p>
+        </html:messages>
+    </div>
+</logic:messagesPresent>
+
