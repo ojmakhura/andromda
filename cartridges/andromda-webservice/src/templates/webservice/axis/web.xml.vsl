@@ -39,7 +39,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
-        <url-pattern>/services/*</url-pattern>
+        <url-pattern>$serviceContext</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SOAPMonitorService</servlet-name>

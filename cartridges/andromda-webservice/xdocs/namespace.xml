@@ -366,6 +366,17 @@
                         No, by default it is not set.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        serviceContext
+                    </td>
+                    <td>
+                        The context to use when listing the services.
+                    </td>
+                    <td>
+                        No, default is <code>/services/*</code>
+                    </td>
+                </tr>
 			</table>
 			<subsection name="WS-Security Specific Properties">
 				<table>
