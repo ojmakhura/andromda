@@ -107,8 +107,8 @@ public class TraceTranslator
      */
     public Expression translate(
         String translationName,
-        Object contextElement,
-        String expression)
+        String expression,
+        Object contextElement)
     {
         if (logger.isInfoEnabled())
         {
