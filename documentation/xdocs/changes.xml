@@ -7,7 +7,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC1-SNAPSHOT" date="2005-01-18" description="First release candidate for version 3.0">
+        <release version="3.0-RC1-SNAPSHOT" date="2005-01-20" description="First release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="SPRING-20">
+                Hibernate entities in the Spring cartridge now have a factory operation on each entity that allows
+                creation of new entity instances (this elminiates the need to call the implementation specific constructor
+                for each entity when constructing a new instance).
+            </action>
             <action dev="cwbrandon" type="add">
                 Provide the ability to have entity association lazy loading within the service tier 
                 (all entity associations should be able to be lazily loaded within ALL service operations,
