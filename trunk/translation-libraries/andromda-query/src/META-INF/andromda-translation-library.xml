@@ -2,31 +2,31 @@
 
 <translation-library name="query">
 
-	<!-- contains the default class name (for this library) that provides the translation processing
-	     of the the translation file (it must implement org.andromda.core.translation.Translator) 
-	     (this can also be overridden on each translation element) -->
-	<translator>org.andromda.translation.query.QueryTranslator</translator>
-	
-	<!-- transformers -->
-    <templateObject 
-    	name="stringUtils"
-    	className="org.apache.commons.lang.StringUtils"/>   
-	
-	<translation name="Hibernate-QL">
-		<description>
-			Describes translation fragments that help to
-			generate Hibernate Query code out of OCL expressions.
-		</description>
-		<template>translations/query/Hibernate-QL.vsl</template>
-	</translation>    
-	
-	<translation name="EJB-QL">
-		<translator>org.andromda.translation.query.EjbQLTranslator</translator>
-		<description>
-			Describes translation fragments that help to
-			generate EJB QL query code out of OCL expressions.
-		</description>
-		<template>translations/query/EJB-QL.vsl</template>
-	</translation>
-		
+    <!-- contains the default class name (for this library) that provides the translation processing
+         of the the translation file (it must implement org.andromda.core.translation.Translator)
+         (this can also be overridden on each translation element) -->
+    <translator>org.andromda.translation.query.QueryTranslator</translator>
+
+    <!-- transformers -->
+    <templateObject
+        name="stringUtils"
+        className="org.apache.commons.lang.StringUtils"/>
+
+    <translation name="Hibernate-QL">
+        <description>
+            Describes translation fragments that help to
+            generate Hibernate Query code out of OCL expressions.
+        </description>
+        <template>translations/query/Hibernate-QL.vsl</template>
+    </translation>
+
+    <translation name="EJB-QL">
+        <translator>org.andromda.translation.query.EjbQLTranslator</translator>
+        <description>
+            Describes translation fragments that help to
+            generate EJB QL query code out of OCL expressions.
+        </description>
+        <template>translations/query/EJB-QL.vsl</template>
+    </translation>
+
 </translation-library>

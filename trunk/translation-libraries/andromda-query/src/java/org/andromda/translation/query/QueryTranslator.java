@@ -13,8 +13,6 @@ import org.andromda.core.translation.node.APropertyCallExpression;
 import org.andromda.core.translation.node.ARelationalExpressionTail;
 import org.andromda.core.translation.node.AStandardDeclarator;
 import org.andromda.core.translation.node.PRelationalExpression;
-import org.andromda.core.translation.node.TLParen;
-import org.andromda.core.translation.node.TRParen;
 import org.andromda.core.translation.syntax.VariableDeclaration;
 import org.andromda.core.translation.syntax.impl.ConcreteSyntaxUtils;
 import org.apache.commons.lang.StringUtils;
@@ -183,48 +181,27 @@ public class QueryTranslator
     }
 
     /**
-     * A flag indicating whether or not we're in a parenthesis primary
-     * expression. Allows us to keep track of whether or not the translated
-     * expression requires left and right parenthesis.
-     */
-    private boolean parenthesis = false;
-
-    /**
-     * Override to deal with parenthesis expressions '( <expression>)'.
+     * Override to deal with entering parenthesis expressions '( <expression>)'.
      * 
-     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#outAParenthesesPrimaryExpression(org.andromda.core.translation.node.AParenthesesPrimaryExpression)
+     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#inAParenthesesPrimaryExpression(org.andromda.core.translation.node.AParenthesesPrimaryExpression)
      */
     public void inAParenthesesPrimaryExpression(
         AParenthesesPrimaryExpression expression)
     {
-        parenthesis = true;
+        this.getExpression().appendSpaceToTranslatedExpression();
+        this.getExpression().appendToTranslatedExpression("(");
     }
 
     /**
-     * @see org.andromda.core.translation.analysis.Analysis#caseTLParen(org.andromda.core.translation.node.TLParen)
+     * Override to deal with leaving parenthesis expressions '( <expression>)'.
+     * 
+     * @see org.andromda.core.translation.analysis.DepthFirstAdapter#outAParenthesesPrimaryExpression(org.andromda.core.translation.node.AParenthesesPrimaryExpression)
      */
-    public void caseTLParen(TLParen left)
+    public void outAParenthesesPrimaryExpression(
+        AParenthesesPrimaryExpression expression)
     {
-        if (this.parenthesis
-            && !TranslationUtils.trimToEmpty(left.parent()).matches(
-                OCLPatterns.OPERATION_FEATURE_CALL))
-        {
-            this.getExpression().appendSpaceToTranslatedExpression();
-            this.getExpression().appendToTranslatedExpression(left);
-        }
-    }
-
-    /**
-     * @see org.andromda.core.translation.analysis.Analysis#caseTRParen(org.andromda.core.translation.node.TRParen)
-     */
-    public void caseTRParen(TRParen right)
-    {
-        if (this.parenthesis)
-        {
-            this.getExpression().appendSpaceToTranslatedExpression();
-            this.getExpression().appendToTranslatedExpression(right);
-            this.parenthesis = false;
-        }
+        this.getExpression().appendSpaceToTranslatedExpression();
+        this.getExpression().appendToTranslatedExpression(")");
     }
 
     /**
