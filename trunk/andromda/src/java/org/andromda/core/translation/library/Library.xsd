@@ -26,8 +26,8 @@
         </xs:complexType>
     </xs:element>
     
-    <!-- the translation which performs 'translation' of the expression in combination with the 
-         translation template -->
+    <!-- the translation which performs 'translation' of the expression 
+         in combination with the translation template -->
     <xs:element name="translator" type="xs:string"/>
     
     <!-- any objects to make available to the translation template -->
@@ -36,7 +36,8 @@
             <!-- the name of the templateObject, this is the name of the scripting object
                  made available to the translation template during processing -->
             <xs:attribute name="name" type="xs:string" use="required"/>
-            <!-- the fully qualified class name of the object (must have a default public constructor) -->
+            <!-- the fully qualified class name of the object (must have a 
+                 default public constructor) -->
             <xs:attribute name="className" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
