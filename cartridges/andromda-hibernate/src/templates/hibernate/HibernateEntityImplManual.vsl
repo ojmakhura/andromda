@@ -11,23 +11,20 @@ package $entity.packageName;
 /**
  * @see $entity.fullyQualifiedEntityName
  */
-
 public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
     extends $entity.fullyQualifiedEntityName
 {
 #foreach ($operation in $entity.businessOperations)
-#set ($returnType = $operation.returnType)
-#set ($returnObject = "returnValue")
 #set ($signature = $operation.signature)
     /**
      * @see ${entity.fullyQualifiedEntityName}#${operation.getSignature(false)}
      */
-    $operation.visibility $returnType.fullyQualifiedName $signature
+    $operation.visibility $operation.returnType.fullyQualifiedName $signature
 #if ($operation.exceptionsPresent)
         throws $operation.exceptionList
 #end
     {
-        //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
+        //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $signature
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else
