@@ -252,7 +252,7 @@ public class AssociationEndFacadeLogicImpl
         }
 
         // if single element, then return the type
-        return getType().getFullyQualifiedName();
+        return this.getType().getFullyQualifiedName();
     }
 
     /**
