@@ -5,6 +5,8 @@
     
     <!-- The name of the namespace -->
     <property reference="namespace"/>
+    <!-- encoding for xml documents -->
+    <property reference="xmlEncoding" default="UTF-8"/>
     <!-- cartridge-property merge-point-->
     
     <!-- cartridge-resource merge-point -->
