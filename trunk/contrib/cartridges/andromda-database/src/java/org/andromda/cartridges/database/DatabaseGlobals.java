@@ -22,4 +22,14 @@ public class DatabaseGlobals
      * The namespace property that stores the primary key constraint prefix.
      */
     public static final String PRIMARY_KEY_CONSTRAINT_PREFIX = "primaryKeyConstraintPrefix";
+    
+    /**
+     * The namespace property that stores prefix to given indexes.
+     */
+    public static final String INDEX_PREFIX = "indexPrefix";
+    
+    /**
+     * The namespace property that stores the foreign key constraint prefix.
+     */    
+    public static final String FOREIGN_KEY_CONSTRAINT_PREFIX = "foreignKeyConstraintPrefix";
 }

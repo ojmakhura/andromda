@@ -2,6 +2,7 @@ package org.andromda.cartridges.database.metafacades;
 
 import java.util.Random;
 
+import org.andromda.cartridges.database.DatabaseGlobals;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 
 
@@ -27,7 +28,7 @@ public class ForeignKeyColumnLogicImpl
      */
     protected boolean handleIsCascadeDelete()
     {
-        return this.isComposition();
+        return this.isComposition() || this.isMany2Many();
     }
     
     /**
@@ -35,7 +36,25 @@ public class ForeignKeyColumnLogicImpl
      */
     protected java.lang.Object handleGetTable()
     {
-        return getOtherEnd().getType();
+        Object table = null;
+        if (!this.isMany2Many())
+        {
+            table = this.getOtherEnd().getType();
+        }
+        return table;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getAssociationTable()
+     */
+    protected java.lang.Object handleGetAssociationTable()
+    {
+        Object table = null;
+        if (this.isMany2Many())
+        {
+            table = this.getAssociation();
+        }
+        return table;
     }
 
     /**
@@ -43,7 +62,7 @@ public class ForeignKeyColumnLogicImpl
      */
     protected java.lang.Object handleGetImportedTable()
     {
-        return getType();
+        return this.getType();
     }
     
     private final static Random RANDOM = new Random();
@@ -54,15 +73,12 @@ public class ForeignKeyColumnLogicImpl
     protected String handleGetDummyLoadValue(int index)
     {
         String initialLoadValue = null;
-
-        NonForeignKeyColumn importedColumn = getImportedTable().getPrimaryKeyColumn();
-
+        NonForeignKeyColumn importedColumn = this.getImportedTable().getPrimaryKeyColumn();
         if (importedColumn != null)
         {
             int randomValue = RANDOM.nextInt(importedColumn.getTable().getDummyLoadSize()) + 1;
             initialLoadValue = importedColumn.getDummyLoadValue(randomValue);
         }
-
         return initialLoadValue;
     }
 
@@ -73,9 +89,9 @@ public class ForeignKeyColumnLogicImpl
     {
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append("FK");
-        buffer.append(getImportedTable().getTableName());
-        buffer.append(getTable().getTableName());
+        buffer.append(this.getConfiguredProperty(DatabaseGlobals.FOREIGN_KEY_CONSTRAINT_PREFIX));
+        buffer.append(this.getImportedTable().getTableName());
+        buffer.append(this.getTableName());
 
         return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
     }
@@ -86,12 +102,27 @@ public class ForeignKeyColumnLogicImpl
     protected String handleGetIndexName()
     {
         StringBuffer buffer = new StringBuffer();
-
-        buffer.append("IDX");
-        buffer.append(getImportedTable().getTableName());
-        buffer.append(getTable().getTableName());
-
+        buffer.append(this.getConfiguredProperty(DatabaseGlobals.INDEX_PREFIX));
+        buffer.append(this.getImportedTable().getTableName());
+        buffer.append(this.getTableName());
         return EntityMetafacadeUtils.ensureMaximumNameLength(buffer.toString(), getMaxSqlNameLength());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.database.metafacades.ForeignKeyColumn#getTableName()
+     */
+    protected String handleGetTableName()
+    {
+        StringBuffer tableName = new StringBuffer();
+        if (this.getAssociationTable() != null)
+        {
+            tableName.append(this.getAssociationTable().getTableName());
+        }
+        else
+        {
+            tableName.append(this.getTable().getName());
+        }
+        return tableName.toString();
     }
 
     /**
@@ -107,7 +138,7 @@ public class ForeignKeyColumnLogicImpl
      */
     protected Object handleGetImportedPrimaryKeyColumn()
     {
-        return getImportedTable().getPrimaryKeyColumn();
+        return this.getImportedTable().getPrimaryKeyColumn();
     }
     
     /**

@@ -116,7 +116,7 @@ public class TableLogicImpl
      */
     protected Object handleGetPrimaryKeyColumn()
     {
-        Collection identifiers = getIdentifiers();
+        Collection identifiers = this.getIdentifiers();
         return (identifiers.isEmpty()) ? null : identifiers.iterator().next();
     }
 
@@ -127,7 +127,7 @@ public class TableLogicImpl
     {
         Collection importingTables = new HashSet();
 
-        Collection associationEnds = getAssociationEnds();
+        Collection associationEnds = this.getAssociationEnds();
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
         {
             AssociationEndFacade associationEnd = (AssociationEndFacade) iterator.next();
