@@ -3,6 +3,7 @@ package org.andromda.core.metafacade;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -238,6 +239,20 @@ public class MetafacadeMapping
                 this.mappingClassName,
                 this.context,
                 this.stereotypes);
+            if (this.hasMappingProperties())
+            {
+                Iterator mappingPropertyIterator = this.mappingProperties
+                    .iterator();
+                while (mappingPropertyIterator.hasNext())
+                {
+                    Property property = (Property)mappingPropertyIterator
+                        .next();
+                    key = MetafacadeMappingsUtils.constructKey(key, property
+                        .getName());
+                    key = MetafacadeMappingsUtils.constructKey(key, property
+                        .getValue());
+                }
+            }
         }
         return key;
     }
@@ -291,7 +306,7 @@ public class MetafacadeMapping
      * Stores and provides access to the mapping element's nested
      * &lt;property/&gt;.
      */
-    class Property
+    static class Property
     {
         private String name;
         private String value;
