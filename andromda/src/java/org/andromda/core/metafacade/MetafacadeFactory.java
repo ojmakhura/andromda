@@ -603,7 +603,7 @@ public class MetafacadeFactory
 
     private Logger internalGetLogger()
     {
-        if (!"core".equals(activeNamespace))
+        if (!"default".equals(activeNamespace))
             return Logger.getLogger("org.andromda.cartridges."
                 + activeNamespace);
         return Logger.getRootLogger();

@@ -42,7 +42,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetTaggedValues()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getTaggedValues()
      */
     public java.util.Collection handleGetTaggedValues()
     {
@@ -414,9 +414,9 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getTargetDependencies()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getSourceDependencies()
      */
-    protected java.util.Collection handleGetTargetDependencies()
+    protected java.util.Collection handleGetSourceDependencies()
     {
         Collection dependencies = new ArrayList();
         Collection clientDependencies = UMLMetafacadeUtils.getCorePackage()
@@ -437,9 +437,9 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacadeLogic#getSourceDependencies()
+     * @see org.andromda.metafacades.uml.ModelElementFacadeLogic#getTargetDependencies()
      */
-    protected Collection handleGetSourceDependencies()
+    protected Collection handleGetTargetDependencies()
     {
         Collection dependencies = new ArrayList();
         Collection supplierDependencies = UMLMetafacadeUtils.getCorePackage()

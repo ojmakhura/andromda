@@ -398,7 +398,7 @@ public class EntityFacadeLogicImpl
      */
     public Collection handleGetEntityReferences()
     {
-        return new FilteredCollection(this.getTargetDependencies())
+        return new FilteredCollection(this.getSourceDependencies())
         {
             public boolean evaluate(Object object)
             {
@@ -522,7 +522,7 @@ public class EntityFacadeLogicImpl
     public Short handleGetMaxSqlNameLength()
     {
         return Short.valueOf((String)this
-            .getConfiguredProperty("maxSqlNameLength"));
+            .getConfiguredProperty(MetafacadeProperties.MAX_SQL_NAME_LENGTH));
     }
 
     /**
@@ -531,7 +531,7 @@ public class EntityFacadeLogicImpl
     private boolean isAllowDefaultIdentifiers()
     {
         return Boolean.valueOf(
-            (String)this.getConfiguredProperty("allowDefaultIdentifiers"))
+            (String)this.getConfiguredProperty(MetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
             .booleanValue();
     }
 
@@ -540,7 +540,7 @@ public class EntityFacadeLogicImpl
      */
     private String getDefaultIdentifier()
     {
-        return (String)this.getConfiguredProperty("defaultIdentifier");
+        return (String)this.getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER);
     }
 
     /**
@@ -548,7 +548,7 @@ public class EntityFacadeLogicImpl
      */
     private String getDefaultIdentifierType()
     {
-        return (String)this.getConfiguredProperty("defaultIdentifierType");
+        return (String)this.getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER_TYPE);
     }
 
     /**
@@ -557,6 +557,6 @@ public class EntityFacadeLogicImpl
     private String getDefaultIdentifierVisibility()
     {
         return (String)this
-            .getConfiguredProperty("defaultIdentifierVisibility");
+            .getConfiguredProperty(MetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
     }
 }

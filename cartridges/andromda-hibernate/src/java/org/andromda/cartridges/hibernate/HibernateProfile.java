@@ -48,7 +48,7 @@ public class HibernateProfile extends UMLProfile
 	/** Value for joined-subclass */
 	public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE_SUBCLASS = "subclass";
 	/** Value for one Table per concrete class */
-	public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE_CONRETE = "concrete";
+	public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE_CONCRETE = "concrete";
 	/** Value make Entity an interface, delegate attributes to subclasses. */
 	public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE_INTERFACE = "interface";
 

@@ -60,7 +60,7 @@ public class StrutsControllerLogicImpl
     {
         final Collection objectsList = new ArrayList();
 
-        final Collection dependencies = getTargetDependencies();
+        final Collection dependencies = this.getSourceDependencies();
         for (Iterator iterator = dependencies.iterator(); iterator.hasNext();)
         {
             DependencyFacade dependency = (DependencyFacade) iterator.next();
@@ -77,7 +77,7 @@ public class StrutsControllerLogicImpl
      */
     protected Collection handleGetServiceReferences()
     {
-        return new FilteredCollection(this.getTargetDependencies())
+        return new FilteredCollection(this.getSourceDependencies())
         {
             public boolean evaluate(Object object)
             {
