@@ -241,13 +241,27 @@ public class ConcreteSyntaxUtils
      * Gets all the parameters from the <code>featureCall</code> instance as a
      * comma seperated String.
      * 
-     * @param featureCall the featureCall for which to retrieve the parameters
+     * @param featureCall the featureCall from which to retrieve the parameters
      * @return String the comma seperated String
      */
     public static String getParametersAsString(AFeatureCall featureCall)
     {
-        return StringUtils.join(ConcreteSyntaxUtils.getParameters(featureCall)
-            .iterator(), ",");
+        return getParametersAsString(featureCall.getFeatureCallParameters());
+    }
+
+    /**
+     * Gets all the parameters from the <code>PFeatureCallParameters</code>
+     * instance as a comma seperated String.
+     * 
+     * @param featureCallParameters the featureCallParameters from which to
+     *        retrieve the parameters
+     * @return String the comma seperated String
+     */
+    public static String getParametersAsString(
+        PFeatureCallParameters featureCallParameters)
+    {
+        return StringUtils.join(ConcreteSyntaxUtils.getParameters(
+            featureCallParameters).iterator(), ",");
     }
 
     /**
