@@ -17,6 +17,19 @@
                     <th class="std">Details</th>
                 </tr>
                 <tr>
+                    <td valign="top" class="std">Sep 25, 2004</td>
+                    <td valign="top" class="std">bpm4struts new tagged value</td>
+                    <td valign="top" class="std">
+                        Just like you can use success messages on action transitions we now have
+                        the possibility to use warning messages, simply add the tagged value
+                        <code>@andromda.struts.action.warning.message</code> to the action
+                        transition and set its value to <code>true</code>.
+                        Warning messages will be rendered in yellow.
+                        In addition messages are now supported on <strong>any</strong> transition, and you may have
+                        more than one message on such a transition (unlimited).
+                    </td>
+                </tr>
+                <tr>
                     <td valign="top" class="std">Sep 23, 2004</td>
                     <td valign="top" class="std">bpm4struts update</td>
                     <td valign="top" class="std">
