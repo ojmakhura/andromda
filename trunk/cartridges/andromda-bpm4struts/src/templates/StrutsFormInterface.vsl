@@ -133,8 +133,6 @@ $field.getDocumentation("     * ")
      * Sets the <code>$field.name</code> Struts FormFile field to the specified value.
      *
 $field.getDocumentation("     * ")
-     *
-     * @see #${field.getterName}Value(java.lang.String)
      */
     public void ${field.setterName}(org.apache.struts.upload.FormFile ${field.name});
 
@@ -143,8 +141,6 @@ $field.getDocumentation("     * ")
      * Gets the <code>$field.name</code> Struts FormFile field value.
      *
 $field.getDocumentation("     * ")
-     *
-     * @see #${field.getterName}Value(java.lang.String)
      */
     public org.apache.struts.upload.FormFile ${field.getterName}();
 
