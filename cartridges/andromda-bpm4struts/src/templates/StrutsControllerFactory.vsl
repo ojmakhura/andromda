@@ -8,7 +8,7 @@ package $class.packageName;
 
 public class ${class.name}Factory
 {
-    private static final ${class.name} INSTANCE = new ${class.name}();
+    private final static ${class.name} INSTANCE = new ${class.name}();
 
     public final static ${class.name}Interface get${class.name}Instance()
     {
