@@ -13,36 +13,37 @@ import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
 
-
 /**
  * <p>
- *  Represents an entity EJB.
+ * Represents an entity EJB.
  * </p>
- *
  * Metaclass facade implementation.
- *
  */
 public class EJBEntityFacadeLogicImpl
-       extends EJBEntityFacadeLogic
-       implements org.andromda.cartridges.ejb.metafacades.EJBEntityFacade
+    extends EJBEntityFacadeLogic
+    implements org.andromda.cartridges.ejb.metafacades.EJBEntityFacade
 {
     // ---------------- constructor -------------------------------
 
-    public EJBEntityFacadeLogicImpl (java.lang.Object metaObject, String context)
+    public EJBEntityFacadeLogicImpl(
+        java.lang.Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
-    public Collection handleGetIdentifiers() {
+    public Collection handleGetIdentifiers()
+    {
 
         Collection identifiers = new ArrayList();
         Iterator iter = this.getDependencies().iterator();
-        while (iter.hasNext()) {
-            DependencyFacade dep =
-                (DependencyFacade) iter.next();
-            if (dep.hasStereotype(EJBProfile.STEREOTYPE_IDENTIFIER)) {
-                identifiers =
-                    ((ClassifierFacade)dep.getTargetElement()).getInstanceAttributes();
+        while (iter.hasNext())
+        {
+            DependencyFacade dep = (DependencyFacade)iter.next();
+            if (dep.hasStereotype(EJBProfile.STEREOTYPE_IDENTIFIER))
+            {
+                identifiers = ((ClassifierFacade)dep.getTargetElement())
+                    .getInstanceAttributes();
                 MetafacadeUtils.filterByStereotype(
                     identifiers,
                     EJBProfile.STEREOTYPE_IDENTIFIER);
@@ -51,68 +52,74 @@ public class EJBEntityFacadeLogicImpl
         }
 
         // No PK dependency found - try a PK attribute
-        if (super.getIdentifiers() != null && !super.getIdentifiers().isEmpty()) {
-            AttributeFacade attr = (AttributeFacade)super.getIdentifiers().iterator().next();
+        if (super.getIdentifiers() != null && !super.getIdentifiers().isEmpty())
+        {
+            AttributeFacade attr = (AttributeFacade)super.getIdentifiers()
+                .iterator().next();
             identifiers.add(attr);
             return identifiers;
         }
 
         // Still nothing found - recurse up the inheritance tree
-        EJBEntityFacade decorator =
-            (EJBEntityFacade) this.getGeneralization();
+        EJBEntityFacade decorator = (EJBEntityFacade)this.getGeneralization();
         return decorator.getIdentifiers();
     }
 
-    public java.util.Collection handleGetAllEntityRelations() {
+    public java.util.Collection handleGetAllEntityRelations()
+    {
 
         // Only concrete entities may have EJB relations. Return
         // an empty collection for everything else
-        if (this.isAbstract()) {
+        if (this.isAbstract())
+        {
             return Collections.EMPTY_LIST;
         }
 
         Collection result = new ArrayList();
         result.addAll(getEntityRelations());
 
-        ClassifierFacade classifier = (ClassifierFacade)this.getGeneralization();
-        while (classifier != null
-            && classifier instanceof EJBEntityFacade
-            && classifier.isAbstract()) {
+        ClassifierFacade classifier = (ClassifierFacade)this
+            .getGeneralization();
+        while (classifier != null && classifier instanceof EJBEntityFacade
+            && classifier.isAbstract())
+        {
 
-            EJBEntityFacade entity = (EJBEntityFacade) classifier;
+            EJBEntityFacade entity = (EJBEntityFacade)classifier;
             result.add(entity.getEntityRelations());
             classifier = (ClassifierFacade)this.getGeneralization();
         }
         return result;
     }
 
-    public String handleGetViewType() {
+    public String handleGetViewType()
+    {
         return EJBMetafacadeUtils.getViewType(this);
     }
 
-    public java.util.Collection handleGetEntityRelations() {
+    public java.util.Collection handleGetEntityRelations()
+    {
 
         Collection result = new ArrayList();
 
         Iterator i = this.getAssociationEnds().iterator();
-        while (i.hasNext()) {
-            EJBAssociationEndFacade assoc =
-                (EJBAssociationEndFacade)i.next();
+        while (i.hasNext())
+        {
+            EJBAssociationEndFacade assoc = (EJBAssociationEndFacade)i.next();
             ClassifierFacade target = assoc.getOtherEnd().getType();
             if (target instanceof EJBEntityFacade
-                && assoc.getOtherEnd().isNavigable()) {
+                && assoc.getOtherEnd().isNavigable())
+            {
                 // Check the integrity constraint
-                    Object value = assoc.getOtherEnd().getAssociation().findTaggedValue(
-                            EJBProfile.TAGGEDVALUE_GENERATE_CMR);
-                    String generateCmr = value==null?null:value.toString();
+                Object value = assoc.getOtherEnd().getAssociation()
+                    .findTaggedValue(EJBProfile.TAGGEDVALUE_GENERATE_CMR);
+                String generateCmr = value == null ? null : value.toString();
                 if (target.isAbstract()
-                    && !"false".equalsIgnoreCase(generateCmr)) {
-                    throw new IllegalStateException(
-                        "Relation '"
-                            + assoc.getAssociation().getName()
-                            + "' has the abstract target '"
-                            + target.getName()
-                            + "'. Abstract targets are not allowed in EJB.");
+                    && !"false".equalsIgnoreCase(generateCmr))
+                {
+                    throw new IllegalStateException("Relation '"
+                        + assoc.getAssociation().getName()
+                        + "' has the abstract target '" + target.getName()
+                        + "'. Abstract targets are not allowed in EJB.");
                 }
 
                 result.add(assoc);
@@ -121,47 +128,61 @@ public class EJBEntityFacadeLogicImpl
         return result;
     }
 
-    public List handleGetAllInstanceAttributes() {
+    public List handleGetAllInstanceAttributes()
+    {
         return EJBMetafacadeUtils.getAllInstanceAttributes(this);
     }
 
-    public List handleGetInheritedInstanceAttributes() {
+    public List handleGetInheritedInstanceAttributes()
+    {
         return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
     }
 
-    public Collection handleGetCreateMethods(boolean follow) {
+    public Collection handleGetCreateMethods(boolean follow)
+    {
         return EJBMetafacadeUtils.getCreateMethods(this, follow);
     }
 
-    public Collection handleGetSelectMethods(boolean follow) {
+    public Collection handleGetSelectMethods(boolean follow)
+    {
         Collection retval = new ArrayList();
         EJBEntityFacade entity = null;
-        do {
+        do
+        {
             Collection ops = this.getOperations();
-            for (Iterator i = ops.iterator(); i.hasNext();) {
-                OperationFacade op = (OperationFacade) i.next();
-                if (op.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD)) {
+            for (Iterator i = ops.iterator(); i.hasNext();)
+            {
+                OperationFacade op = (OperationFacade)i.next();
+                if (op.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD))
+                {
                     retval.add(op);
                 }
             }
-            if (follow) {
+            if (follow)
+            {
                 entity = (EJBEntityFacade)this.getGeneralization();
-            } else {
+            }
+            else
+            {
                 break;
             }
-        } while (entity != null);
+        }
+        while (entity != null);
         return retval;
     }
 
-    public String handleGetHomeInterfaceName() {
+    public String handleGetHomeInterfaceName()
+    {
         return EJBMetafacadeUtils.getHomeInterfaceName(this);
     }
 
-    public Collection handleGetEnvironmentEntries(boolean follow) {
+    public Collection handleGetEnvironmentEntries(boolean follow)
+    {
         return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
     }
 
-    public Collection handleGetConstants(boolean follow) {
+    public Collection handleGetConstants(boolean follow)
+    {
         return EJBMetafacadeUtils.getConstants(this, follow);
     }
 
