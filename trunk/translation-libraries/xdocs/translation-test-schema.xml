@@ -1,11 +1,11 @@
-<document> 
+<document>
     <properties>
-        <title>Translator Test Schema</title> 
+        <title>Translator Test Schema</title>
     </properties>
     <body>
         <section name="TranslationTest Schema">
             <p>
-                  Each Translator Test (TranslationTest-*.xml file) must comply with the following XSD Schema: 
+                  Each Translator Test (TranslationTest-*.xml file) must comply with the following XSD Schema:
             </p>
             <source>
                 <![CDATA[
@@ -29,8 +29,8 @@
     <xs:element name="translation">
         <xs:complexType>
             <!-- the name of the translation to lookup and test, this is the name registered
-                 when the PluginDiscoverer finds and registers the Translation-Library. 
-                 (i.e. to test the query Translation-Library's EJB-QL translation, 
+                 when the PluginDiscoverer finds and registers the Translation-Library.
+                 (i.e. to test the query Translation-Library's EJB-QL translation,
                  this name would be specified as 'query.EJB-QL', which says the
                  name of the Translation-Library is 'query' and the translation
                  to use is 'EJB-QL' -->
@@ -53,5 +53,5 @@
                 ]]>
             </source>
         </section>
-    </body> 
+    </body>
 </document>
