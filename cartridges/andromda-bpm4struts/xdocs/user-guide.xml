@@ -210,6 +210,12 @@
                             <td>Additional validation to be performed</td>
                         </tr>
                         <tr>
+                            <td>@andromda.struts.view.field.readonly</td>
+                            <td>Parameter</td>
+                            <td>false</td>
+                            <td>Indicated the parameter is read only, it's value cannot be entered by the user</td>
+                        </tr>
+                        <tr>
                             <td>@andromda.struts.exception.type</td>
                             <td>Transition w/ FrontEndException</td>
                             <td>java.lang.Exception</td>
