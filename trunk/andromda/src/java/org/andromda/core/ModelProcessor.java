@@ -120,7 +120,7 @@ public class ModelProcessor
                 }
                 AndroMDALogger.info("completed model processing --> TIME: "
                     + ((System.currentTimeMillis() - startTime) / 1000.0)
-                    + "[s], RESOURCES WRITTEN: " 
+                    + "[s], RESOURCES WRITTEN: "
                     + ResourceWriter.instance().getWrittenCount()
                     + totalMessagesMessage);
                 if (failOnValidationErrors && !messages.isEmpty())
@@ -227,8 +227,7 @@ public class ModelProcessor
                         }
 
                         // make sure we ignore the cartridge if the
-                        // namespace
-                        // is set to 'ignore'
+                        // namespace is set to 'ignore'
                         if ((namespace != null || defaultNamespace != null)
                             && !ignoreNamespace)
                         {
@@ -254,7 +253,10 @@ public class ModelProcessor
             String errorMesssage = "Error performing " + methodName
                 + " with model(s) --> '" + StringUtils.join(models, ",") + "'";
             logger.error(errorMesssage);
-            ExceptionRecorder.instance().record(errorMesssage, th, cartridgeName);
+            ExceptionRecorder.instance().record(
+                errorMesssage,
+                th,
+                cartridgeName);
             throw new ModelProcessorException(errorMesssage, th);
         }
     }
