@@ -541,14 +541,14 @@ public class ModelElementFacadeLogicImpl
             public boolean evaluate(Object object)
             {
                 ConstraintFacade constraint = (ConstraintFacade)object;
-                return StringUtils.trimToEmpty(constraint.getBody()).matches(
-                    UMLMetafacadeGlobals.CONSTRAINT_KIND_PREFIX_PATTERN 
-                        + kind + UMLMetafacadeGlobals.CONSTRAINT_KIND_SUFFIX_PATTERN);
+                return UMLMetafacadeUtils.isConstraintKind(
+                    constraint.getBody(),
+                    kind);
             }
         });
         return this.translateConstraints(constraints, translation);
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */

@@ -52,19 +52,14 @@ public class ConstraintFacadeLogicImpl
         return element;
     }
 
-    private static final String KIND_PREFIX_PATTERN = 
-        UMLMetafacadeGlobals.CONSTRAINT_KIND_PREFIX_PATTERN;
-
-    private static final String KIND_SUFFIX_PATTERN = 
-        UMLMetafacadeGlobals.CONSTRAINT_KIND_SUFFIX_PATTERN;
-
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#isInvariant()
      */
     public boolean handleIsInvariant()
     {
-        return getBody().matches(
-            KIND_PREFIX_PATTERN + ExpressionKinds.INV + KIND_SUFFIX_PATTERN);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.INV);
     }
 
     /**
@@ -72,8 +67,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPreCondition()
     {
-        return getBody().matches(
-            KIND_PREFIX_PATTERN + ExpressionKinds.PRE + KIND_SUFFIX_PATTERN);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.PRE);
     }
 
     /**
@@ -81,8 +77,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPostCondition()
     {
-        return getBody().matches(
-            KIND_PREFIX_PATTERN + ExpressionKinds.POST + KIND_SUFFIX_PATTERN);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.POST);
     }
 
     /**
@@ -90,8 +87,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsDefinition()
     {
-        return getBody().matches(
-            KIND_PREFIX_PATTERN + ExpressionKinds.DEF + KIND_SUFFIX_PATTERN);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.DEF);
     }
 
     /**
@@ -99,8 +97,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsBodyExpression()
     {
-        return getBody().matches(
-            KIND_PREFIX_PATTERN + ExpressionKinds.BODY + KIND_SUFFIX_PATTERN);
+        return UMLMetafacadeUtils.isConstraintKind(
+            getBody(),
+            ExpressionKinds.BODY);
     }
 
     /**
