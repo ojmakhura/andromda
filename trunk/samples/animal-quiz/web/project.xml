@@ -23,7 +23,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-     		<version>${commonsCollections}</version>
+            <version>${commonsCollections}</version>
         </dependency>
         <dependency>
             <groupId>commons-digester</groupId>
@@ -55,6 +55,14 @@
             <groupId>struts</groupId>
             <artifactId>struts</artifactId>
             <version>${struts}</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>oro</groupId>
+            <artifactId>oro</artifactId>
+            <version>2.0.8</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
