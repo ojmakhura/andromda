@@ -25,10 +25,7 @@ public class HibernateFinderMethodFacadeLogicImpl
         super (metaObject, context);
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery()
-     */
-    public String getQuery() {
+    public String handleGetQuery() {
 
         // first see if we can retrieve the query from the super class as an OCL
         // translation

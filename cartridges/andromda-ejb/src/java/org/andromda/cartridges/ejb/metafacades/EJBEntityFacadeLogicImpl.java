@@ -33,10 +33,7 @@ public class EJBEntityFacadeLogicImpl
         super (metaObject, context);
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.EntityFacade#getIdentifiers()
-     */
-    public Collection getIdentifiers() {
+    public Collection handleGetIdentifiers() {
 
         Collection identifiers = new ArrayList();
         Iterator iter = this.getDependencies().iterator();
@@ -66,10 +63,7 @@ public class EJBEntityFacadeLogicImpl
         return decorator.getIdentifiers();
     }
 
-    /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getAllEntityRelations()
-     */
-    public java.util.Collection getAllEntityRelations() {
+    public java.util.Collection handleGetAllEntityRelations() {
 
         // Only concrete entities may have EJB relations. Return
         // an empty collection for everything else
@@ -92,17 +86,11 @@ public class EJBEntityFacadeLogicImpl
         return result;
     }
 
-    /**
-     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getViewType()
-     */
-    public String getViewType() {
+    public String handleGetViewType() {
         return EJBMetafacadeUtils.getViewType(this);
     }
 
-    /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getEntityRelations()
-     */
-    public java.util.Collection getEntityRelations() {
+    public java.util.Collection handleGetEntityRelations() {
 
         Collection result = new ArrayList();
 
@@ -133,31 +121,19 @@ public class EJBEntityFacadeLogicImpl
         return result;
     }
 
-    /**
-     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getAllInstanceAttributes()
-     */
-    public List getAllInstanceAttributes() {
+    public List handleGetAllInstanceAttributes() {
         return EJBMetafacadeUtils.getAllInstanceAttributes(this);
     }
 
-    /**
-     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getInheritedInstanceAttributes()
-     */
-    public List getInheritedInstanceAttributes() {
+    public List handleGetInheritedInstanceAttributes() {
         return EJBMetafacadeUtils.getInheritedInstanceAttributes(this);
     }
 
-    /**
-     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getCreateMethods(boolean)
-     */
-    public Collection getCreateMethods(boolean follow) {
+    public Collection handleGetCreateMethods(boolean follow) {
         return EJBMetafacadeUtils.getCreateMethods(this, follow);
     }
 
-    /**
-     * @see org.andromda.cartridges.hibernate.metadecorators.uml14.EJBEntityFacade#getSelectMethods(boolean)
-     */
-    public Collection getSelectMethods(boolean follow) {
+    public Collection handleGetSelectMethods(boolean follow) {
         Collection retval = new ArrayList();
         EJBEntityFacade entity = null;
         do {
@@ -177,24 +153,15 @@ public class EJBEntityFacadeLogicImpl
         return retval;
     }
 
-    /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getHomeInterfaceName()
-     */
-    public String getHomeInterfaceName() {
+    public String handleGetHomeInterfaceName() {
         return EJBMetafacadeUtils.getHomeInterfaceName(this);
     }
 
-    /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBEntityFacade#getEnvironmentEntries(boolean)
-     */
-    public Collection getEnvironmentEntries(boolean follow) {
+    public Collection handleGetEnvironmentEntries(boolean follow) {
         return EJBMetafacadeUtils.getEnvironmentEntries(this, follow);
     }
 
-    /**
-     * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getEnvironmentEntries(boolean)
-     */
-    public Collection getConstants(boolean follow) {
+    public Collection handleGetConstants(boolean follow) {
         return EJBMetafacadeUtils.getConstants(this, follow);
     }
 

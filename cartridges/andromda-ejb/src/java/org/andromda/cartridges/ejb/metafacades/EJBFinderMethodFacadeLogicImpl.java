@@ -27,10 +27,7 @@ public class EJBFinderMethodFacadeLogicImpl
         super (metaObject, context);
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery()
-     */
-    public java.lang.String getQuery() {
+    public java.lang.String handleGetQuery() {
 
          // first see if there is a query stored as a tagged value
         String queryString = super.getQuery("query.EJB-QL");
@@ -38,7 +35,7 @@ public class EJBFinderMethodFacadeLogicImpl
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString)) {
             Object value = this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_QUERY);
-            queryString = value==null?null:value.toString();                    
+            queryString = value==null?null:value.toString();
         }
 
         //if there wasn't any stored query, create one by default.
@@ -71,7 +68,7 @@ public class EJBFinderMethodFacadeLogicImpl
         return queryString;
     }
 
-    public java.lang.String getViewType() {
+    public java.lang.String handleGetViewType() {
         // TODO: put your implementation here.
 
         // Dummy return value, just that the file compiles

@@ -1,6 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.GeneralizationFacade;
 
@@ -18,11 +17,8 @@ public class StrutsUserLogicImpl
         extends StrutsUserLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsUser
 {
-    private Collection generalizedUsers = null;
-    private Collection generalizedByUsers = null;
-
     // ---------------- constructor -------------------------------
-    
+
     public StrutsUserLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
@@ -36,7 +32,7 @@ public class StrutsUserLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUser#getRole()()
      */
-    public java.lang.String getRole()
+    public java.lang.String handleGetRole()
     {
         return getName().toLowerCase();
     }
@@ -45,8 +41,6 @@ public class StrutsUserLogicImpl
 
     public java.util.Collection handleGetGeneralizedUsers()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && generalizedUsers != null) return generalizedUsers;
-
         final Collection parentActors = new LinkedList();
         final Collection generalizations = getGeneralizations();
         for (Iterator iterator = generalizations.iterator(); iterator.hasNext();)
@@ -56,13 +50,11 @@ public class StrutsUserLogicImpl
             if (parent instanceof StrutsUser)
                 parentActors.add(parent);
         }
-        return generalizedUsers = parentActors;
+        return parentActors;
     }
 
     public java.util.Collection handleGetGeneralizedByUsers()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && generalizedByUsers != null) return generalizedByUsers;
-
         final Collection allActors = getModel().getAllActors();
         final Collection childUsers = new LinkedList();
         for (Iterator iterator = allActors.iterator(); iterator.hasNext();)
@@ -83,6 +75,6 @@ public class StrutsUserLogicImpl
                 }
             }
         }
-        return generalizedByUsers = childUsers;
+        return childUsers;
     }
 }

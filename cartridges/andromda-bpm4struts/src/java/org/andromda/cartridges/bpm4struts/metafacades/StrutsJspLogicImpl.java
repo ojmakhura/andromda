@@ -1,6 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.*;
 
@@ -16,21 +15,8 @@ public class StrutsJspLogicImpl
         extends StrutsJspLogic
         implements org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp
 {
-    private String packageName = null;
-    private String fullPath = null;
-    private String messageKey = null;
-    private String titleKey = null;
-    private String titleValue = null;
-    private Collection actions = null;
-    private Collection pageVariables = null;
-    private Object useCase = null;
-    private Object forward = null;
-    private Collection incomingActions = null;
-    private String documentationKey = null;
-    private String documentationValue = null;
-
     // ---------------- constructor -------------------------------
-    
+
     public StrutsJspLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -44,76 +30,63 @@ public class StrutsJspLogicImpl
     // from org.andromda.metafacades.uml.ModelElementFacade
     public String getPackageName()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && packageName != null) return packageName;
         ClassifierFacade classifier = (ClassifierFacade) getActivityGraph().getContextElement();
-        return packageName = classifier.getPackageName();
+        return classifier.getPackageName();
     }
 
-    public String getMessageKey()
+    public String handleGetMessageKey()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && messageKey != null) return messageKey;
-        return messageKey = StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName());
+        return StringUtilsHelper.toResourceMessageKey(getUseCase().getName() + ' ' + getName());
     }
 
-    public String getTitleKey()
+    public String handleGetTitleKey()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && titleKey != null) return titleKey;
-        return titleKey = getMessageKey() + ".title";
+        return getMessageKey() + ".title";
     }
 
-    public String getTitleValue()
+    public String handleGetTitleValue()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && titleValue != null) return titleValue;
-        return titleValue = StringUtilsHelper.toPhrase(getName());
+        return StringUtilsHelper.toPhrase(getName());
     }
 
-    public String getDocumentationKey()
+    public String handleGetDocumentationKey()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && documentationKey != null) return documentationKey;
-        return documentationKey = getMessageKey() + ".documentation";
+        return getMessageKey() + ".documentation";
     }
 
-    public String getDocumentationValue()
+    public String handleGetDocumentationValue()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && documentationValue != null) return documentationValue;
-        return documentationValue = StringUtilsHelper.toResourceMessage(getDocumentation(""));
+        return StringUtilsHelper.toResourceMessage(getDocumentation(""));
     }
 
-    public String getFullPath()
+    public String handleGetFullPath()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && fullPath != null) return fullPath;
-        return fullPath = '/' + (getPackageName() + '.' + StringUtilsHelper.toWebFileName(getName())).replace('.', '/');
+        return '/' + (getPackageName() + '.' + StringUtilsHelper.toWebFileName(getName())).replace('.', '/');
     }
     // ------------- relations ------------------
 
     protected Object handleGetUseCase()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && useCase != null) return useCase;
-
         final ActivityGraphFacade graph = getActivityGraph();
         if (graph instanceof StrutsActivityGraph)
         {
-            return useCase = ((StrutsActivityGraph) graph).getUseCase();
+            return ((StrutsActivityGraph) graph).getUseCase();
         }
         return null;
     }
 
     protected Collection handleGetActions()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && actions != null) return actions;
-        return actions = getOutgoing();
+        return getOutgoing();
     }
 
-    protected Object handleGetForward()
+    public StrutsForward getForward()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && forward != null) return forward;
-        return forward = getOutgoing().iterator().next();
+        return (StrutsForward)shieldedElement(getOutgoing().iterator().next());
     }
 
     protected Collection handleGetPageVariables()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && pageVariables != null) return pageVariables;
-
         final Map variablesMap = new HashMap();
 
         final Collection incoming = getIncoming();
@@ -134,7 +107,7 @@ public class StrutsJspLogicImpl
         }
 */
 
-        return pageVariables = variablesMap.values();
+        return variablesMap.values();
     }
 
     private void collectByName(Collection modelElements, Map elementMap)
@@ -148,11 +121,9 @@ public class StrutsJspLogicImpl
 
     protected Collection handleGetIncomingActions()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && incomingActions != null) return incomingActions;
-
         final Collection incomingActionsList = new LinkedList();
         collectIncomingActions(this, new HashSet(), incomingActionsList);
-        return incomingActions = incomingActionsList;
+        return incomingActionsList;
     }
 
     private void collectIncomingActions(StateVertexFacade stateVertex, Collection processedTransitions, Collection actions)

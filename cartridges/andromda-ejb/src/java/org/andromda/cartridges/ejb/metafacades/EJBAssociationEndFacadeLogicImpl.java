@@ -14,13 +14,13 @@ public class EJBAssociationEndFacadeLogicImpl
        implements org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacade
 {
     // ---------------- constructor -------------------------------
-    
+
     public EJBAssociationEndFacadeLogicImpl (java.lang.Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
-    public String getRelationType() {
+    public String handleGetRelationType() {
         String targetType;
         if (this.isMany2Many() || this.isOne2Many()) {
             targetType = "java.util.Collection";
