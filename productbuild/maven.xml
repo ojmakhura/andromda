@@ -132,7 +132,15 @@
 						<ant:fileset dir="${fromDir}">
 							<ant:include name="*.jar"/>
 						</ant:fileset>				
-					</ant:copy>			    					
+					</ant:copy>		
+					<!-- copy any models -->
+					<j:set var="modelType" value="xml.zip"/>
+			        <j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${modelType}s"/>
+					<ant:copy todir="${toDir}">
+						<ant:fileset dir="${fromDir}">
+							<ant:include name="*.${modelType}"/>
+						</ant:fileset>				
+					</ant:copy>							    					
 				</j:otherwise>
 			</j:choose>
 			<ant:copy todir="${toDir}/../..">

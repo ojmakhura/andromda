@@ -25,15 +25,21 @@
     	</j:choose>
     	
         <j:new var="pluginUtils" className="org.andromda.maven.MavenPluginUtils"/>
-    
+ 
+	    <ant:path id="maven.andromda.classpath">
+		    <ant:pathelement path="${plugin.dependencyClasspath}"/>   		
+		    <ant:path refid="maven.dependency.classpath"/> 
+	    </ant:path>
+        <!-- add any model dependencies -->
+        <attainGoal name="andromda:add-model-dependencies"/>
+
   		<ant:taskdef
             name="andromda"
             classname="org.andromda.core.anttasks.AndroMDAGenTask">
-		    <ant:classpath>
-			    <ant:pathelement path="${plugin.dependencyClasspath}"/>   		
-			    <ant:path refid="maven.dependency.classpath"/> 
+		    <ant:classpath>		
+			    <ant:path refid="maven.andromda.classpath"/> 
 		    </ant:classpath>
-        </ant:taskdef>
+        </ant:taskdef>  
             
         <ant:andromda modelURL="${maven.andromda.model.uri}"
                       basedir="${maven.andromda.src.dir}"
@@ -130,6 +136,48 @@
       	
 	</goal>
 	
+	<!-- ================================================================
+	       Installs a model into the local repository.
+	     ================================================================ 
+	<goal name="andromda:install-model"
+	      description="Installs a xml.zip model into the local repository">
+	   <j:set var="maven.xml.zip.final.name" 
+	          value="${maven.build.dir}/${maven.final.name}"/>
+  	    <j:set var="modelXml" value="andromda-profile.xml"/>
+		<ant:unzip 
+		    src="${maven.src.dir}/uml/${modelXml}.zip" 
+		    dest="${maven.build.dir}"/>
+		<ant:move
+		    file="${maven.build.dir}/${modelXml}"
+		    tofile="${maven.xml.zip.final.name}.xml"/>
+	    <ant:zip destfile="${maven.xml.zip.final.name}.xml.zip"
+	             basedir="${maven.build.dir}"
+	             includes="*.xml"/>	 	
+	    <artifact:install
+	        artifact="${maven.xml.zip.final.name}.xml.zip"
+	        type="xml.zip"
+	        project="${pom}"/> 	
+	</goal> -->
+	
+	<!-- ================================================================
+	       Adds model dependencies (since they aren't added by Maven)
+	     ================================================================ -->
+	<goal name="andromda:add-model-dependencies"
+	      description="Internal goal used by the plugin">
+        <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
+            <j:set var="dep" value="${artifact.dependency}"/>
+            <j:if test="${dep.type == 'xml.zip'}">
+            	<j:set var="depPath" 
+            		   value="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}"/>
+				<ant:path
+					id="maven.andromda.model.path${index}"
+					location="${depPath}"/>	       	
+				<maven:addPath
+					id="maven.andromda.classpath"
+					refid="maven.andromda.model.path${index}"/>
+            </j:if>
+        </j:forEach>	      
+	</goal>
 
     <!-- ========================= Application Generator Goals Below Here ============================== -->
     

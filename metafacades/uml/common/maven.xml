@@ -1,14 +1,29 @@
-<project xmlns:ant="jelly:ant">
-    
+<project xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core"
+         xmlns:artifact="artifact">
+             
     <!-- ===================================================================
-         Extract the model XMI to be bundled with the jar
+         Install the model into the repository
          =================================================================== -->
-  	<preGoal name="jar:jar">
-		<ant:unzip dest="${maven.build.dir}/classes">
-		    <ant:fileset dir="${maven.src.dir}/uml">
-		        <ant:include name="**/*.zip"/>
-		    </ant:fileset>
-		</ant:unzip>
-  	</preGoal>
-  		 
+  	<postGoal name="jar:install">
+  	   <j:set var="modelName" value="UMLMetafacadeModel"/>
+	   <j:set var="maven.xml.zip.final.name" 
+	          value="${maven.build.dir}/${modelName}-${pom.currentVersion}"/>
+  	    <j:set var="modelXml" value="${modelName}.xml"/>
+		<ant:unzip 
+		    src="${maven.src.dir}/uml/${modelXml}.zip" 
+		    dest="${maven.build.dir}"/>
+		<ant:move
+		    file="${maven.build.dir}/${modelXml}"
+		    tofile="${maven.xml.zip.final.name}.xml"/>
+	    <ant:zip destfile="${maven.xml.zip.final.name}.xml.zip"
+	             basedir="${maven.build.dir}"
+	             includes="*.xml"/>	 	
+	    <j:set var="dummy" value="${pom.setArtifactId(modelName)}"/>	
+	    <artifact:install
+	        artifact="${maven.xml.zip.final.name}.xml.zip"
+	        type="xml.zip"
+	        project="${pom}"/> 
+  	</postGoal>
+
 </project>

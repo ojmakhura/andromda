@@ -343,7 +343,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetRootPackage()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getRootPackage()
      */
     protected Object handleGetRootPackage()
     {
@@ -365,7 +365,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetDependencies()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDependencies()
      */
     protected java.util.Collection handleGetDependencies()
 	{
@@ -380,14 +380,14 @@ public class ModelElementFacadeLogicImpl
 	}
 
     /**
-     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetStereotypes()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypes()
      */
     protected java.util.Collection handleGetStereotypes() {
     	return this.metaObject.getStereotype();
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetNameSpace()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getNameSpace()
      */
     protected Object handleGetNameSpace()
     {
@@ -395,7 +395,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetModel()
+     * @see org.andromda.metafacades.uml.ModelElementFacadeLogic#getModel()
      */
     protected Object handleGetModel()
     {
@@ -403,7 +403,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetConstraints()
+     * @see org.andromda.metafacades.uml.ModelElementFacadeLogic#getConstraints()
      */
     protected Collection handleGetConstraints()
     {
@@ -429,10 +429,7 @@ public class ModelElementFacadeLogicImpl
                                 || (ExpressionKinds.PRE.equals(kind) && constraint.isPreCondition())
                                 || (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()) );
                         }
-                        else
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 });
             return filteredConstraints;

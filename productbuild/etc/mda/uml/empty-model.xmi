@@ -64,7 +64,7 @@
 						<UML:Stereotype xmi.id='_d860307_1079709642412_102506_37' name='FinderMethod' isRoot='false' isLeaf='false' isAbstract='false'>
 							<UML:Stereotype.baseClass>Operation</UML:Stereotype.baseClass>
 							<UML:Stereotype.definedTag>
-								<UML:TagDefinition xmi.id='_d860307_1079709791036_381129_62' name='@andromda.hibernate.query' tagType='String' owner='_d860307_1079709642412_102506_37'>
+								<UML:TagDefinition xmi.id='_d860307_1079709791036_381129_62' name='@hibernate.query' tagType='String' owner='_d860307_1079709642412_102506_37'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_d860307_1079709884640_927827_63'>
 											<UML:Multiplicity.range>
@@ -79,7 +79,7 @@
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
 								</UML:TagDefinition>
-								<UML:TagDefinition xmi.id='_24400562_1086893140546_831776_0' name='@andromda.ejb.query' tagType='String' owner='_d860307_1079709642412_102506_37'>
+								<UML:TagDefinition xmi.id='_24400562_1086893140546_831776_0' name='@ejb.query' tagType='String' owner='_d860307_1079709642412_102506_37'>
 									<XMI.extension xmi.extender='MagicDraw UML 7.5' xmi.extenderID='MagicDraw UML 7.5'>
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
@@ -105,7 +105,7 @@
 						</UML:Stereotype>
 						<UML:Package xmi.id='_ecb034c_1085693962911_952516_702' name='bpm4struts' isRoot='false' isLeaf='false' isAbstract='false'>
 							<UML:Namespace.ownedElement>
-								<UML:TagDefinition xmi.id='_ecb034c_1085693728775_700698_76' name='@andromda.struts.controller.usecase' tagType='String'>
+								<UML:TagDefinition xmi.id='_ecb034c_1085693728775_700698_76' name='@struts.controller.usecase' tagType='String'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_ecb034c_1085693743558_548271_85'>
 											<UML:Multiplicity.range>
@@ -118,7 +118,7 @@
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
 								</UML:TagDefinition>
-								<UML:TagDefinition xmi.id='_ecb034c_1085693728771_155851_74' name='@andromda.struts.view.field.type' tagType='String'>
+								<UML:TagDefinition xmi.id='_ecb034c_1085693728771_155851_74' name='@struts.view.field.type' tagType='String'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_ecb034c_1085693743557_683319_81'>
 											<UML:Multiplicity.range>
@@ -131,7 +131,7 @@
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
 								</UML:TagDefinition>
-								<UML:TagDefinition xmi.id='_8a70287_1079894053764_804885_24' name='@andromda.struts.view.field.required' tagType='_8a70287_1078772699751_36316_735'>
+								<UML:TagDefinition xmi.id='_8a70287_1079894053764_804885_24' name='@struts.view.field.required' tagType='_8a70287_1078772699751_36316_735'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_8a70287_1079894187847_804040_26'>
 											<UML:Multiplicity.range>
@@ -144,7 +144,7 @@
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
 								</UML:TagDefinition>
-								<UML:TagDefinition xmi.id='_8a70287_1079894353215_529474_32' name='@andromda.struts.action.success.message' tagType='String'>
+								<UML:TagDefinition xmi.id='_8a70287_1079894353215_529474_32' name='@struts.action.success.message' tagType='String'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_8a70287_1079894365272_517601_33'>
 											<UML:Multiplicity.range>
@@ -157,7 +157,7 @@
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
 								</UML:TagDefinition>
-								<UML:TagDefinition xmi.id='_ecb034c_1085693728772_94412_75' name='@andromda.struts.view.field.validwhen' tagType='String'>
+								<UML:TagDefinition xmi.id='_ecb034c_1085693728772_94412_75' name='@struts.view.field.validwhen' tagType='String'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_ecb034c_1085693743558_966080_83'>
 											<UML:Multiplicity.range>
@@ -170,7 +170,7 @@
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
 								</UML:TagDefinition>
-								<UML:TagDefinition xmi.id='_ecb034c_1085693728769_297730_72' name='@andromda.struts.action.type' tagType='String'>
+								<UML:TagDefinition xmi.id='_ecb034c_1085693728769_297730_72' name='@struts.action.type' tagType='String'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_ecb034c_1085693743556_362742_77'>
 											<UML:Multiplicity.range>
@@ -183,7 +183,7 @@
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
 								</UML:TagDefinition>
-								<UML:TagDefinition xmi.id='_ecb034c_1085693728770_535638_73' name='@andromda.struts.exception.type' tagType='String'>
+								<UML:TagDefinition xmi.id='_ecb034c_1085693728770_535638_73' name='@struts.exception.type' tagType='String'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_ecb034c_1085693743557_936067_79'>
 											<UML:Multiplicity.range>
@@ -196,7 +196,7 @@
 										<TagDefinition.createTaggedValue xmi.value='false'/>
 									</XMI.extension>
 								</UML:TagDefinition>
-								<UML:TagDefinition xmi.id='_8a70287_1079894132728_865469_25' name='@andromda.struts.view.field.format' tagType='String'>
+								<UML:TagDefinition xmi.id='_8a70287_1079894132728_865469_25' name='@struts.view.field.format' tagType='String'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_8a70287_1079894187847_726481_28'>
 											<UML:Multiplicity.range>
@@ -230,7 +230,7 @@
 								<UML:Stereotype xmi.id='_8a70287_1078771941941_262896_595' name='FrontEndUser' isRoot='false' isLeaf='false' isAbstract='false'>
 									<UML:Stereotype.baseClass>Actor</UML:Stereotype.baseClass>
 								</UML:Stereotype>
-								<UML:TagDefinition xmi.id='_ecb034c_1085694959679_696987_705' name='@andromda.struts.view.field.readonly' tagType='_8a70287_1078772699751_36316_735'>
+								<UML:TagDefinition xmi.id='_ecb034c_1085694959679_696987_705' name='@struts.view.field.readonly' tagType='_8a70287_1078772699751_36316_735'>
 									<UML:TagDefinition.multiplicity>
 										<UML:Multiplicity xmi.id='_ecb034c_1085694962297_147546_706'>
 											<UML:Multiplicity.range>

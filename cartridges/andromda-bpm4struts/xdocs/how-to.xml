@@ -196,7 +196,7 @@
                     <li>Add operations to this controller class</li>
                     <li>Assign this controller class as the context of the activity graph, if your CASE tool
                         does not support this directly you can add a tagged value to the controller:
-                        <code>@andromda.struts.controller.usecase = &lt;usecase-name&gt;</code>
+                        <code>@struts.controller.usecase = &lt;usecase-name&gt;</code>
                         By specifying the use-case name as the value you will assign this controller to be the
                         context of the use-case's activity graph.
                     </li>

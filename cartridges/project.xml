@@ -10,6 +10,18 @@
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}/</url>
     </repository>
     <dependencies>
+		<dependency>
+			<groupId>andromda</groupId>
+			<artifactId>andromda-profile</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>xml.zip</type>
+		</dependency>
+		<dependency>
+			<groupId>andromda</groupId>
+			<artifactId>UMLMetafacadeModel</artifactId>
+			<version>${pom.currentVersion}</version>
+			<type>xml.zip</type>
+		</dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>

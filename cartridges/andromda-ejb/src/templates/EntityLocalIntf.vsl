@@ -22,7 +22,7 @@ package $packagename;
  * Local component interface for the $entityname entity bean.
 $class.getDocumentation(" * ")
  *
-#copyTaggedValues($class " " [ "@andromda.ejb.viewType", "@andromda.ejb.transactionType", "@andromda.ejb.noSyntheticCreateMethod" ])
+#copyTaggedValues($class " " [ "@ejb.viewType", "@ejb.transactionType", "@ejb.noSyntheticCreateMethod" ])
  *
  */
 public interface ${entityname} 
