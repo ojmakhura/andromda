@@ -14,12 +14,17 @@ package $springTypesPackage;
 /**
  * Locates and provides all available application services.
  */
-public class $serviceLocatorName
+public class ServiceLocator
 {
     /**
      * The default application context location.
      */
-    private final String DEFAULT_CONTEXT_LOCATION = "$applicationContext";
+    private final String[] DEFAULT_CONTEXT_LOCATIONS = 
+        new String[] 
+        {
+            "$applicationContext", 
+            "$applicationContextDataSource"
+        };
 
     /**
      * The spring application context shared instance.
@@ -29,24 +34,24 @@ public class $serviceLocatorName
     /**
      * The application context location.
      */
-    private String contextLocation;
+    private String[] applicationContextLocations;
 
-    private $serviceLocatorName()
+    private ServiceLocator()
     {
         // shouldn't be instantiated
     }
 
     /**
-     * The shared instance of this $serviceLocatorName.
+     * The shared instance of this ServiceLocator.
      */
-    private final static $serviceLocatorName instance = new $serviceLocatorName();
+    private final static ServiceLocator instance = new ServiceLocator();
 
     /**
      * Gets the shared instance of this Class
      *
      * @return the shared service locator instance.
      */
-    public static final $serviceLocatorName instance()
+    public static final ServiceLocator instance()
     {
         return instance;
     }
@@ -59,9 +64,9 @@ public class $serviceLocatorName
      *
      * @param contextLocation the location of the context
      */
-    public synchronized void init(String applicationContextLocation)
+    public synchronized void init(String[] applicationContextLocations)
     {
-        contextLocation = applicationContextLocation;
+        this.applicationContextLocations = applicationContextLocations;
         context = null;
     }
 
@@ -72,11 +77,11 @@ public class $serviceLocatorName
     {
         if (context == null)
         {
-            if (contextLocation == null)
+            if (this.applicationContextLocations == null)
             {
-                contextLocation = DEFAULT_CONTEXT_LOCATION;
+                this.applicationContextLocations = DEFAULT_CONTEXT_LOCATIONS;
             }
-            context = new org.springframework.context.support.ClassPathXmlApplicationContext(contextLocation);
+            context = new org.springframework.context.support.ClassPathXmlApplicationContext(applicationContextLocations);
         }
         return context;
     }

@@ -13,32 +13,9 @@
 
 ## only generate this stuff if 'daos' has been defined in a namespace
 #if ($daosEnabled)
-#if ($stringUtils.isNotBlank($dataSource))
-    <!-- JNDI DataSource for J2EE environments -->
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName"><value>$dataSource</value></property>
-    </bean>
-#else
-    <!-- Local DataSource that works in any environment -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-#if ($stringUtils.isNotBlank($driver))
-        <property name="driverClassName"><value>$driver</value></property>
-#end
-#if ($stringUtils.isNotBlank($username))
-        <property name="username"><value>$username</value></property>
-#end
-#if ($stringUtils.isNotBlank($password))
-        <property name="password"><value>$password</value></property>
-#end
-#if ($stringUtils.isNotBlank($connectionUrl))
-        <property name="url"><value>$connectionUrl</value></property>
-#end
-    </bean>
-#end
-
     <!-- Hibernate SessionFactory -->
     <bean id="sessionFactory" class="${sessionFactory}">
-        <property name="dataSource"><ref local="dataSource"/></property>
+        <property name="dataSource"><ref bean="dataSource"/></property>
         <property name="mappingResources">
             <list>
 #foreach($entity in $entities)
