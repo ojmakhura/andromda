@@ -212,7 +212,42 @@
             </p>
             <h3>Ant</h3>
             <p class="std">
-                Under construction
+                Download the application that will generate a J2EE development
+                environment <a href="http://team.andromda.org/maven/andromda/jars">here</a>.
+                You will need the andromda-ant binary.
+            </p>
+            <p class="std">
+                You will simply need to start it like this (file name may differ):
+                <source>
+                    java -jar andromda-ant.jar
+                </source>
+            </p>
+            <p class="std">
+                Answer the questions, a little later you will have your environment
+                setup for you. It consists of a hierarchy of build.xml files and
+                corresponding property files.
+            </p>
+            <p class="std">
+                Running 'ant' in the root is sufficient to build a distribution.
+                It is also possible to build each submodule (represented in each
+                subdirectory) separately.
+            </p>
+            <p class="std">
+                A few notes:
+                <ul>
+                    <li>
+                        The default UML model is empty, you might have build errors
+                        due to the fact that sometimes no source files could be found
+                        after generating code using AndroMDA
+                    </li>
+                    <li>
+                        Library dependencies are downloaded automatically, 
+                        however, in case you have no online connection or are behind
+                        a firewall, it is possible to download a separate bundle
+                        containing only the libraries. These can then be copied
+                        so that no further download will be required.
+                    </li>
+                </ul>
             </p>
         </section>
 
