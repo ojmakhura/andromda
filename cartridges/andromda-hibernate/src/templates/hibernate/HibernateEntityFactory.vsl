@@ -92,6 +92,9 @@ $finder.getDocumentation("     * ")
 		query.${argument.queryArgumentNameSetter}(${index}, ${argument.name});
 #end
 #end
+#if ($finder.useQueryCache)
+        query.setCacheable(true);
+#end
 ##
         return query.list();
     }

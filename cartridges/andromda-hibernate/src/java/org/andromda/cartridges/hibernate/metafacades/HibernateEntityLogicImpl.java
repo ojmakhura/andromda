@@ -35,6 +35,7 @@ import org.apache.commons.collections.Predicate;
  * impl classes have to be hand modified.
  * </p>
  * @author Martin West
+ * @author Carlos Cuenca
  */
 public class HibernateEntityLogicImpl
     extends HibernateEntityLogic
@@ -481,6 +482,23 @@ public class HibernateEntityLogicImpl
     {
         String strategy = getHibernateInheritanceStrategy();
         return INHERITANCE_STRATEGY_CONCRETE.equals(strategy);
+    }
+
+    private static final String HIBERNATE_ENTITY_CACHE="hibernateEntityCache";
+    /* (non-Javadoc)
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityL#handleGetHibernateCacheType()
+     */
+    protected String handleGetHibernateCacheType() 
+    {
+        String cacheType=(String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
+        if (cacheType==null)
+        {
+            return String.valueOf(this.getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
+        }
+        else
+        {
+            return cacheType;
+        }
     }
 
 }

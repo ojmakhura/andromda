@@ -544,7 +544,23 @@
                     <td>
                         No, default is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>.
                     </td>
-                </tr>    
+                </tr>
+                <tr>
+                    <td>
+                        hibernateEntityCache
+                    </td>
+                    <td>
+                         Defines the default strategy for Entities caching Possible values are:
+                         <ul>
+								<li>read-write</li>
+								<li>nonstrict-read-write</li>
+								<li>read-only</li>
+							</ul>
+                    </td>
+                    <td>
+                        No, default is <code>null</code>.
+                    </td>
+                </tr>     
             </table>
         </section>
     </body>

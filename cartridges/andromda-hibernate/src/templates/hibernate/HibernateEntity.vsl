@@ -59,6 +59,10 @@ $entity.getDocumentation(" * ")
 #end
 #end ## end if thisInheritance == interface
 #end ## end if generalization
+#if($entity.hibernateCacheType!="")
+ * @hibernate.cache
+ *      usage="$entity.hibernateCacheType"
+#end
  *
 #foreach ( $tgv in $entity.taggedValues )
 #if ($tgv.name != "documentation")

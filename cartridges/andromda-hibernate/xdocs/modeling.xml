@@ -249,6 +249,35 @@
 							</ol>
 			          	</td>
 					</tr>
+					<tr>
+					     <a name="@andromda.hibernate.entity.cache"/>
+						<td>
+	                        @andromda.hibernate.entity.cache
+						</td>
+						<td>
+							<a href="#Entity"><![CDATA[<<Entity>>]]></a>
+						</td>
+						<td>
+							Defines the cache strategy for the Entity. Permited values are:
+							<ol>
+								<li>read-write</li>
+								<li>nonstrict-read-write</li>
+								<li>read-only</li>
+							</ol>
+						</td>
+					</tr>
+					<tr>
+						<a name="@andromda.hibernate.query.useCache"/>
+			          	<td>
+			          		@andromda.hibernate.query.useCache
+			          	</td>
+						<td>
+							<a href="#FinderMethod"><![CDATA[<<FinderMethod>>]]></a>
+						</td>
+			          	<td>
+			          		Defines is caching is enabled  for this query.
+			          	</td>
+					</tr>
 		        </table>
     		</subsection>	
             <subsection name="Additional Remarks">
