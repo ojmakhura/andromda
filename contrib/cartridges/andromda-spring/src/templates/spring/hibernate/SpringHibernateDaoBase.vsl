@@ -128,6 +128,11 @@ public ${abstractModifier}class $entity.daoBaseName
 #if($identifier.type.primitiveType)
 #set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
 #end
+        if ($argument == null)
+        {
+            throw new IllegalArgumentException(
+                "${entity.name}.load - '$argument' can not be null");
+        }
         $entity.fullyQualifiedEntityName entity = null;
         try
         {
@@ -156,6 +161,27 @@ public ${abstractModifier}class $entity.daoBaseName
         }
         this.getHibernateTemplate().delete($argumentName);
     }
+    
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#remove($identifier.type.fullyQualifiedName)
+     */
+	public void remove($identifier.type.fullyQualifiedName $identifier.name)
+	{
+#set ($argument = $identifier.name)
+#if($identifier.type.primitiveType)
+#set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
+#end
+        if ($argument == null)
+        {
+            throw new IllegalArgumentException(
+                "${entity.name}.remove - '$identifier.name' can not be null");
+        }
+        $entity.fullyQualifiedEntityName entity = this.load($identifier.name);
+        if (entity != null)
+        {
+            this.remove(entity);
+        }
+	}
 
     /**
      * @see ${entity.fullyQualifiedDaoName}#remove(java.util.Collection)
