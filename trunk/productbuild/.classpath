@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="andromda/src/java"/>
+	<classpathentry kind="src" path="ant/andromda/src/java"/>
+	<classpathentry kind="src" path="repositories/mdr/src/java"/>
 	<classpathentry kind="src" path="templateengines/velocity/src/java"/>
 	<classpathentry kind="src" path="templateengines/velocity/src/test/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-webservice/src/java"/>
@@ -25,13 +27,13 @@
 	<classpathentry kind="src" path="metafacades/uml/uml14/src/META-INF"/>
 	<classpathentry kind="src" path="maven/andromda/src/java"/>
 	<classpathentry kind="src" path="andromda/src/META-INF"/>
+	<classpathentry kind="src" path="etc/schema2xmi/src/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/log4j/jars/log4j-1.2.8.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/ant/jars/ant-1.6.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/ant/jars/ant-1.6.2.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/picocontainer/jars/picocontainer-1.0.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-3.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-3.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.6.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-digester/jars/commons-digester-1.5.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
@@ -43,5 +45,11 @@
 	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/mof-200401240117.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/jmi-200401240117.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/velocity/jars/velocity-1.4.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/servletapi/jars/servletapi-2.4-20040521.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-jaxrpc-1.2-beta-20040626.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-1.2-beta-20040626.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-cli/jars/commons-cli-1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-dbutils/jars/commons-dbutils-1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-io/jars/commons-io-1.0.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>
