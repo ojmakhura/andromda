@@ -126,12 +126,12 @@
 	      		paramnumber="0"/>
 
 	      	<call-method-rule 
-	      		pattern="file" 
-	      		methodname="setFile"
+	      		pattern="template" 
+	      		methodname="setTemplate"
 		        paramcount="1" />
 		   
 			<call-param-rule 
-	      		pattern="file"
+	      		pattern="template"
 	      		paramnumber="0"/>
 			
 			<set-next-rule methodname="addLibraryTranslation" />

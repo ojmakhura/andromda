@@ -37,7 +37,7 @@ public class LibraryTranslation {
 
 	private String name;
 
-	private String file;
+	private String template;
 
 	/**
 	 * The Translator implementation to use. This is required.
@@ -69,15 +69,15 @@ public class LibraryTranslation {
 	/**
 	 * @return String
 	 */
-	public String getFile() {
-		return file;
+	public String getTemplate() {
+		return template;
 	}
 
 	/**
-	 * @param file
+	 * @param template
 	 */
-	public void setFile(String file) {
-		this.file = file;
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class LibraryTranslation {
 	}
 
 	/**
-	 * Gets the Translator instance that will perform processing of the file.
+	 * Gets the Translator instance that will perform processing of the template.
 	 * 
 	 * @return Translator
 	 */  
@@ -130,7 +130,7 @@ public class LibraryTranslation {
 	/**
 	 * Calls the handlerMethod from a translation fragment.  Each
      * handle method must take a java.lang.String as the first argument 
-     * (the body of the fragment from the translation file) and a 
+     * (the body of the fragment from the translation template) and a 
      * java.lang.Object for the second argument (the node being parsed that
      * we may need to retrieve any additional information from).
 	 * 
@@ -149,7 +149,7 @@ public class LibraryTranslation {
             String translation = this.getTranslationFragment(name, kind);
             
             //only handle the fragment if we can find the fragment in the 
-            //translation file
+            //translation template
             if (StringUtils.isNotEmpty(translation)) {
             
     			String handlerMethod =
@@ -241,57 +241,61 @@ public class LibraryTranslation {
 	}
 
 	/**
-	 * Processes the file belonging to this LibraryTranslation.
+	 * Processes the template belonging to this LibraryTranslation
+     * and returns the Translation objects.  If template hasn't
+     * been set (i.e. is null, then this method won't do anything
+     * but return a null value).
 	 * 
 	 * @param templateObjects
 	 *            any key/value pairs that should be passed to the
-	 *            TemplateEngine while processing the translation file.
+	 *            TemplateEngine while processing the translation template.
 	 * 
 	 * @return Translation the Translation created from the processing the
-	 *         translation file.
+	 *         translation template.
 	 */
 	public Translation processTranslation(Map templateObjects) {
 		final String methodName = "LibraryTranslation.processTranslation";
 		logger.debug(
-			"processing translation file --> '"
-				+ this.getFile()+ "'"
+			"processing translation template --> '"
+				+ this.getTemplate()+ "'"
 				+ "' with templateObjects --> '"
 				+ templateObjects + "'");
-
-		if (templateObjects == null) {
-			templateObjects = new HashMap();
-		}
-
-        Collection libraryObjects = this.getLibrary().getTemplateObjects();
-        if (libraryObjects != null && !libraryObjects.isEmpty()) {
-            Iterator libraryObjectIt = libraryObjects.iterator();
-            while (libraryObjectIt.hasNext()) {
-                 TemplateObject templateObject = 
-                    (TemplateObject)libraryObjectIt.next();
-                 templateObjects.put(
-                     templateObject.getName(), 
-                     templateObject.getTemplateObject());
+        if (this.getTemplate() != null) {
+    		if (templateObjects == null) {
+    			templateObjects = new HashMap();
+    		}
+    
+            Collection libraryObjects = this.getLibrary().getTemplateObjects();
+            if (libraryObjects != null && !libraryObjects.isEmpty()) {
+                Iterator libraryObjectIt = libraryObjects.iterator();
+                while (libraryObjectIt.hasNext()) {
+                     TemplateObject templateObject = 
+                        (TemplateObject)libraryObjectIt.next();
+                     templateObjects.put(
+                         templateObject.getName(), 
+                         templateObject.getTemplateObject());
+                }
             }
+    
+    		try {
+    			TemplateEngine engine = this.getLibrary().getTemplateEngine();
+    
+    			StringWriter output = new StringWriter();
+    			engine.processTemplate(this.getTemplate(), templateObjects, output);
+    			String outputString = output.toString();
+    			BufferedReader input =
+    				new BufferedReader(new StringReader(outputString));
+    			if (logger.isDebugEnabled()) {
+    				logger.debug("processed output --> '" + outputString + "'");
+    			}
+    			//load Reader into the translation
+    			this.setTranslation(input);
+    		} catch (Exception ex) {
+    			String errMsg = "Error performing " + methodName;
+    			logger.error(errMsg, ex);
+    			throw new LibraryException(errMsg, ex);
+    		}
         }
-
-		try {
-			TemplateEngine engine = this.getLibrary().getTemplateEngine();
-
-			StringWriter output = new StringWriter();
-			engine.processTemplate(this.getFile(), templateObjects, output);
-			String outputString = output.toString();
-			BufferedReader input =
-				new BufferedReader(new StringReader(outputString));
-			if (logger.isDebugEnabled()) {
-				logger.debug("processed output --> '" + outputString + "'");
-			}
-			//load Reader into the translation
-			this.setTranslation(input);
-		} catch (Exception ex) {
-			String errMsg = "Error performing " + methodName;
-			logger.error(errMsg, ex);
-			throw new LibraryException(errMsg, ex);
-		}
 		return this.translation;
 	}
     

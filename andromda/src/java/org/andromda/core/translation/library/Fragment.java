@@ -88,8 +88,8 @@ public class Fragment {
 				+ " - no kind '" + name 
 				+ "' could be found for the translation fragment '"
 				+ this.getName() + "' check the fragment '" 
-				+ this.getName() + "' in translation file --> '" 
-				+ getTranslation().getLibraryTranslation().getFile() + "'");
+				+ this.getName() + "' in translation template --> '" 
+				+ getTranslation().getLibraryTranslation().getTemplate() + "'");
 		}
 		return kind;
 	}
