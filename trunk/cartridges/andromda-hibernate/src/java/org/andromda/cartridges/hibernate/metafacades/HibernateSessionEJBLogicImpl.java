@@ -43,30 +43,12 @@ public class HibernateSessionEJBLogicImpl
     }
 
     /**
-     * The prefix to use when creating this EJB's JNDI name.
-     */
-    static final String EJB_JNDI_NAME_PREFIX = "ejbJndiNamePrefix";
-
-    /**
-     * Sets the <code>ejbJndiNamePrefix</code> for this EJB.
-     * 
-     * @param ejbJndiNamePrefix the prefix to use when binding this EJB to a
-     *        given JNDI name. This is useful when you have more than on app
-     *        using the same EJB within the same container.
-     */
-    public void setEjbJndiNamePrefix(String ejbJndiNamePrefix)
-    {
-        this.registerConfiguredProperty(EJB_JNDI_NAME_PREFIX, StringUtils
-            .trimToEmpty(ejbJndiNamePrefix));
-    }
-
-    /**
      * Gets the <code>ejbJndiNamePrefix</code> for this EJB.
      * 
      * @return the EJB Jndi name prefix.
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty(EJB_JNDI_NAME_PREFIX);
+        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
     }
 }

@@ -89,24 +89,6 @@ public class EJBSessionFacadeLogicImpl
         jndiName.append(this.getFullyQualifiedName());
         return jndiName.toString();
     }
-    
-    /**
-     * The prefix to use when creating this EJB's JNDI name.
-     */
-    static final String JNDI_NAME_PREFIX = "jndiNamePrefix";
-
-    /**
-     * Sets the <code>jndiNamePrefix</code> for this EJB.
-     * 
-     * @param jndiNamePrefix the prefix to use when binding this EJB to a given
-     *        JNDI name. This is useful when you have more than on app using the
-     *        same EJB within the same container.
-     */
-    public void setJndiNamePrefix(String jndiNamePrefix)
-    {
-        this.registerConfiguredProperty(JNDI_NAME_PREFIX, StringUtils
-            .trimToEmpty(jndiNamePrefix));
-    }
 
     /**
      * Gets the <code>jndiNamePrefix</code> for this EJB.
@@ -115,6 +97,6 @@ public class EJBSessionFacadeLogicImpl
      */
     protected String getJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty(JNDI_NAME_PREFIX);
+        return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
     }
 }

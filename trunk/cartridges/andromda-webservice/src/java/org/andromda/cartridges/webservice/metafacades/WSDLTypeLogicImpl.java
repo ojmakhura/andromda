@@ -164,7 +164,7 @@ public class WSDLTypeLogicImpl
             try 
             {
                 mappings = Mappings.getInstance((String)property);
-                this.registerConfiguredProperty(propertyName, mappings);
+                this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
             {

@@ -236,16 +236,11 @@ public class MetafacadeFactory
                 // set this namespace to the metafacade's namespace
                 metafacade.setNamespace(this.getActiveNamespace());
 
-                this.populatePropertyReferences(metafacade, mappings
-                    .getPropertyReferences(this.getActiveNamespace()));
-
-                // here we do 2 things:
                 if (mapping != null)
                 {
-                    // 1) check to see if the metafacade has a context root
-                    // defined
-                    //    (if so, set the context to the interface of the
-                    // metafacade)
+                    // check to see if the metafacade has a context root
+                    // defined (if so, set the context to the interface 
+                    // of the metafacade)
                     if (mapping.isContextRoot())
                     {
                         metafacade.setContext(MetafacadeImpls.instance()
@@ -253,7 +248,19 @@ public class MetafacadeFactory
                                 mapping.getMetafacadeClass().getName())
                             .getName());
                     }
-                    // 2) populate any context property references (if any)
+                }
+                
+                // Populate the global metafacade properties 
+                // NOTE: ordering here matters, we populate the global
+                // properties BEFORE the context properties so that the
+                // context properties can override (if duplicate properties
+                // exist)
+                this.populatePropertyReferences(metafacade, mappings
+                    .getPropertyReferences(this.getActiveNamespace()));
+                
+                if (mapping != null)
+                {
+                    // Populate any context property references (if any)
                     this.populatePropertyReferences(metafacade, mapping
                         .getPropertyReferences());
                 }
@@ -564,21 +571,35 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns true if this property is registered, false otherwise.
+     * Returns true if this property is registered under the given
+     * <code>namespace</code>, false otherwise.
      * 
-     * @param namespace
-     * @param name
-     * @return boolean
+     * @param namespace the namespace to check.
+     * @param name the name of the property.
+     * @return true if the property is registered, false otherwise.
      */
-    boolean isPropertyRegistered(String namespace, String name)
+    boolean isPropertyRegistered(final String namespace, final String name)
     {
-        boolean registered = false;
-        Map propertyNamespace = (Map)this.registeredProperties.get(namespace);
+        return this.findProperty(namespace, name) != null;
+    }
+
+    /**
+     * Finds the first property having the given <code>namespaces</code>, or
+     * <code>null</code> if the property can <strong>NOT </strong> be found.
+     * 
+     * @param namespace the namespace to search.
+     * @param name the name of the property to find.
+     * @return the property or null if it can't be found.
+     */
+    private Object findProperty(final String namespace, final String name)
+    {
+        Object property = null;
+        Map propertyNamespace = (Map)registeredProperties.get(namespace);
         if (propertyNamespace != null)
         {
-            registered = propertyNamespace.containsKey(name);
+            property = propertyNamespace.get(name);
         }
-        return registered;
+        return property;
     }
 
     /**
@@ -587,25 +608,17 @@ public class MetafacadeFactory
      * 
      * @param namespace the namespace of the property to check.
      * @param name the name of the property to check.
-     * @return boolean
+     * @return the registered property
      */
     Object getRegisteredProperty(String namespace, String name)
     {
         final String methodName = "MetafacadeFactory.getRegisteredProperty";
-        Object registeredProperty = null;
-        Map propertyNamespace = (Map)this.registeredProperties.get(namespace);
-        if (propertyNamespace == null)
-        {
-            throw new MetafacadeFactoryException(methodName
-                + " - no properties registered under namespace '" + namespace
-                + "', can't retrieve property --> '" + name + "'");
-        }
-        registeredProperty = propertyNamespace.get(name);
+        Object registeredProperty = this.findProperty(namespace, name);
         if (registeredProperty == null)
         {
             throw new MetafacadeFactoryException(methodName
-                + " - no property '" + name + "' registered under namespace '"
-                + namespace + "'");
+                + " - no property '" + name
+                + "' registered under namespace --> '" + namespace + "'");
         }
         return registeredProperty;
     }
