@@ -42,26 +42,50 @@ $operation.getDocumentation("     * ")
 #end
 #foreach ($sessionObject in $sessionObjects)
 #set ($accessorSuffix = $str.capitalize($sessionObject.name))
+    /**
+     * Returns the current $sessionObject.name from the session found in the argument request.
+     * <p/>
+     * In case an object was found in the session but it was not of the correct type, this method
+     * will return <code>null</code>.
+     * <p/>
+     * If there is no session, it will be created; if the session would not contain a session-object
+     * the object will be instantiated and subsequently stored in the session.
+     */
     protected final $sessionObject.fullyQualifiedName get${accessorSuffix}(HttpServletRequest request)
     {
         $sessionObject.fullyQualifiedName object = null;
-        HttpSession session = request.getSession(false);
-        if (session != null)
+        HttpSession session = request.getSession(true);
+
+        Object attribute = session.getAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
+        if (attribute instanceof $sessionObject.fullyQualifiedName)
         {
-            Object attribute = session.getAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
-            if (attribute instanceof $sessionObject.fullyQualifiedName)
-            {
-                object = ($sessionObject.fullyQualifiedName)attribute;
-            }
+            object = ($sessionObject.fullyQualifiedName)attribute;
         }
+        else if (attribute == null)
+        {
+            object = new $sessionObject.fullyQualifiedName ();
+            set${accessorSuffix}(request, object);
+        }
+
         return object;
     }
 
+    /**
+     * Set the argument $sessionObject.name object in the session corresponding with the argument request.
+     * In case the session would not exist it will be created.
+     */
     protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object)
     {
         set${accessorSuffix}(request, object, true);
     }
 
+    /**
+     * Set the argument $sessionObject.name object in the session corresponding with the argument request. Any existing
+     * object will be overwritten.
+     *
+     * @param createSession denotes whether or not the session should be created automatically in case it would
+     *                      not yet exist
+     */
     protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object, boolean createSession)
     {
         HttpSession session = request.getSession(createSession);
@@ -71,17 +95,33 @@ $operation.getDocumentation("     * ")
         }
     }
 
+    /**
+     * Removes the argument $sessionObject.name object from the session corresponding with the argument request.
+     * In any of the following cases this method will do nothing:
+     * <ul>
+     *   <li>No session corresponds to the argument request</li>
+     *   <li>No $sessionObject.name object could be found in the request</li>
+     *   <li>The object is not of the correct type</li>
+     * </ul>
+     */
     protected final void remove${accessorSuffix}(HttpServletRequest request)
     {
         HttpSession session = request.getSession(false);
         if (session != null)
         {
-            session.removeAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
+            Object attribute = session.getAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
+            if (attribute instanceof $sessionObject.fullyQualifiedName)
+            {
+                session.removeAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
+            }
         }
     }
 
 #end
-
+    /**
+     * Stores a warning message in the request, if any other warning messages would exist this one
+     * would simply be added.
+     */
     protected final void saveWarningMessage(HttpServletRequest request, String message)
     {
         ActionMessages messages = (ActionMessages)request.getAttribute("$warningMessagesKey");
@@ -93,6 +133,10 @@ $operation.getDocumentation("     * ")
         messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message));
     }
 
+    /**
+     * Stores a success message in the request, if any other success messages would exist this one
+     * would simply be added.
+     */
     protected final void saveSuccessMessage(HttpServletRequest request, String message)
     {
         ActionMessages messages = (ActionMessages)request.getAttribute("$successMessagesKey");
@@ -106,6 +150,9 @@ $operation.getDocumentation("     * ")
 
 #foreach ($serviceRef in $controller.serviceReferences)
 #if ($str.isNotBlank($serviceRef.targetElement.accessorImplementation))
+    /**
+     * Returns a reference to the $serviceRef.name back-end service.
+     */
     protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}() 
         throws Exception
     {
