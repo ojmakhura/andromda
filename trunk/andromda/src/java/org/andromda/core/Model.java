@@ -53,6 +53,7 @@ public class Model
         this.lastModifiedCheck = lastModifiedCheck;
         this.url = url;
         this.packages = packages;
+        this.moduleSearchPath = moduleSearchPath;
     }
 
     /**
