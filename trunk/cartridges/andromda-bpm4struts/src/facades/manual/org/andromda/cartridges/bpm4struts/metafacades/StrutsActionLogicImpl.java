@@ -45,6 +45,7 @@ public class StrutsActionLogicImpl
     private Object actionTrigger = null;
     private Object controller = null;
     private Collection actionParameters = null;
+    private Collection actionFormFields = null;
 
     // ---------------- constructor -------------------------------
     
@@ -152,7 +153,7 @@ public class StrutsActionLogicImpl
     {
         if (Bpm4StrutsProfile.ENABLE_CACHE && actionRoles != null) return actionRoles;
 
-        final Collection users = getActivityGraph().getUseCase().getAllUsers();
+        final Collection users = getRoleUsers();
         StringBuffer rolesBuffer = new StringBuffer();
         for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
@@ -160,6 +161,20 @@ public class StrutsActionLogicImpl
             rolesBuffer.append(strutsUser.getRole() + ' ');
         }
         return (actionRoles = StringUtilsHelper.separate(rolesBuffer.toString(), ","));
+    }
+
+    private Collection getRoleUsers()
+    {
+        for (Iterator iterator = getActionForwards().iterator(); iterator.hasNext();)
+        {
+            TransitionFacade transition = (TransitionFacade) iterator.next();
+            if (transition.getTarget() instanceof StrutsFinalState)
+            {
+                StrutsUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
+                return (useCase != null) ? useCase.getAllUsers() : Collections.EMPTY_LIST;
+            }
+        }
+        return getActivityGraph().getUseCase().getAllUsers();
     }
 
     public String getActionClassName()
@@ -320,55 +335,59 @@ public class StrutsActionLogicImpl
         return (actionTrigger = getTrigger());
     }
 
-    protected Collection handleGetActionParameters()
+    protected Collection handleGetActionFormFields()
     {
-        if (Bpm4StrutsProfile.ENABLE_CACHE && actionParameters != null) return actionParameters;
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionFormFields != null) return actionFormFields;
 
         /*
-         * in order to avoid naming collisions when a parameter is passed
+         * in order to avoid naming collisions when a field is passed
          * around more than once, we keep a map which maps names onto the
          * corresponding objects
          */
-        final Map parameterMap = new HashMap();
+        final Map fieldMap = new HashMap();
 
         // first add the parameters on the trigger
-        final StrutsTrigger trigger = getActionTrigger();
-        if (trigger != null)
-        {
-            collectParameters(trigger.getParameters(), parameterMap);
-        }
+        collectFields(getActionParameters(), fieldMap);
 
-        // also add the parameters for any deferred controller operations
         final Collection actionStates = getActionStates();
         for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
         {
+            // also add the parameters for any deferred controller operations
             StrutsActionState actionState = (StrutsActionState) actionStateIterator.next();
             Collection controllerCalls = actionState.getControllerCalls();
             for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
             {
                 OperationFacade operation = (OperationFacade) controllerCallIterator.next();
-                collectParameters(operation.getParameters(), parameterMap);
+                collectFields(operation.getParameters(), fieldMap);
             }
 
+            // any parameters passed between 'internal' action states are also recorded
             Collection outgoing = actionState.getOutgoing();
             for (Iterator outgoingIterator = outgoing.iterator(); outgoingIterator.hasNext();)
             {
                 TransitionFacade transitionFacade = (TransitionFacade) outgoingIterator.next();
                 EventFacade transitionTrigger = transitionFacade.getTrigger();
                 if (transitionTrigger != null)
-                    collectParameters(transitionTrigger.getParameters(), parameterMap);
+                    collectFields(transitionTrigger.getParameters(), fieldMap);
             }
         }
 
-        return (actionParameters = parameterMap.values());
+        return (actionFormFields = fieldMap.values());
     }
 
-    private void collectParameters(Collection parameters, Map parameterMap)
+    protected Collection handleGetActionParameters()
     {
-        for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
+        if (Bpm4StrutsProfile.ENABLE_CACHE && actionParameters != null) return actionParameters;
+        final StrutsTrigger trigger = getActionTrigger();
+        return actionParameters = (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
+    }
+
+    private void collectFields(Collection fields, Map fieldMap)
+    {
+        for (Iterator iterator = fields.iterator(); iterator.hasNext();)
         {
             ParameterFacade parameter = (ParameterFacade) iterator.next();
-            parameterMap.put(parameter.getName(), parameter);
+            fieldMap.put(parameter.getName(), parameter);
         }
     }
 }
