@@ -7,7 +7,8 @@ import org.andromda.core.translation.BaseTranslator;
  * 
  * @author Chad Brandon
  */
-public class TestTranslator extends BaseTranslator {
-
+public class TestTranslator
+    extends BaseTranslator
+{
 
 }
