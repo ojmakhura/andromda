@@ -1,14 +1,6 @@
 #set ($packagename = $transform.findPackageName(${class.package}))
 package $packagename;
 
-import javax.ejb.CreateException;
-import javax.ejb.EntityBean;
-import javax.ejb.EntityContext;
-
-import java.util.Collection;
-import java.util.Date;
-import java.math.BigDecimal;
-
 #macro ( generateDocumentation $item $indent)
 #foreach ( $tgv in $item.taggedValues )
 #if ($tgv.tag == "documentation")
@@ -28,29 +20,8 @@ ${indent}* </p>
 #set ($primKey = $transform.getPrimaryKeyAttribute($class))
 #set ($primKeyTypeName = $transform.findFullyQualifiedName($primKey.type))
 
-#foreach ( $assocLink in $class.associationLinks )
-    #set ($adata = $transform.getAssociationData($assocLink))
-#if ($adata.target.navigable == "true")
-    #set ($class2 = $adata.target.type)
-    #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
-        #if ($class2packagename != $packagename)
-import ${class2packagename}.$transform.getComponentInterfaceName(${class2});
-import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
-        #end
-    #end
-#end
-#end
-
 #foreach ( $dep in $class.dependencies )
     #set ($class2 = $transform.findClassById($dep.targetType))
-    #if ($class2)
-        #set ($class2packagename = $transform.findPackageName(${class2.package}))
-        #if ($class2packagename != $packagename)
-import ${class2packagename}.$transform.getComponentInterfaceName(${class2});
-import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
-        #end
-    #end
     #if ($transform.getStereotype($dep.id) == "exception")
         #set ($defaultException = $class2)
     #end
@@ -61,12 +32,10 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
  *
  * @ejb.bean name="$class.name" type="CMP" cmp-version="2.x"
  *       local-jndi-name="${packagename}/${class.name}/LocalHome"
- *       jndi-name="${packagename}/${class.name}/Home"
- *       view-type="both"
+ *       view-type="local"
  *       primkey-field="$primKey.name"
- * @ejb.interface generate="local,remote"
- *        remote-class="${packagename}.${class.name}"
- *        local-class="${packagename}.${class.name}Local"
+ * @ejb.interface generate="local"
+ *        local-class="${packagename}.${class.name}"
  * @ejb.home generate="local" local-class="${packagename}.${class.name}LocalHome"
  * @ejb.pk generate="false" class="java.lang.String"
  * @ejb.util generate="physical"
@@ -85,8 +54,6 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
  *     remove-table="false"
  *     tuned-updates="true"
  *     read-only="false"
- *
- * @struts.form name="Edit" include-all="true"
  *
 #foreach ( $tgv in $class.taggedValues )
 #if ($tgv.tag != "documentation")
@@ -127,7 +94,9 @@ import ${class2packagename}.$transform.getHomeInterfaceName(${class2});
 #end##foreach operation
  *
  */
-public abstract class ${class.name}Bean implements EntityBean {
+public abstract class ${class.name}Bean 
+       implements javax.ejb.EntityBean
+{
 
     // --------------- attributes ---------------------
 #foreach ( $att in $class.attributes )
@@ -196,12 +165,12 @@ public abstract class ${class.name}Bean implements EntityBean {
     * @jboss.target-relation  related-pk-field="${foreignKeyAtt.name}"
     *                                fk-column="${foreignKeyColumn}"
     */
-    public abstract Collection get${str.upperCaseFirstLetter($adata.target.roleName)}();
+    public abstract java.util.Collection get${str.upperCaseFirstLetter($adata.target.roleName)}();
    /**
     * @ejb.interface-method view-type="local"
     * @ejb.transaction      type="Required"
     */
-    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName});
+    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(java.util.Collection ${adata.target.roleName});
 #end
 #if ($adata.isMany2Many())
 #if ($adata.source.navigable == "false")
@@ -222,12 +191,12 @@ public abstract class ${class.name}Bean implements EntityBean {
     *                                fk-column="${foreignKeyColumn}"
 #end
     */
-    public abstract Collection get${str.upperCaseFirstLetter($adata.target.roleName)}();
+    public abstract java.util.Collection get${str.upperCaseFirstLetter($adata.target.roleName)}();
    /**
     * @ejb.interface-method view-type="local"
     * @ejb.transaction      type="Required"
     */
-    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(Collection ${adata.target.roleName});
+    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(java.util.Collection ${adata.target.roleName});
 #end
 #if ($adata.isOne2One() || $adata.isMany2One())
 #if ($adata.source.navigable == "false")
@@ -243,12 +212,12 @@ public abstract class ${class.name}Bean implements EntityBean {
     * @jboss.relation  related-pk-field="${foreignKeyAtt.name}"
     *                         fk-column="${foreignKeyColumn}"
     */
-    public abstract ${targettypename}Local get${str.upperCaseFirstLetter($adata.target.roleName)}();
+    public abstract ${targettypename} get${str.upperCaseFirstLetter($adata.target.roleName)}();
    /**
     * @ejb.interface-method view-type="local"
     * @ejb.transaction      type="Required"
     */
-    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(${targettypename}Local ${adata.target.roleName});
+    public abstract void set${str.upperCaseFirstLetter($adata.target.roleName)}(${targettypename} ${adata.target.roleName});
 #end
 
 
@@ -258,7 +227,7 @@ public abstract class ${class.name}Bean implements EntityBean {
    // --------------- getter/setter for value objects ------------
 
    /**
-    * @ejb.interface-method view-type="both"
+    * @ejb.interface-method view-type="local"
     * @ejb.transaction      type="Required"
     */
 #set ($qualname = $transform.findFullyQualifiedName($class))
@@ -270,7 +239,7 @@ public abstract class ${class.name}Bean implements EntityBean {
     }
 
    /**
-    * @ejb.interface-method view-type="both"
+    * @ejb.interface-method view-type="local"
     * @ejb.transaction      type="Required"
     */
     public void set${class.name}Data (${qualname}Data value)
@@ -289,7 +258,7 @@ public abstract class ${class.name}Bean implements EntityBean {
    /**
 #generateDocumentation ($op "    ")
     *
-    * @ejb.interface-method view-type="both"
+    * @ejb.interface-method view-type="local"
     * @ejb.transaction      type="Required"
     */
 #set ($msig = $transform.getOperationSignature($op))
@@ -310,7 +279,7 @@ public abstract class ${class.name}Bean implements EntityBean {
     * @ejb.transaction type="Required"
     */
     public $primKeyTypeName ejbCreate $transform.getAttributesAsList($class, true, false)
-           throws CreateException
+           throws javax.ejb.CreateException
     {
 #foreach ( $att in $class.attributes)
 #if ($transform.getStereotype($att.getId()) != "PrimaryKey")
@@ -325,7 +294,7 @@ public abstract class ${class.name}Bean implements EntityBean {
     }
 
     public void ejbPostCreate $transform.getAttributesAsList($class, true, false)
-           throws CreateException
+           throws javax.ejb.CreateException
     {
     }
 
@@ -336,7 +305,7 @@ public abstract class ${class.name}Bean implements EntityBean {
     * @ejb.transaction type="Required"
     */
     public $primKeyTypeName ejbCreate (${qualname}Data data)
-           throws CreateException
+           throws javax.ejb.CreateException
     {
 #foreach ( $att in $class.attributes)
 #if ($transform.getStereotype($att.getId()) != "PrimaryKey")
@@ -351,7 +320,7 @@ public abstract class ${class.name}Bean implements EntityBean {
     }
 
     public void ejbPostCreate (${qualname}Data data)
-           throws CreateException
+           throws javax.ejb.CreateException
     {
     }
 
@@ -364,7 +333,7 @@ public abstract class ${class.name}Bean implements EntityBean {
    /**
     * This is to get the reference to the ${referencedClass.name} bean.
     * Obtains local home interface from default initial context
-    * @return Local home interface for ${referencedClass.name}. Lookup using bean ref name.
+    * @return local home interface for ${referencedClass.name}. Lookup using bean ref name.
     */
     protected static ${homeInterfaceName} get${homeInterfaceName}() throws NamingException
     {

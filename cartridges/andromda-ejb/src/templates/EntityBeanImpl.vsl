@@ -1,17 +1,9 @@
 #set ($packagename = $transform.findPackageName(${class.package}))
 package $packagename;
 
-import javax.ejb.EntityBean;
-import javax.ejb.EntityContext;
-
-import java.util.Collection;
-import java.util.Date;
-import java.math.BigDecimal;
-
-
 public abstract class ${class.name}BeanImpl 
        extends ${class.name}Bean
-       implements EntityBean
+       implements javax.ejb.EntityBean
 {
     // concrete business methods that were declared
     // abstract in class ${class.name}Bean ...
@@ -45,9 +37,9 @@ public abstract class ${class.name}BeanImpl
 
     // ------------ and the rest of the EJB stuff ---------------
 
-    private EntityContext context;
+    private javax.ejb.EntityContext context;
 
-    public void setEntityContext(EntityContext ctx)
+    public void setEntityContext(javax.ejb.EntityContext ctx)
     {
         //Log.trace("${class.name}Bean.setEntityContext...");
         context = ctx;
