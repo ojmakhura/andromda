@@ -3,8 +3,12 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
+    <!-- cartridge-templateObject merge-point-->  
 	
-	<!-- ValueObjects for Entity Beans -->
+    <!-- cartridge-property merge-point-->  
+
+    <!-- cartridge-resource merge-point -->
+    
 	<template
         path="templates/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
@@ -17,8 +21,7 @@
             </modelElement>    
         </modelElements>
     </template>
-	
-	<!-- Entity Beans -->
+
     <template
         path="templates/EntityBean.vsl"
         outputPattern="{0}/{1}Bean.java"
@@ -150,4 +153,7 @@
             </modelElement>
         </modelElements> 
     </template>
+    
+    <!-- cartridge-template merge-point -->
+    
 </cartridge>

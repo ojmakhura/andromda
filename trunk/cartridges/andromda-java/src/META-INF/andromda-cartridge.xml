@@ -1,12 +1,13 @@
 <cartridge name="java">
 
-    <templateObject
-        name="stringUtils"
-        className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <!-- cartridge-templateObject merge-point-->  
 
     <property reference="serializable" default="true"/>
+    <!-- cartridge-property merge-point-->  
 
-    <!-- template definitions -->
+    <!-- cartridge-resource merge-point -->
+
     <template
         path="templates/java/Service.vsl"
         outputPattern="{0}/{1}.java"
@@ -81,5 +82,7 @@
             </modelElement>
         </modelElements>
     </template>
+    
+    <!-- cartridge-template merge-point -->
 
 </cartridge>
