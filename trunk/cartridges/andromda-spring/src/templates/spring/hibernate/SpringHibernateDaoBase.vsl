@@ -50,7 +50,7 @@ public abstract class $entity.daoBaseName
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
 #set ($identifier = $entity.identifiers.iterator().next())
-#set ($argumentName = $entity.name.toLowerCase())
+#set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
      * @see ${entity.fullyQualifiedDaoName}#create($entity.fullyQualifiedEntityName)
      */
