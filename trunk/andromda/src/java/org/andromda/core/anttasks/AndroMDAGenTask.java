@@ -256,7 +256,6 @@ public class AndroMDAGenTask
      * the model repository used by AndroMDA during code generation.
      * 
      * @return RepositoryConfiguration
-     * @throws BuildException
      */
     public RepositoryConfiguration createRepository()
     {

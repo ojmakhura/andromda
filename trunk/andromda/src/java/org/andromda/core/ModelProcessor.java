@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
  * </p>
  * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
- * @author <A HREF="http://www.amowers.com">Anthony Mowers </A>
+ * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
  */
 public class ModelProcessor
@@ -96,8 +96,7 @@ public class ModelProcessor
     }
 
     /**
-     * Processes all <code>models</code> with the 
-     * the discovered plugins.
+     * Processes all <code>models</code> with the the discovered plugins.
      * 
      * @param models an array of URLs to models.
      */
@@ -198,9 +197,9 @@ public class ModelProcessor
                 // read the model into the repository
                 repository.readModel(model.getUrl(), model
                     .getModuleSearchPath());
-                // @todo lastModifiedDate needs to be handled correctly for
-                // multiple
-                // models currently if one is set to false, all will be false
+                // @todo lastModifiedDate needs to be handled correctly
+                // for multiple models currently if one is set to false,
+                // all will be false
                 lastModifiedCheck = model.isLastModifiedCheck()
                     && lastModifiedCheck;
                 // we go off the model that was most recently modified.
