@@ -11,6 +11,7 @@
 ##
 package $class.packageName;
 
+import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,20 +29,9 @@ public class $class.name implements ${class.name}Interface
     }
 
     /**
-     * Convenient constructor for child classes. It allows classes
-     * that extend this one to set their own static instance without
-     * the need for a protected variable or overwriting the
-     * <code>getInstance()</code> method.
-     */
-    protected ${class.name}($class.name instance)
-    {
-        ${class.name}.instance = instance;
-    }
-
-    /**
      * Singleton instance accessor
      */
-    public static synchronized ${class.name} getInstance()
+    public final static synchronized ${class.name} getInstance()
     {
         if (${class.name}.instance == null)
         {
@@ -87,7 +77,7 @@ $operation.getDocumentation("     * ")
      * </table>
 #end
      */
-    $visibility $returnType ${operation.name}(ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    $visibility final $returnType ${operation.name}(Action action, ActionMapping mapping, $formBeanClassName form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
 #foreach ($parameter in $parameters)
         final $parameter.type.name $parameter.name = form.${parameter.getterName}();
