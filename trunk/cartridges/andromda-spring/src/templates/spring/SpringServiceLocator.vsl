@@ -69,9 +69,9 @@ public class $serviceLocatorName
     }
 
     /**
-     * Builds the Spring application context.
+     * Gets the Spring ApplicationContext.
      */
-    protected final synchronized void buildContext()
+    protected final synchronized ApplicationContext getContext()
     {
         if (context == null)
         {
@@ -80,17 +80,6 @@ public class $serviceLocatorName
                 contextLocation = DEFAULT_CONTEXT_LOCATION;
             }
             context = new ClassPathXmlApplicationContext(contextLocation);
-        }
-    }
-
-    /**
-     * Gets the ApplicationContext.
-     */
-    protected final ApplicationContext getContext()
-    {
-        if (context == null)
-        {
-            buildContext();
         }
         return context;
     }
