@@ -1,20 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.*;
+
+import java.util.*;
 
 
 /**
@@ -198,7 +188,7 @@ public class StrutsActionLogicImpl
 
     public String handleGetFormBeanClassName()
     {
-        return getActionClassName() + "ActionForm";
+        return getActionClassName() + "Form";
     }
 
     public String handleGetFormBeanName()
@@ -369,36 +359,24 @@ public class StrutsActionLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionForwards()
-     */
     protected Collection handleGetActionForwards()
     {
         if (actionForwards == null) initializeCollections();
         return actionForwards;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getDecisionTransitions()
-     */
     protected Collection handleGetDecisionTransitions()
     {
         if (decisionTransitions == null) initializeCollections();
         return decisionTransitions;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionStates()
-     */
     protected Collection handleGetActionStates()
     {
         if (actionStates == null) initializeCollections();
         return actionStates;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionExceptions()
-     */
     protected Collection handleGetActionExceptions()
     {
         final Collection exceptions = new HashSet();
@@ -472,6 +450,7 @@ public class StrutsActionLogicImpl
         formFields.addAll(getActionParameters());
 
         // add page variables for all pages targetted
+        // also add the fields of the target page's actions (for preloading)
         Collection forwards = getActionForwards();
         for (Iterator iterator = forwards.iterator(); iterator.hasNext();)
         {
@@ -479,25 +458,45 @@ public class StrutsActionLogicImpl
             StateVertexFacade target = forward.getTarget();
             if (target instanceof StrutsJsp)
             {
-                formFields.addAll(((StrutsJsp) target).getPageVariables());
+                StrutsJsp jsp = (StrutsJsp) target;
+                formFields.addAll(jsp.getPageVariables());
+                formFields.addAll(jsp.getAllActionParameters());
             }
         }
 
         return formFields;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionParameters()
-     */
+    private Collection deferredOperations = null;
+
+    protected Collection handleGetDeferredOperations()
+    {
+        if (deferredOperations == null)
+        {
+            deferredOperations = new ArrayList();
+            StrutsController controller = getController();
+            if (controller != null)
+            {
+                Collection operations = getController().getOperations();
+                for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+                {
+                    StrutsControllerOperation operation = (StrutsControllerOperation) operationIterator.next();
+                    if (operation.getDeferringActions().contains(this))
+                    {
+                        deferredOperations.add(operation);
+                    }
+                }
+            }
+        }
+        return deferredOperations;
+    }
+
     protected Collection handleGetActionParameters()
     {
         final StrutsTrigger trigger = getActionTrigger();
         return (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getNonTabbedActionParameters()
-     */
     protected Collection handleGetNonTabbedActionParameters()
     {
         Collection nonTabbedParameters = new ArrayList();
@@ -515,9 +514,6 @@ public class StrutsActionLogicImpl
         return nonTabbedParameters;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isTabbed()
-     */
     public boolean handleIsTabbed()
     {
         Collection actionParameters = getActionParameters();
@@ -532,25 +528,16 @@ public class StrutsActionLogicImpl
         return false;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabCount()
-     */
     public int handleGetTabCount()
     {
         return (isTabbed()) ? getTabMap().keySet().size() : 0;
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabName(int)
-     */
     public String handleGetTabName(int tabIndex)
     {
         return String.valueOf(tabIndex + 1);
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabIndex()
-     */
     public int handleGetTabIndex()
     {
         final String tabIndex = String.valueOf(this.findTaggedValue(Bpm4StrutsProfile.TAGGED_VALUE_ACTION_TABINDEX));
@@ -565,9 +552,6 @@ public class StrutsActionLogicImpl
         }
     }
 
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTabMap()
-     */
     public Map handleGetTabMap()
     {
         Map tabMap = new LinkedHashMap();
@@ -612,7 +596,7 @@ public class StrutsActionLogicImpl
         return targetPages;
     }
 
-    protected Collection handleGetPreloadableFormFields()
+    protected Collection handleGetPageVariables()
     {
         Collection preloadFields = new HashSet();
 
@@ -627,41 +611,4 @@ public class StrutsActionLogicImpl
         return preloadFields;
     }
 
-    protected Collection handleGetAllFormFields()
-    {
-        Collection fields = new HashSet();
-        fields.addAll(getPreloadableFormFields());
-        fields.addAll(getActionFormFields());
-        return fields;
-    }
-
-    public Collection handleGetControllerCallInterfaceNames()
-    {
-        Collection interfaceNames = new HashSet();
-
-        Collection actionStates = getActionStates();
-        for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
-        {
-            StrutsActionState actionState = (StrutsActionState) actionStateIterator.next();
-            Collection calls = actionState.getControllerCalls();
-            for (Iterator callIterator = calls.iterator(); callIterator.hasNext();)
-            {
-                StrutsControllerOperation operation = (StrutsControllerOperation) callIterator.next();
-                interfaceNames.add(operation.getInterfaceName());
-            }
-        }
-
-        Collection decisionTransitions = getDecisionTransitions();
-        for (Iterator transitionIterator = decisionTransitions.iterator(); transitionIterator.hasNext();)
-        {
-            StrutsForward forward = (StrutsForward) transitionIterator.next();
-            EventFacade event = forward.getTrigger();
-            if (event instanceof StrutsTrigger)
-            {
-                interfaceNames.add(((StrutsTrigger) event).getControllerCall().getInterfaceName());
-            }
-        }
-
-        return interfaceNames;
-    }
 }
