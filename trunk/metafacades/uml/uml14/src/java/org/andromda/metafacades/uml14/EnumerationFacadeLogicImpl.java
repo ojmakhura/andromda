@@ -27,6 +27,6 @@ public class EnumerationFacadeLogicImpl
      */
     protected java.util.Collection handleGetLiterals()
     {
-        return this.getConstantAttributes();
+        return metaObject.getLiteral();
     }
 }
