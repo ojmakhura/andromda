@@ -146,10 +146,10 @@
                  classpathref="andromda.classpath"/>
 
 
-        <unzip src="CarRentalSystem15.zargo" dest="build/model/unzipped" />
+        <unzip src="CarRentalSystem20.zuml" dest="build/model/unzipped" />
 
         <andromda basedir="build/model/unzipped"
-                 includes="CarRentalSystem15.xmi"
+                 includes="CarRentalSystem20.xmi"
                  lastModifiedCheck="false"
                  typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml"
         >
@@ -176,10 +176,10 @@
                  classpathref="andromda.classpath"
         />
 
-        <unzip src="CarRentalSystem15.zargo" dest="build/model/unzipped" />
+        <unzip src="CarRentalSystem20.zuml" dest="build/model/unzipped" />
 
         <andromda basedir="build/model/unzipped"
-                 includes="CarRentalSystem15.xmi"
+                 includes="CarRentalSystem20.xmi"
                  lastModifiedCheck="false"
                  typeMappings="${andromda-core.home}/src/xml/TypeMapping.xml"
         >
