@@ -143,7 +143,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.inheritance"/>
+                        <a name="andromda.hibernate.inheritance"/>
                         <td>
                             @andromda.hibernate.inheritance
                         </td>
@@ -168,9 +168,7 @@
                                  The tagged value of @andromda.hibernate.inheritance
                                  is set on the base/root class.
                                  All subclasses must then follow the same strategy unless
-                                 inheritance or concrete is the predecessor strategy.
-                                 NB if the strategy is changed after the initial generation,
-                                 the impl classes have to be hand modified.
+                                 interface or concrete is the predecessor strategy.
                             </p>
                         </td>
                     </tr>

@@ -104,7 +104,9 @@
         required="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="requiresMapping"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>

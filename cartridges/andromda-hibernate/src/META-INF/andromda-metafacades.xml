@@ -7,6 +7,7 @@
     <property reference="hibernateEntityCache" default="read-write"/>
     <property reference="hibernateProxy" default="false"/>
     <property reference="hibernateQueryUseNamedParameters" default="false"/>
+    <property reference="hibernateInheritanceStrategy" default="subclass"/>
     <property reference="hibernateUseQueryCache" default="false"/>
     <property reference="ehCacheMaxElementsInMemory" default="10000"/>
     <property reference="ehCacheEternal" default="false"/>

@@ -227,7 +227,7 @@ public class HibernateAssociationEndLogicImpl
             && HibernateEntity.class.isAssignableFrom(type.getClass()))
         {
             HibernateEntity entity = (HibernateEntity)type;
-            if (entity.isHibernateInheritanceSubclass()
+            if (entity.isHibernateInheritanceClass()
                 && entity.getGeneralization() != null)
             {
                 required = false;
