@@ -27,6 +27,11 @@
     </metafacade>
 
     <metafacade
+        metaobjectClass="org.omg.uml.foundation.core.Operation$Impl"
+        metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
+    </metafacade>
+
+    <metafacade
         metaobjectClass="org.omg.uml.foundation.core.UmlClass$Impl"
         metafacadeClass="org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObjectLogicImpl">
         <stereotype>FrontEndSessionObject</stereotype>
