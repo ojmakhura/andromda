@@ -145,7 +145,7 @@
                         The suffix to use when creating foreign keys for entity associations.
                     </td>
                     <td>
-                        EntityAssociationEndFacade
+                        EntityAssociationEnd
                     </td>
                     <td>
                         No, default is <code>_FK</code>
@@ -161,7 +161,7 @@
                         key constraint names.
                      </td>
                     <td>
-                        EntityAssociationEndFacade
+                        EntityAssociationEnd
                     </td>
                     <td>
                          No, default is <code>C</code>
@@ -300,7 +300,7 @@
                         The separator used for constructing a relation name between two associations.
                     </td>
                     <td>
-                        EntityAssociationFacade
+                        EntityAssociation
                     </td>
                     <td>
                         No, the default is <code>2</code>.
@@ -376,7 +376,7 @@
                             for the available masks that may be applied.
                         </td>
                         <td>
-                            RoleFacade
+                            Role
                         </td>
                         <td>
                             No, the default is <code>none</code>.
