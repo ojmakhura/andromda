@@ -452,6 +452,28 @@ public final class OCLCollections
     }
 
     /**
+     * <p>
+     * Executes every <code>predicate</code> for the given collection, if one
+     * evaluates to <code>false</code> this operation returns
+     * <code>false</code>, otherwise <code>true</code> is returned.
+     * </p>
+     * If the input collection or closure is null <code>false</code> is
+     * returned.
+     * 
+     * @return true if every evaluated predicate returns true, false otherwise.
+     */
+    public static boolean forAll(Object collection, Predicate predicate)
+    {
+        boolean valid = false;
+        if (collection != null
+            && Collection.class.isAssignableFrom(collection.getClass()))
+        {
+            valid = forAll((Collection)collection, predicate);
+        }
+        return valid;
+    }
+
+    /**
      * Returns <code>true</code> if the result of executing the
      * <code>transformer</code> has a unique value for each element in the
      * source collection.
@@ -558,7 +580,7 @@ public final class OCLCollections
     {
         return CollectionUtils.select(collection, predicate);
     }
-    
+
     /**
      * Returns a subcollection of the source collection containing all elements
      * for which the expression evaluates <code>true</code>.
