@@ -61,7 +61,6 @@ div.action h3
 ## A trigger represents the actual link or button on a form on which one clicks
 div.action div.trigger { border: 0; margin: 0px 20px 15px 0px; }
 div.action div.trigger a:link, .trigger a:visited, .trigger a:hover { border: 1px solid #fff; }
-div.action div.triggerdoc { padding-left: 320px; }
 div.action div.trigger form label { display: inline; }
 div.action div.trigger form field { display: inline; }
 div.action div.trigger form buttons { display: block; }
@@ -163,6 +162,61 @@ div.login div.submit { margin: 1.5em 0 0.5em 0; }
 div.login input.login { width: 90%; }
 div.login p.error { width: 90%; padding: 0.5em; font-weight: bold; color: red;}
 
+#if ($onlineHelp == "true")
+div.help
+{
+    padding: 0 20px 20px 20px;
+    text-align: left;
+}
+
+div.help #close
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+div.help p
+{
+    padding: 0 20px 0 20px;
+}
+
+div.help .highlight
+{
+    font-weight: bold;
+    border: 2px dotted #ccc;
+    background: url(warning.gif) #ffd no-repeat 20px 50%;
+    text-indent: 20px;
+    padding: 10px 20px 10px 20px;
+    margin: 0 20px 0 20px;
+}
+
+div.help table
+{
+    width: 100%;
+    padding: 0 20px 0 20px;
+}
+
+div.help table th
+{
+    text-align: center;
+    font-weight: bolder;
+}
+
+div.help table td
+{
+    text-align: left;
+    vertical-align: top;
+}
+
+#pageHelp
+{
+    text-align: right;
+    vertical-align: top;
+    margin-left: 480px;
+}
+
+#end
 img.calendar
 {
     width: 16px;
