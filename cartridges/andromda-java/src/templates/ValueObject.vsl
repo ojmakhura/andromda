@@ -1,0 +1,82 @@
+//
+// Attention: Generated code! Do not modify by hand!
+//
+#set ($packagename = $transform.findPackageName(${class.package}))
+package $packagename;
+
+#macro ( generateDocumentation $item $indent)
+#foreach ( $tgv in $item.taggedValues )
+#if ($tgv.tag == "documentation")
+#set ($paras = $transform.formatHTMLStringAsParagraphs($tgv.value))
+#foreach ( $par in $paras )
+${indent}*
+${indent}* <p>
+#foreach ( $line in $par.lines )
+${indent}* $line
+#end
+${indent}* </p>
+#end
+#end
+#end
+#end
+
+/**
+#generateDocumentation ($class " ")
+ *
+#foreach ( $tgv in $class.taggedValues )
+#if ($tgv.tag != "documentation")
+#if ($tgv.tag == "---")
+    #set ($tag = "")
+#else
+    #set ($tag = $tgv.tag)
+#end
+ * $tag    $tgv.value
+#end
+#end
+ *
+ */
+public class ${class.name} implements java.io.Serializable
+{
+
+#foreach ( $att in $class.attributes )
+#set ($atttypename = $transform.findFullyQualifiedName($att.type))
+    private $atttypename ${att.name};
+#end
+
+   public ${class.name}()
+   {
+   }
+
+   public ${class.name} $transform.getAttributesAsList($class, true, false)
+   {
+#foreach ( $att in $class.attributes)
+        set${str.upperCaseFirstLetter(${att.name})} (${att.name});
+#end
+   }
+
+   public ${class.name}( ${class.name} otherData )
+   {
+#foreach ( $att in $class.attributes)
+        set${str.upperCaseFirstLetter(${att.name})} (otherData.get${str.upperCaseFirstLetter(${att.name})}());
+#end
+   }
+
+#foreach ( $att in $class.attributes )
+#set ($atttypename = $transform.findFullyQualifiedName($att.type))
+   /**
+#generateDocumentation ($att "    ")
+    *
+    */
+    public $atttypename get${str.upperCaseFirstLetter(${att.name})}()
+    {
+        return this.${att.name};
+    }
+
+    public void set${str.upperCaseFirstLetter(${att.name})}(${atttypename} newValue)
+    {
+        this.${att.name} = newValue;
+    }
+
+#end
+}
+

@@ -1,0 +1,18 @@
+<cartridge name="java">
+    <property name="language" value="java" />
+
+    <stereotype name="ValueObject" />
+
+<!-- the outlet names -->
+    <outlet name="value-objects" />
+
+<!-- the official template definitions -->
+    <template
+        stereotype="ValueObject"
+        sheet="templates/ValueObject.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="value-objects"
+        overWrite="true"
+    />
+
+</cartridge>
