@@ -63,30 +63,26 @@ public class ModelValidationMessage
     {
         if (this.metafacadeName == null)
         {
-            String seperator = String.valueOf(MetafacadeProperties.VALIDATION_NAME_SEPERATOR);
+            String seperator = String
+                .valueOf(this.metafacade
+                    .getConfiguredProperty(MetafacadeProperties.VALIDATION_NAME_SEPERATOR));
             StringBuffer name = new StringBuffer();
-            if (this.metafacade.getValidationOwner() != null)
+            for (MetafacadeBase metafacade = this.metafacade; metafacade != null; metafacade = (MetafacadeBase)metafacade
+                .getValidationOwner())
             {
-                MetafacadeBase owner = (MetafacadeBase)metafacade
-                    .getValidationOwner();
-                if (StringUtils.isNotEmpty(owner.getValidationName()))
+                if (StringUtils.isNotEmpty(metafacade.getValidationName()))
                 {
-                    name.append(owner.getValidationName());
-                    name.append(seperator);
-                }
-            }
-            if (StringUtils.isNotEmpty(this.metafacade.getValidationName()))
-            {
-                if (name.length() > 0)
-                {
-                    // remove package if we have an owner
-                    name.append(this.metafacade.getValidationName().replaceAll(
-                        "\\w*" + seperator,
-                        ""));
-                }
-                else
-                {
-                    name.append(this.metafacade.getValidationName());
+                    String validationName = metafacade.getValidationName();
+                    if (name.length() > 0)
+                    {
+                        // remove package if we have an owner
+                        validationName.replaceAll("\\w*" + seperator, "");
+                    }
+                    if (name.length() > 0)
+                    {
+                        name.insert(0, seperator);
+                    }
+                    name.insert(0, validationName);
                 }
             }
             this.metafacadeName = name.toString();
