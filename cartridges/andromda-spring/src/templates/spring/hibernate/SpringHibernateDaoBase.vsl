@@ -321,7 +321,6 @@ public abstract class $entity.daoBaseName
         throws $finder.exceptionList
 #end
     {
-        final $entity.fullyQualifiedDaoBaseName dao = this;
         org.springframework.orm.hibernate.HibernateCallback callback = new org.springframework.orm.hibernate.HibernateCallback()
         {
             public Object doInHibernate(net.sf.hibernate.Session session) 
@@ -348,9 +347,7 @@ public abstract class $entity.daoBaseName
                 if (transform)
                 {
                     // transform the results into the value objects
-                    org.apache.commons.collections.CollectionUtils.transform(
-                        results,
-                        dao);
+                    transformEntities(results);
                 }
 #if (!$finder.returnType.collectionType)
                 Object result = null;
@@ -400,6 +397,26 @@ public abstract class $entity.daoBaseName
      * @return the transformed entity (i.e. new value object, etc)
      */
     protected abstract Object transformEntity($entity.fullyQualifiedName entity);
+    
+    /**
+     * Transforms the given collection of <code>entities</code>
+     * by calling the {@link #transformEntity($entity.fullyQualifiedName)}
+     * on each instance of the collection.
+     * @param entities the collection of entities to be transformed.
+     * 
+     * @see #transformEntity($entity.fullyQualifiedName)
+     */
+    protected void transformEntities(java.util.Collection entities)
+    {
+        if (entities != null)
+        {
+            // transform the results into the value objects
+            org.apache.commons.collections.CollectionUtils.transform(
+                entities,
+                this);
+        }
+    }    
+    
 #foreach ($operation in $entity.daoBusinessOperations)
 #set ($returnType = $operation.returnType)
 #set ($signature = $operation.signature)
