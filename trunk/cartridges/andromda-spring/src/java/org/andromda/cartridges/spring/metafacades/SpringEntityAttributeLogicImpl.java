@@ -1,6 +1,6 @@
 package org.andromda.cartridges.spring.metafacades;
 
-import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -27,15 +27,7 @@ public class SpringEntityAttributeLogicImpl
      */
     public boolean handleIsUnique()
     {
-        boolean unique = false;
-        Object value = this
-            .findTaggedValue(SpringProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE);
-        if (value != null)
-        {
-            unique = Boolean.valueOf(StringUtils.trimToEmpty(value.toString()))
-                .booleanValue();
-        }
-        return unique;
+        return this.hasExactStereotype(UMLProfile.STEREOTYPE_UNIQUE);
     }
 
     /**
@@ -44,7 +36,7 @@ public class SpringEntityAttributeLogicImpl
     public java.lang.String handleGetIndex()
     {
         String index = (String)this
-            .findTaggedValue(SpringProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
+            .findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
     }
 

@@ -33,6 +33,12 @@ public class UMLProfile
      */
     public static final String STEREOTYPE_IDENTIFIER = umlProfile
         .getString("STEREOTYPE_IDENTIFIER");
+   
+    /**
+     * If an attribute has this stereotype, it is considered unique. 
+     */
+    public static final String STEREOTYPE_UNIQUE = umlProfile
+        .getString("STEREOTYPE_UNIQUE");
 
     /**
      * Represents a service.
@@ -121,12 +127,6 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH = umlProfile
         .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH");
-    
-    /**
-     * Represents whether a relational table column should be unique (true/false). 
-     */
-    public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE = umlProfile
-        .getString("TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE");
     
     /**
      * Represents a relational table column index name.
