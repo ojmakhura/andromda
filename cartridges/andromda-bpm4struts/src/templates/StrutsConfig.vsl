@@ -25,6 +25,31 @@
    </form-beans>
 
 ##
+## Define the global exceptions here, they will be handled by the exception handlers
+## that are configured here (if any)
+##
+   <global-exceptions>
+#foreach ($exceptionHandler in $transform.getExceptionHandlers($class))
+#set ($ehKey = $transform.staticHelper.findTagValue($exceptionHandler, "key"))
+#set ($ehType = $transform.staticHelper.findTagValue($exceptionHandler, "type"))
+      <exception
+#if (!$ehKey)
+         key="error.key"
+#else
+         key="$ehKey"
+#end
+#if (!$ehType)
+         type="java.lang.Exception"
+#else
+         type="$ehType"
+#end
+         handler="$transform.toFullyQualifiedJavaClassName($exceptionHandler)"/>
+#set ($ehKey = false)## reset these values for the next iteration
+#set ($ehType = false)
+#end
+   </global-exceptions>
+
+##
 ## We will take all workflow use-cases and their initial states will determine the global
 ## entry points of the application. For each workflow as well as for each individual use-case
 ## there will be exactly one global-forward declaration here.
@@ -45,6 +70,10 @@
 #set ($forwardName = $transform.toForwardName($useCase))
 #set ($forwardPath = $transform.toJavaClassName($transform.getControllerClass($useCase)))
       <forward name="$forwardName" path="/${forwardPath}.do" redirect="true"/>
+#end
+      <!-- EXCEPTIONS: each exception handler forwards to an exception page -->
+#foreach ($exceptionHandler in $transform.getExceptionHandlers($class))
+      <forward name="$transform.toForwardName($exceptionHandler)" path="/$transform.getPackagePath($exceptionHandler)/${transform.toJavaClassName($exceptionHandler)}.jsp" redirect="false"/>
 #end
    </global-forwards>
 
