@@ -148,8 +148,7 @@ $target.getDocumentation("     * ")
 
     // ---------------- business methods  ----------------------
 
-#foreach ( $op in $class.operations)
-#if (!$op.hasStereotype("FinderMethod"))
+#foreach ( $op in $class.businessOperations)
     /**
 $op.getDocumentation("     * ")
      */
@@ -160,7 +159,6 @@ $op.getDocumentation("     * ")
         throws $op.exceptionList;
 #else
     $op.visibility abstract $returntype ${msig};
-#end
 #end
 #end
 
