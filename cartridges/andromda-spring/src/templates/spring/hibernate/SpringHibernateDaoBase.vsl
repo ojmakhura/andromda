@@ -52,7 +52,7 @@ public abstract class $entity.daoBaseName
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
-     * @see ${entity.fullyQualifiedDaoName}#load(boolean, $identifier.type.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}#load(int, $identifier.type.fullyQualifiedName)
      */
     public Object load(final int transform, final $identifier.type.fullyQualifiedName $identifier.name)
     {
@@ -119,6 +119,40 @@ public abstract class $entity.daoBaseName
         return this.transformEntity(transform, $argumentName);
     }
 
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#create(java.util.Collection)
+     */
+    public java.util.Collection create(final java.util.Collection entities)
+    {
+        return create($entity.daoNoTransformationConstantName, entities);
+    }
+
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#create(int, java.util.Collection)
+     */
+   public java.util.Collection create(final int transform, final java.util.Collection entities)
+   {
+        if (entities == null)
+        {
+            throw new IllegalArgumentException(
+                "${entity.name}.create - 'entities' can not be null");
+        }
+       this.getHibernateTemplate().execute(new org.springframework.orm.hibernate.HibernateCallback()
+       {
+            public Object doInHibernate(net.sf.hibernate.Session session) 
+                throws net.sf.hibernate.HibernateException
+            {
+                for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+                {
+                    create(($entity.fullyQualifiedEntityName)entityIterator.next());
+                }
+                return null;
+            }
+        }, true);
+       transformEntities(transform, entities);
+       return entities;
+   }
+
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
     /**
@@ -134,7 +168,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${entity.root.fullyQualifiedDaoName}#create(boolean, ${entity.getAttributeTypeList(true, false)})
+     * @see ${entity.root.fullyQualifiedDaoName}#create(int, ${entity.getAttributeTypeList(true, false)})
      */
     public Object create(
         final int transform,
@@ -165,7 +199,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(boolean, ${entity.getRequiredAttributeTypeList(true, false)})
+     * @see ${entity.fullyQualifiedDaoName}#create(int, ${entity.getRequiredAttributeTypeList(true, false)})
      */
     public Object create(
         final int transform,
