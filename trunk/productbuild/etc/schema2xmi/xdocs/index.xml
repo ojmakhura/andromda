@@ -42,7 +42,7 @@
 				</li>
 				<li>
 					Composite aggregation will be created on relationships
-					defining cascade deletes.
+					marked with cascade deletes.
 				</li>
 				<li>
 					Configurable stereotypes will be added to 
@@ -80,8 +80,8 @@ Options:
                                     elements will be added)
  -m,--mappings <arg>                The type mappings URI (i.e.
                                     file:${basedir}/DataypeMappings.xml)
- -o,--output <arg>                  Set output name to which the result of
-                                    the transformation will be written
+ -o,--output <arg>                  Output location to which the result
+                                    of the transformation will be written
  -p,--password <arg>                Schema user password
  -s,--schema <arg>                  The name of the schema where the
                                     tables can be found
