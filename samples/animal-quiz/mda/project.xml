@@ -51,6 +51,7 @@
             <version>${pom.currentVersion}</version>
             <type>jar</type>
             <properties>
+		    <defaultProvider>EJB</defaultProvider>
                 <applicationName>${animalQuiz.services.app.name}</applicationName>
                 <wsdlSoapAddress>${animalQuiz.webservice.soap.address}</wsdlSoapAddress>
                 <schemaTypeMappingsUri>XmlSchema</schemaTypeMappingsUri>
