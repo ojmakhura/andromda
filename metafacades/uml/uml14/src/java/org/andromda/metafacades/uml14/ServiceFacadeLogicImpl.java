@@ -3,8 +3,10 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EntityFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
-import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.ServiceFacade;
 
 /**
  * Metaclass facade implementation.
@@ -31,8 +33,11 @@ public class ServiceFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return ((DependencyFacade)object)
-                    .hasStereotype(UMLProfile.STEREOTYPE_ENTITY_REF);
+                ModelElementFacade targetElement = ((DependencyFacade)object)
+                    .getTargetElement();
+                return targetElement != null
+                    && EntityFacade.class.isAssignableFrom(targetElement
+                        .getClass());
             }
         };
     }
@@ -46,8 +51,11 @@ public class ServiceFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return ((DependencyFacade)object)
-                    .hasStereotype(UMLProfile.STEREOTYPE_SERVICE_REF);
+                ModelElementFacade targetElement = ((DependencyFacade)object)
+                    .getTargetElement();
+                return targetElement != null
+                    && ServiceFacade.class.isAssignableFrom(targetElement
+                        .getClass());
             }
         };
     }
