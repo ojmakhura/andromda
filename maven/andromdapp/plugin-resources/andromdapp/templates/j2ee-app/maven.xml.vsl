@@ -41,7 +41,7 @@
             descriptor="${maven.src.dir}/../app/project.xml"
             goals="undeploy"/>
     </goal>
-    
+
 #if ($web)
     <!-- ==================================================================
            Builds the Web component
@@ -51,7 +51,7 @@
             descriptor="${maven.src.dir}/../web/project.xml"
             goals="war:install"/>
     </goal>
-    
+
 #end
     <!-- ==================================================================
             Builds the Core component
@@ -89,8 +89,8 @@
             descriptor="${maven.src.dir}/../webservice/project.xml"
             goals="war:install"/>
     </goal>
-    
-#end    
+
+#end
     <j:set var="generatedSourceDir" value="${maven.build.dir}"/>
     <ant:available
         file="${maven.build.src}"
@@ -98,12 +98,12 @@
         property="generatedSrcAvailable"/>
 
      <!-- ==================================================================
-            Adds the generated source to the compile path for each subproject 
+            Adds the generated source to the compile path for each subproject
             (if any exists)
           ================================================================== -->
     <preGoal name="java:compile">
 
-        <!-- only attempt to add the generated source to the classpath 
+        <!-- only attempt to add the generated source to the classpath
              if we have a source directory -->
         <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
         <j:if test="${!empty sourceDirectory}">

@@ -43,7 +43,7 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
-        </dependency>       
+        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -102,7 +102,7 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        <!-- commons validator depends on antlr and oro for 
+        <!-- commons validator depends on antlr and oro for
              certain validation types -->
         <dependency>
             <groupId>antlr</groupId>
