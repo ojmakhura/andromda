@@ -51,9 +51,9 @@ public class MetafacadeMapping
     }
 
     /**
-     * The mapping class for which this mapping applies. The
-     * <code>stereotypes</code> and this variable make up the identifying key
-     * for this mappping.
+     * The name of the mapping class for which this mapping applies. 
+     * The {@link #context}, {@link #stereotypes} and this 
+     * name make up the identifying key for this mapping.
      */
     private String mappingClassName = null;
 
@@ -85,9 +85,9 @@ public class MetafacadeMapping
     /**
      * <p>
      * Gets whether or not this mapping represents a <code>contextRoot</code>,
-     * by default a mapping is <strong>NOT </strong> a contextRoot. You may want
-     * to specify one when other metafacades need to be created within the
-     * context of a metafacade.
+     * by default a mapping is <strong>NOT </strong> a contextRoot. You'll want
+     * to specify this as true when other metafacades need to be created within the
+     * context of this metafacade.
      * </p>
      * 
      * @return Returns the contextRoot.
@@ -115,8 +115,7 @@ public class MetafacadeMapping
     private final List stereotypes = new ArrayList();
 
     /**
-     * Adds a <code>stereotype</code> to the stereotypes for which the
-     * <code>metafacadeClass</code> should be instead.
+     * Adds a <code>stereotype</code> to the stereotypes.
      * 
      * @param stereotype
      */

@@ -20,8 +20,7 @@ import org.andromda.core.translation.Translator;
 public class Library
     extends BasePlugin
 {
-
-    private Map libraryTranslations = new HashMap();
+    private final Map libraryTranslations = new HashMap();
 
     /**
      * The default Library constructor.
