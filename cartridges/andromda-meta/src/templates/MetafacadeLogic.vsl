@@ -95,7 +95,7 @@ public abstract class ${class.name}Logic
 #end
 
 #set ($ops = $class.operations)
-#if ($ops.size() > 0)
+#if (!$ops.empty)
     // ---------------- real business methods ----------------------
 
 #foreach ( $op in $ops)
@@ -108,7 +108,9 @@ public abstract class ${class.name}Logic
     $op.visibility abstract $memberTypeName ${handleMethodName}($typedArgumentList);
 
     private boolean ${memberName}Set = false;
+#if ($op.hasReturnType())
     private $memberTypeName $memberName;
+#end
 
     private void ${handleMethodName}PreCondition()
     {
@@ -120,12 +122,16 @@ public abstract class ${class.name}Logic
 
     public final $memberTypeName ${methodName}($typedArgumentList)
     {
+#if($op.hasReturnType())
         if (${memberName}Set) return $memberName;
+#end
         ${handleMethodName}PreCondition();
         $memberName = ${handleMethodName}($op.argumentNames);
         ${handleMethodName}PostCondition();
+#if($op.hasReturnType())
         ${memberName}Set = true;
         return $memberName;
+#end
     }
 
 #end
