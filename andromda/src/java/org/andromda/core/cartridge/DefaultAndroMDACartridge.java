@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
 
 import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ExceptionUtils;
@@ -464,11 +463,10 @@ public class DefaultAndroMDACartridge implements AndroMDACartridge
     /**
      * @see org.andromda.core.cartridge.AndroMDACartridge#init(java.util.Properties)
      */
-    public void init(Properties templateEngineProperties) throws Exception
+    public void init() throws Exception
     {
         this.getDescriptor().getTemplateEngine().init(
-            this.getDescriptor().getCartridgeName(),
-            templateEngineProperties);
+            this.getDescriptor().getCartridgeName());
     }
     
     /**

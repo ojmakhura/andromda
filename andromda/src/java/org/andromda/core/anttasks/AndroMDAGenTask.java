@@ -1,16 +1,12 @@
 package org.andromda.core.anttasks;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
 import org.andromda.core.cartridge.AndroMDACartridge;
 import org.andromda.core.cartridge.CartridgeFinder;
@@ -64,11 +60,6 @@ public class AndroMDAGenTask extends MatchingTask
     private boolean lastModifiedCheck = true;
 
     /**
-     * The template engine properties file
-     */
-    private File templateEnginePropertiesFile = null;
-
-    /**
      * A Packages object which specify
      * whether or not packages should be processed.
      */
@@ -86,12 +77,7 @@ public class AndroMDAGenTask extends MatchingTask
      * An optional URL to a model
      */
     private URL modelURL = null;
-
-    /**
-     * Default properties for the VelocityTemplateEngine scripting engine.
-     */
-    private Properties templateEngineProperties;
-
+    
     /**
      * <p>
      * Creates a new <code>AndroMDAGenTask</code> instance.
@@ -129,24 +115,6 @@ public class AndroMDAGenTask extends MatchingTask
     public void setBasedir(File dir)
     {
         baseDir = dir;
-    }
-    /**
-     *  <p>
-     *
-     *  Allows people to set the path to the <code>velocity.properties</code> file.
-     *  </p> <p>
-     *
-     *  This file is found relative to the path where the JVM was run. For example,
-     *  if <code>build.sh</code> was executed in the <code>./build</code>
-     *  directory, then the path would be relative to this directory.</p> <p>
-     *
-     *
-     *@param  templateEnginePropertiesFile  a <code>File</code> with the path to the
-     *      velocity properties file
-     */
-    public void setTemplateEnginePropertiesFile(File templateEnginePropertiesFile)
-    {
-        this.templateEnginePropertiesFile = templateEnginePropertiesFile;
     }
 
     /**
@@ -190,8 +158,6 @@ public class AndroMDAGenTask extends MatchingTask
                 // shouldn't lead to problems
                 baseDir = this.getProject().resolveFile(".");
             }
-
-            initTemplateEngineProperties();
 
             List cartridges = CartridgeFinder.findCartridges();
 
@@ -258,56 +224,6 @@ public class AndroMDAGenTask extends MatchingTask
         }
     }
 
-    /**
-     * Loads and initializes the TemplateEngine properties.
-     * 
-     * @throws BuildException
-     */
-    private void initTemplateEngineProperties() throws BuildException
-    {
-        templateEngineProperties = new Properties();
-
-        if (templateEnginePropertiesFile == null)
-        {
-            // We directly change the user variable, because it
-            // shouldn't lead to problems
-            templateEnginePropertiesFile = new File("velocity.properties");
-        }
-
-        FileInputStream fis = null;
-        try
-        {
-            // We have to reload the properties every time in the
-            // (unlikely?) case that another task has changed them.
-            fis = new FileInputStream(templateEnginePropertiesFile);
-            templateEngineProperties.load(fis);
-        }
-        catch (FileNotFoundException fnfex)
-        {
-            // We ignore the exception and only complain later if we
-            // don't have a template path as well
-        }
-        catch (IOException ioex)
-        {
-            // We ignore the exception and only complain later if we
-            // don't have a template path as well
-        }
-        finally
-        {
-            if (null != fis)
-            {
-                try
-                {
-                    fis.close();
-                }
-                catch (IOException ioex)
-                {
-                    // Not much that can be done
-                }
-            }
-        }
-    }
-
     private void process(URL url, Collection cartridges) throws BuildException
     {
         final String methodName = "AndroMDAGenTask.process";
@@ -344,10 +260,12 @@ public class AndroMDAGenTask extends MatchingTask
                 // is set to 'ignore'
                 if (namespace != null && !namespace.isIgnore()) 
                 {
-                    cartridge.init(templateEngineProperties);
+                    cartridge.init();
                     cartridge.processModelElements(context);
                     cartridge.shutdown();
-                } else {
+                } 
+                else 
+                {
                 	StdoutLogger.info("namespace for '" + cartridgeName
                         + "' cartridge is either not defined, or has the ignore "
                         + "attribute set to 'true' --> skipping processing");

@@ -1,7 +1,5 @@
 package org.andromda.core.cartridge;
 
-import java.util.Properties;
-
 import org.andromda.core.common.CodeGenerationContext;
 
 /**
@@ -9,19 +7,15 @@ import org.andromda.core.common.CodeGenerationContext;
  * and the generator's core.
  * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
- * 
+ * @author Chad Brandon
  */
 public interface AndroMDACartridge
 {
     /**
-     * Initializes the cartridge.
-     * @param templateEngineProperties the properties to use when initializing 
-     * the TemplateEngine
-     * 
-     * @see org.andromda.core.templateengine.TemplateEngine
+     * Performs any initialization required by
+     * the cartridge.
      */
-    public void init (Properties templateEngineProperties)
-        throws Exception;
+    public void init() throws Exception;
 
     /**
      * Shuts down the cartridge. The meaning of this is defined
