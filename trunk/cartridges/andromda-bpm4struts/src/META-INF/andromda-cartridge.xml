@@ -5,6 +5,7 @@
 
     <!-- define template external properties -->
     <property reference="securityEnabled"/>
+    <property reference="securityRealm"/>
 
     <template
         sheet="templates/StrutsAction.vsl"
@@ -193,7 +194,8 @@
         sheet="templates/StrutsXDocletMergeWebSecurity.vsl"
         outputPattern="web-security.xml"
         outlet="xdoclet-merge"
-        overWrite="true">
+        overWrite="true"
+        generateEmptyFiles="true">
         <modelElements variable="class">
             <modelElement stereotype="FrontEndApplication"/>
         </modelElements>
