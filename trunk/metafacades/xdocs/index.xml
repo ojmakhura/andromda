@@ -80,21 +80,21 @@
                 Now, why don't we simply write a class <code>EntityClass</code> that 
                 extends the class <code>UMLClass</code>? Just like this:
             </p> 
-<pre>
+<source>
     public class EntityClass extends UMLClass {
         public void validate() throws ... {
             // throw exception here if PrimaryKey not found...
         }
     }
-</pre>
+</source>
                 <p>Another example:</p>
-<pre>
+<source>
     public class SpecialAttribute extends Attribute {
         public String getGetterName() {
             return "get" + uppercaseFirstLetter(getName());
         }
     }
-</pre>
+</source>
             <p> 
                 We could then use the class <code>SpecialAttribute</code> 
                 instead of the class <code>Attribute</code> and write
