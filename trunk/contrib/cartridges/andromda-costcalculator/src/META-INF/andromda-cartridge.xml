@@ -1,0 +1,24 @@
+<cartridge name="costcalculator">
+
+    <templateEngine>
+        <macrolibrary name="templates/Spreadsheet.vm"/>
+    </templateEngine>
+
+    <!-- define the template objects that are made availble to the template -->
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+
+    <template
+        path="templates/Spreadsheet.xml"
+        outputPattern="ProjectCosts.xls"
+        outlet="spreadsheet"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="packages">
+                <type name="org.andromda.cartridges.costcalculator.metafacades.PackageCosts"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+</cartridge>
