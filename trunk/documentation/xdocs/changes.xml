@@ -6,6 +6,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.0M3-SNAPSHOT" date="2004-11-15">
+            <action dev="draftdog" type="add">
+                Table and action now have their own dedicated CSS style, per
+                generated JSP another CSS file will be generate by bpm4struts;
+                in this file you can locally override any defined styles.
+            </action>
+        </release>
         <release version="3.0M3-SNAPSHOT" date="2004-11-13">
             <action dev="draftdog" type="fix">
                 The 'validwhen' validation feature has finally been implemented. It is now possible with bpm4struts
