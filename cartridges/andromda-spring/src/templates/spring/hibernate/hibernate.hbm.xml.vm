@@ -65,7 +65,7 @@
             <column name="$otherEnd.columnName"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
-        <set name="$otherEnd.name" order-by="$otherEnd.columnName" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
+        <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$otherEnd.columnName" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$sourceEnd.hibernateCascade"#end>
             <key>
                 <column name="$otherEnd.columnName"/>
             </key>
