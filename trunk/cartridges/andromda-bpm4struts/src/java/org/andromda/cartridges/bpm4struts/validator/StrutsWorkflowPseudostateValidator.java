@@ -122,7 +122,7 @@ public class StrutsWorkflowPseudostateValidator
         }
         else
         {
-            validationMessages.add(new ValidationError(workflow, "Invalid pseudostate, must be one of: InitialState, DecisionPoint (one-to-many), MergePoint (many-to-one)"));
+            validationMessages.add(new ValidationError(workflow, "Invalid pseudostate, must be one of: InitialState, DecisionPoint (one-to-many), MergePoint (many-to-one), found ("+pseudostate.getName()+"): "+pseudostate));
         }
     }
 }
