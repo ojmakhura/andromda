@@ -7,7 +7,7 @@
   	<name>AndroMDA Translation Libraries</name>
   	<repository>
     	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}</connection>
-    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda:andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}</url>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}</url>
   	</repository>	
 	<dependencies>
     	<dependency>
