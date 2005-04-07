@@ -7,14 +7,12 @@ import org.andromda.core.translation.TranslationUtils;
 import org.andromda.translation.ocl.BaseTranslator;
 import org.andromda.translation.ocl.node.AFeatureCall;
 import org.andromda.translation.ocl.node.ALogicalExpressionTail;
-import org.andromda.translation.ocl.node.AOperationContextDeclaration;
 import org.andromda.translation.ocl.node.AParenthesesPrimaryExpression;
 import org.andromda.translation.ocl.node.APropertyCallExpression;
 import org.andromda.translation.ocl.node.ARelationalExpressionTail;
 import org.andromda.translation.ocl.node.AStandardDeclarator;
 import org.andromda.translation.ocl.node.PRelationalExpression;
 import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
-import org.andromda.translation.ocl.syntax.VariableDeclaration;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -28,12 +26,6 @@ import org.apache.commons.lang.StringUtils;
 public class QueryTranslator
     extends BaseTranslator
 {
-
-    /**
-     * Used to save the argument names for the operation which represents the
-     * context of the expression being translated.
-     */
-    private List argumentNames = null;
 
     /**
      * Contains the select clause of the query.
@@ -67,36 +59,6 @@ public class QueryTranslator
         boolean isInitialDeclarator = (this.declaratorCtr <= 0);
         this.declaratorCtr++;
         return isInitialDeclarator;
-    }
-
-    /**
-     * Indicates whether or not the <code>name</code> is one of the arguments.
-     * 
-     * @return true if its an argument
-     */
-    protected boolean isArgument(String name)
-    {
-        boolean isArgument = this.argumentNames != null;
-        if (isArgument)
-        {
-            isArgument = this.argumentNames.contains(name);
-        }
-        return isArgument;
-    }
-
-    /**
-     * Gets the information about the operation which is the context of this
-     * expression.
-     */
-    public void inAOperationContextDeclaration(
-        AOperationContextDeclaration declaration)
-    {
-        super.inAOperationContextDeclaration(declaration);
-        VariableDeclaration[] variableDeclarations = ConcreteSyntaxUtils
-            .getVariableDeclarations(declaration.getOperation());
-        // set the argument names in a List so that we can retieve them later
-        this.argumentNames = ConcreteSyntaxUtils
-            .getArgumentNames(variableDeclarations);
     }
 
     /**
@@ -223,7 +185,7 @@ public class QueryTranslator
         replacement = StringUtils.trimToEmpty(replacement);
         // if 'replacement' is an argument use that for the replacement
         // in the fragment
-        if (this.isArgument(replacement))
+        if (this.isOperationArgument(replacement))
         {
             final String argument = replacement;
             replacement = this.getTranslationFragment("argument");

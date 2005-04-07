@@ -70,9 +70,9 @@ public class ValidationJavaTranslator
         newTranslationLayer();
         {
             Object temp[] = node.getContextDeclaration().toArray();
-            for (int i = 0; i < temp.length; i++)
+            for (int ctr = 0; ctr < temp.length; ctr++)
             {
-                ((PContextDeclaration)temp[i]).apply(this);
+                ((PContextDeclaration)temp[ctr]).apply(this);
             }
         }
         mergeTranslationLayers();
@@ -88,8 +88,8 @@ public class ValidationJavaTranslator
         // that we can set the type of the expression
         super.inAClassifierContextDeclaration(node);
         Object temp[] = node.getClassifierExpressionBody().toArray();
-        for (int i = 0; i < temp.length; i++)
-            ((PClassifierExpressionBody)temp[i]).apply(this);
+        for (int ctr = 0; ctr < temp.length; ctr++)
+            ((PClassifierExpressionBody)temp[ctr]).apply(this);
     }
 
     public void caseAOperationContextDeclaration(
@@ -99,17 +99,18 @@ public class ValidationJavaTranslator
         // that we can set the type of the expression
         super.inAOperationContextDeclaration(node);
         Object temp[] = node.getOperationExpressionBody().toArray();
-        for (int i = 0; i < temp.length; i++)
-            ((POperationExpressionBody)temp[i]).apply(this);
+        for (int ctr = 0; ctr < temp.length; ctr++)
+            ((POperationExpressionBody)temp[ctr]).apply(this);
     }
 
     public void caseAAttributeOrAssociationContextDeclaration(
         AAttributeOrAssociationContextDeclaration node)
     {
+        super.inAAttributeOrAssociationContextDeclaration(node);
         Object temp[] = node.getAttributeOrAssociationExpressionBody()
             .toArray();
-        for (int i = 0; i < temp.length; i++)
-            ((PAttributeOrAssociationExpressionBody)temp[i]).apply(this);
+        for (int ctr = 0; ctr < temp.length; ctr++)
+            ((PAttributeOrAssociationExpressionBody)temp[ctr]).apply(this);
     }
 
     public void caseAInvClassifierExpressionBody(
@@ -139,7 +140,7 @@ public class ValidationJavaTranslator
     public void inAArrowPropertyCallExpressionTail(
         AArrowPropertyCallExpressionTail node)
     {
-        arrowPropertyCallStack.push(Boolean.TRUE);
+        this.arrowPropertyCallStack.push(Boolean.TRUE);
     }
 
     /**
@@ -148,7 +149,7 @@ public class ValidationJavaTranslator
     public void outAArrowPropertyCallExpressionTail(
         AArrowPropertyCallExpressionTail node)
     {
-        arrowPropertyCallStack.pop();
+        this.arrowPropertyCallStack.pop();
     }
 
     /**
@@ -158,7 +159,7 @@ public class ValidationJavaTranslator
     public void inADotPropertyCallExpressionTail(
         ADotPropertyCallExpressionTail node)
     {
-        arrowPropertyCallStack.push(Boolean.FALSE);
+        this.arrowPropertyCallStack.push(Boolean.FALSE);
     }
 
     /**
@@ -167,7 +168,7 @@ public class ValidationJavaTranslator
     public void outADotPropertyCallExpressionTail(
         ADotPropertyCallExpressionTail node)
     {
-        arrowPropertyCallStack.pop();
+        this.arrowPropertyCallStack.pop();
     }
 
     /**
@@ -253,8 +254,8 @@ public class ValidationJavaTranslator
             node.getVariableDeclarationValue().apply(this);
 
         Object temp[] = node.getVariableDeclarationListTail().toArray();
-        for (int i = 0; i < temp.length; i++)
-            ((PVariableDeclarationListTail)temp[i]).apply(this);
+        for (int ctr = 0; ctr < temp.length; ctr++)
+            ((PVariableDeclarationListTail)temp[ctr]).apply(this);
     }
 
     public void caseAVariableDeclarationListTail(
@@ -313,8 +314,8 @@ public class ValidationJavaTranslator
         newTranslationLayer();
         node.getPrimaryExpression().apply(this);
         Object temp[] = node.getPropertyCallExpressionTail().toArray();
-        for (int i = 0; i < temp.length; i++)
-            ((PPropertyCallExpressionTail)temp[i]).apply(this);
+        for (int ctr = 0; ctr < temp.length; ctr++)
+            ((PPropertyCallExpressionTail)temp[ctr]).apply(this);
         mergeTranslationLayerAfter();
     }
 
@@ -475,6 +476,36 @@ public class ValidationJavaTranslator
         this.handleArrowFeatureCall((AFeatureCall)node.getFeatureCall());
         outAArrowPropertyCallExpressionTail(node);
     }
+    
+    /**
+     * @see org.andromda.translation.ocl.BaseTranslator#isOperationArgument(java.lang.String)
+     */
+    protected boolean isOperationArgument(String argument)
+    {
+        return super.isOperationArgument(this.getRootName(argument));
+    }
+    
+    /**
+     * Gets the root path name from the given <code>navigationalPath</code> 
+     * (by trimming off any additional navigational path).
+     * @param navigationalPath the navigational property path (i.e. car.door)
+     * @return the root of the path name.
+     */
+    private String getRootName(String navigationalPath)
+    {
+        return StringUtils.trimToEmpty(navigationalPath).replaceAll("\\..*", "");
+    }
+    
+    /**
+     * Gets the tail of the navigational path (that is it removes the 
+     * root from the path and returns the tail).  
+     * @param navigationalPath the navigational property path (i.e. car.door)
+     * @return the tail of the path name.
+     */
+    private String getPathTail(String navigationalPath)
+    {
+        return StringUtils.trimToEmpty(navigationalPath).replaceAll(".*\\.", "");        
+    }
 
     /**
      * @todo: improve implementation to reduce the code duplication (avoid
@@ -536,9 +567,16 @@ public class ValidationJavaTranslator
                         String invokedObject = CONTEXT_ELEMENT_NAME;
                         // if we're in an arrow call we assume the invoked
                         // object is the object for which the arrow call applies
-                        if (arrowPropertyCallStack.peek().equals(Boolean.TRUE))
+                        if (this.arrowPropertyCallStack.peek().equals(Boolean.TRUE))
                         {
                             invokedObject = "object";
+                        }    
+                        if(this.isOperationArgument(expressionAsString))
+                        {
+                            // if the expression is an argument, then 
+                            // that becomes the invoked object
+                            invokedObject = this.getRootName(expressionAsString);
+                            expressionAsString = this.getPathTail(expressionAsString);
                         }
                         write(invokedObject);
                         write(",\"");
@@ -569,7 +607,7 @@ public class ValidationJavaTranslator
         {
             // we use introspection when in an arrow, so passing
             // feature name as a String without parentheses
-            if (arrowPropertyCallStack.peek().equals(Boolean.FALSE))
+            if (this.arrowPropertyCallStack.peek().equals(Boolean.FALSE))
             {
                 node.getQualifiers().apply(this);
             }
@@ -592,7 +630,7 @@ public class ValidationJavaTranslator
             .getFeatureCallParameters();
         AActualParameterList list = (AActualParameterList)params
             .getActualParameterList();
-        boolean arrow = arrowPropertyCallStack.peek().equals(Boolean.TRUE)
+        boolean arrow = this.arrowPropertyCallStack.peek().equals(Boolean.TRUE)
             && !String.valueOf(list).trim().equals("");
         {
             newTranslationLayer();
