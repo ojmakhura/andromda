@@ -86,6 +86,9 @@ public abstract class $service.baseName
 #end
 #end
 #end
+#if ($operation.constraintsPresent)
+        this.$operation.preconditionCall;
+#end
         try
         {
 #set ($call = "this.${operation.implementationCall};")
@@ -109,6 +112,16 @@ public abstract class $service.baseName
         }
     }
 
+#if ($operation.constraintsPresent)
+    /**
+     * Performs any precondition checks for {@link #${operation.call}}.
+     */
+    private void $operation.preconditionSignature
+    {
+#renderPreconditions($operation)
+    }
+
+#end
      /**
       * Performs the core logic for {@link #${operation.getSignature(false)}}
       */
