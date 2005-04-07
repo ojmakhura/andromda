@@ -347,6 +347,9 @@
                         a precondition verification (where <em>{0}</em> is the name of the model element).
                     </td>
                     <td>
+                        OperationFacade
+                    </td>
+                    <td>
                         No, the default is <code>{0}Precondition</code>
                     </td>
                 </tr>
@@ -357,6 +360,9 @@
                     <td>
                         The pattern used when constructing a name for an operation that can perform
                         a post-condition verification (where <em>{0}</em> is the name of the model element).
+                    </td>
+                    <td>
+                        OperationFacade
                     </td>
                     <td>
                         No, the default is <code>{0}Postcondition</code>
