@@ -5,7 +5,6 @@
     <properties>
         <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
         <title>AndroMDA - Bpm4Struts - Tips</title>
-        <gennews>no</gennews>
     </properties>
 
     <body>
@@ -95,6 +94,50 @@ response.setHeader("Content-disposition",
 
 response.getOutputStream().write(exportBytes);
 -->
+</source>
+            </p>
+        </section>
+
+        <section name="Validation of numbers when using Strings">
+            <p>
+                Because Bpm4Struts will automatically provide validation for any modeled numeric type 
+                (i.e. a modeled <em>datatype::Integer</em> will be validated that the field is indeed a valid integer
+                value) it saves you a lot of trouble right?  Well, this is all great unless of course you
+                don't want the annoying <em>0</em> that Struts likes to provide as the default when no value as
+                been entered.
+            </p>
+            <p>
+                So how do you get the great default validation and yet avoid the default zero you ask?  
+                Very easy: just continue to model the parameters as a number 
+                (i.e. <em>datatype::Integer</em> for example), then within a customized Java mappings file
+                for the Bpm4Struts namespace just map this number type to a java.lang.String.
+                For example, here we add the mapping for <em>datatype::Integer</em>
+<source language="xml">
+<![CDATA[
+<mappings name="Java">
+    ...
+    <mapping>
+        <from>datatype::Integer</from>
+        <to>java.lang.String</to>
+    </mapping>
+    ...
+</mappings>
+]]>
+</source>
+                and then specify the mapping in the bpm4struts namespace, like so:
+<source language="xml">
+<![CDATA[
+<dependency>
+    <groupId>andromda</groupId>
+    <artifactId>andromda-bpm4struts-cartridge</artifactId>
+    <version>${andromda}</version>
+    <properties>
+         ...
+         <languageMappingsUri>file:${maven.conf.dir}/mappings/JavaMappings.xml</languageMappingsUri>
+         ...
+    </properties>
+</dependency>
+]]>
 </source>
             </p>
         </section>
