@@ -79,7 +79,7 @@ public class EjbQLTranslator
         String replacement,
         int index)
     {
-        if (this.isArgument(replacement))
+        if (this.isOperationArgument(replacement))
         {
             // get the used argument and if it exists, use that for the
             // replacement, otherwise use a new one.
@@ -96,8 +96,7 @@ public class EjbQLTranslator
                 replacement = usedArgument;
             }
         }
-        fragment = super.replaceFragment(fragment, replacement, index);
-        return fragment;
+        return super.replaceFragment(fragment, replacement, index);
     }
 
     /**

@@ -26,6 +26,7 @@ import org.andromda.translation.ocl.parser.OclParser;
 import org.andromda.translation.ocl.parser.OclParserException;
 import org.andromda.translation.ocl.parser.ParserException;
 import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
+import org.andromda.translation.ocl.syntax.OperationDeclaration;
 import org.apache.log4j.Logger;
 
 /**
@@ -146,11 +147,6 @@ public abstract class BaseTranslator
      * file to handle the 'allInstances' expression:
      * 
      * <pre>
-     * 
-     *  
-     *   
-     *    
-     *     
      *      
      *                 &lt;fragment name=&quot;(\s*${elementName}\s*\.)?\s*allInstances.*&quot;
      *                              handlerMethod=&quot;handleAllInstances&quot;&gt;
@@ -158,11 +154,6 @@ public abstract class BaseTranslator
      *                         from $completeElementName as $lowerCaseElementName 
      *                     &lt;/kind&gt;
      *                 &lt;/fragment&gt;
-     *       
-     *      
-     *     
-     *    
-     *   
      *  
      * </pre>
      * 
@@ -457,6 +448,38 @@ public abstract class BaseTranslator
             this.translatedExpression.setContextElement(ConcreteSyntaxUtils
                 .getType(declaration.getName(), declaration.getPathNameTail()));
         }
+        this.operation = ConcreteSyntaxUtils.getOperationDeclaration(declaration.getOperation());
+    }
+
+    /**
+     * Stores the operation declartion of constraint (if the context
+     * is an operation).
+     */
+    private OperationDeclaration operation;
+    
+    /**
+     * Gets the operation declaration of the constraint (if the context is
+     * an operation), otherwise returns null.
+     * 
+     * @return the operation declaration or null.
+     */
+    protected OperationDeclaration getOperation()
+    {
+        return this.operation;
+    }
+    
+    /**
+     * Indicates if the given <code>argument</code>
+     * is an operation argument (if the context declaration
+     * is an operation)
+     * 
+     * @param argument the argument to check.
+     * @return true/false
+     */
+    protected boolean isOperationArgument(final String argument)
+    {
+        return this.operation != null && ConcreteSyntaxUtils.getArgumentNames(
+                operation.getArguments()).contains(argument);
     }
 
     /**
