@@ -21,7 +21,6 @@ import org.andromda.translation.ocl.node.ADefClassifierExpressionBody;
 import org.andromda.translation.ocl.node.AInvClassifierExpressionBody;
 import org.andromda.translation.ocl.node.AOperationContextDeclaration;
 import org.andromda.translation.ocl.node.AOperationExpressionBody;
-import org.andromda.translation.ocl.node.Node;
 import org.andromda.translation.ocl.node.Start;
 import org.andromda.translation.ocl.parser.OclParser;
 import org.andromda.translation.ocl.parser.OclParserException;
