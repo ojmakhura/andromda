@@ -164,8 +164,7 @@ public class XmlObjectFactory
                 String schemaLocation = '/'
                     + this.objectClass.getName().replace('.', '/')
                     + SCHEMA_SUFFIX;
-                this.schemaUri = XmlObjectFactory.class
-                    .getResource(schemaLocation);
+                this.schemaUri = XmlObjectFactory.class.getResource(schemaLocation);
                 try
                 {
                     if (this.schemaUri != null)
@@ -186,18 +185,20 @@ public class XmlObjectFactory
                         + "' continuing in non validating mode");
                 }
             }
-
             if (this.schemaUri != null)
             {
                 try
                 {
                     this.digester.setSchema(this.schemaUri.toString());
-                    this.digester.setErrorHandler(new XmlObjectValidator());
+                    this.digester.setErrorHandler(new XmlObjectValidator());                    
+                    
+                    // also set the JAXP properties in case we're using a parser that needs those
+                    this.digester.setProperty(JAXP_SCHEMA_LANGUAGE, this.digester.getSchemaLanguage());
+                    this.digester.setProperty(JAXP_SCHEMA_SOURCE, this.digester.getSchema());
                 }
                 catch (Exception ex)
                 {
-                    logger
-                        .warn(
+                    logger.warn(
                             "WARNING! Your parser does NOT support the "
                                 + " schema validation continuing in non validation mode",
                             ex);
@@ -205,6 +206,18 @@ public class XmlObjectFactory
             }
         }
     }
+
+    /**
+     * The JAXP 1.2 property required to set up the schema location.
+     */
+    protected static final String JAXP_SCHEMA_SOURCE =
+        "http://java.sun.com/xml/jaxp/properties/schemaSource";
+
+    /**
+     * The JAXP 1.2 property to set up the schemaLanguage used.
+     */
+    protected String JAXP_SCHEMA_LANGUAGE =
+        "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
 
     /**
      * Returns a configured Object based on the objectXml configuration file
@@ -283,22 +296,12 @@ public class XmlObjectFactory
     protected class XmlObjectValidator
         implements org.xml.sax.ErrorHandler
     {
-
-        public XmlObjectValidator()
-        {
-            final String methodName = "XmlObjectValidator";
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("constructing new " + methodName);
-            }
-        }
-
         /**
          * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
          */
         public void error(SAXParseException exception) throws SAXException
         {
-            throw new SAXException(exception.getMessage());
+            throw new SAXException(this.getMessage(exception));
         }
 
         /**
@@ -306,7 +309,7 @@ public class XmlObjectFactory
          */
         public void fatalError(SAXParseException exception) throws SAXException
         {
-            throw new SAXException(exception.getMessage());
+            throw new SAXException(this.getMessage(exception));
         }
 
         /**
@@ -314,7 +317,26 @@ public class XmlObjectFactory
          */
         public void warning(SAXParseException exception)
         {
-            logger.warn("WARNING!: " + exception.toString());
+            logger.warn("WARNING!: " + this.getMessage(exception));
+        }
+        
+        /**
+         * Constructs and returns the appropriate error message.
+         * 
+         * @param exception the exception from which to extract the message.
+         * @return the message.
+         */
+        private String getMessage(SAXParseException exception)
+        {
+            StringBuffer message = new StringBuffer();
+            if (exception != null)
+            {
+                message.append(exception.getMessage());
+                message.append(", line: ");
+                message.append(exception.getLineNumber());
+                message.append(", column: " + exception.getColumnNumber());
+            }
+            return message.toString();
         }
     }
 }

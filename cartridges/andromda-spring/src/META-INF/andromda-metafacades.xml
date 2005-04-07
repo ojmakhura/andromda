@@ -21,8 +21,8 @@
     <property reference="serviceHibernateInterceptorEnabled" default="true"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
             <stereotype>FINDER_METHOD</stereotype>
+            <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
@@ -65,7 +65,6 @@
         <mapping class="org.omg.uml.foundation.core.Interface$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
-        <stereotype>ENTITY</stereotype>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">

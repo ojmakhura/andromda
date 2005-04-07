@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!-- contains the default metafacade mappings -->
 <metafacades namespace="uml-1.4" shared="true">
+    <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <property reference="languageMappingsUri" />
     <property reference="wrapperMappingsUri" />
     <property reference="pluralizeAssociationEndNames" default="true"/>
@@ -23,7 +24,6 @@
     <property reference="entityPropertyNameMask" default="none"/>
     <property reference="parameterNameMask" default="none"/>
     <property reference="enableMetafacadePropertyCaching" default="true"/>
-    <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>
@@ -270,8 +270,8 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <context>org.andromda.metafacades.uml.Entity</context>
             <stereotype>FINDER_METHOD</stereotype>
+            <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityQueryOperationLogicImpl">
