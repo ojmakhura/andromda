@@ -378,6 +378,18 @@
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(c,"name"),""));
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            <![CDATA[
+            context LoyaltyProgram::verifyName(name : String)
+            pre : name <> ''
+             ]]>
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(name,""));
+        </to>
+    </expression>
    
    <!-- 
     <expression>

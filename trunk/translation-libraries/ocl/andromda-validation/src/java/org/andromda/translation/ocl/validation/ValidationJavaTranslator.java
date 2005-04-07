@@ -504,7 +504,7 @@ public class ValidationJavaTranslator
      */
     private String getPathTail(String navigationalPath)
     {
-        return StringUtils.trimToEmpty(navigationalPath).replaceAll(".*\\.", "");        
+        return StringUtils.trimToEmpty(navigationalPath).replaceAll(".*\\.", "");       
     }
 
     /**
@@ -563,7 +563,8 @@ public class ValidationJavaTranslator
                     }
                     else
                     {
-                        write(OCL_INTROSPECTOR_INVOKE_PREFIX);
+                        // whether or not an introspector call is required
+                        boolean introspectorCall = true;
                         String invokedObject = CONTEXT_ELEMENT_NAME;
                         // if we're in an arrow call we assume the invoked
                         // object is the object for which the arrow call applies
@@ -577,11 +578,22 @@ public class ValidationJavaTranslator
                             // that becomes the invoked object
                             invokedObject = this.getRootName(expressionAsString);
                             expressionAsString = this.getPathTail(expressionAsString);
+                            introspectorCall = !invokedObject.equals(expressionAsString);
+                        }
+                        if (introspectorCall)
+                        {
+                            write(OCL_INTROSPECTOR_INVOKE_PREFIX);
                         }
                         write(invokedObject);
-                        write(",\"");
-                        write(expressionAsString);
-                        write("\")");
+                        if (introspectorCall) 
+                        {
+                            write(",\""); 
+                            write(expressionAsString);
+                        }
+                        if (introspectorCall)
+                        {
+                            write("\")");
+                        }
                         if (convertToBoolean)
                         {
                             this.write(BOOLEAN_WRAP_SUFFIX);

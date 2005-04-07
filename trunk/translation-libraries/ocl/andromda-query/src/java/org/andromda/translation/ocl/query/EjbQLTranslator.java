@@ -17,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
 public class EjbQLTranslator
     extends QueryTranslator
 {
-
     /**
      * Used to replace the 'counter' reference in the EJB-QL template
      */
