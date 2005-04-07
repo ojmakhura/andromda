@@ -13,6 +13,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.translation.ocl.ExpressionKinds;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -556,4 +557,40 @@ public class OperationFacadeLogicImpl
         return String.valueOf(this.getConfiguredProperty(
             UMLMetafacadeProperties.POSTCONDITION_NAME_PATTERN));
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#isPreconditionsPresent()
+     */
+    protected boolean handleIsPreconditionsPresent()
+    {
+        final Collection preconditions = this.getPostconditions();
+        return preconditions != null && !preconditions.isEmpty();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#isPostconditionsPresent()
+     */
+    protected boolean handleIsPostconditionsPresent()
+    {
+        final Collection postconditions = this.getPostconditions();
+        return postconditions != null && !postconditions.isEmpty();
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.OperationFacade#getPreconditions()
+     */
+    protected Collection handleGetPreconditions()
+    {
+        return this.getConstraints(ExpressionKinds.PRE);
+    }
+    
+    /**
+     * 
+     * @see org.andromda.metafacades.uml.OperationFacade#getPostconditions()
+     */
+    protected Collection handleGetPostconditions()
+    {
+        return this.getConstraints(ExpressionKinds.POST);
+    }
+    
 }
