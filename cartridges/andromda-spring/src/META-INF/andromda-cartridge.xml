@@ -1,12 +1,13 @@
 <cartridge name="spring">
 
     <templateEngine>
-        <macrolibrary name="templates/spring/hibernate/hibernate.hbm.xml.vm"/>
+        <macrolibrary name="templates/spring/RenderPreconditions.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils"/>
+    <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
     <property reference="driver" default=""/>
