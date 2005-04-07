@@ -1259,7 +1259,7 @@ public class StrutsParameterLogicImpl
                         if (isMinLengthFormat(additionalFormat))
                             vars.put("minlength",Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
                         else if (isMaxLengthFormat(additionalFormat))
-                            vars.put("maxlenght",Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
+                            vars.put("maxlength",Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
                         else if (isPatternFormat(additionalFormat))
                             vars.put("mask",Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
                     }
