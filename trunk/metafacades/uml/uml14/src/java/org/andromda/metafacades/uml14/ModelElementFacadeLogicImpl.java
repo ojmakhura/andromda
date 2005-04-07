@@ -754,4 +754,12 @@ public class ModelElementFacadeLogicImpl
         }
         return validationName.toString();
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#isConstraintsPresent()
+     */
+    protected boolean handleIsConstraintsPresent()
+    {
+        return this.getConstraints() != null && !this.getConstraints().isEmpty();
+    }
 }
