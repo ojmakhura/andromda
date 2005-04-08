@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
@@ -52,24 +53,35 @@ public class GeneralizableElementFacadeLogicImpl
      */
     public java.lang.Object handleGetGeneralization()
     {
+        Object parent = null;
         Collection generalizations = metaObject.getGeneralization();
-        if (generalizations == null)
+        if (generalizations != null)
         {
-            return null;
+            Iterator iterator = generalizations.iterator();
+            if (iterator.hasNext())
+            {
+                parent = ((Generalization)iterator.next()).getParent();
+            }
         }
-        Iterator i = generalizations.iterator();
-
-        if (i.hasNext())
-        {
-            Generalization generalization = (Generalization)i.next();
-            return generalization.getParent();
-        }
-        return null;
+        return parent;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizations()
+     */
     protected Collection handleGetGeneralizations()
     {
-        return metaObject.getGeneralization();
+        Collection parents = new HashSet();
+        Collection generalizations = metaObject.getGeneralization();
+        if (generalizations != null && !generalizations.isEmpty())
+        {
+            Iterator iterator = generalizations.iterator();
+            if (iterator.hasNext())
+            {
+                parents.add(((Generalization)iterator.next()).getParent());
+            }
+        }
+        return parents;
     }
 
     /**
