@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.omg.uml.foundation.core.Generalization;
@@ -95,5 +96,26 @@ public class GeneralizableElementFacadeLogicImpl
             }
         });
         return specializations;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacadeLogic#getGeneralizationList()
+     */
+    protected String handleGetGeneralizationList()
+    {
+        final StringBuffer list = new StringBuffer();
+        if (this.getGeneralizations() != null)
+        {
+            for (Iterator iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
+            {
+                ModelElementFacade element = (ModelElementFacade)iterator.next(); 
+                list.append(element.getFullyQualifiedName());
+                if (iterator.hasNext())
+                {
+                    list.append(", ");
+                }
+            }
+        }
+        return list.toString();
     }
 }
