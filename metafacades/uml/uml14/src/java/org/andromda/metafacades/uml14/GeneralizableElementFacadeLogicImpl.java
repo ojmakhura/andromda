@@ -27,11 +27,6 @@ public class GeneralizableElementFacadeLogicImpl
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class GeneralizableElementFacade ...
-
     /**
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getAllGeneralizations()()
      */
