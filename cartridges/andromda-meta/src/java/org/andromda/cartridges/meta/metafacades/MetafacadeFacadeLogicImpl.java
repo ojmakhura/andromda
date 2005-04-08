@@ -301,7 +301,7 @@ public class MetafacadeFacadeLogicImpl
         if (superMetafacade != null)
         {
             requiresInheritanceDelegation = !superMetafacade.getPackageName()
-                .equals(this.getPackageName());
+                .equals(this.getPackageName()) || this.getGeneralizations().size() > 1;
         }
         return requiresInheritanceDelegation;
     }
