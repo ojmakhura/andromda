@@ -72,7 +72,7 @@ public class GeneralizableElementFacadeLogicImpl
         if (generalizations != null && !generalizations.isEmpty())
         {
             Iterator iterator = generalizations.iterator();
-            if (iterator.hasNext())
+            while (iterator.hasNext())
             {
                 parents.add(((Generalization)iterator.next()).getParent());
             }
