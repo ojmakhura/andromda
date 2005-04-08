@@ -28,7 +28,7 @@ public class StrutsUserLogicImpl
     {
         List generalizedUsers = new ArrayList();
 
-        final Collection parentActors = getGeneralizedActors();
+        final Collection parentActors = this.getGeneralizations();
         for (Iterator iterator = parentActors.iterator(); iterator.hasNext();)
         {
             Object object = iterator.next();
@@ -44,7 +44,7 @@ public class StrutsUserLogicImpl
     {
         List generalizedByUsers = new ArrayList();
 
-        final Collection parentActors = getGeneralizedByActors();
+        final Collection parentActors = this.getSpecializations();
         for (Iterator iterator = parentActors.iterator(); iterator.hasNext();)
         {
             Object object = iterator.next();
