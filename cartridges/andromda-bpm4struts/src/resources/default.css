@@ -1,6 +1,3 @@
-##
-##  Body style, this defines the most noticable look of the page
-##
 html body
 {
     font-family: trebuchet ms, verdana, tahoma, arial;
@@ -14,9 +11,6 @@ html body
 
 td, th { font-size: 12px; padding: 0 3px 6px 3px; line-height: 15px; }
 
-##
-##  Hyperlinks
-##
 a:link
 {
 	color: #043DBC;
@@ -44,17 +38,11 @@ a:link.nol, a:visited.nol, a:hover.nol
 }
 
 
-##
-##  A form is always a little indented to the right
-##
 form { margin: 0 0 0 10px; }
 form input { font-size: 82%; }
 form input.text { font-size: 100%; background: #fff; border: 1px solid #ccc; border-color: #ccc; }
 form textarea.text { background: #fff; border: 1px solid #ccc; color: #444; }
 
-##
-##  Header styles
-##
 h1
 {
    width: 100%;
@@ -102,9 +90,6 @@ h5
    margin-bottom: 0.3em;
 }
 
-##
-##  Other styles (no specific category)
-##
 hr
 {
    border-top: 1px dashed #ccc;
