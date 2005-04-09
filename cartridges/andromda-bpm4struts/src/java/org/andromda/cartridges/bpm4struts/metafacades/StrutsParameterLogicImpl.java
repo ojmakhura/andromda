@@ -7,8 +7,6 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UMLMetafacadeUtils;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
@@ -16,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1474,59 +1473,106 @@ public class StrutsParameterLogicImpl
         return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(getWidgetType());
     }
 
+    /**
+     * Returns true if this parameter's fully qualified name equals the argument type name.
+     */
+    private boolean isSpecificType(final String mappedType)
+    {
+        boolean specificType = false;
+
+        if (mappedType != null)
+        {
+            final ClassifierFacade type = getType();
+            if (type != null)
+            {
+                specificType = mappedType.equals(type.getFullyQualifiedName());
+            }
+        }
+
+        return specificType;
+    }
+
+    /**
+     * Returns true if this parameter's type is a descendant of the argument class.
+     */
+    private boolean isSpecificType(final Class ancestorType)
+    {
+        boolean specificType = false;
+
+        final ClassifierFacade type = getType();
+        if (type != null && ancestorType != null)
+        {
+            final String mappedType = type.getFullyQualifiedName();
+            if (mappedType != null)
+            {
+                try
+                {
+                    final Class mappedClass = Class.forName(mappedType);
+                    specificType = ancestorType.isAssignableFrom(mappedClass);
+                }
+                catch (ClassNotFoundException e)
+                {
+                    specificType = false;
+                }
+            }
+        }
+
+        return specificType;
+    }
+
     private boolean isValidatorBoolean()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), UMLProfile.BOOLEAN_TYPE_NAME);
+        return isSpecificType("java.lang.Boolean") || isSpecificType("boolean");
     }
 
     private boolean isValidatorChar()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.CHARACTER_TYPE_NAME);
+        return isSpecificType("java.lang.Character") || isSpecificType("char");
     }
 
     private boolean isValidatorByte()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.BYTE_TYPE_NAME);
+        return isSpecificType("java.lang.Byte") || isSpecificType("byte");
     }
 
     private boolean isValidatorShort()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.SHORT_TYPE_NAME);
+        return isSpecificType("java.lang.Short") || isSpecificType("short");
     }
 
     private boolean isValidatorInteger()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.INTEGER_TYPE_NAME);
+        return isSpecificType("java.lang.Integer") || isSpecificType("int");
     }
 
     private boolean isValidatorLong()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.LONG_TYPE_NAME);
+        return isSpecificType("java.lang.Long") || isSpecificType("long");
     }
 
     private boolean isValidatorFloat()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.FLOAT_TYPE_NAME);
+        return isSpecificType("java.lang.Float") || isSpecificType("float");
     }
 
     private boolean isValidatorDouble()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.DOUBLE_TYPE_NAME);
-    }
-
-    private boolean isValidatorDate()
-    {
-        return this.getType() != null ? this.getType().isDateType() : false;
+        return isSpecificType("java.lang.Double") || isSpecificType("double");
     }
 
     private boolean isValidatorUrl()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.URL_TYPE_NAME);
+        return isSpecificType("java.net.URL");
     }
 
     private boolean isValidatorString()
     {
-        return this.getType() != null ? this.getType().isStringType() : false;
+        return isSpecificType("java.lang.String");
+    }
+
+    private boolean isValidatorDate()
+    {
+        return isSpecificType(Date.class);
     }
 
     private boolean isEmailFormat(String format)
