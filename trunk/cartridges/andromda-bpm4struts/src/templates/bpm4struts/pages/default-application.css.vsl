@@ -273,7 +273,7 @@ span.pdf { background-image: url(pdf.gif); background-repeat: no-repeat; }
 
 table.list { width: 100%; padding-right: 25px; }
 
-table#row th { margin: 6px; }
+table#row th { margin: 6px; margin-top: 2px; }
 table#row td { padding: 0 14px 0 14px; }
 
 table#row th a { margin-right: 14px;}
@@ -281,10 +281,10 @@ table#row th a { margin-right: 14px;}
 tr.odd { background-color: #eeeeff; padding: 2px; }
 tr.even { background-color: #fffffd; padding: 2px; }
 th.sorted { background-color: #fff; font-weight: bold; }
-th.sorted, th.sortable { background-position: center right; }
-th.sortable { background: url(none.gif) no-repeat center right; }
-th.order1 { background: url(descending.gif) no-repeat center right; }
-th.order2 { background: url(ascending.gif) no-repeat center right; }
+th.sorted, th.sortable { background-position: top right; }
+th.sortable { background: url(none.gif) no-repeat top right; }
+th.order1 { background: url(descending.gif) no-repeat top right; }
+th.order2 { background: url(ascending.gif) no-repeat top right; }
 
 span.pagebanner
 {
