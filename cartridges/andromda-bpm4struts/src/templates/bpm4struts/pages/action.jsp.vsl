@@ -34,7 +34,7 @@
 
 #foreach ($field in $actionParameters)
 #if ($field.widgetType == "hidden")
-#renderFormField($action $field "            ")
+#renderFormField($action $field "            " '')
 #end
 #end
             <table>
@@ -46,7 +46,7 @@
                         <td class="label"><bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
 </td>
                         <td class="field">
-#renderFormField($action $field "                           ")
+#renderFormField($action $field "                           " '')
                         </td>
                     </tr>
 #end

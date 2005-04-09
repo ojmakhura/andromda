@@ -333,4 +333,21 @@ public class StrutsJspLogicImpl
     {
         return getFullPath() + ".css";
     }
+
+    protected Collection handleGetNonTableActions()
+    {
+        final Collection nonTableActions = new ArrayList();
+
+        final Collection actions = getActions();
+        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        {
+            final StrutsAction action = (StrutsAction) actionIterator.next();
+            if (!action.isTableLink())
+            {
+                nonTableActions.add(action);
+            }
+        }
+
+        return nonTableActions;
+    }
 }
