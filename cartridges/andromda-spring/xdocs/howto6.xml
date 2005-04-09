@@ -21,12 +21,12 @@
                 to override any generated query using a tagged value specifying your custom query it is
                 strongly recommended to use OCL since this will guarantee your code to remain portable over different
                 technologies. If you don't want to get to know OCL and have no problem sticking to Hibernate
-                then you might consider to use tagged values instead.
+                then you might consider using tagged values instead.
             </p>
             <p>
                 Finder methods require the <code>query flag</code> to be set, usually operations with this flag have
-                the commercial at symbol '@' in front of their name when displayed in diagrams. Make sure you
-                model the operation in <em>classifier scope</em>, in diagrams this will show them as underlined.
+                the <code>commercial at</code> symbol '@' in front of their name when displayed in diagrams. Make sure
+                you model the operation in <em>classifier scope</em>, in diagrams this will show them as underlined.
                 Actually, classifier scoped operations go into the DAO while instance scoped operations go into the
                 entity's implementation class (they are considered to be business operations).
             </p>
@@ -102,6 +102,11 @@
             </p>
         </section>
         <section name="Nice to know">
+            <subsection name="A few supported query features">
+                <p>
+
+                </p>
+            </subsection>
             <subsection name="Overriding queries">
                 <p>
                     It's allowed to override queries such as finders in the DAO, just override the appropriate method
