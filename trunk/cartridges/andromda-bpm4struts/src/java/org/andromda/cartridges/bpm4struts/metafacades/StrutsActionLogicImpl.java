@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.List;
 
 
 /**
@@ -116,18 +117,22 @@ public class StrutsActionLogicImpl
         return !isHyperlink();
     }
 
-    protected boolean handleIsTableLinkPresent()
+    protected boolean handleIsTableLink()
     {
-        final Collection parameters = getActionParameters();
-        for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
+        return getTableLinkName() != null;
+    }
+
+    protected String handleGetTableLinkName()
+    {
+        String tableLink = null;
+
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        if (value != null)
         {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
-            if (parameter.isTableLink())
-            {
-                return true;
-            }
+            tableLink = StringUtils.trimToNull(value.toString());
         }
-        return false;
+
+        return tableLink;
     }
 
     protected boolean handleIsHyperlink()

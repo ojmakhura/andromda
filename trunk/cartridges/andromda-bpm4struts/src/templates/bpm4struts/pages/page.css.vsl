@@ -4,7 +4,7 @@
 ## start template
 #foreach ($action in $page.actions)
 ## only real forms need styles
-#if ($action.useCaseStart == false && $action.formPost && $action.tableLinkPresent == false)
+#if (!$action.useCaseStart && !$action.hyperlink && !$action.tableLink)
 ${hash}${action.styleId}.action {}
 ${hash}${action.styleId}.action #form_submit {}
 #if ($action.resettable)

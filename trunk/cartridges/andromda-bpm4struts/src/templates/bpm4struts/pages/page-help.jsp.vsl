@@ -18,7 +18,7 @@
             <bean:message key="$jsp.onlineHelpKey"/>
         </p>
 #foreach ($action in $jsp.actions)
-#if (!$action.tableLinkPresent && $action.formPost)
+#if (!$action.tableLink && $action.formPost)
 #set ($trigger = $action.trigger)
         <h2><bean:message key="$trigger.triggerKey"/></h2>
         <p>

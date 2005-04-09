@@ -9,16 +9,18 @@ import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -53,6 +55,32 @@ public class StrutsParameterLogicImpl
             }
         }
         return actionObject;
+    }
+
+    protected String handleGetStyleId()
+    {
+        String styleId = null;
+
+        final StrutsAction action = getAction();
+        if (action != null)
+        {
+            // if this parameter's action links to a table we use a specific styleId
+            if (action.isTableLink())
+            {
+                styleId = action.getTableLinkName() + StringUtilsHelper.upperCamelCaseName(getName());
+            }
+            else
+            {
+                final EventFacade trigger = action.getTrigger();
+                if (trigger != null)
+                {
+                    styleId = StringUtilsHelper.lowerCamelCaseName(trigger.getName())
+                            + StringUtilsHelper.upperCamelCaseName(getName());
+                }
+            }
+        }
+
+        return styleId;
     }
 
     protected Object handleGetJsp()
@@ -442,7 +470,7 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsActionParameter()
     {
-        StrutsAction action = getAction();
+        final StrutsAction action = getAction();
         return (action == null) ? false : action.getActionParameters().contains(this);
     }
 
@@ -509,107 +537,65 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsTableLink()
     {
-        return findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TABLELINK) != null;
+        return findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABLELINK) != null;
     }
 
-    // @todo: review this method, since it calls 'getAllActionStates()'
-    protected Object handleGetTableAction()
+    protected Collection handleGetTableFormActions()
     {
-        final String name = getName();
-        Object tableAction = null;
+        return internalGetTableActions(false);
+    }
 
-        Collection allActionStates = getModel().getAllActionStates();
-        for (Iterator actionstateIterator = allActionStates.iterator(); actionstateIterator.hasNext();)
+    protected Collection handleGetTableHyperlinkActions()
+    {
+        return internalGetTableActions(true);
+    }
+
+    private Collection internalGetTableActions(boolean hyperlink)
+    {
+        final String name = StringUtils.trimToNull(getName());
+        if (name == null || isActionParameter())
         {
-            Object actionState = actionstateIterator.next();
-            if (actionState instanceof StrutsJsp)
+            return Collections.EMPTY_LIST;
+        }
+
+        final StrutsJsp page = this.getJsp();
+
+        final Collection tableActions = new HashSet();
+
+        final Collection allUseCases = getModel().getAllUseCases();
+        for (Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
+        {
+            final UseCaseFacade useCase = (UseCaseFacade) useCaseIterator.next();
+            if (useCase instanceof StrutsUseCase)
             {
-                StrutsJsp jsp = (StrutsJsp) actionState;
-                if (jsp.getPageVariables().contains(this))
+                final StrutsActivityGraph graph = ((StrutsUseCase)useCase).getActivityGraph();
+                if (graph != null)
                 {
-                    // find the first action referencing this table
-                    Collection actions = jsp.getActions();
-                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext() && tableAction == null;)
+                    final Collection transitions = graph.getTransitions();
+                    for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                     {
-                        StrutsAction pageAction = (StrutsAction) actionIterator.next();
-                        Collection actionParameters = pageAction.getActionParameters();
-                        for (Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext() && tableAction == null;)
+                        final TransitionFacade transition = (TransitionFacade) transitionIterator.next();
+                        if (transition.getSource().equals(page) && transition instanceof StrutsAction)
                         {
-                            StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
-                            if (parameter.isTableLink() && name.equals(parameter.getTableLinkTableName()))
+                            final StrutsAction action = (StrutsAction) transition;
+                            if (name.equals(action.getTableLinkName()))
                             {
-                                tableAction = pageAction;
+                                if (hyperlink)
+                                {
+                                    if (action.isHyperlink()) tableActions.add(action);
+                                }
+                                else
+                                {
+                                    if (!action.isHyperlink()) tableActions.add(action);
+                                }
                             }
                         }
                     }
                 }
             }
         }
-        return tableAction;
-    }
 
-    protected String handleGetTableLinkTableName()
-    {
-        if (isTableLink())
-        {
-            final String link = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TABLELINK));
-
-            int dotOffset = link.indexOf('.');
-            return (dotOffset == -1) ? link : link.substring(0, link.indexOf('.'));
-        }
-        return null;
-    }
-
-    protected String handleGetTableLinkColumnName()
-    {
-        if (isTableLink())
-        {
-            final String link = String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TABLELINK));
-
-            int dotOffset = link.indexOf('.');
-            return (dotOffset == -1 || dotOffset >= link.length() - 1) ? super.getName() : link.substring(link.indexOf('.') + 1);
-        }
-        return null;
-    }
-
-    protected Collection handleGetTargettedTableColumnNames()
-    {
-        final Collection columnNames = new HashSet();
-
-        Collection tableLinks = getTableLinks();
-        for (Iterator iterator = tableLinks.iterator(); iterator.hasNext();)
-        {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
-            columnNames.add(parameter.getTableLinkColumnName());
-        }
-        return columnNames;
-    }
-
-    protected Collection handleGetTableLinks()
-    {
-        if (isTable())
-        {
-            String thisTableName = super.getName();
-            Collection tableLinks = new ArrayList();
-
-            StrutsJsp page = getJsp();
-            Collection parameters = page.getAllActionParameters();
-            for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
-            {
-                StrutsParameter parameter = (StrutsParameter) iterator.next();
-                if (thisTableName.equals(parameter.getTableLinkTableName()))
-                {
-                    tableLinks.add(parameter);
-                }
-            }
-            return tableLinks;
-        }
-        return Collections.EMPTY_LIST;
-    }
-
-    protected boolean handleIsTableLinksPresent()
-    {
-        return getTableLinks().isEmpty() == false;
+        return tableActions;
     }
 
     protected String handleGetTableDecoratorFullyQualifiedName()
@@ -692,6 +678,53 @@ public class StrutsParameterLogicImpl
                 : isTrue(String.valueOf(taggedValue));
     }
 
+    protected Collection handleGetTableColumns()
+    {
+        // try to preserve the order of the elements encountered
+        final Map tableColumnsMap = new LinkedHashMap();
+
+        // order is important
+        final List actions = new ArrayList();
+
+        // all table actions need the exact same parameters, just not always all of them
+        actions.addAll(getTableFormActions());
+        // if there are any actions that are hyperlinks then their parameters get priority
+        // the user should not have modeled it that way (constraints will warn him/her)
+        actions.addAll(getTableHyperlinkActions());
+
+        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        {
+            final StrutsAction action = (StrutsAction) actionIterator.next();
+            final Collection actionParameters = action.getActionParameters();
+            for (Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
+            {
+                final StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
+                tableColumnsMap.put(parameter.getName(), parameter);
+            }
+        }
+
+        // for any missing parameters we just add the name of the column
+        final Collection columnNames = getTableColumnNames();
+        for (Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+        {
+            final String columnName = (String) columnNameIterator.next();
+            if (!tableColumnsMap.containsKey(columnName))
+            {
+                tableColumnsMap.put(columnName, columnName);
+            }
+        }
+
+        // return everything in the same order as it has been modeled (using the table tagged value)
+        final Collection tableColumns = new ArrayList();
+        for (Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+        {
+            final Object columnObject = columnNameIterator.next();
+            tableColumns.add(tableColumnsMap.get(columnObject));
+        }
+
+        return tableColumns;
+    }
+
     protected Collection handleGetTableColumnNames()
     {
         Collection tableColumnNames = new ArrayList();
@@ -742,6 +775,34 @@ public class StrutsParameterLogicImpl
         return tableColumnNames;
     }
 
+/*
+    protected String handleGetTableColumnLinkName()
+    {
+        String linkName = null;
+
+        final StrutsAction action = getAction();
+        if (action != null)
+        {
+            if (action.isHyperlink() && action.isTableLink())
+            {
+                final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TABLELINK);
+                if (taggedValueObject != null)
+                {
+                    linkName = StringUtils.trimToNull(taggedValueObject.toString());
+                }
+
+                // when no meaningful tagged value has been specified we let the column point to itself
+                if (linkName == null)
+                {
+                    linkName = getName();
+                }
+            }
+        }
+
+        return linkName;
+    }
+
+*/
     protected String handleGetTableColumnMessageKey(String columnName)
     {
         return (isTable()) ? getMessageKey() + '.' + columnName.toLowerCase() : null;
@@ -780,27 +841,27 @@ public class StrutsParameterLogicImpl
         {
             if (fieldType == null)
             {
-                ClassifierFacade type = getType();
+                // no widget type has been specified
+                final ClassifierFacade type = getType();
                 if (type != null)
                 {
-                    final String parameterType = type.getFullyQualifiedName(true);
-
-                    if (!isTableLink())
-                    {
-                        if (type.isFileType())
-                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE;
-                        else if (isValidatorBoolean())
-                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;
-                        else if (isMultiple())
-                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT;
-                        else
-                            widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;
-                    }
+                    if (type.isFileType())
+                        widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE;
+                    else if (isValidatorBoolean())
+                        widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;
+                    else if (isMultiple())
+                        widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT;
+                    else
+                        widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;
                 }
             }
-            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT.equalsIgnoreCase(fieldType))
+            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
             {
-                widgetType = "text";
+                widgetType = "select";
+            }
+            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
+            {
+                widgetType = "password";
             }
             else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXTAREA.equalsIgnoreCase(fieldType))
             {
@@ -818,23 +879,30 @@ public class StrutsParameterLogicImpl
             {
                 widgetType = "checkbox";
             }
-            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
+            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PLAINTEXT.equalsIgnoreCase(fieldType))
             {
-                widgetType = "select";
+                widgetType = "plaintext";
             }
-            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType))
+            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT.equalsIgnoreCase(fieldType))
             {
-                widgetType = "password";
+                widgetType = "text";
             }
-            else if (isTableLink())
+            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType))
             {
-                if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_LINK.equalsIgnoreCase(fieldType))
-                {
-                    widgetType = "link";
-                }
-                else if (getMultiboxPropertyName() != null)
+                if (getMultiboxPropertyName() != null)
                 {
                     widgetType = "multibox";
+                }
+            }
+            else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_LINK.equalsIgnoreCase(fieldType))
+            {
+                final StrutsAction action = getAction();
+                if (action != null)
+                {
+                    if (action.isTableLink())
+                    {
+                        widgetType = "link";
+                    }
                 }
             }
             else
@@ -1239,7 +1307,6 @@ public class StrutsParameterLogicImpl
         ClassifierFacade type = getType();
         if (type != null)
         {
-            final String typeName = type.getFullyQualifiedName(true);
             final String format = getValidatorFormat();
             if (format != null)
             {

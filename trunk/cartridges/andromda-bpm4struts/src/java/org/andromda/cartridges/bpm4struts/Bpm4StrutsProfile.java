@@ -32,6 +32,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_ACTION_SUCCESS_MESSAGE = profile.get("ACTION_SUCCESS_MESSAGE");
     public static final String TAGGEDVALUE_ACTION_WARNING_MESSAGE = profile.get("ACTION_WARNING_MESSAGE");
     public static final String TAGGEDVALUE_ACTION_FORM_SCOPE = profile.get("ACTION_FORM_SCOPE");
+    public static final String TAGGEDVALUE_ACTION_TABLELINK = profile.get("ACTION_TABLELINK");
 
     public static final String TAGGEDVALUE_INPUT_REQUIRED = profile.get("INPUT_REQUIRED");
     public static final String TAGGEDVALUE_INPUT_READONLY = profile.get("INPUT_READONLY");
@@ -76,6 +77,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_ACTION_DEFAULT_TYPE = TAGGEDVALUE_ACTION_TYPE_FORM;
 
     public static final String TAGGEDVALUE_INPUT_TYPE_TEXT = "text";
+    public static final String TAGGEDVALUE_INPUT_TYPE_PLAINTEXT = "plaintext";
     public static final String TAGGEDVALUE_INPUT_TYPE_TEXTAREA = "textarea";
     public static final String TAGGEDVALUE_INPUT_TYPE_RADIO = "radio";
     public static final String TAGGEDVALUE_INPUT_TYPE_CHECKBOX = "checkbox";
