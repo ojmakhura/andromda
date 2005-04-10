@@ -8,7 +8,14 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-05" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-10" description="Second release candidate for version 3.0">
+            <action dev="draftdog" type="update" issue="BPM-162">
+                It is now possible to model events that submit a table row in bpm4struts, also the way to model
+                hyperlinks in table columns has changed. Please see the
+                <a href="andromda-bpm4struts-cartridge/howto8.html">updated table documentation</a>, as this
+                feature is not backwards compatible with the old way of doing this, a necessary evil before releasing
+                the final version of AndroMDA 3.0.
+            </action>
             <action dev="draftdog" type="fix" issue="BPM-163">
                 Bpm4Struts now allows a new namespace property called <code>defaultTableExportTypes</code>, it takes
                 a space-separated list of export types that will be used by default by the displaytag tables,
