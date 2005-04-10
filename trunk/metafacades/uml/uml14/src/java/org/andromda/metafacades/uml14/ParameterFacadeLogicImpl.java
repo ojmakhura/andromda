@@ -44,7 +44,14 @@ public class ParameterFacadeLogicImpl
      */
     public Object getValidationOwner()
     {
-        return this.getOperation();
+        Object owner = getOperation();
+
+        if (owner == null)
+        {
+            owner = getEvent();
+        }
+
+        return owner;
     }
 
     /**
