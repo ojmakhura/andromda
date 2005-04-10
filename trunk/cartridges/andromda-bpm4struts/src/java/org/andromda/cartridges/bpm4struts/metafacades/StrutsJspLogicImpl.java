@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.List;
 
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
@@ -301,34 +302,6 @@ public class StrutsJspLogicImpl
         }
     }
 
-    protected boolean handleIsDuplicateActionNamePresent()
-    {
-        boolean duplicatePresent = false;
-
-        Collection actionNames = new HashSet();
-        Collection actions = getActions();
-
-        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext() && !duplicatePresent;)
-        {
-            StrutsAction action = (StrutsAction) actionIterator.next();
-            StrutsTrigger trigger = action.getActionTrigger();
-            if (trigger != null)
-            {
-                // this name should never be null because of an OCL constraint
-                String actionName = trigger.getName();
-                if (actionNames.contains(actionName))
-                {
-                    duplicatePresent = true;
-                }
-                else
-                {
-                    actionNames.add(actionName);
-                }
-            }
-        }
-        return duplicatePresent;
-    }
-
     protected String handleGetCssFileName()
     {
         return getFullPath() + ".css";
@@ -349,5 +322,22 @@ public class StrutsJspLogicImpl
         }
 
         return nonTableActions;
+    }
+
+    protected Collection handleGetTables()
+    {
+        final Collection tables = new ArrayList();
+
+        final List pageVariables = getPageVariables();
+        for (int i = 0; i < pageVariables.size(); i++)
+        {
+            final StrutsParameter pageVariable = (StrutsParameter) pageVariables.get(i);
+            if (pageVariable.isTable())
+            {
+                tables.add(pageVariable);
+            }
+        }
+
+        return tables;
     }
 }
