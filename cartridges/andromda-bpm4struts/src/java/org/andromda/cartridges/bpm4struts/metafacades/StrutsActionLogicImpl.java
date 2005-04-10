@@ -119,7 +119,32 @@ public class StrutsActionLogicImpl
 
     protected boolean handleIsTableLink()
     {
-        return getTableLinkName() != null;
+        return getTableLinkParameter() != null;
+    }
+
+    protected Object handleGetTableLinkParameter()
+    {
+        StrutsParameter tableLinkParameter = null;
+
+        final String tableLinkName = getTableLinkName();
+        if (tableLinkName != null)
+        {
+            final StrutsJsp page = getInput();
+            if (page != null)
+            {
+                final List tables = page.getTables();
+                for (int i = 0; i < tables.size() && tableLinkParameter==null; i++)
+                {
+                    StrutsParameter table = (StrutsParameter) tables.get(i);
+                    if (tableLinkName.equals(table.getName()))
+                    {
+                        tableLinkParameter = table;
+                    }
+                }
+            }
+        }
+
+        return tableLinkParameter;
     }
 
     protected String handleGetTableLinkName()
