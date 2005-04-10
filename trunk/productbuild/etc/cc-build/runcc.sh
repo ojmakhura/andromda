@@ -13,7 +13,7 @@ source set-env.sh
 
 me=`whoami`
 if [[ $me != $CC_USER ]]; then
-  echo "You ($me) must be run as $CC_USER"
+  echo "You ($me) must be '$CC_USER' to run $0"
   exit
 fi
 
