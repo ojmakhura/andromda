@@ -10,8 +10,6 @@ if [ ! -d $ANT_HOME ];then
     exit
 fi
 
-CC_USER=andromda-build
-
 if [ -z $CCDIR ]; then
   echo CCDIR not defined, using /opt/cruisecontrol
   CCDIR=/opt/cruisecontrol/main
@@ -20,7 +18,10 @@ fi
 
 # Set the JDK to use
 # Valid values are IBMJava142, SUNJava142, SUNJava150
-export JDK=IBMJava142
+# externalised
+# export JDK=IBMJava142
+# NB j2sdk1.4 and jdk1.5 are symlinks to the actual installed 
+# version.
 
 case "$JDK" in
   "IBMJava142" )
@@ -36,11 +37,17 @@ case "$JDK" in
      export JAVA_HOME=/opt/java/jdk1.5
   ;;
   * )
+  logger "**** ERROR JDK($JDK) environment variable incorrect"
+  logger "**** Should be one of IBMJava142, SUNJava142, SUNJava150"
+  export JAVA_HOME=NULL
   ;;
 esac
 
 export PATH=$CCDIR/bin:$JAVA_HOME/bin:$PATH
 
+echo "**** Java Version "
+java -fullversion
+echo "***"
 
 CVSHOST=cvs.sourceforge.net
 CVSROOTDIR=/cvsroot/andromda
