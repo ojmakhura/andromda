@@ -1,7 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.CallEventFacade;
@@ -100,14 +98,17 @@ public class StrutsActionStateLogicImpl
 
     protected java.lang.Object handleGetForward()
     {
-        final Collection outgoing = getOutgoing();
-        for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        Object forward = null;
+
+        for (Iterator iterator = getOutgoing().iterator(); iterator.hasNext() && forward==null;)
         {
-            TransitionFacade transition = (TransitionFacade) iterator.next();
+            final TransitionFacade transition = (TransitionFacade) iterator.next();
             if (!(transition instanceof StrutsExceptionHandler))
-                return transition;
+            {
+                forward = transition;
+            }
         }
-        return null;
+        return forward;
     }
 
     protected java.util.Collection handleGetExceptions()
@@ -127,8 +128,6 @@ public class StrutsActionStateLogicImpl
 
     protected boolean handleIsServerSide()
     {
-        // all except pages
-        // @todo: test metafacade instance rather than stereotype
-        return hasStereotype(Bpm4StrutsProfile.STEREOTYPE_VIEW) == false;
+        return !(this instanceof StrutsJsp);
     }
 }
