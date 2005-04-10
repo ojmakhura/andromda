@@ -131,7 +131,7 @@ $actionState.getDocumentation("     * ")
 #end
 #foreach ($decisionTransition in $decisionTransitions)
 #set ($controllerMethodName = $decisionTransition.operationCall.name)
-#set ($decisionMethodName = $controllerMethodName)
+#set ($decisionMethodName = "__$controllerMethodName")
     /**
 $decisionTransition.getDocumentation("     * ")
      */
