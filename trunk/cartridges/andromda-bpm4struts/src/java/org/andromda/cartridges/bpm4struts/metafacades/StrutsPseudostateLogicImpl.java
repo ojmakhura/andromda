@@ -2,8 +2,8 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -15,8 +15,7 @@ import java.util.Iterator;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate
  */
-public class StrutsPseudostateLogicImpl
-    extends StrutsPseudostateLogic
+public class StrutsPseudostateLogicImpl extends StrutsPseudostateLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -36,7 +35,8 @@ public class StrutsPseudostateLogicImpl
     protected java.lang.String handleGetActionMethodName()
     {
         final String methodName = getName();
-        return (methodName == null) ? "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);
+        return (methodName == null) ?
+                "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);
     }
 
     protected Collection handleGetContainerActions()
@@ -51,7 +51,7 @@ public class StrutsPseudostateLogicImpl
 
             if (useCase instanceof StrutsUseCase)
             {
-                Collection actions = ((StrutsUseCase)useCase).getActions();
+                Collection actions = ((StrutsUseCase) useCase).getActions();
                 for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
                     StrutsAction action = (StrutsAction) actionIterator.next();

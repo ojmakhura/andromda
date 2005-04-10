@@ -1,90 +1,98 @@
 package org.andromda.samples.animalquiz.decisiontree;
 
-import java.util.Collection;
-
-import javax.ejb.EJBException;
-
 import net.sf.hibernate.HibernateException;
 
-public class DecisionServiceBeanImpl extends DecisionServiceBean implements javax.ejb.SessionBean {
+import javax.ejb.EJBException;
+import java.util.Collection;
+
+public class DecisionServiceBeanImpl extends DecisionServiceBean implements javax.ejb.SessionBean
+{
     // concrete business methods that were declared
     // abstract in class DecisionServiceBean ...
 
     protected org.andromda.samples.animalquiz.decisiontree.VODecisionItem handleGetFirstQuestion(
-        net.sf.hibernate.Session sess)
-        throws DecisionException {
-        try {
+            net.sf.hibernate.Session sess) throws DecisionException
+    {
+        try
+        {
             Collection dItems = DecisionItemFactory.findRoot(sess);
             DecisionItem dItem;
-            if (dItems.isEmpty()) {
+            if (dItems.isEmpty())
+            {
                 dItem = AnimalFactory.create("elephant", true);
                 sess.save(dItem);
             }
-            else {
+            else
+            {
                 dItem = (DecisionItem) dItems.iterator().next();
             }
             return dItem.getVO();
         }
-        catch (HibernateException e) {
+        catch (HibernateException e)
+        {
             throw new EJBException(e);
         }
     }
 
     protected org.andromda.samples.animalquiz.decisiontree.VODecisionItem handleGetNextQuestion(
-        net.sf.hibernate.Session sess,
-        java.lang.String itemId)
-        throws DecisionException {
-        try {
+            net.sf.hibernate.Session sess, java.lang.String itemId) throws DecisionException
+    {
+        try
+        {
             DecisionItem di = DecisionItemFactory.findByPrimaryKey(sess, itemId);
             return di.getVO();
         }
-        catch (HibernateException e) {
+        catch (HibernateException e)
+        {
             throw new EJBException(e);
         }
     }
 
-    protected void handleAddNewAnimalWithQuestion(
-        net.sf.hibernate.Session sess,
-        java.lang.String animalName,
-        java.lang.String promptForYes,
-        java.lang.String idOfLastNoDecision)
-        throws DecisionException {
+    protected void handleAddNewAnimalWithQuestion(net.sf.hibernate.Session sess, java.lang.String animalName,
+                                                  java.lang.String promptForYes, java.lang.String idOfLastNoDecision)
+            throws DecisionException
+    {
 
-        try {
+        try
+        {
             Animal newAnimal = AnimalFactory.create(animalName, false);
             Question newQuestion = QuestionFactory.create(promptForYes, false);
             newQuestion.setYesSuccessor(newAnimal);
 
-            DecisionItem lastNoDecision =
-                DecisionItemFactory.findByPrimaryKey(sess, idOfLastNoDecision);
+            DecisionItem lastNoDecision = DecisionItemFactory.findByPrimaryKey(sess, idOfLastNoDecision);
             lastNoDecision.setNoSuccessor(newQuestion);
 
             sess.save(newAnimal);
             sess.save(newQuestion);
             sess.save(lastNoDecision);
         }
-        catch (HibernateException e) {
+        catch (HibernateException e)
+        {
             throw new EJBException(e);
         }
     }
 
     // ---------- the usual session bean stuff... ------------
 
-    public void setSessionContext(javax.ejb.SessionContext ctx) {
+    public void setSessionContext(javax.ejb.SessionContext ctx)
+    {
         //Log.trace("DecisionServiceBean.setSessionContext...");
         super.setSessionContext(ctx);
     }
 
-    public void ejbRemove() {
+    public void ejbRemove()
+    {
         //Log.trace(
         //    "DecisionServiceBean.ejbRemove...");
     }
 
-    public void ejbPassivate() {
+    public void ejbPassivate()
+    {
         //Log.trace("DecisionServiceBean.ejbPassivate...");
     }
 
-    public void ejbActivate() {
+    public void ejbActivate()
+    {
         //Log.trace("DecisionServiceBean.ejbActivate...");
     }
 }

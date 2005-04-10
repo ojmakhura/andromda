@@ -10,8 +10,7 @@ import org.andromda.metafacades.uml.StateVertexFacade;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler
  */
-public class StrutsExceptionHandlerLogicImpl
-    extends StrutsExceptionHandlerLogic
+public class StrutsExceptionHandlerLogicImpl extends StrutsExceptionHandlerLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -34,8 +33,7 @@ public class StrutsExceptionHandlerLogicImpl
         final int dotIndex = type.lastIndexOf('.');
 
         return StringUtilsHelper.toResourceMessageKey((dotIndex < type.length() - 1)   // the dot may not be the last character
-                ? type.substring(dotIndex + 1)
-                : type);
+                ? type.substring(dotIndex + 1) : type);
     }
 
     /**
@@ -44,7 +42,7 @@ public class StrutsExceptionHandlerLogicImpl
     protected java.lang.String handleGetExceptionType()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_EXCEPTION_TYPE);
-        String type = value==null?null:value.toString();
+        String type = value == null ? null : value.toString();
         if (type == null)
         {
             type = Bpm4StrutsProfile.TAGGEDVALUE_EXCEPTION_DEFAULT_TYPE;

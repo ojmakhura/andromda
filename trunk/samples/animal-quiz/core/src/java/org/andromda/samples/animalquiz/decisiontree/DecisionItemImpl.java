@@ -5,23 +5,21 @@
 package org.andromda.samples.animalquiz.decisiontree;
 
 /**
- * @hibernate.subclass
- *    discriminator-value="DecisionItemImpl"
+ * @hibernate.subclass discriminator-value="DecisionItemImpl"
  */
-public abstract class DecisionItemImpl extends DecisionItem {
+public abstract class DecisionItemImpl extends DecisionItem
+{
     // concrete business methods that were declared
     // abstract in class DecisionItem ...
 
     public abstract java.lang.String getPrompt();
 
-    public org.andromda.samples.animalquiz.decisiontree.VODecisionItem getVO() {
+    public org.andromda.samples.animalquiz.decisiontree.VODecisionItem getVO()
+    {
         DecisionItem yesSuccessor = getYesSuccessor();
         DecisionItem noSuccessor = getNoSuccessor();
-        return new VODecisionItem(
-            getId(),
-            getPrompt(),
-            (yesSuccessor == null) ? null : yesSuccessor.getId(),
-            (noSuccessor == null) ? null : noSuccessor.getId());
+        return new VODecisionItem(getId(), getPrompt(), (yesSuccessor == null) ? null : yesSuccessor.getId(),
+                (noSuccessor == null) ? null : noSuccessor.getId());
     }
 
 }

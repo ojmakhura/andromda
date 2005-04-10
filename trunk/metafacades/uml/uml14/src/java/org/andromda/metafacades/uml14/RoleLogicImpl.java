@@ -1,8 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
@@ -14,19 +11,19 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.Role.
- * 
+ *
  * @see org.andromda.metafacades.uml.Role
  */
-public class RoleLogicImpl
-    extends RoleLogic
+public class RoleLogicImpl extends RoleLogic
 {
     // ---------------- constructor -------------------------------
 
-    public RoleLogicImpl(
-        Object metaObject,
-        String context)
+    public RoleLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -46,7 +43,7 @@ public class RoleLogicImpl
         {
             name = super.handleGetName();
             String mask = StringUtils.trimToEmpty(String.valueOf(
-                this.getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
+                    this.getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
             name = NameMasker.mask(name, mask);
         }
         return name;
@@ -57,25 +54,20 @@ public class RoleLogicImpl
      */
     protected boolean handleIsReferencesPresent()
     {
-        final Collection allSourceDependencies = new HashSet(this
-            .getSourceDependencies());
-        for (GeneralizableElementFacade parent = this.getGeneralization(); parent != null; parent = parent
-            .getGeneralization())
+        final Collection allSourceDependencies = new HashSet(this.getSourceDependencies());
+        for (GeneralizableElementFacade parent = this.getGeneralization(); parent != null; parent = parent.getGeneralization())
         {
             allSourceDependencies.addAll(parent.getSourceDependencies());
         }
-        Object test = CollectionUtils.find(
-            allSourceDependencies,
-            new Predicate()
+        Object test = CollectionUtils.find(allSourceDependencies, new Predicate()
+        {
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    DependencyFacade dependency = (DependencyFacade)object;
-                    Object target = dependency.getTargetElement();
-                    return target instanceof Service
-                        || target instanceof ServiceOperation;
-                }
-            });
+                DependencyFacade dependency = (DependencyFacade) object;
+                Object target = dependency.getTargetElement();
+                return target instanceof Service || target instanceof ServiceOperation;
+            }
+        });
 
         return test != null;
     }

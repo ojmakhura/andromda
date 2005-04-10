@@ -3,8 +3,7 @@ package org.andromda.translation.ocl.validation;
 import org.apache.commons.lang.BooleanUtils;
 
 /**
- * Used to translate OCL expressions to 
- * their corresponding Java expressions.
+ * Used to translate OCL expressions to their corresponding Java expressions.
  */
 public class OCLExpressions
 {
@@ -55,9 +54,9 @@ public class OCLExpressions
 
     public static boolean equal(Object first, boolean second)
     {
-        return (second)
-            ? Boolean.TRUE.equals(first) || BooleanUtils.toBoolean(String.valueOf(first))
-            : Boolean.FALSE.equals(first) || !BooleanUtils.toBoolean(String.valueOf(first));
+        return (second) ?
+                Boolean.TRUE.equals(first) || BooleanUtils.toBoolean(String.valueOf(first)) :
+                Boolean.FALSE.equals(first) || !BooleanUtils.toBoolean(String.valueOf(first));
     }
 
     public static boolean equal(boolean first, Object second)
@@ -80,12 +79,12 @@ public class OCLExpressions
         boolean equal = first != null && Comparable.class.isAssignableFrom(first.getClass());
         if (equal)
         {
-            Comparable comparable = (Comparable)first;
+            Comparable comparable = (Comparable) first;
             equal = comparable.equals(new Long(second));
         }
         return equal;
     }
-    
+
     public static boolean notEqual(int first, int second)
     {
         return first != second;
@@ -215,13 +214,13 @@ public class OCLExpressions
     {
         return (first == null) ? (second == null) : (first.compareTo(second) > 0);
     }
-    
+
     public static boolean greater(Object first, long second)
     {
         boolean greater = first != null && Comparable.class.isAssignableFrom(first.getClass());
         if (greater)
         {
-            Comparable comparable = (Comparable)first;
+            Comparable comparable = (Comparable) first;
             greater = comparable.compareTo(new Long(second)) > 0;
         }
         return greater;

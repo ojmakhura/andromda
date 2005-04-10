@@ -4,17 +4,15 @@ import org.omg.uml.foundation.datatypes.BooleanExpression;
 
 /**
  * MetafacadeLogic implementation.
- * 
+ *
  * @see org.andromda.metafacades.uml.GuardFacade
  */
-public class GuardFacadeLogicImpl
-    extends GuardFacadeLogic
+public class GuardFacadeLogicImpl extends GuardFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public GuardFacadeLogicImpl(
-        org.omg.uml.behavioralelements.statemachines.Guard metaObject,
-        java.lang.String context)
+    public GuardFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.Guard metaObject,
+                                java.lang.String context)
     {
         super(metaObject, context);
     }

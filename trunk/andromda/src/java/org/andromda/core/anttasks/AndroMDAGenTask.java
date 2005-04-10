@@ -1,11 +1,5 @@
 package org.andromda.core.anttasks;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;
 import org.andromda.core.ModelProcessorException;
@@ -23,20 +17,23 @@ import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.apache.tools.ant.types.Path;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
- * <p>
- * This class wraps the AndroMDA model processor so that AndroMDA can be used as
- * an Ant task. Represents the <code>&lt;andromda&gt;</code> custom task which
- * can be called from an Ant build script.
- * </p>
- * 
- * @see org.andromda.core.ModelProcessor
+ * <p/>
+ * This class wraps the AndroMDA model processor so that AndroMDA can be used as an Ant task. Represents the
+ * <code>&lt;andromda&gt;</code> custom task which can be called from an Ant build script. </p>
+ *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
+ * @see org.andromda.core.ModelProcessor
  */
-public class AndroMDAGenTask
-    extends MatchingTask
+public class AndroMDAGenTask extends MatchingTask
 {
     /**
      * Initialize the context class loader.
@@ -57,8 +54,7 @@ public class AndroMDAGenTask
     private boolean lastModifiedCheck = true;
 
     /**
-     * A ModelPackages object which specify whether or not packages should be
-     * processed.
+     * A ModelPackages object which specify whether or not packages should be processed.
      */
     private ModelPackages packages = new ModelPackages();
 
@@ -72,15 +68,14 @@ public class AndroMDAGenTask
     private Collection models = new ArrayList();
 
     /**
-     * Temporary list of properties from the &lt;namespace&gt; subtask. Will be
-     * transferred to the Namespaces instance before execution starts.
+     * Temporary list of properties from the &lt;namespace&gt; subtask. Will be transferred to the Namespaces instance
+     * before execution starts.
      */
     private Collection namespaces = new ArrayList();
 
     /**
-     * Adds a namespace for a Plugin. Namespace objects are used to configure
-     * Plugins.
-     * 
+     * Adds a namespace for a Plugin. Namespace objects are used to configure Plugins.
+     *
      * @param namespace a Namespace to add to this
      */
     public void addNamespace(Namespace namespace)
@@ -89,11 +84,10 @@ public class AndroMDAGenTask
     }
 
     /**
-     * <p>
-     * Sets the base directory from which the object model files are read. This
-     * defaults to the base directory of the ant project if not provided.
-     * </p>
-     * 
+     * <p/>
+     * Sets the base directory from which the object model files are read. This defaults to the base directory of the
+     * ant project if not provided. </p>
+     *
      * @param dir a <code>File</code> with the path to the base directory
      */
     public void setBasedir(File dir)
@@ -102,12 +96,10 @@ public class AndroMDAGenTask
     }
 
     /**
-     * <p>
-     * Turns on/off last modified checking for generated files. If checking is
-     * turned on, overwritable files are regenerated only when the model is
-     * newer than the file to be generated. By default, it is on.
-     * </p>
-     * 
+     * <p/>
+     * Turns on/off last modified checking for generated files. If checking is turned on, overwritable files are
+     * regenerated only when the model is newer than the file to be generated. By default, it is on. </p>
+     *
      * @param lastmod set the modified check, yes or no?
      */
     public void setLastModifiedCheck(boolean lastmod)
@@ -118,18 +110,14 @@ public class AndroMDAGenTask
     private String cartridgeFilter;
 
     /**
-     * <p>
-     * Sets the current cartridge filter. This is a comma seperated list of
-     * namespaces (matching cartridges names) that should be processed.
-     * </p>
-     * <p>
-     * If this filter is defined, then any cartridge names found in this list
-     * <strong>will be processed </strong>, while any other discovered
-     * cartridges <strong>will not be processed </strong>.
-     * </p>
-     * 
-     * @param cartridgeFilter a comma seperated list of cartridge names to be
-     *        processed.
+     * <p/>
+     * Sets the current cartridge filter. This is a comma seperated list of namespaces (matching cartridges names) that
+     * should be processed. </p>
+     * <p/>
+     * If this filter is defined, then any cartridge names found in this list <strong>will be processed </strong>, while
+     * any other discovered cartridges <strong>will not be processed </strong>. </p>
+     *
+     * @param cartridgeFilter a comma seperated list of cartridge names to be processed.
      * @see org.andromda.core.ModelProcessor#setCartridgeFilter(String)
      */
     public void setCartridgeFilter(String cartridgeFilter)
@@ -138,15 +126,12 @@ public class AndroMDAGenTask
     }
 
     /**
-     * <p>
-     * Starts the generation of source code from an object model.
-     * </p>
-     * <p>
-     * This is the main entry point of the application when running Ant. It is
-     * called by ant whenever the surrounding task is executed (which could be
-     * multiple times).
-     * </p>
-     * 
+     * <p/>
+     * Starts the generation of source code from an object model. </p>
+     * <p/>
+     * This is the main entry point of the application when running Ant. It is called by ant whenever the surrounding
+     * task is executed (which could be multiple times). </p>
+     *
      * @throws BuildException if something goes wrong
      */
     public void execute() throws BuildException
@@ -169,8 +154,7 @@ public class AndroMDAGenTask
                 baseDir = this.getProject().resolveFile(".");
             }
 
-            String[] moduleSearchPath = this.createRepository()
-                .createModuleSearchPath().list();
+            String[] moduleSearchPath = this.createRepository().createModuleSearchPath().list();
 
             Model[] models;
             // if the model is specified explicitly
@@ -182,15 +166,11 @@ public class AndroMDAGenTask
                 Iterator modelIt = this.models.iterator();
                 for (int ctr = 0; modelIt.hasNext(); ctr++)
                 {
-                    ModelConfiguration modelConfig = (ModelConfiguration)modelIt
-                        .next();
+                    ModelConfiguration modelConfig = (ModelConfiguration) modelIt.next();
                     if (modelConfig.getUrl() != null)
                     {
-                        models[ctr] = new Model(
-                            modelConfig.getUrl(),
-                            this.packages,
-                            this.lastModifiedCheck,
-                            moduleSearchPath);
+                        models[ctr] = new Model(modelConfig.getUrl(), this.packages, this.lastModifiedCheck,
+                                moduleSearchPath);
                     }
                 }
             }
@@ -210,16 +190,12 @@ public class AndroMDAGenTask
                         File inFile = new File(baseDir, list[ctr]);
                         try
                         {
-                            models[ctr] = new Model(
-                                inFile.toURL(),
-                                this.packages,
-                                this.lastModifiedCheck,
-                                moduleSearchPath);
+                            models[ctr] = new Model(inFile.toURL(), this.packages, this.lastModifiedCheck,
+                                    moduleSearchPath);
                         }
                         catch (MalformedURLException mfe)
                         {
-                            throw new BuildException(
-                                "Malformed model URI --> '" + inFile + "'");
+                            throw new BuildException("Malformed model URI --> '" + inFile + "'");
                         }
                     }
                 }
@@ -243,10 +219,7 @@ public class AndroMDAGenTask
         }
         catch (Throwable th)
         {
-            ExceptionRecorder.instance().record(
-                "Unexpected Exception",
-                th,
-                "AndroMDAGenTask");
+            ExceptionRecorder.instance().record("Unexpected Exception", th, "AndroMDAGenTask");
             throw new BuildException(th.getMessage());
         }
         finally
@@ -254,26 +227,23 @@ public class AndroMDAGenTask
             // Set the context class loader back ot its system class loaders
             // so that any processes running after won't be trying to use
             // the ContextClassLoader for this class.
-            Thread.currentThread().setContextClassLoader(
-                ClassLoader.getSystemClassLoader());
+            Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
         }
     }
 
     /**
-     * Set the context class loader so that any classes using it (the
-     * contextContextClassLoader) have access to the correct loader.
+     * Set the context class loader so that any classes using it (the contextContextClassLoader) have access to the
+     * correct loader.
      */
     private static void initializeContextClassLoader()
     {
-        Thread.currentThread().setContextClassLoader(
-            AndroMDAGenTask.class.getClassLoader());
+        Thread.currentThread().setContextClassLoader(AndroMDAGenTask.class.getClassLoader());
     }
 
     /**
-     * This method would normally be unnecessary. It is here because of a bug in
-     * ant. Ant calls addNamespace() before the Namespace javabean is fully
-     * initialized. So we kept the javabeans in an ArrayList that we have to
-     * copy into the Namespaces instance.
+     * This method would normally be unnecessary. It is here because of a bug in ant. Ant calls addNamespace() before
+     * the Namespace javabean is fully initialized. So we kept the javabeans in an ArrayList that we have to copy into
+     * the Namespaces instance.
      */
     private void initializeNamespaces()
     {
@@ -281,17 +251,16 @@ public class AndroMDAGenTask
         {
             public void execute(Object object)
             {
-                Namespace namespace = (Namespace)object;
+                Namespace namespace = (Namespace) object;
                 Namespaces.instance().addNamespace(namespace);
             }
         });
     }
-    
+
     /**
-     * Creates and returns a repository configuration object. This enables an
-     * ANT build script to use the &lt;repository&gt; ant subtask to configure
-     * the model repository used by AndroMDA during code generation.
-     * 
+     * Creates and returns a repository configuration object. This enables an ANT build script to use the
+     * &lt;repository&gt; ant subtask to configure the model repository used by AndroMDA during code generation.
+     *
      * @return RepositoryConfiguration
      */
     public RepositoryConfiguration createRepository()
@@ -304,11 +273,9 @@ public class AndroMDAGenTask
     }
 
     /**
-     * Adds a new model configuration object. This enables an Ant build script
-     * to use the <code>&lt;model&gt;</code> within the
-     * <code>&lt;andromda&gt;</code> task, which allows multiple models to be
-     * processed.
-     * 
+     * Adds a new model configuration object. This enables an Ant build script to use the <code>&lt;model&gt;</code>
+     * within the <code>&lt;andromda&gt;</code> task, which allows multiple models to be processed.
+     *
      * @param model a model to process.
      */
     public void addModel(ModelConfiguration model)
@@ -318,24 +285,21 @@ public class AndroMDAGenTask
 
     /**
      * Specifies whether or not AndroMDA should process all packages.
-     * 
-     * @param processAllModelPackages true/false on whether or not to process
-     *        all packages.
+     *
+     * @param processAllModelPackages true/false on whether or not to process all packages.
      * @see #addModelPackage(org.andromda.core.common.ModelPackage)
      * @see org.andromda.core.ModelProcessor#setProcessAllModelPackages(boolean)
      */
     public void setProcessAllModelPackages(boolean processAllModelPackages)
     {
-        ModelProcessor.instance().setProcessAllModelPackages(
-            processAllModelPackages);
+        ModelProcessor.instance().setProcessAllModelPackages(processAllModelPackages);
     }
 
     /**
-     * Adds the <code>packageName</code>. If processAllModelPackages is set
-     * to true, then all packageNames added will be skipped during processing.
-     * If processAllModelPackages is set to false, then all packages specified
-     * by package names are the only packages that will be processed.
-     * 
+     * Adds the <code>packageName</code>. If processAllModelPackages is set to true, then all packageNames added will be
+     * skipped during processing. If processAllModelPackages is set to false, then all packages specified by package
+     * names are the only packages that will be processed.
+     *
      * @param modelPackage the ModelPackage that should/shouldn't be processed.
      * @see #setProcessAllModelPackages(boolean)
      */
@@ -345,13 +309,11 @@ public class AndroMDAGenTask
     }
 
     /**
-     * Sets <code>xmlValidation</code> to be true/false. This defines whether
-     * XML resources loaded by AndroMDA (such as plugin descriptors) should be
-     * validated. Sometimes underlying parsers don't support XML Schema
-     * validation and in that case, we want to be able to turn it off.
-     * 
-     * @param xmlValidation true/false on whether we should validate XML resources
-     *        used by AndroMDA
+     * Sets <code>xmlValidation</code> to be true/false. This defines whether XML resources loaded by AndroMDA (such as
+     * plugin descriptors) should be validated. Sometimes underlying parsers don't support XML Schema validation and in
+     * that case, we want to be able to turn it off.
+     *
+     * @param xmlValidation true/false on whether we should validate XML resources used by AndroMDA
      */
     public void setXmlValidation(boolean xmlValidation)
     {
@@ -360,37 +322,32 @@ public class AndroMDAGenTask
 
     /**
      * Sets <code>loggingConfigurationUri</code> for AndroMDA.
-     * 
+     *
      * @param loggingConfigurationUri the URI to the external logging configuration file.
      * @see ModelProcessor#setLoggingConfigurationUri(String)
      */
     public void setLoggingConfigurationUri(String loggingConfigurationUri)
     {
-        ModelProcessor.instance().setLoggingConfigurationUri(
-            loggingConfigurationUri);
+        ModelProcessor.instance().setLoggingConfigurationUri(loggingConfigurationUri);
     }
 
     /**
-     * Sets <code>failOnModelValidationErrors</code> to be true/false. This
-     * defines whether processing should fail if model validation errors are
-     * present, default is <code>true</code>.
-     * 
-     * @param failOnModelValidationErrors true/false on whether AndroMDA should
-     *        fail when model validation errors occurr.
+     * Sets <code>failOnModelValidationErrors</code> to be true/false. This defines whether processing should fail if
+     * model validation errors are present, default is <code>true</code>.
+     *
+     * @param failOnModelValidationErrors true/false on whether AndroMDA should fail when model validation errors
+     *                                    occurr.
      */
-    public void setFailOnModelValidationErrors(
-        boolean failOnModelValidationErrors)
+    public void setFailOnModelValidationErrors(boolean failOnModelValidationErrors)
     {
-        ModelProcessor.instance().setFailOnValidationErrors(
-            failOnModelValidationErrors);
+        ModelProcessor.instance().setFailOnValidationErrors(failOnModelValidationErrors);
     }
 
     /**
-     * Sets <code>modelValidation</code> to be true/false. This defines
-     * whether model validation should occur when AndroMDA processes model(s).
-     * 
-     * @param modelValidation true/false on whether model validation should be
-     *        performed or not.
+     * Sets <code>modelValidation</code> to be true/false. This defines whether model validation should occur when
+     * AndroMDA processes model(s).
+     *
+     * @param modelValidation true/false on whether model validation should be performed or not.
      * @see org.andromda.core.ModelProcessor#setModelValidation(boolean)
      * @see org.andromda.core.metafacade.MetafacadeFactory#setModelValidation(boolean)
      */
@@ -400,10 +357,9 @@ public class AndroMDAGenTask
     }
 
     /**
-     * Handles the nested &lt;mappingSearchPath&gt; element. The user can
-     * specify his/her own search path for mapping files. These mapping files
-     * will then we loaded into memory and can be referenced by logical name.
-     * 
+     * Handles the nested &lt;mappingSearchPath&gt; element. The user can specify his/her own search path for mapping
+     * files. These mapping files will then we loaded into memory and can be referenced by logical name.
+     *
      * @return Path the mapping search path
      */
     public Path createMappingsSearchPath()
@@ -416,9 +372,8 @@ public class AndroMDAGenTask
     }
 
     /**
-     * Loads all mappings from the specified mapping seach path. If the path
-     * points to a directory the directory contents will be loaded, otherwise
-     * just the mapping itself will be loaded.
+     * Loads all mappings from the specified mapping seach path. If the path points to a directory the directory
+     * contents will be loaded, otherwise just the mapping itself will be loaded.
      */
     private void initializeMappings()
     {
@@ -450,8 +405,7 @@ public class AndroMDAGenTask
             {
                 try
                 {
-                    Mappings.addLogicalMappings(Mappings.getInstance(
-                        ((File)mappingsLocationIt.next()).toURL()));
+                    Mappings.addLogicalMappings(Mappings.getInstance(((File) mappingsLocationIt.next()).toURL()));
                 }
                 catch (Throwable th)
                 {

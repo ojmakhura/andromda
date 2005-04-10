@@ -8,16 +8,15 @@ import java.util.regex.Pattern;
 
 /**
  * Contains utilities for bpm4struts.
- * 
+ *
  * @author Wouter Zoons
  */
 public class Bpm4StrutsUtils
 {
     /**
      * Creates and returns a List from an <code>enumeration</code>.
-     * 
+     *
      * @param enumeration the enumeration from which to create the List.
-     * 
      * @return the new List.
      */
     public static List listEnumeration(Enumeration enumeration)
@@ -25,7 +24,8 @@ public class Bpm4StrutsUtils
         return Collections.list(enumeration);
     }
 
-    private static final Pattern VALIDATOR_TAGGEDVALUE_PATTERN = Pattern.compile("\\w+(\\(\\w+=[^,)]*(,\\w+=[^,)]*)*\\))?");
+    private static final Pattern VALIDATOR_TAGGEDVALUE_PATTERN = Pattern.compile(
+            "\\w+(\\(\\w+=[^,)]*(,\\w+=[^,)]*)*\\))?");
 
     /**
      * Reads the validator arguments from the the given tagged value.
@@ -43,7 +43,7 @@ public class Bpm4StrutsUtils
         // check if the input tagged value matches the required pattern
         if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
         {
-            throw new IllegalArgumentException("Illegal validator tagged value: "+validatorTaggedValue);
+            throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
         }
 
         final List validatorArgs = new ArrayList();
@@ -53,7 +53,7 @@ public class Bpm4StrutsUtils
         if (left > -1)
         {
             int right = validatorTaggedValue.indexOf(')');
-            validatorTaggedValue = validatorTaggedValue.substring(left+1,right);
+            validatorTaggedValue = validatorTaggedValue.substring(left + 1, right);
 
             String[] pairs = validatorTaggedValue.split(",");
             for (int i = 0; i < pairs.length; i++)
@@ -61,9 +61,9 @@ public class Bpm4StrutsUtils
                 String pair = pairs[i];
                 int equalsIndex = pair.indexOf('=');
                 // it's possible the argument is the empty string
-                if (equalsIndex < pair.length()-1)
+                if (equalsIndex < pair.length() - 1)
                 {
-                    validatorArgs.add(pair.substring(equalsIndex+1));
+                    validatorArgs.add(pair.substring(equalsIndex + 1));
                 }
                 else
                 {
@@ -90,7 +90,7 @@ public class Bpm4StrutsUtils
         // check if the input tagged value matches the required pattern
         if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
         {
-            throw new IllegalArgumentException("Illegal validator tagged value: "+validatorTaggedValue);
+            throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
         }
 
         final List validatorVars = new ArrayList();
@@ -100,14 +100,14 @@ public class Bpm4StrutsUtils
         if (left > -1)
         {
             int right = validatorTaggedValue.indexOf(')');
-            validatorTaggedValue = validatorTaggedValue.substring(left+1,right);
+            validatorTaggedValue = validatorTaggedValue.substring(left + 1, right);
 
             String[] pairs = validatorTaggedValue.split(",");
             for (int i = 0; i < pairs.length; i++)
             {
                 String pair = pairs[i];
                 int equalsIndex = pair.indexOf('=');
-                validatorVars.add(pair.substring(0,equalsIndex));
+                validatorVars.add(pair.substring(0, equalsIndex));
             }
         }
         return validatorVars;
@@ -128,10 +128,10 @@ public class Bpm4StrutsUtils
         // check if the input tagged value matches the required pattern
         if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
         {
-            throw new IllegalArgumentException("Illegal validator tagged value: "+validatorTaggedValue);
+            throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
         }
 
         int leftParen = validatorTaggedValue.indexOf('(');
-        return (leftParen==-1) ? validatorTaggedValue : validatorTaggedValue.substring(0,leftParen);
+        return (leftParen == -1) ? validatorTaggedValue : validatorTaggedValue.substring(0, leftParen);
     }
 }

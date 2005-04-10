@@ -1,35 +1,30 @@
 package org.andromda.core;
 
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.ModelPackages;
+
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.ModelPackages;
-
 /**
  * Stores the processing information for each model that AndroMDA will process.
- * 
+ *
  * @author Chad Brandon
  */
 public class Model
 {
     /**
      * Constructs a new instance of this Model
-     * 
-     * @param url the URL to the model to process.
-     * @param lastModifiedCheck whether or not to perform a last modified check
-     *        when processing the model. If <code>true</code> the model will
-     *        be checked for a timestamp before processing occurs.
-     * @param packages the packages to include/ignore when processing the model.
-     * @param moduleSearchPath any array of path's to search for any HREF
-     *        modules (profile, etc) referenced from within ths model.
+     *
+     * @param url               the URL to the model to process.
+     * @param lastModifiedCheck whether or not to perform a last modified check when processing the model. If
+     *                          <code>true</code> the model will be checked for a timestamp before processing occurs.
+     * @param packages          the packages to include/ignore when processing the model.
+     * @param moduleSearchPath  any array of path's to search for any HREF modules (profile, etc) referenced from within
+     *                          ths model.
      */
-    public Model(
-        URL url,
-        ModelPackages packages,
-        boolean lastModifiedCheck,
-        String[] moduleSearchPath)
+    public Model(URL url, ModelPackages packages, boolean lastModifiedCheck, String[] moduleSearchPath)
     {
         final String constructorName = "Model.Model";
         ExceptionUtils.checkNull(constructorName, "url", url);
@@ -53,7 +48,7 @@ public class Model
 
     /**
      * Whether or not to perform a last modified check on the model.
-     * 
+     *
      * @return Returns the lastModifiedCheck.
      */
     public boolean isLastModifiedCheck()
@@ -65,7 +60,7 @@ public class Model
 
     /**
      * Stores the information about what packages should/shouldn't be processed.
-     * 
+     *
      * @return Returns the packages.
      */
     public ModelPackages getPackages()
@@ -77,7 +72,7 @@ public class Model
 
     /**
      * The URL of the model.
-     * 
+     *
      * @return Returns the url.
      */
     public URL getUrl()
@@ -88,10 +83,9 @@ public class Model
     private String[] moduleSearchPath;
 
     /**
-     * Gets the path to search for the model's <em>modules</em> (i.e. models
-     * that are referenced as HREF <code>modules</code> from within this
-     * model). Will be null if the path isn't specified.
-     * 
+     * Gets the path to search for the model's <em>modules</em> (i.e. models that are referenced as HREF
+     * <code>modules</code> from within this model). Will be null if the path isn't specified.
+     *
      * @return Returns the moduleSearchPath.
      */
     public String[] getModuleSearchPath()
@@ -100,9 +94,9 @@ public class Model
     }
 
     /**
-     * Gets the time as a <code>long</code> when this model was last modified.
-     * If it can not be determined <code>0</code> is returned.
-     * 
+     * Gets the time as a <code>long</code> when this model was last modified. If it can not be determined
+     * <code>0</code> is returned.
+     *
      * @return the time this model was last modified
      */
     public long getLastModified()

@@ -1,29 +1,27 @@
 package org.andromda.translation.ocl.validation;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import org.andromda.translation.ocl.syntax.OCLPatterns;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
- * Dynamically invokes operation and property calls on specified
- * <strong>elements</code>.
- * 
+ * Dynamically invokes operation and property calls on specified <strong>elements</code>.
+ *
  * @author Wouter Zoons
  * @author Chad Brandon
  */
 public class OCLIntrospector
 {
 
-    private static final Logger logger = Logger
-        .getLogger(OCLIntrospector.class);
+    private static final Logger logger = Logger.getLogger(OCLIntrospector.class);
 
     /**
-     * Invokes the given <code>feature</code> on the <code>element</code>.
-     * Its expected that the feature is either an operation or a property.
+     * Invokes the given <code>feature</code> on the <code>element</code>. Its expected that the feature is either an
+     * operation or a property.
      */
     public static Object invoke(Object element, String feature)
     {
@@ -53,8 +51,7 @@ public class OCLIntrospector
         }
         catch (Throwable throwable)
         {
-            final String message = "Error invoking feature '" + feature
-                + "' on element '" + element + "'";
+            final String message = "Error invoking feature '" + feature + "' on element '" + element + "'";
             Throwable cause = ExceptionUtils.getRootCause(throwable);
             // If cause is an OCLIntrospector throw that exception
             // rather than creating a new one.
@@ -62,7 +59,7 @@ public class OCLIntrospector
             {
                 // Wrap exception again to prevent redundant
                 // error messages as the stack unwinds.
-                throw (OCLIntrospectorException)cause;
+                throw (OCLIntrospectorException) cause;
             }
             throw new OCLIntrospectorException(cause);
         }
@@ -70,15 +67,10 @@ public class OCLIntrospector
     }
 
     /**
-     * Invokes the given <code>feature</code> on the specified
-     * <code>element</code> taking the given <code>arguments</code>. If
-     * <code>arguments</code> is null its expected that the feature is an
-     * empty operation.
+     * Invokes the given <code>feature</code> on the specified <code>element</code> taking the given
+     * <code>arguments</code>. If <code>arguments</code> is null its expected that the feature is an empty operation.
      */
-    public static Object invoke(
-        Object element,
-        String feature,
-        Object[] arguments)
+    public static Object invoke(Object element, String feature, Object[] arguments)
     {
         Object result = null;
         try
@@ -97,9 +89,8 @@ public class OCLIntrospector
         }
         catch (Throwable throwable)
         {
-            final String message = "Error invoking feature '" + feature
-                + "' on element '" + element + "' with arguments '"
-                + StringUtils.join(arguments, ',') + "'";
+            final String message = "Error invoking feature '" + feature + "' on element '" + element + "' with arguments '" + StringUtils.join(
+                    arguments, ',') + "'";
             throwable = ExceptionUtils.getRootCause(throwable);
             logger.error(message);
             throw new OCLIntrospectorException(throwable);
@@ -107,13 +98,11 @@ public class OCLIntrospector
         return result;
     }
 
-    private static Object getNestedProperty(Object element, String propertyName)
-        throws Exception
+    private static Object getNestedProperty(Object element, String propertyName) throws Exception
     {
         Object property = null;
 
-        if (element != null && propertyName != null
-            && propertyName.length() > 0)
+        if (element != null && propertyName != null && propertyName.length() > 0)
         {
             int dotIndex = propertyName.indexOf('.');
             if (dotIndex == -1)
@@ -124,37 +113,29 @@ public class OCLIntrospector
             {
                 if (dotIndex >= propertyName.length())
                 {
-                    throw new Exception("Malformed property call --> '"
-                        + propertyName + "'");
+                    throw new Exception("Malformed property call --> '" + propertyName + "'");
                 }
-                Object nextInstance = getProperty(element, propertyName
-                    .substring(0, dotIndex));
-                property = getNestedProperty(nextInstance, propertyName
-                    .substring(dotIndex + 1));
+                Object nextInstance = getProperty(element, propertyName.substring(0, dotIndex));
+                property = getNestedProperty(nextInstance, propertyName.substring(dotIndex + 1));
             }
         }
         return property;
     }
 
     /**
-     * Gets the value of the property with <code>propertyName</code> on the
-     * given <code>element</code>.
-     * 
-     * @param element the element from which to retrieve the property.
+     * Gets the value of the property with <code>propertyName</code> on the given <code>element</code>.
+     *
+     * @param element      the element from which to retrieve the property.
      * @param propertyName the name of the property
      * @return the resulting property value
-     * @throws InvocationTargetException if an exception occurs during
-     *         invocation
-     * @throws IllegalAccessException if an illegal access exception occurs
-     *         during invocation.
+     * @throws InvocationTargetException if an exception occurs during invocation
+     * @throws IllegalAccessException    if an illegal access exception occurs during invocation.
      */
-    private static Object getProperty(Object element, String propertyName)
-        throws InvocationTargetException,
+    private static Object getProperty(Object element, String propertyName) throws InvocationTargetException,
             IllegalAccessException
     {
         Object property = null;
-        if (element != null || propertyName != null
-            || propertyName.length() > 0)
+        if (element != null || propertyName != null || propertyName.length() > 0)
         {
             Method method = getMethod("get", element, propertyName);
             if (method == null)
@@ -163,34 +144,28 @@ public class OCLIntrospector
             }
             if (method == null)
             {
-                throw new OCLIntrospectorException("No property named '"
-                    + propertyName + "', found on element '" + element + "'");
+                throw new OCLIntrospectorException("No property named '" + propertyName + "', found on element '" + element + "'");
             }
-            property = method.invoke(element, (Object[])null);
+            property = method.invoke(element, (Object[]) null);
         }
         return property;
     }
 
     /**
-     * Retrieves the method from the given <code>element</code> and the given
-     * <code>propertyName</code> by capitalizing the <code>propertyName</code>
-     * 
-     * @param prefix the prefix (either 'get' or 'is')
-     * @param element the element from which to retrieve the moethod
+     * Retrieves the method from the given <code>element</code> and the given <code>propertyName</code> by capitalizing
+     * the <code>propertyName</code>
+     *
+     * @param prefix       the prefix (either 'get' or 'is')
+     * @param element      the element from which to retrieve the moethod
      * @param propertyName the name of the property
      * @return the retrieved Method.
      */
-    private static Method getMethod(
-        String prefix,
-        Object element,
-        String propertyName)
+    private static Method getMethod(String prefix, Object element, String propertyName)
     {
         Method method = null;
         try
         {
-            method = element.getClass().getMethod(
-                prefix + StringUtils.capitalize(propertyName),
-                (Class[])null);
+            method = element.getClass().getMethod(prefix + StringUtils.capitalize(propertyName), (Class[]) null);
         }
         catch (NoSuchMethodException ex)
         {
@@ -199,10 +174,7 @@ public class OCLIntrospector
         return method;
     }
 
-    private static Object invokeMethod(
-        Object element,
-        String methodName,
-        Object[] arguments) throws Exception
+    private static Object invokeMethod(Object element, String methodName, Object[] arguments) throws Exception
     {
         Object property = null;
 
@@ -210,9 +182,7 @@ public class OCLIntrospector
         {
             Class[] argumentTypes = getObjectTypes(arguments);
 
-            Method method = element.getClass().getMethod(
-                methodName,
-                argumentTypes);
+            Method method = element.getClass().getMethod(methodName, argumentTypes);
             property = method.invoke(element, arguments);
         }
 

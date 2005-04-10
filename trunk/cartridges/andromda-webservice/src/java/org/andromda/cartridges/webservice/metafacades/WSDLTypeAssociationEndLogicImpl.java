@@ -1,19 +1,15 @@
 package org.andromda.cartridges.webservice.metafacades;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEnd.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEnd.
+ *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEnd
  */
-public class WSDLTypeAssociationEndLogicImpl
-    extends WSDLTypeAssociationEndLogic
+public class WSDLTypeAssociationEndLogicImpl extends WSDLTypeAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 
-    public WSDLTypeAssociationEndLogicImpl(
-        Object metaObject,
-        String context)
+    public WSDLTypeAssociationEndLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }

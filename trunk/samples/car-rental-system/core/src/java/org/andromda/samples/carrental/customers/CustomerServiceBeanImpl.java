@@ -1,19 +1,20 @@
 // license-header java merge-point
 package org.andromda.samples.carrental.customers;
 
-import javax.ejb.SessionContext;
+
 
 /**
  * @see org.andromda.samples.carrental.customers.CustomerServiceBean
  */
-public class CustomerServiceBeanImpl 
-    extends CustomerServiceBean 
+public class CustomerServiceBeanImpl extends CustomerServiceBean
 {
     /**
-     * @see org.andromda.samples.carrental.customers.CustomerService#createCustomer(java.lang.String, java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.customers.CustomerService#createCustomer(java.lang.String, java.lang.String,
+            *      java.lang.String)
      */
-    public java.lang.String createCustomer(java.lang.String name, java.lang.String customerNo, java.lang.String password)
-        throws org.andromda.samples.carrental.customers.CustomerException
+    public java.lang.String createCustomer(java.lang.String name, java.lang.String customerNo,
+                                           java.lang.String password)
+            throws org.andromda.samples.carrental.customers.CustomerException
     {
         //TODO: put your implementation here.
         // Dummy return value, just that the file compiles
@@ -21,10 +22,12 @@ public class CustomerServiceBeanImpl
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.CustomerService#addDriver(java.lang.String, org.andromda.samples.carrental.customers.DriverData)
+     * @see org.andromda.samples.carrental.customers.CustomerService#addDriver(java.lang.String,
+            *      org.andromda.samples.carrental.customers.DriverData)
      */
-    public java.lang.String addDriver(java.lang.String customerId, org.andromda.samples.carrental.customers.DriverData driverData)
-        throws org.andromda.samples.carrental.customers.CustomerException
+    public java.lang.String addDriver(java.lang.String customerId,
+                                      org.andromda.samples.carrental.customers.DriverData driverData)
+            throws org.andromda.samples.carrental.customers.CustomerException
     {
         //TODO: put your implementation here.
         // Dummy return value, just that the file compiles
@@ -34,8 +37,7 @@ public class CustomerServiceBeanImpl
     /**
      * @see org.andromda.samples.carrental.customers.CustomerService#searchAllCustomers()
      */
-    public java.util.Collection searchAllCustomers()
-        throws org.andromda.samples.carrental.customers.CustomerException
+    public java.util.Collection searchAllCustomers() throws org.andromda.samples.carrental.customers.CustomerException
     {
         //TODO: put your implementation here.
         // Dummy return value, just that the file compiles
@@ -43,10 +45,11 @@ public class CustomerServiceBeanImpl
     }
 
     /**
-     * @see org.andromda.samples.carrental.customers.CustomerService#authenticateAsCustomer(java.lang.String, java.lang.String)
+     * @see org.andromda.samples.carrental.customers.CustomerService#authenticateAsCustomer(java.lang.String,
+            *      java.lang.String)
      */
     public java.lang.String authenticateAsCustomer(java.lang.String customerNo, java.lang.String password)
-        throws org.andromda.samples.carrental.customers.CustomerException
+            throws org.andromda.samples.carrental.customers.CustomerException
     {
         //TODO: put your implementation here.
         // Dummy return value, just that the file compiles

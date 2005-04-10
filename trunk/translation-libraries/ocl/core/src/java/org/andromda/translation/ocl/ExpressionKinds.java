@@ -2,7 +2,7 @@ package org.andromda.translation.ocl;
 
 /**
  * Contains the possible Expression Kinds.
- * 
+ *
  * @author Chad Brandon
  */
 public class ExpressionKinds

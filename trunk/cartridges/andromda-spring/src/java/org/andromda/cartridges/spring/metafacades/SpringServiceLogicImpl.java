@@ -1,28 +1,24 @@
 package org.andromda.cartridges.spring.metafacades;
 
-import java.text.MessageFormat;
-import java.util.Collection;
-
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
+import java.util.Collection;
+
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.spring.metafacades.SpringService.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringService.
+ *
  * @author Chad Brandon
  * @author Peter Friese
  * @see org.andromda.cartridges.spring.metafacades.SpringService
  */
-public class SpringServiceLogicImpl
-    extends SpringServiceLogic
+public class SpringServiceLogicImpl extends SpringServiceLogic
 {
     // ---------------- constructor -------------------------------
 
-    public SpringServiceLogicImpl(
-        Object metaObject,
-        String context)
+    public SpringServiceLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -33,8 +29,7 @@ public class SpringServiceLogicImpl
     protected java.lang.String handleGetEjbJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this
-            .getEjbJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -66,10 +61,8 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedEjbImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(
-            this.getEjbPackageName(),
-            this.getName(),
-            SpringGlobals.EJB_IMPLEMENTATION_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getEjbPackageName(), this.getName(),
+                SpringGlobals.EJB_IMPLEMENTATION_SUFFIX);
     }
 
     /**
@@ -77,8 +70,7 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedEjbName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this
-            .getEjbPackageName(), this.getName(), null);
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getEjbPackageName(), this.getName(), null);
     }
 
     /**
@@ -86,10 +78,8 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(
-            this.getPackageName(),
-            this.getName(),
-            SpringGlobals.IMPLEMENTATION_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getName(),
+                SpringGlobals.IMPLEMENTATION_SUFFIX);
     }
 
     /**
@@ -105,10 +95,8 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedBaseName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(
-            this.getPackageName(),
-            this.getName(),
-            SpringGlobals.SERVICE_BASE_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getName(),
+                SpringGlobals.SERVICE_BASE_SUFFIX);
     }
 
     /**
@@ -116,11 +104,8 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetEjbPackageName()
     {
-        String ejbPackageName = MessageFormat.format(this
-            .getEjbPackageNamePattern(), new Object[]
-        {
-            StringUtils.trimToEmpty(this.getPackageName())
-        });
+        String ejbPackageName = MessageFormat.format(this.getEjbPackageNamePattern(), new Object[]{
+            StringUtils.trimToEmpty(this.getPackageName())});
         if (StringUtils.isBlank(this.getPackageName()))
         {
             ejbPackageName = ejbPackageName.replaceAll("^\\.", "");
@@ -149,8 +134,7 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetBeanName(boolean targetSuffix)
     {
-        StringBuffer beanName = new StringBuffer(StringUtils
-            .uncapitalize(StringUtils.trimToEmpty(this.getName())));
+        StringBuffer beanName = new StringBuffer(StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName())));
         if (targetSuffix)
         {
             beanName.append(SpringGlobals.BEAN_NAME_TARGET_SUFFIX);
@@ -160,22 +144,22 @@ public class SpringServiceLogicImpl
 
     /**
      * Gets the <code>ejbPackageNamePattern</code> for this EJB.
-     * 
+     *
      * @return the defined package pattern.
      */
     protected String getEjbPackageNamePattern()
     {
-        return (String)this.getConfiguredProperty("ejbPackageNamePattern");
+        return (String) this.getConfiguredProperty("ejbPackageNamePattern");
     }
 
     /**
      * Gets the <code>ejbJndiNamePrefix</code> for this EJB.
-     * 
+     *
      * @return the EJB Jndi name prefix.
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
+        return (String) this.getConfiguredProperty("ejbJndiNamePrefix");
     }
 
     /**
@@ -191,8 +175,7 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetFullyQualifiedWebServiceDelegatorName()
     {
-        return this.getFullyQualifiedName()
-            + SpringGlobals.WEB_SERVICE_DELEGATOR_SUFFIX;
+        return this.getFullyQualifiedName() + SpringGlobals.WEB_SERVICE_DELEGATOR_SUFFIX;
     }
 
     /**
@@ -216,11 +199,9 @@ public class SpringServiceLogicImpl
      */
     private String getRemotingType()
     {
-        String serviceRemotingType = StringUtils.trimToEmpty(String
-            .valueOf(this.getConfiguredProperty("serviceRemotingType")));
-        String result = SpringMetafacadeUtils.getServiceRemotingType(
-            this,
-            serviceRemotingType);
+        String serviceRemotingType = StringUtils.trimToEmpty(String.valueOf(
+                this.getConfiguredProperty("serviceRemotingType")));
+        String result = SpringMetafacadeUtils.getServiceRemotingType(this, serviceRemotingType);
         return result;
     }
 
@@ -229,11 +210,9 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetRemotePort()
     {
-        String serviceRemotePort = StringUtils.trimToEmpty(String.valueOf(this
-            .getConfiguredProperty("serviceRemotePort")));
-        return SpringMetafacadeUtils.getServiceRemotePort(
-            this,
-            serviceRemotePort);
+        String serviceRemotePort = StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
+                "serviceRemotePort")));
+        return SpringMetafacadeUtils.getServiceRemotePort(this, serviceRemotePort);
     }
 
     /**
@@ -241,11 +220,11 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetRemoteUrl()
     {
-        String serviceRemoteServer = StringUtils.trimToEmpty(String
-            .valueOf(this.getConfiguredProperty("serviceRemoteServer")));
+        String serviceRemoteServer = StringUtils.trimToEmpty(String.valueOf(
+                this.getConfiguredProperty("serviceRemoteServer")));
 
-        String serviceRemoteContext = StringUtils.trimToEmpty(String
-            .valueOf(this.getConfiguredProperty("serviceRemoteContext")));
+        String serviceRemoteContext = StringUtils.trimToEmpty(String.valueOf(
+                this.getConfiguredProperty("serviceRemoteContext")));
 
         String serviceRemotePort = this.getRemotePort();
 
@@ -255,8 +234,7 @@ public class SpringServiceLogicImpl
         {
             // nothing
         }
-        else if (this.isRemotingTypeHttpInvoker()
-            || this.isRemotingTypeHessian() || this.isRemotingTypeBurlap())
+        else if (this.isRemotingTypeHttpInvoker() || this.isRemotingTypeHessian() || this.isRemotingTypeBurlap())
         {
             // server
             result = "http://" + serviceRemoteServer;
@@ -297,7 +275,7 @@ public class SpringServiceLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return ((SpringServiceOperation)object).isWebserviceExposed();
+                return ((SpringServiceOperation) object).isWebserviceExposed();
             }
         };
     }
@@ -307,8 +285,8 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetDefaultExceptionName()
     {
-        String name = StringUtils.trimToEmpty(String.valueOf(this
-            .getConfiguredProperty("defaultServiceExceptionNamePattern")));
+        String name = StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
+                "defaultServiceExceptionNamePattern")));
         return name.replaceAll("\\{0\\}", this.getName());
     }
 
@@ -317,8 +295,7 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetFullyQualifiedDefaultExceptionName()
     {
-        StringBuffer fullyQualifiedName = new StringBuffer(
-            "java.lang.RuntimeException");
+        StringBuffer fullyQualifiedName = new StringBuffer("java.lang.RuntimeException");
         if (this.isAllowDefaultServiceException())
         {
             fullyQualifiedName = new StringBuffer();
@@ -337,10 +314,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsAllowDefaultServiceException()
     {
-        return Boolean.valueOf(
-            String.valueOf(this
-                .getConfiguredProperty("defaultServiceExceptions")))
-            .booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty("defaultServiceExceptions"))).booleanValue();
     }
 
     /**
@@ -384,8 +358,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * Stores the namespace property indicating whether or not the hibernate
-     * interceptor is enabled for this service.
+     * Stores the namespace property indicating whether or not the hibernate interceptor is enabled for this service.
      */
     private static final String HIBERNATE_INTERCEPTOR_ENABLED = "serviceHibernateInterceptorEnabled";
 
@@ -394,10 +367,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsHibernateInterceptorEnabled()
     {
-        return Boolean.valueOf(
-            String.valueOf(this
-                .getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED)))
-            .booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED))).booleanValue();
     }
 
 }

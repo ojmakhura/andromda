@@ -1,5 +1,10 @@
 package org.andromda.core.common;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,15 +12,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
 /**
- * Contains the configuration of a template object which are objects that are
- * made available to the cartridge templates.
- * 
+ * Contains the configuration of a template object which are objects that are made available to the cartridge
+ * templates.
+ *
  * @author Chad Brandon
  */
 public class TemplateObject
@@ -35,7 +35,7 @@ public class TemplateObject
 
     /**
      * Gets the current name of this TemplateObject.
-     * 
+     *
      * @return String
      */
     public String getName()
@@ -43,15 +43,14 @@ public class TemplateObject
         final String methodName = "TemplateObject.getName";
         if (StringUtils.isEmpty(name))
         {
-            throw new TemplateObjectException(methodName
-                + " - templateObject '" + this + "' has no name defined");
+            throw new TemplateObjectException(methodName + " - templateObject '" + this + "' has no name defined");
         }
         return name;
     }
 
     /**
      * Returns the TemplateObject instance.
-     * 
+     *
      * @return TemplateObject
      */
     public Object getTemplateObject()
@@ -59,8 +58,7 @@ public class TemplateObject
         final String methodName = "TemplateObject.getTemplateObject";
         if (StringUtils.isEmpty(name))
         {
-            throw new TemplateObjectException(methodName
-                + " - templateObject '" + this + "' has no className defined");
+            throw new TemplateObjectException(methodName + " - templateObject '" + this + "' has no className defined");
         }
 
         Object templateObject = this.objectCache.get(className);
@@ -84,7 +82,7 @@ public class TemplateObject
 
     /**
      * Sets all the nested properties on the templateObject object.
-     * 
+     *
      * @param templateObject
      */
     protected void setProperties(Object templateObject)
@@ -92,30 +90,21 @@ public class TemplateObject
         Iterator referenceIt = this.propertyReferences.iterator();
         while (referenceIt.hasNext())
         {
-            String reference = (String)referenceIt.next();
+            String reference = (String) referenceIt.next();
 
-            Property property = Namespaces.instance().findNamespaceProperty(
-                this.getNamespace(),
-                reference);
+            Property property = Namespaces.instance().findNamespaceProperty(this.getNamespace(), reference);
 
             if (!property.isIgnore())
             {
                 if (logger.isDebugEnabled())
-                    logger.debug("setting property '" + name + "' with value '"
-                        + property.getValue() + "' on templateObject '"
-                        + templateObject + "'");
+                    logger.debug("setting property '" + name + "' with value '" + property.getValue() + "' on templateObject '" + templateObject + "'");
                 try
                 {
-                    PropertyUtils.setProperty(
-                        templateObject,
-                        reference,
-                        property.getValue());
+                    PropertyUtils.setProperty(templateObject, reference, property.getValue());
                 }
                 catch (Exception ex)
                 {
-                    String errMsg = "Error setting property '" + reference
-                        + "' with '" + property.getValue()
-                        + "' on templateObject --> '" + templateObject + "'";
+                    String errMsg = "Error setting property '" + reference + "' with '" + property.getValue() + "' on templateObject --> '" + templateObject + "'";
                     logger.warn(errMsg, ex);
                     // don't throw the exception
                 }
@@ -124,9 +113,8 @@ public class TemplateObject
     }
 
     /**
-     * Sets the name of the template object (this name will be what the template
-     * class is stored under in the template)
-     * 
+     * Sets the name of the template object (this name will be what the template class is stored under in the template)
+     *
      * @param name the name of the template object.
      */
     public void setName(String name)
@@ -136,7 +124,7 @@ public class TemplateObject
 
     /**
      * Sets the class of the transformation object.
-     * 
+     *
      * @param className
      */
     public void setClassName(String className)
@@ -147,10 +135,9 @@ public class TemplateObject
     }
 
     /**
-     * Adds a templateObject property reference (used to customize
-     * templateObjects). Property references are used to populate bean like
-     * properties of template objects.
-     * 
+     * Adds a templateObject property reference (used to customize templateObjects). Property references are used to
+     * populate bean like properties of template objects.
+     *
      * @param reference
      */
     public void addPropertyReference(String reference)
@@ -160,7 +147,7 @@ public class TemplateObject
 
     /**
      * The resource in which the templateObject was found.
-     * 
+     *
      * @return URL
      */
     public URL getResource()
@@ -170,7 +157,7 @@ public class TemplateObject
 
     /**
      * Sets the resource in which the templateObject was found.
-     * 
+     *
      * @param resource
      */
     public void setResource(URL resource)

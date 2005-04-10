@@ -1,15 +1,13 @@
 package org.andromda.translation.ocl.parser;
 
-import java.util.StringTokenizer;
-
 import org.apache.commons.lang.StringUtils;
 
+import java.util.StringTokenizer;
+
 /**
- * Retrieves information from the OCL parser exceptions in a more user friendly
- * format.
+ * Retrieves information from the OCL parser exceptions in a more user friendly format.
  */
-public class OclParserException
-    extends RuntimeException
+public class OclParserException extends RuntimeException
 {
     private StringBuffer messageBuffer;
     private int errorLine;
@@ -17,11 +15,10 @@ public class OclParserException
 
     /**
      * Constructs an instance of OclParserException.
-     * 
+     *
      * @param message
      */
-    public OclParserException(
-        String message)
+    public OclParserException(String message)
     {
         super();
         if (StringUtils.isNotEmpty(message))
@@ -53,10 +50,9 @@ public class OclParserException
     }
 
     /**
-     * Extracts the error positioning from exception message, if possible.
-     * Assumes SableCC detail message format: "[" <line>"," <col>"]" <error
-     * message>.
-     * 
+     * Extracts the error positioning from exception message, if possible. Assumes SableCC detail message format: "["
+     * <line>"," <col>"]" <error message>.
+     *
      * @param message the mssage to exract.
      */
     private void extractErrorPosition(String message)
@@ -65,8 +61,7 @@ public class OclParserException
         if (message.charAt(0) == '[')
         {
             // Positional data seems to be available
-            StringTokenizer tokenizer = new StringTokenizer(message
-                .substring(1), ",]");
+            StringTokenizer tokenizer = new StringTokenizer(message.substring(1), ",]");
 
             try
             {

@@ -1,8 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -15,17 +12,17 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 /**
  * Metaclass facade implementation.
  */
-public class ServiceLogicImpl
-    extends ServiceLogic
+public class ServiceLogicImpl extends ServiceLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ServiceLogicImpl(
-        java.lang.Object metaObject,
-        String context)
+    public ServiceLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -39,11 +36,8 @@ public class ServiceLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object)
-                    .getTargetElement();
-                return targetElement != null
-                    && Entity.class.isAssignableFrom(targetElement
-                        .getClass());
+                ModelElementFacade targetElement = ((DependencyFacade) object).getTargetElement();
+                return targetElement != null && Entity.class.isAssignableFrom(targetElement.getClass());
             }
         };
     }
@@ -57,11 +51,8 @@ public class ServiceLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object)
-                    .getTargetElement();
-                return targetElement != null
-                    && Service.class.isAssignableFrom(targetElement
-                        .getClass());
+                ModelElementFacade targetElement = ((DependencyFacade) object).getTargetElement();
+                return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
             }
         };
     }
@@ -76,16 +67,15 @@ public class ServiceLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                DependencyFacade dependency = (DependencyFacade)object;
-                return dependency != null
-                    && dependency.getSourceElement() instanceof Role;
+                DependencyFacade dependency = (DependencyFacade) object;
+                return dependency != null && dependency.getSourceElement() instanceof Role;
             }
         });
         CollectionUtils.transform(roles, new Transformer()
         {
             public Object transform(Object object)
             {
-                return ((DependencyFacade)object).getSourceElement();
+                return ((DependencyFacade) object).getSourceElement();
             }
         });
         final Collection allRoles = new HashSet(roles);
@@ -94,7 +84,7 @@ public class ServiceLogicImpl
         {
             public void execute(Object object)
             {
-                allRoles.addAll(((Role)object).getSpecializations());
+                allRoles.addAll(((Role) object).getSpecializations());
             }
         });
         return allRoles;
@@ -112,7 +102,7 @@ public class ServiceLogicImpl
             {
                 if (object instanceof ServiceOperation)
                 {
-                    roles.addAll(((ServiceOperation)object).getRoles());
+                    roles.addAll(((ServiceOperation) object).getRoles());
                 }
             }
         });

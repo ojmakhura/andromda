@@ -1,9 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.common.DocumentationAnalyzer;
 import org.andromda.core.common.Paragraph;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -27,17 +23,18 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * Metaclass facade implementation.
  */
-public class ModelElementFacadeLogicImpl
-    extends ModelElementFacadeLogic
+public class ModelElementFacadeLogicImpl extends ModelElementFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ModelElementFacadeLogicImpl(
-        org.omg.uml.foundation.core.ModelElement metaObject,
-        String context)
+    public ModelElementFacadeLogicImpl(org.omg.uml.foundation.core.ModelElement metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -57,16 +54,16 @@ public class ModelElementFacadeLogicImpl
     {
         return this.getPackageName(false);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName(boolean)
      */
     public String handleGetPackageName(boolean modelName)
     {
         return UML14MetafacadeUtils.getPackageName(this.metaObject,
-            String.valueOf(this.getConfiguredProperty(this.getNamespaceScopeProperty(modelName))));
+                String.valueOf(this.getConfiguredProperty(this.getNamespaceScopeProperty(modelName))));
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName(boolean)
      */
@@ -74,35 +71,33 @@ public class ModelElementFacadeLogicImpl
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
         final String packageName = this.getPackageName(true);
-        final String metafacadeNamespaceScopeOperator =  String.valueOf(
-            this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR));
+        final String metafacadeNamespaceScopeOperator = String.valueOf(
+                this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR));
         if (StringUtils.isNotBlank(packageName))
         {
-            fullName = packageName
-                + metafacadeNamespaceScopeOperator
-                + fullName;
+            fullName = packageName + metafacadeNamespaceScopeOperator + fullName;
         }
         if (!modelName)
         {
             if (this.getLanguageMappings() != null)
             {
-                fullName = StringUtils.deleteWhitespace(this
-                    .getLanguageMappings().getTo(fullName));
+                fullName = StringUtils.deleteWhitespace(this.getLanguageMappings().getTo(fullName));
                 // now replace the metafacade scope operators
                 // with the mapped scope operators
                 final String namespaceScopeOperator = String.valueOf(
-                    this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
+                        this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
                 fullName = StringUtils.replace(fullName, metafacadeNamespaceScopeOperator, namespaceScopeOperator);
             }
         }
         return fullName;
     }
-    
+
     /**
-     * Gets the appropriate namespace property for retrieve the namespace
-     * scope operation (dependng on the given <code>modelName</code> flag.
-     * @param modelName whether or not the scope operation for the model should be
-     *        retrieved as oppposed to the mapped scope operator.
+     * Gets the appropriate namespace property for retrieve the namespace scope operation (dependng on the given
+     * <code>modelName</code> flag.
+     *
+     * @param modelName whether or not the scope operation for the model should be retrieved as oppposed to the mapped
+     *                  scope operator.
      * @return the scope operator.
      */
     private String getNamespaceScopeProperty(boolean modelName)
@@ -136,16 +131,13 @@ public class ModelElementFacadeLogicImpl
             name = StringUtils.trimToEmpty(name);
             // loop over the tagged values
             Collection taggedValues = this.getTaggedValues();
-            for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator
-                .hasNext();)
+            for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
             {
-                TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator
-                    .next();
+                TaggedValueFacade taggedValue = (TaggedValueFacade) taggedValueIterator.next();
                 // does this name match the argument tagged value name ?
                 if (name.equals(taggedValue.getName()))
                 {
-                    for (Iterator valueIterator = taggedValue.getValues()
-                        .iterator(); valueIterator.hasNext();)
+                    for (Iterator valueIterator = taggedValue.getValues().iterator(); valueIterator.hasNext();)
                     {
                         // only process tagged values when they actually have a
                         // non-empty value
@@ -154,17 +146,14 @@ public class ModelElementFacadeLogicImpl
                         {
                             // if an enumeration literal is referenced we assume
                             // its name
-                            if (EnumerationLiteralFacade.class
-                                .isAssignableFrom(value.getClass()))
+                            if (EnumerationLiteralFacade.class.isAssignableFrom(value.getClass()))
                             {
-                                values.add(((EnumerationLiteralFacade)value)
-                                    .getValue());
+                                values.add(((EnumerationLiteralFacade) value).getValue());
                             }
-                            else if (String.class.isAssignableFrom(value
-                                .getClass()))
+                            else if (String.class.isAssignableFrom(value.getClass()))
                             {
                                 // only add String when they are not blank
-                                String valueString = (String)value;
+                                String valueString = (String) value;
                                 if (StringUtils.isNotBlank(valueString))
                                 {
                                     values.add(value);
@@ -199,33 +188,27 @@ public class ModelElementFacadeLogicImpl
         final String stereotype = stereotypeName;
         Collection stereotypes = this.getStereotypes();
 
-        boolean hasStereotype = StringUtils.isNotBlank(stereotypeName)
-            && stereotypes != null && !stereotypes.isEmpty();
+        boolean hasStereotype = StringUtils.isNotBlank(stereotypeName) && stereotypes != null && !stereotypes.isEmpty();
 
         if (hasStereotype)
         {
-            class StereotypeFilter
-                implements Predicate
+            class StereotypeFilter implements Predicate
             {
                 public boolean evaluate(Object object)
                 {
                     boolean valid = false;
-                    StereotypeFacade facade = (StereotypeFacade)object;
+                    StereotypeFacade facade = (StereotypeFacade) object;
                     String name = StringUtils.trimToEmpty(facade.getName());
                     valid = stereotype.equals(name);
                     while (!valid && facade != null)
                     {
-                        facade = (StereotypeFacade)facade.getGeneralization();
-                        valid = facade != null
-                            && StringUtils.trimToEmpty(facade.getName())
-                                .equals(stereotype);
+                        facade = (StereotypeFacade) facade.getGeneralization();
+                        valid = facade != null && StringUtils.trimToEmpty(facade.getName()).equals(stereotype);
                     }
                     return valid;
                 }
             }
-            hasStereotype = CollectionUtils.find(
-                this.getStereotypes(),
-                new StereotypeFilter()) != null;
+            hasStereotype = CollectionUtils.find(this.getStereotypes(), new StereotypeFilter()) != null;
         }
         return hasStereotype;
     }
@@ -243,8 +226,7 @@ public class ModelElementFacadeLogicImpl
      */
     public boolean handleHasExactStereotype(String stereotypeName)
     {
-        return this.getStereotypeNames().contains(
-            StringUtils.trimToEmpty(stereotypeName));
+        return this.getStereotypeNames().contains(StringUtils.trimToEmpty(stereotypeName));
     }
 
     /**
@@ -289,10 +271,9 @@ public class ModelElementFacadeLogicImpl
         Collection stereotypeNames = new ArrayList();
 
         Collection stereotypes = metaObject.getStereotype();
-        for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt
-            .hasNext();)
+        for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
         {
-            ModelElement stereotype = (ModelElement)stereotypeIt.next();
+            ModelElement stereotype = (ModelElement) stereotypeIt.next();
             stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));
         }
         return stereotypeNames;
@@ -303,13 +284,8 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetFullyQualifiedNamePath()
     {
-        return StringUtils
-            .replace(
-                this.getFullyQualifiedName(),
-                String
-                    .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
-                "/");
+        return StringUtils.replace(this.getFullyQualifiedName(), String.valueOf(this.getConfiguredProperty(
+                UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), "/");
     }
 
     /**
@@ -317,13 +293,8 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackagePath()
     {
-        return StringUtils
-            .replace(
-                this.getPackageName(),
-                String
-                    .valueOf(this
-                        .getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
-                "/");
+        return StringUtils.replace(this.getPackageName(), String.valueOf(this.getConfiguredProperty(
+                UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), "/");
     }
 
     /**
@@ -335,8 +306,7 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
-     *      int)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int)
      */
     protected String handleGetDocumentation(String indent, int lineLength)
     {
@@ -344,13 +314,9 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
-     *      int, boolean)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
      */
-    protected String handleGetDocumentation(
-        String indent,
-        int lineLength,
-        boolean htmlStyle)
+    protected String handleGetDocumentation(String indent, int lineLength, boolean htmlStyle)
     {
         if (StringUtils.isEmpty(indent))
         {
@@ -363,9 +329,8 @@ public class ModelElementFacadeLogicImpl
             Iterator commentIt = comments.iterator();
             while (commentIt.hasNext())
             {
-                Comment comment = (Comment)commentIt.next();
-                String commentString = StringUtils.trimToEmpty(comment
-                    .getBody());
+                Comment comment = (Comment) commentIt.next();
+                String commentString = StringUtils.trimToEmpty(comment.getBody());
                 // if there isn't anything in the body, try the name
                 if (StringUtils.isEmpty(commentString))
                 {
@@ -377,23 +342,22 @@ public class ModelElementFacadeLogicImpl
         // if there still isn't anything, try a tagged value
         if (StringUtils.isEmpty(documentation.toString()))
         {
-            documentation.append(StringUtils.trimToEmpty((String)this
-                .findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
+            documentation.append(StringUtils.trimToEmpty((String) this.findTaggedValue(
+                    UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
         try
         {
             String newLine = "\n";
             String startParaTag = (htmlStyle) ? "<p>" : "";
             String endParaTag = (htmlStyle) ? "</p>" : "";
-            Collection paragraphs = new DocumentationAnalyzer(lineLength)
-                .toParagraphs(documentation.toString(), htmlStyle);
+            Collection paragraphs = new DocumentationAnalyzer(lineLength).toParagraphs(documentation.toString(),
+                    htmlStyle);
             if (paragraphs != null && !paragraphs.isEmpty())
             {
                 documentation = new StringBuffer();
-                for (Iterator paragraphIt = paragraphs.iterator(); paragraphIt
-                    .hasNext();)
+                for (Iterator paragraphIt = paragraphs.iterator(); paragraphIt.hasNext();)
                 {
-                    Paragraph paragraph = (Paragraph)paragraphIt.next();
+                    Paragraph paragraph = (Paragraph) paragraphIt.next();
                     documentation.append(indent + startParaTag + newLine);
                     Collection lines = paragraph.getLines();
                     if (lines != null && !lines.isEmpty())
@@ -401,8 +365,7 @@ public class ModelElementFacadeLogicImpl
                         Iterator lineIt = lines.iterator();
                         while (lineIt.hasNext())
                         {
-                            documentation.append(indent + lineIt.next()
-                                + newLine);
+                            documentation.append(indent + lineIt.next() + newLine);
                         }
                     }
                     documentation.append(indent + endParaTag);
@@ -424,8 +387,8 @@ public class ModelElementFacadeLogicImpl
         }
         if (lineLength < 0)
         {
-            documentation = new StringBuffer(StringUtils.trimToEmpty(
-                documentation.toString()).replaceAll("[$\\s]+", " "));
+            documentation = new StringBuffer(StringUtils.trimToEmpty(documentation.toString()).replaceAll("[$\\s]+",
+                    " "));
         }
         return documentation.toString();
     }
@@ -440,15 +403,14 @@ public class ModelElementFacadeLogicImpl
 
     /**
      * Gets the array suffix from the configured metafacade properties.
-     * 
+     *
      * @return the array suffix.
      */
     private String getArraySuffix()
     {
-        return String.valueOf(this.getConfiguredProperty(
-            UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
+        return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
@@ -460,7 +422,7 @@ public class ModelElementFacadeLogicImpl
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
-            uri = (String)property;
+            uri = (String) property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -469,15 +431,14 @@ public class ModelElementFacadeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '"
-                    + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg, th);
                 // don't throw the exception
             }
         }
         else
         {
-            mappings = (TypeMappings)property;
+            mappings = (TypeMappings) property;
         }
         return mappings;
     }
@@ -504,8 +465,8 @@ public class ModelElementFacadeLogicImpl
     protected java.util.Collection handleGetSourceDependencies()
     {
         Collection dependencies = new ArrayList();
-        Collection clientDependencies = UML14MetafacadeUtils.getCorePackage()
-            .getAClientClientDependency().getClientDependency(this.metaObject);
+        Collection clientDependencies = UML14MetafacadeUtils.getCorePackage().getAClientClientDependency().getClientDependency(
+                this.metaObject);
         if (clientDependencies != null)
         {
             dependencies.addAll(clientDependencies);
@@ -514,8 +475,7 @@ public class ModelElementFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return (object instanceof Dependency)
-                    && !(object instanceof Abstraction);
+                return (object instanceof Dependency) && !(object instanceof Abstraction);
             }
         });
         return dependencies;
@@ -527,8 +487,7 @@ public class ModelElementFacadeLogicImpl
     protected Collection handleGetTargetDependencies()
     {
         Collection dependencies = new ArrayList();
-        Collection supplierDependencies = UML14MetafacadeUtils.getCorePackage()
-            .getASupplierSupplierDependency().getSupplierDependency(
+        Collection supplierDependencies = UML14MetafacadeUtils.getCorePackage().getASupplierSupplierDependency().getSupplierDependency(
                 this.metaObject);
         if (supplierDependencies != null)
         {
@@ -538,8 +497,7 @@ public class ModelElementFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return (object instanceof Dependency)
-                    && !(object instanceof Abstraction);
+                return (object instanceof Dependency) && !(object instanceof Abstraction);
             }
         });
         return dependencies;
@@ -582,51 +540,37 @@ public class ModelElementFacadeLogicImpl
      */
     protected Collection handleGetConstraints(final String kind)
     {
-        final Collection filteredConstraints = CollectionUtils.select(
-            getConstraints(),
-            new Predicate()
+        final Collection filteredConstraints = CollectionUtils.select(getConstraints(), new Predicate()
+        {
+            public boolean evaluate(Object o)
             {
-                public boolean evaluate(Object o)
+                if (o instanceof ConstraintFacade)
                 {
-                    if (o instanceof ConstraintFacade)
-                    {
-                        ConstraintFacade constraint = (ConstraintFacade)o;
-                        return ((ExpressionKinds.BODY.equals(kind) && constraint
-                            .isBodyExpression())
-                            || (ExpressionKinds.DEF.equals(kind) && constraint
-                                .isDefinition())
-                            || (ExpressionKinds.INV.equals(kind) && constraint
-                                .isInvariant())
-                            || (ExpressionKinds.PRE.equals(kind) && constraint
-                                .isPreCondition()) || (ExpressionKinds.POST
-                            .equals(kind) && constraint.isPostCondition()));
-                    }
-                    return false;
+                    ConstraintFacade constraint = (ConstraintFacade) o;
+                    return ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) || (ExpressionKinds.DEF.equals(
+                            kind) && constraint.isDefinition()) || (ExpressionKinds.INV.equals(kind) && constraint.isInvariant()) || (ExpressionKinds.PRE.equals(
+                                    kind) && constraint.isPreCondition()) || (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()));
                 }
-            });
+                return false;
+            }
+        });
         return filteredConstraints;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String,
-     *      java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String, java.lang.String)
      */
-    protected String handleTranslateConstraint(
-        final String name,
-        String translation)
+    protected String handleTranslateConstraint(final String name, String translation)
     {
         String translatedExpression = "";
-        ConstraintFacade constraint = (ConstraintFacade)CollectionUtils.find(
-            this.getConstraints(),
-            new Predicate()
+        ConstraintFacade constraint = (ConstraintFacade) CollectionUtils.find(this.getConstraints(), new Predicate()
+        {
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    ConstraintFacade constraint = (ConstraintFacade)object;
-                    return StringUtils.trimToEmpty(constraint.getName())
-                        .equals(StringUtils.trimToEmpty(name));
-                }
-            });
+                ConstraintFacade constraint = (ConstraintFacade) object;
+                return StringUtils.trimToEmpty(constraint.getName()).equals(StringUtils.trimToEmpty(name));
+            }
+        });
 
         if (constraint != null)
         {
@@ -644,18 +588,14 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * Private helper that translates all the expressions contained in the
-     * <code>constraints</code>, and returns an array of the translated
-     * expressions.
-     * 
+     * Private helper that translates all the expressions contained in the <code>constraints</code>, and returns an
+     * array of the translated expressions.
+     *
      * @param constraints the constraints to translate
      * @param translation the translation to transate <code>to</code>.
-     * @return String[] the translated expressions, or null if no constraints
-     *         were found
+     * @return String[] the translated expressions, or null if no constraints were found
      */
-    private String[] translateConstraints(
-        Collection constraints,
-        String translation)
+    private String[] translateConstraints(Collection constraints, String translation)
     {
         String[] translatedExpressions = null;
         if (constraints != null && !constraints.isEmpty())
@@ -664,32 +604,25 @@ public class ModelElementFacadeLogicImpl
             Iterator constraintIt = constraints.iterator();
             for (int ctr = 0; constraintIt.hasNext(); ctr++)
             {
-                ConstraintFacade constraint = (ConstraintFacade)constraintIt
-                    .next();
-                translatedExpressions[ctr] = constraint
-                    .getTranslation(translation);
+                ConstraintFacade constraint = (ConstraintFacade) constraintIt.next();
+                translatedExpressions[ctr] = constraint.getTranslation(translation);
             }
         }
         return translatedExpressions;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String,
-     *      java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String, java.lang.String)
      */
-    protected java.lang.String[] handleTranslateConstraints(
-        final String kind,
-        String translation)
+    protected java.lang.String[] handleTranslateConstraints(final String kind, String translation)
     {
         Collection constraints = this.getConstraints();
         CollectionUtils.filter(constraints, new Predicate()
         {
             public boolean evaluate(Object object)
             {
-                ConstraintFacade constraint = (ConstraintFacade)object;
-                return UML14MetafacadeUtils.isConstraintKind(
-                    constraint.getBody(),
-                    kind);
+                ConstraintFacade constraint = (ConstraintFacade) object;
+                return UML14MetafacadeUtils.isConstraintKind(constraint.getBody(), kind);
             }
         });
         return this.translateConstraints(constraints, translation);
@@ -702,12 +635,10 @@ public class ModelElementFacadeLogicImpl
     {
         ActivityGraph graphContext = null;
 
-        Collection graphs = UML14MetafacadeUtils.getModel().getActivityGraphs()
-            .getActivityGraph().refAllOfType();
-        for (Iterator graphIterator = graphs.iterator(); graphIterator
-            .hasNext();)
+        Collection graphs = UML14MetafacadeUtils.getModel().getActivityGraphs().getActivityGraph().refAllOfType();
+        for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext();)
         {
-            ActivityGraph graph = (ActivityGraph)graphIterator.next();
+            ActivityGraph graph = (ActivityGraph) graphIterator.next();
             ModelElement contextElement = graph.getContext();
             if (metaObject.equals(contextElement))
             {
@@ -724,10 +655,8 @@ public class ModelElementFacadeLogicImpl
     public String getValidationName()
     {
         StringBuffer validationName = new StringBuffer("");
-        Object seperator = this
-            .getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR);
-        for (ModelElement namespace = metaObject.getNamespace(); namespace != null; namespace = namespace
-            .getNamespace())
+        Object seperator = this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR);
+        for (ModelElement namespace = metaObject.getNamespace(); namespace != null; namespace = namespace.getNamespace())
         {
             if (validationName.length() == 0)
             {
@@ -749,8 +678,7 @@ public class ModelElementFacadeLogicImpl
         }
         else
         {
-            validationName.append(this
-                .getConfiguredProperty(UMLMetafacadeProperties.UNDEFINED_NAME));
+            validationName.append(this.getConfiguredProperty(UMLMetafacadeProperties.UNDEFINED_NAME));
         }
         return validationName.toString();
     }

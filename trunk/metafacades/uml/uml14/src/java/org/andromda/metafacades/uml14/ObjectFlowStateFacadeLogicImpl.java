@@ -6,12 +6,10 @@ import org.omg.uml.behavioralelements.statemachines.StateMachine;
 /**
  * Metaclass facade implementation.
  */
-public class ObjectFlowStateFacadeLogicImpl
-    extends ObjectFlowStateFacadeLogic
+public class ObjectFlowStateFacadeLogicImpl extends ObjectFlowStateFacadeLogic
 {
-    public ObjectFlowStateFacadeLogicImpl(
-        org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState metaObject,
-        String context)
+    public ObjectFlowStateFacadeLogicImpl(org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState metaObject,
+                                          String context)
     {
         super(metaObject, context);
     }

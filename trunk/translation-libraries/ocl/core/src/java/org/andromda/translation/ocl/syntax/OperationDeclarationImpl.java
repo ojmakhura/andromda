@@ -5,12 +5,11 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * An implementation of the ocl OperationDeclaration facade.
- * 
- * @see org.andromda.translation.ocl.syntax.OperationDeclaration
+ *
  * @author Chad Brandon
+ * @see org.andromda.translation.ocl.syntax.OperationDeclaration
  */
-public class OperationDeclarationImpl
-    implements OperationDeclaration
+public class OperationDeclarationImpl implements OperationDeclaration
 {
 
     private String name;
@@ -19,15 +18,12 @@ public class OperationDeclarationImpl
 
     /**
      * Constructs a new OperationDeclarationImpl
-     * 
-     * @param name the name of the Operation
+     *
+     * @param name       the name of the Operation
      * @param returnType the returnType of the operation
-     * @param arguments the arguments of the operation.
+     * @param arguments  the arguments of the operation.
      */
-    public OperationDeclarationImpl(
-        String name,
-        String returnType,
-        VariableDeclaration[] arguments)
+    public OperationDeclarationImpl(String name, String returnType, VariableDeclaration[] arguments)
     {
         final String methodName = "OperationDeclarationImpl";
         ExceptionUtils.checkEmpty(methodName, "name", name);

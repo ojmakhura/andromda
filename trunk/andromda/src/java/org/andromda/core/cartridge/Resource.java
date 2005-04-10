@@ -1,18 +1,17 @@
 package org.andromda.core.cartridge;
 
-import java.io.File;
-import java.text.MessageFormat;
-
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.File;
+import java.text.MessageFormat;
+
 /**
- * <p>
- * This class implements the <code>&lt;resource&gt;</code> tag in a cartridge
- * descriptor file and represents the base cartridge resource element.
- * </p>
- * 
+ * <p/>
+ * This class implements the <code>&lt;resource&gt;</code> tag in a cartridge descriptor file and represents the base
+ * cartridge resource element. </p>
+ *
  * @author Chad Brandon
  */
 public class Resource
@@ -48,9 +47,8 @@ public class Resource
     private String outputPattern;
 
     /**
-     * Gets the logical location to which output from this resource will be
-     * written.
-     * 
+     * Gets the logical location to which output from this resource will be written.
+     *
      * @return Returns the outlet.
      */
     public String getOutlet()
@@ -59,9 +57,8 @@ public class Resource
     }
 
     /**
-     * Sets the logical location to which output from this resource will be
-     * written.
-     * 
+     * Sets the logical location to which output from this resource will be written.
+     *
      * @param outlet The outlet to set.
      */
     public void setOutlet(String outlet)
@@ -70,15 +67,10 @@ public class Resource
     }
 
     /**
-     * Returns the fully qualified name of the resource output to be written,
-     * this means:
-     * <ul>
-     * <li>the output pattern has been translated</li>
-     * <li>the output directory name has been prepended</li>
-     * </ul>
-     * 
-     * @param argument any arguments to be inserted into the MessageFormat style
-     *        messages.
+     * Returns the fully qualified name of the resource output to be written, this means: <ul> <li>the output pattern
+     * has been translated</li> <li>the output directory name has been prepended</li> </ul>
+     *
+     * @param argument  any arguments to be inserted into the MessageFormat style messages.
      * @param directory the directory to which output will be written.
      * @return File absolute directory.
      */
@@ -90,11 +82,9 @@ public class Resource
         {
             for (int ctr = 0; ctr < arguments.length; ctr++)
             {
-                arguments[ctr] = StringUtils.trimToEmpty(String
-                    .valueOf(arguments[ctr]));
+                arguments[ctr] = StringUtils.trimToEmpty(String.valueOf(arguments[ctr]));
             }
-            String outputFileName = MessageFormat.format(this
-                .getOutputPattern(), arguments);
+            String outputFileName = MessageFormat.format(this.getOutputPattern(), arguments);
 
             file = new File(directory, outputFileName);
         }
@@ -102,32 +92,26 @@ public class Resource
     }
 
     /**
-     * Tells us whether output files produced by this resource should be
-     * overwritten if they already exist. Overwriting can be turned on and off
-     * for entire cartridges by setting the <code>overwrite</code> property in
-     * a namespace. This is useful for cartridge developers when they always
-     * want produced resources to be overwritten at first.
-     * 
+     * Tells us whether output files produced by this resource should be overwritten if they already exist. Overwriting
+     * can be turned on and off for entire cartridges by setting the <code>overwrite</code> property in a namespace.
+     * This is useful for cartridge developers when they always want produced resources to be overwritten at first.
+     *
      * @return Returns the overwrite.
      */
     public boolean isOverwrite()
     {
-        Property property = Namespaces.instance().findNamespaceProperty(
-            this.getCartridge().getName(),
-            "overwrite",
-            false);
+        Property property = Namespaces.instance().findNamespaceProperty(this.getCartridge().getName(), "overwrite",
+                false);
         if (property != null)
         {
-            this.overwrite = Boolean.valueOf(property.getValue())
-                .booleanValue();
+            this.overwrite = Boolean.valueOf(property.getValue()).booleanValue();
         }
         return this.overwrite;
     }
 
     /**
-     * Sets whether output files produced by this resource should be overwritten
-     * if they already exist.
-     * 
+     * Sets whether output files produced by this resource should be overwritten if they already exist.
+     *
      * @param overwrite The overwrite to set.
      */
     public void setOverwrite(boolean overwrite)
@@ -136,11 +120,10 @@ public class Resource
     }
 
     /**
-     * Gets whether or not this template is required, so AndroMDA will NOT warn
-     * if a outlet is <code>not</code> defined in a namespace. Otherwise
-     * AndroMDA always warns if the resource outlet isn't defined. By default
-     * resources are required.
-     * 
+     * Gets whether or not this template is required, so AndroMDA will NOT warn if a outlet is <code>not</code> defined
+     * in a namespace. Otherwise AndroMDA always warns if the resource outlet isn't defined. By default resources are
+     * required.
+     *
      * @return Returns the required.
      */
     public boolean isRequired()
@@ -150,7 +133,7 @@ public class Resource
 
     /**
      * Sets whether or not this template is required.
-     * 
+     *
      * @param required The required to set.
      */
     public void setRequired(boolean optional)
@@ -160,7 +143,7 @@ public class Resource
 
     /**
      * Gets the path to the cartridge resource.
-     * 
+     *
      * @return Returns the path.
      */
     public String getPath()
@@ -170,7 +153,7 @@ public class Resource
 
     /**
      * Sets the path to the cartridge resource.
-     * 
+     *
      * @param path The path to set.
      */
     public void setPath(String path)
@@ -180,7 +163,7 @@ public class Resource
 
     /**
      * The cartridge that owns this template configuration.
-     * 
+     *
      * @return Returns the owning cartridge.
      */
     public Cartridge getCartridge()
@@ -190,7 +173,7 @@ public class Resource
 
     /**
      * Sets the Cartridge parent to which this Resource belongs.
-     * 
+     *
      * @param cartridge the parent Cartridge to set.
      */
     public void setCartridge(Cartridge cartridge)
@@ -200,7 +183,7 @@ public class Resource
 
     /**
      * Sets the pattern that is used to build the name of the output file.
-     * 
+     *
      * @param outputPattern the pattern in java.text.MessageFormat syntax
      */
     public void setOutputPattern(String outputPattern)
@@ -210,7 +193,7 @@ public class Resource
 
     /**
      * Gets the pattern that is used to build the name of the output file.
-     * 
+     *
      * @return String the pattern in java.text.MessageFormat syntax
      */
     public String getOutputPattern()

@@ -7,12 +7,10 @@ import java.util.StringTokenizer;
 
 /**
  * A utility object useful for formatting paragraph output.
- * <p>
- * Represents a paragraph, made of lines. The whole paragraph has a limit for
- * the line length. Words can be added, the class will reformat the paragraph
- * according to max. line length.
- * </p>
- * 
+ * <p/>
+ * Represents a paragraph, made of lines. The whole paragraph has a limit for the line length. Words can be added, the
+ * class will reformat the paragraph according to max. line length. </p>
+ *
  * @author Matthias Bohlen
  * @author Chad Brandon
  */
@@ -23,23 +21,20 @@ public class Paragraph
     private int maxLineWidth;
 
     /**
-     * <p>
-     * Constructs an HtmlParagraph with a specified maximum line length.
-     * </p>
-     * 
+     * <p/>
+     * Constructs an HtmlParagraph with a specified maximum line length. </p>
+     *
      * @param lineLength maximum line length
      */
-    public Paragraph(
-        int lineLength)
+    public Paragraph(int lineLength)
     {
         this.maxLineWidth = lineLength;
     }
 
     /**
-     * <p>
-     * Appends another word to this paragraph.
-     * </p>
-     * 
+     * <p/>
+     * Appends another word to this paragraph. </p>
+     *
      * @param word the word
      */
     public void appendWord(String word)
@@ -53,10 +48,9 @@ public class Paragraph
     }
 
     /**
-     * <p>
-     * Appends a bunch of words to the paragraph.
-     * </p>
-     * 
+     * <p/>
+     * Appends a bunch of words to the paragraph. </p>
+     *
      * @param text the text to add to the paragraph
      */
     public void appendText(String text)
@@ -75,10 +69,9 @@ public class Paragraph
     }
 
     /**
-     * <p>
-     * Returns the lines in this paragraph.
-     * </p>
-     * 
+     * <p/>
+     * Returns the lines in this paragraph. </p>
+     *
      * @return Collection the lines as collection of Strings
      */
     public Collection getLines()
@@ -98,7 +91,7 @@ public class Paragraph
         StringBuffer st = new StringBuffer();
         for (Iterator it = getLines().iterator(); it.hasNext();)
         {
-            st.append((String)it.next());
+            st.append((String) it.next());
             st.append("\n");
         }
         return st.toString();

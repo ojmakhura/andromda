@@ -28,7 +28,7 @@ public abstract class AbstractHighlightTag extends TagSupport
 
         if (content instanceof Collection)
         {
-            final Collection collection = (Collection)content;
+            final Collection collection = (Collection) content;
             if (collection != null && !collection.isEmpty())
             {
                 content = collection.iterator().next();
@@ -39,17 +39,17 @@ public abstract class AbstractHighlightTag extends TagSupport
         {
             try
             {
-                String bodyText = getSourceCode((Element)content);
+                String bodyText = getSourceCode((Element) content);
                 highlight(xmlOutput, StringEscapeUtils.unescapeXml(bodyText));
             }
             catch (SAXException e)
             {
-                throw new JellyTagException("Unable to print out highlighted body text: "+e);
+                throw new JellyTagException("Unable to print out highlighted body text: " + e);
             }
         }
         else
         {
-            throw new JellyTagException("Not an XML element: "+getValue());
+            throw new JellyTagException("Not an XML element: " + getValue());
         }
     }
 
@@ -63,7 +63,7 @@ public abstract class AbstractHighlightTag extends TagSupport
 
             for (Iterator iterator = element.nodeIterator(); iterator.hasNext();)
             {
-                Node childElement = (Node)iterator.next();
+                Node childElement = (Node) iterator.next();
                 xmlWriter.write(childElement.getText());
             }
 

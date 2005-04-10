@@ -1,11 +1,5 @@
 package org.andromda.cartridges.ejb.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import org.andromda.cartridges.ejb.EJBGlobals;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.core.common.ExceptionRecorder;
@@ -20,20 +14,21 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 /**
- * <p>
- * Represents an entity EJB.
- * </p>
- * Metaclass facade implementation.
+ * <p/>
+ * Represents an entity EJB. </p> Metaclass facade implementation.
  */
-public class EJBEntityFacadeLogicImpl
-    extends EJBEntityFacadeLogic
+public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EJBEntityFacadeLogicImpl(
-        java.lang.Object metaObject,
-        String context)
+    public EJBEntityFacadeLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -44,14 +39,11 @@ public class EJBEntityFacadeLogicImpl
         Iterator iter = this.getSourceDependencies().iterator();
         while (iter.hasNext())
         {
-            DependencyFacade dep = (DependencyFacade)iter.next();
+            DependencyFacade dep = (DependencyFacade) iter.next();
             if (dep.hasStereotype(EJBProfile.STEREOTYPE_IDENTIFIER))
             {
-                identifiers = ((ClassifierFacade)dep.getTargetElement())
-                    .getInstanceAttributes();
-                MetafacadeUtils.filterByStereotype(
-                    identifiers,
-                    EJBProfile.STEREOTYPE_IDENTIFIER);
+                identifiers = ((ClassifierFacade) dep.getTargetElement()).getInstanceAttributes();
+                MetafacadeUtils.filterByStereotype(identifiers, EJBProfile.STEREOTYPE_IDENTIFIER);
                 return identifiers;
             }
         }
@@ -59,14 +51,13 @@ public class EJBEntityFacadeLogicImpl
         // No PK dependency found - try a PK attribute
         if (super.getIdentifiers() != null && !super.getIdentifiers().isEmpty())
         {
-            AttributeFacade attr = (AttributeFacade)super.getIdentifiers()
-                .iterator().next();
+            AttributeFacade attr = (AttributeFacade) super.getIdentifiers().iterator().next();
             identifiers.add(attr);
             return identifiers;
         }
 
         // Still nothing found - recurse up the inheritance tree
-        EJBEntityFacade decorator = (EJBEntityFacade)this.getGeneralization();
+        EJBEntityFacade decorator = (EJBEntityFacade) this.getGeneralization();
         return decorator.getIdentifiers();
     }
 
@@ -86,14 +77,12 @@ public class EJBEntityFacadeLogicImpl
         Collection result = new ArrayList();
         result.addAll(getEntityRelations());
 
-        ClassifierFacade classifier = (ClassifierFacade)this
-            .getGeneralization();
-        while (classifier != null && classifier instanceof EJBEntityFacade
-            && classifier.isAbstract())
+        ClassifierFacade classifier = (ClassifierFacade) this.getGeneralization();
+        while (classifier != null && classifier instanceof EJBEntityFacade && classifier.isAbstract())
         {
-            EJBEntityFacade entity = (EJBEntityFacade)classifier;
+            EJBEntityFacade entity = (EJBEntityFacade) classifier;
             result.addAll(entity.getEntityRelations());
-            classifier = (ClassifierFacade)classifier.getGeneralization();
+            classifier = (ClassifierFacade) classifier.getGeneralization();
         }
         return result;
     }
@@ -115,23 +104,18 @@ public class EJBEntityFacadeLogicImpl
         Iterator endIt = this.getAssociationEnds().iterator();
         while (endIt.hasNext())
         {
-            EJBAssociationEndFacade associationEnd = (EJBAssociationEndFacade)endIt
-                .next();
+            EJBAssociationEndFacade associationEnd = (EJBAssociationEndFacade) endIt.next();
             ClassifierFacade target = associationEnd.getOtherEnd().getType();
-            if (target instanceof EJBEntityFacade
-                && associationEnd.getOtherEnd().isNavigable())
+            if (target instanceof EJBEntityFacade && associationEnd.getOtherEnd().isNavigable())
             {
                 // Check the integrity constraint
-                Object value = associationEnd.getOtherEnd().getAssociation()
-                    .findTaggedValue(EJBProfile.TAGGEDVALUE_GENERATE_CMR);
+                Object value = associationEnd.getOtherEnd().getAssociation().findTaggedValue(
+                        EJBProfile.TAGGEDVALUE_GENERATE_CMR);
                 String generateCmr = value == null ? null : value.toString();
-                if (target.isAbstract()
-                    && !"false".equalsIgnoreCase(generateCmr))
+                if (target.isAbstract() && !"false".equalsIgnoreCase(generateCmr))
                 {
-                    throw new IllegalStateException("Relation '"
-                        + associationEnd.getAssociation().getName()
-                        + "' has the abstract target '" + target.getName()
-                        + "'. Abstract targets are not allowed in EJB.");
+                    throw new IllegalStateException("Relation '" + associationEnd.getAssociation().getName() + "' has the abstract target '" + target.getName() +
+                            "'. Abstract targets are not allowed in EJB.");
                 }
                 result.add(associationEnd);
             }
@@ -176,7 +160,7 @@ public class EJBEntityFacadeLogicImpl
             Collection ops = this.getOperations();
             for (Iterator i = ops.iterator(); i.hasNext();)
             {
-                OperationFacade op = (OperationFacade)i.next();
+                OperationFacade op = (OperationFacade) i.next();
                 if (op.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD))
                 {
                     retval.add(op);
@@ -184,7 +168,7 @@ public class EJBEntityFacadeLogicImpl
             }
             if (follow)
             {
-                entity = (EJBEntityFacade)this.getGeneralization();
+                entity = (EJBEntityFacade) this.getGeneralization();
             }
             else
             {
@@ -225,8 +209,7 @@ public class EJBEntityFacadeLogicImpl
     protected java.lang.String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this
-            .getJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -239,12 +222,12 @@ public class EJBEntityFacadeLogicImpl
 
     /**
      * Gets the <code>jndiNamePrefix</code> for this EJB.
-     * 
+     *
      * @return the EJB Jndi name prefix.
      */
     protected String getJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
+        return (String) this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
     }
 
     /**
@@ -266,11 +249,9 @@ public class EJBEntityFacadeLogicImpl
             public boolean evaluate(Object object)
             {
                 boolean businessOperation = false;
-                if (EJBOperationFacade.class
-                    .isAssignableFrom(object.getClass()))
+                if (EJBOperationFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    businessOperation = ((EJBOperationFacade)object)
-                        .isBusinessOperation();
+                    businessOperation = ((EJBOperationFacade) object).isBusinessOperation();
                 }
                 return businessOperation;
             }
@@ -291,11 +272,9 @@ public class EJBEntityFacadeLogicImpl
                 boolean isValueRef = false;
                 if (object instanceof DependencyFacade)
                 {
-                    DependencyFacade dep = (DependencyFacade)object;
-                    isValueRef = dep.getStereotypeNames().contains(
-                        EJBProfile.STEREOTYPE_VALUE_REF)
-                        && dep.getTargetElement().hasExactStereotype(
-                            EJBProfile.STEREOTYPE_VALUE_OBJECT);
+                    DependencyFacade dep = (DependencyFacade) object;
+                    isValueRef = dep.getStereotypeNames().contains(EJBProfile.STEREOTYPE_VALUE_REF) && dep.getTargetElement()
+                            .hasExactStereotype(EJBProfile.STEREOTYPE_VALUE_OBJECT);
                 }
                 return isValueRef;
             }
@@ -312,7 +291,7 @@ public class EJBEntityFacadeLogicImpl
         Iterator it = collIdentifier.iterator();
         while (it.hasNext())
         {
-            AttributeFacade attr = (AttributeFacade)it.next();
+            AttributeFacade attr = (AttributeFacade) it.next();
             if (attr.getName().equalsIgnoreCase(identifier))
             {
                 return true;
@@ -330,7 +309,7 @@ public class EJBEntityFacadeLogicImpl
         Iterator it = collAttrib.iterator();
         while (it.hasNext())
         {
-            AttributeFacade attr = (AttributeFacade)it.next();
+            AttributeFacade attr = (AttributeFacade) it.next();
             if (attr.getName().equalsIgnoreCase(strAttr))
             {
                 return true;
@@ -348,7 +327,7 @@ public class EJBEntityFacadeLogicImpl
         Iterator it = collOps.iterator();
         while (it.hasNext())
         {
-            OperationFacade operation = (OperationFacade)it.next();
+            OperationFacade operation = (OperationFacade) it.next();
             if (operation.getName().equalsIgnoreCase(op))
             {
                 return true;
@@ -358,9 +337,8 @@ public class EJBEntityFacadeLogicImpl
     }
 
     /**
-     * Gets a Mappings instance from a property registered under the given
-     * <code>propertyName</code>.
-     * 
+     * Gets a Mappings instance from a property registered under the given <code>propertyName</code>.
+     *
      * @param propertyName the property name to register under.
      * @return the Mappings instance.
      */
@@ -371,7 +349,7 @@ public class EJBEntityFacadeLogicImpl
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
-            uri = (String)property;
+            uri = (String) property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -379,8 +357,7 @@ public class EJBEntityFacadeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '"
-                    + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg);
                 // don't throw the exception
                 ExceptionRecorder.instance().record(errMsg, th);
@@ -388,7 +365,7 @@ public class EJBEntityFacadeLogicImpl
         }
         else
         {
-            mappings = (TypeMappings)property;
+            mappings = (TypeMappings) property;
         }
         return mappings;
     }
@@ -398,8 +375,7 @@ public class EJBEntityFacadeLogicImpl
      */
     protected String handleGetSqlType()
     {
-        String mpSql = this.getMappingsProperty(
-            UMLMetafacadeProperties.SQL_MAPPINGS_URI).getMappings().getName();
+        String mpSql = this.getMappingsProperty(UMLMetafacadeProperties.SQL_MAPPINGS_URI).getMappings().getName();
         if (mpSql.startsWith("Oracle"))
         {
             mpSql = "ORACLE";
@@ -412,12 +388,10 @@ public class EJBEntityFacadeLogicImpl
      */
     protected java.lang.String handleGetTransactionType()
     {
-        String transactionType = (String)this
-            .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String) this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = transactionType = String.valueOf(this
-                .getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
+            transactionType = transactionType = String.valueOf(this.getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
         }
         return transactionType;
     }

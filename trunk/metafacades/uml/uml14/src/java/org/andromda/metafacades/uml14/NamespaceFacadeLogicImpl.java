@@ -1,22 +1,19 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-
 import org.omg.uml.foundation.core.Namespace;
+
+import java.util.Collection;
 
 /**
  * MetafacadeLogic implementation.
- * 
+ *
  * @see org.andromda.metafacades.uml.NamespaceFacade
  */
-public class NamespaceFacadeLogicImpl
-    extends NamespaceFacadeLogic
+public class NamespaceFacadeLogicImpl extends NamespaceFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public NamespaceFacadeLogicImpl(
-        org.omg.uml.foundation.core.Namespace metaObject,
-        java.lang.String context)
+    public NamespaceFacadeLogicImpl(org.omg.uml.foundation.core.Namespace metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -25,6 +22,6 @@ public class NamespaceFacadeLogicImpl
 
     protected Collection handleGetOwnedElements()
     {
-        return ((Namespace)metaObject).getOwnedElement();
+        return ((Namespace) metaObject).getOwnedElement();
     }
 }

@@ -1,5 +1,9 @@
 package org.andromda.core.common;
 
+import org.andromda.core.templateengine.TemplateEngine;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,18 +13,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.andromda.core.templateengine.TemplateEngine;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
 /**
- * Represents the base plugin of AndroMDA. All Plugin instances inherit from
- * this class.
- * 
+ * Represents the base plugin of AndroMDA. All Plugin instances inherit from this class.
+ *
  * @author Chad Brandon
  */
-public abstract class BasePlugin
-    implements Plugin
+public abstract class BasePlugin implements Plugin
 {
     /**
      * Property references made available to the plugin
@@ -44,7 +42,7 @@ public abstract class BasePlugin
 
     /**
      * Returns the name of this Library.
-     * 
+     *
      * @return String
      */
     public String getName()
@@ -60,16 +58,12 @@ public abstract class BasePlugin
         // set the template engine merge location (this needs to be
         // set before the template engine is initialized) so that the
         // merge property can be set once on the template engine.
-        Property mergeProperty = Namespaces.instance().findNamespaceProperty(
-            this.getName(),
-            NamespaceProperties.MERGE_LOCATION,
-            false);
-        this.mergeLocation = mergeProperty != null ? new File(mergeProperty
-            .getValue()).toURL() : null;
+        Property mergeProperty = Namespaces.instance().findNamespaceProperty(this.getName(),
+                NamespaceProperties.MERGE_LOCATION, false);
+        this.mergeLocation = mergeProperty != null ? new File(mergeProperty.getValue()).toURL() : null;
         if (this.mergeLocation != null)
         {
-            this.getTemplateEngine().setMergeLocation(
-                this.getMergeLocation().getFile());
+            this.getTemplateEngine().setMergeLocation(this.getMergeLocation().getFile());
         }
         this.getTemplateEngine().init(this.getName());
     }
@@ -81,7 +75,7 @@ public abstract class BasePlugin
 
     /**
      * Gets the current merge location for this plugin.
-     * 
+     *
      * @return the merge location (a file path).
      */
     protected URL getMergeLocation()
@@ -99,7 +93,7 @@ public abstract class BasePlugin
 
     /**
      * Sets the name of this Library.
-     * 
+     *
      * @param name
      */
     public void setName(String name)
@@ -124,9 +118,9 @@ public abstract class BasePlugin
     }
 
     /**
-     * Adds the <code>templateObject</code> to the collection of template
-     * objects that will be made available to the plugin during processing.
-     * 
+     * Adds the <code>templateObject</code> to the collection of template objects that will be made available to the
+     * plugin during processing.
+     *
      * @param templateObject the TemplateObject to add.
      */
     public void addTemplateObject(TemplateObject templateObject)
@@ -140,7 +134,7 @@ public abstract class BasePlugin
 
     /**
      * Adds a macro library to the TemplateEngine used by this BasePlugin.
-     * 
+     *
      * @param macrolibrary
      */
     public void addMacrolibrary(String macrolibrary)
@@ -160,9 +154,8 @@ public abstract class BasePlugin
 
     /**
      * Sets the template engine class for this cartridge.
-     * 
-     * @param templateEngineClass the Class of the template engine
-     *        implementation.
+     *
+     * @param templateEngineClass the Class of the template engine implementation.
      */
     public void setTemplateEngineClass(String templateEngineClass)
     {
@@ -178,8 +171,8 @@ public abstract class BasePlugin
     {
         if (templateEngine == null)
         {
-            templateEngine = (TemplateEngine)ComponentContainer.instance()
-                .newComponent(templateEngineClass, TemplateEngine.class);
+            templateEngine = (TemplateEngine) ComponentContainer.instance().newComponent(templateEngineClass,
+                    TemplateEngine.class);
         }
         return templateEngine;
     }
@@ -193,11 +186,10 @@ public abstract class BasePlugin
     }
 
     /**
-     * Adds a property reference. Property references are those properties that
-     * are expected to be supplied by the calling client. These supplied
-     * properties are made available to the template during processing.
-     * 
-     * @param reference the name of the reference.
+     * Adds a property reference. Property references are those properties that are expected to be supplied by the
+     * calling client. These supplied properties are made available to the template during processing.
+     *
+     * @param reference    the name of the reference.
      * @param defaultValue the default value of the property reference.
      */
     public void addPropertyReference(String reference, String defaultValue)
@@ -206,11 +198,10 @@ public abstract class BasePlugin
     }
 
     /**
-     * Populates the <code>templateContext</code> with the properties and
-     * template objects defined in the <code>plugin</code>'s descriptor. If
-     * the <code>templateContext</code> is null, a new Map instance will be
-     * created before populating the context.
-     * 
+     * Populates the <code>templateContext</code> with the properties and template objects defined in the
+     * <code>plugin</code>'s descriptor. If the <code>templateContext</code> is null, a new Map instance will be created
+     * before populating the context.
+     *
      * @param templateContext the context of the template to populate.
      */
     protected void populateTemplateContext(Map templateContext)
@@ -224,11 +215,11 @@ public abstract class BasePlugin
     }
 
     /**
-     * Takes all the template objects defined in the plugin's descriptor and
-     * places them in the <code>templateContext</code>.
-     * 
+     * Takes all the template objects defined in the plugin's descriptor and places them in the
+     * <code>templateContext</code>.
+     *
      * @param templateContext the template context
-     * @param properties the user properties
+     * @param properties      the user properties
      */
     private void addTemplateObjectsToContext(Map templateContext)
     {
@@ -239,21 +230,18 @@ public abstract class BasePlugin
             Iterator templateObjectIt = templateObjects.iterator();
             while (templateObjectIt.hasNext())
             {
-                TemplateObject templateObject = (TemplateObject)templateObjectIt
-                    .next();
-                templateContext.put(templateObject.getName(), templateObject
-                    .getTemplateObject());
+                TemplateObject templateObject = (TemplateObject) templateObjectIt.next();
+                templateContext.put(templateObject.getName(), templateObject.getTemplateObject());
             }
         }
     }
 
     /**
-     * Takes all the property references defined in the plugin's descriptor and
-     * looks up the corresponding values supplied by the calling client and
-     * supplies them to the <code>templateContext</code>.
-     * 
+     * Takes all the property references defined in the plugin's descriptor and looks up the corresponding values
+     * supplied by the calling client and supplies them to the <code>templateContext</code>.
+     *
      * @param templateContext the template context
-     * @param properties the user properties
+     * @param properties      the user properties
      */
     private void addPropertyReferencesToContext(Map templateContext)
     {
@@ -263,8 +251,8 @@ public abstract class BasePlugin
             Iterator referenceIt = propertyReferences.keySet().iterator();
             while (referenceIt.hasNext())
             {
-                String reference = (String)referenceIt.next();
-                String defaultValue = (String)propertyReferences.get(reference);
+                String reference = (String) referenceIt.next();
+                String defaultValue = (String) propertyReferences.get(reference);
 
                 // if we have a default value, then don't warn
                 // that we don't have a property, otherwise we'll
@@ -275,17 +263,12 @@ public abstract class BasePlugin
                     showWarning = true;
                 }
                 // find the property from the namespace
-                Property property = Namespaces.instance()
-                    .findNamespaceProperty(
-                        this.getName(),
-                        reference,
-                        showWarning);
+                Property property = Namespaces.instance().findNamespaceProperty(this.getName(), reference, showWarning);
                 // if property isn't ignore, then add it to
                 // the context
                 if (property != null && !property.isIgnore())
                 {
-                    templateContext
-                        .put(property.getName(), property.getValue());
+                    templateContext.put(property.getName(), property.getValue());
                 }
                 else if (defaultValue != null)
                 {
@@ -309,12 +292,10 @@ public abstract class BasePlugin
         {
             if (ResourceUtils.isArchive(this.getResource()))
             {
-                this.contents = ResourceUtils.getClassPathArchiveContents(this
-                    .getResource());
+                this.contents = ResourceUtils.getClassPathArchiveContents(this.getResource());
                 if (this.getMergeLocation() != null)
                 {
-                    Collection mergeContents = ResourceUtils
-                        .getDirectoryContents(this.getMergeLocation(), 0);
+                    Collection mergeContents = ResourceUtils.getDirectoryContents(this.getMergeLocation(), 0);
                     if (mergeContents != null && !mergeContents.isEmpty())
                     {
                         this.contents.addAll(mergeContents);
@@ -326,8 +307,7 @@ public abstract class BasePlugin
                 // we step down 1 level if its a directory (instead of an
                 // archive since we get the contents relative to the plugin
                 // resource which is in the META-INF directory
-                this.contents = ResourceUtils.getDirectoryContents(this
-                    .getResource(), 2);
+                this.contents = ResourceUtils.getDirectoryContents(this.getResource(), 2);
             }
 
         }
@@ -335,9 +315,8 @@ public abstract class BasePlugin
     }
 
     /**
-     * Retrieves the logger instance that should be used for logging output for
-     * the plugin sub classes.
-     * 
+     * Retrieves the logger instance that should be used for logging output for the plugin sub classes.
+     *
      * @return the logger.
      */
     protected Logger getLogger()

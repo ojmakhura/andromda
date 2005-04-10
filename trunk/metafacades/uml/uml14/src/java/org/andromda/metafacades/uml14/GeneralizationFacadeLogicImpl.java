@@ -2,17 +2,15 @@ package org.andromda.metafacades.uml14;
 
 /**
  * MetafacadeLogic implementation.
- * 
+ *
  * @see org.andromda.metafacades.uml.GeneralizationFacade
  */
-public class GeneralizationFacadeLogicImpl
-    extends GeneralizationFacadeLogic
+public class GeneralizationFacadeLogicImpl extends GeneralizationFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public GeneralizationFacadeLogicImpl(
-        org.omg.uml.foundation.core.Generalization metaObject,
-        java.lang.String context)
+    public GeneralizationFacadeLogicImpl(org.omg.uml.foundation.core.Generalization metaObject,
+                                         java.lang.String context)
     {
         super(metaObject, context);
     }

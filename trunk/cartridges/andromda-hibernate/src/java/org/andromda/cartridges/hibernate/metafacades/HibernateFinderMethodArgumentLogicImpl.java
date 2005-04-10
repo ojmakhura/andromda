@@ -3,26 +3,21 @@ package org.andromda.cartridges.hibernate.metafacades;
 import org.andromda.metafacades.uml.ClassifierFacade;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument.
+ *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument
  */
-public class HibernateFinderMethodArgumentLogicImpl
-    extends HibernateFinderMethodArgumentLogic
+public class HibernateFinderMethodArgumentLogicImpl extends HibernateFinderMethodArgumentLogic
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateFinderMethodArgumentLogicImpl(
-        Object metaObject,
-        String context)
+    public HibernateFinderMethodArgumentLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
-     * Defines if specific setters methods will be created for primitive types and
-     * dates
+     * Defines if specific setters methods will be created for primitive types and dates
      */
     private static final String USE_SPECIALIZED_SETTERS = "hibernateQueryUseSpecializedSetters";
 
@@ -32,11 +27,7 @@ public class HibernateFinderMethodArgumentLogicImpl
     protected java.lang.String handleGetQueryArgumentNameSetter()
     {
         StringBuffer setterName = new StringBuffer();
-        boolean specializedSetters = Boolean
-            .valueOf(
-                String.valueOf(this
-                    .getConfiguredProperty(USE_SPECIALIZED_SETTERS)))
-            .booleanValue();
+        boolean specializedSetters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS))).booleanValue();
         ClassifierFacade classifier = this.getType();
         if (classifier != null)
         {
@@ -44,11 +35,7 @@ public class HibernateFinderMethodArgumentLogicImpl
             {
                 if (classifier.isPrimitive())
                 {
-                    setterName
-                        .append("set"
-                            + classifier.getWrapperName().replaceAll(
-                                "(.)*\\.",
-                                ""));
+                    setterName.append("set" + classifier.getWrapperName().replaceAll("(.)*\\.", ""));
                 }
                 else if (classifier.isDateType() || classifier.isStringType())
                 {

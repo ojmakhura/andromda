@@ -1,8 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -12,30 +9,29 @@ import org.omg.uml.foundation.datatypes.Expression;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * Metaclass facade implementation.
  */
-public class ParameterFacadeLogicImpl
-    extends ParameterFacadeLogic
+public class ParameterFacadeLogicImpl extends ParameterFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ParameterFacadeLogicImpl(
-        org.omg.uml.foundation.core.Parameter metaObject,
-        String context)
+    public ParameterFacadeLogicImpl(org.omg.uml.foundation.core.Parameter metaObject, String context)
     {
         super(metaObject, context);
     }
-    
+
     /**
      * Overridden to provide name masking.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     protected String handleGetName()
     {
-        final String nameMask = String.valueOf(
-            this.getConfiguredProperty(UMLMetafacadeProperties.PARAMETER_NAME_MASK));
+        final String nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.PARAMETER_NAME_MASK));
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
@@ -77,8 +73,7 @@ public class ParameterFacadeLogicImpl
     public boolean handleIsReturn()
     {
         final ParameterDirectionKind kind = metaObject.getKind();
-        return kind != null ? kind
-            .equals(ParameterDirectionKindEnum.PDK_RETURN) : false;
+        return kind != null ? kind.equals(ParameterDirectionKindEnum.PDK_RETURN) : false;
     }
 
     /**
@@ -95,12 +90,10 @@ public class ParameterFacadeLogicImpl
     protected Object handleGetOperation()
     {
         Operation parameterOperation = null;
-        Collection allOperations = UML14MetafacadeUtils.getModel().getCore()
-            .getOperation().refAllOfType();
-        for (Iterator iterator = allOperations.iterator(); iterator.hasNext()
-            && parameterOperation == null;)
+        Collection allOperations = UML14MetafacadeUtils.getModel().getCore().getOperation().refAllOfType();
+        for (Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation == null;)
         {
-            Operation operation = (Operation)iterator.next();
+            Operation operation = (Operation) iterator.next();
             if (operation.getParameter().contains(metaObject))
             {
                 parameterOperation = operation;
@@ -115,12 +108,10 @@ public class ParameterFacadeLogicImpl
     protected Object handleGetEvent()
     {
         SignalEvent parameterSignalEvent = null;
-        Collection allSignalEvents = UML14MetafacadeUtils.getModel()
-            .getStateMachines().getSignalEvent().refAllOfType();
-        for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext()
-            && parameterSignalEvent == null;)
+        Collection allSignalEvents = UML14MetafacadeUtils.getModel().getStateMachines().getSignalEvent().refAllOfType();
+        for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext() && parameterSignalEvent == null;)
         {
-            SignalEvent signalEvent = (SignalEvent)iterator.next();
+            SignalEvent signalEvent = (SignalEvent) iterator.next();
             if (signalEvent.getParameter().contains(metaObject))
             {
                 parameterSignalEvent = signalEvent;

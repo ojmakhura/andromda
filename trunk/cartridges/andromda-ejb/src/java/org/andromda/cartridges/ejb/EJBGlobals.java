@@ -11,7 +11,7 @@ public class EJBGlobals
      * Stores the default EJB transaction type.
      */
     public static final String TRANSACTION_TYPE = "transactionType";
-    
+
     /**
      * The pattern to use for determining the package name for EJBs.
      */

@@ -2,7 +2,7 @@ package org.andromda.cartridges.bpm4struts;
 
 /**
  * Stores the BPM4Struts Global variables.
- * 
+ *
  * @author Wouter Zoons
  * @author Chad Brandon
  */
@@ -12,22 +12,19 @@ public class Bpm4StrutsGlobals
      * Stores the default date format when dates are formmated.
      */
     public static final String PROPERTY_DEFAULT_DATEFORMAT = "defaultDateFormat";
-    
+
     /**
-     * Contains the default value for whether or not all forwards
-     * should perform a HTTP redirect or not.
+     * Contains the default value for whether or not all forwards should perform a HTTP redirect or not.
      */
     public static final String PROPERTY_DEFAULT_ACTION_REDIRECT = "defaultActionRedirect";
 
     /**
-     * The namespace property used to identify the pattern used to construct the backend
-     * service's accessor.
+     * The namespace property used to identify the pattern used to construct the backend service's accessor.
      */
     public static final String PROPERTY_SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
 
     /**
-     * The namespace property used to identify the pattern used to construct the backend
-     * service's package name.
+     * The namespace property used to identify the pattern used to construct the backend service's package name.
      */
     public static final String PROPERTY_SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
 
@@ -50,7 +47,7 @@ public class Bpm4StrutsGlobals
      * A space-separated list of types to which displaytag table are to be exported by default.
      */
     public static final String PROPERTY_DEFAULT_TABLE_EXPORT_TYPES = "defaultTableExportTypes";
-    
+
     /**
      * Stores the scope of the "form" attribute when executing an action.
      */

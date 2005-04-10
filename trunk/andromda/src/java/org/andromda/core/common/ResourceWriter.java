@@ -1,18 +1,17 @@
 package org.andromda.core.common;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
- * Used for writing resources for the framework. Also keeps histories of
- * previous resources generated so that we can avoid regenerating if the
- * generated resources are current.
- * 
+ * Used for writing resources for the framework. Also keeps histories of previous resources generated so that we can
+ * avoid regenerating if the generated resources are current.
+ *
  * @author Chad Brandon
  */
 public class ResourceWriter
@@ -23,9 +22,8 @@ public class ResourceWriter
     private static ResourceWriter instance = null;
 
     /**
-     * Gets the shared ResourceWriter instance. Normally you'll want to retrieve
-     * the instance through this method.
-     * 
+     * Gets the shared ResourceWriter instance. Normally you'll want to retrieve the instance through this method.
+     *
      * @return the shared instance.
      */
     public static ResourceWriter instance()
@@ -39,15 +37,13 @@ public class ResourceWriter
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     * 
-     * @param string the string to write to the file
-     * @param file the file to which to write.
-     * @param namespace the current namespace for which this resource is being
-     *        written.
+     *
+     * @param string    the string to write to the file
+     * @param file      the file to which to write.
+     * @param namespace the current namespace for which this resource is being written.
      * @throws IOException
      */
-    public void writeStringToFile(String string, File file, String namespace)
-        throws IOException
+    public void writeStringToFile(String string, File file, String namespace) throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         ExceptionUtils.checkNull(methodName, "file", file);
@@ -56,65 +52,51 @@ public class ResourceWriter
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     * 
-     * @param string the string to write to the file
+     *
+     * @param string       the string to write to the file
      * @param fileLocation the location of the file which to write.
      */
-    public void writeStringToFile(String string, String fileLocation)
-        throws IOException
+    public void writeStringToFile(String string, String fileLocation) throws IOException
     {
         this.writeStringToFile(string, fileLocation, true);
     }
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     * 
-     * @param string the string to write to the file
-     * @param fileLocation the location of the file which to write.
-     * @param recordHistory whether or not the history of the file should be
-     *        recorded.
+     *
+     * @param string        the string to write to the file
+     * @param fileLocation  the location of the file which to write.
+     * @param recordHistory whether or not the history of the file should be recorded.
      */
-    private void writeStringToFile(
-        String string,
-        String fileLocation,
-        boolean recordHistory) throws IOException
+    private void writeStringToFile(String string, String fileLocation, boolean recordHistory) throws IOException
     {
         this.writeStringToFile(string, fileLocation, null, recordHistory);
     }
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     * 
-     * @param string the string to write to the file
+     *
+     * @param string       the string to write to the file
      * @param fileLocation the location of the file which to write.
-     * @param namespace the current namespace for which this resource is being
-     *        written.
+     * @param namespace    the current namespace for which this resource is being written.
      * @throws IOException
      */
-    public void writeStringToFile(
-        String string,
-        String fileLocation,
-        String namespace) throws IOException
+    public void writeStringToFile(String string, String fileLocation, String namespace) throws IOException
     {
         writeStringToFile(string, fileLocation, namespace, true);
     }
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     * 
-     * @param string the string to write to the file
-     * @param fileLocation the location of the file which to write.
-     * @param namespace the current namespace for which this resource is being
-     *        written.
-     * @param recordHistory whether or not the history of this file should be
-     *        recorded.
+     *
+     * @param string        the string to write to the file
+     * @param fileLocation  the location of the file which to write.
+     * @param namespace     the current namespace for which this resource is being written.
+     * @param recordHistory whether or not the history of this file should be recorded.
      * @throws IOException
      */
-    private void writeStringToFile(
-        String string,
-        String fileLocation,
-        String namespace,
-        boolean recordHistory) throws IOException
+    private void writeStringToFile(String string, String fileLocation, String namespace, boolean recordHistory)
+            throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         if (string == null)
@@ -142,8 +124,8 @@ public class ResourceWriter
 
     /**
      * Writes the URL contents to a file specified by the fileLocation argument.
-     * 
-     * @param url the URL to read
+     *
+     * @param url          the URL to read
      * @param fileLocation the location which to write.
      */
     public void writeUrlToFile(URL url, String fileLocation) throws IOException
@@ -175,8 +157,7 @@ public class ResourceWriter
     private StringBuffer history = new StringBuffer();
 
     /**
-     * Resets the a history file, to write the history {@link #writeHistory()}
-     * must be called.
+     * Resets the a history file, to write the history {@link #writeHistory()} must be called.
      */
     public void resetHistory(URL modelUrl)
     {
@@ -203,9 +184,8 @@ public class ResourceWriter
     private long writtenCount = 0;
 
     /**
-     * Gets the number of currently written resources over the course of this
-     * instance's history.
-     * 
+     * Gets the number of currently written resources over the course of this instance's history.
+     *
      * @return the number of written resources.
      */
     public long getWrittenCount()
@@ -236,7 +216,7 @@ public class ResourceWriter
 
     /**
      * Writes the output history to disk.
-     * 
+     *
      * @throws IOException
      */
     public void writeHistory() throws IOException
@@ -246,11 +226,10 @@ public class ResourceWriter
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     * 
-     * @param string the string to write to the file
+     *
+     * @param string       the string to write to the file
      * @param fileLocation
-     * @param overwrite if true, replaces the file (if it exists, otherwise),
-     *        adds to the contents of the file.
+     * @param overwrite    if true, replaces the file (if it exists, otherwise), adds to the contents of the file.
      */
     private void recordHistory(File file)
     {
@@ -263,7 +242,7 @@ public class ResourceWriter
 
     /**
      * Checks to see if the history is before the given <code>time</code>.
-     * 
+     *
      * @param time the time in milliseconds to check against.
      * @return true/false
      */
@@ -275,8 +254,7 @@ public class ResourceWriter
             File historyFile = new File(getHistoryStorage());
             if (historyFile.exists() && historyFile.lastModified() >= time)
             {
-                String history = ResourceUtils.getContents(new File(
-                    getHistoryStorage()).toURL());
+                String history = ResourceUtils.getContents(new File(getHistoryStorage()).toURL());
                 String[] files = history.split(",");
                 long lastModified = 0;
                 for (int ctr = 0; ctr < files.length; ctr++)

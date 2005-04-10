@@ -1,19 +1,15 @@
 package org.andromda.cartridges.webservice.metafacades;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.webservice.metafacades.WSDLTypeAttribute.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WSDLTypeAttribute.
+ *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAttribute
  */
-public class WSDLTypeAttributeLogicImpl
-    extends WSDLTypeAttributeLogic
+public class WSDLTypeAttributeLogicImpl extends WSDLTypeAttributeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public WSDLTypeAttributeLogicImpl(
-        Object metaObject,
-        String context)
+    public WSDLTypeAttributeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }

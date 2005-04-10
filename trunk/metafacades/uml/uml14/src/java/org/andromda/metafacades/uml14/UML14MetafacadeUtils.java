@@ -1,12 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -33,41 +26,39 @@ import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.UmlPackage;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Utilities for dealing with UML 1.4 metafacades
- * 
+ *
  * @author Chad Brandon
  */
 public class UML14MetafacadeUtils
 {
 
     /**
-     * Finds a given model element in the model having the specified
-     * <code>fullyQualifiedName</code>. If the model element can <strong>NOT
-     * </strong> be found, <code>null</code> will be returned instead.
-     * 
-     * @param fullyQualifiedName the fully qualified name of the element to
-     *        search for.
-     * @param separator the separator used for qualifying the name (example
-     *        '::').
+     * Finds a given model element in the model having the specified <code>fullyQualifiedName</code>. If the model
+     * element can <strong>NOT </strong> be found, <code>null</code> will be returned instead.
+     *
+     * @param fullyQualifiedName the fully qualified name of the element to search for.
+     * @param separator          the separator used for qualifying the name (example '::').
      * @return the found model element
      */
-    static Object findByFullyQualifiedName(
-        final String fullyQualifiedName,
-        final String separator)
+    static Object findByFullyQualifiedName(final String fullyQualifiedName, final String separator)
     {
         Object modelElement = null;
-        Collection elements = ((org.omg.uml.UmlPackage)MetafacadeFactory
-            .getInstance().getModel().getModel()).getCore().getModelElement()
-            .refAllOfType();
+        Collection elements = ((org.omg.uml.UmlPackage) MetafacadeFactory.getInstance().getModel().getModel()).getCore().getModelElement().refAllOfType();
         modelElement = CollectionUtils.find(elements, new Predicate()
         {
             public boolean evaluate(Object object)
             {
-                ModelElement element = (ModelElement)object;
-                StringBuffer fullName = new StringBuffer(getPackageName(
-                    element,
-                    separator));
+                ModelElement element = (ModelElement) object;
+                StringBuffer fullName = new StringBuffer(getPackageName(element, separator));
                 String name = element.getName();
                 if (StringUtils.isNotBlank(name))
                 {
@@ -81,47 +72,41 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Constructs the package name for the given <code>metaObject</code>,
-     * seperating the package name by the given <code>separator</code>.
-     * 
+     * Constructs the package name for the given <code>metaObject</code>, seperating the package name by the given
+     * <code>separator</code>.
+     *
      * @param metaObject the Model Element
      * @return
      */
     static String getPackageName(ModelElement metaObject, String separator)
     {
         String packageName = "";
-        for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof UmlPackage)
-            && !(namespace instanceof Model); namespace = namespace
-            .getNamespace())
+        for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof UmlPackage) &&
+                !(namespace instanceof Model); namespace = namespace.getNamespace())
         {
-            packageName = packageName.equals("")
-                ? namespace.getName()
-                : namespace.getName() + separator + packageName;
+            packageName = packageName.equals("") ? namespace.getName() : namespace.getName() + separator + packageName;
         }
         return packageName;
     }
 
     /**
-     * Basically just checks to make sure the <code>model</code> is of type
-     * <code>org.omg.uml.UmlPackage</code> and retrieves the
-     * <code>CorePackage</code> from it.
-     * 
+     * Basically just checks to make sure the <code>model</code> is of type <code>org.omg.uml.UmlPackage</code> and
+     * retrieves the <code>CorePackage</code> from it.
+     *
      * @param model the model form which to retrieve the core package.
      * @return the <code>model</code> as a <code>org.omg.uml.UmlPackage</code>
      */
     static CorePackage getCorePackage()
     {
-        return ((org.omg.uml.UmlPackage)MetafacadeFactory.getInstance()
-            .getModel().getModel()).getCore();
+        return ((org.omg.uml.UmlPackage) MetafacadeFactory.getInstance().getModel().getModel()).getCore();
     }
 
     /**
-     * Finds and returns the first model element having the given
-     * <code>name</code> in the <code>modelPackage</code>, returns
-     * <code>null</code> if not found.
-     * 
+     * Finds and returns the first model element having the given <code>name</code> in the <code>modelPackage</code>,
+     * returns <code>null</code> if not found.
+     *
      * @param modelPackage The modelPackage to search
-     * @param name the name to find.
+     * @param name         the name to find.
      * @return the found model element.
      */
     static Object findByName(final String name)
@@ -129,13 +114,11 @@ public class UML14MetafacadeUtils
         Object modelElement = null;
         if (StringUtils.isNotBlank(name))
         {
-            modelElement = CollectionUtils.find(getModel().getCore()
-                .getModelElement().refAllOfType(), new Predicate()
+            modelElement = CollectionUtils.find(getModel().getCore().getModelElement().refAllOfType(), new Predicate()
             {
                 public boolean evaluate(Object object)
                 {
-                    return StringUtils.trimToEmpty(
-                        ((ModelElement)object).getName()).equals(name);
+                    return StringUtils.trimToEmpty(((ModelElement) object).getName()).equals(name);
                 }
             });
         }
@@ -144,14 +127,13 @@ public class UML14MetafacadeUtils
 
     /**
      * Gets the root package in the model.
-     * 
+     *
      * @return the root package as a UmlPackage.
      */
     static UmlPackage getRootPackage()
     {
         Object rootPackage = null;
-        Collection rootPackages = UML14MetafacadeUtils.getModel()
-            .getModelManagement().getModel().refAllOfType();
+        Collection rootPackages = UML14MetafacadeUtils.getModel().getModelManagement().getModel().refAllOfType();
         Iterator packageIt = rootPackages.iterator();
         while (packageIt.hasNext())
         {
@@ -163,24 +145,22 @@ public class UML14MetafacadeUtils
                 break;
             }
         }
-        return (UmlPackage)rootPackage;
+        return (UmlPackage) rootPackage;
     }
 
     /**
      * Returns the entire model.
-     * 
+     *
      * @return org.omg.uml.UmlPackage model instance.
      */
     static org.omg.uml.UmlPackage getModel()
     {
-        return (org.omg.uml.UmlPackage)MetafacadeFactory.getInstance()
-            .getModel().getModel();
+        return (org.omg.uml.UmlPackage) MetafacadeFactory.getInstance().getModel().getModel();
     }
 
     /**
-     * Gets the correct meta model visibility kind for the given
-     * <code>visibility</code> string.
-     * 
+     * Gets the correct meta model visibility kind for the given <code>visibility</code> string.
+     *
      * @param visibility the visibility to retrieve.
      * @return the VisibilityKind
      */
@@ -208,44 +188,34 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Creates an attribute having the give <code>name</code> and the type
-     * having the given <code>fullyQualifiedTypeName</code>, with the
-     * specified visibility, if no type can be found with the given name, no
-     * type is set.
-     * 
-     * @param name the new name
+     * Creates an attribute having the give <code>name</code> and the type having the given
+     * <code>fullyQualifiedTypeName</code>, with the specified visibility, if no type can be found with the given name,
+     * no type is set.
+     *
+     * @param name                   the new name
      * @param fullyQualifiedTypeName the name of the fully qualified type
-     * @param visibility the visibility name
-     * @param the separator used for qualifying the name.
+     * @param visibility             the visibility name
+     * @param the                    separator used for qualifying the name.
      * @return the new Attribute.
      */
-    static Attribute createAttribute(
-        String name,
-        String fullyQualifiedTypeName,
-        String visibility,
-        String separator)
+    static Attribute createAttribute(String name, String fullyQualifiedTypeName, String visibility, String separator)
     {
-        Attribute attribute = UML14MetafacadeUtils.getCorePackage()
-            .getAttribute().createAttribute();
+        Attribute attribute = UML14MetafacadeUtils.getCorePackage().getAttribute().createAttribute();
         attribute.setName(name);
-        attribute.setVisibility(UML14MetafacadeUtils
-            .getVisibilityKind(visibility));
-        Object type = UML14MetafacadeUtils.findByFullyQualifiedName(
-            fullyQualifiedTypeName,
-            separator);
+        attribute.setVisibility(UML14MetafacadeUtils.getVisibilityKind(visibility));
+        Object type = UML14MetafacadeUtils.findByFullyQualifiedName(fullyQualifiedTypeName, separator);
         if (type != null && Classifier.class.isAssignableFrom(type.getClass()))
         {
-            attribute.setType((Classifier)type);
+            attribute.setType((Classifier) type);
         }
         return attribute;
     }
-    
+
     /**
-     * Indicates whether or not the attribute exists on the given 
-     * </code>classifier</code>.  
-     * 
+     * Indicates whether or not the attribute exists on the given </code>classifier</code>.
+     *
      * @param classifier the classifier to check
-     * @param name the name of the attribute
+     * @param name       the name of the attribute
      * @return
      */
     static boolean attributeExists(Object classifier, String name)
@@ -253,7 +223,7 @@ public class UML14MetafacadeUtils
         boolean exists = false;
         if (Classifier.class.isAssignableFrom(classifier.getClass()))
         {
-            List features = ((Classifier)classifier).getFeature();
+            List features = ((Classifier) classifier).getFeature();
             if (features != null && !features.isEmpty())
             {
                 for (Iterator featureIterator = features.iterator(); featureIterator.hasNext();)
@@ -261,7 +231,7 @@ public class UML14MetafacadeUtils
                     Object feature = featureIterator.next();
                     if (feature != null && Attribute.class.isAssignableFrom(feature.getClass()))
                     {
-                        exists = StringUtils.trimToEmpty(((Attribute)feature).getName()).equals(name);
+                        exists = StringUtils.trimToEmpty(((Attribute) feature).getName()).equals(name);
                     }
                 }
             }
@@ -270,39 +240,32 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Finds or creates a stereotype with the given name. If the stereotype
-     * isn't found, it will be created.
-     * 
+     * Finds or creates a stereotype with the given name. If the stereotype isn't found, it will be created.
+     *
      * @param name the name of the stereotype.
      * @return the new Stereotype.
      */
     static Stereotype findOrCreateStereotype(String name)
     {
         Object stereotype = UML14MetafacadeUtils.findByName(name);
-        if (stereotype == null
-            || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
+        if (stereotype == null || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
         {
-            stereotype = UML14MetafacadeUtils.getCorePackage().getStereotype()
-                .createStereotype();
-            ((Stereotype)stereotype).setName(name);
+            stereotype = UML14MetafacadeUtils.getCorePackage().getStereotype().createStereotype();
+            ((Stereotype) stereotype).setName(name);
         }
-        return (Stereotype)stereotype;
+        return (Stereotype) stereotype;
     }
 
     /**
-     * Returns true if the passed in constraint <code>expression</code> is of
-     * type <code>kind</code>, false otherwise.
-     * 
+     * Returns true if the passed in constraint <code>expression</code> is of type <code>kind</code>, false otherwise.
+     *
      * @param expression the expression to check.
-     * @param kind the constraint kind (i.e. <em>inv</em>,<em>pre</em>,
-     *        <em>body</em>, etc).
+     * @param kind       the constraint kind (i.e. <em>inv</em>,<em>pre</em>, <em>body</em>, etc).
      * @return boolean
      */
     static boolean isConstraintKind(String expression, String kind)
     {
-        Pattern pattern = Pattern
-            .compile(".*\\s*" + StringUtils.trimToEmpty(kind)
-                + "\\s*\\w*\\s*:.*", Pattern.DOTALL);
+        Pattern pattern = Pattern.compile(".*\\s*" + StringUtils.trimToEmpty(kind) + "\\s*\\w*\\s*:.*", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(StringUtils.trimToEmpty(expression));
         return matcher.matches();
     }
@@ -316,27 +279,21 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Returns the first use-case it can find with the given name and
-     * stereotype, if the stereotype is not specified (it is null) it will be
-     * ignored and the returned use-case may have any arbitrary stereotype.
+     * Returns the first use-case it can find with the given name and stereotype, if the stereotype is not specified (it
+     * is null) it will be ignored and the returned use-case may have any arbitrary stereotype.
      */
-    static UseCase findFirstUseCaseWithNameAndStereotype(
-        String name,
-        String stereotypeName)
+    static UseCase findFirstUseCaseWithNameAndStereotype(String name, String stereotypeName)
     {
         UseCase useCaseWithNameAndStereotype = null;
 
-        Collection useCases = getModel().getUseCases().getUseCase()
-            .refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator
-            .hasNext()
-            && useCaseWithNameAndStereotype == null;)
+        Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithNameAndStereotype ==
+                null;)
         {
-            UseCase useCase = (UseCase)useCaseIterator.next();
+            UseCase useCase = (UseCase) useCaseIterator.next();
             if (name.equals(useCase.getName()))
             {
-                if (stereotypeName == null
-                    || isStereotypePresent(useCase, stereotypeName))
+                if (stereotypeName == null || isStereotypePresent(useCase, stereotypeName))
                 {
                     useCaseWithNameAndStereotype = useCase;
                 }
@@ -355,28 +312,20 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Returns the first activity graph it can find with the given name and
-     * stereotype, if the stereotype is not specified (it is null) it will be
-     * ignored and the returned activity graph may have any arbitrary
-     * stereotype.
+     * Returns the first activity graph it can find with the given name and stereotype, if the stereotype is not
+     * specified (it is null) it will be ignored and the returned activity graph may have any arbitrary stereotype.
      */
-    static ActivityGraph findFirstActivityGraphWithNameAndStereotype(
-        String name,
-        String stereotypeName)
+    static ActivityGraph findFirstActivityGraphWithNameAndStereotype(String name, String stereotypeName)
     {
         ActivityGraph graphWithNameAndStereotype = null;
 
-        Collection graphs = getModel().getActivityGraphs().getActivityGraph()
-            .refAllOfType();
-        for (Iterator graphIterator = graphs.iterator(); graphIterator
-            .hasNext()
-            && graphWithNameAndStereotype == null;)
+        Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
+        for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext() && graphWithNameAndStereotype == null;)
         {
-            ActivityGraph graph = (ActivityGraph)graphIterator.next();
+            ActivityGraph graph = (ActivityGraph) graphIterator.next();
             if (name.equals(graph.getName()))
             {
-                if (stereotypeName == null
-                    || isStereotypePresent(graph, stereotypeName))
+                if (stereotypeName == null || isStereotypePresent(graph, stereotypeName))
                 {
                     graphWithNameAndStereotype = graph;
                 }
@@ -387,23 +336,20 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Returns true if the given model element has a tag with the given name and
-     * value, returns false otherwise.
+     * Returns true if the given model element has a tag with the given name and value, returns false otherwise.
      */
     static boolean isTagPresent(ModelElement element, String tag, Object value)
     {
         boolean tagPresent = false;
 
         Collection taggedValues = element.getTaggedValue();
-        for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator
-            .hasNext()
-            && !tagPresent;)
+        for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext() && !tagPresent;)
         {
-            TaggedValue taggedValue = (TaggedValue)taggedValueIterator.next();
+            TaggedValue taggedValue = (TaggedValue) taggedValueIterator.next();
             if (tag.equals(taggedValue.getName()))
             {
-                for (Iterator valueIterator = taggedValue.getDataValue()
-                    .iterator(); valueIterator.hasNext() && !tagPresent;)
+                for (Iterator valueIterator = taggedValue.getDataValue().iterator(); valueIterator.hasNext() &&
+                        !tagPresent;)
                 {
                     Object dataValue = valueIterator.next();
                     if (value.equals(dataValue))
@@ -411,8 +357,8 @@ public class UML14MetafacadeUtils
                         tagPresent = true;
                     }
                 }
-                for (Iterator valueIterator = taggedValue.getReferenceValue()
-                    .iterator(); valueIterator.hasNext() && !tagPresent;)
+                for (Iterator valueIterator = taggedValue.getReferenceValue().iterator(); valueIterator.hasNext() &&
+                        !tagPresent;)
                 {
                     Object referenceValue = valueIterator.next();
                     if (value.equals(referenceValue))
@@ -426,26 +372,21 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Returns true if the given model element has a hyperlink with the given
-     * value, returns false otherwise.
+     * Returns true if the given model element has a hyperlink with the given value, returns false otherwise.
      */
     static boolean isHyperlinkPresent(ModelElement element, Object value)
     {
         return isTagPresent(element, "hyperlinkModel", value);
     }
 
-    static boolean isStereotypePresent(
-        ModelElement element,
-        String stereotypeName)
+    static boolean isStereotypePresent(ModelElement element, String stereotypeName)
     {
         boolean stereotypePresent = false;
 
         Collection stereotypes = element.getStereotype();
-        for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator
-            .hasNext()
-            && !stereotypePresent;)
+        for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext() && !stereotypePresent;)
         {
-            Stereotype stereotype = (Stereotype)stereotypeIterator.next();
+            Stereotype stereotype = (Stereotype) stereotypeIterator.next();
             if (stereotypeName.equals(stereotype.getName()))
             {
                 stereotypePresent = true;
@@ -455,26 +396,20 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Returns the first use-case this method can find with the given tagged
-     * value or hyperlink. Both arguments are used to look for the tagged value
-     * but only <code>value</code> is used to search for the hyperlink.
+     * Returns the first use-case this method can find with the given tagged value or hyperlink. Both arguments are used
+     * to look for the tagged value but only <code>value</code> is used to search for the hyperlink.
      */
-    static UseCase findUseCaseWithTaggedValueOrHyperlink(
-        String tag,
-        String value)
+    static UseCase findUseCaseWithTaggedValueOrHyperlink(String tag, String value)
     {
         UseCase useCaseWithTaggedValue = null;
 
-        Collection useCases = getModel().getUseCases().getUseCase()
-            .refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator
-            .hasNext()
-            && useCaseWithTaggedValue == null;)
+        Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithTaggedValue ==
+                null;)
         {
             // loop over all use-cases
-            UseCase useCase = (UseCase)useCaseIterator.next();
-            if (isTagPresent(useCase, tag, value)
-                || isHyperlinkPresent(useCase, value))
+            UseCase useCase = (UseCase) useCaseIterator.next();
+            if (isTagPresent(useCase, tag, value) || isHyperlinkPresent(useCase, value))
             {
                 useCaseWithTaggedValue = useCase;
             }
@@ -484,23 +419,19 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Returns the first class this method can find with the given tagged value
-     * or hyperlink. Both arguments are used to look for the tagged value but
-     * only <code>value</code> is used to search for the hyperlink.
+     * Returns the first class this method can find with the given tagged value or hyperlink. Both arguments are used to
+     * look for the tagged value but only <code>value</code> is used to search for the hyperlink.
      */
     static UmlClass findClassWithTaggedValueOrHyperlink(String tag, String value)
     {
         UmlClass classWithTaggedValue = null;
 
         Collection classes = getModel().getCore().getUmlClass().refAllOfType();
-        for (Iterator classIterator = classes.iterator(); classIterator
-            .hasNext()
-            && classWithTaggedValue == null;)
+        for (Iterator classIterator = classes.iterator(); classIterator.hasNext() && classWithTaggedValue == null;)
         {
             // loop over all use-cases
-            UmlClass clazz = (UmlClass)classIterator.next();
-            if (isTagPresent(clazz, tag, value)
-                || isHyperlinkPresent(clazz, value))
+            UmlClass clazz = (UmlClass) classIterator.next();
+            if (isTagPresent(clazz, tag, value) || isHyperlinkPresent(clazz, value))
             {
                 classWithTaggedValue = clazz;
             }
@@ -516,12 +447,10 @@ public class UML14MetafacadeUtils
         if (useCase != null && useCase.getName() != null)
         {
             String useCaseName = useCase.getName();
-            Collection allFinalStates = getModel().getStateMachines()
-                .getFinalState().refAllOfType();
-            for (Iterator iterator = allFinalStates.iterator(); iterator
-                .hasNext();)
+            Collection allFinalStates = getModel().getStateMachines().getFinalState().refAllOfType();
+            for (Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)
             {
-                FinalState finalState = (FinalState)iterator.next();
+                FinalState finalState = (FinalState) iterator.next();
                 if (useCaseName != null)
                 {
                     if (useCaseName.equals(finalState.getName()))
@@ -551,7 +480,7 @@ public class UML14MetafacadeUtils
 
     /**
      * Finds the given metafacade class for the passed in <code>facade</code>.
-     * 
+     *
      * @param facade the model element facade for which to find the meta class.
      * @return the meta model element
      */
@@ -562,15 +491,13 @@ public class UML14MetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection graphs = getModel().getActivityGraphs()
-                .getActivityGraph().refAllOfType();
-            for (Iterator iterator = graphs.iterator(); iterator.hasNext()
-                && activityGraph == null;)
+            Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
+            for (Iterator iterator = graphs.iterator(); iterator.hasNext() && activityGraph == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = (ModelElement) iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    activityGraph = (ActivityGraph)element;
+                    activityGraph = (ActivityGraph) element;
                 }
             }
         }
@@ -579,7 +506,7 @@ public class UML14MetafacadeUtils
 
     /**
      * Finds the given metafacade class for the passed in <code>facade</code>.
-     * 
+     *
      * @param facade the model element facade for which to find the meta class.
      * @return the meta model element
      */
@@ -590,15 +517,13 @@ public class UML14MetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection useCases = getModel().getUseCases().getUseCase()
-                .refAllOfType();
-            for (Iterator iterator = useCases.iterator(); iterator.hasNext()
-                && useCase == null;)
+            Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
+            for (Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = (ModelElement) iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    useCase = (UseCase)element;
+                    useCase = (UseCase) element;
                 }
             }
         }
@@ -607,7 +532,7 @@ public class UML14MetafacadeUtils
 
     /**
      * Finds the given metafacade class for the passed in <code>facade</code>.
-     * 
+     *
      * @param facade the model element facade for which to find the meta class.
      * @return the meta model element
      */
@@ -618,15 +543,13 @@ public class UML14MetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection parameters = getModel().getCore().getParameter()
-                .refAllOfType();
-            for (Iterator iterator = parameters.iterator(); iterator.hasNext()
-                && parameter == null;)
+            Collection parameters = getModel().getCore().getParameter().refAllOfType();
+            for (Iterator iterator = parameters.iterator(); iterator.hasNext() && parameter == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = (ModelElement) iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    parameter = (Parameter)element;
+                    parameter = (Parameter) element;
                 }
             }
         }
@@ -635,7 +558,7 @@ public class UML14MetafacadeUtils
 
     /**
      * Finds the given metafacade class for the passed in <code>facade</code>.
-     * 
+     *
      * @param facade the model element facade for which to find the meta class.
      * @return the meta model element
      */
@@ -646,15 +569,13 @@ public class UML14MetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection events = getModel().getStateMachines().getEvent()
-                .refAllOfType();
-            for (Iterator iterator = events.iterator(); iterator.hasNext()
-                && event == null;)
+            Collection events = getModel().getStateMachines().getEvent().refAllOfType();
+            for (Iterator iterator = events.iterator(); iterator.hasNext() && event == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = (ModelElement) iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    event = (Event)element;
+                    event = (Event) element;
                 }
             }
         }
@@ -663,7 +584,7 @@ public class UML14MetafacadeUtils
 
     /**
      * Finds the given metafacade class for the passed in <code>facade</code>.
-     * 
+     *
      * @param facade the model element facade for which to find the meta class.
      * @return the meta model element
      */
@@ -674,13 +595,10 @@ public class UML14MetafacadeUtils
         if (facade != null)
         {
             String id = facade.getId();
-            Collection modelElements = getModel().getCore().getModelElement()
-                .refAllOfType();
-            for (Iterator iterator = modelElements.iterator(); iterator
-                .hasNext()
-                && modelElement == null;)
+            Collection modelElements = getModel().getCore().getModelElement().refAllOfType();
+            for (Iterator iterator = modelElements.iterator(); iterator.hasNext() && modelElement == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = (ModelElement) iterator.next();
                 if (id.equals(element.refMofId()))
                 {
                     modelElement = element;

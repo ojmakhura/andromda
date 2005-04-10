@@ -1,9 +1,8 @@
 package org.andromda.metafacades.uml;
 
 /**
- * Stores the metafacade namespace properties used throughout the UML
- * metafacades.
- * 
+ * Stores the metafacade namespace properties used throughout the UML metafacades.
+ *
  * @author Chad Brandon
  */
 public class UMLMetafacadeProperties
@@ -34,8 +33,8 @@ public class UMLMetafacadeProperties
     public static final String WRAPPER_MAPPINGS_URI = "wrapperMappingsUri";
 
     /**
-     * Allows the pluralization of association end names (when the multiplicity
-     * is greater than one) to be turned on/off.
+     * Allows the pluralization of association end names (when the multiplicity is greater than one) to be turned
+     * on/off.
      */
     public static final String PLURALIZE_ASSOCIATION_END_NAMES = "pluralizeAssociationEndNames";
 
@@ -53,47 +52,47 @@ public class UMLMetafacadeProperties
      * The mask to apply to role names {@see NameMasker#mask(String, String)}.
      */
     public static final String ROLE_NAME_MASK = "roleNameMask";
-    
+
     /**
      * The mask to apply to any classifier names {@see NameMasker#mask(String, String)}.
      */
     public static final String CLASSIFIER_NAME_MASK = "classifierNameMask";
-    
+
     /**
      * The mask to apply to any of the classifier property names {@see NameMasker#mask(String, String)}.
      */
     public static final String CLASSIFIER_PROPERTY_NAME_MASK = "classifierPropertyNameMask";
-    
+
     /**
      * The mask to apply to any operation names {@see NameMasker#mask(String, String)}.
      */
     public static final String OPERATION_NAME_MASK = "operationNameMask";
-    
+
     /**
      * The mask to apply to any parameter names {@see NameMasker#mask(String, String)}.
      */
     public static final String PARAMETER_NAME_MASK = "parameterNameMask";
-    
+
     /**
      * The mask to apply to enumeration literal names {@see NameMasker#mask(String, String)}.
      */
     public static final String ENUMERATION_LITERAL_NAME_MASK = "enumerationLiteralNameMask";
-    
+
     /**
      * The mask to apply to the enumeration literal name {@see NameMasker#mask(String, String)}.
      */
     public static final String ENUMERATION_NAME_MASK = "enumerationNameMask";
-    
+
     /**
      * The mask to apply to the entity name {@see NameMasker#mask(String, String)}.
      */
     public static final String ENTITY_NAME_MASK = "entityNameMask";
-    
+
     /**
-     * The mask to apply to the entity property (attributes and association) 
-     * names {@see MetafacadeUtils#getMaskedName(String, String)}.
+     * The mask to apply to the entity property (attributes and association) names {@see
+     * MetafacadeUtils#getMaskedName(String, String)}.
      */
-    public static final String ENTITY_PROPERTY_NAME_MASK = "entityPropertyNameMask";    
+    public static final String ENTITY_PROPERTY_NAME_MASK = "entityPropertyNameMask";
 
     /**
      * The maximum length a SQL name can be before its truncated.
@@ -119,26 +118,25 @@ public class UMLMetafacadeProperties
      * The visibility to apply to default identifiers.
      */
     public static final String DEFAULT_IDENTIFIER_VISIBILITY = "defaultIdentifierVisibility";
-    
+
     /**
-     * The separator used for packages and element names when constructing
-     * fully qualified names.
+     * The separator used for packages and element names when constructing fully qualified names.
      */
     public static final String NAMESPACE_SEPARATOR = "namespaceSeparator";
-    
+
     /**
      * The name given to model elements without a name.
      */
     public static final String UNDEFINED_NAME = "undefinedName";
-    
+
     /**
      * Stores the suffix given to array type names.
      */
     public static final String ARRAY_NAME_SUFFIX = "arrayNameSuffix";
-    
+
     /**
-     * Stores the boolean flag indicating whether or not we should use arrays
-     * instead of collections with associations of type many (where appropriate).
+     * Stores the boolean flag indicating whether or not we should use arrays instead of collections with associations
+     * of type many (where appropriate).
      */
     public static final String USE_ARRAYS_FOR_MULTIPLICITIES_OF_TYPE_MANY = "useArraysForMultiplicitiesOfTypeMany";
 
@@ -146,17 +144,17 @@ public class UMLMetafacadeProperties
      * The seperator for relation names between associations.
      */
     public static final String RELATION_NAME_SEPARATOR = "relationNameSeparator";
-    
+
     /**
      * The seperator to use when constructing SQL names.
      */
     public static final String SQL_NAME_SEPARATOR = "sqlNameSeparator";
-    
+
     /**
      * The pattern used for constructing operations that handle precondition constraints.
      */
     public static final String PRECONDITION_NAME_PATTERN = "preconditionNamePattern";
-    
+
     /**
      * The pattern used for constructing operations that handle postcondition constraints.
      */

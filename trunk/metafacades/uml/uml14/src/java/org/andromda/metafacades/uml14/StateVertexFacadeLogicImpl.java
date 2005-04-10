@@ -4,17 +4,15 @@ import java.util.Collection;
 
 /**
  * MetafacadeLogic implementation.
- * 
+ *
  * @see org.andromda.metafacades.uml.StateVertexFacade
  */
-public class StateVertexFacadeLogicImpl
-    extends StateVertexFacadeLogic
+public class StateVertexFacadeLogicImpl extends StateVertexFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public StateVertexFacadeLogicImpl(
-        org.omg.uml.behavioralelements.statemachines.StateVertex metaObject,
-        java.lang.String context)
+    public StateVertexFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.StateVertex metaObject,
+                                      java.lang.String context)
     {
         super(metaObject, context);
     }

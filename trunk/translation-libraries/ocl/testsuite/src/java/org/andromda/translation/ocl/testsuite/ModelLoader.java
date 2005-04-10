@@ -1,7 +1,5 @@
 package org.andromda.translation.ocl.testsuite;
 
-import java.net.URL;
-
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
@@ -14,10 +12,11 @@ import org.andromda.core.repository.RepositoryFacadeException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.net.URL;
+
 /**
- * Models are required for OCL translation. This class loads models so that
- * translation tests may be performed during development of a
- * translation-library.
+ * Models are required for OCL translation. This class loads models so that translation tests may be performed during
+ * development of a translation-library.
  */
 public class ModelLoader
 {
@@ -50,15 +49,11 @@ public class ModelLoader
             this.repository = getRepository();
             this.repository.open();
             URL modelUrl = getModelResource();
-            final String moduleSearchPath = System
-                .getProperty(MODULE_SEARCH_PATH);
+            final String moduleSearchPath = System.getProperty(MODULE_SEARCH_PATH);
             String[] moduleSearchPaths = null;
             if (StringUtils.isNotBlank(moduleSearchPath))
             {
-                moduleSearchPaths = new String[]
-                {
-                    moduleSearchPath
-                };
+                moduleSearchPaths = new String[]{moduleSearchPath};
             }
             this.repository.readModel(modelUrl, moduleSearchPaths);
         }
@@ -72,7 +67,7 @@ public class ModelLoader
 
     /**
      * Retrieves the model resource location.
-     * 
+     *
      * @return URL the URI of the model resource.
      */
     private URL getModelResource()
@@ -86,9 +81,7 @@ public class ModelLoader
             {
                 if (logger.isInfoEnabled())
                 {
-                    logger.info("property '" + MODEL_XMI
-                        + "' set, finding model file --> '" + modelXmiProperty
-                        + "'");
+                    logger.info("property '" + MODEL_XMI + "' set, finding model file --> '" + modelXmiProperty + "'");
                 }
                 // first look for the model as a resource
                 modelXmiResource = ResourceUtils.getResource(modelXmiProperty);
@@ -100,17 +93,12 @@ public class ModelLoader
                 }
                 if (logger.isInfoEnabled())
                 {
-                    logger.info("using model file --> '" + modelXmiResource
-                        + "'");
+                    logger.info("using model file --> '" + modelXmiResource + "'");
                 }
             }
             else
             {
-                throw new TranslationTestProcessorException(
-                    methodName
-                        + " no property '"
-                        + MODEL_XMI
-                        + "' was defined, please define this to specify the location of your model");
+                throw new TranslationTestProcessorException(methodName + " no property '" + MODEL_XMI + "' was defined, please define this to specify the location of your model");
             }
         }
         catch (Exception ex)
@@ -124,7 +112,7 @@ public class ModelLoader
 
     /**
      * Returns the shared instance of this ModelLoader.
-     * 
+     *
      * @return ModelLoader the shared instance.
      */
     public static ModelLoader instance()
@@ -138,7 +126,7 @@ public class ModelLoader
 
     /**
      * Tests loading and retrieving the model from the repository.
-     * 
+     *
      * @return ModelAccessFacade the facade of the loaded model
      */
     public ModelAccessFacade getModel()
@@ -168,9 +156,8 @@ public class ModelLoader
 
     /**
      * Initializes the default namespace with the required properties.
-     * 
-     * @todo This needs to be handled in a more graceful way since properties
-     *       can change depending on metafacades.
+     *
+     * @todo This needs to be handled in a more graceful way since properties can change depending on metafacades.
      */
     private void intializeDefaultNamespace()
     {
@@ -192,29 +179,26 @@ public class ModelLoader
     }
 
     /**
-     * Gets the ModelAccessFacade implementation to use. Defaults to the
-     * implementation specified in the RespositoryConfiguration if one isn't
-     * specified
-     * 
+     * Gets the ModelAccessFacade implementation to use. Defaults to the implementation specified in the
+     * RespositoryConfiguration if one isn't specified
+     *
      * @return ModelAccessFacade the ModelAccessFacade instance.
      */
     protected ModelAccessFacade getModelAcessFacade()
     {
-        return (ModelAccessFacade)ComponentContainer.instance().findComponent(
-            ModelAccessFacade.class);
+        return (ModelAccessFacade) ComponentContainer.instance().findComponent(ModelAccessFacade.class);
     }
 
     /**
-     * Gets the Repository implementation to use. Defaults to the implementation
-     * specified in the RespositoryConfiguration if one isn't specified
-     * 
+     * Gets the Repository implementation to use. Defaults to the implementation specified in the
+     * RespositoryConfiguration if one isn't specified
+     *
      * @return Repository the Repository instance.
      * @throws Exception
      */
     protected RepositoryFacade getRepository()
     {
-        return (RepositoryFacade)ComponentContainer.instance().findComponent(
-            RepositoryFacade.class);
+        return (RepositoryFacade) ComponentContainer.instance().findComponent(RepositoryFacade.class);
     }
 
 }

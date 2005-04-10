@@ -1,8 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.NameMasker;
@@ -18,17 +15,17 @@ import org.omg.uml.foundation.datatypes.OrderingKind;
 import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * Metaclass facade implementation.
  */
-public class AttributeFacadeLogicImpl
-    extends AttributeFacadeLogic
+public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public AttributeFacadeLogicImpl(
-        org.omg.uml.foundation.core.Attribute metaObject,
-        String context)
+    public AttributeFacadeLogicImpl(org.omg.uml.foundation.core.Attribute metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -49,13 +46,10 @@ public class AttributeFacadeLogicImpl
         String prefix = null;
         if (getType() != null)
         {
-            prefix = UMLMetafacadeUtils.isType(
-                getType(),
-                UMLProfile.BOOLEAN_TYPE_NAME) ? "is" : "get";
+            prefix = UMLMetafacadeUtils.isType(getType(), UMLProfile.BOOLEAN_TYPE_NAME) ? "is" : "get";
         }
 
-        return StringUtils.trimToEmpty(prefix)
-            + StringUtils.capitalize(this.getName());
+        return StringUtils.trimToEmpty(prefix) + StringUtils.capitalize(this.getName());
     }
 
     /**
@@ -84,8 +78,7 @@ public class AttributeFacadeLogicImpl
      */
     public boolean handleIsChangeable()
     {
-        return ChangeableKindEnum.CK_CHANGEABLE.equals(metaObject
-            .getChangeability());
+        return ChangeableKindEnum.CK_CHANGEABLE.equals(metaObject.getChangeability());
     }
 
     /**
@@ -93,8 +86,7 @@ public class AttributeFacadeLogicImpl
      */
     public boolean handleIsAddOnly()
     {
-        return ChangeableKindEnum.CK_ADD_ONLY.equals(metaObject
-            .getChangeability());
+        return ChangeableKindEnum.CK_ADD_ONLY.equals(metaObject.getChangeability());
     }
 
     /**
@@ -118,8 +110,7 @@ public class AttributeFacadeLogicImpl
      */
     public boolean handleIsReadOnly()
     {
-        return ChangeableKindEnum.CK_FROZEN.equals(metaObject
-            .getChangeability());
+        return ChangeableKindEnum.CK_FROZEN.equals(metaObject.getChangeability());
     }
 
     /**
@@ -127,13 +118,11 @@ public class AttributeFacadeLogicImpl
      */
     public boolean handleIsStatic()
     {
-        return ScopeKindEnum.SK_CLASSIFIER.equals(this.metaObject
-            .getOwnerScope());
+        return ScopeKindEnum.SK_CLASSIFIER.equals(this.metaObject.getOwnerScope());
     }
 
     /**
-     * @see org.andromda.core.metadecorators.uml.AttributeFacade#findTaggedValue(java.lang.String,
-     *      boolean)
+     * @see org.andromda.core.metadecorators.uml.AttributeFacade#findTaggedValue(java.lang.String, boolean)
      */
     public Object handleFindTaggedValue(String name, boolean follow)
     {
@@ -145,7 +134,7 @@ public class AttributeFacadeLogicImpl
             while (value == null && type != null)
             {
                 value = type.findTaggedValue(name);
-                type = (ClassifierFacade)type.getGeneralization();
+                type = (ClassifierFacade) type.getGeneralization();
             }
         }
         return value;
@@ -176,8 +165,7 @@ public class AttributeFacadeLogicImpl
                 Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt
-                        .next();
+                    MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
                     int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
@@ -187,9 +175,8 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
-     * Returns the lower range of the multiplicty for the passed in
-     * associationEnd
-     * 
+     * Returns the lower range of the multiplicty for the passed in associationEnd
+     *
      * @return int the lower range of the multiplicty or 1 if it isn't defined.
      */
     private int getMultiplicityRangeLower()
@@ -207,8 +194,7 @@ public class AttributeFacadeLogicImpl
                     Iterator rangeIt = ranges.iterator();
                     while (rangeIt.hasNext())
                     {
-                        MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt
-                            .next();
+                        MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
                         lower = multiplicityRange.getLower();
                     }
                 }
@@ -253,21 +239,19 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
-     * Overridden to provide different handling of the name if this attribute
-     * represents a literal.
-     * 
+     * Overridden to provide different handling of the name if this attribute represents a literal.
+     *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(
-            this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
+                this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
         String name = NameMasker.mask(super.handleGetName(), nameMask);
         if (this.getOwner() instanceof EnumerationFacade)
         {
-            final String mask = String
-                .valueOf(this
-                    .getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
+            final String mask = String.valueOf(this.getConfiguredProperty(
+                    UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
             name = NameMasker.mask(super.handleGetName(), mask);
         }
         return name;
@@ -299,9 +283,8 @@ public class AttributeFacadeLogicImpl
         if (this.isMany())
         {
             TypeMappings mappings = this.getLanguageMappings();
-            return isOrdered()
-                ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
-                : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            return isOrdered() ?
+                    mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
         }
 
         // if single element, then return the type

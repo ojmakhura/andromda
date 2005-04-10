@@ -6,13 +6,12 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.ValueObject
  */
-public class ValueObjectLogicImpl
-    extends ValueObjectLogic
+public class ValueObjectLogicImpl extends ValueObjectLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ValueObjectLogicImpl (Object metaObject, String context)
+    public ValueObjectLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 }

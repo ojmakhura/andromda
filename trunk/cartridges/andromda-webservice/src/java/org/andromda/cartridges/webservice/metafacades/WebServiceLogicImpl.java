@@ -1,17 +1,5 @@
 package org.andromda.cartridges.webservice.metafacades;
 
-import java.text.Collator;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeException;
@@ -29,20 +17,28 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.Collator;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.webservice.metafacades.WebService.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebService.
+ *
  * @see org.andromda.cartridges.webservice.metafacades.WebService
  */
-public class WebServiceLogicImpl
-    extends WebServiceLogic
+public class WebServiceLogicImpl extends WebServiceLogic
 {
     // ---------------- constructor -------------------------------
 
-    public WebServiceLogicImpl(
-        Object metaObject,
-        String context)
+    public WebServiceLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -57,11 +53,10 @@ public class WebServiceLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                boolean valid = WebServiceOperation.class
-                    .isAssignableFrom(object.getClass());
+                boolean valid = WebServiceOperation.class.isAssignableFrom(object.getClass());
                 if (valid)
                 {
-                    valid = ((WebServiceOperation)object).isExposed();
+                    valid = ((WebServiceOperation) object).isExposed();
                 }
                 return valid;
             }
@@ -85,7 +80,7 @@ public class WebServiceLogicImpl
             Iterator operationIt = operations.iterator();
             while (operationIt.hasNext())
             {
-                OperationFacade operation = (OperationFacade)operationIt.next();
+                OperationFacade operation = (OperationFacade) operationIt.next();
                 methodNames.add(StringUtils.trimToEmpty(operation.getName()));
             }
         }
@@ -97,12 +92,8 @@ public class WebServiceLogicImpl
      */
     protected String handleGetQName()
     {
-        return MessageFormat.format(
-            this.getQualifiedNameLocalPartPattern(),
-            new Object[]
-            {
-                StringUtils.trimToEmpty(this.getName())
-            });
+        return MessageFormat.format(this.getQualifiedNameLocalPartPattern(), new Object[]{
+            StringUtils.trimToEmpty(this.getName())});
     }
 
     /**
@@ -115,10 +106,7 @@ public class WebServiceLogicImpl
         {
             packageName = WebServiceUtils.reversePackage(packageName);
         }
-        return MessageFormat.format(this.getNamespacePattern(), new Object[]
-        {
-            StringUtils.trimToEmpty(packageName)
-        });
+        return MessageFormat.format(this.getNamespacePattern(), new Object[]{StringUtils.trimToEmpty(packageName)});
     }
 
     /**
@@ -131,12 +119,10 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetStyle()
     {
-        String style = (String)this
-            .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
+        String style = (String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_STYLE);
         if (StringUtils.isEmpty(style))
         {
-            style = String.valueOf(this
-                .getConfiguredProperty(PROPERTY_DEFAULT_STYLE));
+            style = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_STYLE));
         }
         return style;
     }
@@ -151,19 +137,17 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetUse()
     {
-        String use = (String)this
-            .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
+        String use = (String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_USE);
         if (StringUtils.isEmpty(use))
         {
-            use = String.valueOf(this
-                .getConfiguredProperty(PROPERTY_DEFAULT_USE));
+            use = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_USE));
         }
         return use;
     }
 
     /**
-     * Keeps track of whether or not the type has been checked, keeps us from
-     * entering infinite loops when calling loadTypes.
+     * Keeps track of whether or not the type has been checked, keeps us from entering infinite loops when calling
+     * loadTypes.
      */
     private Collection checkedTypes = new ArrayList();
 
@@ -176,7 +160,7 @@ public class WebServiceLogicImpl
         Iterator operationIt = this.getAllowedOperations().iterator();
         while (operationIt.hasNext())
         {
-            OperationFacade operation = (OperationFacade)operationIt.next();
+            OperationFacade operation = (OperationFacade) operationIt.next();
             paramTypes.addAll(operation.getParameters());
         }
 
@@ -189,17 +173,14 @@ public class WebServiceLogicImpl
         this.checkedTypes.clear();
         while (paramTypeIt.hasNext())
         {
-            this.loadTypes(
-                (ModelElementFacade)paramTypeIt.next(),
-                types,
-                nonArrayTypes);
+            this.loadTypes((ModelElementFacade) paramTypeIt.next(), types, nonArrayTypes);
         }
 
         Collection exceptions = new ArrayList();
         operationIt = this.getAllowedOperations().iterator();
         while (operationIt.hasNext())
         {
-            OperationFacade operation = (OperationFacade)operationIt.next();
+            OperationFacade operation = (OperationFacade) operationIt.next();
             exceptions.addAll(operation.getExceptions());
         }
 
@@ -215,32 +196,24 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * <p>
-     * Loads all <code>types</code> and <code>nonArrayTypes</code> for the
-     * specified <code>type</code>. For each array type we collect the
-     * <code>nonArrayType</code>. Non array types are loaded seperately so
-     * that they are added at the end at the type collecting process. Since the
-     * types collection is a set (by the fullyQualifiedName) we don't want any
-     * non array types to override things such as association ends in the
-     * <code>types</code> collection.
-     * </p>
-     * 
-     * @param type the type
-     * @param types the collection to load.
+     * <p/>
+     * Loads all <code>types</code> and <code>nonArrayTypes</code> for the specified <code>type</code>. For each array
+     * type we collect the <code>nonArrayType</code>. Non array types are loaded seperately so that they are added at
+     * the end at the type collecting process. Since the types collection is a set (by the fullyQualifiedName) we don't
+     * want any non array types to override things such as association ends in the <code>types</code> collection. </p>
+     *
+     * @param type          the type
+     * @param types         the collection to load.
      * @param nonArrayTypes the collection of non array types.
      */
-    private void loadTypes(
-        ModelElementFacade modelElement,
-        Set types,
-        Collection nonArrayTypes)
+    private void loadTypes(ModelElementFacade modelElement, Set types, Collection nonArrayTypes)
     {
         final String methodName = "WebServiceImpl.loadTypes";
         ExceptionUtils.checkNull(methodName, "types", types);
         ExceptionUtils.checkNull(methodName, "nonArrayTypes", nonArrayTypes);
         try
         {
-            if (modelElement != null
-                && !this.checkedTypes.contains(modelElement))
+            if (modelElement != null && !this.checkedTypes.contains(modelElement))
             {
                 ClassifierFacade type = this.getType(modelElement);
                 // only continue if the model element has a type
@@ -251,8 +224,7 @@ public class WebServiceLogicImpl
                     {
                         ClassifierFacade nonArrayType = type;
                         final boolean arrayType = type.isArrayType();
-                        if (arrayType
-                            || this.isValidAssociationEnd(modelElement))
+                        if (arrayType || this.isValidAssociationEnd(modelElement))
                         {
                             types.add(modelElement);
                             if (arrayType)
@@ -267,9 +239,7 @@ public class WebServiceLogicImpl
                         }
                         if (nonArrayType != null)
                         {
-                            if (nonArrayType
-                                .hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT)
-                                || nonArrayType.isEnumeration())
+                            if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT) || nonArrayType.isEnumeration())
                             {
                                 // we add the type when its a non array and has
                                 // the correct stereotype (even if we have added
@@ -288,8 +258,7 @@ public class WebServiceLogicImpl
                             Iterator propertyIt = properties.iterator();
                             while (propertyIt.hasNext())
                             {
-                                ModelElementFacade property = (ModelElementFacade)propertyIt
-                                    .next();
+                                ModelElementFacade property = (ModelElementFacade) propertyIt.next();
                                 this.loadTypes(property, types, nonArrayTypes);
                             }
                         }
@@ -306,42 +275,34 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * <p>
-     * Checks to see if the <code>types</code> collection contains the
-     * <code>modelElement</code>. It does this by checking to see if the
-     * model element is either an association end or some type of model element
-     * that has a type that's an array. If it's either an array <strong>OR
-     * </strong> an association end, then we check to see if the type is stored
-     * within the <code>types</code> collection. If so, we return true,
-     * otherwise we return false.
-     * </p>
-     * 
-     * @param types the previously collected types.
-     * @param modelElement the model element to check to see if it represents a
-     *        <code>many</code> type
-     * @return true/false depending on whether or not the model element is a
-     *         many type.
+     * <p/>
+     * Checks to see if the <code>types</code> collection contains the <code>modelElement</code>. It does this by
+     * checking to see if the model element is either an association end or some type of model element that has a type
+     * that's an array. If it's either an array <strong>OR </strong> an association end, then we check to see if the
+     * type is stored within the <code>types</code> collection. If so, we return true, otherwise we return false. </p>
+     *
+     * @param types        the previously collected types.
+     * @param modelElement the model element to check to see if it represents a <code>many</code> type
+     * @return true/false depending on whether or not the model element is a many type.
      */
-    private boolean containsManyType(
-        final Collection types,
-        final Object modelElement)
+    private boolean containsManyType(final Collection types, final Object modelElement)
     {
         ClassifierFacade classifier = null;
         if (modelElement instanceof AssociationEndFacade)
         {
-            AssociationEndFacade end = (AssociationEndFacade)modelElement;
+            AssociationEndFacade end = (AssociationEndFacade) modelElement;
             if (end.isMany())
             {
-                classifier = ((AssociationEndFacade)modelElement).getType();
+                classifier = ((AssociationEndFacade) modelElement).getType();
             }
         }
         else if (modelElement instanceof ClassifierFacade)
         {
-            classifier = (ClassifierFacade)modelElement;
+            classifier = (ClassifierFacade) modelElement;
         }
         else if (modelElement instanceof ParameterFacade)
         {
-            classifier = ((ParameterFacade)modelElement).getType();
+            classifier = ((ParameterFacade) modelElement).getType();
         }
         if (classifier != null)
         {
@@ -364,15 +325,15 @@ public class WebServiceLogicImpl
                         ClassifierFacade type = null;
                         if (object instanceof AssociationEndFacade)
                         {
-                            AssociationEndFacade end = (AssociationEndFacade)object;
+                            AssociationEndFacade end = (AssociationEndFacade) object;
                             if (end.isMany())
                             {
-                                type = ((AssociationEndFacade)object).getType();
+                                type = ((AssociationEndFacade) object).getType();
                             }
                         }
                         else if (object instanceof ClassifierFacade)
                         {
-                            type = (ClassifierFacade)object;
+                            type = (ClassifierFacade) object;
                             if (type.isArrayType())
                             {
                                 type = type.getNonArray();
@@ -395,16 +356,15 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * Returns true/false depending on whether or not this class represents a
-     * valid association end (meaning it has a multiplicify of many)
-     * 
+     * Returns true/false depending on whether or not this class represents a valid association end (meaning it has a
+     * multiplicify of many)
+     *
      * @param modelElement the model element to check.
      * @return true/false
      */
     private boolean isValidAssociationEnd(Object modelElement)
     {
-        return modelElement instanceof AssociationEndFacade
-            && ((AssociationEndFacade)modelElement).isMany();
+        return modelElement instanceof AssociationEndFacade && ((AssociationEndFacade) modelElement).isMany();
     }
 
     /**
@@ -412,11 +372,10 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetProvider()
     {
-        String provider = (String)this
-            .findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
+        String provider = (String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_WEBSERVICE_PROVIDER);
         if (StringUtils.isEmpty(provider))
         {
-            provider = (String)this.getConfiguredProperty("defaultProvider");
+            provider = (String) this.getConfiguredProperty("defaultProvider");
         }
         return provider;
     }
@@ -426,18 +385,14 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetWsdlFile()
     {
-        return '/' + StringUtils.replace(
-            this.getFullyQualifiedName(), 
-            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), "/")
-            + ".wsdl";
+        return '/' + StringUtils.replace(this.getFullyQualifiedName(),
+                String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), "/") + ".wsdl";
     }
 
     /**
-     * We use this comparator to actually elimate duplicates instead of sorting
-     * like a comparator is normally used.
+     * We use this comparator to actually elimate duplicates instead of sorting like a comparator is normally used.
      */
-    private final class TypeComparator
-        implements Comparator
+    private final class TypeComparator implements Comparator
     {
         private final Collator collator = Collator.getInstance();
 
@@ -448,27 +403,26 @@ public class WebServiceLogicImpl
 
         public int compare(Object objectA, Object objectB)
         {
-            ModelElementFacade a = (ModelElementFacade)objectA;
+            ModelElementFacade a = (ModelElementFacade) objectA;
             ModelElementFacade aType = getType(a);
             if (aType == null)
             {
                 aType = a;
             }
-            ModelElementFacade b = (ModelElementFacade)objectB;
+            ModelElementFacade b = (ModelElementFacade) objectB;
             ModelElementFacade bType = getType(b);
             if (bType == null)
             {
                 bType = b;
             }
-            return collator.compare(aType.getFullyQualifiedName(), bType
-                .getFullyQualifiedName());
+            return collator.compare(aType.getFullyQualifiedName(), bType.getFullyQualifiedName());
         }
     }
 
     /**
-     * Gets the <code>type</code> or <code>returnType</code> of the model
-     * element (if the model element has a type or returnType).
-     * 
+     * Gets the <code>type</code> or <code>returnType</code> of the model element (if the model element has a type or
+     * returnType).
+     *
      * @param modelElement the model element we'll retrieve the type of.
      */
     protected ClassifierFacade getType(Object modelElement)
@@ -480,18 +434,13 @@ public class WebServiceLogicImpl
             // only continue if the model element has a type
             if (PropertyUtils.isReadable(modelElement, typeProperty))
             {
-                type = (ClassifierFacade)PropertyUtils.getProperty(
-                    modelElement,
-                    typeProperty);
+                type = (ClassifierFacade) PropertyUtils.getProperty(modelElement, typeProperty);
             }
             // try for return type if type wasn't found
             typeProperty = "returnType";
-            if (type == null
-                && PropertyUtils.isReadable(modelElement, typeProperty))
+            if (type == null && PropertyUtils.isReadable(modelElement, typeProperty))
             {
-                type = (ClassifierFacade)PropertyUtils.getProperty(
-                    modelElement,
-                    typeProperty);
+                type = (ClassifierFacade) PropertyUtils.getProperty(modelElement, typeProperty);
             }
             return type;
         }
@@ -510,7 +459,7 @@ public class WebServiceLogicImpl
      */
     protected String handleGetNamespacePrefix()
     {
-        return (String)this.getConfiguredProperty(NAMESPACE_PREFIX);
+        return (String) this.getConfiguredProperty(NAMESPACE_PREFIX);
     }
 
     static final String QNAME_LOCAL_PART_PATTERN = "qualifiedNameLocalPartPattern";
@@ -520,34 +469,31 @@ public class WebServiceLogicImpl
      */
     protected String getQualifiedNameLocalPartPattern()
     {
-        return (String)this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
+        return (String) this.getConfiguredProperty(QNAME_LOCAL_PART_PATTERN);
     }
 
     static final String NAMESPACE_PATTERN = "namespacePattern";
 
     /**
      * Gets the <code>namespacePattern</code> for this service.
-     * 
+     *
      * @return String the namespace pattern to use.
      */
     protected String getNamespacePattern()
     {
-        return (String)this.getConfiguredProperty(NAMESPACE_PATTERN);
+        return (String) this.getConfiguredProperty(NAMESPACE_PATTERN);
     }
 
     static final String REVERSE_NAMESPACE = "reverseNamespace";
 
     /**
-     * Gets whether or not <code>reverseNamespace</code> is true/false for
-     * this type.
-     * 
+     * Gets whether or not <code>reverseNamespace</code> is true/false for this type.
+     *
      * @return boolean true/false
      */
     protected boolean isReverseNamespace()
     {
-        return Boolean.valueOf(
-            String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE)))
-            .booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE))).booleanValue();
     }
 
     /**
@@ -556,8 +502,7 @@ public class WebServiceLogicImpl
     protected java.lang.String handleGetEjbJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this
-            .getEjbJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -570,12 +515,12 @@ public class WebServiceLogicImpl
 
     /**
      * Gets the <code>ejbJndiNamePrefix</code> for an EJB provider.
-     * 
+     *
      * @return the EJB Jndi name prefix.
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
+        return (String) this.getConfiguredProperty("ejbJndiNamePrefix");
     }
 
     /**
@@ -583,23 +528,18 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetEjbHomeInterface()
     {
-        return MessageFormat.format(
-            this.getEjbHomeInterfacePattern(),
-            new Object[]
-            {
-                StringUtils.trimToEmpty(this.getPackageName()),
-                StringUtils.trimToEmpty(this.getName())
-            });
+        return MessageFormat.format(this.getEjbHomeInterfacePattern(), new Object[]{
+            StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
     }
 
     /**
      * Gets the <code>ejbHomeInterfacePattern</code> for an EJB provider.
-     * 
+     *
      * @return the EJB Home interface pattern
      */
     protected String getEjbHomeInterfacePattern()
     {
-        return (String)this.getConfiguredProperty("ejbHomeInterfacePattern");
+        return (String) this.getConfiguredProperty("ejbHomeInterfacePattern");
     }
 
     /**
@@ -607,21 +547,18 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetEjbInterface()
     {
-        return MessageFormat.format(this.getEjbInterfacePattern(), new Object[]
-        {
-            StringUtils.trimToEmpty(this.getPackageName()),
-            StringUtils.trimToEmpty(this.getName())
-        });
+        return MessageFormat.format(this.getEjbInterfacePattern(), new Object[]{
+            StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
     }
 
     /**
      * Gets the <code>ejbInterfacePattern</code> for an EJB provider.
-     * 
+     *
      * @return the EJB interface pattern
      */
     protected String getEjbInterfacePattern()
     {
-        return (String)this.getConfiguredProperty("ejbInterfacePattern");
+        return (String) this.getConfiguredProperty("ejbInterfacePattern");
     }
 
     private static final String RPC_CLASS_NAME_PATTERN = "rpcClassNamePattern";
@@ -631,7 +568,7 @@ public class WebServiceLogicImpl
      */
     protected String getRpcClassNamePattern()
     {
-        return (String)this.getConfiguredProperty(RPC_CLASS_NAME_PATTERN);
+        return (String) this.getConfiguredProperty(RPC_CLASS_NAME_PATTERN);
     }
 
     /**
@@ -639,11 +576,8 @@ public class WebServiceLogicImpl
      */
     protected String handleGetRpcClassName()
     {
-        return MessageFormat.format(this.getRpcClassNamePattern(), new Object[]
-        {
-            StringUtils.trimToEmpty(this.getPackageName()),
-            StringUtils.trimToEmpty(this.getName())
-        });
+        return MessageFormat.format(this.getRpcClassNamePattern(), new Object[]{
+            StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
     }
 
     private static final String WSDL_OPERATION_SORT_MODE = "wsdlOperationSortMode";
@@ -651,8 +585,7 @@ public class WebServiceLogicImpl
     /**
      * Used to sort operations by <code>name</code>.
      */
-    private final static class OperationNameComparator
-        implements Comparator
+    private final static class OperationNameComparator implements Comparator
     {
         private final Collator collator = Collator.getInstance();
 
@@ -663,8 +596,8 @@ public class WebServiceLogicImpl
 
         public int compare(Object objectA, Object objectB)
         {
-            ModelElementFacade a = (ModelElementFacade)objectA;
-            ModelElementFacade b = (ModelElementFacade)objectB;
+            ModelElementFacade a = (ModelElementFacade) objectA;
+            ModelElementFacade b = (ModelElementFacade) objectB;
 
             return collator.compare(a.getName(), b.getName());
         }
@@ -682,15 +615,14 @@ public class WebServiceLogicImpl
 
     /**
      * Gets the sort mode WSDL operations.
-     * 
+     *
      * @return String
      */
     private String getWSDLOperationSortMode()
     {
         Object property = this.getConfiguredProperty(WSDL_OPERATION_SORT_MODE);
-        return property != null || property.equals(OPERATION_SORT_MODE_NAME)
-            ? (String)property
-            : OPERATION_SORT_MODE_NONE;
+        return property != null || property.equals(OPERATION_SORT_MODE_NAME) ?
+                (String) property : OPERATION_SORT_MODE_NONE;
     }
 
     /**
@@ -703,9 +635,8 @@ public class WebServiceLogicImpl
     }
 
     /**
-     * Overridden to only allow the exposed operations in the returned roles
-     * collection.
-     * 
+     * Overridden to only allow the exposed operations in the returned roles collection.
+     *
      * @see org.andromda.metafacades.uml.Service#getAllRoles()
      */
     public Collection getAllRoles()
@@ -715,11 +646,9 @@ public class WebServiceLogicImpl
         {
             public void execute(Object object)
             {
-                if (object != null
-                    && ServiceOperation.class.isAssignableFrom(object
-                        .getClass()))
+                if (object != null && ServiceOperation.class.isAssignableFrom(object.getClass()))
                 {
-                    roles.addAll(((ServiceOperation)object).getRoles());
+                    roles.addAll(((ServiceOperation) object).getRoles());
                 }
             }
         });
@@ -736,10 +665,8 @@ public class WebServiceLogicImpl
      */
     protected String handleGetTestPackageName()
     {
-        return String.valueOf(
-            this.getConfiguredProperty(TEST_PACKAGE_NAME_PATTERN)).replaceAll(
-            "\\{0\\}",
-            this.getPackageName());
+        return String.valueOf(this.getConfiguredProperty(TEST_PACKAGE_NAME_PATTERN)).replaceAll("\\{0\\}",
+                this.getPackageName());
     }
 
     /**
@@ -760,8 +687,7 @@ public class WebServiceLogicImpl
      */
     protected String handleGetTestName()
     {
-        return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN))
-            .replaceAll("\\{0\\}", this.getName());
+        return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN)).replaceAll("\\{0\\}", this.getName());
     }
 
     /**
@@ -839,9 +765,8 @@ public class WebServiceLogicImpl
      */
     protected String handleGetTestImplementationName()
     {
-        return String.valueOf(
-            this.getConfiguredProperty(TEST_IMPLEMENTATION_NAME_PATTERN))
-            .replaceAll("\\{0\\}", this.getName());
+        return String.valueOf(this.getConfiguredProperty(TEST_IMPLEMENTATION_NAME_PATTERN)).replaceAll("\\{0\\}",
+                this.getName());
     }
 
     /**
@@ -849,7 +774,6 @@ public class WebServiceLogicImpl
      */
     protected String handleGetFullyQualifiedTestImplementationName()
     {
-        return this.getTestPackageName() + '.'
-            + this.getTestImplementationName();
+        return this.getTestPackageName() + '.' + this.getTestImplementationName();
     }
 }

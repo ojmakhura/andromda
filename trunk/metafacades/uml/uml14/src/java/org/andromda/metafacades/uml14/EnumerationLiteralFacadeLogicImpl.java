@@ -4,19 +4,15 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.metafacades.uml.EnumerationLiteralFacade.
- * 
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.EnumerationLiteralFacade.
+ *
  * @see org.andromda.metafacades.uml.EnumerationLiteralFacade
  */
-public class EnumerationLiteralFacadeLogicImpl
-    extends EnumerationLiteralFacadeLogic
+public class EnumerationLiteralFacadeLogicImpl extends EnumerationLiteralFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EnumerationLiteralFacadeLogicImpl(
-        org.omg.uml.foundation.core.EnumerationLiteral metaObject,
-        String context)
+    public EnumerationLiteralFacadeLogicImpl(org.omg.uml.foundation.core.EnumerationLiteral metaObject, String context)
     {
         super(metaObject, context);
     }

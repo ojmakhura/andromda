@@ -1,8 +1,8 @@
 package org.andromda.repositories.mdr;
 
-import java.net.URL;
-
 import org.apache.log4j.Logger;
+
+import java.net.URL;
 
 public class TestModel
 {
@@ -20,13 +20,11 @@ public class TestModel
             }
             if (modelUri != null)
             {
-                String jarUrl = "jar:" + modelUri.toString()
-                    + "!/TestModel.xmi";
+                String jarUrl = "jar:" + modelUri.toString() + "!/TestModel.xmi";
                 modelUri = new URL(jarUrl);
                 if (modelUri == null)
                 {
-                    throw new RuntimeException("Could not load '" + jarUrl
-                        + "'");
+                    throw new RuntimeException("Could not load '" + jarUrl + "'");
                 }
             }
             return modelUri;

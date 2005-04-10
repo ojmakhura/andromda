@@ -1,5 +1,13 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.GuardFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,18 +16,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.*;
-
 
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForward
  */
-public class StrutsForwardLogicImpl
-    extends StrutsForwardLogic
+public class StrutsForwardLogicImpl extends StrutsForwardLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -219,7 +222,7 @@ public class StrutsForwardLogicImpl
         if (!handledForwards.contains(this))
         {
             handledForwards.add(this);
-            
+
             if (this instanceof StrutsAction) // @todo this is not so nice because StrutsAction extends StrutsForward, solution would be to override in StrutsAction
             {
                 actions.add(this);
@@ -229,17 +232,17 @@ public class StrutsForwardLogicImpl
                 StateVertexFacade vertex = getSource();
                 if (vertex instanceof StrutsJsp)
                 {
-                    StrutsJsp jsp = (StrutsJsp)vertex;
+                    StrutsJsp jsp = (StrutsJsp) vertex;
                     actions.addAll(jsp.getActions());
                 }
                 else if (vertex instanceof StrutsActionState)
                 {
-                    StrutsActionState actionState = (StrutsActionState)vertex;
+                    StrutsActionState actionState = (StrutsActionState) vertex;
                     actions.addAll(actionState.getContainerActions());
                 }
                 else if (vertex instanceof PseudostateFacade)
                 {
-                    PseudostateFacade pseudostate = (PseudostateFacade)vertex;
+                    PseudostateFacade pseudostate = (PseudostateFacade) vertex;
                     if (!pseudostate.isInitialState())
                     {
                         Collection incomingForwards = pseudostate.getIncoming();
@@ -264,7 +267,7 @@ public class StrutsForwardLogicImpl
             UseCaseFacade graphUseCase = graph.getUseCase();
             if (graphUseCase instanceof StrutsUseCase)
             {
-                useCase = (StrutsUseCase)graphUseCase;
+                useCase = (StrutsUseCase) graphUseCase;
             }
         }
 

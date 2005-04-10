@@ -4,9 +4,8 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Provides the ability to <code>mask</code> names in 
- * a standard manner.
- * 
+ * Provides the ability to <code>mask</code> names in a standard manner.
+ *
  * @author Chad Brandon
  */
 public class NameMasker
@@ -35,12 +34,12 @@ public class NameMasker
      * The <code>lowerunderscore</code> mask.
      */
     public static final String LOWERUNDERSCORE = "lowerunderscore";
-    
+
     /**
      * The <code>uppercamelcase</code> mask.
      */
     public static final String UPPERCAMELCASE = "uppercamelcase";
-    
+
     /**
      * The <code>lowercamelcase</code> mask.
      */
@@ -57,9 +56,9 @@ public class NameMasker
     public static final String NONE = "none";
 
     /**
-     * Returns the name with the appropriate <code>mask</code> applied. The
-     * mask, must match one of the valid mask properties or will be ignored.
-     * 
+     * Returns the name with the appropriate <code>mask</code> applied. The mask, must match one of the valid mask
+     * properties or will be ignored.
+     *
      * @param name the name to be masked
      * @param mask the mask to apply
      * @return the masked name.
@@ -92,7 +91,7 @@ public class NameMasker
             }
             else if (mask.equalsIgnoreCase(LOWERCAMELCASE))
             {
-                name = StringUtilsHelper.lowerCamelCaseName(name);                
+                name = StringUtilsHelper.lowerCamelCaseName(name);
             }
             else if (mask.equalsIgnoreCase(UPPERCAMELCASE))
             {

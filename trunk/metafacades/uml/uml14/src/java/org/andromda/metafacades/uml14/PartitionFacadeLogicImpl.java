@@ -6,14 +6,13 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.PartitionFacade
  */
-public class PartitionFacadeLogicImpl
-    extends PartitionFacadeLogic
+public class PartitionFacadeLogicImpl extends PartitionFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public PartitionFacadeLogicImpl (org.omg.uml.behavioralelements.activitygraphs.Partition metaObject, String context)
+    public PartitionFacadeLogicImpl(org.omg.uml.behavioralelements.activitygraphs.Partition metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**

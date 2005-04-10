@@ -4,19 +4,15 @@ import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperation.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperation.
+ *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperation
  */
-public class HibernateServiceOperationLogicImpl
-    extends HibernateServiceOperationLogic
+public class HibernateServiceOperationLogicImpl extends HibernateServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateServiceOperationLogicImpl(
-        Object metaObject,
-        String context)
+    public HibernateServiceOperationLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -31,12 +27,11 @@ public class HibernateServiceOperationLogicImpl
      */
     public String handleGetTransactionType()
     {
-        String transactionType = (String)this
-            .findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String) this.findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = transactionType = String.valueOf(this
-                .getConfiguredProperty(SERVICE_OPERATION_TRANSACTION_TYPE));
+            transactionType = transactionType = String.valueOf(this.getConfiguredProperty(
+                    SERVICE_OPERATION_TRANSACTION_TYPE));
         }
         return transactionType;
     }

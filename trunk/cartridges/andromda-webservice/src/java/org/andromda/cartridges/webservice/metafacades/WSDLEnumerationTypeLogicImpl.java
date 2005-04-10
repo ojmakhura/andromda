@@ -6,19 +6,15 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType.
+ *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType
  */
-public class WSDLEnumerationTypeLogicImpl
-    extends WSDLEnumerationTypeLogic
+public class WSDLEnumerationTypeLogicImpl extends WSDLEnumerationTypeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public WSDLEnumerationTypeLogicImpl(
-        Object metaObject,
-        String context)
+    public WSDLEnumerationTypeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -36,9 +32,7 @@ public class WSDLEnumerationTypeLogicImpl
      */
     protected String handleGetQName()
     {
-        return this.getQualfiedNameLocalPartPattern().replaceAll(
-            "\\{0\\}",
-            StringUtils.trimToEmpty(this.getName()));
+        return this.getQualfiedNameLocalPartPattern().replaceAll("\\{0\\}", StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -46,20 +40,17 @@ public class WSDLEnumerationTypeLogicImpl
      */
     protected String handleGetNamespacePrefix()
     {
-        return (String)this
-            .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
+        return (String) this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
     }
 
     /**
-     * Gets the <code>qualifiedNameLocalPartPattern</code> for this WSDL
-     * enumeration.
+     * Gets the <code>qualifiedNameLocalPartPattern</code> for this WSDL enumeration.
      */
     protected String getQualfiedNameLocalPartPattern()
     {
-        return (String)this
-            .getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
+        return (String) this.getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
     }
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getNamespace()
      */
@@ -72,71 +63,55 @@ public class WSDLEnumerationTypeLogicImpl
         }
         return this.getNamespacePattern().replaceAll("\\{0\\}", StringUtils.trimToEmpty(packageName));
     }
-    
+
     /**
      * Gets the <code>namespacePattern</code> for this type.
      */
     protected String getNamespacePattern()
     {
-        return (String)this
-            .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
+        return (String) this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
     }
-    
+
     /**
-     * Gets whether or not <code>reverseNamespace</code> is true/false for
-     * this type.
-     * 
+     * Gets whether or not <code>reverseNamespace</code> is true/false for this type.
+     *
      * @return boolean true/false
      */
     private boolean isReverseNamespace()
     {
-        return Boolean.valueOf(
-            String.valueOf(this
-                .getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
-            .booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE))).booleanValue();
     }
-    
+
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getSchemaType(boolean,
-     *      boolean)
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getSchemaType(boolean, boolean)
      */
-    public java.lang.String handleGetSchemaType(
-        boolean withPrefix,
-        boolean preserveArray)
+    public java.lang.String handleGetSchemaType(boolean withPrefix, boolean preserveArray)
     {
-        return WebServiceUtils.getSchemaType(
-            this, 
-            this.getSchemaTypeMappings(), 
-            this.getNamespacePrefix(), 
-            this.getQName(), 
-            this.getWsdlArrayNamePrefix(), 
-            withPrefix, 
-            preserveArray);
+        return WebServiceUtils.getSchemaType(this, this.getSchemaTypeMappings(), this.getNamespacePrefix(),
+                this.getQName(), this.getWsdlArrayNamePrefix(), withPrefix, preserveArray);
     }
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getWsdlArrayNamePrefix()
      */
     protected String handleGetWsdlArrayNamePrefix()
     {
-        return String.valueOf(this
-            .getConfiguredProperty(WebServiceGlobals.ARRAY_NAME_PREFIX));
+        return String.valueOf(this.getConfiguredProperty(WebServiceGlobals.ARRAY_NAME_PREFIX));
     }
-    
+
     /**
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getWsdlArrayName()
      */
     protected String handleGetWsdlArrayName()
     {
-        StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(
-            this.getQName()).replaceAll("\\[\\]", ""));
+        StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(this.getQName()).replaceAll("\\[\\]", ""));
         name.insert(0, this.getWsdlArrayNamePrefix());
         return name.toString();
     }
 
     /**
      * Gets the schemaType mappings that have been set for this schema type.
-     * 
+     *
      * @return the TypeMappings instance.
      */
     private TypeMappings getSchemaTypeMappings()
@@ -147,23 +122,22 @@ public class WSDLEnumerationTypeLogicImpl
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
-            uri = (String)property;
+            uri = (String) property;
             try
             {
-                mappings = TypeMappings.getInstance((String)property);
+                mappings = TypeMappings.getInstance((String) property);
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '"
-                    + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg, th);
                 // don't throw the exception
             }
         }
         else
         {
-            mappings = (TypeMappings)property;
+            mappings = (TypeMappings) property;
         }
         return mappings;
     }

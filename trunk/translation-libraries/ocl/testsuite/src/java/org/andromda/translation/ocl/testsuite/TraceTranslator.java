@@ -1,12 +1,5 @@
 package org.andromda.translation.ocl.testsuite;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -14,10 +7,9 @@ import javassist.CtField;
 import javassist.CtMethod;
 import javassist.LoaderClassPath;
 import javassist.NotFoundException;
-
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.core.translation.Translator;
@@ -25,22 +17,25 @@ import org.andromda.core.translation.TranslatorException;
 import org.andromda.translation.ocl.BaseTranslator;
 import org.apache.log4j.Logger;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
- * This class allows us to trace the parsing of the expression. It is
- * reflectively extended by Javaassist to allow the inclusion of all "inA" and
- * "outA" methods produced by the SableCC parser. This allows us to dynamically
- * include all handling code in each method without having to manual code each
- * one. It used used during development of Translators since it allows you to
- * see the execution of each node.
- * 
+ * This class allows us to trace the parsing of the expression. It is reflectively extended by Javaassist to allow the
+ * inclusion of all "inA" and "outA" methods produced by the SableCC parser. This allows us to dynamically include all
+ * handling code in each method without having to manual code each one. It used used during development of Translators
+ * since it allows you to see the execution of each node.
+ *
  * @author Chad Brandon
  */
-public class TraceTranslator
-    extends BaseTranslator
+public class TraceTranslator extends BaseTranslator
 {
 
-    private static final Logger logger = Logger
-        .getLogger(TraceTranslator.class);
+    private static final Logger logger = Logger.getLogger(TraceTranslator.class);
 
     private static final String INA_PREFIX = "inA";
     private static final String OUTA_PREFIX = "outA";
@@ -49,8 +44,8 @@ public class TraceTranslator
     private Map methods = new HashMap();
 
     /**
-     * This is added to the adapted class and then checked to see if it exists
-     * to determine if we need to adapt the class.
+     * This is added to the adapted class and then checked to see if it exists to determine if we need to adapt the
+     * class.
      */
     private static final String FIELD_ADAPTED = "adapted";
 
@@ -63,10 +58,9 @@ public class TraceTranslator
     {}
 
     /**
-     * Creates and returns an new Instance of this ExpressionTranslator as a
-     * Translator object. The first time this method is called this class will
-     * dynamically be adapted to handle all parser calls.
-     * 
+     * Creates and returns an new Instance of this ExpressionTranslator as a Translator object. The first time this
+     * method is called this class will dynamically be adapted to handle all parser calls.
+     *
      * @return Translator
      */
     public static Translator getInstance()
@@ -85,11 +79,9 @@ public class TraceTranslator
 
                 if (logger.isInfoEnabled())
                 {
-                    logger
-                        .info(" OCL Translator has not been adapted --> adapting");
+                    logger.info(" OCL Translator has not been adapted --> adapting");
                 }
-                translator = (Translator)oclTranslator
-                    .getAdaptedTranslationClass().newInstance();
+                translator = (Translator) oclTranslator.getAdaptedTranslationClass().newInstance();
             }
             return translator;
         }
@@ -102,38 +94,28 @@ public class TraceTranslator
     }
 
     /**
-     * @see org.andromda.core.translation.Translator#translate(java.lang.String,
-     *      java.lang.Object, java.lang.String)
+     * @see org.andromda.core.translation.Translator#translate(java.lang.String, java.lang.Object, java.lang.String)
      */
-    public Expression translate(
-        String translationName,
-        String expression,
-        Object contextElement)
+    public Expression translate(String translationName, String expression, Object contextElement)
     {
         if (logger.isInfoEnabled())
         {
-            logger
-                .info("======================== Tracing Expression ========================");
+            logger.info("======================== Tracing Expression ========================");
             logger.info(TranslationUtils.removeExtraWhitespace(expression));
-            logger
-                .info("======================== ================== ========================");
+            logger.info("======================== ================== ========================");
         }
-        Expression expressionObj = super.translate(
-            translationName,
-            expression,
-            contextElement);
+        Expression expressionObj = super.translate(translationName, expression, contextElement);
         if (logger.isInfoEnabled())
         {
-            logger
-                .info("========================  Tracing Complete  ========================");
+            logger.info("========================  Tracing Complete  ========================");
         }
         return expressionObj;
     }
 
     /**
-     * Checks to see if this class needs to be adapated If it has the "adapted"
-     * field then we know it already has been adapted.
-     * 
+     * Checks to see if this class needs to be adapated If it has the "adapted" field then we know it already has been
+     * adapted.
+     *
      * @return true/false, true if it needs be be adapted.
      */
     protected boolean needsAdaption()
@@ -152,16 +134,13 @@ public class TraceTranslator
 
     /**
      * Creates and returns the adapted translator class.
-     * 
+     *
      * @return Class the new Class instance.
      * @throws NotFoundException
      * @throws CannotCompileException
      * @throws IOException
      */
-    protected Class getAdaptedTranslationClass()
-        throws NotFoundException,
-            CannotCompileException,
-            IOException
+    protected Class getAdaptedTranslationClass() throws NotFoundException, CannotCompileException, IOException
     {
 
         Class thisClass = this.getClass();
@@ -169,10 +148,7 @@ public class TraceTranslator
 
         CtClass ctTranslatorClass = pool.get(thisClass.getName());
 
-        CtField adaptedField = new CtField(
-            CtClass.booleanType,
-            FIELD_ADAPTED,
-            ctTranslatorClass);
+        CtField adaptedField = new CtField(CtClass.booleanType, FIELD_ADAPTED, ctTranslatorClass);
 
         ctTranslatorClass.addField(adaptedField);
 
@@ -210,12 +186,9 @@ public class TraceTranslator
             Iterator allMethods = this.methods.keySet().iterator();
             while (allMethods.hasNext())
             {
-                CtMethod method = (CtMethod)allMethods.next();
-                CtMethod newMethod = new CtMethod(
-                    method,
-                    ctTranslatorClass,
-                    null);
-                String methodBody = (String)this.methods.get(method);
+                CtMethod method = (CtMethod) allMethods.next();
+                CtMethod newMethod = new CtMethod(method, ctTranslatorClass, null);
+                String methodBody = (String) this.methods.get(method);
                 newMethod.setBody(methodBody);
                 ctTranslatorClass.addMethod(newMethod);
             }
@@ -226,8 +199,7 @@ public class TraceTranslator
     }
 
     /**
-     * Writes the class to the directory found by the class loader (since the
-     * class is a currently existing class)
+     * Writes the class to the directory found by the class loader (since the class is a currently existing class)
      */
     protected void writeAdaptedClass()
     {
@@ -242,8 +214,7 @@ public class TraceTranslator
             File dir = this.getAdaptedClassOutputDirectory();
             if (logger.isDebugEnabled())
             {
-                logger.debug("writing className '" + className
-                    + "' to directory --> " + "'" + dir + "'");
+                logger.debug("writing className '" + className + "' to directory --> " + "'" + dir + "'");
             }
             this.pool.writeFile(this.getClass().getName(), dir.toString());
         }
@@ -256,23 +227,20 @@ public class TraceTranslator
     }
 
     /**
-     * Retrieves the output directory which the adapted class will be written
-     * to.
-     * 
+     * Retrieves the output directory which the adapted class will be written to.
+     *
      * @return
      */
     protected File getAdaptedClassOutputDirectory()
     {
         final String methodName = "TraceTranslator.getAdaptedClassOutputDirectory";
         Class thisClass = this.getClass();
-        URL classAsResource = ResourceUtils.getClassResource(thisClass
-            .getName());
+        URL classAsResource = ResourceUtils.getClassResource(thisClass.getName());
         File file = new File(classAsResource.getFile());
         File dir = file.getParentFile();
         if (dir == null)
         {
-            throw new TranslatorException(methodName
-                + " - can not retrieve directory for file '" + file + "'");
+            throw new TranslatorException(methodName + " - can not retrieve directory for file '" + file + "'");
         }
         String className = thisClass.getName();
         int index = className.indexOf('.');
@@ -294,7 +262,7 @@ public class TraceTranslator
 
     /**
      * Creates and returns the method body for each "caseA" method
-     * 
+     *
      * @param method
      * @return String the <code>case</code> method body
      */
@@ -316,7 +284,7 @@ public class TraceTranslator
 
     /**
      * Creates and returns the method body for each "inA" method
-     * 
+     *
      * @param method
      * @return String the <code>inA</code> method body
      */
@@ -338,7 +306,7 @@ public class TraceTranslator
 
     /**
      * Creates and returns the method body for each "inA" method
-     * 
+     *
      * @param method
      * @return String the <code>outA</code> method body.
      */
@@ -359,10 +327,9 @@ public class TraceTranslator
     }
 
     /**
-     * Returns the OCL fragment name that must have a matching name in the
-     * library translation template in order to be placed into the Expression
-     * translated expression buffer.
-     * 
+     * Returns the OCL fragment name that must have a matching name in the library translation template in order to be
+     * placed into the Expression translated expression buffer.
+     *
      * @param method
      * @return String
      */
@@ -375,15 +342,14 @@ public class TraceTranslator
         int index = fragment.indexOf(prefix);
         if (index != -1)
         {
-            fragment = fragment.substring(index + prefix.length(), fragment
-                .length());
+            fragment = fragment.substring(index + prefix.length(), fragment.length());
         }
         return fragment;
     }
 
     /**
      * Returns the prefix for the method (inA or outA)
-     * 
+     *
      * @param method
      * @return
      */
@@ -402,7 +368,7 @@ public class TraceTranslator
 
     /**
      * Creates the debug statement that will be output for each method
-     * 
+     *
      * @param method
      * @return @throws NotFoundException
      */
@@ -410,28 +376,23 @@ public class TraceTranslator
     {
         final String methodName = "TraceTranslator.getMethodDebug";
         ExceptionUtils.checkNull(methodName, "method", method);
-        StringBuffer buf = new StringBuffer(
-            "if (logger.isInfoEnabled()) {logger.info(\"");
+        StringBuffer buf = new StringBuffer("if (logger.isInfoEnabled()) {logger.info(\"");
         buf.append("\" + methodName + \" --> ");
         //javaassist names the arguments $1,$2,$3, etc.
-        buf
-            .append("'\" + org.andromda.core.translation.TranslationUtils.trimToEmpty($1) + \"'\");}");
+        buf.append("'\" + org.andromda.core.translation.TranslationUtils.trimToEmpty($1) + \"'\");}");
         return buf.toString();
     }
 
     /**
-     * Extends the Javaassist class pool so that we can define our own
-     * ClassLoader to use from which to find, load and modify and existing
-     * class.
-     * 
+     * Extends the Javaassist class pool so that we can define our own ClassLoader to use from which to find, load and
+     * modify and existing class.
+     *
      * @author Chad Brandon
      */
-    private static class TranslatorClassPool
-        extends ClassPool
+    private static class TranslatorClassPool extends ClassPool
     {
 
-        private static Logger logger = Logger
-            .getLogger(TranslatorClassPool.class);
+        private static Logger logger = Logger.getLogger(TranslatorClassPool.class);
 
         protected TranslatorClassPool()
         {
@@ -443,9 +404,8 @@ public class TraceTranslator
         }
 
         /**
-         * Retrieves an instance of this TranslatorClassPool using the loader to
-         * find/load any classes.
-         * 
+         * Retrieves an instance of this TranslatorClassPool using the loader to find/load any classes.
+         *
          * @param loader
          * @return
          */
@@ -461,31 +421,24 @@ public class TraceTranslator
         }
 
         /**
-         * Returns a <code>java.lang.Class</code> object. It calls
-         * <code>write()</code> to obtain a class file and then loads the
-         * obtained class file into the JVM. The returned <code>Class</code>
-         * object represents the loaded class.
-         * <p>
-         * To load a class file, this method uses an internal class loader.
-         * Thus, that class file is not loaded by the system class loader, which
-         * should have loaded this <code>AspectClassPool</code> class. The
-         * internal class loader loads only the classes explicitly specified by
-         * this method <code>writeAsClass()</code>. The other classes are
-         * loaded by the parent class loader (the sytem class loader) by
-         * delegation. Thus, if a class <code>X</code> loaded by the internal
-         * class loader refers to a class <code>Y</code>, then the class
+         * Returns a <code>java.lang.Class</code> object. It calls <code>write()</code> to obtain a class file and then
+         * loads the obtained class file into the JVM. The returned <code>Class</code> object represents the loaded
+         * class.
+         * <p/>
+         * To load a class file, this method uses an internal class loader. Thus, that class file is not loaded by the
+         * system class loader, which should have loaded this <code>AspectClassPool</code> class. The internal class
+         * loader loads only the classes explicitly specified by this method <code>writeAsClass()</code>. The other
+         * classes are loaded by the parent class loader (the sytem class loader) by delegation. Thus, if a class
+         * <code>X</code> loaded by the internal class loader refers to a class <code>Y</code>, then the class
          * <code>Y</code> is loaded by the parent class loader.
-         * 
+         *
          * @param classname a fully-qualified class name.
          * @return Class the Class it writes.
          * @throws NotFoundException
          * @throws IOException
          * @throws CannotCompileException
          */
-        public Class writeAsClass(String classname)
-            throws NotFoundException,
-                IOException,
-                CannotCompileException
+        public Class writeAsClass(String classname) throws NotFoundException, IOException, CannotCompileException
         {
             try
             {
@@ -498,33 +451,29 @@ public class TraceTranslator
         }
 
         /**
-         * LocalClassLoader which allows us to dynamically construct classes on
-         * the fly using Javassist.
+         * LocalClassLoader which allows us to dynamically construct classes on the fly using Javassist.
          */
-        static class LocalClassLoader
-            extends ClassLoader
+        static class LocalClassLoader extends ClassLoader
         {
             /**
              * Constructs an instance of LocalClassLoader.
-             * 
+             *
              * @param parent
              */
-            public LocalClassLoader(
-                ClassLoader parent)
+            public LocalClassLoader(ClassLoader parent)
             {
                 super(parent);
             }
 
             /**
              * Loads a class.
-             * 
-             * @param name the name
+             *
+             * @param name      the name
              * @param classfile the bytes of the class.
              * @return Class
              * @throws ClassFormatError
              */
-            public Class loadClass(String name, byte[] classfile)
-                throws ClassFormatError
+            public Class loadClass(String name, byte[] classfile) throws ClassFormatError
             {
                 Class c = defineClass(name, classfile, 0, classfile.length);
                 resolveClass(c);
@@ -533,18 +482,15 @@ public class TraceTranslator
         }
 
         /**
-         * Create the LocalClassLoader and specify the ClassLoader for this
-         * class as the parent ClassLoader. This allows classes defined outside
-         * this LocalClassLoader to be loaded (i.e. classes that already exist,
-         * and aren't being dynamically created
+         * Create the LocalClassLoader and specify the ClassLoader for this class as the parent ClassLoader. This allows
+         * classes defined outside this LocalClassLoader to be loaded (i.e. classes that already exist, and aren't being
+         * dynamically created
          */
-        private static LocalClassLoader classLoader = new LocalClassLoader(
-            LocalClassLoader.class.getClassLoader());
+        private static LocalClassLoader classLoader = new LocalClassLoader(LocalClassLoader.class.getClassLoader());
     }
 
     /**
-     * This method is called by the main method during the build process, to
-     * "adapt" the class to the OCL parser.
+     * This method is called by the main method during the build process, to "adapt" the class to the OCL parser.
      */
     protected static void adaptClass()
     {
@@ -567,9 +513,8 @@ public class TraceTranslator
     }
 
     /**
-     * This main method is called during the build process, to "adapt" the class
-     * to the OCL parser.
-     * 
+     * This main method is called during the build process, to "adapt" the class to the OCL parser.
+     *
      * @param args
      */
     public static void main(String args[])

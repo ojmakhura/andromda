@@ -5,9 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Represents a TranslatorTest object loaded and executed by the
- * ExpressionTranslatorTest object.
- * 
+ * Represents a TranslatorTest object loaded and executed by the ExpressionTranslatorTest object.
+ *
  * @author Chad Brandon
  */
 public class TranslationTest
@@ -18,9 +17,8 @@ public class TranslationTest
     private URL uri;
 
     /**
-     * Sets the name of the translator for which this TranslationTest will be
-     * used to test.
-     * 
+     * Sets the name of the translator for which this TranslationTest will be used to test.
+     *
      * @param translation the name the translation to test.
      */
     public void setTranslation(String translation)
@@ -29,9 +27,8 @@ public class TranslationTest
     }
 
     /**
-     * Returns the name of the translator, for which this TranslationTest will
-     * be used to test.
-     * 
+     * Returns the name of the translator, for which this TranslationTest will be used to test.
+     *
      * @return String
      */
     public String getTranslation()
@@ -39,15 +36,14 @@ public class TranslationTest
         String methodName = "getTranslation";
         if (this.translation == null)
         {
-            throw new TranslationTestProcessorException(methodName
-                + " - translation can not be null");
+            throw new TranslationTestProcessorException(methodName + " - translation can not be null");
         }
         return this.translation;
     }
 
     /**
      * Adds an ExpressionTest to this TranslationTest.
-     * 
+     *
      * @param config a ExpressionTest instance.
      */
     public void addExpression(ExpressionTest config)
@@ -56,9 +52,8 @@ public class TranslationTest
     }
 
     /**
-     * Returns all the ExpressionTest objects in a Map keyed by the from element
-     * body.
-     * 
+     * Returns all the ExpressionTest objects in a Map keyed by the from element body.
+     *
      * @return Map
      */
     public Map getExpressionConfigs()
@@ -68,7 +63,7 @@ public class TranslationTest
 
     /**
      * Gets the URI for the test which this TranslationTest was loaded from.
-     * 
+     *
      * @return Returns the uri.
      */
     public URL getUri()
@@ -78,7 +73,7 @@ public class TranslationTest
 
     /**
      * Sets the URI for the test which this TranslationTest was loaded from.
-     * 
+     *
      * @param uri The uri to set.
      */
     protected void setUri(URL uri)

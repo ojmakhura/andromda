@@ -1,40 +1,36 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
+
 /**
- * MetafacadeLogic implementation for
- * org.andromda.metafacades.uml.EnumerationFacade.
- * 
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.EnumerationFacade.
+ *
  * @see org.andromda.metafacades.uml.EnumerationFacade
  */
-public class EnumerationFacadeLogicImpl
-    extends EnumerationFacadeLogic
+public class EnumerationFacadeLogicImpl extends EnumerationFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EnumerationFacadeLogicImpl(
-        org.omg.uml.foundation.core.Classifier metaObject,
-        String context)
+    public EnumerationFacadeLogicImpl(org.omg.uml.foundation.core.Classifier metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
      * Overridden to provide name masking.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(
-            this.getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_NAME_MASK));
+                this.getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_NAME_MASK));
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
@@ -85,7 +81,7 @@ public class EnumerationFacadeLogicImpl
         final Collection literals = this.getLiterals();
         if (literals != null && !literals.isEmpty())
         {
-            type = ((AttributeFacade)literals.iterator().next()).getType();
+            type = ((AttributeFacade) literals.iterator().next()).getType();
         }
         return type;
     }
