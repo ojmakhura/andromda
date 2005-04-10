@@ -1,10 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
@@ -14,15 +9,18 @@ import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.ModelElement;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+
 /**
- * Contains a UML model, follows the ModelAccessFacade interface and can
- * therefore be processed by AndroMDA.
- * 
+ * Contains a UML model, follows the ModelAccessFacade interface and can therefore be processed by AndroMDA.
+ *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  */
-public class UMLModelAccessFacade
-    implements ModelAccessFacade
+public class UMLModelAccessFacade implements ModelAccessFacade
 {
     private Logger logger = Logger.getLogger(UMLModelAccessFacade.class);
 
@@ -35,12 +33,8 @@ public class UMLModelAccessFacade
     {
         final String methodName = "UMLModelAccessFacade.setModel";
         ExceptionUtils.checkNull(methodName, "model", model);
-        ExceptionUtils.checkAssignable(
-            methodName,
-            UmlPackage.class,
-            "modelElement",
-            model.getClass());
-        this.model = (UmlPackage)model;
+        ExceptionUtils.checkAssignable(methodName, UmlPackage.class, "modelElement", model.getClass());
+        this.model = (UmlPackage) model;
     }
 
     /**
@@ -58,12 +52,8 @@ public class UMLModelAccessFacade
     {
         final String methodName = "UMLModelAccessFacade.getName";
         ExceptionUtils.checkNull(methodName, "modelElement", modelElement);
-        ExceptionUtils.checkAssignable(
-            methodName,
-            ModelElementFacade.class,
-            "modelElement",
-            modelElement.getClass());
-        return ((ModelElementFacade)modelElement).getName();
+        ExceptionUtils.checkAssignable(methodName, ModelElementFacade.class, "modelElement", modelElement.getClass());
+        return ((ModelElementFacade) modelElement).getName();
     }
 
     /**
@@ -73,12 +63,8 @@ public class UMLModelAccessFacade
     {
         final String methodName = "UMLModelAccessFacade.getPackageName";
         ExceptionUtils.checkNull(methodName, "modelElement", modelElement);
-        ExceptionUtils.checkAssignable(
-            methodName,
-            ModelElementFacade.class,
-            "modelElement",
-            modelElement.getClass());
-        return ((ModelElementFacade)modelElement).getPackageName();
+        ExceptionUtils.checkAssignable(methodName, ModelElementFacade.class, "modelElement", modelElement.getClass());
+        return ((ModelElementFacade) modelElement).getPackageName();
     }
 
     /**
@@ -89,17 +75,17 @@ public class UMLModelAccessFacade
         Collection stereotypeNames = new ArrayList();
         if (modelElement instanceof ModelElement)
         {
-            ModelElement element = (ModelElement)modelElement;
+            ModelElement element = (ModelElement) modelElement;
             Collection stereotypes = element.getStereotype();
             for (Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
             {
-                ModelElement stereotype = (ModelElement)iterator.next();
+                ModelElement stereotype = (ModelElement) iterator.next();
                 stereotypeNames.add(stereotype.getName());
             }
         }
         else if (modelElement instanceof ModelElementFacade)
         {
-            stereotypeNames = ((ModelElementFacade)modelElement).getStereotypeNames();     
+            stereotypeNames = ((ModelElementFacade) modelElement).getStereotypeNames();
         }
         return stereotypeNames;
     }
@@ -116,26 +102,22 @@ public class UMLModelAccessFacade
         {
             if (this.model != null)
             {
-                Collection underlyingElements = model.getCore()
-                    .getModelElement().refAllOfType();
+                Collection underlyingElements = model.getCore().getModelElement().refAllOfType();
                 if (underlyingElements != null || !underlyingElements.isEmpty())
                 {
                     Iterator elementIt = underlyingElements.iterator();
                     while (elementIt.hasNext())
                     {
-                        ModelElement element = (ModelElement)elementIt.next();
-                        Collection stereotypeNames = this
-                            .getStereotypeNames(element);
-                        if (stereotypeNames != null
-                            && stereotypeNames.contains(stereotype))
+                        ModelElement element = (ModelElement) elementIt.next();
+                        Collection stereotypeNames = this.getStereotypeNames(element);
+                        if (stereotypeNames != null && stereotypeNames.contains(stereotype))
                         {
                             modelElements.add(element);
                         }
                     }
                 }
                 if (logger.isDebugEnabled())
-                    logger.debug("completed " + methodName + " with "
-                        + modelElements.size() + " modelElements");
+                    logger.debug("completed " + methodName + " with " + modelElements.size() + " modelElements");
             }
         }
         return modelElements;
@@ -150,7 +132,7 @@ public class UMLModelAccessFacade
         if (this.model != null)
         {
             modelElements = MetafacadeFactory.getInstance().createMetafacades(
-                this.model.getCore().getModelElement().refAllOfType());
+                    this.model.getCore().getModelElement().refAllOfType());
         }
         return modelElements;
     }

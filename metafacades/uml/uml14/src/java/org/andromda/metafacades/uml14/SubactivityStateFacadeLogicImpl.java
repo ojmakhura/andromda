@@ -6,14 +6,14 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.SubactivityStateFacade
  */
-public class SubactivityStateFacadeLogicImpl
-    extends SubactivityStateFacadeLogic
+public class SubactivityStateFacadeLogicImpl extends SubactivityStateFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public SubactivityStateFacadeLogicImpl (org.omg.uml.behavioralelements.activitygraphs.SubactivityState metaObject, String context)
+    public SubactivityStateFacadeLogicImpl(org.omg.uml.behavioralelements.activitygraphs.SubactivityState metaObject,
+                                           String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**

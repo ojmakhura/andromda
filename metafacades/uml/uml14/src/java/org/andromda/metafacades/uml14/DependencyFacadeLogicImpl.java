@@ -1,32 +1,26 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-
 import org.apache.commons.lang.StringUtils;
+
+import java.util.Collection;
 
 /**
  * Metaclass facade implementation.
  */
-public class DependencyFacadeLogicImpl
-    extends DependencyFacadeLogic
+public class DependencyFacadeLogicImpl extends DependencyFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public DependencyFacadeLogicImpl(
-        org.omg.uml.foundation.core.Dependency metaObject,
-        String context)
+    public DependencyFacadeLogicImpl(org.omg.uml.foundation.core.Dependency metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
-     * Gets the name in the following manner.
-     * <ol>
-     * <li>If the dependency has a name return it.</li>
-     * <li>If the dependency does <strong>NOT </strong> have a name, get the
-     * target element's and return its name uncapitalized.</li>
-     * </ol>
-     * 
+     * Gets the name in the following manner. <ol> <li>If the dependency has a name return it.</li> <li>If the
+     * dependency does <strong>NOT </strong> have a name, get the target element's and return its name
+     * uncapitalized.</li> </ol>
+     *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     public String handleGetName()
@@ -61,8 +55,8 @@ public class DependencyFacadeLogicImpl
     public Object handleGetTargetElement()
     {
         Object targetElement = null;
-        Collection suppliers = UML14MetafacadeUtils.getCorePackage()
-            .getASupplierSupplierDependency().getSupplier(this.metaObject);
+        Collection suppliers = UML14MetafacadeUtils.getCorePackage().getASupplierSupplierDependency().getSupplier(
+                this.metaObject);
         if (!suppliers.isEmpty())
         {
             targetElement = suppliers.iterator().next();
@@ -76,8 +70,8 @@ public class DependencyFacadeLogicImpl
     protected Object handleGetSourceElement()
     {
         Object sourceElement = null;
-        Collection clients = UML14MetafacadeUtils.getCorePackage()
-            .getAClientClientDependency().getClient(this.metaObject);
+        Collection clients = UML14MetafacadeUtils.getCorePackage().getAClientClientDependency().getClient(
+                this.metaObject);
         if (!clients.isEmpty())
         {
             sourceElement = clients.iterator().next();

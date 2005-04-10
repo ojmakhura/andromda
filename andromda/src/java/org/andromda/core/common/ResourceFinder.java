@@ -1,15 +1,15 @@
 package org.andromda.core.common;
 
+import org.apache.log4j.Logger;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 
-import org.apache.log4j.Logger;
-
 /**
  * Finds and loads file resources from the current classpath.
- * 
+ *
  * @author Chad Brandon
  */
 public class ResourceFinder
@@ -18,9 +18,9 @@ public class ResourceFinder
     private static Logger logger = Logger.getLogger(ResourceFinder.class);
 
     /**
-     * Returns a URL[] containing the URL of each resource and the File which
-     * represents the library the resource was found in.
-     * 
+     * Returns a URL[] containing the URL of each resource and the File which represents the library the resource was
+     * found in.
+     *
      * @param resource the resource to find
      * @return a <code>array of resource URLs<code>
      */
@@ -35,13 +35,12 @@ public class ResourceFinder
         try
         {
             Collection resources = new ArrayList();
-            Enumeration resourceEnum = Thread.currentThread()
-                .getContextClassLoader().getResources(resource);
+            Enumeration resourceEnum = Thread.currentThread().getContextClassLoader().getResources(resource);
             while (resourceEnum.hasMoreElements())
             {
                 resources.add(resourceEnum.nextElement());
             }
-            resourceUrls = (URL[])resources.toArray(new URL[0]);
+            resourceUrls = (URL[]) resources.toArray(new URL[0]);
         }
         catch (Exception ex)
         {

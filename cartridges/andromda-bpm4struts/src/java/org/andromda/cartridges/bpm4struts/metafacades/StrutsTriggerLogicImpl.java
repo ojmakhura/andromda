@@ -11,8 +11,7 @@ import java.lang.reflect.Method;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger
  */
-public class StrutsTriggerLogicImpl
-    extends StrutsTriggerLogic
+public class StrutsTriggerLogicImpl extends StrutsTriggerLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -124,8 +123,8 @@ public class StrutsTriggerLogicImpl
          */
         try
         {
-            Method method = metaObject.getClass().getMethod("getOperation", (Class[])null);
-            return method.invoke(metaObject, (Object[])null);
+            Method method = metaObject.getClass().getMethod("getOperation", (Class[]) null);
+            return method.invoke(metaObject, (Object[]) null);
         }
         catch (Exception ex)
         {
@@ -140,7 +139,7 @@ public class StrutsTriggerLogicImpl
         TransitionFacade transition = getTransition();
         if (transition instanceof StrutsAction)
         {
-            triggerAction = (StrutsAction)transition;
+            triggerAction = (StrutsAction) transition;
         }
         return triggerAction;
     }

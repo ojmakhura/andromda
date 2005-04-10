@@ -1,19 +1,14 @@
 package org.andromda.cartridges.ejb.metafacades;
 
 /**
- * <p>
- * Represents an EJB association end.
- * </p>
- * Metaclass facade implementation.
+ * <p/>
+ * Represents an EJB association end. </p> Metaclass facade implementation.
  */
-public class EJBAssociationEndFacadeLogicImpl
-    extends EJBAssociationEndFacadeLogic
+public class EJBAssociationEndFacadeLogicImpl extends EJBAssociationEndFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EJBAssociationEndFacadeLogicImpl(
-        java.lang.Object metaObject,
-        String context)
+    public EJBAssociationEndFacadeLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
     }

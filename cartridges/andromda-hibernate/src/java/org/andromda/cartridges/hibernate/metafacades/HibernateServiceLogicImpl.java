@@ -3,19 +3,15 @@ package org.andromda.cartridges.hibernate.metafacades;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.hibernate.metafacades.HibernateService.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateService.
+ *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateService
  */
-public class HibernateServiceLogicImpl
-    extends HibernateServiceLogic
+public class HibernateServiceLogicImpl extends HibernateServiceLogic
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateServiceLogicImpl(
-        Object metaObject,
-        String context)
+    public HibernateServiceLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -26,8 +22,7 @@ public class HibernateServiceLogicImpl
     protected java.lang.String handleGetEjbJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this
-            .getEjbJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -43,19 +38,18 @@ public class HibernateServiceLogicImpl
      */
     protected java.lang.String handleGetEjbViewType()
     {
-        String defaultViewType = String.valueOf(this
-            .getConfiguredProperty("ejbViewType"));
+        String defaultViewType = String.valueOf(this.getConfiguredProperty("ejbViewType"));
         return HibernateMetafacadeUtils.getViewType(this, defaultViewType);
     }
 
     /**
      * Gets the <code>ejbJndiNamePrefix</code> for this EJB.
-     * 
+     *
      * @return the EJB Jndi name prefix.
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
+        return (String) this.getConfiguredProperty("ejbJndiNamePrefix");
     }
 
     /**

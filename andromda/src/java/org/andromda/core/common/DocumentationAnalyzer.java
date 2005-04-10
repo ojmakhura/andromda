@@ -1,34 +1,31 @@
 package org.andromda.core.common;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Collection;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.html.HTML.Tag;
 import javax.swing.text.html.HTMLEditorKit.ParserCallback;
 import javax.swing.text.html.parser.ParserDelegator;
-
-import org.apache.commons.lang.StringEscapeUtils;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
- * A utility object useful for reading an documentation string (originating from
- * the contents of an XMI documentation element) and for translating that string
- * into a paragraph.
- * <p>
- * The list of paragraphs can be used in a VelocityTemplateEngine template to
- * generate JavaDoc documentation for a class, an attribute or a method.
- * </p>
- * 
+ * A utility object useful for reading an documentation string (originating from the contents of an XMI documentation
+ * element) and for translating that string into a paragraph.
+ * <p/>
+ * The list of paragraphs can be used in a VelocityTemplateEngine template to generate JavaDoc documentation for a
+ * class, an attribute or a method. </p>
+ *
  * @author Matthias Bohlen
  * @author Chad Brandon
  */
 public class DocumentationAnalyzer
 {
     /**
-     * Specifes the line width to enforce. Note: this member is protected to
-     * improve access performance within inner class {@link HTMLParserCallback}
+     * Specifes the line width to enforce. Note: this member is protected to improve access performance within inner
+     * class {@link HTMLParserCallback}
      */
     protected int lineLength;
 
@@ -38,8 +35,7 @@ public class DocumentationAnalyzer
     private static final int DEFAULT_LINE_WIDTH = 66;
 
     /**
-     * Constructs a new instance of this DocumentationAnalyzer using the default
-     * line width.
+     * Constructs a new instance of this DocumentationAnalyzer using the default line width.
      */
     public DocumentationAnalyzer()
     {
@@ -47,29 +43,25 @@ public class DocumentationAnalyzer
     }
 
     /**
-     * Constructs a new instance of this DocumentationAnalyzer specifying the
-     * <code>lineLength</code> to enforce.
-     * 
+     * Constructs a new instance of this DocumentationAnalyzer specifying the <code>lineLength</code> to enforce.
+     *
      * @param lineLength the width of the lines before they are wrapped.
      */
-    public DocumentationAnalyzer(
-        int lineLength)
+    public DocumentationAnalyzer(int lineLength)
     {
         this.lineLength = lineLength;
     }
 
     /**
-     * <p>
-     * Translates a string into a list of Paragraphs.
-     * </p>
-     * 
+     * <p/>
+     * Translates a string into a list of Paragraphs. </p>
+     *
      * @param line the line of documentation to be analyzed
      * @param html whether or not HTML should be handled.
      * @return Collection the list of paragraphs found in the text string
      * @throws IOException if something goes wrong
      */
-    public Collection toParagraphs(String line, boolean html)
-        throws IOException
+    public Collection toParagraphs(String line, boolean html) throws IOException
     {
         ParserDelegator delegator = new ParserDelegator();
         if (html)
@@ -84,27 +76,23 @@ public class DocumentationAnalyzer
     // access
     protected ArrayList paragraphs = new ArrayList();
 
-    private class HTMLParserCallback
-        extends ParserCallback
+    private class HTMLParserCallback extends ParserCallback
     {
         private Paragraph currentParagraph = null;
         private Paragraph nonHtmlParagraph = null;
 
         /**
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleSimpleTag(javax.swing.text.html.HTML.Tag,
-         *      javax.swing.text.MutableAttributeSet, int)
+                *      javax.swing.text.MutableAttributeSet, int)
          */
-        public void handleSimpleTag(
-            Tag tag,
-            MutableAttributeSet attribs,
-            int pos)
+        public void handleSimpleTag(Tag tag, MutableAttributeSet attribs, int pos)
         {
             appendWord("<" + tag + ">");
         }
 
         /**
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleStartTag(javax.swing.text.html.HTML.Tag,
-         *      javax.swing.text.MutableAttributeSet, int)
+                *      javax.swing.text.MutableAttributeSet, int)
          */
         public void handleStartTag(Tag tag, MutableAttributeSet attribs, int pos)
         {
@@ -119,8 +107,7 @@ public class DocumentationAnalyzer
         }
 
         /**
-         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleEndTag(javax.swing.text.html.HTML.Tag,
-         *      int)
+         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleEndTag(javax.swing.text.html.HTML.Tag, int)
          */
         public void handleEndTag(Tag tag, int pos)
         {
@@ -136,8 +123,7 @@ public class DocumentationAnalyzer
         }
 
         /**
-         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleText(char[],
-         *      int)
+         * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleText(char[], int)
          */
         public void handleText(char[] text, int pos)
         {

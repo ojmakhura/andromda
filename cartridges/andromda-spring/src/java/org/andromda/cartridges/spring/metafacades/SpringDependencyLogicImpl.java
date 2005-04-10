@@ -1,27 +1,23 @@
 package org.andromda.cartridges.spring.metafacades;
 
-import java.util.Collection;
-
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
+
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.spring.metafacades.SpringDependency.
+ * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringDependency.
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringDependency
  */
-public class SpringDependencyLogicImpl
-    extends SpringDependencyLogic
+public class SpringDependencyLogicImpl extends SpringDependencyLogic
 {
     // ---------------- constructor -------------------------------
 
-    public SpringDependencyLogicImpl(
-        Object metaObject,
-        String context)
+    public SpringDependencyLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -31,8 +27,7 @@ public class SpringDependencyLogicImpl
      */
     protected String handleGetTransformationConstantName()
     {
-        return SpringGlobals.TRANSFORMATION_CONSTANT_PREFIX
-            + getName().toUpperCase();
+        return SpringGlobals.TRANSFORMATION_CONSTANT_PREFIX + getName().toUpperCase();
     }
 
     /**
@@ -40,8 +35,7 @@ public class SpringDependencyLogicImpl
      */
     protected String handleGetTransformationMethodName()
     {
-        return SpringGlobals.TRANSFORMATION_METHOD_PREFIX
-            + StringUtils.capitalize(getName());
+        return SpringGlobals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(getName());
     }
 
     /**
@@ -65,22 +59,17 @@ public class SpringDependencyLogicImpl
         boolean circularReference = false;
         final ModelElementFacade sourceElement = this.getSourceElement();
         final ModelElementFacade targetElement = this.getTargetElement();
-        final Collection sourceDependencies = targetElement
-            .getSourceDependencies();
+        final Collection sourceDependencies = targetElement.getSourceDependencies();
         if (sourceDependencies != null && !sourceDependencies.isEmpty())
         {
-            circularReference = CollectionUtils.find(
-                sourceDependencies,
-                new Predicate()
+            circularReference = CollectionUtils.find(sourceDependencies, new Predicate()
+            {
+                public boolean evaluate(Object object)
                 {
-                    public boolean evaluate(Object object)
-                    {
-                        DependencyFacade dependency = (DependencyFacade)object;
-                        return dependency != null
-                            && dependency.getTargetElement().equals(
-                                sourceElement);
-                    }
-                }) != null;
+                    DependencyFacade dependency = (DependencyFacade) object;
+                    return dependency != null && dependency.getTargetElement().equals(sourceElement);
+                }
+            }) != null;
         }
         return circularReference;
     }
@@ -90,9 +79,7 @@ public class SpringDependencyLogicImpl
      */
     protected String handleGetTransformationToCollectionMethodName()
     {
-        return SpringGlobals.TRANSFORMATION_METHOD_PREFIX
-            + StringUtils.capitalize(this.getName())
-            + SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
+        return SpringGlobals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(this.getName()) + SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
     }
 
     /**
@@ -105,13 +92,12 @@ public class SpringDependencyLogicImpl
 
     /**
      * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_PATTERN}
-     * 
+     *
      * @return the DAO name pattern.
      */
     private String getDaoNamePattern()
     {
-        return String.valueOf(this
-            .getConfiguredProperty(SpringGlobals.PROPERTY_DAO_PATTERN));
+        return String.valueOf(this.getConfiguredProperty(SpringGlobals.PROPERTY_DAO_PATTERN));
     }
 
     /**
@@ -121,7 +107,7 @@ public class SpringDependencyLogicImpl
     {
         return "get" + StringUtils.capitalize(this.getDaoName());
     }
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getDaoSetterName()
      */

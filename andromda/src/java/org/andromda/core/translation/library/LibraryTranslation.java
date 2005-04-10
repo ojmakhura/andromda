@@ -1,13 +1,5 @@
 package org.andromda.core.translation.library;
 
-import java.io.BufferedReader;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.XmlObjectFactory;
@@ -17,10 +9,18 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
+import java.io.BufferedReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * The LibraryTranslation object which is the intermediary object between the
- * Library and the child Translation instances.
- * 
+ * The LibraryTranslation object which is the intermediary object between the Library and the child Translation
+ * instances.
+ *
  * @author Chad Brandon
  */
 public class LibraryTranslation
@@ -33,8 +33,7 @@ public class LibraryTranslation
     private Library library;
 
     /**
-     * After processing by the CartridgeTemplate engine, will contain the
-     * processed translation.
+     * After processing by the CartridgeTemplate engine, will contain the processed translation.
      */
     private Translation translation;
 
@@ -45,7 +44,7 @@ public class LibraryTranslation
 
     /**
      * Gets the name of this LibraryTranslation.
-     * 
+     *
      * @return String
      */
     public String getName()
@@ -55,7 +54,7 @@ public class LibraryTranslation
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name
      */
     public void setName(String name)
@@ -70,7 +69,7 @@ public class LibraryTranslation
 
     /**
      * Gets the path to the template for this instance.
-     * 
+     *
      * @return String
      */
     public String getTemplate()
@@ -80,7 +79,7 @@ public class LibraryTranslation
 
     /**
      * Sets the path to the template.
-     * 
+     *
      * @param template
      */
     public void setTemplate(String template)
@@ -90,7 +89,7 @@ public class LibraryTranslation
 
     /**
      * Returns the Library that this LibraryTranslation belongs too.
-     * 
+     *
      * @return Library
      */
     public Library getLibrary()
@@ -100,7 +99,7 @@ public class LibraryTranslation
 
     /**
      * Sets the {@link Library} to which this LibraryInstance belongs.
-     * 
+     *
      * @param library
      */
     public void setLibrary(Library library)
@@ -114,9 +113,8 @@ public class LibraryTranslation
     private String variable;
 
     /**
-     * Gets the variable name which is made available to the translation
-     * template.
-     * 
+     * Gets the variable name which is made available to the translation template.
+     *
      * @return the variable name.
      */
     public String getVariable()
@@ -125,9 +123,8 @@ public class LibraryTranslation
     }
 
     /**
-     * Sets the variable name which is made available to the translation
-     * template.
-     * 
+     * Sets the variable name which is made available to the translation template.
+     *
      * @param variable the variable name.
      */
     public void setVariable(String variable)
@@ -142,7 +139,7 @@ public class LibraryTranslation
 
     /**
      * Sets the Translator class that will perform the translation processing.
-     * 
+     *
      * @param translatorClass the class of the translator.
      */
     public void setTranslator(String translatorClass)
@@ -153,33 +150,27 @@ public class LibraryTranslation
     }
 
     /**
-     * Gets the Translator instance that will perform processing of the
-     * template.
-     * 
+     * Gets the Translator instance that will perform processing of the template.
+     *
      * @return Translator
      */
     public Translator getTranslator()
     {
         final String methodName = "LibraryTranslation.getTranslator";
-        Translator translator = (Translator)ComponentContainer.instance()
-            .findComponent(this.translatorClass, Translator.class);
+        Translator translator = (Translator) ComponentContainer.instance().findComponent(this.translatorClass,
+                Translator.class);
         if (translator == null)
         {
-            throw new LibraryException(methodName
-                + " - a translator implementation must be defined, "
-                + " please check your translator library --> '"
-                + this.library.getResource() + "'");
+            throw new LibraryException(methodName + " - a translator implementation must be defined, " + " please check your translator library --> '" + this.library.getResource() + "'");
         }
         return translator;
     }
 
     /**
-     * Calls the handlerMethod from a translation fragment. Each handle method
-     * must take a java.lang.String as the first argument (the body of the
-     * fragment from the translation template) and a java.lang.Object for the
-     * second argument (the node being parsed that we may need to retrieve any
-     * additional information from).
-     * 
+     * Calls the handlerMethod from a translation fragment. Each handle method must take a java.lang.String as the first
+     * argument (the body of the fragment from the translation template) and a java.lang.Object for the second argument
+     * (the node being parsed that we may need to retrieve any additional information from).
+     *
      * @param name the name of the fragment to retrieve.
      * @param node the node Object which from the parsed expression.
      * @param kind the kind of the translation fragment to handle.
@@ -197,38 +188,22 @@ public class LibraryTranslation
                 String handlerMethod = fragment.getHandlerMethod();
                 if (StringUtils.isNotEmpty(handlerMethod))
                 {
-                    Class[] argTypes = new Class[]
-                    {
-                        java.lang.String.class,
-                        java.lang.Object.class
-                    };
+                    Class[] argTypes = new Class[]{java.lang.String.class, java.lang.Object.class};
 
                     try
                     {
 
-                        Method method = this.getTranslator().getClass()
-                            .getMethod(handlerMethod, argTypes);
+                        Method method = this.getTranslator().getClass().getMethod(handlerMethod, argTypes);
 
                         // add the translation as the first arg
-                        Object[] args = new Object[]
-                        {
-                            translation,
-                            node
-                        };
+                        Object[] args = new Object[]{translation, node};
 
                         method.invoke(this.getTranslator(), args);
                     }
                     catch (NoSuchMethodException ex)
                     {
-                        String errMsg = "the translator '"
-                            + this.getTranslator().getClass()
-                            + "' must implement the method '"
-                            + handlerMethod
-                            + "'"
-                            + StringUtils.join(argTypes, ",")
-                            + "'"
-                            + " in order to handle processing of the fragment --> '"
-                            + name + "'";
+                        String errMsg = "the translator '" + this.getTranslator().getClass() + "' must implement the method '" + handlerMethod + "'" + StringUtils.join(
+                                argTypes, ",") + "'" + " in order to handle processing of the fragment --> '" + name + "'";
                         logger.error(errMsg);
                     }
                     catch (Exception ex)
@@ -242,14 +217,12 @@ public class LibraryTranslation
     }
 
     /**
-     * Gets the current "translated" value of this fragmentName for resulting
-     * from the last processTranslation method
-     * 
+     * Gets the current "translated" value of this fragmentName for resulting from the last processTranslation method
+     *
      * @param name the name of the fragment to retrieve.
-     * @param kind the kind or type of fragment to retrieve (this is the based
-     *        on the expression type: body, inv, post, pre, etc).
-     * @return String the value of the translated fragment or null of one wasn't
-     *         found with the specified name.
+     * @param kind the kind or type of fragment to retrieve (this is the based on the expression type: body, inv, post,
+     *             pre, etc).
+     * @return String the value of the translated fragment or null of one wasn't found with the specified name.
      */
     public String getTranslationFragment(String name, String kind)
     {
@@ -263,20 +236,17 @@ public class LibraryTranslation
 
     /**
      * The processed translation template as a Reader.
-     * 
+     *
      * @param translationInput
      */
     protected void setTranslation(Reader translationInput)
     {
         final String methodName = "LibraryTranslation.setTranslation";
-        ExceptionUtils.checkNull(
-            methodName,
-            "translationInput",
-            translationInput);
+        ExceptionUtils.checkNull(methodName, "translationInput", translationInput);
         try
         {
-            this.translation = (Translation)XmlObjectFactory.getInstance(
-                Translation.class).getObject(translationInput);
+            this.translation = (Translation) XmlObjectFactory.getInstance(Translation.class).getObject(
+                    translationInput);
             this.translation.setLibraryTranslation(this);
         }
         catch (Exception ex)
@@ -288,21 +258,18 @@ public class LibraryTranslation
     }
 
     /**
-     * Processes the template belonging to this LibraryTranslation and returns
-     * the Translation objects. If <code>template</code> hasn't been set (i.e.
-     * is null, then this method won't do anything but return a null value).
-     * 
-     * @param templateContext any key/value pairs that should be passed to the
-     *        TemplateEngine while processing the translation template.
-     * @return Translation the Translation created from the processing the
-     *         translation template.
+     * Processes the template belonging to this LibraryTranslation and returns the Translation objects. If
+     * <code>template</code> hasn't been set (i.e. is null, then this method won't do anything but return a null
+     * value).
+     *
+     * @param templateContext any key/value pairs that should be passed to the TemplateEngine while processing the
+     *                        translation template.
+     * @return Translation the Translation created from the processing the translation template.
      */
     public Translation processTranslation(Map templateContext)
     {
         final String methodName = "LibraryTranslation.processTranslation";
-        logger.debug("processing translation template --> '"
-            + this.getTemplate() + "'" + "' with templateContext --> '"
-            + templateContext + "'");
+        logger.debug("processing translation template --> '" + this.getTemplate() + "'" + "' with templateContext --> '" + templateContext + "'");
         if (this.getTemplate() != null)
         {
             if (templateContext == null)
@@ -316,13 +283,9 @@ public class LibraryTranslation
                 TemplateEngine engine = this.getLibrary().getTemplateEngine();
 
                 StringWriter output = new StringWriter();
-                engine.processTemplate(
-                    this.getTemplate(),
-                    templateContext,
-                    output);
+                engine.processTemplate(this.getTemplate(), templateContext, output);
                 String outputString = output.toString();
-                BufferedReader input = new BufferedReader(new StringReader(
-                    outputString));
+                BufferedReader input = new BufferedReader(new StringReader(outputString));
                 if (logger.isDebugEnabled())
                 {
                     logger.debug("processed output --> '" + outputString + "'");

@@ -1,8 +1,5 @@
 package org.andromda.cartridges.webservice;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType;
 import org.andromda.cartridges.webservice.metafacades.WSDLType;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -12,16 +9,19 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 /**
  * Contains utilities used within the WebService cartridge.
- * 
+ *
  * @author Chad Brandon
  */
 public class WebServiceUtils
 {
     /**
      * Retrieves all roles from the given <code>services</code> collection.
-     * 
+     *
      * @param services the collection services.
      * @return all roles from the collection.
      */
@@ -32,10 +32,9 @@ public class WebServiceUtils
         {
             public void execute(Object object)
             {
-                if (object != null
-                    && Service.class.isAssignableFrom(object.getClass()))
+                if (object != null && Service.class.isAssignableFrom(object.getClass()))
                 {
-                    allRoles.addAll(((Service)object).getAllRoles());
+                    allRoles.addAll(((Service) object).getAllRoles());
                 }
             }
         });
@@ -44,47 +43,34 @@ public class WebServiceUtils
 
     /**
      * Reverses the <code>packageName</code>.
-     * 
+     *
      * @param packageName the package name to reverse.
      * @return the reversed package name.
      */
     public static String reversePackage(String packageName)
     {
-        return StringUtils.reverseDelimited(
-            packageName,
-            WebServiceGlobals.NAMESPACE_DELIMITER);
+        return StringUtils.reverseDelimited(packageName, WebServiceGlobals.NAMESPACE_DELIMITER);
     }
 
     /**
-     * <p>
-     * Creates and returns the schema type for the given <code>type</code>.
-     * It finds the mapped schema type from the passed in
-     * <code>schemaTypeMappings</code>.
-     * </p>
-     * 
-     * @param type the ClassifierFacade instance
-     * @param schemaTypeMappings contains the mappings from model datatypes to
-     *        schema datatypes.
-     * @param namespacePrefix the prefix given to the schema type if it's a
-     *        custom type (non XSD type).
-     * @param qName the qualifed name
+     * <p/>
+     * Creates and returns the schema type for the given <code>type</code>. It finds the mapped schema type from the
+     * passed in <code>schemaTypeMappings</code>. </p>
+     *
+     * @param type                   the ClassifierFacade instance
+     * @param schemaTypeMappings     contains the mappings from model datatypes to schema datatypes.
+     * @param namespacePrefix        the prefix given to the schema type if it's a custom type (non XSD type).
+     * @param qName                  the qualifed name
      * @param wrappedArrayTypePrefix a prefix to give to wrapped array types.
-     * @param withPrefix a flag indicating whether or not the type should have
-     *        the prefix defined
-     * @param preserveArray true/false, if true then if the schema type is an
-     *        array we'll preserve the fact that its an array and return an
-     *        array schema type name. If false we will return back the non array
-     *        type even if its an array.
+     * @param withPrefix             a flag indicating whether or not the type should have the prefix defined
+     * @param preserveArray          true/false, if true then if the schema type is an array we'll preserve the fact
+     *                               that its an array and return an array schema type name. If false we will return
+     *                               back the non array type even if its an array.
      * @return the schema type name.
      */
-    public static java.lang.String getSchemaType(
-        ClassifierFacade type,
-        TypeMappings schemaTypeMappings,
-        String namespacePrefix,
-        String qName,
-        String wrappedArrayTypePrefix,
-        boolean withPrefix,
-        boolean preserveArray)
+    public static java.lang.String getSchemaType(ClassifierFacade type, TypeMappings schemaTypeMappings,
+                                                 String namespacePrefix, String qName, String wrappedArrayTypePrefix,
+                                                 boolean withPrefix, boolean preserveArray)
     {
         StringBuffer schemaType = new StringBuffer();
         String modelName = type.getFullyQualifiedName(true);
@@ -109,11 +95,11 @@ public class WebServiceUtils
                     {
                         if (nonArray instanceof WSDLType)
                         {
-                            schemaType.append(((WSDLType)nonArray).getQName());
+                            schemaType.append(((WSDLType) nonArray).getQName());
                         }
                         else if (nonArray instanceof WSDLEnumerationType)
                         {
-                            schemaType.append(((WSDLEnumerationType)nonArray).getQName());
+                            schemaType.append(((WSDLEnumerationType) nonArray).getQName());
                         }
                     }
                 }
@@ -144,8 +130,7 @@ public class WebServiceUtils
                 }
                 schemaType.insert(insertIndex, wrappedArrayTypePrefix);
             }
-            if (withPrefix
-                && !schemaType.toString().startsWith(namespacePrefix))
+            if (withPrefix && !schemaType.toString().startsWith(namespacePrefix))
             {
                 schemaType.insert(0, WebServiceGlobals.XSD_NAMESPACE_PREFIX);
             }

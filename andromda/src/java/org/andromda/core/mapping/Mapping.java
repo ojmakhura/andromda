@@ -1,16 +1,16 @@
 package org.andromda.core.mapping;
 
+import org.andromda.core.common.ExceptionUtils;
+
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.andromda.core.common.ExceptionUtils;
-
 /**
- * A single child mapping instance belonging to a Mappings instance. It doesn't
- * make sense to instantiate this class by itself.
- * 
- * @see org.andromda.core.mapping.Mappings
+ * A single child mapping instance belonging to a Mappings instance. It doesn't make sense to instantiate this class by
+ * itself.
+ *
  * @author Chad Brandon
+ * @see org.andromda.core.mapping.Mappings
  */
 public class Mapping
 {
@@ -20,7 +20,7 @@ public class Mapping
 
     /**
      * Adds the <code>from</code> type to the mapping.
-     * 
+     *
      * @param from the type that we are mapping from.
      */
     public void addFrom(String from)
@@ -32,7 +32,7 @@ public class Mapping
 
     /**
      * Return the Collection of froms.
-     * 
+     *
      * @return Collection
      */
     public Collection getFroms()
@@ -42,7 +42,7 @@ public class Mapping
 
     /**
      * Returns the to type for this mapping.
-     * 
+     *
      * @return String the to type
      */
     public String getTo()
@@ -52,7 +52,7 @@ public class Mapping
 
     /**
      * Sets the type for this mapping.
-     * 
+     *
      * @param to
      */
     public void setTo(String to)

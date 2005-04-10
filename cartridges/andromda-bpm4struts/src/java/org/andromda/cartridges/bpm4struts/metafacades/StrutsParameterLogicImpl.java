@@ -29,8 +29,7 @@ import java.util.Set;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter
  */
-public class StrutsParameterLogicImpl
-        extends StrutsParameterLogic
+public class StrutsParameterLogicImpl extends StrutsParameterLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -74,8 +73,8 @@ public class StrutsParameterLogicImpl
                 final EventFacade trigger = action.getTrigger();
                 if (trigger != null)
                 {
-                    styleId = StringUtilsHelper.lowerCamelCaseName(trigger.getName())
-                            + StringUtilsHelper.upperCamelCaseName(getName());
+                    styleId = StringUtilsHelper.lowerCamelCaseName(trigger.getName()) +
+                            StringUtilsHelper.upperCamelCaseName(getName());
                 }
             }
         }
@@ -261,16 +260,14 @@ public class StrutsParameterLogicImpl
         String dateSuffix = "";
         if (isDate())
         {
-            dateSuffix =
-                    (isStrictDateFormat())
-                    ? " (use this strict format: " + getDateFormat() + ")"
-                    : " (use this lenient format: " + getDateFormat() + ")";
+            dateSuffix = (isStrictDateFormat()) ?
+                    " (use this strict format: " + getDateFormat() + ")" :
+                    " (use this lenient format: " + getDateFormat() + ")";
         }
 
         String documentation = getDocumentation("", 64, false);
-        return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation))
-                ? super.getName() + requiredSuffix + dateSuffix
-                : documentation.trim().replaceAll("\n", "<br/>"));
+        return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation)) ?
+                super.getName() + requiredSuffix + dateSuffix : documentation.trim().replaceAll("\n", "<br/>"));
     }
 
     protected String handleGetDocumentationKey()
@@ -366,7 +363,8 @@ public class StrutsParameterLogicImpl
         if (isPatternFormat(format))
         {
             buffer.append("The value should match this ");
-            buffer.append("<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html\" target=\"_jdk\">");
+            buffer.append(
+                    "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html\" target=\"_jdk\">");
             buffer.append("regular expression</a>: ");
             buffer.append(getPatternValue(format));
             buffer.append(crlf);
@@ -465,7 +463,8 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsCalendarRequired()
     {
-        return isDate() && String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)).equals("true");
+        return isDate() &&
+                String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)).equals("true");
     }
 
     protected boolean handleIsActionParameter()
@@ -505,9 +504,7 @@ public class StrutsParameterLogicImpl
         ClassifierFacade type = getType();
         if (type != null)
         {
-            isTable = (type.isCollectionType() ||
-                    type.isArrayType()) &&
-                    (!getTableColumnNames().isEmpty());
+            isTable = (type.isCollectionType() || type.isArrayType()) && (!getTableColumnNames().isEmpty());
         }
         return isTable;
     }
@@ -607,7 +604,7 @@ public class StrutsParameterLogicImpl
             final UseCaseFacade useCase = (UseCaseFacade) useCaseIterator.next();
             if (useCase instanceof StrutsUseCase)
             {
-                final StrutsActivityGraph graph = ((StrutsUseCase)useCase).getActivityGraph();
+                final StrutsActivityGraph graph = ((StrutsUseCase) useCase).getActivityGraph();
                 if (graph != null)
                 {
                     final Collection transitions = graph.getTransitions();
@@ -639,7 +636,7 @@ public class StrutsParameterLogicImpl
     protected String handleGetTableDecoratorFullyQualifiedName()
     {
         String name = getTableDecoratorPackageName();
-        name = (StringUtils.trimToEmpty(name) == null) ? "" :  name + '.';
+        name = (StringUtils.trimToEmpty(name) == null) ? "" : name + '.';
         return name + getTableDecoratorClassName();
     }
 
@@ -675,7 +672,7 @@ public class StrutsParameterLogicImpl
         Collection taggedValues = new HashSet(findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT));
         if (taggedValues.isEmpty())
         {
-            exportTypes = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES);
+            exportTypes = (String) getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES);
         }
         else
         {
@@ -690,7 +687,7 @@ public class StrutsParameterLogicImpl
                 {
                     final String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
                     if ("csv".equalsIgnoreCase(exportType) || "pdf".equalsIgnoreCase(exportType) ||
-                        "xml".equalsIgnoreCase(exportType) || "excel".equalsIgnoreCase(exportType) )
+                            "xml".equalsIgnoreCase(exportType) || "excel".equalsIgnoreCase(exportType))
                     {
                         buffer.append(exportType);
                         buffer.append(' ');
@@ -711,9 +708,8 @@ public class StrutsParameterLogicImpl
     protected boolean handleIsTableSortable()
     {
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
-        return (taggedValue == null)
-                ? Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
-                : isTrue(String.valueOf(taggedValue));
+        return (taggedValue == null) ?
+                Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE : isTrue(String.valueOf(taggedValue));
     }
 
     protected Collection handleGetTableColumns()
@@ -1013,7 +1009,8 @@ public class StrutsParameterLogicImpl
                 {
                     StrutsJsp page = (StrutsJsp) pageIterator.next();
                     Collection parameters = page.getAllActionParameters();
-                    for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext() && !selectable;)
+                    for (Iterator parameterIterator = parameters.iterator();
+                         parameterIterator.hasNext() && !selectable;)
                     {
                         StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
                         String parameterName = parameter.getName();
@@ -1023,7 +1020,9 @@ public class StrutsParameterLogicImpl
                             String parameterTypeName = parameterType.getFullyQualifiedName();
                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
                             {
-                                selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(parameter.getWidgetType());
+                                selectable =
+                                        Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(
+                                                parameter.getWidgetType());
                             }
                         }
                     }
@@ -1070,7 +1069,9 @@ public class StrutsParameterLogicImpl
     private String constructArray()
     {
         final String name = getName();
-        return "new Object[] {\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" + name + "-5\"}";
+        return "new Object[] {\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" +
+                name +
+                "-5\"}";
     }
 
     /**
@@ -1142,8 +1143,8 @@ public class StrutsParameterLogicImpl
 
     private boolean isTrue(String string)
     {
-        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) ||
-                "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(string);
+        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(
+                string);
     }
 
     /**
@@ -1295,7 +1296,8 @@ public class StrutsParameterLogicImpl
     protected java.util.Collection handleGetValidatorArgs(java.lang.String validatorType)
     {
         final Collection args = new ArrayList();
-        if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) || "doubleRange".equals(validatorType))
+        if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) ||
+                "doubleRange".equals(validatorType))
         {
             args.add("${var:min}");
             args.add("${var:max}");
@@ -1311,7 +1313,7 @@ public class StrutsParameterLogicImpl
         else if ("date".equals(validatorType))
         {
             final String validatorFormat = getValidatorFormat();
-            if (validatorFormat!=null && isStrictDateFormat(validatorFormat))
+            if (validatorFormat != null && isStrictDateFormat(validatorFormat))
             {
                 args.add("${var:datePatternStrict}");
             }
@@ -1352,8 +1354,8 @@ public class StrutsParameterLogicImpl
 
                 if (isRangeFormat && (isValidatorInteger() || isValidatorFloat() || isValidatorDouble()))
                 {
-                    vars.put("min",Arrays.asList(new Object[]{"min", getRangeStart(format)}));
-                    vars.put("max",Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+                    vars.put("min", Arrays.asList(new Object[]{"min", getRangeStart(format)}));
+                    vars.put("max", Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
                 }
                 else if (isValidatorString())
                 {
@@ -1362,11 +1364,13 @@ public class StrutsParameterLogicImpl
                     {
                         String additionalFormat = String.valueOf(formatIterator.next());
                         if (isMinLengthFormat(additionalFormat))
-                            vars.put("minlength",Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
+                            vars.put("minlength",
+                                    Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
                         else if (isMaxLengthFormat(additionalFormat))
-                            vars.put("maxlength",Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
+                            vars.put("maxlength",
+                                    Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
                         else if (isPatternFormat(additionalFormat))
-                            vars.put("mask",Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
+                            vars.put("mask", Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
                     }
                 }
             }
@@ -1378,7 +1382,7 @@ public class StrutsParameterLogicImpl
                 }
                 else
                 {
-                    vars.put("datePattern",Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
+                    vars.put("datePattern", Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
                 }
             }
 
@@ -1405,7 +1409,7 @@ public class StrutsParameterLogicImpl
                 String validatorVar = (String) validatorVars.get(i);
                 String validatorArg = (String) validatorArgs.get(i);
 
-                vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar,validatorArg}));
+                vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar, validatorArg}));
             }
         }
 
@@ -1418,7 +1422,7 @@ public class StrutsParameterLogicImpl
     protected java.lang.String handleGetValidWhen()
     {
         final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDWHEN);
-        return value == null ? null : '('+value.toString()+')';
+        return value == null ? null : '(' + value.toString() + ')';
     }
 
     /**
@@ -1689,6 +1693,6 @@ public class StrutsParameterLogicImpl
 
     public Object getValidationOwner()
     {
-        return (isTable() && getJsp()!=null) ? getJsp() : super.getValidationOwner();
+        return (isTable() && getJsp() != null) ? getJsp() : super.getValidationOwner();
     }
 }

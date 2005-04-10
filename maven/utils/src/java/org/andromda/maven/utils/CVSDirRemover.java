@@ -2,9 +2,9 @@ package org.andromda.maven.utils;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Recursively removes CVS directories and their contents from the given directory.
@@ -18,7 +18,7 @@ public class CVSDirRemover
     {
         final File file = new File(rootDir);
         List removedDirs = new ArrayList();
-        remove(file,removedDirs);
+        remove(file, removedDirs);
         Collections.sort(removedDirs);
         return removedDirs;
     }

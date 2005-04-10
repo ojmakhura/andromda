@@ -1,10 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
@@ -14,17 +9,20 @@ import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * Metaclass facade implementation.
  */
-public class ActivityGraphFacadeLogicImpl
-    extends ActivityGraphFacadeLogic
+public class ActivityGraphFacadeLogicImpl extends ActivityGraphFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ActivityGraphFacadeLogicImpl(
-        org.omg.uml.behavioralelements.activitygraphs.ActivityGraph metaObject,
-        String context)
+    public ActivityGraphFacadeLogicImpl(org.omg.uml.behavioralelements.activitygraphs.ActivityGraph metaObject,
+                                        String context)
     {
         super(metaObject, context);
     }
@@ -42,9 +40,8 @@ public class ActivityGraphFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return (object instanceof Pseudostate)
-                    && (PseudostateKindEnum.PK_INITIAL
-                        .equals(((Pseudostate)object).getKind()));
+                return (object instanceof Pseudostate) && (PseudostateKindEnum.PK_INITIAL.equals(
+                        ((Pseudostate) object).getKind()));
             }
         };
         return getSubvertices(filter);
@@ -100,7 +97,7 @@ public class ActivityGraphFacadeLogicImpl
 
     protected Collection getSubvertices(Predicate collectionFilter)
     {
-        CompositeState compositeState = (CompositeState)metaObject.getTop();
+        CompositeState compositeState = (CompositeState) metaObject.getTop();
         return filter(compositeState.getSubvertex(), collectionFilter);
     }
 
@@ -132,14 +129,11 @@ public class ActivityGraphFacadeLogicImpl
     {
         UseCase stateMachineUseCase = null;
 
-        Collection useCases = UML14MetafacadeUtils.getModel().getUseCases()
-            .getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator
-            .hasNext()
-            && stateMachineUseCase == null;)
+        Collection useCases = UML14MetafacadeUtils.getModel().getUseCases().getUseCase().refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && stateMachineUseCase == null;)
         {
             // loop over all use-cases
-            UseCase useCase = (UseCase)useCaseIterator.next();
+            UseCase useCase = (UseCase) useCaseIterator.next();
             if (useCase.getOwnedElement().contains(metaObject))
             {
                 stateMachineUseCase = useCase;

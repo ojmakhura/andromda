@@ -1,27 +1,24 @@
 package org.andromda.cartridges.ejb.metafacades;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.andromda.cartridges.ejb.EJBGlobals;
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * MetafacadeLogic implementation.
- * 
+ *
  * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade
  */
-public class EJBSessionFacadeLogicImpl
-    extends EJBSessionFacadeLogic
+public class EJBSessionFacadeLogicImpl extends EJBSessionFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EJBSessionFacadeLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+    public EJBSessionFacadeLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -82,8 +79,7 @@ public class EJBSessionFacadeLogicImpl
     protected java.lang.String handleGetJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this
-            .getJndiNamePrefix());
+        String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
@@ -96,12 +92,12 @@ public class EJBSessionFacadeLogicImpl
 
     /**
      * Gets the <code>jndiNamePrefix</code> for this EJB.
-     * 
+     *
      * @return the EJB Jndi name prefix.
      */
     protected String getJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
+        return (String) this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
     }
 
     /**
@@ -117,8 +113,7 @@ public class EJBSessionFacadeLogicImpl
      */
     protected boolean handleIsStateless()
     {
-        return this.getAllInstanceAttributes() == null
-            || this.getAllInstanceAttributes().isEmpty();
+        return this.getAllInstanceAttributes() == null || this.getAllInstanceAttributes().isEmpty();
     }
 
     /**
@@ -153,29 +148,25 @@ public class EJBSessionFacadeLogicImpl
             public boolean evaluate(Object object)
             {
                 boolean businessOperation = false;
-                if (EJBOperationFacade.class
-                    .isAssignableFrom(object.getClass()))
+                if (EJBOperationFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    businessOperation = ((EJBOperationFacade)object)
-                        .isBusinessOperation();
+                    businessOperation = ((EJBOperationFacade) object).isBusinessOperation();
                 }
                 return businessOperation;
             }
         });
         return operations;
     }
-    
+
     /**
      * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade#getTransactionType()
      */
     protected java.lang.String handleGetTransactionType()
     {
-        String transactionType = (String)this
-            .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String) this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = transactionType = String.valueOf(this
-                .getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
+            transactionType = transactionType = String.valueOf(this.getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
         }
         return transactionType;
     }

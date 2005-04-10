@@ -9,19 +9,18 @@ import org.andromda.metafacades.uml.ValueObject;
  *
  * @see org.andromda.metafacades.uml.ValueObjectAssociationEnd
  */
-public class ValueObjectAssociationEndLogicImpl
-    extends ValueObjectAssociationEndLogic
+public class ValueObjectAssociationEndLogicImpl extends ValueObjectAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ValueObjectAssociationEndLogicImpl (Object metaObject, String context)
+    public ValueObjectAssociationEndLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
-    
+
     /**
      * Overridden to provide handling of array names within many type multiplicities.
-     * 
+     *
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
     protected String handleGetGetterSetterTypeName()
@@ -29,8 +28,7 @@ public class ValueObjectAssociationEndLogicImpl
         String name = super.handleGetGetterSetterTypeName();
         if (this.isMany())
         {
-            boolean useArrays = Boolean.valueOf(String.valueOf(
-                this.getConfiguredProperty(
+            boolean useArrays = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(
                     UMLMetafacadeProperties.USE_ARRAYS_FOR_MULTIPLICITIES_OF_TYPE_MANY))).booleanValue();
             if (useArrays)
             {

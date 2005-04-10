@@ -1,9 +1,5 @@
 package org.andromda.cartridges.spring.metafacades;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -15,20 +11,20 @@ import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.spring.metafacades.SpringEntity.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringEntity.
+ *
  * @see org.andromda.cartridges.spring.metafacades.SpringEntity
  */
-public class SpringEntityLogicImpl
-    extends SpringEntityLogic
+public class SpringEntityLogicImpl extends SpringEntityLogic
 {
     // ---------------- constructor -------------------------------
 
-    public SpringEntityLogicImpl(
-        Object metaObject,
-        String context)
+    public SpringEntityLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -76,13 +72,12 @@ public class SpringEntityLogicImpl
 
     /**
      * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_PATTERN}
-     * 
+     *
      * @return the DAO name pattern.
      */
     private String getDaoNamePattern()
     {
-        return String.valueOf(this
-            .getConfiguredProperty(SpringGlobals.PROPERTY_DAO_PATTERN));
+        return String.valueOf(this.getConfiguredProperty(SpringGlobals.PROPERTY_DAO_PATTERN));
     }
 
     /**
@@ -90,8 +85,7 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedDaoName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this
-            .getPackageName(), this.getDaoName());
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getDaoName());
     }
 
     /**
@@ -99,22 +93,17 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetDaoImplementationName()
     {
-        return this.getDaoImplementationNamePattern().replaceAll(
-            "\\{0\\}",
-            this.getName());
+        return this.getDaoImplementationNamePattern().replaceAll("\\{0\\}", this.getName());
     }
 
     /**
-     * Gets the value of the
-     * {@link SpringGlobals#PROPERTY_DAO_IMPLEMENTATION_PATTERN}
-     * 
+     * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_IMPLEMENTATION_PATTERN}
+     *
      * @return the DAO implementation name pattern.
      */
     private String getDaoImplementationNamePattern()
     {
-        return String
-            .valueOf(this
-                .getConfiguredProperty(SpringGlobals.PROPERTY_DAO_IMPLEMENTATION_PATTERN));
+        return String.valueOf(this.getConfiguredProperty(SpringGlobals.PROPERTY_DAO_IMPLEMENTATION_PATTERN));
     }
 
     /**
@@ -122,8 +111,7 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedDaoImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this
-            .getPackageName(), this.getDaoImplementationName());
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getDaoImplementationName());
     }
 
     /**
@@ -131,20 +119,17 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetDaoBaseName()
     {
-        return this.getDaoBaseNamePattern().replaceAll(
-            "\\{0\\}",
-            this.getName());
+        return this.getDaoBaseNamePattern().replaceAll("\\{0\\}", this.getName());
     }
 
     /**
      * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_BASE_PATTERN}
-     * 
+     *
      * @return the DAO base name pattern.
      */
     private String getDaoBaseNamePattern()
     {
-        return String.valueOf(this
-            .getConfiguredProperty(SpringGlobals.PROPERTY_DAO_BASE_PATTERN));
+        return String.valueOf(this.getConfiguredProperty(SpringGlobals.PROPERTY_DAO_BASE_PATTERN));
     }
 
     /**
@@ -152,8 +137,7 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedDaoBaseName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this
-            .getPackageName(), this.getDaoBaseName());
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getDaoBaseName());
     }
 
     /**
@@ -169,10 +153,8 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedEntityImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(
-            this.getPackageName(),
-            this.getEntityName(),
-            SpringGlobals.IMPLEMENTATION_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getEntityName(),
+                SpringGlobals.IMPLEMENTATION_SUFFIX);
     }
 
     /**
@@ -180,11 +162,8 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetBeanName(boolean targetSuffix)
     {
-        StringBuffer beanName = new StringBuffer(StringUtils
-            .uncapitalize(StringUtils.trimToEmpty(this.getName())));
-        beanName = new StringBuffer(this.getDaoNamePattern().replaceAll(
-            "\\{0\\}",
-            beanName.toString()));
+        StringBuffer beanName = new StringBuffer(StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName())));
+        beanName = new StringBuffer(this.getDaoNamePattern().replaceAll("\\{0\\}", beanName.toString()));
         if (targetSuffix)
         {
             beanName.append(SpringGlobals.BEAN_NAME_TARGET_SUFFIX);
@@ -197,12 +176,8 @@ public class SpringEntityLogicImpl
      */
     protected String handleGetEntityName()
     {
-        String entityNamePattern = (String)this
-            .getConfiguredProperty("entityNamePattern");
-        return MessageFormat.format(entityNamePattern, new Object[]
-        {
-            StringUtils.trimToEmpty(this.getName())
-        });
+        String entityNamePattern = (String) this.getConfiguredProperty("entityNamePattern");
+        return MessageFormat.format(entityNamePattern, new Object[]{StringUtils.trimToEmpty(this.getName())});
     }
 
     /**
@@ -210,8 +185,7 @@ public class SpringEntityLogicImpl
      */
     protected String handleGetFullyQualifiedEntityName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this
-            .getPackageName(), this.getEntityName(), null);
+        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getEntityName(), null);
     }
 
     /**
@@ -220,16 +194,13 @@ public class SpringEntityLogicImpl
     protected Object handleGetRoot()
     {
         GeneralizableElementFacade generalization = this;
-        for (; generalization.getGeneralization() != null
-            && SpringEntity.class.isAssignableFrom(generalization
-                .getGeneralization().getClass()); generalization = generalization
-            .getGeneralization());
+        for (; generalization.getGeneralization() != null && SpringEntity.class.isAssignableFrom(generalization.getGeneralization().getClass()); generalization = generalization.getGeneralization())
+            ;
         return generalization;
     }
 
     /**
-     * The namespace property storing the hibernate default-cascade value for an
-     * entity.
+     * The namespace property storing the hibernate default-cascade value for an entity.
      */
     private static final String HIBERNATE_DEFAULT_CASCADE = "hibernateDefaultCascade";
 
@@ -238,8 +209,7 @@ public class SpringEntityLogicImpl
      */
     protected String handleGetHibernateDefaultCascade()
     {
-        return StringUtils.trimToEmpty(String.valueOf(this
-            .getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
+        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
     }
 
     /**
@@ -247,8 +217,7 @@ public class SpringEntityLogicImpl
      */
     protected boolean handleIsDaoBusinessOperationsPresent()
     {
-        return this.getDaoBusinessOperations() != null
-            && !this.getDaoBusinessOperations().isEmpty();
+        return this.getDaoBusinessOperations() != null && !this.getDaoBusinessOperations().isEmpty();
     }
 
     /**
@@ -265,7 +234,7 @@ public class SpringEntityLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return ((OperationFacade)object).isStatic();
+                return ((OperationFacade) object).isStatic();
             }
         };
     }
@@ -280,10 +249,10 @@ public class SpringEntityLogicImpl
             public boolean evaluate(Object object)
             {
                 boolean valid = false;
-                Object targetElement = ((DependencyFacade)object).getTargetElement();
+                Object targetElement = ((DependencyFacade) object).getTargetElement();
                 if (targetElement instanceof ClassifierFacade)
                 {
-                    ClassifierFacade element = (ClassifierFacade)targetElement;
+                    ClassifierFacade element = (ClassifierFacade) targetElement;
                     valid = element.isDataType() || element instanceof ValueObject;
                 }
                 return valid;
@@ -296,9 +265,9 @@ public class SpringEntityLogicImpl
      */
     protected boolean handleIsDaoImplementationRequired()
     {
-        return !this.getValueObjectReferences().isEmpty()
-            || !this.getDaoBusinessOperations().isEmpty()
-            || !this.getQueryOperations(true).isEmpty();
+        return !this.getValueObjectReferences().isEmpty() || !this.getDaoBusinessOperations().isEmpty() || !this.getQueryOperations(
+                true)
+                .isEmpty();
     }
 
     /**
@@ -311,8 +280,7 @@ public class SpringEntityLogicImpl
      */
     protected String handleGetDaoNoTransformationConstantName()
     {
-        return SpringGlobals.TRANSFORMATION_CONSTANT_PREFIX
-            + NO_TRANSFORMATION_CONSTANT_SUFFIX;
+        return SpringGlobals.TRANSFORMATION_CONSTANT_PREFIX + NO_TRANSFORMATION_CONSTANT_SUFFIX;
     }
 
     /**
@@ -357,19 +325,19 @@ public class SpringEntityLogicImpl
 
     /**
      * Return all the business operations, used when leafImpl true.
-     * 
+     *
      * @return all business operations
      * @see org.andromda.cartridges.hibernate.metafacades.SpringEntity#getAllBusinessOperations()
      */
     protected Collection handleGetAllBusinessOperations()
     {
-        Entity superElement = (Entity)this.getGeneralization();
+        Entity superElement = (Entity) this.getGeneralization();
 
         Collection result = super.getBusinessOperations();
         while (superElement != null)
         {
             result.addAll(superElement.getBusinessOperations());
-            superElement = (Entity)superElement.getGeneralization();
+            superElement = (Entity) superElement.getGeneralization();
         }
         return result;
     }
@@ -385,8 +353,7 @@ public class SpringEntityLogicImpl
         }
         GeneralizableElementFacade[] superclasses;
         superclasses = new GeneralizableElementFacade[hierarchy.size()];
-        superclasses = (GeneralizableElementFacade[])hierarchy
-            .toArray(superclasses);
+        superclasses = (GeneralizableElementFacade[]) hierarchy.toArray(superclasses);
         return superclasses;
     }
 
@@ -401,13 +368,11 @@ public class SpringEntityLogicImpl
     protected String handleGetHibernateInheritanceStrategy()
     {
         String inheritance = this.getInheritance(this);
-        for (SpringEntity superEntity = this.getSuperEntity(); superEntity != null
-            && StringUtils.isBlank(inheritance);)
+        for (SpringEntity superEntity = this.getSuperEntity(); superEntity != null && StringUtils.isBlank(inheritance);)
         {
             inheritance = superEntity.getHibernateInheritanceStrategy();
         }
-        if (StringUtils.isBlank(inheritance)
-            || !inheritanceStrategies.contains(inheritance))
+        if (StringUtils.isBlank(inheritance) || !inheritanceStrategies.contains(inheritance))
         {
             inheritance = this.getDefaultInheritanceStrategy();
         }
@@ -416,7 +381,7 @@ public class SpringEntityLogicImpl
 
     /**
      * Gets the default hibernate inhertance strategy.
-     * 
+     *
      * @return the default hibernate inheritance strategy.
      */
     private String getDefaultInheritanceStrategy()
@@ -426,9 +391,8 @@ public class SpringEntityLogicImpl
 
     /**
      * Return the inheritance tagged value for for given <code>entity</code>.
-     * 
-     * @param the SpringEntity from which to retrieve the inheritance tagged
-     *        value.
+     *
+     * @param the SpringEntity from which to retrieve the inheritance tagged value.
      * @return String inheritance tagged value.
      */
     private String getInheritance(SpringEntity entity)
@@ -436,8 +400,7 @@ public class SpringEntityLogicImpl
         String inheritance = null;
         if (entity != null)
         {
-            Object value = entity
-                .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+            Object value = entity.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
             if (value != null)
             {
                 inheritance = String.valueOf(value);
@@ -452,41 +415,31 @@ public class SpringEntityLogicImpl
     protected boolean handleIsRequiresHibernateMapping()
     {
         final SpringEntity superEntity = this.getSuperEntity();
-        return this.isRoot()
-            && (!this.isHibernateInheritanceInterface() || (superEntity != null && superEntity
-                .isHibernateInheritanceInterface()));
+        return this.isRoot() && (!this.isHibernateInheritanceInterface() || (superEntity != null && superEntity.isHibernateInheritanceInterface()));
     }
 
     /**
-     * Indicates if this entity as a <code>root</code> entity (meaning it
-     * doesn't specialize anything).
+     * Indicates if this entity as a <code>root</code> entity (meaning it doesn't specialize anything).
      */
     private boolean isRoot()
     {
         final SpringEntity superEntity = this.getSuperEntity();
-        boolean abstractConcreteEntity = (this.isHibernateInheritanceConcrete() || this
-            .isHibernateInheritanceInterface())
-            && this.isAbstract();
-        return (this.getSuperEntity() == null || (superEntity
-            .isHibernateInheritanceInterface() || superEntity
-            .isHibernateInheritanceConcrete()))
-            && !abstractConcreteEntity;
+        boolean abstractConcreteEntity = (this.isHibernateInheritanceConcrete() || this.isHibernateInheritanceInterface()) && this.isAbstract();
+        return (this.getSuperEntity() == null || (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())) && !abstractConcreteEntity;
     }
 
     /**
-     * Gets the super entity for this entity (if one exists). If a
-     * generalization does not exist OR if it's not an instance of SpringEntity
-     * then return null.
-     * 
+     * Gets the super entity for this entity (if one exists). If a generalization does not exist OR if it's not an
+     * instance of SpringEntity then return null.
+     *
      * @return the super entity or null if one doesn't exist.
      */
     private SpringEntity getSuperEntity()
     {
         SpringEntity superEntity = null;
-        if (this.getGeneralization() != null
-            && this.getGeneralization() instanceof SpringEntity)
+        if (this.getGeneralization() != null && this.getGeneralization() instanceof SpringEntity)
         {
-            superEntity = (SpringEntity)this.getGeneralization();
+            superEntity = (SpringEntity) this.getGeneralization();
         }
         return superEntity;
     }

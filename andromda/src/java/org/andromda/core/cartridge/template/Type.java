@@ -1,16 +1,15 @@
 package org.andromda.core.cartridge.template;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
- * Represents the &lt;type/&gt; element nested within the &lt;modelElement/&gt;
- * element.
- * 
- * @see ModelElement
+ * Represents the &lt;type/&gt; element nested within the &lt;modelElement/&gt; element.
+ *
  * @author Chad Brandon
+ * @see ModelElement
  */
 public class Type
 {
@@ -42,11 +41,10 @@ public class Type
     }
 
     /**
-     * Adds a property having the given <code>name</code> and
-     * <code>value</code>. The <code>value</code> is what the property must
-     * be in order to be collected.
-     * 
-     * @param name the name of the property
+     * Adds a property having the given <code>name</code> and <code>value</code>. The <code>value</code> is what the
+     * property must be in order to be collected.
+     *
+     * @param name  the name of the property
      * @param value the value the property must be
      */
     public void addProperty(String name, String value)
@@ -62,18 +60,15 @@ public class Type
         private String name;
         private String value;
 
-        Property(
-            String name,
-            String value)
+        Property(String name, String value)
         {
             this.name = StringUtils.trimToEmpty(name);
             this.value = value;
         }
 
         /**
-         * Gets the value of the <code>name</code> attribute on the
-         * <code>property</code> element.
-         * 
+         * Gets the value of the <code>name</code> attribute on the <code>property</code> element.
+         *
          * @return the name
          */
         String getName()
@@ -82,9 +77,8 @@ public class Type
         }
 
         /**
-         * Gets the value of the <code>value</code> attribute defined on the
-         * <code>property</code> element.
-         * 
+         * Gets the value of the <code>value</code> attribute defined on the <code>property</code> element.
+         *
          * @return the value
          */
         String getValue()

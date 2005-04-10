@@ -1,14 +1,14 @@
 package org.andromda.templateengines.velocity;
 
-import java.io.StringWriter;
-
 import junit.framework.TestCase;
-
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
+import java.io.StringWriter;
+
 /**
  * Tests the direct interpretation of a string by VelocityTemplateEngine.
+ *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  */
 public class VelocityTemplateEngineTest extends TestCase
@@ -21,10 +21,10 @@ public class VelocityTemplateEngineTest extends TestCase
     public void testDirectVelocity() throws Exception
     {
         StringWriter writer = new StringWriter();
-        
+
         VelocityEngine ve = new VelocityEngine();
         ve.init();
-        
+
         VelocityContext velocityContext = new VelocityContext();
 
         velocityContext.put("test1", "@test1@");

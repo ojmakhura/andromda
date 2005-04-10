@@ -11,9 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 public class ReturnCarControllerImpl extends ReturnCarController
 {
     /**
-     * @see org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarController#returnCar(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarController#returnCar(org.apache.struts.action.ActionMapping,
+            *      org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarForm, javax.servlet.http.HttpServletRequest,
+            *      javax.servlet.http.HttpServletResponse)
      */
-    public final java.lang.String returnCar(ActionMapping mapping, org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final java.lang.String returnCar(ActionMapping mapping,
+                                            org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarForm form,
+                                            HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         // all properties receive a default value, just to have the application running properly
         form.setId("id-test");
@@ -21,18 +25,28 @@ public class ReturnCarControllerImpl extends ReturnCarController
     }
 
     /**
-     * @see org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarController#searchForContractsOfCustomer(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.contracts.web.returnCar.SearchForContractsOfCustomerForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarController#searchForContractsOfCustomer(org.apache.struts.action.ActionMapping,
+            *      org.andromda.samples.carrental.contracts.web.returnCar.SearchForContractsOfCustomerForm,
+            *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final void searchForContractsOfCustomer(ActionMapping mapping, org.andromda.samples.carrental.contracts.web.returnCar.SearchForContractsOfCustomerForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void searchForContractsOfCustomer(ActionMapping mapping,
+                                                   org.andromda.samples.carrental.contracts.web.returnCar.SearchForContractsOfCustomerForm form,
+                                                   HttpServletRequest request, HttpServletResponse response)
+            throws Exception
     {
         // all properties receive a default value, just to have the application running properly
         form.setContract(contractDummyList);
     }
 
     /**
-     * @see org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarController#hadAccident(org.apache.struts.action.ActionMapping, org.andromda.samples.carrental.contracts.web.returnCar.HadAccidentForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarController#hadAccident(org.apache.struts.action.ActionMapping,
+            *      org.andromda.samples.carrental.contracts.web.returnCar.HadAccidentForm, javax.servlet.http.HttpServletRequest,
+            *      javax.servlet.http.HttpServletResponse)
      */
-    public final java.lang.String hadAccident(ActionMapping mapping, org.andromda.samples.carrental.contracts.web.returnCar.HadAccidentForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final java.lang.String hadAccident(ActionMapping mapping,
+                                              org.andromda.samples.carrental.contracts.web.returnCar.HadAccidentForm form,
+                                              HttpServletRequest request, HttpServletResponse response)
+            throws Exception
     {
         // all properties receive a default value, just to have the application running properly
         form.setAccidentHappend(false);
@@ -41,22 +55,17 @@ public class ReturnCarControllerImpl extends ReturnCarController
     }
 
     /**
-     * This dummy variable is used to populate the "contract" table.
-     * You may delete it when you add you own code in this controller.
+     * This dummy variable is used to populate the "contract" table. You may delete it when you add you own code in this
+     * controller.
      */
-    private final java.util.Collection contractDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new ContractDummy("contractNo-1", "signed-1", "id-1"),
-            new ContractDummy("contractNo-2", "signed-2", "id-2"),
-            new ContractDummy("contractNo-3", "signed-3", "id-3"),
-            new ContractDummy("contractNo-4", "signed-4", "id-4"),
-            new ContractDummy("contractNo-5", "signed-5", "id-5")
-        } );
+    private final java.util.Collection contractDummyList = java.util.Arrays.asList(new Object[]{
+        new ContractDummy("contractNo-1", "signed-1", "id-1"), new ContractDummy("contractNo-2", "signed-2", "id-2"),
+        new ContractDummy("contractNo-3", "signed-3", "id-3"), new ContractDummy("contractNo-4", "signed-4", "id-4"),
+        new ContractDummy("contractNo-5", "signed-5", "id-5")});
 
     /**
-     * This inner class is used in the dummy implementation in order to get the web application
-     * running without any manual programming.
-     * You may delete this class when you add you own code in this controller.
+     * This inner class is used in the dummy implementation in order to get the web application running without any
+     * manual programming. You may delete this class when you add you own code in this controller.
      */
     public final class ContractDummy implements java.io.Serializable
     {
@@ -70,7 +79,7 @@ public class ReturnCarControllerImpl extends ReturnCarController
             this.signed = signed;
             this.id = id;
         }
-        
+
         public void setContractNo(String contractNo)
         {
             this.contractNo = contractNo;
@@ -80,7 +89,7 @@ public class ReturnCarControllerImpl extends ReturnCarController
         {
             return this.contractNo;
         }
-        
+
         public void setSigned(String signed)
         {
             this.signed = signed;
@@ -90,7 +99,7 @@ public class ReturnCarControllerImpl extends ReturnCarController
         {
             return this.signed;
         }
-        
+
         public void setId(String id)
         {
             this.id = id;
@@ -100,7 +109,7 @@ public class ReturnCarControllerImpl extends ReturnCarController
         {
             return this.id;
         }
-        
+
     }
 
 }

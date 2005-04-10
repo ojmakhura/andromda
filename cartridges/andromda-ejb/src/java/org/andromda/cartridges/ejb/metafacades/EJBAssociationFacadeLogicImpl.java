@@ -3,19 +3,15 @@ package org.andromda.cartridges.ejb.metafacades;
 import org.andromda.cartridges.ejb.EJBProfile;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.ejb.metafacades.EJBAssociationFacade.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.ejb.metafacades.EJBAssociationFacade.
+ *
  * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacade
  */
-public class EJBAssociationFacadeLogicImpl
-    extends EJBAssociationFacadeLogic
+public class EJBAssociationFacadeLogicImpl extends EJBAssociationFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EJBAssociationFacadeLogicImpl(
-        Object metaObject,
-        String context)
+    public EJBAssociationFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -26,8 +22,7 @@ public class EJBAssociationFacadeLogicImpl
      */
     protected java.lang.String handleGetTransactionType()
     {
-        return (String)this
-            .findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        return (String) this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
     }
 
     /**

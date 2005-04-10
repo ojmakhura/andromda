@@ -13,28 +13,24 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Metaclass facade implementation.
  */
-public class EntityAttributeLogicImpl
-    extends EntityAttributeLogic
+public class EntityAttributeLogicImpl extends EntityAttributeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EntityAttributeLogicImpl(
-        java.lang.Object metaObject,
-        String context)
+    public EntityAttributeLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
      * Overridden to provide name masking.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     protected String handleGetName()
     {
-        final String nameMask = String
-            .valueOf(this
-                .getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
+        final String nameMask = String.valueOf(this.getConfiguredProperty(
+                UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
@@ -43,13 +39,8 @@ public class EntityAttributeLogicImpl
      */
     public String handleGetColumnName()
     {
-        return EntityMetafacadeUtils
-            .getSqlNameFromTaggedValue(
-                this,
-                UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                ((Entity)this.getOwner()).getMaxSqlNameLength(),
-                this
-                    .getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+        return EntityMetafacadeUtils.getSqlNameFromTaggedValue(this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN, ((Entity) this.getOwner()).getMaxSqlNameLength(), this.getConfiguredProperty(
+                UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**
@@ -57,9 +48,8 @@ public class EntityAttributeLogicImpl
      */
     public String handleGetColumnLength()
     {
-        Object value = this
-            .findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
-        return (String)value;
+        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
+        return (String) value;
     }
 
     /**
@@ -83,8 +73,7 @@ public class EntityAttributeLogicImpl
      */
     public java.lang.String handleGetColumnIndex()
     {
-        String index = (String)this
-            .findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
+        String index = (String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
     }
 
@@ -103,8 +92,7 @@ public class EntityAttributeLogicImpl
                 // if its an enumeration, the sql type is the literal type
                 if (type.isEnumeration())
                 {
-                    ClassifierFacade literalType = ((EnumerationFacade)type)
-                        .getLiteralType();
+                    ClassifierFacade literalType = ((EnumerationFacade) type).getLiteralType();
                     if (literalType != null)
                     {
                         typeName = literalType.getFullyQualifiedName(true);
@@ -113,11 +101,9 @@ public class EntityAttributeLogicImpl
                 value = this.getSqlMappings().getTo(typeName);
                 if (StringUtils.isBlank(value))
                 {
-                    logger.error("ERROR! missing SQL type mapping for model type '"
-                            + typeName
-                            + "' --> please adjust your model or SQL type mappings '"
-                            + this.getSqlMappings().getMappings()
-                                .getResource() + "' accordingly");
+                    logger.error("ERROR! missing SQL type mapping for model type '" + typeName + "' --> please adjust your model or SQL type mappings '" + this.getSqlMappings()
+                            .getMappings()
+                            .getResource() + "' accordingly");
                 }
                 String columnLength = this.getColumnLength();
                 if (StringUtils.isNotEmpty(columnLength))
@@ -126,17 +112,10 @@ public class EntityAttributeLogicImpl
                     char endChar = ')';
                     int beginIndex = value.indexOf(beginChar);
                     int endIndex = value.indexOf(endChar);
-                    if (beginIndex != -1 && endIndex != -1
-                        && endIndex > beginIndex)
+                    if (beginIndex != -1 && endIndex != -1 && endIndex > beginIndex)
                     {
-                        String replacement = value.substring(
-                            beginIndex,
-                            endIndex)
-                            + endChar;
-                        value = StringUtils.replace(
-                            value,
-                            replacement,
-                            beginChar + columnLength + endChar);
+                        String replacement = value.substring(beginIndex, endIndex) + endChar;
+                        value = StringUtils.replace(value, replacement, beginChar + columnLength + endChar);
                     }
                 }
             }
@@ -159,11 +138,9 @@ public class EntityAttributeLogicImpl
                 value = this.getJdbcMappings().getTo(typeName);
                 if (StringUtils.isBlank(value))
                 {
-                    logger.error("ERROR! missing JDBC type mapping for model type '"
-                            + typeName
-                            + "' --> please adjust your model or JDBC type mappings '"
-                            + this.getJdbcMappings().getMappings()
-                                .getResource() + "' accordingly");
+                    logger.error("ERROR! missing JDBC type mapping for model type '" + typeName + "' --> please adjust your model or JDBC type mappings '" + this.getJdbcMappings()
+                            .getMappings()
+                            .getResource() + "' accordingly");
                 }
             }
         }
@@ -173,7 +150,7 @@ public class EntityAttributeLogicImpl
 
     /**
      * Gets the SQL mappings that have been set for this entity attribute.
-     * 
+     *
      * @return the SQL Mappings instance.
      */
     public TypeMappings handleGetSqlMappings()
@@ -190,9 +167,8 @@ public class EntityAttributeLogicImpl
     }
 
     /**
-     * Gets a Mappings instance from a property registered under the given
-     * <code>propertyName</code>.
-     * 
+     * Gets a Mappings instance from a property registered under the given <code>propertyName</code>.
+     *
      * @param propertyName the property name to register under.
      * @return the Mappings instance.
      */
@@ -203,7 +179,7 @@ public class EntityAttributeLogicImpl
         String uri = null;
         if (property instanceof String)
         {
-            uri = (String)property;
+            uri = (String) property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -211,15 +187,14 @@ public class EntityAttributeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '"
-                    + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg, th);
                 // don't throw the exception
             }
         }
         else
         {
-            mappings = (TypeMappings)property;
+            mappings = (TypeMappings) property;
         }
         return mappings;
     }

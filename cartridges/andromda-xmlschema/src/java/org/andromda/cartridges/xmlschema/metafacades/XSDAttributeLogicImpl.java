@@ -3,19 +3,15 @@ package org.andromda.cartridges.xmlschema.metafacades;
 import org.andromda.cartridges.xmlschema.XmlSchemaProfile;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.xmlschema.metafacades.XSDAttribute.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.xmlschema.metafacades.XSDAttribute.
+ *
  * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute
  */
-public class XSDAttributeLogicImpl
-    extends XSDAttributeLogic
+public class XSDAttributeLogicImpl extends XSDAttributeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public XSDAttributeLogicImpl(
-        Object metaObject,
-        String context)
+    public XSDAttributeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }

@@ -1,9 +1,5 @@
 package org.andromda.core.cartridge.template;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Profile;
@@ -12,14 +8,17 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
- * Represents a single template &lt;modelElement/&gt; nested within the
- * &lt;modelElements/&gt; element. It stores the actual metafacade instances
- * which match the model element criteria (i.e. stereotype, type, etc) defined
- * by this instance.
- * 
- * @see ModelElements
+ * Represents a single template &lt;modelElement/&gt; nested within the &lt;modelElements/&gt; element. It stores the
+ * actual metafacade instances which match the model element criteria (i.e. stereotype, type, etc) defined by this
+ * instance.
+ *
  * @author Chad Brandon
+ * @see ModelElements
  */
 public class ModelElement
 {
@@ -30,7 +29,7 @@ public class ModelElement
 
     /**
      * Gets the stereotype of this modelElement.
-     * 
+     *
      * @return Returns the stereotype.
      */
     public String getStereotype()
@@ -39,9 +38,9 @@ public class ModelElement
     }
 
     /**
-     * Returns <code>true</code> or <code>false</code> depending on whether
-     * or not this model element has a stereotype defined.
-     * 
+     * Returns <code>true</code> or <code>false</code> depending on whether or not this model element has a stereotype
+     * defined.
+     *
      * @return true/false
      */
     public boolean hasStereotype()
@@ -50,9 +49,9 @@ public class ModelElement
     }
 
     /**
-     * Returns <code>true</code> or <code>false</code> depending on whether
-     * or not this model element has any type elements defined.
-     * 
+     * Returns <code>true</code> or <code>false</code> depending on whether or not this model element has any type
+     * elements defined.
+     *
      * @return true/false
      */
     public boolean hasTypes()
@@ -62,21 +61,19 @@ public class ModelElement
 
     /**
      * Sets the stereotype of the ModelElement.
-     * 
+     *
      * @param stereotype The stereotype to set.
      */
     public void setStereotype(String stereotype)
     {
         final String methodName = "ModelElement.setStereotype";
-        this.stereotype = Profile.instance().get(
-            StringUtils.trimToEmpty(stereotype));
+        this.stereotype = Profile.instance().get(StringUtils.trimToEmpty(stereotype));
         ExceptionUtils.checkEmpty(methodName, "stereotype", this.stereotype);
     }
 
     /**
-     * Adds the <code>type</code> to the collection of types belonging to this
-     * model element.
-     * 
+     * Adds the <code>type</code> to the collection of types belonging to this model element.
+     *
      * @param type the {@link Type}instance.
      */
     public void addType(Type type)
@@ -87,9 +84,9 @@ public class ModelElement
     }
 
     /**
-     * Gets the variable stereotype of this modelElement (this is what is made
-     * available to a template during processing).
-     * 
+     * Gets the variable stereotype of this modelElement (this is what is made available to a template during
+     * processing).
+     *
      * @return Returns the variable.
      */
     public String getVariable()
@@ -99,7 +96,7 @@ public class ModelElement
 
     /**
      * Sets the variable name.
-     * 
+     *
      * @param variable The variable to set.
      */
     public void setVariable(String variable)
@@ -109,7 +106,7 @@ public class ModelElement
 
     /**
      * Sets the current metafacades that belong to this ModelElement instance.
-     * 
+     *
      * @param metafacades the collection of metafacdes
      */
     public void setMetafacades(Collection metafacades)
@@ -121,9 +118,8 @@ public class ModelElement
     }
 
     /**
-     * Gets the metafacades that belong to this ModelElement instance. These are
-     * the actual elements from the model.
-     * 
+     * Gets the metafacades that belong to this ModelElement instance. These are the actual elements from the model.
+     *
      * @return the collection of metafacades.
      */
     public Collection getMetafacades()
@@ -133,7 +129,7 @@ public class ModelElement
 
     /**
      * Applies any filtering by any types specified within this model element.
-     * 
+     *
      * @param metafacades the metafacades to filter
      */
     private void applyTypeFiltering()
@@ -151,11 +147,10 @@ public class ModelElement
     }
 
     /**
-     * Checks the <code>object</code> to see whether or not its acceptable. It
-     * matches on the types and each type's properties. <strong>NOTE:</strong>
-     * protected visibility to improve performance from within
-     * {@link #applyTypeFiltering()}
-     * 
+     * Checks the <code>object</code> to see whether or not its acceptable. It matches on the types and each type's
+     * properties. <strong>NOTE:</strong> protected visibility to improve performance from within {@link
+     * #applyTypeFiltering()}
+     *
      * @param metafacade the metafacade to check
      * @return true/false
      */
@@ -165,25 +160,21 @@ public class ModelElement
         boolean accept = true;
         while (typeIt.hasNext() && accept)
         {
-            Type type = (Type)typeIt.next();
+            Type type = (Type) typeIt.next();
             if (StringUtils.isNotBlank(type.getName()))
             {
                 try
                 {
-                    accept = ClassUtils.loadClass(type.getName())
-                        .isAssignableFrom(metafacade.getClass());
+                    accept = ClassUtils.loadClass(type.getName()).isAssignableFrom(metafacade.getClass());
                     // if the type matches the name, continue
                     if (accept)
                     {
                         Iterator properties = type.getProperties().iterator();
                         while (properties.hasNext())
                         {
-                            final Type.Property property = (Type.Property)properties
-                                .next();
-                            accept = PropertyUtils.containsValidProperty(
-                                metafacade,
-                                property.getName(),
-                                property.getValue());
+                            final Type.Property property = (Type.Property) properties.next();
+                            accept = PropertyUtils.containsValidProperty(metafacade, property.getName(),
+                                    property.getValue());
                             if (!accept)
                             {
                                 // break out of the loop on the first invalid

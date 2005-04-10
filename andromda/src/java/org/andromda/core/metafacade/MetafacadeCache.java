@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A global cache for metafacades. Used by the {@link MetafacadeFactory}when
- * constructing or retrieving metafacade instances. If the cache constains the
- * metafacade it should not be constructed again.
- * 
+ * A global cache for metafacades. Used by the {@link MetafacadeFactory}when constructing or retrieving metafacade
+ * instances. If the cache constains the metafacade it should not be constructed again.
+ *
  * @author Chad Brandon
  */
 public class MetafacadeCache
@@ -19,7 +18,7 @@ public class MetafacadeCache
 
     /**
      * Gets the shared MetafacadeCache instance.
-     * 
+     *
      * @return the shared instance.
      */
     public static MetafacadeCache instance()
@@ -34,7 +33,7 @@ public class MetafacadeCache
 
     /**
      * Sets the namespace to which the cache currently applies.
-     * 
+     *
      * @param namespace the current namespace.
      */
     public void setNamespace(String namespace)
@@ -48,59 +47,49 @@ public class MetafacadeCache
     private final Map metafacadeCache = new HashMap();
 
     /**
-     * <p>
-     * Returns the metafacade from the metafacade cache. The Metafacades are
-     * cached first by according to its <code>mappingObject</code>, next the
-     * <code>metafacadeClass</code>, then according to to the current
-     * <code>namespace</code> and finally by the current namespace.
-     * </p>
-     * <p>
-     * Metafacades must be cached in order to keep track of the state of its
-     * validation. If we keep creating a new one each time, we can never tell
-     * whether or not a metafacade has been previously validated. Not to mention
-     * tremendous performance gains.
-     * </p>
-     * 
-     * @param mappingObject the object to which the mapping applies
+     * <p/>
+     * Returns the metafacade from the metafacade cache. The Metafacades are cached first by according to its
+     * <code>mappingObject</code>, next the <code>metafacadeClass</code>, then according to to the current
+     * <code>namespace</code> and finally by the current namespace. </p>
+     * <p/>
+     * Metafacades must be cached in order to keep track of the state of its validation. If we keep creating a new one
+     * each time, we can never tell whether or not a metafacade has been previously validated. Not to mention tremendous
+     * performance gains. </p>
+     *
+     * @param mappingObject   the object to which the mapping applies
      * @param metafacadeClass the class of the metafacade.
      * @return MetafacadeBase stored in the cache.
      */
     public MetafacadeBase get(Object mappingObject, Class metafacadeClass)
     {
         MetafacadeBase metafacade = null;
-        Map namespaceMetafacadeCache = (Map)this.metafacadeCache
-            .get(mappingObject);
+        Map namespaceMetafacadeCache = (Map) this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache != null)
         {
-            Map metafacadeCache = (Map)namespaceMetafacadeCache
-                .get(metafacadeClass);
+            Map metafacadeCache = (Map) namespaceMetafacadeCache.get(metafacadeClass);
             if (metafacadeCache != null)
             {
-                metafacade = (MetafacadeBase)metafacadeCache
-                    .get(this.namespace);
+                metafacade = (MetafacadeBase) metafacadeCache.get(this.namespace);
             }
         }
         return metafacade;
     }
 
     /**
-     * Adds the <code>metafacade</code> to the cache according to first
-     * <code>mappingObject</code>, second the <code>metafacade</code>, and
-     * finally by the current <code>namespace</code>.
-     * 
+     * Adds the <code>metafacade</code> to the cache according to first <code>mappingObject</code>, second the
+     * <code>metafacade</code>, and finally by the current <code>namespace</code>.
+     *
      * @param mappingObject the mappingObject for which to cache the metafacade.
-     * @param metafacade the metafacade to cache.
+     * @param metafacade    the metafacade to cache.
      */
     public void add(Object mappingObject, MetafacadeBase metafacade)
     {
-        Map namespaceMetafacadeCache = (Map)this.metafacadeCache
-            .get(mappingObject);
+        Map namespaceMetafacadeCache = (Map) this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache == null)
         {
             namespaceMetafacadeCache = new HashMap();
         }
-        Map metafacadeCache = (Map)namespaceMetafacadeCache.get(metafacade
-            .getClass());
+        Map metafacadeCache = (Map) namespaceMetafacadeCache.get(metafacade.getClass());
         if (metafacadeCache == null)
         {
             metafacadeCache = new HashMap();
@@ -111,8 +100,8 @@ public class MetafacadeCache
     }
 
     /**
-     * Performs shutdown procedures for the cache. This should be called
-     * <strong>ONLY</code> when model processing has completed.
+     * Performs shutdown procedures for the cache. This should be called <strong>ONLY</code> when model processing has
+     * completed.
      */
     public void shutdown()
     {

@@ -1,20 +1,20 @@
 package org.andromda.core.translation.library;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * Represents a translation XML template found within a translation library.
- * 
+ *
  * @author Chad Brandon
  */
 public class Translation
@@ -36,7 +36,7 @@ public class Translation
 
     /**
      * Gets the LibraryTranslation to which this Translation belongs.
-     * 
+     *
      * @return LibraryTranslation
      */
     protected LibraryTranslation getLibraryTranslation()
@@ -45,17 +45,15 @@ public class Translation
         // should never happen, but it doesn't hurt to be safe
         if (this.libraryTranslation == null)
         {
-            throw new LibraryException(methodName
-                + " - libraryTranslation can not be null");
+            throw new LibraryException(methodName + " - libraryTranslation can not be null");
         }
         return libraryTranslation;
     }
 
     /**
      * Sets the LibraryTranslation to which this Translation belongs.
-     * 
-     * @param translation the LibraryTranslation to which this Translation
-     *        belongs.
+     *
+     * @param translation the LibraryTranslation to which this Translation belongs.
      */
     protected void setLibraryTranslation(LibraryTranslation translation)
     {
@@ -63,9 +61,8 @@ public class Translation
     }
 
     /**
-     * Gets the fragment matching (using regular expressions) the specified
-     * name.
-     * 
+     * Gets the fragment matching (using regular expressions) the specified name.
+     *
      * @param name the name of the fragment to retrieve.
      * @return Fragment
      */
@@ -77,10 +74,10 @@ public class Translation
         // one of the names return the value of that name.
         while (names.hasNext())
         {
-            String nextName = (String)names.next();
+            String nextName = (String) names.next();
             if (name.matches(nextName))
             {
-                fragment = (Fragment)fragments.get(nextName);
+                fragment = (Fragment) fragments.get(nextName);
             }
         }
         // if the fragment is null, and the name isn't in an ignorePattern
@@ -100,7 +97,7 @@ public class Translation
 
     /**
      * Adds a new Translation fragment to the Translation.
-     * 
+     *
      * @param fragment
      */
     public void addFragment(Fragment fragment)
@@ -113,7 +110,7 @@ public class Translation
 
     /**
      * Gets the name of this Translation.
-     * 
+     *
      * @return String
      */
     protected String getName()
@@ -131,7 +128,7 @@ public class Translation
 
     /**
      * Adds an <code>ignorePattern</code> to the Collection of ignorePatterns.
-     * 
+     *
      * @param ignorePattern the pattern to ignore.
      */
     public void addIgnorePattern(String ignorePattern)
@@ -140,9 +137,8 @@ public class Translation
     }
 
     /**
-     * Adds an <code>validatePattern</code> to the Collection of
-     * validatePatterns.
-     * 
+     * Adds an <code>validatePattern</code> to the Collection of validatePatterns.
+     *
      * @param validatePattern the pattern to validate.
      */
     public void addValidatePattern(String validatePattern)
@@ -151,14 +147,12 @@ public class Translation
     }
 
     /**
-     * Checks to see if the pattern is an ignore pattern. What this means is
-     * that if if this pattern matches on a regular expression found in the
-     * collection of ignore patterns then the TranslationLibrary won't complain
-     * if it doesn't match a fragment name.
-     * 
+     * Checks to see if the pattern is an ignore pattern. What this means is that if if this pattern matches on a
+     * regular expression found in the collection of ignore patterns then the TranslationLibrary won't complain if it
+     * doesn't match a fragment name.
+     *
      * @param pattern
-     * @return boolean <code>true</code> if its an ignore pattern,
-     *         <code>false</code> otherwise.
+     * @return boolean <code>true</code> if its an ignore pattern, <code>false</code> otherwise.
      */
     public boolean isIgnorePattern(String pattern)
     {
@@ -169,8 +163,7 @@ public class Translation
         // of them matches the passed in pattern.
         while (ignorePatterns.hasNext())
         {
-            String nextIgnorePattern = StringUtils
-                .trimToEmpty((String)ignorePatterns.next());
+            String nextIgnorePattern = StringUtils.trimToEmpty((String) ignorePatterns.next());
             isIgnorePattern = pattern.matches(nextIgnorePattern);
             if (isIgnorePattern)
             {
@@ -181,10 +174,9 @@ public class Translation
     }
 
     /**
-     * Gets the "translated" value of this Fragment if it exists. That is, it
-     * retrieves the fragment body for the name of this fragment and replaces
-     * any fragment references with other fragment bodies (if they exist)
-     * 
+     * Gets the "translated" value of this Fragment if it exists. That is, it retrieves the fragment body for the name
+     * of this fragment and replaces any fragment references with other fragment bodies (if they exist)
+     *
      * @param name the name of the fragment.
      * @param kind the kind of the fragment.
      * @return String the translated body of the fragment kind.
@@ -193,8 +185,7 @@ public class Translation
     {
         final String methodName = "Translation.getTranslated";
         if (logger.isDebugEnabled())
-            logger.debug("performing " + methodName + " with name '" + name
-                + "' and kind '" + kind + "'");
+            logger.debug("performing " + methodName + " with name '" + name + "' and kind '" + kind + "'");
 
         // clean the strings first
         name = StringUtils.trimToEmpty(name);
@@ -210,11 +201,9 @@ public class Translation
             String begin = "fragment{";
             int beginLength = begin.length();
             String end = "}";
-            for (int beginIndex = translated.indexOf(begin); beginIndex != -1; beginIndex = translated
-                .indexOf(begin))
+            for (int beginIndex = translated.indexOf(begin); beginIndex != -1; beginIndex = translated.indexOf(begin))
             {
-                String fragmentName = translated.substring(beginIndex
-                    + beginLength, translated.length());
+                String fragmentName = translated.substring(beginIndex + beginLength, translated.length());
                 int endIndex = fragmentName.indexOf(end);
                 if (endIndex != -1)
                 {
@@ -223,8 +212,8 @@ public class Translation
                 StringBuffer toReplace = new StringBuffer(begin);
                 toReplace.append(fragmentName);
                 toReplace.append(end);
-                translated = StringUtils.replace(translated, toReplace
-                    .toString(), this.getTranslated(fragmentName, kind));
+                translated = StringUtils.replace(translated, toReplace.toString(), this.getTranslated(fragmentName,
+                        kind));
             }
         }
         return TranslationUtils.removeExtraWhitespace(translated);

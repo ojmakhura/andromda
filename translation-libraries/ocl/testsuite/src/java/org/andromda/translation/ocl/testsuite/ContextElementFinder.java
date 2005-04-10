@@ -1,9 +1,5 @@
 package org.andromda.translation.ocl.testsuite;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.translation.Expression;
@@ -20,26 +16,27 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * Finds the context element defined in the OCL expression.
- * 
+ *
  * @author Chad Brandon
  */
-public class ContextElementFinder
-    extends BaseTranslator
+public class ContextElementFinder extends BaseTranslator
 {
 
     private ModelAccessFacade model;
 
     /**
-     * The Constructor which takes <code>model</code>, which is an instance
-     * of ModelAccessFacade that will allow us to search the model for the
-     * context element.
-     * 
+     * The Constructor which takes <code>model</code>, which is an instance of ModelAccessFacade that will allow us to
+     * search the model for the context element.
+     *
      * @param model the ModelAccessFacade to search.
      */
-    public ContextElementFinder(
-        ModelAccessFacade model)
+    public ContextElementFinder(ModelAccessFacade model)
     {
         ExceptionUtils.checkNull("ContextElementFinder", "model", model);
         this.model = model;
@@ -52,8 +49,7 @@ public class ContextElementFinder
     {}
 
     /**
-     * The operation that is set if the context of the constraint happens to be
-     * an operation.
+     * The operation that is set if the context of the constraint happens to be an operation.
      */
     protected OperationDeclaration operation = null;
 
@@ -65,21 +61,19 @@ public class ContextElementFinder
     /**
      * @see org.andromda.core.translation.analysis.DepthFirstAdapter#inAOperationContextDeclaration(org.andromda.core.translation.node.AOperationContextDeclaration)
      */
-    public void inAOperationContextDeclaration(
-        AOperationContextDeclaration declaration)
+    public void inAOperationContextDeclaration(AOperationContextDeclaration declaration)
     {
         super.inAOperationContextDeclaration(declaration);
         if (declaration != null)
         {
-            operation = ConcreteSyntaxUtils.getOperationDeclaration(declaration
-                .getOperation());
+            operation = ConcreteSyntaxUtils.getOperationDeclaration(declaration.getOperation());
         }
     }
 
     /**
-     * We use the postProcess method to retrieve the contextType from the
-     * expression and then find the actual model element using metafacades.
-     * 
+     * We use the postProcess method to retrieve the contextType from the expression and then find the actual model
+     * element using metafacades.
+     *
      * @see org.andromda.translation.ocl.BaseTranslator#postProcess()
      */
     public void postProcess()
@@ -89,35 +83,25 @@ public class ContextElementFinder
         if (expression != null)
         {
             String contextElementName = expression.getContextElement();
-            this.contextElement = this.findModelElement(contextElementName
-                .replaceAll("::", "\\."));
+            this.contextElement = this.findModelElement(contextElementName.replaceAll("::", "\\."));
             if (this.contextElement != null)
             {
-                logger.info("found context element --> '" + contextElementName
-                    + "'");
+                logger.info("found context element --> '" + contextElementName + "'");
             }
             else
             {
-                logger.info("Could not find model element --> '"
-                    + contextElementName + "'");
+                logger.info("Could not find model element --> '" + contextElementName + "'");
             }
 
-            if (this.contextElement != null
-                && this.operation != null
-                && ClassifierFacade.class.isAssignableFrom(contextElement
-                    .getClass()))
+            if (this.contextElement != null && this.operation != null && ClassifierFacade.class.isAssignableFrom(contextElement.getClass()))
             {
-                ClassifierFacade type = (ClassifierFacade)this.contextElement;
+                ClassifierFacade type = (ClassifierFacade) this.contextElement;
                 Collection operations = type.getOperations();
-                this.contextElement = CollectionUtils.find(
-                    operations,
-                    new OperationFinder());
+                this.contextElement = CollectionUtils.find(operations, new OperationFinder());
                 if (this.contextElement == null)
                 {
-                    throw new ContextElementFinderException(
-                        "No operation matching '" + operation
-                            + "' could be found on element --> '"
-                            + contextElementName + "', please check your model");
+                    throw new ContextElementFinderException("No operation matching '" + operation +
+                            "' could be found on element --> '" + contextElementName + "', please check your model");
                 }
 
                 // if we only have one operation then we just set that
@@ -137,15 +121,14 @@ public class ContextElementFinder
         }
     }
 
-    private final class OperationFinder
-        implements Predicate
+    private final class OperationFinder implements Predicate
     {
         public boolean evaluate(Object object)
         {
 
-            OperationFacade facadeOperation = (OperationFacade)object;
-            boolean valid = StringUtils.trimToEmpty(facadeOperation.getName())
-                .equals(StringUtils.trimToEmpty(operation.getName()));
+            OperationFacade facadeOperation = (OperationFacade) object;
+            boolean valid = StringUtils.trimToEmpty(facadeOperation.getName()).equals(
+                    StringUtils.trimToEmpty(operation.getName()));
             // if we've found an operation with a matching name
             // check the parameters
             if (valid)
@@ -157,76 +140,62 @@ public class ContextElementFinder
     }
 
     /**
-     * Returns true if the arguments contained within <code>oclOperation</code>
-     * and <code>facadeOperation</code> match, false otherwise.
-     * 
-     * @param oclOperation an OCL Operation
+     * Returns true if the arguments contained within <code>oclOperation</code> and <code>facadeOperation</code> match,
+     * false otherwise.
+     *
+     * @param oclOperation    an OCL Operation
      * @param facadeOperation a metafacade Operation
      * @return boolean whether the arguments match.
      */
-    protected boolean argumentsMatch(
-        OperationDeclaration oclOperation,
-        OperationFacade facadeOperation)
+    protected boolean argumentsMatch(OperationDeclaration oclOperation, OperationFacade facadeOperation)
     {
-        boolean argumentsMatch = this.argumentCountsMatch(
-            oclOperation,
-            facadeOperation);
+        boolean argumentsMatch = this.argumentCountsMatch(oclOperation, facadeOperation);
         if (argumentsMatch)
         {
-            argumentsMatch = this.argumentNamesMatch(
-                oclOperation,
-                facadeOperation);
+            argumentsMatch = this.argumentNamesMatch(oclOperation, facadeOperation);
         }
         return argumentsMatch;
     }
 
     /**
-     * Returns true if the number of arguments contained within
-     * <code>oclOperation</code> and <code>facadeOperation</code> match,
-     * false otherwise.
-     * 
-     * @param oclOperation an OCL Operation
+     * Returns true if the number of arguments contained within <code>oclOperation</code> and
+     * <code>facadeOperation</code> match, false otherwise.
+     *
+     * @param oclOperation    an OCL Operation
      * @param facadeOperation a metafacade Operation
      * @return boolean whether the count of the arguments match.
      */
-    private boolean argumentCountsMatch(
-        OperationDeclaration oclOperation,
-        OperationFacade facadeOperation)
+    private boolean argumentCountsMatch(OperationDeclaration oclOperation, OperationFacade facadeOperation)
     {
         final String methodName = "ContextElementFinder.argumentCountMatch";
         ExceptionUtils.checkNull(methodName, "oclOperation", oclOperation);
-        ExceptionUtils
-            .checkNull(methodName, "facadeOperation", facadeOperation);
+        ExceptionUtils.checkNull(methodName, "facadeOperation", facadeOperation);
         VariableDeclaration[] expressionOpArgs = oclOperation.getArguments();
         Collection facadeOpArgs = facadeOperation.getArguments();
-        boolean countsMatch = (expressionOpArgs == null || expressionOpArgs.length == 0)
-            && (facadeOpArgs == null || facadeOpArgs.isEmpty());
+        boolean countsMatch = (expressionOpArgs == null || expressionOpArgs.length == 0) &&
+                (facadeOpArgs == null || facadeOpArgs.isEmpty());
         if (!countsMatch)
         {
-            countsMatch = expressionOpArgs != null && facadeOpArgs != null
-                && expressionOpArgs.length == facadeOpArgs.size();
+            countsMatch = expressionOpArgs != null && facadeOpArgs != null &&
+                    expressionOpArgs.length == facadeOpArgs.size();
         }
         return countsMatch;
     }
 
     /**
-     * Returns true if the argument names contained within
-     * <code>oclOperation</code> and <code>facadeOperation</code> match,
-     * false otherwise.
-     * 
-     * @param oclOperation an OCL Operation
+     * Returns true if the argument names contained within <code>oclOperation</code> and <code>facadeOperation</code>
+     * match, false otherwise.
+     *
+     * @param oclOperation    an OCL Operation
      * @param facadeOperation a metafacade Operation
      * @return boolean whether the arg names match or not.
      */
-    private boolean argumentNamesMatch(
-        OperationDeclaration oclOperation,
-        OperationFacade facadeOperation)
+    private boolean argumentNamesMatch(OperationDeclaration oclOperation, OperationFacade facadeOperation)
     {
 
         final String methodName = "ContextElementFinder.argumentNamesMatch";
         ExceptionUtils.checkNull(methodName, "oclOperation", oclOperation);
-        ExceptionUtils
-            .checkNull(methodName, "facadeOperation", facadeOperation);
+        ExceptionUtils.checkNull(methodName, "facadeOperation", facadeOperation);
 
         Collection facadeOpArguments = facadeOperation.getArguments();
         VariableDeclaration[] expressionOpArgs = oclOperation.getArguments();
@@ -244,22 +213,17 @@ public class ContextElementFinder
             Iterator facadeOpArgumentIt = facadeOpArguments.iterator();
             while (facadeOpArgumentIt.hasNext())
             {
-                ParameterFacade facadeArg = (ParameterFacade)facadeOpArgumentIt
-                    .next();
+                ParameterFacade facadeArg = (ParameterFacade) facadeOpArgumentIt.next();
                 facadeArgNames.add(facadeArg.getName());
             }
         }
-        return CollectionUtils.isEqualCollection(
-            expressionArgNames,
-            facadeArgNames);
+        return CollectionUtils.isEqualCollection(expressionArgNames, facadeArgNames);
     }
 
     /**
-     * Finds the model element with the given <code>modelElementName</code>.
-     * Will find either the non qualified name or qualified name. If more than
-     * one model element is found with the non qualified name an exception will
-     * be thrown.
-     * 
+     * Finds the model element with the given <code>modelElementName</code>. Will find either the non qualified name or
+     * qualified name. If more than one model element is found with the non qualified name an exception will be thrown.
+     *
      * @param modelElementName
      * @return Object the found model element
      */
@@ -274,15 +238,13 @@ public class ContextElementFinder
                 boolean valid = false;
                 if (ModelElementFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    ModelElementFacade modelElement = (ModelElementFacade)object;
-                    String elementName = StringUtils.trimToEmpty(modelElement
-                        .getName());
+                    ModelElementFacade modelElement = (ModelElementFacade) object;
+                    String elementName = StringUtils.trimToEmpty(modelElement.getName());
                     String name = StringUtils.trimToEmpty(modelElementName);
                     valid = elementName.equals(name);
                     if (!valid)
                     {
-                        elementName = StringUtils.trimToEmpty(modelElement
-                            .getFullyQualifiedName());
+                        elementName = StringUtils.trimToEmpty(modelElement.getFullyQualifiedName());
                         valid = elementName.equals(name);
                     }
                 }
@@ -291,10 +253,8 @@ public class ContextElementFinder
         });
         if (modelElements.size() > 1)
         {
-            throw new ContextElementFinderException(
-                "More than one element named '" + modelElementName
-                    + "' was found within your model,"
-                    + " please give the fully qualified name");
+            throw new ContextElementFinderException("More than one element named '" + modelElementName +
+                    "' was found within your model," + " please give the fully qualified name");
         }
         else if (modelElements.size() == 1)
         {
@@ -305,7 +265,7 @@ public class ContextElementFinder
 
     /**
      * Returns the context element found in the model from the expression.
-     * 
+     *
      * @return the context type as a ModelElementFacade.
      */
     public Object getContextElement()

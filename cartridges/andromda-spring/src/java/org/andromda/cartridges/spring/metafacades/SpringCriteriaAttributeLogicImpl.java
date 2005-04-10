@@ -5,19 +5,15 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute.
+ * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute.
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute
  */
-public class SpringCriteriaAttributeLogicImpl
-    extends SpringCriteriaAttributeLogic
+public class SpringCriteriaAttributeLogicImpl extends SpringCriteriaAttributeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public SpringCriteriaAttributeLogicImpl(
-        Object metaObject,
-        String context)
+    public SpringCriteriaAttributeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -72,33 +68,27 @@ public class SpringCriteriaAttributeLogicImpl
 
         if (comparator != null)
         {
-            if (comparator
-                .equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LIKE))
+            if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LIKE))
             {
                 comparatorConstant = "LIKE_COMPARATOR";
             }
-            else if (comparator
-                .equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_EQUAL))
+            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_EQUAL))
             {
                 comparatorConstant = "EQUAL_COMPARATOR";
             }
-            else if (comparator
-                .equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL))
+            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL))
             {
                 comparatorConstant = "GREATER_THAN_OR_EQUAL_COMPARATOR";
             }
-            else if (comparator
-                .equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER))
+            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER))
             {
                 comparatorConstant = "GREATER_THAN_COMPARATOR";
             }
-            else if (comparator
-                .equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS_OR_EQUAL))
+            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS_OR_EQUAL))
             {
                 comparatorConstant = "LESS_THAN_OR_EQUAL_COMPARATOR";
             }
-            else if (comparator
-                .equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS))
+            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS))
             {
                 comparatorConstant = "LESS_THAN_COMPARATOR";
             }
@@ -109,9 +99,11 @@ public class SpringCriteriaAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleIsNullable()
      */
-    protected boolean handleIsNullable() {
+    protected boolean handleIsNullable()
+    {
         boolean result = false;
-        String value = StringUtils.trimToEmpty((String) findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
+        String value = StringUtils.trimToEmpty(
+                (String) findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
         if (!StringUtils.isEmpty(value))
         {
             result = BooleanUtils.toBoolean(value);
@@ -122,7 +114,8 @@ public class SpringCriteriaAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleGetMatchMode()
      */
-    protected String handleGetMatchMode() {
+    protected String handleGetMatchMode()
+    {
         String matchMode = null;
         Object value = findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_MATCHMODE);
         if (value != null)
@@ -136,7 +129,8 @@ public class SpringCriteriaAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleGetMatchModeConstant()
      */
-    protected String handleGetMatchModeConstant() {
+    protected String handleGetMatchModeConstant()
+    {
         String matchMode = getMatchMode();
         String matchModeConstant = null;
 
@@ -162,7 +156,8 @@ public class SpringCriteriaAttributeLogicImpl
         return matchModeConstant;
     }
 
-    protected boolean handleIsMatchModePresent() {
+    protected boolean handleIsMatchModePresent()
+    {
         return !StringUtils.isEmpty(getMatchMode());
     }
 

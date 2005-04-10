@@ -6,14 +6,11 @@ import org.andromda.translation.ocl.ExpressionKinds;
 /**
  * Metaclass facade implementation.
  */
-public class EntityQueryOperationLogicImpl
-    extends EntityQueryOperationLogic
+public class EntityQueryOperationLogicImpl extends EntityQueryOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EntityQueryOperationLogicImpl(
-        java.lang.Object metaObject,
-        String context)
+    public EntityQueryOperationLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -25,9 +22,7 @@ public class EntityQueryOperationLogicImpl
     {
         final String methodName = "EntityQueryOperationLogicImpl.handleGetQuery";
         ExceptionUtils.checkEmpty(methodName, "translation", translation);
-        String[] translatedExpressions = this.translateConstraints(
-            ExpressionKinds.BODY,
-            translation);
+        String[] translatedExpressions = this.translateConstraints(ExpressionKinds.BODY, translation);
         String query = null;
         // we just get the first body constraint found
         if (translatedExpressions != null && translatedExpressions.length > 0)

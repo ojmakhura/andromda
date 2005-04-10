@@ -8,32 +8,27 @@ import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 
 /**
- * <p>
- * Represents an association end of an entity.
- * </p>
- * Metaclass facade implementation.
+ * <p/>
+ * Represents an association end of an entity. </p> Metaclass facade implementation.
  */
-public class EntityAssociationEndLogicImpl
-    extends EntityAssociationEndLogic
+public class EntityAssociationEndLogicImpl extends EntityAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EntityAssociationEndLogicImpl(
-        java.lang.Object metaObject,
-        String context)
+    public EntityAssociationEndLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
     }
-    
+
     /**
      * Overridden to provide name masking.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(
-            this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
+                this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
@@ -46,12 +41,9 @@ public class EntityAssociationEndLogicImpl
         // prevent ClassCastException if the association isn't an Entity
         if (this.getType() instanceof Entity)
         {
-            columnName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-                this,
-                UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                ((Entity)this.getType()).getMaxSqlNameLength(),
-                this.getForeignKeySuffix(),
-                this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            columnName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(this,
+                    UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN, ((Entity) this.getType()).getMaxSqlNameLength(),
+                    this.getForeignKeySuffix(), this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
         return columnName;
     }
@@ -61,7 +53,7 @@ public class EntityAssociationEndLogicImpl
      */
     public String handleGetForeignKeySuffix()
     {
-        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
+        return (String) this.getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
     }
 
     /**
@@ -71,7 +63,7 @@ public class EntityAssociationEndLogicImpl
     {
         Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
         boolean test = value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
-        return test;        
+        return test;
     }
 
     /**
@@ -81,7 +73,8 @@ public class EntityAssociationEndLogicImpl
     {
         String constraintName = null;
 
-        final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
+        final Object taggedValueObject = findTaggedValue(
+                UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
         if (taggedValueObject == null)
         {
             // we construct our own foreign key constraint name here
@@ -112,7 +105,7 @@ public class EntityAssociationEndLogicImpl
         }
 
         // we take into consideration the maximum length allowed
-        String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
+        String maxLengthString = (String) getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
         Short maxLength = Short.valueOf(maxLengthString);
 
         return EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, maxLength);

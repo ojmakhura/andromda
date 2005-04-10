@@ -1,5 +1,124 @@
 package org.andromda.translation.ocl.validation;
 
+import org.andromda.core.ModelProcessorException;
+import org.andromda.core.translation.TranslationUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.translation.ocl.BaseTranslator;
+import org.andromda.translation.ocl.node.AActualParameterList;
+import org.andromda.translation.ocl.node.AArrowPropertyCallExpressionTail;
+import org.andromda.translation.ocl.node.AAttributeOrAssociationContextDeclaration;
+import org.andromda.translation.ocl.node.ABodyOperationStereotype;
+import org.andromda.translation.ocl.node.AClassifierContextDeclaration;
+import org.andromda.translation.ocl.node.AContextDeclaration;
+import org.andromda.translation.ocl.node.ADefClassifierExpressionBody;
+import org.andromda.translation.ocl.node.ADotPropertyCallExpressionTail;
+import org.andromda.translation.ocl.node.AEqualExpression;
+import org.andromda.translation.ocl.node.AFeatureCall;
+import org.andromda.translation.ocl.node.AFeatureCallParameters;
+import org.andromda.translation.ocl.node.AFeaturePrimaryExpression;
+import org.andromda.translation.ocl.node.AIfExpression;
+import org.andromda.translation.ocl.node.AImpliesLogicalOperator;
+import org.andromda.translation.ocl.node.AInvClassifierExpressionBody;
+import org.andromda.translation.ocl.node.ALetExp;
+import org.andromda.translation.ocl.node.ALetVariableDeclaration;
+import org.andromda.translation.ocl.node.ALogicalExp;
+import org.andromda.translation.ocl.node.ALogicalExpressionTail;
+import org.andromda.translation.ocl.node.AMessageExpression;
+import org.andromda.translation.ocl.node.ANotUnaryOperator;
+import org.andromda.translation.ocl.node.AOperationContextDeclaration;
+import org.andromda.translation.ocl.node.APathName;
+import org.andromda.translation.ocl.node.APostOperationStereotype;
+import org.andromda.translation.ocl.node.APreOperationStereotype;
+import org.andromda.translation.ocl.node.APropertyCallExpression;
+import org.andromda.translation.ocl.node.ARelationalExpression;
+import org.andromda.translation.ocl.node.ARelationalExpressionTail;
+import org.andromda.translation.ocl.node.ATypeDeclaration;
+import org.andromda.translation.ocl.node.AUnaryExpression;
+import org.andromda.translation.ocl.node.AVariableDeclaration;
+import org.andromda.translation.ocl.node.AVariableDeclarationLetExpSub;
+import org.andromda.translation.ocl.node.AVariableDeclarationList;
+import org.andromda.translation.ocl.node.AVariableDeclarationListTail;
+import org.andromda.translation.ocl.node.Node;
+import org.andromda.translation.ocl.node.PAttributeOrAssociationExpressionBody;
+import org.andromda.translation.ocl.node.PClassifierExpressionBody;
+import org.andromda.translation.ocl.node.PContextDeclaration;
+import org.andromda.translation.ocl.node.POperationExpressionBody;
+import org.andromda.translation.ocl.node.PPropertyCallExpressionTail;
+import org.andromda.translation.ocl.node.PVariableDeclarationListTail;
+import org.andromda.translation.ocl.node.TAnd;
+import org.andromda.translation.ocl.node.TApostrophe;
+import org.andromda.translation.ocl.node.TArrow;
+import org.andromda.translation.ocl.node.TAttr;
+import org.andromda.translation.ocl.node.TBag;
+import org.andromda.translation.ocl.node.TBar;
+import org.andromda.translation.ocl.node.TBlank;
+import org.andromda.translation.ocl.node.TBody;
+import org.andromda.translation.ocl.node.TBoolean;
+import org.andromda.translation.ocl.node.TCollection;
+import org.andromda.translation.ocl.node.TColon;
+import org.andromda.translation.ocl.node.TComma;
+import org.andromda.translation.ocl.node.TCommercialAt;
+import org.andromda.translation.ocl.node.TContext;
+import org.andromda.translation.ocl.node.TDef;
+import org.andromda.translation.ocl.node.TDerive;
+import org.andromda.translation.ocl.node.TDiv;
+import org.andromda.translation.ocl.node.TDot;
+import org.andromda.translation.ocl.node.TElse;
+import org.andromda.translation.ocl.node.TEndif;
+import org.andromda.translation.ocl.node.TEndpackage;
+import org.andromda.translation.ocl.node.TEnum;
+import org.andromda.translation.ocl.node.TEqual;
+import org.andromda.translation.ocl.node.TGt;
+import org.andromda.translation.ocl.node.TGteq;
+import org.andromda.translation.ocl.node.TIf;
+import org.andromda.translation.ocl.node.TImplies;
+import org.andromda.translation.ocl.node.TIn;
+import org.andromda.translation.ocl.node.TInit;
+import org.andromda.translation.ocl.node.TInt;
+import org.andromda.translation.ocl.node.TInv;
+import org.andromda.translation.ocl.node.TIsSentOperator;
+import org.andromda.translation.ocl.node.TLBrace;
+import org.andromda.translation.ocl.node.TLBracket;
+import org.andromda.translation.ocl.node.TLParen;
+import org.andromda.translation.ocl.node.TLet;
+import org.andromda.translation.ocl.node.TLt;
+import org.andromda.translation.ocl.node.TLteq;
+import org.andromda.translation.ocl.node.TMessageOperator;
+import org.andromda.translation.ocl.node.TMinus;
+import org.andromda.translation.ocl.node.TMult;
+import org.andromda.translation.ocl.node.TName;
+import org.andromda.translation.ocl.node.TNewLine;
+import org.andromda.translation.ocl.node.TNot;
+import org.andromda.translation.ocl.node.TNotEqual;
+import org.andromda.translation.ocl.node.TOper;
+import org.andromda.translation.ocl.node.TOr;
+import org.andromda.translation.ocl.node.TOrderedset;
+import org.andromda.translation.ocl.node.TPackage;
+import org.andromda.translation.ocl.node.TPlus;
+import org.andromda.translation.ocl.node.TPost;
+import org.andromda.translation.ocl.node.TPre;
+import org.andromda.translation.ocl.node.TRBrace;
+import org.andromda.translation.ocl.node.TRBracket;
+import org.andromda.translation.ocl.node.TRParen;
+import org.andromda.translation.ocl.node.TRange;
+import org.andromda.translation.ocl.node.TReal;
+import org.andromda.translation.ocl.node.TScopeOperator;
+import org.andromda.translation.ocl.node.TSemicolon;
+import org.andromda.translation.ocl.node.TSequence;
+import org.andromda.translation.ocl.node.TSet;
+import org.andromda.translation.ocl.node.TSingleLineComment;
+import org.andromda.translation.ocl.node.TStringLit;
+import org.andromda.translation.ocl.node.TTab;
+import org.andromda.translation.ocl.node.TThen;
+import org.andromda.translation.ocl.node.TTuple;
+import org.andromda.translation.ocl.node.TTupletype;
+import org.andromda.translation.ocl.node.TUnknown;
+import org.andromda.translation.ocl.node.TXor;
+import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
+import org.andromda.translation.ocl.syntax.OCLFeatures;
+import org.andromda.translation.ocl.syntax.OCLPatterns;
+import org.apache.commons.lang.StringUtils;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -9,26 +128,14 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Stack;
 
-import org.andromda.core.ModelProcessorException;
-import org.andromda.core.translation.TranslationUtils;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.translation.ocl.BaseTranslator;
-import org.andromda.translation.ocl.node.*;
-import org.andromda.translation.ocl.syntax.ConcreteSyntaxUtils;
-import org.andromda.translation.ocl.syntax.OCLFeatures;
-import org.andromda.translation.ocl.syntax.OCLPatterns;
-import org.apache.commons.lang.StringUtils;
-
 /**
- * <p>
- * Provides translation of OCL validation constraints to the Java language.
- * </p>
- * 
+ * <p/>
+ * Provides translation of OCL validation constraints to the Java language. </p>
+ *
  * @author Wouter Zoons
  * @author Chad Brandon
  */
-public class ValidationJavaTranslator
-    extends BaseTranslator
+public class ValidationJavaTranslator extends BaseTranslator
 {
 
     private static Properties features = null;
@@ -37,12 +144,10 @@ public class ValidationJavaTranslator
     {
         try
         {
-            URL featuresUri = ValidationJavaTranslator.class
-                .getResource("features.properties");
+            URL featuresUri = ValidationJavaTranslator.class.getResource("features.properties");
             if (featuresUri == null)
             {
-                throw new ModelProcessorException("Could not load file --> '"
-                    + featuresUri + "'");
+                throw new ModelProcessorException("Could not load file --> '" + featuresUri + "'");
             }
             features = new Properties();
             InputStream stream = featuresUri.openStream();
@@ -62,8 +167,7 @@ public class ValidationJavaTranslator
     private static final String OCL_TRANSLATOR_PACKAGE = "org.andromda.translation.ocl.validation";
 
     /**
-     * This is the start of a new constraint. We prepare everything by resetting
-     * and initializing the required objects.
+     * This is the start of a new constraint. We prepare everything by resetting and initializing the required objects.
      */
     public void caseAContextDeclaration(AContextDeclaration node)
     {
@@ -72,49 +176,43 @@ public class ValidationJavaTranslator
             Object temp[] = node.getContextDeclaration().toArray();
             for (int ctr = 0; ctr < temp.length; ctr++)
             {
-                ((PContextDeclaration)temp[ctr]).apply(this);
+                ((PContextDeclaration) temp[ctr]).apply(this);
             }
         }
         mergeTranslationLayers();
-        this.getExpression().appendToTranslatedExpression(
-            translationLayers.peek());
+        this.getExpression().appendToTranslatedExpression(translationLayers.peek());
         translationLayers.clear();
     }
 
-    public void caseAClassifierContextDeclaration(
-        AClassifierContextDeclaration node)
+    public void caseAClassifierContextDeclaration(AClassifierContextDeclaration node)
     {
         // explicity call super method so
         // that we can set the type of the expression
         super.inAClassifierContextDeclaration(node);
         Object temp[] = node.getClassifierExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((PClassifierExpressionBody)temp[ctr]).apply(this);
+            ((PClassifierExpressionBody) temp[ctr]).apply(this);
     }
 
-    public void caseAOperationContextDeclaration(
-        AOperationContextDeclaration node)
+    public void caseAOperationContextDeclaration(AOperationContextDeclaration node)
     {
         // explicity call super method so
         // that we can set the type of the expression
         super.inAOperationContextDeclaration(node);
         Object temp[] = node.getOperationExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((POperationExpressionBody)temp[ctr]).apply(this);
+            ((POperationExpressionBody) temp[ctr]).apply(this);
     }
 
-    public void caseAAttributeOrAssociationContextDeclaration(
-        AAttributeOrAssociationContextDeclaration node)
+    public void caseAAttributeOrAssociationContextDeclaration(AAttributeOrAssociationContextDeclaration node)
     {
         super.inAAttributeOrAssociationContextDeclaration(node);
-        Object temp[] = node.getAttributeOrAssociationExpressionBody()
-            .toArray();
+        Object temp[] = node.getAttributeOrAssociationExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((PAttributeOrAssociationExpressionBody)temp[ctr]).apply(this);
+            ((PAttributeOrAssociationExpressionBody) temp[ctr]).apply(this);
     }
 
-    public void caseAInvClassifierExpressionBody(
-        AInvClassifierExpressionBody node)
+    public void caseAInvClassifierExpressionBody(AInvClassifierExpressionBody node)
     {
         // explicity call super method so
         // that we can set the type of the expression
@@ -122,8 +220,7 @@ public class ValidationJavaTranslator
         node.getExpression().apply(this);
     }
 
-    public void caseADefClassifierExpressionBody(
-        ADefClassifierExpressionBody node)
+    public void caseADefClassifierExpressionBody(ADefClassifierExpressionBody node)
     {
         // explicity call super method so
         // that we can set the type of the expression
@@ -132,13 +229,11 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * We need to keep track that what follows is in the scope of an arrow
-     * feature call, this is important because it means it is a feature that is
-     * implied by the OCL language, rather than the model on which the
-     * constraint applies.
+     * We need to keep track that what follows is in the scope of an arrow feature call, this is important because it
+     * means it is a feature that is implied by the OCL language, rather than the model on which the constraint
+     * applies.
      */
-    public void inAArrowPropertyCallExpressionTail(
-        AArrowPropertyCallExpressionTail node)
+    public void inAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
     {
         this.arrowPropertyCallStack.push(Boolean.TRUE);
     }
@@ -146,18 +241,16 @@ public class ValidationJavaTranslator
     /**
      * Undo the arrow feature call trace.
      */
-    public void outAArrowPropertyCallExpressionTail(
-        AArrowPropertyCallExpressionTail node)
+    public void outAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
     {
         this.arrowPropertyCallStack.pop();
     }
 
     /**
-     * This indicates we have entered a feature call, we need to mark this to
-     * counterpart any previous arrow feature call flags.
+     * This indicates we have entered a feature call, we need to mark this to counterpart any previous arrow feature
+     * call flags.
      */
-    public void inADotPropertyCallExpressionTail(
-        ADotPropertyCallExpressionTail node)
+    public void inADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         this.arrowPropertyCallStack.push(Boolean.FALSE);
     }
@@ -165,17 +258,15 @@ public class ValidationJavaTranslator
     /**
      * Undo the dot feature call trace.
      */
-    public void outADotPropertyCallExpressionTail(
-        ADotPropertyCallExpressionTail node)
+    public void outADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         this.arrowPropertyCallStack.pop();
     }
 
     /**
-     * Here we need to make sure the equals sign '=' is not translated into the
-     * 'equal' keyword. OCL uses '=' for comparison as well as for assignment,
-     * Java uses '==', '=' and .equals() so we override the default OCL value
-     * here to use '=' instead of 'equal'
+     * Here we need to make sure the equals sign '=' is not translated into the 'equal' keyword. OCL uses '=' for
+     * comparison as well as for assignment, Java uses '==', '=' and .equals() so we override the default OCL value here
+     * to use '=' instead of 'equal'
      */
     public void caseALetVariableDeclaration(ALetVariableDeclaration node)
     {
@@ -203,8 +294,7 @@ public class ValidationJavaTranslator
         newTranslationLayer(); // this layer will be disposed later on, we do
         // not write variable declarations
 
-        AVariableDeclaration variableDeclaration = (AVariableDeclaration)node
-            .getVariableDeclaration();
+        AVariableDeclaration variableDeclaration = (AVariableDeclaration) node.getVariableDeclaration();
         String variableName = variableDeclaration.getName().getText();
 
         newTranslationLayer();
@@ -216,8 +306,7 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * In Java we need to end the declaration statement with a semicolon, this
-     * is handled here.
+     * In Java we need to end the declaration statement with a semicolon, this is handled here.
      */
     public void outALetVariableDeclaration(ALetVariableDeclaration node)
     {
@@ -226,8 +315,7 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * Renders a variable declaration. Missing types will imply the
-     * java.lang.Object type.
+     * Renders a variable declaration. Missing types will imply the java.lang.Object type.
      */
     public void caseAVariableDeclaration(AVariableDeclaration node)
     {
@@ -255,11 +343,10 @@ public class ValidationJavaTranslator
 
         Object temp[] = node.getVariableDeclarationListTail().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((PVariableDeclarationListTail)temp[ctr]).apply(this);
+            ((PVariableDeclarationListTail) temp[ctr]).apply(this);
     }
 
-    public void caseAVariableDeclarationListTail(
-        AVariableDeclarationListTail node)
+    public void caseAVariableDeclarationListTail(AVariableDeclarationListTail node)
     {
         node.getComma().apply(this);
         node.getVariableDeclaration().apply(this);
@@ -315,12 +402,11 @@ public class ValidationJavaTranslator
         node.getPrimaryExpression().apply(this);
         Object temp[] = node.getPropertyCallExpressionTail().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((PPropertyCallExpressionTail)temp[ctr]).apply(this);
+            ((PPropertyCallExpressionTail) temp[ctr]).apply(this);
         mergeTranslationLayerAfter();
     }
 
-    public void caseADotPropertyCallExpressionTail(
-        ADotPropertyCallExpressionTail node)
+    public void caseADotPropertyCallExpressionTail(ADotPropertyCallExpressionTail node)
     {
         inADotPropertyCallExpressionTail(node);
         String expression = TranslationUtils.trimToEmpty(node);
@@ -328,9 +414,8 @@ public class ValidationJavaTranslator
         // an operation call
         if (OCLPatterns.isOperation(expression))
         {
-            AFeatureCall featureCall = (AFeatureCall)node.getFeatureCall();
-            String featureCallExpression = TranslationUtils.trimToEmpty(node
-                .getFeatureCall());
+            AFeatureCall featureCall = (AFeatureCall) node.getFeatureCall();
+            String featureCallExpression = TranslationUtils.trimToEmpty(node.getFeatureCall());
             if (OCLFeatures.isOclIsKindOf(featureCallExpression))
             {
                 this.handleOclIsKindOf(featureCall);
@@ -379,9 +464,9 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * Extracts the parameters from the given <code>node</code> and returns
-     * the parameters as a type (or null if none can be extracted).
-     * 
+     * Extracts the parameters from the given <code>node</code> and returns the parameters as a type (or null if none
+     * can be extracted).
+     *
      * @param node the node from which to extrac the parameters
      * @return the fully qualified type name.
      */
@@ -390,13 +475,11 @@ public class ValidationJavaTranslator
         String type = null;
         if (node instanceof AFeatureCall)
         {
-            type = ConcreteSyntaxUtils
-                .getParametersAsString((AFeatureCall)node);
+            type = ConcreteSyntaxUtils.getParametersAsString((AFeatureCall) node);
         }
         else if (node instanceof AFeatureCallParameters)
         {
-            type = ConcreteSyntaxUtils
-                .getParametersAsString((AFeatureCallParameters)node);
+            type = ConcreteSyntaxUtils.getParametersAsString((AFeatureCallParameters) node);
         }
         if (type != null)
         {
@@ -424,32 +507,27 @@ public class ValidationJavaTranslator
         write(OCL_INTROSPECTOR_INVOKE_PREFIX);
         write(CONTEXT_ELEMENT_NAME);
         write(",\"");
-        write(ConcreteSyntaxUtils.getParametersAsString(featureCall)
-            .replaceAll("\\s*", ""));
+        write(ConcreteSyntaxUtils.getParametersAsString(featureCall).replaceAll("\\s*", ""));
         write("\")");
     }
 
     /**
-     * Handles a <strong>dot </strong> feature call. Its expected that this
-     * <code>featureCall</code>'s parent is a ADotPropertyCallExpressionTail.
-     * This is here because dot feature calls must be handled differently than
+     * Handles a <strong>dot </strong> feature call. Its expected that this <code>featureCall</code>'s parent is a
+     * ADotPropertyCallExpressionTail. This is here because dot feature calls must be handled differently than
      * <code>arrow<code> feature calls.
      *
-     * @param featureCall the <strong>dot</strong>
-     *        <code>featureCall</code> to handle.
+     * @param featureCall the <strong>dot</strong> <code>featureCall</code> to handle.
      */
     public void handleDotFeatureCall(AFeatureCall featureCall)
     {
         this.prependToTranslationLayer(OCL_INTROSPECTOR_INVOKE_PREFIX);
-        String propertyCallExpression = TranslationUtils
-            .deleteWhitespace(featureCall.parent().parent());
+        String propertyCallExpression = TranslationUtils.deleteWhitespace(featureCall.parent().parent());
         if (propertyCallExpression.matches(".*\\s?self\\..*"))
         {
             write(CONTEXT_ELEMENT_NAME);
         }
         this.appendToTranslationLayer(",\"");
-        this.appendToTranslationLayer(TranslationUtils
-            .deleteWhitespace(featureCall));
+        this.appendToTranslationLayer(TranslationUtils.deleteWhitespace(featureCall));
         this.appendToTranslationLayer("\"");
         if (featureCall.getFeatureCallParameters() != null)
         {
@@ -460,23 +538,21 @@ public class ValidationJavaTranslator
                 this.appendToTranslationLayer(OCL_INTROSPECTOR_INVOKE_PREFIX);
                 this.appendToTranslationLayer(CONTEXT_ELEMENT_NAME);
                 this.appendToTranslationLayer(",\"");
-                this.appendToTranslationLayer(ConcreteSyntaxUtils
-                    .getParameters(featureCall).get(0));
+                this.appendToTranslationLayer(ConcreteSyntaxUtils.getParameters(featureCall).get(0));
                 this.appendToTranslationLayer("\")}");
             }
         }
         this.appendToTranslationLayer(")");
     }
 
-    public void caseAArrowPropertyCallExpressionTail(
-        AArrowPropertyCallExpressionTail node)
+    public void caseAArrowPropertyCallExpressionTail(AArrowPropertyCallExpressionTail node)
     {
         inAArrowPropertyCallExpressionTail(node);
         node.getArrow().apply(this);
-        this.handleArrowFeatureCall((AFeatureCall)node.getFeatureCall());
+        this.handleArrowFeatureCall((AFeatureCall) node.getFeatureCall());
         outAArrowPropertyCallExpressionTail(node);
     }
-    
+
     /**
      * @see org.andromda.translation.ocl.BaseTranslator#isOperationArgument(java.lang.String)
      */
@@ -484,10 +560,11 @@ public class ValidationJavaTranslator
     {
         return super.isOperationArgument(this.getRootName(argument));
     }
-    
+
     /**
-     * Gets the root path name from the given <code>navigationalPath</code> 
-     * (by trimming off any additional navigational path).
+     * Gets the root path name from the given <code>navigationalPath</code> (by trimming off any additional navigational
+     * path).
+     *
      * @param navigationalPath the navigational property path (i.e. car.door)
      * @return the root of the path name.
      */
@@ -495,29 +572,27 @@ public class ValidationJavaTranslator
     {
         return StringUtils.trimToEmpty(navigationalPath).replaceAll("\\..*", "");
     }
-    
+
     /**
-     * Gets the tail of the navigational path (that is it removes the 
-     * root from the path and returns the tail).  
+     * Gets the tail of the navigational path (that is it removes the root from the path and returns the tail).
+     *
      * @param navigationalPath the navigational property path (i.e. car.door)
      * @return the tail of the path name.
      */
     private String getPathTail(String navigationalPath)
     {
-        return StringUtils.trimToEmpty(navigationalPath).replaceAll(".*\\.", "");       
+        return StringUtils.trimToEmpty(navigationalPath).replaceAll(".*\\.", "");
     }
 
     /**
-     * @todo: improve implementation to reduce the code duplication (avoid
-     *        having two write statements)
+     * @todo: improve implementation to reduce the code duplication (avoid having two write statements)
      */
     public void caseAFeaturePrimaryExpression(AFeaturePrimaryExpression node)
     {
         inAFeaturePrimaryExpression(node);
         if (node.getPathName() != null)
         {
-            final String variableName = ((APathName)node.getPathName())
-                .getName().getText();
+            final String variableName = ((APathName) node.getPathName()).getName().getText();
             final String variableValue = getDeclaredLetVariableValue(variableName);
             final boolean isDeclaredAsLetVariable = (variableValue != null);
 
@@ -526,24 +601,18 @@ public class ValidationJavaTranslator
             {
                 write(variableValue);
             }
-            else if (node.getFeatureCallParameters() == null
-                || OCLPatterns.isOperation(featureExpression))
+            else if (node.getFeatureCallParameters() == null || OCLPatterns.isOperation(featureExpression))
             {
-                APropertyCallExpression expression = (APropertyCallExpression)node
-                    .parent();
-                String expressionAsString = ConcreteSyntaxUtils
-                    .getPrimaryExpression(expression);
+                APropertyCallExpression expression = (APropertyCallExpression) node.parent();
+                String expressionAsString = ConcreteSyntaxUtils.getPrimaryExpression(expression);
                 // remove any references to 'self.' as we write
-                expressionAsString = expressionAsString.replaceAll(
-                    "self\\.|self",
-                    "");
+                expressionAsString = expressionAsString.replaceAll("self\\.|self", "");
                 if (StringUtils.isNotBlank(expressionAsString))
                 {
                     boolean convertToBoolean = false;
                     if (node.parent().parent() instanceof AUnaryExpression)
                     {
-                        AUnaryExpression unaryExpression = (AUnaryExpression)node
-                            .parent().parent();
+                        AUnaryExpression unaryExpression = (AUnaryExpression) node.parent().parent();
                         // we convert each unary not expression to boolean
                         convertToBoolean = unaryExpression.getUnaryOperator() instanceof ANotUnaryOperator;
                         if (convertToBoolean)
@@ -571,8 +640,8 @@ public class ValidationJavaTranslator
                         if (this.arrowPropertyCallStack.peek().equals(Boolean.TRUE))
                         {
                             invokedObject = "object";
-                        }    
-                        if(this.isOperationArgument(expressionAsString))
+                        }
+                        if (this.isOperationArgument(expressionAsString))
                         {
                             // if the expression is an argument, then 
                             // that becomes the invoked object
@@ -585,9 +654,9 @@ public class ValidationJavaTranslator
                             write(OCL_INTROSPECTOR_INVOKE_PREFIX);
                         }
                         write(invokedObject);
-                        if (introspectorCall) 
+                        if (introspectorCall)
                         {
-                            write(",\""); 
+                            write(",\"");
                             write(expressionAsString);
                         }
                         if (introspectorCall)
@@ -628,33 +697,26 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * Handles an <strong>arrow </strong> feature call. Its expected that this
-     * <code>featureCall</code>'s parent is a
-     * AArrowPropertyCallExpressionTail. This is here because arrow feature
-     * calls must be handled differently than <code>dot<code> feature calls.
+     * Handles an <strong>arrow </strong> feature call. Its expected that this <code>featureCall</code>'s parent is a
+     * AArrowPropertyCallExpressionTail. This is here because arrow feature calls must be handled differently than
+     * <code>dot<code> feature calls.
      *
-     * @param featureCall the <strong>arrow</strong>
-     *        <code>featureCall</code> to handle.
+     * @param featureCall the <strong>arrow</strong> <code>featureCall</code> to handle.
      */
     public void handleArrowFeatureCall(AFeatureCall featureCall)
     {
-        AFeatureCallParameters params = (AFeatureCallParameters)featureCall
-            .getFeatureCallParameters();
-        AActualParameterList list = (AActualParameterList)params
-            .getActualParameterList();
-        boolean arrow = this.arrowPropertyCallStack.peek().equals(Boolean.TRUE)
-            && !String.valueOf(list).trim().equals("");
+        AFeatureCallParameters params = (AFeatureCallParameters) featureCall.getFeatureCallParameters();
+        AActualParameterList list = (AActualParameterList) params.getActualParameterList();
+        boolean arrow = this.arrowPropertyCallStack.peek().equals(Boolean.TRUE) &&
+                !String.valueOf(list).trim().equals("");
         {
             newTranslationLayer();
-            final String navigationalPath = ConcreteSyntaxUtils
-                .getArrowFeatureCallResultNavigationalPath((APropertyCallExpression)featureCall
-                    .parent().parent());
+            final String navigationalPath = ConcreteSyntaxUtils.getArrowFeatureCallResultNavigationalPath((APropertyCallExpression) featureCall.parent().parent());
             // if the result of an arrow feature (collection operation) has a
             // navigational
             // path, retrieve it and wrap the current expression with an OCL
             // introspector call
-            boolean resultNavigationalPath = StringUtils
-                .isNotBlank(navigationalPath);
+            boolean resultNavigationalPath = StringUtils.isNotBlank(navigationalPath);
             if (resultNavigationalPath)
             {
                 write(OCL_INTROSPECTOR_INVOKE_PREFIX);
@@ -666,17 +728,14 @@ public class ValidationJavaTranslator
             {
                 featureCall.getPathName().apply(this);
             }
-            String featureCallName = TranslationUtils.trimToEmpty(featureCall
-                .getPathName());
-            AFeatureCallParameters parameters = (AFeatureCallParameters)featureCall
-                .getFeatureCallParameters();
+            String featureCallName = TranslationUtils.trimToEmpty(featureCall.getPathName());
+            AFeatureCallParameters parameters = (AFeatureCallParameters) featureCall.getFeatureCallParameters();
             if (parameters.getLParen() != null)
             {
                 parameters.getLParen().apply(this);
             }
             mergeTranslationLayerBefore();
-            AActualParameterList parameterList = (AActualParameterList)parameters
-                .getActualParameterList();
+            AActualParameterList parameterList = (AActualParameterList) parameters.getActualParameterList();
             if (parameterList != null)
             {
                 List expressions = parameterList.getCommaExpression();
@@ -688,8 +747,7 @@ public class ValidationJavaTranslator
                         write(",");
                         write(features.getProperty(featureCallName));
                         write(" ");
-                        if (OCLPredicateFeatures
-                            .isPredicateFeature(featureCallName))
+                        if (OCLPredicateFeatures.isPredicateFeature(featureCallName))
                         {
                             write(BOOLEAN_WRAP_PREFIX);
                         }
@@ -698,7 +756,7 @@ public class ValidationJavaTranslator
                 }
                 for (int ctr = 0; ctr < expressions.size(); ctr++)
                 {
-                    Node expression = (Node)expressions.get(ctr);
+                    Node expression = (Node) expressions.get(ctr);
                     if (expression != null)
                     {
                         write(",");
@@ -707,8 +765,7 @@ public class ValidationJavaTranslator
                 }
                 if (parameterList.getExpression() != null)
                 {
-                    if (OCLPredicateFeatures
-                        .isPredicateFeature(featureCallName))
+                    if (OCLPredicateFeatures.isPredicateFeature(featureCallName))
                     {
                         write(BOOLEAN_WRAP_SUFFIX);
                     }
@@ -768,8 +825,7 @@ public class ValidationJavaTranslator
         dropLetVariableContext();
     }
 
-    public void caseAVariableDeclarationLetExpSub(
-        AVariableDeclarationLetExpSub node)
+    public void caseAVariableDeclarationLetExpSub(AVariableDeclarationLetExpSub node)
     {
         node.getComma().apply(this);
         node.getLetVariableDeclaration().apply(this);
@@ -786,7 +842,7 @@ public class ValidationJavaTranslator
         Object tails[] = node.getLogicalExpressionTail().toArray();
         for (int ctr = 0; ctr < tails.length; ctr++)
         {
-            ((ALogicalExpressionTail)tails[ctr]).apply(this);
+            ((ALogicalExpressionTail) tails[ctr]).apply(this);
         }
         mergeTranslationLayerAfter();
     }
@@ -828,8 +884,7 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * A flag indicating if the expression needs to be converted/wrapped in a
-     * Java Boolean instance.
+     * A flag indicating if the expression needs to be converted/wrapped in a Java Boolean instance.
      */
     private boolean requiresBooleanConversion = false;
 
@@ -845,7 +900,7 @@ public class ValidationJavaTranslator
             String expression = null;
             if (parent instanceof ALogicalExp)
             {
-                List tails = ((ALogicalExp)parent).getLogicalExpressionTail();
+                List tails = ((ALogicalExp) parent).getLogicalExpressionTail();
                 if (tails != null && !tails.isEmpty())
                 {
                     expression = TranslationUtils.trimToEmpty(tails.get(0));
@@ -855,9 +910,8 @@ public class ValidationJavaTranslator
             {
                 expression = TranslationUtils.trimToEmpty(node);
             }
-            requiresBooleanConversion = expression != null
-                && expression.matches(pattern)
-                && !OCLPatterns.isOperation(node);
+            requiresBooleanConversion = expression != null && expression.matches(pattern) && !OCLPatterns.isOperation(
+                    node);
             if (this.requiresBooleanConversion)
             {
                 this.write(BOOLEAN_WRAP_PREFIX);
@@ -1138,13 +1192,11 @@ public class ValidationJavaTranslator
     {}
 
     /**
-     * @todo: this method very naively replaces every single quote by a double
-     *        quote, this should be updated
+     * @todo: this method very naively replaces every single quote by a double quote, this should be updated
      */
     public void caseTStringLit(TStringLit tStringLit)
     {
-        final StringBuffer buffer = new StringBuffer(tStringLit.getText()
-            .replace('\'', '\"'));
+        final StringBuffer buffer = new StringBuffer(tStringLit.getText().replace('\'', '\"'));
         write(buffer);
     }
 
@@ -1160,18 +1212,16 @@ public class ValidationJavaTranslator
     private final Stack translationLayers = new Stack();
 
     /**
-     * Contains Boolean.TRUE on the top when the most recent property call was
-     * an arrow property call, contains Boolean.FALSE otherwise.
+     * Contains Boolean.TRUE on the top when the most recent property call was an arrow property call, contains
+     * Boolean.FALSE otherwise.
      */
     private final Stack arrowPropertyCallStack = new Stack();
 
     /**
-     * This stack contains elements implementing the Map interface. For each
-     * definition of variables a new Map element will be pushed onto the stack.
-     * This element contains the variables defined in the definition.
-     * <p>
-     * The keys and values contained in the Map are the names of the variables
-     * only (String instances).
+     * This stack contains elements implementing the Map interface. For each definition of variables a new Map element
+     * will be pushed onto the stack. This element contains the variables defined in the definition.
+     * <p/>
+     * The keys and values contained in the Map are the names of the variables only (String instances).
      */
     private final Stack letVariableStack = new Stack();
 
@@ -1182,17 +1232,17 @@ public class ValidationJavaTranslator
 
     private StringBuffer newTranslationLayer()
     {
-        return (StringBuffer)translationLayers.push(new StringBuffer());
+        return (StringBuffer) translationLayers.push(new StringBuffer());
     }
 
     private StringBuffer appendToTranslationLayer(Object appendix)
     {
-        return ((StringBuffer)translationLayers.peek()).append(appendix);
+        return ((StringBuffer) translationLayers.peek()).append(appendix);
     }
 
     private StringBuffer prependToTranslationLayer(Object appendix)
     {
-        return ((StringBuffer)translationLayers.peek()).insert(0, appendix);
+        return ((StringBuffer) translationLayers.peek()).insert(0, appendix);
     }
 
     private StringBuffer mergeTranslationLayerAfter()
@@ -1221,19 +1271,18 @@ public class ValidationJavaTranslator
 
     private StringBuffer mergeTranslationLayers()
     {
-        while (mergeTranslationLayerAfter() != null);
-        return (StringBuffer)translationLayers.peek();
+        while (mergeTranslationLayerAfter() != null) ;
+        return (StringBuffer) translationLayers.peek();
     }
 
     private String getDeclaredLetVariableValue(String variableName)
     {
-        for (Iterator iterator = letVariableStack.iterator(); iterator
-            .hasNext();)
+        for (Iterator iterator = letVariableStack.iterator(); iterator.hasNext();)
         {
-            Map variableMap = (Map)iterator.next();
+            Map variableMap = (Map) iterator.next();
             if (variableMap.containsKey(variableName))
             {
-                return (String)variableMap.get(variableName);
+                return (String) variableMap.get(variableName);
             }
         }
         return null;
@@ -1250,22 +1299,19 @@ public class ValidationJavaTranslator
             letVariableStack.pop();
     }
 
-    private void addLetVariableToContext(
-        String variableName,
-        String variableValue)
+    private void addLetVariableToContext(String variableName, String variableValue)
     {
-        ((Map)letVariableStack.peek()).put(variableName, variableValue);
+        ((Map) letVariableStack.peek()).put(variableName, variableValue);
     }
 
     /**
-     * Gets the current context element as a
-     * {@link org.andromda.uml.metafacades.ModelElementFacade}.
-     * 
+     * Gets the current context element as a {@link org.andromda.uml.metafacades.ModelElementFacade}.
+     *
      * @return the context element as a model element facade
      */
     private ModelElementFacade getModelElement()
     {
-        return (ModelElementFacade)this.getContextElement();
+        return (ModelElementFacade) this.getContextElement();
     }
 
     public ValidationJavaTranslator()
@@ -1279,11 +1325,9 @@ public class ValidationJavaTranslator
     private static final String CONTEXT_ELEMENT_NAME = "contextElement";
 
     /**
-     * The prefix for calling the OCLIntrospector to invoke a property or method
-     * on an element.
+     * The prefix for calling the OCLIntrospector to invoke a property or method on an element.
      */
-    private static final String OCL_INTROSPECTOR_INVOKE_PREFIX = OCL_TRANSLATOR_PACKAGE
-        + ".OCLIntrospector.invoke(";
+    private static final String OCL_INTROSPECTOR_INVOKE_PREFIX = OCL_TRANSLATOR_PACKAGE + ".OCLIntrospector.invoke(";
 
     /**
      * The prefix for converting expressions to boolean expressions
@@ -1296,22 +1340,17 @@ public class ValidationJavaTranslator
     private static final String BOOLEAN_WRAP_SUFFIX = ")).booleanValue()";
 
     /**
-     * We need to wrap every expression with a converter so that any expressions
-     * that return just objects are converted to boolean values.
-     * 
+     * We need to wrap every expression with a converter so that any expressions that return just objects are converted
+     * to boolean values.
+     *
      * @see org.andromda.translation.ocl.BaseTranslator#postProcess()
      */
     public void postProcess()
     {
-        this.getExpression().insertInTranslatedExpression(
-            0,
-            OCL_TRANSLATOR_PACKAGE + ".OCLResultEnsurer.ensure(");
-        this.getExpression().insertInTranslatedExpression(
-            0,
-            "boolean constraintValid = ");
-        this.getExpression().insertInTranslatedExpression(
-            0,
-            "final java.lang.Object " + CONTEXT_ELEMENT_NAME + " = this; ");
+        this.getExpression().insertInTranslatedExpression(0, OCL_TRANSLATOR_PACKAGE + ".OCLResultEnsurer.ensure(");
+        this.getExpression().insertInTranslatedExpression(0, "boolean constraintValid = ");
+        this.getExpression().insertInTranslatedExpression(0,
+                "final java.lang.Object " + CONTEXT_ELEMENT_NAME + " = this; ");
         this.getExpression().appendToTranslatedExpression(");");
 
     }

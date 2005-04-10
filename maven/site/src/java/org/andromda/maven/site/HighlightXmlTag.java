@@ -84,8 +84,7 @@ public class HighlightXmlTag extends AbstractHighlightTag
             }
             else if (inElement)
             {
-                if (inAttribute == false &&
-                        (token.equals(" ") || token.equals("\t") || token.equals("\f") ||
+                if (inAttribute == false && (token.equals(" ") || token.equals("\t") || token.equals("\f") ||
                         token.equals("\n") || token.equals("\r")))
                 {
                     endTokenHighlight(output);

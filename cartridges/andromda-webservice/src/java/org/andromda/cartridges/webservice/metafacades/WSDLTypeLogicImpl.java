@@ -7,19 +7,15 @@ import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.webservice.metafacades.WSDLType.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WSDLType.
+ *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLType
  */
-public class WSDLTypeLogicImpl
-    extends WSDLTypeLogic
+public class WSDLTypeLogicImpl extends WSDLTypeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public WSDLTypeLogicImpl(
-        Object metaObject,
-        String context)
+    public WSDLTypeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -33,21 +29,12 @@ public class WSDLTypeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getSchemaType(boolean,
-     *      boolean)
+     * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getSchemaType(boolean, boolean)
      */
-    public java.lang.String handleGetSchemaType(
-        boolean withPrefix,
-        boolean preserveArray)
+    public java.lang.String handleGetSchemaType(boolean withPrefix, boolean preserveArray)
     {
-        return WebServiceUtils.getSchemaType(
-            this, 
-            this.getSchemaTypeMappings(), 
-            this.getNamespacePrefix(), 
-            this.getQName(), 
-            this.getWsdlArrayNamePrefix(), 
-            withPrefix, 
-            preserveArray);
+        return WebServiceUtils.getSchemaType(this, this.getSchemaTypeMappings(), this.getNamespacePrefix(),
+                this.getQName(), this.getWsdlArrayNamePrefix(), withPrefix, preserveArray);
     }
 
     /**
@@ -55,8 +42,7 @@ public class WSDLTypeLogicImpl
      */
     protected String handleGetWsdlArrayName()
     {
-        StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(
-            this.getQName()).replaceAll("\\[\\]", ""));
+        StringBuffer name = new StringBuffer(StringUtils.trimToEmpty(this.getQName()).replaceAll("\\[\\]", ""));
         name.insert(0, this.getWsdlArrayNamePrefix());
         return name.toString();
     }
@@ -66,8 +52,7 @@ public class WSDLTypeLogicImpl
      */
     protected String handleGetWsdlArrayNamePrefix()
     {
-        return String.valueOf(this
-            .getConfiguredProperty(WebServiceGlobals.ARRAY_NAME_PREFIX));
+        return String.valueOf(this.getConfiguredProperty(WebServiceGlobals.ARRAY_NAME_PREFIX));
     }
 
     /**
@@ -75,9 +60,7 @@ public class WSDLTypeLogicImpl
      */
     protected String handleGetQName()
     {
-        return this.getQualfiedNameLocalPartPattern().replaceAll(
-            "\\{0\\}",
-            StringUtils.trimToEmpty(this.getName()));
+        return this.getQualfiedNameLocalPartPattern().replaceAll("\\{0\\}", StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -95,18 +78,17 @@ public class WSDLTypeLogicImpl
 
     /**
      * Gets the array suffix from the configured metafacade properties.
-     * 
+     *
      * @return the array suffix.
      */
     private String getArraySuffix()
     {
-        return String.valueOf(this.getConfiguredProperty(
-            UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
+        return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
-    
+
     /**
      * Gets the schemaType mappings that have been set for this schema type.
-     * 
+     *
      * @return the TypeMappings instance.
      */
     private TypeMappings getSchemaTypeMappings()
@@ -117,7 +99,7 @@ public class WSDLTypeLogicImpl
         String uri = null;
         if (property instanceof String)
         {
-            uri = (String)property;
+            uri = (String) property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -126,15 +108,14 @@ public class WSDLTypeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '"
-                    + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg, th);
                 // don't throw the exception
             }
         }
         else
         {
-            mappings = (TypeMappings)property;
+            mappings = (TypeMappings) property;
         }
         return mappings;
     }
@@ -144,8 +125,7 @@ public class WSDLTypeLogicImpl
      */
     protected String handleGetNamespacePrefix()
     {
-        return (String)this
-            .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
+        return (String) this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
     }
 
     /**
@@ -153,8 +133,7 @@ public class WSDLTypeLogicImpl
      */
     protected String getQualfiedNameLocalPartPattern()
     {
-        return (String)this
-            .getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
+        return (String) this.getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
     }
 
     /**
@@ -162,21 +141,16 @@ public class WSDLTypeLogicImpl
      */
     protected String getNamespacePattern()
     {
-        return (String)this
-            .getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
+        return (String) this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
     }
 
     /**
-     * Gets whether or not <code>reverseNamespace</code> is true/false for
-     * this type.
-     * 
+     * Gets whether or not <code>reverseNamespace</code> is true/false for this type.
+     *
      * @return boolean true/false
      */
     private boolean isReverseNamespace()
     {
-        return Boolean.valueOf(
-            String.valueOf(this
-                .getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
-            .booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE))).booleanValue();
     }
 }

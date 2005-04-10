@@ -4,8 +4,8 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.SAXException;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class HighlightVelocityTag extends AbstractHighlightTag
@@ -201,15 +201,23 @@ public class HighlightVelocityTag extends AbstractHighlightTag
         }
     }
 
-    private final static Set VTL_KEYWORDS = new HashSet(11,1);
+    private final static Set VTL_KEYWORDS = new HashSet(11, 1);
+
     static
     {
-        VTL_KEYWORDS.add("set"); VTL_KEYWORDS.add("foreach"); VTL_KEYWORDS.add("end");
-        VTL_KEYWORDS.add("if"); VTL_KEYWORDS.add("elseif"); VTL_KEYWORDS.add("else");
-        VTL_KEYWORDS.add("parse"); VTL_KEYWORDS.add("macro");
+        VTL_KEYWORDS.add("set");
+        VTL_KEYWORDS.add("foreach");
+        VTL_KEYWORDS.add("end");
+        VTL_KEYWORDS.add("if");
+        VTL_KEYWORDS.add("elseif");
+        VTL_KEYWORDS.add("else");
+        VTL_KEYWORDS.add("parse");
+        VTL_KEYWORDS.add("macro");
 
         // these are not Java language keywords, but we want them highlighted anyway
-        VTL_KEYWORDS.add("false"); VTL_KEYWORDS.add("in"); VTL_KEYWORDS.add("true");
+        VTL_KEYWORDS.add("false");
+        VTL_KEYWORDS.add("in");
+        VTL_KEYWORDS.add("true");
     }
 
 }

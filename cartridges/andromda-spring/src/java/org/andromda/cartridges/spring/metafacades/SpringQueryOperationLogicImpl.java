@@ -1,26 +1,22 @@
 package org.andromda.cartridges.spring.metafacades;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
- * @see org.andromda.cartridges.hibernate.metafacades.SpringQueryOperation
- *      Metaclass facade implementation.
+ * @see org.andromda.cartridges.hibernate.metafacades.SpringQueryOperation Metaclass facade implementation.
  */
-public class SpringQueryOperationLogicImpl
-    extends SpringQueryOperationLogic
+public class SpringQueryOperationLogicImpl extends SpringQueryOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public SpringQueryOperationLogicImpl(
-        Object metaObject,
-        String context)
+    public SpringQueryOperationLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -37,9 +33,8 @@ public class SpringQueryOperationLogicImpl
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString))
         {
-            Object value = this
-                .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_QUERY);
-            queryString = (String)value;
+            Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_QUERY);
+            queryString = (String) value;
             if (queryString != null)
             {
                 // remove any excess whitespace
@@ -50,10 +45,8 @@ public class SpringQueryOperationLogicImpl
         // if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString))
         {
-            String variableName = StringUtils.uncapitalize(this.getOwner()
-                .getName());
-            queryString = "from " + this.getOwner().getFullyQualifiedName()
-                + " as " + variableName;
+            String variableName = StringUtils.uncapitalize(this.getOwner().getName());
+            queryString = "from " + this.getOwner().getFullyQualifiedName() + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
                 queryString = queryString + " where";
@@ -63,15 +56,13 @@ public class SpringQueryOperationLogicImpl
                     Iterator argumentIt = arguments.iterator();
                     for (int ctr = 0; argumentIt.hasNext(); ctr++)
                     {
-                        ParameterFacade argument = (ParameterFacade)argumentIt
-                            .next();
+                        ParameterFacade argument = (ParameterFacade) argumentIt.next();
                         String parameter = "?";
                         if (this.isUseNamedParameters())
                         {
                             parameter = ":" + argument.getName();
                         }
-                        queryString = queryString + " " + variableName + "."
-                            + argument.getName() + " = " + parameter;
+                        queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
                         if (argumentIt.hasNext())
                         {
                             queryString = queryString + " and";
@@ -101,8 +92,7 @@ public class SpringQueryOperationLogicImpl
     }
 
     /**
-     * Stores whether or not named parameters should be used in hibernate
-     * queries.
+     * Stores whether or not named parameters should be used in hibernate queries.
      */
     private static final String USE_NAMED_PARAMETERS = "hibernateQueryUseNamedParameters";
 
@@ -111,10 +101,8 @@ public class SpringQueryOperationLogicImpl
      */
     protected boolean handleIsUseNamedParameters()
     {
-        return Boolean.valueOf(
-            String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
-            .booleanValue()
-            || StringUtils.isNotBlank(this.getTranslatedQuery());
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS))).booleanValue() || StringUtils.isNotBlank(
+                this.getTranslatedQuery());
     }
 
     /**
@@ -133,7 +121,7 @@ public class SpringQueryOperationLogicImpl
         Collection parameters = getParameters();
         for (Iterator iter = parameters.iterator(); iter.hasNext();)
         {
-            ParameterFacade parameter = (ParameterFacade)iter.next();
+            ParameterFacade parameter = (ParameterFacade) iter.next();
             ClassifierFacade type = parameter.getType();
             if (type.hasStereotype(UMLProfile.STEREOTYPE_CRITERIA))
             {

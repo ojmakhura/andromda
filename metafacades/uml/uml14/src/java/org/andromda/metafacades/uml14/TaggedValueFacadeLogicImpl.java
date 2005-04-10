@@ -1,22 +1,19 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.TagDefinition;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Metaclass facade implementation.
  */
-public class TaggedValueFacadeLogicImpl
-    extends TaggedValueFacadeLogic
+public class TaggedValueFacadeLogicImpl extends TaggedValueFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public TaggedValueFacadeLogicImpl(
-        org.omg.uml.foundation.core.TaggedValue metaObject,
-        String context)
+    public TaggedValueFacadeLogicImpl(org.omg.uml.foundation.core.TaggedValue metaObject, String context)
     {
         super(metaObject, context);
     }

@@ -5,12 +5,11 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * An implementation of the ocl VariableDeclaration.
- * 
- * @see org.andromda.translation.ocl.syntax.VariableDeclaration
+ *
  * @author Chad Brandon
+ * @see org.andromda.translation.ocl.syntax.VariableDeclaration
  */
-public class VariableDeclarationImpl
-    implements VariableDeclaration
+public class VariableDeclarationImpl implements VariableDeclaration
 {
 
     private String name;
@@ -19,14 +18,11 @@ public class VariableDeclarationImpl
 
     /**
      * Constructs a new VariableDeclarationImpl
-     * 
+     *
      * @param name the name of the VariableDeclaratiom
      * @param type the type of the VariableDeclaration
      */
-    public VariableDeclarationImpl(
-        String name,
-        String type,
-        String value)
+    public VariableDeclarationImpl(String name, String type, String value)
     {
         String methodName = "VariableDeclarationImpl";
         ExceptionUtils.checkNull(methodName, "name", name);
@@ -45,7 +41,7 @@ public class VariableDeclarationImpl
 
     /**
      * ==
-     * 
+     *
      * @see org.andromda.translation.ocl.syntax.VariableDeclaration#getType()
      */
     public String getType()

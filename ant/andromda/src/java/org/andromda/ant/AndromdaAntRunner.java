@@ -1,5 +1,13 @@
 package org.andromda.ant;
 
+import org.apache.commons.io.CopyUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -22,14 +30,6 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.apache.commons.io.CopyUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.TrueFileFilter;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-
 /**
  * @todo: document this class
  */
@@ -50,7 +50,8 @@ public class AndromdaAntRunner
     {
         Properties properties = new Properties();
         properties.put("resource.loader", "class");
-        properties.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        properties.put("class.resource.loader.class",
+                "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 
         Velocity.init(properties);
         templateContext = new VelocityContext(prompt());
@@ -95,8 +96,8 @@ public class AndromdaAntRunner
         propertiesMap.put("applicationVersion", inputValue.replaceAll("[\\s]*", ""));
 
         inputValue = null;
-        while (null == (inputValue = promptForInput("persistence type [ejb,hibernate]"))
-                || (!"hibernate".equals(inputValue) && !"ejb".equals(inputValue)))
+        while (null == (inputValue = promptForInput("persistence type [ejb,hibernate]")) ||
+                (!"hibernate".equals(inputValue) && !"ejb".equals(inputValue)))
             ;
         propertiesMap.put("persistenceType", inputValue);
 
@@ -128,9 +129,7 @@ public class AndromdaAntRunner
             inputString = null;
         }
 
-        return (inputString == null || inputString.trim().length() == 0)
-                ? null
-                : inputString;
+        return (inputString == null || inputString.trim().length() == 0) ? null : inputString;
     }
 
     /**
@@ -183,7 +182,8 @@ public class AndromdaAntRunner
 
         if (resourceName.endsWith(TEMPLATE_SUFFIX))
         {
-            targetFileName = resourceName.substring(TEMP_DIR.length() + 1, resourceName.length() - TEMPLATE_SUFFIX.length());
+            targetFileName =
+                    resourceName.substring(TEMP_DIR.length() + 1, resourceName.length() - TEMPLATE_SUFFIX.length());
 
             File target = new File(parentDirectory, targetFileName);
             target.getParentFile().mkdirs();

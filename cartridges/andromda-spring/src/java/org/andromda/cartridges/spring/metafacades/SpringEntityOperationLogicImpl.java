@@ -3,19 +3,15 @@ package org.andromda.cartridges.spring.metafacades;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.spring.metafacades.SpringEntityOperation.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringEntityOperation.
+ *
  * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation
  */
-public class SpringEntityOperationLogicImpl
-    extends SpringEntityOperationLogic
+public class SpringEntityOperationLogicImpl extends SpringEntityOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public SpringEntityOperationLogicImpl(
-        Object metaObject,
-        String context)
+    public SpringEntityOperationLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -45,18 +41,16 @@ public class SpringEntityOperationLogicImpl
     }
 
     /**
-     * Retrieves the implementationOperatName by replacing the <code>replacement</code>
-     * in the {@link SpringGlobals#PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN}
-     * 
+     * Retrieves the implementationOperatName by replacing the <code>replacement</code> in the {@link
+     * SpringGlobals#PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN}
+     *
      * @param replacement the replacement string for the pattern.
      * @return the operation name
      */
     private String getImplementationOperationName(String replacement)
     {
         return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
-            SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll(
-                "\\{0\\}", 
-                replacement);
+                SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll("\\{0\\}", replacement);
     }
 
 }

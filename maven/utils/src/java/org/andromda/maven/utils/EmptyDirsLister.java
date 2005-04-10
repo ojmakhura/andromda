@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Recursively lists empty directories from the given directory. A directory is empty when it and it's subdirectories
- * do not contain any files. CVS subdirectories are ignored.
+ * Recursively lists empty directories from the given directory. A directory is empty when it and it's subdirectories do
+ * not contain any files. CVS subdirectories are ignored.
  */
 public class EmptyDirsLister
 {

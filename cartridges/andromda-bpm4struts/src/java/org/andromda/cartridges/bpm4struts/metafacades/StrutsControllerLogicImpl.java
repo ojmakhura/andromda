@@ -1,7 +1,14 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.metafacades.uml.*;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.Service;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,8 +21,7 @@ import java.util.Iterator;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController
  */
-public class StrutsControllerLogicImpl
-    extends StrutsControllerLogic
+public class StrutsControllerLogicImpl extends StrutsControllerLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -81,11 +87,8 @@ public class StrutsControllerLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object)
-                    .getTargetElement();
-                return targetElement != null
-                    && Service.class.isAssignableFrom(targetElement
-                        .getClass());
+                ModelElementFacade targetElement = ((DependencyFacade) object).getTargetElement();
+                return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
             }
         };
     }

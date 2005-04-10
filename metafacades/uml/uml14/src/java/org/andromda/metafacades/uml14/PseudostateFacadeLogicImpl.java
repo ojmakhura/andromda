@@ -5,14 +5,12 @@ import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 /**
  * Metaclass facade implementation.
  */
-public class PseudostateFacadeLogicImpl
-    extends PseudostateFacadeLogic
+public class PseudostateFacadeLogicImpl extends PseudostateFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public PseudostateFacadeLogicImpl(
-        org.omg.uml.behavioralelements.statemachines.Pseudostate metaObject,
-        String context)
+    public PseudostateFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.Pseudostate metaObject,
+                                      String context)
     {
         super(metaObject, context);
     }
@@ -54,8 +52,7 @@ public class PseudostateFacadeLogicImpl
 
     public boolean handleIsShallowHistory()
     {
-        return PseudostateKindEnum.PK_SHALLOW_HISTORY.equals(metaObject
-            .getKind());
+        return PseudostateKindEnum.PK_SHALLOW_HISTORY.equals(metaObject.getKind());
     }
 
     public boolean handleIsDecisionPoint()
@@ -65,8 +62,7 @@ public class PseudostateFacadeLogicImpl
         if (isChoice() || isJunction())
         {
             isDecisionPoint = true;
-            isDecisionPoint = isDecisionPoint
-                && (metaObject.getOutgoing().size() > 1);
+            isDecisionPoint = isDecisionPoint && (metaObject.getOutgoing().size() > 1);
         }
 
         return isDecisionPoint;
@@ -79,10 +75,8 @@ public class PseudostateFacadeLogicImpl
         if (isChoice() || isJoin())
         {
             isMergePoint = true;
-            isMergePoint = isMergePoint
-                && (metaObject.getIncoming().size() > 1);
-            isMergePoint = isMergePoint
-                && (metaObject.getOutgoing().size() == 1);
+            isMergePoint = isMergePoint && (metaObject.getIncoming().size() > 1);
+            isMergePoint = isMergePoint && (metaObject.getOutgoing().size() == 1);
         }
 
         return isMergePoint;

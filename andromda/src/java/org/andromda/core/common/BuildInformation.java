@@ -6,7 +6,7 @@ import java.util.Properties;
 
 /**
  * This class provides statistics on how the build was performed.
- * 
+ *
  * @author Martin West
  * @author Chad Brandon
  */
@@ -19,23 +19,22 @@ public class BuildInformation
 
     /**
      * Gets the shared instance of the BuildInformation.
-     * 
+     *
      * @return the shared BuildInformation instance.
      */
     public static BuildInformation instance()
     {
         return instance;
-    }    
-    
+    }
+
     /**
-     * Private default constructor of BuildInformation.
-     * This class is not intended to be instantiated.
+     * Private default constructor of BuildInformation. This class is not intended to be instantiated.
      */
     private BuildInformation()
     {
         this.initialize();
     }
-    
+
     /**
      * The build timestamp.
      */
@@ -55,7 +54,7 @@ public class BuildInformation
      * The name of the user that built the system.
      */
     private String buildBuilder;
-    
+
     /**
      * The version of the AndroMDA build.
      */
@@ -74,9 +73,7 @@ public class BuildInformation
             URL versionUri = ResourceUtils.getResource(buildPropertiesUri);
             if (versionUri == null)
             {
-                throw new IllegalStateException(
-                    "BuildInformation: could not load file --> '"
-                        + buildPropertiesUri + "'");
+                throw new IllegalStateException("BuildInformation: could not load file --> '" + buildPropertiesUri + "'");
             }
             Properties properties = new Properties();
             InputStream stream = versionUri.openStream();
@@ -88,7 +85,7 @@ public class BuildInformation
             this.buildJdk = properties.getProperty(jdkPropertyName);
             this.buildBuilder = properties.getProperty(builderPropertyName);
             this.buildVersion = properties.getProperty(versionPropertyName);
-            
+
         }
         catch (IllegalStateException ex)
         {
@@ -100,10 +97,10 @@ public class BuildInformation
             throw new IllegalStateException(th.getMessage());
         }
     }
-    
+
     /**
      * Return the name of the operating system and version.
-     * 
+     *
      * @return Returns the BUILD SYSTEM.
      */
     public String getBuildVersion()
@@ -113,7 +110,7 @@ public class BuildInformation
 
     /**
      * Return the user name of the id which built the system.
-     * 
+     *
      * @return Returns the build builder.
      */
     public String getBuildBuilder()
@@ -123,7 +120,7 @@ public class BuildInformation
 
     /**
      * Return the timestamp of the build.
-     * 
+     *
      * @return Returns the build date.
      */
     public String getBuildDate()
@@ -133,7 +130,7 @@ public class BuildInformation
 
     /**
      * Return the vendor and jdk version.
-     * 
+     *
      * @return Returns the build jdk.
      */
     public String getBuildJdk()
@@ -143,7 +140,7 @@ public class BuildInformation
 
     /**
      * Return the name of the operating system and version.
-     * 
+     *
      * @return Returns the build system.
      */
     public String getBuildSystem()

@@ -5,19 +5,15 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.spring.metafacades.SpringServiceOperation.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringServiceOperation.
+ *
  * @see org.andromda.cartridges.spring.metafacades.SpringServiceOperation
  */
-public class SpringServiceOperationLogicImpl
-    extends SpringServiceOperationLogic
+public class SpringServiceOperationLogicImpl extends SpringServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public SpringServiceOperationLogicImpl(
-        Object metaObject,
-        String context)
+    public SpringServiceOperationLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -53,20 +49,18 @@ public class SpringServiceOperationLogicImpl
     {
         return this.getImplementationOperationName(StringUtils.capitalize(this.getCall()));
     }
-    
+
     /**
-     * Retrieves the implementationOperatName by replacing the <code>replacement</code>
-     * in the {@link SpringGlobals#PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN}
-     * 
+     * Retrieves the implementationOperatName by replacing the <code>replacement</code> in the {@link
+     * SpringGlobals#PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN}
+     *
      * @param replacement the replacement string for the pattern.
      * @return the operation name
      */
     private String getImplementationOperationName(String replacement)
     {
         return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
-            SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll(
-                "\\{0\\}", 
-                replacement);
+                SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll("\\{0\\}", replacement);
     }
 
     /**
@@ -79,12 +73,10 @@ public class SpringServiceOperationLogicImpl
      */
     public String handleGetTransactionType()
     {
-        String transactionType = (String)this
-            .findTaggedValue(SpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
+        String transactionType = (String) this.findTaggedValue(SpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = String.valueOf(this
-                .getConfiguredProperty(SERVICE_OPERATION_TRANSACTION_TYPE));
+            transactionType = String.valueOf(this.getConfiguredProperty(SERVICE_OPERATION_TRANSACTION_TYPE));
         }
         return transactionType;
     }
@@ -99,12 +91,10 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetEjbTransactionType()
     {
-        String transactionType = (String)this
-            .findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String) this.findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = String.valueOf(this
-                .getConfiguredProperty(EJB_SERVICE_OPERATION_TRANSACTION_TYPE));
+            transactionType = String.valueOf(this.getConfiguredProperty(EJB_SERVICE_OPERATION_TRANSACTION_TYPE));
         }
         return transactionType;
     }

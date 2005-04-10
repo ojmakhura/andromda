@@ -3,19 +3,15 @@ package org.andromda.cartridges.ejb.metafacades;
 import org.andromda.cartridges.ejb.EJBProfile;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.ejb.metafacades.EJBOperationFacade.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.ejb.metafacades.EJBOperationFacade.
+ *
  * @see org.andromda.cartridges.ejb.metafacades.EJBOperationFacade
  */
-public class EJBOperationFacadeLogicImpl
-    extends EJBOperationFacadeLogic
+public class EJBOperationFacadeLogicImpl extends EJBOperationFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public EJBOperationFacadeLogicImpl(
-        Object metaObject,
-        String context)
+    public EJBOperationFacadeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -25,9 +21,7 @@ public class EJBOperationFacadeLogicImpl
      */
     protected java.lang.String handleGetTransactionType()
     {
-        return (String)this.findTaggedValue(
-            EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE,
-            true);
+        return (String) this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }
 
     /**
@@ -35,9 +29,9 @@ public class EJBOperationFacadeLogicImpl
      */
     protected boolean handleIsBusinessOperation()
     {
-        return !this.hasStereotype(EJBProfile.STEREOTYPE_CREATE_METHOD)
-            && !this.hasStereotype(EJBProfile.STEREOTYPE_FINDER_METHOD)
-            && !this.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD);
+        return !this.hasStereotype(EJBProfile.STEREOTYPE_CREATE_METHOD) &&
+                !this.hasStereotype(EJBProfile.STEREOTYPE_FINDER_METHOD) &&
+                !this.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD);
     }
 
     /**

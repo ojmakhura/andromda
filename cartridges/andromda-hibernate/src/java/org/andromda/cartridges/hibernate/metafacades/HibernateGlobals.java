@@ -1,8 +1,8 @@
 package org.andromda.cartridges.hibernate.metafacades;
- 
+
 /**
  * Stores Globals specific to the Hibernate cartridge.
- * 
+ *
  * @author Chad Brandon
  */
 class HibernateGlobals
@@ -38,14 +38,12 @@ class HibernateGlobals
     static final String HIBERNATE_CASCADE_NONE = "none";
 
     /**
-     * The property used to specify the implementation operation name prefix (on
-     * services).
+     * The property used to specify the implementation operation name prefix (on services).
      */
     static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PREFIX = "implementationOperationNamePrefix";
 
     /**
-     * The namespace property storing default ehCache maxElementsInMemory
-     * parameter
+     * The namespace property storing default ehCache maxElementsInMemory parameter
      */
     static final String HIBERNATE_EHCACHE_MAX_ELEMENTS = "ehCacheMaxElementsInMemory";
 

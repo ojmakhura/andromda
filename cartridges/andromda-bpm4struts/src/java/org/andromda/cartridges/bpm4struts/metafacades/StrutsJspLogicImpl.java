@@ -1,13 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.List;
-
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -17,14 +9,21 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp
  */
-public class StrutsJspLogicImpl
-    extends StrutsJspLogic
+public class StrutsJspLogicImpl extends StrutsJspLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -117,7 +116,9 @@ public class StrutsJspLogicImpl
 
     protected String handleGetFullPath()
     {
-        return '/' + (getPackageName() + '.' + StringUtilsHelper.toWebFileName(StringUtils.trimToEmpty(getName()))).replace('.', '/');
+        return '/' +
+                (getPackageName() + '.' + StringUtilsHelper.toWebFileName(StringUtils.trimToEmpty(getName()))).replace(
+                        '.', '/');
     }
 
     protected boolean handleIsValidationRequired()
@@ -259,7 +260,8 @@ public class StrutsJspLogicImpl
         return incomingActionsList;
     }
 
-    private void collectIncomingActions(StateVertexFacade stateVertex, Collection processedTransitions, Collection actions)
+    private void collectIncomingActions(StateVertexFacade stateVertex, Collection processedTransitions,
+                                        Collection actions)
     {
         final Collection incomingTransitions = stateVertex.getIncoming();
         for (Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
@@ -269,7 +271,8 @@ public class StrutsJspLogicImpl
         }
     }
 
-    private void collectIncomingActions(TransitionFacade transition, Collection processedTransitions, Collection actions)
+    private void collectIncomingActions(TransitionFacade transition, Collection processedTransitions,
+                                        Collection actions)
     {
         if (!processedTransitions.contains(transition))
         {

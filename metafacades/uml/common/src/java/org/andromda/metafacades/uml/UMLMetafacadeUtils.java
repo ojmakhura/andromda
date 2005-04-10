@@ -5,18 +5,16 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Contains utilities that are common to the UML 
- * metafacades.
- * 
+ * Contains utilities that are common to the UML metafacades.
+ *
  * @author Chad Brandon
  */
 public class UMLMetafacadeUtils
 {
     /**
-     * Returns true or false depending on whether or not this Classifier or any
-     * of its specializations is of the given type having the specified
-     * <code>typeName</code>
-     * 
+     * Returns true or false depending on whether or not this Classifier or any of its specializations is of the given
+     * type having the specified <code>typeName</code>
+     *
      * @param typeName the name of the type (i.e. datatype::Collection)
      * @return true/false
      */
@@ -32,17 +30,14 @@ public class UMLMetafacadeUtils
             // types that inherit from the type.
             if (!isType)
             {
-                isType = CollectionUtils.find(
-                    classifier.getAllGeneralizations(),
-                    new Predicate()
+                isType = CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
+                {
+                    public boolean evaluate(Object object)
                     {
-                        public boolean evaluate(Object object)
-                        {
-                            String name = StringUtils.trimToEmpty(
-                                ((ModelElementFacade)object).getFullyQualifiedName(true));
-                            return name.equals(type);
-                        }
-                    }) != null;
+                        String name = StringUtils.trimToEmpty(((ModelElementFacade) object).getFullyQualifiedName(true));
+                        return name.equals(type);
+                    }
+                }) != null;
             }
         }
         return isType;

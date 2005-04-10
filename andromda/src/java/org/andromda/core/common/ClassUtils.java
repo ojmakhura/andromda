@@ -1,24 +1,22 @@
 package org.andromda.core.common;
 
-import java.lang.reflect.Field;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.Field;
+
 /**
  * Contains utilities for dealing with classes.
- * 
+ *
  * @author Chad Brandon
  */
-public class ClassUtils
-    extends org.apache.commons.lang.ClassUtils
+public class ClassUtils extends org.apache.commons.lang.ClassUtils
 {
     private static Logger logger = Logger.getLogger(ClassUtils.class);
 
     /**
-     * Creates a new instance of the class having the given
-     * <code>className</code>.
-     * 
+     * Creates a new instance of the class having the given <code>className</code>.
+     *
      * @param className the name of the class to instantiate.
      * @return Object the new instance
      */
@@ -37,9 +35,9 @@ public class ClassUtils
     }
 
     /**
-     * Loads and returns the class having the className. Will load but normal
-     * classes and the classes representing primatives.
-     * 
+     * Loads and returns the class having the className. Will load but normal classes and the classes representing
+     * primatives.
+     *
      * @param className the name of the class to load.
      * @return Class the loaded class
      * @throws ClassNotFoundException if the class can not be found
@@ -80,15 +78,13 @@ public class ClassUtils
     }
 
     /**
-     * <p>
-     * Returns the type class name for a Java primitive.
-     * </p>
-     * 
-     * @param name a <code>String</code> with the name of the type
+     * <p/>
+     * Returns the type class name for a Java primitive. </p>
+     *
+     * @param name   a <code>String</code> with the name of the type
      * @param loader the loader to use.
-     * @return a <code>String</code> with the name of the corresponding
-     *         java.lang wrapper class if <code>name</code> is a Java
-     *         primitive type; <code>false</code> if not
+     * @return a <code>String</code> with the name of the corresponding java.lang wrapper class if <code>name</code> is
+     *         a Java primitive type; <code>false</code> if not
      */
     protected static Class getPrimitiveClass(String name, ClassLoader loader)
     {
@@ -116,7 +112,7 @@ public class ClassUtils
                 if (StringUtils.isNotEmpty(className))
                 {
                     Field field = loader.loadClass(className).getField("TYPE");
-                    primitiveClass = (Class)field.get(null);
+                    primitiveClass = (Class) field.get(null);
                 }
             }
             catch (Exception ex)
@@ -129,20 +125,15 @@ public class ClassUtils
     }
 
     /**
-     * <p>
-     * Checks if a given type name is a Java primitive type.
-     * </p>
-     * 
+     * <p/>
+     * Checks if a given type name is a Java primitive type. </p>
+     *
      * @param name a <code>String</code> with the name of the type
-     * @return <code>true</code> if <code>name</code> is a Java primitive
-     *         type; <code>false</code> if not
+     * @return <code>true</code> if <code>name</code> is a Java primitive type; <code>false</code> if not
      */
     protected static boolean isPrimitiveType(String name)
     {
-        return ("void".equals(name) || "char".equals(name)
-            || "byte".equals(name) || "short".equals(name)
-            || "int".equals(name) || "long".equals(name)
-            || "float".equals(name) || "double".equals(name) || "boolean"
-            .equals(name));
+        return ("void".equals(name) || "char".equals(name) || "byte".equals(name) || "short".equals(name) || "int".equals(
+                name) || "long".equals(name) || "float".equals(name) || "double".equals(name) || "boolean".equals(name));
     }
 }

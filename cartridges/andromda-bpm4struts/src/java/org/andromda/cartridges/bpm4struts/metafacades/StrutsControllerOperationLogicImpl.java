@@ -16,8 +16,7 @@ import java.util.Iterator;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation
  */
-public class StrutsControllerOperationLogicImpl
-    extends StrutsControllerOperationLogic
+public class StrutsControllerOperationLogicImpl extends StrutsControllerOperationLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -121,14 +120,16 @@ public class StrutsControllerOperationLogicImpl
         Collection deferringActions = getDeferringActions();
 
         boolean allArgumentsHaveFormFields = true;
-        for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext() && allArgumentsHaveFormFields;)
+        for (Iterator argumentIterator = arguments.iterator();
+             argumentIterator.hasNext() && allArgumentsHaveFormFields;)
         {
             StrutsParameter parameter = (StrutsParameter) argumentIterator.next();
             String parameterName = parameter.getName();
             String parameterType = parameter.getFullyQualifiedName();
 
             boolean actionMissingField = false;
-            for (Iterator actionIterator = deferringActions.iterator(); actionIterator.hasNext() && !actionMissingField;)
+            for (Iterator actionIterator = deferringActions.iterator();
+                 actionIterator.hasNext() && !actionMissingField;)
             {
                 StrutsAction action = (StrutsAction) actionIterator.next();
                 Collection actionFormFields = action.getActionFormFields();

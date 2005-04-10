@@ -4,19 +4,15 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.webservice.metafacades.WebServiceOperation.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebServiceOperation.
+ *
  * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation
  */
-public class WebServiceOperationLogicImpl
-    extends WebServiceOperationLogic
+public class WebServiceOperationLogicImpl extends WebServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 
-    public WebServiceOperationLogicImpl(
-        Object metaObject,
-        String context)
+    public WebServiceOperationLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -26,8 +22,8 @@ public class WebServiceOperationLogicImpl
      */
     protected boolean handleIsExposed()
     {
-        return this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE)
-            || this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION);
+        return this.getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) ||
+                this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION);
     }
 
     /**
@@ -45,8 +41,7 @@ public class WebServiceOperationLogicImpl
      */
     private String getTestImplementationOperationNamePrefix()
     {
-        return String.valueOf(this
-            .getConfiguredProperty(TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX));
+        return String.valueOf(this.getConfiguredProperty(TEST_IMPLEMENTATION_OPERATION_NAME_PREFIX));
     }
 
     /**
@@ -54,8 +49,7 @@ public class WebServiceOperationLogicImpl
      */
     protected String handleGetTestImplementationName()
     {
-        return this.getTestImplementationOperationNamePrefix()
-            + StringUtils.capitalize(this.getTestName());
+        return this.getTestImplementationOperationNamePrefix() + StringUtils.capitalize(this.getTestName());
     }
 
     /**
@@ -71,8 +65,7 @@ public class WebServiceOperationLogicImpl
      */
     protected String handleGetTestImplementationSignature()
     {
-        return this.getTestImplementationOperationNamePrefix()
-            + StringUtils.capitalize(this.getTestSignature());
+        return this.getTestImplementationOperationNamePrefix() + StringUtils.capitalize(this.getTestSignature());
     }
 
     /**

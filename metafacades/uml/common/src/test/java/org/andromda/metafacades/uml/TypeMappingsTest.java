@@ -1,25 +1,22 @@
 package org.andromda.metafacades.uml;
 
 import junit.framework.TestCase;
-
 import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
 
 /**
  * Tests {@link org.andromda.metafacades.uml.TypeMappings)
- * 
+ *
  * @author Chad Brandon
  */
-public class TypeMappingsTest
-    extends TestCase
+public class TypeMappingsTest extends TestCase
 {
     /**
      * Constructor for MappingsTest.
-     * 
+     *
      * @param name
      */
-    public TypeMappingsTest(
-        String name)
+    public TypeMappingsTest(String name)
     {
         super(name);
     }
@@ -59,8 +56,7 @@ public class TypeMappingsTest
         // make sure the to == from when passing in a mappings1 that don't exist
         assertNotNull(typeMappings1.getTo(NOT_MAPPED_1));
         assertEquals(NOT_MAPPED_1, typeMappings1.getTo(NOT_MAPPED_1));
-        assertEquals(typeMappings1.getTo(NOT_MAPPED_2), typeMappings1
-            .getTo(NOT_MAPPED_2));
+        assertEquals(typeMappings1.getTo(NOT_MAPPED_2), typeMappings1.getTo(NOT_MAPPED_2));
 
         // make sure we can retrieve the to using a from array.
         assertNotNull(typeMappings1.getTo(FROM_1));
@@ -78,7 +74,6 @@ public class TypeMappingsTest
         typeMappings2.setArraySuffix(ARRAY_SUFFIX);
 
         assertEquals(TO_2, typeMappings2.getTo(FROM_5));
-        assertEquals(TO_2 + ARRAY_SUFFIX, typeMappings2
-            .getTo(FROM_5 + ARRAY_SUFFIX));
+        assertEquals(TO_2 + ARRAY_SUFFIX, typeMappings2.getTo(FROM_5 + ARRAY_SUFFIX));
     }
 }

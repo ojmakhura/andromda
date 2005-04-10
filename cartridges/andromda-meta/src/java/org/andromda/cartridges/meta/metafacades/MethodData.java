@@ -5,12 +5,11 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * @since 10.12.2003
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
+ * @since 10.12.2003
  */
-public class MethodData
-    implements Comparable
+public class MethodData implements Comparable
 {
     private String metafacadeName;
     private String visibility;
@@ -21,13 +20,8 @@ public class MethodData
     private ArrayList exceptions;
     private String documentation;
 
-    public MethodData(
-        String metafacadeName,
-        String visibility,
-        boolean isAbstract,
-        String returnTypeName,
-        String name,
-        String documentation)
+    public MethodData(String metafacadeName, String visibility, boolean isAbstract, String returnTypeName, String name,
+                      String documentation)
     {
         this.metafacadeName = metafacadeName;
         this.visibility = visibility;
@@ -88,21 +82,18 @@ public class MethodData
 
     /**
      * Builds a string representing a declaration for this method.
-     * 
-     * @param suppressAbstractDeclaration optionally suppress the "abstract"
-     *        modifier
+     *
+     * @param suppressAbstractDeclaration optionally suppress the "abstract" modifier
      * @return String the declaration
      */
     public String buildMethodDeclaration(boolean suppressAbstractDeclaration)
     {
-        String declaration = visibility + " "
-            + ((abstract_ && !suppressAbstractDeclaration) ? "abstract " : "")
-            + ((returnTypeName != null) ? returnTypeName + " " : "") + name
-            + "(";
+        String declaration = visibility + " " + ((abstract_ && !suppressAbstractDeclaration) ? "abstract " : "") +
+                ((returnTypeName != null) ? returnTypeName + " " : "") + name + "(";
 
         for (Iterator it = arguments.iterator(); it.hasNext();)
         {
-            ArgumentData ad = (ArgumentData)it.next();
+            ArgumentData ad = (ArgumentData) it.next();
             declaration += ad.getFullyQualifiedTypeName() + " " + ad.getName();
             if (it.hasNext())
             {
@@ -116,7 +107,7 @@ public class MethodData
             declaration += " throws ";
             for (Iterator iter = exceptions.iterator(); iter.hasNext();)
             {
-                String exc = (String)iter.next();
+                String exc = (String) iter.next();
                 declaration += exc;
                 if (iter.hasNext())
                 {
@@ -130,7 +121,7 @@ public class MethodData
 
     /**
      * Builds a string representing a call to the method.
-     * 
+     *
      * @return String how a call would look like
      */
     public String buildMethodCall()
@@ -139,7 +130,7 @@ public class MethodData
 
         for (Iterator it = arguments.iterator(); it.hasNext();)
         {
-            ArgumentData ad = (ArgumentData)it.next();
+            ArgumentData ad = (ArgumentData) it.next();
             call += ad.getName();
             if (it.hasNext())
                 call += ", ";
@@ -149,19 +140,18 @@ public class MethodData
     }
 
     /**
-     * Builds a signature which can be used as a key into a map. Consists of the
-     * return type, the name and the f.q. types of the arguements.
-     * 
+     * Builds a signature which can be used as a key into a map. Consists of the return type, the name and the f.q.
+     * types of the arguements.
+     *
      * @return String the key that identifies this method
      */
     public String buildCharacteristicKey()
     {
-        String key = ((returnTypeName != null) ? returnTypeName + " " : "")
-            + name + "(";
+        String key = ((returnTypeName != null) ? returnTypeName + " " : "") + name + "(";
 
         for (Iterator it = arguments.iterator(); it.hasNext();)
         {
-            ArgumentData ad = (ArgumentData)it.next();
+            ArgumentData ad = (ArgumentData) it.next();
             key += ad.getFullyQualifiedTypeName();
             if (it.hasNext())
             {
@@ -207,7 +197,7 @@ public class MethodData
 
     /**
      * Tells if this method returns something.
-     * 
+     *
      * @return boolean
      */
     public boolean hasReturnType()
@@ -220,7 +210,7 @@ public class MethodData
      */
     public int compareTo(Object o)
     {
-        MethodData otherMd = (MethodData)o;
+        MethodData otherMd = (MethodData) o;
         int result = getMetafacadeName().compareTo(otherMd.getMetafacadeName());
         return result != 0 ? result : getName().compareTo(otherMd.getName());
     }

@@ -1,19 +1,15 @@
 package org.andromda.cartridges.xmlschema.metafacades;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd.
+ *
  * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd
  */
-public class XSDAssociationEndLogicImpl
-    extends XSDAssociationEndLogic
+public class XSDAssociationEndLogicImpl extends XSDAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 
-    public XSDAssociationEndLogicImpl(
-        Object metaObject,
-        String context)
+    public XSDAssociationEndLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }

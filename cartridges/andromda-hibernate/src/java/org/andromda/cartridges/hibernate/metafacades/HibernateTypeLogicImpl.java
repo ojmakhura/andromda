@@ -5,19 +5,15 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * MetafacadeLogic implementation for
- * org.andromda.cartridges.hibernate.metafacades.HibernateType.
- * 
+ * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateType.
+ *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateType
  */
-public class HibernateTypeLogicImpl
-    extends HibernateTypeLogic
+public class HibernateTypeLogicImpl extends HibernateTypeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateTypeLogicImpl(
-        Object metaObject,
-        String context)
+    public HibernateTypeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -42,7 +38,7 @@ public class HibernateTypeLogicImpl
 
     /**
      * Gets the <code>hibernateTypeMappings</code> for this hibernate type.
-     * 
+     *
      * @return the hibernate type TypeMappings.
      */
     protected TypeMappings getHibernateTypeMappings()
@@ -55,18 +51,17 @@ public class HibernateTypeLogicImpl
             String uri = null;
             if (String.class.isAssignableFrom(property.getClass()))
             {
-                uri = (String)property;
+                uri = (String) property;
                 if (StringUtils.isNotBlank(uri))
                 {
                     try
                     {
-                        mappings = TypeMappings.getInstance((String)property);
+                        mappings = TypeMappings.getInstance((String) property);
                         this.setProperty(propertyName, mappings);
                     }
                     catch (Throwable th)
                     {
-                        String errMsg = "Error getting '" + propertyName
-                            + "' --> '" + uri + "'";
+                        String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                         logger.error(errMsg);
                         // don't throw the exception
                         ExceptionRecorder.instance().record(errMsg, th);
@@ -75,7 +70,7 @@ public class HibernateTypeLogicImpl
             }
             else
             {
-                mappings = (TypeMappings)property;
+                mappings = (TypeMappings) property;
             }
         }
         return mappings;

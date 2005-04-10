@@ -20,8 +20,7 @@ import java.util.Map;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState
  */
-public class StrutsActionStateLogicImpl
-    extends StrutsActionStateLogic
+public class StrutsActionStateLogicImpl extends StrutsActionStateLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -54,7 +53,7 @@ public class StrutsActionStateLogicImpl
 
             if (useCase instanceof StrutsUseCase)
             {
-                Collection actions = ((StrutsUseCase)useCase).getActions();
+                Collection actions = ((StrutsUseCase) useCase).getActions();
                 for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
                     StrutsAction action = (StrutsAction) actionIterator.next();
@@ -100,7 +99,7 @@ public class StrutsActionStateLogicImpl
     {
         Object forward = null;
 
-        for (Iterator iterator = getOutgoing().iterator(); iterator.hasNext() && forward==null;)
+        for (Iterator iterator = getOutgoing().iterator(); iterator.hasNext() && forward == null;)
         {
             final TransitionFacade transition = (TransitionFacade) iterator.next();
             if (!(transition instanceof StrutsExceptionHandler))

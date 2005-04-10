@@ -1,26 +1,22 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
- * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacade
- *      Metaclass facade implementation.
  * @author Chad Brandon
  * @author Carlos Cuenca
+ * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacade Metaclass facade implementation.
  */
-public class HibernateFinderMethodLogicImpl
-    extends HibernateFinderMethodLogic
+public class HibernateFinderMethodLogicImpl extends HibernateFinderMethodLogic
 {
     // ---------------- constructor -------------------------------
 
-    public HibernateFinderMethodLogicImpl(
-        Object metaObject,
-        String context)
+    public HibernateFinderMethodLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -38,9 +34,8 @@ public class HibernateFinderMethodLogicImpl
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString))
         {
-            Object value = this
-                .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
-            queryString = (String)value;
+            Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
+            queryString = (String) value;
             if (queryString != null)
             {
                 // remove any excess whitespace
@@ -51,10 +46,8 @@ public class HibernateFinderMethodLogicImpl
         // if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString))
         {
-            String variableName = StringUtils.uncapitalize(this.getOwner()
-                .getName());
-            queryString = "from " + this.getOwner().getFullyQualifiedName()
-                + " as " + variableName;
+            String variableName = StringUtils.uncapitalize(this.getOwner().getName());
+            queryString = "from " + this.getOwner().getFullyQualifiedName() + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
                 queryString = queryString + " where";
@@ -64,15 +57,13 @@ public class HibernateFinderMethodLogicImpl
                     Iterator argumentIt = arguments.iterator();
                     for (int ctr = 0; argumentIt.hasNext(); ctr++)
                     {
-                        ParameterFacade argument = (ParameterFacade)argumentIt
-                            .next();
+                        ParameterFacade argument = (ParameterFacade) argumentIt.next();
                         String parameter = "?";
                         if (this.isUseNamedParameters())
                         {
                             parameter = ":" + argument.getName();
                         }
-                        queryString = queryString + " " + variableName + "."
-                            + argument.getName() + " = " + parameter;
+                        queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
                         if (argumentIt.hasNext())
                         {
                             queryString = queryString + " and";
@@ -102,8 +93,7 @@ public class HibernateFinderMethodLogicImpl
     }
 
     /**
-     * Stores whether or not named parameters should be used in hibernate
-     * queries.
+     * Stores whether or not named parameters should be used in hibernate queries.
      */
     private static final String USE_NAMED_PARAMETERS = "hibernateQueryUseNamedParameters";
 
@@ -112,15 +102,12 @@ public class HibernateFinderMethodLogicImpl
      */
     protected boolean handleIsUseNamedParameters()
     {
-        return Boolean.valueOf(
-            String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
-            .booleanValue()
-            || StringUtils.isNotBlank(this.getTranslatedQuery());
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS))).booleanValue() || StringUtils.isNotBlank(
+                this.getTranslatedQuery());
     }
 
     /**
-     * Stores the value indicating whether or not to use hibernate query
-     * caching.
+     * Stores the value indicating whether or not to use hibernate query caching.
      */
     private static final String HIBERNATE_USE_QUERY_CACHE = "hibernateUseQueryCache";
 
@@ -129,18 +116,13 @@ public class HibernateFinderMethodLogicImpl
      */
     protected boolean handleIsUseQueryCache()
     {
-        boolean useQueryCache = Boolean.valueOf(
-            String.valueOf(this
-                .getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE)))
-            .booleanValue();
+        boolean useQueryCache = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE))).booleanValue();
 
         if (useQueryCache)
         {
-            useQueryCache = Boolean
-                .valueOf(
-                    String
-                        .valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)))
-                .booleanValue();
+            useQueryCache = Boolean.valueOf(String.valueOf(
+                    findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)))
+                    .booleanValue();
         }
         return useQueryCache;
     }

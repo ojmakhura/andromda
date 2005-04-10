@@ -1,8 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -24,33 +21,33 @@ import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Interface;
 import org.omg.uml.foundation.core.Operation;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * Metaclass facade implementation.
  */
-public class ClassifierFacadeLogicImpl
-    extends ClassifierFacadeLogic
+public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ClassifierFacadeLogicImpl(
-        org.omg.uml.foundation.core.Classifier metaObject,
-        String context)
+    public ClassifierFacadeLogicImpl(org.omg.uml.foundation.core.Classifier metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
      * Overridden to provide name masking.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(
-            this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
+                this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getOperations()
      */
@@ -84,8 +81,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected java.util.Collection handleGetAssociationEnds()
     {
-        return UML14MetafacadeUtils.getCorePackage().getAParticipantAssociation()
-            .getAssociation(metaObject);
+        return UML14MetafacadeUtils.getCorePackage().getAParticipantAssociation().getAssociation(metaObject);
     }
 
     /**
@@ -95,8 +91,7 @@ public class ClassifierFacadeLogicImpl
     {
         // If this type has a wrapper then its a primitive,
         // otherwise it isn't
-        return this.getWrapperMappings() != null
-            && this.getWrapperMappings().getMappings().containsFrom(
+        return this.getWrapperMappings() != null && this.getWrapperMappings().getMappings().containsFrom(
                 this.getFullyQualifiedName());
     }
 
@@ -110,13 +105,12 @@ public class ClassifierFacadeLogicImpl
 
     /**
      * Gets the array suffix from the configured metafacade properties.
-     * 
+     *
      * @return the array suffix.
      */
     private String getArraySuffix()
     {
-        return String.valueOf(this.getConfiguredProperty(
-            UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
+        return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
 
     /**
@@ -127,21 +121,18 @@ public class ClassifierFacadeLogicImpl
         String wrapperName = null;
         if (this.getWrapperMappings() != null)
         {
-            if (this.getWrapperMappings().getMappings().containsFrom(
-                this.getFullyQualifiedName()))
+            if (this.getWrapperMappings().getMappings().containsFrom(this.getFullyQualifiedName()))
             {
-                wrapperName = this.getWrapperMappings().getTo(
-                    this.getFullyQualifiedName());
+                wrapperName = this.getWrapperMappings().getTo(this.getFullyQualifiedName());
             }
         }
         return wrapperName;
     }
 
     /**
-     * Gets the mappings from primitive types to wrapper types. Some languages
-     * have primitives (i.e., Java) and some languages don't, so therefore this
-     * property is optional.
-     * 
+     * Gets the mappings from primitive types to wrapper types. Some languages have primitives (i.e., Java) and some
+     * languages don't, so therefore this property is optional.
+     *
      * @return the wrapper mappings
      */
     protected TypeMappings getWrapperMappings()
@@ -152,7 +143,7 @@ public class ClassifierFacadeLogicImpl
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
-            uri = (String)property;
+            uri = (String) property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -160,15 +151,14 @@ public class ClassifierFacadeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '"
-                    + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg, th);
                 // don't throw the exception
             }
         }
         else
         {
-            mappings = (TypeMappings)property;
+            mappings = (TypeMappings) property;
         }
         return mappings;
     }
@@ -235,9 +225,7 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetAttributes(boolean follow)
     {
         Collection attributes = this.getAttributes();
-        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null
-            && follow; superClass = (ClassifierFacade)superClass
-            .getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade) getGeneralization(); superClass != null && follow; superClass = (ClassifierFacade) superClass.getGeneralization())
         {
             attributes.addAll(superClass.getAttributes());
         }
@@ -255,7 +243,7 @@ public class ClassifierFacadeLogicImpl
 
         for (Iterator iterator = getAttributes().iterator(); iterator.hasNext();)
         {
-            AttributeFacade attribute = (AttributeFacade)iterator.next();
+            AttributeFacade attribute = (AttributeFacade) iterator.next();
 
             sb.append(separator);
             String typeName = attribute.getType().getFullyQualifiedName();
@@ -285,7 +273,7 @@ public class ClassifierFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return ((AttributeFacade)object).isStatic();
+                return ((AttributeFacade) object).isStatic();
             }
         };
     }
@@ -299,7 +287,7 @@ public class ClassifierFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return !((AttributeFacade)object).isStatic();
+                return !((AttributeFacade) object).isStatic();
             }
         };
     }
@@ -310,24 +298,20 @@ public class ClassifierFacadeLogicImpl
     protected java.util.Collection handleGetProperties()
     {
         Collection properties = this.getAttributes();
-        class ConnectingEndTransformer
-            implements Transformer
+        class ConnectingEndTransformer implements Transformer
         {
             public Object transform(Object object)
             {
-                return ((AssociationEndFacade)object).getOtherEnd();
+                return ((AssociationEndFacade) object).getOtherEnd();
             }
         }
         Collection connectingEnds = this.getAssociationEnds();
-        CollectionUtils.transform(
-            connectingEnds,
-            new ConnectingEndTransformer());
-        class NavigableFilter
-            implements Predicate
+        CollectionUtils.transform(connectingEnds, new ConnectingEndTransformer());
+        class NavigableFilter implements Predicate
         {
             public boolean evaluate(Object object)
             {
-                return ((AssociationEndFacade)object).isNavigable();
+                return ((AssociationEndFacade) object).isNavigable();
             }
         }
         CollectionUtils.filter(connectingEnds, new NavigableFilter());
@@ -373,9 +357,8 @@ public class ClassifierFacadeLogicImpl
         ClassifierFacade nonArrayType = this;
         if (this.getFullyQualifiedName().indexOf(this.getArraySuffix()) != -1)
         {
-            nonArrayType = (ClassifierFacade)this.getRootPackage().findModelElement(
-                    StringUtils.replace(this.getFullyQualifiedName(true), this
-                        .getArraySuffix(), ""));
+            nonArrayType = (ClassifierFacade) this.getRootPackage().findModelElement(StringUtils.replace(
+                    this.getFullyQualifiedName(true), this.getArraySuffix(), ""));
         }
         return nonArrayType;
     }
@@ -390,26 +373,21 @@ public class ClassifierFacadeLogicImpl
         if (name.indexOf(this.getArraySuffix()) == -1)
         {
             name = name + this.getArraySuffix();
-            arrayType = (ClassifierFacade)this.getRootPackage()
-                .findModelElement(name);
+            arrayType = (ClassifierFacade) this.getRootPackage().findModelElement(name);
         }
         return arrayType;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#addAttribute(java.lang.String,
-     *      java.lang.String, java.lang.String)
+     * @see org.andromda.metafacades.uml.ClassifierFacade#addAttribute(java.lang.String, java.lang.String,
+            *      java.lang.String)
      */
-    protected void handleAddAttribute(
-        String name,
-        String fullyQualifiedType,
-        String visibility)
+    protected void handleAddAttribute(String name, String fullyQualifiedType, String visibility)
     {
         CorePackage corePackage = UML14MetafacadeUtils.getCorePackage();
         Attribute attribute = corePackage.getAttribute().createAttribute();
         attribute.setName(name);
-        attribute.setVisibility(UML14MetafacadeUtils
-            .getVisibilityKind(visibility));
+        attribute.setVisibility(UML14MetafacadeUtils.getVisibilityKind(visibility));
         this.metaObject.getFeature().add(attribute);
     }
 
@@ -454,7 +432,7 @@ public class ClassifierFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return ((OperationFacade)object).isStatic();
+                return ((OperationFacade) object).isStatic();
             }
         };
     }
@@ -468,7 +446,7 @@ public class ClassifierFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return !((OperationFacade)object).isStatic();
+                return !((OperationFacade) object).isStatic();
             }
         };
     }
@@ -478,17 +456,14 @@ public class ClassifierFacadeLogicImpl
      */
     protected AttributeFacade handleFindAttribute(final String name)
     {
-        return (AttributeFacade)CollectionUtils.find(
-            this.getAttributes(),
-            new Predicate()
+        return (AttributeFacade) CollectionUtils.find(this.getAttributes(), new Predicate()
+        {
+            public boolean evaluate(Object object)
             {
-                public boolean evaluate(Object object)
-                {
-                    final AttributeFacade attribute = (AttributeFacade)object;
-                    return StringUtils.trimToEmpty(attribute.getName()).equals(
-                        name);
-                }
-            });
+                final AttributeFacade attribute = (AttributeFacade) object;
+                return StringUtils.trimToEmpty(attribute.getName()).equals(name);
+            }
+        });
     }
 
     /**

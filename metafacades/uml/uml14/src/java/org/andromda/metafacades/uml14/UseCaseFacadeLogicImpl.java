@@ -1,26 +1,23 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.foundation.core.ModelElement;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * Metaclass facade implementation.
  */
-public class UseCaseFacadeLogicImpl
-    extends UseCaseFacadeLogic
+public class UseCaseFacadeLogicImpl extends UseCaseFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public UseCaseFacadeLogicImpl(
-        org.omg.uml.behavioralelements.usecases.UseCase metaObject,
-        String context)
+    public UseCaseFacadeLogicImpl(org.omg.uml.behavioralelements.usecases.UseCase metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -81,14 +78,12 @@ public class UseCaseFacadeLogicImpl
     {
         ActivityGraph activityGraph = null;
 
-        for (Iterator iterator = metaObject.getOwnedElement().iterator(); iterator
-            .hasNext()
-            && activityGraph == null;)
+        for (Iterator iterator = metaObject.getOwnedElement().iterator(); iterator.hasNext() && activityGraph == null;)
         {
-            ModelElement modelElement = (ModelElement)iterator.next();
+            ModelElement modelElement = (ModelElement) iterator.next();
             if (modelElement instanceof ActivityGraph)
             {
-                activityGraph = (ActivityGraph)modelElement;
+                activityGraph = (ActivityGraph) modelElement;
             }
         }
 

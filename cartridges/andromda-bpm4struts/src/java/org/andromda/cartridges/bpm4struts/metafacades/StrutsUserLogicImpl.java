@@ -14,8 +14,7 @@ import java.util.List;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUser
  */
-public class StrutsUserLogicImpl
-    extends StrutsUserLogic
+public class StrutsUserLogicImpl extends StrutsUserLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -23,7 +22,7 @@ public class StrutsUserLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     protected java.util.Collection handleGetGeneralizedUsers()
     {
         List generalizedUsers = new ArrayList();

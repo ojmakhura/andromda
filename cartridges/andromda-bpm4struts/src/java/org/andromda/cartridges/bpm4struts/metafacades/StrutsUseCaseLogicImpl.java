@@ -8,7 +8,14 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -16,8 +23,7 @@ import java.util.*;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase
  */
-public class StrutsUseCaseLogicImpl
-    extends StrutsUseCaseLogic
+public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -88,7 +94,9 @@ public class StrutsUseCaseLogicImpl
 
     protected String handleGetFullFormBeanPath()
     {
-        return '/' + getFormBeanPackageName().replace('.', '/') + '/' + StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
+        return '/' + getFormBeanPackageName().replace('.', '/') + '/' +
+                StringUtilsHelper.upperCamelCaseName(getName()) +
+                "Form";
     }
 
     protected String handleGetFormBeanName()

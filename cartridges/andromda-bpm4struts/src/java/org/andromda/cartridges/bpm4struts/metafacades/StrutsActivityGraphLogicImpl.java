@@ -13,8 +13,7 @@ import java.util.Collection;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraph
  */
-public class StrutsActivityGraphLogicImpl
-    extends StrutsActivityGraphLogic
+public class StrutsActivityGraphLogicImpl extends StrutsActivityGraphLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -30,7 +29,7 @@ public class StrutsActivityGraphLogicImpl
         Collection initialStates = getInitialStates();
         if (initialStates.isEmpty() == false)
         {
-            PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
+            PseudostateFacade initialState = (PseudostateFacade) initialStates.iterator().next();
             Collection outgoing = initialState.getOutgoing();
             firstAction = (outgoing.isEmpty()) ? null : outgoing.iterator().next();
         }
@@ -43,7 +42,9 @@ public class StrutsActivityGraphLogicImpl
 
         if (useCase == null)
         {
-            useCase = getModel().findUseCaseWithTaggedValueOrHyperlink(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY,getName());
+            useCase =
+                    getModel().findUseCaseWithTaggedValueOrHyperlink(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY,
+                            getName());
         }
 
         if ((useCase instanceof StrutsUseCase) == false)
@@ -77,7 +78,7 @@ public class StrutsActivityGraphLogicImpl
             {
                 final String useCaseName = useCase.getName();
                 controller = getModel().findClassWithTaggedValueOrHyperlink(
-                        Bpm4StrutsProfile.TAGGEDVALUE_CONTROLLER_USE_CASE,useCaseName);
+                        Bpm4StrutsProfile.TAGGEDVALUE_CONTROLLER_USE_CASE, useCaseName);
             }
         }
 

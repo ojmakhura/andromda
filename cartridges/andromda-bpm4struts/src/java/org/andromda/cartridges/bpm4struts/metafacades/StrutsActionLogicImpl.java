@@ -17,8 +17,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -26,8 +26,7 @@ import java.util.List;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction
  */
-public class StrutsActionLogicImpl
-    extends StrutsActionLogic
+public class StrutsActionLogicImpl extends StrutsActionLogic
 {
     private Collection actionStates = null;
     private Map actionForwards = null;
@@ -133,7 +132,7 @@ public class StrutsActionLogicImpl
             if (page != null)
             {
                 final List tables = page.getTables();
-                for (int i = 0; i < tables.size() && tableLinkParameter==null; i++)
+                for (int i = 0; i < tables.size() && tableLinkParameter == null; i++)
                 {
                     StrutsParameter table = (StrutsParameter) tables.get(i);
                     if (tableLinkName.equals(table.getName()))
@@ -163,7 +162,8 @@ public class StrutsActionLogicImpl
     protected boolean handleIsHyperlink()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
-        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
+        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
+                value == null ? null : value.toString());
     }
 
     protected java.lang.String handleGetActionPath()
@@ -190,7 +190,7 @@ public class StrutsActionLogicImpl
 
             buffer.append(prefix);
             buffer.append('/');
-            buffer.append( StringUtilsHelper.upperCamelCaseName(useCase.getName()) );
+            buffer.append(StringUtilsHelper.upperCamelCaseName(useCase.getName()));
 
             actionPathRoot = buffer.toString();
         }
@@ -211,7 +211,7 @@ public class StrutsActionLogicImpl
         StringBuffer roles = new StringBuffer();
         for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
-            roles.append(((ModelElementFacade)userIterator.next()).getName());
+            roles.append(((ModelElementFacade) userIterator.next()).getName());
             if (userIterator.hasNext())
             {
                 roles.append(",");
@@ -242,7 +242,7 @@ public class StrutsActionLogicImpl
                     StrutsUseCase useCase = ((StrutsFinalState) transition.getTarget()).getTargetUseCase();
                     if (useCase != null)
                     {
-                        roleUsers.addAll( useCase.getUsers() );
+                        roleUsers.addAll(useCase.getUsers());
                     }
                 }
             }
@@ -278,7 +278,7 @@ public class StrutsActionLogicImpl
 
     protected String handleGetActionType()
     {
-        return getPackageName() + '.' + getActionClassName();    
+        return getPackageName() + '.' + getActionClassName();
     }
 
     protected String handleGetFormBeanClassName()
@@ -315,8 +315,8 @@ public class StrutsActionLogicImpl
     }
 
     /**
-     * Overrides the method defined in the facade parent of StrutsAction, this is done
-     * because actions (transitions) are not directly contained in a UML namespace.
+     * Overrides the method defined in the facade parent of StrutsAction, this is done because actions (transitions) are
+     * not directly contained in a UML namespace.
      */
     public String getPackageName()
     {
@@ -341,8 +341,8 @@ public class StrutsActionLogicImpl
 
     private boolean isTrue(String string)
     {
-        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) ||
-                "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(string);
+        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(
+                string);
     }
 
     protected boolean handleIsUseCaseStart()
@@ -358,15 +358,13 @@ public class StrutsActionLogicImpl
 
     protected String handleGetFullTilePath()
     {
-        return isUseCaseStart()
-                ? "empty-file"
-                : getPackagePath() + '/' + StringUtilsHelper.toWebFileName(getActionClassName());
+        return isUseCaseStart() ?
+                "empty-file" : getPackagePath() + '/' + StringUtilsHelper.toWebFileName(getActionClassName());
     }
 
     /**
-     * We override this method here to make sure the actions end-up in the same package
-     * as their use-case. A transition (this class' parent type) does not have a real package
-     * as we need it here.
+     * We override this method here to make sure the actions end-up in the same package as their use-case. A transition
+     * (this class' parent type) does not have a real package as we need it here.
      */
     public String getPackagePath()
     {
@@ -440,9 +438,8 @@ public class StrutsActionLogicImpl
     protected String handleGetDocumentationKey()
     {
         StrutsTrigger trigger = getActionTrigger();
-        return ((trigger == null)
-                ? getMessageKey() + ".is.an.action.without.trigger"
-                : getActionTrigger().getTriggerKey()) + ".documentation";
+        return ((trigger == null) ?
+                getMessageKey() + ".is.an.action.without.trigger" : getActionTrigger().getTriggerKey()) + ".documentation";
     }
 
     protected String handleGetDocumentationValue()
@@ -454,9 +451,8 @@ public class StrutsActionLogicImpl
     protected String handleGetOnlineHelpKey()
     {
         StrutsTrigger trigger = getActionTrigger();
-        return ((trigger == null)
-                ? getMessageKey() + ".is.an.action.without.trigger"
-                : getActionTrigger().getTriggerKey()) + ".online.help";
+        return ((trigger == null) ?
+                getMessageKey() + ".is.an.action.without.trigger" : getActionTrigger().getTriggerKey()) + ".online.help";
     }
 
     protected String handleGetOnlineHelpValue()
@@ -578,12 +574,12 @@ public class StrutsActionLogicImpl
             StrutsForward forward = actionState.getForward();
             if (forward != null)
             {
-	            Collection forwardParameters = forward.getForwardParameters();
-	            for (Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
-	            {
-	                StrutsParameter forwardParameter = (StrutsParameter) parameterIterator.next();
-	                formFieldMap.put(forwardParameter.getName(), forwardParameter);
-	            }
+                Collection forwardParameters = forward.getForwardParameters();
+                for (Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+                {
+                    StrutsParameter forwardParameter = (StrutsParameter) parameterIterator.next();
+                    formFieldMap.put(forwardParameter.getName(), forwardParameter);
+                }
             }
         }
 
@@ -604,7 +600,8 @@ public class StrutsActionLogicImpl
                     formFieldMap.put(facade.getName(), facade);
                 }
                 Collection allActionParameters = jsp.getAllActionParameters();
-                for (Iterator actionParameterIterator = allActionParameters.iterator(); actionParameterIterator.hasNext();)
+                for (Iterator actionParameterIterator = allActionParameters.iterator();
+                     actionParameterIterator.hasNext();)
                 {
                     ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
                     formFieldMap.put(facade.getName(), facade);
@@ -614,7 +611,8 @@ public class StrutsActionLogicImpl
             {
                 // only add these if there is no parameter recorded yet with the same name
                 Collection forwardParameters = forward.getForwardParameters();
-                for (Iterator forwardParameterIterator = forwardParameters.iterator(); forwardParameterIterator.hasNext();)
+                for (Iterator forwardParameterIterator = forwardParameters.iterator();
+                     forwardParameterIterator.hasNext();)
                 {
                     ModelElementFacade facade = (ModelElementFacade) forwardParameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
@@ -708,19 +706,17 @@ public class StrutsActionLogicImpl
         }
         return styleId;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isRedirect()
      */
     protected boolean handleIsRedirect()
     {
-        String redirect = (String)this.getConfiguredProperty(
-            Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);
-        Object value = this
-            .findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_REDIRECT);
+        String redirect = (String) this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);
+        Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_REDIRECT);
         if (value != null)
         {
-            redirect = (String)value;
+            redirect = (String) value;
         }
         return Boolean.valueOf(StringUtils.trimToEmpty(redirect)).booleanValue();
     }
@@ -734,21 +730,21 @@ public class StrutsActionLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return object != null && ((StrutsParameter)object).isShouldReset();
+                return object != null && ((StrutsParameter) object).isShouldReset();
             }
         };
     }
-    
+
     /**
      * The "session" action form scope.
      */
     private static final String FORM_SCOPE_SESSION = "session";
-    
+
     /**
      * The "request" action form scope.
      */
     private static final String FORM_SCOPE_REQUEST = "request";
-    
+
     /**
      * The "none" action form scope.
      */
@@ -760,7 +756,7 @@ public class StrutsActionLogicImpl
     protected String handleGetFormScope()
     {
         String actionFormScope = String.valueOf(this.getConfiguredProperty(
-            Bpm4StrutsGlobals.PROPERTY_ACTION_FORM_SCOPE));
+                Bpm4StrutsGlobals.PROPERTY_ACTION_FORM_SCOPE));
         Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_SCOPE);
         if (value != null)
         {

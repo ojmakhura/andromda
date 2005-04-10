@@ -10,8 +10,7 @@ import java.util.Iterator;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPackage
  */
-public class StrutsPackageLogicImpl
-    extends StrutsPackageLogic
+public class StrutsPackageLogicImpl extends StrutsPackageLogic
 {
     // ---------------- constructor -------------------------------
 

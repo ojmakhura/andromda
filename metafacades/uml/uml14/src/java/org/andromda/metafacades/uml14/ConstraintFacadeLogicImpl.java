@@ -1,26 +1,23 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.List;
-
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
 import org.andromda.translation.ocl.ExpressionKinds;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.List;
+
 /**
  * Metafacade implementation for org.andromda.metafacades.uml.ConstraintFacade.
- * 
+ *
  * @see org.andromda.metafacades.uml.ConstraintFacade
  */
-public class ConstraintFacadeLogicImpl
-    extends ConstraintFacadeLogic
+public class ConstraintFacadeLogicImpl extends ConstraintFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public ConstraintFacadeLogicImpl(
-        org.omg.uml.foundation.core.Constraint metaObject,
-        java.lang.String context)
+    public ConstraintFacadeLogicImpl(org.omg.uml.foundation.core.Constraint metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -59,9 +56,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsInvariant()
     {
-        return UML14MetafacadeUtils.isConstraintKind(
-            getBody(),
-            ExpressionKinds.INV);
+        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.INV);
     }
 
     /**
@@ -69,9 +64,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPreCondition()
     {
-        return UML14MetafacadeUtils.isConstraintKind(
-            getBody(),
-            ExpressionKinds.PRE);
+        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.PRE);
     }
 
     /**
@@ -79,9 +72,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPostCondition()
     {
-        return UML14MetafacadeUtils.isConstraintKind(
-            getBody(),
-            ExpressionKinds.POST);
+        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.POST);
     }
 
     /**
@@ -89,9 +80,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsDefinition()
     {
-        return UML14MetafacadeUtils.isConstraintKind(
-            getBody(),
-            ExpressionKinds.DEF);
+        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.DEF);
     }
 
     /**
@@ -99,9 +88,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsBodyExpression()
     {
-        return UML14MetafacadeUtils.isConstraintKind(
-            getBody(),
-            ExpressionKinds.BODY);
+        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.BODY);
     }
 
     /**
@@ -110,10 +97,8 @@ public class ConstraintFacadeLogicImpl
     public String handleGetTranslation(String language)
     {
         String translation = null;
-        final Expression expression = ExpressionTranslator.instance().translate(
-            language,
-            this.getBody(),
-            this.getContextElement());
+        final Expression expression = ExpressionTranslator.instance().translate(language, this.getBody(),
+                this.getContextElement());
         if (expression != null)
         {
             translation = expression.getTranslatedExpression();
@@ -122,26 +107,16 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String,
-     *      int, boolean)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
      */
-    public String getDocumentation(
-        String indent,
-        int lineLength,
-        boolean htmlStyle)
+    public String getDocumentation(String indent, int lineLength, boolean htmlStyle)
     {
-        String documentation = super.getDocumentation(
-            indent,
-            lineLength,
-            htmlStyle);
+        String documentation = super.getDocumentation(indent, lineLength, htmlStyle);
         boolean isBlank = false;
 
         if (htmlStyle)
         {
-            String plainDocumentation = super.getDocumentation(
-                indent,
-                lineLength,
-                false);
+            String plainDocumentation = super.getDocumentation(indent, lineLength, false);
             isBlank = StringUtils.isBlank(plainDocumentation);
         }
         else
@@ -151,8 +126,7 @@ public class ConstraintFacadeLogicImpl
 
         if (isBlank)
         {
-            documentation = "An undocumented constraint has been violated: "
-                + StringEscapeUtils.escapeJava(getBody());
+            documentation = "An undocumented constraint has been violated: " + StringEscapeUtils.escapeJava(getBody());
         }
         return documentation;
     }

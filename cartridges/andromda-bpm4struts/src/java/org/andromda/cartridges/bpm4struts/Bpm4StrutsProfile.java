@@ -4,12 +4,12 @@ import org.andromda.core.common.Profile;
 
 /**
  * Contains the BPM4Struts profile.
- * 
+ *
  * @author Wouter Zoons
  */
 public class Bpm4StrutsProfile
 {
-    
+
     /**
      * The Profile instance from which we retrieve the mapped profile names.
      */
@@ -64,9 +64,9 @@ public class Bpm4StrutsProfile
     public static final String SHORT_TYPE_NAME = profile.get("SHORT_TYPE");
     public static final String INTEGER_TYPE_NAME = profile.get("INTEGER_TYPE");
     public static final String LONG_TYPE_NAME = profile.get("LONG_TYPE");
-    public static final String FLOAT_TYPE_NAME = profile.get("FLOAT_TYPE");    
-    public static final String DOUBLE_TYPE_NAME = profile.get("DOUBLE_TYPE");   
-    public static final String URL_TYPE_NAME = profile.get("URL_TYPE");   
+    public static final String FLOAT_TYPE_NAME = profile.get("FLOAT_TYPE");
+    public static final String DOUBLE_TYPE_NAME = profile.get("DOUBLE_TYPE");
+    public static final String URL_TYPE_NAME = profile.get("URL_TYPE");
 
     /* ----------------- Default Values ------------------- */
     public static final String TAGGEDVALUE_INPUT_DEFAULT_REQUIRED = "true";

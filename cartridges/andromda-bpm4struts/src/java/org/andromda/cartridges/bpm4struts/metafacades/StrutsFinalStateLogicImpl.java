@@ -15,8 +15,7 @@ import java.util.Set;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalState
  */
-public class StrutsFinalStateLogicImpl
-    extends StrutsFinalStateLogic
+public class StrutsFinalStateLogicImpl extends StrutsFinalStateLogic
 {
     public StrutsFinalStateLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
