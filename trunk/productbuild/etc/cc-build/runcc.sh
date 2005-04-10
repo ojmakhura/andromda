@@ -13,7 +13,7 @@ source set-env.sh
 
 me=`whoami`
 if [[ $me != $CC_USER ]]; then
-  echo "Must be run as $CC_USER"
+  echo "You ($me) must be run as $CC_USER"
   exit
 fi
 
@@ -30,6 +30,10 @@ fi
 # automagically.
 
 mkdir -p ../logs/andromda-all                                                                    
+
+logger "runcc.sh - starting cruisecontrol"
+logger "PATH: $PATH"
+logger "JAVA_HOME:$JAVA_HOME"
 
 nohup nice cruisecontrol.sh -configfile $dirname/cruisecontrol.xml &
 pid=$!
