@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -549,6 +550,45 @@ public class StrutsParameterLogicImpl
         return internalGetTableActions(true);
     }
 
+    protected boolean handleIsTableHyperlinkActionSharingColumns()
+    {
+        boolean sharingColumns = false;
+
+        if (isTable())
+        {
+            final Set columnNames = new HashSet();
+            final List hyperlinkActions = getTableHyperlinkActions();
+            for (int i = 0; i < hyperlinkActions.size() && !sharingColumns; i++)
+            {
+                final StrutsAction action = (StrutsAction) hyperlinkActions.get(i);
+                if (action.isTableLink())
+                {
+                    final List parameters = action.getActionParameters();
+                    for (int j = 0; j < parameters.size() && !sharingColumns; j++)
+                    {
+                        final StrutsParameter parameter = (StrutsParameter) parameters.get(j);
+                        if (columnNames.contains(parameter.getName()))
+                        {
+                            sharingColumns = true;
+                        }
+                        else
+                        {
+                            columnNames.add(parameter.getName());
+                        }
+                    }
+                }
+            }
+        }
+
+        return sharingColumns;
+    }
+
+    protected boolean handleIsTableFormActionSharingWidgets()
+    {
+        // @todo (wouter)
+        return true;
+    }
+
     private Collection internalGetTableActions(boolean hyperlink)
     {
         final String name = StringUtils.trimToNull(getName());
@@ -577,7 +617,7 @@ public class StrutsParameterLogicImpl
                         if (transition.getSource().equals(page) && transition instanceof StrutsAction)
                         {
                             final StrutsAction action = (StrutsAction) transition;
-                            if (name.equals(action.getTableLinkName()))
+                            if (action.isTableLink() && name.equals(action.getTableLinkName()))
                             {
                                 if (hyperlink)
                                 {
@@ -593,7 +633,6 @@ public class StrutsParameterLogicImpl
                 }
             }
         }
-
         return tableActions;
     }
 
@@ -1646,5 +1685,10 @@ public class StrutsParameterLogicImpl
 
         String[] tokens = string.split("[\\s]+", limit);
         return (index >= tokens.length) ? null : tokens[index];
+    }
+
+    public Object getValidationOwner()
+    {
+        return (isTable() && getJsp()!=null) ? getJsp() : super.getValidationOwner();
     }
 }
