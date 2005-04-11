@@ -44,11 +44,11 @@
                     associating one of the table columns to one of the exiting events on the same page.
                 </p>
                 <p>
-                    First of all you will need to model an event with a parameter (if you are not sure how to do that
-                    then re-read <a href="howto2.html#Event_Parameters">this previous section</a>), make sure this
-                    event transition is going <em>out</em> of the page containing the table page-variable. Also make
-                    sure that the parameter has a name that is present in the list of table
-                    columns (as explained above).
+                    First of all you will need to model an event with one or more parameters (if you are not sure how to
+                    do that then re-read <a href="howto2.html#Event_Parameters">this previous section</a>), make sure
+                    this event transition is going <em>out</em> of the page containing the table page-variable. Also
+                    make sure that the parameter has a name that is present in the list of table columns (as explained
+                    above).
                 </p>
                 <p>
                     Second, you will need to make sure the event will be rendered as an hyperlink and not as a regular
@@ -56,10 +56,12 @@
                     tagged value on the transition itself.
                 </p>
                 <p>
-                    Finally link this event to the table page-variable, this is important since there
+                    Finally link this event to the table page-variable and specify the column in which the hyperlink is
+                    to be rendered, this is particularly important since there
                     might be more than a single table from which to choose. In order to achieve this we will be using
-                    the <code>@andromda.struts.action.tablelink=myTable</code> tagged value on the transition
-                    (replace <code>myTable</code> with the name of your table).
+                    the <code>@andromda.struts.action.tablelink=myTable.myColumn</code> tagged value on the transition
+                    (replace <code>myTable</code> with the name of your table, and notice how to dot separates both
+                    fields).
                 </p>
             </subsection>
             <subsection name="Submitting rows">
@@ -74,6 +76,10 @@
                     row there will be a button to apply this action on it. Clicking the button will invoke a JavaScript
                     function that will sumbit a form to the target action; browsers not supporting JavaScript or having
                     JavaScript disabled will not be able to use this functionality.
+                </p>
+                <p>
+                    Don't forget to add the tagged value, but it's not needed to specify any column this time:
+                    <code>@andromda.struts.action.tablelink=myTable</code>.
                 </p>
                 <p>
                     Any widget is allowed, but if you still prefer to have plain text rendered instead of a widget
@@ -132,7 +138,8 @@
                         <li>model an event going out of the page</li>
                         <li>add a parameter to this event's trigger, give it the name <code>id</code></li>
                         <li>add the <code>@andromda.struts.action.tablelink</code> tag to the event, the value should
-                            be the name of the table
+                            be the name of the table separated from the column name using a dot, ie.
+                            <code>itemList.id</code>.
                         </li>
                         <li>add the <code>@andromda.struts.action.type=hyperlink</code> tag to the event, this denotes
                             this action to be rendered as an hyperlink pointing to the target Struts action.
@@ -145,7 +152,12 @@
             </subsection>
             <subsection name="The 'publisher' hyperlink">
                 <p>
-                    Equivalent to the <code>id</code> hyperlink, model a separate event for this one.
+                    Equivalent to the <code>id</code> hyperlink, except that this time we add two parameters to this
+                    event: <code>id</code> and <code>publisher</code>.
+                </p>
+                <p>
+                    Make sure to have the hyperlink point to the <code>publisher</code> column, like this:
+                    <code>@andromda.struts.action.tablelink=itemList.publisher</code>.
                 </p>
                 <p>
                     This feature is interesting when you want to see information on a related property, in this case

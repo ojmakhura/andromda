@@ -3,17 +3,15 @@
 ##
 ##  CONSTANTS
 ##
-#set ($actions = $jsp.nonTableActions)
-#set ($pageVariables = $jsp.pageVariables)
 #set ($hints = $hints == "true")
 ##
 ##  START TEMPLATE
 ##
 #set ($hasTable = false)
 <%@ include file="/taglib-imports.jspf" %>
-#if (!$pageVariables.empty)
+#if (!$jsp.pageVariables.empty)
 <%@ include file="${jsp.fullPath}-vars.jspf" %>
-#foreach ($variable in $pageVariables)
+#foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
 #set ($hasTable = true)
 #end
@@ -43,7 +41,9 @@
 ##
     <tiles:put name="style" type="string">
         <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="${jsp.fullPath}.css"/>"></link>
+#if ($jsp.calendarRequired)
         <link rel="stylesheet" type="text/css" media="all" href="<html:rewrite page="/layout/default-calendar.css"/>"/>
+#end
     </tiles:put>
 
 ##
@@ -58,13 +58,9 @@
 #set ($validationDesired = ($clientValidation=='true'))
 #if ($jsp.validationRequired && $validationDesired)
         <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/form-validation.jsp"/>"></script>
-#foreach ($action in $actions)
+#foreach ($action in $jsp.actions)
 #if ($action.validationRequired)
-#if ($xhtml == "true")
-        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" cdata="true"/>
-#else
-        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false" htmlComment="true" cdata="false"/>
-#end
+        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false"#if($xhtml=="true") cdata="true"#else htmlComment="true" cdata="false"#end/>
 #end
 #end
 #end
@@ -123,9 +119,9 @@
             <h1><bean:message key="$jsp.titleKey"/></h1>
         </div>
 
-#if ($pageVariables.size() > 0)
+#if ($jsp.pageVariables.size() > 0)
         <div id="pageVariables">
-#foreach ($variable in $pageVariables)
+#foreach ($variable in $jsp.pageVariables)
 #if (!$variable.table)
             <c:choose>
                 <c:when test="${!empty form.${variable.name}}">
@@ -140,10 +136,11 @@
         </div>
 #end
 
-#foreach ($action in $actions)
+#foreach ($action in $jsp.nonTableActions)
         <tiles:insert page="${action.fullTilePath}.jsp" flush="false"/>
 #end
-#foreach ($variable in $pageVariables)
+
+#foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
 #set ($targetColumns = $variable.targettedTableColumnNames)
 #set ($sortable = $variable.tableSortable)

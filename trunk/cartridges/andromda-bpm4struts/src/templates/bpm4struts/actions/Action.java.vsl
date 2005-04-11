@@ -51,11 +51,7 @@ public final class $action.actionClassName extends Action
 #if ($action.useCaseStart && !$action.actionFormFields.empty)
         // copy any parameters from the previous form into this one
         // (only those with the same name and type are considered, and only if they can be set in the target form)
-        final Object previousForm = request.getSession().getAttribute("form");
-        if (previousForm != null)
-        {
-            org.apache.commons.beanutils.BeanUtils.copyProperties(form, previousForm);
-        }
+        org.apache.commons.beanutils.BeanUtils.populate(form, request.getParameterMap());
 
 #end
         final ActionForward forward = #processTransition($action)
