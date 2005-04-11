@@ -707,9 +707,34 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
 
     protected boolean handleIsTableSortable()
     {
-        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
+        final Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
         return (taggedValue == null) ?
                 Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE : isTrue(String.valueOf(taggedValue));
+    }
+
+    protected boolean handleIsTableHyperlinkColumn()
+    {
+        boolean tableHyperlinkColumn = false;
+
+        final String name = getName();
+        if (name != null)
+        {
+            // this parameter's action must be a table hyperlink
+            final StrutsAction action = getAction();
+            if (action.isHyperlink() && action.isTableLink())
+            {
+                // get the table and check whether this parameter is part of that table's columns
+                final StrutsParameter table = action.getTableLinkParameter();
+                if (table != null)
+                {
+                    final Collection tableColumns = table.getTableColumns();
+                    // if this parameter's name matches that targetted column name then we have found our column
+                    tableHyperlinkColumn = tableColumns.contains(this) && name.equals(action.getTableLinkColumnName());
+                }
+            }
+        }
+
+        return tableHyperlinkColumn;
     }
 
     protected Collection handleGetTableColumns()
@@ -1020,9 +1045,8 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
                             String parameterTypeName = parameterType.getFullyQualifiedName();
                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
                             {
-                                selectable =
-                                        Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(
-                                                parameter.getWidgetType());
+                                selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(
+                                        parameter.getWidgetType());
                             }
                         }
                     }
@@ -1070,8 +1094,7 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
     {
         final String name = getName();
         return "new Object[] {\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" +
-                name +
-                "-5\"}";
+                name + "-5\"}";
     }
 
     /**

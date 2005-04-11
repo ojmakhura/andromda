@@ -97,9 +97,13 @@ ${indent}</logic:notPresent>
 ##  We first check if we're dealing with a special case where an hyperlink action
 ##
 ##
-#if ($action.hyperlink && $action.tableLink)
-#set ($linkValue = "row.$fieldName")
-${indent}<html:link action="$action.actionPath" paramId="$fieldName" paramName="row" paramProperty="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end>${${linkValue}}</html:link>
+#if ($field.tableHyperlinkColumn)
+## construct the query to append to the URI
+#set($linkValue="row.${fieldName}")#set($uriQuery='')#set($delim='?')#set($paramValue="row.${parameter.name}")
+#foreach ($parameter in $field.action.actionParameters)
+#set($paramValue="row.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
+#end
+${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end>${${linkValue}}</html:link>
 ${indent}<html:hidden name="row" property="$fieldName" styleId="$styleId"/>
 ##
 ##  Depending on the type of the input field we render a different widget

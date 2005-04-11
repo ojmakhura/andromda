@@ -133,7 +133,8 @@ $field.getDocumentation("     * ")
             }
             catch(java.text.ParseException e)
             {
-                throw new RuntimeException(e);
+                // we are not throwing an exception, let the validator handle these cases
+                this.$fieldName = null;
             }
         }
     }

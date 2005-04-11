@@ -154,6 +154,32 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         if (value != null)
         {
             tableLink = StringUtils.trimToNull(value.toString());
+
+            if (tableLink != null)
+            {
+                final int columnOffset = tableLink.indexOf('.');
+                tableLink = (columnOffset == -1) ? tableLink : tableLink.substring(0, columnOffset);
+            }
+        }
+
+        return tableLink;
+    }
+
+    protected String handleGetTableLinkColumnName()
+    {
+        String tableLink = null;
+
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        if (value != null)
+        {
+            tableLink = StringUtils.trimToNull(value.toString());
+
+            if (tableLink != null)
+            {
+                final int columnOffset = tableLink.indexOf('.');
+                tableLink = (columnOffset == -1 || columnOffset == tableLink.length() - 1) ?
+                        null : tableLink.substring(columnOffset + 1);
+            }
         }
 
         return tableLink;
@@ -439,7 +465,8 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
     {
         StrutsTrigger trigger = getActionTrigger();
         return ((trigger == null) ?
-                getMessageKey() + ".is.an.action.without.trigger" : getActionTrigger().getTriggerKey()) + ".documentation";
+                getMessageKey() + ".is.an.action.without.trigger" : getActionTrigger().getTriggerKey()) +
+                ".documentation";
     }
 
     protected String handleGetDocumentationValue()
@@ -452,7 +479,8 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
     {
         StrutsTrigger trigger = getActionTrigger();
         return ((trigger == null) ?
-                getMessageKey() + ".is.an.action.without.trigger" : getActionTrigger().getTriggerKey()) + ".online.help";
+                getMessageKey() + ".is.an.action.without.trigger" : getActionTrigger().getTriggerKey()) +
+                ".online.help";
     }
 
     protected String handleGetOnlineHelpValue()
