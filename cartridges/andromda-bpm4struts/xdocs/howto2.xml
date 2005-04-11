@@ -323,6 +323,15 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     leading into a final state and the parameters will be automagically be available in the target
                     use-case.
                 </p>
+                <p class="highlight">
+                    Please note that only request parameters will survive the transition, request <em>attributes</em>
+                    on the other hand will not. So make sure only actual <em>event parameters</em> cross the use-case,
+                    not parameters such as page-variables that have been set by a controller operation.
+                    Granted, we could copy those request attributes into the latter use-case's form,
+                    but this yields side-effects that will disrupt the expected process flow of your application
+                    (if attributes survive they will keep populating forms and may adversely affect controller
+                    operation outcomes).
+                </p>
                 <p>
                     <h4>This is the first use-case</h4>
                     <img src="resources/howto/org/andromda/test/inter-usecase-source.gif"/>
