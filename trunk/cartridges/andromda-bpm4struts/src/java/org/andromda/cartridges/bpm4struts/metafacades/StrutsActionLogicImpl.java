@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashSet;
 
 
 /**
@@ -664,17 +665,26 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
 
     protected Collection handleGetDeferredOperations()
     {
-        Collection deferredOperations = new ArrayList();
-        StrutsController controller = getController();
+        final Collection deferredOperations = new LinkedHashSet();
+
+        final StrutsController controller = getController();
         if (controller != null)
         {
-            Collection operations = controller.getOperations();
-            for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+            final List actionStates = getActionStates();
+            for (int i = 0; i < actionStates.size(); i++)
             {
-                StrutsControllerOperation operation = (StrutsControllerOperation) operationIterator.next();
-                if (operation.getDeferringActions().contains(this))
+                final StrutsActionState actionState = (StrutsActionState) actionStates.get(i);
+                deferredOperations.addAll(actionState.getControllerCalls());
+            }
+
+            final List transitions = getDecisionTransitions();
+            for (int i = 0; i < transitions.size(); i++)
+            {
+                final StrutsForward forward = (StrutsForward) transitions.get(i);
+                final StrutsTrigger trigger = forward.getDecisionTrigger();
+                if (trigger != null)
                 {
-                    deferredOperations.add(operation);
+                    deferredOperations.add(trigger.getControllerCall());
                 }
             }
         }
