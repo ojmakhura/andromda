@@ -40,7 +40,7 @@
 
             <ant:andromda-test
                 lastModifiedCheck="${andromda.cartridge.lastModifiedCheck}"
-                processAllModelPackages="true"
+                processAllModelPackages="${andromda.cartridge.test.processAllModelPackages}"
                 failOnModelValidationErrors="false"
                 loggingConfigurationUri="${andromda.cartridge.loggingConfigurationUri}">
 
@@ -69,6 +69,30 @@
                         </j:if>
                     </j:forEach>
                 </ant:namespace>
+
+                <!-- set the modelPackages -->
+                <j:set var="index" value="0"/>
+                <j:forEach begin="0" end="${maximum}" indexVar="index">
+                <j:set var="indexVarName" value="andromda.cartridge.test.modelPackage.${index}.name"/>
+                <j:if test="${context.getVariable(indexVarName) != null}">
+                    <ant:modelPackage>
+
+                        <!-- set the name -->
+                        <ant:setProperty
+                            name="name"
+                            value="${context.getVariable(indexVarName)}"/>
+                        <!-- set shouldProcess -->
+                        <j:set
+                            var="indexVarName"
+                            value="andromda.cartridge.test.modelPackage.${index}.shouldProcess"/>
+                        <ant:setProperty
+                            name="shouldProcess"
+                            value="${context.getVariable(indexVarName)}"/>
+
+                    </ant:modelPackage>
+
+                </j:if>
+            </j:forEach>
 
                 <!-- set the repository module search path -->
                 <ant:repository>
@@ -257,7 +281,7 @@ Please define the location of your how-to model by setting a value for property 
             </j:if>
         </j:forEach>
     </goal>
-    
+
     <!-- ================================================================
            Adds how-to dependencies
          ================================================================ -->
@@ -299,7 +323,7 @@ Please define the location of your how-to model by setting a value for property 
             refid="andromda.cartridge.classpath"/>
 
     </goal>
-    
+
     <!-- ============================================================================
           Initializes resources required for how-tos
          ============================================================================ -->
