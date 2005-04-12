@@ -563,6 +563,7 @@ public abstract class $entity.daoBaseName
         return target;
     }
 
+#if (!$finders.empty)
     /**
      * Transforms a collection of entities using the
      * {@link #transformEntity(int,$entity.fullyQualifiedName)}
@@ -590,6 +591,7 @@ public abstract class $entity.daoBaseName
         }
     }
 
+#end
 #foreach ($valueObjectRef in $valueObjectReferences)
     /**
      * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
