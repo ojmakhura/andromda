@@ -194,7 +194,7 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
     protected Object handleGetRoot()
     {
         GeneralizableElementFacade generalization = this;
-        for (; generalization.getGeneralization() != null && SpringEntity.class.isAssignableFrom(generalization.getGeneralization().getClass()); generalization = generalization.getGeneralization())
+        for (; generalization.getGeneralization() != null && generalization instanceof SpringEntity; generalization = generalization.getGeneralization())
             ;
         return generalization;
     }
@@ -341,22 +341,7 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
         }
         return result;
     }
-
-    private GeneralizableElementFacade[] getSuperClassList()
-    {
-        GeneralizableElementFacade superElement = this.getGeneralization();
-        ArrayList hierarchy = new ArrayList();
-        while (superElement != null)
-        {
-            hierarchy.add(superElement);
-            superElement = superElement.getGeneralization();
-        }
-        GeneralizableElementFacade[] superclasses;
-        superclasses = new GeneralizableElementFacade[hierarchy.size()];
-        superclasses = (GeneralizableElementFacade[]) hierarchy.toArray(superclasses);
-        return superclasses;
-    }
-
+    
     /**
      * Stores the default hibernate inheritance strategy.
      */
