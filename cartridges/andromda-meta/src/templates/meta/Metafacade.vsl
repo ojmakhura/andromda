@@ -9,12 +9,11 @@ $metafacade.getDocumentation(" * ")
  * Metafacade interface to be used by AndroMDA cartridges.
  */
 public interface $metafacade.name
-#set ($superMetafacade = $metafacade.generalization)
-#if ($superMetafacade)
-       extends $superMetafacade.fullyQualifiedName
+#if (!$metafacade.generalizations.empty)
+    extends $metafacade.generalizationList
 #end
 {
-#if (!$superMetafacade)
+#if ($metafacade.generalizations.empty)
     /**
      * Provides any required initialization of the metafacade.
      */
@@ -44,7 +43,7 @@ public interface $metafacade.name
      */
     void validateInvariants(java.util.Collection validationMessages);
 #end
-#foreach ( $method in $metafacade.getMethodDataForPSM(false) )
+#foreach ($method in $metafacade.methodDataForPSM)
 
    /**
 $method.documentation

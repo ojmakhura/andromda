@@ -313,7 +313,7 @@
              we need to install them ALL at the end at once (instead of
              one at a time).
          ================================================================= -->
-    <goal name="bootstrap-install" prereqs="initialize">
+    <goal name="bootstrap-install" prereqs="clean,initialize">
         <attainGoal name="preprocess-bootstrap-modules"/>
         <echo>+-------------------------------------------------------------------+</echo>
         <echo>|  I N S T A L L I N G     B O O T S T R A P     A R T I F A C T S  |</echo>

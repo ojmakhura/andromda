@@ -76,7 +76,20 @@
 	        		<td>
 	        			No, defaults to the metafacade package name defined in your model.
 	        		</td>
-	        	</tr>     			        	   	      	        	        		        	        	        	     	             	        	
+	        	</tr>     		
+                <tr>
+                    <td>
+                        implementationOperationNamePattern
+                    </td>
+                    <td>
+                        The pattern used to the create the implementation name for metafacade
+                        operations that perform the logic of attributes, association ends, and operations,
+                        where <em>{0}</em> represents the operation name
+                    </td>
+                    <td>
+                        No, default is <code>handle{0}</code>.
+                    </td>
+                </tr>	        	   	      	        	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>
