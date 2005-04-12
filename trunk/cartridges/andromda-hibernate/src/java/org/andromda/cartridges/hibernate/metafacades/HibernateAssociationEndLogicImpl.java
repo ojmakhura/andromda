@@ -281,7 +281,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
                 HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS);
         if (orderColumns == null)
         {
-            orderColumns = (String) ((EntityAssociationEnd) this.getOtherEnd()).getColumnName();
+            orderColumns = ((EntityAssociationEnd)this.getOtherEnd()).getColumnName();
 
         }
         return orderColumns;
