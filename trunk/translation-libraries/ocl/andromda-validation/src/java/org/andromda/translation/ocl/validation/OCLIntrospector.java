@@ -51,7 +51,6 @@ public class OCLIntrospector
         }
         catch (Throwable throwable)
         {
-            final String message = "Error invoking feature '" + feature + "' on element '" + element + "'";
             Throwable cause = ExceptionUtils.getRootCause(throwable);
             // If cause is an OCLIntrospector throw that exception
             // rather than creating a new one.

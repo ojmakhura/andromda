@@ -152,11 +152,6 @@ public class Mappings
     }
 
     /**
-     * The suffix appended to array types.
-     */
-    private static final String ARRAY_SUFFIX = "[]";
-
-    /**
      * Returns the <code>to</code> mapping from a given <code>from</code> mapping.
      *
      * @param from the <code>from</code> mapping, this is the type/identifier that is in the model.
