@@ -34,21 +34,25 @@ public abstract class $metafacade.logicName
 
     protected $metaclassTypeName metaObject;
 #if ($metafacade.requiresInheritanceDelegatation)
-    private $superMetafacade.fullyQualifiedName super_;
+#foreach ($generalization in $metafacade.generalizations)
+    private $generalization.fullyQualifiedName super_${velocityCount};
+#end
 #end
 
     public ${metafacade.logicName}($metaclassTypeName metaObject, String context)
-    {
+    {  
 #if ($metafacade.requiresInheritanceDelegatation)
         super(metaObject, getContext(context));
-        this.super_ =
-           ($superMetafacade.fullyQualifiedName)
+#foreach ($generalization in $metafacade.generalizations)
+        this.super_${velocityCount} =
+           ($generalization.fullyQualifiedName)
             org.andromda.core.metafacade.MetafacadeFactory
                 .getInstance()
                 .createFacadeImpl(
-                    "$superMetafacade.fullyQualifiedName",
+                    "$generalization.fullyQualifiedName",
                     metaObject,
                     getContext(context));
+#end
 #else
 #set ($metaObjectArgument = "metaObject")
 #if ($constructorRequiresMetaclassCast)
@@ -81,14 +85,13 @@ public abstract class $metafacade.logicName
 #set ($memberType = $attribute.type)
 #set ($methodName = $attribute.getterName)
 #set ($memberName = "${attribute.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = "")
-#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
-#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPreCondition = "${attribute.implementationOperationName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${attribute.implementationOperationName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
    /**
     * @see ${metafacade.fullyQualifiedName}#${methodName}()
     */
-    protected abstract $memberTypeName ${handleMethodName}($typedArgumentList);
+    protected abstract $memberTypeName ${attribute.implementationOperationName}($typedArgumentList);
 
     private void $handleMethodPreCondition
     {
@@ -117,7 +120,7 @@ public abstract class $metafacade.logicName
 #set ($indent = "")
 #end
         ${indent}$handleMethodPreCondition;
-        ${indent}$memberName = ${handleMethodName}($typedArgumentList);
+        ${indent}$memberName = ${attribute.implementationOperationName}($typedArgumentList);
         ${indent}$handleMethodPostCondition;
 #if ($attribute.readOnly)
             this.__$memberName = $memberName;
@@ -140,11 +143,10 @@ public abstract class $metafacade.logicName
 #set ($memberTypeName = $operation.returnType.fullyQualifiedName)
 #set ($methodName = $operation.name)
 #set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = $operation.typedArgumentList)
-#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
-#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
-    protected abstract $memberTypeName ${handleMethodName}($typedArgumentList);
+#set ($handleMethodPreCondition = "${operation.implementationName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${operation.implementationName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
+    protected abstract $memberTypeName ${operation.implementationName}($typedArgumentList);
 
     private void $handleMethodPreCondition
     {
@@ -160,9 +162,9 @@ public abstract class $metafacade.logicName
     {
         $handleMethodPreCondition;
 #if($operation.returnTypePresent)
-        $memberTypeName returnValue = ${handleMethodName}($operation.argumentNames);
+        $memberTypeName returnValue = ${operation.implementationName}($operation.argumentNames);
 #else
-        ${handleMethodName}($operation.argumentNames);
+        ${operation.implementationName}($operation.argumentNames);
 #end
         ${handleMethodPostCondition};
 #if($operation.returnTypePresent)
@@ -176,17 +178,17 @@ public abstract class $metafacade.logicName
 #if (!$metafacade.associationEnds.empty)
     // ------------- associations ------------------
 
-#foreach ( $associationEnd in $metafacade.associationEnds )
-#if ($associationEnd.otherEnd.navigable)
+#foreach ($associationEnd in $metafacade.associationEnds)
+#set ($otherEnd = $associationEnd.otherEnd)
+#if ($otherEnd.navigable)
 ##
-#set ($memberTypeName = $associationEnd.otherEnd.getterSetterTypeName)
-#set ($memberType = $associationEnd.otherEnd.type)
-#set ($methodName = $associationEnd.otherEnd.getterName)
+#set ($memberTypeName = $otherEnd.getterSetterTypeName)
+#set ($memberType = $otherEnd.type)
+#set ($methodName = $otherEnd.getterName)
 #set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
-#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
 #set ($typedArgumentList = "")
-#set ($handleMethodPreCondition = "${handleMethodName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
-#set ($handleMethodPostCondition = "${handleMethodName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPreCondition = "${otherEnd.implementationOperationName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${otherEnd.implementationOperationName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
 ##
     private void $handleMethodPreCondition
     {
@@ -198,14 +200,14 @@ public abstract class $metafacade.logicName
 #renderTranslation ($associationEnd "post")
     }
 
-#if ($associationEnd.otherEnd.readOnly)
+#if ($otherEnd.readOnly)
     private $memberTypeName __$memberName;
     private boolean __${memberName}Set = false;
 
 #end
     public final $memberTypeName ${methodName}()
     {
-#if ($associationEnd.otherEnd.readOnly)
+#if ($otherEnd.readOnly)
         $memberTypeName $memberName = this.__$memberName;
         if (!this.__${memberName}Set)
         {
@@ -215,10 +217,10 @@ public abstract class $metafacade.logicName
         $memberTypeName $memberName = $memberType.javaNullString;
 #end
         ${indent}$handleMethodPreCondition;
-#if ($associationEnd.otherEnd.many)
-        ${indent}Object result = this.shieldedElements(${handleMethodName}($typedArgumentList));
+#if ($otherEnd.many)
+        ${indent}Object result = this.shieldedElements(${otherEnd.implementationOperationName}($typedArgumentList));
 #else
-        ${indent}Object result = this.shieldedElement(${handleMethodName}($typedArgumentList));
+        ${indent}Object result = this.shieldedElement(${otherEnd.implementationOperationName}($typedArgumentList));
 #end
         ${indent}try
         ${indent}{
@@ -230,7 +232,7 @@ public abstract class $metafacade.logicName
         ${indent}    // be set if its not of the correct type
         ${indent}}
         ${indent}$handleMethodPostCondition;
-#if ($associationEnd.otherEnd.readOnly)
+#if ($otherEnd.readOnly)
             this.__$memberName = $memberName;
             if (isMetafacadePropertyCachingEnabled())
             {
@@ -241,10 +243,10 @@ public abstract class $metafacade.logicName
         return $memberName;
     }
 
-#if ($associationEnd.otherEnd.many)
-    protected abstract java.util.Collection ${handleMethodName}($typedArgumentList);
+#if ($otherEnd.many)
+    protected abstract java.util.Collection ${otherEnd.implementationOperationName}($typedArgumentList);
 #else
-    protected abstract java.lang.Object ${handleMethodName}($typedArgumentList);
+    protected abstract java.lang.Object ${otherEnd.implementationOperationName}($typedArgumentList);
 #end
 
 #end
@@ -252,15 +254,18 @@ public abstract class $metafacade.logicName
 #end
 ##
 #if ($metafacade.requiresInheritanceDelegatation)
-    // ----------- delegates to $superMetafacade.fullyQualifiedName ------------
-#foreach ( $method in $superMetafacade.getMethodDataForPSM(true) )
-    // from ${method.metafacadeName}
-    ${method.buildMethodDeclaration(true)}
+#foreach ($generalization in $metafacade.generalizations)
+#set ($generalizationCount = $velocityCount)
+    // ----------- delegates to $generalization.fullyQualifiedName ------------
+#foreach ($method in $metafacade.getMethodDataForPSM($generalization))
+    // from $method.metafacadeName
+    $method.buildMethodDeclaration(true)
     {
-        ((org.andromda.core.metafacade.MetafacadeBase)super_).setMetafacadeContext(this.getMetafacadeContext());
-        return super_.${method.buildMethodCall()};
+        ((org.andromda.core.metafacade.MetafacadeBase)super_${generalizationCount}).setMetafacadeContext(this.getMetafacadeContext());
+        return super_${generalizationCount}.${method.buildMethodCall()};
     }
 
+#end
 #end
 #end
 #if ($metafacade.requiresInheritanceDelegatation)
@@ -269,7 +274,9 @@ public abstract class $metafacade.logicName
      */
     public void initialize()
     {
-        super_.initialize();
+#foreach ($generalization in $metafacade.generalizations)
+        super_${velocityCount}.initialize();
+#end
     }
 
     /**
@@ -277,7 +284,19 @@ public abstract class $metafacade.logicName
      */
     public Object getValidationOwner()
     {
-        return super_.getValidationOwner();
+#foreach ($generalization in $metafacade.generalizations)
+#if ($velocityCount == 1)
+        Object owner = super_${velocityCount}.getValidationOwner();
+#else
+        if (owner == null)
+        {
+            owner = super_${velocityCount}.getValidationOwner();
+        }
+#end
+#if ($velocityCount == $metafacade.generalizationCount)
+        return owner;
+#end
+#end
     }
     
     /**
@@ -285,7 +304,19 @@ public abstract class $metafacade.logicName
      */
     public String getValidationName()
     {
-        return super_.getValidationName();
+#foreach ($generalization in $metafacade.generalizations)
+#if ($velocityCount == 1)
+        String name = super_${velocityCount}.getValidationName();
+#else
+        if (name == null)
+        {
+            name = super_${velocityCount}.getValidationName();
+        }
+#end
+#if ($velocityCount == $metafacade.generalizationCount)
+        return name;
+#end
+#end
     }
 
 #end
@@ -295,7 +326,9 @@ public abstract class $metafacade.logicName
     public void validateInvariants(java.util.Collection validationMessages)
     {
 #if ($metafacade.requiresInheritanceDelegatation)
-        super_.validateInvariants(validationMessages);
+#foreach ($generalization in $metafacade.generalizations)
+        super_${velocityCount}.validateInvariants(validationMessages);
+#end
 #elseif ($superMetafacade)
         super.validateInvariants(validationMessages);
 #end

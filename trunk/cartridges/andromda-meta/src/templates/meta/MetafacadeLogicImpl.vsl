@@ -15,7 +15,7 @@ package $metafacade.logicPackageName;
  * @see $metafacade.fullyQualifiedName
  */
 public class $metafacade.logicImplName
-    extends ${metafacade.name}Logic
+    extends $metafacade.logicName
 {
     // ---------------- constructor -------------------------------
 
@@ -28,56 +28,36 @@ public class $metafacade.logicImplName
 
 #foreach ( $attribute in $attributes )
 #set ($methodName = $attribute.getterName)
-#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
-#set ($typedArgumentList = "")
 #set ($returnTypeName = $attribute.type.fullyQualifiedName)
     /**
      * @see ${metafacade.fullyQualifiedName}#${attribute.getterName}()
      */
-    protected $returnTypeName ${handleMethodName}($typedArgumentList)
+    protected $returnTypeName ${attribute.implementationOperationName}()
     {
         // TODO: put your implementation here.
-
-        // Dummy return value, just that the file compiles
-#if (!$attribute.type.primitive)
-        return null;
-#elseif ("boolean" == $returnTypeName)
-        return false;
-#else
-        return ($returnTypeName)0;
-#end
+        return $attribute.type.javaNullString;
     }
 
 #end
 #end
 ##
 #if (!$metafacade.operations.empty)
-#foreach ( $operation in $metafacade.operations)
+#foreach ($operation in $metafacade.operations)
 #set ($methodName = $operation.name)
-#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
-#set ($typedArgumentList = $operation.typedArgumentList)
 #set ($returnTypeName = $operation.returnType.fullyQualifiedName)
 #if ($defaultException)
-    $operation.visibility $returnTypeName ${handleMethodName}($typedArgumentList)
+    $operation.visibility $returnTypeName ${operation.implementationName}($operation.typedArgumentList)
         throws $defaultException.name {
 #else
     /**
      * @see ${metafacade.fullyQualifiedName}#${operation.getSignature(false)}
      */
-    protected $returnTypeName ${handleMethodName}($typedArgumentList)
+    protected $returnTypeName ${operation.implementationName}()
     {
 #end
         // TODO: put your implementation here.
 #if ($operation.returnTypePresent)
-
-        // Dummy return value, just that the file compiles
-#if (!$operation.returnType.primitive)
-        return null;
-#elseif ("boolean" == $returnTypeName)
-        return false;
-#else
-        return ($returnTypeName)0;
-#end
+        return $operation.returnType.javaNullString;
 #end
     }
 
@@ -89,8 +69,6 @@ public class $metafacade.logicImplName
 #if ($associationEnd.otherEnd.navigable)
 #set ($memberTypeName = $associationEnd.otherEnd.getterSetterTypeName)
 #set ($methodName = $associationEnd.otherEnd.getterName)
-#set ($handleMethodName = "handle$stringUtils.capitalize($methodName)")
-#set ($typedArgumentList = "")
 #if ($associationEnd.otherEnd.many)
 #set ($returnTypeName = $associationEnd.otherEnd.getterSetterTypeName)
 #else
@@ -99,7 +77,7 @@ public class $metafacade.logicImplName
     /**
      * @see ${metafacade.fullyQualifiedName}#${associationEnd.otherEnd.getterName}()
      */
-    protected $returnTypeName ${handleMethodName}($typedArgumentList)
+    protected $returnTypeName ${associationEnd.implementationOperationName}()
     {
         // TODO: add your implementation here!
         return null;

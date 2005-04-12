@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.metafacades.uml.ClassifierFacade;
+
 /**
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
@@ -57,7 +59,9 @@ public class MethodData implements Comparable
     }
 
     /**
-     * @return
+     * Gets the metafacade name.
+     * 
+     * @return the name of the metafacade
      */
     public String getMetafacadeName()
     {
@@ -185,6 +189,18 @@ public class MethodData implements Comparable
     public String getDocumentation()
     {
         return documentation;
+    }
+    
+    /**
+     * Returns true if the passed in classifier name
+     * matches the name of the contained <code>metafacadeName</code>.
+     * 
+     * @param classifier the classifier to check
+     * @return true/false
+     */
+    public boolean matches(ClassifierFacade classifier)
+    {
+        return classifier != null && metafacadeName.equals(classifier.getFullyQualifiedName());
     }
 
     /**
