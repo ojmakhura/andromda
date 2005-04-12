@@ -42,8 +42,6 @@ public class MappingsTest
 
     private static final String NOT_MAPPED_2 = "datatype.String[]";
 
-    private static final String ARRAY_SUFFIX = "[]";
-
     public void testGetTo()
     {
         Mappings mappings1 = new Mappings();

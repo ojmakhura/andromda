@@ -237,7 +237,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
                 {
                     final Map methodDataMap = new HashMap();
                     ClassifierFacade metafacade = (ClassifierFacade)iterator.next();
-                    for (ClassifierFacade classifier = (ClassifierFacade)metafacade; classifier != null; 
+                    for (ClassifierFacade classifier = metafacade; classifier != null; 
                          classifier = (ClassifierFacade)classifier.getGeneralization())
                     {
                         this.getAllFeatures(methodDataMap, featureSet, (Metafacade)classifier);
