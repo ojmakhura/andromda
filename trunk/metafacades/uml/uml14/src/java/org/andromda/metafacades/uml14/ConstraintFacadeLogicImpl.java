@@ -1,12 +1,13 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.List;
+
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.translation.ocl.ExpressionKinds;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.List;
 
 /**
  * Metafacade implementation for org.andromda.metafacades.uml.ConstraintFacade.
@@ -32,7 +33,12 @@ public class ConstraintFacadeLogicImpl extends ConstraintFacadeLogic
      */
     public java.lang.String handleGetBody()
     {
-        return this.metaObject.getBody().getBody();
+        String body = null;
+        if (this.metaObject.getBody() != null)
+        {
+            body = this.metaObject.getBody().getBody();
+        }
+        return body;
     }
 
     // ------------- relations ------------------
@@ -56,7 +62,7 @@ public class ConstraintFacadeLogicImpl extends ConstraintFacadeLogic
      */
     public boolean handleIsInvariant()
     {
-        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.INV);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.INV);
     }
 
     /**
@@ -64,7 +70,7 @@ public class ConstraintFacadeLogicImpl extends ConstraintFacadeLogic
      */
     public boolean handleIsPreCondition()
     {
-        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.PRE);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.PRE);
     }
 
     /**
@@ -72,7 +78,7 @@ public class ConstraintFacadeLogicImpl extends ConstraintFacadeLogic
      */
     public boolean handleIsPostCondition()
     {
-        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.POST);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.POST);
     }
 
     /**
@@ -80,7 +86,7 @@ public class ConstraintFacadeLogicImpl extends ConstraintFacadeLogic
      */
     public boolean handleIsDefinition()
     {
-        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.DEF);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.DEF);
     }
 
     /**
@@ -88,7 +94,7 @@ public class ConstraintFacadeLogicImpl extends ConstraintFacadeLogic
      */
     public boolean handleIsBodyExpression()
     {
-        return UML14MetafacadeUtils.isConstraintKind(getBody(), ExpressionKinds.BODY);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.BODY);
     }
 
     /**

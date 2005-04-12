@@ -1,5 +1,10 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -25,13 +30,6 @@ import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.UmlPackage;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Utilities for dealing with UML 1.4 metafacades
@@ -255,21 +253,7 @@ public class UML14MetafacadeUtils
         }
         return (Stereotype) stereotype;
     }
-
-    /**
-     * Returns true if the passed in constraint <code>expression</code> is of type <code>kind</code>, false otherwise.
-     *
-     * @param expression the expression to check.
-     * @param kind       the constraint kind (i.e. <em>inv</em>,<em>pre</em>, <em>body</em>, etc).
-     * @return boolean
-     */
-    static boolean isConstraintKind(String expression, String kind)
-    {
-        Pattern pattern = Pattern.compile(".*\\s*" + StringUtils.trimToEmpty(kind) + "\\s*\\w*\\s*:.*", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(StringUtils.trimToEmpty(expression));
-        return matcher.matches();
-    }
-
+    
     /**
      * Returns the first use-case it can find with the given name.
      */

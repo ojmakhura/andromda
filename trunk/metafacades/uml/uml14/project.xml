@@ -36,12 +36,6 @@
     	</dependency>
     	<dependency>
     	    <groupId>${pom.groupId}</groupId>
-    	    <artifactId>andromda-ocl-translation-core</artifactId>
-    	    <version>${pom.currentVersion}</version>
-            <type>jar</type>
-    	</dependency> 
-    	<dependency>
-    	    <groupId>${pom.groupId}</groupId>
     	    <artifactId>andromda-ocl-validation-library</artifactId>
     	    <version>${pom.currentVersion}</version>
             <type>jar</type>
