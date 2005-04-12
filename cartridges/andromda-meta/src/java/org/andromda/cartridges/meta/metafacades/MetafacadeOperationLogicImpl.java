@@ -8,8 +8,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.meta.metafacades.MetafacadeOperation
  */
-public class MetafacadeOperationLogicImpl
-    extends MetafacadeOperationLogic
+public class MetafacadeOperationLogicImpl extends MetafacadeOperationLogic
 {
     // ---------------- constructor -------------------------------
 

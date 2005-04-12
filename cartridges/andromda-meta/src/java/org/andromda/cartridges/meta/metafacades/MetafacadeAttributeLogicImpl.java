@@ -8,8 +8,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.meta.metafacades.MetafacadeAttribute
  */
-public class MetafacadeAttributeLogicImpl
-    extends MetafacadeAttributeLogic
+public class MetafacadeAttributeLogicImpl extends MetafacadeAttributeLogic
 {
     // ---------------- constructor -------------------------------
 

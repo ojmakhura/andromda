@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.metafacades.uml.ClassifierFacade;
-
 /**
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
@@ -15,29 +13,31 @@ public class MethodData implements Comparable
 {
     private String metafacadeName;
     private String visibility;
-    private boolean abstract_;
+    private boolean isAbstract;
     private String name;
     private String returnTypeName;
-    private ArrayList arguments;
-    private ArrayList exceptions;
     private String documentation;
+    private final ArrayList arguments = new ArrayList();
+    private final ArrayList exceptions = new ArrayList();
 
-    public MethodData(String metafacadeName, String visibility, boolean isAbstract, String returnTypeName, String name,
+    public MethodData(String metafacadeName, 
+                      String visibility, 
+                      boolean isAbstract, 
+                      String returnTypeName, 
+                      String name,
                       String documentation)
     {
         this.metafacadeName = metafacadeName;
         this.visibility = visibility;
-        this.abstract_ = isAbstract;
+        this.isAbstract = isAbstract;
         this.name = name;
         this.returnTypeName = returnTypeName;
-        this.arguments = new ArrayList();
-        this.exceptions = new ArrayList();
         this.documentation = documentation;
     }
 
-    public void addArgument(ArgumentData arg)
+    public void addArgument(ArgumentData argument)
     {
-        arguments.add(arg);
+        arguments.add(argument);
     }
 
     /**
@@ -69,7 +69,9 @@ public class MethodData implements Comparable
     }
 
     /**
-     * @return
+     * Gets the name of the method.
+     * 
+     * @return the name.
      */
     public String getName()
     {
@@ -77,7 +79,9 @@ public class MethodData implements Comparable
     }
 
     /**
-     * @return
+     * Gets the name of the return type for this method.
+     * 
+     * @return the return type name.
      */
     public String getReturnTypeName()
     {
@@ -92,14 +96,14 @@ public class MethodData implements Comparable
      */
     public String buildMethodDeclaration(boolean suppressAbstractDeclaration)
     {
-        String declaration = visibility + " " + ((abstract_ && !suppressAbstractDeclaration) ? "abstract " : "") +
+        String declaration = visibility + " " + ((isAbstract && !suppressAbstractDeclaration) ? "abstract " : "") +
                 ((returnTypeName != null) ? returnTypeName + " " : "") + name + "(";
 
-        for (Iterator it = arguments.iterator(); it.hasNext();)
+        for (final Iterator iterator = arguments.iterator(); iterator.hasNext();)
         {
-            ArgumentData ad = (ArgumentData) it.next();
-            declaration += ad.getFullyQualifiedTypeName() + " " + ad.getName();
-            if (it.hasNext())
+            final ArgumentData argument = (ArgumentData)iterator.next();
+            declaration += argument.getFullyQualifiedTypeName() + " " + argument.getName();
+            if (iterator.hasNext())
             {
                 declaration += ", ";
             }
@@ -109,11 +113,11 @@ public class MethodData implements Comparable
         if (exceptions.size() > 0)
         {
             declaration += " throws ";
-            for (Iterator iter = exceptions.iterator(); iter.hasNext();)
+            for (final Iterator iterator = exceptions.iterator(); iterator.hasNext();)
             {
-                String exc = (String) iter.next();
-                declaration += exc;
-                if (iter.hasNext())
+                String exception = (String)iterator.next();
+                declaration += exception;
+                if (iterator.hasNext())
                 {
                     declaration += ", ";
                 }
@@ -132,11 +136,11 @@ public class MethodData implements Comparable
     {
         String call = getName() + "(";
 
-        for (Iterator it = arguments.iterator(); it.hasNext();)
+        for (final Iterator iterator = arguments.iterator(); iterator.hasNext();)
         {
-            ArgumentData ad = (ArgumentData) it.next();
-            call += ad.getName();
-            if (it.hasNext())
+            final ArgumentData argument = (ArgumentData) iterator.next();
+            call += argument.getName();
+            if (iterator.hasNext())
                 call += ", ";
         }
         call += ")";
@@ -153,11 +157,11 @@ public class MethodData implements Comparable
     {
         String key = ((returnTypeName != null) ? returnTypeName + " " : "") + name + "(";
 
-        for (Iterator it = arguments.iterator(); it.hasNext();)
+        for (Iterator iterator = arguments.iterator(); iterator.hasNext();)
         {
-            ArgumentData ad = (ArgumentData) it.next();
-            key += ad.getFullyQualifiedTypeName();
-            if (it.hasNext())
+            final ArgumentData argument = (ArgumentData) iterator.next();
+            key += argument.getFullyQualifiedTypeName();
+            if (iterator.hasNext())
             {
                 key += ",";
             }
@@ -168,15 +172,19 @@ public class MethodData implements Comparable
     }
 
     /**
-     * @return
+     * Indicates whether or not this method is abstract.
+     * 
+     * @return true/false
      */
     public boolean isAbstract()
     {
-        return abstract_;
+        return isAbstract;
     }
 
     /**
-     * @return
+     * Gets the visibility of this method.
+     * 
+     * @return the visibility.
      */
     public String getVisibility()
     {
@@ -184,33 +192,15 @@ public class MethodData implements Comparable
     }
 
     /**
-     * @return
+     * Gets the documentation for this method.
+     * 
+     * @return the documentation.
      */
     public String getDocumentation()
     {
         return documentation;
     }
     
-    /**
-     * Returns true if the passed in classifier name
-     * matches the name of the contained <code>metafacadeName</code>.
-     * 
-     * @param classifier the classifier to check
-     * @return true/false
-     */
-    public boolean matches(ClassifierFacade classifier)
-    {
-        return classifier != null && metafacadeName.equals(classifier.getFullyQualifiedName());
-    }
-
-    /**
-     * @param string
-     */
-    public void setDocumentation(String string)
-    {
-        documentation = string;
-    }
-
     /**
      * Tells if this method returns something.
      *
@@ -224,11 +214,11 @@ public class MethodData implements Comparable
     /**
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
-    public int compareTo(Object o)
+    public int compareTo(final Object object)
     {
-        MethodData otherMd = (MethodData) o;
-        int result = getMetafacadeName().compareTo(otherMd.getMetafacadeName());
-        return result != 0 ? result : getName().compareTo(otherMd.getName());
+        MethodData other = (MethodData) object;
+        int result = getMetafacadeName().compareTo(other.getMetafacadeName());
+        return result != 0 ? result : getName().compareTo(other.getName());
     }
 
 }
