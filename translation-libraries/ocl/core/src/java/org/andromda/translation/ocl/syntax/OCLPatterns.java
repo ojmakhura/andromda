@@ -1,7 +1,6 @@
 package org.andromda.translation.ocl.syntax;
 
 import org.andromda.core.translation.TranslationUtils;
-import org.apache.log4j.Logger;
 
 /**
  * Contains the patterns matching constructs within the OCL language.
@@ -45,8 +44,6 @@ public class OCLPatterns
     }
 
     private static final String COLLECTION_CALL = ".+->.+";
-
-    private static final Logger logger = Logger.getLogger(OCLPatterns.class);
 
     /**
      * Indicates if this <code>expression</code> is a collection operation result navigational path
