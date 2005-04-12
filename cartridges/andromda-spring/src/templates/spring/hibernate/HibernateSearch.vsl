@@ -149,10 +149,7 @@ public class ${criteriaSearchBaseName}
             return (parameter.isSearchIfIsNull()
                     || (stringParameterValue != null && stringParameterValue.length() > 0));
         }
-        else
-        {
-            return (parameter.isSearchIfIsNull() || (parameter.getParameterValue() != null));
-        }
+        return (parameter.isSearchIfIsNull() || (parameter.getParameterValue() != null));
     }
 
     /**
@@ -248,16 +245,13 @@ public class ${criteriaSearchBaseName}
         {
             return (net.sf.hibernate.Criteria) childCriteriaMap.get(childEntityName);
         }
-        else
+        net.sf.hibernate.Criteria childCriteria = parentCriteria.createCriteria(childEntityName);
+        if (configuration.isForceEagerLoading())
         {
-            net.sf.hibernate.Criteria childCriteria = parentCriteria.createCriteria(childEntityName);
-            if (configuration.isForceEagerLoading())
-            {
-                parentCriteria.setFetchMode(childEntityName, net.sf.hibernate.FetchMode.EAGER);
-            }
-            childCriteriaMap.put(childEntityName, childCriteria);
-            return childCriteria;
+            parentCriteria.setFetchMode(childEntityName, net.sf.hibernate.FetchMode.EAGER);
         }
+        childCriteriaMap.put(childEntityName, childCriteria);
+        return childCriteria;
     }
 
     /**
