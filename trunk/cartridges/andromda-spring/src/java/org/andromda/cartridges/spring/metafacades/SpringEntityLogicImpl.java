@@ -266,8 +266,7 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
     protected boolean handleIsDaoImplementationRequired()
     {
         return !this.getValueObjectReferences().isEmpty() || !this.getDaoBusinessOperations().isEmpty() || !this.getQueryOperations(
-                true)
-                .isEmpty();
+                true).isEmpty();
     }
 
     /**
