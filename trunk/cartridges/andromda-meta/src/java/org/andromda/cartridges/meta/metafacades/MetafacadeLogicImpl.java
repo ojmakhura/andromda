@@ -25,8 +25,7 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @see org.andromda.cartridges.meta.metafacades.Metafacade
  */
-public class MetafacadeLogicImpl
-    extends MetafacadeLogic
+public class MetafacadeLogicImpl extends MetafacadeLogic
 {
     // ---------------- constructor -------------------------------
 

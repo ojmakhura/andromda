@@ -8,8 +8,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.meta.metafacades.MetafacadeAssociationEnd
  */
-public class MetafacadeAssociationEndLogicImpl
-    extends MetafacadeAssociationEndLogic
+public class MetafacadeAssociationEndLogicImpl extends MetafacadeAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 
