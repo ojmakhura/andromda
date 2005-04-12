@@ -10,7 +10,6 @@
     </mapping>
     <mapping>
         <from>datatype::Date</from>
-        <from>datatype::DateTime</from>
         <to>TIMESTAMP(3)</to>
     </mapping>
     <mapping>
@@ -19,6 +18,7 @@
     </mapping>
     <mapping>
         <from>datatype::Timestamp</from>
+        <from>datatype::DateTime</from>
         <to>TIMESTAMP(9)</to>
     </mapping>
     <mapping>
