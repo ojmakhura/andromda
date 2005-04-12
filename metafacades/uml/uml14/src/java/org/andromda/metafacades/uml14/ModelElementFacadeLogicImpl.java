@@ -1,5 +1,9 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.common.DocumentationAnalyzer;
 import org.andromda.core.common.Paragraph;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -10,6 +14,7 @@ import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.translation.ocl.ExpressionKinds;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,10 +27,6 @@ import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
@@ -542,14 +543,16 @@ public class ModelElementFacadeLogicImpl extends ModelElementFacadeLogic
     {
         final Collection filteredConstraints = CollectionUtils.select(getConstraints(), new Predicate()
         {
-            public boolean evaluate(Object o)
+            public boolean evaluate(Object object)
             {
-                if (o instanceof ConstraintFacade)
+                if (object instanceof ConstraintFacade)
                 {
-                    ConstraintFacade constraint = (ConstraintFacade) o;
-                    return ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) || (ExpressionKinds.DEF.equals(
-                            kind) && constraint.isDefinition()) || (ExpressionKinds.INV.equals(kind) && constraint.isInvariant()) || (ExpressionKinds.PRE.equals(
-                                    kind) && constraint.isPreCondition()) || (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()));
+                    ConstraintFacade constraint = (ConstraintFacade)object;
+                    return ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) 
+                        || (ExpressionKinds.DEF.equals(kind) && constraint.isDefinition()) 
+                        || (ExpressionKinds.INV.equals(kind) && constraint.isInvariant()) 
+                        || (ExpressionKinds.PRE.equals(kind) && constraint.isPreCondition()) 
+                        || (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()));
                 }
                 return false;
             }
@@ -622,7 +625,7 @@ public class ModelElementFacadeLogicImpl extends ModelElementFacadeLogic
             public boolean evaluate(Object object)
             {
                 ConstraintFacade constraint = (ConstraintFacade) object;
-                return UML14MetafacadeUtils.isConstraintKind(constraint.getBody(), kind);
+                return UMLMetafacadeUtils.isConstraintKind(constraint.getBody(), kind);
             }
         });
         return this.translateConstraints(constraints, translation);
