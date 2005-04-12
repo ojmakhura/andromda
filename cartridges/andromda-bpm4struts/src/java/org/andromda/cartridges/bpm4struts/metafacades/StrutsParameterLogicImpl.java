@@ -1,20 +1,9 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,6 +11,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -1222,7 +1223,7 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
     {
         return getValidatorTypes().isEmpty() == false;
     }
-
+    
     protected String getValidatorFormat()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
@@ -1261,7 +1262,7 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
 
             if (isRangeFormat)
             {
-                if (isValidatorInteger()) validatorTypesList.add("intRange");
+                if (isValidatorInteger() || isValidatorShort() || isValidatorLong()) validatorTypesList.add("intRange");
                 if (isValidatorFloat()) validatorTypesList.add("floatRange");
                 if (isValidatorDouble()) validatorTypesList.add("doubleRange");
             }
@@ -1363,6 +1364,9 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
      */
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
+     */
     protected java.util.Collection handleGetValidatorVars()
     {
         final Map vars = new HashMap();
@@ -1375,10 +1379,10 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
             {
                 final boolean isRangeFormat = isRangeFormat(format);
 
-                if (isRangeFormat && (isValidatorInteger() || isValidatorFloat() || isValidatorDouble()))
+                if (isRangeFormat)
                 {
-                    vars.put("min", Arrays.asList(new Object[]{"min", getRangeStart(format)}));
-                    vars.put("max", Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+                    vars.put("min",Arrays.asList(new Object[]{"min", getRangeStart(format)}));
+                    vars.put("max",Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
                 }
                 else if (isValidatorString())
                 {
@@ -1387,13 +1391,11 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
                     {
                         String additionalFormat = String.valueOf(formatIterator.next());
                         if (isMinLengthFormat(additionalFormat))
-                            vars.put("minlength",
-                                    Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
+                            vars.put("minlength",Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
                         else if (isMaxLengthFormat(additionalFormat))
-                            vars.put("maxlength",
-                                    Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
+                            vars.put("maxlength",Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
                         else if (isPatternFormat(additionalFormat))
-                            vars.put("mask", Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
+                            vars.put("mask",Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
                     }
                 }
             }
@@ -1405,7 +1407,7 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
                 }
                 else
                 {
-                    vars.put("datePattern", Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
+                    vars.put("datePattern",Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
                 }
             }
 
@@ -1432,7 +1434,7 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
                 String validatorVar = (String) validatorVars.get(i);
                 String validatorArg = (String) validatorArgs.get(i);
 
-                vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar, validatorArg}));
+                vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar,validatorArg}));
             }
         }
 
@@ -1539,106 +1541,59 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
         return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(getWidgetType());
     }
 
-    /**
-     * Returns true if this parameter's fully qualified name equals the argument type name.
-     */
-    private boolean isSpecificType(final String mappedType)
-    {
-        boolean specificType = false;
-
-        if (mappedType != null)
-        {
-            final ClassifierFacade type = getType();
-            if (type != null)
-            {
-                specificType = mappedType.equals(type.getFullyQualifiedName());
-            }
-        }
-
-        return specificType;
-    }
-
-    /**
-     * Returns true if this parameter's type is a descendant of the argument class.
-     */
-    private boolean isSpecificType(final Class ancestorType)
-    {
-        boolean specificType = false;
-
-        final ClassifierFacade type = getType();
-        if (type != null && ancestorType != null)
-        {
-            final String mappedType = type.getFullyQualifiedName();
-            if (mappedType != null)
-            {
-                try
-                {
-                    final Class mappedClass = Class.forName(mappedType);
-                    specificType = ancestorType.isAssignableFrom(mappedClass);
-                }
-                catch (ClassNotFoundException e)
-                {
-                    specificType = false;
-                }
-            }
-        }
-
-        return specificType;
-    }
-
     private boolean isValidatorBoolean()
     {
-        return isSpecificType("java.lang.Boolean") || isSpecificType("boolean");
+        return UMLMetafacadeUtils.isType(this.getType(), UMLProfile.BOOLEAN_TYPE_NAME);
     }
 
     private boolean isValidatorChar()
     {
-        return isSpecificType("java.lang.Character") || isSpecificType("char");
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.CHARACTER_TYPE_NAME);
     }
 
     private boolean isValidatorByte()
     {
-        return isSpecificType("java.lang.Byte") || isSpecificType("byte");
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.BYTE_TYPE_NAME);
     }
 
     private boolean isValidatorShort()
     {
-        return isSpecificType("java.lang.Short") || isSpecificType("short");
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.SHORT_TYPE_NAME);
     }
 
     private boolean isValidatorInteger()
     {
-        return isSpecificType("java.lang.Integer") || isSpecificType("int");
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.INTEGER_TYPE_NAME);
     }
 
     private boolean isValidatorLong()
     {
-        return isSpecificType("java.lang.Long") || isSpecificType("long");
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.LONG_TYPE_NAME);
     }
 
     private boolean isValidatorFloat()
     {
-        return isSpecificType("java.lang.Float") || isSpecificType("float");
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.FLOAT_TYPE_NAME);
     }
 
     private boolean isValidatorDouble()
     {
-        return isSpecificType("java.lang.Double") || isSpecificType("double");
-    }
-
-    private boolean isValidatorUrl()
-    {
-        return isSpecificType("java.net.URL");
-    }
-
-    private boolean isValidatorString()
-    {
-        return isSpecificType("java.lang.String");
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.DOUBLE_TYPE_NAME);
     }
 
     private boolean isValidatorDate()
     {
-        return isSpecificType(Date.class);
+        return this.getType() != null ? this.getType().isDateType() : false;
+    }
+
+    private boolean isValidatorUrl()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.URL_TYPE_NAME);
+    }
+
+    private boolean isValidatorString()
+    {
+        return this.getType() != null ? this.getType().isStringType() : false;
     }
 
     private boolean isEmailFormat(String format)
@@ -1653,7 +1608,9 @@ public class StrutsParameterLogicImpl extends StrutsParameterLogic
 
     private boolean isRangeFormat(String format)
     {
-        return "range".equalsIgnoreCase(getToken(format, 0, 2));
+        return "range".equalsIgnoreCase(getToken(format, 0, 2))
+            && (isValidatorInteger() || isValidatorLong() || isValidatorShort() || isValidatorFloat() || isValidatorDouble());
+
     }
 
     private boolean isPatternFormat(String format)
