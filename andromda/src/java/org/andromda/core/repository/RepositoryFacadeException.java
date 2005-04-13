@@ -6,7 +6,8 @@ package org.andromda.core.repository;
  * @author <A HREF="http://www.amowers.com">Anthony Mowers </A>
  * @author Chad Brandon
  */
-public final class RepositoryFacadeException extends RuntimeException
+public final class RepositoryFacadeException
+        extends RuntimeException
 {
     /**
      * Constructor for the MetaDataReadException object

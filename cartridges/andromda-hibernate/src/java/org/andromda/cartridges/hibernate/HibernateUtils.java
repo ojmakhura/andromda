@@ -29,7 +29,7 @@ public class HibernateUtils
             {
                 if (object != null && Service.class.isAssignableFrom(object.getClass()))
                 {
-                    allRoles.addAll(((Service) object).getAllRoles());
+                    allRoles.addAll(((Service)object).getAllRoles());
                 }
             }
         });

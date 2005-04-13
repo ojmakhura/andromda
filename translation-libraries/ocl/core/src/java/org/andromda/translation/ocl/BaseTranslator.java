@@ -41,7 +41,9 @@ import java.util.Map;
  *
  * @author Chad Brandon
  */
-public abstract class BaseTranslator extends DepthFirstAdapter implements Translator
+public abstract class BaseTranslator
+        extends DepthFirstAdapter
+        implements Translator
 {
 
     /**
@@ -246,7 +248,14 @@ public abstract class BaseTranslator extends DepthFirstAdapter implements Transl
         }
         catch (Exception ex)
         {
-            String errMsg = "Error translating with translation '" + translationName + "'," + " contextElement '" + contextElement + "' and expression --> '" + expression + "'" + "\nMESSAGE --> '" + ex.getMessage() + "'";
+            String errMsg = "Error translating with translation '" + translationName + "'," + " contextElement '" +
+                    contextElement +
+                    "' and expression --> '" +
+                    expression +
+                    "'" +
+                    "\nMESSAGE --> '" +
+                    ex.getMessage() +
+                    "'";
             logger.error(errMsg);
             throw new TranslatorException(errMsg, ex);
         }

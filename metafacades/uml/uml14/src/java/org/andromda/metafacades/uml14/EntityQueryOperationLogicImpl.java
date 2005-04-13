@@ -6,7 +6,8 @@ import org.andromda.translation.ocl.ExpressionKinds;
 /**
  * Metaclass facade implementation.
  */
-public class EntityQueryOperationLogicImpl extends EntityQueryOperationLogic
+public class EntityQueryOperationLogicImpl
+        extends EntityQueryOperationLogic
 {
     // ---------------- constructor -------------------------------
 

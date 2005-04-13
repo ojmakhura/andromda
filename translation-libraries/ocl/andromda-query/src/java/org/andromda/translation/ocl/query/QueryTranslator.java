@@ -20,7 +20,8 @@ import java.util.List;
  *
  * @author Chad Brandon
  */
-public class QueryTranslator extends BaseTranslator
+public class QueryTranslator
+        extends BaseTranslator
 {
 
     /**
@@ -224,7 +225,7 @@ public class QueryTranslator extends BaseTranslator
 
     public void handleSubSelect(String translation, Object node)
     {
-        APropertyCallExpression propertyCallExpression = (APropertyCallExpression) node;
+        APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
 
         String primaryExpression = ConcreteSyntaxUtils.getPrimaryExpression(propertyCallExpression);
 
@@ -238,10 +239,10 @@ public class QueryTranslator extends BaseTranslator
 
     public void handleIsLike(String translation, Object node)
     {
-        APropertyCallExpression propertyCallExpression = (APropertyCallExpression) node;
+        APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         List featureCalls = ConcreteSyntaxUtils.getFeatureCalls(propertyCallExpression);
 
-        List params = params = ConcreteSyntaxUtils.getParameters((AFeatureCall) featureCalls.get(0));
+        List params = params = ConcreteSyntaxUtils.getParameters((AFeatureCall)featureCalls.get(0));
 
         translation = this.replaceFragment(translation, TranslationUtils.deleteWhitespace(params.get(0)), 0);
         translation = this.replaceFragment(translation, TranslationUtils.deleteWhitespace(params.get(1)), 1);
@@ -260,13 +261,13 @@ public class QueryTranslator extends BaseTranslator
 
     public void handleIncludes(String translation, Object node)
     {
-        APropertyCallExpression propertyCallExpression = (APropertyCallExpression) node;
+        APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         List featureCalls = ConcreteSyntaxUtils.getFeatureCalls(propertyCallExpression);
 
         // since the parameters can only be either dotFeatureCall or
         // arrowFeatureCall we try one or the other.
         String parameters = StringUtils.deleteWhitespace(ConcreteSyntaxUtils.getParametersAsString(
-                (AFeatureCall) featureCalls.get(0)));
+                (AFeatureCall)featureCalls.get(0)));
 
         String primaryExpression = ConcreteSyntaxUtils.getPrimaryExpression(propertyCallExpression);
 
@@ -279,7 +280,7 @@ public class QueryTranslator extends BaseTranslator
 
     public void handleDotOperation(String translation, Object node)
     {
-        APropertyCallExpression propertyCallExpression = (APropertyCallExpression) node;
+        APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         String firstArgument = ConcreteSyntaxUtils.getPrimaryExpression(propertyCallExpression);
         translation = this.replaceFragment(translation, firstArgument, 0);
         List featureCalls = ConcreteSyntaxUtils.getFeatureCalls(propertyCallExpression);
@@ -290,7 +291,7 @@ public class QueryTranslator extends BaseTranslator
             // all parameters in the translated expression
             for (Iterator callIterator = featureCalls.iterator(); callIterator.hasNext();)
             {
-                AFeatureCall featureCall = (AFeatureCall) callIterator.next();
+                AFeatureCall featureCall = (AFeatureCall)callIterator.next();
 
                 if (TranslationUtils.trimToEmpty(featureCall).matches(OCLPatterns.OPERATION_FEATURE_CALL))
                 {
@@ -300,7 +301,7 @@ public class QueryTranslator extends BaseTranslator
                         Iterator parameterIterator = parameters.iterator();
                         for (int ctr = 1; parameterIterator.hasNext(); ctr++)
                         {
-                            translation = this.replaceFragment(translation, (String) parameterIterator.next(), ctr);
+                            translation = this.replaceFragment(translation, (String)parameterIterator.next(), ctr);
                         }
                     }
                     break;
@@ -320,7 +321,7 @@ public class QueryTranslator extends BaseTranslator
             this.sortedByClause.append(", ");
         }
         this.sortedByClause.append(TranslationUtils.deleteWhitespace(ConcreteSyntaxUtils.getParametersAsString(
-                (AFeatureCall) node)));
+                (AFeatureCall)node)));
     }
 
     /*------------------------- Logical Expression Handler (and, or, xor, etc.) ----------------------*/
@@ -335,9 +336,10 @@ public class QueryTranslator extends BaseTranslator
 
     public void handleRelationalExpression(String translation, Object node)
     {
-        ARelationalExpressionTail relationalExpressionTail = (ARelationalExpressionTail) node;
+        ARelationalExpressionTail relationalExpressionTail = (ARelationalExpressionTail)node;
 
-        String[] leftAndRightExpressions = ConcreteSyntaxUtils.getLeftAndRightExpressions((PRelationalExpression) relationalExpressionTail.parent());
+        String[] leftAndRightExpressions = ConcreteSyntaxUtils.getLeftAndRightExpressions(
+                (PRelationalExpression)relationalExpressionTail.parent());
         String leftExpression = StringUtils.deleteWhitespace(leftAndRightExpressions[0]);
         String rightExpression = StringUtils.deleteWhitespace(leftAndRightExpressions[1]);
         if (leftExpression.matches(OCLPatterns.OPERATION_FEATURE_CALL))

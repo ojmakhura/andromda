@@ -7,7 +7,8 @@ import java.util.Collection;
  *
  * @see org.andromda.metafacades.uml.StateVertexFacade
  */
-public class StateVertexFacadeLogicImpl extends StateVertexFacadeLogic
+public class StateVertexFacadeLogicImpl
+        extends StateVertexFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

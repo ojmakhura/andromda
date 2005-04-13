@@ -7,7 +7,8 @@ import org.andromda.cartridges.xmlschema.XmlSchemaProfile;
  *
  * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute
  */
-public class XSDAttributeLogicImpl extends XSDAttributeLogic
+public class XSDAttributeLogicImpl
+        extends XSDAttributeLogic
 {
     // ---------------- constructor -------------------------------
 

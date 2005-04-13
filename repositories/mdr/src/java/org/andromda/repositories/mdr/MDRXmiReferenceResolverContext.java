@@ -22,7 +22,8 @@ import java.util.HashMap;
  * @author Matthias Bohlen
  * @author Chad Brandon
  */
-public class MDRXmiReferenceResolverContext extends XmiContext
+public class MDRXmiReferenceResolverContext
+        extends XmiContext
 {
     private String[] moduleSearchPath;
 
@@ -56,7 +57,7 @@ public class MDRXmiReferenceResolverContext extends XmiContext
         // the suffix without it and store it in the urlMap
         String exts = "\\.jar|\\.zip";
         String suffixWithExt = suffix.replaceAll(exts, "");
-        URL modelUrl = (URL) urlMap.get(suffixWithExt);
+        URL modelUrl = (URL)urlMap.get(suffixWithExt);
 
         // Several tries to construct a URL that really exists.
         if (modelUrl == null)

@@ -9,7 +9,8 @@ import java.util.Iterator;
  * @author Chad Brandon
  * @since 10.12.2003
  */
-public class MethodData implements Comparable
+public class MethodData
+        implements Comparable
 {
     private String metafacadeName;
     private String visibility;
@@ -20,11 +21,7 @@ public class MethodData implements Comparable
     private final ArrayList arguments = new ArrayList();
     private final ArrayList exceptions = new ArrayList();
 
-    public MethodData(String metafacadeName, 
-                      String visibility, 
-                      boolean isAbstract, 
-                      String returnTypeName, 
-                      String name,
+    public MethodData(String metafacadeName, String visibility, boolean isAbstract, String returnTypeName, String name,
                       String documentation)
     {
         this.metafacadeName = metafacadeName;
@@ -60,7 +57,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the metafacade name.
-     * 
+     *
      * @return the name of the metafacade
      */
     public String getMetafacadeName()
@@ -70,7 +67,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the name of the method.
-     * 
+     *
      * @return the name.
      */
     public String getName()
@@ -80,7 +77,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the name of the return type for this method.
-     * 
+     *
      * @return the return type name.
      */
     public String getReturnTypeName()
@@ -138,7 +135,7 @@ public class MethodData implements Comparable
 
         for (final Iterator iterator = arguments.iterator(); iterator.hasNext();)
         {
-            final ArgumentData argument = (ArgumentData) iterator.next();
+            final ArgumentData argument = (ArgumentData)iterator.next();
             call += argument.getName();
             if (iterator.hasNext())
                 call += ", ";
@@ -159,7 +156,7 @@ public class MethodData implements Comparable
 
         for (Iterator iterator = arguments.iterator(); iterator.hasNext();)
         {
-            final ArgumentData argument = (ArgumentData) iterator.next();
+            final ArgumentData argument = (ArgumentData)iterator.next();
             key += argument.getFullyQualifiedTypeName();
             if (iterator.hasNext())
             {
@@ -173,7 +170,7 @@ public class MethodData implements Comparable
 
     /**
      * Indicates whether or not this method is abstract.
-     * 
+     *
      * @return true/false
      */
     public boolean isAbstract()
@@ -183,7 +180,7 @@ public class MethodData implements Comparable
 
     /**
      * Gets the visibility of this method.
-     * 
+     *
      * @return the visibility.
      */
     public String getVisibility()
@@ -193,14 +190,14 @@ public class MethodData implements Comparable
 
     /**
      * Gets the documentation for this method.
-     * 
+     *
      * @return the documentation.
      */
     public String getDocumentation()
     {
         return documentation;
     }
-    
+
     /**
      * Tells if this method returns something.
      *
@@ -216,7 +213,7 @@ public class MethodData implements Comparable
      */
     public int compareTo(final Object object)
     {
-        MethodData other = (MethodData) object;
+        MethodData other = (MethodData)object;
         int result = getMetafacadeName().compareTo(other.getMetafacadeName());
         return result != 0 ? result : getName().compareTo(other.getName());
     }

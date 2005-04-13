@@ -5,7 +5,8 @@ package org.andromda.translation.ocl.validation;
  *
  * @author Chad Brandon
  */
-public class OCLIntrospectorException extends RuntimeException
+public class OCLIntrospectorException
+        extends RuntimeException
 {
 
     /**

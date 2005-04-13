@@ -15,7 +15,8 @@ import java.util.Iterator;
 /**
  * Metaclass facade implementation.
  */
-public class ParameterFacadeLogicImpl extends ParameterFacadeLogic
+public class ParameterFacadeLogicImpl
+        extends ParameterFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -93,7 +94,7 @@ public class ParameterFacadeLogicImpl extends ParameterFacadeLogic
         Collection allOperations = UML14MetafacadeUtils.getModel().getCore().getOperation().refAllOfType();
         for (Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation == null;)
         {
-            Operation operation = (Operation) iterator.next();
+            Operation operation = (Operation)iterator.next();
             if (operation.getParameter().contains(metaObject))
             {
                 parameterOperation = operation;
@@ -111,7 +112,7 @@ public class ParameterFacadeLogicImpl extends ParameterFacadeLogic
         Collection allSignalEvents = UML14MetafacadeUtils.getModel().getStateMachines().getSignalEvent().refAllOfType();
         for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext() && parameterSignalEvent == null;)
         {
-            SignalEvent signalEvent = (SignalEvent) iterator.next();
+            SignalEvent signalEvent = (SignalEvent)iterator.next();
             if (signalEvent.getParameter().contains(metaObject))
             {
                 parameterSignalEvent = signalEvent;

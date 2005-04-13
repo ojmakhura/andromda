@@ -4,11 +4,11 @@ import junit.framework.TestCase;
 
 /**
  * Tests {@link OCLPatterns}
- * 
+ *
  * @author Chad Brandon
  */
 public class OCLPatternsTest
-    extends TestCase
+        extends TestCase
 {
     public void testIsCollectionOperationResultNavigationalPath()
     {

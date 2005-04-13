@@ -144,7 +144,7 @@ public class MetafacadeFactory
         // if the mappingObject is REALLY a metafacade, just return it
         if (MetafacadeBase.class.isAssignableFrom(mappingObject.getClass()))
         {
-            return (MetafacadeBase) mappingObject;
+            return (MetafacadeBase)mappingObject;
         }
         try
         {
@@ -199,7 +199,10 @@ public class MetafacadeFactory
         }
         catch (Throwable th)
         {
-            String errMsg = "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" + mappingObject.getClass() + "'";
+            String errMsg = "Failed to construct a meta facade of type '" + metafacadeClass +
+                    "' with mappingObject of type --> '" +
+                    mappingObject.getClass() +
+                    "'";
             this.getLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
         }
@@ -221,7 +224,10 @@ public class MetafacadeFactory
         }
         catch (Throwable th)
         {
-            String errMsg = "Failed to construct a meta facade of type '" + mapping.getMetafacadeClass() + "' with mappingObject of type --> '" + mapping.getMappingClassName() + "'";
+            String errMsg = "Failed to construct a meta facade of type '" + mapping.getMetafacadeClass() +
+                    "' with mappingObject of type --> '" +
+                    mapping.getMappingClassName() +
+                    "'";
             this.getLogger().error(errMsg);
             throw new MetafacadeFactoryException(errMsg, th);
         }
@@ -328,8 +334,8 @@ public class MetafacadeFactory
         }
         catch (Throwable th)
         {
-            String errMsg = "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" + mappingObject.getClass()
-                    .getName() + "'";
+            String errMsg = "Failed to construct a meta facade of type '" + metafacadeClass +
+                    "' with mappingObject of type --> '" + mappingObject.getClass().getName() + "'";
             this.getLogger().error(errMsg, th);
             throw new MetafacadeFactoryException(errMsg, th);
         }
@@ -350,12 +356,12 @@ public class MetafacadeFactory
         Iterator referenceIt = propertyReferences.keySet().iterator();
         while (referenceIt.hasNext())
         {
-            String reference = (String) referenceIt.next();
+            String reference = (String)referenceIt.next();
             // ensure that each property is only set once per context
             // for performance reasons
             if (!this.isPropertyRegistered(metafacade.getPropertyNamespace(), reference))
             {
-                String defaultValue = (String) propertyReferences.get(reference);
+                String defaultValue = (String)propertyReferences.get(reference);
 
                 // if we have a default value, then don't warn
                 // that we don't have a property, otherwise we'll
@@ -374,7 +380,11 @@ public class MetafacadeFactory
                 {
                     String value = property.getValue();
                     if (this.getLogger().isDebugEnabled())
-                        this.getLogger().debug("setting context property '" + reference + "' with value '" + value + "' for namespace '" + this.getActiveNamespace() + "'");
+                        this.getLogger().debug(
+                                "setting context property '" + reference + "' with value '" + value +
+                                "' for namespace '" +
+                                this.getActiveNamespace() +
+                                "'");
 
                     if (value != null)
                     {
@@ -469,7 +479,7 @@ public class MetafacadeFactory
         ExceptionUtils.checkEmpty(methodName, "name", name);
         ExceptionUtils.checkNull(methodName, "value", value);
 
-        Map propertyNamespace = (Map) this.registeredProperties.get(namespace);
+        Map propertyNamespace = (Map)this.registeredProperties.get(namespace);
         if (propertyNamespace != null)
         {
             propertyNamespace.put(name, value);
@@ -505,7 +515,7 @@ public class MetafacadeFactory
     private Object findProperty(final String namespace, final String name)
     {
         Object property = null;
-        Map propertyNamespace = (Map) registeredProperties.get(namespace);
+        Map propertyNamespace = (Map)registeredProperties.get(namespace);
         if (propertyNamespace != null)
         {
             property = propertyNamespace.get(name);
@@ -526,7 +536,8 @@ public class MetafacadeFactory
         Object registeredProperty = this.findProperty(namespace, name);
         if (registeredProperty == null)
         {
-            throw new MetafacadeFactoryException(methodName + " - no property '" + name + "' registered under namespace --> '" + namespace + "'");
+            throw new MetafacadeFactoryException(
+                    methodName + " - no property '" + name + "' registered under namespace --> '" + namespace + "'");
         }
         return registeredProperty;
     }

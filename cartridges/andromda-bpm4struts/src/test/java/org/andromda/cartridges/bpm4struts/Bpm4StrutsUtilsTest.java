@@ -4,7 +4,8 @@ import junit.framework.TestCase;
 
 import java.util.Arrays;
 
-public class Bpm4StrutsUtilsTest extends TestCase
+public class Bpm4StrutsUtilsTest
+        extends TestCase
 {
     public Bpm4StrutsUtilsTest(String name)
     {
@@ -21,8 +22,8 @@ public class Bpm4StrutsUtilsTest extends TestCase
         for (int i = 0; i < fixture.length; i++)
         {
             Object[] objects = fixture[i];
-            assertTrue(Arrays.equals(Bpm4StrutsUtils.parseValidatorArgs((String) objects[0]).toArray(),
-                    (Object[]) objects[1]));
+            assertTrue(Arrays.equals(Bpm4StrutsUtils.parseValidatorArgs((String)objects[0]).toArray(),
+                    (Object[])objects[1]));
         }
     }
 
@@ -35,8 +36,8 @@ public class Bpm4StrutsUtilsTest extends TestCase
         for (int i = 0; i < fixture.length; i++)
         {
             Object[] objects = fixture[i];
-            assertTrue(Arrays.equals(Bpm4StrutsUtils.parseValidatorVars((String) objects[0]).toArray(),
-                    (Object[]) objects[1]));
+            assertTrue(Arrays.equals(Bpm4StrutsUtils.parseValidatorVars((String)objects[0]).toArray(),
+                    (Object[])objects[1]));
         }
     }
 

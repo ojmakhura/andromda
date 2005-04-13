@@ -7,7 +7,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateService
  */
-public class HibernateServiceLogicImpl extends HibernateServiceLogic
+public class HibernateServiceLogicImpl
+        extends HibernateServiceLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -49,7 +50,7 @@ public class HibernateServiceLogicImpl extends HibernateServiceLogic
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String) this.getConfiguredProperty("ejbJndiNamePrefix");
+        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
     }
 
     /**

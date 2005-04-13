@@ -6,7 +6,8 @@ import org.andromda.translation.ocl.ExpressionKinds;
 /**
  * @author Chad Brandon
  */
-public class UMLMetafacadeUtilsTest extends TestCase
+public class UMLMetafacadeUtilsTest
+        extends TestCase
 {
     public void testIsConstraintKind()
     {

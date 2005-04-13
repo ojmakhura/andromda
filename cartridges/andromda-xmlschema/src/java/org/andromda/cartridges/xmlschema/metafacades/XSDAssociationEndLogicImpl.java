@@ -5,7 +5,8 @@ package org.andromda.cartridges.xmlschema.metafacades;
  *
  * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd
  */
-public class XSDAssociationEndLogicImpl extends XSDAssociationEndLogic
+public class XSDAssociationEndLogicImpl
+        extends XSDAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 

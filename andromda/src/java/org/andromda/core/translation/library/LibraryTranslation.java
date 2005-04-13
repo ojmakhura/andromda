@@ -157,11 +157,15 @@ public class LibraryTranslation
     public Translator getTranslator()
     {
         final String methodName = "LibraryTranslation.getTranslator";
-        Translator translator = (Translator) ComponentContainer.instance().findComponent(this.translatorClass,
+        Translator translator = (Translator)ComponentContainer.instance().findComponent(this.translatorClass,
                 Translator.class);
         if (translator == null)
         {
-            throw new LibraryException(methodName + " - a translator implementation must be defined, " + " please check your translator library --> '" + this.library.getResource() + "'");
+            throw new LibraryException(
+                    methodName + " - a translator implementation must be defined, " +
+                    " please check your translator library --> '" +
+                    this.library.getResource() +
+                    "'");
         }
         return translator;
     }
@@ -202,8 +206,11 @@ public class LibraryTranslation
                     }
                     catch (NoSuchMethodException ex)
                     {
-                        String errMsg = "the translator '" + this.getTranslator().getClass() + "' must implement the method '" + handlerMethod + "'" + StringUtils.join(
-                                argTypes, ",") + "'" + " in order to handle processing of the fragment --> '" + name + "'";
+                        String errMsg = "the translator '" + this.getTranslator().getClass() +
+                                "' must implement the method '" +
+                                handlerMethod +
+                                "'" + StringUtils.join(argTypes, ",") + "'" + " in order to handle processing of the fragment --> '" + name +
+                                "'";
                         logger.error(errMsg);
                     }
                     catch (Exception ex)
@@ -245,8 +252,7 @@ public class LibraryTranslation
         ExceptionUtils.checkNull(methodName, "translationInput", translationInput);
         try
         {
-            this.translation = (Translation) XmlObjectFactory.getInstance(Translation.class).getObject(
-                    translationInput);
+            this.translation = (Translation)XmlObjectFactory.getInstance(Translation.class).getObject(translationInput);
             this.translation.setLibraryTranslation(this);
         }
         catch (Exception ex)
@@ -269,7 +275,10 @@ public class LibraryTranslation
     public Translation processTranslation(Map templateContext)
     {
         final String methodName = "LibraryTranslation.processTranslation";
-        logger.debug("processing translation template --> '" + this.getTemplate() + "'" + "' with templateContext --> '" + templateContext + "'");
+        logger.debug(
+                "processing translation template --> '" + this.getTemplate() + "'" + "' with templateContext --> '" +
+                templateContext +
+                "'");
         if (this.getTemplate() != null)
         {
             if (templateContext == null)

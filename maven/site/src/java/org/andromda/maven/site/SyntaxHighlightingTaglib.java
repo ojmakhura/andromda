@@ -2,7 +2,8 @@ package org.andromda.maven.site;
 
 import org.apache.commons.jelly.TagLibrary;
 
-public class SyntaxHighlightingTaglib extends TagLibrary
+public class SyntaxHighlightingTaglib
+        extends TagLibrary
 {
     public SyntaxHighlightingTaglib()
     {

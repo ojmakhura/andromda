@@ -4,7 +4,8 @@ package org.andromda.metafacades.uml14;
 /**
  * Metaclass facade implementation.
  */
-public class ActorFacadeLogicImpl extends ActorFacadeLogic
+public class ActorFacadeLogicImpl
+        extends ActorFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

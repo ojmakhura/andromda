@@ -90,21 +90,28 @@ public class TemplateObject
         Iterator referenceIt = this.propertyReferences.iterator();
         while (referenceIt.hasNext())
         {
-            String reference = (String) referenceIt.next();
+            String reference = (String)referenceIt.next();
 
             Property property = Namespaces.instance().findNamespaceProperty(this.getNamespace(), reference);
 
             if (!property.isIgnore())
             {
                 if (logger.isDebugEnabled())
-                    logger.debug("setting property '" + name + "' with value '" + property.getValue() + "' on templateObject '" + templateObject + "'");
+                    logger.debug(
+                            "setting property '" + name + "' with value '" + property.getValue() +
+                            "' on templateObject '" +
+                            templateObject +
+                            "'");
                 try
                 {
                     PropertyUtils.setProperty(templateObject, reference, property.getValue());
                 }
                 catch (Exception ex)
                 {
-                    String errMsg = "Error setting property '" + reference + "' with '" + property.getValue() + "' on templateObject --> '" + templateObject + "'";
+                    String errMsg = "Error setting property '" + reference + "' with '" + property.getValue() +
+                            "' on templateObject --> '" +
+                            templateObject +
+                            "'";
                     logger.warn(errMsg, ex);
                     // don't throw the exception
                 }

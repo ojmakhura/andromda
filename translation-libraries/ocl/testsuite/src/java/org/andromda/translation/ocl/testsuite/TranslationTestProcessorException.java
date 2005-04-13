@@ -4,7 +4,8 @@ package org.andromda.translation.ocl.testsuite;
  * Any unchecked exception that will be thrown when an unexpected translator test exception occurs. Should be thrown
  * when a test is not cofigured correctly.
  */
-public class TranslationTestProcessorException extends RuntimeException
+public class TranslationTestProcessorException
+        extends RuntimeException
 {
 
     /**

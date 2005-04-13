@@ -10,7 +10,8 @@ import org.andromda.metafacades.uml.UMLProfile;
  * @author Chad Brandon
  * @author Carlos Cuenca
  */
-public class HibernateProfile extends UMLProfile
+public class HibernateProfile
+        extends UMLProfile
 {
 
     /**

@@ -73,7 +73,8 @@ public class BuildInformation
             URL versionUri = ResourceUtils.getResource(buildPropertiesUri);
             if (versionUri == null)
             {
-                throw new IllegalStateException("BuildInformation: could not load file --> '" + buildPropertiesUri + "'");
+                throw new IllegalStateException(
+                        "BuildInformation: could not load file --> '" + buildPropertiesUri + "'");
             }
             Properties properties = new Properties();
             InputStream stream = versionUri.openStream();

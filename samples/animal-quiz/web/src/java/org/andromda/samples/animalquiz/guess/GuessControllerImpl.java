@@ -15,7 +15,8 @@ import javax.xml.rpc.ServiceException;
  * @author Chad Brandon
  * @author Wouter Zoons
  */
-final class GuessControllerImpl extends GuessController
+final class GuessControllerImpl
+        extends GuessController
 {
     public void initializeSession(ActionMapping mapping, InitializeSessionForm form, HttpServletRequest request,
                                   HttpServletResponse response) throws Exception

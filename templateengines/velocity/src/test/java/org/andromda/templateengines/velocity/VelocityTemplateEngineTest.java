@@ -11,7 +11,8 @@ import java.io.StringWriter;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  */
-public class VelocityTemplateEngineTest extends TestCase
+public class VelocityTemplateEngineTest
+        extends TestCase
 {
     public VelocityTemplateEngineTest(String arg0)
     {

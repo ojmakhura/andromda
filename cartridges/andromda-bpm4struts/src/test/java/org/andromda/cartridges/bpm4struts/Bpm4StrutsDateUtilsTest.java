@@ -2,7 +2,8 @@ package org.andromda.cartridges.bpm4struts;
 
 import junit.framework.TestCase;
 
-public class Bpm4StrutsDateUtilsTest extends TestCase
+public class Bpm4StrutsDateUtilsTest
+        extends TestCase
 {
     public Bpm4StrutsDateUtilsTest(String name)
     {
@@ -33,7 +34,7 @@ public class Bpm4StrutsDateUtilsTest extends TestCase
         {
             Object[] objects = fixture[i];
 //            System.out.println(objects[0]+" "+objects[1]+" --> "+Bpm4StrutsDateUtils.containsTimeFormat((String)objects[0]));
-            assertEquals(Boolean.valueOf(Bpm4StrutsDateUtils.containsTimeFormat((String) objects[0])), objects[1]);
+            assertEquals(Boolean.valueOf(Bpm4StrutsDateUtils.containsTimeFormat((String)objects[0])), objects[1]);
         }
     }
 }

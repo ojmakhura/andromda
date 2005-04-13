@@ -9,7 +9,8 @@ import org.andromda.metafacades.uml.ValueObject;
  *
  * @see org.andromda.metafacades.uml.ValueObjectAssociationEnd
  */
-public class ValueObjectAssociationEndLogicImpl extends ValueObjectAssociationEndLogic
+public class ValueObjectAssociationEndLogicImpl
+        extends ValueObjectAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 

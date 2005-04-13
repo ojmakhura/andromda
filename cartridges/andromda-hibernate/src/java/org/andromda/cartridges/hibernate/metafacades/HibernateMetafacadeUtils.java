@@ -28,15 +28,16 @@ class HibernateMetafacadeUtils
         String viewType = null;
         if (classifier.hasStereotype(HibernateProfile.STEREOTYPE_SERVICE))
         {
-            String viewTypeValue = (String) classifier.findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_VIEWTYPE);
+            String viewTypeValue = (String)classifier.findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_VIEWTYPE);
             // if the view type wasn't found, search all super classes
             if (StringUtils.isEmpty(viewTypeValue))
             {
-                viewType = (String) CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
+                viewType = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
                 {
                     public boolean evaluate(Object object)
                     {
-                        return ((ModelElementFacade) object).findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_VIEWTYPE) != null;
+                        return ((ModelElementFacade)object).findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_VIEWTYPE) !=
+                                null;
                     }
                 });
             }

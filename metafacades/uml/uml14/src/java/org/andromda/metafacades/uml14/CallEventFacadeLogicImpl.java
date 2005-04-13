@@ -5,7 +5,8 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.CallEventFacade
  */
-public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
+public class CallEventFacadeLogicImpl
+        extends CallEventFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

@@ -37,7 +37,8 @@ public class UMLMetafacadeUtils
                 {
                     public boolean evaluate(Object object)
                     {
-                        String name = StringUtils.trimToEmpty(((ModelElementFacade) object).getFullyQualifiedName(true));
+                        String name = StringUtils.trimToEmpty(
+                                ((ModelElementFacade)object).getFullyQualifiedName(true));
                         return name.equals(type);
                     }
                 }) != null;
@@ -45,12 +46,12 @@ public class UMLMetafacadeUtils
         }
         return isType;
     }
-    
+
     /**
      * Returns true if the passed in constraint <code>expression</code> is of type <code>kind</code>, false otherwise.
      *
      * @param expression the expression to check.
-     * @param kind the constraint kind (i.e. <em>inv</em>,<em>pre</em>, <em>body</em>, etc).
+     * @param kind       the constraint kind (i.e. <em>inv</em>,<em>pre</em>, <em>body</em>, etc).
      * @return true/false
      */
     public static boolean isConstraintKind(String expression, String kind)

@@ -118,7 +118,7 @@ public class ResourceUtils
                 Enumeration entries = archive.entries();
                 while (entries.hasMoreElements())
                 {
-                    ZipEntry entry = (ZipEntry) entries.nextElement();
+                    ZipEntry entry = (ZipEntry)entries.nextElement();
                     contents.add(entry.getName());
                 }
             }
@@ -158,7 +158,7 @@ public class ResourceUtils
                 {
                     public Object transform(Object object)
                     {
-                        return StringUtils.replace(((File) object).getPath().replace('\\', '/'), pluginDirectory.getPath()
+                        return StringUtils.replace(((File)object).getPath().replace('\\', '/'), pluginDirectory.getPath()
                                 .replace('\\', '/') + '/', "");
                     }
                 });
@@ -289,7 +289,10 @@ public class ResourceUtils
     {
         final String methodName = "ResourceUtils.getResource";
         if (logger.isDebugEnabled())
-            logger.debug("performing '" + methodName + "' with resourceName '" + resourceName + "' and directory '" + directory + "'");
+            logger.debug(
+                    "performing '" + methodName + "' with resourceName '" + resourceName + "' and directory '" +
+                    directory +
+                    "'");
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
 
         if (directory != null)
@@ -303,7 +306,9 @@ public class ResourceUtils
                 }
                 catch (MalformedURLException ex)
                 {
-                    logger.warn("'" + file + "' is an invalid resource," + " attempting to find resource '" + resourceName + "' on classpath");
+                    logger.warn(
+                            "'" + file + "' is an invalid resource," + " attempting to find resource '" + resourceName +
+                            "' on classpath");
                 }
             }
         }

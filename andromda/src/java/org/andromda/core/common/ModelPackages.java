@@ -34,7 +34,7 @@ public class ModelPackages
             this.modelPackages = new HashMap();
             for (Iterator iter = initCollection.iterator(); iter.hasNext();)
             {
-                ModelPackage modelPackage = (ModelPackage) iter.next();
+                ModelPackage modelPackage = (ModelPackage)iter.next();
                 this.modelPackages.put(modelPackage.getName(), new Boolean(modelPackage.isShouldProcess()));
             }
         }
@@ -90,7 +90,7 @@ public class ModelPackages
     {
         boolean shouldProcess = this.processAllModelPackages;
         this.init();
-        Boolean process = (Boolean) modelPackages.get(packageName);
+        Boolean process = (Boolean)modelPackages.get(packageName);
         if (process != null)
         {
             shouldProcess = process.booleanValue();

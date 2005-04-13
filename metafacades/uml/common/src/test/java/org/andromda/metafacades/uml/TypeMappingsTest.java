@@ -9,7 +9,8 @@ import org.andromda.core.mapping.Mappings;
  *
  * @author Chad Brandon
  */
-public class TypeMappingsTest extends TestCase
+public class TypeMappingsTest
+        extends TestCase
 {
     /**
      * Constructor for MappingsTest.

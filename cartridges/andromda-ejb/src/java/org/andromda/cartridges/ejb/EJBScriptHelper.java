@@ -37,7 +37,7 @@ public class EJBScriptHelper
 
         for (Iterator it = attributes.iterator(); it.hasNext();)
         {
-            AttributeFacade attr = (AttributeFacade) it.next();
+            AttributeFacade attr = (AttributeFacade)it.next();
             sb.append(separator);
             separator = ", ";
             if (includeTypes)
@@ -65,7 +65,7 @@ public class EJBScriptHelper
         Collection retval = new ArrayList(list.size());
         for (Iterator iter = list.iterator(); iter.hasNext();)
         {
-            ModelElementFacade elem = (ModelElementFacade) iter.next();
+            ModelElementFacade elem = (ModelElementFacade)iter.next();
             if (visibility.equals(elem.getVisibility().toString()))
             {
                 retval.add(elem);

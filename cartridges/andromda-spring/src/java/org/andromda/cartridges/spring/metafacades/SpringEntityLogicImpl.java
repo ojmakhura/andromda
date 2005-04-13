@@ -20,7 +20,8 @@ import java.util.Collection;
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringEntity
  */
-public class SpringEntityLogicImpl extends SpringEntityLogic
+public class SpringEntityLogicImpl
+        extends SpringEntityLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -176,7 +177,7 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
      */
     protected String handleGetEntityName()
     {
-        String entityNamePattern = (String) this.getConfiguredProperty("entityNamePattern");
+        String entityNamePattern = (String)this.getConfiguredProperty("entityNamePattern");
         return MessageFormat.format(entityNamePattern, new Object[]{StringUtils.trimToEmpty(this.getName())});
     }
 
@@ -194,7 +195,9 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
     protected Object handleGetRoot()
     {
         GeneralizableElementFacade generalization = this;
-        for (; generalization.getGeneralization() != null && generalization instanceof SpringEntity; generalization = generalization.getGeneralization())
+        for (;
+             generalization.getGeneralization() != null && generalization instanceof SpringEntity;
+             generalization = generalization.getGeneralization())
             ;
         return generalization;
     }
@@ -234,7 +237,7 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
         {
             public boolean evaluate(Object object)
             {
-                return ((OperationFacade) object).isStatic();
+                return ((OperationFacade)object).isStatic();
             }
         };
     }
@@ -249,10 +252,10 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
             public boolean evaluate(Object object)
             {
                 boolean valid = false;
-                Object targetElement = ((DependencyFacade) object).getTargetElement();
+                Object targetElement = ((DependencyFacade)object).getTargetElement();
                 if (targetElement instanceof ClassifierFacade)
                 {
-                    ClassifierFacade element = (ClassifierFacade) targetElement;
+                    ClassifierFacade element = (ClassifierFacade)targetElement;
                     valid = element.isDataType() || element instanceof ValueObject;
                 }
                 return valid;
@@ -330,17 +333,17 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
      */
     protected Collection handleGetAllBusinessOperations()
     {
-        Entity superElement = (Entity) this.getGeneralization();
+        Entity superElement = (Entity)this.getGeneralization();
 
         Collection result = super.getBusinessOperations();
         while (superElement != null)
         {
             result.addAll(superElement.getBusinessOperations());
-            superElement = (Entity) superElement.getGeneralization();
+            superElement = (Entity)superElement.getGeneralization();
         }
         return result;
     }
-    
+
     /**
      * Stores the default hibernate inheritance strategy.
      */
@@ -352,7 +355,8 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
     protected String handleGetHibernateInheritanceStrategy()
     {
         String inheritance = this.getInheritance(this);
-        for (SpringEntity superEntity = this.getSuperEntity(); superEntity != null && StringUtils.isBlank(inheritance);)
+        for (SpringEntity superEntity = this.getSuperEntity();
+             superEntity != null && StringUtils.isBlank(inheritance);)
         {
             inheritance = superEntity.getHibernateInheritanceStrategy();
         }
@@ -399,7 +403,9 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
     protected boolean handleIsRequiresHibernateMapping()
     {
         final SpringEntity superEntity = this.getSuperEntity();
-        return this.isRoot() && (!this.isHibernateInheritanceInterface() || (superEntity != null && superEntity.isHibernateInheritanceInterface()));
+        return this.isRoot() &&
+                (!this.isHibernateInheritanceInterface() ||
+                (superEntity != null && superEntity.isHibernateInheritanceInterface()));
     }
 
     /**
@@ -408,8 +414,12 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
     private boolean isRoot()
     {
         final SpringEntity superEntity = this.getSuperEntity();
-        boolean abstractConcreteEntity = (this.isHibernateInheritanceConcrete() || this.isHibernateInheritanceInterface()) && this.isAbstract();
-        return (this.getSuperEntity() == null || (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())) && !abstractConcreteEntity;
+        boolean abstractConcreteEntity = (this.isHibernateInheritanceConcrete() ||
+                this.isHibernateInheritanceInterface()) &&
+                this.isAbstract();
+        return (this.getSuperEntity() == null ||
+                (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())) &&
+                !abstractConcreteEntity;
     }
 
     /**
@@ -423,7 +433,7 @@ public class SpringEntityLogicImpl extends SpringEntityLogic
         SpringEntity superEntity = null;
         if (this.getGeneralization() != null && this.getGeneralization() instanceof SpringEntity)
         {
-            superEntity = (SpringEntity) this.getGeneralization();
+            superEntity = (SpringEntity)this.getGeneralization();
         }
         return superEntity;
     }

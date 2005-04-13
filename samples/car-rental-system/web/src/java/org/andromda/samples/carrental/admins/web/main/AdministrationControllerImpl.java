@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.admins.web.main.AdministrationController
  */
-public class AdministrationControllerImpl extends AdministrationController
+public class AdministrationControllerImpl
+        extends AdministrationController
 {
     /**
      * @see org.andromda.samples.carrental.admins.web.main.AdministrationController#loadCarAndCarTypes(org.apache.struts.action.ActionMapping,
@@ -39,7 +40,8 @@ public class AdministrationControllerImpl extends AdministrationController
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class CarsDummy implements java.io.Serializable
+    public final class CarsDummy
+            implements java.io.Serializable
     {
         private String inventoryNo = null;
         private String registrationNo = null;
@@ -99,7 +101,8 @@ public class AdministrationControllerImpl extends AdministrationController
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class CarTypesDummy implements java.io.Serializable
+    public final class CarTypesDummy
+            implements java.io.Serializable
     {
         private String comfortClass = null;
         private String identifier = null;

@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarController
  */
-public class ReturnCarControllerImpl extends ReturnCarController
+public class ReturnCarControllerImpl
+        extends ReturnCarController
 {
     /**
      * @see org.andromda.samples.carrental.contracts.web.returnCar.ReturnCarController#returnCar(org.apache.struts.action.ActionMapping,
@@ -67,7 +68,8 @@ public class ReturnCarControllerImpl extends ReturnCarController
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class ContractDummy implements java.io.Serializable
+    public final class ContractDummy
+            implements java.io.Serializable
     {
         private String contractNo = null;
         private String signed = null;

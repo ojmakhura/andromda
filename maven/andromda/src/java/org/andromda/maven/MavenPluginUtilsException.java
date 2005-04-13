@@ -5,7 +5,8 @@ package org.andromda.maven;
  *
  * @author Chad Brandon
  */
-public class MavenPluginUtilsException extends RuntimeException
+public class MavenPluginUtilsException
+        extends RuntimeException
 {
 
     /**

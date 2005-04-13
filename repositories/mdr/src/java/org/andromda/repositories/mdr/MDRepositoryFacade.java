@@ -32,7 +32,8 @@ import java.util.Iterator;
  * @author <A HREF="httplo://www.amowers.com">Anthony Mowers </A>
  * @author Chad Brandon
  */
-public class MDRepositoryFacade implements RepositoryFacade
+public class MDRepositoryFacade
+        implements RepositoryFacade
 {
     private static Logger logger = Logger.getLogger(MDRepositoryFacade.class);
 
@@ -176,7 +177,7 @@ public class MDRepositoryFacade implements RepositoryFacade
             FileOutputStream outputStream = new FileOutputStream(file);
             XMIWriter xmiWriter = XMIWriterFactory.getDefault().createXMIWriter();
             xmiWriter.getConfiguration().setEncoding(encoding);
-            xmiWriter.write(outputStream, outputLocation, (RefPackage) model, xmiVersion);
+            xmiWriter.write(outputStream, outputLocation, (RefPackage)model, xmiVersion);
             outputStream.close();
             outputStream = null;
         }
@@ -197,7 +198,7 @@ public class MDRepositoryFacade implements RepositoryFacade
         {
             try
             {
-                this.modelFacade = (ModelAccessFacade) ComponentContainer.instance().findComponent(
+                this.modelFacade = (ModelAccessFacade)ComponentContainer.instance().findComponent(
                         ModelAccessFacade.class);
                 if (this.modelFacade == null)
                 {
@@ -245,11 +246,11 @@ public class MDRepositoryFacade implements RepositoryFacade
 
         // Use the metaModelURL as the name for the repository extent.
         // This ensures we can load mutiple metamodels without them colliding.
-        ModelPackage metaModelExtent = (ModelPackage) repository.getExtent(metaModelURL.toExternalForm());
+        ModelPackage metaModelExtent = (ModelPackage)repository.getExtent(metaModelURL.toExternalForm());
 
         if (metaModelExtent == null)
         {
-            metaModelExtent = (ModelPackage) repository.createExtent(metaModelURL.toExternalForm());
+            metaModelExtent = (ModelPackage)repository.createExtent(metaModelURL.toExternalForm());
         }
 
         MofPackage metaModelPackage = findPackage(META_PACKAGE, metaModelExtent);
@@ -332,11 +333,11 @@ public class MDRepositoryFacade implements RepositoryFacade
     {
         for (Iterator it = metaModel.getMofPackage().refAllOfClass().iterator(); it.hasNext();)
         {
-            javax.jmi.model.ModelElement temp = (javax.jmi.model.ModelElement) it.next();
+            javax.jmi.model.ModelElement temp = (javax.jmi.model.ModelElement)it.next();
 
             if (temp.getName().equals(packageName))
             {
-                return (MofPackage) temp;
+                return (MofPackage)temp;
             }
         }
         return null;

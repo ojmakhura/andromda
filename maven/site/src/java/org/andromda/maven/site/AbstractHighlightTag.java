@@ -16,7 +16,8 @@ import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Iterator;
 
-public abstract class AbstractHighlightTag extends TagSupport
+public abstract class AbstractHighlightTag
+        extends TagSupport
 {
     private String value = null;
 
@@ -28,7 +29,7 @@ public abstract class AbstractHighlightTag extends TagSupport
 
         if (content instanceof Collection)
         {
-            final Collection collection = (Collection) content;
+            final Collection collection = (Collection)content;
             if (collection != null && !collection.isEmpty())
             {
                 content = collection.iterator().next();
@@ -39,7 +40,7 @@ public abstract class AbstractHighlightTag extends TagSupport
         {
             try
             {
-                String bodyText = getSourceCode((Element) content);
+                String bodyText = getSourceCode((Element)content);
                 highlight(xmlOutput, StringEscapeUtils.unescapeXml(bodyText));
             }
             catch (SAXException e)
@@ -63,7 +64,7 @@ public abstract class AbstractHighlightTag extends TagSupport
 
             for (Iterator iterator = element.nodeIterator(); iterator.hasNext();)
             {
-                Node childElement = (Node) iterator.next();
+                Node childElement = (Node)iterator.next();
                 xmlWriter.write(childElement.getText());
             }
 

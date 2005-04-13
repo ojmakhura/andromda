@@ -8,7 +8,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation
  */
-public class HibernateAssociationLogicImpl extends HibernateAssociationLogic
+public class HibernateAssociationLogicImpl
+        extends HibernateAssociationLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -27,7 +28,7 @@ public class HibernateAssociationLogicImpl extends HibernateAssociationLogic
      */
     protected java.lang.String handleGetHibernateCacheType()
     {
-        String cacheType = (String) findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
+        String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
         if (cacheType == null)
         {
             cacheType = String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_CACHE));
@@ -41,10 +42,10 @@ public class HibernateAssociationLogicImpl extends HibernateAssociationLogic
     protected int handleGetEhCacheMaxElementsInMemory()
     {
         String maxElements = null;
-        maxElements = (String) this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
+        maxElements = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
         if (StringUtils.isBlank(maxElements))
         {
-            maxElements = (String) this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_MAX_ELEMENTS);
+            maxElements = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_MAX_ELEMENTS);
         }
         return Integer.parseInt(maxElements);
     }
@@ -54,10 +55,10 @@ public class HibernateAssociationLogicImpl extends HibernateAssociationLogic
      */
     protected boolean handleIsEhCacheEternal()
     {
-        String eternal = (String) this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
+        String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
         if (eternal == null)
         {
-            eternal = (String) this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
+            eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
         return Boolean.valueOf(eternal).booleanValue();
     }
@@ -68,10 +69,10 @@ public class HibernateAssociationLogicImpl extends HibernateAssociationLogic
     protected int handleGetEhCacheTimeToIdleSeconds()
     {
         String timeToIdle = null;
-        timeToIdle = (String) this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
+        timeToIdle = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
         if (StringUtils.isBlank(timeToIdle))
         {
-            timeToIdle = (String) this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_IDLE);
+            timeToIdle = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_IDLE);
         }
         return Integer.parseInt(timeToIdle);
     }
@@ -82,10 +83,10 @@ public class HibernateAssociationLogicImpl extends HibernateAssociationLogic
     protected int handleGetEhCacheTimeToLiveSeconds()
     {
         String timeToLive = null;
-        timeToLive = (String) this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
+        timeToLive = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
         if (StringUtils.isBlank(timeToLive))
         {
-            timeToLive = (String) this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_LIVE);
+            timeToLive = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_LIVE);
         }
         return Integer.parseInt(timeToLive);
     }
@@ -95,10 +96,10 @@ public class HibernateAssociationLogicImpl extends HibernateAssociationLogic
      */
     protected boolean handleIsEhCacheOverflowToDisk()
     {
-        String eternal = (String) this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
+        String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         if (eternal == null)
         {
-            eternal = (String) this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
+            eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
         return Boolean.valueOf(eternal).booleanValue();
     }

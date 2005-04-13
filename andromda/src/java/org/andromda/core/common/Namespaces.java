@@ -64,7 +64,7 @@ public class Namespaces
      */
     public Namespace findNamespace(String namespaceName)
     {
-        return (Namespace) namespaces.get(namespaceName);
+        return (Namespace)namespaces.get(namespaceName);
     }
 
     /**
@@ -100,7 +100,7 @@ public class Namespaces
 
         Property property = null;
 
-        Namespace namespace = (Namespace) namespaces.get(namespaceName);
+        Namespace namespace = (Namespace)namespaces.get(namespaceName);
 
         if (namespace != null)
         {
@@ -113,7 +113,7 @@ public class Namespaces
         {
             if (logger.isDebugEnabled())
                 logger.debug("no namespace with name '" + namespaceName + "' found, looking for '" + DEFAULT + "'");
-            namespace = (Namespace) namespaces.get(DEFAULT);
+            namespace = (Namespace)namespaces.get(DEFAULT);
 
             if (namespace != null)
             {
@@ -123,14 +123,18 @@ public class Namespaces
 
         if (namespace == null && showWarning)
         {
-            logger.warn("WARNING! No '" + DEFAULT + "' or '" + namespaceName + "' namespace found, " + "--> please define a namespace with" +
+            logger.warn("WARNING! No '" + DEFAULT + "' or '" + namespaceName + "' namespace found, " +
+                    "--> please define a namespace with" +
                     " at least one of these names, if you would like " +
                     "to ignore this message, define the namespace with " + "ignore set to 'true'");
 
         }
         else if (property == null && showWarning)
         {
-            logger.warn("WARNING! Namespaces '" + DEFAULT + "' and '" + namespaceName + "' have no property '" + propertyName + "' defined --> please define this " + "property in AT LEAST ONE of these two namespaces. " +
+            logger.warn("WARNING! Namespaces '" + DEFAULT + "' and '" + namespaceName + "' have no property '" +
+                    propertyName +
+                    "' defined --> please define this " +
+                    "property in AT LEAST ONE of these two namespaces. " +
                     " If you want to 'ignore' this message, add the " +
                     "property to the namespace with ignore set to 'true'");
 

@@ -40,7 +40,7 @@ public class ResourceFinder
             {
                 resources.add(resourceEnum.nextElement());
             }
-            resourceUrls = (URL[]) resources.toArray(new URL[0]);
+            resourceUrls = (URL[])resources.toArray(new URL[0]);
         }
         catch (Exception ex)
         {

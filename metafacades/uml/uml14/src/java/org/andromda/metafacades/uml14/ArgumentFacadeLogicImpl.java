@@ -5,7 +5,8 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.ArgumentFacade
  */
-public class ArgumentFacadeLogicImpl extends ArgumentFacadeLogic
+public class ArgumentFacadeLogicImpl
+        extends ArgumentFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

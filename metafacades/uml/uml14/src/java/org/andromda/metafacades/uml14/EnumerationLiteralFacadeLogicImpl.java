@@ -8,7 +8,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.metafacades.uml.EnumerationLiteralFacade
  */
-public class EnumerationLiteralFacadeLogicImpl extends EnumerationLiteralFacadeLogic
+public class EnumerationLiteralFacadeLogicImpl
+        extends EnumerationLiteralFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

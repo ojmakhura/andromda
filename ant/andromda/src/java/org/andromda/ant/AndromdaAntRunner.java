@@ -168,7 +168,7 @@ public class AndromdaAntRunner
         IOFileFilter dirFilter = TrueFileFilter.INSTANCE;
 
         final Collection templateFiles = FileUtils.listFiles(targetDir, fileFilter, dirFilter);
-        return (File[]) templateFiles.toArray(new File[templateFiles.size()]);
+        return (File[])templateFiles.toArray(new File[templateFiles.size()]);
     }
 
     private void processVelocity(File templateFile) throws Exception
@@ -226,7 +226,7 @@ public class AndromdaAntRunner
             Enumeration e = zipFile.entries();
             while (e.hasMoreElements())
             {
-                entry = (ZipEntry) e.nextElement();
+                entry = (ZipEntry)e.nextElement();
 
                 if (entry.isDirectory() == false)
                 {

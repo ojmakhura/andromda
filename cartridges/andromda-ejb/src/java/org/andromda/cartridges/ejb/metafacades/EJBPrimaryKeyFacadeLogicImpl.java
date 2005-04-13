@@ -8,7 +8,8 @@ import java.util.Collection;
 /**
  * Metaclass facade implementation.
  */
-public class EJBPrimaryKeyFacadeLogicImpl extends EJBPrimaryKeyFacadeLogic
+public class EJBPrimaryKeyFacadeLogicImpl
+        extends EJBPrimaryKeyFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -32,10 +33,10 @@ public class EJBPrimaryKeyFacadeLogicImpl extends EJBPrimaryKeyFacadeLogic
     private AttributeFacade getSimplePkField()
     {
         AttributeFacade primaryKey = null;
-        Collection primaryKeys = ((EJBEntityFacade) this.getOwner()).getIdentifiers();
+        Collection primaryKeys = ((EJBEntityFacade)this.getOwner()).getIdentifiers();
         if (primaryKeys.size() == 1)
         {
-            AttributeFacade pkField = (AttributeFacade) primaryKeys.iterator().next();
+            AttributeFacade pkField = (AttributeFacade)primaryKeys.iterator().next();
             if (pkField.hasStereotype(EJBProfile.STEREOTYPE_IDENTIFIER))
             {
                 primaryKey = pkField;

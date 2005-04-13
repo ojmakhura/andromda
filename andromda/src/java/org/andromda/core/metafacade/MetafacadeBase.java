@@ -340,7 +340,7 @@ public class MetafacadeBase
     {
         if (object instanceof MetafacadeBase)
         {
-            MetafacadeBase that = (MetafacadeBase) object;
+            MetafacadeBase that = (MetafacadeBase)object;
             return this.metaObject.equals(that.metaObject);
         }
         return false;
@@ -363,8 +363,7 @@ public class MetafacadeBase
     {
         if (metafacadePropertyCachingEnabled == null)
         {
-            String enableCache = (String) getConfiguredProperty(
-                    MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
+            String enableCache = (String)getConfiguredProperty(MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
             metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache);
         }
         return metafacadePropertyCachingEnabled.booleanValue();

@@ -5,7 +5,8 @@ import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 /**
  * Metaclass facade implementation.
  */
-public class PseudostateFacadeLogicImpl extends PseudostateFacadeLogic
+public class PseudostateFacadeLogicImpl
+        extends PseudostateFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

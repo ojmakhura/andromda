@@ -8,7 +8,8 @@ import java.util.Collection;
  *
  * @see org.andromda.metafacades.uml.AssociationClassFacade
  */
-public class AssociationClassFacadeLogicImpl extends AssociationClassFacadeLogic
+public class AssociationClassFacadeLogicImpl
+        extends AssociationClassFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

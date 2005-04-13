@@ -7,7 +7,8 @@ import java.util.Collection;
 /**
  * Metaclass facade implementation.
  */
-public class DependencyFacadeLogicImpl extends DependencyFacadeLogic
+public class DependencyFacadeLogicImpl
+        extends DependencyFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

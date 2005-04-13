@@ -9,7 +9,8 @@ import java.util.Iterator;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @since 25.02.2004
  */
-public class UMLOperationData extends MethodData
+public class UMLOperationData
+        extends MethodData
 {
     /**
      * Constructs a MethodData object from an OperationFacade.
@@ -19,12 +20,12 @@ public class UMLOperationData extends MethodData
      */
     public UMLOperationData(String metafacadeName, OperationFacade operation)
     {
-        super(metafacadeName, operation.getVisibility(), operation.isAbstract(), operation.getReturnType().getFullyQualifiedName(), operation.getName(), operation.getDocumentation(
-                "    * "));
+        super(metafacadeName, operation.getVisibility(), operation.isAbstract(), operation.getReturnType()
+                .getFullyQualifiedName(), operation.getName(), operation.getDocumentation("    * "));
 
         for (Iterator iterator = operation.getArguments().iterator(); iterator.hasNext();)
         {
-            ParameterFacade parameter = (ParameterFacade) iterator.next();
+            ParameterFacade parameter = (ParameterFacade)iterator.next();
             addArgument(new ArgumentData(parameter.getType().getFullyQualifiedName(), parameter.getName()));
         }
     }

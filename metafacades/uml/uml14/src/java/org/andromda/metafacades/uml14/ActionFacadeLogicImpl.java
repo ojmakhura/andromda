@@ -11,7 +11,8 @@ import java.util.Iterator;
  *
  * @see org.andromda.metafacades.uml.ActionFacade
  */
-public class ActionFacadeLogicImpl extends ActionFacadeLogic
+public class ActionFacadeLogicImpl
+        extends ActionFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -28,7 +29,7 @@ public class ActionFacadeLogicImpl extends ActionFacadeLogic
         Collection allTransitions = UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
         for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && effectTransition == null;)
         {
-            Transition transition = (Transition) iterator.next();
+            Transition transition = (Transition)iterator.next();
             if (metaObject.equals(transition.getEffect()))
             {
                 effectTransition = transition;
@@ -45,7 +46,7 @@ public class ActionFacadeLogicImpl extends ActionFacadeLogic
         Collection allActionStates = UML14MetafacadeUtils.getModel().getActivityGraphs().getActionState().refAllOfType();
         for (Iterator iterator = allActionStates.iterator(); iterator.hasNext() && entryState == null;)
         {
-            ActionState actionState = (ActionState) iterator.next();
+            ActionState actionState = (ActionState)iterator.next();
             if (metaObject.equals(actionState.getEntry()))
             {
                 entryState = actionState;

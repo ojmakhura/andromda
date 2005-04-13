@@ -71,7 +71,7 @@ public class ModelElements
         {
             public void execute(Object object)
             {
-                allMetafacades.addAll(((ModelElement) object).getMetafacades());
+                allMetafacades.addAll(((ModelElement)object).getMetafacades());
             }
         });
         return allMetafacades;

@@ -5,7 +5,8 @@ package org.andromda.cartridges.webservice.metafacades;
  *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAttribute
  */
-public class WSDLTypeAttributeLogicImpl extends WSDLTypeAttributeLogic
+public class WSDLTypeAttributeLogicImpl
+        extends WSDLTypeAttributeLogic
 {
     // ---------------- constructor -------------------------------
 

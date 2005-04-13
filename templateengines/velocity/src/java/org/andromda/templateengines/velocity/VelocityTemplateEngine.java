@@ -37,7 +37,8 @@ import java.util.Properties;
  * @author Chad Brandon
  * @see http://jakarta.apache.org/velocity/
  */
-public class VelocityTemplateEngine implements TemplateEngine
+public class VelocityTemplateEngine
+        implements TemplateEngine
 {
 
     protected static Logger logger = null;
@@ -94,7 +95,8 @@ public class VelocityTemplateEngine implements TemplateEngine
         // the resources found on the classpath.
         engineProperties.setProperty(VelocityEngine.RESOURCE_LOADER, "file,classpath");
 
-        engineProperties.setProperty("file." + VelocityEngine.RESOURCE_LOADER + ".class", FileResourceLoader.class.getName());
+        engineProperties.setProperty("file." + VelocityEngine.RESOURCE_LOADER + ".class",
+                FileResourceLoader.class.getName());
 
         engineProperties.setProperty("classpath." + VelocityEngine.RESOURCE_LOADER + ".class",
                 ClasspathResourceLoader.class.getName());
@@ -106,7 +108,7 @@ public class VelocityTemplateEngine implements TemplateEngine
         // Let this template engine know about the macro libraries.
         for (Iterator iter = getMacroLibraries().iterator(); iter.hasNext();)
         {
-            String libraryName = (String) iter.next();
+            String libraryName = (String)iter.next();
             engineProperties.addProperty(VelocityEngine.VM_LIBRARY, libraryName);
         }
 
@@ -133,7 +135,8 @@ public class VelocityTemplateEngine implements TemplateEngine
 
         // see if the velocity properties exist for the current
         // plugin
-        URL propertiesUri = ResourceUtils.getResource(PROPERTIES_DIR + StringUtils.trimToEmpty(pluginName) + PROPERTIES_SUFFIX);
+        URL propertiesUri = ResourceUtils.getResource(
+                PROPERTIES_DIR + StringUtils.trimToEmpty(pluginName) + PROPERTIES_SUFFIX);
 
         if (propertiesUri != null)
         {
@@ -144,7 +147,7 @@ public class VelocityTemplateEngine implements TemplateEngine
             Iterator propertyIt = this.properties.keySet().iterator();
             while (propertyIt.hasNext())
             {
-                String property = (String) propertyIt.next();
+                String property = (String)propertyIt.next();
                 String value = this.properties.getProperty(property);
                 if (logger.isDebugEnabled())
                     logger.debug("setting property '" + property + "' with --> '" + value + "'");
@@ -161,7 +164,10 @@ public class VelocityTemplateEngine implements TemplateEngine
     {
         final String methodName = "VelocityTemplateEngine.processTemplate";
         if (logger.isDebugEnabled())
-            logger.debug("performing " + methodName + " with templateFile '" + templateFile + "' and templateObjects '" + templateObjects + "'");
+            logger.debug(
+                    "performing " + methodName + " with templateFile '" + templateFile + "' and templateObjects '" +
+                    templateObjects +
+                    "'");
         ExceptionUtils.checkEmpty(methodName, "templateFile", templateFile);
         ExceptionUtils.checkNull(methodName, "output", output);
         this.velocityContext = new VelocityContext();
@@ -172,7 +178,7 @@ public class VelocityTemplateEngine implements TemplateEngine
             Iterator namesIt = templateObjects.keySet().iterator();
             while (namesIt.hasNext())
             {
-                String name = (String) namesIt.next();
+                String name = (String)namesIt.next();
                 Object value = templateObjects.get(name);
                 velocityContext.put(name, value);
             }
@@ -239,7 +245,8 @@ public class VelocityTemplateEngine implements TemplateEngine
      * <p/>
      * Error messages can now be traced to plugin activities. </p>
      */
-    private class VelocityLoggingReceiver implements LogSystem
+    private class VelocityLoggingReceiver
+            implements LogSystem
     {
         /**
          * @see org.apache.velocity.runtime.log.LogSystem#init(org.apache.velocity.runtime.RuntimeServices)
@@ -304,7 +311,7 @@ public class VelocityTemplateEngine implements TemplateEngine
         Enumeration appenders = logger.getAllAppenders();
         while (appenders.hasMoreElements())
         {
-            Appender appender = (Appender) appenders.nextElement();
+            Appender appender = (Appender)appenders.nextElement();
             if (appender.getName() != null)
             {
                 appender.close();

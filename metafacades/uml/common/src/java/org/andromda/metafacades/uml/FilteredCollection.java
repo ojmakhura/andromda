@@ -15,7 +15,9 @@ import java.util.Collection;
  * @author Anthony Mowers
  * @author Chad Brandon
  */
-public abstract class FilteredCollection extends ArrayList implements Predicate
+public abstract class FilteredCollection
+        extends ArrayList
+        implements Predicate
 {
     /**
      * Constructor for the FilterCollection object

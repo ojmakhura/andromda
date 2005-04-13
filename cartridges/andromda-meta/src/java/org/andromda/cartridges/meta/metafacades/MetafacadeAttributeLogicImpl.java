@@ -8,13 +8,14 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.meta.metafacades.MetafacadeAttribute
  */
-public class MetafacadeAttributeLogicImpl extends MetafacadeAttributeLogic
+public class MetafacadeAttributeLogicImpl
+        extends MetafacadeAttributeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public MetafacadeAttributeLogicImpl (Object metaObject, String context)
+    public MetafacadeAttributeLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -23,8 +24,8 @@ public class MetafacadeAttributeLogicImpl extends MetafacadeAttributeLogic
     protected String handleGetImplementationOperationName()
     {
         return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
-            MetaGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll("\\{0\\}", 
-                StringUtils.capitalize(this.getGetterName()));
+                MetaGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll("\\{0\\}",
+                        StringUtils.capitalize(this.getGetterName()));
     }
 
 }

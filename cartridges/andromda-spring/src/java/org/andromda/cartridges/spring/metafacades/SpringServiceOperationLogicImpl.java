@@ -9,7 +9,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringServiceOperation
  */
-public class SpringServiceOperationLogicImpl extends SpringServiceOperationLogic
+public class SpringServiceOperationLogicImpl
+        extends SpringServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -73,7 +74,7 @@ public class SpringServiceOperationLogicImpl extends SpringServiceOperationLogic
      */
     public String handleGetTransactionType()
     {
-        String transactionType = (String) this.findTaggedValue(SpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
+        String transactionType = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
             transactionType = String.valueOf(this.getConfiguredProperty(SERVICE_OPERATION_TRANSACTION_TYPE));
@@ -91,7 +92,7 @@ public class SpringServiceOperationLogicImpl extends SpringServiceOperationLogic
      */
     protected String handleGetEjbTransactionType()
     {
-        String transactionType = (String) this.findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
             transactionType = String.valueOf(this.getConfiguredProperty(EJB_SERVICE_OPERATION_TRANSACTION_TYPE));

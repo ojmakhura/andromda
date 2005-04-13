@@ -9,7 +9,8 @@ import java.util.Collection;
  *
  * @see org.andromda.metafacades.uml.NamespaceFacade
  */
-public class NamespaceFacadeLogicImpl extends NamespaceFacadeLogic
+public class NamespaceFacadeLogicImpl
+        extends NamespaceFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -22,6 +23,6 @@ public class NamespaceFacadeLogicImpl extends NamespaceFacadeLogic
 
     protected Collection handleGetOwnedElements()
     {
-        return ((Namespace) metaObject).getOwnedElement();
+        return ((Namespace)metaObject).getOwnedElement();
     }
 }

@@ -11,7 +11,8 @@ import java.io.File;
  *
  * @author Chad Brandon
  */
-public class FileComparator extends TestCase
+public class FileComparator
+        extends TestCase
 {
     private File expectedFile;
     private File actualFile;

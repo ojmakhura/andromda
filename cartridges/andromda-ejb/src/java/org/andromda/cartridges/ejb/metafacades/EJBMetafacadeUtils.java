@@ -41,7 +41,7 @@ class EJBMetafacadeUtils
             Collection ops = entity.getOperations();
             for (Iterator i = ops.iterator(); i.hasNext();)
             {
-                OperationFacade op = (OperationFacade) i.next();
+                OperationFacade op = (OperationFacade)i.next();
                 if (op.hasStereotype(EJBProfile.STEREOTYPE_CREATE_METHOD))
                 {
                     retval.add(op);
@@ -49,7 +49,7 @@ class EJBMetafacadeUtils
             }
             if (follow)
             {
-                entity = (ClassifierFacade) entity.getGeneralization();
+                entity = (ClassifierFacade)entity.getGeneralization();
             }
         }
         while (follow && entity != null);
@@ -91,15 +91,16 @@ class EJBMetafacadeUtils
         String viewType = "local";
         if (classifier.hasStereotype(EJBProfile.STEREOTYPE_SERVICE))
         {
-            String viewTypeValue = (String) classifier.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_VIEWTYPE);
+            String viewTypeValue = (String)classifier.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_VIEWTYPE);
             // if the view type wasn't found, search all super classes
             if (StringUtils.isEmpty(viewTypeValue))
             {
-                viewType = (String) CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
+                viewType = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
                 {
                     public boolean evaluate(Object object)
                     {
-                        return ((ModelElementFacade) object).findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_VIEWTYPE) != null;
+                        return ((ModelElementFacade)object).findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_VIEWTYPE) !=
+                                null;
                     }
                 });
             }
@@ -126,7 +127,7 @@ class EJBMetafacadeUtils
     {
         final String methodName = "EJBMetafacadeUtils.getInheritedInstanceAttributes";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
-        ClassifierFacade current = (EJBEntityFacade) classifier.getGeneralization();
+        ClassifierFacade current = (EJBEntityFacade)classifier.getGeneralization();
         if (current == null)
         {
             return new ArrayList();
@@ -175,7 +176,8 @@ class EJBMetafacadeUtils
 
         if (follow)
         {
-            for (classifier = (ClassifierFacade) classifier.getGeneralization(); classifier != null; classifier = (ClassifierFacade) classifier.getGeneralization())
+            for (classifier = (ClassifierFacade)classifier.getGeneralization();
+                 classifier != null; classifier = (ClassifierFacade)classifier.getGeneralization())
             {
                 attributes.addAll(classifier.getStaticAttributes());
             }
@@ -185,7 +187,7 @@ class EJBMetafacadeUtils
         {
             public boolean evaluate(Object object)
             {
-                return ((AttributeFacade) object).hasStereotype(EJBProfile.STEREOTYPE_ENV_ENTRY);
+                return ((AttributeFacade)object).hasStereotype(EJBProfile.STEREOTYPE_ENV_ENTRY);
             }
         });
 
@@ -210,7 +212,8 @@ class EJBMetafacadeUtils
 
         if (follow)
         {
-            for (classifier = (ClassifierFacade) classifier.getGeneralization(); classifier != null; classifier = (ClassifierFacade) classifier.getGeneralization())
+            for (classifier = (ClassifierFacade)classifier.getGeneralization();
+                 classifier != null; classifier = (ClassifierFacade)classifier.getGeneralization())
             {
                 attributes.addAll(classifier.getStaticAttributes());
             }
@@ -220,7 +223,7 @@ class EJBMetafacadeUtils
         {
             public boolean evaluate(Object object)
             {
-                return !((AttributeFacade) object).hasStereotype(EJBProfile.STEREOTYPE_ENV_ENTRY);
+                return !((AttributeFacade)object).hasStereotype(EJBProfile.STEREOTYPE_ENV_ENTRY);
             }
         });
 

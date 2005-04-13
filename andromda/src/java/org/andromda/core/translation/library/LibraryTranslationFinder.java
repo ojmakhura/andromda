@@ -26,7 +26,7 @@ public class LibraryTranslationFinder
      */
     protected static Library findLibrary(String libraryName)
     {
-        return (Library) ComponentContainer.instance().findComponent(libraryName);
+        return (Library)ComponentContainer.instance().findComponent(libraryName);
     }
 
     /**
@@ -40,7 +40,7 @@ public class LibraryTranslationFinder
         final String methodName = "LibraryTranslation.findLibraryTranslation";
         ExceptionUtils.checkEmpty(methodName, "translation", translation);
 
-        LibraryTranslation libraryTranslation = (LibraryTranslation) libraryTranslations.get(translation);
+        LibraryTranslation libraryTranslation = (LibraryTranslation)libraryTranslations.get(translation);
 
         if (libraryTranslation == null)
         {
@@ -48,7 +48,10 @@ public class LibraryTranslationFinder
             int index = translation.indexOf(libSeparator);
             if (index == -1)
             {
-                throw new IllegalArgumentException(methodName + " -  libraryTranslation '" + translation + "' must contain the character '" + libSeparator + "' in order to seperate the library name from the translation" +
+                throw new IllegalArgumentException(methodName + " -  libraryTranslation '" + translation +
+                        "' must contain the character '" +
+                        libSeparator +
+                        "' in order to seperate the library name from the translation" +
                         " name (must be in the form: <library name>.<translation name>)");
             }
             String libraryName = translation.substring(0, index);
@@ -62,7 +65,9 @@ public class LibraryTranslationFinder
                 libraryTranslation = library.getLibraryTranslation(translationName);
                 if (libraryTranslation == null)
                 {
-                    logger.error("ERROR! no translation '" + translationName + "' found within library --> '" + libraryName + "'");
+                    logger.error(
+                            "ERROR! no translation '" + translationName + "' found within library --> '" + libraryName +
+                            "'");
                 }
             }
         }

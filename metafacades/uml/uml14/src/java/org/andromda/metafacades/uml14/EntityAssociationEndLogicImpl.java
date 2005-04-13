@@ -12,7 +12,8 @@ import org.apache.commons.lang.StringUtils;
  * <p/>
  * Represents an association end of an entity. </p> Metaclass facade implementation.
  */
-public class EntityAssociationEndLogicImpl extends EntityAssociationEndLogic
+public class EntityAssociationEndLogicImpl
+        extends EntityAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -42,9 +43,10 @@ public class EntityAssociationEndLogicImpl extends EntityAssociationEndLogic
         // prevent ClassCastException if the association isn't an Entity
         if (this.getType() instanceof Entity)
         {
-            columnName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(this,
-                    UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN, ((Entity) this.getType()).getMaxSqlNameLength(),
-                    this.getForeignKeySuffix(), this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            columnName =
+                    EntityMetafacadeUtils.getSqlNameFromTaggedValue(this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                            ((Entity)this.getType()).getMaxSqlNameLength(), this.getForeignKeySuffix(),
+                            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
         return columnName;
     }
@@ -54,7 +56,7 @@ public class EntityAssociationEndLogicImpl extends EntityAssociationEndLogic
      */
     public String handleGetForeignKeySuffix()
     {
-        return (String) this.getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
+        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.FOREIGN_KEY_SUFFIX);
     }
 
     /**
@@ -84,7 +86,7 @@ public class EntityAssociationEndLogicImpl extends EntityAssociationEndLogic
             ClassifierFacade type = getOtherEnd().getType();
             if (type instanceof Entity)
             {
-                Entity entity = (Entity) type;
+                Entity entity = (Entity)type;
                 buffer.append(entity.getTableName());
             }
             else
@@ -106,7 +108,7 @@ public class EntityAssociationEndLogicImpl extends EntityAssociationEndLogic
         }
 
         // we take into consideration the maximum length allowed
-        String maxLengthString = (String) getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
+        String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
         Short maxLength = Short.valueOf(maxLengthString);
 
         return EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, maxLength);
@@ -117,7 +119,7 @@ public class EntityAssociationEndLogicImpl extends EntityAssociationEndLogic
      */
     public java.lang.String handleGetColumnIndex()
     {
-        String index = (String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
+        String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
     }
 

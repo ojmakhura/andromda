@@ -29,7 +29,7 @@ public class EmptyDirsLister
         final List dirNames = new ArrayList();
         for (Iterator iterator = emptyDirs.iterator(); iterator.hasNext();)
         {
-            File file = (File) iterator.next();
+            File file = (File)iterator.next();
             dirNames.add(file.getAbsolutePath());
         }
 
@@ -42,7 +42,7 @@ public class EmptyDirsLister
     {
         for (Iterator iterator = emptyDirs.iterator(); iterator.hasNext();)
         {
-            File file = (File) iterator.next();
+            File file = (File)iterator.next();
             if (emptyDirs.contains(file.getParent()))
             {
                 iterator.remove();
@@ -101,7 +101,8 @@ public class EmptyDirsLister
         return emptyDir;
     }
 
-    private static class DirFilter implements FileFilter
+    private static class DirFilter
+            implements FileFilter
     {
         public boolean accept(File file)
         {
@@ -110,7 +111,8 @@ public class EmptyDirsLister
 
     }
 
-    private static class NoDirFilter implements FileFilter
+    private static class NoDirFilter
+            implements FileFilter
     {
         public boolean accept(File file)
         {

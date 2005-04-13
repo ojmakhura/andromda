@@ -3,7 +3,8 @@ package org.andromda.metafacades.uml14;
 /**
  * Metaclass facade implementation.
  */
-public class FinalStateFacadeLogicImpl extends FinalStateFacadeLogic
+public class FinalStateFacadeLogicImpl
+        extends FinalStateFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

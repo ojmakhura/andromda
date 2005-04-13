@@ -13,7 +13,8 @@ import java.util.Collection;
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringDependency
  */
-public class SpringDependencyLogicImpl extends SpringDependencyLogic
+public class SpringDependencyLogicImpl
+        extends SpringDependencyLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -66,7 +67,7 @@ public class SpringDependencyLogicImpl extends SpringDependencyLogic
             {
                 public boolean evaluate(Object object)
                 {
-                    DependencyFacade dependency = (DependencyFacade) object;
+                    DependencyFacade dependency = (DependencyFacade)object;
                     return dependency != null && dependency.getTargetElement().equals(sourceElement);
                 }
             }) != null;
@@ -79,7 +80,8 @@ public class SpringDependencyLogicImpl extends SpringDependencyLogic
      */
     protected String handleGetTransformationToCollectionMethodName()
     {
-        return SpringGlobals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(this.getName()) + SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
+        return SpringGlobals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(this.getName()) +
+                SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
     }
 
     /**

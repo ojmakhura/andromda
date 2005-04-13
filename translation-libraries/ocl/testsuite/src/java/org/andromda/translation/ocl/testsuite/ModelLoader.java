@@ -98,7 +98,9 @@ public class ModelLoader
             }
             else
             {
-                throw new TranslationTestProcessorException(methodName + " no property '" + MODEL_XMI + "' was defined, please define this to specify the location of your model");
+                throw new TranslationTestProcessorException(
+                        methodName + " no property '" + MODEL_XMI +
+                        "' was defined, please define this to specify the location of your model");
             }
         }
         catch (Exception ex)
@@ -186,7 +188,7 @@ public class ModelLoader
      */
     protected ModelAccessFacade getModelAcessFacade()
     {
-        return (ModelAccessFacade) ComponentContainer.instance().findComponent(ModelAccessFacade.class);
+        return (ModelAccessFacade)ComponentContainer.instance().findComponent(ModelAccessFacade.class);
     }
 
     /**
@@ -198,7 +200,7 @@ public class ModelLoader
      */
     protected RepositoryFacade getRepository()
     {
-        return (RepositoryFacade) ComponentContainer.instance().findComponent(RepositoryFacade.class);
+        return (RepositoryFacade)ComponentContainer.instance().findComponent(RepositoryFacade.class);
     }
 
 }

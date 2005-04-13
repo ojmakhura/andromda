@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.inventory.web.registerCar.RegisterCarController
  */
-public class RegisterCarControllerImpl extends RegisterCarController
+public class RegisterCarControllerImpl
+        extends RegisterCarController
 {
     /**
      * @see org.andromda.samples.carrental.inventory.web.registerCar.RegisterCarController#createCar(org.apache.struts.action.ActionMapping,
@@ -59,7 +60,8 @@ public class RegisterCarControllerImpl extends RegisterCarController
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class ExistingcarsDummy implements java.io.Serializable
+    public final class ExistingcarsDummy
+            implements java.io.Serializable
     {
         private String inventoryNo = null;
         private String registrationNo = null;

@@ -4,7 +4,8 @@ package org.andromda.translation.ocl.testsuite;
  * Any unchecked exception that will be thrown when an unexpected error occurs during TranslationTestDiscoverer
  * processing.
  */
-public class TranslationTestDiscovererException extends RuntimeException
+public class TranslationTestDiscovererException
+        extends RuntimeException
 {
 
     /**

@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.admins.web.login.AdministratorLoginController
  */
-public class AdministratorLoginControllerImpl extends AdministratorLoginController
+public class AdministratorLoginControllerImpl
+        extends AdministratorLoginController
 {
     /**
      * @see org.andromda.samples.carrental.admins.web.login.AdministratorLoginController#authenticateAsAdministrator(org.apache.struts.action.ActionMapping,

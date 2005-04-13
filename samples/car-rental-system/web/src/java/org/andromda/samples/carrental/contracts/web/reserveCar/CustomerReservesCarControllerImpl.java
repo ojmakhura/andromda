@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController
  */
-public class CustomerReservesCarControllerImpl extends CustomerReservesCarController
+public class CustomerReservesCarControllerImpl
+        extends CustomerReservesCarController
 {
     /**
      * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#searchForReservationsOfCustomer(org.apache.struts.action.ActionMapping,
@@ -73,7 +74,8 @@ public class CustomerReservesCarControllerImpl extends CustomerReservesCarContro
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class ReservationsDummy implements java.io.Serializable
+    public final class ReservationsDummy
+            implements java.io.Serializable
     {
         private String reservationDate = null;
         private String comfortClass = null;

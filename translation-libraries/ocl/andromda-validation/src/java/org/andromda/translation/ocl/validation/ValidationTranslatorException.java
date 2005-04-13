@@ -7,7 +7,8 @@ import org.andromda.core.translation.TranslatorException;
  *
  * @author Chad Brandon
  */
-public class ValidationTranslatorException extends TranslatorException
+public class ValidationTranslatorException
+        extends TranslatorException
 {
 
     /**

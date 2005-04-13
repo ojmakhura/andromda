@@ -77,9 +77,9 @@ public class ConcreteSyntaxUtils
 
         OperationDeclaration operationDeclaration = null;
 
-        AOperation op = (AOperation) operation;
+        AOperation op = (AOperation)operation;
 
-        ATypeDeclaration typeDeclaration = (ATypeDeclaration) op.getReturnTypeDeclaration();
+        ATypeDeclaration typeDeclaration = (ATypeDeclaration)op.getReturnTypeDeclaration();
         String returnType = null;
         if (typeDeclaration != null)
         {
@@ -107,7 +107,7 @@ public class ConcreteSyntaxUtils
     {
         final String methodName = "ConcreteSyntaxUtils.getVariableDeclarations";
         ExceptionUtils.checkNull(methodName, "operation", operation);
-        return ConcreteSyntaxUtils.getVariableDeclarations(((AOperation) operation).getParameters());
+        return ConcreteSyntaxUtils.getVariableDeclarations(((AOperation)operation).getParameters());
     }
 
     /**
@@ -136,8 +136,8 @@ public class ConcreteSyntaxUtils
         final String methodName = "ConcreteSyntaxUtils.newVariableDeclaration";
         ExceptionUtils.checkNull(methodName, "variableDeclaration", variableDeclaration);
 
-        AVariableDeclaration declaration = (AVariableDeclaration) variableDeclaration;
-        ATypeDeclaration typeDeclaration = (ATypeDeclaration) declaration.getTypeDeclaration();
+        AVariableDeclaration declaration = (AVariableDeclaration)variableDeclaration;
+        ATypeDeclaration typeDeclaration = (ATypeDeclaration)declaration.getTypeDeclaration();
         String type = null;
         String name = ObjectUtils.toString(declaration.getName()).trim();
         if (typeDeclaration != null)
@@ -161,7 +161,7 @@ public class ConcreteSyntaxUtils
 
         if (variableDeclarationList != null)
         {
-            AVariableDeclarationList variables = (AVariableDeclarationList) variableDeclarationList;
+            AVariableDeclarationList variables = (AVariableDeclarationList)variableDeclarationList;
 
             if (variables != null)
             {
@@ -176,13 +176,15 @@ public class ConcreteSyntaxUtils
                     Iterator variableTailIt = variableTails.iterator();
                     while (variableTailIt.hasNext())
                     {
-                        AVariableDeclarationListTail tail = (AVariableDeclarationListTail) variableTailIt.next();
-                        declarations.add(ConcreteSyntaxUtils.newVariableDeclaration(tail.getVariableDeclaration(), tail.getVariableDeclarationValue()));
+                        AVariableDeclarationListTail tail = (AVariableDeclarationListTail)variableTailIt.next();
+                        declarations.add(
+                                ConcreteSyntaxUtils.newVariableDeclaration(tail.getVariableDeclaration(),
+                                        tail.getVariableDeclarationValue()));
                     }
                 }
             }
         }
-        return (VariableDeclaration[]) declarations.toArray(new VariableDeclaration[0]);
+        return (VariableDeclaration[])declarations.toArray(new VariableDeclaration[0]);
     }
 
     /**
@@ -234,10 +236,10 @@ public class ConcreteSyntaxUtils
         List parameters = new ArrayList();
         if (callParameters != null)
         {
-            PActualParameterList parameterList = ((AFeatureCallParameters) callParameters).getActualParameterList();
+            PActualParameterList parameterList = ((AFeatureCallParameters)callParameters).getActualParameterList();
             if (parameterList != null)
             {
-                AActualParameterList params = (AActualParameterList) parameterList;
+                AActualParameterList params = (AActualParameterList)parameterList;
 
                 // add the first param if it exists
                 String firstParam = TranslationUtils.trimToEmpty(params.getExpression());
@@ -254,7 +256,7 @@ public class ConcreteSyntaxUtils
                     Iterator paramIt = restOfParams.iterator();
                     while (paramIt.hasNext())
                     {
-                        ACommaExpression parameterListTail = (ACommaExpression) paramIt.next();
+                        ACommaExpression parameterListTail = (ACommaExpression)paramIt.next();
                         parameters.add(TranslationUtils.trimToEmpty(parameterListTail.getExpression()));
                     }
                 }
@@ -273,12 +275,12 @@ public class ConcreteSyntaxUtils
     public static String[] getLeftAndRightExpressions(PRelationalExpression relationalExpression)
     {
         String[] expressions = new String[2];
-        ARelationalExpression expression = (ARelationalExpression) relationalExpression;
+        ARelationalExpression expression = (ARelationalExpression)relationalExpression;
 
         // set the left expression
         expressions[0] = TranslationUtils.trimToEmpty(expression.getAdditiveExpression());
 
-        ARelationalExpressionTail expressionTail = (ARelationalExpressionTail) expression.getRelationalExpressionTail();
+        ARelationalExpressionTail expressionTail = (ARelationalExpressionTail)expression.getRelationalExpressionTail();
 
         // set the right expression
         expressions[1] = TranslationUtils.trimToEmpty(expressionTail.getAdditiveExpression());

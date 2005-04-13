@@ -116,7 +116,7 @@ public class EntityMetafacadeUtils
         if (element != null)
         {
             Object value = element.findTaggedValue(name);
-            name = StringUtils.trimToEmpty((String) value);
+            name = StringUtils.trimToEmpty((String)value);
             if (StringUtils.isEmpty(name))
             {
                 //if we can't find the tagValue then use the
@@ -172,12 +172,12 @@ public class EntityMetafacadeUtils
         Collection identifiers = entity.getAttributes();
         MetafacadeUtils.filterByStereotype(identifiers, UMLProfile.STEREOTYPE_IDENTIFIER);
 
-        for (ClassifierFacade superClass = (ClassifierFacade) entity.getGeneralization(); superClass != null &&
-                identifiers.isEmpty() && follow; superClass = (ClassifierFacade) superClass.getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade)entity.getGeneralization(); superClass != null &&
+                identifiers.isEmpty() && follow; superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             if (superClass.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
             {
-                Entity facade = (Entity) superClass;
+                Entity facade = (Entity)superClass;
                 identifiers.addAll(facade.getIdentifiers(follow));
             }
         }

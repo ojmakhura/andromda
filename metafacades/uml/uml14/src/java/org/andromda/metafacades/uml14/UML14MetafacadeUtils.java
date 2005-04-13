@@ -50,12 +50,14 @@ public class UML14MetafacadeUtils
     static Object findByFullyQualifiedName(final String fullyQualifiedName, final String separator)
     {
         Object modelElement = null;
-        Collection elements = ((org.omg.uml.UmlPackage) MetafacadeFactory.getInstance().getModel().getModel()).getCore().getModelElement().refAllOfType();
+        Collection elements = ((org.omg.uml.UmlPackage)MetafacadeFactory.getInstance().getModel().getModel()).getCore()
+                .getModelElement()
+                .refAllOfType();
         modelElement = CollectionUtils.find(elements, new Predicate()
         {
             public boolean evaluate(Object object)
             {
-                ModelElement element = (ModelElement) object;
+                ModelElement element = (ModelElement)object;
                 StringBuffer fullName = new StringBuffer(getPackageName(element, separator));
                 String name = element.getName();
                 if (StringUtils.isNotBlank(name))
@@ -96,7 +98,7 @@ public class UML14MetafacadeUtils
      */
     static CorePackage getCorePackage()
     {
-        return ((org.omg.uml.UmlPackage) MetafacadeFactory.getInstance().getModel().getModel()).getCore();
+        return ((org.omg.uml.UmlPackage)MetafacadeFactory.getInstance().getModel().getModel()).getCore();
     }
 
     /**
@@ -116,7 +118,7 @@ public class UML14MetafacadeUtils
             {
                 public boolean evaluate(Object object)
                 {
-                    return StringUtils.trimToEmpty(((ModelElement) object).getName()).equals(name);
+                    return StringUtils.trimToEmpty(((ModelElement)object).getName()).equals(name);
                 }
             });
         }
@@ -143,7 +145,7 @@ public class UML14MetafacadeUtils
                 break;
             }
         }
-        return (UmlPackage) rootPackage;
+        return (UmlPackage)rootPackage;
     }
 
     /**
@@ -153,7 +155,7 @@ public class UML14MetafacadeUtils
      */
     static org.omg.uml.UmlPackage getModel()
     {
-        return (org.omg.uml.UmlPackage) MetafacadeFactory.getInstance().getModel().getModel();
+        return (org.omg.uml.UmlPackage)MetafacadeFactory.getInstance().getModel().getModel();
     }
 
     /**
@@ -204,7 +206,7 @@ public class UML14MetafacadeUtils
         Object type = UML14MetafacadeUtils.findByFullyQualifiedName(fullyQualifiedTypeName, separator);
         if (type != null && Classifier.class.isAssignableFrom(type.getClass()))
         {
-            attribute.setType((Classifier) type);
+            attribute.setType((Classifier)type);
         }
         return attribute;
     }
@@ -221,7 +223,7 @@ public class UML14MetafacadeUtils
         boolean exists = false;
         if (Classifier.class.isAssignableFrom(classifier.getClass()))
         {
-            List features = ((Classifier) classifier).getFeature();
+            List features = ((Classifier)classifier).getFeature();
             if (features != null && !features.isEmpty())
             {
                 for (Iterator featureIterator = features.iterator(); featureIterator.hasNext();)
@@ -229,7 +231,7 @@ public class UML14MetafacadeUtils
                     Object feature = featureIterator.next();
                     if (feature != null && Attribute.class.isAssignableFrom(feature.getClass()))
                     {
-                        exists = StringUtils.trimToEmpty(((Attribute) feature).getName()).equals(name);
+                        exists = StringUtils.trimToEmpty(((Attribute)feature).getName()).equals(name);
                     }
                 }
             }
@@ -249,11 +251,11 @@ public class UML14MetafacadeUtils
         if (stereotype == null || !Stereotype.class.isAssignableFrom(stereotype.getClass()))
         {
             stereotype = UML14MetafacadeUtils.getCorePackage().getStereotype().createStereotype();
-            ((Stereotype) stereotype).setName(name);
+            ((Stereotype)stereotype).setName(name);
         }
-        return (Stereotype) stereotype;
+        return (Stereotype)stereotype;
     }
-    
+
     /**
      * Returns the first use-case it can find with the given name.
      */
@@ -274,7 +276,7 @@ public class UML14MetafacadeUtils
         for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithNameAndStereotype ==
                 null;)
         {
-            UseCase useCase = (UseCase) useCaseIterator.next();
+            UseCase useCase = (UseCase)useCaseIterator.next();
             if (name.equals(useCase.getName()))
             {
                 if (stereotypeName == null || isStereotypePresent(useCase, stereotypeName))
@@ -304,9 +306,10 @@ public class UML14MetafacadeUtils
         ActivityGraph graphWithNameAndStereotype = null;
 
         Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
-        for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext() && graphWithNameAndStereotype == null;)
+        for (Iterator graphIterator = graphs.iterator();
+             graphIterator.hasNext() && graphWithNameAndStereotype == null;)
         {
-            ActivityGraph graph = (ActivityGraph) graphIterator.next();
+            ActivityGraph graph = (ActivityGraph)graphIterator.next();
             if (name.equals(graph.getName()))
             {
                 if (stereotypeName == null || isStereotypePresent(graph, stereotypeName))
@@ -329,7 +332,7 @@ public class UML14MetafacadeUtils
         Collection taggedValues = element.getTaggedValue();
         for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext() && !tagPresent;)
         {
-            TaggedValue taggedValue = (TaggedValue) taggedValueIterator.next();
+            TaggedValue taggedValue = (TaggedValue)taggedValueIterator.next();
             if (tag.equals(taggedValue.getName()))
             {
                 for (Iterator valueIterator = taggedValue.getDataValue().iterator(); valueIterator.hasNext() &&
@@ -368,9 +371,10 @@ public class UML14MetafacadeUtils
         boolean stereotypePresent = false;
 
         Collection stereotypes = element.getStereotype();
-        for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext() && !stereotypePresent;)
+        for (Iterator stereotypeIterator = stereotypes.iterator();
+             stereotypeIterator.hasNext() && !stereotypePresent;)
         {
-            Stereotype stereotype = (Stereotype) stereotypeIterator.next();
+            Stereotype stereotype = (Stereotype)stereotypeIterator.next();
             if (stereotypeName.equals(stereotype.getName()))
             {
                 stereotypePresent = true;
@@ -392,7 +396,7 @@ public class UML14MetafacadeUtils
                 null;)
         {
             // loop over all use-cases
-            UseCase useCase = (UseCase) useCaseIterator.next();
+            UseCase useCase = (UseCase)useCaseIterator.next();
             if (isTagPresent(useCase, tag, value) || isHyperlinkPresent(useCase, value))
             {
                 useCaseWithTaggedValue = useCase;
@@ -414,7 +418,7 @@ public class UML14MetafacadeUtils
         for (Iterator classIterator = classes.iterator(); classIterator.hasNext() && classWithTaggedValue == null;)
         {
             // loop over all use-cases
-            UmlClass clazz = (UmlClass) classIterator.next();
+            UmlClass clazz = (UmlClass)classIterator.next();
             if (isTagPresent(clazz, tag, value) || isHyperlinkPresent(clazz, value))
             {
                 classWithTaggedValue = clazz;
@@ -434,7 +438,7 @@ public class UML14MetafacadeUtils
             Collection allFinalStates = getModel().getStateMachines().getFinalState().refAllOfType();
             for (Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)
             {
-                FinalState finalState = (FinalState) iterator.next();
+                FinalState finalState = (FinalState)iterator.next();
                 if (useCaseName != null)
                 {
                     if (useCaseName.equals(finalState.getName()))
@@ -478,10 +482,10 @@ public class UML14MetafacadeUtils
             Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
             for (Iterator iterator = graphs.iterator(); iterator.hasNext() && activityGraph == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    activityGraph = (ActivityGraph) element;
+                    activityGraph = (ActivityGraph)element;
                 }
             }
         }
@@ -504,10 +508,10 @@ public class UML14MetafacadeUtils
             Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
             for (Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    useCase = (UseCase) element;
+                    useCase = (UseCase)element;
                 }
             }
         }
@@ -530,10 +534,10 @@ public class UML14MetafacadeUtils
             Collection parameters = getModel().getCore().getParameter().refAllOfType();
             for (Iterator iterator = parameters.iterator(); iterator.hasNext() && parameter == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    parameter = (Parameter) element;
+                    parameter = (Parameter)element;
                 }
             }
         }
@@ -556,10 +560,10 @@ public class UML14MetafacadeUtils
             Collection events = getModel().getStateMachines().getEvent().refAllOfType();
             for (Iterator iterator = events.iterator(); iterator.hasNext() && event == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
-                    event = (Event) element;
+                    event = (Event)element;
                 }
             }
         }
@@ -582,7 +586,7 @@ public class UML14MetafacadeUtils
             Collection modelElements = getModel().getCore().getModelElement().refAllOfType();
             for (Iterator iterator = modelElements.iterator(); iterator.hasNext() && modelElement == null;)
             {
-                ModelElement element = (ModelElement) iterator.next();
+                ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
                 {
                     modelElement = element;

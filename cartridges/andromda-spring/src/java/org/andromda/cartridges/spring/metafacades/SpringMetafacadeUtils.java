@@ -67,16 +67,16 @@ class SpringMetafacadeUtils
         String remotingType = null;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
-            String remotingTypeValue = (String) classifier.findTaggedValue(
+            String remotingTypeValue = (String)classifier.findTaggedValue(
                     SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTING_TYPE);
             // if the remoting type wasn't found, search all super classes
             if (StringUtils.isEmpty(remotingTypeValue))
             {
-                remotingType = (String) CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
+                remotingType = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
                 {
                     public boolean evaluate(Object object)
                     {
-                        return ((ModelElementFacade) object).findTaggedValue(
+                        return ((ModelElementFacade)object).findTaggedValue(
                                 SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTING_TYPE) != null;
                     }
                 });
@@ -107,16 +107,16 @@ class SpringMetafacadeUtils
         String remoteServicePort = null;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
-            String remoteServicePortValue = (String) classifier.findTaggedValue(
+            String remoteServicePortValue = (String)classifier.findTaggedValue(
                     SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTE_PORT);
             // if the remote service port wasn't found, search all super classes
             if (StringUtils.isEmpty(remoteServicePortValue))
             {
-                remoteServicePort = (String) CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
+                remoteServicePort = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
                 {
                     public boolean evaluate(Object object)
                     {
-                        return ((ModelElementFacade) object).findTaggedValue(
+                        return ((ModelElementFacade)object).findTaggedValue(
                                 SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTE_PORT) != null;
                     }
                 });

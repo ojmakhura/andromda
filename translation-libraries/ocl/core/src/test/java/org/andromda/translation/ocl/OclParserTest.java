@@ -17,17 +17,15 @@ import org.andromda.translation.ocl.node.Start;
 import org.andromda.translation.ocl.parser.OclParser;
 
 /**
- * Implements the JUnit test suite for
- * {@link org.andromda.translation.ocl.parser.OclParser}
- * 
+ * Implements the JUnit test suite for {@link org.andromda.translation.ocl.parser.OclParser}
+ *
  * @author Chad Brandon
  */
 public class OclParserTest
-    extends TestCase
+        extends TestCase
 {
 
-    private String PACKAGE_DIR = ClassUtils.getPackageName(OclParserTest.class)
-        .replace('.', '/');
+    private String PACKAGE_DIR = ClassUtils.getPackageName(OclParserTest.class).replace('.', '/');
 
     /**
      * Location of a file containing valid OCL syntax.
@@ -36,11 +34,10 @@ public class OclParserTest
 
     /**
      * Constructor for ModelFacadeTest.
-     * 
+     *
      * @param testName
      */
-    public OclParserTest(
-        String testName)
+    public OclParserTest(String testName)
     {
         super(testName);
     }
@@ -53,7 +50,7 @@ public class OclParserTest
 
     /**
      * Assembles test suite of all known tests
-     * 
+     *
      * @return non-null test suite
      */
     public static Test suite()
@@ -73,8 +70,7 @@ public class OclParserTest
                 TestCase.fail("Could not load resource '" + VALID_SYNTAX + "'");
             }
             DepthFirstAdapter adapter = new DepthFirstAdapter();
-            Lexer lexer = new Lexer(new PushbackReader(new FileReader(url
-                .getFile())));
+            Lexer lexer = new Lexer(new PushbackReader(new FileReader(url.getFile())));
             OclParser parser = new OclParser(lexer);
             Start startNode = parser.parse();
             startNode.apply(adapter);

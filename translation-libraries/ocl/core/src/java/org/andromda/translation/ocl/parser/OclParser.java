@@ -34,7 +34,8 @@ import java.util.Map;
 /**
  * This class adapts the Parser class to handle expressions in which the SableCC parser can't handle.
  */
-public class OclParser extends Parser
+public class OclParser
+        extends Parser
 {
     protected Node oclNode;
 
@@ -63,7 +64,8 @@ public class OclParser extends Parser
     /**
      * A private inner class for handling syntax which SableCC can't handle on its own.
      */
-    private class SyntaxHandler extends AnalysisAdapter
+    private class SyntaxHandler
+            extends AnalysisAdapter
     {
 
         /**
@@ -80,7 +82,7 @@ public class OclParser extends Parser
 
             for (int ctr = 0; iter.hasNext(); ctr++)
             {
-                PFeatureCallParameterOption option = (PFeatureCallParameterOption) iter.next();
+                PFeatureCallParameterOption option = (PFeatureCallParameterOption)iter.next();
                 parameterOption[ctr] = option;
                 isIterateDeclarator = option instanceof AIterateFeatureCallParameterOption;
                 if (!isIterateDeclarator)
@@ -126,9 +128,9 @@ public class OclParser extends Parser
         {
             AIterateDeclarator iteratorDeclarator = new AIterateDeclarator();
 
-            AColonFeatureCallParameterOption featureCallParameterOption0 = (AColonFeatureCallParameterOption) parameterOption[0];
-            AIterateFeatureCallParameterOption featureCallParameterOption1 = (AIterateFeatureCallParameterOption) parameterOption[1];
-            ABarFeatureCallParameterOption featureCallParameterOption2 = (ABarFeatureCallParameterOption) parameterOption[2];
+            AColonFeatureCallParameterOption featureCallParameterOption0 = (AColonFeatureCallParameterOption)parameterOption[0];
+            AIterateFeatureCallParameterOption featureCallParameterOption1 = (AIterateFeatureCallParameterOption)parameterOption[1];
+            ABarFeatureCallParameterOption featureCallParameterOption2 = (ABarFeatureCallParameterOption)parameterOption[2];
 
             AVariableDeclaration iterator = new AVariableDeclaration(getName(expression),
                     featureCallParameterOption0.getTypeDeclaration());
@@ -179,7 +181,7 @@ public class OclParser extends Parser
                 }
             }
 
-            ABarFeatureCallParameterOption barParameterType = (ABarFeatureCallParameterOption) parameterOptions[parameterOptionNum -
+            ABarFeatureCallParameterOption barParameterType = (ABarFeatureCallParameterOption)parameterOptions[parameterOptionNum -
                     1];
 
             AStandardDeclarator standardDeclarator = new AStandardDeclarator(
@@ -211,7 +213,7 @@ public class OclParser extends Parser
                     throw new OclParserException("parser error: declarator-less feature call paramaters must have the format " +
                             "\"( expr, ..., expr )\"");
                 }
-                ACommaFeatureCallParameterOption commaOption = (ACommaFeatureCallParameterOption) parameterOption[ctr];
+                ACommaFeatureCallParameterOption commaOption = (ACommaFeatureCallParameterOption)parameterOption[ctr];
                 ACommaExpression commaExpression = new ACommaExpression(commaOption.getComma(),
                         commaOption.getExpression());
                 paramList.add(commaExpression);
@@ -240,7 +242,8 @@ public class OclParser extends Parser
     /**
      * A tree traversal class that searchs for a name in a expression.
      */
-    private class VariableDeclarationListFinder extends DepthFirstAdapter
+    private class VariableDeclarationListFinder
+            extends DepthFirstAdapter
     {
         /**
          * Stores the variable names in an ordered fashion so that we can retrieve them from the namesAndTypes map in
@@ -297,9 +300,9 @@ public class OclParser extends Parser
         public AVariableDeclarationList getList()
         {
 
-            TName initialName = (TName) this.orderedNames.getFirst();
+            TName initialName = (TName)this.orderedNames.getFirst();
 
-            ATypeDeclaration typeDeclaration = (ATypeDeclaration) namesAndTypes.get(initialName);
+            ATypeDeclaration typeDeclaration = (ATypeDeclaration)namesAndTypes.get(initialName);
 
             List variableDeclarationListTails = new ArrayList();
             if (!this.orderedNames.isEmpty())
@@ -307,10 +310,10 @@ public class OclParser extends Parser
                 int orderedNameSize = orderedNames.size();
                 for (int ctr = 1; ctr < orderedNameSize; ctr++)
                 {
-                    ACommaFeatureCallParameterOption name = (ACommaFeatureCallParameterOption) this.orderedNames.get(
+                    ACommaFeatureCallParameterOption name = (ACommaFeatureCallParameterOption)this.orderedNames.get(
                             ctr);
 
-                    ATypeDeclaration typeDecl = (ATypeDeclaration) this.namesAndTypes.get(name);
+                    ATypeDeclaration typeDecl = (ATypeDeclaration)this.namesAndTypes.get(name);
 
                     AVariableDeclaration variableDeclaration = new AVariableDeclaration(getName(name.getExpression()),
                             typeDecl);
@@ -329,7 +332,8 @@ public class OclParser extends Parser
     /**
      * A tree traversal class that searches for a name in a expression.
      */
-    private class NameFinder extends DepthFirstAdapter
+    private class NameFinder
+            extends DepthFirstAdapter
     {
         private TName foundName;
 

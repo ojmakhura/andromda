@@ -32,7 +32,8 @@ public class ExceptionUtils
         // this is what the method is actually for
         if (argument == null)
         {
-            throw new IllegalArgumentException("methodName: " + methodExecuteName + " - '" + argumentName + "' can not be null");
+            throw new IllegalArgumentException(
+                    "methodName: " + methodExecuteName + " - '" + argumentName + "' can not be null");
         }
     }
 
@@ -59,7 +60,9 @@ public class ExceptionUtils
         // this is what the method is actually for
         if (StringUtils.isEmpty(argument))
         {
-            throw new IllegalArgumentException("methodName: " + methodExecuteName + " - '" + argumentName + "' can not be null or an empty String");
+            throw new IllegalArgumentException(
+                    "methodName: " + methodExecuteName + " - '" + argumentName +
+                    "' can not be null or an empty String");
         }
     }
 
@@ -96,7 +99,11 @@ public class ExceptionUtils
         // this is what the method is for
         if (!assignableToClass.isAssignableFrom(argumentClass))
         {
-            throw new IllegalArgumentException("methodName: " + methodExecuteName + " - '" + argumentName + "' class --> '" + argumentClass + "' must be assignable to class --> '" + assignableToClass + "'");
+            throw new IllegalArgumentException(
+                    "methodName: " + methodExecuteName + " - '" + argumentName + "' class --> '" + argumentClass +
+                    "' must be assignable to class --> '" +
+                    assignableToClass +
+                    "'");
         }
     }
 }

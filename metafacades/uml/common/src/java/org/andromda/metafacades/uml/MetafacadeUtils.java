@@ -55,7 +55,7 @@ public class MetafacadeUtils
             {
                 public boolean evaluate(Object object)
                 {
-                    return ((ModelElementFacade) object).hasStereotype(stereotype);
+                    return ((ModelElementFacade)object).hasStereotype(stereotype);
                 }
             });
         }
@@ -141,7 +141,7 @@ public class MetafacadeUtils
         String uniqueName = null;
         if (uniqueNames.containsKey(name))
         {
-            int collisionCount = ((Integer) uniqueNames.get(name)).intValue() + 1;
+            int collisionCount = ((Integer)uniqueNames.get(name)).intValue() + 1;
             String suffix = String.valueOf(collisionCount);
 
             uniqueNames.put(name, new Integer(collisionCount));

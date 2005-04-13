@@ -20,7 +20,8 @@ import java.util.Iterator;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  */
-public class UMLModelAccessFacade implements ModelAccessFacade
+public class UMLModelAccessFacade
+        implements ModelAccessFacade
 {
     private Logger logger = Logger.getLogger(UMLModelAccessFacade.class);
 
@@ -34,7 +35,7 @@ public class UMLModelAccessFacade implements ModelAccessFacade
         final String methodName = "UMLModelAccessFacade.setModel";
         ExceptionUtils.checkNull(methodName, "model", model);
         ExceptionUtils.checkAssignable(methodName, UmlPackage.class, "modelElement", model.getClass());
-        this.model = (UmlPackage) model;
+        this.model = (UmlPackage)model;
     }
 
     /**
@@ -53,7 +54,7 @@ public class UMLModelAccessFacade implements ModelAccessFacade
         final String methodName = "UMLModelAccessFacade.getName";
         ExceptionUtils.checkNull(methodName, "modelElement", modelElement);
         ExceptionUtils.checkAssignable(methodName, ModelElementFacade.class, "modelElement", modelElement.getClass());
-        return ((ModelElementFacade) modelElement).getName();
+        return ((ModelElementFacade)modelElement).getName();
     }
 
     /**
@@ -64,7 +65,7 @@ public class UMLModelAccessFacade implements ModelAccessFacade
         final String methodName = "UMLModelAccessFacade.getPackageName";
         ExceptionUtils.checkNull(methodName, "modelElement", modelElement);
         ExceptionUtils.checkAssignable(methodName, ModelElementFacade.class, "modelElement", modelElement.getClass());
-        return ((ModelElementFacade) modelElement).getPackageName();
+        return ((ModelElementFacade)modelElement).getPackageName();
     }
 
     /**
@@ -75,17 +76,17 @@ public class UMLModelAccessFacade implements ModelAccessFacade
         Collection stereotypeNames = new ArrayList();
         if (modelElement instanceof ModelElement)
         {
-            ModelElement element = (ModelElement) modelElement;
+            ModelElement element = (ModelElement)modelElement;
             Collection stereotypes = element.getStereotype();
             for (Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
             {
-                ModelElement stereotype = (ModelElement) iterator.next();
+                ModelElement stereotype = (ModelElement)iterator.next();
                 stereotypeNames.add(stereotype.getName());
             }
         }
         else if (modelElement instanceof ModelElementFacade)
         {
-            stereotypeNames = ((ModelElementFacade) modelElement).getStereotypeNames();
+            stereotypeNames = ((ModelElementFacade)modelElement).getStereotypeNames();
         }
         return stereotypeNames;
     }
@@ -108,7 +109,7 @@ public class UMLModelAccessFacade implements ModelAccessFacade
                     Iterator elementIt = underlyingElements.iterator();
                     while (elementIt.hasNext())
                     {
-                        ModelElement element = (ModelElement) elementIt.next();
+                        ModelElement element = (ModelElement)elementIt.next();
                         Collection stereotypeNames = this.getStereotypeNames(element);
                         if (stereotypeNames != null && stereotypeNames.contains(stereotype))
                         {

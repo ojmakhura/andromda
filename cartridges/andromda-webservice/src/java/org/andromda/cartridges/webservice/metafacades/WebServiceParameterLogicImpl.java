@@ -7,7 +7,8 @@ import org.andromda.metafacades.uml.ClassifierFacade;
  *
  * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameter
  */
-public class WebServiceParameterLogicImpl extends WebServiceParameterLogic
+public class WebServiceParameterLogicImpl
+        extends WebServiceParameterLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -35,11 +36,11 @@ public class WebServiceParameterLogicImpl extends WebServiceParameterLogic
         {
             if (WSDLType.class.isAssignableFrom(type.getClass()))
             {
-                WSDLType wsdlType = (WSDLType) type;
+                WSDLType wsdlType = (WSDLType)type;
                 ClassifierFacade service = this.getOperation().getOwner();
                 if (service != null && WebService.class.isAssignableFrom(service.getClass()))
                 {
-                    WebService webService = (WebService) service;
+                    WebService webService = (WebService)service;
                     if (!webService.isRpcStyle() && wsdlType.isArrayType())
                     {
                         testTypeName = webService.getTestPackageName() + '.' + wsdlType.getWsdlArrayName();

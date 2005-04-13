@@ -373,7 +373,7 @@ public class MetafacadeMapping
             char seperator = ':';
             while (propertyIterator.hasNext())
             {
-                Property property = (Property) propertyIterator.next();
+                Property property = (Property)propertyIterator.next();
                 toString.append(property.getName());
                 if (StringUtils.isNotEmpty(property.getValue()))
                 {

@@ -3,7 +3,8 @@ package org.andromda.core.templateengine;
 /**
  * Any unchecked exception that will be thrown when any processing by a TemplateEngine occurs..
  */
-public class TemplateEngineException extends RuntimeException
+public class TemplateEngineException
+        extends RuntimeException
 {
 
     /**

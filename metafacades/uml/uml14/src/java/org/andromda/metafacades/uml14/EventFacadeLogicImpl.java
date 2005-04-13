@@ -11,7 +11,8 @@ import java.util.Iterator;
  *
  * @see org.andromda.metafacades.uml.EventFacade
  */
-public class EventFacadeLogicImpl extends EventFacadeLogic
+public class EventFacadeLogicImpl
+        extends EventFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -33,7 +34,7 @@ public class EventFacadeLogicImpl extends EventFacadeLogic
         Collection allTransitions = UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
         for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition == null;)
         {
-            Transition transition = (Transition) iterator.next();
+            Transition transition = (Transition)iterator.next();
             if (metaObject.equals(transition.getTrigger()))
             {
                 eventTransition = transition;
@@ -52,7 +53,7 @@ public class EventFacadeLogicImpl extends EventFacadeLogic
 
         for (Iterator stateIterator = allStates.iterator(); stateIterator.hasNext() && eventState == null;)
         {
-            State state = (State) stateIterator.next();
+            State state = (State)stateIterator.next();
             if (state.getDeferrableEvent().contains(metaObject))
             {
                 eventState = state;

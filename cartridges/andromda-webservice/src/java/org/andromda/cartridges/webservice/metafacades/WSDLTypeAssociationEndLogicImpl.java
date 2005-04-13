@@ -5,7 +5,8 @@ package org.andromda.cartridges.webservice.metafacades;
  *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEnd
  */
-public class WSDLTypeAssociationEndLogicImpl extends WSDLTypeAssociationEndLogic
+public class WSDLTypeAssociationEndLogicImpl
+        extends WSDLTypeAssociationEndLogic
 {
     // ---------------- constructor -------------------------------
 

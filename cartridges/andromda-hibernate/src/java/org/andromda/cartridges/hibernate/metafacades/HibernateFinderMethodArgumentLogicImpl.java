@@ -7,7 +7,8 @@ import org.andromda.metafacades.uml.ClassifierFacade;
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument
  */
-public class HibernateFinderMethodArgumentLogicImpl extends HibernateFinderMethodArgumentLogic
+public class HibernateFinderMethodArgumentLogicImpl
+        extends HibernateFinderMethodArgumentLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -27,7 +28,9 @@ public class HibernateFinderMethodArgumentLogicImpl extends HibernateFinderMetho
     protected java.lang.String handleGetQueryArgumentNameSetter()
     {
         StringBuffer setterName = new StringBuffer();
-        boolean specializedSetters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS))).booleanValue();
+        boolean specializedSetters = Boolean.valueOf(
+                String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS)))
+                .booleanValue();
         ClassifierFacade classifier = this.getType();
         if (classifier != null)
         {

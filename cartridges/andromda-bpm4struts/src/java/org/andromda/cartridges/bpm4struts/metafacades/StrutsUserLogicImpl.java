@@ -14,7 +14,8 @@ import java.util.List;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUser
  */
-public class StrutsUserLogicImpl extends StrutsUserLogic
+public class StrutsUserLogicImpl
+        extends StrutsUserLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -62,7 +63,7 @@ public class StrutsUserLogicImpl extends StrutsUserLogic
         final Collection associationEnds = getAssociationEnds();
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext() && !associated;)
         {
-            AssociationEndFacade associationEnd = (AssociationEndFacade) iterator.next();
+            AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
             ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
             associated = classifier instanceof StrutsUseCase;
         }

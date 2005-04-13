@@ -32,7 +32,8 @@ import java.util.Map;
  *
  * @author Chad Brandon
  */
-public class TraceTranslator extends BaseTranslator
+public class TraceTranslator
+        extends BaseTranslator
 {
 
     private static final Logger logger = Logger.getLogger(TraceTranslator.class);
@@ -81,7 +82,7 @@ public class TraceTranslator extends BaseTranslator
                 {
                     logger.info(" OCL Translator has not been adapted --> adapting");
                 }
-                translator = (Translator) oclTranslator.getAdaptedTranslationClass().newInstance();
+                translator = (Translator)oclTranslator.getAdaptedTranslationClass().newInstance();
             }
             return translator;
         }
@@ -186,9 +187,9 @@ public class TraceTranslator extends BaseTranslator
             Iterator allMethods = this.methods.keySet().iterator();
             while (allMethods.hasNext())
             {
-                CtMethod method = (CtMethod) allMethods.next();
+                CtMethod method = (CtMethod)allMethods.next();
                 CtMethod newMethod = new CtMethod(method, ctTranslatorClass, null);
-                String methodBody = (String) this.methods.get(method);
+                String methodBody = (String)this.methods.get(method);
                 newMethod.setBody(methodBody);
                 ctTranslatorClass.addMethod(newMethod);
             }
@@ -389,7 +390,8 @@ public class TraceTranslator extends BaseTranslator
      *
      * @author Chad Brandon
      */
-    private static class TranslatorClassPool extends ClassPool
+    private static class TranslatorClassPool
+            extends ClassPool
     {
 
         private static Logger logger = Logger.getLogger(TranslatorClassPool.class);
@@ -453,7 +455,8 @@ public class TraceTranslator extends BaseTranslator
         /**
          * LocalClassLoader which allows us to dynamically construct classes on the fly using Javassist.
          */
-        static class LocalClassLoader extends ClassLoader
+        static class LocalClassLoader
+                extends ClassLoader
         {
             /**
              * Constructs an instance of LocalClassLoader.

@@ -8,7 +8,8 @@ import org.andromda.metafacades.uml.UMLProfile;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  */
-public class MetaProfile extends UMLProfile
+public class MetaProfile
+        extends UMLProfile
 {
     /**
      * The Profile instance from which we retrieve the mapped profile names.

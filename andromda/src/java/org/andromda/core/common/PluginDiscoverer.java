@@ -93,12 +93,14 @@ public class PluginDiscoverer
 
             while (pluginEnum.hasMoreElements())
             {
-                String pluginXmlUri = StringUtils.trimToEmpty((String) pluginEnum.nextElement());
+                String pluginXmlUri = StringUtils.trimToEmpty((String)pluginEnum.nextElement());
                 String pluginClassName = pluginResources.getProperty(pluginXmlUri);
                 Class pluginClass = ClassUtils.loadClass(pluginClassName);
                 if (!Plugin.class.isAssignableFrom(pluginClass))
                 {
-                    throw new PluginDiscovererException(methodName + " plugin class '" + pluginClassName + "' must implement --> '" + Plugin.class + "'");
+                    throw new PluginDiscovererException(
+                            methodName + " plugin class '" + pluginClassName + "' must implement --> '" + Plugin.class +
+                            "'");
                 }
 
                 URL[] pluginResources = ResourceFinder.findResources(pluginXmlUri);
@@ -110,12 +112,12 @@ public class PluginDiscoverer
 
                         URL pluginUri = pluginResources[ctr];
                         XmlObjectFactory factory = XmlObjectFactory.getInstance(pluginClass);
-                        Plugin plugin = (Plugin) factory.getObject(pluginUri);
+                        Plugin plugin = (Plugin)factory.getObject(pluginUri);
                         // perform the merge of the configuration file since
                         // we now know the namespace
                         String pluginUriContents = Merger.instance().getMergedString(
                                 ResourceUtils.getContents(pluginUri), plugin.getName());
-                        plugin = (Plugin) factory.getObject(pluginUriContents);
+                        plugin = (Plugin)factory.getObject(pluginUriContents);
                         plugin.setResource(pluginUri);
 
                         if (!ComponentContainer.instance().isRegistered(plugin.getName()))

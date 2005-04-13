@@ -9,7 +9,8 @@ import org.apache.commons.lang.StringUtils;
  * @author Chad Brandon
  * @see org.andromda.translation.ocl.syntax.OperationDeclaration
  */
-public class OperationDeclarationImpl implements OperationDeclaration
+public class OperationDeclarationImpl
+        implements OperationDeclaration
 {
 
     private String name;

@@ -24,7 +24,8 @@ import java.util.List;
  * <p/>
  * Represents an entity EJB. </p> Metaclass facade implementation.
  */
-public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
+public class EJBEntityFacadeLogicImpl
+        extends EJBEntityFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -39,10 +40,10 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         Iterator iter = this.getSourceDependencies().iterator();
         while (iter.hasNext())
         {
-            DependencyFacade dep = (DependencyFacade) iter.next();
+            DependencyFacade dep = (DependencyFacade)iter.next();
             if (dep.hasStereotype(EJBProfile.STEREOTYPE_IDENTIFIER))
             {
-                identifiers = ((ClassifierFacade) dep.getTargetElement()).getInstanceAttributes();
+                identifiers = ((ClassifierFacade)dep.getTargetElement()).getInstanceAttributes();
                 MetafacadeUtils.filterByStereotype(identifiers, EJBProfile.STEREOTYPE_IDENTIFIER);
                 return identifiers;
             }
@@ -51,13 +52,13 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         // No PK dependency found - try a PK attribute
         if (super.getIdentifiers() != null && !super.getIdentifiers().isEmpty())
         {
-            AttributeFacade attr = (AttributeFacade) super.getIdentifiers().iterator().next();
+            AttributeFacade attr = (AttributeFacade)super.getIdentifiers().iterator().next();
             identifiers.add(attr);
             return identifiers;
         }
 
         // Still nothing found - recurse up the inheritance tree
-        EJBEntityFacade decorator = (EJBEntityFacade) this.getGeneralization();
+        EJBEntityFacade decorator = (EJBEntityFacade)this.getGeneralization();
         return decorator.getIdentifiers();
     }
 
@@ -77,12 +78,12 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         Collection result = new ArrayList();
         result.addAll(getEntityRelations());
 
-        ClassifierFacade classifier = (ClassifierFacade) this.getGeneralization();
+        ClassifierFacade classifier = (ClassifierFacade)this.getGeneralization();
         while (classifier != null && classifier instanceof EJBEntityFacade && classifier.isAbstract())
         {
-            EJBEntityFacade entity = (EJBEntityFacade) classifier;
+            EJBEntityFacade entity = (EJBEntityFacade)classifier;
             result.addAll(entity.getEntityRelations());
-            classifier = (ClassifierFacade) classifier.getGeneralization();
+            classifier = (ClassifierFacade)classifier.getGeneralization();
         }
         return result;
     }
@@ -104,7 +105,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         Iterator endIt = this.getAssociationEnds().iterator();
         while (endIt.hasNext())
         {
-            EJBAssociationEndFacade associationEnd = (EJBAssociationEndFacade) endIt.next();
+            EJBAssociationEndFacade associationEnd = (EJBAssociationEndFacade)endIt.next();
             ClassifierFacade target = associationEnd.getOtherEnd().getType();
             if (target instanceof EJBEntityFacade && associationEnd.getOtherEnd().isNavigable())
             {
@@ -114,7 +115,9 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
                 String generateCmr = value == null ? null : value.toString();
                 if (target.isAbstract() && !"false".equalsIgnoreCase(generateCmr))
                 {
-                    throw new IllegalStateException("Relation '" + associationEnd.getAssociation().getName() + "' has the abstract target '" + target.getName() +
+                    throw new IllegalStateException("Relation '" + associationEnd.getAssociation().getName() +
+                            "' has the abstract target '" +
+                            target.getName() +
                             "'. Abstract targets are not allowed in EJB.");
                 }
                 result.add(associationEnd);
@@ -160,7 +163,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
             Collection ops = this.getOperations();
             for (Iterator i = ops.iterator(); i.hasNext();)
             {
-                OperationFacade op = (OperationFacade) i.next();
+                OperationFacade op = (OperationFacade)i.next();
                 if (op.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD))
                 {
                     retval.add(op);
@@ -168,7 +171,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
             }
             if (follow)
             {
-                entity = (EJBEntityFacade) this.getGeneralization();
+                entity = (EJBEntityFacade)this.getGeneralization();
             }
             else
             {
@@ -227,7 +230,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
      */
     protected String getJndiNamePrefix()
     {
-        return (String) this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
+        return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
     }
 
     /**
@@ -251,7 +254,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
                 boolean businessOperation = false;
                 if (EJBOperationFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    businessOperation = ((EJBOperationFacade) object).isBusinessOperation();
+                    businessOperation = ((EJBOperationFacade)object).isBusinessOperation();
                 }
                 return businessOperation;
             }
@@ -272,7 +275,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
                 boolean isValueRef = false;
                 if (object instanceof DependencyFacade)
                 {
-                    DependencyFacade dep = (DependencyFacade) object;
+                    DependencyFacade dep = (DependencyFacade)object;
                     isValueRef = dep.getStereotypeNames().contains(EJBProfile.STEREOTYPE_VALUE_REF) && dep.getTargetElement()
                             .hasExactStereotype(EJBProfile.STEREOTYPE_VALUE_OBJECT);
                 }
@@ -291,7 +294,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         Iterator it = collIdentifier.iterator();
         while (it.hasNext())
         {
-            AttributeFacade attr = (AttributeFacade) it.next();
+            AttributeFacade attr = (AttributeFacade)it.next();
             if (attr.getName().equalsIgnoreCase(identifier))
             {
                 return true;
@@ -309,7 +312,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         Iterator it = collAttrib.iterator();
         while (it.hasNext())
         {
-            AttributeFacade attr = (AttributeFacade) it.next();
+            AttributeFacade attr = (AttributeFacade)it.next();
             if (attr.getName().equalsIgnoreCase(strAttr))
             {
                 return true;
@@ -327,7 +330,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         Iterator it = collOps.iterator();
         while (it.hasNext())
         {
-            OperationFacade operation = (OperationFacade) it.next();
+            OperationFacade operation = (OperationFacade)it.next();
             if (operation.getName().equalsIgnoreCase(op))
             {
                 return true;
@@ -349,7 +352,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
-            uri = (String) property;
+            uri = (String)property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -365,7 +368,7 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
         }
         else
         {
-            mappings = (TypeMappings) property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }
@@ -388,10 +391,11 @@ public class EJBEntityFacadeLogicImpl extends EJBEntityFacadeLogic
      */
     protected java.lang.String handleGetTransactionType()
     {
-        String transactionType = (String) this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = transactionType = String.valueOf(this.getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
+            transactionType = transactionType =
+                    String.valueOf(this.getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
         }
         return transactionType;
     }

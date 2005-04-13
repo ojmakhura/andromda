@@ -8,7 +8,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperation
  */
-public class HibernateServiceOperationLogicImpl extends HibernateServiceOperationLogic
+public class HibernateServiceOperationLogicImpl
+        extends HibernateServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -27,7 +28,7 @@ public class HibernateServiceOperationLogicImpl extends HibernateServiceOperatio
      */
     public String handleGetTransactionType()
     {
-        String transactionType = (String) this.findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
             transactionType = transactionType = String.valueOf(this.getConfiguredProperty(

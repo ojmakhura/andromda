@@ -7,7 +7,8 @@ import org.andromda.metafacades.uml.UMLProfile;
  *
  * @author Chad Brandon
  */
-public class EJBProfile extends UMLProfile
+public class EJBProfile
+        extends UMLProfile
 {
 
     /* ----------------- Stereotypes -------------------- */

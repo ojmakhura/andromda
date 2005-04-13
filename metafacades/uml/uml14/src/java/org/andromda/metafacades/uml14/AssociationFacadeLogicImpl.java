@@ -11,7 +11,8 @@ import java.util.Iterator;
 /**
  * Metaclass facade implementation.
  */
-public class AssociationFacadeLogicImpl extends AssociationFacadeLogic
+public class AssociationFacadeLogicImpl
+        extends AssociationFacadeLogic
         implements org.andromda.metafacades.uml.AssociationFacade
 {
     // ---------------- constructor -------------------------------
@@ -50,8 +51,8 @@ public class AssociationFacadeLogicImpl extends AssociationFacadeLogic
     {
         Collection ends = this.getAssociationEnds();
         Iterator endIt = ends.iterator();
-        AssociationEndFacade firstEnd = (AssociationEndFacade) endIt.next();
-        AssociationEndFacade secondEnd = (AssociationEndFacade) endIt.next();
+        AssociationEndFacade firstEnd = (AssociationEndFacade)endIt.next();
+        AssociationEndFacade secondEnd = (AssociationEndFacade)endIt.next();
         String relationName = MetafacadeUtils.toRelationName(firstEnd.getName(), secondEnd.getName(), String.valueOf(this.getConfiguredProperty(
                 UMLMetafacadeProperties.RELATION_NAME_SEPARATOR)));
         return relationName;
@@ -62,7 +63,7 @@ public class AssociationFacadeLogicImpl extends AssociationFacadeLogic
      */
     protected boolean handleIsMany2Many()
     {
-        return ((AssociationEndFacade) this.getAssociationEnds().iterator().next()).isMany2Many();
+        return ((AssociationEndFacade)this.getAssociationEnds().iterator().next()).isMany2Many();
     }
 
 }

@@ -79,7 +79,7 @@ public class OCLExpressions
         boolean equal = first != null && Comparable.class.isAssignableFrom(first.getClass());
         if (equal)
         {
-            Comparable comparable = (Comparable) first;
+            Comparable comparable = (Comparable)first;
             equal = comparable.equals(new Long(second));
         }
         return equal;
@@ -220,7 +220,7 @@ public class OCLExpressions
         boolean greater = first != null && Comparable.class.isAssignableFrom(first.getClass());
         if (greater)
         {
-            Comparable comparable = (Comparable) first;
+            Comparable comparable = (Comparable)first;
             greater = comparable.compareTo(new Long(second)) > 0;
         }
         return greater;

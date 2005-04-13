@@ -8,7 +8,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.ejb.metafacades.EJBEntityAttributeFacade
  */
-public class EJBEntityAttributeFacadeLogicImpl extends EJBEntityAttributeFacadeLogic
+public class EJBEntityAttributeFacadeLogicImpl
+        extends EJBEntityAttributeFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -22,7 +23,7 @@ public class EJBEntityAttributeFacadeLogicImpl extends EJBEntityAttributeFacadeL
      */
     protected java.lang.String handleGetTransactionType()
     {
-        return (String) this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
+        return (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
     }
 
     /**

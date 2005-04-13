@@ -3,7 +3,8 @@ package org.andromda.core.common;
 /**
  * Any unchecked exception that will be thrown during execution of the XmlObjectFactory.
  */
-public class XmlObjectFactoryException extends RuntimeException
+public class XmlObjectFactoryException
+        extends RuntimeException
 {
 
     /**

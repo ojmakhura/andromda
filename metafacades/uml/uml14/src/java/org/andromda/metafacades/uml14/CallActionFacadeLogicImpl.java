@@ -7,7 +7,8 @@ import org.omg.uml.behavioralelements.commonbehavior.CallAction;
  *
  * @see org.andromda.metafacades.uml.CallActionFacade
  */
-public class CallActionFacadeLogicImpl extends CallActionFacadeLogic
+public class CallActionFacadeLogicImpl
+        extends CallActionFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

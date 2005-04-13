@@ -12,7 +12,8 @@ import java.net.URL;
  * @author <A HREF="httplo://www.amowers.com">Anthony Mowers </A>
  * @author Chad Brandon
  */
-public class MDRepositoryFacadeTest extends TestCase
+public class MDRepositoryFacadeTest
+        extends TestCase
 {
 
     private static final Logger logger = Logger.getLogger(MDRepositoryFacadeTest.class);

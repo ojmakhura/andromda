@@ -3,7 +3,8 @@ package org.andromda.core.common;
 /**
  * Any unchecked exception that will be thrown during the execution of the PluginDiscoverer
  */
-public class PluginDiscovererException extends RuntimeException
+public class PluginDiscovererException
+        extends RuntimeException
 {
 
     /**
