@@ -11,6 +11,7 @@
         <property name="basename"><value>messages</value></property>
     </bean>
 
+#set ($daosEnabled = $daosEnabled && !$entities.empty)
 ## only generate this stuff if 'daos' has been defined in a namespace
 #if ($daosEnabled)
     <!-- Hibernate SessionFactory -->
@@ -91,12 +92,10 @@
         </property>
     </bean>
 
-#if ($daosEnabled)
     <!-- The Hibernate interceptor -->
     <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate.HibernateInterceptor">
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
     </bean>
-#end
 
 #if (!$ejbsEnabled)
     <!-- Transaction Manager -->
@@ -139,6 +138,10 @@
     </bean>
 
 #end
+#else
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="$transactionManager"/>
+    
 #end
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
 
