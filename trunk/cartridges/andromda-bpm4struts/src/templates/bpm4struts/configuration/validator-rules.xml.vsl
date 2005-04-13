@@ -183,9 +183,9 @@
        var fieldIndex = 0;
        var fields = new Array();
        var formName = form.getAttributeNode("name");
-    
+
        oDate = eval('new ' + formName.value + '_DateValidations()');
-    
+
        for (x in oDate)
        {
            var field = form[oDate[x][0]];
@@ -194,52 +194,52 @@
            var strict = (datePattern!=null);
            // try loose pattern
            if (!strict) datePattern = oDate[x][2]("datePattern");
-    
+
            if ((field.type == 'hidden' || field.type == 'text' || field.type == 'textarea') &&
                (value.length > 0) && (datePattern.length > 0) && field.disabled == false)
            {
                 // all possible date/time character sequences
                 var matches = datePattern.match( /(y+|M+|d+|H+|m+|s+)*/g );
                 var matchedTokens = new Array();    // we will keep track of the matches
-    
+
                 var datePatternSub = datePattern;   // keeps track of the remaining pattern to process
                 var datePatternRegExp = "^";        // keeps track of the constructed regular expression
-    
+
                 for (var i=0; i<matches.length; i++)
                 {
                     var match = matches[i];
                     var matchLength = match.length;
-    
+
                     // JavaScript returns empty matches too (ie. the delimiters that could not be matched)
                     if (matchLength > 0)
                     {
                         // store this token
                         matchedTokens.push(match);
-    
+
                         // locate the match in the remaining pattern
                         var matchSubIndex = datePatternSub.indexOf(match);
-    
+
                         // if there are characters before the match was found
                         if (matchSubIndex > 0)
                         {
                             // append those characters to the resulting regular expression too
                             datePatternRegExp = datePatternRegExp.concat("[",datePatternSub.substring(0,matchSubIndex),"]");
                         }
-    
+
                         // append the regular expression fragment for this match
                         datePatternRegExp = datePatternRegExp.concat("(\\d{",(strict)?matchLength:("1,"+matchLength),"})");
-    
+
                         // substring the remaining fragment
                         datePatternSub = datePatternSub.substring(matchSubIndex+matchLength);
                     }
                 }
-    
+
                 // close the regular expression
                 datePatternRegExp = datePatternRegExp.concat("$");
-    
+
                 // construct an actual regular expression instance
                 datePatternRegExp = new RegExp(datePatternRegExp);
-    
+
                 // attempt to match the user value
                 if (!datePatternRegExp.test(value))
                 {
@@ -249,14 +249,14 @@
                 {
                     // attempt to check for a valid date and time
                     var matched = datePatternRegExp.exec(value);
-    
+
                     var year = 0;
                     var month = 0;
                     var day = 0;
                     var hour = 0;
                     var minute = 0;
                     var second = 0;
-    
+
                     for (var i=0; i<matchedTokens.length; i++)
                     {
                         var match = matchedTokens[i];
@@ -270,10 +270,10 @@
                             case 's' : second = matched[i+1]; break;
                         }
                     }
-    
+
                     bValid = isValidDate(day,month,year) && isValidTime(second,minute,hour);
                 }
-    
+
                 if (!bValid)
                 {
                     fields[fieldIndex] = oDate[x][1];           // record this field as invalid
@@ -282,16 +282,16 @@
                 }
             }
         }
-    
+
         if (fields.length > 0)
         {
             focusField.focus();
             alert(fields.join('\n'));
         }
-    
+
         return bValid;
     }
-    
+
     function isValidDate(day, month, year) {
         if (month < 1 || month > 12) {
             return false;
@@ -312,7 +312,7 @@
         }
         return true;
     }
-    
+
     function isValidTime(second, minute, hour) {
         return (0<=hour && hour<24 && 0<=minute && minute<60 && 0<=second && second<60);
     }
@@ -333,50 +333,50 @@
               depends=""
                   msg="errors.range"
                   jsFunctionName="intRange">
-        <javascript><![CDATA[               
+        <javascript><![CDATA[
      /**
       * Check to see if fields is in a valid integer range.
       * Fields are not checked if they are disabled.
       * <p>
       * @param form The form validation is taking place on.
       */
-     function validateRange(form) 
+     function validateRange(form)
      {
         var isValid = true;
         var focusField = null;
         var i = 0;
         var fields = new Array();
-        var formName = form.getAttributeNode("name"); 
-    
-        oRange = eval('new ' + formName.value + '_intRange()');        
-        for (x in oRange) 
+        var formName = form.getAttributeNode("name");
+
+        oRange = eval('new ' + formName.value + '_intRange()');
+        for (x in oRange)
         {
             var field = form[oRange[x][0]];
-            if (field.disabled == false)  
+            if (field.disabled == false)
             {
                 var value = '';
                 if (field.type == 'hidden' ||
                     field.type == 'text' || field.type == 'textarea' ||
-                    field.type == 'radio' ) 
+                    field.type == 'radio' )
                 {
                     value = field.value;
                 }
-                if (field.type == 'select-one') 
+                if (field.type == 'select-one')
                 {
                     var si = field.selectedIndex;
-                    if (si >= 0) 
+                    if (si >= 0)
                     {
                         value = field.options[si].value;
                     }
                 }
-                if (value.length > 0) 
+                if (value.length > 0)
                 {
                     var iMin = parseInt(oRange[x][2]("min"));
                     var iMax = parseInt(oRange[x][2]("max"));
                     var iValue = parseInt(value);
-                    if (!(iValue >= iMin && iValue <= iMax)) 
+                    if (!(iValue >= iMin && iValue <= iMax))
                     {
-                        if (i == 0) 
+                        if (i == 0)
                         {
                             focusField = field;
                         }
@@ -386,7 +386,7 @@
                 }
             }
         }
-        if (fields.length > 0) 
+        if (fields.length > 0)
         {
             focusField.focus();
             alert(fields.join('\n'));
@@ -434,8 +434,8 @@
                   msg="errors.email"/>
 
       <!-- This replaces the default URL validator
-           bundled with struts, to use the default 
-           struts validator for URL validation just use this 
+           bundled with struts, to use the default
+           struts validator for URL validation just use this
            'org.apache.struts.validator.FieldChecks' for the
            class name below -->
       <validator name="url"
