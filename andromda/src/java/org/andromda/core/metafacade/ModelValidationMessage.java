@@ -102,7 +102,7 @@ public class ModelValidationMessage
             List interfaces = ClassUtils.getAllInterfaces(this.metafacade.getClass());
             if (interfaces != null && !interfaces.isEmpty())
             {
-                this.metafacadeClass = (Class) interfaces.iterator().next();
+                this.metafacadeClass = (Class)interfaces.iterator().next();
             }
         }
         return this.metafacadeClass;
