@@ -229,8 +229,6 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
      */
     private Collection getMethodDataForPSM(final ClassifierFacade facade, boolean includeSuperclasses)
     {
-        try
-        {
         final Set featureSet = new HashSet();
         if (this.featureMap == null)
         {
@@ -267,12 +265,6 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
         }
         Collections.sort(result); 
         return result;
-        }
-        catch (Throwable th)
-        {
-            th.printStackTrace();
-            throw new RuntimeException(th);
-        }
     }
 
     private void getAllFeatures(Map methodDataMap, Set featureSet, Metafacade facade)
