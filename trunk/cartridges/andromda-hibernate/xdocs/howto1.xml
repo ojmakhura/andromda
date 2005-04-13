@@ -19,9 +19,9 @@
                     with the hibernate SessionFactory object.
                 </p>
                 <p>
-                    Currently, the cartridge architecture creates one Session object from the SessionFactory
-                    object for each method that is called at the EJB's services.
-                    This means that cache will be only used if a method is accessing the same object more than once.
+                    Currently, the cartridge architecture creates one Session instance from the SessionFactory
+                    instance for each method that is called at the EJB's services.
+                    This means that caching will only occur if a method accesses the same instance more than once.
                     This can be improved by activating the second level cache features provided by Hibernate.
                 </p>
                 <p>
@@ -47,7 +47,7 @@
         <section name="Working with Second Level Cache">
             <subsection name="Setup">
                 <p>
-                    The cache settings provides support for customize the cache configuration. The namespace properties
+                    The cache settings provide support for customizing the cache configuration. The namespace properties
                     for the cache settings are the following:
                     <ul>
                         <li>
