@@ -5,7 +5,8 @@ import org.xml.sax.SAXException;
 
 import java.util.StringTokenizer;
 
-public class HighlightXmlTag extends AbstractHighlightTag
+public class HighlightXmlTag
+        extends AbstractHighlightTag
 {
     private String elementClass = null;
     private String attributeClass = null;

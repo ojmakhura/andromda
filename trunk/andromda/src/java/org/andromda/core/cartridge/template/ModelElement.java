@@ -160,7 +160,7 @@ public class ModelElement
         boolean accept = true;
         while (typeIt.hasNext() && accept)
         {
-            Type type = (Type) typeIt.next();
+            Type type = (Type)typeIt.next();
             if (StringUtils.isNotBlank(type.getName()))
             {
                 try
@@ -172,7 +172,7 @@ public class ModelElement
                         Iterator properties = type.getProperties().iterator();
                         while (properties.hasNext())
                         {
-                            final Type.Property property = (Type.Property) properties.next();
+                            final Type.Property property = (Type.Property)properties.next();
                             accept = PropertyUtils.containsValidProperty(metafacade, property.getName(),
                                     property.getValue());
                             if (!accept)

@@ -62,7 +62,8 @@ public class ModelValidationMessage
             final String seperator = String.valueOf(this.metafacade.getConfiguredProperty(
                     MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR));
             StringBuffer name = new StringBuffer();
-            for (MetafacadeBase metafacade = this.metafacade; metafacade != null; metafacade = (MetafacadeBase) metafacade.getValidationOwner())
+            for (MetafacadeBase metafacade = this.metafacade;
+                 metafacade != null; metafacade = (MetafacadeBase)metafacade.getValidationOwner())
             {
                 if (StringUtils.isNotBlank(metafacade.getValidationName()))
                 {
@@ -138,7 +139,7 @@ public class ModelValidationMessage
         boolean equals = object != null && ModelValidationMessage.class == object.getClass();
         if (equals)
         {
-            ModelValidationMessage message = (ModelValidationMessage) object;
+            ModelValidationMessage message = (ModelValidationMessage)object;
             equals = message.toString().equals(this.toString());
         }
         return equals;

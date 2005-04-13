@@ -7,7 +7,8 @@ import org.omg.uml.foundation.datatypes.BooleanExpression;
  *
  * @see org.andromda.metafacades.uml.GuardFacade
  */
-public class GuardFacadeLogicImpl extends GuardFacadeLogic
+public class GuardFacadeLogicImpl
+        extends GuardFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

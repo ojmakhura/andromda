@@ -8,7 +8,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation
  */
-public class WebServiceOperationLogicImpl extends WebServiceOperationLogic
+public class WebServiceOperationLogicImpl
+        extends WebServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 

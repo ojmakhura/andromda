@@ -3,7 +3,8 @@ package org.andromda.core;
 /**
  * Any unchecked exception that will be thrown during the execution of the ModelProcessor
  */
-public class ModelProcessorException extends RuntimeException
+public class ModelProcessorException
+        extends RuntimeException
 {
 
     /**

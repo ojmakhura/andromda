@@ -7,7 +7,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration
  */
-public class HibernateEnumerationLogicImpl extends HibernateEnumerationLogic
+public class HibernateEnumerationLogicImpl
+        extends HibernateEnumerationLogic
 {
     // ---------------- constructor -------------------------------
 

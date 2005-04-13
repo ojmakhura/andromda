@@ -87,7 +87,7 @@ public final class OCLCollections
         {
             if (Collection.class.isAssignableFrom(object.getClass()))
             {
-                isEmpty = ((Collection) object).isEmpty();
+                isEmpty = ((Collection)object).isEmpty();
             }
         }
         return isEmpty;
@@ -120,7 +120,7 @@ public final class OCLCollections
         {
             if (Collection.class.isAssignableFrom(object.getClass()))
             {
-                notEmpty = !((Collection) object).isEmpty();
+                notEmpty = !((Collection)object).isEmpty();
             }
         }
         return notEmpty;
@@ -147,7 +147,7 @@ public final class OCLCollections
         int size = 0;
         if (object != null && Collection.class.isAssignableFrom(object.getClass()))
         {
-            size = size((Collection) object);
+            size = size((Collection)object);
         }
         return size;
     }
@@ -180,7 +180,7 @@ public final class OCLCollections
         {
             Object object = iterator.next();
             if (object instanceof Number)
-                sum += ((Number) object).doubleValue();
+                sum += ((Number)object).doubleValue();
             else
                 throw new UnsupportedOperationException("In order to calculate the sum of a collection\'s elements " +
                         "all of them must extend java.lang.Number, found: " + object.getClass().getName());
@@ -291,7 +291,7 @@ public final class OCLCollections
         {
             Object object = iterator.next();
             if (object instanceof Collection)
-                flattenedCollection.addAll(flatten((Collection) object));
+                flattenedCollection.addAll(flatten((Collection)object));
             else
                 flattenedCollection.add(object);
         }
@@ -468,7 +468,7 @@ public final class OCLCollections
         boolean valid = false;
         if (collection != null && Collection.class.isAssignableFrom(collection.getClass()))
         {
-            valid = forAll((Collection) collection, predicate);
+            valid = forAll((Collection)collection, predicate);
         }
         return valid;
     }
@@ -503,7 +503,7 @@ public final class OCLCollections
         boolean unique = collection != null;
         if (unique && Collection.class.isAssignableFrom(collection.getClass()))
         {
-            unique = isUnique((Collection) collection, transformer);
+            unique = isUnique((Collection)collection, transformer);
         }
         return unique;
     }
@@ -551,7 +551,7 @@ public final class OCLCollections
     public static boolean one(Object collection, Predicate predicate)
     {
         return collection != null && Collection.class.isAssignableFrom(collection.getClass()) && one(
-                (Collection) collection, predicate);
+                (Collection)collection, predicate);
     }
 
     /**
@@ -578,7 +578,7 @@ public final class OCLCollections
      */
     public static Collection select(Object collection, Predicate predicate)
     {
-        return CollectionUtils.select((Collection) collection, predicate);
+        return CollectionUtils.select((Collection)collection, predicate);
     }
 
     /**
@@ -601,14 +601,14 @@ public final class OCLCollections
         List list = null;
         if (object instanceof Collection)
         {
-            Collection collection = (Collection) object;
+            Collection collection = (Collection)object;
             if (!collection.isEmpty())
             {
                 if (!(object instanceof List))
                 {
                     object = new ArrayList(collection);
                 }
-                list = (List) collection;
+                list = (List)collection;
             }
         }
         else

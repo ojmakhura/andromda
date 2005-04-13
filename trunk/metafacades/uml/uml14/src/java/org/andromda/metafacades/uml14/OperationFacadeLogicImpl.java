@@ -27,7 +27,8 @@ import java.util.Iterator;
 /**
  * Metaclass facade implementation.
  */
-public class OperationFacadeLogicImpl extends OperationFacadeLogic
+public class OperationFacadeLogicImpl
+        extends OperationFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -121,7 +122,7 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
         boolean commaNeeded = false;
         while (iterator.hasNext())
         {
-            Parameter parameter = (Parameter) iterator.next();
+            Parameter parameter = (Parameter)iterator.next();
 
             if (!ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
@@ -148,7 +149,7 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
         boolean commaNeeded = false;
         while (iterator.hasNext())
         {
-            Parameter parameter = (Parameter) iterator.next();
+            Parameter parameter = (Parameter)iterator.next();
 
             if (!ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
@@ -156,7 +157,7 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
                 {
                     buffer.append(", ");
                 }
-                ParameterFacade facade = (ParameterFacade) shieldedElement(parameter);
+                ParameterFacade facade = (ParameterFacade)shieldedElement(parameter);
                 buffer.append(facade.getType().getFullyQualifiedName());
                 commaNeeded = true;
             }
@@ -173,7 +174,7 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
         Collection parms = metaObject.getParameter();
         for (Iterator iterator = parms.iterator(); iterator.hasNext();)
         {
-            Parameter parameter = (Parameter) iterator.next();
+            Parameter parameter = (Parameter)iterator.next();
             if (ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
                 type = parameter.getType();
@@ -195,7 +196,7 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
         {
             public boolean evaluate(Object object)
             {
-                return !ParameterDirectionKindEnum.PDK_RETURN.equals(((Parameter) object).getKind());
+                return !ParameterDirectionKindEnum.PDK_RETURN.equals(((Parameter)object).getKind());
             }
         });
         return arguments;
@@ -230,7 +231,7 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
             while (value == null && type != null)
             {
                 value = type.findTaggedValue(name);
-                type = (ClassifierFacade) type.getGeneralization();
+                type = (ClassifierFacade)type.getGeneralization();
             }
         }
         return value;
@@ -276,14 +277,15 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
         Collection exceptions = new HashSet();
 
         // finds both exceptions and exception references
-        final class ExceptionFilter implements Predicate
+        final class ExceptionFilter
+                implements Predicate
         {
             public boolean evaluate(Object object)
             {
                 boolean hasException = object instanceof DependencyFacade;
                 if (hasException)
                 {
-                    DependencyFacade dependency = (DependencyFacade) object;
+                    DependencyFacade dependency = (DependencyFacade)object;
                     // first check for exception references
                     hasException = dependency.hasStereotype(UMLProfile.STEREOTYPE_EXCEPTION_REF);
 
@@ -322,7 +324,7 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
         {
             public Object transform(Object object)
             {
-                return ((DependencyFacade) object).getTargetElement();
+                return ((DependencyFacade)object).getTargetElement();
             }
         });
         return exceptions;
@@ -366,7 +368,7 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
             Iterator exceptionIt = exceptions.iterator();
             while (exceptionIt.hasNext())
             {
-                ModelElementFacade exception = (ModelElementFacade) exceptionIt.next();
+                ModelElementFacade exception = (ModelElementFacade)exceptionIt.next();
                 exceptionList.append(exception.getFullyQualifiedName());
                 if (exceptionIt.hasNext())
                 {
@@ -411,18 +413,22 @@ public class OperationFacadeLogicImpl extends OperationFacadeLogic
         boolean commaNeeded = false;
         while (parameterIterator.hasNext())
         {
-            Parameter paramter = (Parameter) parameterIterator.next();
+            Parameter paramter = (Parameter)parameterIterator.next();
 
             if (!ParameterDirectionKindEnum.PDK_RETURN.equals(paramter.getKind()))
             {
                 String type = null;
                 if (paramter.getType() == null)
                 {
-                    this.logger.error("ERROR! No type specified for parameter --> '" + paramter.getName() + "' on operation --> '" + this.getName() + "', please check your model");
+                    this.logger.error(
+                            "ERROR! No type specified for parameter --> '" + paramter.getName() +
+                            "' on operation --> '" +
+                            this.getName() +
+                            "', please check your model");
                 }
                 else
                 {
-                    type = ((ClassifierFacade) this.shieldedElement(paramter.getType())).getFullyQualifiedName();
+                    type = ((ClassifierFacade)this.shieldedElement(paramter.getType())).getFullyQualifiedName();
                 }
 
                 if (commaNeeded)

@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.customers.web.login.CustomerLogInController
  */
-public class CustomerLogInControllerImpl extends CustomerLogInController
+public class CustomerLogInControllerImpl
+        extends CustomerLogInController
 {
     /**
      * @see org.andromda.samples.carrental.customers.web.login.CustomerLogInController#authenticateAsCustomer(org.apache.struts.action.ActionMapping,

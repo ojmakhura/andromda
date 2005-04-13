@@ -16,7 +16,8 @@ import java.util.HashSet;
  *
  * @see org.andromda.metafacades.uml.ServiceOperationFacade
  */
-public class ServiceOperationLogicImpl extends ServiceOperationLogic
+public class ServiceOperationLogicImpl
+        extends ServiceOperationLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -33,22 +34,23 @@ public class ServiceOperationLogicImpl extends ServiceOperationLogic
         Collection roles = new HashSet();
         if (this.getOwner() instanceof Service)
         {
-            roles.addAll(((Service) this.getOwner()).getRoles());
+            roles.addAll(((Service)this.getOwner()).getRoles());
         }
         Collection operationRoles = this.getTargetDependencies();
         CollectionUtils.filter(operationRoles, new Predicate()
         {
             public boolean evaluate(Object object)
             {
-                DependencyFacade dependency = (DependencyFacade) object;
-                return dependency != null && dependency.getSourceElement() != null && Role.class.isAssignableFrom(dependency.getSourceElement().getClass());
+                DependencyFacade dependency = (DependencyFacade)object;
+                return dependency != null && dependency.getSourceElement() != null &&
+                        Role.class.isAssignableFrom(dependency.getSourceElement().getClass());
             }
         });
         CollectionUtils.transform(operationRoles, new Transformer()
         {
             public Object transform(Object object)
             {
-                return ((DependencyFacade) object).getSourceElement();
+                return ((DependencyFacade)object).getSourceElement();
             }
         });
         roles.addAll(operationRoles);
@@ -60,7 +62,7 @@ public class ServiceOperationLogicImpl extends ServiceOperationLogic
             {
                 if (object instanceof Role)
                 {
-                    allRoles.addAll(((Role) object).getSpecializations());
+                    allRoles.addAll(((Role)object).getSpecializations());
                 }
             }
         });
@@ -75,7 +77,7 @@ public class ServiceOperationLogicImpl extends ServiceOperationLogic
         Service owner = null;
         if (this.getOwner() instanceof Service)
         {
-            owner = (Service) this.getOwner();
+            owner = (Service)this.getOwner();
         }
         return owner;
     }

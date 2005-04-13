@@ -7,7 +7,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringEntityOperation
  */
-public class SpringEntityOperationLogicImpl extends SpringEntityOperationLogic
+public class SpringEntityOperationLogicImpl
+        extends SpringEntityOperationLogic
 {
     // ---------------- constructor -------------------------------
 

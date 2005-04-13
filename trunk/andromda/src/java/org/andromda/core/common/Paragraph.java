@@ -91,7 +91,7 @@ public class Paragraph
         StringBuffer st = new StringBuffer();
         for (Iterator it = getLines().iterator(); it.hasNext();)
         {
-            st.append((String) it.next());
+            st.append((String)it.next());
             st.append("\n");
         }
         return st.toString();

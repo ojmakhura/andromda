@@ -9,7 +9,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute
  */
-public class SpringCriteriaAttributeLogicImpl extends SpringCriteriaAttributeLogic
+public class SpringCriteriaAttributeLogicImpl
+        extends SpringCriteriaAttributeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -103,7 +104,7 @@ public class SpringCriteriaAttributeLogicImpl extends SpringCriteriaAttributeLog
     {
         boolean result = false;
         String value = StringUtils.trimToEmpty(
-                (String) findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
+                (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
         if (!StringUtils.isEmpty(value))
         {
             result = BooleanUtils.toBoolean(value);

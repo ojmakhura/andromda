@@ -135,7 +135,8 @@ import java.util.Stack;
  * @author Wouter Zoons
  * @author Chad Brandon
  */
-public class ValidationJavaTranslator extends BaseTranslator
+public class ValidationJavaTranslator
+        extends BaseTranslator
 {
 
     private static Properties features = null;
@@ -176,7 +177,7 @@ public class ValidationJavaTranslator extends BaseTranslator
             Object temp[] = node.getContextDeclaration().toArray();
             for (int ctr = 0; ctr < temp.length; ctr++)
             {
-                ((PContextDeclaration) temp[ctr]).apply(this);
+                ((PContextDeclaration)temp[ctr]).apply(this);
             }
         }
         mergeTranslationLayers();
@@ -191,7 +192,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         super.inAClassifierContextDeclaration(node);
         Object temp[] = node.getClassifierExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((PClassifierExpressionBody) temp[ctr]).apply(this);
+            ((PClassifierExpressionBody)temp[ctr]).apply(this);
     }
 
     public void caseAOperationContextDeclaration(AOperationContextDeclaration node)
@@ -201,7 +202,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         super.inAOperationContextDeclaration(node);
         Object temp[] = node.getOperationExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((POperationExpressionBody) temp[ctr]).apply(this);
+            ((POperationExpressionBody)temp[ctr]).apply(this);
     }
 
     public void caseAAttributeOrAssociationContextDeclaration(AAttributeOrAssociationContextDeclaration node)
@@ -209,7 +210,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         super.inAAttributeOrAssociationContextDeclaration(node);
         Object temp[] = node.getAttributeOrAssociationExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((PAttributeOrAssociationExpressionBody) temp[ctr]).apply(this);
+            ((PAttributeOrAssociationExpressionBody)temp[ctr]).apply(this);
     }
 
     public void caseAInvClassifierExpressionBody(AInvClassifierExpressionBody node)
@@ -294,7 +295,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         newTranslationLayer(); // this layer will be disposed later on, we do
         // not write variable declarations
 
-        AVariableDeclaration variableDeclaration = (AVariableDeclaration) node.getVariableDeclaration();
+        AVariableDeclaration variableDeclaration = (AVariableDeclaration)node.getVariableDeclaration();
         String variableName = variableDeclaration.getName().getText();
 
         newTranslationLayer();
@@ -343,7 +344,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 
         Object temp[] = node.getVariableDeclarationListTail().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((PVariableDeclarationListTail) temp[ctr]).apply(this);
+            ((PVariableDeclarationListTail)temp[ctr]).apply(this);
     }
 
     public void caseAVariableDeclarationListTail(AVariableDeclarationListTail node)
@@ -402,7 +403,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         node.getPrimaryExpression().apply(this);
         Object temp[] = node.getPropertyCallExpressionTail().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
-            ((PPropertyCallExpressionTail) temp[ctr]).apply(this);
+            ((PPropertyCallExpressionTail)temp[ctr]).apply(this);
         mergeTranslationLayerAfter();
     }
 
@@ -414,7 +415,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         // an operation call
         if (OCLPatterns.isOperation(expression))
         {
-            AFeatureCall featureCall = (AFeatureCall) node.getFeatureCall();
+            AFeatureCall featureCall = (AFeatureCall)node.getFeatureCall();
             String featureCallExpression = TranslationUtils.trimToEmpty(node.getFeatureCall());
             if (OCLFeatures.isOclIsKindOf(featureCallExpression))
             {
@@ -475,11 +476,11 @@ public class ValidationJavaTranslator extends BaseTranslator
         String type = null;
         if (node instanceof AFeatureCall)
         {
-            type = ConcreteSyntaxUtils.getParametersAsString((AFeatureCall) node);
+            type = ConcreteSyntaxUtils.getParametersAsString((AFeatureCall)node);
         }
         else if (node instanceof AFeatureCallParameters)
         {
-            type = ConcreteSyntaxUtils.getParametersAsString((AFeatureCallParameters) node);
+            type = ConcreteSyntaxUtils.getParametersAsString((AFeatureCallParameters)node);
         }
         if (type != null)
         {
@@ -549,7 +550,7 @@ public class ValidationJavaTranslator extends BaseTranslator
     {
         inAArrowPropertyCallExpressionTail(node);
         node.getArrow().apply(this);
-        this.handleArrowFeatureCall((AFeatureCall) node.getFeatureCall());
+        this.handleArrowFeatureCall((AFeatureCall)node.getFeatureCall());
         outAArrowPropertyCallExpressionTail(node);
     }
 
@@ -592,7 +593,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         inAFeaturePrimaryExpression(node);
         if (node.getPathName() != null)
         {
-            final String variableName = ((APathName) node.getPathName()).getName().getText();
+            final String variableName = ((APathName)node.getPathName()).getName().getText();
             final String variableValue = getDeclaredLetVariableValue(variableName);
             final boolean isDeclaredAsLetVariable = (variableValue != null);
 
@@ -603,7 +604,7 @@ public class ValidationJavaTranslator extends BaseTranslator
             }
             else if (node.getFeatureCallParameters() == null || OCLPatterns.isOperation(featureExpression))
             {
-                APropertyCallExpression expression = (APropertyCallExpression) node.parent();
+                APropertyCallExpression expression = (APropertyCallExpression)node.parent();
                 String expressionAsString = ConcreteSyntaxUtils.getPrimaryExpression(expression);
                 // remove any references to 'self.' as we write
                 expressionAsString = expressionAsString.replaceAll("self\\.|self", "");
@@ -612,7 +613,7 @@ public class ValidationJavaTranslator extends BaseTranslator
                     boolean convertToBoolean = false;
                     if (node.parent().parent() instanceof AUnaryExpression)
                     {
-                        AUnaryExpression unaryExpression = (AUnaryExpression) node.parent().parent();
+                        AUnaryExpression unaryExpression = (AUnaryExpression)node.parent().parent();
                         // we convert each unary not expression to boolean
                         convertToBoolean = unaryExpression.getUnaryOperator() instanceof ANotUnaryOperator;
                         if (convertToBoolean)
@@ -705,13 +706,14 @@ public class ValidationJavaTranslator extends BaseTranslator
      */
     public void handleArrowFeatureCall(AFeatureCall featureCall)
     {
-        AFeatureCallParameters params = (AFeatureCallParameters) featureCall.getFeatureCallParameters();
-        AActualParameterList list = (AActualParameterList) params.getActualParameterList();
+        AFeatureCallParameters params = (AFeatureCallParameters)featureCall.getFeatureCallParameters();
+        AActualParameterList list = (AActualParameterList)params.getActualParameterList();
         boolean arrow = this.arrowPropertyCallStack.peek().equals(Boolean.TRUE) &&
                 !String.valueOf(list).trim().equals("");
         {
             newTranslationLayer();
-            final String navigationalPath = ConcreteSyntaxUtils.getArrowFeatureCallResultNavigationalPath((APropertyCallExpression) featureCall.parent().parent());
+            final String navigationalPath = ConcreteSyntaxUtils.getArrowFeatureCallResultNavigationalPath(
+                    (APropertyCallExpression)featureCall.parent().parent());
             // if the result of an arrow feature (collection operation) has a
             // navigational
             // path, retrieve it and wrap the current expression with an OCL
@@ -729,13 +731,13 @@ public class ValidationJavaTranslator extends BaseTranslator
                 featureCall.getPathName().apply(this);
             }
             String featureCallName = TranslationUtils.trimToEmpty(featureCall.getPathName());
-            AFeatureCallParameters parameters = (AFeatureCallParameters) featureCall.getFeatureCallParameters();
+            AFeatureCallParameters parameters = (AFeatureCallParameters)featureCall.getFeatureCallParameters();
             if (parameters.getLParen() != null)
             {
                 parameters.getLParen().apply(this);
             }
             mergeTranslationLayerBefore();
-            AActualParameterList parameterList = (AActualParameterList) parameters.getActualParameterList();
+            AActualParameterList parameterList = (AActualParameterList)parameters.getActualParameterList();
             if (parameterList != null)
             {
                 List expressions = parameterList.getCommaExpression();
@@ -756,7 +758,7 @@ public class ValidationJavaTranslator extends BaseTranslator
                 }
                 for (int ctr = 0; ctr < expressions.size(); ctr++)
                 {
-                    Node expression = (Node) expressions.get(ctr);
+                    Node expression = (Node)expressions.get(ctr);
                     if (expression != null)
                     {
                         write(",");
@@ -842,7 +844,7 @@ public class ValidationJavaTranslator extends BaseTranslator
         Object tails[] = node.getLogicalExpressionTail().toArray();
         for (int ctr = 0; ctr < tails.length; ctr++)
         {
-            ((ALogicalExpressionTail) tails[ctr]).apply(this);
+            ((ALogicalExpressionTail)tails[ctr]).apply(this);
         }
         mergeTranslationLayerAfter();
     }
@@ -900,7 +902,7 @@ public class ValidationJavaTranslator extends BaseTranslator
             String expression = null;
             if (parent instanceof ALogicalExp)
             {
-                List tails = ((ALogicalExp) parent).getLogicalExpressionTail();
+                List tails = ((ALogicalExp)parent).getLogicalExpressionTail();
                 if (tails != null && !tails.isEmpty())
                 {
                     expression = TranslationUtils.trimToEmpty(tails.get(0));
@@ -1232,17 +1234,17 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     private StringBuffer newTranslationLayer()
     {
-        return (StringBuffer) translationLayers.push(new StringBuffer());
+        return (StringBuffer)translationLayers.push(new StringBuffer());
     }
 
     private StringBuffer appendToTranslationLayer(Object appendix)
     {
-        return ((StringBuffer) translationLayers.peek()).append(appendix);
+        return ((StringBuffer)translationLayers.peek()).append(appendix);
     }
 
     private StringBuffer prependToTranslationLayer(Object appendix)
     {
-        return ((StringBuffer) translationLayers.peek()).insert(0, appendix);
+        return ((StringBuffer)translationLayers.peek()).insert(0, appendix);
     }
 
     private StringBuffer mergeTranslationLayerAfter()
@@ -1272,17 +1274,17 @@ public class ValidationJavaTranslator extends BaseTranslator
     private StringBuffer mergeTranslationLayers()
     {
         while (mergeTranslationLayerAfter() != null) ;
-        return (StringBuffer) translationLayers.peek();
+        return (StringBuffer)translationLayers.peek();
     }
 
     private String getDeclaredLetVariableValue(String variableName)
     {
         for (Iterator iterator = letVariableStack.iterator(); iterator.hasNext();)
         {
-            Map variableMap = (Map) iterator.next();
+            Map variableMap = (Map)iterator.next();
             if (variableMap.containsKey(variableName))
             {
-                return (String) variableMap.get(variableName);
+                return (String)variableMap.get(variableName);
             }
         }
         return null;
@@ -1301,7 +1303,7 @@ public class ValidationJavaTranslator extends BaseTranslator
 
     private void addLetVariableToContext(String variableName, String variableValue)
     {
-        ((Map) letVariableStack.peek()).put(variableName, variableValue);
+        ((Map)letVariableStack.peek()).put(variableName, variableValue);
     }
 
     /**
@@ -1311,7 +1313,7 @@ public class ValidationJavaTranslator extends BaseTranslator
      */
     private ModelElementFacade getModelElement()
     {
-        return (ModelElementFacade) this.getContextElement();
+        return (ModelElementFacade)this.getContextElement();
     }
 
     public ValidationJavaTranslator()

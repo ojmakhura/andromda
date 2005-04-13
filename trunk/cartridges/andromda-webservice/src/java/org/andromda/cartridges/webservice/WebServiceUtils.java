@@ -34,7 +34,7 @@ public class WebServiceUtils
             {
                 if (object != null && Service.class.isAssignableFrom(object.getClass()))
                 {
-                    allRoles.addAll(((Service) object).getAllRoles());
+                    allRoles.addAll(((Service)object).getAllRoles());
                 }
             }
         });
@@ -95,11 +95,11 @@ public class WebServiceUtils
                     {
                         if (nonArray instanceof WSDLType)
                         {
-                            schemaType.append(((WSDLType) nonArray).getQName());
+                            schemaType.append(((WSDLType)nonArray).getQName());
                         }
                         else if (nonArray instanceof WSDLEnumerationType)
                         {
-                            schemaType.append(((WSDLEnumerationType) nonArray).getQName());
+                            schemaType.append(((WSDLEnumerationType)nonArray).getQName());
                         }
                     }
                 }

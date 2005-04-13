@@ -30,7 +30,8 @@ import java.util.Iterator;
 /**
  * Metaclass facade implementation.
  */
-public class EntityLogicImpl extends EntityLogic
+public class EntityLogicImpl
+        extends EntityLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -81,11 +82,12 @@ public class EntityLogicImpl extends EntityLogic
 
         MetafacadeUtils.filterByType(queryOperations, EntityQueryOperation.class);
 
-        for (ClassifierFacade superClass = (ClassifierFacade) getGeneralization(); superClass != null && follow; superClass = (ClassifierFacade) superClass.getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization();
+             superClass != null && follow; superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             if (Entity.class.isAssignableFrom(superClass.getClass()))
             {
-                Entity entity = (Entity) superClass;
+                Entity entity = (Entity)superClass;
                 queryOperations.addAll(entity.getQueryOperations());
             }
         }
@@ -118,7 +120,8 @@ public class EntityLogicImpl extends EntityLogic
         // let those taken precedence if so
         if (!this.checkForAndAddForeignIdentifiers())
         {
-            this.createIdentifier(this.getDefaultIdentifier(), this.getDefaultIdentifierType(), this.getDefaultIdentifierVisibility());
+            this.createIdentifier(this.getDefaultIdentifier(), this.getDefaultIdentifierType(),
+                    this.getDefaultIdentifierVisibility());
         }
     }
 
@@ -135,14 +138,13 @@ public class EntityLogicImpl extends EntityLogic
         // already exist
         if (!UML14MetafacadeUtils.attributeExists(this.metaObject, name))
         {
-            Attribute identifier = UML14MetafacadeUtils.createAttribute(name, type, visibility,
-                    String.valueOf(
-                            this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR)));
+            Attribute identifier = UML14MetafacadeUtils.createAttribute(name, type, visibility, String.valueOf(
+                    this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR)));
 
             identifier.getStereotype().add(UML14MetafacadeUtils.findOrCreateStereotype(
                     UMLProfile.STEREOTYPE_IDENTIFIER));
 
-            ((Classifier) this.metaObject).getFeature().add(identifier);
+            ((Classifier)this.metaObject).getFeature().add(identifier);
         }
     }
 
@@ -186,11 +188,12 @@ public class EntityLogicImpl extends EntityLogic
 
         Collection attributes = this.getAttributes();
 
-        for (ClassifierFacade superClass = (ClassifierFacade) getGeneralization(); superClass != null && follow; superClass = (ClassifierFacade) superClass.getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization();
+             superClass != null && follow; superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             if (Entity.class.isAssignableFrom(superClass.getClass()))
             {
-                Entity entity = (Entity) superClass;
+                Entity entity = (Entity)superClass;
                 attributes.addAll(entity.getAttributes());
             }
         }
@@ -200,7 +203,7 @@ public class EntityLogicImpl extends EntityLogic
             Iterator attributeIt = attributes.iterator();
             while (attributeIt.hasNext())
             {
-                EntityAttribute attribute = (EntityAttribute) attributeIt.next();
+                EntityAttribute attribute = (EntityAttribute)attributeIt.next();
                 if (withIdentifiers || !attribute.isIdentifier())
                 {
                     buffer.append(separator);
@@ -265,7 +268,7 @@ public class EntityLogicImpl extends EntityLogic
         {
             public void execute(Object object)
             {
-                AttributeFacade attribute = (AttributeFacade) object;
+                AttributeFacade attribute = (AttributeFacade)object;
                 if (attribute.getType() != null)
                 {
                     list.append(attribute.getType().getFullyQualifiedName());
@@ -294,7 +297,7 @@ public class EntityLogicImpl extends EntityLogic
         {
             public void execute(Object object)
             {
-                list.append(((AttributeFacade) object).getName());
+                list.append(((AttributeFacade)object).getName());
                 list.append(comma);
             }
         });
@@ -314,7 +317,7 @@ public class EntityLogicImpl extends EntityLogic
         {
             public boolean evaluate(Object object)
             {
-                return ((AssociationEndFacade) object).getOtherEnd().isComposition();
+                return ((AssociationEndFacade)object).getOtherEnd().isComposition();
             }
         }) != null;
     }
@@ -325,11 +328,11 @@ public class EntityLogicImpl extends EntityLogic
     protected Object handleGetParentEnd()
     {
         Object parentEnd = null;
-        AssociationEndFacade end = (AssociationEndFacade) CollectionUtils.find(this.getAssociationEnds(), new Predicate()
+        AssociationEndFacade end = (AssociationEndFacade)CollectionUtils.find(this.getAssociationEnds(), new Predicate()
         {
             public boolean evaluate(Object object)
             {
-                return ((AssociationEndFacade) object).getOtherEnd().isComposition();
+                return ((AssociationEndFacade)object).getOtherEnd().isComposition();
             }
         });
         if (end != null)
@@ -348,14 +351,14 @@ public class EntityLogicImpl extends EntityLogic
         {
             public boolean evaluate(Object object)
             {
-                return ((AssociationEndFacade) object).isComposition();
+                return ((AssociationEndFacade)object).isComposition();
             }
         };
         CollectionUtils.transform(childEnds, new Transformer()
         {
             public Object transform(Object object)
             {
-                return ((AssociationEndFacade) object).getOtherEnd();
+                return ((AssociationEndFacade)object).getOtherEnd();
             }
         });
         return childEnds;
@@ -380,7 +383,7 @@ public class EntityLogicImpl extends EntityLogic
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade) object).getTargetElement();
+                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                 return targetElement != null && Entity.class.isAssignableFrom(targetElement.getClass());
             }
         };
@@ -399,7 +402,7 @@ public class EntityLogicImpl extends EntityLogic
                 boolean valid = true;
                 if (!withIdentifiers && EntityAttribute.class.isAssignableFrom(object.getClass()))
                 {
-                    valid = !((EntityAttribute) object).isIdentifier();
+                    valid = !((EntityAttribute)object).isIdentifier();
                 }
                 return valid;
             }
@@ -418,10 +421,10 @@ public class EntityLogicImpl extends EntityLogic
             public boolean evaluate(Object object)
             {
                 boolean valid = false;
-                valid = ((AttributeFacade) object).isRequired();
+                valid = ((AttributeFacade)object).isRequired();
                 if (valid && !withIdentifiers && EntityAttribute.class.isAssignableFrom(object.getClass()))
                 {
-                    valid = !((EntityAttribute) object).isIdentifier();
+                    valid = !((EntityAttribute)object).isIdentifier();
                 }
                 return valid;
             }
@@ -441,7 +444,7 @@ public class EntityLogicImpl extends EntityLogic
             {
                 public void execute(Object object)
                 {
-                    properties.addAll(((ClassifierFacade) object).getProperties());
+                    properties.addAll(((ClassifierFacade)object).getProperties());
                 }
             });
         }
@@ -452,15 +455,15 @@ public class EntityLogicImpl extends EntityLogic
                 boolean valid = false;
                 if (AttributeFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    valid = ((AttributeFacade) object).isRequired();
+                    valid = ((AttributeFacade)object).isRequired();
                     if (valid && !withIdentifiers && EntityAttribute.class.isAssignableFrom(object.getClass()))
                     {
-                        valid = !((EntityAttribute) object).isIdentifier();
+                        valid = !((EntityAttribute)object).isIdentifier();
                     }
                 }
                 else if (AssociationEndFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    valid = ((AssociationEndFacade) object).isRequired();
+                    valid = ((AssociationEndFacade)object).isRequired();
                 }
                 return valid;
             }
@@ -473,7 +476,7 @@ public class EntityLogicImpl extends EntityLogic
      */
     protected Short handleGetMaxSqlNameLength()
     {
-        return Short.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
+        return Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
     }
 
     /**
@@ -481,7 +484,9 @@ public class EntityLogicImpl extends EntityLogic
      */
     private boolean isAllowDefaultIdentifiers()
     {
-        return Boolean.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS)).booleanValue();
+        return Boolean.valueOf(
+                (String)this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
+                .booleanValue();
     }
 
     /**
@@ -489,7 +494,7 @@ public class EntityLogicImpl extends EntityLogic
      */
     private String getDefaultIdentifier()
     {
-        return (String) this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER);
+        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER);
     }
 
     /**
@@ -497,7 +502,7 @@ public class EntityLogicImpl extends EntityLogic
      */
     private String getDefaultIdentifierType()
     {
-        return (String) this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_TYPE);
+        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_TYPE);
     }
 
     /**
@@ -505,7 +510,7 @@ public class EntityLogicImpl extends EntityLogic
      */
     private String getDefaultIdentifierVisibility()
     {
-        return (String) this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
+        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_IDENTIFIER_VISIBILITY);
     }
 
     /**
@@ -520,12 +525,13 @@ public class EntityLogicImpl extends EntityLogic
         EntityAssociationEnd end = this.getForeignIdentifierEnd();
         if (end != null && end.getType() instanceof Entity)
         {
-            Entity foreignEntity = (Entity) end.getOtherEnd().getType();
+            Entity foreignEntity = (Entity)end.getOtherEnd().getType();
             Collection identifiers = EntityMetafacadeUtils.getIdentifiers(foreignEntity, true);
             for (Iterator identifierIterator = identifiers.iterator(); identifierIterator.hasNext();)
             {
-                AttributeFacade identifier = (AttributeFacade) identifierIterator.next();
-                this.createIdentifier(identifier.getName(), identifier.getType().getFullyQualifiedName(true), identifier.getVisibility());
+                AttributeFacade identifier = (AttributeFacade)identifierIterator.next();
+                this.createIdentifier(identifier.getName(), identifier.getType().getFullyQualifiedName(true),
+                        identifier.getVisibility());
                 identifiersAdded = true;
             }
         }
@@ -544,7 +550,7 @@ public class EntityLogicImpl extends EntityLogic
         {
             public boolean evaluate(Object object)
             {
-                return ((AssociationEndFacade) object).getOtherEnd().getType() instanceof Entity;
+                return ((AssociationEndFacade)object).getOtherEnd().getType() instanceof Entity;
             }
         });
         return associationEnds;
@@ -563,14 +569,14 @@ public class EntityLogicImpl extends EntityLogic
      */
     private EntityAssociationEnd getForeignIdentifierEnd()
     {
-        return (EntityAssociationEnd) CollectionUtils.find(this.getAssociationEnds(), new Predicate()
+        return (EntityAssociationEnd)CollectionUtils.find(this.getAssociationEnds(), new Predicate()
         {
             public boolean evaluate(Object object)
             {
                 boolean valid = false;
                 if (object != null && EntityAssociationEnd.class.isAssignableFrom(object.getClass()))
                 {
-                    EntityAssociationEnd end = (EntityAssociationEnd) object;
+                    EntityAssociationEnd end = (EntityAssociationEnd)object;
                     valid = end.isForeignIdentifier();
                 }
                 return valid;

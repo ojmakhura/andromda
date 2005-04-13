@@ -76,7 +76,8 @@ public class DocumentationAnalyzer
     // access
     protected ArrayList paragraphs = new ArrayList();
 
-    private class HTMLParserCallback extends ParserCallback
+    private class HTMLParserCallback
+            extends ParserCallback
     {
         private Paragraph currentParagraph = null;
         private Paragraph nonHtmlParagraph = null;

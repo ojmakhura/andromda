@@ -32,7 +32,7 @@ public class Namespace
             this.properties = new HashMap();
             for (Iterator iter = initCollection.iterator(); iter.hasNext();)
             {
-                Property property = (Property) iter.next();
+                Property property = (Property)iter.next();
                 this.properties.put(property.getName(), property);
             }
         }
@@ -82,7 +82,7 @@ public class Namespace
     public Property getProperty(String name)
     {
         this.init();
-        return (Property) this.properties.get(name);
+        return (Property)this.properties.get(name);
     }
 
     /**

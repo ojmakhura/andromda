@@ -184,7 +184,7 @@ public class MavenPluginUtils
             Iterator cartridgeIt = cartridges.iterator();
             while (cartridgeIt.hasNext())
             {
-                Cartridge cartridge = (Cartridge) cartridgeIt.next();
+                Cartridge cartridge = (Cartridge)cartridgeIt.next();
                 cartridgeNames.put(cartridge.getResource(), cartridge.getName());
             }
         }
@@ -220,13 +220,13 @@ public class MavenPluginUtils
         Iterator cartridgeLocationIt = cartridgeNames.keySet().iterator();
         while (cartridgeLocationIt.hasNext())
         {
-            URL cartridgeXmlUri = (URL) cartridgeLocationIt.next();
+            URL cartridgeXmlUri = (URL)cartridgeLocationIt.next();
             String replacePatterns = "[\\\\/]";
             String cartridgeXml = cartridgeXmlUri.toString().replaceAll(replacePatterns, "");
             String cartridgeDependencyUri = dependencyUri.toString().replaceAll(replacePatterns, "");
             if (cartridgeXml.indexOf(cartridgeDependencyUri) != -1)
             {
-                cartridgeName = (String) cartridgeNames.get(cartridgeXmlUri);
+                cartridgeName = (String)cartridgeNames.get(cartridgeXmlUri);
                 break;
             }
         }

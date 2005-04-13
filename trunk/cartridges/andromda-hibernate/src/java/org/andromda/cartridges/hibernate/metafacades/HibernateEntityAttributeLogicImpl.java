@@ -5,7 +5,8 @@ package org.andromda.cartridges.hibernate.metafacades;
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute
  */
-public class HibernateEntityAttributeLogicImpl extends HibernateEntityAttributeLogic
+public class HibernateEntityAttributeLogicImpl
+        extends HibernateEntityAttributeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -22,7 +23,7 @@ public class HibernateEntityAttributeLogicImpl extends HibernateEntityAttributeL
     public boolean isRequired()
     {
         boolean required = super.isRequired();
-        HibernateEntity entity = (HibernateEntity) this.getOwner();
+        HibernateEntity entity = (HibernateEntity)this.getOwner();
         if (entity.isHibernateInheritanceClass() && entity.getGeneralization() != null)
         {
             required = false;

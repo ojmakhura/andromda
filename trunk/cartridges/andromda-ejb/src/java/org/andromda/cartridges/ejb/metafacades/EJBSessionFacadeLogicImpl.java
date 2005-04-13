@@ -14,7 +14,8 @@ import java.util.List;
  *
  * @see org.andromda.cartridges.ejb.metafacades.EJBSessionFacade
  */
-public class EJBSessionFacadeLogicImpl extends EJBSessionFacadeLogic
+public class EJBSessionFacadeLogicImpl
+        extends EJBSessionFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -97,7 +98,7 @@ public class EJBSessionFacadeLogicImpl extends EJBSessionFacadeLogic
      */
     protected String getJndiNamePrefix()
     {
-        return (String) this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
+        return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
     }
 
     /**
@@ -150,7 +151,7 @@ public class EJBSessionFacadeLogicImpl extends EJBSessionFacadeLogic
                 boolean businessOperation = false;
                 if (EJBOperationFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    businessOperation = ((EJBOperationFacade) object).isBusinessOperation();
+                    businessOperation = ((EJBOperationFacade)object).isBusinessOperation();
                 }
                 return businessOperation;
             }
@@ -163,10 +164,11 @@ public class EJBSessionFacadeLogicImpl extends EJBSessionFacadeLogic
      */
     protected java.lang.String handleGetTransactionType()
     {
-        String transactionType = (String) this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        String transactionType = (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType = transactionType = String.valueOf(this.getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
+            transactionType = transactionType =
+                    String.valueOf(this.getConfiguredProperty(EJBGlobals.TRANSACTION_TYPE));
         }
         return transactionType;
     }

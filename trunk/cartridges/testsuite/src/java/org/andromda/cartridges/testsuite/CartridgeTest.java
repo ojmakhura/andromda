@@ -24,7 +24,8 @@ import java.util.List;
  * @author Ralf Wirdemann
  * @author Chad Brandon
  */
-public class CartridgeTest extends TestCase
+public class CartridgeTest
+        extends TestCase
 {
 
     private static final Logger logger = Logger.getLogger(CartridgeTest.class);
@@ -75,7 +76,7 @@ public class CartridgeTest extends TestCase
         final List missingFiles = new ArrayList();
         for (int ctr = 1; iterator.hasNext(); ctr++)
         {
-            File expectedFile = (File) iterator.next();
+            File expectedFile = (File)iterator.next();
             File actualFile = getActualFile(expectedFile);
             if (!actualFile.exists())
             {

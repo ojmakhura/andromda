@@ -13,7 +13,8 @@ import java.util.Collection;
  *
  * @see org.andromda.metafacades.uml.EnumerationFacade
  */
-public class EnumerationFacadeLogicImpl extends EnumerationFacadeLogic
+public class EnumerationFacadeLogicImpl
+        extends EnumerationFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -81,7 +82,7 @@ public class EnumerationFacadeLogicImpl extends EnumerationFacadeLogic
         final Collection literals = this.getLiterals();
         if (literals != null && !literals.isEmpty())
         {
-            type = ((AttributeFacade) literals.iterator().next()).getType();
+            type = ((AttributeFacade)literals.iterator().next()).getType();
         }
         return type;
     }

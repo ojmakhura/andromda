@@ -7,7 +7,8 @@ import org.andromda.core.translation.TranslatorException;
  *
  * @author Chad Brandon
  */
-public class QueryTranslatorException extends TranslatorException
+public class QueryTranslatorException
+        extends TranslatorException
 {
 
     /**

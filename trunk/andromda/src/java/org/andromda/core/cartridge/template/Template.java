@@ -13,7 +13,8 @@ import java.io.File;
  * @author Anthony Mowers
  * @author Chad Brandon
  */
-public class Template extends Resource
+public class Template
+        extends Resource
 {
     /**
      * The default constructor used by the XmlObjectFactory to instantiate the template configuration.

@@ -12,7 +12,8 @@ import java.util.Iterator;
 /**
  * @see org.andromda.cartridges.hibernate.metafacades.SpringQueryOperation Metaclass facade implementation.
  */
-public class SpringQueryOperationLogicImpl extends SpringQueryOperationLogic
+public class SpringQueryOperationLogicImpl
+        extends SpringQueryOperationLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -34,7 +35,7 @@ public class SpringQueryOperationLogicImpl extends SpringQueryOperationLogic
         if (StringUtils.isEmpty(queryString))
         {
             Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_QUERY);
-            queryString = (String) value;
+            queryString = (String)value;
             if (queryString != null)
             {
                 // remove any excess whitespace
@@ -56,7 +57,7 @@ public class SpringQueryOperationLogicImpl extends SpringQueryOperationLogic
                     Iterator argumentIt = arguments.iterator();
                     for (int ctr = 0; argumentIt.hasNext(); ctr++)
                     {
-                        ParameterFacade argument = (ParameterFacade) argumentIt.next();
+                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
                         String parameter = "?";
                         if (this.isUseNamedParameters())
                         {
@@ -121,7 +122,7 @@ public class SpringQueryOperationLogicImpl extends SpringQueryOperationLogic
         Collection parameters = getParameters();
         for (Iterator iter = parameters.iterator(); iter.hasNext();)
         {
-            ParameterFacade parameter = (ParameterFacade) iter.next();
+            ParameterFacade parameter = (ParameterFacade)iter.next();
             ClassifierFacade type = parameter.getType();
             if (type.hasStereotype(UMLProfile.STEREOTYPE_CRITERIA))
             {

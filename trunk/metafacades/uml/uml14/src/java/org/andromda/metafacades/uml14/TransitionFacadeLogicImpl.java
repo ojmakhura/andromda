@@ -8,7 +8,8 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 /**
  * Metaclass facade implementation.
  */
-public class TransitionFacadeLogicImpl extends TransitionFacadeLogic
+public class TransitionFacadeLogicImpl
+        extends TransitionFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -51,13 +52,13 @@ public class TransitionFacadeLogicImpl extends TransitionFacadeLogic
     protected boolean handleIsExitingDecisionPoint()
     {
         StateVertexFacade sourceVertex = getSource();
-        return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade) sourceVertex).isDecisionPoint();
+        return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade)sourceVertex).isDecisionPoint();
     }
 
     protected boolean handleIsEnteringDecisionPoint()
     {
         final StateVertexFacade target = getTarget();
-        return target instanceof PseudostateFacade && ((PseudostateFacade) target).isDecisionPoint();
+        return target instanceof PseudostateFacade && ((PseudostateFacade)target).isDecisionPoint();
     }
 
     protected boolean handleIsExitingActionState()
@@ -73,7 +74,7 @@ public class TransitionFacadeLogicImpl extends TransitionFacadeLogic
     protected boolean handleIsExitingInitialState()
     {
         StateVertexFacade sourceVertex = getSource();
-        return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade) sourceVertex).isInitialState();
+        return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade)sourceVertex).isInitialState();
     }
 
     protected boolean handleIsEnteringFinalState()

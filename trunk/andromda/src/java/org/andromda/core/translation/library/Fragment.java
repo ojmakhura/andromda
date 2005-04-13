@@ -83,13 +83,13 @@ public class Fragment
         name = StringUtils.trimToEmpty(name);
 
         ExceptionUtils.checkEmpty(methodName, "name", name);
-        String kind = StringUtils.trimToEmpty((String) kinds.get(name));
+        String kind = StringUtils.trimToEmpty((String)kinds.get(name));
         if (kind == null)
         {
             throw new LibraryException(methodName + " - no kind '" + name +
-                    "' could be found for the translation fragment '" + this.getName() + "' check the fragment '" + this.getName() + "' in translation template --> '" + getTranslation()
-                    .getLibraryTranslation()
-                    .getTemplate() + "'");
+                    "' could be found for the translation fragment '" + this.getName() + "' check the fragment '" +
+                    this.getName() +
+                    "' in translation template --> '" + getTranslation().getLibraryTranslation().getTemplate() + "'");
         }
         return kind;
     }

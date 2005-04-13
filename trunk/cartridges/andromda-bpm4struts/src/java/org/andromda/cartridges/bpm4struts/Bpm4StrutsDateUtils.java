@@ -5,7 +5,8 @@ import org.apache.commons.lang.time.DateUtils;
 /**
  * Provides additional methods supporting various date-related features
  */
-public class Bpm4StrutsDateUtils extends DateUtils
+public class Bpm4StrutsDateUtils
+        extends DateUtils
 {
     // order is important !
     private static final FormatPattern[] JAVA2PERL_FORMAT_PATTERNS = {new FormatPattern("y{4,}", "%Y"),

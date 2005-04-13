@@ -12,7 +12,8 @@ import java.util.Iterator;
  * @author Carlos Cuenca
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacade Metaclass facade implementation.
  */
-public class HibernateFinderMethodLogicImpl extends HibernateFinderMethodLogic
+public class HibernateFinderMethodLogicImpl
+        extends HibernateFinderMethodLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -35,7 +36,7 @@ public class HibernateFinderMethodLogicImpl extends HibernateFinderMethodLogic
         if (StringUtils.isEmpty(queryString))
         {
             Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
-            queryString = (String) value;
+            queryString = (String)value;
             if (queryString != null)
             {
                 // remove any excess whitespace
@@ -57,7 +58,7 @@ public class HibernateFinderMethodLogicImpl extends HibernateFinderMethodLogic
                     Iterator argumentIt = arguments.iterator();
                     for (int ctr = 0; argumentIt.hasNext(); ctr++)
                     {
-                        ParameterFacade argument = (ParameterFacade) argumentIt.next();
+                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
                         String parameter = "?";
                         if (this.isUseNamedParameters())
                         {
@@ -116,13 +117,13 @@ public class HibernateFinderMethodLogicImpl extends HibernateFinderMethodLogic
      */
     protected boolean handleIsUseQueryCache()
     {
-        boolean useQueryCache = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE))).booleanValue();
+        boolean useQueryCache = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE)))
+                .booleanValue();
 
         if (useQueryCache)
         {
             useQueryCache = Boolean.valueOf(String.valueOf(
-                    findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)))
-                    .booleanValue();
+                    findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE))).booleanValue();
         }
         return useQueryCache;
     }

@@ -3,7 +3,8 @@ package org.andromda.translation.ocl.testsuite;
 /**
  * Any unchecked exception that will be thrown when an unexpected ContextElementFinder error occurs.
  */
-public class ContextElementFinderException extends RuntimeException
+public class ContextElementFinderException
+        extends RuntimeException
 {
 
     /**

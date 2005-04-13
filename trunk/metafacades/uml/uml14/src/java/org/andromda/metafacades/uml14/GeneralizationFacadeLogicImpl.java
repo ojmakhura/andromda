@@ -5,7 +5,8 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.GeneralizationFacade
  */
-public class GeneralizationFacadeLogicImpl extends GeneralizationFacadeLogic
+public class GeneralizationFacadeLogicImpl
+        extends GeneralizationFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

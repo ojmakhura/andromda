@@ -5,7 +5,8 @@ package org.andromda.core.cartridge;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  */
-public class CartridgeException extends RuntimeException
+public class CartridgeException
+        extends RuntimeException
 {
 
     /**

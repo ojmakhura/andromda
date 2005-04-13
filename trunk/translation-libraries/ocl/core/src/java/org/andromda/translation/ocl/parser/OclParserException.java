@@ -7,7 +7,8 @@ import java.util.StringTokenizer;
 /**
  * Retrieves information from the OCL parser exceptions in a more user friendly format.
  */
-public class OclParserException extends RuntimeException
+public class OclParserException
+        extends RuntimeException
 {
     private StringBuffer messageBuffer;
     private int errorLine;

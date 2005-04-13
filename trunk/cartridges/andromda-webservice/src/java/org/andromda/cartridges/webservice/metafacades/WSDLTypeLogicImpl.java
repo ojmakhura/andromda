@@ -11,7 +11,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLType
  */
-public class WSDLTypeLogicImpl extends WSDLTypeLogic
+public class WSDLTypeLogicImpl
+        extends WSDLTypeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -99,7 +100,7 @@ public class WSDLTypeLogicImpl extends WSDLTypeLogic
         String uri = null;
         if (property instanceof String)
         {
-            uri = (String) property;
+            uri = (String)property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -115,7 +116,7 @@ public class WSDLTypeLogicImpl extends WSDLTypeLogic
         }
         else
         {
-            mappings = (TypeMappings) property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }
@@ -125,7 +126,7 @@ public class WSDLTypeLogicImpl extends WSDLTypeLogic
      */
     protected String handleGetNamespacePrefix()
     {
-        return (String) this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
+        return (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
     }
 
     /**
@@ -133,7 +134,7 @@ public class WSDLTypeLogicImpl extends WSDLTypeLogic
      */
     protected String getQualfiedNameLocalPartPattern()
     {
-        return (String) this.getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
+        return (String)this.getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
     }
 
     /**
@@ -141,7 +142,7 @@ public class WSDLTypeLogicImpl extends WSDLTypeLogic
      */
     protected String getNamespacePattern()
     {
-        return (String) this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
+        return (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
     }
 
     /**
@@ -151,6 +152,7 @@ public class WSDLTypeLogicImpl extends WSDLTypeLogic
      */
     private boolean isReverseNamespace()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE))).booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
+                .booleanValue();
     }
 }

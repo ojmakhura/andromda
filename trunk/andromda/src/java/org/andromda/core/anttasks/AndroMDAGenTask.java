@@ -33,7 +33,8 @@ import java.util.Iterator;
  * @author Chad Brandon
  * @see org.andromda.core.ModelProcessor
  */
-public class AndroMDAGenTask extends MatchingTask
+public class AndroMDAGenTask
+        extends MatchingTask
 {
     /**
      * Initialize the context class loader.
@@ -166,7 +167,7 @@ public class AndroMDAGenTask extends MatchingTask
                 Iterator modelIt = this.models.iterator();
                 for (int ctr = 0; modelIt.hasNext(); ctr++)
                 {
-                    ModelConfiguration modelConfig = (ModelConfiguration) modelIt.next();
+                    ModelConfiguration modelConfig = (ModelConfiguration)modelIt.next();
                     if (modelConfig.getUrl() != null)
                     {
                         models[ctr] = new Model(modelConfig.getUrl(), this.packages, this.lastModifiedCheck,
@@ -251,7 +252,7 @@ public class AndroMDAGenTask extends MatchingTask
         {
             public void execute(Object object)
             {
-                Namespace namespace = (Namespace) object;
+                Namespace namespace = (Namespace)object;
                 Namespaces.instance().addNamespace(namespace);
             }
         });
@@ -405,7 +406,7 @@ public class AndroMDAGenTask extends MatchingTask
             {
                 try
                 {
-                    Mappings.addLogicalMappings(Mappings.getInstance(((File) mappingsLocationIt.next()).toURL()));
+                    Mappings.addLogicalMappings(Mappings.getInstance(((File)mappingsLocationIt.next()).toURL()));
                 }
                 catch (Throwable th)
                 {

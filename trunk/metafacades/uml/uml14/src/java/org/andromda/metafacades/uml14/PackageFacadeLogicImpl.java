@@ -12,7 +12,8 @@ import java.util.Collection;
 /**
  * Metaclass facade implementation.
  */
-public class PackageFacadeLogicImpl extends PackageFacadeLogic
+public class PackageFacadeLogicImpl
+        extends PackageFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -54,7 +55,8 @@ public class PackageFacadeLogicImpl extends PackageFacadeLogic
      */
     protected Collection handleGetModelElements()
     {
-        return ((UmlPackage) MetafacadeFactory.getInstance().getModel().getModel()).getCore().getModelElement().refAllOfType();
+        return ((UmlPackage)MetafacadeFactory.getInstance().getModel().getModel()).getCore().getModelElement()
+                .refAllOfType();
     }
 
     /**
@@ -62,7 +64,7 @@ public class PackageFacadeLogicImpl extends PackageFacadeLogic
      */
     public ModelElementFacade handleFindModelElement(final String fullyQualifiedName)
     {
-        return (ModelElementFacade) this.shieldedElement(UML14MetafacadeUtils.findByFullyQualifiedName(
+        return (ModelElementFacade)this.shieldedElement(UML14MetafacadeUtils.findByFullyQualifiedName(
                 fullyQualifiedName, String.valueOf(this.getConfiguredProperty(
                         MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR))));
     }

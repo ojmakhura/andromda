@@ -6,7 +6,8 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.PartitionFacade
  */
-public class PartitionFacadeLogicImpl extends PartitionFacadeLogic
+public class PartitionFacadeLogicImpl
+        extends PartitionFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

@@ -58,7 +58,7 @@ public class OCLIntrospector
             {
                 // Wrap exception again to prevent redundant
                 // error messages as the stack unwinds.
-                throw (OCLIntrospectorException) cause;
+                throw (OCLIntrospectorException)cause;
             }
             throw new OCLIntrospectorException(cause);
         }
@@ -88,8 +88,8 @@ public class OCLIntrospector
         }
         catch (Throwable throwable)
         {
-            final String message = "Error invoking feature '" + feature + "' on element '" + element + "' with arguments '" + StringUtils.join(
-                    arguments, ',') + "'";
+            final String message = "Error invoking feature '" + feature + "' on element '" + element +
+                    "' with arguments '" + StringUtils.join(arguments, ',') + "'";
             throwable = ExceptionUtils.getRootCause(throwable);
             logger.error(message);
             throw new OCLIntrospectorException(throwable);
@@ -143,9 +143,10 @@ public class OCLIntrospector
             }
             if (method == null)
             {
-                throw new OCLIntrospectorException("No property named '" + propertyName + "', found on element '" + element + "'");
+                throw new OCLIntrospectorException(
+                        "No property named '" + propertyName + "', found on element '" + element + "'");
             }
-            property = method.invoke(element, (Object[]) null);
+            property = method.invoke(element, (Object[])null);
         }
         return property;
     }
@@ -164,7 +165,7 @@ public class OCLIntrospector
         Method method = null;
         try
         {
-            method = element.getClass().getMethod(prefix + StringUtils.capitalize(propertyName), (Class[]) null);
+            method = element.getClass().getMethod(prefix + StringUtils.capitalize(propertyName), (Class[])null);
         }
         catch (NoSuchMethodException ex)
         {

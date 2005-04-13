@@ -15,7 +15,8 @@ import java.util.Iterator;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate
  */
-public class StrutsPseudostateLogicImpl extends StrutsPseudostateLogic
+public class StrutsPseudostateLogicImpl
+        extends StrutsPseudostateLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -46,19 +47,19 @@ public class StrutsPseudostateLogicImpl extends StrutsPseudostateLogic
 
         if (activityGraphFacade instanceof StrutsActivityGraph)
         {
-            StrutsActivityGraph activityGraph = (StrutsActivityGraph) activityGraphFacade;
+            StrutsActivityGraph activityGraph = (StrutsActivityGraph)activityGraphFacade;
             UseCaseFacade useCase = activityGraph.getUseCase();
 
             if (useCase instanceof StrutsUseCase)
             {
-                Collection actions = ((StrutsUseCase) useCase).getActions();
+                Collection actions = ((StrutsUseCase)useCase).getActions();
                 for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
-                    StrutsAction action = (StrutsAction) actionIterator.next();
+                    StrutsAction action = (StrutsAction)actionIterator.next();
                     Collection transitions = action.getTransitions();
                     for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                     {
-                        TransitionFacade transition = (TransitionFacade) transitionIterator.next();
+                        TransitionFacade transition = (TransitionFacade)transitionIterator.next();
                         if (this.equals(transition.getTarget()))
                         {
                             actionSet.add(action);

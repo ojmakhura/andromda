@@ -13,7 +13,8 @@ import java.util.regex.Pattern;
  * @author Chad Brandon
  * @author Wouter Zoons
  */
-public class StringUtilsHelper extends StringUtils
+public class StringUtilsHelper
+        extends StringUtils
 {
     /**
      * <p/>

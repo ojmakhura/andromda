@@ -63,13 +63,13 @@ public class MetafacadeCache
     public MetafacadeBase get(Object mappingObject, Class metafacadeClass)
     {
         MetafacadeBase metafacade = null;
-        Map namespaceMetafacadeCache = (Map) this.metafacadeCache.get(mappingObject);
+        Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache != null)
         {
-            Map metafacadeCache = (Map) namespaceMetafacadeCache.get(metafacadeClass);
+            Map metafacadeCache = (Map)namespaceMetafacadeCache.get(metafacadeClass);
             if (metafacadeCache != null)
             {
-                metafacade = (MetafacadeBase) metafacadeCache.get(this.namespace);
+                metafacade = (MetafacadeBase)metafacadeCache.get(this.namespace);
             }
         }
         return metafacade;
@@ -84,12 +84,12 @@ public class MetafacadeCache
      */
     public void add(Object mappingObject, MetafacadeBase metafacade)
     {
-        Map namespaceMetafacadeCache = (Map) this.metafacadeCache.get(mappingObject);
+        Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache == null)
         {
             namespaceMetafacadeCache = new HashMap();
         }
-        Map metafacadeCache = (Map) namespaceMetafacadeCache.get(metafacade.getClass());
+        Map metafacadeCache = (Map)namespaceMetafacadeCache.get(metafacade.getClass());
         if (metafacadeCache == null)
         {
             metafacadeCache = new HashMap();

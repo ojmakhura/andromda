@@ -59,7 +59,8 @@ public class AndroMDALogger
         }
         if (url == null)
         {
-            throw new RuntimeException("Could not find default logging configuration file '" + defaultConfiguration + "'");
+            throw new RuntimeException(
+                    "Could not find default logging configuration file '" + defaultConfiguration + "'");
         }
     }
 
@@ -91,7 +92,9 @@ public class AndroMDALogger
         }
         catch (Exception ex)
         {
-            System.err.println("Unable to initialize logging system " + "with configuration file '" + logConfigurationXml + "' --> using basic configuration.");
+            System.err.println(
+                    "Unable to initialize logging system " + "with configuration file '" + logConfigurationXml +
+                    "' --> using basic configuration.");
             BasicConfigurator.configure();
         }
     }

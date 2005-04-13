@@ -37,7 +37,8 @@ public class MetaCartridgeUtils
     /**
      * Used to sort operations by <code>fullyQualifiedName</code>.
      */
-    private final static class FullyQualifiedNameComparator implements Comparator
+    private final static class FullyQualifiedNameComparator
+            implements Comparator
     {
         private final Collator collator = Collator.getInstance();
 
@@ -48,8 +49,8 @@ public class MetaCartridgeUtils
 
         public int compare(Object objectA, Object objectB)
         {
-            ModelElementFacade a = (ModelElementFacade) objectA;
-            ModelElementFacade b = (ModelElementFacade) objectB;
+            ModelElementFacade a = (ModelElementFacade)objectA;
+            ModelElementFacade b = (ModelElementFacade)objectB;
 
             return collator.compare(a.getFullyQualifiedName(), b.getFullyQualifiedName());
         }

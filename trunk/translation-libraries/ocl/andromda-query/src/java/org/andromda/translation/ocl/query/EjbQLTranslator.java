@@ -11,7 +11,8 @@ import java.util.Map;
  *
  * @author Chad Brandon
  */
-public class EjbQLTranslator extends QueryTranslator
+public class EjbQLTranslator
+        extends QueryTranslator
 {
     /**
      * Used to replace the 'counter' reference in the EJB-QL template
@@ -73,7 +74,7 @@ public class EjbQLTranslator extends QueryTranslator
         {
             // get the used argument and if it exists, use that for the
             // replacement, otherwise use a new one.
-            String usedArgument = (String) this.usedArguments.get(replacement);
+            String usedArgument = (String)this.usedArguments.get(replacement);
             if (StringUtils.isEmpty(usedArgument))
             {
                 String argument = this.getTranslationFragment("argument");

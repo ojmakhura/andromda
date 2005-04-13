@@ -5,7 +5,8 @@ package org.andromda.cartridges.spring.metafacades;
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaSearch
  */
-public class SpringCriteriaSearchLogicImpl extends SpringCriteriaSearchLogic
+public class SpringCriteriaSearchLogicImpl
+        extends SpringCriteriaSearchLogic
 {
     // ---------------- constructor -------------------------------
 

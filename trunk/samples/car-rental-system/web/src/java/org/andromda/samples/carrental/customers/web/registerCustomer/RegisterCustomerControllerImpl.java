@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController
  */
-public class RegisterCustomerControllerImpl extends RegisterCustomerController
+public class RegisterCustomerControllerImpl
+        extends RegisterCustomerController
 {
     /**
      * @see org.andromda.samples.carrental.customers.web.registerCustomer.RegisterCustomerController#createCustomer(org.apache.struts.action.ActionMapping,
@@ -98,7 +99,8 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class CustomersDummy implements java.io.Serializable
+    public final class CustomersDummy
+            implements java.io.Serializable
     {
         private String customerNo = null;
         private String name = null;
@@ -144,7 +146,8 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class DriversDummy implements java.io.Serializable
+    public final class DriversDummy
+            implements java.io.Serializable
     {
         private String name = null;
         private String surname = null;

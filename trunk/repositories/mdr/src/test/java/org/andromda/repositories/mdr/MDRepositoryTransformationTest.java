@@ -16,7 +16,8 @@ import java.util.Iterator;
 /**
  * @author <A HREF="httplo://www.amowers.com">Anthony Mowers</A>
  */
-public class MDRepositoryTransformationTest extends TestCase
+public class MDRepositoryTransformationTest
+        extends TestCase
 {
     private URL modelURL = null;
     private MDRepositoryFacade repository = null;
@@ -56,17 +57,17 @@ public class MDRepositoryTransformationTest extends TestCase
     public void testTransformModel() throws Exception
     {
         repository.readModel(modelURL, null);
-        UmlPackage umlPackage = (UmlPackage) repository.getModel().getModel();
+        UmlPackage umlPackage = (UmlPackage)repository.getModel().getModel();
         ModelManagementPackage modelManagementPackage = umlPackage.getModelManagement();
 
         // A given XMI file can contain multiptle models.
         // Use the first model in the XMI file
-        Model model = (Model) (modelManagementPackage.getModel().refAllOfType().iterator().next());
+        Model model = (Model)(modelManagementPackage.getModel().refAllOfType().iterator().next());
 
         // look for a class with the name 'org.EntityBean'
         String[] fqn = {"org", "andromda", "ClassA"};
 
-        UmlClass umlClass = (UmlClass) getModelElement(model, fqn, 0);
+        UmlClass umlClass = (UmlClass)getModelElement(model, fqn, 0);
 
         // create an attribute
         Attribute attribute = umlPackage.getCore().getAttribute().createAttribute();
@@ -93,7 +94,7 @@ public class MDRepositoryTransformationTest extends TestCase
         Collection elements = namespace.getOwnedElement();
         for (Iterator i = elements.iterator(); i.hasNext();)
         {
-            ModelElement element = (ModelElement) i.next();
+            ModelElement element = (ModelElement)i.next();
             if (element.getName().equals(fqn[pos]))
             {
                 int nextPos = pos + 1;
@@ -105,7 +106,7 @@ public class MDRepositoryTransformationTest extends TestCase
 
                 if (element instanceof Namespace)
                 {
-                    return getModelElement((Namespace) element, fqn, nextPos);
+                    return getModelElement((Namespace)element, fqn, nextPos);
                 }
 
                 return null;

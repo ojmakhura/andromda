@@ -78,7 +78,12 @@ public class ExpressionTranslator
         }
         catch (Exception ex)
         {
-            String errMsg = "Error performing " + methodName + " with translationName '" + translationName + "', contextElement '" + contextElement + "' and expression '" + expression + "'";
+            String errMsg = "Error performing " + methodName + " with translationName '" + translationName +
+                    "', contextElement '" +
+                    contextElement +
+                    "' and expression '" +
+                    expression +
+                    "'";
             throw new TranslatorException(errMsg, ex);
         }
         return translatedExpression;

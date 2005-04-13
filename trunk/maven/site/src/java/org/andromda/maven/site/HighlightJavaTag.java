@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public class HighlightJavaTag extends AbstractHighlightTag
+public class HighlightJavaTag
+        extends AbstractHighlightTag
 {
     private String keywordClass = null;
     private String stringLiteralClass = null;

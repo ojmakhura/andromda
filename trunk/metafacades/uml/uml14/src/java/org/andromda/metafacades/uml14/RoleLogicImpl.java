@@ -19,7 +19,8 @@ import java.util.HashSet;
  *
  * @see org.andromda.metafacades.uml.Role
  */
-public class RoleLogicImpl extends RoleLogic
+public class RoleLogicImpl
+        extends RoleLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -55,7 +56,8 @@ public class RoleLogicImpl extends RoleLogic
     protected boolean handleIsReferencesPresent()
     {
         final Collection allSourceDependencies = new HashSet(this.getSourceDependencies());
-        for (GeneralizableElementFacade parent = this.getGeneralization(); parent != null; parent = parent.getGeneralization())
+        for (GeneralizableElementFacade parent = this.getGeneralization();
+             parent != null; parent = parent.getGeneralization())
         {
             allSourceDependencies.addAll(parent.getSourceDependencies());
         }
@@ -63,7 +65,7 @@ public class RoleLogicImpl extends RoleLogic
         {
             public boolean evaluate(Object object)
             {
-                DependencyFacade dependency = (DependencyFacade) object;
+                DependencyFacade dependency = (DependencyFacade)object;
                 Object target = dependency.getTargetElement();
                 return target instanceof Service || target instanceof ServiceOperation;
             }

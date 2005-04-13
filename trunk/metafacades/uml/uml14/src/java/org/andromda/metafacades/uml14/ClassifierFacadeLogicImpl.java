@@ -27,7 +27,8 @@ import java.util.Iterator;
 /**
  * Metaclass facade implementation.
  */
-public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
+public class ClassifierFacadeLogicImpl
+        extends ClassifierFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -143,7 +144,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
-            uri = (String) property;
+            uri = (String)property;
             try
             {
                 mappings = TypeMappings.getInstance(uri);
@@ -158,7 +159,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
         }
         else
         {
-            mappings = (TypeMappings) property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }
@@ -225,7 +226,8 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
     protected Collection handleGetAttributes(boolean follow)
     {
         Collection attributes = this.getAttributes();
-        for (ClassifierFacade superClass = (ClassifierFacade) getGeneralization(); superClass != null && follow; superClass = (ClassifierFacade) superClass.getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization();
+             superClass != null && follow; superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             attributes.addAll(superClass.getAttributes());
         }
@@ -243,7 +245,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
 
         for (Iterator iterator = getAttributes().iterator(); iterator.hasNext();)
         {
-            AttributeFacade attribute = (AttributeFacade) iterator.next();
+            AttributeFacade attribute = (AttributeFacade)iterator.next();
 
             sb.append(separator);
             String typeName = attribute.getType().getFullyQualifiedName();
@@ -273,7 +275,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
         {
             public boolean evaluate(Object object)
             {
-                return ((AttributeFacade) object).isStatic();
+                return ((AttributeFacade)object).isStatic();
             }
         };
     }
@@ -287,7 +289,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
         {
             public boolean evaluate(Object object)
             {
-                return !((AttributeFacade) object).isStatic();
+                return !((AttributeFacade)object).isStatic();
             }
         };
     }
@@ -298,20 +300,22 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
     protected java.util.Collection handleGetProperties()
     {
         Collection properties = this.getAttributes();
-        class ConnectingEndTransformer implements Transformer
+        class ConnectingEndTransformer
+                implements Transformer
         {
             public Object transform(Object object)
             {
-                return ((AssociationEndFacade) object).getOtherEnd();
+                return ((AssociationEndFacade)object).getOtherEnd();
             }
         }
         Collection connectingEnds = this.getAssociationEnds();
         CollectionUtils.transform(connectingEnds, new ConnectingEndTransformer());
-        class NavigableFilter implements Predicate
+        class NavigableFilter
+                implements Predicate
         {
             public boolean evaluate(Object object)
             {
-                return ((AssociationEndFacade) object).isNavigable();
+                return ((AssociationEndFacade)object).isNavigable();
             }
         }
         CollectionUtils.filter(connectingEnds, new NavigableFilter());
@@ -357,7 +361,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
         ClassifierFacade nonArrayType = this;
         if (this.getFullyQualifiedName().indexOf(this.getArraySuffix()) != -1)
         {
-            nonArrayType = (ClassifierFacade) this.getRootPackage().findModelElement(StringUtils.replace(
+            nonArrayType = (ClassifierFacade)this.getRootPackage().findModelElement(StringUtils.replace(
                     this.getFullyQualifiedName(true), this.getArraySuffix(), ""));
         }
         return nonArrayType;
@@ -373,7 +377,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
         if (name.indexOf(this.getArraySuffix()) == -1)
         {
             name = name + this.getArraySuffix();
-            arrayType = (ClassifierFacade) this.getRootPackage().findModelElement(name);
+            arrayType = (ClassifierFacade)this.getRootPackage().findModelElement(name);
         }
         return arrayType;
     }
@@ -432,7 +436,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
         {
             public boolean evaluate(Object object)
             {
-                return ((OperationFacade) object).isStatic();
+                return ((OperationFacade)object).isStatic();
             }
         };
     }
@@ -446,7 +450,7 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
         {
             public boolean evaluate(Object object)
             {
-                return !((OperationFacade) object).isStatic();
+                return !((OperationFacade)object).isStatic();
             }
         };
     }
@@ -456,11 +460,11 @@ public class ClassifierFacadeLogicImpl extends ClassifierFacadeLogic
      */
     protected AttributeFacade handleFindAttribute(final String name)
     {
-        return (AttributeFacade) CollectionUtils.find(this.getAttributes(), new Predicate()
+        return (AttributeFacade)CollectionUtils.find(this.getAttributes(), new Predicate()
         {
             public boolean evaluate(Object object)
             {
-                final AttributeFacade attribute = (AttributeFacade) object;
+                final AttributeFacade attribute = (AttributeFacade)object;
                 return StringUtils.trimToEmpty(attribute.getName()).equals(name);
             }
         });

@@ -13,7 +13,8 @@ import java.util.Set;
 /**
  * Metaclass facade implementation.
  */
-public class UseCaseFacadeLogicImpl extends UseCaseFacadeLogic
+public class UseCaseFacadeLogicImpl
+        extends UseCaseFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -78,12 +79,13 @@ public class UseCaseFacadeLogicImpl extends UseCaseFacadeLogic
     {
         ActivityGraph activityGraph = null;
 
-        for (Iterator iterator = metaObject.getOwnedElement().iterator(); iterator.hasNext() && activityGraph == null;)
+        for (Iterator iterator = metaObject.getOwnedElement().iterator();
+             iterator.hasNext() && activityGraph == null;)
         {
-            ModelElement modelElement = (ModelElement) iterator.next();
+            ModelElement modelElement = (ModelElement)iterator.next();
             if (modelElement instanceof ActivityGraph)
             {
-                activityGraph = (ActivityGraph) modelElement;
+                activityGraph = (ActivityGraph)modelElement;
             }
         }
 

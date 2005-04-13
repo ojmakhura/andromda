@@ -5,7 +5,8 @@ package org.andromda.core.common;
  *
  * @author Chad Brandon
  */
-public class PluginException extends RuntimeException
+public class PluginException
+        extends RuntimeException
 {
 
     /**

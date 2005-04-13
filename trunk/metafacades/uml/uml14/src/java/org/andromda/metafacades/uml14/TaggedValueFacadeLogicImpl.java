@@ -9,7 +9,8 @@ import java.util.Collection;
 /**
  * Metaclass facade implementation.
  */
-public class TaggedValueFacadeLogicImpl extends TaggedValueFacadeLogic
+public class TaggedValueFacadeLogicImpl
+        extends TaggedValueFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

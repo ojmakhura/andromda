@@ -17,7 +17,8 @@ import java.util.Set;
 /**
  * Metaclass facade implementation.
  */
-public class ActivityGraphFacadeLogicImpl extends ActivityGraphFacadeLogic
+public class ActivityGraphFacadeLogicImpl
+        extends ActivityGraphFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -41,7 +42,7 @@ public class ActivityGraphFacadeLogicImpl extends ActivityGraphFacadeLogic
             public boolean evaluate(Object object)
             {
                 return (object instanceof Pseudostate) && (PseudostateKindEnum.PK_INITIAL.equals(
-                        ((Pseudostate) object).getKind()));
+                        ((Pseudostate)object).getKind()));
             }
         };
         return getSubvertices(filter);
@@ -97,7 +98,7 @@ public class ActivityGraphFacadeLogicImpl extends ActivityGraphFacadeLogic
 
     protected Collection getSubvertices(Predicate collectionFilter)
     {
-        CompositeState compositeState = (CompositeState) metaObject.getTop();
+        CompositeState compositeState = (CompositeState)metaObject.getTop();
         return filter(compositeState.getSubvertex(), collectionFilter);
     }
 
@@ -130,10 +131,11 @@ public class ActivityGraphFacadeLogicImpl extends ActivityGraphFacadeLogic
         UseCase stateMachineUseCase = null;
 
         Collection useCases = UML14MetafacadeUtils.getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && stateMachineUseCase == null;)
+        for (Iterator useCaseIterator = useCases.iterator();
+             useCaseIterator.hasNext() && stateMachineUseCase == null;)
         {
             // loop over all use-cases
-            UseCase useCase = (UseCase) useCaseIterator.next();
+            UseCase useCase = (UseCase)useCaseIterator.next();
             if (useCase.getOwnedElement().contains(metaObject))
             {
                 stateMachineUseCase = useCase;

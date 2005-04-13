@@ -7,7 +7,8 @@ package org.andromda.samples.animalquiz.decisiontree;
 /**
  * @hibernate.subclass discriminator-value="DecisionItemImpl"
  */
-public abstract class DecisionItemImpl extends DecisionItem
+public abstract class DecisionItemImpl
+        extends DecisionItem
 {
     // concrete business methods that were declared
     // abstract in class DecisionItem ...

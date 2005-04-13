@@ -9,7 +9,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateType
  */
-public class HibernateTypeLogicImpl extends HibernateTypeLogic
+public class HibernateTypeLogicImpl
+        extends HibernateTypeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -51,12 +52,12 @@ public class HibernateTypeLogicImpl extends HibernateTypeLogic
             String uri = null;
             if (String.class.isAssignableFrom(property.getClass()))
             {
-                uri = (String) property;
+                uri = (String)property;
                 if (StringUtils.isNotBlank(uri))
                 {
                     try
                     {
-                        mappings = TypeMappings.getInstance((String) property);
+                        mappings = TypeMappings.getInstance((String)property);
                         this.setProperty(propertyName, mappings);
                     }
                     catch (Throwable th)
@@ -70,7 +71,7 @@ public class HibernateTypeLogicImpl extends HibernateTypeLogic
             }
             else
             {
-                mappings = (TypeMappings) property;
+                mappings = (TypeMappings)property;
             }
         }
         return mappings;

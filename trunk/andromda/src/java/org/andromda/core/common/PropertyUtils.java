@@ -43,7 +43,7 @@ public class PropertyUtils
                     // is not empty
                     if (Collection.class.isAssignableFrom(propertyValue.getClass()))
                     {
-                        valid = !((Collection) propertyValue).isEmpty();
+                        valid = !((Collection)propertyValue).isEmpty();
                     }
                     else
                     {

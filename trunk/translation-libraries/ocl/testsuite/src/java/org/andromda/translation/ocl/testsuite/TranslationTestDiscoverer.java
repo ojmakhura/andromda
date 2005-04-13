@@ -43,7 +43,8 @@ public class TranslationTestDiscoverer
         if (StringUtils.isEmpty(currentDirectory))
         {
             throw new TranslationTestDiscovererException("Current directory" +
-                    " has not be set, please specify the system property '" + CURRENT_DIRECTORY + "' with the location from which to" +
+                    " has not be set, please specify the system property '" + CURRENT_DIRECTORY +
+                    "' with the location from which to" +
                     " begin the discovery of translation test files");
         }
         this.currentDirectory = new File(currentDirectory);
@@ -103,8 +104,8 @@ public class TranslationTestDiscoverer
                         if (logger.isInfoEnabled())
                             logger.info("found translation test --> '" + testUrl + "'");
 
-                        TranslationTest test = (TranslationTest) XmlObjectFactory.getInstance(TranslationTest.class).getObject(
-                                testUrl);
+                        TranslationTest test = (TranslationTest)XmlObjectFactory.getInstance(TranslationTest.class)
+                                .getObject(testUrl);
                         test.setUri(testUrl);
                         this.translationTests.put(test.getTranslation(), test);
                     }
@@ -132,7 +133,7 @@ public class TranslationTestDiscoverer
      */
     public TranslationTest getTest(String translation)
     {
-        return (TranslationTest) this.translationTests.get(StringUtils.trimToEmpty(translation));
+        return (TranslationTest)this.translationTests.get(StringUtils.trimToEmpty(translation));
     }
 
     /**

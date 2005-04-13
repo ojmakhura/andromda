@@ -10,7 +10,8 @@ import java.lang.reflect.Field;
  *
  * @author Chad Brandon
  */
-public class ClassUtils extends org.apache.commons.lang.ClassUtils
+public class ClassUtils
+        extends org.apache.commons.lang.ClassUtils
 {
     private static Logger logger = Logger.getLogger(ClassUtils.class);
 
@@ -112,7 +113,7 @@ public class ClassUtils extends org.apache.commons.lang.ClassUtils
                 if (StringUtils.isNotEmpty(className))
                 {
                     Field field = loader.loadClass(className).getField("TYPE");
-                    primitiveClass = (Class) field.get(null);
+                    primitiveClass = (Class)field.get(null);
                 }
             }
             catch (Exception ex)
@@ -134,6 +135,7 @@ public class ClassUtils extends org.apache.commons.lang.ClassUtils
     protected static boolean isPrimitiveType(String name)
     {
         return ("void".equals(name) || "char".equals(name) || "byte".equals(name) || "short".equals(name) || "int".equals(
-                name) || "long".equals(name) || "float".equals(name) || "double".equals(name) || "boolean".equals(name));
+                name) || "long".equals(name) || "float".equals(name) || "double".equals(name) ||
+                "boolean".equals(name));
     }
 }

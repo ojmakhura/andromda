@@ -10,7 +10,8 @@ import org.andromda.metafacades.uml.StateVertexFacade;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler
  */
-public class StrutsExceptionHandlerLogicImpl extends StrutsExceptionHandlerLogic
+public class StrutsExceptionHandlerLogicImpl
+        extends StrutsExceptionHandlerLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -57,9 +58,9 @@ public class StrutsExceptionHandlerLogicImpl extends StrutsExceptionHandlerLogic
     {
         final StateVertexFacade target = getTarget();
         if (target instanceof StrutsJsp)
-            return ((StrutsJsp) target).getFullPath() + ".jsp";
+            return ((StrutsJsp)target).getFullPath() + ".jsp";
         else if (target instanceof StrutsFinalState)
-            return ((StrutsFinalState) target).getFullPath();
+            return ((StrutsFinalState)target).getFullPath();
         else
             return "";
     }

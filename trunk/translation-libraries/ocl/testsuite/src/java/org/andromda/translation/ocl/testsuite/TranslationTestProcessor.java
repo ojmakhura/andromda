@@ -17,7 +17,8 @@ import java.util.Map;
 /**
  * This object is used to test Translations during development.
  */
-public class TranslationTestProcessor extends TestCase
+public class TranslationTestProcessor
+        extends TestCase
 {
 
     private static Logger logger = Logger.getLogger(TranslationTestProcessor.class);
@@ -37,7 +38,8 @@ public class TranslationTestProcessor extends TestCase
     /**
      * Flag indicating whether or not we want to perform model validation when running the tests.
      */
-    private boolean modelValidation = Boolean.valueOf(StringUtils.trimToEmpty(System.getProperty("model.validation"))).booleanValue();
+    private boolean modelValidation = Boolean.valueOf(StringUtils.trimToEmpty(System.getProperty("model.validation")))
+            .booleanValue();
 
     private ModelAccessFacade model = null;
 
@@ -76,7 +78,7 @@ public class TranslationTestProcessor extends TestCase
         while (testIt.hasNext())
         {
             TranslationTestProcessor unitTest = new TranslationTestProcessor("testTranslation");
-            unitTest.setTestTranslation((String) testIt.next());
+            unitTest.setTestTranslation((String)testIt.next());
             suite.addTest(unitTest);
         }
         return suite;
@@ -117,7 +119,8 @@ public class TranslationTestProcessor extends TestCase
 
             if (element == null)
             {
-                String errMsg = "No element found in model in expression --> '" + expression + "', please check your model or your TranslationTest file";
+                String errMsg = "No element found in model in expression --> '" + expression +
+                        "', please check your model or your TranslationTest file";
                 logger.error("ERROR! " + errMsg);
                 TestCase.fail(errMsg);
             }
@@ -151,7 +154,7 @@ public class TranslationTestProcessor extends TestCase
                 while (expressionIt.hasNext())
                 {
 
-                    String fromExpression = (String) expressionIt.next();
+                    String fromExpression = (String)expressionIt.next();
 
                     //if the fromExpression body isn't defined, skip expression
                     // test
@@ -160,7 +163,8 @@ public class TranslationTestProcessor extends TestCase
                         if (logger.isInfoEnabled())
                         {
                             logger.info("No body for the 'from' element was defined " +
-                                    "within translation test --> '" + test.getUri() + "', please define the body of this element with " +
+                                    "within translation test --> '" + test.getUri() +
+                                    "', please define the body of this element with " +
                                     "the expression you want to translate from");
                         }
                         continue;
@@ -174,7 +178,7 @@ public class TranslationTestProcessor extends TestCase
                     else
                     {
 
-                        ExpressionTest expressionConfig = (ExpressionTest) expressions.get(fromExpression);
+                        ExpressionTest expressionConfig = (ExpressionTest)expressions.get(fromExpression);
                         String toExpression = expressionConfig.getTo();
 
                         Object modelElement = null;

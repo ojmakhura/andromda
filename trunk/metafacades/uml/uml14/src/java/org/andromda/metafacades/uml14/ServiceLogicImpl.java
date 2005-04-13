@@ -18,7 +18,8 @@ import java.util.HashSet;
 /**
  * Metaclass facade implementation.
  */
-public class ServiceLogicImpl extends ServiceLogic
+public class ServiceLogicImpl
+        extends ServiceLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -36,7 +37,7 @@ public class ServiceLogicImpl extends ServiceLogic
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade) object).getTargetElement();
+                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                 return targetElement != null && Entity.class.isAssignableFrom(targetElement.getClass());
             }
         };
@@ -51,7 +52,7 @@ public class ServiceLogicImpl extends ServiceLogic
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade) object).getTargetElement();
+                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                 return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
             }
         };
@@ -67,7 +68,7 @@ public class ServiceLogicImpl extends ServiceLogic
         {
             public boolean evaluate(Object object)
             {
-                DependencyFacade dependency = (DependencyFacade) object;
+                DependencyFacade dependency = (DependencyFacade)object;
                 return dependency != null && dependency.getSourceElement() instanceof Role;
             }
         });
@@ -75,7 +76,7 @@ public class ServiceLogicImpl extends ServiceLogic
         {
             public Object transform(Object object)
             {
-                return ((DependencyFacade) object).getSourceElement();
+                return ((DependencyFacade)object).getSourceElement();
             }
         });
         final Collection allRoles = new HashSet(roles);
@@ -84,7 +85,7 @@ public class ServiceLogicImpl extends ServiceLogic
         {
             public void execute(Object object)
             {
-                allRoles.addAll(((Role) object).getSpecializations());
+                allRoles.addAll(((Role)object).getSpecializations());
             }
         });
         return allRoles;
@@ -102,7 +103,7 @@ public class ServiceLogicImpl extends ServiceLogic
             {
                 if (object instanceof ServiceOperation)
                 {
-                    roles.addAll(((ServiceOperation) object).getRoles());
+                    roles.addAll(((ServiceOperation)object).getRoles());
                 }
             }
         });

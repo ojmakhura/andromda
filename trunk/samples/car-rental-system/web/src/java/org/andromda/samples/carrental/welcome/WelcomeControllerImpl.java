@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.welcome.WelcomeController
  */
-public class WelcomeControllerImpl extends WelcomeController
+public class WelcomeControllerImpl
+        extends WelcomeController
 {
     /**
      * @see org.andromda.samples.carrental.welcome.WelcomeController#getWelcomeMessage(org.apache.struts.action.ActionMapping,
@@ -20,7 +21,7 @@ public class WelcomeControllerImpl extends WelcomeController
                                                     HttpServletRequest request, HttpServletResponse response)
             throws Exception
     {
-        WelcomeForm form2 = (WelcomeForm) form;
+        WelcomeForm form2 = (WelcomeForm)form;
         StringBuffer welcomeMessage = new StringBuffer();
         // TODO Make NLSable
         welcomeMessage.append("Welcome to the Andromda Car Rental Sample Application.\n");

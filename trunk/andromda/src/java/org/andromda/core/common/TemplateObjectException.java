@@ -5,7 +5,8 @@ package org.andromda.core.common;
  *
  * @see org.andromda.core.common.TemplateObject
  */
-public class TemplateObjectException extends RuntimeException
+public class TemplateObjectException
+        extends RuntimeException
 {
 
     /**

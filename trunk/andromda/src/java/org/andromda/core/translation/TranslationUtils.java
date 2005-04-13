@@ -156,7 +156,8 @@ public class TranslationUtils
         }
         catch (Exception ex)
         {
-            String errMsg = "Error performing " + methodName + " with bean '" + bean + "' and property '" + property + "'";
+            String errMsg = "Error performing " + methodName + " with bean '" + bean + "' and property '" + property +
+                    "'";
             throw new TranslatorException(errMsg, ex);
         }
     }

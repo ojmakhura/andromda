@@ -79,12 +79,14 @@ public class ModelProcessor
         {
             try
             {
-                RepositoryFacade repository = (RepositoryFacade) ComponentContainer.instance().findComponent(
+                RepositoryFacade repository = (RepositoryFacade)ComponentContainer.instance().findComponent(
                         RepositoryFacade.class);
                 if (repository == null)
                 {
-                    throw new ModelProcessorException("No Repository could be found, " +
-                            "please make sure you have a " + RepositoryFacade.class.getName() + " instance on your classpath");
+                    throw new ModelProcessorException(
+                            "No Repository could be found, " + "please make sure you have a " +
+                            RepositoryFacade.class.getName() +
+                            " instance on your classpath");
                 }
                 repository.open();
                 process(repository, models);
@@ -106,7 +108,7 @@ public class ModelProcessor
                     Iterator messageIt = messages.iterator();
                     for (int ctr = 1; messageIt.hasNext(); ctr++)
                     {
-                        ModelValidationMessage message = (ModelValidationMessage) messageIt.next();
+                        ModelValidationMessage message = (ModelValidationMessage)messageIt.next();
                         AndroMDALogger.error(ctr + ") " + message);
                     }
                     AndroMDALogger.reset();
@@ -193,7 +195,7 @@ public class ModelProcessor
 
                 for (Iterator cartridgeIt = cartridges.iterator(); cartridgeIt.hasNext();)
                 {
-                    Cartridge cartridge = (Cartridge) cartridgeIt.next();
+                    Cartridge cartridge = (Cartridge)cartridgeIt.next();
                     cartridgeName = cartridge.getName();
                     if (this.shouldProcess(cartridgeName))
                     {
@@ -215,7 +217,8 @@ public class ModelProcessor
                         }
                         else
                         {
-                            AndroMDALogger.info("namespace for '" + cartridgeName + "' cartridge is either not defined, or has the ignore " +
+                            AndroMDALogger.info("namespace for '" + cartridgeName +
+                                    "' cartridge is either not defined, or has the ignore " +
                                     "attribute set to 'true' --> skipping processing");
                         }
                     }
@@ -380,10 +383,10 @@ public class ModelProcessor
         {
             public boolean evaluate(Object object)
             {
-                return object != null && ((Model) object).getUrl() != null;
+                return object != null && ((Model)object).getUrl() != null;
             }
         });
-        return (Model[]) validModels.toArray(new Model[0]);
+        return (Model[])validModels.toArray(new Model[0]);
     }
 
     /**
@@ -399,24 +402,27 @@ public class ModelProcessor
         chain.addComparator(new ValidationMessageTypeComparator());
         chain.addComparator(new ValidationMessageNameComparator());
         messages = new ArrayList(messages);
-        Collections.sort((List) messages, chain);
+        Collections.sort((List)messages, chain);
         return messages;
     }
 
     /**
      * Used to sort validation messages by <code>metafacadeClass</code>.
      */
-    private final static class ValidationMessageTypeComparator implements Comparator
+    private final static class ValidationMessageTypeComparator
+            implements Comparator
     {
         private final Collator collator = Collator.getInstance();
+
         private ValidationMessageTypeComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }
+
         public int compare(Object objectA, Object objectB)
         {
-            ModelValidationMessage a = (ModelValidationMessage) objectA;
-            ModelValidationMessage b = (ModelValidationMessage) objectB;
+            ModelValidationMessage a = (ModelValidationMessage)objectA;
+            ModelValidationMessage b = (ModelValidationMessage)objectB;
             return collator.compare(a.getMetafacadeClass().getName(), b.getMetafacadeClass().getName());
         }
     }
@@ -424,18 +430,22 @@ public class ModelProcessor
     /**
      * Used to sort validation messages by <code>modelElementName</code>.
      */
-    private final static class ValidationMessageNameComparator implements Comparator
+    private final static class ValidationMessageNameComparator
+            implements Comparator
     {
         private final Collator collator = Collator.getInstance();
+
         private ValidationMessageNameComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }
+
         public int compare(Object objectA, Object objectB)
         {
-            ModelValidationMessage a = (ModelValidationMessage) objectA;
-            ModelValidationMessage b = (ModelValidationMessage) objectB;
-            return collator.compare(StringUtils.trimToEmpty(a.getMetafacadeName()), StringUtils.trimToEmpty(b.getMetafacadeName()));
+            ModelValidationMessage a = (ModelValidationMessage)objectA;
+            ModelValidationMessage b = (ModelValidationMessage)objectB;
+            return collator.compare(StringUtils.trimToEmpty(a.getMetafacadeName()),
+                    StringUtils.trimToEmpty(b.getMetafacadeName()));
         }
     }
 }

@@ -111,7 +111,10 @@ public class ComponentContainer
             String implementation = this.getDefaultImplementation(type.getName());
             if (StringUtils.isBlank(implementation))
             {
-                throw new ComponentContainerException("No default implementation found for type '" + type.getName() + "', please check your '" + SERVICES + "' directory");
+                throw new ComponentContainerException(
+                        "No default implementation found for type '" + type.getName() + "', please check your '" +
+                        SERVICES +
+                        "' directory");
             }
             component = ClassUtils.loadClass(implementation).newInstance();
         }
@@ -172,7 +175,11 @@ public class ComponentContainer
                     }
                     else
                     {
-                        logger.warn("WARNING! No default implementation for '" + type + "' found, check services directory --> '" + SERVICES + "'");
+                        logger.warn(
+                                "WARNING! No default implementation for '" + type +
+                                "' found, check services directory --> '" +
+                                SERVICES +
+                                "'");
                     }
                 }
             }
@@ -205,7 +212,8 @@ public class ComponentContainer
      */
     public Collection findComponentsOfType(final Class type)
     {
-        class ClassMatcher implements Predicate
+        class ClassMatcher
+                implements Predicate
         {
             public boolean evaluate(Object object)
             {
@@ -252,7 +260,7 @@ public class ComponentContainer
         ExceptionUtils.checkNull(methodName, "key", key);
 
         Object component = null;
-        ComponentContainer container = (ComponentContainer) this.findComponent(namespace);
+        ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
         if (container != null)
         {
             component = container.findComponent(key);
@@ -274,7 +282,7 @@ public class ComponentContainer
         ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
         ExceptionUtils.checkNull(methodName, "key", key);
 
-        ComponentContainer container = (ComponentContainer) this.findComponent(namespace);
+        ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
 
         return container != null && container.isRegistered(key);
     }
@@ -307,7 +315,7 @@ public class ComponentContainer
         if (logger.isDebugEnabled())
             logger.debug("registering component '" + component + "' with key --> '" + key + "'");
 
-        ComponentContainer container = (ComponentContainer) this.findComponent(namespace);
+        ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
         if (container == null)
         {
             container = new ComponentContainer();
@@ -368,7 +376,8 @@ public class ComponentContainer
         ExceptionUtils.checkNull(methodName, "componentInterface", componentInterface);
         ExceptionUtils.checkNull(methodName, "defaultType", defaultType);
         if (logger.isDebugEnabled())
-            logger.debug("registering default for component '" + componentInterface + "' as type --> '" + defaultType + "'");
+            logger.debug(
+                    "registering default for component '" + componentInterface + "' as type --> '" + defaultType + "'");
         try
         {
             String interfaceName = componentInterface.getName();

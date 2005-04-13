@@ -21,7 +21,8 @@ import java.util.Iterator;
 /**
  * Metaclass facade implementation.
  */
-public class AssociationEndFacadeLogicImpl extends AssociationEndFacadeLogic
+public class AssociationEndFacadeLogicImpl
+        extends AssociationEndFacadeLogic
         implements org.andromda.metafacades.uml.AssociationEndFacade
 {
     // ---------------- constructor -------------------------------
@@ -47,7 +48,7 @@ public class AssociationEndFacadeLogicImpl extends AssociationEndFacadeLogic
         Collection ends = metaObject.getAssociation().getConnection();
         for (Iterator endIt = ends.iterator(); endIt.hasNext();)
         {
-            AssociationEnd end = (AssociationEnd) endIt.next();
+            AssociationEnd end = (AssociationEnd)endIt.next();
             if (!metaObject.equals(end))
             {
                 return end;
@@ -152,7 +153,7 @@ public class AssociationEndFacadeLogicImpl extends AssociationEndFacadeLogic
                 Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
+                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
                     int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
@@ -285,7 +286,7 @@ public class AssociationEndFacadeLogicImpl extends AssociationEndFacadeLogic
                 Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
+                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
                     lower = multiplicityRange.getLower();
                 }
             }

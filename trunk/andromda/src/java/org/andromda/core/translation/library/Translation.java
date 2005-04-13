@@ -74,10 +74,10 @@ public class Translation
         // one of the names return the value of that name.
         while (names.hasNext())
         {
-            String nextName = (String) names.next();
+            String nextName = (String)names.next();
             if (name.matches(nextName))
             {
-                fragment = (Fragment) fragments.get(nextName);
+                fragment = (Fragment)fragments.get(nextName);
             }
         }
         // if the fragment is null, and the name isn't in an ignorePattern
@@ -163,7 +163,7 @@ public class Translation
         // of them matches the passed in pattern.
         while (ignorePatterns.hasNext())
         {
-            String nextIgnorePattern = StringUtils.trimToEmpty((String) ignorePatterns.next());
+            String nextIgnorePattern = StringUtils.trimToEmpty((String)ignorePatterns.next());
             isIgnorePattern = pattern.matches(nextIgnorePattern);
             if (isIgnorePattern)
             {

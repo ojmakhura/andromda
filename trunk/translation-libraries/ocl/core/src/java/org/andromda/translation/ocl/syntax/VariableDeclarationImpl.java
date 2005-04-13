@@ -9,7 +9,8 @@ import org.apache.commons.lang.StringUtils;
  * @author Chad Brandon
  * @see org.andromda.translation.ocl.syntax.VariableDeclaration
  */
-public class VariableDeclarationImpl implements VariableDeclaration
+public class VariableDeclarationImpl
+        implements VariableDeclaration
 {
 
     private String name;

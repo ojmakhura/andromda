@@ -22,7 +22,8 @@ import java.util.Set;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForward
  */
-public class StrutsForwardLogicImpl extends StrutsForwardLogic
+public class StrutsForwardLogicImpl
+        extends StrutsForwardLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -59,11 +60,11 @@ public class StrutsForwardLogicImpl extends StrutsForwardLogic
         final StateVertexFacade target = getTarget();
         if (isEnteringPage())
         {
-            forwardPath = ((StrutsJsp) target).getFullPath() + ".jsp";
+            forwardPath = ((StrutsJsp)target).getFullPath() + ".jsp";
         }
         else if (isEnteringFinalState())
         {
-            forwardPath = ((StrutsFinalState) target).getFullPath();
+            forwardPath = ((StrutsFinalState)target).getFullPath();
         }
 
         return forwardPath;
@@ -78,11 +79,11 @@ public class StrutsForwardLogicImpl extends StrutsForwardLogic
     {
         if (isEnteringPage())
         {
-            return ((StrutsJsp) getTarget()).getTitleKey();
+            return ((StrutsJsp)getTarget()).getTitleKey();
         }
         else if (isEnteringFinalState())
         {
-            return ((StrutsFinalState) getTarget()).getTargetUseCase().getTitleKey();
+            return ((StrutsFinalState)getTarget()).getTargetUseCase().getTitleKey();
         }
         return null;
     }
@@ -152,7 +153,7 @@ public class StrutsForwardLogicImpl extends StrutsForwardLogic
             String prefix = buffer.toString();
             for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
-                String value = (String) iterator.next();
+                String value = (String)iterator.next();
                 messages.put(prefix + value.hashCode(), value);
             }
         }
@@ -232,23 +233,23 @@ public class StrutsForwardLogicImpl extends StrutsForwardLogic
                 StateVertexFacade vertex = getSource();
                 if (vertex instanceof StrutsJsp)
                 {
-                    StrutsJsp jsp = (StrutsJsp) vertex;
+                    StrutsJsp jsp = (StrutsJsp)vertex;
                     actions.addAll(jsp.getActions());
                 }
                 else if (vertex instanceof StrutsActionState)
                 {
-                    StrutsActionState actionState = (StrutsActionState) vertex;
+                    StrutsActionState actionState = (StrutsActionState)vertex;
                     actions.addAll(actionState.getContainerActions());
                 }
                 else if (vertex instanceof PseudostateFacade)
                 {
-                    PseudostateFacade pseudostate = (PseudostateFacade) vertex;
+                    PseudostateFacade pseudostate = (PseudostateFacade)vertex;
                     if (!pseudostate.isInitialState())
                     {
                         Collection incomingForwards = pseudostate.getIncoming();
                         for (Iterator forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
                         {
-                            StrutsForward forward = (StrutsForward) forwardIterator.next();
+                            StrutsForward forward = (StrutsForward)forwardIterator.next();
                             actions.addAll(forward.getActions());
                         }
                     }
@@ -267,7 +268,7 @@ public class StrutsForwardLogicImpl extends StrutsForwardLogic
             UseCaseFacade graphUseCase = graph.getUseCase();
             if (graphUseCase instanceof StrutsUseCase)
             {
-                useCase = (StrutsUseCase) graphUseCase;
+                useCase = (StrutsUseCase)graphUseCase;
             }
         }
 
@@ -281,7 +282,7 @@ public class StrutsForwardLogicImpl extends StrutsForwardLogic
         EventFacade triggerEvent = getTrigger();
         if (triggerEvent instanceof StrutsTrigger)
         {
-            StrutsTrigger trigger = (StrutsTrigger) triggerEvent;
+            StrutsTrigger trigger = (StrutsTrigger)triggerEvent;
             operation = trigger.getControllerCall();
         }
 

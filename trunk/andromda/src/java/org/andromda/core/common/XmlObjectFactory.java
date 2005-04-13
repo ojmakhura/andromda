@@ -92,10 +92,11 @@ public class XmlObjectFactory
         final String methodName = "XmlObjectFactory.getInstance";
         ExceptionUtils.checkNull(methodName, "objectClass", objectClass);
 
-        XmlObjectFactory factory = (XmlObjectFactory) factoryCache.get(objectClass);
+        XmlObjectFactory factory = (XmlObjectFactory)factoryCache.get(objectClass);
         if (factory == null)
         {
-            URL objectRulesXml = XmlObjectFactory.class.getResource('/' + objectClass.getName().replace('.', '/') + RULES_SUFFIX);
+            URL objectRulesXml = XmlObjectFactory.class.getResource(
+                    '/' + objectClass.getName().replace('.', '/') + RULES_SUFFIX);
             if (objectRulesXml == null)
             {
                 throw new XmlObjectFactoryException("No configuration rules found for class --> '" + objectClass + "'");
@@ -153,7 +154,9 @@ public class XmlObjectFactory
                 }
                 if (this.schemaUri == null)
                 {
-                    logger.warn("WARNING! Was not able to find schemaUri --> '" + schemaLocation + "' continuing in non validating mode");
+                    logger.warn(
+                            "WARNING! Was not able to find schemaUri --> '" + schemaLocation +
+                            "' continuing in non validating mode");
                 }
             }
             if (this.schemaUri != null)
@@ -229,18 +232,27 @@ public class XmlObjectFactory
             objectXml = null;
             if (object == null)
             {
-                String errMsg = "Was not able to instantiate an object using objectRulesXml '" + this.objectRulesXml + "' with objectXml '" + objectXml + "', please check either the objectXml " + "or objectRulesXml file for inconsistencies";
+                String errMsg = "Was not able to instantiate an object using objectRulesXml '" + this.objectRulesXml +
+                        "' with objectXml '" +
+                        objectXml +
+                        "', please check either the objectXml " +
+                        "or objectRulesXml file for inconsistencies";
                 throw new XmlObjectFactoryException(errMsg);
             }
         }
         catch (SAXException ex)
         {
-            String validationErrorMsg = "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" + this.schemaUri + "' --> message: '" + ex.getMessage() + "'";
+            String validationErrorMsg = "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" +
+                    this.schemaUri +
+                    "' --> message: '" +
+                    ex.getMessage() +
+                    "'";
             throw new XmlObjectFactoryException(validationErrorMsg);
         }
         catch (Throwable th)
         {
-            String errMsg = "Error performing " + methodName + ", XML resource could not be loaded --> '" + objectXml + "'";
+            String errMsg = "Error performing " + methodName + ", XML resource could not be loaded --> '" + objectXml +
+                    "'";
             throw new XmlObjectFactoryException(errMsg, th);
         }
         return object;
@@ -249,7 +261,8 @@ public class XmlObjectFactory
     /**
      * Handles the validation errors.
      */
-    protected class XmlObjectValidator implements org.xml.sax.ErrorHandler
+    protected class XmlObjectValidator
+            implements org.xml.sax.ErrorHandler
     {
         /**
          * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)

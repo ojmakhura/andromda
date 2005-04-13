@@ -65,13 +65,13 @@ public class Merger
                 {
                     for (Iterator mappingsIterator = mappings.iterator(); mappingsIterator.hasNext();)
                     {
-                        Mapping mapping = (Mapping) mappingsIterator.next();
+                        Mapping mapping = (Mapping)mappingsIterator.next();
                         Collection froms = mapping.getFroms();
                         if (froms != null)
                         {
                             for (Iterator fromsIterator = froms.iterator(); fromsIterator.hasNext();)
                             {
-                                String from = StringUtils.trimToEmpty((String) fromsIterator.next());
+                                String from = StringUtils.trimToEmpty((String)fromsIterator.next());
                                 if (StringUtils.isNotEmpty(from))
                                 {
                                     String to = StringUtils.trimToEmpty(mapping.getTo());
@@ -104,7 +104,7 @@ public class Merger
             mergeMappingsUriValue = StringUtils.trimToEmpty(mergeMappingsUriValue);
             if (StringUtils.isNotEmpty(mergeMappingsUriValue))
             {
-                mergeMappings = (Mappings) this.mergeMappingsCache.get(mergeMappingsUriValue);
+                mergeMappings = (Mappings)this.mergeMappingsCache.get(mergeMappingsUriValue);
                 if (mergeMappings == null)
                 {
                     mergeMappings = Mappings.getInstance(mergeMappingsUriValue);

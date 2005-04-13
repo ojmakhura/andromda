@@ -21,7 +21,8 @@ import java.util.Iterator;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController
  */
-public class StrutsControllerLogicImpl extends StrutsControllerLogic
+public class StrutsControllerLogicImpl
+        extends StrutsControllerLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -53,7 +54,7 @@ public class StrutsControllerLogicImpl extends StrutsControllerLogic
         Collection operations = getOperations();
         for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
         {
-            StrutsControllerOperation operation = (StrutsControllerOperation) operationIterator.next();
+            StrutsControllerOperation operation = (StrutsControllerOperation)operationIterator.next();
             deferringActions.addAll(operation.getDeferringActions());
         }
         return deferringActions;
@@ -69,7 +70,7 @@ public class StrutsControllerLogicImpl extends StrutsControllerLogic
         final Collection dependencies = this.getSourceDependencies();
         for (Iterator iterator = dependencies.iterator(); iterator.hasNext();)
         {
-            DependencyFacade dependency = (DependencyFacade) iterator.next();
+            DependencyFacade dependency = (DependencyFacade)iterator.next();
             ModelElementFacade modelElement = dependency.getTargetElement();
             if (modelElement instanceof StrutsSessionObject)
                 objectsList.add(modelElement);
@@ -87,7 +88,7 @@ public class StrutsControllerLogicImpl extends StrutsControllerLogic
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade) object).getTargetElement();
+                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                 return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
             }
         };
@@ -134,11 +135,11 @@ public class StrutsControllerLogicImpl extends StrutsControllerLogic
 
         for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
         {
-            final OperationFacade operationFacade = (OperationFacade) operationIterator.next();
+            final OperationFacade operationFacade = (OperationFacade)operationIterator.next();
             final Collection arguments = operationFacade.getArguments();
             for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
             {
-                ParameterFacade parameterFacade = (ParameterFacade) argumentIterator.next();
+                ParameterFacade parameterFacade = (ParameterFacade)argumentIterator.next();
                 allArguments.add(parameterFacade);
             }
         }

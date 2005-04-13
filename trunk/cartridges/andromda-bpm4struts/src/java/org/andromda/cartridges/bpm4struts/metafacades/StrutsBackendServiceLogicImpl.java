@@ -8,7 +8,8 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendService
  */
-public class StrutsBackendServiceLogicImpl extends StrutsBackendServiceLogic
+public class StrutsBackendServiceLogicImpl
+        extends StrutsBackendServiceLogic
 {
     // ---------------- constructor -------------------------------
 

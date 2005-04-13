@@ -15,7 +15,8 @@ import java.util.Map;
  *
  * @author Chad Brandon
  */
-public class Library extends BasePlugin
+public class Library
+        extends BasePlugin
 {
     private final Map libraryTranslations = new LinkedHashMap();
 
@@ -60,7 +61,7 @@ public class Library extends BasePlugin
     {
         final String methodName = "Library.getLibraryTranslation";
         ExceptionUtils.checkEmpty(methodName, "name", name);
-        return (LibraryTranslation) this.libraryTranslations.get(name);
+        return (LibraryTranslation)this.libraryTranslations.get(name);
     }
 
     /**

@@ -63,7 +63,7 @@ public class Mappings
         ExceptionUtils.checkEmpty(methodName, "mappingsUri", mappingsUri);
         try
         {
-            Mappings mappings = (Mappings) logicalMappings.get(mappingsUri);
+            Mappings mappings = (Mappings)logicalMappings.get(mappingsUri);
             if (mappings == null)
             {
                 mappings = getInstance(new URL(mappingsUri));
@@ -87,7 +87,7 @@ public class Mappings
     {
         final String methodName = "Mappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
-        Mappings mappings = (Mappings) XmlObjectFactory.getInstance(Mappings.class).getObject(mappingsUri);
+        Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(mappingsUri);
         mappings.resource = mappingsUri;
         return mappings;
     }
@@ -133,7 +133,7 @@ public class Mappings
         Iterator typeIt = fromTypes.iterator();
         while (typeIt.hasNext())
         {
-            String type = (String) typeIt.next();
+            String type = (String)typeIt.next();
             this.mappings.put(type, mapping);
         }
     }
@@ -221,7 +221,7 @@ public class Mappings
         {
             public Object transform(Object object)
             {
-                return ((Map.Entry) object).getValue();
+                return ((Map.Entry)object).getValue();
             }
         });
         return mappingsSet;
@@ -235,7 +235,7 @@ public class Mappings
      */
     public Mapping getMapping(String from)
     {
-        return (Mapping) mappings.get(StringUtils.trimToEmpty(from));
+        return (Mapping)mappings.get(StringUtils.trimToEmpty(from));
     }
 
     /**

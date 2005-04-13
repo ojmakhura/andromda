@@ -5,7 +5,8 @@ package org.andromda.core.cartridge.template;
  *
  * @see org.andromda.core.cartridge.template.Template
  */
-public class TemplateException extends RuntimeException
+public class TemplateException
+        extends RuntimeException
 {
     /**
      * Constructs an instance of TemplateException.

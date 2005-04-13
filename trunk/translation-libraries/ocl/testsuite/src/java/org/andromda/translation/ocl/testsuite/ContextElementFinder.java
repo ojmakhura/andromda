@@ -25,7 +25,8 @@ import java.util.Iterator;
  *
  * @author Chad Brandon
  */
-public class ContextElementFinder extends BaseTranslator
+public class ContextElementFinder
+        extends BaseTranslator
 {
 
     private ModelAccessFacade model;
@@ -93,9 +94,10 @@ public class ContextElementFinder extends BaseTranslator
                 logger.info("Could not find model element --> '" + contextElementName + "'");
             }
 
-            if (this.contextElement != null && this.operation != null && ClassifierFacade.class.isAssignableFrom(contextElement.getClass()))
+            if (this.contextElement != null && this.operation != null &&
+                    ClassifierFacade.class.isAssignableFrom(contextElement.getClass()))
             {
-                ClassifierFacade type = (ClassifierFacade) this.contextElement;
+                ClassifierFacade type = (ClassifierFacade)this.contextElement;
                 Collection operations = type.getOperations();
                 this.contextElement = CollectionUtils.find(operations, new OperationFinder());
                 if (this.contextElement == null)
@@ -121,12 +123,13 @@ public class ContextElementFinder extends BaseTranslator
         }
     }
 
-    private final class OperationFinder implements Predicate
+    private final class OperationFinder
+            implements Predicate
     {
         public boolean evaluate(Object object)
         {
 
-            OperationFacade facadeOperation = (OperationFacade) object;
+            OperationFacade facadeOperation = (OperationFacade)object;
             boolean valid = StringUtils.trimToEmpty(facadeOperation.getName()).equals(
                     StringUtils.trimToEmpty(operation.getName()));
             // if we've found an operation with a matching name
@@ -213,7 +216,7 @@ public class ContextElementFinder extends BaseTranslator
             Iterator facadeOpArgumentIt = facadeOpArguments.iterator();
             while (facadeOpArgumentIt.hasNext())
             {
-                ParameterFacade facadeArg = (ParameterFacade) facadeOpArgumentIt.next();
+                ParameterFacade facadeArg = (ParameterFacade)facadeOpArgumentIt.next();
                 facadeArgNames.add(facadeArg.getName());
             }
         }
@@ -238,7 +241,7 @@ public class ContextElementFinder extends BaseTranslator
                 boolean valid = false;
                 if (ModelElementFacade.class.isAssignableFrom(object.getClass()))
                 {
-                    ModelElementFacade modelElement = (ModelElementFacade) object;
+                    ModelElementFacade modelElement = (ModelElementFacade)object;
                     String elementName = StringUtils.trimToEmpty(modelElement.getName());
                     String name = StringUtils.trimToEmpty(modelElementName);
                     valid = elementName.equals(name);

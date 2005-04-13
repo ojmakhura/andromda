@@ -3,7 +3,8 @@ package org.andromda.core.metafacade;
 /**
  * Any unchecked exception that will be thrown when a Metafacade processing error occurs.
  */
-public class MetafacadeException extends RuntimeException
+public class MetafacadeException
+        extends RuntimeException
 {
 
     /**

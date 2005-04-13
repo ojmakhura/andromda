@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.inventory.web.registerCarType.RegisterCarTypeController
  */
-public class RegisterCarTypeControllerImpl extends RegisterCarTypeController
+public class RegisterCarTypeControllerImpl
+        extends RegisterCarTypeController
 {
     /**
      * @see org.andromda.samples.carrental.inventory.web.registerCarType.RegisterCarTypeController#createCarType(org.apache.struts.action.ActionMapping,

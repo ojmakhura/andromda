@@ -14,7 +14,8 @@ import java.util.Collection;
  *
  * @see org.andromda.metafacades.uml.EntityAssociationFacade
  */
-public class EntityAssociationLogicImpl extends EntityAssociationLogic
+public class EntityAssociationLogicImpl
+        extends EntityAssociationLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -32,7 +33,7 @@ public class EntityAssociationLogicImpl extends EntityAssociationLogic
         Collection ends = this.getAssociationEnds();
         if (ends != null && !ends.isEmpty())
         {
-            AssociationEndFacade end = (AssociationEndFacade) ends.iterator().next();
+            AssociationEndFacade end = (AssociationEndFacade)ends.iterator().next();
             if (end.isMany2Many())
             {
                 // prevent ClassCastException if the association isn't an
@@ -42,7 +43,7 @@ public class EntityAssociationLogicImpl extends EntityAssociationLogic
                     String tableNamePrefix = StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
                             UMLMetafacadeProperties.TABLE_NAME_PREFIX)));
                     tableName = EntityMetafacadeUtils.getSqlNameFromTaggedValue(tableNamePrefix, this,
-                            UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE, ((Entity) end.getType()).getMaxSqlNameLength(),
+                            UMLProfile.TAGGEDVALUE_PERSISTENCE_TABLE, ((Entity)end.getType()).getMaxSqlNameLength(),
                             this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
                 }
             }

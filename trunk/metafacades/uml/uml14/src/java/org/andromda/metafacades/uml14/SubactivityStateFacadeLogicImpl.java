@@ -6,7 +6,8 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.SubactivityStateFacade
  */
-public class SubactivityStateFacadeLogicImpl extends SubactivityStateFacadeLogic
+public class SubactivityStateFacadeLogicImpl
+        extends SubactivityStateFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

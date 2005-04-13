@@ -27,7 +27,8 @@ import java.util.LinkedHashSet;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction
  */
-public class StrutsActionLogicImpl extends StrutsActionLogic
+public class StrutsActionLogicImpl
+        extends StrutsActionLogic
 {
     private Collection actionStates = null;
     private Map actionForwards = null;
@@ -66,20 +67,20 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
                 actionForwards.put(transition.getTarget(), transition);
             }
         }
-        else if ((target instanceof PseudostateFacade) && ((PseudostateFacade) target).isDecisionPoint())
+        else if ((target instanceof PseudostateFacade) && ((PseudostateFacade)target).isDecisionPoint())
         {
             decisionTransitions.add(transition);
             final Collection outcomes = target.getOutgoing();
             for (Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
-                TransitionFacade outcome = (TransitionFacade) iterator.next();
+                TransitionFacade outcome = (TransitionFacade)iterator.next();
                 collectTransitions(outcome, processedTransitions);
             }
         }
         else if (target instanceof StrutsActionState)
         {
             actionStates.add(target);
-            final StrutsForward forward = ((StrutsActionState) target).getForward();
+            final StrutsForward forward = ((StrutsActionState)target).getForward();
             if (forward != null)
             {
                 collectTransitions(forward, processedTransitions);
@@ -90,7 +91,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
             final Collection outcomes = target.getOutgoing();
             for (Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
-                TransitionFacade outcome = (TransitionFacade) iterator.next();
+                TransitionFacade outcome = (TransitionFacade)iterator.next();
                 collectTransitions(outcome, processedTransitions);
             }
         }
@@ -109,7 +110,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
     protected String handleGetActionInput()
     {
         final StateVertexFacade source = getSource();
-        return (source instanceof StrutsJsp) ? ((StrutsJsp) source).getFullPath() : "";
+        return (source instanceof StrutsJsp) ? ((StrutsJsp)source).getFullPath() : "";
     }
 
     protected boolean handleIsFormPost()
@@ -135,7 +136,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
                 final List tables = page.getTables();
                 for (int i = 0; i < tables.size() && tableLinkParameter == null; i++)
                 {
-                    StrutsParameter table = (StrutsParameter) tables.get(i);
+                    StrutsParameter table = (StrutsParameter)tables.get(i);
                     if (tableLinkName.equals(table.getName()))
                     {
                         tableLinkParameter = table;
@@ -238,7 +239,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         StringBuffer roles = new StringBuffer();
         for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
-            roles.append(((ModelElementFacade) userIterator.next()).getName());
+            roles.append(((ModelElementFacade)userIterator.next()).getName());
             if (userIterator.hasNext())
             {
                 roles.append(",");
@@ -263,10 +264,10 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         {
             for (Iterator iterator = getActionForwards().iterator(); iterator.hasNext();)
             {
-                TransitionFacade transition = (TransitionFacade) iterator.next();
+                TransitionFacade transition = (TransitionFacade)iterator.next();
                 if (transition.getTarget() instanceof StrutsFinalState)
                 {
-                    StrutsUseCase useCase = ((StrutsFinalState) transition.getTarget()).getTargetUseCase();
+                    StrutsUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
                     if (useCase != null)
                     {
                         roleUsers.addAll(useCase.getUsers());
@@ -284,7 +285,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
 
         if (source instanceof PseudostateFacade)
         {
-            PseudostateFacade pseudostate = (PseudostateFacade) source;
+            PseudostateFacade pseudostate = (PseudostateFacade)source;
             if (pseudostate.isInitialState())
             {
                 StrutsUseCase useCase = getUseCase();
@@ -375,7 +376,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
     protected boolean handleIsUseCaseStart()
     {
         StateVertexFacade source = getSource();
-        return source instanceof PseudostateFacade && ((PseudostateFacade) source).isInitialState();
+        return source instanceof PseudostateFacade && ((PseudostateFacade)source).isInitialState();
     }
 
     protected String handleGetFullActionPath()
@@ -415,7 +416,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         final Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
         {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            StrutsParameter parameter = (StrutsParameter)iterator.next();
             if (parameter.isValidationRequired())
             {
                 return true;
@@ -429,7 +430,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         final Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
         {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            StrutsParameter parameter = (StrutsParameter)iterator.next();
             if (parameter.isDate())
             {
                 return true;
@@ -443,7 +444,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         final Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
         {
-            StrutsParameter parameter = (StrutsParameter) iterator.next();
+            StrutsParameter parameter = (StrutsParameter)iterator.next();
             if (parameter.isCalendarRequired())
             {
                 return true;
@@ -520,7 +521,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         final Collection actionStates = getActionStates();
         for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
-            StrutsActionState actionState = (StrutsActionState) iterator.next();
+            StrutsActionState actionState = (StrutsActionState)iterator.next();
             exceptions.addAll(actionState.getExceptions());
         }
 
@@ -536,7 +537,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         ModelElementFacade source = getSource();
         if (source instanceof PseudostateFacade)
         {
-            PseudostateFacade pseudostate = (PseudostateFacade) source;
+            PseudostateFacade pseudostate = (PseudostateFacade)source;
             if (pseudostate.isInitialState())
             {
                 input = source;
@@ -578,15 +579,15 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
                 Collection finalStates = useCase.getReferencingFinalStates();
                 for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
                 {
-                    StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
+                    StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
                     Collection actions = finalState.getActions();
                     for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                     {
-                        StrutsAction action = (StrutsAction) actionIterator.next();
+                        StrutsAction action = (StrutsAction)actionIterator.next();
                         Collection parameters = action.getActionParameters();
                         for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
                         {
-                            StrutsParameter parameter = (StrutsParameter) parameterIterator.next();
+                            StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
                             formFieldMap.put(parameter.getName(), parameter);
                         }
                     }
@@ -599,14 +600,14 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         Collection actionStates = getActionStates();
         for (Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
-            StrutsActionState actionState = (StrutsActionState) iterator.next();
+            StrutsActionState actionState = (StrutsActionState)iterator.next();
             StrutsForward forward = actionState.getForward();
             if (forward != null)
             {
                 Collection forwardParameters = forward.getForwardParameters();
                 for (Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    StrutsParameter forwardParameter = (StrutsParameter) parameterIterator.next();
+                    StrutsParameter forwardParameter = (StrutsParameter)parameterIterator.next();
                     formFieldMap.put(forwardParameter.getName(), forwardParameter);
                 }
             }
@@ -617,22 +618,22 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         Collection forwards = getActionForwards();
         for (Iterator iterator = forwards.iterator(); iterator.hasNext();)
         {
-            StrutsForward forward = (StrutsForward) iterator.next();
+            StrutsForward forward = (StrutsForward)iterator.next();
             StateVertexFacade target = forward.getTarget();
             if (target instanceof StrutsJsp)
             {
-                StrutsJsp jsp = (StrutsJsp) target;
+                StrutsJsp jsp = (StrutsJsp)target;
                 Collection pageVariables = jsp.getPageVariables();
                 for (Iterator pageVariableIterator = pageVariables.iterator(); pageVariableIterator.hasNext();)
                 {
-                    ModelElementFacade facade = (ModelElementFacade) pageVariableIterator.next();
+                    ModelElementFacade facade = (ModelElementFacade)pageVariableIterator.next();
                     formFieldMap.put(facade.getName(), facade);
                 }
                 Collection allActionParameters = jsp.getAllActionParameters();
                 for (Iterator actionParameterIterator = allActionParameters.iterator();
                      actionParameterIterator.hasNext();)
                 {
-                    ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
+                    ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
                     formFieldMap.put(facade.getName(), facade);
                 }
             }
@@ -643,7 +644,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
                 for (Iterator forwardParameterIterator = forwardParameters.iterator();
                      forwardParameterIterator.hasNext();)
                 {
-                    ModelElementFacade facade = (ModelElementFacade) forwardParameterIterator.next();
+                    ModelElementFacade facade = (ModelElementFacade)forwardParameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(facade.getName(), facade);
@@ -656,7 +657,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         Collection actionParameters = getActionParameters();
         for (Iterator actionParameterIterator = actionParameters.iterator(); actionParameterIterator.hasNext();)
         {
-            ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
+            ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
             formFieldMap.put(facade.getName(), facade);
         }
 
@@ -673,14 +674,14 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
             final List actionStates = getActionStates();
             for (int i = 0; i < actionStates.size(); i++)
             {
-                final StrutsActionState actionState = (StrutsActionState) actionStates.get(i);
+                final StrutsActionState actionState = (StrutsActionState)actionStates.get(i);
                 deferredOperations.addAll(actionState.getControllerCalls());
             }
 
             final List transitions = getDecisionTransitions();
             for (int i = 0; i < transitions.size(); i++)
             {
-                final StrutsForward forward = (StrutsForward) transitions.get(i);
+                final StrutsForward forward = (StrutsForward)transitions.get(i);
                 final StrutsTrigger trigger = forward.getDecisionTrigger();
                 if (trigger != null)
                 {
@@ -707,7 +708,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         Collection forwards = getActionForwards();
         for (Iterator forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
         {
-            StrutsForward forward = (StrutsForward) forwardIterator.next();
+            StrutsForward forward = (StrutsForward)forwardIterator.next();
             if (forward.isEnteringPage())
             {
                 targetPages.add(forward.getTarget());
@@ -750,11 +751,11 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
      */
     protected boolean handleIsRedirect()
     {
-        String redirect = (String) this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);
+        String redirect = (String)this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);
         Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_REDIRECT);
         if (value != null)
         {
-            redirect = (String) value;
+            redirect = (String)value;
         }
         return Boolean.valueOf(StringUtils.trimToEmpty(redirect)).booleanValue();
     }
@@ -768,7 +769,7 @@ public class StrutsActionLogicImpl extends StrutsActionLogic
         {
             public boolean evaluate(Object object)
             {
-                return object != null && ((StrutsParameter) object).isShouldReset();
+                return object != null && ((StrutsParameter)object).isShouldReset();
             }
         };
     }

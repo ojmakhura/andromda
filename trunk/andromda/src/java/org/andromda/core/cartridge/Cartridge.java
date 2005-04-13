@@ -35,7 +35,8 @@ import java.util.Map;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  */
-public class Cartridge extends BasePlugin
+public class Cartridge
+        extends BasePlugin
 {
 
     /**
@@ -82,10 +83,10 @@ public class Cartridge extends BasePlugin
             factory.setActiveNamespace(this.getName());
             for (Iterator resourceIterator = resources.iterator(); resourceIterator.hasNext();)
             {
-                Resource resource = (Resource) resourceIterator.next();
+                Resource resource = (Resource)resourceIterator.next();
                 if (Template.class.isAssignableFrom(resource.getClass()))
                 {
-                    this.processTemplate((Template) resource);
+                    this.processTemplate((Template)resource);
                 }
                 else
                 {
@@ -110,9 +111,10 @@ public class Cartridge extends BasePlugin
         // handle the templates WITH model elements
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            for (Iterator templateModelElementIt = templateModelElements.getModelElements().iterator(); templateModelElementIt.hasNext();)
+            for (Iterator templateModelElementIt = templateModelElements.getModelElements().iterator();
+                 templateModelElementIt.hasNext();)
             {
-                ModelElement templateModelElement = (ModelElement) templateModelElementIt.next();
+                ModelElement templateModelElement = (ModelElement)templateModelElementIt.next();
                 Collection modelElements = null;
                 // if the template model element has a stereotype
                 // defined, then we filter the model elements based
@@ -158,7 +160,8 @@ public class Cartridge extends BasePlugin
         ExceptionUtils.checkNull(methodName, "context", context);
 
         if (getLogger().isDebugEnabled())
-            getLogger().debug("performing " + methodName + " with template '" + template + "' and context ' " + context + "'");
+            getLogger().debug(
+                    "performing " + methodName + " with template '" + template + "' and context ' " + context + "'");
 
         final ModelElements modelElements = template.getSupportedModeElements();
         if (modelElements != null && !modelElements.isEmpty())
@@ -177,7 +180,8 @@ public class Cartridge extends BasePlugin
                     // allMetafacades collection, then we collect the template
                     // model elements and place them into the template context
                     // by their variable names.
-                    if (template.isOutputToSingleFile() && (template.isOutputOnEmptyElements() || !allMetafacades.isEmpty()))
+                    if (template.isOutputToSingleFile() &&
+                            (template.isOutputOnEmptyElements() || !allMetafacades.isEmpty()))
                     {
                         final Map templateContext = new HashMap();
 
@@ -195,7 +199,7 @@ public class Cartridge extends BasePlugin
                         final Iterator modelElementIt = modelElements.getModelElements().iterator();
                         while (modelElementIt.hasNext())
                         {
-                            final ModelElement modelElement = (ModelElement) modelElementIt.next();
+                            final ModelElement modelElement = (ModelElement)modelElementIt.next();
                             String variable = modelElement.getVariable();
                             if (StringUtils.isNotEmpty(variable))
                             {
@@ -203,7 +207,7 @@ public class Cartridge extends BasePlugin
                                 // more than one time, then get the existing
                                 // model elements added from the last iteration
                                 // and add the new ones to that collection
-                                Collection metafacades = (Collection) templateContext.get(variable);
+                                Collection metafacades = (Collection)templateContext.get(variable);
                                 if (metafacades != null)
                                 {
                                     metafacades.addAll(modelElement.getMetafacades());
@@ -341,7 +345,12 @@ public class Cartridge extends BasePlugin
                 outFile.delete();
                 this.getLogger().info("Removed: '" + outFile + "'");
             }
-            String errMsg = "Error performing " + methodName + " with template '" + template.getPath() + "', template context '" + templateContext + "' and cartridge '" + this.getName() + "'";
+            String errMsg = "Error performing " + methodName + " with template '" + template.getPath() +
+                    "', template context '" +
+                    templateContext +
+                    "' and cartridge '" +
+                    this.getName() +
+                    "'";
             throw new CartridgeException(errMsg, th);
         }
     }
@@ -369,7 +378,7 @@ public class Cartridge extends BasePlugin
                 Iterator contentIt = contents.iterator();
                 while (contentIt.hasNext())
                 {
-                    String content = (String) contentIt.next();
+                    String content = (String)contentIt.next();
                     if (StringUtils.isNotEmpty(content))
                     {
                         if (PathMatcher.wildcardMatch(content, resource.getPath()))

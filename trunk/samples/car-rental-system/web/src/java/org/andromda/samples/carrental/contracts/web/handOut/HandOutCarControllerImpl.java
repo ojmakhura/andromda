@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController
  */
-public class HandOutCarControllerImpl extends HandOutCarController
+public class HandOutCarControllerImpl
+        extends HandOutCarController
 {
     /**
      * @see org.andromda.samples.carrental.contracts.web.handOut.HandOutCarController#loadAvailableCars(org.apache.struts.action.ActionMapping,
@@ -68,7 +69,8 @@ public class HandOutCarControllerImpl extends HandOutCarController
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class AvailableCarsDummy implements java.io.Serializable
+    public final class AvailableCarsDummy
+            implements java.io.Serializable
     {
         private String inventoryNo = null;
         private String registrationNo = null;
@@ -128,7 +130,8 @@ public class HandOutCarControllerImpl extends HandOutCarController
      * This inner class is used in the dummy implementation in order to get the web application running without any
      * manual programming. You may delete this class when you add you own code in this controller.
      */
-    public final class CustomerReservationsDummy implements java.io.Serializable
+    public final class CustomerReservationsDummy
+            implements java.io.Serializable
     {
         private String comfortClass = null;
         private String reservationDate = null;

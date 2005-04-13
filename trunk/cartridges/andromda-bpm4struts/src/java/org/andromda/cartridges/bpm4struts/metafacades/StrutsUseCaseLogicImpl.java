@@ -23,7 +23,8 @@ import java.util.Map;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase
  */
-public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
+public class StrutsUseCaseLogicImpl
+        extends StrutsUseCaseLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -95,8 +96,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
     protected String handleGetFullFormBeanPath()
     {
         return '/' + getFormBeanPackageName().replace('.', '/') + '/' +
-                StringUtilsHelper.upperCamelCaseName(getName()) +
-                "Form";
+                StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
     }
 
     protected String handleGetFormBeanName()
@@ -134,7 +134,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
             {
                 rolesBuffer.append(',');
             }
-            StrutsUser strutsUser = (StrutsUser) userIterator.next();
+            StrutsUser strutsUser = (StrutsUser)userIterator.next();
             rolesBuffer.append(strutsUser.getName());
         }
         return rolesBuffer.toString();
@@ -185,7 +185,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         final Collection associationEnds = getAssociationEnds();
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
         {
-            AssociationEndFacade associationEnd = (AssociationEndFacade) iterator.next();
+            AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
             ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
             if (classifier instanceof StrutsUser)
                 usersList.add(classifier);
@@ -200,7 +200,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         final Collection associatedUsers = associatedUsers();
         for (Iterator iterator = associatedUsers.iterator(); iterator.hasNext();)
         {
-            StrutsUser user = (StrutsUser) iterator.next();
+            StrutsUser user = (StrutsUser)iterator.next();
             collectUsers(user, allUsersList);
         }
         return allUsersList;
@@ -231,7 +231,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
             Collection childUsers = user.getGeneralizedByUsers();
             for (Iterator iterator = childUsers.iterator(); iterator.hasNext();)
             {
-                StrutsUser childUser = (StrutsUser) iterator.next();
+                StrutsUser childUser = (StrutsUser)iterator.next();
                 collectUsers(childUser, users);
             }
         }
@@ -293,7 +293,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         final Collection pages = getPages();
         for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
         {
-            StrutsJsp jsp = (StrutsJsp) pageIterator.next();
+            StrutsJsp jsp = (StrutsJsp)pageIterator.next();
             Collection variables = jsp.getPageVariables();
             for (Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
             {
@@ -313,7 +313,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         final Collection allPages = this.getAllPages();
         for (Iterator iterator = allPages.iterator(); iterator.hasNext();)
         {
-            StrutsJsp jsp = (StrutsJsp) iterator.next();
+            StrutsJsp jsp = (StrutsJsp)iterator.next();
             if (jsp.isValidationRequired())
             {
                 return true;
@@ -327,7 +327,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         final Collection useCases = this.getAllUseCases();
         for (Iterator iterator = useCases.iterator(); iterator.hasNext();)
         {
-            StrutsUseCase useCase = (StrutsUseCase) iterator.next();
+            StrutsUseCase useCase = (StrutsUseCase)iterator.next();
             if (useCase.isValidationRequired())
             {
                 return true;
@@ -343,7 +343,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         Collection pages = getPages();
         for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
         {
-            StrutsJsp jsp = (StrutsJsp) pageIterator.next();
+            StrutsJsp jsp = (StrutsJsp)pageIterator.next();
             actions.addAll(jsp.getActions());
         }
 
@@ -373,11 +373,11 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
             Collection pages = getPages();
             for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
             {
-                StrutsJsp jsp = (StrutsJsp) pageIterator.next();
+                StrutsJsp jsp = (StrutsJsp)pageIterator.next();
                 Collection variables = jsp.getPageVariables();
                 for (Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
                 {
-                    StrutsParameter variable = (StrutsParameter) variableIterator.next();
+                    StrutsParameter variable = (StrutsParameter)variableIterator.next();
                     pageVariableMap.put(variable.getName(), variable);
                 }
             }
@@ -416,10 +416,10 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         Collection allUseCases = getAllUseCases();
         for (Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
         {
-            StrutsUseCase useCase = (StrutsUseCase) useCaseIterator.next();
+            StrutsUseCase useCase = (StrutsUseCase)useCaseIterator.next();
             if (useCase.isApplicationUseCase())
             {
-                UseCaseNode root = (UseCaseNode) useCase.getApplicationHierarchyRoot();
+                UseCaseNode root = (UseCaseNode)useCase.getApplicationHierarchyRoot();
                 hierarchy = findNode(root, this);
             }
         }
@@ -428,7 +428,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
 
     private void createHierarchy(UseCaseNode root)
     {
-        StrutsUseCase useCase = (StrutsUseCase) root.getUserObject();
+        StrutsUseCase useCase = (StrutsUseCase)root.getUserObject();
 
         StrutsActivityGraph graph = useCase.getActivityGraph();
         if (graph != null)
@@ -436,7 +436,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
             Collection finalStates = graph.getFinalStates();
             for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
             {
-                StrutsFinalState finalState = (StrutsFinalState) finalStateIterator.next();
+                StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
                 StrutsUseCase targetUseCase = finalState.getTargetUseCase();
                 if (targetUseCase != null)
                 {
@@ -460,7 +460,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         }
         while (node.getParent() != null)
         {
-            node = (UseCaseNode) node.getParent();
+            node = (UseCaseNode)node.getParent();
             if (isNodeAncestor(node, ancestorNode))
             {
                 return true;
@@ -476,7 +476,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         List nodeList = Collections.list(root.breadthFirstEnumeration());
         for (Iterator nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode == null;)
         {
-            UseCaseNode node = (UseCaseNode) nodeIterator.next();
+            UseCaseNode node = (UseCaseNode)nodeIterator.next();
             if (useCase.equals(node.getUserObject()))
             {
                 useCaseNode = node;
@@ -485,7 +485,8 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
         return useCaseNode;
     }
 
-    public final static class UseCaseNode extends DefaultMutableTreeNode
+    public final static class UseCaseNode
+            extends DefaultMutableTreeNode
     {
         public UseCaseNode(StrutsUseCase useCase)
         {
@@ -494,7 +495,7 @@ public class StrutsUseCaseLogicImpl extends StrutsUseCaseLogic
 
         public StrutsUseCase getUseCase()
         {
-            return (StrutsUseCase) getUserObject();
+            return (StrutsUseCase)getUserObject();
         }
     }
 }

@@ -5,7 +5,8 @@ package org.andromda.metafacades.uml14;
  *
  * @see org.andromda.metafacades.uml.StereotypeFacade
  */
-public class StereotypeFacadeLogicImpl extends StereotypeFacadeLogic
+public class StereotypeFacadeLogicImpl
+        extends StereotypeFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

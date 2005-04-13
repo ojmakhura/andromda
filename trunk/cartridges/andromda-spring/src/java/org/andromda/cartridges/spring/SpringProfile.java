@@ -9,7 +9,8 @@ import org.andromda.metafacades.uml.UMLProfile;
  * @author Chad Brandon
  * @author Peter Friese
  */
-public class SpringProfile extends UMLProfile
+public class SpringProfile
+        extends UMLProfile
 {
 
     /**

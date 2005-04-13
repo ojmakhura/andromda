@@ -14,7 +14,8 @@ import java.util.Iterator;
  *
  * @see org.andromda.metafacades.uml.CrudEntity
  */
-public class ManageableEntityLogicImpl extends ManageableEntityLogic
+public class ManageableEntityLogicImpl
+        extends ManageableEntityLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -73,7 +74,7 @@ public class ManageableEntityLogicImpl extends ManageableEntityLogic
         final Collection associationEnds = getAssociationEnds();
         for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
-            final AssociationEndFacade associationEnd = (AssociationEndFacade) associationEndIterator.next();
+            final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
             final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
 
             if (otherEnd.isNavigable())

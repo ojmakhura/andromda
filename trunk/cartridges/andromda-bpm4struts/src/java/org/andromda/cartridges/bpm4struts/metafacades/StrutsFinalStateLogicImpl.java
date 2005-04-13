@@ -15,7 +15,8 @@ import java.util.Set;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalState
  */
-public class StrutsFinalStateLogicImpl extends StrutsFinalStateLogic
+public class StrutsFinalStateLogicImpl
+        extends StrutsFinalStateLogic
 {
     public StrutsFinalStateLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
@@ -79,7 +80,7 @@ public class StrutsFinalStateLogicImpl extends StrutsFinalStateLogic
         {
             if (taggedValue instanceof StrutsActivityGraph)
             {
-                targetUseCase = ((StrutsActivityGraph) taggedValue).getUseCase();
+                targetUseCase = ((StrutsActivityGraph)taggedValue).getUseCase();
             }
             else if (taggedValue instanceof StrutsUseCase)
             {
@@ -108,7 +109,7 @@ public class StrutsFinalStateLogicImpl extends StrutsFinalStateLogic
 
         for (Iterator incomingIterator = incoming.iterator(); incomingIterator.hasNext();)
         {
-            StrutsForward forward = (StrutsForward) incomingIterator.next();
+            StrutsForward forward = (StrutsForward)incomingIterator.next();
             actions.addAll(forward.getActions());
         }
         return actions;

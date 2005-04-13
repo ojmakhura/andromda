@@ -90,7 +90,7 @@ public class MetafacadeImpls
                 Iterator propertyIt = properties.keySet().iterator();
                 while (propertyIt.hasNext())
                 {
-                    String metafacade = (String) propertyIt.next();
+                    String metafacade = (String)propertyIt.next();
                     String metafacadeImpl = properties.getProperty(metafacade);
                     this.metafacadesByImpls.put(metafacadeImpl, metafacade);
                     this.implsByMetafacades.put(metafacade, metafacadeImpl);
@@ -121,11 +121,14 @@ public class MetafacadeImpls
         {
             try
             {
-                String metafacadeImplClassName = (String) this.implsByMetafacades.get(metafacadeClass);
+                String metafacadeImplClassName = (String)this.implsByMetafacades.get(metafacadeClass);
                 if (StringUtils.isEmpty(metafacadeImplClassName))
                 {
-                    throw new MetafacadeImplsException("Can not find a metafacade implementation class for --> '" +
-                            metafacadeClass + "', please check your classpath and verify you have a '" + METAFACADE_IMPLS + "' file available with this mapping");
+                    throw new MetafacadeImplsException(
+                            "Can not find a metafacade implementation class for --> '" + metafacadeClass +
+                            "', please check your classpath and verify you have a '" +
+                            METAFACADE_IMPLS +
+                            "' file available with this mapping");
                 }
                 metafacadeImplClass = ClassUtils.loadClass(metafacadeImplClassName);
             }
@@ -155,11 +158,14 @@ public class MetafacadeImpls
         {
             try
             {
-                String metafacadeClassName = (String) this.metafacadesByImpls.get(metafacadeImplClass);
+                String metafacadeClassName = (String)this.metafacadesByImpls.get(metafacadeImplClass);
                 if (StringUtils.isEmpty(metafacadeClassName))
                 {
-                    throw new MetafacadeImplsException("Can not find a metafacade interface for --> '" +
-                            metafacadeImplClass + "', please check your classpath and verify you have a '" + METAFACADE_IMPLS + "' file available with this mapping");
+                    throw new MetafacadeImplsException(
+                            "Can not find a metafacade interface for --> '" + metafacadeImplClass +
+                            "', please check your classpath and verify you have a '" +
+                            METAFACADE_IMPLS +
+                            "' file available with this mapping");
                 }
                 metafacadeClass = ClassUtils.loadClass(metafacadeClassName);
             }

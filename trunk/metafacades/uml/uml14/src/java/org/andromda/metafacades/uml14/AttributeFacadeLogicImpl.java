@@ -21,7 +21,8 @@ import java.util.Iterator;
 /**
  * Metaclass facade implementation.
  */
-public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
+public class AttributeFacadeLogicImpl
+        extends AttributeFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -134,7 +135,7 @@ public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
             while (value == null && type != null)
             {
                 value = type.findTaggedValue(name);
-                type = (ClassifierFacade) type.getGeneralization();
+                type = (ClassifierFacade)type.getGeneralization();
             }
         }
         return value;
@@ -165,7 +166,7 @@ public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
                 Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
+                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
                     int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
@@ -194,7 +195,7 @@ public class AttributeFacadeLogicImpl extends AttributeFacadeLogic
                     Iterator rangeIt = ranges.iterator();
                     while (rangeIt.hasNext())
                     {
-                        MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
+                        MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
                         lower = multiplicityRange.getLower();
                     }
                 }

@@ -14,7 +14,8 @@ import java.util.Collection;
  * @author Peter Friese
  * @see org.andromda.cartridges.spring.metafacades.SpringService
  */
-public class SpringServiceLogicImpl extends SpringServiceLogic
+public class SpringServiceLogicImpl
+        extends SpringServiceLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -149,7 +150,7 @@ public class SpringServiceLogicImpl extends SpringServiceLogic
      */
     protected String getEjbPackageNamePattern()
     {
-        return (String) this.getConfiguredProperty("ejbPackageNamePattern");
+        return (String)this.getConfiguredProperty("ejbPackageNamePattern");
     }
 
     /**
@@ -159,7 +160,7 @@ public class SpringServiceLogicImpl extends SpringServiceLogic
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String) this.getConfiguredProperty("ejbJndiNamePrefix");
+        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
     }
 
     /**
@@ -275,7 +276,7 @@ public class SpringServiceLogicImpl extends SpringServiceLogic
         {
             public boolean evaluate(Object object)
             {
-                return ((SpringServiceOperation) object).isWebserviceExposed();
+                return ((SpringServiceOperation)object).isWebserviceExposed();
             }
         };
     }

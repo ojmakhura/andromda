@@ -16,13 +16,13 @@ import java.util.Iterator;
  *
  * @see org.andromda.metafacades.uml.GeneralizableElementFacade
  */
-public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFacadeLogic
+public class GeneralizableElementFacadeLogicImpl
+        extends GeneralizableElementFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
-    public GeneralizableElementFacadeLogicImpl(
-        org.omg.uml.foundation.core.GeneralizableElement metaObject,
-        java.lang.String context)
+    public GeneralizableElementFacadeLogicImpl(org.omg.uml.foundation.core.GeneralizableElement metaObject,
+                                               java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -33,8 +33,8 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
     public java.util.Collection handleGetAllGeneralizations()
     {
         Collection generalizations = new ArrayList();
-        for (GeneralizableElementFacade element = this.getGeneralization(); element != null; 
-             element = element.getGeneralization())
+        for (GeneralizableElementFacade element = this.getGeneralization();
+             element != null; element = element.getGeneralization())
         {
             generalizations.add(element);
         }
@@ -55,7 +55,7 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
             Iterator iterator = generalizations.iterator();
             if (iterator.hasNext())
             {
-                parent = ((Generalization) iterator.next()).getParent();
+                parent = ((Generalization)iterator.next()).getParent();
             }
         }
         return parent;
@@ -73,12 +73,12 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
             Iterator iterator = generalizations.iterator();
             while (iterator.hasNext())
             {
-                parents.add(((Generalization) iterator.next()).getParent());
+                parents.add(((Generalization)iterator.next()).getParent());
             }
         }
         return parents;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizationLinks()
      */
@@ -92,13 +92,13 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
      */
     public Collection handleGetSpecializations()
     {
-        Collection specializations = new ArrayList(UML14MetafacadeUtils.getCorePackage().getAParentSpecialization().getSpecialization(
-                this.metaObject));
+        Collection specializations = new ArrayList(UML14MetafacadeUtils.getCorePackage().getAParentSpecialization()
+                .getSpecialization(this.metaObject));
         CollectionUtils.transform(specializations, new Transformer()
         {
             public Object transform(Object object)
             {
-                return ((Generalization) object).getChild();
+                return ((Generalization)object).getChild();
             }
         });
         return specializations;
@@ -114,7 +114,7 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
         {
             for (Iterator iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
             {
-                ModelElementFacade element = (ModelElementFacade) iterator.next();
+                ModelElementFacade element = (ModelElementFacade)iterator.next();
                 list.append(element.getFullyQualifiedName());
                 if (iterator.hasNext())
                 {

@@ -9,7 +9,8 @@ import javax.jmi.reflect.RefPackage;
  * @author Matthias Bohlen
  * @author Chad Brandon
  */
-public class MDRXmiReferenceResolver extends InputConfig
+public class MDRXmiReferenceResolver
+        extends InputConfig
 {
 
     private XMIReferenceResolver referenceResolver;

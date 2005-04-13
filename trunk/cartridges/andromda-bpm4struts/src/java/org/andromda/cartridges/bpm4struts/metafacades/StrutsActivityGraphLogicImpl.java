@@ -13,7 +13,8 @@ import java.util.Collection;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraph
  */
-public class StrutsActivityGraphLogicImpl extends StrutsActivityGraphLogic
+public class StrutsActivityGraphLogicImpl
+        extends StrutsActivityGraphLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -29,7 +30,7 @@ public class StrutsActivityGraphLogicImpl extends StrutsActivityGraphLogic
         Collection initialStates = getInitialStates();
         if (initialStates.isEmpty() == false)
         {
-            PseudostateFacade initialState = (PseudostateFacade) initialStates.iterator().next();
+            PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
             Collection outgoing = initialState.getOutgoing();
             firstAction = (outgoing.isEmpty()) ? null : outgoing.iterator().next();
         }
@@ -42,9 +43,8 @@ public class StrutsActivityGraphLogicImpl extends StrutsActivityGraphLogic
 
         if (useCase == null)
         {
-            useCase =
-                    getModel().findUseCaseWithTaggedValueOrHyperlink(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY,
-                            getName());
+            useCase = getModel().findUseCaseWithTaggedValueOrHyperlink(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY,
+                    getName());
         }
 
         if ((useCase instanceof StrutsUseCase) == false)

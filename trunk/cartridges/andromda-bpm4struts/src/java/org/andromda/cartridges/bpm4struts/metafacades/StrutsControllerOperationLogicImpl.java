@@ -16,7 +16,8 @@ import java.util.Iterator;
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation
  */
-public class StrutsControllerOperationLogicImpl extends StrutsControllerOperationLogic
+public class StrutsControllerOperationLogicImpl
+        extends StrutsControllerOperationLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -55,11 +56,11 @@ public class StrutsControllerOperationLogicImpl extends StrutsControllerOperatio
             Collection actionStates = graph.getActionStates();
             for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
-                StrutsActionState actionState = (StrutsActionState) actionStateIterator.next();
+                StrutsActionState actionState = (StrutsActionState)actionStateIterator.next();
                 Collection controllerCalls = actionState.getControllerCalls();
                 for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
                 {
-                    OperationFacade operation = (OperationFacade) controllerCallIterator.next();
+                    OperationFacade operation = (OperationFacade)controllerCallIterator.next();
                     if (this.equals(operation))
                     {
                         deferringActions.addAll(actionState.getContainerActions());
@@ -70,11 +71,11 @@ public class StrutsControllerOperationLogicImpl extends StrutsControllerOperatio
             Collection transitions = graph.getTransitions();
             for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
             {
-                StrutsForward transition = (StrutsForward) transitionIterator.next();
+                StrutsForward transition = (StrutsForward)transitionIterator.next();
                 EventFacade event = transition.getTrigger();
                 if (event instanceof StrutsTrigger)
                 {
-                    StrutsTrigger trigger = (StrutsTrigger) event;
+                    StrutsTrigger trigger = (StrutsTrigger)event;
                     StrutsControllerOperation operation = trigger.getControllerCall();
                     if (this.equals(operation))
                     {
@@ -82,7 +83,7 @@ public class StrutsControllerOperationLogicImpl extends StrutsControllerOperatio
                         StateVertexFacade source = transition.getSource();
                         if (source instanceof StrutsActionState)
                         {
-                            StrutsActionState sourceActionState = (StrutsActionState) source;
+                            StrutsActionState sourceActionState = (StrutsActionState)source;
                             deferringActions.addAll(sourceActionState.getContainerActions());
                         }
 
@@ -90,7 +91,7 @@ public class StrutsControllerOperationLogicImpl extends StrutsControllerOperatio
                         StateVertexFacade target = transition.getTarget();
                         if (target instanceof StrutsPseudostate)
                         {
-                            StrutsPseudostate targetPseudoState = (StrutsPseudostate) target;
+                            StrutsPseudostate targetPseudoState = (StrutsPseudostate)target;
                             if (targetPseudoState.isDecisionPoint())
                             {
                                 deferringActions.addAll(targetPseudoState.getContainerActions());
@@ -123,7 +124,7 @@ public class StrutsControllerOperationLogicImpl extends StrutsControllerOperatio
         for (Iterator argumentIterator = arguments.iterator();
              argumentIterator.hasNext() && allArgumentsHaveFormFields;)
         {
-            StrutsParameter parameter = (StrutsParameter) argumentIterator.next();
+            StrutsParameter parameter = (StrutsParameter)argumentIterator.next();
             String parameterName = parameter.getName();
             String parameterType = parameter.getFullyQualifiedName();
 
@@ -131,13 +132,13 @@ public class StrutsControllerOperationLogicImpl extends StrutsControllerOperatio
             for (Iterator actionIterator = deferringActions.iterator();
                  actionIterator.hasNext() && !actionMissingField;)
             {
-                StrutsAction action = (StrutsAction) actionIterator.next();
+                StrutsAction action = (StrutsAction)actionIterator.next();
                 Collection actionFormFields = action.getActionFormFields();
 
                 boolean fieldPresent = false;
                 for (Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext() && !fieldPresent;)
                 {
-                    StrutsParameter field = (StrutsParameter) fieldIterator.next();
+                    StrutsParameter field = (StrutsParameter)fieldIterator.next();
                     if (parameterName.equals(field.getName()) && parameterType.equals(field.getFullyQualifiedName()))
                     {
                         fieldPresent = true;
@@ -157,7 +158,7 @@ public class StrutsControllerOperationLogicImpl extends StrutsControllerOperatio
         ClassifierFacade owner = getOwner();
         if (owner instanceof StrutsController)
         {
-            StrutsController controller = (StrutsController) owner;
+            StrutsController controller = (StrutsController)owner;
             if (controller != null)
             {
                 StrutsUseCase useCase = controller.getUseCase();

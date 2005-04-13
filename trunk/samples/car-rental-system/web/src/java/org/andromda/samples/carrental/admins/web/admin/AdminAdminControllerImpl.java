@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see org.andromda.samples.carrental.admins.web.admin.AdminAdminController
  */
-public class AdminAdminControllerImpl extends AdminAdminController
+public class AdminAdminControllerImpl
+        extends AdminAdminController
 {
     /**
      * @see org.andromda.samples.carrental.admins.web.admin.AdminAdminController#updateAdministrator(org.apache.struts.action.ActionMapping,

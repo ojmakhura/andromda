@@ -7,7 +7,8 @@ import org.andromda.cartridges.ejb.EJBProfile;
  *
  * @see org.andromda.cartridges.ejb.metafacades.EJBAssociationFacade
  */
-public class EJBAssociationFacadeLogicImpl extends EJBAssociationFacadeLogic
+public class EJBAssociationFacadeLogicImpl
+        extends EJBAssociationFacadeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -22,7 +23,7 @@ public class EJBAssociationFacadeLogicImpl extends EJBAssociationFacadeLogic
      */
     protected java.lang.String handleGetTransactionType()
     {
-        return (String) this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        return (String)this.findTaggedValue(EJBProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
     }
 
     /**

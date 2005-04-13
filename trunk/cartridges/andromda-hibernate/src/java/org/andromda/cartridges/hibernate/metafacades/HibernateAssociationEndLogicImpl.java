@@ -13,7 +13,8 @@ import java.util.Collection;
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd
  */
-public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLogic
+public class HibernateAssociationEndLogicImpl
+        extends HibernateAssociationEndLogic
 {
 
     // ---------------- constructor -------------------------------
@@ -62,7 +63,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
     protected boolean handleIsOne2OnePrimary()
     {
         boolean primaryOne2One = super.isOne2One();
-        HibernateAssociationEnd otherEnd = (HibernateAssociationEnd) this.getOtherEnd();
+        HibernateAssociationEnd otherEnd = (HibernateAssociationEnd)this.getOtherEnd();
         if (primaryOne2One)
         {
             primaryOne2One = super.isAggregation() || this.isComposition();
@@ -86,7 +87,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
             ClassifierFacade type = this.getType();
             if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()))
             {
-                String typeName = ((HibernateEntity) type).getFullyQualifiedEntityName();
+                String typeName = ((HibernateEntity)type).getFullyQualifiedEntityName();
                 if (StringUtils.isNotEmpty(typeName))
                 {
                     getterSetterTypeName = typeName;
@@ -106,7 +107,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
      */
     protected boolean handleIsLazy()
     {
-        String lazyString = (String) findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        String lazyString = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
         boolean lazy = true;
         if (lazyString == null)
         {
@@ -137,9 +138,10 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
         if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()) && otherType != null && HibernateEntity.class.isAssignableFrom(
                 otherType.getClass()))
         {
-            HibernateEntity entity = (HibernateEntity) type;
-            HibernateEntity otherEntity = (HibernateEntity) otherType;
-            secondary = (this.isChild() && entity.isForeignHibernateGeneratorClass()) || otherEntity.isForeignHibernateGeneratorClass() || (!this.isNavigable() &&
+            HibernateEntity entity = (HibernateEntity)type;
+            HibernateEntity otherEntity = (HibernateEntity)otherType;
+            secondary = (this.isChild() && entity.isForeignHibernateGeneratorClass()) ||
+                    otherEntity.isForeignHibernateGeneratorClass() || (!this.isNavigable() &&
                     this.getOtherEnd().isNavigable() && !this.isOne2OnePrimary());
         }
         return secondary;
@@ -157,7 +159,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
             Object type = this.getType();
             if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()))
             {
-                HibernateEntity entity = (HibernateEntity) type;
+                HibernateEntity entity = (HibernateEntity)type;
                 final String defaultCascade = entity.getHibernateDefaultCascade();
                 if (defaultCascade.equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE) || defaultCascade.equalsIgnoreCase(
                         HibernateGlobals.HIBERNATE_CASCADE_ALL))
@@ -238,7 +240,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
         Object type = this.getType();
         if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()))
         {
-            HibernateEntity entity = (HibernateEntity) type;
+            HibernateEntity entity = (HibernateEntity)type;
             if (entity.isHibernateInheritanceClass() && entity.getGeneralization() != null)
             {
                 required = false;
@@ -256,8 +258,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
                 HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE));
         if (!collectionTypes.contains(collectionType))
         {
-            collectionType = (String) this.getConfiguredProperty(
-                    HibernateGlobals.HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
+            collectionType = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
         }
         return collectionType;
 
@@ -268,7 +269,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
      */
     protected String handleGetSortType()
     {
-        String sortType = (String) this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE);
+        String sortType = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE);
         return sortType;
     }
 
@@ -277,7 +278,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
      */
     protected String handleGetOrderByColumns()
     {
-        String orderColumns = (String) this.findTaggedValue(
+        String orderColumns = (String)this.findTaggedValue(
                 HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS);
         if (orderColumns == null)
         {
@@ -292,7 +293,7 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
      */
     protected String handleGetWhereClause()
     {
-        String whereClause = (String) this.findTaggedValue(
+        String whereClause = (String)this.findTaggedValue(
                 HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE);
         return whereClause;
     }
@@ -319,12 +320,12 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
      */
     protected String handleGetCollectionIndexName()
     {
-        String indexName = (String) this.findTaggedValue(
+        String indexName = (String)this.findTaggedValue(
                 HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
         ClassifierFacade type = this.getType();
         if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()))
         {
-            HibernateEntity entity = (HibernateEntity) type;
+            HibernateEntity entity = (HibernateEntity)type;
             indexName = entity.findAttribute(indexName).getName();
         }
         return indexName;
@@ -367,12 +368,12 @@ public class HibernateAssociationEndLogicImpl extends HibernateAssociationEndLog
      */
     protected String handleGetCollectionIndexType()
     {
-        String indexName = (String) this.findTaggedValue(
+        String indexName = (String)this.findTaggedValue(
                 HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
         ClassifierFacade type = this.getType();
         if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()))
         {
-            HibernateEntity entity = (HibernateEntity) type;
+            HibernateEntity entity = (HibernateEntity)type;
             indexName = entity.findAttribute(indexName).getType().getFullyQualifiedName();
         }
         return indexName;

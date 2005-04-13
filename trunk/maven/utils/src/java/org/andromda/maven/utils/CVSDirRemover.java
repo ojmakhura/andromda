@@ -47,7 +47,8 @@ public class CVSDirRemover
         }
     }
 
-    private static class CVSDirFilter implements FileFilter
+    private static class CVSDirFilter
+            implements FileFilter
     {
         public boolean accept(File file)
         {
@@ -55,7 +56,8 @@ public class CVSDirRemover
         }
     }
 
-    private static class DirFilter implements FileFilter
+    private static class DirFilter
+            implements FileFilter
     {
         public boolean accept(File file)
         {

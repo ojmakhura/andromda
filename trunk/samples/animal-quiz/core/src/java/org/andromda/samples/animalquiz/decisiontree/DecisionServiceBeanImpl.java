@@ -5,7 +5,9 @@ import net.sf.hibernate.HibernateException;
 import javax.ejb.EJBException;
 import java.util.Collection;
 
-public class DecisionServiceBeanImpl extends DecisionServiceBean implements javax.ejb.SessionBean
+public class DecisionServiceBeanImpl
+        extends DecisionServiceBean
+        implements javax.ejb.SessionBean
 {
     // concrete business methods that were declared
     // abstract in class DecisionServiceBean ...
@@ -24,7 +26,7 @@ public class DecisionServiceBeanImpl extends DecisionServiceBean implements java
             }
             else
             {
-                dItem = (DecisionItem) dItems.iterator().next();
+                dItem = (DecisionItem)dItems.iterator().next();
             }
             return dItem.getVO();
         }

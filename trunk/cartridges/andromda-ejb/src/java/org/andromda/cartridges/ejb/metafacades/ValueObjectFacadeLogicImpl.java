@@ -12,7 +12,8 @@ import java.util.StringTokenizer;
  *
  * @see org.andromda.cartridges.ejb.metafacades.ValueObjectFacade
  */
-public class ValueObjectFacadeLogicImpl extends ValueObjectFacadeLogic
+public class ValueObjectFacadeLogicImpl
+        extends ValueObjectFacadeLogic
 {
     // ---------------- constructor -------------------------------
 

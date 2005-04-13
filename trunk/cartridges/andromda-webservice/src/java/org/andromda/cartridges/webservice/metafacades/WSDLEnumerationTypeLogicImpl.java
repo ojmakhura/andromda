@@ -10,7 +10,8 @@ import org.apache.commons.lang.StringUtils;
  *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType
  */
-public class WSDLEnumerationTypeLogicImpl extends WSDLEnumerationTypeLogic
+public class WSDLEnumerationTypeLogicImpl
+        extends WSDLEnumerationTypeLogic
 {
     // ---------------- constructor -------------------------------
 
@@ -40,7 +41,7 @@ public class WSDLEnumerationTypeLogicImpl extends WSDLEnumerationTypeLogic
      */
     protected String handleGetNamespacePrefix()
     {
-        return (String) this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
+        return (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX);
     }
 
     /**
@@ -48,7 +49,7 @@ public class WSDLEnumerationTypeLogicImpl extends WSDLEnumerationTypeLogic
      */
     protected String getQualfiedNameLocalPartPattern()
     {
-        return (String) this.getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
+        return (String)this.getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN);
     }
 
     /**
@@ -69,7 +70,7 @@ public class WSDLEnumerationTypeLogicImpl extends WSDLEnumerationTypeLogic
      */
     protected String getNamespacePattern()
     {
-        return (String) this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
+        return (String)this.getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN);
     }
 
     /**
@@ -79,7 +80,8 @@ public class WSDLEnumerationTypeLogicImpl extends WSDLEnumerationTypeLogic
      */
     private boolean isReverseNamespace()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE))).booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
+                .booleanValue();
     }
 
     /**
@@ -122,10 +124,10 @@ public class WSDLEnumerationTypeLogicImpl extends WSDLEnumerationTypeLogic
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
         {
-            uri = (String) property;
+            uri = (String)property;
             try
             {
-                mappings = TypeMappings.getInstance((String) property);
+                mappings = TypeMappings.getInstance((String)property);
                 this.setProperty(propertyName, mappings);
             }
             catch (Throwable th)
@@ -137,7 +139,7 @@ public class WSDLEnumerationTypeLogicImpl extends WSDLEnumerationTypeLogic
         }
         else
         {
-            mappings = (TypeMappings) property;
+            mappings = (TypeMappings)property;
         }
         return mappings;
     }

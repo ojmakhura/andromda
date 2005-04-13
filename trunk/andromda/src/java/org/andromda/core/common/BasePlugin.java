@@ -18,7 +18,8 @@ import java.util.Map;
  *
  * @author Chad Brandon
  */
-public abstract class BasePlugin implements Plugin
+public abstract class BasePlugin
+        implements Plugin
 {
     /**
      * Property references made available to the plugin
@@ -171,7 +172,7 @@ public abstract class BasePlugin implements Plugin
     {
         if (templateEngine == null)
         {
-            templateEngine = (TemplateEngine) ComponentContainer.instance().newComponent(templateEngineClass,
+            templateEngine = (TemplateEngine)ComponentContainer.instance().newComponent(templateEngineClass,
                     TemplateEngine.class);
         }
         return templateEngine;
@@ -230,7 +231,7 @@ public abstract class BasePlugin implements Plugin
             Iterator templateObjectIt = templateObjects.iterator();
             while (templateObjectIt.hasNext())
             {
-                TemplateObject templateObject = (TemplateObject) templateObjectIt.next();
+                TemplateObject templateObject = (TemplateObject)templateObjectIt.next();
                 templateContext.put(templateObject.getName(), templateObject.getTemplateObject());
             }
         }
@@ -251,8 +252,8 @@ public abstract class BasePlugin implements Plugin
             Iterator referenceIt = propertyReferences.keySet().iterator();
             while (referenceIt.hasNext())
             {
-                String reference = (String) referenceIt.next();
-                String defaultValue = (String) propertyReferences.get(reference);
+                String reference = (String)referenceIt.next();
+                String defaultValue = (String)propertyReferences.get(reference);
 
                 // if we have a default value, then don't warn
                 // that we don't have a property, otherwise we'll
