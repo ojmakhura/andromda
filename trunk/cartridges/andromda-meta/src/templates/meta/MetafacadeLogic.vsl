@@ -75,7 +75,7 @@ public abstract class $metafacade.logicName
     private $link.parent.fullyQualifiedName super_${velocityCount};
     
     /**
-     * Gets the ${link.parent.fullyQualifiedName} parent instance.
+     * Gets the $link.parent.fullyQualifiedName parent instance.
      */ 
     private $link.parent.fullyQualifiedName ${link.getterName}()
     {
@@ -85,7 +85,6 @@ public abstract class $metafacade.logicName
     
 #end
 #end
-
 ##
 #if (!$metafacade.attributes.empty)
     // --------------- attributes ---------------------
