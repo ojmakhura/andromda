@@ -220,6 +220,29 @@
             <property name="valueObjectType"/>
         </mapping>
     </metafacade>
+    <!-- Manageable metafacades:
+            these mappings need to be listed *before* the regular entities because
+            of the fact that we are using both ENTITY and MANAGEABLE stereotypes,
+            otherwise the ManageableEntity classes would be mapped to Entity instead
+    -->
+    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+            <stereotype>ENTITY</stereotype>
+            <stereotype>MANAGEABLE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENTITY</stereotype>
+            <stereotype>MANAGEABLE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+            <stereotype>ENTITY</stereotype>
+            <stereotype>MANAGEABLE</stereotype>
+        </mapping>
+    </metafacade>
     <!-- Entity  metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.EntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
@@ -280,7 +303,7 @@
             <property name="query"/>
         </mapping>
     </metafacade>
-    <!-- Service  metafacades -->
+    <!-- Service metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.ServiceLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
