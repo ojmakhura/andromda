@@ -29,4 +29,9 @@
             <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeGeneralizationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Generalization$Impl">
+            <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
+        </mapping>
+    </metafacade>
 </metafacades>

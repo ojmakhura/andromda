@@ -20,8 +20,9 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
 {
     // ---------------- constructor -------------------------------
 
-    public GeneralizableElementFacadeLogicImpl(org.omg.uml.foundation.core.GeneralizableElement metaObject,
-                                               java.lang.String context)
+    public GeneralizableElementFacadeLogicImpl(
+        org.omg.uml.foundation.core.GeneralizableElement metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -32,7 +33,8 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
     public java.util.Collection handleGetAllGeneralizations()
     {
         Collection generalizations = new ArrayList();
-        for (GeneralizableElementFacade element = this.getGeneralization(); element != null; element = element.getGeneralization())
+        for (GeneralizableElementFacade element = this.getGeneralization(); element != null; 
+             element = element.getGeneralization())
         {
             generalizations.add(element);
         }
@@ -75,6 +77,14 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
             }
         }
         return parents;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml14.GeneralizableElementFacade#getLinks()
+     */
+    protected Collection handleGetLinks()
+    {
+        return metaObject.getGeneralization();
     }
 
     /**

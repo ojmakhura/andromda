@@ -3,6 +3,7 @@ package org.andromda.cartridges.meta.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,8 +17,11 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.GeneralizationFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -361,9 +365,39 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
         if (superMetafacade != null)
         {
             requiresCast = superMetafacade.isMetaclassDirectDependency() && !this.isRequiresInheritanceDelegatation();
-
         }
         return requiresCast;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizations()
+     */
+    public Collection getGeneralizations()
+    {
+        List generalizations = new ArrayList(super.getLinks());
+        Collections.sort(generalizations, new GeneralizationPrecedenceComparator());
+        CollectionUtils.transform(generalizations,
+            new Transformer()
+            {
+                public Object transform(Object object)
+                {
+                    return ((GeneralizationFacade)object).getParent();
+                }
+            });
+        return generalizations;
+    }
+    
+    /**
+     * Used to sort metafacade generalizations by precedence.
+     */
+    private final static class GeneralizationPrecedenceComparator implements Comparator
+    {
+        public int compare(Object objectA, Object objectB)
+        {
+            MetafacadeGeneralization a = (MetafacadeGeneralization)objectA;
+            MetafacadeGeneralization b = (MetafacadeGeneralization)objectB;
+            return a.getPrecedence().compareTo(b.getPrecedence());
+        }
     }
 
     /**
