@@ -92,7 +92,7 @@
                         </j:when>
                         <j:otherwise>
                             <j:set var="serverLinkHref" value="${andromda.snapshot.docs.url}"/>
-                            <a id="serverLink" href="${snapshot.docs.link.url}" title="Documentation for nightly builds (updated daily)">Nightly Build Site</a>
+                            <a id="serverLink" href="${snapshot.docs.link.url}" title="Documentation for continuous builds (updated daily)">Continuous Builds Site</a>
                         </j:otherwise>
                     </j:choose>
 
