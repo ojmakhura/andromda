@@ -345,6 +345,9 @@
             <modelElement variable="entities">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>
         </modelElements>
     </template>
 
