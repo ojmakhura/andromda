@@ -409,17 +409,14 @@ public class ModelProcessor
     private final static class ValidationMessageTypeComparator implements Comparator
     {
         private final Collator collator = Collator.getInstance();
-
         private ValidationMessageTypeComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }
-
         public int compare(Object objectA, Object objectB)
         {
             ModelValidationMessage a = (ModelValidationMessage) objectA;
             ModelValidationMessage b = (ModelValidationMessage) objectB;
-
             return collator.compare(a.getMetafacadeClass().getName(), b.getMetafacadeClass().getName());
         }
     }
@@ -430,17 +427,14 @@ public class ModelProcessor
     private final static class ValidationMessageNameComparator implements Comparator
     {
         private final Collator collator = Collator.getInstance();
-
         private ValidationMessageNameComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }
-
         public int compare(Object objectA, Object objectB)
         {
             ModelValidationMessage a = (ModelValidationMessage) objectA;
             ModelValidationMessage b = (ModelValidationMessage) objectB;
-
             return collator.compare(StringUtils.trimToEmpty(a.getMetafacadeName()), StringUtils.trimToEmpty(b.getMetafacadeName()));
         }
     }
