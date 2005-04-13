@@ -199,9 +199,7 @@
                         if (field.type != "checkbox" || field.checked) query = query + ((query.length==0) ? '?' : '&') + "${column.name}=" + field.value;
 #end
 #end
-                        document.forms.dummyForm.name = "$tableAction.formBeanName";
-                        document.forms.dummyForm.action = "<html:rewrite action="$tableAction.actionPath"/>" + query;
-                        return document.forms.dummyForm.submit();
+                        document.location = "<html:rewrite action="$tableAction.actionPath"/>" + query;
                     }
 #end
                 //-->
@@ -211,8 +209,6 @@
 
 #end
 #end
-
-        <form id="dummyForm" name="" action=""/>
 
         <div>
             <blockquote>
