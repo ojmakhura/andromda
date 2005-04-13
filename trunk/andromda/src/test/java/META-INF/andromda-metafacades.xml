@@ -22,6 +22,11 @@
             <context>org.andromda.core.metafacade.Metafacade3</context>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade11Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject12">
+            <stereotype>APPLICATION_EXCEPTION</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject2">
             <stereotype>APPLICATION_EXCEPTION</stereotype>
