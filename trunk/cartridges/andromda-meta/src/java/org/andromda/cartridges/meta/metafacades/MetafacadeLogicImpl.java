@@ -374,7 +374,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
      */
     public Collection getGeneralizations()
     {
-        List generalizations = new ArrayList(super.getLinks());
+        List generalizations = new ArrayList(super.getGeneralizationLinks());
         Collections.sort(generalizations, new GeneralizationPrecedenceComparator());
         CollectionUtils.transform(generalizations,
             new Transformer()

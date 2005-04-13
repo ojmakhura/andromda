@@ -80,9 +80,9 @@ public class GeneralizableElementFacadeLogicImpl extends GeneralizableElementFac
     }
     
     /**
-     * @see org.andromda.metafacades.uml14.GeneralizableElementFacade#getLinks()
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizationLinks()
      */
-    protected Collection handleGetLinks()
+    protected Collection handleGetGeneralizationLinks()
     {
         return metaObject.getGeneralization();
     }

@@ -41,5 +41,23 @@ public class MetafacadeGeneralizationLogicImpl
         }
         return precedence;
     }
+    
+    /**
+     * @see org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization#getGetterName()
+     */
+    protected String handleGetGetterName()
+    {
+        String name = this.getName();
+        if (StringUtils.isBlank(name))
+        {
+            if (this.getParent() != null)
+            {
+                name = this.getParent().getName();
+            }
+        }
+        name = StringUtils.capitalize(name);
+        return ObjectUtils.toString(this.getConfiguredProperty(
+            MetaGlobals.PROPERTY_GENERALIZATION_GETTER_NAME_PATTERN)).replaceAll("\\{0\\}", name);
+    }
 
 }

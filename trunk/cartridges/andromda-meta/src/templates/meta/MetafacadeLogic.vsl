@@ -33,11 +33,6 @@ public abstract class $metafacade.logicName
 {
 
     protected $metaclassTypeName metaObject;
-#if ($metafacade.requiresInheritanceDelegatation)
-#foreach ($generalization in $metafacade.generalizations)
-    private $generalization.fullyQualifiedName super_${velocityCount};
-#end
-#end
 
     public ${metafacade.logicName}($metaclassTypeName metaObject, String context)
     {  
@@ -74,6 +69,22 @@ public abstract class $metafacade.logicName
         }
         return context;
     }
+    
+#if ($metafacade.requiresInheritanceDelegatation)
+#foreach ($link in $metafacade.generalizationLinks)
+    private $link.parent.fullyQualifiedName super_${velocityCount};
+    
+    /**
+     * Gets the ${link.parent.fullyQualifiedName} parent instance.
+     */ 
+    private $link.parent.fullyQualifiedName ${link.getterName}()
+    {
+        ((org.andromda.core.metafacade.MetafacadeBase)super_${velocityCount}).setMetafacadeContext(this.getMetafacadeContext());
+        return super_${velocityCount};
+    }
+    
+#end
+#end
 
 ##
 #if (!$metafacade.attributes.empty)
@@ -254,15 +265,14 @@ public abstract class $metafacade.logicName
 #end
 ##
 #if ($metafacade.requiresInheritanceDelegatation)
-#foreach ($generalization in $metafacade.generalizations)
+#foreach ($link in $metafacade.generalizationLinks)
 #set ($generalizationCount = $velocityCount)
     // ----------- delegates to $generalization.fullyQualifiedName ------------
-#foreach ($method in $metafacade.getMethodDataForPSM($generalization))
+#foreach ($method in $metafacade.getMethodDataForPSM($link.parent))
     // from $method.metafacadeName
     $method.buildMethodDeclaration(true)
     {
-        ((org.andromda.core.metafacade.MetafacadeBase)super_${generalizationCount}).setMetafacadeContext(this.getMetafacadeContext());
-        return super_${generalizationCount}.${method.buildMethodCall()};
+        return this.${link.getterName}().${method.buildMethodCall()};
     }
 
 #end
@@ -274,8 +284,8 @@ public abstract class $metafacade.logicName
      */
     public void initialize()
     {
-#foreach ($generalization in $metafacade.generalizations)
-        super_${velocityCount}.initialize();
+#foreach ($link in $metafacade.generalizationLinks)
+        this.${link.getterName}().initialize();
 #end
     }
 
@@ -284,13 +294,13 @@ public abstract class $metafacade.logicName
      */
     public Object getValidationOwner()
     {
-#foreach ($generalization in $metafacade.generalizations)
+#foreach ($link in $metafacade.generalizationLinks)
 #if ($velocityCount == 1)
-        Object owner = super_${velocityCount}.getValidationOwner();
+        Object owner = this.${link.getterName}().getValidationOwner();
 #else
         if (owner == null)
         {
-            owner = super_${velocityCount}.getValidationOwner();
+            owner = this.${link.getterName}().getValidationOwner();
         }
 #end
 #if ($velocityCount == $metafacade.generalizationCount)
@@ -304,13 +314,13 @@ public abstract class $metafacade.logicName
      */
     public String getValidationName()
     {
-#foreach ($generalization in $metafacade.generalizations)
+#foreach ($link in $metafacade.generalizationLinks)
 #if ($velocityCount == 1)
-        String name = super_${velocityCount}.getValidationName();
+        String name = this.${link.getterName}().getValidationName();
 #else
         if (name == null)
         {
-            name = super_${velocityCount}.getValidationName();
+            name = this.${link.getterName}().getValidationName();
         }
 #end
 #if ($velocityCount == $metafacade.generalizationCount)
@@ -326,8 +336,8 @@ public abstract class $metafacade.logicName
     public void validateInvariants(java.util.Collection validationMessages)
     {
 #if ($metafacade.requiresInheritanceDelegatation)
-#foreach ($generalization in $metafacade.generalizations)
-        super_${velocityCount}.validateInvariants(validationMessages);
+#foreach ($link in $metafacade.generalizationLinks)
+        this.${link.getterName}().validateInvariants(validationMessages);
 #end
 #elseif ($superMetafacade)
         super.validateInvariants(validationMessages);
