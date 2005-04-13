@@ -37,7 +37,7 @@
         <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end constrained="false"/>
 #else
 #if($sourceEnd.one2OnePrimary)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName">
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName"#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end>
             <column name="$otherEnd.columnName" not-null="$otherEnd.required" unique="true"/>
         </many-to-one>
 #else
