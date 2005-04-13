@@ -1,6 +1,9 @@
 package org.andromda.cartridges.meta.metafacades;
 
+import java.util.Collection;
+
 import org.andromda.cartridges.meta.MetaProfile;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -58,6 +61,26 @@ public class MetafacadeGeneralizationLogicImpl
         name = StringUtils.capitalize(name);
         return ObjectUtils.toString(this.getConfiguredProperty(
             MetaGlobals.PROPERTY_GENERALIZATION_GETTER_NAME_PATTERN)).replaceAll("\\{0\\}", name);
+    }
+
+    /**
+     * @see org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization#getGetterNameVisibility()
+     */
+    protected String handleGetGetterNameVisibility()
+    {
+        String visibility = "private";
+        GeneralizableElementFacade child = this.getChild();
+        if (child != null)
+        {
+            // if we have more than one generalization for the metafacade
+            // then we expose the super facade accessors.
+            Collection generalizations = child.getGeneralizations();
+            if (generalizations != null && generalizations.size() > 1)
+            {
+                visibility = "protected";
+            }
+        }
+        return visibility;
     }
 
 }

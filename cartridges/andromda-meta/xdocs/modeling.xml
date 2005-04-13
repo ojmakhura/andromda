@@ -42,6 +42,29 @@
 		        	</tr>		    				        		        	        	      	        	        		        	        	        	     	             	        	
 		        </table>
 		    </subsection>
+            <section name="Supported Tagged Values">
+               <table>
+                    <tr>
+                        <th>Tagged Value</th>
+                        <th>Used With</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <a name="andromda.meta.generalization.precedence"/>
+                        <td>
+                            @andromda.meta.generalization.precedence
+                        </td>
+                        <td>
+                            A generalization between metafacades.
+                        </td>
+                        <td>
+                            Allows the specification of precedence when a metafacade generalizes
+                            from more than one metafacade.  Takes an integer as it's value (i.e. 1, 2, 3, etc)
+                            where one denotes the highest precedence.
+                        </td>
+                    </tr>
+                </table>                
+            </section>
     	</section>
   	</body>
 </document>
