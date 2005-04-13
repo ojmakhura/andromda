@@ -6,6 +6,7 @@ import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p/>
@@ -109,6 +110,15 @@ public class EntityAssociationEndLogicImpl extends EntityAssociationEndLogic
         Short maxLength = Short.valueOf(maxLengthString);
 
         return EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, maxLength);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityAssociationEnd#getColumnIndex()
+     */
+    public java.lang.String handleGetColumnIndex()
+    {
+        String index = (String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
+        return index != null ? StringUtils.trimToEmpty(index) : null;
     }
 
 }
