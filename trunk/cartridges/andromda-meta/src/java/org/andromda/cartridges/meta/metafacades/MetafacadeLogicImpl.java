@@ -229,7 +229,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
      */
     private Collection getMethodDataForPSM(final ClassifierFacade facade, boolean includeSuperclasses)
     {
-        final Set featureSet = new HashSet();
+        final Set declarationSet = new HashSet();
         if (this.featureMap == null)
         {
             this.featureMap = new HashMap();
@@ -242,7 +242,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
                     for (ClassifierFacade classifier = metafacade; classifier != null; 
                          classifier = (ClassifierFacade)classifier.getGeneralization())
                     {
-                        this.getAllFeatures(methodDataMap, featureSet, (Metafacade)classifier);
+                        this.getAllFeatures(methodDataMap, declarationSet, (Metafacade)classifier);
                     }        
                     this.featureMap.put(metafacade, methodDataMap.values());
                 }
@@ -260,68 +260,71 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
         if (!includeSuperclasses)
         {
             final Map methodDataMap = new HashMap();
-            this.getAllFeatures(methodDataMap, featureSet, this);
+            this.getAllFeatures(methodDataMap, declarationSet, this);
             result.addAll(methodDataMap.values());
         }
         Collections.sort(result); 
         return result;
     }
 
-    private void getAllFeatures(Map methodDataMap, Set featureSet, Metafacade facade)
+    private void getAllFeatures(Map methodDataMap, Set declarationSet, Metafacade facade)
     {
         final String methodName = "MetafacadeFacadeLogicImpl.internalGetMethodDataForPSM";
         try
         {
             final String methodVisibility = "public";
+            final String indendation = "    * ";
             final String fullyQualifiedName = facade.getFullyQualifiedName();
 
             // translate UML attributes and association ends to getter methods
             for (Iterator propertyIterator = facade.getProperties().iterator(); propertyIterator.hasNext();)
             {
                 ModelElementFacade property = (ModelElementFacade)propertyIterator.next();
-                // don't add the new method data if we already have the feature
-                // from a previous generalization.
-                if (!featureSet.contains(property))
+                MethodData method = null;
+                if (property instanceof AttributeFacade)
                 {
-                    MethodData methodData = null;
-                    if (property instanceof AttributeFacade)
-                    {
-                        AttributeFacade attribute = (AttributeFacade)property;
-                        methodData = new MethodData(
-                            fullyQualifiedName, 
-                            methodVisibility, 
-                            false, 
-                            attribute.getGetterSetterTypeName(), 
-                            attribute.getGetterName(), 
-                            attribute.getDocumentation("    * "));
-                    }                          
-                    else
-                    {
-                        AssociationEndFacade association = (AssociationEndFacade)property;
-                        methodData = new MethodData(
-                            fullyQualifiedName, 
-                            methodVisibility, 
-                            false, 
-                            association.getGetterSetterTypeName(), 
-                            association.getGetterName(), 
-                            association.getDocumentation("    * "));
-                    }
-                    methodDataMap.put(methodData.buildCharacteristicKey(), methodData);
-                    featureSet.add(property);
+                    AttributeFacade attribute = (AttributeFacade)property;
+                    method = new MethodData(
+                        fullyQualifiedName, 
+                        methodVisibility, 
+                        false, 
+                        attribute.getGetterSetterTypeName(), 
+                        attribute.getGetterName(), 
+                        attribute.getDocumentation(indendation));
+                }                          
+                else
+                {
+                    AssociationEndFacade association = (AssociationEndFacade)property;
+                    method = new MethodData(
+                        fullyQualifiedName, 
+                        methodVisibility, 
+                        false, 
+                        association.getGetterSetterTypeName(), 
+                        association.getGetterName(), 
+                        association.getDocumentation(indendation));
+                }
+                final String declaration = method.buildMethodDeclaration(true);
+                // don't add the new method data if we already have the 
+                // declaration from a previous generalization.
+                if (!declarationSet.contains(declaration))
+                {
+                    methodDataMap.put(method.buildCharacteristicKey(), method);
+                    declarationSet.add(declaration);
                 }
             }
             // translate UML operations to methods
             for (Iterator iterator = facade.getOperations().iterator(); iterator.hasNext();)
             {
                 OperationFacade operation = (OperationFacade)iterator.next();
-                // don't add the new method data if we already have the feature
-                // from a previous generalization.
-                if (!featureSet.contains(operation))
+                final UMLOperationData method = new UMLOperationData(fullyQualifiedName, operation);
+                // don't add the new method data if we already have the 
+                // declaration from a previous generalization.
+                final String declaration = method.buildMethodDeclaration(true);
+                if (!declarationSet.contains(declaration))
                 {
-                    final UMLOperationData method = new UMLOperationData(fullyQualifiedName, operation);
                     methodDataMap.put(method.buildCharacteristicKey(), method);
+                    declarationSet.add(declaration);
                 }
-                featureSet.add(operation);
             }
         }
         catch (Throwable th)

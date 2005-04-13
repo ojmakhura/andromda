@@ -89,7 +89,23 @@
                     <td>
                         No, default is <code>handle{0}</code>.
                     </td>
-                </tr>	        	   	      	        	        		        	        	        	     	             	        	
+                </tr>	
+                <tr>
+                    <td>
+                        generalizationGetterNamePattern
+                    </td>
+                    <td>
+                        The pattern used for constructing the getter name
+                        for the delegated generalizations (these are exposed
+                        to the child metafacade implementation class when
+                        a metafacade extends more than one other metafacade). 
+                        <em>{0}</em> is the name of the generalizsation (or type
+                        if the name has not been specified).
+                    </td>
+                    <td>
+                        No, default is <code>getSuper{0}</code>.
+                    </td>
+                </tr>        	   	      	        	        		        	        	        	     	             	        	
 	        </table>
     	</section>
   	</body>

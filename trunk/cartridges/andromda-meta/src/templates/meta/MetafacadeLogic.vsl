@@ -77,7 +77,7 @@ public abstract class $metafacade.logicName
     /**
      * Gets the $link.parent.fullyQualifiedName parent instance.
      */ 
-    private $link.parent.fullyQualifiedName ${link.getterName}()
+    $link.getterNameVisibility $link.parent.fullyQualifiedName ${link.getterName}()
     {
         ((org.andromda.core.metafacade.MetafacadeBase)super_${velocityCount}).setMetafacadeContext(this.getMetafacadeContext());
         return super_${velocityCount};
