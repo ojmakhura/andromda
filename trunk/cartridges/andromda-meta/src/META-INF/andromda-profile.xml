@@ -2,7 +2,8 @@
 <!--
   The default Meta profile mappings.
 -->
-<mappings name="meta"> 
+<mappings name="meta">
+    <!-- stereotypes --> 
     <mapping>
         <from>METACLASS</from>
         <to>metaclass</to>
@@ -10,5 +11,10 @@
     <mapping>
         <from>METAFACADE</from>
         <to>metafacade</to>
+    </mapping>
+    <!-- tagged values -->
+    <mapping>
+        <from>GENERALIZATION_PRECEDENCE</from>
+        <to>@andromda.meta.generalization.precedence</to>
     </mapping>
 </mappings>

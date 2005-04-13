@@ -26,4 +26,11 @@ public class MetaProfile extends UMLProfile
      * Defines the <code>metafacade</code> stereotype. A metafacade is a facade around a {@link #STEREOTYPE_METACLASS}.
      */
     public static final String STEREOTYPE_METAFACADE = profile.get("METAFACADE");
+    
+    /* ---------------- Tagged Values ------------------ */
+    
+    /**
+     * Defines the precedence for generalizations when using multiple inheritance.
+     */
+    public static final String TAGGEDVALUE_GENERALIZATION_PRECEDENCE = profile.get("GENERALIZATION_PRECEDENCE");
 }
