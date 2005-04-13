@@ -48,7 +48,7 @@
             <subsection name="Setup">
                 <p>
                     The cache settings provide support for customizing the cache configuration. The namespace properties
-                    for the cache settings are the following:
+                    for the cache settings are as following:
                     <ul>
                         <li>
                             <a href="namespace.html#SecondLevelCache">hibernateCacheProvider</a>: Specifies the cache
@@ -57,7 +57,7 @@
                         </li>
                         <li>
                             <a href="namespace.html#SecondLevelCache">hibernateQueryCacheFactory</a>: Factory class for
-                            the cache queries. Default value is
+                            the caching queries. Default value is
                             <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>
                         </li>
                     </ul>
@@ -72,16 +72,16 @@
                     <ul>
                         <li>
                             <a href="namespace.html#SecondLevelCache">hibernateEnableCache</a>: this property activates
-                            the features for the cache on the cartridge. When enabled, the hibernate mapping files will
-                            be created with the cache settings, and
-                            the EhCache descriptor file will be created. Also the hibernate configuration file, will set
-                            the <code>hibernate.cache.use_query_cache</code> to <code>true</code>.
+                            the caching features within the cartridge. When enabled, all Hibernate mapping files will
+                            be created with the required cache settings, the EhCache descriptor file will be generated, and the
+                            Hibernate configuration file property <code>hibernate.cache.use_query_cache</code> 
+                            will be set to <code>true</code>.
                         </li>
                         <li>
                             <a href="namespace.html#SecondLevelCache">hibernateEnableAssociationsCache</a>: this
-                            property activates the customized cache settings for each association. When enabled,
-                            associations end could contain its own specific configuration.
-                            Default values for not defined propertiesare allowed.
+                            property activates the custom cache settings for each association. When enabled,
+                            each association ends can contain its own specific configuration.
+                            default values for undefined properties are allowed.
                         </li>
                     </ul>
                 </p>
