@@ -113,7 +113,7 @@
                     <td>
                           The default class to use for Hibernate ID generation (can be overridden
                           on a per entity basis with the
-                          <a href="modeling.html#@andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a>
+                          <a href="modeling.html#andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a>
                           tagged value).
                     </td>
                     <td>
@@ -392,7 +392,7 @@
                         The name of the hibernate transaction factory class to use.
                     </td>
                     <td>
-                        No, default is <code>net.sf.hibernate.transaction.JTATransactionFactory</code>
+                        No, default is <code>net.sf.hibernate.transaction.JTATransactionFactory</code> for Hibernate2 and <code>org.hibernate.transaction.JTATransactionFactory</code>
                     </td>
                 </tr>
                 <tr>
@@ -579,6 +579,12 @@
                             <li>true</li>
                             <li>false</li>
                          </ul>
+
+			 For hibernate 3 the above values will be translated to
+                         <ul>
+                            <li>join</li>
+                            <li>select</li>
+                         </ul>
                     </td>
                     <td>
                         No, default is <code>auto</code>.
@@ -633,6 +639,25 @@
                     </td>
                  </tr>
             </table>
+            <subsection name="Hibernate 3 specific settings">
+             <table>
+                <tr>
+                    <td>
+                        hibernateQueryFactory
+                    </td>
+                    <td>
+		         Hibernate3 comes with a brand-new, ANTLR-based HQL/SQL query translator. However, it is still buggy and so in mean time use the Hibernate 2.1 query parser which is still available. 
+			 Possible values are:
+                         <ul>
+                            <li>org.hibernate.hql.ast.ASTQueryTranslatorFactory (for the new query parser)</li>
+			    <li>org.hibernate.hql.classic.ClassicQueryTranslatorFactory (for the old parser)</li>
+                         </ul>
+                    </td>
+                    <td>
+                        No, default is <code>org.hibernate.hql.classic.ClassicQueryTranslatorFactory</code>.
+                    </td>
+                </tr>
+             </table>
             <subsection name="Hibernate Second Level Cache Values">
             <a name="SecondLevelCache"/>
              <table>
@@ -681,7 +706,8 @@
                         hibernateCacheProvider
                     </td>
                     <td>
-                         Defines Hibernate Cache Provider implementation class. Possible values are:
+                         Defines Hibernate Cache Provider implementation class.
+			 Possible values for Hibernate2 are:
                          <ul>
                             <li>net.sf.hibernate.cache.EhCacheProvider</li>
                             <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
@@ -690,9 +716,19 @@
                             <li>net.sf.hibernate.cache.TreeCacheProvider</li>
                             <li>net.sf.hibernate.cache.OSCacheProvider</li>
                          </ul>
+
+			 Possible values for Hibernate3 are:
+                         <ul>
+                            <li>org.hibernate.cache.EhCacheProvider</li>
+                            <li>org.hibernate.cache.HashtableCacheProvider</li>
+                            <li>org.hibernate.cache.JCSCacheProvider</li>
+                            <li>org.hibernate.cache.SwarmCacheProvider</li>
+                            <li>org.hibernate.cache.TreeCacheProvider</li>
+                            <li>org.hibernate.cache.OSCacheProvider</li>
+                         </ul>
                     </td>
                     <td>
-                        No, default is <code>net.sf.hibernate.cache.EhCacheProvider</code>.
+                        No, default is <code>net.sf.hibernate.cache.EhCacheProvider</code> for Hibernate2 and <code>org.hibernate.cache.EhCacheProvider</code> for Hibernate3.
                     </td>
                 </tr>
                 <tr>
@@ -700,13 +736,18 @@
                         hibernateQueryCacheFactory
                     </td>
                     <td>
-                         Defines Hibernate Query Cache Factory implementation class. Possible values are:
+                         Defines Hibernate Query Cache Factory implementation class. Possible value for Hibernate2 is:
                          <ul>
                             <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
                          </ul>
+
+			 Possible value for Hibernate3 is:
+                         <ul>
+                            <li>org.hibernate.cache.StandardQueryCacheFactory</li>
+                         </ul>
                     </td>
                     <td>
-                        No, default is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code>.
+                        No, default is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code> for Hibernate2 and <code>org.hibernate.cache.StandardQueryCacheFactory</code> for Hibernate3.
                     </td>
                 </tr>
                 <tr>

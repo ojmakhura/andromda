@@ -355,7 +355,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.generator.class"/>
+                        <a name="andromda.hibernate.generator.class"/>
                         <td>
                             @andromda.hibernate.generator.class
                         </td>
@@ -464,6 +464,11 @@
                                 <li>auto</li>
                                 <li>true</li>
                                 <li>false</li>
+                            </ul>
+			    For Hibernate3 this will result in a fetch clause with values:
+                            <ul>
+                                <li>join</li>
+                                <li>select</li>
                             </ul>
                         </td>
                     </tr>
