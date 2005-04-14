@@ -35,16 +35,16 @@ public abstract class $metafacade.logicName
     protected $metaclassTypeName metaObject;
 
     public ${metafacade.logicName}($metaclassTypeName metaObject, String context)
-    {  
+    {
 #if ($metafacade.requiresInheritanceDelegatation)
         super(metaObject, getContext(context));
-#foreach ($generalization in $metafacade.generalizations)
-        this.super_${velocityCount} =
-           ($generalization.fullyQualifiedName)
+#foreach ($link in $metafacade.generalizationLinks)
+        this.${link.name} =
+           ($link.parent.fullyQualifiedName)
             org.andromda.core.metafacade.MetafacadeFactory
                 .getInstance()
                 .createFacadeImpl(
-                    "$generalization.fullyQualifiedName",
+                    "$link.parent.fullyQualifiedName",
                     metaObject,
                     getContext(context));
 #end
@@ -69,20 +69,26 @@ public abstract class $metafacade.logicName
         }
         return context;
     }
-    
+
 #if ($metafacade.requiresInheritanceDelegatation)
 #foreach ($link in $metafacade.generalizationLinks)
-    private $link.parent.fullyQualifiedName super_${velocityCount};
-    
+    private $link.parent.fullyQualifiedName $link.name;
+#set ($initializedCheck = "${link.name}Initialized")
+    private boolean $initializedCheck = false;
+
     /**
      * Gets the $link.parent.fullyQualifiedName parent instance.
-     */ 
+     */
     $link.getterNameVisibility $link.parent.fullyQualifiedName ${link.getterName}()
     {
-        ((org.andromda.core.metafacade.MetafacadeBase)super_${velocityCount}).setMetafacadeContext(this.getMetafacadeContext());
-        return super_${velocityCount};
+        if (!this.$initializedCheck)
+        {
+            ((org.andromda.core.metafacade.MetafacadeBase)${link.name}).setMetafacadeContext(this.getMetafacadeContext());
+            this.$initializedCheck = true;
+        }
+        return $link.name;
     }
-    
+
 #end
 #end
 ##
@@ -266,7 +272,7 @@ public abstract class $metafacade.logicName
 #if ($metafacade.requiresInheritanceDelegatation)
 #foreach ($link in $metafacade.generalizationLinks)
 #set ($generalizationCount = $velocityCount)
-    // ----------- delegates to $generalization.fullyQualifiedName ------------
+    // ----------- delegates to $link.parent.fullyQualifiedName ------------
 #foreach ($method in $metafacade.getMethodDataForPSM($link.parent))
     // from $method.metafacadeName
     $method.buildMethodDeclaration(true)
@@ -307,7 +313,7 @@ public abstract class $metafacade.logicName
 #end
 #end
     }
-    
+
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName()
      */
