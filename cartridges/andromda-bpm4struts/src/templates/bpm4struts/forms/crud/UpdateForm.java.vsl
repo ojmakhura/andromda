@@ -1,0 +1,26 @@
+#set ($generatedFile = "$crud.createFormBeanFullPath")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $crud.crudPackageName;
+
+public class $crud.createFormBeanClassName
+    extends org.apache.struts.validator.ValidatorForm
+    implements java.io.Serializable
+{
+#foreach ($attribute in $crud.attributes)
+    private $attribute.type.fullyQualifiedName $attribute.name;
+
+    $attribute.visibility $attribute.type.fullyQualifiedName ${attribute.getterName}()
+    {
+        return this.$attribute.name;
+    }
+
+    $attribute.visibility void ${attribute.setterName}($attribute.type.fullyQualifiedName $attribute.name)
+    {
+        return this.$attribute.name = $attribute.name;
+    }
+
+#end
+}

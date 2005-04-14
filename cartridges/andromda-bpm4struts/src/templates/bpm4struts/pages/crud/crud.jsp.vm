@@ -1,0 +1,27 @@
+#macro ( renderCrudField $field $indent )
+${indent}<html:text name="form" property="$field.name" class="criteriaField" styleId="$field.name"/>
+#if ($field.date)
+${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.name}_trigger" styleClass="calendar"/>
+${indent}<script type="text/javascript">
+#if ($xhtml == "true")
+${indent}//<![CDATA[
+#else
+${indent}//<!--
+#end
+#set ($calendarFieldFormat = $dateUtils.formatJavaToPerl($field.dateFormat))
+${indent}    Calendar.setup({
+${indent}        inputField     :    "$field.name",
+${indent}        ifFormat       :    "$calendarFieldFormat",
+${indent}        daFormat       :    "$calendarFieldFormat",
+${indent}        showsTime      :    $dateUtils.containsTimeFormat($calendarFieldFormat),
+${indent}        button         :    "${field.name}_trigger",
+${indent}        singleClick    :    true
+${indent}    });
+#if ($xhtml == "true")
+${indent}//]]>
+#else
+${indent}//-->
+#end
+${indent}</script>
+#end
+#end

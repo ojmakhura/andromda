@@ -1,0 +1,80 @@
+#parse("templates/bpm4struts/pages/crud/crud.jsp.vm")
+#set ($generatedFile = "$crud.pageFullPath")
+##
+#set ($tableVariable = "form.${crud.listName}")
+#set ($tablePresentTest = "!empty $tableVariable")
+#set ($tablePresentTest = "${${tablePresentTest}}")
+##
+<%@ include file="/taglib-imports.jspf" %>
+##
+<tiles:insert definition="main.layout">
+
+    <tiles:put name="title" type="string">
+        <bean:message key="$crud.pageTitleKey"/>
+    </tiles:put>
+
+    <tiles:put name="javascript" type="string">
+        <script type="text/javascript">
+        //<!--
+            function setCreateForm(form)
+            {
+                form.name = "$crud.formBeanName";
+                form.action = "<bean:rewrite action="$crud.createActionPath"/>"
+            }
+        -->
+        </script>
+    </tiles:put>
+
+    <tiles:put name="body" type="string">
+
+        <div id="criteria">
+            <html:form action="$crud.createActionPath">
+                <table>
+#foreach ($attribute in $crud.attributes)
+                    <tr>
+                        <td><bean:message key="$attribute.messageKey" bundle="$crudResourcesKey"/></td>
+                        <td>
+#renderCrudField($attribute "                            ")
+                        </td>
+                        <td></td>
+                    </tr>
+#end
+#*
+#foreach ($attribute in $crud.attributes)
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+#end
+*#
+                </table>
+
+                <html:submit onclick="setCreateForm(this.form);" />
+#*
+                <html:submit insert />
+*#
+            </html:form>
+        </div>
+
+        <div id="relations">
+
+        </div>
+
+        <div id="${crud.listName}" class="table">
+            <c:if test="$tablePresentTest">
+                <display:table name="${crud.listName}" id="row" requestURI="${pageContext.request.requestURI}"
+                        export="true" pagesize="15" sort="list">
+#foreach ($attribute in $crud.attributes)
+                    <display:column
+                        headerClass="$attribute.name" paramId="$attribute.name"
+                        sortProperty="$attribute.name" sortable="true"
+                        titleKey="$attribute.messageKey"/>
+#end
+                </display:table>
+            </c:if>
+        </div>
+
+    </tiles:put>
+
+</tiles:insert>

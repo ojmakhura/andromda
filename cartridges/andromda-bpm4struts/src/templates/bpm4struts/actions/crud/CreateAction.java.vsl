@@ -1,0 +1,42 @@
+#set ($generatedFile = "$crud.createActionFullPath")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $crud.crudPackageName;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public final class $crud.createActionClassName extends Action
+{
+    public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final $crud.createFormBeanType form = ($crud.createFormBeanType) actionForm;
+
+        ${crud.serviceAccessorCall}.create(
+#set ($comma = '')
+#foreach ($attribute in $crud.attributes)
+            ${comma}form.${attribute.getterName}()
+#set ($comma = ', ')
+#end
+#*
+#foreach ($associationEnd in $crud.associationEnds)
+#set ($otherEnd = $associationEnd.otherEnd)
+#if ($otherEnd.navigable)
+#foreach ($identifier in $otherEnd.type.identifiers)
+#set ($identifierSuffix = $stringUtils.upperCamelCaseName($identifier.name))
+            ${comma}form.${identifier.getterName}${identifierSuffix}()
+#set ($comma = ', ')
+#end
+#end
+#end
+*#
+        );
+    }
+}

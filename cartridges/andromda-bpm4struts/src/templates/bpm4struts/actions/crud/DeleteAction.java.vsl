@@ -1,0 +1,24 @@
+#set ($generatedFile = "$crud.deleteActionFullPath")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $crud.crudPackageName;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public final class $crud.deleteActionClassName extends Action
+{
+    public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final $crud.deleteFormBeanType form = ($crud.deleteFormBeanType) actionForm;
+
+//        ${crud.serviceAccessorCall}.delete(form.getId());
+    }
+}
