@@ -82,5 +82,18 @@ public class MetafacadeGeneralizationLogicImpl
         }
         return visibility;
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
+     */
+    public String getName()
+    {
+        String name = super.getName();
+        if (StringUtils.isBlank(name) && this.getParent() != null)
+        {
+            name = this.getParent().getName();
+        }
+        return "super" + StringUtils.capitalize(name);
+    }
 
 }
