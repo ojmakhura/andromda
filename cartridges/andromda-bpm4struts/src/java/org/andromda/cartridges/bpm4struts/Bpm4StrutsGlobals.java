@@ -19,16 +19,6 @@ public class Bpm4StrutsGlobals
     public static final String PROPERTY_DEFAULT_ACTION_REDIRECT = "defaultActionRedirect";
 
     /**
-     * The namespace property used to identify the pattern used to construct the backend service's accessor.
-     */
-    public static final String PROPERTY_SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
-
-    /**
-     * The namespace property used to identify the pattern used to construct the backend service's package name.
-     */
-    public static final String PROPERTY_SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
-
-    /**
      * The namespace property used to identify the action path prefix, which may very well be empty.
      */
     public static final String PROPERTY_ACTION_PATH_PREFIX = "actionPathPrefix";
