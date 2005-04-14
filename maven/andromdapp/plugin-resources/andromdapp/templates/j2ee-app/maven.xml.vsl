@@ -159,8 +159,12 @@
         <j:if test="$condition">
             <util:file var="scriptFile" name="${script}"/>
             <j:if test="${scriptFile.exists()}">
-                <ant:sql driver="${dataSource.driver.class}" src="${scriptFile}"
-                    url="${dataSource.url}" userid="${dataSource.user}" password="${dataSource.password}" >
+                <ant:sql driver="${dataSource.driver.class}" 
+                         src="${scriptFile}"
+                         url="${dataSource.url}" 
+                         userid="${dataSource.user}" 
+                         password="${dataSource.password}" 
+                         onerror="${dataSource.sql.onError}">
                     <ant:classpath>
                         <ant:pathelement location="${dataSource.driver.jar}"/>
                     </ant:classpath>
