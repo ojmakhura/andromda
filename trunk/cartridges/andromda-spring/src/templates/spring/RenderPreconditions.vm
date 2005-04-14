@@ -9,7 +9,7 @@
 #set ($preconditionDocumentation = $precondition.getDocumentation("",-1,false))
         {
             $preconditionTranslation
-            if (!preconditionValid)
+            if (!constraintValid)
                 throw new ${service.fullyQualifiedDefaultExceptionName}(
                     "$escapeUtils.escapeJava($preconditionDocumentation)");
         }
