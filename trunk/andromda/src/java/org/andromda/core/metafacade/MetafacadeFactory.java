@@ -242,7 +242,7 @@ public class MetafacadeFactory
      * @param context         the context to which the metafacade applies
      * @param mappings        the MetafacadeMappings instance to which the optional <code>mapping</code> instance
      *                        belongs.
-     * @param mapping         (the optional MetafacadeMapping instance from which the metafacade is mapped).
+     * @param mapping         the optional MetafacadeMapping instance from which the metafacade is mapped.
      * @return the new (or cached) metafacade.
      * @throws Exception if any error occurs during metafacade creation
      */
