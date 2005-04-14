@@ -3,6 +3,7 @@
     <templateEngine>
         <!-- library of macros used in template engine -->
         <macrolibrary name="templates/bpm4struts/pages/page.jsp.vm"/>
+        <macrolibrary name="templates/bpm4struts/pages/crud/crud.jsp.vm"/>
         <macrolibrary name="templates/bpm4struts/actions/Action.java.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
@@ -30,6 +31,7 @@
     <property reference="exceptionHandlerPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="validatorPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="errorMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
+    <property reference="crudResourcesKey" default="crud"/>
     <property reference="customResourcesKey" default="custom"/>
     <!-- generated xml's encoding -->
     <property reference="xmlEncoding" default="UTF-8"/>
@@ -556,6 +558,65 @@
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter">
                     <property name="tableDecoratorRequired"/>
                 </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!--
+            C R U D
+    -->
+
+    <template
+        path="templates/bpm4struts/actions/crud/CreateAction.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="create"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/forms/crud/CreateForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="create"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/crud/crud.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/configuration/crud/struts-admin.xml.vsl"
+        outputPattern="struts-admin.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="cruds">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
     </template>
