@@ -125,9 +125,6 @@ public class MetafacadeBase
         if (metaObject != null)
         {
             metafacade = MetafacadeFactory.getInstance().createMetafacade(metaObject, this.getContext());
-            // pass the context on to the metafacade created within this
-            // metafacade
-            metafacade.setMetafacadeContext(this.getContext());
         }
         return metafacade;
     }
