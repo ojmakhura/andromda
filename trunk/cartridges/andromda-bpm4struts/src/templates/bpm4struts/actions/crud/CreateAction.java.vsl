@@ -1,4 +1,4 @@
-#set ($generatedFile = "$crud.createActionFullPath")
+#set ($generatedFile = "${crud.createActionFullPath}.java")
 ##
 ##  START TEMPLATE
 ##
@@ -38,5 +38,7 @@ public final class $crud.createActionClassName extends Action
 #end
 *#
         );
+
+        return mapping.getInputForward();
     }
 }

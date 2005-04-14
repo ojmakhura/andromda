@@ -597,6 +597,96 @@
     </template>
 
     <template
+        path="templates/bpm4struts/actions/crud/ReadAction.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="read"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/forms/crud/ReadForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="read"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/actions/crud/UpdateAction.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="update"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/forms/crud/UpdateForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="update"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/actions/crud/DeleteAction.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="delete"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/forms/crud/DeleteForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="delete"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/bpm4struts/pages/crud/crud.jsp.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
@@ -611,6 +701,19 @@
     <template
         path="templates/bpm4struts/configuration/crud/struts-admin.xml.vsl"
         outputPattern="struts-admin.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="cruds">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/configuration/crud/validation-admin.xml.vsl"
+        outputPattern="validation-admin.xml"
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true">

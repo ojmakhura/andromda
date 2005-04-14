@@ -1,6 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
+
 
 
 /**
@@ -21,6 +21,11 @@ public class StrutsManageableEntityLogicImpl
     protected java.lang.String handleGetActionInput()
     {
         return '/' + getCrudPackagePath() + '/' + getPageName();
+    }
+
+    protected java.lang.String handleGetActionForwardName()
+    {
+        return "return";
     }
 
     protected java.lang.String handleGetActionForwardPath()
@@ -105,7 +110,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetCreateActionClassName()
     {
-        return StringUtilsHelper.upperCamelCaseName("create") + getName();
+        return "Create" + getName();
     }
 
     protected java.lang.String handleGetCreateFormBeanFullPath()
@@ -165,7 +170,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetReadActionClassName()
     {
-        return StringUtilsHelper.upperCamelCaseName("read") + getName();
+        return "Read" + getName();
     }
 
     protected java.lang.String handleGetReadFormBeanFullPath()

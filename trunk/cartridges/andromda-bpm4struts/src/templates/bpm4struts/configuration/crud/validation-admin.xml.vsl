@@ -6,17 +6,18 @@
 
 <form-validation>
 
-#foreach ($crud in $cruds)
     <formset>
+#foreach ($crud in $cruds)
 #if ($crud.create)
         <form name="$crud.createFormBeanName">
 #foreach ($attribute in $crud.attributes)
             <field property="$attribute.name" depends="$attribute.validatorTypeList">
                 <arg position="0" key="$attribute.messageKey" />
+            </field>
 #end
         </form>
 #end
+#end
     </formset>
 
-#end
 </form-validation>

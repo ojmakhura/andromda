@@ -16,102 +16,52 @@
     <form-beans>
 #foreach ($crud in $cruds)
 #if ($crud.create)
-        <form-bean
-            name="$crud.createFormBeanName"
-            type="$crud.createFormBeanType" />
+        <form-bean name="$crud.createFormBeanName" type="$crud.createFormBeanType" />
 #end
 #end
     </form-beans>
 
     <global-forwards>
 #foreach ($crud in $cruds)
-        <forward
-            name="$crud.createForwardName"
-            path="$crud.createForwardPath"
-            redirect="false" />
+#if ($crud.create)
+        <forward name="$crud.createForwardName" path="$crud.createForwardPath" redirect="false" />
+#end
+#if ($crud.read)
+        <forward name="$crud.readForwardName" path="$crud.readForwardPath" redirect="false" />
+#end
+#if ($crud.update)
+        <forward name="$crud.updateForwardName" path="$crud.updateForwardPath" redirect="false" />
+#end
+#if ($crud.delete)
+        <forward name="$crud.deleteForwardName" path="$crud.deleteForwardPath" redirect="false" />
+#end
 #end
     </global-forwards>
 
    <action-mappings>
 #foreach ($crud in $cruds)
 #if ($crud.create)
-        <action
-            path="$crud.createActionPath"
-            type="$crud.createActionType"
-            name="$crud.createFormBeanName"
-            scope="request"
-            input="$crud.createActionInput"
-            unknown="false"
-            validate="false">
-            <exception
-                type="java.lang.Exception"
-                key="$crud.createExceptionKey"
-                path="$crud.createExceptionPath"
-                scope="request" />
-            <forward
-                name="$crud.createActionForwardName"
-                path="$crud.createActionForwardPath"
-                redirect="false" />
+        <action path="$crud.createActionPath" type="$crud.createActionType" name="$crud.createFormBeanName"
+            scope="request" input="$crud.actionInput" unknown="false" validate="false">
+            <exception type="java.lang.Exception" key="$crud.createExceptionKey" path="$crud.createExceptionPath" scope="request" />
         </action>
 #end
 #if ($crud.read)
-        <action
-            path="$crud.readActionPath"
-            type="$crud.readActionType"
-            name="$crud.readFormBeanName"
-            scope="request"
-            input="$crud.readActionInput"
-            unknown="false"
-            validate="false">
-            <exception
-                type="java.lang.Exception"
-                key="$crud.readExceptionKey"
-                path="$crud.readExceptionPath"
-                scope="request" />
-            <forward
-                name="$crud.readActionForwardName"
-                path="$crud.readActionForwardPath"
-                redirect="false" />
+        <action path="$crud.readActionPath" type="$crud.readActionType" name="$crud.readFormBeanName"
+            scope="request" input="$crud.actionInput" unknown="false" validate="false">
+            <exception type="java.lang.Exception" key="$crud.readExceptionKey" path="$crud.readExceptionPath" scope="request" />
         </action>
 #end
 #if ($crud.update)
-        <action
-            path="$crud.updateActionPath"
-            type="$crud.updateActionType"
-            name="$crud.updateFormBeanName"
-            scope="request"
-            input="$crud.updateActionInput"
-            unknown="false"
-            validate="false">
-            <exception
-                type="java.lang.Exception"
-                key="$crud.updateExceptionKey"
-                path="$crud.updateExceptionPath"
-                scope="request" />
-            <forward
-                name="$crud.updateActionForwardName"
-                path="$crud.updateActionForwardPath"
-                redirect="false" />
+        <action path="$crud.updateActionPath" type="$crud.updateActionType" name="$crud.updateFormBeanName"
+            scope="request" input="$crud.actionInput" unknown="false" validate="false">
+            <exception type="java.lang.Exception" key="$crud.updateExceptionKey" path="$crud.updateExceptionPath" scope="request" />
         </action>
 #end
 #if ($crud.delete)
-        <action
-            path="$crud.deleteActionPath"
-            type="$crud.deleteActionType"
-            name="$crud.deleteFormBeanName"
-            scope="request"
-            input="$crud.deleteActionInput"
-            unknown="false"
-            validate="false">
-            <exception
-                type="java.lang.Exception"
-                key="$crud.deleteExceptionKey"
-                path="$crud.deleteExceptionPath"
-                scope="request" />
-            <forward
-                name="$crud.deleteActionForwardName"
-                path="$crud.deleteActionForwardPath"
-                redirect="false" />
+        <action path="$crud.deleteActionPath" type="$crud.deleteActionType" name="$crud.deleteFormBeanName"
+            scope="request" input="$crud.actionInput" unknown="false" validate="false">
+            <exception type="java.lang.Exception" key="$crud.deleteExceptionKey" path="$crud.deleteExceptionPath" scope="request" />
         </action>
 #end
 #end

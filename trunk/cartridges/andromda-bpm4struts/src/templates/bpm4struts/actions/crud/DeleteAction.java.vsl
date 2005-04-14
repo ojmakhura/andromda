@@ -1,4 +1,4 @@
-#set ($generatedFile = "$crud.deleteActionFullPath")
+#set ($generatedFile = "${crud.deleteActionFullPath}.java")
 ##
 ##  START TEMPLATE
 ##
@@ -19,6 +19,13 @@ public final class $crud.deleteActionClassName extends Action
     {
         final $crud.deleteFormBeanType form = ($crud.deleteFormBeanType) actionForm;
 
-//        ${crud.serviceAccessorCall}.delete(form.getId());
+        ${crud.serviceAccessorCall}.delete(
+#set ($comma =  '')
+#foreach ($identifier in $crud.identifiers)
+            ${comma}form.${identifier.getterName}()
+#set ($comma =  ',')
+#end
+
+        return mapping.getInputForward();
     }
 }

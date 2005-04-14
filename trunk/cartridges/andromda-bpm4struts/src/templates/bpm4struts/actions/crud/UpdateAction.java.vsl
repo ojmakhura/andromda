@@ -1,4 +1,4 @@
-#set ($generatedFile = "$crud.updateActionFullPath")
+#set ($generatedFile = "${crud.updateActionFullPath}.java")
 ##
 ##  START TEMPLATE
 ##
@@ -18,5 +18,7 @@ public final class $crud.updateActionClassName extends Action
     public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         final $crud.updateFormBeanType form = ($crud.updateFormBeanType) actionForm;
+
+        return mapping.getInputForward();
     }
 }
