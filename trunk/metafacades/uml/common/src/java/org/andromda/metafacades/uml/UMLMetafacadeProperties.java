@@ -163,10 +163,10 @@ public class UMLMetafacadeProperties
     /**
      * The namespace property used to identify the pattern used to construct the backend service's accessor.
      */
-    public static final String PROPERTY_SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
+    public static final String SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
 
     /**
      * The namespace property used to identify the pattern used to construct the backend service's package name.
      */
-    public static final String PROPERTY_SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
+    public static final String SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
 }
