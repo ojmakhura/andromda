@@ -1,0 +1,135 @@
+##
+##  CONSTANTS
+##
+#set ($validationDesired = ($clientValidation=='true' || $serverValidation=='true'))
+##
+##  START TEMPLATE
+##
+<?xml version="1.0" encoding="$xmlEncoding" ?>
+
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+    "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+    <form-beans>
+#foreach ($crud in $cruds)
+#if ($crud.create)
+        <form-bean
+            name="$crud.createFormBeanName"
+            type="$crud.createFormBeanType" />
+#end
+#end
+    </form-beans>
+
+    <global-forwards>
+#foreach ($crud in $cruds)
+        <forward
+            name="$crud.createForwardName"
+            path="$crud.createForwardPath"
+            redirect="false" />
+#end
+    </global-forwards>
+
+   <action-mappings>
+#foreach ($crud in $cruds)
+#if ($crud.create)
+        <action
+            path="$crud.createActionPath"
+            type="$crud.createActionType"
+            name="$crud.createFormBeanName"
+            scope="request"
+            input="$crud.createActionInput"
+            unknown="false"
+            validate="false">
+            <exception
+                type="java.lang.Exception"
+                key="$crud.createExceptionKey"
+                path="$crud.createExceptionPath"
+                scope="request" />
+            <forward
+                name="$crud.createActionForwardName"
+                path="$crud.createActionForwardPath"
+                redirect="false" />
+        </action>
+#end
+#if ($crud.read)
+        <action
+            path="$crud.readActionPath"
+            type="$crud.readActionType"
+            name="$crud.readFormBeanName"
+            scope="request"
+            input="$crud.readActionInput"
+            unknown="false"
+            validate="false">
+            <exception
+                type="java.lang.Exception"
+                key="$crud.readExceptionKey"
+                path="$crud.readExceptionPath"
+                scope="request" />
+            <forward
+                name="$crud.readActionForwardName"
+                path="$crud.readActionForwardPath"
+                redirect="false" />
+        </action>
+#end
+#if ($crud.update)
+        <action
+            path="$crud.updateActionPath"
+            type="$crud.updateActionType"
+            name="$crud.updateFormBeanName"
+            scope="request"
+            input="$crud.updateActionInput"
+            unknown="false"
+            validate="false">
+            <exception
+                type="java.lang.Exception"
+                key="$crud.updateExceptionKey"
+                path="$crud.updateExceptionPath"
+                scope="request" />
+            <forward
+                name="$crud.updateActionForwardName"
+                path="$crud.updateActionForwardPath"
+                redirect="false" />
+        </action>
+#end
+#if ($crud.delete)
+        <action
+            path="$crud.deleteActionPath"
+            type="$crud.deleteActionType"
+            name="$crud.deleteFormBeanName"
+            scope="request"
+            input="$crud.deleteActionInput"
+            unknown="false"
+            validate="false">
+            <exception
+                type="java.lang.Exception"
+                key="$crud.deleteExceptionKey"
+                path="$crud.deleteExceptionPath"
+                scope="request" />
+            <forward
+                name="$crud.deleteActionForwardName"
+                path="$crud.deleteActionForwardPath"
+                redirect="false" />
+        </action>
+#end
+#end
+   </action-mappings>
+
+  <message-resources key="$crudResourcesKey" parameter="crud-resources" null="false" />
+
+#if ($applicationUseCase.applicationValidationRequired && $validationDesired)
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames" value="/WEB-INF/validation-admin.xml,/WEB-INF/validator-rules.xml"/>
+    <set-property property="stopOnFirstError" value="false"/>
+  </plug-in>
+
+#end
+  <plug-in className="org.apache.struts.tiles.TilesPlugin">
+    <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
+    <set-property property="definitions-parser-validate" value="true"/>
+    <set-property property="moduleAware" value="true"/>
+  </plug-in>
+
+</struts-config>
