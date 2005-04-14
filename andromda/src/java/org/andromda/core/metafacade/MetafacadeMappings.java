@@ -265,8 +265,8 @@ public class MetafacadeMappings
     /**
      * <p/>
      * Stores the metafacades which are currently "in process" (within the {@link #getMapping(Object, String,
-            * Collection)}. This means the metafacade being processed by the {@link #getMapping(Object, String,
-            * Collection)}operation. We store these "in process" metafacades in order to keep track of the metafacades
+     * Collection)}. This means the metafacade being processed by the {@link #getMapping(Object, String,
+     * Collection)}operation. We store these "in process" metafacades in order to keep track of the metafacades
      * currently being evaluated so we avoid stack over flow errors {@link #getMapping(Object, String, Collection)}when
      * finding metafacades that are mapped to super metafacade properties. </p>
      * <p/>
