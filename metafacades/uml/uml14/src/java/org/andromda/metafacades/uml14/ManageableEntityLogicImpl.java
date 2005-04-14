@@ -93,7 +93,7 @@ public class ManageableEntityLogicImpl
     protected String handleGetServiceAccessorCall()
     {
         final String accessorImplementation = String.valueOf(
-                getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_SERVICE_ACCESSOR_PATTERN));
+                getConfiguredProperty(UMLMetafacadeProperties.SERVICE_ACCESSOR_PATTERN));
         return accessorImplementation.replaceAll("\\{0\\}", getCrudPackageName()).replaceAll("\\{1\\}", getServiceName());
     }
 
