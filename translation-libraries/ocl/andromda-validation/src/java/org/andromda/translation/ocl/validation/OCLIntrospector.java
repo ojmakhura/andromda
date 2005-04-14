@@ -51,16 +51,16 @@ public class OCLIntrospector
         }
         catch (Throwable throwable)
         {
-            Throwable cause = ExceptionUtils.getRootCause(throwable);
+            throwable = getRootCause(throwable);
             // If cause is an OCLIntrospector throw that exception
             // rather than creating a new one.
-            if (cause instanceof OCLIntrospectorException)
+            if (throwable instanceof OCLIntrospectorException)
             {
                 // Wrap exception again to prevent redundant
                 // error messages as the stack unwinds.
-                throw (OCLIntrospectorException)cause;
+                throw (OCLIntrospectorException)throwable;
             }
-            throw new OCLIntrospectorException(cause);
+            throw new OCLIntrospectorException(throwable);
         }
         return result;
     }
@@ -90,7 +90,7 @@ public class OCLIntrospector
         {
             final String message = "Error invoking feature '" + feature + "' on element '" + element +
                     "' with arguments '" + StringUtils.join(arguments, ',') + "'";
-            throwable = ExceptionUtils.getRootCause(throwable);
+            throwable = getRootCause(throwable);
             logger.error(message);
             throw new OCLIntrospectorException(throwable);
         }
@@ -206,5 +206,22 @@ public class OCLIntrospector
             }
         }
         return objectTypes;
+    }
+    
+    /**
+     * Attempts to retrieve the root cause of the exception, if it can not be
+     * found, the <code>throwable</code> itself is returned.
+     * 
+     * @param throwable the exception from which to retrieve the root cause.
+     * @return the root cause of the exception
+     */
+    private static Throwable getRootCause(Throwable throwable)
+    {
+        Throwable root = ExceptionUtils.getRootCause(throwable);
+        if (root != null)
+        {
+            throwable = root;
+        }
+        return throwable;
     }
 }

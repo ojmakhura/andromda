@@ -118,7 +118,7 @@ public final class OCLCollections
         boolean notEmpty = object != null;
         if (notEmpty)
         {
-            if (Collection.class.isAssignableFrom(object.getClass()))
+            if (Collection.class.isInstance(object))
             {
                 notEmpty = !((Collection)object).isEmpty();
             }
