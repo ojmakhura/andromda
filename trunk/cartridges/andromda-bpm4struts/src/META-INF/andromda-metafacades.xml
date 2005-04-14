@@ -122,4 +122,37 @@
         <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>
     </metafacade>
 
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+            <stereotype>ENTITY</stereotype>
+            <stereotype>MANAGEABLE</stereotype>
+        </mapping>
+        <property reference="serviceAccessorPattern" default=""/>
+        <property reference="servicePackageNamePattern" default="{0}"/>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENTITY</stereotype>
+            <stereotype>MANAGEABLE</stereotype>
+        </mapping>
+        <property reference="serviceAccessorPattern" default=""/>
+        <property reference="servicePackageNamePattern" default="{0}"/>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+            <stereotype>ENTITY</stereotype>
+            <stereotype>MANAGEABLE</stereotype>
+        </mapping>
+        <property reference="serviceAccessorPattern" default=""/>
+        <property reference="servicePackageNamePattern" default="{0}"/>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+            <context>org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity</context>
+        </mapping>
+    </metafacade>
+
 </metafacades>
