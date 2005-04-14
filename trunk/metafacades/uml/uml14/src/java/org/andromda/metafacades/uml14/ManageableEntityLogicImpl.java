@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,22 +26,6 @@ public class ManageableEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.CrudEntity#getCreateModelClassName()
-     */
-    protected java.lang.String handleGetCreateModelClassName()
-    {
-        return "Create" + getName() + "Form";
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.CrudEntity#getFullCreateControllerPath()
-     */
-    protected java.lang.String handleGetFullCreateControllerPath()
-    {
-        return "a/" + getName();// @todo
-    }
-
-    /**
      * @see org.andromda.metafacades.uml.CrudEntity#getCrudPackageName()
      */
     protected java.lang.String handleGetCrudPackageName()
@@ -56,12 +41,9 @@ public class ManageableEntityLogicImpl
         return crudPackageName += "crud";
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.CrudEntity#getCreateControllerName()
-     */
-    protected java.lang.String handleGetCreateControllerName()
+    protected String handleGetCrudPackagePath()
     {
-        return "Create" + getName() + "Controller";
+        return getCrudPackageName().replace('.', '/');
     }
 
     /**
@@ -98,9 +80,21 @@ public class ManageableEntityLogicImpl
         return true;
     }
 
+    protected String handleGetServiceName()
+    {
+        return getName() + "ManageService";
+    }
+
+    protected String handleGetFullyQualifiedServiceName()
+    {
+        return getCrudPackageName() + '.' + getServiceName();
+    }
+
     protected String handleGetServiceAccessorCall()
     {
-        return "SERVICE_CALL";
+        final String accessorImplementation = String.valueOf(
+                getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_SERVICE_ACCESSOR_PATTERN));
+        return accessorImplementation.replaceAll("\\{0\\}", getCrudPackageName()).replaceAll("\\{1\\}", getServiceName());
     }
 
     protected boolean handleIsRead()
