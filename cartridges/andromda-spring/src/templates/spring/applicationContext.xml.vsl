@@ -156,6 +156,12 @@
                 ${service.fullyQualifiedName}.${operation.name}=${operation.transactionType}
 #end
 #end
+#foreach ($entity in $manageableEntities)
+                ${entity.fullyQualifiedServiceName}.create=PROPAGATION_REQUIRED
+                ${entity.fullyQualifiedServiceName}.read=PROPAGATION_REQUIRED
+                ${entity.fullyQualifiedServiceName}.update=PROPAGATION_REQUIRED
+                ${entity.fullyQualifiedServiceName}.delete=PROPAGATION_REQUIRED
+#end
             </value>
         </property>
     </bean>
