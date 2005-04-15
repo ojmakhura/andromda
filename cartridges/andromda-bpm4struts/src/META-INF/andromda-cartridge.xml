@@ -47,21 +47,9 @@
         overwrite="true"/>
 
     <resource
-        path="resources/hints/*.*"
-        outputPattern="layout/hints/{0}"
-        outlet="pages"
-        overwrite="true"/>
-
-    <resource
         path="resources/calendar/*.*"
         outputPattern="layout/calendar/{0}"
         outlet="pages"
-        overwrite="true"/>
-
-    <resource
-        path="resources/WEB-INF/lib/*.jar"
-        outputPattern="lib/{0}"
-        outlet="configuration"
         overwrite="true"/>
 
     <!-- cartridge-resource merge-point -->
@@ -251,11 +239,9 @@
         path="templates/bpm4struts/pages/index.jsp.vsl"
         outputPattern="$welcomeFileName"
         outlet="pages"
-        overwrite="true">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
@@ -268,11 +254,9 @@
         path="templates/bpm4struts/messages/application-resources.properties.vsl"
         outputPattern="application-resources.properties"
         outlet="messages"
-        overwrite="true">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
@@ -285,18 +269,8 @@
         path="templates/bpm4struts/messages/custom-resources.properties.vsl"
         outputPattern="custom-resources.properties"
         outlet="messages"
-        overwrite="false">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
-                    <property name="applicationUseCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
+        overwrite="false"
+        outputToSingleFile="true"/>
 
     <template
         path="templates/bpm4struts/messages/displaytag.properties.vsl"
@@ -362,11 +336,9 @@
         path="templates/bpm4struts/configuration/struts-config.xml.vsl"
         outputPattern="struts-config.xml"
         outlet="configuration"
-        overwrite="true">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
@@ -396,11 +368,9 @@
         path="templates/bpm4struts/configuration/validation.xml.vsl"
         outputPattern="validation.xml"
         outlet="configuration"
-        overwrite="true">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
@@ -432,18 +402,8 @@
         path="templates/bpm4struts/pages/messages.jsp.vsl"
         outputPattern="layout/messages.jsp"
         outlet="pages"
-        overwrite="true">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
-                    <property name="applicationUseCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
+        overwrite="true"
+        outputToSingleFile="true"/>
 
     <template
         path="templates/bpm4struts/server/users.properties.vsl"
@@ -459,11 +419,9 @@
         outlet="server"
         overwrite="true"
         required="false"
-        generateEmptyFiles="false">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
+        generateEmptyFiles="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
@@ -526,11 +484,9 @@
         outputPattern="application-help.jsp"
         outlet="pages"
         overwrite="true"
-        generateEmptyFiles="false">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
+        generateEmptyFiles="false"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>

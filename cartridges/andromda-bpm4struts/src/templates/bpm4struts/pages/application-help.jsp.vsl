@@ -1,4 +1,5 @@
 #if ($onlineHelp == "true")
+#set ($applicationUseCase = $applicationUseCases.iterator().next())
 ##
 ##  START TEMPLATE
 ##
