@@ -38,7 +38,7 @@
         <mapping class="org.omg.uml.foundation.core.EnumerationLiteral$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>
@@ -135,7 +135,7 @@
     </metafacade>
     <!-- Value Object metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.ValueObjectLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>VALUE_OBJECT</stereotype>
         </mapping>
     </metafacade>
@@ -151,14 +151,14 @@
         otherwise the ManageableEntity classes would be mapped to Entity instead
     -->
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
     </metafacade>
     <!-- Entity metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.EntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
         <property reference="allowDefaultIdentifiers" default="true"/>
@@ -198,7 +198,7 @@
     </metafacade>
     <!-- Service metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.ServiceLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
