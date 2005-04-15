@@ -23,4 +23,19 @@ public class $crud.createFormBeanClassName
     }
 
 #end
+#foreach ($member in $crud.manageableAssociationEnds)
+#set ($identifier = $member.type.identifiers.iterator().next())
+    private $identifier.type.fullyQualifiedName $member.name;
+
+    $member.visibility $identifier.type.fullyQualifiedName ${member.getterName}()
+    {
+        return this.$member.name;
+    }
+
+    $member.visibility void ${member.setterName}($identifier.type.fullyQualifiedName $member.name)
+    {
+        return this.$member.name = $member.name;
+    }
+
+#end
 }

@@ -23,16 +23,6 @@ public class StrutsManageableEntityLogicImpl
         return '/' + getCrudPackagePath() + '/' + getPageName();
     }
 
-    protected java.lang.String handleGetActionForwardName()
-    {
-        return "return";
-    }
-
-    protected java.lang.String handleGetActionForwardPath()
-    {
-        return getActionInput();
-    }
-
     protected java.lang.String handleGetPageTitleKey()
     {
         return getName().toLowerCase() + ".page.title";

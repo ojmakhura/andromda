@@ -9,17 +9,32 @@ public class $crud.createFormBeanClassName
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
 {
-#foreach ($attribute in $crud.attributes)
-    private $attribute.type.fullyQualifiedName $attribute.name;
+#foreach ($member in $crud.attributes)
+    private $member.type.fullyQualifiedName $member.name;
 
-    $attribute.visibility $attribute.type.fullyQualifiedName ${attribute.getterName}()
+    $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
     {
-        return this.$attribute.name;
+        return this.$member.name;
     }
 
-    $attribute.visibility void ${attribute.setterName}($attribute.type.fullyQualifiedName $attribute.name)
+    $member.visibility void ${member.setterName}($member.type.fullyQualifiedName $member.name)
     {
-        return this.$attribute.name = $attribute.name;
+        return this.$member.name = $member.name;
+    }
+
+#end
+#foreach ($member in $crud.manageableAssociationEnds)
+#set ($identifier = $member.type.identifiers.iterator().next())
+    private $identifier.type.fullyQualifiedName $member.name;
+
+    $member.visibility $identifier.type.fullyQualifiedName ${member.getterName}()
+    {
+        return this.$member.name;
+    }
+
+    $member.visibility void ${member.setterName}($identifier.type.fullyQualifiedName $member.name)
+    {
+        return this.$member.name = $member.name;
     }
 
 #end

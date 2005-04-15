@@ -21,22 +21,10 @@ public final class $crud.createActionClassName extends Action
 
         ${crud.serviceAccessorCall}.create(
 #set ($comma = '')
-#foreach ($attribute in $crud.attributes)
-            ${comma}form.${attribute.getterName}()
+#foreach ($member in $crud.crudMembers)
+            ${comma}form.${member.getterName}()
 #set ($comma = ', ')
 #end
-#*
-#foreach ($associationEnd in $crud.associationEnds)
-#set ($otherEnd = $associationEnd.otherEnd)
-#if ($otherEnd.navigable)
-#foreach ($identifier in $otherEnd.type.identifiers)
-#set ($identifierSuffix = $stringUtils.upperCamelCaseName($identifier.name))
-            ${comma}form.${identifier.getterName}${identifierSuffix}()
-#set ($comma = ', ')
-#end
-#end
-#end
-*#
         );
 
         return mapping.getInputForward();

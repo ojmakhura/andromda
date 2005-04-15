@@ -18,7 +18,7 @@
         //<!--
             function setCreateForm(form)
             {
-                form.name = "$crud.formBeanName";
+                form.name = "$crud.createFormBeanName";
                 form.action = "<bean:rewrite action="$crud.createActionPath"/>";
             }
         -->
@@ -65,11 +65,11 @@
             <c:if test="$tablePresentTest">
                 <display:table name="${crud.listName}" id="row" requestURI="${pageContext.request.requestURI}"
                         export="true" pagesize="15" sort="list">
-#foreach ($attribute in $crud.attributes)
+#foreach ($member in $crud.crudMembers)
                     <display:column
-                        headerClass="$attribute.name" paramId="$attribute.name"
-                        sortProperty="$attribute.name" sortable="true"
-                        titleKey="$attribute.messageKey"/>
+                        headerClass="$member.name" paramId="$member.name"
+                        sortProperty="$member.name" sortable="true"
+                        titleKey="$member.messageKey"/>
 #end
                 </display:table>
             </c:if>
