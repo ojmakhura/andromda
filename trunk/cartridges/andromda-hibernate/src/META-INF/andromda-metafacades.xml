@@ -25,7 +25,7 @@
     <property reference="enumerationNamePattern" default="{0}Enum"/>
     <property reference="hibernateQueryUseSpecializedSetters" default="false"/>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
     </metafacade>
@@ -65,7 +65,7 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
@@ -74,7 +74,7 @@
         <property reference="hibernateTypeMappingsUri" default=""/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEnumerationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>

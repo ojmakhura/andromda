@@ -19,10 +19,13 @@
     <property reference="ejbInterfacePattern" default="{0}.{1}"/>
     <property reference="ejbHomeInterfacePattern" default="{0}.{1}Home"/>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>
