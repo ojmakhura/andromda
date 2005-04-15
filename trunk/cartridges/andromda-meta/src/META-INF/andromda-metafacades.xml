@@ -4,7 +4,7 @@
 <metafacades namespace="meta">
     <property reference="implementationOperationNamePattern" default="handle{0}"/>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>METAFACADE</stereotype>
         </mapping>
         <!-- this defines the metamodel version package name
