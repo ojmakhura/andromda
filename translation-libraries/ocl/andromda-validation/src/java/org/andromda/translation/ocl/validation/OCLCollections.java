@@ -608,13 +608,16 @@ public final class OCLCollections
                 {
                     object = new ArrayList(collection);
                 }
-                list = (List)collection;
+                list = (List)object;
             }
         }
         else
         {
             list = new ArrayList();
-            list.add(object);
+            if (object != null)
+            {
+                list.add(object);
+            }
         }
         return list;
     }
