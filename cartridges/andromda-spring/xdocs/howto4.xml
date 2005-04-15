@@ -27,7 +27,7 @@
             <p>
                 In the spring cartridge you can simply model your value objects to be classes with the
                 <![CDATA[<<ValueObject>>]]> stereotype, you then add attributes for all fields you want to be
-                present. Doing this will generated a simple Java class adhering to the Java Bean specification.
+                present. Doing this will generate a simple Java class adhering to the Java Bean specification.
             </p>
             <p>
                 An interesting feature is that you can draw a dependency from any <![CDATA[<<Entity>>]]> to a
