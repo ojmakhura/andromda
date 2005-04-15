@@ -121,7 +121,13 @@
             <subsection name="Nullable Parameters">
                 <p>
                     If you want an operation to have a parameter which is allowed to be <code>null</code> then simply
-                    assign the <![CDATA[<<Nullable>>]]> stereotype to that parameter.
+                    assign the <![CDATA[<<Nullable>>]]> stereotype to that parameter. By default service and DAO
+                    operations throw an exception when a <code>null</code> argument has been passed.
+                </p>
+                <p>
+                    It is possible to globally disable checking for <code>null</code> arguments, so you will never
+                    need to specify the <![CDATA[<<Nullable>>]]> stereotype; to do so just specify the
+                    <code>parameterRequiredCheck</code> namespace property to have the <code>false</code> value.
                 </p>
             </subsection>
         </section>
