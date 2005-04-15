@@ -1,0 +1,107 @@
+#set ($generatedFile = "${crud.serviceFullPath}.java")
+// license-header java merge-point
+##
+#set ($criteriaList = $crud.listCriteria(true,false))
+#set ($criteriaListCollections = $crud.listCriteria(true,true))
+#set ($criteriaListArguments = $crud.listCriteria(false,false))
+##
+package $crud.crudPackageName;
+
+public final class $crud.crudDaoName
+    extends org.springframework.orm.hibernate.support.HibernateDaoSupport
+{
+#foreach ($associationEnd in $crud.manageableAssociationEnds)
+#set ($entity = $associationEnd.type)
+    private $entity.fullyQualifiedDaoName $entity.daoName = null;
+
+    public void ${associationEnd.daoSetterName}($entity.fullyQualifiedDaoName $entity.daoName)
+    {
+        this.$entity.daoName = $entity.daoName;
+    }
+
+    protected $entity.fullyQualifiedDaoName ${associationEnd.daoGetterName}()
+    {
+        return this.$entity.daoName;
+    }
+
+#end
+#if ($crud.create)
+    public void create($criteriaList)
+    {
+#foreach ($argument in $crud.criteria)
+#if ($argument.required && !$argument.type.primitive)
+        if ($argument.name == null)
+        {
+            throw new IllegalArgumentException(
+                "${crud.fullyQualifiedServiceName}.create(${criteriaList}) - '${argument.name}' can not be null");
+        }
+#end
+#end
+
+        final ${crud.fullyQualifiedEntityName} entity = new ${crud.fullyQualifiedEntityName}();
+#foreach ($attribute in $crud.attributes)
+        entity.${attribute.setterName}($attribute.name);
+#end
+#foreach ($associationEnd in $crud.manageableAssociationEnds)
+        entity.${associationEnd.setterName}(this.getHibernateTemplate().load($associationEnd.name));
+#end
+
+        this.getHibernateTemplate().save(entity);
+    }
+
+#end
+#if ($crud.read)
+    public java.util.List read($criteriaList)
+    {
+        // for each attribute add a criteria expression with ilike matchmode START
+
+        // for each relation add a subcriteria
+
+        return this.getHibernateTemplate().read($criteriaListArguments);
+    }
+
+#end
+#if ($crud.update)
+    public void update(Collection ids, $criteriaListCollections)
+    {
+        if (ids == null)
+        {
+            throw new IllegalArgumentException(
+                "${crud.fullyQualifiedServiceName}.update(Collection ids, $criteriaListCollections) - 'ids' can not be null");
+        }
+#foreach ($argument in $crud.criteria)
+#if ($argument.required && !$argument.type.primitive)
+        if ($argument.name == null)
+        {
+            throw new IllegalArgumentException(
+                "${crud.fullyQualifiedServiceName}.update(Collection ids, $criteriaListCollections) - '${argument.name}' can not be null");
+        }
+#end
+#end
+
+        for (final java.util.Iterator idIterator = ids.iterator(); idIterator.hasNext();)
+        {
+            final Object id = idIterator.next();
+            this.getHibernateTemplate().update(id, $criteriaListArguments);
+        }
+    }
+
+#end
+#if ($crud.delete)
+    public void delete(Collection ids)
+    {
+        if (ids == null)
+        {
+            throw new IllegalArgumentException(
+                "${crud.fullyQualifiedServiceName}.delete(Collection ids) - 'ids' can not be null");
+        }
+
+        for (final java.util.Iterator idIterator = ids.iterator(); idIterator.hasNext();)
+        {
+            final Object id = idIterator.next();
+            this.getHibernateTemplate().delete(id);
+        }
+    }
+
+#end
+}
