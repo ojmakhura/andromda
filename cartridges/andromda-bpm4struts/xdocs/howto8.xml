@@ -46,9 +46,7 @@
                 <p>
                     First of all you will need to model an event with one or more parameters (if you are not sure how to
                     do that then re-read <a href="howto2.html#Event_Parameters">this previous section</a>), make sure
-                    this event transition is going <em>out</em> of the page containing the table page-variable. Also
-                    make sure that the parameter has a name that is present in the list of table columns (as explained
-                    above).
+                    this event transition is going <em>out</em> of the page containing the table page-variable.
                 </p>
                 <p>
                     Second, you will need to make sure the event will be rendered as an hyperlink and not as a regular
@@ -63,6 +61,10 @@
                     (replace <code>myTable</code> with the name of your table, and notice how to dot separates both
                     fields).
                 </p>
+                <p class="highlight">
+                    If you don't specify a column name then the hyperlink will be rendered in its own column, the
+                    link will show the name of your event, rather than the cell value.
+                </p>
             </subsection>
             <subsection name="Submitting rows">
                 <p>
@@ -71,15 +73,15 @@
                 </p>
                 <p>
                     Model an event going out of the page holding showing the table, add one or more parameters to this
-                    event. Make sure all parameter names are present in the column name list for the table as
-                    explained above. Every one of these parameters will now be rendered in a widget, and next to each
+                    event. Every one of these parameters will now be rendered in a widget, and next to each
                     row there will be a button to apply this action on it. Clicking the button will invoke a JavaScript
                     function that will sumbit a form to the target action; browsers not supporting JavaScript or having
                     JavaScript disabled will not be able to use this functionality.
                 </p>
                 <p>
                     Don't forget to add the tagged value, but it's not needed to specify any column this time:
-                    <code>@andromda.struts.action.tablelink=myTable</code>.
+                    <code>@andromda.struts.action.tablelink=myTable</code> No need to specify a column name in this
+                    tagged value as these buttons will always be put in their own column.
                 </p>
                 <p>
                     Any widget is allowed, but if you still prefer to have plain text rendered instead of a widget
@@ -126,7 +128,9 @@
                 <a href="andromda-bpm4struts-cartridge/samples.html#online-store">Online Store</a> sample.
                 It is showing two hyperlink events, on the <code>id</code> and <code>publisher</code> columns
                 respectively, and one form event that will submit the <code>id</code>, <code>edition</code> and
-                <code>available</code> fields (you will need to take a look at the model to determine this).
+                <code>available</code> fields (see the
+                <a href="http://cvs.sourceforge.net/viewcvs.py/*checkout*/andromda/samples/online-store/mda/src/uml/online-store.xml.zip">
+                UML model</a>, opens in MagicDraw only).
             </p>
             <p>
                 <img src="resources/howto/org/andromda/test/online-store-table.gif"/>
@@ -142,7 +146,8 @@
                         <li>add a parameter to this event's trigger, give it the name <code>id</code></li>
                         <li>add the <code>@andromda.struts.action.tablelink</code> tag to the event, the value should
                             be the name of the table separated from the column name using a dot, ie.
-                            <code>itemList.id</code>.
+                            <code>itemList.id</code>. Not specifying the column name will make put this link in
+                            a separate column on the right.
                         </li>
                         <li>add the <code>@andromda.struts.action.type=hyperlink</code> tag to the event, this denotes
                             this action to be rendered as an hyperlink pointing to the target Struts action.
