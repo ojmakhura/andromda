@@ -13,9 +13,9 @@ import java.util.List;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.CrudEntity.
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.ManageableEntity.
  *
- * @see org.andromda.metafacades.uml.CrudEntity
+ * @see org.andromda.metafacades.uml.ManageableEntity
  */
 public class ManageableEntityLogicImpl
         extends ManageableEntityLogic
