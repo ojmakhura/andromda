@@ -32,7 +32,7 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaSearchLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>CRITERIA</stereotype>
         </mapping>
     </metafacade>
@@ -42,12 +42,12 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
@@ -55,7 +55,7 @@
         <property reference="servicePackageNamePattern" default="{0}"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
     </metafacade>
