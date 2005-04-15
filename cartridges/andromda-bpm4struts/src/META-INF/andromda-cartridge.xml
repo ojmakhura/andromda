@@ -52,6 +52,12 @@
         outlet="pages"
         overwrite="true"/>
 
+    <resource
+        path="resources/WEB-INF/lib/*.jar"
+        outputPattern="lib/{0}"
+        outlet="configuration"
+        overwrite="true"/>
+
     <!-- cartridge-resource merge-point -->
 
     <!-- process templates on model elements -->
