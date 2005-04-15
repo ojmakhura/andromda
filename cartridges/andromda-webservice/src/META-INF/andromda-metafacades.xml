@@ -37,12 +37,12 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>WEBSERVICE</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
