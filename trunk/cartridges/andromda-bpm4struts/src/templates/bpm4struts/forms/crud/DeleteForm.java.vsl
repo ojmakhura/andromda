@@ -9,18 +9,17 @@ public class $crud.deleteFormBeanClassName
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
 {
-#foreach ($attribute in $crud.attributes)
-    private $attribute.type.fullyQualifiedName[] $attribute.name;
+#set ($identifier = $crud.identifiers.iterator().next())
+    private ${identifier.type.fullyQualifiedName}[] $identifier.name = null;
 
-    $attribute.visibility $attribute.type.fullyQualifiedName[] ${attribute.getterName}()
+    $identifier.visibility ${identifier.type.fullyQualifiedName}[] ${identifier.getterName}()
     {
-        return this.$attribute.name;
+        return this.$identifier.name;
     }
 
-    $attribute.visibility void ${attribute.setterName}($attribute.type.fullyQualifiedName[] $attribute.name)
+    $identifier.visibility void ${identifier.setterName}(${identifier.type.fullyQualifiedName}[] $identifier.name)
     {
-        return this.$attribute.name = $attribute.name;
+        return this.$identifier.name = $identifier.name;
     }
 
-#end
 }
