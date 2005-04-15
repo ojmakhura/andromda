@@ -12,7 +12,7 @@
             <p>
                 With entities we mean what is usually implemented using Entity Beans or Hibernate POJOs (i.e. a
                 persistent entity like a Company or Person for example);
-                in the Spring cartridge you will not need to worry about the technology used behind, but
+                in the Spring cartridge you will not need to worry about the underlying persistence technology, but
                 you will probably want to know that Hibernate POJOs will be generated for the
                 entities you model.
             </p>
