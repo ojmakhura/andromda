@@ -100,7 +100,7 @@
 ##  SETS THE BODY OF THIS PAGE
 ##
     <tiles:put name="body" type="string">
-   
+
         <%--
             If you want your own custom messages to be displayed
             you do just need to edit the custom.properties resource bundle.
@@ -180,6 +180,13 @@
 #end
                     </display:column>
 #end
+#foreach ($tableAction in $variable.tableHyperlinkActions)
+#if (!$tableAction.tableLinkColumnName)
+                    <display:column media="html">
+#renderTableHyperlink($tableAction "                        ")
+                    </display:column>
+#end
+#end
                     <display:column media="html">
 #foreach ($tableAction in $variable.tableFormActions)
                         <input type="button" value="<bean:message key="$tableAction.actionTrigger.triggerKey"/>" onclick="return ${variable.name}${tableAction.formBeanClassName}Row('${row_rowNum}');"/>
@@ -193,11 +200,16 @@
                     function ${variable.name}${tableAction.formBeanClassName}Row(rowNum)
                     {
                         var query = ""; var field;
-#foreach ($column in $variable.tableColumns)
-#if ($column.actionParameter && $tableAction.actionParameters.contains($column))
-                        field = document.getElementById("${column.styleId}"+rowNum);
-                        if (field.type != "checkbox" || field.checked) query = query + ((query.length==0) ? '?' : '&') + "${column.name}=" + field.value;
+#set ($delim = '?')
+#foreach ($parameter in $tableAction.actionParameters)
+#if ($variable.tableColumns.contains($parameter))
+                        field = document.getElementById("${parameter.styleId}"+rowNum);
+                        if (field.type != "checkbox" || field.checked) query = query + "${delim}${parameter.name}=" + field.value;
+#else
+#set ($value = "form.${parameter.name}")
+                        query = query + "${delim}${parameter.name}=${${value}}";
 #end
+#set ($delim = '&')
 #end
                         document.location = "<html:rewrite action="$tableAction.actionPath"/>" + query;
                     }

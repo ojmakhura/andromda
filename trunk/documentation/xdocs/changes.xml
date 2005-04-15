@@ -9,7 +9,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-13" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-16" description="Second release candidate for version 3.0">
+            <action dev="draftdog" type="add" issue="BPM-168">
+                The new table-link feature in the bpm4struts cartridge now supports arbitrary parameters, they are
+                no longer restricted to the ones that match a column.
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-19">
                 Meta element inheritance is now taken into account when the AndroMDA Core searches for mappings, this
                 means that cartridge writers no longer need to create multiple mappings for each meta element class name,

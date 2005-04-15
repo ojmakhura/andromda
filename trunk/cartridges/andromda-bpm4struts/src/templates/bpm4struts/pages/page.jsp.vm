@@ -36,6 +36,28 @@ ${indent}</logic:notPresent>
 ##
 ##
 ##      This macro takes care of rendering the appropriate Struts
+##      HTML hyperlink tags for the argument action in a table
+##
+##
+#macro ( renderTableHyperlink $action $indent )
+#set ($table = $action.tableLinkParameter)
+#set($uriQuery='')#set($delim='?')
+#foreach ($parameter in $action.actionParameters)
+#if(!$table.tableColumnNames.contains($parameter.name))#set($beanName="form")#end
+#set($paramValue="${beanName}.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
+#end
+${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints)onmouseover="hints.show('$parameter.titleKey')" onmouseout="hints.hide()"#end>
+#if ($action.tableLinkColumnName)## the action is targetting a column, so display the table cell value
+#set($linkValue="row.${fieldName}")
+${indent}    ${${linkValue}}
+#else
+${indent}    <bean:message key="$action.actionTrigger.triggerKey"/>
+#end
+${indent}</html:link>
+#end
+##
+##
+##      This macro takes care of rendering the appropriate Struts
 ##      HTML button tags for the argument action
 ##
 ##
@@ -98,13 +120,7 @@ ${indent}</logic:notPresent>
 ##
 ##
 #if ($field.tableHyperlinkColumn)
-## construct the query to append to the URI
-#set($linkValue="row.${fieldName}")#set($uriQuery='')#set($delim='?')#set($paramValue="row.${parameter.name}")
-#foreach ($parameter in $field.action.actionParameters)
-#set($paramValue="row.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
-#end
-${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end>${${linkValue}}</html:link>
-${indent}<html:hidden name="row" property="$fieldName" styleId="$styleId"/>
+#renderTableHyperlink($action $indent)
 ##
 ##  Depending on the type of the input field we render a different widget
 ##
@@ -128,7 +144,7 @@ ${indent}</table>
 #elseif ($widgetType == 'checkbox')
 ${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
 ##
-##      M U L T I B O X 
+##      M U L T I B O X
 ##
 ## @todo: disable this widget if not used in a row action
 #elseif ($widgetType == 'multibox')

@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 
 
 /**
@@ -146,6 +147,35 @@ public class StrutsActionLogicImpl
         }
 
         return tableLinkParameter;
+    }
+
+    protected Collection handleGetTableNonColumnFormParameters()
+    {
+        Collection tableNonColumnActionParameters = null;
+
+        final StrutsParameter table = getTableLinkParameter();
+        if (table != null)
+        {
+            final Map tableNonColumnActionParametersMap = new LinkedHashMap(4);
+            final Collection columnNames = table.getTableColumnNames();
+            final List formActions = table.getTableFormActions();
+            for (int i = 0; i < formActions.size(); i++)
+            {
+                final StrutsAction action = (StrutsAction)formActions.get(i);
+                for (int j = 0; j < action.getActionParameters().size(); j++)
+                {
+                    final StrutsParameter parameter = (StrutsParameter)action.getActionParameters().get(j);
+                    if (!columnNames.contains(parameter.getName()))
+                    {
+                        tableNonColumnActionParametersMap.put(parameter.getName(), parameter);
+                    }
+                }
+            }
+
+            tableNonColumnActionParameters = tableNonColumnActionParametersMap.values();
+        }
+
+        return tableNonColumnActionParameters;
     }
 
     protected String handleGetTableLinkName()
