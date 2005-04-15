@@ -1,4 +1,5 @@
 #set ($validationDesired = ($clientValidation == 'true'))
+#set ($applicationUseCase = $applicationUseCases.iterator().next())
 #if ($applicationUseCase.applicationValidationRequired && $validationDesired)
 <%@ page contentType="application/x-javascript" %>
 <%@ include file="/taglib-imports.jspf" %>

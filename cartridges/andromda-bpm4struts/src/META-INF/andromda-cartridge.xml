@@ -204,11 +204,9 @@
         outputPattern="form-validation.jsp"
         outlet="pages"
         overwrite="true"
-        generateEmptyFiles="false">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
+        generateEmptyFiles="false"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
@@ -222,11 +220,9 @@
         outputPattern="validator-rules.xml"
         outlet="configuration"
         overwrite="true"
-        generateEmptyFiles="false">
-        <!-- outputToSingleFile should be true but this results in exceptions in the template
-             when more than one use-case is an application use-case (which is illegal),
-             it's okay if we generate this file from the last application use-case found -->
-        <modelElements variable="applicationUseCase">
+        generateEmptyFiles="false"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
