@@ -1,3 +1,4 @@
+#set ($applicationUseCase = $applicationUseCases.iterator().next())
 main.title=$applicationUseCase.name
 
 breadcrumbs.error=Error on page
