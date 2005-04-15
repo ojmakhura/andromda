@@ -32,7 +32,7 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaSearchLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>CRITERIA</stereotype>
         </mapping>
     </metafacade>
@@ -42,12 +42,7 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
@@ -76,17 +71,7 @@
         <property reference="servicePackageNamePattern" default="{0}"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENTITY</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>ENTITY</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
     </metafacade>
@@ -104,8 +89,5 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Usage$Impl"/>
     </metafacade>
 </metafacades>

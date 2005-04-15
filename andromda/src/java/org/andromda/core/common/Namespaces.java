@@ -24,16 +24,8 @@ public class Namespaces
      */
     public static final String DEFAULT = "default";
 
-    private Map namespaces;
-
-    /**
-     * Constructs an instance of Namespaces.
-     */
-    public Namespaces()
-    {
-        this.namespaces = new HashMap();
-    }
-
+    private final Map namespaces = new HashMap();
+    
     /**
      * Returns the singleton instance of this Namespaces
      *

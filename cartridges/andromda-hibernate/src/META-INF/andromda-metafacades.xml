@@ -29,16 +29,6 @@
             <stereotype>ENTITY</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENTITY</stereotype>
-        </mapping>
-     </metafacade>
-    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENTITY</stereotype>
-        </mapping>
-    </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
@@ -75,12 +65,7 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
@@ -90,16 +75,6 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEnumerationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEnumerationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEnumerationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>

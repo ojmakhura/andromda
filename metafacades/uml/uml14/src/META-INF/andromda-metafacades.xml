@@ -24,20 +24,15 @@
     <property reference="entityPropertyNameMask" default="none"/>
     <property reference="parameterNameMask" default="none"/>
     <property reference="enableMetafacadePropertyCaching" default="true"/>
+    <property reference="metaclassImplementationNamePattern" default="{0}$Impl"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ModelFacadeLogicImpl">
         <mapping class="org.omg.uml.UmlPackage$Impl"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
-        <mapping class="org.omg.uml.modelmanagement.Model$Impl"/>
-    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.EnumerationLiteral$Impl"/>
@@ -46,25 +41,6 @@
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EnumerationFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Component$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Node$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationClassFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationClass$Impl"/>
@@ -78,9 +54,6 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.DependencyFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.DependencyFacadeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Usage$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.TaggedValueFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.TaggedValue$Impl"/>
@@ -113,30 +86,6 @@
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.commonbehavior.Action$Impl"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.ActionSequence$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.CreateAction$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.DestroyAction$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.ReturnAction$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.SendAction$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.TerminateAction$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.UninterpretedAction$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.CallActionFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.commonbehavior.CallAction$Impl"/>
-    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionStateFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"/>
     </metafacade>
@@ -155,18 +104,6 @@
     <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Event$Impl"/>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.ChangeEvent$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.TimeEvent$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.CallEventFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>
-    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.FinalStateFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl"/>
     </metafacade>
@@ -175,9 +112,6 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.StateFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.State$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.StateFacadeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.CompositeState$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.StateVertexFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.StateVertex$Impl"/>
@@ -205,38 +139,17 @@
             <stereotype>VALUE_OBJECT</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ValueObjectLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>VALUE_OBJECT</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ValueObjectLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>VALUE_OBJECT</stereotype>
-        </mapping>
-    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ValueObjectAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <property name="valueObjectType"/>
         </mapping>
     </metafacade>
-    <!-- Manageable metafacades:
-            these mappings need to be listed *before* the regular entities because
-            of the fact that we are using both ENTITY and MANAGEABLE stereotypes,
-            otherwise the ManageableEntity classes would be mapped to Entity instead
+    <!-- 
+        Manageable metafacades:
+        these mappings need to be listed *before* the regular entities because
+        of the fact that we are using both ENTITY and MANAGEABLE stereotypes,
+        otherwise the ManageableEntity classes would be mapped to Entity instead
     -->
-    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENTITY</stereotype>
-            <stereotype>MANAGEABLE</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENTITY</stereotype>
-            <stereotype>MANAGEABLE</stereotype>
-        </mapping>
-    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>ENTITY</stereotype>
@@ -246,26 +159,6 @@
     <!-- Entity metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.EntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>ENTITY</stereotype>
-        </mapping>
-        <property reference="allowDefaultIdentifiers" default="true"/>
-        <property reference="defaultIdentifier" default="id"/>
-        <property reference="defaultIdentifierType" default="datatype::Long"/>
-        <property reference="defaultIdentifierVisibility" default="public"/>
-        <property reference="relationNameSeparator" default="2"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENTITY</stereotype>
-        </mapping>
-        <property reference="allowDefaultIdentifiers" default="true"/>
-        <property reference="defaultIdentifier" default="id"/>
-        <property reference="defaultIdentifierType" default="datatype::Long"/>
-        <property reference="defaultIdentifierVisibility" default="public"/>
-        <property reference="relationNameSeparator" default="2"/>
-    </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.EntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
         <property reference="allowDefaultIdentifiers" default="true"/>
@@ -305,7 +198,7 @@
     </metafacade>
     <!-- Service metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.ServiceLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
