@@ -37,13 +37,7 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>ENTITY</stereotype>
-        </mapping>
-        <property reference="jndiNamePrefix" default=""/>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
         <property reference="jndiNamePrefix" default=""/>
@@ -65,13 +59,7 @@
     </metafacade>
     <!-- Session EJB Metafacades -->
     <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-        <property reference="jndiNamePrefix" default=""/>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
+        <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
         <property reference="jndiNamePrefix" default=""/>

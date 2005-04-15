@@ -21,24 +21,8 @@
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
-    </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Interface$Impl">
-            <stereotype>ENUMERATION</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>
@@ -59,16 +43,6 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl">
-            <stereotype>SERVICE</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>WEBSERVICE</stereotype>
-        </mapping>
-    </metafacade>
-    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
