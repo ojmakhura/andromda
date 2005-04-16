@@ -10,6 +10,18 @@
     </properties>
     <body>
         <release version="3.0-RC2-SNAPSHOT" date="2005-04-16" description="Second release candidate for version 3.0">
+            <action dev="cwbrandon" type="update">
+                The AndroMDA Ant task has been refactored out of the Core, and the package name has changed
+                to <em>org.andromda.ant.task</em>, Maven users are not affected by this change, however Ant
+                users will need to update the package from the old <em>org.andromda.core.anttasks</em> to the
+                new <em>org.andromda.ant.task</em>.
+            </action>
+            <action dev="cwbrandon" type="add" issue="CORE-59">
+                The encoding can now be set for both the Ant Task and the AndroMDA Maven plugin, 
+                <code>maven.andromda.outputEncoding</code> is the required property for the Maven plugin,
+                 and the <code>outputEncoding</code> is the attribute for the Andromda Ant task.  Please see the documentation
+                 for each for more information.
+            </action>
             <action dev="draftdog" type="add" issue="BPM-168">
                 The new table-link feature in the bpm4struts cartridge now supports arbitrary parameters, they are
                 no longer restricted to the ones that match a column.
