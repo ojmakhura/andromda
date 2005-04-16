@@ -1,4 +1,4 @@
-package org.andromda.core.anttasks;
+package org.andromda.ant.task;
 
 import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;

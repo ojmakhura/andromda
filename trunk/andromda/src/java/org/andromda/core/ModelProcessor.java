@@ -353,6 +353,17 @@ public class ModelProcessor
             }
         }
     }
+    
+    /**
+     * Sets the encoding (UTF-8, ISO-8859-1, etc) for all output 
+     * produced during model processing.
+     * 
+     * @param outputEncoding the encoding.
+     */
+    public void setOuputEncoding(String outputEncoding)
+    {
+        ResourceWriter.instance().setEncoding(outputEncoding);
+    }
 
     /**
      * <p/>

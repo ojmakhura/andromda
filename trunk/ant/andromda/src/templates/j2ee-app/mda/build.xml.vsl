@@ -40,7 +40,7 @@
     </path>
 
     <target name="mda">
-        <taskdef name="andromda" classname="org.andromda.core.anttasks.AndroMDAGenTask" classpathref="classpath"/>
+        <taskdef name="andromda" classname="org.andromda.ant.task.AndroMDAGenTask" classpathref="classpath"/>
         <andromda lastModifiedCheck="false" 
                   xmlValidation="${andromda.xmlValidation}"
                   modelValidation="${andromda.modelValidation}"

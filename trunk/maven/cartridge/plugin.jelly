@@ -31,7 +31,7 @@
 
             <ant:taskdef
                 name="andromda-test"
-                classname="org.andromda.core.anttasks.AndroMDAGenTask">
+                classname="org.andromda.ant.task.AndroMDAGenTask">
                 <ant:classpath>
                     <ant:path refid="andromda.cartridge.classpath"/>
                     <ant:pathelement location="${maven.build.dest}"/>
@@ -180,7 +180,7 @@ Please define the location of your how-to model by setting a value for property 
 
         <ant:taskdef
             name="andromda-howto"
-            classname="org.andromda.core.anttasks.AndroMDAGenTask">
+            classname="org.andromda.ant.task.AndroMDAGenTask">
             <ant:classpath>
                 <ant:path refid="andromda.cartridge.classpath"/>
                 <ant:pathelement location="${maven.build.dest}"/>

@@ -30,7 +30,7 @@
 
         <ant:taskdef
             name="andromda"
-            classname="org.andromda.core.anttasks.AndroMDAGenTask">
+            classname="org.andromda.ant.task.AndroMDAGenTask">
             <ant:classpath>
                 <ant:path refid="maven.andromda.classpath"/>
             </ant:classpath>

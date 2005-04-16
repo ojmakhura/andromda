@@ -1,12 +1,12 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Used for writing resources for the framework. Also keeps histories of previous resources generated so that we can
@@ -112,20 +112,25 @@ public class ResourceWriter
         }
         string = Merger.instance().getMergedString(string, namespace);
         FileOutputStream stream = new FileOutputStream(file);
-        stream.write(string.getBytes());
+        byte[] output;
+        if (StringUtils.isNotBlank(this.encoding))
+        {
+            output = string.getBytes(this.encoding);
+        }
+        else
+        {
+            output = string.getBytes();
+        }
+        stream.write(output);
         stream.flush();
         stream.close();
         stream = null;
-        if (recordHistory)
-        {
-            this.recordHistory(file);
-        }
     }
 
     /**
      * Writes the URL contents to a file specified by the fileLocation argument.
      *
-     * @param url          the URL to read
+     * @param url the URL to read
      * @param fileLocation the location which to write.
      */
     public void writeUrlToFile(URL url, String fileLocation) throws IOException
@@ -133,18 +138,24 @@ public class ResourceWriter
         final String methodName = "ResourceWriter.writeUrlToFile";
         ExceptionUtils.checkNull(methodName, "url", url);
         ExceptionUtils.checkEmpty(methodName, "fileLocation", fileLocation);
-
-        InputStream inputStream = url.openStream();
-
-        File file = new File(fileLocation);
-        File parent = file.getParentFile();
+        final File file = new File(fileLocation);
+        final File parent = file.getParentFile();
         if (parent != null)
         {
             parent.mkdirs();
         }
+        final InputStreamReader inputReader;
+        if (StringUtils.isNotBlank(this.encoding))
+        {
+            inputReader = new InputStreamReader(url.openStream(), this.encoding);
+        }
+        else
+        {
+            inputReader = new InputStreamReader(url.openStream());
+        }
         // make any directories that don't exist
         FileOutputStream stream = new FileOutputStream(file);
-        for (int ctr = inputStream.read(); ctr != -1; ctr = inputStream.read())
+        for (int ctr = inputReader.read(); ctr != -1; ctr = inputReader.read())
         {
             stream.write(ctr);
         }
@@ -152,6 +163,22 @@ public class ResourceWriter
         stream.close();
         stream = null;
         this.recordHistory(file);
+    }
+    
+    /**
+     * Stores the encoding to be used for output.
+     */
+    private String encoding = null;
+    
+    /**
+     * Sets the encoding to which all output written from this class will be
+     * written.
+     * 
+     * @param encoding the encoding type (UTF-8, ISO-8859-1, etc).
+     */
+    public void setEncoding(String encoding)
+    {
+        this.encoding = encoding;
     }
 
     private StringBuffer history = new StringBuffer();
@@ -167,16 +194,11 @@ public class ResourceWriter
         {
             modelFile = modelFile.substring(lastSlash + 1, modelFile.length());
         }
-        this.setModelFile(modelFile);
-        history = new StringBuffer();
+        this.modelFile = modelFile;
+        this.history = new StringBuffer();
     }
 
     private String modelFile = null;
-
-    private void setModelFile(String modelFile)
-    {
-        this.modelFile = modelFile;
-    }
 
     /**
      * Stores the count of the resources written over this instance's history.
@@ -233,9 +255,9 @@ public class ResourceWriter
      */
     private void recordHistory(File file)
     {
-        if (history != null)
+        if (this.history != null)
         {
-            history.append(file + ",");
+            this.history.append(file + ",");
         }
         this.writtenCount++;
     }
