@@ -10,15 +10,13 @@
     <body>
 
         <section name="Components quickly with AndroMDA">
-
-            <p class="std">
+            <p>
                 Did you ever think: "mmm... all this J2EE stuff is too complex! There must
                 be an easier way to program?" Read the good news: AndroMDA is here to help! 
                 Generating J2EE components (amoung others) quickly and reliably 
                 from models drawn in the graphical Unified Modeling Language is one of the 
                 primary features of AndroMDA.
             </p>
-
             <p class="highlight">
                 AndroMDA (pronounced: andromeda) is an open source code generation framework
                 that follows the
@@ -26,8 +24,7 @@
                 (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates
                 fully deployable applications and other components.
             </p>
-
-            <p class="std">
+            <p>
                 Read more about AndroMDA, using the links on the left side menu. If you start
                 using AndroMDA, we invite you to subscribe to the project's
                 <a href="http://sourceforge.net/mail/?group_id=73047">mailing lists</a>. Another
@@ -36,12 +33,21 @@
                 <a href="http://www.codegeneration.net/tiki-read_article.php?articleId=8">interview with Matthias Bohlen</a>, 
                 the founder of AndroMDA.
             </p>
-            <p class="std">
-                <div align="center" style="margin-top: 45px;">
-                    <img src="images/andromda.jpg" width="605" height="391" align="middle" alt=""/>
+            <p>
+                This is a <strong>*very*</strong> simplistic representation of what AndroMDA can do for you:
+            </p>
+            <p>
+                <div align="center">
+                    <p style="margin-top: 80px;">
+                        <img src="images/example-classes.gif" style="padding-right: 50px;"/>
+                        <img src="images/output-classes.gif"/>
+                    </p>
+                    <p style="margin-top: 80px;">
+                        <img src="images/example-activity.gif" style="padding-right: 50px;"/>
+                        <img src="images/output-activity.gif"/>
+                     </p>
                 </div>
             </p>
-
         </section>
 
     </body>
