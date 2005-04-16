@@ -343,6 +343,18 @@ public class AndroMDAGenTask
     {
         ModelProcessor.instance().setFailOnValidationErrors(failOnModelValidationErrors);
     }
+    
+    /**
+     * Sets <code>encoding</code> to use for all generated output.
+     *
+     * @param failOnModelValidationErrors true/false on whether AndroMDA should fail when model validation errors
+     *                                    occur.
+     * @see ModelProcessor#setOuputEncoding(String)
+     */
+    public void setOutputEncoding(String outputEncoding)
+    {
+        ModelProcessor.instance().setOuputEncoding(outputEncoding);
+    }
 
     /**
      * Sets <code>modelValidation</code> to be true/false. This defines whether model validation should occur when
