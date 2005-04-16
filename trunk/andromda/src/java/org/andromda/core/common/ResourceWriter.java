@@ -125,6 +125,10 @@ public class ResourceWriter
         stream.flush();
         stream.close();
         stream = null;
+        if (recordHistory)
+        {
+            this.recordHistory(file);
+        }
     }
 
     /**
