@@ -45,7 +45,7 @@ public class PackageFacadeLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return object instanceof UmlPackage;
+                return object instanceof org.omg.uml.modelmanagement.UmlPackage;
             }
         };
     }
