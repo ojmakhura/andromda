@@ -2,13 +2,17 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 
 /**
@@ -169,5 +173,58 @@ public class StrutsControllerOperationLogicImpl
             }
         }
         return graph;
+    }
+
+    protected boolean handleIsBackEndServiceOperationMatchingParameters()
+    {
+        boolean matches = true;
+
+        final OperationFacade serviceOperation = getBackEndServiceOperation();
+
+        // cache this operation's parameters for easy lookup
+        final Map parameterMap = new HashMap();
+        final Collection controllerParameters = getParameters();
+        for (Iterator iterator = controllerParameters.iterator(); iterator.hasNext();)
+        {
+            final ParameterFacade parameter = (ParameterFacade)iterator.next();
+            parameterMap.put(parameter.getName(), parameter.getType());
+        }
+
+        // make sure that any service parameter exists here too
+        final Collection serviceParameters = serviceOperation.getParameters();
+        for (Iterator iterator = serviceParameters.iterator(); iterator.hasNext() && matches;)
+        {
+            final ParameterFacade serviceParameter = (ParameterFacade)iterator.next();
+            final ClassifierFacade controllerParameterType = (ClassifierFacade)parameterMap.get(
+                    serviceParameter.getName());
+            matches = (controllerParameterType == null) ?
+                    false : controllerParameterType.equals(serviceParameter.getType());
+        }
+
+        return matches;
+    }
+
+    protected Object handleGetBackEndServiceOperation()
+    {
+        Object operation = null;
+
+        final Collection dependencies = getSourceDependencies();
+        for (Iterator dependencyIterator = dependencies.iterator();
+             dependencyIterator.hasNext() && operation == null;)
+        {
+            final DependencyFacade dependency = (DependencyFacade)dependencyIterator.next();
+            final Object target = dependency.getTargetElement();
+            if (target instanceof OperationFacade)
+            {
+                operation = target;
+            }
+        }
+
+        return operation;
+    }
+
+    protected boolean handleIsCallingBackEnd()
+    {
+        return getBackEndServiceOperation() != null;
     }
 }

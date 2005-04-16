@@ -36,8 +36,28 @@ public abstract class ${controller.name} implements java.io.Serializable
 #end
     /**
 $operation.getDocumentation("     * ")
+#if ($operation.callingBackEnd)
+     *
+     * This operation delegates to
+     * <code>${operation.backEndServiceOperation.owner.fullyQualifiedName}.${operation.backEndServiceOperation.name}</code>
+#end
      */
-    $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form, HttpServletRequest request, HttpServletResponse response) throws Exception;
+#if ($operation.callingBackEnd)
+    $visibility $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form,
+HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        ${operation.backEndServiceOperation.owner.accessorImplementation}.${operation.backEndServiceOperation.name}(
+#set ($comma = "")
+#foreach ($argument in $operation.backEndServiceOperation.arguments)
+            ${comma}form.${argument.getterName}()
+#set ($comma = ", ")
+#end
+        );
+    }
+#else
+    $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form,
+HttpServletRequest request, HttpServletResponse response) throws Exception;
+#end
 
 #set ($returnType = false)
 #end
@@ -75,19 +95,23 @@ $operation.getDocumentation("     * ")
      * Set the argument $sessionObject.name object in the session corresponding with the argument request.
      * In case the session would not exist it will be created.
      */
-    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object)
+    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName
+object)
     {
         set${accessorSuffix}(request, object, true);
     }
 
     /**
-     * Set the argument $sessionObject.name object in the session corresponding with the argument request. Any existing
+     * Set the argument $sessionObject.name object in the session corresponding with the argument request.
+Any existing
      * object will be overwritten.
      *
-     * @param createSession denotes whether or not the session should be created automatically in case it would
+     * @param createSession denotes whether or not the session should be created automatically in case it
+would
      *                      not yet exist
      */
-    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object, boolean createSession)
+    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName
+object, boolean createSession)
     {
         HttpSession session = request.getSession(createSession);
         if (session != null)
@@ -97,7 +121,8 @@ $operation.getDocumentation("     * ")
     }
 
     /**
-     * Removes the argument $sessionObject.name object from the session corresponding with the argument request.
+     * Removes the argument $sessionObject.name object from the session corresponding with the argument
+request.
      * In any of the following cases this method will do nothing:
      * <ul>
      *   <li>No session corresponds to the argument request</li>
@@ -136,7 +161,7 @@ $operation.getDocumentation("     * ")
         }
         messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
     }
-    
+
     /**
      * Stores a warning message in the request, if any other warning messages exist, this one
      * is simply added.
@@ -165,7 +190,7 @@ $operation.getDocumentation("     * ")
         }
         messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
     }
-    
+
     /**
      * Stores a success message in the request, if any other success messages exist, this one
      * is simply added.
@@ -176,7 +201,7 @@ $operation.getDocumentation("     * ")
     {
         this.saveSuccessMessage(request, message, null);
     }
-    
+
     /**
      * Stores a error message in the request, if any other error messages exist, this one
      * is simply added.
@@ -194,7 +219,7 @@ $operation.getDocumentation("     * ")
         }
         messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
     }
-    
+
     /**
      * Stores a error message in the request, if any other error messages exist, this one
      * is simply added.
@@ -211,7 +236,7 @@ $operation.getDocumentation("     * ")
     /**
      * Returns a reference to the $serviceRef.name back-end service.
      */
-    protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}() 
+    protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
         throws Exception
     {
         return $serviceRef.targetElement.accessorImplementation;

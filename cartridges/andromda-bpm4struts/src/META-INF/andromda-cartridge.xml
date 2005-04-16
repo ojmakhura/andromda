@@ -87,7 +87,9 @@
         generateEmptyFiles="false">
         <modelElements variable="action">
             <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction"/>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction">
+                    <property name="tableLink">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -111,9 +113,7 @@
         overwrite="true">
         <modelElements variable="operation">
             <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation">
-                    <property name="controller"/>
-                </type>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation"/>
             </modelElement>
         </modelElements>
     </template>
