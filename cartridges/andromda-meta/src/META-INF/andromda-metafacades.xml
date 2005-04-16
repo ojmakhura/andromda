@@ -33,6 +33,6 @@
         <mapping class="org.omg.uml.foundation.core.Generalization$Impl">
             <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
         </mapping>
-        <property reference="generalizationGetterNamePattern" default="getSuper{0}"/>
+        <property reference="generalizationGetterNamePattern" default="{0}"/>
     </metafacade>
 </metafacades>
