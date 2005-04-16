@@ -1,4 +1,4 @@
-package org.andromda.core.anttasks;
+package org.andromda.ant.task;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.Path;

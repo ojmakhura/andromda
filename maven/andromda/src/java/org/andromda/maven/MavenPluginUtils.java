@@ -1,6 +1,6 @@
 package org.andromda.maven;
 
-import org.andromda.core.anttasks.AndroMDAGenTask;
+import org.andromda.ant.task.AndroMDAGenTask;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.PluginDiscoverer;
