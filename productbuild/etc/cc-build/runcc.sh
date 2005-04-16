@@ -11,6 +11,12 @@ dirname=`pwd`
 
 source set-env.sh
 
+if [ -z $CC_CONFIG_FILE} ];then
+   CC_CONFIG_FILE=cruisecontrol.xml
+fi
+
+echo "Using config file:$CC_CONFIG_FILE"
+
 me=`whoami`
 if [[ $me != $CC_USER ]]; then
   echo "You ($me) must be '$CC_USER' to run $0"
@@ -35,7 +41,7 @@ logger "runcc.sh - starting cruisecontrol"
 logger "PATH: $PATH"
 logger "JAVA_HOME:$JAVA_HOME"
 
-nohup nice cruisecontrol.sh -configfile $dirname/cruisecontrol.xml &
+nohup nice cruisecontrol.sh -configfile $dirname/${CC_CONFIG_FILE} &
 pid=$!
 echo $pid >$dirname/pid
 echo Done $0
