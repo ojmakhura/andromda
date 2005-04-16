@@ -59,8 +59,7 @@ public class MetafacadeGeneralizationLogicImpl
             }
         }
         name = StringUtils.capitalize(name);
-        return "get" + ObjectUtils.toString(this.getConfiguredProperty(
-            MetaGlobals.PROPERTY_GENERALIZATION_GETTER_NAME_PATTERN)).replaceAll("\\{0\\}", name);
+        return "get" + name;
     }
 
     /**
@@ -93,7 +92,8 @@ public class MetafacadeGeneralizationLogicImpl
         {
             name = this.getParent().getName();
         }
-        return "super" + StringUtils.capitalize(name);
+        return ObjectUtils.toString(this.getConfiguredProperty(
+            MetaGlobals.PROPERTY_GENERALIZATION_NAME_PATTERN)).replaceAll("\\{0\\}", name);
     }
 
 }

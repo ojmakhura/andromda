@@ -14,7 +14,7 @@ class MetaGlobals
     static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN = "implementationOperationNamePattern";
 
     /**
-     * The pattern used to create the generalization getter name (when using multiple inheritance).
+     * The pattern used to create the generalization name (when using delegated inheritance).
      */
-    static final String PROPERTY_GENERALIZATION_GETTER_NAME_PATTERN = "generalizationGetterNamePattern";
+    static final String PROPERTY_GENERALIZATION_NAME_PATTERN = "generalizationNamePattern";
 }
