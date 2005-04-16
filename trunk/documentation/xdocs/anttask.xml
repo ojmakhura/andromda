@@ -160,6 +160,17 @@
                 </tr>
                 <tr>
                     <td>
+                        <a name="outputEncoding">outputEncoding</a>
+                    </td>
+                    <td>
+                        Sets the encoding for all resulting model processing output.
+                    </td>
+                    <td>
+                        No, defaults to the platform default encoding.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <a name="failOnModelValidationErrors">failOnModelValidationErrors</a>
                     </td>
                     <td>
