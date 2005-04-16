@@ -44,12 +44,10 @@
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsPackageLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>
-
+    
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-<!-- @todo (wouter) for some reason no controller operations are mapped anymore when we do this
-            <context>org.andromda.cartridges.bpm4struts.metafacades.StrutsController</context>
--->
+            <property name="ownerIsController"/>
         </mapping>
     </metafacade>
 

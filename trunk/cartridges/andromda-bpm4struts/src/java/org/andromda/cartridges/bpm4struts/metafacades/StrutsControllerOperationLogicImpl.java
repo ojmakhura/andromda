@@ -227,4 +227,9 @@ public class StrutsControllerOperationLogicImpl
     {
         return getBackEndServiceOperation() != null;
     }
+    
+    protected boolean handleIsOwnerIsController()
+    {
+        return this.getOwner() instanceof StrutsController;
+    }
 }
