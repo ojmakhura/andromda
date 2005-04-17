@@ -19,18 +19,30 @@ public final class $crud.crudDaoBaseName
     extends org.springframework.orm.hibernate.support.HibernateDaoSupport
     implements $crud.crudDaoName
 {
+    private $crud.fullyQualifiedDaoName dao;
+
+    public void setDao($crud.fullyQualifiedDaoName dao)
+    {
+        this.dao = dao;
+    }
+
+    protected $crud.fullyQualifiedDaoName getDao()
+    {
+        return this.dao;
+    }
+
 #foreach ($member in $crud.manageableAssociationEnds)
 #set ($entity = $member.type)
-    private $entity.fullyQualifiedDaoName $entity.daoName = null;
+    private $entity.fullyQualifiedDaoName $member.daoName = null;
 
-    public void ${member.daoSetterName}($entity.fullyQualifiedDaoName $entity.daoName)
+    public void ${member.daoSetterName}($entity.fullyQualifiedDaoName $member.daoName)
     {
-        this.$entity.daoName = $entity.daoName;
+        this.$member.daoName = $member.daoName;
     }
 
     protected $entity.fullyQualifiedDaoName ${member.daoGetterName}()
     {
-        return this.$entity.daoName;
+        return this.$member.daoName;
     }
 
 #end
@@ -55,7 +67,7 @@ public final class $crud.crudDaoBaseName
         entity.${member.setterName}(${member.daoGetterName}().load($member.name));
 #end
 
-        this.getHibernateTemplate().save(entity);
+        this.getDao().create(entity);
     }
 
 #end
@@ -103,7 +115,7 @@ public final class $crud.crudDaoBaseName
         for (final java.util.Iterator idIterator = ids.iterator(); idIterator.hasNext();)
         {
             final Object id = idIterator.next();
-            this.getHibernateTemplate().update(id, $memberListArguments);
+            this.getDao().update(id, $memberListArguments);
         }
     }
 
@@ -120,7 +132,7 @@ public final class $crud.crudDaoBaseName
         for (final java.util.Iterator idIterator = ids.iterator(); idIterator.hasNext();)
         {
             final Object id = idIterator.next();
-            this.getHibernateTemplate().delete(id);
+            this.getDao().delete(id);
         }
     }
 
