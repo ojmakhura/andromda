@@ -19,7 +19,7 @@
             function setCreateForm(form)
             {
                 form.name = "$crud.createFormBeanName";
-                form.action = "<bean:rewrite action="$crud.createActionPath"/>";
+                form.action = "<html:rewrite action="$crud.createActionPath"/>";
             }
         -->
         </script>

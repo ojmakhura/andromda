@@ -3,123 +3,25 @@
 ##
 #set ($memberList = $crud.listCrudMembers(true,false))
 #set ($memberListCollections = $crud.listCrudMembers(true,true))
-#set ($memberListArguments = $crud.listCrudMembers(false,false))
 ##
 package $crud.crudPackageName;
 
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.Query;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Expression;
-import net.sf.hibernate.expression.MatchMode;
-
-public final class $crud.crudDaoName
-    extends org.springframework.orm.hibernate.support.HibernateDaoSupport
+public interface $crud.crudDaoName
 {
-#foreach ($member in $crud.manageableAssociationEnds)
-#set ($entity = $member.type)
-    private $entity.fullyQualifiedDaoName $entity.daoName = null;
-
-    public void ${member.daoSetterName}($entity.fullyQualifiedDaoName $entity.daoName)
-    {
-        this.$entity.daoName = $entity.daoName;
-    }
-
-    protected $entity.fullyQualifiedDaoName ${member.daoGetterName}()
-    {
-        return this.$entity.daoName;
-    }
-
-#end
 #if ($crud.create)
-    public void create($memberList)
-    {
-#foreach ($member in $crud.crudMembers)
-#if ($member.required && !$member.type.primitive)
-        if ($member.name == null)
-        {
-            throw new IllegalArgumentException(
-                "${crud.fullyQualifiedCrudServiceName}.create(${memberList}) - '${member.name}' can not be null");
-        }
-
-#end
-#end
-        final ${crud.fullyQualifiedEntityName} entity = new ${crud.fullyQualifiedEntityName}();
-#foreach ($member in $crud.attributes)
-        entity.${member.setterName}($member.name);
-#end
-#foreach ($member in $crud.manageableAssociationEnds)
-        entity.${member.setterName}(this.getHibernateTemplate().load($member.name));
-#end
-
-        this.getHibernateTemplate().save(entity);
-    }
+    public void create($memberList);
 
 #end
 #if ($crud.read)
-    public java.util.List read($memberList)
-    {
-        final Session session = getSession();
-        final Criteria criteria = getHibernateTemplate().createCriteria(session, ${crud.fullyQualifiedEntityImplementationName}.class);
-
-#foreach ($member in $crud.attributes)
-        if ($member.name != null)
-            criteria.add(Expression.ilike("$member.name", $member.name, MatchMode.START));
-#end
-#foreach ($member in $crud.manageableAssociationEnds)
-#set ($identifier = $member.type.identifiers.iterator().next())
-        if ($member.name != null)
-            criteria.createCriteria("$member.name").add(Expression.eq("$identifier.name", $member.name));
-#end
-
-        final java.util.List list = criteria.list();
-        this.closeSessionIfNecessary(session);
-
-        return list;
-    }
+    public java.util.List read($memberList);
 
 #end
 #if ($crud.update)
-    public void update(Collection ids, $memberListCollections)
-    {
-        if (ids == null)
-        {
-            throw new IllegalArgumentException(
-                "${crud.fullyQualifiedCrudServiceName}.update(Collection ids, $memberListCollections) - 'ids' can not be null");
-        }
-#foreach ($member in $crud.crudMembers)
-#if ($member.required && !$member.type.primitive)
-        if ($member.name == null)
-        {
-            throw new IllegalArgumentException(
-                "${crud.fullyQualifiedCrudServiceName}.update(Collection ids, $memberListCollections) - '${member.name}' can not be null");
-        }
-#end
-#end
-
-        for (final java.util.Iterator idIterator = ids.iterator(); idIterator.hasNext();)
-        {
-            final Object id = idIterator.next();
-            this.getHibernateTemplate().update(id, $memberListArguments);
-        }
-    }
+    public void update(Collection ids, $memberListCollections);
 
 #end
 #if ($crud.delete)
-    public void delete(Collection ids)
-    {
-        if (ids == null)
-        {
-            throw new IllegalArgumentException(
-                "${crud.fullyQualifiedCrudServiceName}.delete(Collection ids) - 'ids' can not be null");
-        }
-
-        for (final java.util.Iterator idIterator = ids.iterator(); idIterator.hasNext();)
-        {
-            final Object id = idIterator.next();
-            this.getHibernateTemplate().delete(id);
-        }
-    }
+    public void delete(Collection ids);
 
 #end
 }

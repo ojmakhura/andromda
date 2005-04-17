@@ -19,7 +19,7 @@ public class $crud.createFormBeanClassName
 
     $member.visibility void ${member.setterName}($member.type.fullyQualifiedName $member.name)
     {
-        return this.$member.name = $member.name;
+        this.$member.name = $member.name;
     }
 
 #end
@@ -34,7 +34,7 @@ public class $crud.createFormBeanClassName
 
     $member.visibility void ${member.setterName}($identifier.type.fullyQualifiedName $member.name)
     {
-        return this.$member.name = $member.name;
+        this.$member.name = $member.name;
     }
 
 #end

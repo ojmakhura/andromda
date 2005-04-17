@@ -287,11 +287,14 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true">
-        <modelElements variable="applicationUseCases">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="applicationUseCases">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
                 </type>
+            </modelElement>
+            <modelElement variable="cruds">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -661,10 +664,16 @@
         outputPattern="struts-admin.xml"
         outlet="configuration"
         overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="cruds">
-            <modelElement>
+        outputToSingleFile="true"
+        generateEmptyFiles="false">
+        <modelElements>
+            <modelElement variable="cruds">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -674,7 +683,8 @@
         outputPattern="validation-admin.xml"
         outlet="configuration"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        generateEmptyFiles="false">
         <modelElements variable="cruds">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
