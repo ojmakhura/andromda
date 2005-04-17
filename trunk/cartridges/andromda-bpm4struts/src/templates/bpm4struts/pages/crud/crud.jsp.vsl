@@ -10,7 +10,7 @@
 <tiles:insert definition="main.layout">
 
     <tiles:put name="title" type="string">
-        <bean:message key="$crud.pageTitleKey"/>
+        <bean:message key="$crud.pageTitleKey" bundle="$crudResourcesKey"/>
     </tiles:put>
 
     <tiles:put name="javascript" type="string">
@@ -60,10 +60,11 @@
         <div id="relations">
 
         </div>
-
+<%--
         <div id="${crud.listName}" class="table">
             <c:if test="$tablePresentTest">
-                <display:table name="${crud.listName}" id="row" requestURI="${pageContext.request.requestURI}"
+#set ($listBean = "form.${crud.listName}")
+                <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
                         export="true" pagesize="15" sort="list">
 #foreach ($member in $crud.crudMembers)
                     <display:column
@@ -74,6 +75,19 @@
                 </display:table>
             </c:if>
         </div>
+--%>
+
+
+    <logic:messagesPresent>
+        <div class="errors">
+            <ul>
+                <html:messages id="error" bundle="$crudResourcesKey">
+                    <div class="error"><li>${error}</li></div>
+                </html:messages>
+            </ul>
+        </div>
+    </logic:messagesPresent>
+
 
     </tiles:put>
 

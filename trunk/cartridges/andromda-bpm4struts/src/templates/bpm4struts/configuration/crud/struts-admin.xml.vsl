@@ -1,8 +1,8 @@
-#if ($cruds.size() > 0)
+#if (!$cruds.empty)
 ##
 ##  CONSTANTS
 ##
-#if($applicationUseCases.size()>0)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
+#if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 #set ($validationDesired = ($clientValidation=='true' || $serverValidation=='true'))
 ##
 ##  START TEMPLATE
@@ -78,6 +78,7 @@
 #end
    </action-mappings>
 
+  <message-resources parameter="application-resources" null="false" />
   <message-resources key="$crudResourcesKey" parameter="crud-resources" null="false" />
 #*
 #if ($applicationUseCase.applicationValidationRequired && $validationDesired)

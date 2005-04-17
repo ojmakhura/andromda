@@ -1,4 +1,4 @@
-#if ($cruds.size() > 0)
+#if (!$cruds.empty)
 <?xml version="1.0" encoding="$xmlEncoding" ?>
 
 <!DOCTYPE form-validation PUBLIC
