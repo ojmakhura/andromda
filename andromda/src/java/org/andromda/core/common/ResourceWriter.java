@@ -1,8 +1,10 @@
 package org.andromda.core.common;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -148,20 +150,26 @@ public class ResourceWriter
         {
             parent.mkdirs();
         }
-        final InputStreamReader inputReader;
+        FileOutputStream stream = new FileOutputStream(file);
         if (StringUtils.isNotBlank(this.encoding))
         {
-            inputReader = new InputStreamReader(url.openStream(), this.encoding);
+            BufferedReader inputReader = new BufferedReader(new InputStreamReader(url.openStream(), this.encoding));
+            for (int ctr = inputReader.read(); ctr != -1; ctr = inputReader.read())
+            {
+                stream.write(ctr);
+            }
+            inputReader.close();
+            inputReader = null;
         }
         else
         {
-            inputReader = new InputStreamReader(url.openStream());
-        }
-        // make any directories that don't exist
-        FileOutputStream stream = new FileOutputStream(file);
-        for (int ctr = inputReader.read(); ctr != -1; ctr = inputReader.read())
-        {
-            stream.write(ctr);
+            InputStream inputStream = url.openStream();
+            for (int ctr = inputStream.read(); ctr != -1; ctr = inputStream.read())
+            {
+                stream.write(ctr);
+            }
+            inputStream.close();
+            inputStream = null;
         }
         stream.flush();
         stream.close();
