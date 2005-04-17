@@ -41,7 +41,7 @@ logger "runcc.sh - starting cruisecontrol"
 logger "PATH: $PATH"
 logger "JAVA_HOME:$JAVA_HOME"
 
-echo nohup nice cruisecontrol.sh -configfile $dirname/${CC_CONFIG_FILE} &
+nohup nice cruisecontrol.sh -configfile $dirname/${CC_CONFIG_FILE} &
 pid=$!
 echo $pid >$dirname/pid
 echo Done $0
