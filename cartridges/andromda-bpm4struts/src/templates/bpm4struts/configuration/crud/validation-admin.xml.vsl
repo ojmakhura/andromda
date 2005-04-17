@@ -1,3 +1,4 @@
+#if ($cruds.size() > 0)
 <?xml version="1.0" encoding="$xmlEncoding" ?>
 
 <!DOCTYPE form-validation PUBLIC
@@ -21,3 +22,4 @@
     </formset>
 
 </form-validation>
+#end

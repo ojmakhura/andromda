@@ -16,20 +16,14 @@ public class SpringManageableEntityLogicImpl
         super (metaObject, context);
     }
 
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntity#getFullyQualifiedCrudDaoName()
-     */
-    protected java.lang.String handleGetFullyQualifiedCrudDaoName()
-    {
-        return getCrudPackageName() + '.' + getCrudDaoName();
-    }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntity#getCrudDaoName()
-     */
     protected java.lang.String handleGetCrudDaoName()
     {
         return getName() + "CrudDao";
+    }
+
+    protected java.lang.String handleGetFullyQualifiedCrudDaoName()
+    {
+        return getCrudPackageName() + '.' + getCrudDaoName();
     }
 
     protected String handleGetCrudDaoFullPath()
@@ -37,13 +31,33 @@ public class SpringManageableEntityLogicImpl
         return getFullyQualifiedCrudDaoName().replace('.', '/');
     }
 
-    protected String handleGetCrudDaoProxyName()
+    protected String handleGetCrudDaoBaseName()
     {
-        return getCrudDaoName() + "Proxy";
+        return getCrudDaoName() + "Base";
     }
 
-    protected String handleGetCrudServiceProxyName()
+    protected String handleGetFullyQualifiedCrudDaoBaseName()
     {
-        return getCrudServiceName() + "Proxy";
+        return getCrudPackageName() + '.' + getCrudDaoBaseName();
+    }
+
+    protected String handleGetCrudDaoBaseFullPath()
+    {
+        return getFullyQualifiedCrudDaoBaseName().replace('.', '/');
+    }
+
+    protected String handleGetCrudServiceBaseName()
+    {
+        return getCrudServiceName() + "Base";
+    }
+
+    protected String handleGetFullyQualifiedCrudServiceBaseName()
+    {
+        return getCrudPackageName() + '.' + getCrudServiceBaseName();
+    }
+
+    protected String handleGetCrudServiceBaseFullPath()
+    {
+        return getFullyQualifiedCrudServiceBaseName().replace('.', '/');
     }
 }

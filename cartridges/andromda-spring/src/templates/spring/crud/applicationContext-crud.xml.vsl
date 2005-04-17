@@ -1,0 +1,49 @@
+#if ($cruds.size() > 0)
+<?xml version="1.0" encoding="$xmlEncoding"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+#foreach ($crud in $cruds)
+     <!-- $crud.crudDaoName Entity Proxy -->
+     <bean id="$crud.crudDaoName" class="org.springframework.aop.framework.ProxyFactoryBean">
+         <property name="target"><ref bean="$crud.crudDaoBaseName"/></property>
+         <property name="proxyInterfaces">
+             <value>$crud.fullyQualifiedCrudDaoName</value>
+         </property>
+         <property name="interceptorNames">
+             <list>
+                 <value>hibernateInterceptor</value>
+             </list>
+         </property>
+     </bean>
+
+    <!-- $crud.crudDaoName Implementation  -->
+    <bean id="$crud.crudDaoBaseName" class="$crud.fullyQualifiedCrudDaoBaseName">
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean>
+
+    <!-- $crud.crudServiceName Service Implementation  -->
+    <bean id="$crud.crudServiceBaseName" class="$crud.fullyQualifiedCrudServiceBaseName">
+        <property name="$crud.crudDaoName"><ref bean="$crud.crudDaoName"/></property>
+    </bean>
+
+    <!-- $crud.crudServiceName Service Proxy  -->
+    <bean id="$crud.crudServiceName" class="org.springframework.aop.framework.ProxyFactoryBean">
+         <property name="target"><ref bean="$crud.crudServiceBaseName"/></property>
+         <property name="proxyInterfaces">
+             <value>$crud.fullyQualifiedCrudServiceName</value>
+         </property>
+         <property name="interceptorNames">
+             <list>
+#if (!$ejbsEnabled)
+                 <value>serviceTransactionInterceptor</value>
+#end
+                 <value>hibernateInterceptor</value>
+             </list>
+         </property>
+     </bean>
+#end
+
+</beans>
+#end

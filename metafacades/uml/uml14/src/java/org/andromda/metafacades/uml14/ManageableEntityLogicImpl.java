@@ -103,17 +103,17 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsRead()
     {
-        return true;
+        return false; // @todo
     }
 
     protected boolean handleIsUpdate()
     {
-        return true;
+        return false; // @todo
     }
 
     protected boolean handleIsDelete()
     {
-        return true;
+        return false; // @todo
     }
 
     protected List handleGetCrudMembers()

@@ -1,6 +1,8 @@
+#if ($cruds.size() > 0)
 ##
 ##  CONSTANTS
 ##
+#if($applicationUseCases.size()>0)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 #set ($validationDesired = ($clientValidation=='true' || $serverValidation=='true'))
 ##
 ##  START TEMPLATE
@@ -17,6 +19,15 @@
 #foreach ($crud in $cruds)
 #if ($crud.create)
         <form-bean name="$crud.createFormBeanName" type="$crud.createFormBeanType" />
+#end
+#if ($crud.read)
+        <form-bean name="$crud.readFormBeanName" type="$crud.readFormBeanType" />
+#end
+#if ($crud.update)
+        <form-bean name="$crud.updateFormBeanName" type="$crud.updateFormBeanType" />
+#end
+#if ($crud.delete)
+        <form-bean name="$crud.deleteFormBeanName" type="$crud.deleteFormBeanType" />
 #end
 #end
     </form-beans>
@@ -68,7 +79,7 @@
    </action-mappings>
 
   <message-resources key="$crudResourcesKey" parameter="crud-resources" null="false" />
-
+#*
 #if ($applicationUseCase.applicationValidationRequired && $validationDesired)
   <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
     <set-property property="pathnames" value="/WEB-INF/validation-admin.xml,/WEB-INF/validator-rules.xml"/>
@@ -76,6 +87,7 @@
   </plug-in>
 
 #end
+*#
   <plug-in className="org.apache.struts.tiles.TilesPlugin">
     <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
     <set-property property="definitions-parser-validate" value="true"/>
@@ -83,3 +95,4 @@
   </plug-in>
 
 </struts-config>
+#end

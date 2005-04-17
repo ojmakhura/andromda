@@ -19,7 +19,7 @@ public class $crud.deleteFormBeanClassName
 
     $identifier.visibility void ${identifier.setterName}(${identifier.type.fullyQualifiedName}[] $identifier.name)
     {
-        return this.$identifier.name = $identifier.name;
+        this.$identifier.name = $identifier.name;
     }
 
 }
