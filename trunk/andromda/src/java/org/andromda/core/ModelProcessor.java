@@ -187,7 +187,7 @@ public class ModelProcessor
                 {
                     final Model model = models[ctr];
                     final Transformer transformer = XslTransformer.instance();
-                    final InputStream stream = transformer.transform(model.getUrl(), this.getXslTransformations());
+                    final InputStream stream = transformer.transform(model.getUrl(), this.getTransformations());
                     repository.readModel(stream, model.getUrl().toString(), model.getModuleSearchPath());
                     modelPackages.addPackages(model.getPackages());
                 }
@@ -355,31 +355,31 @@ public class ModelProcessor
     }
     
     /**
-     * Stores any XSL transformations that should be applied
+     * Stores any transformations that should be applied
      * to the model(s) before processing occurs.
      */
-    private final List xslTransformations = new ArrayList();
+    private final List transformations = new ArrayList();
     
     /**
-     * Adds an XSL transformation to be applied to the model(s)
+     * Adds a transformation to be applied to the model(s)
      * before processing occurrs.
      * 
-     * @param xslTransformation
+     * @param transformation a transformation document.
      */
-    public void addXslTransformation(URL xsltTransformation)
+    public void addTransformation(URL transformation)
     {
-        this.xslTransformations.add(xsltTransformation);
+        this.transformations.add(transformation);
     }
     
     /**
-     * Gets the current XSLT transformations that will be applied
+     * Gets the current transformations that will be applied
      * to the model before processing beings.
      * 
      * @return the transformations.
      */
-    private URL[] getXslTransformations()
+    private URL[] getTransformations()
     {
-        return (URL[])this.xslTransformations.toArray(new URL[0]);
+        return (URL[])this.transformations.toArray(new URL[0]);
     }
     
     /**

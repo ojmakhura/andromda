@@ -210,7 +210,7 @@ public class AndroMDAGenTask
             // Add any transformations to the model processor
             for (Iterator transformationIterator = transformations.iterator(); transformationIterator.hasNext();)
             {
-                processor.addXslTransformation(((TransformationConfiguration)transformationIterator.next()).getUrl());
+                processor.addTransformation(((TransformationConfiguration)transformationIterator.next()).getUrl());
             }
             
             // set the cartridge filter
