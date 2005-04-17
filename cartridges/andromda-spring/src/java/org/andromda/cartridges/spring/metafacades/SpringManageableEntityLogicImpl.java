@@ -16,6 +16,17 @@ public class SpringManageableEntityLogicImpl
         super (metaObject, context);
     }
 
+    protected java.lang.String handleGetDaoReferenceName()
+    {
+        final char[] name = getName().toCharArray();
+        if (name.length > 0)
+        {
+            name[0] = Character.toLowerCase(name[0]);
+        }
+
+        return new String(name) + "Dao";
+    }
+
     protected java.lang.String handleGetCrudDaoName()
     {
         return getName() + "CrudDao";
