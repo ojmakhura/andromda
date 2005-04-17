@@ -11,7 +11,7 @@ dirname=`pwd`
 
 source set-env.sh
 
-if [ -z $CC_CONFIG_FILE} ];then
+if [ -z $CC_CONFIG_FILE ];then
    CC_CONFIG_FILE=cruisecontrol.xml
 fi
 
@@ -41,7 +41,7 @@ logger "runcc.sh - starting cruisecontrol"
 logger "PATH: $PATH"
 logger "JAVA_HOME:$JAVA_HOME"
 
-nohup nice cruisecontrol.sh -configfile $dirname/${CC_CONFIG_FILE} &
+echo nohup nice cruisecontrol.sh -configfile $dirname/${CC_CONFIG_FILE} &
 pid=$!
 echo $pid >$dirname/pid
 echo Done $0
