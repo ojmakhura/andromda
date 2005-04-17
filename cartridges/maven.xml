@@ -117,7 +117,7 @@
          pom's source directory to point to that one (since the reports only 
          handle one source directory per project).  The report plugins  
          really should support multiple source directories but right now 
-         the don't so we do this to get around it.                         
+         they don't so we do this to get around it.
          =================================================================== -->
     <preGoal name="site">
         <!-- the temp directory to copy all the source -->
