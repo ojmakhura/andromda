@@ -11,7 +11,7 @@
         <constructor-arg>
            <list>
                 <value>$stringUtils.replace($applicationContext, '/', '.')</value>
-#if ($cruds.size() > 0)
+#if (!$cruds.empty)
                 <value>$stringUtils.replace($applicationContextCrud, '/', '.')</value>
 #end
                 <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
