@@ -5,6 +5,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -363,27 +364,32 @@ public class StrutsUseCaseLogicImpl
     {
         if (pageVariables == null)
         {
-            Map pageVariableMap = new HashMap();
+            final Map pageVariableMap = new HashMap();
 
             /**
              * page variables can occur twice or more in the usecase in case their
              * names are the same for different forms, storing them in a map
              * solves this issue because those names do not have the action-name prefix
              */
-            Collection pages = getPages();
+            final Collection pages = getPages();
             for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
             {
-                StrutsJsp jsp = (StrutsJsp)pageIterator.next();
-                Collection variables = jsp.getPageVariables();
+                final StrutsJsp jsp = (StrutsJsp)pageIterator.next();
+                final Collection variables = jsp.getPageVariables();
                 for (Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
                 {
-                    StrutsParameter variable = (StrutsParameter)variableIterator.next();
+                    final StrutsParameter variable = (StrutsParameter)variableIterator.next();
                     pageVariableMap.put(variable.getName(), variable);
                 }
             }
             pageVariables = pageVariableMap.values();
         }
         return pageVariables;
+    }
+
+    protected boolean handleIsSecured()
+    {
+        return !hasStereotype(UMLProfile.STEREOTYPE_UNSECURED);
     }
 
     protected boolean handleIsApplicationUseCase()
@@ -393,7 +399,7 @@ public class StrutsUseCaseLogicImpl
 
     protected Collection handleGetReferencingFinalStates()
     {
-        Collection referencingFinalStates = getModel().findFinalStatesWithNameOrHyperlink(this);
+        final Collection referencingFinalStates = getModel().findFinalStatesWithNameOrHyperlink(this);
         return referencingFinalStates;
     }
 
@@ -404,7 +410,7 @@ public class StrutsUseCaseLogicImpl
 
     protected TreeNode handleGetApplicationHierarchyRoot()
     {
-        UseCaseNode root = new UseCaseNode(this);
+        final UseCaseNode root = new UseCaseNode(this);
         createHierarchy(root);
         return root;
     }

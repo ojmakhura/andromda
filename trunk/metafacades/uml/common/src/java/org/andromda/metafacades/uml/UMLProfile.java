@@ -103,9 +103,14 @@ public class UMLProfile
     public static final String STEREOTYPE_NULLABLE = profile.get("NULLABLE");
 
     /**
-     * Represents a manageable classifier.
+     * Represents a manageable entity.
      */
     public static final String STEREOTYPE_MANAGEABLE = profile.get("MANAGEABLE");
+
+    /**
+     * Represents an unsecured element.
+     */
+    public static final String STEREOTYPE_UNSECURED = profile.get("UNSECURED");
 
     /* ----------------- Tagged Values -------------------- */
 
