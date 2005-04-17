@@ -1,0 +1,25 @@
+#if (!$cruds.empty)
+
+#foreach ($crud in $cruds)
+$crud.pageTitleKey=$crud.pageTitleValue
+
+#foreach ($member in $crud.crudMembers)
+$member.messageKey=$member.messageValue
+#end
+
+#if ($crud.create)
+$crud.createExceptionKey=Unable to create $crud.name: {0}
+#end
+#if ($crud.read)
+$crud.readExceptionKey=Unable to read $crud.name: {0}
+#end
+#if ($crud.update)
+$crud.updateExceptionKey=Unable to update $crud.name: {0}
+#end
+#if ($crud.delete)
+$crud.deleteExceptionKey=Unable to delete $crud.name: {0}
+#end
+
+#end
+
+#end
