@@ -48,7 +48,7 @@
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade5Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject5">
-            <property name="mappingProperty"/>
+            <property name="property">false</property>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
@@ -61,7 +61,7 @@
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade5Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject3">
-            <property name="mappingProperty">true</property>
+            <property name="property" value="false"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">

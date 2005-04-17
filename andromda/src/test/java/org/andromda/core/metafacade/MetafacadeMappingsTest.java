@@ -73,6 +73,7 @@ public class MetafacadeMappingsTest
     private static final String NAMESPACE_PROPERTY_2_VALUE = "true";
 
     private static final String MAPPING_PROPERTY = "mappingProperty";
+    private static final String PROPERTY = "property";
     private static final String PROPERTY_ONE = "propertyOne";
     private static final String PROPERTY_TWO = "propertyTwo";
 
@@ -261,10 +262,10 @@ public class MetafacadeMappingsTest
         assertNotNull(mappingProperties);
         assertEquals(1, mappingProperties.size());
         assertEquals(
-            MAPPING_PROPERTY,
+            PROPERTY,
             ((MetafacadeMapping.Property)mappingProperties.iterator().next())
                 .getName());
-        assertEquals("", ((MetafacadeMapping.Property)mappingProperties
+        assertEquals("false", ((MetafacadeMapping.Property)mappingProperties
             .iterator().next()).getValue());
 
         // get a property that has a value defined

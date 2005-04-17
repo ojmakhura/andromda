@@ -6,7 +6,7 @@ package org.andromda.core.metafacade;
  * @author Chad Brandon
  */
 public class Metafacade5Impl
-    extends Metafacade2Impl
+    extends MetafacadeBase
 {
     /**
      * @param metaObject
@@ -17,5 +17,10 @@ public class Metafacade5Impl
         String context)
     {
         super(metaObject, context);
+    }
+    
+    public boolean isProperty()
+    {
+        return false;
     }
 }

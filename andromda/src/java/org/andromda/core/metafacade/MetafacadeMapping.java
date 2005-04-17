@@ -1,16 +1,17 @@
 package org.andromda.core.metafacade;
 
-import org.andromda.core.common.ClassUtils;
-import org.andromda.core.common.Profile;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.andromda.core.common.ClassUtils;
+import org.andromda.core.common.Profile;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * A meta facade mapping class. This class is a child of {@link MetafacadeMappings}.
@@ -181,14 +182,17 @@ public class MetafacadeMapping
      */
     public void addMappingProperty(String name, String value)
     {
-        if (this.mappingProperties == null)
+        if (value != null)
         {
-            this.mappingProperties = new PropertyGroup();
-            // we add the mapping properties to the mappingPropertyGroups
-            // collection only once
-            this.mappingPropertyGroups.add(this.mappingProperties);
+            if (this.mappingProperties == null)
+            {
+                this.mappingProperties = new PropertyGroup();
+                // we add the mapping properties to the mappingPropertyGroups
+                // collection only once
+                this.mappingPropertyGroups.add(this.mappingProperties);
+            }
+            this.mappingProperties.addProperty(new Property(name, value));
         }
-        this.mappingProperties.addProperty(new Property(name, value));
     }
 
     /**
@@ -341,7 +345,7 @@ public class MetafacadeMapping
      */
     static class PropertyGroup
     {
-        private final Collection properties = new ArrayList();
+        private final Map properties = new LinkedHashMap();
 
         /**
          * Adds a property to the internal collection of properties.
@@ -350,7 +354,11 @@ public class MetafacadeMapping
          */
         void addProperty(Property property)
         {
-            this.properties.add(property);
+            final String name = property.getName();
+            if (!this.properties.containsKey(name))
+            {
+                this.properties.put(name, property);                
+            }
         }
 
         /**
@@ -360,7 +368,7 @@ public class MetafacadeMapping
          */
         Collection getProperties()
         {
-            return this.properties;
+            return this.properties.values();
         }
 
         /**
@@ -369,7 +377,7 @@ public class MetafacadeMapping
         public String toString()
         {
             StringBuffer toString = new StringBuffer();
-            Iterator propertyIterator = this.properties.iterator();
+            Iterator propertyIterator = this.getProperties().iterator();
             char seperator = ':';
             while (propertyIterator.hasNext())
             {

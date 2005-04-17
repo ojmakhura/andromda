@@ -1,9 +1,10 @@
 package org.andromda.core.cartridge.template;
 
-import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Represents the &lt;type/&gt; element nested within the &lt;modelElement/&gt; element.
@@ -14,7 +15,7 @@ import java.util.Collection;
 public class Type
 {
     private String name;
-    private final Collection properties = new ArrayList();
+    private final Map properties = new LinkedHashMap();
 
     /**
      * @return Returns the name.
@@ -37,7 +38,7 @@ public class Type
      */
     public Collection getProperties()
     {
-        return properties;
+        return properties.values();
     }
 
     /**
@@ -49,7 +50,10 @@ public class Type
      */
     public void addProperty(String name, String value)
     {
-        this.properties.add(new Property(name, value));
+        if (value != null && !this.properties.containsKey(name))
+        {
+            this.properties.put(name, new Property(name, value));
+        }
     }
 
     /**
