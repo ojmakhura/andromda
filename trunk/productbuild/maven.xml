@@ -263,7 +263,7 @@
     </goal>
 
     <!-- ==================================================================
-             Performs any initalization required for the build
+             Performs any initialization required for the build
          ================================================================== -->
     <goal name="initialize" prereqs="init-bootstrap">
         <!-- if we have any artifacts in the lib directory (other than the
