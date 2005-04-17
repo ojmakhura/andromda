@@ -7,6 +7,7 @@ import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.ServiceOperation;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -179,7 +180,7 @@ public class StrutsControllerOperationLogicImpl
     {
         boolean matches = true;
 
-        final OperationFacade serviceOperation = getBackEndServiceOperation();
+        final ServiceOperation serviceOperation = getBackEndServiceOperation();
 
         // cache this operation's parameters for easy lookup
         final Map parameterMap = new HashMap();
@@ -214,7 +215,7 @@ public class StrutsControllerOperationLogicImpl
         {
             final DependencyFacade dependency = (DependencyFacade)dependencyIterator.next();
             final Object target = dependency.getTargetElement();
-            if (target instanceof OperationFacade)
+            if (target instanceof ServiceOperation)
             {
                 operation = target;
             }
