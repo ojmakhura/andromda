@@ -19,7 +19,7 @@ public final class $crud.createActionClassName extends Action
     {
         final $crud.createFormBeanType form = ($crud.createFormBeanType) actionForm;
 
-        ${crud.serviceAccessorCall}.create(
+        ${crud.crudServiceAccessorCall}.create(
 #set ($comma = '')
 #foreach ($member in $crud.crudMembers)
             ${comma}form.${member.getterName}()
