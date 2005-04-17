@@ -11,9 +11,10 @@ import java.net.URL;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Used for writing resources for the framework. Also keeps histories of previous resources generated so that we can
- * avoid regenerating if the generated resources are current.
- *
+ * Used for writing resources for the framework. Also keeps histories of
+ * previous resources generated so that we can avoid regenerating if the
+ * generated resources are current.
+ * 
  * @author Chad Brandon
  */
 public class ResourceWriter
@@ -21,41 +22,39 @@ public class ResourceWriter
     /**
      * The shared instance
      */
-    private static ResourceWriter instance = null;
+    private static final ResourceWriter instance = new ResourceWriter();
 
     /**
-     * Gets the shared ResourceWriter instance. Normally you'll want to retrieve the instance through this method.
-     *
+     * Gets the shared ResourceWriter instance. Normally you'll want to retrieve
+     * the instance through this method.
+     * 
      * @return the shared instance.
      */
     public static ResourceWriter instance()
     {
-        if (instance == null)
-        {
-            instance = new ResourceWriter();
-        }
         return instance;
     }
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     *
-     * @param string    the string to write to the file
-     * @param file      the file to which to write.
-     * @param namespace the current namespace for which this resource is being written.
+     * 
+     * @param string the string to write to the file
+     * @param file the file to which to write.
+     * @param namespace the current namespace for which this resource is being
+     *        written.
      * @throws IOException
      */
     public void writeStringToFile(String string, File file, String namespace) throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         ExceptionUtils.checkNull(methodName, "file", file);
-        writeStringToFile(string, file.toString(), namespace, true);
+        this.writeStringToFile(string, file.toString(), namespace, true);
     }
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     *
-     * @param string       the string to write to the file
+     * 
+     * @param string the string to write to the file
      * @param fileLocation the location of the file which to write.
      */
     public void writeStringToFile(String string, String fileLocation) throws IOException
@@ -65,10 +64,11 @@ public class ResourceWriter
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     *
-     * @param string        the string to write to the file
-     * @param fileLocation  the location of the file which to write.
-     * @param recordHistory whether or not the history of the file should be recorded.
+     * 
+     * @param string the string to write to the file
+     * @param fileLocation the location of the file which to write.
+     * @param recordHistory whether or not the history of the file should be
+     *        recorded.
      */
     private void writeStringToFile(String string, String fileLocation, boolean recordHistory) throws IOException
     {
@@ -77,24 +77,27 @@ public class ResourceWriter
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     *
-     * @param string       the string to write to the file
+     * 
+     * @param string the string to write to the file
      * @param fileLocation the location of the file which to write.
-     * @param namespace    the current namespace for which this resource is being written.
+     * @param namespace the current namespace for which this resource is being
+     *        written.
      * @throws IOException
      */
     public void writeStringToFile(String string, String fileLocation, String namespace) throws IOException
     {
-        writeStringToFile(string, fileLocation, namespace, true);
+        this.writeStringToFile(string, fileLocation, namespace, true);
     }
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     *
-     * @param string        the string to write to the file
-     * @param fileLocation  the location of the file which to write.
-     * @param namespace     the current namespace for which this resource is being written.
-     * @param recordHistory whether or not the history of this file should be recorded.
+     * 
+     * @param string the string to write to the file
+     * @param fileLocation the location of the file which to write.
+     * @param namespace the current namespace for which this resource is being
+     *        written.
+     * @param recordHistory whether or not the history of this file should be
+     *        recorded.
      * @throws IOException
      */
     private void writeStringToFile(String string, String fileLocation, String namespace, boolean recordHistory)
@@ -200,7 +203,7 @@ public class ResourceWriter
      */
     public void resetHistory(URL modelUrl)
     {
-        String modelFile = modelUrl.toString().replaceAll("\\\\", "/");
+        String modelFile = modelUrl.toString().replace('\\', '/');
         int lastSlash = modelFile.lastIndexOf('/');
         if (lastSlash != -1)
         {
@@ -260,10 +263,11 @@ public class ResourceWriter
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
-     *
-     * @param string       the string to write to the file
+     * 
+     * @param string the string to write to the file
      * @param fileLocation
-     * @param overwrite    if true, replaces the file (if it exists, otherwise), adds to the contents of the file.
+     * @param overwrite if true, replaces the file (if it exists, otherwise),
+     *        adds to the contents of the file.
      */
     private void recordHistory(File file)
     {
@@ -276,7 +280,7 @@ public class ResourceWriter
 
     /**
      * Checks to see if the history is before the given <code>time</code>.
-     *
+     * 
      * @param time the time in milliseconds to check against.
      * @return true/false
      */

@@ -5,6 +5,8 @@ import java.net.URL;
 
 import junit.framework.TestCase;
 
+import org.andromda.core.Transformation;
+
 /**
  * Tests the {@link org.andromda.core.transformation.XslTransformer}
  * 
@@ -15,7 +17,7 @@ public class XslTransformerTest
 {
     public void testTransform()
     {
-        assertNull(XslTransformer.instance().transform(null, new URL[0]));
+        assertNull(XslTransformer.instance().transform(null, new Transformation[0]));
         
         URL model = XslTransformerTest.class.getResource("model.xml");
         assertNotNull(model);
@@ -23,11 +25,11 @@ public class XslTransformerTest
         assertNotNull(transformation1);
         URL transformation2 = XslTransformerTest.class.getResource("transformation2.xsl");
         assertNotNull(transformation2);
-        URL[] transformations = 
-            new URL[]
+        Transformation[] transformations = 
+            new Transformation[]
             {
-                transformation1,
-                transformation2
+                new Transformation(transformation1),
+                new Transformation(transformation2)
             };
         InputStream stream = XslTransformer.instance().transform(model, transformations);
         assertNotNull(stream);
