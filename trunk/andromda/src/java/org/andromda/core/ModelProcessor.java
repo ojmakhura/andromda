@@ -1,7 +1,6 @@
 package org.andromda.core;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -366,7 +365,7 @@ public class ModelProcessor
      * 
      * @param transformation a transformation document.
      */
-    public void addTransformation(URL transformation)
+    public void addTransformation(Transformation transformation)
     {
         this.transformations.add(transformation);
     }
@@ -377,9 +376,9 @@ public class ModelProcessor
      * 
      * @return the transformations.
      */
-    private URL[] getTransformations()
+    private Transformation[] getTransformations()
     {
-        return (URL[])this.transformations.toArray(new URL[0]);
+        return (Transformation[])this.transformations.toArray(new Transformation[0]);
     }
     
     /**

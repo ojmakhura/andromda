@@ -17,12 +17,12 @@ public class Model
     /**
      * Constructs a new instance of this Model
      *
-     * @param url               the URL to the model to process.
+     * @param url the URL to the model to process.
      * @param lastModifiedCheck whether or not to perform a last modified check when processing the model. If
      *                          <code>true</code> the model will be checked for a timestamp before processing occurs.
-     * @param packages          the packages to include/ignore when processing the model.
-     * @param moduleSearchPath  any array of path's to search for any HREF modules (profile, etc) referenced from within
-     *                          ths model.
+     * @param packages the packages to include/ignore when processing the model.
+     * @param moduleSearchPath any array of path's to search for any HREF modules (profile, etc) referenced from within
+     *                         ths model.
      */
     public Model(URL url, ModelPackages packages, boolean lastModifiedCheck, String[] moduleSearchPath)
     {

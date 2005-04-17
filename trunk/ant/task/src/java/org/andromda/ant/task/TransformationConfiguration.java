@@ -2,6 +2,8 @@ package org.andromda.ant.task;
 
 import java.net.URL;
 
+import org.andromda.core.Transformation;
+
 /**
  * This class implements the <code>&lt;transformation&gt;</code> element which
  * is used with the Ant <code>&lt;andromda&gt;</code> task to configure an
@@ -11,18 +13,23 @@ import java.net.URL;
  */
 public class TransformationConfiguration
 {
-    private URL url = null;
-
     /**
-     * Gets the URL to the transformation.
+     * Gets the transformation
      * 
      * @return Returns the url of the transformation.
      */
-    public URL getUrl()
+    public Transformation getTransformation()
     {
-        return url;
+        final Transformation transformation = new Transformation(this.url);
+        transformation.setOuputLocation(this.outputLocation);
+        return transformation;
     }
 
+    /**
+     * The URL to the transformation.
+     */
+    private URL url = null;
+    
     /**
      * Sets the URL to the transformation.
      * 
@@ -31,5 +38,21 @@ public class TransformationConfiguration
     public void setUrl(URL url)
     {
         this.url = url;
+    }
+    
+    /**
+     * The location ot the output.
+     */
+    private String outputLocation;
+    
+    /**
+     * Sets the location to which the result of the transformation
+     * shall be written.
+     * 
+     * @param outputLocation the output location.
+     */
+    public void setOutputLocation(String outputLocation)
+    {
+        this.outputLocation = outputLocation;
     }
 }

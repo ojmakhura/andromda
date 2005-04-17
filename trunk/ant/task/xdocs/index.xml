@@ -294,6 +294,19 @@
                         Yes
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        outputLocation
+                    </td>
+                    <td>
+                        The location to which the result of the output will be written.
+                        This is useful for debugging purposes, or if you need to "fix"
+                        your model with a transformation.
+                    </td>
+                    <td>
+                        No
+                    </td>
+                </tr>
             </table>
             <a name="andromda-example"/>
             <h3>Example</h3>
@@ -317,7 +330,7 @@
     <model url="jar:file:/path/to/my/model1.zuml!/model1.xmi"/>
     <model url="jar:file:/path/to/my/model2.zuml!/model2.xmi"/>
     <transformation url="file:/path/to/my/transformation1.xsl"/>
-    <transformation url="file:/path/to/my/transformation2.xsl"/>
+    <transformation url="file:/path/to/my/transformation2.xsl" outputLocation="${basedir}/path/to/result/result.xml"/>
     <!-- defines the location of the mapping files -->
     <mappingsSearchPath>
         <pathelement location="${basedir}/src/mappings"/>

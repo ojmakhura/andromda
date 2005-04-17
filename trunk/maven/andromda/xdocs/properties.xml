@@ -49,6 +49,7 @@
                         </td>
                     </tr>
                     <tr>
+                        <a name="maven_andromda_transformation_uri"/>
                         <td>
                             maven.andromda.transformation.uri.<em>n</em>
                         </td>
@@ -61,6 +62,23 @@
                                 before model processing begins, where <em>n</em> can be any number of
                                 transformations to apply. <em>n</em> begins with 0.  
                                 (i.e. maven.andromda.transformation.uri.0=file:${basedir}/path/to/some/transformation/transformation.xsl)
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.transformation.uri.<em>n</em>.outputLocation
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            <p>
+                                Defines the optional location to which the result of the transformation
+                                will be written, where <em>n</em> corresponds to the 
+                                <a href="#maven_andromda_transformation_uri">maven.andromda.transformation.uri.<em>n</em></a>
+                                definition (for example: ${basedir}/path/to/transformation/output/result.xml).  If this isn't
+                                specified, then the result is just stored in memory and discarded after processing is finished.
                             </p>
                         </td>
                     </tr>
