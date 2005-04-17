@@ -1,5 +1,5 @@
 #if ($onlineHelp == "true")
-#if($applicationUseCases.size()>0)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
+#if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 ##
 ##  START TEMPLATE
 ##

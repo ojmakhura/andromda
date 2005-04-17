@@ -1,5 +1,5 @@
 #if ($security == "true")
-#if($applicationUseCases.size()>0)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
+#if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 #set ($users = $applicationUseCase.model.allActors)
 #
 # add your users here and give them roles

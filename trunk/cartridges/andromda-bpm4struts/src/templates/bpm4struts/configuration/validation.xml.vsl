@@ -1,7 +1,7 @@
 ##
 ##  CONSTANTS
 ##
-#if($applicationUseCases.size()>0)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
+#if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 #set ($useCases = $applicationUseCase.allUseCases)
 #set ($validationDesired = ($clientValidation=='true' || $serverValidation=='true'))
 ##

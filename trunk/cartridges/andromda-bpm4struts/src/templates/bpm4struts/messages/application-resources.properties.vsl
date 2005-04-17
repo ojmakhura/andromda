@@ -1,4 +1,4 @@
-#if($applicationUseCases.size()>0)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
+#if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 main.title=$applicationUseCase.name
 
 breadcrumbs.error=Error on page
