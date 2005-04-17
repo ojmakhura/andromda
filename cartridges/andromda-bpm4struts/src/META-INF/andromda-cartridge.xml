@@ -692,6 +692,20 @@
         </modelElements>
     </template>
 
+    <template
+        path="templates/bpm4struts/messages/crud/crud-resources.properties.vsl"
+        outputPattern="crud-resources.properties"
+        outlet="messages"
+        overwrite="true"
+        outputToSingleFile="true"
+        generateEmptyFiles="false">
+        <modelElements variable="cruds">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>
