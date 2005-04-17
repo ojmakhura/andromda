@@ -117,8 +117,7 @@
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
-        <property reference="serviceAccessorPattern" default=""/>
-        <property reference="servicePackageNamePattern" default="{0}"/>
+        <property reference="crudServiceAccessorPattern" default=""/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogicImpl">
