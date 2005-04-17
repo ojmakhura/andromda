@@ -32,6 +32,10 @@
             <p>
                 <img src="resources/howto/org/andromda/test/security.gif"/>
             </p>
+            <p class="highlight">
+                Use the <![CDATA[<<Unsecured>>]]> stereotype on those use-cases that need to be accessible by anyone,
+                even when security is enabled.
+            </p>
             <subsection name="Input validation">
                 <p>
                     By default the cartridge generates client-side and server-side validation code. On the

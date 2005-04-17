@@ -43,7 +43,7 @@
             type="$action.actionType"
             name="$action.formBeanName"
 #set ($roles = $action.actionRoles)
-#if (($security=="true") && ($roles != ""))
+#if (($security=="true") && ($roles != "") && ($useCase.secured))
             roles="$roles"
 #end
             scope="$action.actionScope"

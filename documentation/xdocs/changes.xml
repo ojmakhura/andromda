@@ -9,7 +9,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-16" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-17" description="Second release candidate for version 3.0">
+            <action dev="draftdog" type="add" issue="BPM-107">
+                It is now possible to use the <![CDATA[<<Unsecured>>]]> stereotype on use-cases that need to be
+                accessible for anyone, even when security has been enabled.
+            </action>
             <action dev="cwbrandon" type="update">
                 The AndroMDA Ant task has been refactored out of the Core, and the package name has changed
                 to <em>org.andromda.ant.task</em>, Maven users are not affected by this change, however Ant
