@@ -78,27 +78,27 @@ public class ManageableEntityLogicImpl
         return true;
     }
 
-    protected String handleGetServiceName()
+    protected String handleGetCrudServiceName()
     {
-        return getName() + "ManageService";
+        return getName() + "CrudService";
     }
 
-    protected String handleGetServiceFullPath()
+    protected String handleGetCrudServiceFullPath()
     {
-        return '/' + getFullyQualifiedServiceName().replace('.', '/');
+        return '/' + getFullyQualifiedCrudServiceName().replace('.', '/');
     }
 
-    protected String handleGetFullyQualifiedServiceName()
+    protected String handleGetFullyQualifiedCrudServiceName()
     {
-        return getCrudPackageName() + '.' + getServiceName();
+        return getCrudPackageName() + '.' + getCrudServiceName();
     }
 
-    protected String handleGetServiceAccessorCall()
+    protected String handleGetCrudServiceAccessorCall()
     {
         final String accessorImplementation = String.valueOf(
-                getConfiguredProperty(UMLMetafacadeProperties.SERVICE_ACCESSOR_PATTERN));
+                getConfiguredProperty(UMLMetafacadeProperties.CRUD_SERVICE_ACCESSOR_PATTERN));
         return accessorImplementation.replaceAll("\\{0\\}", getCrudPackageName()).replaceAll("\\{1\\}",
-                getServiceName());
+                getCrudServiceName());
     }
 
     protected boolean handleIsRead()
