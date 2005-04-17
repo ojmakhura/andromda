@@ -21,8 +21,7 @@ public class SpringManageableEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedCrudDaoName()
     {
-        // TODO: put your implementation here.
-        return null;
+        return getCrudPackageName() + '.' + getCrudDaoName();
     }
 
     /**
@@ -30,8 +29,21 @@ public class SpringManageableEntityLogicImpl
      */
     protected java.lang.String handleGetCrudDaoName()
     {
-        // TODO: put your implementation here.
-        return null;
+        return getName() + "CrudDao";
     }
 
+    protected String handleGetCrudDaoFullPath()
+    {
+        return getFullyQualifiedCrudDaoName().replace('.', '/');
+    }
+
+    protected String handleGetCrudDaoProxyName()
+    {
+        return getCrudDaoName() + "Proxy";
+    }
+
+    protected String handleGetCrudServiceProxyName()
+    {
+        return getCrudServiceName() + "Proxy";
+    }
 }

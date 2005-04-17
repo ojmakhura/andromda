@@ -46,13 +46,18 @@
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityLogicImpl">
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
         <property reference="serviceAccessorPattern" default=""/>
         <property reference="servicePackageNamePattern" default="{0}"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEndLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+            <context>org.andromda.cartridges.spring.metafacades.SpringManageableEntity</context>
+        </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">

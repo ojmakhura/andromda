@@ -42,6 +42,8 @@
     <property reference="daos" default=""/>
     <!-- default name for the application context file -->
     <property reference="applicationContext" default="applicationContext.xml"/>
+    <!-- default name for the CRUD application context file -->
+    <property reference="applicationContextCrud" default="applicationContextCrud.xml"/>
     <!-- default name of the datasource application context file -->
     <property reference="applicationContextDataSource" default="applicationContext-dataSource.xml"/>
     <!-- default name for the remote services application context xml file (server side) -->
@@ -56,6 +58,8 @@
     <property reference="springTypesPackage" default="org.andromda.spring"/>
     <!-- the name to give the service locator class -->
     <property reference="serviceLocatorName" default="ServiceLocator"/>
+    <!-- the name to give the CRUD service locator class -->
+    <property reference="crudServiceLocatorName" default="CrudServiceLocator"/>
     <!-- the name to give the client service locator class -->
     <property reference="clientServiceLocatorName" default="ClientServiceLocator"/>
     <!-- whether the client service locator should switch the thread context class loader during
@@ -92,8 +96,8 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
-        <modelElements variable="services">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
@@ -106,8 +110,8 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
-        <modelElements variable="services">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="remotable"/>
                 </type>
@@ -427,6 +431,9 @@
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
+            <modelElement variable="cruds">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
         </modelElements>
     </template>
     
@@ -439,8 +446,7 @@
         outputToSingleFile="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
-                </type>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -454,8 +460,7 @@
         outputToSingleFile="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
-                </type>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -469,8 +474,7 @@
         outputToSingleFile="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
-                </type>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -485,6 +489,64 @@
             <modelElement stereotype="CRITERIA"/>
         </modelElements>
     </template>    
+
+    <!--
+            C R U D
+    -->
+
+    <template
+        path="templates/spring/crud/applicationContextCrud.xml.vsl"
+        outputPattern="$applicationContextCrud"
+        outlet="spring-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="cruds">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/crud/SpringCrudServiceLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="cruds">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/crud/SpringCrudService.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/crud/SpringCrudDao.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <!-- cartridge-template merge-point -->
 

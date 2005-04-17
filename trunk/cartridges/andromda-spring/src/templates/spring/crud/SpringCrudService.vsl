@@ -1,13 +1,13 @@
-#set ($generatedFile = "${crud.serviceFullPath}.java")
+#set ($generatedFile = "${crud.crudServiceFullPath}.java")
 // license-header java merge-point
 ##
-#set ($criteriaList = $crud.listCriteria(true,false))
-#set ($criteriaListCollections = $crud.listCriteria(true,true))
-#set ($criteriaListArguments = $crud.listCriteria(false,false))
+#set ($memberList = $crud.listCrudMembers(true,false))
+#set ($memberListCollections = $crud.listCrudMembers(true,true))
+#set ($memberListArguments = $crud.listCrudMembers(false,false))
 ##
 package $crud.crudPackageName;
 
-public final class $crud.serviceName
+public final class $crud.crudServiceName
 {
     private $crud.fullyQualifiedCrudDaoName dao;
 
@@ -22,70 +22,74 @@ public final class $crud.serviceName
     }
 
 #if ($crud.create)
-    public void create($criteriaList)
-        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end
+    public void create($memberList)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
     {
-#foreach ($argument in $crud.criteria)
-#if ($argument.required && !$argument.type.primitive)
-        if ($argument.name == null)
+#foreach ($member in $crud.crudMembers)
+#if ($member.required && !$member.type.primitive)
+        if ($member.name == null)
         {
             throw new IllegalArgumentException(
-                "${crud.fullyQualifiedServiceName}.create(${criteriaList}) - '${argument.name}' can not be null");
+                "${crud.fullyQualifiedCrudServiceName}.create(${memberList}) - '${member.name}' can not be null");
         }
 #end
 #end
 
-        final $crud.fullyQualifiedEntityName entity = new $crud.fullyQualifiedEntityName();
-#foreach ($attribute in $crud.attributes)
-        entity.${attribute.setterName}($attribute.name);
-#end
-#foreach ($associationEnd in $crud.manageableAssociationEnds)
-        entity.${associationEnd.setterName}($associationEnd.name);
-#end
-
-        dao.create($criteriaListArguments);
+        dao.create($memberListArguments);
     }
 
 #end
 #if ($crud.read)
-    public java.util.List read($criteriaList)
-        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end
+    public java.util.List read($memberList)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
     {
-        return dao.read($criteriaListArguments);
+        return dao.read($memberListArguments);
     }
 
 #end
 #if ($crud.update)
-    public void update(Collection ids, $criteriaListCollections)
-        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end
+    public void update(Collection ids, $memberListCollections)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
     {
         if (ids == null)
         {
             throw new IllegalArgumentException(
-                "${crud.fullyQualifiedServiceName}.update(Collection ids, $criteriaListCollections) - 'ids' can not be null");
+                "${crud.fullyQualifiedCrudServiceName}.update(Collection ids, $memberListCollections) - 'ids' can not be null");
         }
-#foreach ($argument in $crud.criteria)
-#if ($argument.required && !$argument.type.primitive)
-        if ($argument.name == null)
+#foreach ($member in $crud.crudMembers)
+#if ($member.required && !$member.type.primitive)
+        if ($member.name == null)
         {
             throw new IllegalArgumentException(
-                "${crud.fullyQualifiedServiceName}.update(Collection ids, $criteriaListCollections) - '${argument.name}' can not be null");
+                "${crud.fullyQualifiedCrudServiceName}.update(Collection ids, $memberListCollections) - '${member.name}' can not be null");
         }
 #end
 #end
 
-        dao.update(ids, $criteriaListArguments);
+        dao.update(ids, $memberListArguments);
     }
 
 #end
 #if ($crud.delete)
     public void delete(Collection ids)
-        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
     {
         if (ids == null)
         {
             throw new IllegalArgumentException(
-                "${crud.fullyQualifiedServiceName}.delete(Collection ids) - 'ids' can not be null");
+                "${crud.fullyQualifiedCrudServiceName}.delete(Collection ids) - 'ids' can not be null");
         }
 
         dao.update(ids);
