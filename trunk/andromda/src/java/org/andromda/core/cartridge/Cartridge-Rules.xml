@@ -191,17 +191,23 @@
 
                         <call-param-rule
                             pattern="property"
+                            paramnumber="1"/>
+                            
+                        <call-method-rule
+                            pattern="property"
+                            methodname="addProperty"
+                            paramcount="2"
+                            paramtypes="java.lang.String,java.lang.String"/>
+
+                        <call-param-rule
+                            pattern="property"
                             attrname="name"
                             paramnumber="0" />
-
+                            
                         <call-param-rule
                             pattern="property"
                             attrname="value"
                             paramnumber="1" />
-
-                        <call-param-rule
-                            pattern="property"
-                            paramnumber="1"/>
 
                         <set-next-rule methodname="addType" />
 

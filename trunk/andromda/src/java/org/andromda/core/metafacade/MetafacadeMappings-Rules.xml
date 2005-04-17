@@ -73,7 +73,7 @@
                 <call-param-rule
                       pattern="stereotype"
                       paramnumber="0"/>
-
+                      
                 <call-method-rule
                     pattern="property"
                     methodname="addMappingProperty"
@@ -84,16 +84,27 @@
                     pattern="property"
                     attrname="name"
                     paramnumber="0" />
+                    
+                <call-param-rule
+                    pattern="property"
+                    paramnumber="1"/>
+                    
+                <call-method-rule
+                    pattern="property"
+                    methodname="addMappingProperty"
+                    paramcount="2"
+                    paramtypes="java.lang.String,java.lang.String"/>
+                    
+                <call-param-rule
+                    pattern="property"
+                    attrname="name"
+                    paramnumber="0" />
 
                 <call-param-rule
                     pattern="property"
                     attrname="value"
                     paramnumber="1" />
-
-                <call-param-rule
-                    pattern="property"
-                    paramnumber="1"/>
-
+                    
             </pattern>
 
             <set-properties-rule>
