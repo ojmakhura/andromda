@@ -50,7 +50,7 @@
             <param-name>config</param-name>
             <param-value>/WEB-INF/struts-config.xml</param-value>
         </init-param>
-#if ($cruds.size() > 0)
+#if (!$cruds.empty)
         <init-param>
             <param-name>config/admin</param-name>
             <param-value>/WEB-INF/struts-admin.xml</param-value>

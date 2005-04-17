@@ -1,6 +1,7 @@
 ##
 ##  CONSTANTS   &   GLOBAL VARIABLES
 ##
+#if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 #set ($root = $applicationUseCase.applicationHierarchyRoot)
 ##
 ##  MACROS
