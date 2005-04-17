@@ -10,6 +10,13 @@
     </properties>
     <body>
         <release version="3.0-RC2-SNAPSHOT" date="2005-04-17" description="Second release candidate for version 3.0">
+            <action dev="cwbrandon" type="add" issue="CORE-56">
+                It is now possible to specify XSL transformation templates to be applied to the model(s) before model
+                processing begins, please see the 
+                <a href="maven-andromda-plugin/properties.html#maven_andromda_transformation_uri">AndroMDA Maven Plugin</a> or 
+                the <a href="andromda-ant-task/index.html#transformation">AndroMDA Ant Task</a> (depending on what
+                you use) for more information.
+            </action>
             <action dev="draftdog" type="add" issue="BPM-107">
                 It is now possible to use the <![CDATA[<<Unsecured>>]]> stereotype on use-cases that need to be
                 accessible for anyone, even when security has been enabled.
