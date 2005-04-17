@@ -310,7 +310,7 @@
             </p>
             <source language="xml"><![CDATA[
 <taskdef name="andromda"
-         classname="org.andromda.core.anttasks.AndroMDAGenTask"
+         classname="org.andromda.ant.task.AndroMDAGenTask"
          classpathref="class.path"/>
 
 <andromda>
