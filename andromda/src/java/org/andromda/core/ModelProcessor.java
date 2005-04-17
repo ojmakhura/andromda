@@ -1,5 +1,16 @@
 package org.andromda.core;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BuildInformation;
@@ -14,20 +25,13 @@ import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
+import org.andromda.core.transformation.Transformer;
+import org.andromda.core.transformation.XslTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * <p/>
@@ -35,8 +39,6 @@ import java.util.List;
  * Architecture by enabling the generation of source code, configuration files, and other such artifacts from a single
  * or multiple <code>MOF</code> models. </p>
  *
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
- * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
  */
 public class ModelProcessor
@@ -97,7 +99,7 @@ public class ModelProcessor
             {
                 // log all the error messages
                 Collection messages = MetafacadeFactory.getInstance().getValidationMessages();
-                StringBuffer totalMessagesMessage = new StringBuffer();
+                final StringBuffer totalMessagesMessage = new StringBuffer();
                 if (messages != null && !messages.isEmpty())
                 {
                     totalMessagesMessage.append(" - ");
@@ -146,13 +148,13 @@ public class ModelProcessor
         {
             boolean lastModifiedCheck = true;
             long lastModified = 0;
-            ModelPackages modelPackages = new ModelPackages();
+            final ModelPackages modelPackages = new ModelPackages();
             modelPackages.setProcessAllPackages(this.processAllModelPackages);
 
             // get the time from the model that has the latest modified time
             for (int ctr = 0; ctr < models.length; ctr++)
             {
-                Model model = models[ctr];
+                final Model model = models[ctr];
                 ResourceWriter.instance().resetHistory(model.getUrl());
                 AndroMDALogger.info("Input model --> '" + model.getUrl() + "'");
                 lastModifiedCheck = model.isLastModifiedCheck() && lastModifiedCheck;
@@ -174,8 +176,7 @@ public class ModelProcessor
                 PluginDiscoverer.instance().discoverPlugins();
                 MetafacadeFactory.getInstance().initialize();
 
-                Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
-
+                final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
                 if (cartridges.isEmpty())
                 {
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
@@ -184,23 +185,22 @@ public class ModelProcessor
                 // read all models into the repository
                 for (int ctr = 0; ctr < models.length; ctr++)
                 {
-                    Model model = models[ctr];
-                    repository.readModel(model.getUrl(), model.getModuleSearchPath());
+                    final Model model = models[ctr];
+                    final Transformer transformer = XslTransformer.instance();
+                    final InputStream stream = transformer.transform(model.getUrl(), this.getXslTransformations());
+                    repository.readModel(stream, model.getUrl().toString(), model.getModuleSearchPath());
                     modelPackages.addPackages(model.getPackages());
                 }
 
-                CodeGenerationContext context = new CodeGenerationContext(repository, modelPackages);
-
-                Namespace defaultNamespace = Namespaces.instance().findNamespace(Namespaces.DEFAULT);
-
-                for (Iterator cartridgeIt = cartridges.iterator(); cartridgeIt.hasNext();)
+                final CodeGenerationContext context = new CodeGenerationContext(repository, modelPackages);
+                final Namespace defaultNamespace = Namespaces.instance().findNamespace(Namespaces.DEFAULT);
+                for (final Iterator cartridgeIterator = cartridges.iterator(); cartridgeIterator.hasNext();)
                 {
-                    Cartridge cartridge = (Cartridge)cartridgeIt.next();
+                    final Cartridge cartridge = (Cartridge)cartridgeIterator.next();
                     cartridgeName = cartridge.getName();
                     if (this.shouldProcess(cartridgeName))
                     {
-                        Namespace namespace = Namespaces.instance().findNamespace(cartridgeName);
-
+                        final Namespace namespace = Namespaces.instance().findNamespace(cartridgeName);
                         boolean ignoreNamespace = false;
                         if (namespace != null)
                         {
@@ -352,6 +352,34 @@ public class ModelProcessor
                 this.cartridgeFilter = Arrays.asList(namespaces.split(","));
             }
         }
+    }
+    
+    /**
+     * Stores any XSL transformations that should be applied
+     * to the model(s) before processing occurs.
+     */
+    private final List xslTransformations = new ArrayList();
+    
+    /**
+     * Adds an XSL transformation to be applied to the model(s)
+     * before processing occurrs.
+     * 
+     * @param xslTransformation
+     */
+    public void addXslTransformation(URL xsltTransformation)
+    {
+        this.xslTransformations.add(xsltTransformation);
+    }
+    
+    /**
+     * Gets the current XSLT transformations that will be applied
+     * to the model before processing beings.
+     * 
+     * @return the transformations.
+     */
+    private URL[] getXslTransformations()
+    {
+        return (URL[])this.xslTransformations.toArray(new URL[0]);
     }
     
     /**

@@ -50,6 +50,22 @@
                     </tr>
                     <tr>
                         <td>
+                            maven.andromda.transformation.uri.<em>n</em>
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            <p>
+                                Defines the location of an XSL transformation to apply to the the model(s)
+                                before model processing begins, where <em>n</em> can be any number of
+                                transformations to apply. <em>n</em> begins with 0.  
+                                (i.e. maven.andromda.transformation.uri.0=file:${basedir}/path/to/some/transformation/transformation.xsl)
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             maven.andromda.src.dir
                         </td>
                         <td>

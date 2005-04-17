@@ -1,5 +1,12 @@
 package org.andromda.ant.task;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;
 import org.andromda.core.ModelProcessorException;
@@ -16,12 +23,6 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.apache.tools.ant.types.Path;
-
-import java.io.File;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * <p/>
@@ -65,8 +66,6 @@ public class AndroMDAGenTask
      * Stores the path elements pointing to the mapping files
      */
     private Path mappingsSearchPath = null;
-
-    private Collection models = new ArrayList();
 
     /**
      * Temporary list of properties from the &lt;namespace&gt; subtask. Will be transferred to the Namespaces instance
@@ -205,12 +204,20 @@ public class AndroMDAGenTask
                     throw new BuildException("Could not find any model input!");
                 }
             }
+            
+            final ModelProcessor processor = ModelProcessor.instance();
 
+            // Add any transformations to the model processor
+            for (Iterator transformationIterator = transformations.iterator(); transformationIterator.hasNext();)
+            {
+                processor.addXslTransformation(((TransformationConfiguration)transformationIterator.next()).getUrl());
+            }
+            
             // set the cartridge filter
-            ModelProcessor.instance().setCartridgeFilter(this.cartridgeFilter);
+            processor.setCartridgeFilter(this.cartridgeFilter);
 
             // pass the loaded model(s) to the ModelProcessor
-            ModelProcessor.instance().process(models);
+            processor.process(models);
         }
         catch (ModelProcessorException th)
         {
@@ -272,7 +279,12 @@ public class AndroMDAGenTask
         }
         return repositoryConfiguration;
     }
-
+    
+    /**
+     * Stores any models to be processed.
+     */
+    private final Collection models = new ArrayList();
+    
     /**
      * Adds a new model configuration object. This enables an Ant build script to use the <code>&lt;model&gt;</code>
      * within the <code>&lt;andromda&gt;</code> task, which allows multiple models to be processed.
@@ -367,6 +379,21 @@ public class AndroMDAGenTask
     public void setModelValidation(boolean modelValidation)
     {
         ModelProcessor.instance().setModelValidation(modelValidation);
+    }
+    
+    /**
+     * Stores any transformations to be applied.
+     */
+    private final List transformations = new ArrayList();
+    
+    /**
+     * Adds an XSL transformation to the model processor.  Each transformation
+     * added will be applied to the model before processing occurs.
+     * @param transformation the transformation configuration.
+     */
+    public void addTransformation(TransformationConfiguration transformation)
+    {
+        transformations.add(transformation);
     }
 
     /**

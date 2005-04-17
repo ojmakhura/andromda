@@ -256,6 +256,45 @@
                     </td>
                 </tr>
             </table>
+            <table>
+                <h2>
+                    <a name="transformation"><![CDATA[<transformation>]]></a>
+                </h2>
+                <p> 
+                    The <code><![CDATA[<transformation/>]]></code> is an <em>optional</em> 
+                    element used to tell AndroMDA to apply an XSL transformation to the model(s) before
+                    modeling processing occurs.  Note, that as many
+                    transformations can be specified as you like, the transformations will be applied
+                    in the order that they are specified in your build.xml.  Also note that any imports
+                    are assumed to be relative to the transformation itself.
+                </p>
+                <p>
+                    The transformation is an optional nested element.  
+                </p>
+                <tr>
+                    <td>
+                        <strong>Attribute</strong>
+                    </td>
+                    <td>
+                        <strong>Description</strong>
+                    </td>
+                    <td align="center">
+                        <strong>Required</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        url
+                    </td>
+                    <td>
+                        The URL of the transformation to be applied. (i.e.
+                        jar:file:/path/to/my/transformation/transformation.xsl)
+                    </td>
+                    <td align="center">
+                        Yes
+                    </td>
+                </tr>
+            </table>
             <a name="andromda-example"/>
             <h3>Example</h3>
             <p>
@@ -275,7 +314,10 @@
          classpathref="class.path"/>
 
 <andromda>
-    <model url="jar:file:/path/to/my/model.zuml!/model.xmi"/>
+    <model url="jar:file:/path/to/my/model1.zuml!/model1.xmi"/>
+    <model url="jar:file:/path/to/my/model2.zuml!/model2.xmi"/>
+    <transformation url="file:/path/to/my/transformation1.xsl"/>
+    <transformation url="file:/path/to/my/transformation2.xsl"/>
     <!-- defines the location of the mapping files -->
     <mappingsSearchPath>
         <pathelement location="${basedir}/src/mappings"/>

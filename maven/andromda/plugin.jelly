@@ -63,6 +63,15 @@
                     <ant:model url="${context.getVariable(indexVarName)}"/>
                 </j:if>
             </j:forEach>
+            
+            <!-- set any transformations -->
+            <j:set var="index" value="0"/>
+            <j:forEach begin="0" end="${maximum}" indexVar="index">
+                <j:set var="indexVarName" value="maven.andromda.transformation.uri.${index}"/>
+                <j:if test="${context.getVariable(indexVarName) != null and context.getVariable(indexVarName) != ''}">
+                    <ant:transformation url="${context.getVariable(indexVarName)}"/>
+                </j:if>
+            </j:forEach>
 
             <!-- set the modelPackages -->
             <j:set var="index" value="0"/>
