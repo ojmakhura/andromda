@@ -21,8 +21,7 @@ public class SpringManageableEntityAssociationEndLogicImpl
      */
     protected java.lang.String handleGetDaoGetterName()
     {
-        // TODO: put your implementation here.
-        return null;
+        return getGetterName() + "Dao";
     }
 
     /**
@@ -30,8 +29,7 @@ public class SpringManageableEntityAssociationEndLogicImpl
      */
     protected java.lang.String handleGetDaoSetterName()
     {
-        // TODO: put your implementation here.
-        return null;
+        return getSetterName() + "Dao";
     }
 
 }

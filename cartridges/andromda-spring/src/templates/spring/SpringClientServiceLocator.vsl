@@ -17,7 +17,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Locates and provides all available application services.
  */
-public class $clientServiceLocatorName
+public class ${clientServiceLocatorName}
 {
     /**
      * The default application context location.
@@ -34,22 +34,22 @@ public class $clientServiceLocatorName
      */
     private String contextLocation;
 
-    private $clientServiceLocatorName()
+    private ${clientServiceLocatorName}()
     {
         // shouldn't be instantiated
     }
 
     /**
-     * The shared instance of this $clientServiceLocatorName.
+     * The shared instance of this ${clientServiceLocatorName}.
      */
-    private final static $clientServiceLocatorName instance = new $clientServiceLocatorName();
+    private final static ${clientServiceLocatorName} instance = new ${clientServiceLocatorName}();
 
     /**
      * Gets the shared instance of this Class
      *
      * @return the shared service locator instance.
      */
-    public static final $clientServiceLocatorName instance()
+    public static final ${clientServiceLocatorName} instance()
     {
         return instance;
     }
