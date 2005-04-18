@@ -274,6 +274,68 @@ $field.getDocumentation("     * ")
         this.$labelListName = $labelListName;
     }
 
+    /**
+     * Convenient method to quickly set the value and label backinglist for the
+     * $field.name property. This method takes a collection of objects, as well as
+     * the property names to query on these objects in order to find the corresponding
+     * values and labels.
+     * <p/>
+     * Let's say you have a set of value objects with the following properties:
+     * <ul>
+     *  <li><code>id</code></li>
+     *  <li><code>code</code></li>
+     *  <li><code>name</code></li>
+     *  <li><code>description</code></li>
+     * </ul>
+     * But you need to populate the $field.name backing list with the <code>id</code> properties as the values and the
+     * <code>name</code> properties as the labels then you would make a call like this:
+     * <code>set${backingListMethod}(valueObjects, "id", "name")</code>
+     * <p/>
+     * This method knows how to handle primitive property types as it simply delegates to
+     * <code>org.apache.commons.beanutils.PropertyUtils.getProperty(Object, String)</code>.
+     *
+     * @param items The items from which to read the properties, if this argument is <code>null</code> this method
+     *      will simply clear the existing values and labels
+     * @param valueProperty the name of the property to query on each object to retrieve
+     *      the corresponding value, cannot be <code>null</code>
+     * @throws java.lang.IllegalArgumentException if the valueProperty or labelProperty is <code>null</code>, or if one
+     *      of the items in the collection is <code>null</code>, if the caller does not have access one of the object's
+     *      properties, if an exception was thrown while accessing a property or if the property does not exist on at
+     *      least one of the items
+     */
+    public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty)
+    {
+        if (valueProperty == null || labelProperty == null)
+        {
+            throw new IllegalArgumentException("${formBeanClassName}.set${backingListMethod} requires non-null property arguments");
+        }
+
+        this.${valueListName} = null;
+        this.${labelListName} = null;
+
+        if (items != null)
+        {
+            this.${valueListName} = new Object[items.size()];
+            this.${labelListName} = new Object[items.size()];
+
+            try
+            {
+                int i = 0;
+                for (java.util.Iterator iterator = items.iterator(); iterator.hasNext(); i++)
+                {
+                    final Object item = iterator.next();
+
+                    this.${valueListName}[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
+                    this.${labelListName}[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new IllegalArgumentException("${formBeanClassName}.set${backingListMethod} encountered an exception", ex);
+            }
+        }
+    }
+
 #end
     /**
      * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
@@ -323,6 +385,21 @@ $field.getDocumentation("     * ")
 #end
     }
 
+    /**
+     * Override to provide population of current form with request parameters when validation fails.
+     *
+     * @see org.apache.struts.action.ActionForm#validate(org.apache.struts.action.ActionMapping, javax.servlet.http.HttpServletRequest)
+     */
+    public org.apache.struts.action.ActionErrors validate(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
+    {
+        final org.apache.struts.action.ActionErrors errors = super.validate(mapping, request);
+        if (errors != null && !errors.isEmpty())
+        {
+#populateCurrentFormOnError()
+        }
+        return errors;
+    }
+
     public final static class LabelValue
     {
         private Object label = null;
@@ -348,20 +425,5 @@ $field.getDocumentation("     * ")
         {
             return label + "=" + value;
         }
-    }
-
-    /**
-     * Override to provide population of current form with request parameters when validation fails.
-     * 
-     * @see org.apache.struts.action.ActionForm#validate(org.apache.struts.action.ActionMapping, javax.servlet.http.HttpServletRequest)
-     */
-    public org.apache.struts.action.ActionErrors validate(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
-    { 
-        final org.apache.struts.action.ActionErrors errors = super.validate(mapping, request);
-        if (errors != null && !errors.isEmpty())
-        {
-#populateCurrentFormOnError()
-        }
-        return errors;
     }
 }
