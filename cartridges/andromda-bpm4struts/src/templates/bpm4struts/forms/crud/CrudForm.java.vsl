@@ -1,0 +1,102 @@
+#set ($generatedFile = "${crud.formBeanFullPath}.java")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $crud.crudPackageName;
+
+public class $crud.formBeanClassName
+    extends org.apache.struts.validator.ValidatorForm
+    implements java.io.Serializable
+{
+    private java.util.List $crud.listName = null;
+
+    public java.util.List ${crud.listGetterName}()
+    {
+        return this.$crud.listName;
+    }
+
+    public void ${crud.listSetterName}(java.util.List $crud.listName)
+    {
+        this.$crud.listName = $crud.listName;
+    }
+
+#foreach ($member in $crud.attributes)
+    private $member.type.fullyQualifiedName $member.name;
+
+    $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
+    {
+        return this.$member.name;
+    }
+
+    $member.visibility void ${member.setterName}($member.type.fullyQualifiedName $member.name)
+    {
+        this.$member.name = $member.name;
+    }
+
+#end
+#foreach ($member in $crud.manageableAssociationEnds)
+#set ($identifier = $member.type.identifiers.iterator().next())
+    private $member.crudType.fullyQualifiedName $member.crudName;
+
+    $member.visibility $member.crudType.fullyQualifiedName ${member.crudGetterName}()
+    {
+        return this.$member.crudName;
+    }
+
+    $member.visibility void ${member.crudSetterName}($member.crudType.fullyQualifiedName $member.crudName)
+    {
+        this.$member.crudName = $member.crudName;
+    }
+
+    private Object[] ${member.name}ValueList;
+
+    $member.visibility $identifier.type.fullyQualifiedName ${member.getterName}ValueList()
+    {
+        return this.${member.name}ValueList;
+    }
+
+    $member.visibility void ${member.setterName}ValueList($identifier.type.fullyQualifiedName $member.name)
+    {
+        this.${member.name}ValueList = ${member.name}ValueList;
+    }
+
+    private Object[] ${member.name}LabelList;
+
+    $member.visibility Object[] ${member.getterName}LabelList()
+    {
+        return this.${member.name}LabelList;
+    }
+
+    $member.visibility void ${member.setterName}LabelList(Object[] ${member.name}LabelList)
+    {
+        this.${member.name}LabelList = ${member.name}LabelList;
+    }
+
+    public void set${backingListMethod}(Collection items, String valueProperty, String labelProperty)
+    {
+        this.${member.name}ValueList = null;
+        this.${member.name}LabelList = null;
+
+        if (items != null)
+        {
+            this.${member.name}ValueList = new Object[items.size()];
+            this.${member.name}LabelList = new Object[items.size()];
+
+            int i = 0;
+            for (java.util.Iterator = items.iterator(); iterator.hasNext(); i++)
+            {
+                final Object item = iterator.next();
+
+                this.${member.name}ValueList[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
+                this.${member.name}LabelList[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
+            }
+        }
+    }
+
+#end
+
+// @todo: reset
+// @todo: validate
+// @todo: toString
+}
