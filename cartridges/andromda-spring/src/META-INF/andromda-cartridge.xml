@@ -574,6 +574,19 @@
         </modelElements>
     </template>
 
+    <template
+        path="templates/spring/crud/SpringCrudValueObject.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>

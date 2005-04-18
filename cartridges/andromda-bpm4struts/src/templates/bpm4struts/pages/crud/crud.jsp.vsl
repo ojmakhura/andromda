@@ -10,7 +10,7 @@
 <tiles:insert definition="main.layout">
 
     <tiles:put name="title" type="string">
-        <bean:message key="$crud.pageTitleKey" bundle="$crudResourcesKey"/>
+        <bean:message key="$crud.pageTitleKey"/>
     </tiles:put>
 
     <tiles:put name="javascript" type="string">
@@ -27,14 +27,14 @@
 
     <tiles:put name="body" type="string">
 
-        <tiles:insert page="entity-switcher.jsp" flush="false"/>
+        <tiles:insert page="/entity-switcher.jsp" flush="false"/>
 
         <div id="criteria">
             <html:form action="$crud.createActionPath">
                 <table>
 #foreach ($attribute in $crud.attributes)
                     <tr>
-                        <td><bean:message key="$attribute.messageKey" bundle="$crudResourcesKey"/></td>
+                        <td><bean:message key="$attribute.messageKey"/></td>
                         <td>
 #renderCrudField($attribute "                            ")
                         </td>
@@ -63,28 +63,26 @@
 
         </div>
 
-#set ($listBean = "crudForm.${crud.listName}")
-<c:if test="${${listBean}}">
         <div id="${crud.listName}" class="table">
             <c:if test="$tablePresentTest">
+#set ($listBean = "crudForm.${crud.listName}")
                 <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
                         export="true" pagesize="15" sort="list">
 #foreach ($member in $crud.crudMembers)
-                    <display:column
+                    <display:column property="$member.name"
                         headerClass="$member.name" paramId="$member.name"
                         sortProperty="$member.name" sortable="true"
-                        titleKey="$member.messageKey"/>
+                        title="$member.messageValue"/> <%-- temp: titleKey="$member.messageKey"--%>
 #end
                 </display:table>
             </c:if>
         </div>
-</c:if>
 
 
     <logic:messagesPresent>
         <div class="errors">
             <ul>
-                <html:messages id="error" bundle="$crudResourcesKey">
+                <html:messages id="error">
                     <div class="error"><li>${error}</li></div>
                 </html:messages>
             </ul>
