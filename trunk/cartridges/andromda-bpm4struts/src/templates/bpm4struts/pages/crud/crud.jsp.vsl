@@ -1,7 +1,7 @@
 #parse("templates/bpm4struts/pages/crud/crud.jsp.vm")
 #set ($generatedFile = "$crud.pageFullPath")
 ##
-#set ($tableVariable = "form.${crud.listName}")
+#set ($tableVariable = "${formBeanName}.${crud.listName}")
 #set ($tablePresentTest = "!empty $tableVariable")
 #set ($tablePresentTest = "${${tablePresentTest}}")
 ##
