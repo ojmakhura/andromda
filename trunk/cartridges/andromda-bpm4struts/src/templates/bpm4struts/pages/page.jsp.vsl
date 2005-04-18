@@ -124,8 +124,8 @@
 #foreach ($variable in $jsp.pageVariables)
 #if (!$variable.table)
             <c:choose>
-                <c:when test="${!empty ${formBeanName}.${variable.name}}">
-                    <bean:write name="$formBeanName" property="$variable.name"/>
+                <c:when test="${!empty ${formName}.${variable.name}}">
+                    <bean:write name="$formName" property="$variable.name"/>
                 </c:when>
                 <c:otherwise>
                     Missing from request : ${variable.name} <br/>
@@ -206,7 +206,7 @@
                         field = document.getElementById("${parameter.styleId}"+rowNum);
                         if (field.type != "checkbox" || field.checked) query = query + "${delim}${parameter.name}=" + field.value;
 #else
-#set ($value = "${formBeanName}.${parameter.name}")
+#set ($value = "${formName}.${parameter.name}")
                         query = query + "${delim}${parameter.name}=${${value}}";
 #end
 #set ($delim = '&')

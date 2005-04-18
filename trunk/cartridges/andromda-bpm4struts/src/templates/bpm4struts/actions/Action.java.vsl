@@ -59,9 +59,9 @@ public final class $action.actionClassName extends Action
         if (this.errorsNotPresent(request))
         {
 #if ($action.formScopeRequest)
-            request.setAttribute("$formBeanName", form);
+            request.setAttribute("$formName", form);
 #else
-            request.getSession().setAttribute("$formBeanName", form);
+            request.getSession().setAttribute("$formName", form);
 #end
         }
         else

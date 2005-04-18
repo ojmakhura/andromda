@@ -9,6 +9,7 @@
 #set ($trigger = $action.actionTrigger)
 #set ($triggerKey = $trigger.triggerKey)
 #set ($parameters = $action.actionParameters)
+#set ($formBeanName = $formName)
 #set ($securityEnabled = ($security=="true") && ($roles != "") )
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
@@ -42,7 +43,7 @@ ${indent}</logic:notPresent>
 #set ($table = $action.tableLinkParameter)
 #set($uriQuery='')#set($delim='?')
 #foreach ($parameter in $action.actionParameters)
-#if(!$table.tableColumnNames.contains($parameter.name))#set($beanName="$formBeanName")#end
+#if(!$table.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#end
 #set($paramValue="${beanName}.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
 #end
 ${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints)onmouseover="hints.show('$parameter.titleKey')" onmouseout="hints.hide()"#end>
@@ -99,6 +100,7 @@ ${indent}</logic:notPresent>
 #macro ( renderFormField $action $field $indent $rowIndex)
 #set ($fieldName = $field.name)
 #set ($widgetType = $field.widgetType)
+#set ($formBeanName = $formName)## used to denote the request scope form
 #if($rowIndex=='')
 #set($beanName=$formBeanName)
 #else
