@@ -54,15 +54,38 @@ public final class $action.actionClassName extends Action
         org.apache.commons.beanutils.BeanUtils.populate(form, request.getParameterMap());
 
 #end
+#set ($formBeanName = "form")
         final ActionForward forward = #processTransition($action)
 #if (!$action.formScopeNone)
         if (this.errorsNotPresent(request))
         {
 #if ($action.formScopeRequest)
-            request.setAttribute("form", form);
+            request.setAttribute("$formBeanName", form);
 #else
-            request.getSession().setAttribute("form", form);
+            request.getSession().setAttribute("$formBeanName", form);
 #end
+        }
+        else
+        {
+            // we populate the previous form with only the request parameters (we don't want the new
+            // form set within the request, because we'll lose things like select lists, and any other
+            // collections on the form)
+            Object previousForm = request.getSession().getAttribute("$formBeanName");
+            // if we can't get the '$formBeanName' from the session, try from the request
+            if (previousForm == null)
+            {
+                previousForm = request.getAttribute("$formBeanName");
+            }
+            if (previousForm != null)
+            {
+                final java.util.Map parameters = new java.util.HashMap();
+                for (final java.util.Enumeration names = request.getParameterNames(); names.hasMoreElements();)
+                {
+                    final String name = String.valueOf(names.nextElement());
+                    parameters.put(name, request.getParameter(name));
+                }
+                org.apache.commons.beanutils.BeanUtils.populate(previousForm, parameters);
+            }
         }
 #end
 #saveMessages($action "        ")
