@@ -17,9 +17,9 @@ public final class $crud.createActionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final $crud.createFormBeanType form = ($crud.createFormBeanType) actionForm;
+        request.setAttribute("crudForm", actionForm);
 
-        request.setAttribute("$formBeanName", form);
+        final $crud.formBeanType form = ($crud.formBeanType)actionForm;
 
         ${crud.crudServiceAccessorCall}.create(
 #set ($comma = '')

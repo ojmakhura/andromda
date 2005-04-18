@@ -1,7 +1,7 @@
 #parse("templates/bpm4struts/pages/crud/crud.jsp.vm")
 #set ($generatedFile = "$crud.pageFullPath")
 ##
-#set ($tableVariable = "${formBeanName}.${crud.listName}")
+#set ($tableVariable = "crudForm.${crud.listName}")
 #set ($tablePresentTest = "!empty $tableVariable")
 #set ($tablePresentTest = "${${tablePresentTest}}")
 ##
@@ -26,6 +26,8 @@
     </tiles:put>
 
     <tiles:put name="body" type="string">
+
+        <tiles:insert page="entity-switcher.jsp" flush="false"/>
 
         <div id="criteria">
             <html:form action="$crud.createActionPath">
@@ -60,10 +62,11 @@
         <div id="relations">
 
         </div>
-<%--
+
+#set ($listBean = "crudForm.${crud.listName}")
+<c:if test="${${listBean}}">
         <div id="${crud.listName}" class="table">
             <c:if test="$tablePresentTest">
-#set ($listBean = "form.${crud.listName}")
                 <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
                         export="true" pagesize="15" sort="list">
 #foreach ($member in $crud.crudMembers)
@@ -75,7 +78,7 @@
                 </display:table>
             </c:if>
         </div>
---%>
+</c:if>
 
 
     <logic:messagesPresent>

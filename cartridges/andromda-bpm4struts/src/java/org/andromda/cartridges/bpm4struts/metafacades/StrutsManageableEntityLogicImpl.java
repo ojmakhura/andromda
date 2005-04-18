@@ -1,6 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-
+import org.andromda.core.common.StringUtilsHelper;
 
 
 /**
@@ -18,9 +18,24 @@ public class StrutsManageableEntityLogicImpl
         super (metaObject, context);
     }
 
+    protected String handleGetFormBeanType()
+    {
+        return getCrudPackageName() + '.' + getFormBeanClassName();
+    }
+
+    protected String handleGetFormBeanClassName()
+    {
+        return getName() + "Form";
+    }
+
+    protected String handleGetFormBeanFullPath()
+    {
+        return getFormBeanType().replace('.', '/');
+    }
+
     protected java.lang.String handleGetActionInput()
     {
-        return '/' + getCrudPackagePath() + '/' + getPageName();
+        return getPreloadActionPath() + ".do";
     }
 
     protected java.lang.String handleGetPageTitleKey()
@@ -36,6 +51,16 @@ public class StrutsManageableEntityLogicImpl
     protected java.lang.String handleGetListName()
     {
         return "crudList";
+    }
+
+    protected java.lang.String handleGetListGetterName()
+    {
+        return "getCrudList";
+    }
+
+    protected java.lang.String handleGetListSetterName()
+    {
+        return "setCrudList";
     }
 
     protected String handleGetPageName()
@@ -58,21 +83,6 @@ public class StrutsManageableEntityLogicImpl
         return "create" + getName() + "Form";
     }
 
-    protected java.lang.String handleGetCreateFormBeanType()
-    {
-        return getCrudPackageName() + '.' + getCreateFormBeanClassName();
-    }
-
-    protected java.lang.String handleGetCreateForwardName()
-    {
-        return "create" + '.' + getName().toLowerCase();
-    }
-
-    protected java.lang.String handleGetCreateForwardPath()
-    {
-        return getCreateActionPath() + ".do";
-    }
-
     protected java.lang.String handleGetCreateActionType()
     {
         return getCrudPackageName() + '.' + getCreateActionClassName();
@@ -88,11 +98,6 @@ public class StrutsManageableEntityLogicImpl
         return getActionInput();
     }
 
-    protected java.lang.String handleGetCreateActionForwardName()
-    {
-        return "crud";
-    }
-
     protected java.lang.String handleGetCreateActionFullPath()
     {
         return '/' + getCreateActionType().replace('.', '/');
@@ -103,16 +108,6 @@ public class StrutsManageableEntityLogicImpl
         return "Create" + getName();
     }
 
-    protected java.lang.String handleGetCreateFormBeanFullPath()
-    {
-        return getCrudPackagePath() + '/' + getCreateFormBeanClassName();
-    }
-
-    protected java.lang.String handleGetCreateFormBeanClassName()
-    {
-        return getCreateActionClassName() + "Form";
-    }
-
     protected java.lang.String handleGetReadActionPath()
     {
         return '/' + getName() + "/Read";
@@ -121,21 +116,6 @@ public class StrutsManageableEntityLogicImpl
     protected java.lang.String handleGetReadFormBeanName()
     {
         return "read" + getName() + "Form";
-    }
-
-    protected java.lang.String handleGetReadFormBeanType()
-    {
-        return getCrudPackageName() + '.' + getReadFormBeanClassName();
-    }
-
-    protected java.lang.String handleGetReadForwardName()
-    {
-        return "read" + '.' + getName().toLowerCase();
-    }
-
-    protected java.lang.String handleGetReadForwardPath()
-    {
-        return getReadActionPath() + ".do";
     }
 
     protected java.lang.String handleGetReadActionType()
@@ -163,16 +143,6 @@ public class StrutsManageableEntityLogicImpl
         return "Read" + getName();
     }
 
-    protected java.lang.String handleGetReadFormBeanFullPath()
-    {
-        return getCrudPackagePath() + '/' + getReadFormBeanClassName();
-    }
-
-    protected java.lang.String handleGetReadFormBeanClassName()
-    {
-        return getReadActionClassName() + "Form";
-    }
-
     protected java.lang.String handleGetUpdateActionPath()
     {
         return '/' + getName() + "/Update";
@@ -181,21 +151,6 @@ public class StrutsManageableEntityLogicImpl
     protected java.lang.String handleGetUpdateFormBeanName()
     {
         return "update" + getName() + "Form";
-    }
-
-    protected java.lang.String handleGetUpdateFormBeanType()
-    {
-        return getCrudPackageName() + '.' + getUpdateFormBeanClassName();
-    }
-
-    protected java.lang.String handleGetUpdateForwardName()
-    {
-        return "update" + '.' + getName().toLowerCase();
-    }
-
-    protected java.lang.String handleGetUpdateForwardPath()
-    {
-        return getUpdateActionPath() + ".do";
     }
 
     protected java.lang.String handleGetUpdateActionType()
@@ -223,16 +178,6 @@ public class StrutsManageableEntityLogicImpl
         return "Update" + getName();
     }
 
-    protected java.lang.String handleGetUpdateFormBeanFullPath()
-    {
-        return getCrudPackagePath() + '/' + getUpdateFormBeanClassName();
-    }
-
-    protected java.lang.String handleGetUpdateFormBeanClassName()
-    {
-        return getUpdateActionClassName() + "Form";
-    }
-
     protected java.lang.String handleGetDeleteActionPath()
     {
         return '/' + getName() + "/Delete";
@@ -241,21 +186,6 @@ public class StrutsManageableEntityLogicImpl
     protected java.lang.String handleGetDeleteFormBeanName()
     {
         return "delete" + getName() + "Form";
-    }
-
-    protected java.lang.String handleGetDeleteFormBeanType()
-    {
-        return getCrudPackageName() + '.' + getDeleteFormBeanClassName();
-    }
-
-    protected java.lang.String handleGetDeleteForwardName()
-    {
-        return "delete" + '.' + getName().toLowerCase();
-    }
-
-    protected java.lang.String handleGetDeleteForwardPath()
-    {
-        return getDeleteActionPath() + ".do";
     }
 
     protected java.lang.String handleGetDeleteActionType()
@@ -283,13 +213,43 @@ public class StrutsManageableEntityLogicImpl
         return "Delete" + getName();
     }
 
-    protected java.lang.String handleGetDeleteFormBeanFullPath()
+    protected String handleGetPreloadActionPath()
     {
-        return getCrudPackagePath() + '/' + getDeleteFormBeanClassName();
+        return '/' + getName() + "/Preload";
     }
 
-    protected java.lang.String handleGetDeleteFormBeanClassName()
+    protected String handleGetPreloadActionType()
     {
-        return getDeleteActionClassName() + "Form";
+        return getCrudPackageName() + '.' + getPreloadActionClassName();
+    }
+
+    protected String handleGetPreloadFormBeanName()
+    {
+        return "preload" + getName() + "Form";
+    }
+
+    protected String handleGetPreloadActionFullPath()
+    {
+        return getCrudPackagePath() + '/' + getPreloadActionClassName();
+    }
+
+    protected String handleGetPreloadActionClassName()
+    {
+        return "Preload" + getName();
+    }
+
+    protected String handleGetPreloadForwardName()
+    {
+        return StringUtilsHelper.toResourceMessageKey(getName());
+    }
+
+    protected boolean handleIsPreload()
+    {
+        return isCreate() || isRead() || isUpdate() || isDelete();
+    }
+
+    protected String handleGetPreloadForwardPath()
+    {
+        return getPreloadActionPath();
     }
 }

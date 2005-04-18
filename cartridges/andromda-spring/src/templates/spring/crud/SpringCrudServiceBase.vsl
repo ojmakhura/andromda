@@ -50,7 +50,16 @@ public final class $crud.crudServiceBaseName
             , java.rmi.RemoteException
 #end
     {
-        return dao.read($memberListArguments);
+        return toValueObjects(dao.read($memberListArguments));
+    }
+
+    public java.util.List readAll()
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+        return toValueObjects(dao.readAll());
     }
 
 #end
@@ -97,4 +106,36 @@ public final class $crud.crudServiceBaseName
     }
 
 #end
+
+    private java.util.List toValueObjects(java.util.Collection entities)
+    {
+        final java.util.List list = new java.util.ArrayList();
+
+        for (java.util.Iterator iterator = entities.iterator(); iterator.hasNext();)
+        {
+            list.add(toValueObject(($crud.fullyQualifiedEntityName)iterator.next()));
+        }
+
+        return list;
+    }
+
+    private $crud.fullyQualifiedCrudValueObjectName toValueObject($crud.fullyQualifiedEntityName entity)
+    {
+        final $crud.fullyQualifiedCrudValueObjectName valueObject = new ${crud.fullyQualifiedCrudValueObjectName}();
+
+#foreach ($member in $crud.attributes)
+        valueObject.${member.setterName}(entity.${member.getterName}());
+#end
+#foreach ($member in $crud.manageableAssociationEnds)
+#if ($member.crudType)
+        $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
+        if ($member.name != null)
+        {
+            valueObject.${member.crudSetterName}(${member.name}.${identifiers.iterator().next().getterName}());
+        }
+#end
+#end
+
+        return valueObject;
+    }
 }
