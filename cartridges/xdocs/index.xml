@@ -140,10 +140,10 @@
      <source language="xml">
 &lt;mappings name="Bpm4StrutsMergeMappings"&gt;
     ...
-    <strong>&lt;mapping&gt;
-        &lt;from&gt;&lt;![CDATA[</strong>&lt;!-- error-page merge-point --&gt;<strong>]]&gt;&lt;/from&gt;
+    &lt;mapping&gt;
+        &lt;from&gt;&lt;![CDATA[&lt;!-- error-page merge-point --&gt;]]&gt;&lt;/from&gt;
         &lt;to&gt;
-&lt;![CDATA[</strong>
+&lt;![CDATA[
 &lt;error-page&gt;
     &lt;error-code&gt;404&lt;/error-code&gt;
     &lt;location&gt;/index.jsp&lt;/location&gt;
@@ -155,13 +155,31 @@
 &lt;error-page&gt;
     &lt;error-code&gt;400&lt;/error-code&gt;
     &lt;location&gt;/index.jsp&lt;/location&gt;
-&lt;/error-page&gt;<strong>
+&lt;/error-page&gt;
 ]]&gt;
         &lt;/to&gt;
-    &lt;/mapping&gt;</strong>
+    &lt;/mapping&gt;
     ...
 &lt;/mappings&gt;
      </source>
+     <a name="mergingFileContents"/>
+     <p>
+        In addition to the ability of merging literal strings into merge-points (the contents of the <![CDATA[<to/>]]> element).  It's 
+        also possible to merge the entire contents of a file into a merge-point.  For example, this fragment below (from a mappings file)
+        says we want to replace anything matching <em><![CDATA[# custom-messages merge-point]]></em> with the contents of the file
+        <em>../../../web/conf/resources/custom-resources.properties</em> (please take note of the <strong>path="true"</strong>, this tells
+        AndroMDA to treat the contents of the <em>to</em> element as a path to a file, instead literally:
+        <source language="xml">
+&lt;mappings name="Bpm4StrutsMergeMappings"&gt;
+    ...
+    &lt;mapping&gt;
+        &lt;from&gt;&lt;![CDATA[# custom-messages merge-point]]&gt;&lt;/from&gt;
+        &lt;to path="true"&gt;../../../web/conf/resources/custom-resources.properties&lt;/to&gt;
+    &lt;/mapping&gt;
+    ...
+&lt;/mappings&gt;            
+        </source>
+     </p>
      <p class="highlight">
         If you wanted to add resources (i.e. a new template, image, static file, etc) to a cartridge without modifying the contents
         of the cartridge, you could use the <a href="#mergeMappingsUri">mergeMappingsUri</a> in combination with the
