@@ -9,6 +9,11 @@ public class $crud.formBeanClassName
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
 {
+    public String getCurrentEntity()
+    {
+        return "$crud.name";
+    }
+
     private java.util.List $crud.listName = null;
 
     public java.util.List ${crud.listGetterName}()
@@ -51,12 +56,12 @@ public class $crud.formBeanClassName
 
     private Object[] ${member.name}ValueList;
 
-    $member.visibility $identifier.type.fullyQualifiedName ${member.getterName}ValueList()
+    $member.visibility Object[] ${member.getterName}ValueList()
     {
         return this.${member.name}ValueList;
     }
 
-    $member.visibility void ${member.setterName}ValueList($identifier.type.fullyQualifiedName $member.name)
+    $member.visibility void ${member.setterName}ValueList(Object[] ${member.name}ValueList)
     {
         this.${member.name}ValueList = ${member.name}ValueList;
     }
@@ -73,8 +78,13 @@ public class $crud.formBeanClassName
         this.${member.name}LabelList = ${member.name}LabelList;
     }
 
-    public void set${backingListMethod}(Collection items, String valueProperty, String labelProperty)
+    public void ${member.setterName}BackingList(java.util.Collection items, String valueProperty, String labelProperty)
     {
+        if (valueProperty == null || labelProperty == null)
+        {
+            throw new IllegalArgumentException("${crud.formBeanClassName}.${member.setterName}BackingList requires non-null property arguments");
+        }
+
         this.${member.name}ValueList = null;
         this.${member.name}LabelList = null;
 
@@ -83,13 +93,20 @@ public class $crud.formBeanClassName
             this.${member.name}ValueList = new Object[items.size()];
             this.${member.name}LabelList = new Object[items.size()];
 
-            int i = 0;
-            for (java.util.Iterator = items.iterator(); iterator.hasNext(); i++)
+            try
             {
-                final Object item = iterator.next();
+                int i = 0;
+                for (java.util.Iterator iterator = items.iterator(); iterator.hasNext(); i++)
+                {
+                    final Object item = iterator.next();
 
-                this.${member.name}ValueList[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
-                this.${member.name}LabelList[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
+                    this.${member.name}ValueList[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
+                    this.${member.name}LabelList[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new IllegalArgumentException("${crud.formBeanClassName}.${member.setterName}BackingList encountered an exception", ex);
             }
         }
     }

@@ -81,7 +81,11 @@ public final class $crud.crudDaoBaseName
 
 #foreach ($member in $crud.attributes)
             if ($member.name != null)
+#if ($member.type.stringType)
                 criteria.add(Expression.ilike("$member.name", $member.name, MatchMode.START));
+#else
+                criteria.add(Expression.eq("$member.name", $member.name));
+#end
 #end
 #foreach ($member in $crud.manageableAssociationEnds)
 #set ($identifier = $member.type.identifiers.iterator().next())

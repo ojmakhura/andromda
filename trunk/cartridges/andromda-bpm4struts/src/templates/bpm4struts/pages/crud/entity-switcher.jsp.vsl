@@ -8,7 +8,15 @@
 <div id="entitySwitcher">
     <select onchange="document.location=this.options[this.selectedIndex].value;">
 #foreach ($crud in $cruds)
-        <option value="<html:rewrite page="$crud.actionInput"/>">$crud.name</option>
+        <c:choose>
+#set ($test = "crudForm.currentEntity eq '$crud.name'")
+            <c:when test="${${test}}">
+                <option selected="selected" value="<html:rewrite page="$crud.actionInput"/>">$crud.name</option>
+            </c:when>
+            <c:otherwise>
+                <option value="<html:rewrite page="$crud.actionInput"/>">$crud.name</option>
+            </c:otherwise>
+        </c:choose>
 #end
     </select>
 </div>

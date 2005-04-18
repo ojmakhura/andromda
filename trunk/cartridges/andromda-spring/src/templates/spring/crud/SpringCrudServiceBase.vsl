@@ -131,7 +131,7 @@ public final class $crud.crudServiceBaseName
         $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
         if ($member.name != null)
         {
-            valueObject.${member.crudSetterName}(${member.name}.${identifiers.iterator().next().getterName}());
+            valueObject.${member.crudSetterName}(${member.name}.${member.type.identifiers.iterator().next().getterName}());
         }
 #end
 #end
