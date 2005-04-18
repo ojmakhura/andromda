@@ -17,7 +17,7 @@
     <logic:messagesPresent name="$errorMessagesKey">
         <div class="errors">
             <ul>
-                <html:messages id="error" name="$errorMessagesKey" bundle="$customResourcesKey">
+                <html:messages id="error" name="$errorMessagesKey">
                     <div class="error"><li>${error}</li></div>
                 </html:messages>
             </ul>
