@@ -93,7 +93,8 @@ public class Mapping
     /**
      * Sets the type for this mapping.
      *
-     * @param to
+     * @param to the value to which the from
+     *        values are mapped.
      */
     public void setTo(String to)
     {
