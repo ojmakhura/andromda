@@ -349,4 +349,19 @@ $field.getDocumentation("     * ")
             return label + "=" + value;
         }
     }
+
+    /**
+     * Override to provide population of current form with request parameters when validation fails.
+     * 
+     * @see org.apache.struts.action.ActionForm#validate(org.apache.struts.action.ActionMapping, javax.servlet.http.HttpServletRequest)
+     */
+    public org.apache.struts.action.ActionErrors validate(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
+    { 
+        final org.apache.struts.action.ActionErrors errors = super.validate(mapping, request);
+        if (!errors.isEmpty())
+        {
+#populateCurrentFormOnError()
+        }
+        return errors;
+    }
 }

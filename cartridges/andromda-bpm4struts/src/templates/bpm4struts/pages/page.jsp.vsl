@@ -125,7 +125,7 @@
 #if (!$variable.table)
             <c:choose>
                 <c:when test="${!empty form.${variable.name}}">
-                    <bean:write name="form" property="${variable.name}"/>
+                    <bean:write name="$formBeanName" property="$variable.name"/>
                 </c:when>
                 <c:otherwise>
                     Missing from request : ${variable.name} <br/>

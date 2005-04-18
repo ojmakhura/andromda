@@ -19,7 +19,7 @@ public final class $crud.createActionClassName extends Action
     {
         final $crud.createFormBeanType form = ($crud.createFormBeanType) actionForm;
 
-        request.setAttribute("form", form);
+        request.setAttribute("$formBeanName", form);
 
         ${crud.crudServiceAccessorCall}.create(
 #set ($comma = '')
