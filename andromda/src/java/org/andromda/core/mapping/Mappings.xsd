@@ -21,5 +21,13 @@
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="to" type="xs:string"/>
+    <xs:element name="to">
+        <xs:complexType mixed="true">
+            <!-- indicates if the contents is a path, if so then an 
+                 attempt is made to locate the resource defined by the path and
+                 load that for the value, otherwise the contents for the 'to'
+                 element is used itself -->
+            <xs:attribute name="path" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

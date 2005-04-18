@@ -1,18 +1,18 @@
 package org.andromda.core.mapping;
 
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.XmlObjectFactory;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.XmlObjectFactory;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p/>
@@ -129,12 +129,10 @@ public class Mappings
 
         Collection fromTypes = mapping.getFroms();
         ExceptionUtils.checkNull(methodName, "mapping.fromTypes", fromTypes);
-
-        Iterator typeIt = fromTypes.iterator();
-        while (typeIt.hasNext())
+        for (final Iterator typeIterator = fromTypes.iterator(); typeIterator.hasNext();)
         {
-            String type = (String)typeIt.next();
-            this.mappings.put(type, mapping);
+            mapping.setMappings(this);
+            this.mappings.put(typeIterator.next(), mapping);
         }
     }
 
@@ -202,7 +200,7 @@ public class Mappings
     /**
      * Returns the resource URI from which this Mappings object was loaded.
      *
-     * @return URL
+     * @return URL of the resource.
      */
     public URL getResource()
     {
@@ -235,7 +233,7 @@ public class Mappings
      */
     public Mapping getMapping(String from)
     {
-        return (Mapping)mappings.get(StringUtils.trimToEmpty(from));
+        return (Mapping)this.mappings.get(StringUtils.trimToEmpty(from));
     }
 
     /**
