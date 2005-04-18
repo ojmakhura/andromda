@@ -35,9 +35,9 @@
     <property reference="errorMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
     <property reference="crudResourcesKey" default="crud"/>
     <property reference="customResourcesKey" default="custom"/>
-    <!-- the name of the form bean passed along with the application flow (normally
+    <!-- the name of the form passed along with the application flow (normally
          stored within the session) -->
-    <property reference="formBeanName" default="form"/>
+    <property reference="formName" default="form"/>
     <!-- generated xml's encoding -->
     <property reference="xmlEncoding" default="UTF-8"/>
     <!-- generate id attribute in web.xml elements -->
