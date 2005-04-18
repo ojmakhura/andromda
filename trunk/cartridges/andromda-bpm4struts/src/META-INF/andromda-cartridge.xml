@@ -33,8 +33,6 @@
     <property reference="exceptionHandlerPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="validatorPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="errorMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
-    <property reference="crudResourcesKey" default="crud"/>
-    <property reference="customResourcesKey" default="custom"/>
     <!-- the name of the form passed along with the application flow (normally
          stored within the session) -->
     <property reference="formName" default="form"/>
@@ -271,13 +269,6 @@
             </modelElement>
         </modelElements>
     </template>
-
-    <template
-        path="templates/bpm4struts/messages/custom-resources.properties.vsl"
-        outputPattern="custom-resources.properties"
-        outlet="messages"
-        overwrite="false"
-        outputToSingleFile="true"/>
 
     <template
         path="templates/bpm4struts/messages/displaytag.properties.vsl"
