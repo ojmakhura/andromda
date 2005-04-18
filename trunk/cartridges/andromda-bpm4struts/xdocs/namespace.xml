@@ -336,6 +336,21 @@
                         No, default is <code>session</code>.
                     </td>
                 </tr>
+                <tr>
+                    <a name="formBeanName"/>
+                    <td>
+                        formBeanName
+                    </td>
+                    <td>
+                        Defines the name of the <code>form</code> that is passed along during application execution.
+                        This attribute is passed along in the session (usually, can also be request if 
+                        <a href="#actionFormScope">actionFormScope</a> has been changed or its corresponding tagged value
+                        changed).  You'll normally never need to modify this value.
+                    </td>
+                    <td>
+                        No, default is <code>form</code>.
+                    </td>
+                </tr>
             </table>
         </section>
     </body>
