@@ -295,13 +295,13 @@ $field.getDocumentation("     * ")
      * <code>org.apache.commons.beanutils.PropertyUtils.getProperty(Object, String)</code>.
      *
      * @param items The items from which to read the properties, if this argument is <code>null</code> this method
-     *      will simply clear the existing values and labels
+     *        will simply clear the existing values and labels
      * @param valueProperty the name of the property to query on each object to retrieve
-     *      the corresponding value, cannot be <code>null</code>
-     * @throws java.lang.IllegalArgumentException if the valueProperty or labelProperty is <code>null</code>, or if one
-     *      of the items in the collection is <code>null</code>, if the caller does not have access one of the object's
-     *      properties, if an exception was thrown while accessing a property or if the property does not exist on at
-     *      least one of the items
+     *        the corresponding value, cannot be <code>null</code>
+     * @throws java.lang.IllegalArgumentException if the valueProperty or labelProperty is <code>null</code>
+     * @throws java.lang.RuntimeException if one of the items in the collection is <code>null</code>, or 
+     *         if the caller does not have access one of the object's properties, if an exception was thrown while 
+     *         accessing a property or if the property does not exist on at least one of the items
      */
     public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty)
     {
@@ -331,7 +331,7 @@ $field.getDocumentation("     * ")
             }
             catch (Exception ex)
             {
-                throw new IllegalArgumentException("${formBeanClassName}.set${backingListMethod} encountered an exception", ex);
+                throw new RuntimeException("${formBeanClassName}.set${backingListMethod} encountered an exception", ex);
             }
         }
     }
