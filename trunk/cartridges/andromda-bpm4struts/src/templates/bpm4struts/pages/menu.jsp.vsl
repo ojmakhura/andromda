@@ -17,6 +17,7 @@
 
 <p class="spacer"></p>
 
+#if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 #set ($useCases = $applicationUseCase.allUseCases)
 #if ($useCases.size()>1)
 <div class="box2">
