@@ -30,6 +30,10 @@
             </pattern>
 
             <pattern value="to">
+                      
+                <set-properties-rule>
+                    <alias attr-name="path" prop-name="path" />
+                </set-properties-rule>
 
                 <call-method-rule
                     methodname="setTo"

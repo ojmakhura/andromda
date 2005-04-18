@@ -51,27 +51,27 @@ public class Merger
      * @param namespace This namespace is searched when attempting to find the {@link NamespaceProperties#MERGE_MAPPINGS_URI}.
      * @return the replaced String.
      */
-    public String getMergedString(String string, String namespace)
+    public String getMergedString(String string, final String namespace)
     {
         // avoid any possible infinite recursion with the mergedStringCache
         // check (may need to refactor the mergedStringCache solution)
         if (namespace != null && string != null)
         {
-            Mappings mergeMappings = this.getMergeMappings(namespace);
+            final Mappings mergeMappings = this.getMergeMappings(namespace);
             if (mergeMappings != null)
             {
-                Collection mappings = mergeMappings.getMappings();
+                final Collection mappings = mergeMappings.getMappings();
                 if (mappings != null)
                 {
                     for (Iterator mappingsIterator = mappings.iterator(); mappingsIterator.hasNext();)
                     {
-                        Mapping mapping = (Mapping)mappingsIterator.next();
-                        Collection froms = mapping.getFroms();
+                        final Mapping mapping = (Mapping)mappingsIterator.next();
+                        final Collection froms = mapping.getFroms();
                         if (froms != null)
                         {
                             for (Iterator fromsIterator = froms.iterator(); fromsIterator.hasNext();)
                             {
-                                String from = StringUtils.trimToEmpty((String)fromsIterator.next());
+                                final String from = StringUtils.trimToEmpty((String)fromsIterator.next());
                                 if (StringUtils.isNotEmpty(from))
                                 {
                                     String to = StringUtils.trimToEmpty(mapping.getTo());
@@ -93,12 +93,12 @@ public class Merger
      * @param namespace the namespace to which the mappings belong.
      * @return the Mappings instance.
      */
-    private Mappings getMergeMappings(String namespace)
+    private Mappings getMergeMappings(final String namespace)
     {
         Mappings mergeMappings = null;
         if (StringUtils.isNotBlank(namespace))
         {
-            Property mergeMappingsUri = Namespaces.instance().findNamespaceProperty(namespace,
+            final Property mergeMappingsUri = Namespaces.instance().findNamespaceProperty(namespace,
                     NamespaceProperties.MERGE_MAPPINGS_URI, false);
             String mergeMappingsUriValue = mergeMappingsUri != null ? mergeMappingsUri.getValue() : null;
             mergeMappingsUriValue = StringUtils.trimToEmpty(mergeMappingsUriValue);
