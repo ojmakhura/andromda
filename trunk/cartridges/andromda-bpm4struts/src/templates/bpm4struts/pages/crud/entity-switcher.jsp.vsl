@@ -1,0 +1,14 @@
+<%@ include file="/taglib-imports.jspf" %>
+
+#if ($xhtml == "true")
+<html:xhtml/>
+
+#end
+
+<div id="entitySwitcher">
+    <select onchange="document.location=this.options[this.selectedIndex].value;">
+#foreach ($crud in $cruds)
+        <option value="<html:rewrite page="$crud.actionInput"/>">$crud.name</option>
+#end
+    </select>
+</div>

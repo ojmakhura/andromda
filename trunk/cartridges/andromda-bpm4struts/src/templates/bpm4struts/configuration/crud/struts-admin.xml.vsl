@@ -17,40 +17,37 @@
 
     <form-beans>
 #foreach ($crud in $cruds)
+        <form-bean name="$crud.preloadFormBeanName" type="$crud.formBeanType" />
 #if ($crud.create)
-        <form-bean name="$crud.createFormBeanName" type="$crud.createFormBeanType" />
+        <form-bean name="$crud.createFormBeanName" type="$crud.formBeanType" />
 #end
 #if ($crud.read)
-        <form-bean name="$crud.readFormBeanName" type="$crud.readFormBeanType" />
+        <form-bean name="$crud.readFormBeanName" type="$crud.formBeanType" />
 #end
 #if ($crud.update)
-        <form-bean name="$crud.updateFormBeanName" type="$crud.updateFormBeanType" />
+        <form-bean name="$crud.updateFormBeanName" type="$crud.formBeanType" />
 #end
 #if ($crud.delete)
-        <form-bean name="$crud.deleteFormBeanName" type="$crud.deleteFormBeanType" />
+        <form-bean name="$crud.deleteFormBeanName" type="$crud.formBeanType" />
 #end
 #end
     </form-beans>
 
     <global-forwards>
 #foreach ($crud in $cruds)
-#if ($crud.create)
-        <forward name="$crud.createForwardName" path="$crud.createForwardPath" redirect="false" />
-#end
-#if ($crud.read)
-        <forward name="$crud.readForwardName" path="$crud.readForwardPath" redirect="false" />
-#end
-#if ($crud.update)
-        <forward name="$crud.updateForwardName" path="$crud.updateForwardPath" redirect="false" />
-#end
-#if ($crud.delete)
-        <forward name="$crud.deleteForwardName" path="$crud.deleteForwardPath" redirect="false" />
+#if ($crud.preload)
+        <forward name="$crud.preloadForwardName" path="${crud.preloadForwardPath}.do" redirect="false" />
 #end
 #end
     </global-forwards>
 
    <action-mappings>
 #foreach ($crud in $cruds)
+#if ($crud.preload)
+        <action path="$crud.preloadActionPath" type="$crud.preloadActionType" name="$crud.preloadFormBeanName"
+            scope="request" input="$crud.pageFullPath" unknown="false" validate="false">
+        </action>
+#end
 #if ($crud.create)
         <action path="$crud.createActionPath" type="$crud.createActionType" name="$crud.createFormBeanName"
             scope="request" input="$crud.actionInput" unknown="false" validate="false">

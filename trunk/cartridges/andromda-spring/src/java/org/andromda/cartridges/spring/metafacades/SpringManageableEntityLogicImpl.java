@@ -71,4 +71,19 @@ public class SpringManageableEntityLogicImpl
     {
         return getFullyQualifiedCrudServiceBaseName().replace('.', '/');
     }
+
+    protected String handleGetCrudValueObjectFullPath()
+    {
+        return getFullyQualifiedCrudValueObjectName().replace('.', '/');
+    }
+
+    protected String handleGetCrudValueObjectClassName()
+    {
+        return getName() + "ValueObject";
+    }
+
+    protected String handleGetFullyQualifiedCrudValueObjectName()
+    {
+        return getCrudPackageName() + '.' + getCrudValueObjectClassName();
+    }
 }

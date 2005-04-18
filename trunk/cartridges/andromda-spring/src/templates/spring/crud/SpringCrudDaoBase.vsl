@@ -74,23 +74,45 @@ public final class $crud.crudDaoBaseName
 #if ($crud.read)
     public java.util.List read($memberList)
     {
-        final Session session = getSession();
-        final Criteria criteria = getHibernateTemplate().createCriteria(session, ${crud.fullyQualifiedEntityImplementationName}.class);
+        try
+        {
+            final Session session = getSession(false);
+            final Criteria criteria = getHibernateTemplate().createCriteria(session, ${crud.fullyQualifiedEntityImplementationName}.class);
 
 #foreach ($member in $crud.attributes)
-        if ($member.name != null)
-            criteria.add(Expression.ilike("$member.name", $member.name, MatchMode.START));
+            if ($member.name != null)
+                criteria.add(Expression.ilike("$member.name", $member.name, MatchMode.START));
 #end
 #foreach ($member in $crud.manageableAssociationEnds)
 #set ($identifier = $member.type.identifiers.iterator().next())
-        if ($member.name != null)
-            criteria.createCriteria("$member.name").add(Expression.eq("$identifier.name", $member.name));
+            if ($member.name != null)
+                criteria.createCriteria("$member.name").add(Expression.eq("$identifier.name", $member.name));
 #end
 
-        final java.util.List list = criteria.list();
-        this.closeSessionIfNecessary(session);
+            final java.util.List list = criteria.list();
+            this.closeSessionIfNecessary(session);
+            return list;
+        }
+        catch (net.sf.hibernate.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+    }
 
-        return list;
+    public java.util.List readAll()
+    {
+        try
+        {
+            final Session session = getSession(false);
+            final Criteria criteria = getHibernateTemplate().createCriteria(session, ${crud.fullyQualifiedEntityImplementationName}.class);
+            final java.util.List list = criteria.list();
+            this.closeSessionIfNecessary(session);
+            return list;
+        }
+        catch (net.sf.hibernate.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
     }
 
 #end

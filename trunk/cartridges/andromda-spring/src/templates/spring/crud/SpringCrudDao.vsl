@@ -14,6 +14,7 @@ public interface $crud.crudDaoName
 #end
 #if ($crud.read)
     public java.util.List read($memberList);
+    public java.util.List readAll();
 
 #end
 #if ($crud.update)

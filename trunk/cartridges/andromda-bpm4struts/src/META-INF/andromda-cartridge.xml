@@ -5,7 +5,7 @@
         <macrolibrary name="templates/bpm4struts/pages/page.jsp.vm"/>
         <macrolibrary name="templates/bpm4struts/pages/crud/crud.jsp.vm"/>
         <macrolibrary name="templates/bpm4struts/actions/Action.java.vm"/>
-        <!-- shared (meaning acros subdirectories) macros -->
+        <!-- shared (meaning across subdirectories) macros -->
         <macrolibrary name="templates/bpm4struts/macros/populateCurrentFormOnError.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
@@ -320,9 +320,10 @@
         path="templates/bpm4struts/pages/menu.jsp.vsl"
         outputPattern="layout/menu.jsp"
         outlet="pages"
-        overwrite="true">
-        <modelElements variable="applicationUseCase">
-            <modelElement>
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
                 </type>
@@ -548,39 +549,9 @@
     </template>
 
     <template
-        path="templates/bpm4struts/forms/crud/CreateForm.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="forms"
-        overwrite="true"
-        required="false">
-        <modelElements variable="crud">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="create"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
         path="templates/bpm4struts/actions/crud/ReadAction.java.vsl"
         outputPattern="$generatedFile"
         outlet="actions"
-        overwrite="true"
-        required="false">
-        <modelElements variable="crud">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="read"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/bpm4struts/forms/crud/ReadForm.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="forms"
         overwrite="true"
         required="false">
         <modelElements variable="crud">
@@ -608,21 +579,6 @@
     </template>
 
     <template
-        path="templates/bpm4struts/forms/crud/UpdateForm.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="forms"
-        overwrite="true"
-        required="false">
-        <modelElements variable="crud">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="update"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
         path="templates/bpm4struts/actions/crud/DeleteAction.java.vsl"
         outputPattern="$generatedFile"
         outlet="actions"
@@ -638,16 +594,29 @@
     </template>
 
     <template
-        path="templates/bpm4struts/forms/crud/DeleteForm.java.vsl"
+        path="templates/bpm4struts/actions/crud/PreloadAction.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"
+        required="false">
+        <modelElements variable="crud">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="preload"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/forms/crud/CrudForm.java.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
         overwrite="true"
         required="false">
         <modelElements variable="crud">
             <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="delete"/>
-                </type>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -659,6 +628,19 @@
         overwrite="true">
         <modelElements variable="crud">
             <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/crud/entity-switcher.jsp.vsl"
+        outputPattern="entity-switcher.jsp"
+        outlet="pages"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="cruds">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>

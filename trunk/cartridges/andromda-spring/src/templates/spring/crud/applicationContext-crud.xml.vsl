@@ -16,6 +16,7 @@
 #end
 #if ($crud.read)
                 ${crud.fullyQualifiedCrudServiceName}.read=PROPAGATION_REQUIRED
+                ${crud.fullyQualifiedCrudServiceName}.readAll=PROPAGATION_REQUIRED
 #end
 #if ($crud.update)
                 ${crud.fullyQualifiedCrudServiceName}.update=PROPAGATION_REQUIRED
