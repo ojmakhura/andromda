@@ -358,7 +358,7 @@ $field.getDocumentation("     * ")
     public org.apache.struts.action.ActionErrors validate(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     { 
         final org.apache.struts.action.ActionErrors errors = super.validate(mapping, request);
-        if (!errors.isEmpty())
+        if (errors != null && !errors.isEmpty())
         {
 #populateCurrentFormOnError()
         }
