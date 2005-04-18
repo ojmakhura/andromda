@@ -76,4 +76,23 @@
             ]]>
         </to>
     </mapping>
+    <!--
+            For the next mapping you might want to do something like this
+            (assuming you have a properties file called custom-resources.properties
+            in /web/src/properties):
+
+            <mapping>
+                <from><![CDATA[# custom-messages merge-point]]></from>
+                <to path="true">../../../web/src/properties/custom-resources.properties</to>
+            </mapping>
+
+            This will merge the entire file into the merge point.
+    -->
+    <mapping>
+        <from><![CDATA[# custom-messages merge-point]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
 </mappings>
