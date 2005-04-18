@@ -1,0 +1,39 @@
+#set ($generatedFile = "${crud.crudValueObjectFullPath}.java")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $crud.crudPackageName;
+
+public final class $crud.crudValueObjectClassName
+    implements java.io.Serializable
+{
+#foreach ($member in $crud.attributes)
+    private $member.type.fullyQualifiedName $member.name;
+
+    $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
+    {
+        return this.$member.name;
+    }
+
+    $member.visibility void ${member.setterName}($member.type.fullyQualifiedName $member.name)
+    {
+        this.$member.name = $member.name;
+    }
+
+#end
+#foreach ($member in $crud.manageableAssociationEnds)
+    private $member.crudType.fullyQualifiedName $member.crudName;
+
+    $member.visibility $member.crudType.fullyQualifiedName ${member.crudGetterName}()
+    {
+        return this.$member.crudName;
+    }
+
+    $member.visibility void ${member.crudSetterName}($member.crudType.fullyQualifiedName $member.crudName)
+    {
+        this.$member.crudName = $member.crudName;
+    }
+
+#end
+}
