@@ -54,6 +54,7 @@
     <mapping>
         <from>datatype::double</from>
         <from>datatype::Double</from>
+        <from>datatype::Money</from>
         <to>NUMBER(38,15)</to>
     </mapping>
     <mapping>
