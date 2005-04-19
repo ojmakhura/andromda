@@ -92,7 +92,6 @@ public class Mapping
      */
     public void addPath(String path)
     {
-        System.out.println("adding path:" + path);
         this.paths.add(path);
     }
 
