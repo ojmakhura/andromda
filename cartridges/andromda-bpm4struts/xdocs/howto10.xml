@@ -58,13 +58,13 @@
                     </em>
                 </p>
                 <p>
-                    In order to do just that you will need to create your own resource bundle with your custum set of
+                    In order to do just that you will need to create your own resource bundle with your custom set of
                     messages and put it somewhere in your source tree, for example in
                     <code>/web/src/properties/custom.properties</code>.
                 </p>
                 <p>
                     Next, tell AndroMDA to merge this file into the generated resource bundle, if you generated your
-                    project using <code>andromdapp:generate</code> it is sufficient to do this in
+                    project using <code>andromdapp:generate</code> it is sufficient to add the following to
                     <code>/mda/conf/mappings/Bpm4StrutsMergeMappings.xml</code>:
                 </p>
 <source language="xml"><!--
