@@ -30,24 +30,24 @@ public class ManageableEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.CrudEntity#getCrudPackageName()
+     * @see org.andromda.metafacades.uml.ManageableEntity#getManageablePackageName()
      */
-    protected java.lang.String handleGetCrudPackageName()
+    protected java.lang.String handleGetManageablePackageName()
     {
-        String crudPackageName = "";
+        String manageablePackageName = "";
 
         final String parentPackage = super.getPackageName();
         if (parentPackage != null && parentPackage.length() > 0)
         {
-            crudPackageName = parentPackage + ".";
+            manageablePackageName = parentPackage + ".";
         }
 
-        return crudPackageName += "crud";
+        return manageablePackageName += "manageable";
     }
 
-    protected String handleGetCrudPackagePath()
+    protected String handleGetManageablePackagePath()
     {
-        return getCrudPackageName().replace('.', '/');
+        return getManageablePackageName().replace('.', '/');
     }
 
     protected java.util.Collection handleGetManageableAssociationEnds()
@@ -73,34 +73,34 @@ public class ManageableEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.CrudEntity#isCreate()
+     * @see org.andromda.metafacades.uml.ManageableEntity#isCreate()
      */
     protected boolean handleIsCreate()
     {
         return true;
     }
 
-    protected String handleGetCrudServiceName()
+    protected String handleGetManageableServiceName()
     {
-        return getName() + "CrudService";
+        return getName() + "ManageableService";
     }
 
-    protected String handleGetCrudServiceFullPath()
+    protected String handleGetManageableServiceFullPath()
     {
-        return '/' + getFullyQualifiedCrudServiceName().replace('.', '/');
+        return '/' + getFullyQualifiedManageableServiceName().replace('.', '/');
     }
 
-    protected String handleGetFullyQualifiedCrudServiceName()
+    protected String handleGetFullyQualifiedManageableServiceName()
     {
-        return getCrudPackageName() + '.' + getCrudServiceName();
+        return getManageablePackageName() + '.' + getManageableServiceName();
     }
 
-    protected String handleGetCrudServiceAccessorCall()
+    protected String handleGetManageableServiceAccessorCall()
     {
         final String accessorImplementation = String.valueOf(
                 getConfiguredProperty(UMLMetafacadeProperties.CRUD_SERVICE_ACCESSOR_PATTERN));
-        return accessorImplementation.replaceAll("\\{0\\}", getCrudPackageName()).replaceAll("\\{1\\}",
-                getCrudServiceName());
+        return accessorImplementation.replaceAll("\\{0\\}", getManageablePackageName()).replaceAll("\\{1\\}",
+                getManageableServiceName());
     }
 
     protected boolean handleIsRead()
@@ -118,7 +118,7 @@ public class ManageableEntityLogicImpl
         return false; // @todo
     }
 
-    protected List handleGetCrudMembers()
+    protected List handleGetManageableMembers()
     {
         final List criteria = new ArrayList();
         criteria.addAll(getAttributes());
@@ -126,7 +126,7 @@ public class ManageableEntityLogicImpl
         return criteria;
     }
 
-    protected String handleListCrudMembers(boolean withTypes, boolean useCollectionTypes)
+    protected String handleListManageableMembers(boolean withTypes, boolean useCollectionTypes)
     {
         final StringBuffer buffer = new StringBuffer();
 
@@ -154,7 +154,7 @@ public class ManageableEntityLogicImpl
                     }
                     buffer.append(' ');
                 }
-                buffer.append(attribute.getCrudName());
+                buffer.append(attribute.getManageableName());
             }
         }
 
@@ -190,7 +190,7 @@ public class ManageableEntityLogicImpl
                             }
                             buffer.append(' ');
                         }
-                        buffer.append(associationEnd.getCrudName());
+                        buffer.append(associationEnd.getManageableName());
                     }
                 }
             }

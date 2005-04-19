@@ -17,25 +17,25 @@ public class ManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getCrudGetterName()
+     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getManageableGetterName()
      */
-    protected java.lang.String handleGetCrudGetterName()
+    protected java.lang.String handleGetManageableGetterName()
     {
         return getGetterName();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getCrudName()
+     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getManageableName()
      */
-    protected java.lang.String handleGetCrudName()
+    protected java.lang.String handleGetManageableName()
     {
         return getName();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getCrudSetterName()
+     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getManageableSetterName()
      */
-    protected java.lang.String handleGetCrudSetterName()
+    protected java.lang.String handleGetManageableSetterName()
     {
         return getSetterName();
     }

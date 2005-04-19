@@ -1,9 +1,9 @@
-#set ($generatedFile = "${crud.updateActionFullPath}.java")
+#set ($generatedFile = "${manageable.updateActionFullPath}.java")
 ##
 ##  START TEMPLATE
 ##
 // license-header java merge-point
-package $crud.crudPackageName;
+package $manageable.manageablePackageName;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -13,11 +13,11 @@ import org.apache.struts.action.ActionForward;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public final class $crud.updateActionClassName extends Action
+public final class $manageable.updateActionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final $crud.updateFormBeanType form = ($crud.updateFormBeanType) actionForm;
+        final $manageable.updateFormBeanType form = ($manageable.updateFormBeanType) actionForm;
 
         return mapping.getInputForward();
     }

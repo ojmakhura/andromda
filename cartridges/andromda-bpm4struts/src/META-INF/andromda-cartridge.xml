@@ -3,7 +3,7 @@
     <templateEngine>
         <!-- library of macros used in template engine -->
         <macrolibrary name="templates/bpm4struts/pages/page.jsp.vm"/>
-        <macrolibrary name="templates/bpm4struts/pages/crud/crud.jsp.vm"/>
+        <macrolibrary name="templates/bpm4struts/pages/crud/manageable.jsp.vm"/>
         <macrolibrary name="templates/bpm4struts/actions/Action.java.vm"/>
         <!-- shared (meaning across subdirectories) macros -->
         <macrolibrary name="templates/bpm4struts/macros/populateCurrentFormOnError.vm"/>
@@ -261,11 +261,15 @@
         outlet="messages"
         overwrite="true"
         outputToSingleFile="true">
-        <modelElements variable="applicationUseCases">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="applicationUseCases">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
                 </type>
+            </modelElement>
+            <!-- the crud entity messages are also generated in this bundle -->
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
     </template>
@@ -289,7 +293,7 @@
                     <property name="applicationUseCase"/>
                 </type>
             </modelElement>
-            <modelElement variable="cruds">
+            <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
@@ -530,7 +534,7 @@
         outlet="actions"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
                     <property name="create"/>
@@ -545,7 +549,7 @@
         outlet="actions"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
                     <property name="read"/>
@@ -560,7 +564,7 @@
         outlet="actions"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
                     <property name="update"/>
@@ -575,7 +579,7 @@
         outlet="actions"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
                     <property name="delete"/>
@@ -590,7 +594,7 @@
         outlet="actions"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
                     <property name="preload"/>
@@ -605,7 +609,7 @@
         outlet="forms"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
@@ -613,11 +617,11 @@
     </template>
 
     <template
-        path="templates/bpm4struts/pages/crud/crud.jsp.vsl"
+        path="templates/bpm4struts/pages/crud/manageable.jsp.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
@@ -631,7 +635,7 @@
         overwrite="true"
         outputToSingleFile="true">
         <modelElements>
-            <modelElement variable="cruds">
+            <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
@@ -645,7 +649,7 @@
         outputToSingleFile="true"
         generateEmptyFiles="false">
         <modelElements>
-            <modelElement variable="cruds">
+            <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
             <modelElement variable="applicationUseCases">
@@ -663,21 +667,7 @@
         overwrite="true"
         outputToSingleFile="true"
         generateEmptyFiles="false">
-        <modelElements variable="cruds">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/bpm4struts/messages/crud/crud-resources.properties.vsl"
-        outputPattern="crud-resources.properties"
-        outlet="messages"
-        overwrite="true"
-        outputToSingleFile="true"
-        generateEmptyFiles="false">
-        <modelElements variable="cruds">
+        <modelElements variable="manageables">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>

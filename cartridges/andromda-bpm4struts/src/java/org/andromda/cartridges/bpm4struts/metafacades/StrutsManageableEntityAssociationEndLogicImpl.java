@@ -36,7 +36,7 @@ public class StrutsManageableEntityAssociationEndLogicImpl
             final Collection identifiers = ((Entity)type).getIdentifiers();
             if (!identifiers.isEmpty())
             {
-                messageKey = '.' + ((AttributeFacade)identifiers.iterator().next()).getName();
+                messageKey = type.getName() + '.' + ((AttributeFacade)identifiers.iterator().next()).getName();
             }
         }
         return StringUtilsHelper.toResourceMessageKey(messageKey);
@@ -54,7 +54,7 @@ public class StrutsManageableEntityAssociationEndLogicImpl
         {
             messageValue = getName();
         }
-        
+
         return StringUtilsHelper.toPhrase(messageValue);
     }
 

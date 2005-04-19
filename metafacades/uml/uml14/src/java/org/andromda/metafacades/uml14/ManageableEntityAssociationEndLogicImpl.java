@@ -1,8 +1,8 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.EntityAttribute;
 
 import java.util.Collection;
 
@@ -23,35 +23,32 @@ public class ManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getCrudName()
+     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableName()
      */
-    protected java.lang.String handleGetCrudName()
+    protected java.lang.String handleGetManageableName()
     {
         return getName();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getCrudGetterName()
+     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableGetterName()
      */
-    protected java.lang.String handleGetCrudGetterName()
+    protected java.lang.String handleGetManageableGetterName()
     {
         return getGetterName();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getCrudSetterName()
+     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableSetterName()
      */
-    protected java.lang.String handleGetCrudSetterName()
+    protected java.lang.String handleGetManageableSetterName()
     {
         return getSetterName();
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getCrudType()
-     */
-    protected java.lang.Object handleGetCrudType()
+    protected Object handleGetManageableIdentifier()
     {
-        ClassifierFacade crudType = null;
+        EntityAttribute manageableIdentifier = null;
 
         final ClassifierFacade classifierFacade = getType();
         if (classifierFacade instanceof Entity)
@@ -61,12 +58,10 @@ public class ManageableEntityAssociationEndLogicImpl
 
             if (!identifiers.isEmpty())
             {
-                final AttributeFacade identifier = (AttributeFacade)identifiers.iterator().next();
-                crudType = identifier.getType();
+                manageableIdentifier = (EntityAttribute)identifiers.iterator().next();
             }
         }
 
-        return crudType;
+        return manageableIdentifier;
     }
-
 }

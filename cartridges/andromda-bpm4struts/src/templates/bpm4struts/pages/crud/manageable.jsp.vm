@@ -1,0 +1,50 @@
+##
+##
+##
+#macro ( renderAttribute $field $indent )
+#if ($field.type.fullyQualifiedName == 'boolean' || $field.type.fullyQualifiedName == 'java.lang.Boolean')
+${indent}<html:checkbox name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName" disabled="true"/>
+#else
+${indent}<html:text name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName"/>
+#if ($field.date)
+${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.name}_trigger" styleClass="calendar"/>
+${indent}<script type="text/javascript">
+#if ($xhtml == "true")
+${indent}//<![CDATA[
+#else
+${indent}//<!--
+#end
+#set ($calendarFieldFormat = $dateUtils.formatJavaToPerl($field.dateFormat))
+${indent}    Calendar.setup({
+${indent}        inputField     :    "$field.name",
+${indent}        ifFormat       :    "$calendarFieldFormat",
+${indent}        daFormat       :    "$calendarFieldFormat",
+${indent}        showsTime      :    $dateUtils.containsTimeFormat($calendarFieldFormat),
+${indent}        button         :    "${field.name}_trigger",
+${indent}        singleClick    :    true
+${indent}    });
+#if ($xhtml == "true")
+${indent}//]]>
+#else
+${indent}//-->
+#end
+${indent}</script>
+#end
+#end
+#end
+##
+##
+##
+#macro ( renderAssociationEnd $field $indent )
+${indent}<c:choose>
+#set ($test = "empty manageableForm.${field.manageableName}BackingList")
+${indent}    <c:when test="${${test}}">
+${indent}        <select name="$field.manageableName" disabled="disabled"/>
+${indent}    </c:when>
+${indent}   <c:otherwise>
+${indent}       <html:select name="manageableForm" property="$field.manageableName">
+${indent}           <html:optionsCollection name="manageableForm" property="${field.manageableName}BackingList" label="label" value="value"/>
+${indent}       </html:select>
+${indent}   </c:otherwise>
+${indent}</c:choose>
+#end

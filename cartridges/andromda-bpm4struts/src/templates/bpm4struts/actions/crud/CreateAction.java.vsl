@@ -1,9 +1,9 @@
-#set ($generatedFile = "${crud.createActionFullPath}.java")
+#set ($generatedFile = "${manageable.createActionFullPath}.java")
 ##
 ##  START TEMPLATE
 ##
 // license-header java merge-point
-package $crud.crudPackageName;
+package $manageable.manageablePackageName;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -13,18 +13,18 @@ import org.apache.struts.action.ActionForward;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public final class $crud.createActionClassName extends Action
+public final class $manageable.createActionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        request.setAttribute("crudForm", actionForm);
+        request.setAttribute("manageableForm", actionForm);
 
-        final $crud.formBeanType form = ($crud.formBeanType)actionForm;
+        final $manageable.formBeanType form = ($manageable.formBeanType)actionForm;
 
-        ${crud.crudServiceAccessorCall}.create(
+        ${manageable.manageableServiceAccessorCall}.create(
 #set ($comma = '')
-#foreach ($member in $crud.crudMembers)
-            ${comma}form.${member.crudGetterName}()
+#foreach ($member in $manageable.manageableMembers)
+            ${comma}form.${member.manageableGetterName}()
 #set ($comma = ', ')
 #end
         );

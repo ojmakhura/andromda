@@ -7,14 +7,14 @@
 
 <div id="entitySwitcher">
     <select onchange="document.location=this.options[this.selectedIndex].value;">
-#foreach ($crud in $cruds)
+#foreach ($manageable in $manageables)
         <c:choose>
-#set ($test = "crudForm.currentEntity eq '$crud.name'")
+#set ($test = "manageableForm.currentEntity eq '$manageable.name'")
             <c:when test="${${test}}">
-                <option selected="selected" value="<html:rewrite page="$crud.actionInput"/>"><bean:message key="$crud.messageKey"/></option>
+                <option selected="selected" value="<html:rewrite page="$manageable.actionInput"/>"><bean:message key="$manageable.messageKey"/></option>
             </c:when>
             <c:otherwise>
-                <option value="<html:rewrite page="$crud.actionInput"/>">$crud.name</option>
+                <option value="<html:rewrite page="$manageable.actionInput"/>">$manageable.name</option>
             </c:otherwise>
         </c:choose>
 #end

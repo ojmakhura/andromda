@@ -1,4 +1,4 @@
-#if (!$cruds.empty)
+#if (!$manageables.empty)
 ##
 ##  CONSTANTS
 ##
@@ -16,60 +16,60 @@
 <struts-config>
 
     <form-beans>
-#foreach ($crud in $cruds)
-        <form-bean name="$crud.preloadFormBeanName" type="$crud.formBeanType" />
-#if ($crud.create)
-        <form-bean name="$crud.createFormBeanName" type="$crud.formBeanType" />
+#foreach ($manageable in $manageables)
+        <form-bean name="$manageable.preloadFormBeanName" type="$manageable.formBeanType" />
+#if ($manageable.create)
+        <form-bean name="$manageable.createFormBeanName" type="$manageable.formBeanType" />
 #end
-#if ($crud.read)
-        <form-bean name="$crud.readFormBeanName" type="$crud.formBeanType" />
+#if ($manageable.read)
+        <form-bean name="$manageable.readFormBeanName" type="$manageable.formBeanType" />
 #end
-#if ($crud.update)
-        <form-bean name="$crud.updateFormBeanName" type="$crud.formBeanType" />
+#if ($manageable.update)
+        <form-bean name="$manageable.updateFormBeanName" type="$manageable.formBeanType" />
 #end
-#if ($crud.delete)
-        <form-bean name="$crud.deleteFormBeanName" type="$crud.formBeanType" />
+#if ($manageable.delete)
+        <form-bean name="$manageable.deleteFormBeanName" type="$manageable.formBeanType" />
 #end
 #end
     </form-beans>
 
     <global-forwards>
-#foreach ($crud in $cruds)
-#if ($crud.preload)
-        <forward name="$crud.preloadForwardName" path="${crud.preloadForwardPath}.do" redirect="false" />
+#foreach ($manageable in $manageables)
+#if ($manageable.preload)
+        <forward name="$manageable.preloadForwardName" path="${manageable.preloadForwardPath}.do" redirect="false" />
 #end
 #end
     </global-forwards>
 
    <action-mappings>
-#foreach ($crud in $cruds)
-#if ($crud.preload)
-        <action path="$crud.preloadActionPath" type="$crud.preloadActionType" name="$crud.preloadFormBeanName"
-            scope="request" input="$crud.pageFullPath" unknown="false" validate="false">
+#foreach ($manageable in $manageables)
+#if ($manageable.preload)
+        <action path="$manageable.preloadActionPath" type="$manageable.preloadActionType" name="$manageable.preloadFormBeanName"
+            scope="request" input="$manageable.pageFullPath" unknown="false" validate="false">
         </action>
 #end
-#if ($crud.create)
-        <action path="$crud.createActionPath" type="$crud.createActionType" name="$crud.createFormBeanName"
-            scope="request" input="$crud.actionInput" unknown="false" validate="false">
-            <exception type="java.lang.Exception" key="$crud.createExceptionKey" path="$crud.createExceptionPath" scope="request" />
+#if ($manageable.create)
+        <action path="$manageable.createActionPath" type="$manageable.createActionType" name="$manageable.createFormBeanName"
+            scope="request" input="$manageable.actionInput" unknown="false" validate="false">
+            <exception type="java.lang.Exception" key="$manageable.createExceptionKey" path="$manageable.createExceptionPath" scope="request" />
         </action>
 #end
-#if ($crud.read)
-        <action path="$crud.readActionPath" type="$crud.readActionType" name="$crud.readFormBeanName"
-            scope="request" input="$crud.pageFullPath" unknown="false" validate="false">
-            <exception type="java.lang.Exception" key="$crud.readExceptionKey" path="$crud.readExceptionPath" scope="request" />
+#if ($manageable.read)
+        <action path="$manageable.readActionPath" type="$manageable.readActionType" name="$manageable.readFormBeanName"
+            scope="request" input="$manageable.pageFullPath" unknown="false" validate="false">
+            <exception type="java.lang.Exception" key="$manageable.readExceptionKey" path="$manageable.readExceptionPath" scope="request" />
         </action>
 #end
-#if ($crud.update)
-        <action path="$crud.updateActionPath" type="$crud.updateActionType" name="$crud.updateFormBeanName"
-            scope="request" input="$crud.actionInput" unknown="false" validate="false">
-            <exception type="java.lang.Exception" key="$crud.updateExceptionKey" path="$crud.updateExceptionPath" scope="request" />
+#if ($manageable.update)
+        <action path="$manageable.updateActionPath" type="$manageable.updateActionType" name="$manageable.updateFormBeanName"
+            scope="request" input="$manageable.actionInput" unknown="false" validate="false">
+            <exception type="java.lang.Exception" key="$manageable.updateExceptionKey" path="$manageable.updateExceptionPath" scope="request" />
         </action>
 #end
-#if ($crud.delete)
-        <action path="$crud.deleteActionPath" type="$crud.deleteActionType" name="$crud.deleteFormBeanName"
-            scope="request" input="$crud.actionInput" unknown="false" validate="false">
-            <exception type="java.lang.Exception" key="$crud.deleteExceptionKey" path="$crud.deleteExceptionPath" scope="request" />
+#if ($manageable.delete)
+        <action path="$manageable.deleteActionPath" type="$manageable.deleteActionType" name="$manageable.deleteFormBeanName"
+            scope="request" input="$manageable.actionInput" unknown="false" validate="false">
+            <exception type="java.lang.Exception" key="$manageable.deleteExceptionKey" path="$manageable.deleteExceptionPath" scope="request" />
         </action>
 #end
 #end
