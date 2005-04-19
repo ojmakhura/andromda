@@ -1,40 +1,40 @@
-#set ($generatedFile = "${crud.crudServiceBaseFullPath}.java")
+#set ($generatedFile = "${manageable.manageableServiceBaseFullPath}.java")
 // license-header java merge-point
 ##
-#set ($memberList = $crud.listCrudMembers(true,false))
-#set ($memberListCollections = $crud.listCrudMembers(true,true))
-#set ($memberListArguments = $crud.listCrudMembers(false,false))
+#set ($memberList = $manageable.listManageableMembers(true,false))
+#set ($memberListCollections = $manageable.listManageableMembers(true,true))
+#set ($memberListArguments = $manageable.listManageableMembers(false,false))
 ##
-package $crud.crudPackageName;
+package $manageable.manageablePackageName;
 
-public final class $crud.crudServiceBaseName
-    implements $crud.crudServiceName
+public final class $manageable.manageableServiceBaseName
+    implements $manageable.manageableServiceName
 {
-    private $crud.fullyQualifiedCrudDaoName dao;
+    private $manageable.fullyQualifiedManageableDaoName dao;
 
-    public void setDao($crud.fullyQualifiedCrudDaoName dao)
+    public void setDao($manageable.fullyQualifiedManageableDaoName dao)
     {
         this.dao = dao;
     }
 
-    protected $crud.fullyQualifiedCrudDaoName getDao()
+    protected $manageable.fullyQualifiedManageableDaoName getDao()
     {
         return this.dao;
     }
 
-#if ($crud.create)
+#if ($manageable.create)
     public void create($memberList)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
 #end
     {
-#foreach ($member in $crud.crudMembers)
+#foreach ($member in $manageable.manageableMembers)
 #if ($member.required && !$member.type.primitive)
         if ($member.name == null)
         {
             throw new IllegalArgumentException(
-                "${crud.fullyQualifiedCrudServiceName}.create(${memberList}) - '${member.name}' can not be null");
+                "${manageable.fullyQualifiedManageableServiceName}.create(${memberList}) - '${member.name}' can not be null");
         }
 #end
 #end
@@ -43,7 +43,7 @@ public final class $crud.crudServiceBaseName
     }
 
 #end
-#if ($crud.read)
+#if ($manageable.read)
     public java.util.List read($memberList)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -63,7 +63,7 @@ public final class $crud.crudServiceBaseName
     }
 
 #end
-#if ($crud.update)
+#if ($manageable.update)
     public void update(Collection ids, $memberListCollections)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -73,14 +73,14 @@ public final class $crud.crudServiceBaseName
         if (ids == null)
         {
             throw new IllegalArgumentException(
-                "${crud.fullyQualifiedCrudServiceName}.update(Collection ids, $memberListCollections) - 'ids' can not be null");
+                "${manageable.fullyQualifiedManageableServiceName}.update(Collection ids, $memberListCollections) - 'ids' can not be null");
         }
-#foreach ($member in $crud.crudMembers)
+#foreach ($member in $manageable.manageableMembers)
 #if ($member.required && !$member.type.primitive)
         if ($member.name == null)
         {
             throw new IllegalArgumentException(
-                "${crud.fullyQualifiedCrudServiceName}.update(Collection ids, $memberListCollections) - '${member.name}' can not be null");
+                "${manageable.fullyQualifiedManageableServiceName}.update(Collection ids, $memberListCollections) - '${member.name}' can not be null");
         }
 #end
 #end
@@ -89,7 +89,7 @@ public final class $crud.crudServiceBaseName
     }
 
 #end
-#if ($crud.delete)
+#if ($manageable.delete)
     public void delete(Collection ids)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -99,7 +99,7 @@ public final class $crud.crudServiceBaseName
         if (ids == null)
         {
             throw new IllegalArgumentException(
-                "${crud.fullyQualifiedCrudServiceName}.delete(Collection ids) - 'ids' can not be null");
+                "${manageable.fullyQualifiedManageableServiceName}.delete(Collection ids) - 'ids' can not be null");
         }
 
         dao.update(ids);
@@ -113,25 +113,25 @@ public final class $crud.crudServiceBaseName
 
         for (java.util.Iterator iterator = entities.iterator(); iterator.hasNext();)
         {
-            list.add(toValueObject(($crud.fullyQualifiedEntityName)iterator.next()));
+            list.add(toValueObject(($manageable.fullyQualifiedEntityName)iterator.next()));
         }
 
         return list;
     }
 
-    private $crud.fullyQualifiedCrudValueObjectName toValueObject($crud.fullyQualifiedEntityName entity)
+    private $manageable.fullyQualifiedManageableValueObjectName toValueObject($manageable.fullyQualifiedEntityName entity)
     {
-        final $crud.fullyQualifiedCrudValueObjectName valueObject = new ${crud.fullyQualifiedCrudValueObjectName}();
+        final $manageable.fullyQualifiedManageableValueObjectName valueObject = new ${manageable.fullyQualifiedManageableValueObjectName}();
 
-#foreach ($member in $crud.attributes)
+#foreach ($member in $manageable.attributes)
         valueObject.${member.setterName}(entity.${member.getterName}());
 #end
-#foreach ($member in $crud.manageableAssociationEnds)
-#if ($member.crudType)
+#foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.manageableIdentifier)
         $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
         if ($member.name != null)
         {
-            valueObject.${member.crudSetterName}(${member.name}.${member.type.identifiers.iterator().next().getterName}());
+            valueObject.${member.manageableSetterName}(${member.name}.${member.manageableIdentifier.getterName}());
         }
 #end
 #end
