@@ -25,6 +25,7 @@
     <property reference="parameterNameMask" default="none"/>
     <property reference="enableMetafacadePropertyCaching" default="true"/>
     <property reference="metaclassImplementationNamePattern" default="{0}$Impl"/>
+    <property reference="manageablePackageSuffix" default="crud"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>

@@ -135,6 +135,12 @@ public class UMLMetafacadeProperties
     public static final String ARRAY_NAME_SUFFIX = "arrayNameSuffix";
 
     /**
+     * The namespace property used to denote the name of the subpackage create for
+     * manageable entities.
+     */
+    public static final String MANAGEABLE_PACKAGE_NAME_SUFFIX = "manageablePackageSuffix";
+
+    /**
      * Stores the boolean flag indicating whether or not we should use arrays instead of collections with associations
      * of type many (where appropriate).
      */
@@ -168,7 +174,7 @@ public class UMLMetafacadeProperties
     /**
      * The namespace property used to identify the pattern used to construct the backend CRUD service's accessor.
      */
-    public static final String CRUD_SERVICE_ACCESSOR_PATTERN = "crudServiceAccessorPattern";
+    public static final String MANAGEABLE_SERVICE_ACCESSOR_PATTERN = "manageableServiceAccessorPattern";
 
     /**
      * The namespace property used to identify the pattern used to construct the backend service's package name.
