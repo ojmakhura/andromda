@@ -38,14 +38,24 @@ public class StrutsManageableEntityLogicImpl
         return getPreloadActionPath() + ".do";
     }
 
+    protected java.lang.String handleGetMessageKey()
+    {
+        return StringUtilsHelper.toResourceMessageKey(getName());
+    }
+
+    protected java.lang.String handleGetMessageValue()
+    {
+        return StringUtilsHelper.toPhrase(getName());
+    }
+
     protected java.lang.String handleGetPageTitleKey()
     {
-        return getName().toLowerCase() + ".page.title";
+        return StringUtilsHelper.toResourceMessageKey(getName()) + ".page.title";
     }
 
     protected java.lang.String handleGetPageTitleValue()
     {
-        return getName();
+        return StringUtilsHelper.toPhrase(getName());
     }
 
     protected java.lang.String handleGetListName()

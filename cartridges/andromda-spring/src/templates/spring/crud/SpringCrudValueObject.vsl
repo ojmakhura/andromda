@@ -21,6 +21,20 @@ public final class $crud.crudValueObjectClassName
         this.$member.name = $member.name;
     }
 
+#* THIS IS WHAT WE NEED, IT JUST DOES NOT WORK YET FOR SOME REASON
+//$member
+    private $member.type.fullyQualifiedName $member.crudName;
+
+    $member.visibility $member.type.fullyQualifiedName ${member.crudGetterName}()
+    {
+        return this.$member.crudName;
+    }
+
+    $member.visibility void ${member.crudSetterName}($member.type.fullyQualifiedName $member.crudName)
+    {
+        this.$member.crudName = $member.crudName;
+    }
+*#
 #end
 #foreach ($member in $crud.manageableAssociationEnds)
     private $member.crudType.fullyQualifiedName $member.crudName;

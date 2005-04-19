@@ -27,16 +27,16 @@ public class $crud.formBeanClassName
     }
 
 #foreach ($member in $crud.attributes)
-    private $member.type.fullyQualifiedName $member.name;
+    private $member.type.fullyQualifiedName $member.crudName;
 
-    $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
+    $member.visibility $member.type.fullyQualifiedName ${member.crudGetterName}()
     {
-        return this.$member.name;
+        return this.$member.crudName;
     }
 
-    $member.visibility void ${member.setterName}($member.type.fullyQualifiedName $member.name)
+    $member.visibility void ${member.crudSetterName}($member.type.fullyQualifiedName $member.crudName)
     {
-        this.$member.name = $member.name;
+        this.$member.crudName = $member.crudName;
     }
 
 #end

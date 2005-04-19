@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.core.common.StringUtilsHelper;
 
 
 /**
@@ -28,10 +29,10 @@ public class StrutsManageableEntityAttributeLogicImpl
         final ClassifierFacade owner = getOwner();
         if (owner != null)
         {
-            titleKey += owner.getName().toLowerCase() + '.';
+            titleKey += owner.getName() + '.';
         }
 
-        return titleKey + getName().toLowerCase();
+        return StringUtilsHelper.toResourceMessageKey(titleKey + getName());
     }
 
     /**
@@ -39,6 +40,6 @@ public class StrutsManageableEntityAttributeLogicImpl
      */
     protected java.lang.String handleGetMessageValue()
     {
-        return getName();
+        return StringUtilsHelper.toPhrase(getName());
     }
 }
