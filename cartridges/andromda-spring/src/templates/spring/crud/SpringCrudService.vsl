@@ -1,19 +1,19 @@
-#set ($generatedFile = "${crud.crudServiceFullPath}.java")
+#set ($generatedFile = "${manageable.manageableServiceFullPath}.java")
 // license-header java merge-point
 ##
-#set ($memberList = $crud.listCrudMembers(true,false))
-#set ($memberListCollections = $crud.listCrudMembers(true,true))
+#set ($memberList = $manageable.listManageableMembers(true,false))
+#set ($memberListCollections = $manageable.listManageableMembers(true,true))
 ##
-package $crud.crudPackageName;
+package $manageable.manageablePackageName;
 
-public interface $crud.crudServiceName
+public interface $manageable.manageableServiceName
 {
-#if ($crud.create)
+#if ($manageable.create)
     public void create($memberList)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #end
-#if ($crud.read)
+#if ($manageable.read)
     public java.util.List read($memberList)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
@@ -21,12 +21,12 @@ public interface $crud.crudServiceName
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #end
-#if ($crud.update)
+#if ($manageable.update)
     public void update(Collection ids, $memberListCollections)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
 #end
-#if ($crud.delete)
+#if ($manageable.delete)
     public void delete(Collection ids)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 

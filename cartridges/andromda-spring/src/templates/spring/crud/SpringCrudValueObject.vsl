@@ -1,14 +1,14 @@
-#set ($generatedFile = "${crud.crudValueObjectFullPath}.java")
+#set ($generatedFile = "${manageable.manageableValueObjectFullPath}.java")
 ##
 ##  START TEMPLATE
 ##
 // license-header java merge-point
-package $crud.crudPackageName;
+package $manageable.manageablePackageName;
 
-public final class $crud.crudValueObjectClassName
+public final class $manageable.manageableValueObjectClassName
     implements java.io.Serializable
 {
-#foreach ($member in $crud.attributes)
+#foreach ($member in $manageable.attributes)
     private $member.type.fullyQualifiedName $member.name;
 
     $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
@@ -23,30 +23,30 @@ public final class $crud.crudValueObjectClassName
 
 #* THIS IS WHAT WE NEED, IT JUST DOES NOT WORK YET FOR SOME REASON
 //$member
-    private $member.type.fullyQualifiedName $member.crudName;
+    private $member.type.fullyQualifiedName $member.manageableName;
 
-    $member.visibility $member.type.fullyQualifiedName ${member.crudGetterName}()
+    $member.visibility $member.type.fullyQualifiedName ${member.manageableGetterName}()
     {
-        return this.$member.crudName;
+        return this.$member.manageableName;
     }
 
-    $member.visibility void ${member.crudSetterName}($member.type.fullyQualifiedName $member.crudName)
+    $member.visibility void ${member.manageableSetterName}($member.type.fullyQualifiedName $member.manageableName)
     {
-        this.$member.crudName = $member.crudName;
+        this.$member.manageableName = $member.manageableName;
     }
 *#
 #end
-#foreach ($member in $crud.manageableAssociationEnds)
-    private $member.crudType.fullyQualifiedName $member.crudName;
+#foreach ($member in $manageable.manageableAssociationEnds)
+    private $member.manageableIdentifier.type.fullyQualifiedName $member.manageableName;
 
-    $member.visibility $member.crudType.fullyQualifiedName ${member.crudGetterName}()
+    $member.visibility $member.manageableIdentifier.type.fullyQualifiedName ${member.manageableGetterName}()
     {
-        return this.$member.crudName;
+        return this.$member.manageableName;
     }
 
-    $member.visibility void ${member.crudSetterName}($member.crudType.fullyQualifiedName $member.crudName)
+    $member.visibility void ${member.manageableSetterName}($member.manageableIdentifier.type.fullyQualifiedName $member.manageableName)
     {
-        this.$member.crudName = $member.crudName;
+        this.$member.manageableName = $member.manageableName;
     }
 
 #end

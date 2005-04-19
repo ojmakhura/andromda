@@ -27,63 +27,63 @@ public class SpringManageableEntityLogicImpl
         return new String(name) + "Dao";
     }
 
-    protected java.lang.String handleGetCrudDaoName()
+    protected java.lang.String handleGetManageableDaoName()
     {
-        return getName() + "CrudDao";
+        return getName() + "ManageableDao";
     }
 
-    protected java.lang.String handleGetFullyQualifiedCrudDaoName()
+    protected java.lang.String handleGetFullyQualifiedManageableDaoName()
     {
-        return getCrudPackageName() + '.' + getCrudDaoName();
+        return getManageablePackageName() + '.' + getManageableDaoName();
     }
 
-    protected String handleGetCrudDaoFullPath()
+    protected String handleGetManageableDaoFullPath()
     {
-        return getFullyQualifiedCrudDaoName().replace('.', '/');
+        return getFullyQualifiedManageableDaoName().replace('.', '/');
     }
 
-    protected String handleGetCrudDaoBaseName()
+    protected String handleGetManageableDaoBaseName()
     {
-        return getCrudDaoName() + "Base";
+        return getManageableDaoName() + "Base";
     }
 
-    protected String handleGetFullyQualifiedCrudDaoBaseName()
+    protected String handleGetFullyQualifiedManageableDaoBaseName()
     {
-        return getCrudPackageName() + '.' + getCrudDaoBaseName();
+        return getManageablePackageName() + '.' + getManageableDaoBaseName();
     }
 
-    protected String handleGetCrudDaoBaseFullPath()
+    protected String handleGetManageableDaoBaseFullPath()
     {
-        return getFullyQualifiedCrudDaoBaseName().replace('.', '/');
+        return getFullyQualifiedManageableDaoBaseName().replace('.', '/');
     }
 
-    protected String handleGetCrudServiceBaseName()
+    protected String handleGetManageableServiceBaseName()
     {
-        return getCrudServiceName() + "Base";
+        return getManageableServiceName() + "Base";
     }
 
-    protected String handleGetFullyQualifiedCrudServiceBaseName()
+    protected String handleGetFullyQualifiedManageableServiceBaseName()
     {
-        return getCrudPackageName() + '.' + getCrudServiceBaseName();
+        return getManageablePackageName() + '.' + getManageableServiceBaseName();
     }
 
-    protected String handleGetCrudServiceBaseFullPath()
+    protected String handleGetManageableServiceBaseFullPath()
     {
-        return getFullyQualifiedCrudServiceBaseName().replace('.', '/');
+        return getFullyQualifiedManageableServiceBaseName().replace('.', '/');
     }
 
-    protected String handleGetCrudValueObjectFullPath()
+    protected String handleGetManageableValueObjectFullPath()
     {
-        return getFullyQualifiedCrudValueObjectName().replace('.', '/');
+        return getFullyQualifiedManageableValueObjectName().replace('.', '/');
     }
 
-    protected String handleGetCrudValueObjectClassName()
+    protected String handleGetManageableValueObjectClassName()
     {
         return getName() + "ValueObject";
     }
 
-    protected String handleGetFullyQualifiedCrudValueObjectName()
+    protected String handleGetFullyQualifiedManageableValueObjectName()
     {
-        return getCrudPackageName() + '.' + getCrudValueObjectClassName();
+        return getManageablePackageName() + '.' + getManageableValueObjectClassName();
     }
 }

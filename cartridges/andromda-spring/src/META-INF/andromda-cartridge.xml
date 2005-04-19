@@ -43,7 +43,7 @@
     <!-- default name for the application context file -->
     <property reference="applicationContext" default="applicationContext.xml"/>
     <!-- default name for the CRUD application context file -->
-    <property reference="applicationContextCrud" default="applicationContext-crud.xml"/>
+    <property reference="applicationContextManageable" default="applicationContext-manageable.xml"/>
     <!-- default name of the datasource application context file -->
     <property reference="applicationContextDataSource" default="applicationContext-dataSource.xml"/>
     <!-- default name for the remote services application context xml file (server side) -->
@@ -59,7 +59,7 @@
     <!-- the name to give the service locator class -->
     <property reference="serviceLocatorName" default="ServiceLocator"/>
     <!-- the name to give the CRUD service locator class -->
-    <property reference="crudServiceLocatorName" default="CrudServiceLocator"/>
+    <property reference="manageableServiceLocatorName" default="CrudServiceLocator"/>
     <!-- the name to give the client service locator class -->
     <property reference="clientServiceLocatorName" default="ClientServiceLocator"/>
     <!-- whether the client service locator should switch the thread context class loader during
@@ -431,7 +431,7 @@
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
-            <modelElement variable="cruds">
+            <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
@@ -495,14 +495,14 @@
     -->
 
     <template
-        path="templates/spring/crud/applicationContext-crud.xml.vsl"
-        outputPattern="$applicationContextCrud"
+        path="templates/spring/crud/applicationContext-manageable.xml.vsl"
+        outputPattern="$applicationContextManageable"
         outlet="spring-configuration"
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements>
-            <modelElement variable="cruds">
+            <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
@@ -516,7 +516,7 @@
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements>
-            <modelElement variable="cruds">
+            <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
@@ -528,7 +528,7 @@
         outlet="services"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
@@ -541,7 +541,7 @@
         outlet="services"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
@@ -554,7 +554,7 @@
         outlet="daos"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
@@ -567,7 +567,7 @@
         outlet="daos"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
@@ -580,7 +580,7 @@
         outlet="daos"
         overwrite="true"
         required="false">
-        <modelElements variable="crud">
+        <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
