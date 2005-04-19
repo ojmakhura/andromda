@@ -31,7 +31,7 @@ public class $service.webServiceDelegatorName
      */
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.exceptionsPresent)
-        throws $operation.exceptionList
+        $operation.throwsClause
 #end
     {
 #if (!$operation.returnTypePresent)
