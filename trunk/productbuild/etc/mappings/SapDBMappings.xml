@@ -54,6 +54,7 @@
     <mapping>
         <from>datatype::double</from>
         <from>datatype::Double</from>
+        <from>datatype::Money</from>
         <to>FLOAT(38)</to>
     </mapping>
     <mapping>
