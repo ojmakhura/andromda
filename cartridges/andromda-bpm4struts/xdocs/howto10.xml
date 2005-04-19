@@ -38,15 +38,6 @@
     <bean:message key="label.key"/>
 ]]></source>
             </subsection>
-            <subsection name="custom-resources.properties">
-                <p>
-                    In case you would like to add your own custom messages you can use this bundle, the call
-                    to render messages from this bundle you will need to use the <code>bundle</code> attribute:
-                </p>
-<source language="xml"><![CDATA[
-    <bean:message key="label.key" bundle="custom"/>
-]]></source>
-            </subsection>
             <subsection name="displaytag.properties">
                 <p>
                     The <a href="http://displaytag.sourceforge.net/">displaytag</a> library is used for the
@@ -56,6 +47,40 @@
                 <p>
                     You won't need to call the messages in this bundle directly, use the <code>custom</code> bundle
                     instead.
+                </p>
+            </subsection>
+            <subsection name="Custom Resources">
+                <p>
+                    <em>The <code>custom-resources.properties</code> file is no longer generated,
+                        if you want your own resource messages to be displayed
+                        you will need to make use of the merge point inside the generated resource bundle, as explained
+                        in this section.
+                    </em>
+                </p>
+                <p>
+                    In order to do just that you will need to create your own resource bundle with your custum set of
+                    messages and put it somewhere in your source tree, for example in
+                    <code>/web/src/properties/custom.properties</code>.
+                </p>
+                <p>
+                    Next, tell AndroMDA to merge this file into the generated resource bundle, if you generated your
+                    project using <code>andromdapp:generate</code> it is sufficient to do this in
+                    <code>/mda/conf/mappings/Bpm4StrutsMergeMappings.xml</code>:
+                </p>
+<source language="xml"><!--
+    <mapping>
+        <from><![CDATA[# custom-messages merge-point]]></from>
+        <to path="true">../../../web/src/properties/custom.properties</to>
+    </mapping>
+--></source>
+                <p>
+                    That's it, now you can start using your own resource messages. It is even possible to override
+                    the default generated ones by simply repeating them in your custom resource bundle.
+                </p>
+                <p class="highlight">
+                    This feature is particularly interesting when you want to have messages displayed in a more
+                    dynamic fashion: you can decide in the controller what message to show, save them
+                    (using <code>saveMessages(..)</code>), and have them picked up from the bundle.
                 </p>
             </subsection>
             <subsection name="Date Formats">
