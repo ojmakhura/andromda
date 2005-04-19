@@ -215,5 +215,42 @@ ${messageKey}.exception={0} (java.lang.Exception)
 
 #end ## for each use-case
 
+
+#
+#   Messages related to entity management (CRUD)
+#
+#if (!$manageables.empty)
+
+button.create=Create
+button.read=Search
+button.update=Update
+button.delete=Delete
+
+#foreach ($manageable in $manageables)
+$manageable.messageKey=$manageable.messageValue
+$manageable.pageTitleKey=$manageable.pageTitleValue
+
+#foreach ($member in $manageable.manageableMembers)
+$member.messageKey=$member.messageValue
+#end
+
+#if ($manageable.create)
+$manageable.createExceptionKey=Unable to create $manageable.name: {0}
+#end
+#if ($manageable.read)
+$manageable.readExceptionKey=Unable to read $manageable.name: {0}
+#end
+#if ($manageable.update)
+$manageable.updateExceptionKey=Unable to update $manageable.name: {0}
+#end
+#if ($manageable.delete)
+$manageable.deleteExceptionKey=Unable to delete $manageable.name: {0}
+#end
+
+#end
+
+#end
+
+
 #   CUSTOM MESSAGES
 # custom-messages merge-point

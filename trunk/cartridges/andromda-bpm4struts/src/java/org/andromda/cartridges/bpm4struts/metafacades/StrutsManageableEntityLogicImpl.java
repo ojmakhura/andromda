@@ -20,7 +20,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetFormBeanType()
     {
-        return getCrudPackageName() + '.' + getFormBeanClassName();
+        return getManageablePackageName() + '.' + getFormBeanClassName();
     }
 
     protected String handleGetFormBeanClassName()
@@ -60,27 +60,27 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetListName()
     {
-        return "crudList";
+        return "manageableList";
     }
 
     protected java.lang.String handleGetListGetterName()
     {
-        return "getCrudList";
+        return "getManageableList";
     }
 
     protected java.lang.String handleGetListSetterName()
     {
-        return "setCrudList";
+        return "setManageableList";
     }
 
     protected String handleGetPageName()
     {
-        return getName().toLowerCase() + "-crud.jsp";
+        return getName().toLowerCase() + "-manageable.jsp";
     }
 
     protected String handleGetPageFullPath()
     {
-        return '/' + getCrudPackagePath() + '/' + getPageName();
+        return '/' + getManageablePackagePath() + '/' + getPageName();
     }
 
     protected java.lang.String handleGetCreateActionPath()
@@ -95,7 +95,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetCreateActionType()
     {
-        return getCrudPackageName() + '.' + getCreateActionClassName();
+        return getManageablePackageName() + '.' + getCreateActionClassName();
     }
 
     protected java.lang.String handleGetCreateExceptionKey()
@@ -130,7 +130,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetReadActionType()
     {
-        return getCrudPackageName() + '.' + getReadActionClassName();
+        return getManageablePackageName() + '.' + getReadActionClassName();
     }
 
     protected java.lang.String handleGetReadExceptionKey()
@@ -165,7 +165,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetUpdateActionType()
     {
-        return getCrudPackageName() + '.' + getUpdateActionClassName();
+        return getManageablePackageName() + '.' + getUpdateActionClassName();
     }
 
     protected java.lang.String handleGetUpdateExceptionKey()
@@ -200,7 +200,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetDeleteActionType()
     {
-        return getCrudPackageName() + '.' + getDeleteActionClassName();
+        return getManageablePackageName() + '.' + getDeleteActionClassName();
     }
 
     protected java.lang.String handleGetDeleteExceptionKey()
@@ -230,7 +230,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetPreloadActionType()
     {
-        return getCrudPackageName() + '.' + getPreloadActionClassName();
+        return getManageablePackageName() + '.' + getPreloadActionClassName();
     }
 
     protected String handleGetPreloadFormBeanName()
@@ -240,7 +240,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetPreloadActionFullPath()
     {
-        return getCrudPackagePath() + '/' + getPreloadActionClassName();
+        return getManageablePackagePath() + '/' + getPreloadActionClassName();
     }
 
     protected String handleGetPreloadActionClassName()

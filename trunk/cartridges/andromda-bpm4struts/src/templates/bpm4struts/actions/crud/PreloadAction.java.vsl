@@ -1,9 +1,9 @@
-#set ($generatedFile = "${crud.preloadActionFullPath}.java")
+#set ($generatedFile = "${manageable.preloadActionFullPath}.java")
 ##
 ##  START TEMPLATE
 ##
 // license-header java merge-point
-package $crud.crudPackageName;
+package $manageable.manageablePackageName;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -13,16 +13,16 @@ import org.apache.struts.action.ActionForward;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public final class $crud.preloadActionClassName extends Action
+public final class $manageable.preloadActionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        request.setAttribute("crudForm", actionForm);
+        request.setAttribute("manageableForm", actionForm);
 
-        final $crud.formBeanType form = ($crud.formBeanType)actionForm;
+        final $manageable.formBeanType form = ($manageable.formBeanType)actionForm;
 
-        final java.util.List list = ${crud.crudServiceAccessorCall}.readAll();
-        form.${crud.listSetterName}(list);
+        final java.util.List list = ${manageable.manageableServiceAccessorCall}.readAll();
+        form.${manageable.listSetterName}(list);
 
         return mapping.getInputForward();
     }

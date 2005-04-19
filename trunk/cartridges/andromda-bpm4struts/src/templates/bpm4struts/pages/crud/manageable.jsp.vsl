@@ -1,7 +1,7 @@
-#parse("templates/bpm4struts/pages/crud/crud.jsp.vm")
-#set ($generatedFile = "$crud.pageFullPath")
+#parse("templates/bpm4struts/pages/crud/manageable.jsp.vm")
+#set ($generatedFile = "$manageable.pageFullPath")
 ##
-#set ($tableVariable = "crudForm.${crud.listName}")
+#set ($tableVariable = "manageableForm.${manageable.listName}")
 #set ($tablePresentTest = "!empty $tableVariable")
 #set ($tablePresentTest = "${${tablePresentTest}}")
 ##
@@ -10,7 +10,7 @@
 <tiles:insert definition="main.layout">
 
     <tiles:put name="title" type="string">
-        <bean:message key="$crud.pageTitleKey"/>
+        <bean:message key="$manageable.pageTitleKey"/>
     </tiles:put>
 
     <tiles:put name="javascript" type="string">
@@ -18,13 +18,13 @@
         //<!--
             function setCreateForm(form)
             {
-                form.name = "$crud.createFormBeanName";
-                form.action = "<html:rewrite action="$crud.createActionPath"/>";
+                form.name = "$manageable.createFormBeanName";
+                form.action = "<html:rewrite action="$manageable.createActionPath"/>";
             }
             function setReadForm(form)
             {
-                form.name = "$crud.readFormBeanName";
-                form.action = "<html:rewrite action="$crud.readActionPath"/>";
+                form.name = "$manageable.readFormBeanName";
+                form.action = "<html:rewrite action="$manageable.readActionPath"/>";
             }
         -->
         </script>
@@ -35,21 +35,30 @@
         <tiles:insert page="/entity-switcher.jsp" flush="false"/>
 
         <div id="criteria">
-            <html:form action="$crud.createActionPath">
+            <html:form action="$manageable.createActionPath">
                 <table>
-#foreach ($member in $crud.crudMembers)
+#foreach ($member in $manageable.attributes)
                     <tr>
                         <td><bean:message key="$member.messageKey"/></td>
                         <td>
-#renderMember($member "                            ")
+#renderAttribute($member "                            ")
+                        </td>
+                        <td></td>
+                    </tr>
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+                    <tr>
+                        <td><bean:message key="$member.messageKey"/></td>
+                        <td>
+#renderAssociationEnd($member "                            ")
                         </td>
                         <td></td>
                     </tr>
 #end
                 </table>
 
-                <html:submit value="button.create" onclick="setCreateForm(this.form);" />
-                <html:submit value="button.read" onclick="setReadForm(this.form);" />
+                <input type="submit" value="<bean:message key="button.read"/>" onclick="setReadForm(this.form);" />
+                <input type="submit" value="<bean:message key="button.create"/>" onclick="setCreateForm(this.form);" />
 #*
                 <html:submit insert />
 *#
@@ -60,12 +69,16 @@
 
         </div>
 
-        <div id="${crud.listName}" class="table">
+        <div id="${manageable.listName}" class="table">
             <c:if test="$tablePresentTest">
-#set ($listBean = "crudForm.${crud.listName}")
+#set ($listBean = "manageableForm.${manageable.listName}")
                 <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
                         export="true" pagesize="15" sort="list">
-#foreach ($member in $crud.crudMembers)
+                    <display:column media="html" sortable="false">
+#set ($identifierValue = "row.${manageable.identifiers.iterator().next().name}")
+                        <input type="checkbox" name="selectedRows" value="${${identifierValue}}"/>
+                    </display:column>
+#foreach ($member in $manageable.manageableMembers)
                     <display:column property="$member.name"
                         headerClass="$member.name" paramId="$member.name"
                         sortProperty="$member.name" sortable="true"

@@ -1,4 +1,4 @@
-#if (!$cruds.empty)
+#if (!$manageables.empty)
 <?xml version="1.0" encoding="$xmlEncoding" ?>
 
 <!DOCTYPE form-validation PUBLIC
@@ -8,10 +8,10 @@
 <form-validation>
 
     <formset>
-#foreach ($crud in $cruds)
-#if ($crud.create)
-        <form name="$crud.createFormBeanName">
-#foreach ($attribute in $crud.attributes)
+#foreach ($manageable in $manageables)
+#if ($manageable.create)
+        <form name="$manageable.createFormBeanName">
+#foreach ($attribute in $manageable.attributes)
             <field property="$attribute.name" depends="$attribute.validatorTypeList">
                 <arg position="0" key="$attribute.messageKey" />
             </field>

@@ -1,57 +1,57 @@
-#set ($generatedFile = "${crud.formBeanFullPath}.java")
+#set ($generatedFile = "${manageable.formBeanFullPath}.java")
 ##
 ##  START TEMPLATE
 ##
 // license-header java merge-point
-package $crud.crudPackageName;
+package $manageable.manageablePackageName;
 
-public class $crud.formBeanClassName
+public class $manageable.formBeanClassName
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
 {
     public String getCurrentEntity()
     {
-        return "$crud.name";
+        return "$manageable.name";
     }
 
-    private java.util.List $crud.listName = null;
+    private java.util.List $manageable.listName = null;
 
-    public java.util.List ${crud.listGetterName}()
+    public java.util.List ${manageable.listGetterName}()
     {
-        return this.$crud.listName;
+        return this.$manageable.listName;
     }
 
-    public void ${crud.listSetterName}(java.util.List $crud.listName)
+    public void ${manageable.listSetterName}(java.util.List $manageable.listName)
     {
-        this.$crud.listName = $crud.listName;
+        this.$manageable.listName = $manageable.listName;
     }
 
-#foreach ($member in $crud.attributes)
-    private $member.type.fullyQualifiedName $member.crudName;
+#foreach ($member in $manageable.attributes)
+    private $member.type.fullyQualifiedName $member.manageableName;
 
-    $member.visibility $member.type.fullyQualifiedName ${member.crudGetterName}()
+    $member.visibility $member.type.fullyQualifiedName ${member.manageableGetterName}()
     {
-        return this.$member.crudName;
+        return this.$member.manageableName;
     }
 
-    $member.visibility void ${member.crudSetterName}($member.type.fullyQualifiedName $member.crudName)
+    $member.visibility void ${member.manageableSetterName}($member.type.fullyQualifiedName $member.manageableName)
     {
-        this.$member.crudName = $member.crudName;
+        this.$member.manageableName = $member.manageableName;
     }
 
 #end
-#foreach ($member in $crud.manageableAssociationEnds)
-#set ($identifier = $member.type.identifiers.iterator().next())
-    private $member.crudType.fullyQualifiedName $member.crudName;
+#foreach ($member in $manageable.manageableAssociationEnds)
+#set ($identifier = $member.type.manageableIdentifier)
+    private $member.manageableIdentifier.type.fullyQualifiedName $member.manageableName;
 
-    $member.visibility $member.crudType.fullyQualifiedName ${member.crudGetterName}()
+    $member.visibility $member.manageableIdentifier.type.fullyQualifiedName ${member.manageableGetterName}()
     {
-        return this.$member.crudName;
+        return this.$member.manageableName;
     }
 
-    $member.visibility void ${member.crudSetterName}($member.crudType.fullyQualifiedName $member.crudName)
+    $member.visibility void ${member.manageableSetterName}($member.manageableIdentifier.type.fullyQualifiedName $member.manageableName)
     {
-        this.$member.crudName = $member.crudName;
+        this.$member.manageableName = $member.manageableName;
     }
 
     private Object[] ${member.name}ValueList;
@@ -82,7 +82,7 @@ public class $crud.formBeanClassName
     {
         if (valueProperty == null || labelProperty == null)
         {
-            throw new IllegalArgumentException("${crud.formBeanClassName}.${member.setterName}BackingList requires non-null property arguments");
+            throw new IllegalArgumentException("${manageable.formBeanClassName}.${member.setterName}BackingList requires non-null property arguments");
         }
 
         this.${member.name}ValueList = null;
@@ -106,12 +106,69 @@ public class $crud.formBeanClassName
             }
             catch (Exception ex)
             {
-                throw new IllegalArgumentException("${crud.formBeanClassName}.${member.setterName}BackingList encountered an exception", ex);
+                throw new IllegalArgumentException("${manageable.formBeanClassName}.${member.setterName}BackingList encountered an exception", ex);
             }
         }
     }
 
+    public Object[] ${member.getterName}BackingList()
+    {
+        this.${member.name}ValueList = null;
+        this.${member.name}LabelList = null;
+
+        if (this.${member.name}ValueList == null || this.${member.name}ValueList.length == 0)
+        {
+            return this.${member.name}ValueList;
+        }
+
+        if (this.${member.name}LabelList == null || this.${member.name}LabelList.length == 0)
+        {
+            this.${member.name}LabelList = this.${member.name}ValueList;
+        }
+
+        final int length = Math.min(this.${member.name}LabelList.length, this.${member.name}ValueList.length);
+        Object[] backingList = new Object[length];
+
+        for (int i=0; i<length; i++)
+        {
+            backingList[i] = new ValueLabel(this.${member.name}LabelList[i], this.${member.name}ValueList[i]);
+        }
+
+        return backingList;
+    }
+
 #end
+    public final class ValueLabel
+    {
+        private Object value = null;
+        private Object label = null;
+
+        public ValueLabel(Object value, Object label)
+        {
+            this.value = value;
+            this.label = label;
+        }
+
+        public Object getValue()
+        {
+            return this.value;
+        }
+
+        public Object getLabel()
+        {
+            return this.label;
+        }
+
+        public void setValue(Object value)
+        {
+            this.value = value;
+        }
+
+        public void setLabel(Object label)
+        {
+            this.label = label;
+        }
+    }
 
 // @todo: reset
 // @todo: validate
