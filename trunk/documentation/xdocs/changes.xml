@@ -9,7 +9,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-17" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-19" description="Second release candidate for version 3.0">
+            <action dev="draftdog" type="update">
+                Bpm4struts no longer generates the <code>custom-resources.properties</code> file, you will need to
+                merge your own properties into the default bundle. If you project still contains JSP files
+                with messages read from the <code>custom</code> bundle you can safely point them to the
+                default bundle (by removing the <code>bundle</code> attribute).
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-62">
                 It is now possible to merge the entire contents of a file into a merge-point. Please see the 
                 <a href="andromda-cartridges/index.html#mergingFileContents">merge-point documentation</a> 
