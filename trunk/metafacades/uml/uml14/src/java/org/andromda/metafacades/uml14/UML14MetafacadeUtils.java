@@ -5,11 +5,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -594,6 +597,24 @@ public class UML14MetafacadeUtils
             }
         }
         return modelElement;
+    }
+
+    /**
+     * Retrieves the serial version UID by reading the tagged value
+     * {@link UMLProfile#TAGGEDVALUE_SERIALVERSION_UID} of the
+     * <code>classifier</code>.
+     *
+     * @param classifier the classifier to be inspected.
+     * @return the serial version UID of the classifier. Returns
+     *         <code>null</code> if the tagged value cannot be found.
+     */
+    static String getSerialVersionUID(ClassifierFacade classifier)
+    {
+        final String methodName = "UML14MetafacadeUtils.getSerialVersionUID";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        String serialVersionString = (String)classifier
+                .findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
+        return StringUtils.trimToNull(serialVersionString);
     }
 
 }
