@@ -2,6 +2,7 @@ package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
@@ -370,5 +371,33 @@ public class SpringServiceLogicImpl
     {
         return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED))).booleanValue();
     }
+    
+    /**
+     * Stores the view type for an EJB service.
+     */
+    private static final String EJB_VIEW_TYPE = "ejbViewType";
+
+    /**
+     * Gets the view for this service (if an EJB).
+     */
+    private String getEjbViewType()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(EJB_VIEW_TYPE));
+    }
+    
+    /**
+     * The value when an EJB service has a remote view.
+     */
+    private static final String EJB_REMOTE_VIEW = "remote";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isEjbRemoteView()
+     */
+    protected boolean handleIsEjbRemoteView()
+    {
+        return this.getEjbViewType().equalsIgnoreCase(EJB_REMOTE_VIEW);
+    }
+    
+    
 
 }

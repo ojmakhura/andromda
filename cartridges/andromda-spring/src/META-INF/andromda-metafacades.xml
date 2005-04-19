@@ -19,6 +19,7 @@
     <property reference="serviceOperationTransactionType" default="PROPAGATION_REQUIRED"/>
     <property reference="ejbServiceOperationTransactionType" default="Required"/>
     <property reference="serviceHibernateInterceptorEnabled" default="true"/>
+    <property reference="ejbViewType" default="local"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <stereotype>FINDER_METHOD</stereotype>

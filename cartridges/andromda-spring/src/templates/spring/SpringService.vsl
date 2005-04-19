@@ -22,14 +22,8 @@ public interface $service.name
 $operation.getDocumentation("    * ")
      */
 #if ($operation.exceptionsPresent)
-#set ($exceptionList = $operation.exceptionList)
-## If the EJB view type is specified as remote then the business interface
-## needs to throw the remote exceptions
-#if ($ejbViewType.equalsIgnoreCase("remote"))
-#set ($exceptionList = $operation.getExceptionList("java.rmi.RemoteException"))
-#end
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
-        throws $exceptionList;
+        $operation.throwsClause;
 #else
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature;
 #end

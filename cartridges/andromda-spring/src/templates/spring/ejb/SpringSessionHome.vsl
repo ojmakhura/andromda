@@ -15,11 +15,15 @@ public interface ${service.name}Home
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedEjbName}Home
 #else
+#set ($ejbHomeInterface = "javax.ejb.EJBLocalHome")
+#if ($service.ejbRemoteView)
+#set ($ejbHomeInterface = "javax.ejb.EJBHome")
+#end
     extends $ejbHomeInterface
 #end 
 {
 #set ($throwsList = "throws javax.ejb.CreateException")
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
 #set ($throwsList = "${throwsList},java.rmi.RemoteException")
 #end
 
@@ -33,7 +37,7 @@ public interface ${service.name}Home
      */
     public static final String JNDI_NAME="${service.ejbJndiName}"; 
 	
-    public ${service.fullyQualifiedEjbName} create()
+    public $service.fullyQualifiedEjbName create()
         $throwsList;
 
 }
