@@ -1,11 +1,17 @@
 package org.andromda.metafacades.uml14;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
@@ -20,9 +26,6 @@ import org.omg.uml.foundation.core.CorePackage;
 import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Interface;
 import org.omg.uml.foundation.core.Operation;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
@@ -485,4 +488,104 @@ public class ClassifierFacadeLogicImpl
     {
         return this.getFullyQualifiedName() + this.getArraySuffix();
     }
+
+    /**
+     * Calculates the serial version UID of this classifier based on the
+     * signature of the classifier (name, visibility, attributes and methods).
+     * The algorithm is inspired by
+     * {@link java.io.ObjectStreamClass#getSerialVersionUID()}.
+     *
+     * The value should be stable as long as the classifier remains unchanged
+     * and should change as soon as there is any change in the signature of the
+     * classifier.
+     *
+     * @return the serial version UID of this classifier.
+     */
+    private Long calculateDefaultSUID()
+    {
+        StringBuffer sb = new StringBuffer();
+
+        // class name
+        sb.append(this.getName());
+        // class modifiers (visibility)
+        sb.append(this.getVisibility());
+
+        // generalizations
+        Collection allGeneralizations = this.getAllGeneralizations();
+        for (Iterator iter = allGeneralizations.iterator(); iter.hasNext();)
+        {
+            ClassifierFacade classifier = (ClassifierFacade)iter.next();
+            sb.append(classifier.getName());
+        }
+
+        // declared fields
+        Collection attributes = this.getAttributes();
+        for (Iterator iter = attributes.iterator(); iter.hasNext();)
+        {
+            AttributeFacade attribute = (AttributeFacade)iter.next();
+            sb.append(attribute.getName());
+            sb.append(attribute.getVisibility());
+            sb.append(attribute.getType());
+        }
+
+        // operations
+        Collection operations = this.getOperations();
+        for (Iterator iter = operations.iterator(); iter.hasNext();)
+        {
+            OperationFacade operation = (OperationFacade)iter.next();
+            sb.append(operation.getName());
+            sb.append(operation.getVisibility());
+            sb.append(operation.getReturnType());
+            Collection parameters = operation.getParameters();
+            for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
+            {
+                ParameterFacade parameter = (ParameterFacade)iterator.next();
+                sb.append(parameter.getName());
+                sb.append(parameter.getVisibility());
+                sb.append(parameter.getType());
+            }
+        }
+        String signature = sb.toString();
+
+        Long serialVersionUID = new Long(0L);
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            byte[] hashBytes = md.digest(signature.getBytes());
+
+            long hash = 0;
+            for (int i = Math.min(hashBytes.length, 8) - 1; i >= 0; i--)
+            {
+                hash = (hash << 8) | (hashBytes[i] & 0xFF);
+            }
+            serialVersionUID = new Long(hash);
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            final String errMsg = "Error performing ModelElementFacadeImpl.getSerialVersionUID";
+            logger.error(errMsg, e);
+        }
+        return serialVersionUID;
+
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetSerialVersionUID()
+     */
+    public Long handleGetSerialVersionUID()
+    {
+        Long serialVersionUID = null;
+        String serialVersionString = UML14MetafacadeUtils
+                .getSerialVersionUID(this);
+        if (serialVersionString != null)
+        {
+            serialVersionUID = Long.valueOf(serialVersionString);
+        }
+        else
+        {
+            serialVersionUID = calculateDefaultSUID();
+        }
+        return serialVersionUID;
+    }
+
 }

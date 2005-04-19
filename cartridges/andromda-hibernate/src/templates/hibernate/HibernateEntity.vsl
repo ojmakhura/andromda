@@ -14,10 +14,11 @@ $entity.getDocumentation(" * ")
 public abstract class $entity.entityName
 #if($entity.generalization)
     extends $entity.generalization.fullyQualifiedEntityImplementationName
-#else
-    implements java.io.Serializable
 #end
+    implements java.io.Serializable
 {
+    /** The serial version UID of this class. Needed for serialization. */
+    private static final long serialVersionUID = ${entity.serialVersionUID}L;
 
 #if ($stringUtils.isNotBlank($versionProperty))
 #set ($versionPropertyCapitalized = $stringUtils.capitalize($versionProperty))
@@ -133,16 +134,16 @@ $operation.getDocumentation("     * ")
 #set ($idType = $identifier.type)
 #if ($idType.primitive)
         if (this.$identifier.name != that.$identifier.name)
-        { 
+        {
             return false;
         }
 #elseif ($idType.arrayType)
         if (!java.util.Arrays.equals(this.$identifier.name, that.$identifier.name))
-        { 
+        {
             return false;
         }
 #else
-        if (this.$identifier.name == null || that.$identifier.name == null || !this.${identifier.name}.equals(that.$identifier.name)) 
+        if (this.$identifier.name == null || that.$identifier.name == null || !this.${identifier.name}.equals(that.$identifier.name))
         {
             return false;
         }

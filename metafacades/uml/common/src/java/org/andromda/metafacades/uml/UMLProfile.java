@@ -219,4 +219,12 @@ public class UMLProfile
      * specialize this type.
      */
     public static final String STRING_TYPE_NAME = profile.get("STRING_TYPE");
+
+    /**
+     * Stores the serial version UID to be used for a class. If not specified, it will be calculated
+     * based on the class signature.
+     *
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl#handleGetSerialVersionUID()
+     */
+    public static final String TAGGEDVALUE_SERIALVERSION_UID = profile.get("SERIALVERSION_UID");
 }
