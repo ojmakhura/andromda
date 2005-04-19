@@ -399,6 +399,16 @@
                         <td>
                             Defines an EJB transaction type for the service operation (when wrapped
                             by EJBs).
+                            <ul>
+                                Permitted values are:
+                                <li>PROPAGATION_NEVER</li>
+                                <li>PROPAGATION_NESTED</li>
+                                <li>PROPAGATION_MANDATORY</li>
+                                <li>PROPAGATION_REQUIRED</li>
+                                <li>PROPAGATION_REQUIRES_NEW</li>
+                                <li>PROPAGATION_SUPPORTS</li>
+                                <li>PROPAGATION_NOT_SUPPORTED</li>
+                            </ul>
                         </td>
                     </tr>
                     <tr>
