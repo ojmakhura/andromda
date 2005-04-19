@@ -70,12 +70,15 @@
 <source language="xml"><!--
     <mapping>
         <from><![CDATA[# custom-messages merge-point]]></from>
-        <to path="true">../../../web/src/properties/custom.properties</to>
+        <to>
+            <path>../../../web/src/properties/custom.properties</path>
+        </to>
     </mapping>
 --></source>
                 <p>
                     That's it, now you can start using your own resource messages. It is even possible to override
-                    the default generated ones by simply repeating them in your custom resource bundle.
+                    the default generated ones by simply repeating them in your custom resource bundle. If you want
+                    you can specify multiple <![CDATA[<path>]]> elements, that way all of them will be merged.
                 </p>
                 <p class="highlight">
                     This feature is particularly interesting when you want to have messages displayed in a more
