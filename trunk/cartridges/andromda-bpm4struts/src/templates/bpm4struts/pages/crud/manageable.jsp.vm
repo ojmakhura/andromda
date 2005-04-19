@@ -37,14 +37,28 @@ ${indent}</script>
 ##
 #macro ( renderAssociationEnd $field $indent )
 ${indent}<c:choose>
-#set ($test = "empty manageableForm.${field.manageableName}BackingList")
+#set ($list = "manageableForm.${field.manageableName}BackingList")
+#set ($test = "empty $list")
 ${indent}    <c:when test="${${test}}">
 ${indent}        <select name="$field.manageableName" disabled="disabled"/>
 ${indent}    </c:when>
 ${indent}   <c:otherwise>
-${indent}       <html:select name="manageableForm" property="$field.manageableName">
-${indent}           <html:optionsCollection name="manageableForm" property="${field.manageableName}BackingList" label="label" value="value"/>
-${indent}       </html:select>
+${indent}        <select name="$field.manageableName">
+${indent}            <option value=""><bean:message key="select.option.blank"/></option>
+${indent}            <c:forEach var="valueLabel" items="${${list}}">
+${indent}                <c:choose>
+#set ($test = "valueLabel[0] eq $field.manageableName")
+${indent}                    <c:when test="${${test}}">
+#set ($value = '${valueLabel[0]}')
+#set ($label = '${valueLabel[1]}')
+${indent}                        <option value="$value" selected="selected">$label</option>
+${indent}                    </c:when>
+${indent}                    <c:otherwise>
+${indent}                        <option value="$value">$label</option>
+${indent}                    </c:otherwise>
+${indent}                </c:choose>
+${indent}            </c:forEach>
+${indent}       </select>
 ${indent}   </c:otherwise>
 ${indent}</c:choose>
 #end

@@ -24,6 +24,13 @@ public final class $manageable.preloadActionClassName extends Action
         final java.util.List list = ${manageable.manageableServiceAccessorCall}.readAll();
         form.${manageable.listSetterName}(list);
 
+#if (!$manageable.manageableAssociationEnds.empty)
+        final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+#foreach ($member in $manageable.manageableAssociationEnds)
+        form.${member.manageableSetterName}BackingList((java.util.List)backingLists.get("$member.manageableName"));
+#end
+
+#end
         return mapping.getInputForward();
     }
 }

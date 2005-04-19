@@ -633,7 +633,8 @@
         outputPattern="entity-switcher.jsp"
         outlet="pages"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        generateEmptyFiles="false">
         <modelElements>
             <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>

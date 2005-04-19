@@ -1,3 +1,4 @@
+#if (!$manageables.empty)
 #parse("templates/spring/SpringGlobals.vm")
 #if (!$ejbsEnabled)
 // license-header java merge-point
@@ -7,8 +8,8 @@
 //
 #set ($generatedFile = "${manageableServiceLocatorName}.java")
 #if($stringUtils.isNotEmpty($springTypesPackage))
-package ${springTypesPackage}.manageable;
-#set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/manageable/${generatedFile}")
+package ${springTypesPackage};
+#set ($generatedFile = "${stringUtils.replace($springTypesPackage,'.','/')}/${generatedFile}")
 #end
 
 /**
@@ -108,4 +109,5 @@ public class ${manageableServiceLocatorName}
 
 #end
 }
+#end
 #end

@@ -17,6 +17,10 @@ public interface $manageable.manageableDaoName
 
     public java.util.List readAll();
 
+#if (!$manageable.manageableAssociationEnds.empty)
+    public java.util.Map readBackingLists();
+
+#end
 #end
 #if ($manageable.update)
     public void update(Collection ids, $memberListCollections);

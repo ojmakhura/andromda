@@ -62,6 +62,17 @@ public final class $manageable.manageableServiceBaseName
         return toValueObjects(dao.readAll());
     }
 
+#if (!$manageable.manageableAssociationEnds.empty)
+    public java.util.Map readBackingLists()
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+        return getDao().readBackingLists();
+    }
+
+#end
 #end
 #if ($manageable.update)
     public void update(Collection ids, $memberListCollections)

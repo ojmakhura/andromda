@@ -226,6 +226,8 @@ button.read=Search
 button.update=Update
 button.delete=Delete
 
+select.option.blank=-- Select --
+
 #foreach ($manageable in $manageables)
 $manageable.messageKey=$manageable.messageValue
 $manageable.pageTitleKey=$manageable.pageTitleValue

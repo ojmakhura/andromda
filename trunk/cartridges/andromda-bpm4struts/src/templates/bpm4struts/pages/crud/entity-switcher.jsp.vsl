@@ -1,3 +1,4 @@
+#if (!$manageables.empty)
 <%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
@@ -20,3 +21,4 @@
 #end
     </select>
 </div>
+#end

@@ -54,121 +54,19 @@ public class $manageable.formBeanClassName
         this.$member.manageableName = $member.manageableName;
     }
 
-    private Object[] ${member.name}ValueList;
+    private java.util.List ${member.manageableName}BackingList;
 
-    $member.visibility Object[] ${member.getterName}ValueList()
+    $member.visibility java.util.List ${member.manageableGetterName}BackingList()
     {
-        return this.${member.name}ValueList;
+        return this.${member.manageableName}BackingList;
     }
 
-    $member.visibility void ${member.setterName}ValueList(Object[] ${member.name}ValueList)
+    public void ${member.manageableSetterName}BackingList(java.util.List ${member.manageableName}BackingList)
     {
-        this.${member.name}ValueList = ${member.name}ValueList;
-    }
-
-    private Object[] ${member.name}LabelList;
-
-    $member.visibility Object[] ${member.getterName}LabelList()
-    {
-        return this.${member.name}LabelList;
-    }
-
-    $member.visibility void ${member.setterName}LabelList(Object[] ${member.name}LabelList)
-    {
-        this.${member.name}LabelList = ${member.name}LabelList;
-    }
-
-    public void ${member.setterName}BackingList(java.util.Collection items, String valueProperty, String labelProperty)
-    {
-        if (valueProperty == null || labelProperty == null)
-        {
-            throw new IllegalArgumentException("${manageable.formBeanClassName}.${member.setterName}BackingList requires non-null property arguments");
-        }
-
-        this.${member.name}ValueList = null;
-        this.${member.name}LabelList = null;
-
-        if (items != null)
-        {
-            this.${member.name}ValueList = new Object[items.size()];
-            this.${member.name}LabelList = new Object[items.size()];
-
-            try
-            {
-                int i = 0;
-                for (java.util.Iterator iterator = items.iterator(); iterator.hasNext(); i++)
-                {
-                    final Object item = iterator.next();
-
-                    this.${member.name}ValueList[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
-                    this.${member.name}LabelList[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new IllegalArgumentException("${manageable.formBeanClassName}.${member.setterName}BackingList encountered an exception", ex);
-            }
-        }
-    }
-
-    public Object[] ${member.getterName}BackingList()
-    {
-        this.${member.name}ValueList = null;
-        this.${member.name}LabelList = null;
-
-        if (this.${member.name}ValueList == null || this.${member.name}ValueList.length == 0)
-        {
-            return this.${member.name}ValueList;
-        }
-
-        if (this.${member.name}LabelList == null || this.${member.name}LabelList.length == 0)
-        {
-            this.${member.name}LabelList = this.${member.name}ValueList;
-        }
-
-        final int length = Math.min(this.${member.name}LabelList.length, this.${member.name}ValueList.length);
-        Object[] backingList = new Object[length];
-
-        for (int i=0; i<length; i++)
-        {
-            backingList[i] = new ValueLabel(this.${member.name}LabelList[i], this.${member.name}ValueList[i]);
-        }
-
-        return backingList;
+        this.${member.manageableName}BackingList = ${member.manageableName}BackingList;
     }
 
 #end
-    public final class ValueLabel
-    {
-        private Object value = null;
-        private Object label = null;
-
-        public ValueLabel(Object value, Object label)
-        {
-            this.value = value;
-            this.label = label;
-        }
-
-        public Object getValue()
-        {
-            return this.value;
-        }
-
-        public Object getLabel()
-        {
-            return this.label;
-        }
-
-        public void setValue(Object value)
-        {
-            this.value = value;
-        }
-
-        public void setLabel(Object label)
-        {
-            this.label = label;
-        }
-    }
 
 // @todo: reset
 // @todo: validate
