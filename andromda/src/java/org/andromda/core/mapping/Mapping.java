@@ -3,8 +3,11 @@ package org.andromda.core.mapping;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
@@ -50,24 +53,6 @@ public class Mapping
     {
         return froms;
     }
-    
-    /**
-     * Stores whether or not the value of the to element
-     * should be extracted from the path.
-     */
-    private boolean path = false;
-    
-    /**
-     * Sets whether or not the to value is a path.  If so, then an attempt
-     * to extract the value for the <code>to</code> element is made
-     * by loading the contents of the path.
-     * 
-     * @param path true/false
-     */
-    public void setPath(boolean path)
-    {
-        this.path = path;
-    }
 
     /**
      * Returns the to type for this mapping.
@@ -76,11 +61,17 @@ public class Mapping
      */
     public String getTo()
     {
-        if (this.path)
+        if (!this.paths.isEmpty())
         {
             try
             {
-                this.to = ResourceUtils.getContents(new FileReader(this.getCompletePath(this.to)));
+                final StringBuffer pathsContents = new StringBuffer();
+                for (final Iterator pathIterator = paths.iterator(); pathIterator.hasNext();)
+                {
+                    pathsContents.append(ResourceUtils.getContents(
+                        new FileReader(this.getCompletePath((String)pathIterator.next()))));
+                }
+                this.to = pathsContents.toString();
             }
             catch (FileNotFoundException exception)
             {
@@ -88,6 +79,21 @@ public class Mapping
             }
         }
         return this.to;
+    }
+    
+    /**
+     * Stores any paths used by this mapping.
+     */
+    private final List paths = new ArrayList();
+    
+    /**
+     * Adds the path to the listof paths.
+     * @param path
+     */
+    public void addPath(String path)
+    {
+        System.out.println("adding path:" + path);
+        this.paths.add(path);
     }
 
     /**

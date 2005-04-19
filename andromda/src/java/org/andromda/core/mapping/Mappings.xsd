@@ -27,7 +27,9 @@
                  attempt is made to locate the resource defined by the path and
                  load that for the value, otherwise the contents for the 'to'
                  element is used itself -->
-            <xs:attribute name="path" type="xs:boolean" use="optional"/>
+            <xs:sequence>
+                <xs:element name="path" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
 </xs:schema>

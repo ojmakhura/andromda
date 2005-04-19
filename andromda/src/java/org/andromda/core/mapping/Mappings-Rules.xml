@@ -18,7 +18,7 @@
             <object-create-rule
                 classname="org.andromda.core.mapping.Mapping" />
 
-            <pattern  value="from">
+            <pattern value="from">
 
                 <call-method-rule
                     methodname="addFrom"
@@ -30,10 +30,17 @@
             </pattern>
 
             <pattern value="to">
-                      
-                <set-properties-rule>
-                    <alias attr-name="path" prop-name="path" />
-                </set-properties-rule>
+                
+                <pattern value="path">
+    
+                    <call-method-rule
+                        methodname="addPath"
+                        paramcount="1" />
+    
+                    <call-param-rule
+                        paramnumber="0"/>
+    
+                </pattern>
 
                 <call-method-rule
                     methodname="setTo"
