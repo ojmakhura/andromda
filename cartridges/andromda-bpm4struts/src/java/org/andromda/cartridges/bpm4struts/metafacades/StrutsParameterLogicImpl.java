@@ -1268,11 +1268,11 @@ public class StrutsParameterLogicImpl
                 if (isValidatorDouble()) validatorTypesList.add("doubleRange");
             }
 
-            if (format != null && isValidatorString())
+            if (format != null)
             {
-                if (isEmailFormat(format))
+                if (isValidatorString() && isEmailFormat(format))
                     validatorTypesList.add("email");
-                else if (isCreditCardFormat(format))
+                else if (isValidatorString() && isCreditCardFormat(format))
                     validatorTypesList.add("creditCard");
                 else
                 {
@@ -1385,7 +1385,7 @@ public class StrutsParameterLogicImpl
                     vars.put("min", Arrays.asList(new Object[]{"min", getRangeStart(format)}));
                     vars.put("max", Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
                 }
-                else if (isValidatorString())
+                else
                 {
                     Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
                     for (Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
