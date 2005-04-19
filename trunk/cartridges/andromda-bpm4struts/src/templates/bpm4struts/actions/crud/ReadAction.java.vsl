@@ -13,13 +13,24 @@ import org.apache.struts.action.ActionForward;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+
 public final class $crud.readActionClassName extends Action
 {
     public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         request.setAttribute("crudForm", actionForm);
 
-//        final $crud.formBeanType form = ($crud.formBeanType) actionForm;
+        final $crud.formBeanType form = ($crud.formBeanType)actionForm;
+
+        final java.util.List list = ${crud.crudServiceAccessorCall}.read(
+#set ($comma = '')
+#foreach ($member in $crud.crudMembers)
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.crudName"))) ? null : form.${member.crudGetterName}()
+#set ($comma = ', ')
+#end
+        );
+        form.${crud.listSetterName}(list);
 
         return mapping.getInputForward();
     }

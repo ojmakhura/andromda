@@ -126,4 +126,10 @@
         </mapping>
     </metafacade>
 
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+            <context>org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity</context>
+        </mapping>
+    </metafacade>
+
 </metafacades>

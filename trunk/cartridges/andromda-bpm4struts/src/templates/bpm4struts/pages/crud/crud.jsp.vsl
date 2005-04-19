@@ -21,6 +21,11 @@
                 form.name = "$crud.createFormBeanName";
                 form.action = "<html:rewrite action="$crud.createActionPath"/>";
             }
+            function setReadForm(form)
+            {
+                form.name = "$crud.readFormBeanName";
+                form.action = "<html:rewrite action="$crud.readActionPath"/>";
+            }
         -->
         </script>
     </tiles:put>
@@ -32,27 +37,19 @@
         <div id="criteria">
             <html:form action="$crud.createActionPath">
                 <table>
-#foreach ($attribute in $crud.attributes)
+#foreach ($member in $crud.crudMembers)
                     <tr>
-                        <td><bean:message key="$attribute.messageKey"/></td>
+                        <td><bean:message key="$member.messageKey"/></td>
                         <td>
-#renderCrudField($attribute "                            ")
+#renderMember($member "                            ")
                         </td>
                         <td></td>
                     </tr>
 #end
-#*
-#foreach ($attribute in $crud.attributes)
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-#end
-*#
                 </table>
 
-                <html:submit onclick="setCreateForm(this.form);" />
+                <html:submit value="button.create" onclick="setCreateForm(this.form);" />
+                <html:submit value="button.read" onclick="setReadForm(this.form);" />
 #*
                 <html:submit insert />
 *#

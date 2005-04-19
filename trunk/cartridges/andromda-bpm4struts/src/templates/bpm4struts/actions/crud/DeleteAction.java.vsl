@@ -19,7 +19,7 @@ public final class $crud.deleteActionClassName extends Action
     {
         final $crud.deleteFormBeanType form = ($crud.deleteFormBeanType) actionForm;
 
-        ${crud.crudServiceAccessorCall}.delete(form.${crud.identifiers.iterator().next().getterName}());
+        ${crud.crudServiceAccessorCall}.delete(form.${crud.identifiers.iterator().next().crudGetterName}());
 
         return mapping.getInputForward();
     }

@@ -56,7 +56,7 @@
 #end
 #if ($crud.read)
         <action path="$crud.readActionPath" type="$crud.readActionType" name="$crud.readFormBeanName"
-            scope="request" input="$crud.actionInput" unknown="false" validate="false">
+            scope="request" input="$crud.pageFullPath" unknown="false" validate="false">
             <exception type="java.lang.Exception" key="$crud.readExceptionKey" path="$crud.readExceptionPath" scope="request" />
         </action>
 #end

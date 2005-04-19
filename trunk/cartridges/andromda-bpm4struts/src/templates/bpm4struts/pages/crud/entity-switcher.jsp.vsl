@@ -11,7 +11,7 @@
         <c:choose>
 #set ($test = "crudForm.currentEntity eq '$crud.name'")
             <c:when test="${${test}}">
-                <option selected="selected" value="<html:rewrite page="$crud.actionInput"/>">$crud.name</option>
+                <option selected="selected" value="<html:rewrite page="$crud.actionInput"/>"><bean:message key="$crud.messageKey"/></option>
             </c:when>
             <c:otherwise>
                 <option value="<html:rewrite page="$crud.actionInput"/>">$crud.name</option>

@@ -1,5 +1,8 @@
-#macro ( renderCrudField $field $indent )
-${indent}<html:text name="crudForm" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
+##
+##
+##
+#macro ( renderMember $field $indent )
+${indent}<html:text name="crudForm" property="$field.crudName" styleClass="criteriaField" styleId="$field.crudName"/>
 #if ($field.date)
 ${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.name}_trigger" styleClass="calendar"/>
 ${indent}<script type="text/javascript">

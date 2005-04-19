@@ -24,7 +24,7 @@ public final class $crud.createActionClassName extends Action
         ${crud.crudServiceAccessorCall}.create(
 #set ($comma = '')
 #foreach ($member in $crud.crudMembers)
-            ${comma}form.${member.getterName}()
+            ${comma}form.${member.crudGetterName}()
 #set ($comma = ', ')
 #end
         );

@@ -1,6 +1,12 @@
 #if (!$cruds.empty)
 
+button.create=Create
+button.read=Search
+button.update=Update
+button.delete=Delete
+
 #foreach ($crud in $cruds)
+$crud.messageKey=$crud.messageValue
 $crud.pageTitleKey=$crud.pageTitleValue
 
 #foreach ($member in $crud.crudMembers)

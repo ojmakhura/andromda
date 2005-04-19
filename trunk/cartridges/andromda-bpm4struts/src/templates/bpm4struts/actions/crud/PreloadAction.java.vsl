@@ -21,7 +21,7 @@ public final class $crud.preloadActionClassName extends Action
 
         final $crud.formBeanType form = ($crud.formBeanType)actionForm;
 
-        java.util.List list = ${crud.crudServiceAccessorCall}.readAll();
+        final java.util.List list = ${crud.crudServiceAccessorCall}.readAll();
         form.${crud.listSetterName}(list);
 
         return mapping.getInputForward();
