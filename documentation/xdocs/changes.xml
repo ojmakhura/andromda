@@ -14,7 +14,8 @@
                 Bpm4struts no longer generates the <code>custom-resources.properties</code> file, you will need to
                 merge your own properties into the default bundle. If you project still contains JSP files
                 with messages read from the <code>custom</code> bundle you can safely point them to the
-                default bundle (by removing the <code>bundle</code> attribute).
+                default bundle (by removing the <code>bundle</code> attribute). Read this page for more info:
+                <a href="andromda-bpm4struts-cartridge/howto10.html">Bpm4Struts i18n</a>.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-62">
                 It is now possible to merge the entire contents of a file into a merge-point. Please see the 
