@@ -150,10 +150,20 @@
         of the fact that we are using both ENTITY and MANAGEABLE stereotypes,
         otherwise the ManageableEntity classes would be mapped to Entity instead
     -->
-    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl">
+    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+            <context>org.andromda.metafacades.uml.ManageableEntity</context>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAssociationEndLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+            <context>org.andromda.metafacades.uml.ManageableEntity</context>
         </mapping>
     </metafacade>
     <!-- Entity metafacades -->
