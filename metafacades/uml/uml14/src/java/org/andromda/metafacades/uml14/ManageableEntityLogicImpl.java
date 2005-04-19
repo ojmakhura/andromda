@@ -4,6 +4,8 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
+import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 
 import java.util.ArrayList;
@@ -103,7 +105,7 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsRead()
     {
-        return false; // @todo
+        return true;
     }
 
     protected boolean handleIsUpdate()
@@ -136,7 +138,7 @@ public class ManageableEntityLogicImpl
                 buffer.append(", ");
             }
 
-            final AttributeFacade attribute = (AttributeFacade)attributeIterator.next();
+            final ManageableEntityAttribute attribute = (ManageableEntityAttribute)attributeIterator.next();
             final ClassifierFacade type = attribute.getType();
             if (type != null)
             {
@@ -152,14 +154,14 @@ public class ManageableEntityLogicImpl
                     }
                     buffer.append(' ');
                 }
-                buffer.append(attribute.getName());
+                buffer.append(attribute.getCrudName());
             }
         }
 
         final Collection associationEnds = getManageableAssociationEnds();
         for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
-            final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
+            final ManageableEntityAssociationEnd associationEnd = (ManageableEntityAssociationEnd)associationEndIterator.next();
             final Entity entity = (Entity)associationEnd.getType();
 
             final Iterator identifierIterator = entity.getIdentifiers().iterator();
@@ -188,7 +190,7 @@ public class ManageableEntityLogicImpl
                             }
                             buffer.append(' ');
                         }
-                        buffer.append(associationEnd.getName());
+                        buffer.append(associationEnd.getCrudName());
                     }
                 }
             }
