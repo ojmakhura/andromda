@@ -7,6 +7,7 @@ import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,10 +40,16 @@ public class ManageableEntityLogicImpl
         final String parentPackage = super.getPackageName();
         if (parentPackage != null && parentPackage.length() > 0)
         {
-            manageablePackageName = parentPackage + ".";
+            manageablePackageName = parentPackage;
         }
 
-        return manageablePackageName += "manageable";
+        final Object suffix = getConfiguredProperty(UMLMetafacadeProperties.MANAGEABLE_PACKAGE_NAME_SUFFIX);
+        if (suffix != null && StringUtils.isNotBlank(suffix.toString()))
+        {
+            manageablePackageName += "." + suffix;
+        }
+
+        return manageablePackageName;
     }
 
     protected String handleGetManageablePackagePath()
@@ -98,7 +105,7 @@ public class ManageableEntityLogicImpl
     protected String handleGetManageableServiceAccessorCall()
     {
         final String accessorImplementation = String.valueOf(
-                getConfiguredProperty(UMLMetafacadeProperties.CRUD_SERVICE_ACCESSOR_PATTERN));
+                getConfiguredProperty(UMLMetafacadeProperties.MANAGEABLE_SERVICE_ACCESSOR_PATTERN));
         return accessorImplementation.replaceAll("\\{0\\}", getManageablePackageName()).replaceAll("\\{1\\}",
                 getManageableServiceName());
     }

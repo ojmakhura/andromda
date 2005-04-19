@@ -415,6 +415,16 @@
                         No, default is <code>{0}</code>
                     </td>
                 </tr>
+                <tr>
+                    <td>manageablePackageSuffix</td>
+                    <td>
+                        The name of the subpackage that will be used for the generation of
+                        <![CDATA[<<Manageable>>]]> entities.
+                    </td>
+                    <td>
+                        No, default is <code>crud</code>
+                    </td>
+                </tr>
             </table>
             <subsection name="Name Masking Properties">
                 <p>
@@ -434,7 +444,7 @@
                         <li>uppercamelcase - camel cases the word beginning with an upper cased letter (i.e. "Hospital Visit" would become <em>HospitalVisit</em>)</li>
                         <li>lowercamelcase - camel cases the word beginning with a lower cased letter (i.e. "Hospital Visit" would become <em>hospitalVisit</em></li>
                         <li>none - no mask is applied</li>
-                    </ul>                    
+                    </ul>
                 </p>
                 <table>
                     <tr>
@@ -576,7 +586,7 @@
                             entityPropertyNameMask
                         </td>
                         <td>
-                            Provides the ability to apply a mask to entity property names. 
+                            Provides the ability to apply a mask to entity property names.
                             Please see <a href="#masking_values">above</a>
                             for the available masks that may be applied.
                         </td>
