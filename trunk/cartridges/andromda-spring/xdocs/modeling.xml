@@ -397,8 +397,8 @@
                             Service Operation
                         </td>
                         <td>
-                            Defines an EJB transaction type for the service operation (when wrapped
-                            by EJBs).
+                            Defines a Spring transaction type for the service operation 
+                            (when <strong>NOT</strong> wrapped by EJBs).
                             <ul>
                                 Permitted values are:
                                 <li>PROPAGATION_NEVER</li>
