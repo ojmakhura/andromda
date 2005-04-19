@@ -111,10 +111,10 @@ public class Cartridge
         // handle the templates WITH model elements
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            for (Iterator templateModelElementIt = templateModelElements.getModelElements().iterator();
-                 templateModelElementIt.hasNext();)
+            for (Iterator templateModelElementIterator = templateModelElements.getModelElements().iterator();
+                 templateModelElementIterator.hasNext();)
             {
-                ModelElement templateModelElement = (ModelElement)templateModelElementIt.next();
+                ModelElement templateModelElement = (ModelElement)templateModelElementIterator.next();
                 Collection modelElements = null;
                 // if the template model element has a stereotype
                 // defined, then we filter the model elements based
@@ -132,13 +132,13 @@ public class Cartridge
                 }
                 else
                 {
-                    return;
+                    continue;
                 }
                 Collection metafacades = MetafacadeFactory.getInstance().createMetafacades(modelElements);
                 this.filterModelPackages(metafacades);
                 templateModelElement.setMetafacades(metafacades);
             }
-            this.processTemplateWithModelElements(template, context);
+            this.processTemplateWithModelElements(template);
         }
         else
         {
@@ -153,12 +153,10 @@ public class Cartridge
      * @param template the Template object from which we process.
      * @param context  the context for the cartridge
      */
-    protected void processTemplateWithModelElements(final Template template, final CodeGenerationContext context)
+    protected void processTemplateWithModelElements(final Template template)
     {
         final String methodName = "Cartridge.processTemplateWithModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
-        ExceptionUtils.checkNull(methodName, "context", context);
-
         if (getLogger().isDebugEnabled())
             getLogger().debug(
                     "performing " + methodName + " with template '" + template + "' and context ' " + context + "'");
