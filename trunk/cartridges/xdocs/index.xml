@@ -165,16 +165,20 @@
      <a name="mergingFileContents"/>
      <p>
         In addition to the ability of merging literal strings into merge-points (the contents of the <![CDATA[<to/>]]> element).  It's 
-        also possible to merge the entire contents of a file into a merge-point.  For example, this fragment below (from a mappings file)
-        says we want to replace anything matching <em><![CDATA[# custom-messages merge-point]]></em> with the contents of the file
-        <em>../../../web/conf/resources/custom-resources.properties</em> (please take note of the <strong>path="true"</strong>, this tells
-        AndroMDA to treat the contents of the <em>to</em> element as a path to a file, instead literally:
+        also possible to merge the entire contents of one or more files into a merge-point.  For example, this fragment below (from a mappings file)
+        says we want to replace anything matching <em># custom-messages merge-point</em> with the combined contents of the files
+        <em>../../../web/conf/resources/custom-resources1.properties</em> and <em>../../../web/conf/resources/custom-resources2.properties</em> 
+        (please take note of the nested <strong><![CDATA[<path/>]]></strong> elements, these tell AndroMDA to treat the contents of 
+        the <em>to</em> element as the concatinated contents of the files defined by the paths).
         <source language="xml">
 &lt;mappings name="Bpm4StrutsMergeMappings"&gt;
     ...
     &lt;mapping&gt;
         &lt;from&gt;&lt;![CDATA[# custom-messages merge-point]]&gt;&lt;/from&gt;
-        &lt;to path="true"&gt;../../../web/conf/resources/custom-resources.properties&lt;/to&gt;
+        &lt;to&gt;
+            &lt;path&gt;../../../web/conf/resources/custom-resources1.properties&lt;/path&gt;
+            &lt;path&gt;../../../web/conf/resources/custom-resources2.properties&lt;/path&gt;
+        &lt;/to&gt;
     &lt;/mapping&gt;
     ...
 &lt;/mappings&gt;            
