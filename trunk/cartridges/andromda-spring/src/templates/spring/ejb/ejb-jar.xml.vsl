@@ -19,7 +19,7 @@
                 ]]>
             </description>
             <ejb-name>$service.name</ejb-name>
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
             <home>${service.fullyQualifiedEjbName}Home</home>
             <remote>$service.fullyQualifiedEjbName</remote>
 #else
@@ -59,7 +59,7 @@
               <description><![CDATA[Creates the $service.name Session EJB]]></description>
               <ejb-name>$service.name</ejb-name>
 #set ($homeInterface = "LocalHome")
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
 #set ($homeInterface = "Home")
 #end
               <method-intf>$homeInterface</method-intf>
@@ -81,7 +81,7 @@
                 <description><![CDATA[$operation.getDocumentation("", -1, false)]]></description>
                 <ejb-name>$service.name</ejb-name>
 #set ($interface = "Local")
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
 #set ($interface = "Remote")
 #end
                 <method-intf>$interface</method-intf>

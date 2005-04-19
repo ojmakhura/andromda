@@ -9,13 +9,17 @@
 package $service.ejbPackageName;
 
 /**
- * @see ${service.fullyQualifiedName}
+ * @see $service.fullyQualifiedName
  */
 public interface $service.name 
 #if ($service.generalization)
-    extends ${service.generalization.fullyQualifiedEjbName}
+    extends $service.generalization.fullyQualifiedEjbName
 #else
-    extends ${ejbInterface},
+#set ($ejbInterface = "javax.ejb.EJBLocalObject")
+#if ($service.ejbRemoteView)
+#set ($ejbInterface = "javax.ejb.EJBObject")
+#end
+    extends $ejbInterface,
             $service.fullyQualifiedName 
 #end
 {
