@@ -59,7 +59,7 @@
     <!-- the name to give the service locator class -->
     <property reference="serviceLocatorName" default="ServiceLocator"/>
     <!-- the name to give the CRUD service locator class -->
-    <property reference="manageableServiceLocatorName" default="CrudServiceLocator"/>
+    <property reference="manageableServiceLocatorName" default="ManageableServiceLocator"/>
     <!-- the name to give the client service locator class -->
     <property reference="clientServiceLocatorName" default="ClientServiceLocator"/>
     <!-- whether the client service locator should switch the thread context class loader during

@@ -8,11 +8,12 @@
 package $manageable.manageablePackageName;
 
 #if ($manageable.read)
-import net.sf.hibernate.Criteria;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Expression;
+import net.sf.hibernate.Criteria;
+import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.expression.MatchMode;
+import net.sf.hibernate.expression.Expression;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -114,12 +115,35 @@ public final class $manageable.manageableDaoBaseName
             this.closeSessionIfNecessary(session);
             return list;
         }
-        catch (net.sf.hibernate.HibernateException ex)
+        catch (HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }
     }
 
+#if (!$manageable.manageableAssociationEnds.empty)
+    public java.util.Map readBackingLists()
+    {
+        final java.util.Map lists = new java.util.HashMap();
+        final Session session = this.getSession();
+
+        try
+        {
+#foreach ($member in $manageable.manageableAssociationEnds)
+#set ($identifier = $member.manageableIdentifier)
+            lists.put("${member.manageableName}", session.createQuery("select item.$identifier.name, item.$identifier.name from $member.type.fullyQualifiedEntityName item").list());
+#end
+        }
+        catch (HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+
+        this.closeSessionIfNecessary(session);
+        return lists;
+    }
+
+#end
 #end
 #if ($manageable.update)
     public void update(Collection ids, $memberListCollections)
