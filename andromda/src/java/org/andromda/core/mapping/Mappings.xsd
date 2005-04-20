@@ -16,6 +16,7 @@
     <xs:element name="mappings">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="extends" type="xs:string" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="mapping" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
@@ -23,7 +24,7 @@
     </xs:element>
     <xs:element name="to">
         <xs:complexType mixed="true">
-            <!-- indicates if the contents is a path, if so then an 
+            <!-- indicates if the contents is a path, if so then an
                  attempt is made to locate the resource defined by the path and
                  load that for the value, otherwise the contents for the 'to'
                  element is used itself -->

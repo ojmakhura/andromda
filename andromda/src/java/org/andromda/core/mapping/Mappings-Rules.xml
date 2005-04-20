@@ -13,6 +13,17 @@
             <alias attr-name="name" prop-name="name" />
         </set-properties-rule>
 
+        <pattern value="extends">
+
+            <call-method-rule
+                methodname="setExtendsUri"
+                paramcount="1" />
+
+            <call-param-rule
+                paramnumber="0"/>
+
+        </pattern>
+
         <pattern value="mapping">
 
             <object-create-rule
@@ -30,16 +41,16 @@
             </pattern>
 
             <pattern value="to">
-                
+
                 <pattern value="path">
-    
+
                     <call-method-rule
                         methodname="addPath"
                         paramcount="1" />
-    
+
                     <call-param-rule
                         paramnumber="0"/>
-    
+
                 </pattern>
 
                 <call-method-rule
