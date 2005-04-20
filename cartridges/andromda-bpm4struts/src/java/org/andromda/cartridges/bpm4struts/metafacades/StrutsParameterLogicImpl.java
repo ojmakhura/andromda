@@ -1679,4 +1679,20 @@ public class StrutsParameterLogicImpl
     {
         return (isTable() && getJsp() != null) ? getJsp() : super.getValidationOwner();
     }
+
+    protected boolean handleIsSortableBy()
+    {
+        boolean sortableBy = true;
+        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
+        final String fieldType = value == null ? null : value.toString();
+        if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType) ||
+            Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType) ||
+            Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_RADIO.equalsIgnoreCase(fieldType) ||
+            Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType) ||
+            Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType))
+        {
+            sortableBy = false;
+        }
+        return sortableBy;
+    }
 }
