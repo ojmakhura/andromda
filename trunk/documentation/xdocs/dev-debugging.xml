@@ -93,6 +93,7 @@ if (namespaceLogger.isDebugEnabled())
     namespaceLogger.warn("EJBEntityFacadeLogicImpl(" + metaObject + "," + context + ")");
 }
                     </source>
+					Replacing "ejb" with the appropriate cartridge/namespace name.
                 </p>
             </subsection>
 		</section>
