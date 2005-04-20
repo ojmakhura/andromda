@@ -157,8 +157,7 @@
 #end
                     <display:column media="html"
                         headerClass="$columnName" paramId="$columnName"
-##if (!$variable.tableDecoratorRequired && (!$column.actionParameter || $column.action.hyperlink))
-#if (!$variable.tableDecoratorRequired && $column.sortableBy)
+#if (!$variable.tableDecoratorRequired && (!$column.actionParameter || $column.sortableBy))
                         sortProperty="$columnName" sortable="true"
 #end
                         titleKey="${jsp.titleKey}.$variable.getTableColumnMessageKey($columnName)">
