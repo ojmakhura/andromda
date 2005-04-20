@@ -130,23 +130,32 @@
              if we have a source directory -->
         <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
         <j:if test="${!empty sourceDirectory}">
-
-            <ant:available
-                file="${sourceDirectory}"
-                type="dir"
-                property="srcAvailable"/>
-
-            <j:if test="${srcAvailable}">
-                <j:if test="${generatedSrcAvailable}">
-                    <!-- add the paths of the generated source to the
-                         maven compile path -->
-                    <ant:path
-                        id="andromda.java.gen.src"
-                        location="${generatedSourceDir}"/>
-                    <maven:addPath
-                        id="maven.compile.src.set"
-                        refid="andromda.java.gen.src"/>
-                </j:if>
+            <j:if test="${generatedSrcAvailable}">
+                <ant:available
+                    file="${sourceDirectory}"
+                    type="dir"
+                    property="srcAvailable"/>
+                <j:choose>
+                    <j:when test="${srcAvailable}">
+                        <!-- add the paths of the generated source to the
+                             maven compile path -->
+                        <ant:path
+                            id="andromda.java.gen.src"
+                            location="${generatedSourceDir}"/>
+                        <maven:addPath
+                            id="maven.compile.src.set"
+                            refid="andromda.java.gen.src"/>                    
+                    </j:when>
+                    <j:otherwise>
+                        <ant:path id="maven.compile.src.set">
+                            <!-- need to set sources present to true since
+                                 maven thinks no source exist if the directory
+                                 specified by pom.build.sourceDirectory doesn't exist -->
+                            <j:set var="sourcesPresent" value="true"/>
+                            <ant:pathelement location="${generatedSourceDir}"/>
+                        </ant:path>                        
+                    </j:otherwise>
+                </j:choose>
             </j:if>
         </j:if>
     </preGoal>
