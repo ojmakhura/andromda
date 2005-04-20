@@ -15,6 +15,7 @@
                 <value>$stringUtils.replace($applicationContextManageable, '/', '.')</value>
 #end
                 <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
+                <!-- beanRefFactory merge-point -->
            </list>
         </constructor-arg>
     </bean>
