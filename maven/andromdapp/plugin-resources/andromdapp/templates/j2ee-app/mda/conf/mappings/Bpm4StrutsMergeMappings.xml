@@ -83,7 +83,9 @@
 
             <mapping>
                 <from><![CDATA[# custom-messages merge-point]]></from>
-                <to path="true">../../../web/src/properties/custom-resources.properties</to>
+                <to>
+                    <path>../../../web/src/properties/custom-resources.properties</path>
+                </to>
             </mapping>
 
             This will merge the entire file into the merge point.
