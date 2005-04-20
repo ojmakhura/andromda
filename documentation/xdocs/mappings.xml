@@ -141,7 +141,7 @@
                         need to add the <em>extends</em> element to your mapping file.  Note this example is saying to extend
                         the mappings found with the logical name <em>Hibernate</em>:
 <source language="xml"><![CDATA[
-    <mappings name="MyCustomizedHibernateMappings">
+    <mappings name="HibernateExtension">
         <extends>Hibernate</extends>
         ...
         <mapping>
@@ -157,7 +157,7 @@
                      path <em>../../mappings/HibernateTypeMappings.xml</em> to the mappings file we're extending 
                      (assuming it exists within that location):
 <source language="xml"><![CDATA[
-    <mappings name="MyCustomizedHibernateMappings">
+    <mappings name="HibernateExtension">
         <extends>../../mappings/HibernateTypeMappings.xml</extends>
         ...
         <mapping>
