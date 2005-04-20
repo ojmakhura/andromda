@@ -104,8 +104,8 @@
              Creates the AndroMDA binary distribution
          ================================================================== -->
     <goal name="dist-bin" prereqs="dist-init">
-        <!--<ant:delete dir="${binaryDistDir}"/>
-        <attainGoal name="install"/> -->
+        <ant:delete dir="${binaryDistDir}"/>
+        <attainGoal name="install"/>
         <ant:mkdir dir="${binaryDistLibDir}"/>
         <!-- first add the components -->
         <maven:reactor basedir="${basedir}" banner="Gathering Components: "
