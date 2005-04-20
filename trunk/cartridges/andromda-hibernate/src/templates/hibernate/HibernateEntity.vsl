@@ -197,7 +197,6 @@ $operation.getDocumentation("     * ")
         hashCode = 29 * hashCode + (${identifier.name} == null ? 0 : ${identifier.name}.hashCode());
 #end
 #end
-
         return hashCode;
 #end
     }
