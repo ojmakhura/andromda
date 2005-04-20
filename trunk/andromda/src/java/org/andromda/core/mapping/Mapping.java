@@ -2,7 +2,6 @@ package org.andromda.core.mapping;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * A single child mapping instance belonging to a Mappings instance. It doesn't make sense to instantiate this class by
@@ -69,7 +67,7 @@ public class Mapping
                 for (final Iterator pathIterator = paths.iterator(); pathIterator.hasNext();)
                 {
                     pathsContents.append(ResourceUtils.getContents(
-                        new FileReader(this.getCompletePath((String)pathIterator.next()))));
+                        new FileReader(this.mappings.getCompletePath((String)pathIterator.next()))));
                 }
                 this.to = pathsContents.toString();
             }
@@ -120,41 +118,5 @@ public class Mapping
     void setMappings(Mappings mappings)
     {
         this.mappings = mappings;    
-    }
-    
-    /**
-     * Caches the complete path.
-     */
-    private String completePath;
-    
-    /**
-     * Constructs the complete path from the given <code>relativePath</code>
-     * and the resource of the parent {@link Mappings#getResource()} as the root 
-     * of the path.
-     * 
-     * @return the complete path.
-     */
-    private String getCompletePath(final String relativePath)
-    {
-        if (this.completePath == null)
-        {
-            final StringBuffer path = new StringBuffer();
-            if (this.mappings != null)
-            {
-                URL resource = mappings.getResource();
-                if (resource != null)
-                {
-                    String rootPath = resource.getFile().replace('\\', '/');
-                    rootPath = rootPath.substring(0, rootPath.lastIndexOf('/') + 1);
-                    path.append(rootPath);
-                }
-            }
-            if (relativePath != null)
-            {
-                path.append(StringUtils.trimToEmpty(relativePath));
-            }
-            this.completePath = path.toString();
-        }
-        return this.completePath;
     }
 }

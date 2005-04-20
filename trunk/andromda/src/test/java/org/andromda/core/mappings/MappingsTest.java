@@ -1,5 +1,9 @@
 package org.andromda.core.mappings;
 
+import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
+
 import junit.framework.TestCase;
 
 import org.andromda.core.mapping.Mapping;
@@ -72,5 +76,47 @@ public class MappingsTest
         mapping2.addFrom(FROM_5);
         mappings2.addMapping(mapping2);
         assertEquals(TO_2, mappings2.getTo(FROM_5));
+    }
+    
+    public void testMappingsInheritance()
+    {
+        URL testMappingsParentUri = MappingsTest.class.getResource("TestMappingsParent.xml");
+        assertNotNull(testMappingsParentUri);
+        Mappings testMappingsParent = Mappings.getInstance(testMappingsParentUri);
+        assertNotNull(testMappingsParent);
+        final Collection mappings1 = testMappingsParent.getMappings();
+        assertEquals(3, mappings1.size());
+        final Iterator mappings1Iterator = mappings1.iterator();
+        Mapping mapping1 = (Mapping)mappings1Iterator.next();
+        assertEquals("datatype::typeOne", mapping1.getFroms().iterator().next());
+        assertEquals("Type_One", mapping1.getTo());
+        Mapping mapping2 = (Mapping)mappings1Iterator.next();
+        assertEquals("datatype::typeTwo", mapping2.getFroms().iterator().next());
+        assertEquals("Type_Two", mapping2.getTo());
+        Mapping mapping3 = (Mapping)mappings1Iterator.next();
+        assertEquals("datatype::typeThree", mapping3.getFroms().iterator().next());
+        assertEquals("Type_Three", mapping3.getTo());
+        
+        URL testMappingsUri = MappingsTest.class.getResource("TestMappings.xml");
+        assertNotNull(testMappingsUri);
+        Mappings testMappings = Mappings.getInstance(testMappingsUri);
+        assertNotNull(testMappings);
+        final Collection mappings2 = testMappings.getMappings();
+        assertEquals(4, mappings2.size());
+        final Iterator mappings2Iterator = mappings2.iterator();   
+        mapping1 = (Mapping)mappings2Iterator.next();
+        assertEquals("datatype::typeOne", mapping1.getFroms().iterator().next());
+        assertEquals("Type_One", mapping1.getTo());
+        mapping2 = (Mapping)mappings2Iterator.next();
+        assertEquals("datatype::typeTwo", mapping2.getFroms().iterator().next());
+        assertEquals("Overridden", mapping2.getTo());
+        mapping3 = (Mapping)mappings2Iterator.next();
+        assertEquals("datatype::typeThree", mapping3.getFroms().iterator().next());
+        assertEquals("Type_Three", mapping3.getTo());
+        Mapping mapping4 = (Mapping)mappings2Iterator.next();
+        assertEquals("datatype::typeFour", mapping4.getFroms().iterator().next());
+        assertEquals("Type_Four", mapping4.getTo());
+        
+
     }
 }

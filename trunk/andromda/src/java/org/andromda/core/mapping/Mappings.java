@@ -1,9 +1,12 @@
 package org.andromda.core.mapping;
 
+import java.io.File;
+import java.io.FileReader;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ExceptionUtils;
@@ -12,13 +15,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * <p/> An object responsible for mapping multiple <code>from</code> values to
+ * <p> An object responsible for mapping multiple <code>from</code> values to
  * single <code>to</code>. The public constructor should NOT be used to
  * construct this instance. An instance of this object should be retrieved
  * through the method getInstance(java.net.URL).
  * </p>
- * <p/> The mappings will change based upon the language, database, etc being
- * used. <p/>
+ * <p> The mappings will change based upon the language, database, etc being
+ * used. </p>
  * 
  * @author Chad Brandon
  * @see org.andromda.core.common.XmlObjectFactory
@@ -29,7 +32,7 @@ public class Mappings
      * Contains the set of Mapping objects keyed by the 'type' element defined
      * within the from type mapping XML file.
      */
-    private final Map mappings = new HashMap();
+    private Map mappings = new LinkedHashMap();
 
     /**
      * A static mapping containing all logical mappings currently available.
@@ -47,8 +50,6 @@ public class Mappings
      * 
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
-     * @throws MalformedURLException when the mappingsUri is invalid (not a
-     *         valid URL).
      */
     public static Mappings getInstance(String mappingsUri)
     {
@@ -62,13 +63,48 @@ public class Mappings
             {
                 mappings = getInstance(new URL(mappingsUri));
             }
-            return mappings;
+            return getInheritedMappings(mappings);
         }
         catch (Throwable th)
         {
             String errMsg = "Error performing " + methodName;
             throw new MappingsException(errMsg, th);
         }
+    }
+    
+    /**
+     * Attempts to get any inherited mappings for the 
+     * given <code>mappings</code>.
+     * 
+     * @param mappings the mappings instance for which to 
+     *        get the inherited mappings.
+     * @return the Mappings populated with any inherited mappings
+     *         or just the same mappings unchanged if the 
+     *         <code>mappings</code> doesn't extend anything.
+     * @throws Exception if an exception occurs.
+     */
+    private static Mappings getInheritedMappings(Mappings mappings)
+        throws Exception
+    {
+        // if we have a parent then we add the child mappings to
+        // the parent's (so we can override any duplicates in the
+        // parent) and set the child mappings to the parent's
+        if (mappings != null && StringUtils.isNotBlank(mappings.extendsUri))
+        {
+            Mappings parentMappings = (Mappings)logicalMappings.get(mappings.extendsUri);
+            if (parentMappings == null)
+            {
+                // since we didn't find the parent in the logical 
+                // mappings, try a relative path
+                parentMappings = getInstance(new File(mappings.getCompletePath(mappings.extendsUri)));
+            }
+            if (parentMappings != null)
+            {
+                parentMappings.mappings.putAll(mappings.mappings);
+                mappings.mappings = parentMappings.mappings;
+            }
+        }        
+        return mappings;
     }
 
     /**
@@ -82,9 +118,33 @@ public class Mappings
     {
         final String methodName = "Mappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
+        try
+        {
+            Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(
+                mappingsUri);
+            mappings.resource = mappingsUri;
+            return getInheritedMappings(mappings);
+        }
+        catch (Throwable th)
+        {
+            String errMsg = "Error performing " + methodName;
+            throw new MappingsException(errMsg, th);
+        }
+    }
+    
+    /**
+     * Returns a new configured instance of this Mappings configured from the
+     * mappingsFile.
+     * 
+     * @param mappingsUri the URI to the XML type mappings configuration file.
+     * @return Mappings the configured Mappings instance.
+     */
+    private static Mappings getInstance(File mappingsFile)
+        throws Exception
+    {
         Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(
-            mappingsUri);
-        mappings.resource = mappingsUri;
+            new FileReader(mappingsFile));
+        mappings.resource = mappingsFile.toURL();
         return mappings;
     }
 
@@ -118,6 +178,23 @@ public class Mappings
     public void setName(String name)
     {
         this.name = name;
+    }
+    
+    /**
+     * Stores the URI that this mappings extends.
+     */
+    private String extendsUri;
+    
+    /**
+     * Sets the name of the mappings which this
+     * instance extends.
+     * 
+     * @param extendsUri the URI of the mapping which
+     *        this one extends.
+     */
+    public void setExtendsUri(String extendsUri)
+    {
+        this.extendsUri = extendsUri;
     }
 
     /**
@@ -234,6 +311,42 @@ public class Mappings
     public Mapping getMapping(String from)
     {
         return (Mapping)this.mappings.get(StringUtils.trimToEmpty(from));
+    }
+    
+    /**
+     * Caches the complete path.
+     */
+    private String completePath;
+    
+    /**
+     * Constructs the complete path from the given <code>relativePath</code>
+     * and the resource of the parent {@link Mappings#getResource()} as the root 
+     * of the path.
+     * 
+     * @return the complete path.
+     */
+    String getCompletePath(final String relativePath)
+    {
+        if (this.completePath == null)
+        {
+            final StringBuffer path = new StringBuffer();
+            if (this.mappings != null)
+            {
+                URL resource = this.getResource();
+                if (resource != null)
+                {
+                    String rootPath = resource.getFile().replace('\\', '/');
+                    rootPath = rootPath.substring(0, rootPath.lastIndexOf('/') + 1);
+                    path.append(rootPath);
+                }
+            }
+            if (relativePath != null)
+            {
+                path.append(StringUtils.trimToEmpty(relativePath));
+            }
+            this.completePath = path.toString();
+        }
+        return this.completePath;
     }
 
     /**
