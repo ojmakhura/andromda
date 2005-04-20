@@ -72,7 +72,7 @@ public abstract class $service.baseName
      */
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.exceptionsPresent)
-        throws $operation.exceptionList
+        $operation.throwsClause
 #end
     {
 #if ($requiredCheckEnabled)
