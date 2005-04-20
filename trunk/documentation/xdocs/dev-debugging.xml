@@ -34,7 +34,10 @@ maven.andromda.loggingConfigurationUri=file:/some_location/log4j.xml
 						<a href="http://logging.apache.org/log4j/docs/manual.html">log4j
 						documentation</a> or this 
 						<a href="http://www.vipan.com/htdocs/log4jhelp.html">useful 
-						tutorial</a>.
+						tutorial</a>. For pattern settings see 
+						<a href="http://logging.apache.org/log4j/docs/api/org/apache/log4j/PatternLayout.html">
+							PatternLayout
+						</a> javadoc.
 						The sample one above turns off INFO messages and 
 						limits others to WARN apart from the ejb cartridge which is set
 						to DEBUG.</li>
@@ -89,7 +92,7 @@ maven.andromda.loggingConfigurationUri=file:/some_location/log4j.xml
 				 constructed and therefore not available in the constructor. To circumvent this
 				 the following code can be employed:
 				<source>
-		Logger l = AndroMDALogger.getNamespaceLogger("ejb");
+        Logger l = AndroMDALogger.getNamespaceLogger("ejb");
         if (l.isDebugEnabled() ) {
             l.warn( "EJBEntityFacadeLogicImpl(" + metaObject + "," + context + ")" );
         }
