@@ -112,16 +112,17 @@
                         <a href="http://jira.andromda.org/">http://jira.andromda.org/</a>.
                     </p>
                 </subsection>
-                <subsection name="Overriding">
+                <subsection name="Extending and Overriding">
                     <p>
                         It might happen you want to have a mapping that is slightly different than the
-                        default one known by AndroMDA. Well, in that case you will simply need to override
-                        the default mapping by specifying your own mapping file.
+                        default one known by AndroMDA. Well, in that case you can either <em>extend</em> or 
+                        <em>override</em> the default mapping by specifying your own mapping file.
                     </p>
                     <p>
-                        This is done by simply using a URI instead of the logical name of the mappings, here are
-                        a few examples for all types of mappings, you can find them in the andromda-plugin
-                        dependency of <code>/mda/project.xml</code>:
+                        This is done by simply using a URI for the value of a mapping namespace property 
+                        instead of the logical name, here are
+                        a few examples for several types of mappings, you can find them in the andromda-plugin
+                        dependency of <code>/mda/project.xml</code> (which means these apply to all namespaces/cartridges):
 <source language="xml"><![CDATA[
     <languageMappingsUri>file:${maven.src.dir}/mappings/MyJavaMappings.xml</languageMappingsUri>
 
@@ -130,6 +131,42 @@
     <jdbcMappingsUri>file:${maven.src.dir}/mappings/MyJdbcMappings.xml</jdbcMappingsUri>
 
     <sqlMappingsUri>file:${maven.src.dir}/mappings/MySqlMappings.xml</sqlMappingsUri>
+]]></source>
+                    </p>
+                    <p>
+                        If you were overriding a mapping, all you'd do is customize an existing file and tell AndroMDA
+                        to use the the URI to your new mapping file (like you see above).  If, on the other hand, you want 
+                        to <strong>extend</strong> a mapping (this is much better in most case because then you only need to add or 
+                        customize the specific <![CDATA[<mapping/>]]> entry(s) you need and inherit the default ones), you'll 
+                        need to add the <em>extends</em> element to your mapping file.  Note this example is saying to extend
+                        the mappings found with the logical name <em>Hibernate</em>:
+<source language="xml"><![CDATA[
+    <mappings name="MyCustomizedHibernateMappings">
+        <extends>Hibernate</extends>
+        ...
+        <mapping>
+            <from>datatype::boolean</from>
+            <from>datatype::Boolean</from>
+            <to>yes_no</to>
+        </mapping>
+        ...
+    </mappings>
+]]></source>
+                     You can also extend a mapping using a relative path (relative to the location of the mapping you're defining
+                     it within).  Notice how this time we have the relative
+                     path <em>../../mappings/HibernateTypeMappings.xml</em> to the mappings file we're extending 
+                     (assuming it exists within that location):
+<source language="xml"><![CDATA[
+    <mappings name="MyCustomizedHibernateMappings">
+        <extends>../../mappings/HibernateTypeMappings.xml</extends>
+        ...
+        <mapping>
+            <from>datatype::boolean</from>
+            <from>datatype::Boolean</from>
+            <to>yes_no</to>
+        </mapping>
+        ...
+    </mappings>
 ]]></source>
                     </p>
                     <p class="highlight">
