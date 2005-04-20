@@ -178,36 +178,18 @@
                     </display:column>
 #end
 #end
+#foreach ($tableAction in $variable.tableFormActions)
                     <display:column media="html">
-#foreach ($tableAction in $variable.tableFormActions)
-                        <input type="button" value="<bean:message key="$tableAction.actionTrigger.triggerKey"/>" onclick="return ${variable.name}${tableAction.formBeanClassName}Row('${row_rowNum}');"/>
-#end
-                    </display:column>
-                </display:table>
-#if ($variable.tableFormActions.size() > 0)
-                <script type="text/javascript">
-                //<!--
-#foreach ($tableAction in $variable.tableFormActions)
-                    function ${variable.name}${tableAction.formBeanClassName}Row(rowNum)
-                    {
-                        var query = ""; var field;
-#set ($delim = '?')
+#set ($linkParameters = "")
+#set ($parameterCount = $tableAction.actionParameters.size())
 #foreach ($parameter in $tableAction.actionParameters)
-#if ($variable.tableColumns.contains($parameter))
-                        field = document.getElementById("${parameter.styleId}"+rowNum);
-                        if (field.type != "checkbox" || field.checked) query = query + "${delim}${parameter.name}=" + field.value;
-#else
-#set ($value = "${formName}.${parameter.name}")
-                        query = query + "${delim}${parameter.name}=${${value}}";
+#set ($parameterValue = "row.${parameter.name}")
+#set ($linkParameters = "${linkParameters}&${parameter.name}=${${parameterValue}}")
 #end
-#set ($delim = '&')
+                        <html:link action="$tableAction.actionPath?$linkParameters" styleClass="buttonLink"><bean:message key="$tableAction.actionTrigger.triggerKey"/></html:link>
+                    </display:column>
 #end
-                        document.location = "<html:rewrite action="$tableAction.actionPath"/>" + query;
-                    }
-#end
-                //-->
-                </script>
-#end
+                </display:table>
         </div>
 
 #end

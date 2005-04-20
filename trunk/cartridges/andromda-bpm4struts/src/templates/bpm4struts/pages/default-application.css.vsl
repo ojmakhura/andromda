@@ -262,9 +262,9 @@ img.calendar
 div.exportlinks { margin-top: 15px; }
 span.export
 {
-	padding: 0 4px 1px 20px;
-	display: inline;
-	cursor: pointer;
+    padding: 0 4px 1px 20px;
+    display: inline;
+    cursor: pointer;
 }
 span.excel { background-image: url(excel.gif); background-repeat: no-repeat; }
 span.csv { background-image: url(csv.gif); background-repeat: no-repeat; }
@@ -288,24 +288,53 @@ th.order2 { background: url(ascending.gif) no-repeat top right; }
 
 span.pagebanner
 {
-	background-color: #eee;
-	border: 1px dotted #999;
-	padding: 2px 4px 2px 4px;
-	margin: 10px 25px 0 0;
-	display: block;
-	border-bottom: none;
+    background-color: #eee;
+    border: 1px dotted #999;
+    padding: 2px 4px 2px 4px;
+    margin: 10px 25px 0 0;
+    display: block;
+    border-bottom: none;
 }
 
 span.pagelinks
 {
-	background-color: #eee;
-	border: 1px dotted #999;
-	padding: 2px 4px 2px 4px;
-	display: block;
-	border-top: none;
-	margin: 0 25px 10px 0;
+    background-color: #eee;
+    border: 1px dotted #999;
+    padding: 2px 4px 2px 4px;
+    display: block;
+    border-top: none;
+    margin: 0 25px 10px 0;
 }
-
+/* create a button look for links */
+a:link.buttonLink, a:visited.buttonLink
+{   
+    background-color: #0099ff;
+    border-top: #99ccff solid 1px;
+    border-right: #003399 solid 1px;
+    border-bottom: #003399 solid 1px;
+    border-left: #99ccff solid 1px;
+    color: white;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 1px 6px 1px 6px;
+    text-decoration: none;
+    width:60px;
+    text-align: center;
+}
+a:hover.buttonLink
+{
+    background-color: #9999ff;
+    color: white;
+}
+/* depress effect on click */
+a:active.buttonLink , a:focus.buttonLink
+{
+    border-top: #003399 solid 1px;
+    border-right: #99ccff solid 1px;
+    border-bottom: #99ccff solid 1px;
+    border-left: #003399 solid 2px;
+}
 #if ($maxBreadCrumbs != "0")
 /* styles for the breadcrumbs */
 
