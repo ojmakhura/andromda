@@ -104,8 +104,8 @@
              Creates the AndroMDA binary distribution
          ================================================================== -->
     <goal name="dist-bin" prereqs="dist-init">
-        <ant:delete dir="${binaryDistDir}"/>
-        <attainGoal name="install"/>
+        <!--<ant:delete dir="${binaryDistDir}"/>
+        <attainGoal name="install"/> -->
         <ant:mkdir dir="${binaryDistLibDir}"/>
         <!-- first add the components -->
         <maven:reactor basedir="${basedir}" banner="Gathering Components: "
@@ -120,7 +120,7 @@
             <j:choose>
                 <!-- we handle the andromda-ant module a little different
                     (we don't want it bundled maven style) -->
-                <j:when test="${reactorProject.artifactId.indexOf('andromda-ant') ne '-1'}">
+                <j:when test="${reactorProject.artifactId.equals('andromda-ant')}">
                     <j:set var="toDir" value="${binaryDistDir}/ant"/>
                     <ant:copy todir="${toDir}">
                         <ant:fileset dir="${fromDir}">
