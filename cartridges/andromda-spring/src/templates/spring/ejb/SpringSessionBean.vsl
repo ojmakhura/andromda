@@ -14,7 +14,7 @@ package ${service.ejbPackageName};
  */
 public class $service.ejbImplementationName
 #if($superclass)
-    extends $superclass.fullyQualifiedEjbName
+    extends $superclass.ejbImplementationName
 #else
     extends org.springframework.ejb.support.AbstractStatelessSessionBean
 #end
