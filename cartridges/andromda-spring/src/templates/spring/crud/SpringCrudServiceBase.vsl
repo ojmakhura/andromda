@@ -2,7 +2,6 @@
 // license-header java merge-point
 ##
 #set ($memberList = $manageable.listManageableMembers(true,false))
-#set ($memberListCollections = $manageable.listManageableMembers(true,true))
 #set ($memberListArguments = $manageable.listManageableMembers(false,false))
 #if (!$manageable.identifiers.empty)
 #set ($identifier = $manageable.identifiers.iterator().next())
@@ -78,28 +77,23 @@ public final class $manageable.manageableServiceBaseName
 #end
 #end
 #if ($manageable.update)
-    public void update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections)
+    public void update($memberList)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
 #end
     {
-        if (ids == null)
-        {
-            throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableServiceName}.update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections) - 'ids' can not be null");
-        }
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.required && !$member.type.primitive)
         if ($member.name == null)
         {
             throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableServiceName}.update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections) - '${member.name}' can not be null");
+                "${manageable.fullyQualifiedManageableServiceName}.update($memberList) - '${member.name}' can not be null");
         }
 #end
 #end
 
-        dao.update(ids, $memberListArguments);
+        dao.update($memberListArguments);
     }
 
 #end
