@@ -2,7 +2,6 @@
 // license-header java merge-point
 ##
 #set ($memberList = $manageable.listManageableMembers(true,false))
-#set ($memberListCollections = $manageable.listManageableMembers(true,true))
 #if (!$manageable.identifiers.empty)
 #set ($identifier = $manageable.identifiers.iterator().next())
 #end
@@ -26,7 +25,7 @@ public interface $manageable.manageableDaoName
 #end
 #end
 #if ($manageable.update)
-    public void update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections);
+    public void update($memberList);
 
 #end
 #if ($manageable.delete)

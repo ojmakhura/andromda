@@ -2,7 +2,6 @@
 // license-header java merge-point
 ##
 #set ($memberList = $manageable.listManageableMembers(true,false))
-#set ($memberListCollections = $manageable.listManageableMembers(true,true))
 #set ($memberListArguments = $manageable.listManageableMembers(false,false))
 #if (!$manageable.identifiers.empty)
 #set ($identifier = $manageable.identifiers.iterator().next())
@@ -61,7 +60,7 @@ public final class $manageable.manageableDaoBaseName
         if ($member.name == null)
         {
             throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableDaoBaseName}.create(${memberList}) - '${member.name}' can not be null");
+                "${manageable.fullyQualifiedManageableDaoBaseName}.create(${memberList}) - '${member.name}' cannot be null");
         }
 
 #end
@@ -150,29 +149,27 @@ public final class $manageable.manageableDaoBaseName
 #end
 #end
 #if ($manageable.update)
-    public void update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections)
+    public void update($memberList)
     {
-        if (ids == null)
-        {
-            throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableDaoBaseName}.update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections) - 'ids' can not be null");
-        }
-
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.required && !$member.type.primitive)
         if ($member.name == null)
         {
             throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableDaoBaseName}.update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections) - '${member.name}' can not be null");
+                "${manageable.fullyQualifiedManageableDaoBaseName}.update(${identifier.type.fullyQualifiedName} idToUpdate, $memberList) - '${member.name}' cannot be null");
         }
 
 #end
 #end
-        for (final java.util.Iterator idIterator = ids.iterator(); idIterator.hasNext();)
-        {
-            final Object id = idIterator.next();
-            this.getDao().update(id, $memberListArguments);
-        }
+        final $manageable.fullyQualifiedEntityName entity = new ${manageable.fullyQualifiedEntityImplementationName}();
+#foreach ($member in $manageable.attributes)
+        entity.${member.setterName}(${member.name});
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+        entity.${member.setterName}(this.${member.daoGetterName}().load(${member.manageableName}));
+#end
+
+        this.getDao().update(entity);
     }
 
 #end
@@ -182,7 +179,7 @@ public final class $manageable.manageableDaoBaseName
         if (ids == null)
         {
             throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableDaoBaseName}.delete(${identifier.type.fullyQualifiedName}[] ids) - 'ids' can not be null");
+                "${manageable.fullyQualifiedManageableDaoBaseName}.delete(${identifier.type.fullyQualifiedName}[] ids) - 'ids' cannot be null");
         }
 
         try
