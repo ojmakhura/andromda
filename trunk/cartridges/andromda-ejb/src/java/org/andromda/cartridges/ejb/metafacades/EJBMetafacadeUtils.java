@@ -127,7 +127,7 @@ class EJBMetafacadeUtils
     {
         final String methodName = "EJBMetafacadeUtils.getInheritedInstanceAttributes";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
-        ClassifierFacade current = (EJBEntityFacade)classifier.getGeneralization();
+        ClassifierFacade current = (ClassifierFacade)classifier.getGeneralization();
         if (current == null)
         {
             return new ArrayList();
