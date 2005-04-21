@@ -171,6 +171,16 @@ public class UMLProfile
      * Stores the name of the role (if it's different than the name of the actor stereotyped as role)
      */
     public static final String TAGGEDVALUE_ROLE_NAME = profile.get("ROLE_NAME");
+    
+    /**
+     * Stores the serial version UID to be used for a class. If not specified, it will be calculated
+     * based on the class signature.
+     *
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl#handleGetSerialVersionUID()
+     */
+    public static final String TAGGEDVALUE_SERIALVERSION_UID = profile.get("SERIALVERSION_UID");
+    
+    /* ----------------- Data Types -------------------- */
 
     /**
      * Used to identify collection types in the model, any other type that will be identified as a collection must
@@ -219,12 +229,4 @@ public class UMLProfile
      * specialize this type.
      */
     public static final String STRING_TYPE_NAME = profile.get("STRING_TYPE");
-
-    /**
-     * Stores the serial version UID to be used for a class. If not specified, it will be calculated
-     * based on the class signature.
-     *
-     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl#handleGetSerialVersionUID()
-     */
-    public static final String TAGGEDVALUE_SERIALVERSION_UID = profile.get("SERIALVERSION_UID");
 }

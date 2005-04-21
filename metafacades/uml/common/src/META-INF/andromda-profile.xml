@@ -113,6 +113,10 @@
         <from>ROLE_NAME</from>
         <to>@andromda.role.name</to>
     </mapping>
+    <mapping>
+        <from>SERIALVERSION_UID</from>
+        <to>@andromda.serialVersionUID</to>
+    </mapping>
     <!-- datatypes -->
     <mapping>
         <from>COLLECTION_TYPE</from>
@@ -145,9 +149,5 @@
     <mapping>
         <from>STRING_TYPE</from>
         <to>datatype::String</to>
-    </mapping>
-    <mapping>
-        <from>SERIALVERSION_UID</from>
-        <to>@andromda.serialVersionUID</to>
     </mapping>
 </mappings>
