@@ -1,0 +1,120 @@
+#set ($generatedFile = "${manageable.actionFullPath}.java")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $manageable.manageablePackageName;
+
+import org.apache.struts.actions.DispatchAction;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForward;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+
+public final class $manageable.actionClassName extends DispatchAction
+{
+    public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final ActionForward forward = super.execute(mapping, actionForm, request, response);
+        request.setAttribute("manageableForm", actionForm);
+        return forward;
+    }
+
+#if ($manageable.create)
+    public ActionForward create(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final $manageable.formBeanType form = ($manageable.formBeanType)actionForm;
+
+        ${manageable.manageableServiceAccessorCall}.create(
+#set ($comma = '')
+#foreach ($member in $manageable.manageableMembers)
+            ${comma}form.${member.manageableGetterName}()
+#set ($comma = ', ')
+#end
+        );
+
+        return preload(mapping, actionForm, request, response);
+    }
+
+#end
+#if ($manageable.read)
+    public ActionForward read(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final $manageable.formBeanType form = ($manageable.formBeanType)actionForm;
+
+        final java.util.List list = ${manageable.manageableServiceAccessorCall}.read(
+#set ($comma = '')
+#foreach ($member in $manageable.manageableMembers)
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : form.${member.manageableGetterName}()
+#set ($comma = ', ')
+#end
+        );
+        form.${manageable.listSetterName}(list);
+
+#if (!$manageable.manageableAssociationEnds.empty)
+        final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+#foreach ($member in $manageable.manageableAssociationEnds)
+        form.${member.manageableSetterName}BackingList((java.util.List)backingLists.get("$member.manageableName"));
+#end
+
+#end
+        return mapping.getInputForward();
+    }
+
+#end
+#if ($manageable.preload)
+    public ActionForward preload(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final $manageable.formBeanType form = ($manageable.formBeanType)actionForm;
+
+        final java.util.List list = ${manageable.manageableServiceAccessorCall}.readAll();
+        form.${manageable.listSetterName}(list);
+
+#if (!$manageable.manageableAssociationEnds.empty)
+        final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
+#foreach ($member in $manageable.manageableAssociationEnds)
+        form.${member.manageableSetterName}BackingList((java.util.List)backingLists.get("$member.manageableName"));
+#end
+
+#end
+        return mapping.getInputForward();
+    }
+
+    protected ActionForward unspecified(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        return preload(mapping, actionForm, request, response);
+    }
+
+#end
+#if ($manageable.update)
+    public ActionForward update(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final $manageable.updateFormBeanType form = ($manageable.updateFormBeanType) actionForm;
+
+        return preload(mapping, actionForm, request, response);
+    }
+
+#end
+#if ($manageable.delete)
+    public ActionForward delete(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        final $manageable.formBeanType form = ($manageable.formBeanType) actionForm;
+
+#if (!$manageable.identifiers.empty)
+#set ($identifier = $manageable.identifiers.iterator().next())
+#end
+        final ${identifier.type.fullyQualifiedName}[] selectedRows = form.getSelectedRows();
+        if (selectedRows != null && selectedRows.length > 0)
+        {
+            ${manageable.manageableServiceAccessorCall}.delete(selectedRows);
+        }
+
+        return preload(mapping, actionForm, request, response);
+    }
+
+#end
+}

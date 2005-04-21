@@ -3,6 +3,9 @@
 ##
 #set ($memberList = $manageable.listManageableMembers(true,false))
 #set ($memberListCollections = $manageable.listManageableMembers(true,true))
+#if (!$manageable.identifiers.empty)
+#set ($identifier = $manageable.identifiers.iterator().next())
+#end
 ##
 package $manageable.manageablePackageName;
 
@@ -23,11 +26,11 @@ public interface $manageable.manageableDaoName
 #end
 #end
 #if ($manageable.update)
-    public void update(Collection ids, $memberListCollections);
+    public void update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections);
 
 #end
 #if ($manageable.delete)
-    public void delete(Collection ids);
+    public void delete(${identifier.type.fullyQualifiedName}[] ids);
 
 #end
 }

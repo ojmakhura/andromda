@@ -4,6 +4,9 @@
 #set ($memberList = $manageable.listManageableMembers(true,false))
 #set ($memberListCollections = $manageable.listManageableMembers(true,true))
 #set ($memberListArguments = $manageable.listManageableMembers(false,false))
+#if (!$manageable.identifiers.empty)
+#set ($identifier = $manageable.identifiers.iterator().next())
+#end
 ##
 package $manageable.manageablePackageName;
 
@@ -75,7 +78,7 @@ public final class $manageable.manageableServiceBaseName
 #end
 #end
 #if ($manageable.update)
-    public void update(Collection ids, $memberListCollections)
+    public void update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
@@ -84,14 +87,14 @@ public final class $manageable.manageableServiceBaseName
         if (ids == null)
         {
             throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableServiceName}.update(Collection ids, $memberListCollections) - 'ids' can not be null");
+                "${manageable.fullyQualifiedManageableServiceName}.update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections) - 'ids' can not be null");
         }
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.required && !$member.type.primitive)
         if ($member.name == null)
         {
             throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableServiceName}.update(Collection ids, $memberListCollections) - '${member.name}' can not be null");
+                "${manageable.fullyQualifiedManageableServiceName}.update(${identifier.type.fullyQualifiedName}[] ids, $memberListCollections) - '${member.name}' can not be null");
         }
 #end
 #end
@@ -101,7 +104,7 @@ public final class $manageable.manageableServiceBaseName
 
 #end
 #if ($manageable.delete)
-    public void delete(Collection ids)
+    public void delete(${identifier.type.fullyQualifiedName}[] ids)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
@@ -110,10 +113,10 @@ public final class $manageable.manageableServiceBaseName
         if (ids == null)
         {
             throw new IllegalArgumentException(
-                "${manageable.fullyQualifiedManageableServiceName}.delete(Collection ids) - 'ids' can not be null");
+                "${manageable.fullyQualifiedManageableServiceName}.delete(${identifier.type.fullyQualifiedName}[] ids) - 'ids' can not be null");
         }
 
-        dao.update(ids);
+        dao.delete(ids);
     }
 
 #end
