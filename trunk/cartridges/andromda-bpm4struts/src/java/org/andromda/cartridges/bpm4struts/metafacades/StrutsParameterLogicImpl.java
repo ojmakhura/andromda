@@ -479,8 +479,7 @@ public class StrutsParameterLogicImpl
     {
         String typeName = null;
 
-        ClassifierFacade type = getType();
-
+        final ClassifierFacade type = getType();
         if (type != null)
         {
             if (type.isCollectionType() || type.isListType())
@@ -517,16 +516,16 @@ public class StrutsParameterLogicImpl
 
         if (isTable())
         {
-            Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_DECORATOR);
+            final Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_DECORATOR);
             if (taggedValue != null)
             {
-                String taggedValueString = String.valueOf(taggedValue);
+                final String taggedValueString = String.valueOf(taggedValue);
                 required = Boolean.valueOf(taggedValueString).booleanValue();
             }
             else
             {
-                Object property = getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_GENERATE_TABLE_DECORATORS);
-                String propertyString = String.valueOf(property);
+                final Object property = getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_GENERATE_TABLE_DECORATORS);
+                final String propertyString = String.valueOf(property);
                 required = Boolean.valueOf(propertyString).booleanValue();
             }
         }
@@ -1611,8 +1610,9 @@ public class StrutsParameterLogicImpl
 
     private boolean isRangeFormat(String format)
     {
-        return "range".equalsIgnoreCase(getToken(format, 0, 2)) &&
-                (isValidatorInteger() || isValidatorLong() || isValidatorShort() || isValidatorFloat() ||
+        return "range".equalsIgnoreCase(getToken(format, 0, 2)) && (isValidatorInteger() || isValidatorLong() ||
+                isValidatorShort() ||
+                isValidatorFloat() ||
                 isValidatorDouble());
 
     }
@@ -1671,7 +1671,7 @@ public class StrutsParameterLogicImpl
     {
         if (string == null) return null;
 
-        String[] tokens = string.split("[\\s]+", limit);
+        final String[] tokens = string.split("[\\s]+", limit);
         return (index >= tokens.length) ? null : tokens[index];
     }
 
@@ -1683,16 +1683,18 @@ public class StrutsParameterLogicImpl
     protected boolean handleIsSortableBy()
     {
         boolean sortableBy = true;
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
-        final String fieldType = value == null ? null : value.toString();
-        if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType) ||
-            Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType) ||
-            Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_RADIO.equalsIgnoreCase(fieldType) ||
-            Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType) ||
-            Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType))
+
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
+        if (value != null)
         {
-            sortableBy = false;
+            final String fieldType = value.toString();
+            sortableBy = !(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType) ||
+                    Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType) ||
+                    Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_RADIO.equalsIgnoreCase(fieldType) ||
+                    Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType) ||
+                    Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType));
         }
+
         return sortableBy;
     }
 }

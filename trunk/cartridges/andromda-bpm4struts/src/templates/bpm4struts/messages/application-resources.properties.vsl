@@ -227,30 +227,17 @@ button.update=Update
 button.delete=Delete
 
 select.option.blank=-- Select --
+copy.row.values=Copy
 
 #foreach ($manageable in $manageables)
 $manageable.messageKey=$manageable.messageValue
 $manageable.pageTitleKey=$manageable.pageTitleValue
-
+$manageable.exceptionKey=Problem managing $manageable.name: {0}
 #foreach ($member in $manageable.manageableMembers)
 $member.messageKey=$member.messageValue
 #end
 
-#if ($manageable.create)
-$manageable.createExceptionKey=Unable to create $manageable.name: {0}
 #end
-#if ($manageable.read)
-$manageable.readExceptionKey=Unable to read $manageable.name: {0}
-#end
-#if ($manageable.update)
-$manageable.updateExceptionKey=Unable to update $manageable.name: {0}
-#end
-#if ($manageable.delete)
-$manageable.deleteExceptionKey=Unable to delete $manageable.name: {0}
-#end
-
-#end
-
 #end
 
 

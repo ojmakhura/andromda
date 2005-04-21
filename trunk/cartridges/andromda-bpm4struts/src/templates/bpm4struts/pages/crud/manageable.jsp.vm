@@ -42,7 +42,7 @@ ${indent}<c:choose>
 ${indent}    <c:when test="${${test}}">
 ${indent}        <select name="$field.manageableName" disabled="disabled"/>
 ${indent}    </c:when>
-${indent}   <c:otherwise>
+${indent}    <c:otherwise>
 ${indent}        <select name="$field.manageableName">
 ${indent}            <option value=""><bean:message key="select.option.blank"/></option>
 ${indent}            <c:forEach var="valueLabel" items="${${list}}">
@@ -58,7 +58,19 @@ ${indent}                        <option value="$value">$label</option>
 ${indent}                    </c:otherwise>
 ${indent}                </c:choose>
 ${indent}            </c:forEach>
-${indent}       </select>
-${indent}   </c:otherwise>
+${indent}        </select>
+${indent}    </c:otherwise>
 ${indent}</c:choose>
 #end
+##
+##
+##
+#macro ( renderAssociationLink $field $indent )
+#if ($field.type.preload)## only render the link when the entity can be managed
+${indent}<html:link action="$field.type.actionPath"><bean:message key="$field.type.messageKey"/></html:link>
+#end
+#end
+##
+## This stuff *must* be rendered on a single line
+##
+#macro ( renderJavascriptCopyRow $manageable )#foreach($member in $manageable.manageableMembers)#set($property = "row.${member.manageableName}")document.${manageable.formBeanName}.${member.manageableName}.value='${${property}}';#end#end
