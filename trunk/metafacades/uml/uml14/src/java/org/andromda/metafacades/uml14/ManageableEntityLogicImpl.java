@@ -7,12 +7,16 @@ import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.ManageableEntity;
+import org.andromda.metafacades.uml.EntityAttribute;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 
 /**
@@ -28,6 +32,11 @@ public class ManageableEntityLogicImpl
     public ManageableEntityLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
+    }
+
+    protected String handleGetManageableName()
+    {
+        return getName();
     }
 
     /**
@@ -133,7 +142,7 @@ public class ManageableEntityLogicImpl
         return criteria;
     }
 
-    protected String handleListManageableMembers(boolean withTypes, boolean useCollectionTypes)
+    protected String handleListManageableMembers(boolean withTypes)
     {
         final StringBuffer buffer = new StringBuffer();
 
@@ -151,14 +160,7 @@ public class ManageableEntityLogicImpl
             {
                 if (withTypes)
                 {
-                    if (useCollectionTypes)
-                    {
-                        buffer.append("java.util.Collection");
-                    }
-                    else
-                    {
-                        buffer.append(type.getFullyQualifiedName());
-                    }
+                    buffer.append(type.getFullyQualifiedName());
                     buffer.append(' ');
                 }
                 buffer.append(attribute.getManageableName());
@@ -187,14 +189,7 @@ public class ManageableEntityLogicImpl
                     {
                         if (withTypes)
                         {
-                            if (useCollectionTypes)
-                            {
-                                buffer.append("java.util.Collection");
-                            }
-                            else
-                            {
-                                buffer.append(type.getFullyQualifiedName());
-                            }
+                            buffer.append(type.getFullyQualifiedName());
                             buffer.append(' ');
                         }
                         buffer.append(associationEnd.getManageableName());
@@ -205,4 +200,59 @@ public class ManageableEntityLogicImpl
 
         return buffer.toString();
     }
+
+    protected boolean handleIsManageable()
+    {
+        return true;
+    }
+
+    protected Collection handleGetReferencingManageables()
+    {
+        final Set referencingManageables = new HashSet();
+
+        final Collection associationEnds = getAssociationEnds();
+        for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
+        {
+            final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
+            final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
+            if (associationEnd.isNavigable() && otherEnd.isMany() && otherEnd.getType() instanceof ManageableEntity)
+            {
+                referencingManageables.add(otherEnd.getType());
+            }
+        }
+
+        return referencingManageables;
+    }
+
+    protected Object handleGetDisplayAttribute()
+    {
+        EntityAttribute displayAttribute = null;
+
+        // @todo : TV ?
+
+        final Collection attributes = getAttributes();
+        for (Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext() && displayAttribute==null;)
+        {
+            final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
+            if (attribute.isUnique())
+            {
+                displayAttribute = attribute;
+            }
+        }
+
+        if (displayAttribute == null)
+        {
+            if (!getIdentifiers().isEmpty())
+            {
+                displayAttribute = (EntityAttribute)getIdentifiers().iterator().next();
+            }
+            else if (!attributes.isEmpty())
+            {
+                displayAttribute = (EntityAttribute)attributes.iterator().next();
+            }
+        }
+
+        return displayAttribute;
+    }
+
 }
