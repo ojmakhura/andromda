@@ -226,13 +226,15 @@ button.read=Search
 button.update=Update
 button.delete=Delete
 
-select.option.blank=-- Select --
 copy.row.values=Copy
+select.option.blank=-- Select --
+other.managable.entities.referencing.this.entity=Related entities:
+select.other.entity=Select other entity:
 
 #foreach ($manageable in $manageables)
 $manageable.messageKey=$manageable.messageValue
 $manageable.pageTitleKey=$manageable.pageTitleValue
-$manageable.exceptionKey=Problem managing $manageable.name: {0}
+$manageable.exceptionKey=Problem managing $manageable.manageableName: {0}
 #foreach ($member in $manageable.manageableMembers)
 $member.messageKey=$member.messageValue
 #end
