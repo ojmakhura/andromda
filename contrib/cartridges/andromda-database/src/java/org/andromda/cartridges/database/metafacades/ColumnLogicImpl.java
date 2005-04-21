@@ -101,32 +101,32 @@ public class ColumnLogicImpl
         final ClassifierFacade metaType = getType();
         final String type = metaType.getFullyQualifiedName(true);
 
-        if ("datatype.String".equals(type))
+        if ("datatype::String".equals(type))
         {
             dummyLoadValue = getName() + '-' + index ;
         }
-        else if ("datatype.boolean".equals(type))
+        else if ("datatype::boolean".equals(type))
         {
             dummyLoadValue = String.valueOf(index % 2 == 0);
         }
-        else if ("datatype.int".equals(type) || "datatype.Integer".equals(type)
-            || "datatype.short".equalsIgnoreCase(type)
-            || "datatype.long".equalsIgnoreCase(type))
+        else if ("datatype::int".equals(type) || "datatype::Integer".equals(type)
+            || "datatype::short".equalsIgnoreCase(type)
+            || "datatype::long".equalsIgnoreCase(type))
         {
             dummyLoadValue = String.valueOf(index);
         }
-        else if ("datatype.float".equalsIgnoreCase(type)
-            || "datatype.double".equalsIgnoreCase(type))
+        else if ("datatype::float".equalsIgnoreCase(type)
+            || "datatype::double".equalsIgnoreCase(type))
         {
             dummyLoadValue = String.valueOf(index) + ".555";
         }
-        else if ("datatype.char".equals(type)
-            || "datatype.Character".equals(type))
+        else if ("datatype::char".equals(type)
+            || "datatype::Character".equals(type))
         {
             dummyLoadValue = Character.toString((char)index);
         }
-        else if ("datatype.Date".equals(type)
-            || "datatype.DateTime".equals(type))
+        else if ("datatype::Date".equals(type)
+            || "datatype::DateTime".equals(type))
         {
             dummyLoadValue = DATE_FORMATTER.format(new Date());
         }
@@ -172,12 +172,12 @@ public class ColumnLogicImpl
     {
         final String type = metaType.getFullyQualifiedName(true);
         return type == null
-            || "datatype.String".equals(type)
-            || "datatype.boolean".equals(type)
-            || "datatype.char".equals(type)
-            || "datatype.Character".equals(type)
-            || "datatype.Date".equals(type)
-            || "datatype.DateTime".equals(type)
+            || "datatype::String".equals(type)
+            || "datatype::boolean".equals(type)
+            || "datatype::char".equals(type)
+            || "datatype::Character".equals(type)
+            || "datatype::Date".equals(type)
+            || "datatype::DateTime".equals(type)
             || metaType.isEnumeration();
     }
 
