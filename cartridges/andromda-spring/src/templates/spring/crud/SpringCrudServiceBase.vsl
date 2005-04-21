@@ -1,8 +1,8 @@
 #set ($generatedFile = "${manageable.manageableServiceBaseFullPath}.java")
 // license-header java merge-point
 ##
-#set ($memberList = $manageable.listManageableMembers(true,false))
-#set ($memberListArguments = $manageable.listManageableMembers(false,false))
+#set ($memberList = $manageable.listManageableMembers(true))
+#set ($memberListArguments = $manageable.listManageableMembers(false))
 #if (!$manageable.identifiers.empty)
 #set ($identifier = $manageable.identifiers.iterator().next())
 #end

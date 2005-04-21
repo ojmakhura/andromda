@@ -1,7 +1,7 @@
 #set ($generatedFile = "${manageable.manageableDaoFullPath}.java")
 // license-header java merge-point
 ##
-#set ($memberList = $manageable.listManageableMembers(true,false))
+#set ($memberList = $manageable.listManageableMembers(true))
 #if (!$manageable.identifiers.empty)
 #set ($identifier = $manageable.identifiers.iterator().next())
 #end
