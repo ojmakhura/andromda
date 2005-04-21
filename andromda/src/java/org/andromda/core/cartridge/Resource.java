@@ -1,5 +1,6 @@
 package org.andromda.core.cartridge;
 
+import org.andromda.core.common.NamespaceProperties;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.Property;
 import org.apache.commons.lang.StringUtils;
@@ -100,8 +101,10 @@ public class Resource
      */
     public boolean isOverwrite()
     {
-        Property property = Namespaces.instance().findNamespaceProperty(this.getCartridge().getName(), "overwrite",
-                false);
+        Property property = Namespaces.instance().findNamespaceProperty(
+            this.getCartridge().getName(), 
+            NamespaceProperties.OVERWRITE,
+            false);
         if (property != null)
         {
             this.overwrite = Boolean.valueOf(property.getValue()).booleanValue();
