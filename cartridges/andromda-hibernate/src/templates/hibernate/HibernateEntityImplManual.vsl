@@ -17,6 +17,7 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
 {
     /** The serial version UID of this class. Needed for serialization. */
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
+    
 #foreach ($operation in $entity.businessOperations)
     /**
      * @see ${entity.fullyQualifiedEntityName}#${operation.getSignature(false)}
