@@ -26,6 +26,19 @@ public class $manageable.formBeanClassName
         this.$manageable.listName = $manageable.listName;
     }
 
+#set ($identifier = $manageable.identifiers.iterator().next())
+    private ${identifier.type.fullyQualifiedName}[] selectedRows = null;
+
+    public ${identifier.type.fullyQualifiedName}[] getSelectedRows()
+    {
+        return this.selectedRows;
+    }
+
+    public void setSelectedRows(${identifier.type.fullyQualifiedName}[] selectedRows)
+    {
+        this.selectedRows = selectedRows;
+    }
+
 #foreach ($member in $manageable.attributes)
     private $member.type.fullyQualifiedName $member.manageableName;
 

@@ -33,11 +33,6 @@ public class StrutsManageableEntityLogicImpl
         return getFormBeanType().replace('.', '/');
     }
 
-    protected java.lang.String handleGetActionInput()
-    {
-        return getPreloadActionPath() + ".do";
-    }
-
     protected java.lang.String handleGetMessageKey()
     {
         return StringUtilsHelper.toResourceMessageKey(getName());
@@ -83,183 +78,48 @@ public class StrutsManageableEntityLogicImpl
         return '/' + getManageablePackagePath() + '/' + getPageName();
     }
 
-    protected java.lang.String handleGetCreateActionPath()
+    protected java.lang.String handleGetActionPath()
     {
-        return '/' + getName() + "/Create";
+        return '/' + getName() + "/Manage";
     }
 
-    protected java.lang.String handleGetCreateFormBeanName()
+    protected java.lang.String handleGetActionParameter()
     {
-        return "create" + getName() + "Form";
+        return "crud";
     }
 
-    protected java.lang.String handleGetCreateActionType()
+    protected java.lang.String handleGetFormBeanName()
     {
-        return getManageablePackageName() + '.' + getCreateActionClassName();
+        return "manage" + getName() + "Form";
     }
 
-    protected java.lang.String handleGetCreateExceptionKey()
+    protected java.lang.String handleGetActionType()
     {
-        return getName().toLowerCase() + '.' + "create.exception";
+        return getManageablePackageName() + '.' + getActionClassName();
     }
 
-    protected java.lang.String handleGetCreateExceptionPath()
+    protected java.lang.String handleGetExceptionKey()
     {
-        return getActionInput();
+        return getName().toLowerCase() + ".exception";
     }
 
-    protected java.lang.String handleGetCreateActionFullPath()
+    protected java.lang.String handleGetExceptionPath()
     {
-        return '/' + getCreateActionType().replace('.', '/');
+        return getActionPath() + ".do?" + getActionParameter() + "=preload";
     }
 
-    protected java.lang.String handleGetCreateActionClassName()
+    protected java.lang.String handleGetActionFullPath()
     {
-        return "Create" + getName();
+        return '/' + getActionType().replace('.', '/');
     }
 
-    protected java.lang.String handleGetReadActionPath()
+    protected java.lang.String handleGetActionClassName()
     {
-        return '/' + getName() + "/Read";
-    }
-
-    protected java.lang.String handleGetReadFormBeanName()
-    {
-        return "read" + getName() + "Form";
-    }
-
-    protected java.lang.String handleGetReadActionType()
-    {
-        return getManageablePackageName() + '.' + getReadActionClassName();
-    }
-
-    protected java.lang.String handleGetReadExceptionKey()
-    {
-        return getName().toLowerCase() + '.' + "read.exception";
-    }
-
-    protected java.lang.String handleGetReadExceptionPath()
-    {
-        return getActionInput();
-    }
-
-    protected java.lang.String handleGetReadActionFullPath()
-    {
-        return '/' + getReadActionType().replace('.', '/');
-    }
-
-    protected java.lang.String handleGetReadActionClassName()
-    {
-        return "Read" + getName();
-    }
-
-    protected java.lang.String handleGetUpdateActionPath()
-    {
-        return '/' + getName() + "/Update";
-    }
-
-    protected java.lang.String handleGetUpdateFormBeanName()
-    {
-        return "update" + getName() + "Form";
-    }
-
-    protected java.lang.String handleGetUpdateActionType()
-    {
-        return getManageablePackageName() + '.' + getUpdateActionClassName();
-    }
-
-    protected java.lang.String handleGetUpdateExceptionKey()
-    {
-        return getName().toLowerCase() + '.' + "update.exception";
-    }
-
-    protected java.lang.String handleGetUpdateExceptionPath()
-    {
-        return getActionInput();
-    }
-
-    protected java.lang.String handleGetUpdateActionFullPath()
-    {
-        return '/' + getUpdateActionType().replace('.', '/');
-    }
-
-    protected java.lang.String handleGetUpdateActionClassName()
-    {
-        return "Update" + getName();
-    }
-
-    protected java.lang.String handleGetDeleteActionPath()
-    {
-        return '/' + getName() + "/Delete";
-    }
-
-    protected java.lang.String handleGetDeleteFormBeanName()
-    {
-        return "delete" + getName() + "Form";
-    }
-
-    protected java.lang.String handleGetDeleteActionType()
-    {
-        return getManageablePackageName() + '.' + getDeleteActionClassName();
-    }
-
-    protected java.lang.String handleGetDeleteExceptionKey()
-    {
-        return getName().toLowerCase() + '.' + "delete.exception";
-    }
-
-    protected java.lang.String handleGetDeleteExceptionPath()
-    {
-        return getActionInput();
-    }
-
-    protected java.lang.String handleGetDeleteActionFullPath()
-    {
-        return '/' + getDeleteActionType().replace('.', '/');
-    }
-
-    protected java.lang.String handleGetDeleteActionClassName()
-    {
-        return "Delete" + getName();
-    }
-
-    protected String handleGetPreloadActionPath()
-    {
-        return '/' + getName() + "/Preload";
-    }
-
-    protected String handleGetPreloadActionType()
-    {
-        return getManageablePackageName() + '.' + getPreloadActionClassName();
-    }
-
-    protected String handleGetPreloadFormBeanName()
-    {
-        return "preload" + getName() + "Form";
-    }
-
-    protected String handleGetPreloadActionFullPath()
-    {
-        return getManageablePackagePath() + '/' + getPreloadActionClassName();
-    }
-
-    protected String handleGetPreloadActionClassName()
-    {
-        return "Preload" + getName();
-    }
-
-    protected String handleGetPreloadForwardName()
-    {
-        return StringUtilsHelper.toResourceMessageKey(getName());
+        return "Manage" + getName();
     }
 
     protected boolean handleIsPreload()
     {
         return isCreate() || isRead() || isUpdate() || isDelete();
-    }
-
-    protected String handleGetPreloadForwardPath()
-    {
-        return getPreloadActionPath();
     }
 }

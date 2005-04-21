@@ -529,76 +529,14 @@
     -->
 
     <template
-        path="templates/bpm4struts/actions/crud/CreateAction.java.vsl"
+        path="templates/bpm4struts/actions/crud/CrudAction.java.vsl"
         outputPattern="$generatedFile"
         outlet="actions"
         overwrite="true"
         required="false">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="create"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/bpm4struts/actions/crud/ReadAction.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="actions"
-        overwrite="true"
-        required="false">
-        <modelElements variable="manageable">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="read"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/bpm4struts/actions/crud/UpdateAction.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="actions"
-        overwrite="true"
-        required="false">
-        <modelElements variable="manageable">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="update"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/bpm4struts/actions/crud/DeleteAction.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="actions"
-        overwrite="true"
-        required="false">
-        <modelElements variable="manageable">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="delete"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/bpm4struts/actions/crud/PreloadAction.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="actions"
-        overwrite="true"
-        required="false">
-        <modelElements variable="manageable">
-            <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="preload"/>
-                </type>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
     </template>

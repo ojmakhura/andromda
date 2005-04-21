@@ -13,29 +13,13 @@
         <bean:message key="$manageable.pageTitleKey"/>
     </tiles:put>
 
-    <tiles:put name="javascript" type="string">
-        <script type="text/javascript">
-        //<!--
-            function setCreateForm(form)
-            {
-                form.name = "$manageable.createFormBeanName";
-                form.action = "<html:rewrite action="$manageable.createActionPath"/>";
-            }
-            function setReadForm(form)
-            {
-                form.name = "$manageable.readFormBeanName";
-                form.action = "<html:rewrite action="$manageable.readActionPath"/>";
-            }
-        -->
-        </script>
-    </tiles:put>
-
     <tiles:put name="body" type="string">
 
         <tiles:insert page="/entity-switcher.jsp" flush="false"/>
 
-        <div id="criteria">
-            <html:form action="$manageable.createActionPath">
+        <html:form action="$manageable.actionPath" method="post">
+            <input type="hidden" name="$manageable.actionParameter" value=""/>
+            <div id="criteria">
                 <table>
 #foreach ($member in $manageable.attributes)
                     <tr>
@@ -57,48 +41,36 @@
 #end
                 </table>
 
-                <input type="submit" value="<bean:message key="button.read"/>" onclick="setReadForm(this.form);" />
-                <input type="submit" value="<bean:message key="button.create"/>" onclick="setCreateForm(this.form);" />
-#*
-                <html:submit insert />
-*#
-            </html:form>
-        </div>
+                <input type="submit" value="<bean:message key="button.read"/>" onclick="this.form.${manageable.actionParameter}.value='read';"/>
+                <input type="submit" value="<bean:message key="button.create"/>" onclick="this.form.${manageable.actionParameter}.value='create';"/>
+                <input type="submit" value="<bean:message key="button.delete"/>" onclick="this.form.${manageable.actionParameter}.value='delete';"/>
 
-        <div id="relations">
+            </div>
 
-        </div>
+            <div id="relations">
 
-        <div id="${manageable.listName}" class="table">
-            <c:if test="$tablePresentTest">
+            </div>
+
+            <div id="${manageable.listName}" class="table">
+                <c:if test="$tablePresentTest">
 #set ($listBean = "manageableForm.${manageable.listName}")
-                <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
-                        export="true" pagesize="15" sort="list">
-                    <display:column media="html" sortable="false">
+                    <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
+                            export="true" pagesize="15" sort="list">
+                        <display:column media="html" sortable="false">
 #set ($identifierValue = "row.${manageable.identifiers.iterator().next().name}")
-                        <input type="checkbox" name="selectedRows" value="${${identifierValue}}"/>
-                    </display:column>
+                            <input type="checkbox" name="selectedRows" value="${${identifierValue}}"/>
+                        </display:column>
 #foreach ($member in $manageable.manageableMembers)
-                    <display:column property="$member.name"
-                        headerClass="$member.name" paramId="$member.name"
-                        sortProperty="$member.name" sortable="true"
-                        title="$member.messageValue"/> <%-- temp: titleKey="$member.messageKey"--%>
+                        <display:column property="$member.name"
+                            headerClass="$member.name" paramId="$member.name"
+                            sortProperty="$member.name" sortable="true"
+                            title="$member.messageValue"/> <%-- temp: titleKey="$member.messageKey"--%>
 #end
-                </display:table>
-            </c:if>
-        </div>
+                    </display:table>
+                </c:if>
+            </div>
 
-
-    <logic:messagesPresent>
-        <div class="errors">
-            <ul>
-                <html:messages id="error">
-                    <div class="error"><li>${error}</li></div>
-                </html:messages>
-            </ul>
-        </div>
-    </logic:messagesPresent>
-
+        </html:form>
 
     </tiles:put>
 

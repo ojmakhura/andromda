@@ -117,12 +117,12 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsUpdate()
     {
-        return false; // @todo
+        return false && !getIdentifiers().isEmpty(); // @todo
     }
 
     protected boolean handleIsDelete()
     {
-        return false; // @todo
+        return true && !getIdentifiers().isEmpty(); // @todo
     }
 
     protected List handleGetManageableMembers()
