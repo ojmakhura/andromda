@@ -13,30 +13,36 @@
         <bean:message key="$manageable.pageTitleKey"/>
     </tiles:put>
 
-   <tiles:put name="javascript" type="string">
-        <script type="text/javascript">
-        //<!--
-            function copyRow(index)
-            {
-            }
-        -->
-        </script>
+    <tiles:put name="style" type="string">
+        <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="/layout/default-manageable.css"/>"></link>
     </tiles:put>
 
     <tiles:put name="body" type="string">
-
-        <tiles:insert page="/entity-switcher.jsp" flush="false"/>
 
         <html:form action="$manageable.actionPath" method="post">
             <input type="hidden" name="$manageable.actionParameter" value=""/>
             <div id="criteria">
                 <table>
+#set ($relationsRendered = false)
 #foreach ($member in $manageable.attributes)
                     <tr>
                         <td><bean:message key="$member.messageKey"/></td>
                         <td>
 #renderAttribute($member "                            ")
                         </td>
+#if ($manageable.referencingManageables.size() > 0 && !$relationsRendered)
+#set ($relationsRendered = true)
+                        <td rowspan="$manageable.manageableMembers.size()">
+                            <div id="relations">
+                                <p><bean:message key="other.managable.entities.referencing.this.entity"/></p>
+                                <ul>
+#foreach ($referencingManageable in $manageable.referencingManageables)
+                                    <li><html:link action="$referencingManageable.actionPath">$referencingManageable.manageableName</html:link></li>
+#end
+                                </ul>
+                            </div>
+                        </td>
+#end
                     </tr>
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
@@ -51,15 +57,20 @@
 #end
                 </table>
 
+#if ($manageable.read)
                 <input type="submit" value="<bean:message key="button.read"/>" onclick="this.form.${manageable.actionParameter}.value='read';"/>
+#end
+#if ($manageable.create)
                 <input type="submit" value="<bean:message key="button.create"/>" onclick="this.form.${manageable.actionParameter}.value='create';"/>
+#end
+#if ($manageable.delete)
                 <input type="submit" value="<bean:message key="button.delete"/>" onclick="this.form.${manageable.actionParameter}.value='delete';"/>
+#end
+#if ($manageable.update)
                 <input type="submit" value="<bean:message key="button.update"/>" onclick="this.form.${manageable.actionParameter}.value='update';"/>
+#end
+                <tiles:insert page="/entity-switcher.jsp" flush="false"/>
 
-            </div>
-
-            <div id="relations">
-                <%-- this entity is referenced from ... --%>
             </div>
 
             <div id="${manageable.listName}" class="table">
@@ -69,8 +80,10 @@
                             export="true" pagesize="15" sort="list">
                         <display:column media="html" sortable="false">
                             <a href="#" onclick="#renderJavascriptCopyRow($manageable)return false;"><bean:message key="copy.row.values"/></a>
+#if ($manageable.delete)
 #set ($identifierValue = "row.${manageable.identifiers.iterator().next().name}")
                             <input type="checkbox" name="selectedRows" value="${${identifierValue}}"/>
+#end
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
                         <display:column property="$member.manageableName"

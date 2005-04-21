@@ -581,6 +581,14 @@
     </template>
 
     <template
+        path="templates/bpm4struts/pages/crud/default-manageable.css.vsl"
+        outputPattern="layout/default-manageable.css"
+        outlet="pages"
+        overwrite="true"
+        outputToSingleFile="true"
+        generateEmptyFiles="false"/>
+
+    <template
         path="templates/bpm4struts/configuration/crud/struts-admin.xml.vsl"
         outputPattern="struts-admin.xml"
         outlet="configuration"
@@ -599,6 +607,7 @@
         </modelElements>
     </template>
 
+<!--
     <template
         path="templates/bpm4struts/configuration/crud/validation-admin.xml.vsl"
         outputPattern="validation-admin.xml"
@@ -612,6 +621,7 @@
             </modelElement>
         </modelElements>
     </template>
+-->
 
     <!-- cartridge-template merge-point -->
 
