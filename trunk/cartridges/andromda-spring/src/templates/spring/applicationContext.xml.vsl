@@ -164,6 +164,8 @@
 
 #end
 #foreach($service in $services)
+## Don't add mappings for abstract services
+#if (!$service.abstract)
     <!-- $service.name Service Implementation  -->
     <bean id="$service.getBeanName(true)" class="$service.fullyQualifiedImplementationName">
 #if ($daosEnabled)
@@ -204,6 +206,7 @@
          </property>
      </bean>
 
+#end
 #end
     <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
 
