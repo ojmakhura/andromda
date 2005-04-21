@@ -29,4 +29,12 @@ public class NamespaceProperties
      * default profile values (i.e. stereotype names). </p>
      */
     public static final String PROFILE_MAPPINGS_URI = "profileMappingsUri";
+    
+    /**
+     * If true, all resources are overwritten (even if ovewrite is set to <code>false</code>
+     * within an andromda-cartridge.xml). If false, no resources are overwritten. 
+     * It is useful to set to <code>true</code> when during pure modeling until you're ready 
+     * to implement.
+     */
+    public static final String OVERWRITE = "overwrite";
 }
