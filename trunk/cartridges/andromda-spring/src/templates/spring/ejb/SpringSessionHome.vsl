@@ -12,15 +12,11 @@ package $service.ejbPackageName;
  * @see $service.fullyQualifiedName 
  */
 public interface ${service.name}Home
-#if ($service.generalization)
-    extends ${service.generalization.fullyQualifiedEjbName}Home
-#else
 #set ($ejbHomeInterface = "javax.ejb.EJBLocalHome")
 #if ($service.ejbRemoteView)
 #set ($ejbHomeInterface = "javax.ejb.EJBHome")
 #end
     extends $ejbHomeInterface
-#end 
 {
 #set ($throwsList = "throws javax.ejb.CreateException")
 #if ($service.ejbRemoteView)
