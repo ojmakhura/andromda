@@ -1,12 +1,16 @@
 package org.andromda.cartridges.spring.metafacades;
 
-import org.andromda.metafacades.uml.FilteredCollection;
-import org.andromda.metafacades.uml.UMLProfile;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-
 import java.text.MessageFormat;
 import java.util.Collection;
+
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringService.
@@ -280,6 +284,39 @@ public class SpringServiceLogicImpl
                 return ((SpringServiceOperation)object).isWebserviceExposed();
             }
         };
+    }
+    
+    /**
+     * Override to retrieve any abstract operations from an abstract generalization.
+     * 
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getOperations()
+     */
+    public Collection getOperations()
+    {
+       final Collection operations = super.getOperations(); 
+       if (!this.isAbstract())
+        {
+            for (ClassifierFacade generalization = (ClassifierFacade)this.getGeneralization(); 
+                 generalization != null; generalization = (ClassifierFacade)generalization.getGeneralization())
+            {
+                if (generalization.isAbstract())
+                {
+                    CollectionUtils.forAllDo(
+                        generalization.getOperations(),
+                        new Closure()
+                        {
+                            public void execute(Object object)
+                            {
+                                if (((OperationFacade)object).isAbstract())
+                                {
+                                    operations.add(object);
+                                }
+                            }
+                        });
+                }
+            }
+        }
+       return operations;
     }
 
     /**

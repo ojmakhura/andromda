@@ -12,34 +12,29 @@ package $service.packageName;
 /**
  * @see $service.fullyQualifiedName
  */
-public class $service.implementationName
+public#if($service.abstract) abstract#end class $service.implementationName
     extends $service.fullyQualifiedBaseName
 {
 
-#foreach ( $operation in $service.operations )
-#set ($returnType = $operation.returnType)
-#set ($returnObject = "returnValue")
-#set ($signature = $operation.implementationSignature)
+#foreach ($operation in $service.operations)
     /**
      * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
      */
-    protected $returnType.fullyQualifiedName $signature
+#set ($abstract = $service.abstract && $operation.abstract)
+    protected#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.implementationSignature
+#if ($abstract)
+        throws java.lang.Exception;        
+#else
         throws java.lang.Exception
     {
-        //@todo implement protected $returnType.fullyQualifiedName $signature
-#set ($returnTypeName = $operation.returnType.fullyQualifiedName)
+        //@todo implement protected $operation.returnType.fullyQualifiedName $operation.implementationSignature
 #if ($operation.returnTypePresent)
-#if (!$operation.returnType.primitive)
-        return null;
-#elseif ($returnTypeName.equals("boolean"))
-        return false;
+        return $operation.returnType.javaNullString;
 #else
-        return ($returnTypeName)0;
-#end
-#else
-        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${signature} Not implemented!");
+        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${operation.implementationSignature} Not implemented!");
 #end
     }
 
+#end
 #end
 }
