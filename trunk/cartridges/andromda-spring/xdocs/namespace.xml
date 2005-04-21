@@ -787,6 +787,30 @@
                             No, default is <code>CriteriaSearch</code>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            jndiDataSourceClass
+                        </td>
+                        <td>
+                            The name of the class to use when using a JNDI data source for
+                            data access.
+                        </td>
+                        <td>
+                            No, default is <code>org.springframework.jndi.JndiObjectFactoryBean</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            jdbcDataSourceClass
+                        </td>
+                        <td>
+                            The name of the class to use when using a JDBC data source for
+                            data access.
+                        </td>
+                        <td>
+                            No, default is <code>org.springframework.jdbc.datasource.DriverManagerDataSource</code>.
+                        </td>
+                    </tr>
                 </table>
             </subsection>
             <subsection name="EJB Specific Properties">
