@@ -155,6 +155,7 @@
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
+            <property name="manageable"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAttributeLogicImpl">
