@@ -93,7 +93,15 @@ public final class $manageable.actionClassName extends DispatchAction
 #if ($manageable.update)
     public ActionForward update(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final $manageable.updateFormBeanType form = ($manageable.updateFormBeanType) actionForm;
+        final $manageable.formBeanType form = ($manageable.formBeanType) actionForm;
+
+        ${manageable.manageableServiceAccessorCall}.update(
+#set ($comma = '')
+#foreach ($member in $manageable.manageableMembers)
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : form.${member.manageableGetterName}()
+#set ($comma = ', ')
+#end
+        );
 
         return preload(mapping, actionForm, request, response);
     }
