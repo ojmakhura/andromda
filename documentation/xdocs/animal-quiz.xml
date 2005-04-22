@@ -41,6 +41,12 @@
                 </table>
             </p>
             <p>
+                Make sure to initialize your database with the SQL script found in
+                <code>app/target/hibernate-schema-initialize.sql</code>, it contains HSQLDB compatible DDL statements
+                that will setup the required tables for the application. Please note that you might need to
+                configure JBoss to allow TCP/IP connections to the embedded database.
+            </p>
+            <p>
                 When playing the game the server will ask you to keep an animal in mind, it will keep guessing
                 until it has exhausted its list of guesses.
             </p>
