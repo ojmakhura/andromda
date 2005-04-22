@@ -23,6 +23,9 @@
             type="$action.formBeanType" />
 #end
 #end
+#foreach ($manageable in $manageables)
+        <form-bean name="$manageable.formBeanName" type="$manageable.formBeanType" />
+#end
     </form-beans>
 
     <global-forwards>
@@ -76,6 +79,12 @@
 #end
         </action>
 #end
+#end
+#foreach ($manageable in $manageables)
+        <action path="$manageable.actionPath" type="$manageable.actionType" name="$manageable.formBeanName"
+            scope="request" input="$manageable.pageFullPath" unknown="false" validate="false" parameter="$manageable.actionParameter">
+            <exception type="java.lang.Throwable" key="$manageable.exceptionKey" path="$manageable.exceptionPath" scope="request" />
+        </action>
 #end
    </action-mappings>
 

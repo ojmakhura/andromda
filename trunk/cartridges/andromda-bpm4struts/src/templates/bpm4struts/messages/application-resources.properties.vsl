@@ -230,6 +230,7 @@ copy.row.values=Copy
 select.option.blank=-- Select --
 other.managable.entities.referencing.this.entity=Related entities:
 select.other.entity=Select other entity:
+entity.management=Entity Management (click)
 
 #foreach ($manageable in $manageables)
 $manageable.messageKey=$manageable.messageValue

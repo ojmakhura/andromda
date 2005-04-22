@@ -246,10 +246,15 @@
         outlet="pages"
         overwrite="true"
         outputToSingleFile="true">
-        <modelElements variable="applicationUseCases">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="applicationUseCases">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="manageable"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -293,9 +298,6 @@
                     <property name="applicationUseCase"/>
                 </type>
             </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
-            </modelElement>
         </modelElements>
     </template>
 
@@ -323,6 +325,11 @@
                     <property name="applicationUseCase"/>
                 </type>
             </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="manageable"/>
+                </type>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -344,10 +351,15 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true">
-        <modelElements variable="applicationUseCases">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="applicationUseCases">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="manageable"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -587,25 +599,6 @@
         overwrite="true"
         outputToSingleFile="true"
         generateEmptyFiles="false"/>
-
-    <template
-        path="templates/bpm4struts/configuration/crud/struts-admin.xml.vsl"
-        outputPattern="struts-admin.xml"
-        outlet="configuration"
-        overwrite="true"
-        outputToSingleFile="true"
-        generateEmptyFiles="false">
-        <modelElements>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
-            </modelElement>
-            <modelElement variable="applicationUseCases">
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
-                    <property name="applicationUseCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
 
 <!--
     <template
