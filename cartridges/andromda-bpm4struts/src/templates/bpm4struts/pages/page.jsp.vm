@@ -40,10 +40,9 @@ ${indent}</logic:notPresent>
 ##
 ##
 #macro ( renderTableHyperlink $action $indent )
-#set ($table = $action.tableLinkParameter)
 #set($uriQuery='')#set($delim='?')
 #foreach ($parameter in $action.actionParameters)
-#if(!$table.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#end
+#if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#end
 #set($paramValue="${beanName}.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
 #end
 ${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints)onmouseover="hints.show('$parameter.titleKey')" onmouseout="hints.hide()"#end>
@@ -54,6 +53,22 @@ ${indent}    ${${linkValue}}
 ${indent}    <bean:message key="$action.actionTrigger.triggerKey"/>
 #end
 ${indent}</html:link>
+#end
+##
+##
+##      This macro takes care of rendering the appropriate Struts
+##      HTML hyperlink tags for the argument action in a table
+##
+##
+#macro ( renderTableButton $action $indent )
+#set ($linkParameters = "")
+#set ($parameterCount = $action.actionParameters.size())
+#foreach ($parameter in $action.actionParameters)
+#if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#else#set($beanName="row")#end
+#set ($parameterValue = "${beanName}.${parameter.name}")
+#set ($linkParameters = "${linkParameters}&${parameter.name}=${${parameterValue}}")
+#end
+${indent}<html:link action="$action.actionPath?$linkParameters" styleClass="buttonLink"><bean:message key="$action.actionTrigger.triggerKey"/></html:link>
 #end
 ##
 ##

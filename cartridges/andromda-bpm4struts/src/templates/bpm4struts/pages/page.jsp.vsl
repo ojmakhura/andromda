@@ -180,13 +180,7 @@
 #end
 #foreach ($tableAction in $variable.tableFormActions)
                     <display:column media="html">
-#set ($linkParameters = "")
-#set ($parameterCount = $tableAction.actionParameters.size())
-#foreach ($parameter in $tableAction.actionParameters)
-#set ($parameterValue = "row.${parameter.name}")
-#set ($linkParameters = "${linkParameters}&${parameter.name}=${${parameterValue}}")
-#end
-                        <html:link action="$tableAction.actionPath?$linkParameters" styleClass="buttonLink"><bean:message key="$tableAction.actionTrigger.triggerKey"/></html:link>
+#renderTableButton( $tableAction "                        " )
                     </display:column>
 #end
                 </display:table>
