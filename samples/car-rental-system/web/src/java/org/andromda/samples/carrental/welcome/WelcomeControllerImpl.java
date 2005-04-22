@@ -21,17 +21,14 @@ public class WelcomeControllerImpl
                                                     HttpServletRequest request, HttpServletResponse response)
             throws Exception
     {
-        WelcomeForm form2 = (WelcomeForm)form;
-        StringBuffer welcomeMessage = new StringBuffer();
-        // TODO Make NLSable
-        welcomeMessage.append("Welcome to the Andromda Car Rental Sample Application.\n");
-        welcomeMessage.append("\n");
-        welcomeMessage.append("This is the replacement Car Rental Application using the BPM4Struts cartridge.");
-        welcomeMessage.append("This is work in progress.");
-        welcomeMessage.append("It is basically a skeleton application.");
-        welcomeMessage.append("Over time the functions in this application will be implemented.");
-        form2.setWelcomeMessage(welcomeMessage.toString());
-        return "";
+        final String welcomeMessage = "Welcome to the Andromda Car Rental Sample Application.\n" +
+            "\n" +
+            "This is the replacement Car Rental Application using the BPM4Struts cartridge." +
+            "This is work in progress." +
+            "It is basically a skeleton application." +
+            "Over time the functions in this application will be implemented.";
+
+        return welcomeMessage;
     }
 
 
