@@ -1,4 +1,9 @@
 <%@ include file="/taglib-imports.jspf" %>
 
-#if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
+#if(!$applicationUseCases.empty)
+#set($applicationUseCase=$applicationUseCases.iterator().next())
 <logic:redirect action="${applicationUseCase.actionPath}"/>
+#elseif(!$manageables.empty)
+#set($manageable=$manageables.iterator().next())
+<logic:redirect action="${manageable.actionPath}"/>
+#end
