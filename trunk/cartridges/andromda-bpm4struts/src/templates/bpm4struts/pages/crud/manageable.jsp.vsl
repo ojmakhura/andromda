@@ -15,6 +15,11 @@
 
     <tiles:put name="style" type="string">
         <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="/layout/default-manageable.css"/>"></link>
+        <link rel="stylesheet" type="text/css" media="all" href="<html:rewrite page="/layout/default-calendar.css"/>"/>
+    </tiles:put>
+
+    <tiles:put name="javascript" type="string">
+        <script type="text/javascript" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
     </tiles:put>
 
     <tiles:put name="body" type="string">
@@ -86,14 +91,23 @@
 #end
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
-#if ($member.type.booleanType)
-                        <display:column media="html" headerClass="$member.manageableName" titleKey="$member.messageKey"/>
+#if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+                        <display:column media="html" headerClass="$member.manageableName" titleKey="$member.messageKey">
                             <html:checkbox name="row" property="$member.manageableName" disabled="true"/>
                         </display:column>
                         <display:column media="xml csv excel pdf" property="$member.manageableName"
                             headerClass="$member.manageableName" paramId="$member.manageableName"
                             sortProperty="$member.manageableName" sortable="true"
                             titleKey="$member.messageKey"/>
+#elseif ($member.type.dateType)
+                        <display:column property="$member.manageableName"
+                            headerClass="$member.manageableName" paramId="$member.manageableName"
+                            sortProperty="$member.manageableName" sortable="true"
+                            titleKey="$member.messageKey">
+#set ($dateValue = "row.${member.manageableName}")
+                            <fmt:formatDate var="date" value="${${dateValue}}" pattern="${member.dateFormat}"/>
+                            ${date}
+                        </display:column>
 #else
                         <display:column property="$member.manageableName"
                             headerClass="$member.manageableName" paramId="$member.manageableName"
