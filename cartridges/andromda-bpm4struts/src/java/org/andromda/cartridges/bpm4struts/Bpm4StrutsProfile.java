@@ -58,9 +58,6 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
 
     public static final String TAGGEDVALUE_DATE_FORMAT = profile.get("DATE_FORMAT");
-    public static final String TAGGEDVALUE_MANAGEABLE_MAXIMUM_LIST_SIZE = profile.get("MANAGEABLE_MAXIMUM_LIST_SIZE");
-    public static final String TAGGEDVALUE_MANAGEABLE_PAGE_SIZE = profile.get("MANAGEABLE_PAGE_SIZE");
-    public static final String TAGGEDVALUE_MANAGEABLE_RESOLVEABLE = profile.get("MANAGEABLE_RESOLVEABLE");
 
     /* ----------------- Data Types -------------------- */
     

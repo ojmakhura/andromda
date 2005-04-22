@@ -3,9 +3,6 @@
 <!-- contains the bpm4struts cartridge metafacade mappings -->
 <metafacades namespace="bpm4struts">
     
-    <property reference="defaultResolveable" default="true"/>
-    <property reference="defaultPageSize" default="20"/>
-    <property reference="defaultMaximumListSize" default="250"/>
     <property reference="defaultDateFormat" default="dd/MM/yyyy"/>
     <property reference="defaultActionRedirect" default="false"/>
     <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
