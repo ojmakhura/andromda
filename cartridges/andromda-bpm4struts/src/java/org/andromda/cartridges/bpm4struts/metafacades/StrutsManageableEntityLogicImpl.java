@@ -215,7 +215,7 @@ public class StrutsManageableEntityLogicImpl
         {
             try
             {
-                resolveable = Boolean.parseBoolean(taggedValueObject.toString());
+                resolveable = Boolean.valueOf(taggedValueObject.toString()).booleanValue();
             }
             catch (NumberFormatException e)
             {
@@ -237,7 +237,8 @@ public class StrutsManageableEntityLogicImpl
         try
         {
             resolveable =
-                    Boolean.parseBoolean((String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_RESOLVEABLE));
+                    Boolean.valueOf((String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_RESOLVEABLE))
+                    .booleanValue();
         }
         catch (NumberFormatException e1)
         {
