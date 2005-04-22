@@ -112,31 +112,8 @@ public class XslTransformer
         } 
         catch (Exception ex)
         {
-            ex.printStackTrace();
             throw new XslTransformerException(ex);
         }
-    }
-    
-    /**
-     * The system property for setting the transformer factory implementation.
-     */
-    protected static final String TRANSFORMER_FACTORY = "javax.xml.transform.TransformerFactory";
-    
-    /**
-     * The default transformer factory implementation used (if one isn't present).
-     */
-    protected static final String DEFAULT_TRANSFORMER_FACTORY_IMPLEMENTATION = "org.apache.xalan.processor.TransformerFactoryImpl";
-     
-    /**
-     * Set the default transformer factory (if one has not
-     * been set).
-     */
-    static
-    {
-        if (StringUtils.isBlank(System.getProperty(TRANSFORMER_FACTORY)))
-        {
-            System.setProperty(XslTransformer.TRANSFORMER_FACTORY, XslTransformer.DEFAULT_TRANSFORMER_FACTORY_IMPLEMENTATION);      
-        }      
     }
     
     /**
