@@ -179,7 +179,12 @@ public class UMLProfile
      * @see org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl#handleGetSerialVersionUID()
      */
     public static final String TAGGEDVALUE_SERIALVERSION_UID = profile.get("SERIALVERSION_UID");
-    
+
+    /**
+     * The attribute to use when referencing this table from another one.
+     */
+    public static final String TAGGEDVALUE_MANAGEABLE_DISPLAY_NAME = profile.get("MANAGEABLE_DISPLAY_NAME");
+
     /* ----------------- Data Types -------------------- */
 
     /**
@@ -212,6 +217,7 @@ public class UMLProfile
      */
     public static final String BOOLEAN_TYPE_NAME = profile.get("BOOLEAN_TYPE");
 
+    /**
     /**
      * Used to identify a file type in the model, any other type that will be identified as a file type must specialize
      * this type.

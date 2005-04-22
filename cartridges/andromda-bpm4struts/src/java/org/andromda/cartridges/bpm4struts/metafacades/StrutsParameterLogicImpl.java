@@ -1144,16 +1144,7 @@ public class StrutsParameterLogicImpl
 
     private String getDefaultDateFormat()
     {
-        String defaultDateFormat = null;
-        try
-        {
-            defaultDateFormat = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
-        }
-        catch (Exception e)
-        {
-            defaultDateFormat = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_DEFAULT_DATEFORMAT;
-        }
-        return defaultDateFormat;
+        return (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
     }
 
     /**

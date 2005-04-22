@@ -1,5 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 
 
@@ -9,13 +11,13 @@ import org.andromda.core.common.StringUtilsHelper;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity
  */
 public class StrutsManageableEntityLogicImpl
-    extends StrutsManageableEntityLogic
+        extends StrutsManageableEntityLogic
 {
     // ---------------- constructor -------------------------------
 
-    public StrutsManageableEntityLogicImpl (Object metaObject, String context)
+    public StrutsManageableEntityLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     protected String handleGetFormBeanType()
@@ -105,7 +107,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetExceptionPath()
     {
-        return getActionPath() + ".do?" + getActionParameter() + "=preload";
+        return getActionPath() + ".do";
     }
 
     protected java.lang.String handleGetActionFullPath()
@@ -121,5 +123,127 @@ public class StrutsManageableEntityLogicImpl
     protected boolean handleIsPreload()
     {
         return isCreate() || isRead() || isUpdate() || isDelete();
+    }
+
+    protected int handleGetMaximumListSize()
+    {
+        int maximumListSize = -1;
+
+        final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_MANAGEABLE_MAXIMUM_LIST_SIZE);
+        if (taggedValueObject != null)
+        {
+            try
+            {
+                maximumListSize = Integer.parseInt(taggedValueObject.toString());
+            }
+            catch (NumberFormatException e)
+            {
+                maximumListSize = internalDefaultMaximumListSize();
+            }
+        }
+        else
+        {
+            maximumListSize = internalDefaultMaximumListSize();
+        }
+
+        return maximumListSize;
+    }
+
+    private int internalDefaultMaximumListSize()
+    {
+        int maximumListSize = -1;
+
+        try
+        {
+            maximumListSize =
+                    Integer.parseInt((String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_MAX_LIST_SIZE));
+        }
+        catch (NumberFormatException e1)
+        {
+            maximumListSize = -1;
+        }
+
+        return maximumListSize;
+    }
+
+    protected int handleGetPageSize()
+    {
+        int pageSize = 20;
+
+        final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_MANAGEABLE_PAGE_SIZE);
+        if (taggedValueObject != null)
+        {
+            try
+            {
+                pageSize = Integer.parseInt(taggedValueObject.toString());
+            }
+            catch (NumberFormatException e)
+            {
+                pageSize = internalDefaultPageSize();
+            }
+        }
+        else
+        {
+            pageSize = internalDefaultPageSize();
+        }
+
+        return pageSize;
+    }
+
+    private int internalDefaultPageSize()
+    {
+        int pageSize = 20;
+
+        try
+        {
+            pageSize = Integer.parseInt((String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_PAGE_SIZE));
+        }
+        catch (NumberFormatException e1)
+        {
+            pageSize = 20;
+        }
+
+        return pageSize;
+    }
+
+    protected boolean handleIsResolveable()
+    {
+        boolean resolveable = true;
+
+        final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_MANAGEABLE_RESOLVEABLE);
+        if (taggedValueObject != null)
+        {
+            try
+            {
+                resolveable = Boolean.parseBoolean(taggedValueObject.toString());
+            }
+            catch (NumberFormatException e)
+            {
+                resolveable = internalDefaultResolveable();
+            }
+        }
+        else
+        {
+            resolveable = internalDefaultResolveable();
+        }
+
+        return resolveable;
+    }
+
+    private boolean internalDefaultResolveable()
+    {
+        boolean resolveable = true;
+
+        try
+        {
+            resolveable =
+                    Boolean.parseBoolean((String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_RESOLVEABLE));
+        }
+        catch (NumberFormatException e1)
+        {
+            resolveable = true;
+        }
+
+        return resolveable;
     }
 }

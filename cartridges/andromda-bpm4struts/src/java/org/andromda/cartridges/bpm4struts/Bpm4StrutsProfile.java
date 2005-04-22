@@ -56,7 +56,12 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_CONTROLLER_USE_CASE = profile.get("CONTROLLER_USECASE");
     public static final String TAGGEDVALUE_USECASE_ACTIVITY = profile.get("USECASE_ACTIVITY");
     public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
-    
+
+    public static final String TAGGEDVALUE_DATE_FORMAT = profile.get("DATE_FORMAT");
+    public static final String TAGGEDVALUE_MANAGEABLE_MAXIMUM_LIST_SIZE = profile.get("MANAGEABLE_MAXIMUM_LIST_SIZE");
+    public static final String TAGGEDVALUE_MANAGEABLE_PAGE_SIZE = profile.get("MANAGEABLE_PAGE_SIZE");
+    public static final String TAGGEDVALUE_MANAGEABLE_RESOLVEABLE = profile.get("MANAGEABLE_RESOLVEABLE");
+
     /* ----------------- Data Types -------------------- */
     
     public static final String CHARACTER_TYPE_NAME = profile.get("CHARACTER_TYPE");
@@ -88,7 +93,6 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_INPUT_TYPE_LINK = "link";
     public static final String TAGGEDVALUE_INPUT_TYPE_FILE = "file";
     public static final int TAGGEDVALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT = 3;
-    public static final String TAGGEDVALUE_INPUT_DEFAULT_DATEFORMAT = "dd/MM/yyyy";
 
     public static final int TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT = 15;
     public static final boolean TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE = true;
@@ -97,6 +101,5 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_HYPERLINK = "hyperlinkModel";
     public static final String TAGGEDVALUE_WEBPAGELINK = "hyperlinkTextActive";
 
-    private Bpm4StrutsProfile()
-    {}
+    private Bpm4StrutsProfile() {}
 }

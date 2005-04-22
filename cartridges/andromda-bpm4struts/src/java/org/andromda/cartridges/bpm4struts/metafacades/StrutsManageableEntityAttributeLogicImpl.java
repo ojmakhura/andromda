@@ -1,7 +1,9 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ClassifierFacade;
 
 
 /**
@@ -42,4 +44,25 @@ public class StrutsManageableEntityAttributeLogicImpl
     {
         return StringUtilsHelper.toPhrase(getName());
     }
+
+    protected java.lang.String handleGetDateFormat()
+    {
+        String defaultDateFormat = null;
+
+        if (getType() != null && getType().isDateType())
+        {
+            final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_DATE_FORMAT);
+            if (taggedValueObject == null)
+            {
+                defaultDateFormat = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+            }
+            else
+            {
+                defaultDateFormat = taggedValueObject.toString();
+            }
+        }
+
+        return defaultDateFormat;
+    }
+
 }
