@@ -41,10 +41,13 @@
                 </table>
             </p>
             <p>
-                Make sure to initialize your database with the SQL script found in
-                <code>app/target/hibernate-schema-initialize.sql</code>, it contains HSQLDB compatible DDL statements
+                Make sure to initialize your database by issuing <code>maven create-schema</code> at the command prompt.
+                This will execute
+                <code>app/target/hibernate-schema-initialize.sql</code> which contains HSQLDB compatible DDL statements
                 that will setup the required tables for the application. Please note that you might need to
-                configure JBoss to allow TCP/IP connections to the embedded database.
+                configure JBoss to allow TCP/IP connections to the embedded database. The schema can be dropped
+                by issuing <code>maven drop-schema</code> which executes
+                <code>app/target/hibernate-schema-remove.sql</code>.
             </p>
             <p>
                 When playing the game the server will ask you to keep an animal in mind, it will keep guessing
