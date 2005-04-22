@@ -335,7 +335,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
             <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="abstract">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
