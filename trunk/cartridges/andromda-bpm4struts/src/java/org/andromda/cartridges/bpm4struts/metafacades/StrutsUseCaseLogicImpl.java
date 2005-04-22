@@ -397,6 +397,27 @@ public class StrutsUseCaseLogicImpl
         return hasStereotype(Bpm4StrutsProfile.STEREOTYPE_APPLICATION);
     }
 
+    protected boolean handleIsCyclic()
+    {
+        boolean selfTargetting = false;
+
+        final StrutsActivityGraph graph = getActivityGraph();
+        if (graph != null)
+        {
+            final Collection finalStates = graph.getFinalStates();
+            for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext() && !selfTargetting;)
+            {
+                final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
+                if (this.equals(finalState.getTargetUseCase()))
+                {
+                    selfTargetting = true;
+                }
+            }
+        }
+
+        return selfTargetting;
+    }
+
     protected Collection handleGetReferencingFinalStates()
     {
         final Collection referencingFinalStates = getModel().findFinalStatesWithNameOrHyperlink(this);
