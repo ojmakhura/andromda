@@ -9,7 +9,6 @@
 package $service.packageName;
 #end
 
-#set ($superService = $service.generalization)
 /**
  * <p>
  * Spring Service base class for <code>$service.fullyQualifiedName</code>,
@@ -19,8 +18,8 @@ package $service.packageName;
  * @see $service.fullyQualifiedName
  */
 public abstract class $service.baseName
-#if($superService)
-    extends $superService.fullyQualifiedImplementationName
+#if($service.generalization)
+    extends $service.generalization.fullyQualifiedImplementationName
 #end
     implements $service.fullyQualifiedName
 {
