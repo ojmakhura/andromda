@@ -341,7 +341,7 @@ public class StrutsActionLogicImpl
 
     protected String handleGetFormBeanClassName()
     {
-        return getActionClassName() + "Form";
+        return getActionClassName() + "FormImpl";
     }
 
     protected String handleGetFormBeanName()
