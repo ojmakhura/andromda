@@ -396,6 +396,9 @@
                         name of the modeled service.
                     </td>
                     <td>
+                        The pattern of a call to the back-end service layer
+                    </td>
+                    <td>
                         No, by default no accessors to backend-services are configured.
                     </td>
                 </tr>
@@ -412,6 +415,9 @@
                         package.
                     </td>
                     <td>
+                        The package of the back-end service.
+                    </td>
+                    <td>
                         No, default is <code>{0}</code>
                     </td>
                 </tr>
@@ -420,6 +426,9 @@
                     <td>
                         The name of the subpackage that will be used for the generation of
                         <![CDATA[<<Manageable>>]]> entities.
+                    </td>
+                    <td>
+                        The subpackage name of all <![CDATA[<<Manageable>>]]> entities. 
                     </td>
                     <td>
                         No, default is <code>crud</code>
