@@ -195,7 +195,7 @@
 #end
 #end
 
-        <div>
+        <div id="pageHelpSection">
             <blockquote>
 #if ($jsp.validationRequired && ($clientValidation=='true' || $serverValidation=='true'))
                 <bean:message key="required.fields.asterisk"/>
