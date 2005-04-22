@@ -26,6 +26,7 @@
     <property reference="enableMetafacadePropertyCaching" default="true"/>
     <property reference="metaclassImplementationNamePattern" default="{0}$Impl"/>
     <property reference="manageablePackageSuffix" default="crud"/>
+    <property reference="defaultMultiplicity" default="1"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>

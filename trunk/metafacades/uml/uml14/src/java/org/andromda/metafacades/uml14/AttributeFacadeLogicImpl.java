@@ -1,5 +1,8 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.NameMasker;
@@ -7,6 +10,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.datatypes.ChangeableKindEnum;
 import org.omg.uml.foundation.datatypes.Multiplicity;
@@ -14,9 +18,6 @@ import org.omg.uml.foundation.datatypes.MultiplicityRange;
 import org.omg.uml.foundation.datatypes.OrderingKind;
 import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
@@ -182,9 +183,8 @@ public class AttributeFacadeLogicImpl
      */
     private int getMultiplicityRangeLower()
     {
-        int lower = 1;
+        Integer lower = null;
         Multiplicity multiplicity = metaObject.getMultiplicity();
-        // assume no multiplicity is 1
         if (multiplicity != null)
         {
             if (multiplicity != null)
@@ -196,12 +196,35 @@ public class AttributeFacadeLogicImpl
                     while (rangeIt.hasNext())
                     {
                         MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                        lower = multiplicityRange.getLower();
+                        lower = new Integer(multiplicityRange.getLower());
                     }
                 }
             }
         }
-        return lower;
+        if (lower == null)
+        {
+            final String defaultMultiplicity = this.getDefaultMultiplicity();
+            if (defaultMultiplicity.startsWith("0"))
+            {
+                lower = new Integer(0);
+            }
+            else
+            {
+                lower = new Integer(1);
+            }
+        }
+        return lower.intValue();
+    }
+    
+    /**
+     * Gets the default multiplicity for this attribute (the
+     * multiplicity if none is defined).
+     * 
+     * @return the defautl multiplicity as a String.
+     */
+    private String getDefaultMultiplicity()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY));
     }
 
     /**

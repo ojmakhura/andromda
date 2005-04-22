@@ -425,6 +425,25 @@
                         No, default is <code>crud</code>
                     </td>
                 </tr>
+                <tr>
+                    <td>defaultMultiplicity</td>
+                    <td>
+                        Defines the default multiplicity to use when 
+                        no multiplicity is defined for an attribute or association
+                        end.
+                        <ul>
+                            Permitted values are:
+                            <li>0</li>
+                            <li>1</li>
+                        </ul>
+                    </td>
+                    <td>
+                        Attributes and association ends
+                    </td>
+                    <td>
+                        No, default is <code>1</code>.
+                    </td>
+                </tr>
             </table>
             <subsection name="Name Masking Properties">
                 <p>
