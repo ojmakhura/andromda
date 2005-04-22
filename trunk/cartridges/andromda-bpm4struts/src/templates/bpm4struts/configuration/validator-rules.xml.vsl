@@ -252,8 +252,8 @@
                     var matched = datePatternRegExp.exec(value);
 
                     var year = 0;
-                    var month = 0;
-                    var day = 0;
+                    var month = 1;
+                    var day = 1;
                     var hour = 0;
                     var minute = 0;
                     var second = 0;
