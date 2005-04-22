@@ -4,9 +4,15 @@
 #macro ( renderAttribute $field $indent )
 #if ($field.type.fullyQualifiedName == 'boolean' || $field.type.fullyQualifiedName == 'java.lang.Boolean')
 ${indent}<html:checkbox name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName"/>
+#elseif ($field.type.enumeration)
+${indent}<html:select name="manageableForm" property="$field.manageableName">
+#foreach ($literal in $field.type.literals)
+${indent}    <html:option value="$literal.value">$literal.name</html:option>
+#end
+${indent}</html:select>
 #else
 ${indent}<html:text name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName"/>
-#if ($field.dateType)
+#if ($field.type.dateType)
 ${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.manageableName}_trigger" styleClass="calendar"/>
 ${indent}<script type="text/javascript">
 #if ($xhtml == "true")
@@ -43,7 +49,7 @@ ${indent}    <c:when test="${${test}}">
 ${indent}        <select name="$field.manageableName" disabled="disabled"/>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
-#if ($field.resolveable)
+#if ($field.type.resolveable)
 ${indent}        <select name="$field.manageableName">
 ${indent}            <option value=""><bean:message key="select.option.blank"/></option>
 ${indent}            <c:forEach var="valueLabel" items="${${list}}">
@@ -70,7 +76,7 @@ ${indent}</c:choose>
 ##
 ##
 #macro ( renderAssociationLink $field $indent )
-#if ($field.type.preload)## only render the link when the entity can be managed
+#if ($field.type.manageable)## only render the link when the entity can be managed
 ${indent}<html:link action="$field.type.actionPath"><bean:message key="$field.type.messageKey"/></html:link>
 #end
 #end
