@@ -29,10 +29,26 @@ public final class $manageable.actionClassName extends DispatchAction
     {
         final $manageable.formBeanType form = ($manageable.formBeanType)actionForm;
 
+#foreach ($member in $manageable.attributes)
+#if ($member.type.enumeration)
+        if (StringUtils.isNotBlank(request.getParameter("$member.manageableName")))
+        {
+            if (!${member.type.fullyQualifiedName}.literals().contains(form.${member.manageableGetterName}()))
+            {
+                throw new IllegalArgumentException("$member.manageableName must be one of " + ${member.type.fullyQualifiedName}.literals());
+            }
+        }
+
+#end
+#end
         ${manageable.manageableServiceAccessorCall}.create(
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
+#if ($member.type.enumeration)
+            ${comma}${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+#else
             ${comma}form.${member.manageableGetterName}()
+#end
 #set ($comma = ', ')
 #end
         );
@@ -49,7 +65,11 @@ public final class $manageable.actionClassName extends DispatchAction
         final java.util.List list = ${manageable.manageableServiceAccessorCall}.read(
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
+#if ($member.type.enumeration)
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+#else
             ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : form.${member.manageableGetterName}()
+#end
 #set ($comma = ', ')
 #end
         );
@@ -95,10 +115,26 @@ public final class $manageable.actionClassName extends DispatchAction
     {
         final $manageable.formBeanType form = ($manageable.formBeanType) actionForm;
 
+#foreach ($member in $manageable.attributes)
+#if ($member.type.enumeration)
+        if (StringUtils.isNotBlank(request.getParameter("$member.manageableName")))
+        {
+            if (!${member.type.fullyQualifiedName}.literals().contains(form.${member.manageableGetterName}()))
+            {
+                throw new IllegalArgumentException("$member.manageableName must be one of " + ${member.type.fullyQualifiedName}.literals());
+            }
+        }
+
+#end
+#end
         ${manageable.manageableServiceAccessorCall}.update(
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
+#if ($member.type.enumeration)
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+#else
             ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : form.${member.manageableGetterName}()
+#end
 #set ($comma = ', ')
 #end
         );

@@ -4,6 +4,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ManageableEntity;
 
 import java.util.Collection;
 
@@ -28,18 +29,22 @@ public class StrutsManageableEntityAssociationEndLogicImpl
      */
     protected java.lang.String handleGetMessageKey()
     {
-        String messageKey = getName();
+        final StringBuffer messageKeyBuffer = new StringBuffer();
 
-        final ClassifierFacade type = getType();
-        if (type instanceof Entity)
+        final ClassifierFacade ownerType = getOtherEnd().getType();
+        if (ownerType instanceof ManageableEntity)
         {
-            final Collection identifiers = ((Entity)type).getIdentifiers();
-            if (!identifiers.isEmpty())
-            {
-                messageKey = type.getName() + '.' + ((AttributeFacade)identifiers.iterator().next()).getName();
-            }
+            messageKeyBuffer.append(((ManageableEntity)ownerType).getManageableName());
         }
-        return StringUtilsHelper.toResourceMessageKey(messageKey);
+        else
+        {
+            messageKeyBuffer.append(ownerType.getName());
+        }
+
+        messageKeyBuffer.append('.');
+        messageKeyBuffer.append(getName());
+
+        return StringUtilsHelper.toResourceMessageKey(messageKeyBuffer.toString());
     }
 
     /**
