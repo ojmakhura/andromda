@@ -7,7 +7,8 @@ ${indent}<html:checkbox name="manageableForm" property="$field.manageableName" s
 #elseif ($field.type.enumeration)
 ${indent}<html:select name="manageableForm" property="$field.manageableName">
 #foreach ($literal in $field.type.literals)
-${indent}    <html:option value="$literal.value">$literal.name</html:option>
+#if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
+${indent}    <html:option value=${quote}${literal.enumerationValue}${quote}>$literal.name</html:option>
 #end
 ${indent}</html:select>
 #else

@@ -40,18 +40,23 @@ public class $manageable.formBeanClassName
     }
 
 #foreach ($member in $manageable.attributes)
-    private $member.type.fullyQualifiedName $member.manageableName;
+#if ($member.type.enumeration)
+#set ($memberType = $member.type.literalType.fullyQualifiedName)
+#else
+#set ($memberType = $member.type.fullyQualifiedName)
+#end
+    private $memberType $member.manageableName;
 
-    $member.visibility $member.type.fullyQualifiedName ${member.manageableGetterName}()
+    $member.visibility $memberType ${member.manageableGetterName}()
     {
         return this.$member.manageableName;
     }
 
-    $member.visibility void ${member.manageableSetterName}($member.type.fullyQualifiedName $member.manageableName)
+    $member.visibility void ${member.manageableSetterName}($memberType $member.manageableName)
     {
         this.$member.manageableName = $member.manageableName;
     }
-
+    
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($identifier = $member.type.manageableIdentifier)

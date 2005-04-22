@@ -100,13 +100,12 @@
                             sortProperty="$member.manageableName" sortable="true"
                             titleKey="$member.messageKey"/>
 #elseif ($member.type.dateType)
-                        <display:column property="$member.manageableName"
+                        <display:column
                             headerClass="$member.manageableName" paramId="$member.manageableName"
                             sortProperty="$member.manageableName" sortable="true"
                             titleKey="$member.messageKey">
 #set ($dateValue = "row.${member.manageableName}")
-                            <fmt:formatDate var="date" value="${${dateValue}}" pattern="${member.dateFormat}"/>
-                            ${date}
+                            <fmt:formatDate var="date" value="${${dateValue}}" pattern="${member.dateFormat}"/>${date}
                         </display:column>
 #else
                         <display:column property="$member.manageableName"
