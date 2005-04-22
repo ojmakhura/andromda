@@ -141,6 +141,26 @@
         <from>ACTION_REDIRECT</from>
         <to>@andromda.struts.action.redirect</to>
     </mapping>
+    <mapping>
+        <from>DATE_FORMAT</from>
+        <to>@andromda.struts.view.field.dateformat</to>
+    </mapping>
+    <mapping>
+        <from>MANAGEABLE_MAXIMUM_LIST_SIZE</from>
+        <to>@andromda.manageable.table.maxlistsize</to>
+    </mapping>
+    <mapping>
+        <from>MANAGEABLE_PAGE_SIZE</from>
+        <to>@andromda.manageable.table.pagesize</to>
+    </mapping>
+    <mapping>
+        <from>MANAGEABLE_DISPLAY_NAME</from>
+        <to>@andromda.manageable.table.displayname</to>
+    </mapping>
+    <mapping>
+        <from>MANAGEABLE_RESOLVEABLE</from>
+        <to>@andromda.manageable.table.resolveable</to>
+    </mapping>
     <!-- datatype mappings -->
     <mapping>
         <from>CHARACTER_TYPE</from>

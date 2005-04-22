@@ -3,11 +3,11 @@
 ##
 #macro ( renderAttribute $field $indent )
 #if ($field.type.fullyQualifiedName == 'boolean' || $field.type.fullyQualifiedName == 'java.lang.Boolean')
-${indent}<html:checkbox name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName" disabled="true"/>
+${indent}<html:checkbox name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName"/>
 #else
 ${indent}<html:text name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName"/>
-#if ($field.date)
-${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.name}_trigger" styleClass="calendar"/>
+#if ($field.dateType)
+${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.manageableName}_trigger" styleClass="calendar"/>
 ${indent}<script type="text/javascript">
 #if ($xhtml == "true")
 ${indent}//<![CDATA[
@@ -16,11 +16,11 @@ ${indent}//<!--
 #end
 #set ($calendarFieldFormat = $dateUtils.formatJavaToPerl($field.dateFormat))
 ${indent}    Calendar.setup({
-${indent}        inputField     :    "$field.name",
+${indent}        inputField     :    "$field.manageableName",
 ${indent}        ifFormat       :    "$calendarFieldFormat",
 ${indent}        daFormat       :    "$calendarFieldFormat",
 ${indent}        showsTime      :    $dateUtils.containsTimeFormat($calendarFieldFormat),
-${indent}        button         :    "${field.name}_trigger",
+${indent}        button         :    "${field.manageableName}_trigger",
 ${indent}        singleClick    :    true
 ${indent}    });
 #if ($xhtml == "true")
@@ -43,6 +43,7 @@ ${indent}    <c:when test="${${test}}">
 ${indent}        <select name="$field.manageableName" disabled="disabled"/>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
+#if ($field.resolveable)
 ${indent}        <select name="$field.manageableName">
 ${indent}            <option value=""><bean:message key="select.option.blank"/></option>
 ${indent}            <c:forEach var="valueLabel" items="${${list}}">
@@ -59,6 +60,9 @@ ${indent}                    </c:otherwise>
 ${indent}                </c:choose>
 ${indent}            </c:forEach>
 ${indent}        </select>
+#else
+${indent}        <html:text name="manageableForm" property="$field.manageableName"/>
+#end
 ${indent}    </c:otherwise>
 ${indent}</c:choose>
 #end

@@ -9,6 +9,8 @@ import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.ManageableEntity;
 import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -226,12 +228,17 @@ public class ManageableEntityLogicImpl
 
     protected Object handleGetDisplayAttribute()
     {
-        EntityAttribute displayAttribute = null;
+        AttributeFacade displayAttribute = null;
 
-        // @todo : TV ?
+        final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_DISPLAY_NAME);
+        if (taggedValueObject != null)
+        {
+            displayAttribute = findAttribute(StringUtilsHelper.trimToEmpty(taggedValueObject.toString()));
+        }
 
         final Collection attributes = getAttributes();
-        for (Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext() && displayAttribute==null;)
+        for (Iterator attributeIterator = attributes.iterator();
+             attributeIterator.hasNext() && displayAttribute == null;)
         {
             final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
             if (attribute.isUnique())
@@ -254,5 +261,4 @@ public class ManageableEntityLogicImpl
 
         return displayAttribute;
     }
-
 }

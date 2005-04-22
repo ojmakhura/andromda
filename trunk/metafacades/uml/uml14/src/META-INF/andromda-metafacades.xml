@@ -14,6 +14,7 @@
     <property reference="tableNamePrefix" default=""/>
     <property reference="foreignKeySuffix" default="_FK"/>
     <property reference="constraintSuffix" default="C"/>
+    <property reference="manageablePackageSuffix" default="crud"/>
     <property reference="sqlNameSeparator" default="_"/>
     <property reference="classifierNameMask" default="none"/>
     <property reference="operationNameMask" default="none"/>
@@ -25,7 +26,6 @@
     <property reference="parameterNameMask" default="none"/>
     <property reference="enableMetafacadePropertyCaching" default="true"/>
     <property reference="metaclassImplementationNamePattern" default="{0}$Impl"/>
-    <property reference="manageablePackageSuffix" default="crud"/>
     <property reference="defaultMultiplicity" default="1"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>

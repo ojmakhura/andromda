@@ -77,7 +77,7 @@
                 <c:if test="$tablePresentTest">
 #set ($listBean = "manageableForm.${manageable.listName}")
                     <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
-                            export="true" pagesize="15" sort="list">
+                            export="true" pagesize="$manageable.pageSize" sort="list">
                         <display:column media="html" sortable="false">
                             <a href="#" onclick="#renderJavascriptCopyRow($manageable)return false;"><bean:message key="copy.row.values"/></a>
 #if ($manageable.delete)
@@ -86,10 +86,20 @@
 #end
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
+#if ($member.type.booleanType)
+                        <display:column media="html" headerClass="$member.manageableName" titleKey="$member.messageKey"/>
+                            <html:checkbox name="row" property="$member.manageableName" disabled="true"/>
+                        </display:column>
+                        <display:column media="xml csv excel pdf" property="$member.manageableName"
+                            headerClass="$member.manageableName" paramId="$member.manageableName"
+                            sortProperty="$member.manageableName" sortable="true"
+                            titleKey="$member.messageKey"/>
+#else
                         <display:column property="$member.manageableName"
                             headerClass="$member.manageableName" paramId="$member.manageableName"
                             sortProperty="$member.manageableName" sortable="true"
                             titleKey="$member.messageKey"/>
+#end
 #end
                     </display:table>
                 </c:if>
