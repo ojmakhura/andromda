@@ -6,6 +6,7 @@ import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.AssociationEnd;
 import org.omg.uml.foundation.datatypes.AggregationKindEnum;
@@ -276,7 +277,7 @@ public class AssociationEndFacadeLogicImpl
      */
     private int getMultiplicityRangeLower()
     {
-        int lower = 1;
+        Integer lower = null;
         Multiplicity multiplicity = this.metaObject.getMultiplicity();
         if (multiplicity != null)
         {
@@ -287,10 +288,33 @@ public class AssociationEndFacadeLogicImpl
                 while (rangeIt.hasNext())
                 {
                     MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                    lower = multiplicityRange.getLower();
+                    lower = new Integer(multiplicityRange.getLower());
                 }
             }
         }
-        return lower;
+        if (lower == null)
+        {
+            final String defaultMultiplicity = this.getDefaultMultiplicity();
+            if (defaultMultiplicity.startsWith("0"))
+            {
+                lower = new Integer(0);
+            }
+            else
+            {
+                lower = new Integer(1);
+            }
+        }
+        return lower.intValue();
+    }
+    
+    /**
+     * Gets the default multiplicity for this attribute (the
+     * multiplicity if none is defined).
+     * 
+     * @return the defautl multiplicity as a String.
+     */
+    private String getDefaultMultiplicity()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY));
     }
 }

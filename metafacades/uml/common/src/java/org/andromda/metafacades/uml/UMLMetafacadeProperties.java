@@ -180,4 +180,10 @@ public class UMLMetafacadeProperties
      * The namespace property used to identify the pattern used to construct the backend service's package name.
      */
     public static final String SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
+    
+    /**
+     * The namespace property used to define the default multiplicity of
+     * an attribute or association end (when one isn't modeled).
+     */
+    public static final String DEFAULT_MULTIPLICITY = "defaultMultiplicity";
 }
