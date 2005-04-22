@@ -1,8 +1,8 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
 
 
 /**
@@ -129,7 +129,7 @@ public class StrutsManageableEntityLogicImpl
     {
         int maximumListSize = -1;
 
-        final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_MANAGEABLE_MAXIMUM_LIST_SIZE);
+        final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_MAXIMUM_LIST_SIZE);
         if (taggedValueObject != null)
         {
             try
@@ -156,7 +156,8 @@ public class StrutsManageableEntityLogicImpl
         try
         {
             maximumListSize =
-                    Integer.parseInt((String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_MAX_LIST_SIZE));
+                    Integer.parseInt(
+                            (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_MAX_LIST_SIZE));
         }
         catch (NumberFormatException e1)
         {
@@ -170,7 +171,7 @@ public class StrutsManageableEntityLogicImpl
     {
         int pageSize = 20;
 
-        final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_MANAGEABLE_PAGE_SIZE);
+        final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_PAGE_SIZE);
         if (taggedValueObject != null)
         {
             try
@@ -196,7 +197,8 @@ public class StrutsManageableEntityLogicImpl
 
         try
         {
-            pageSize = Integer.parseInt((String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_PAGE_SIZE));
+            pageSize =
+                    Integer.parseInt((String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_PAGE_SIZE));
         }
         catch (NumberFormatException e1)
         {
@@ -210,7 +212,7 @@ public class StrutsManageableEntityLogicImpl
     {
         boolean resolveable = true;
 
-        final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_MANAGEABLE_RESOLVEABLE);
+        final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_RESOLVEABLE);
         if (taggedValueObject != null)
         {
             try
@@ -236,8 +238,8 @@ public class StrutsManageableEntityLogicImpl
 
         try
         {
-            resolveable =
-                    Boolean.valueOf((String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_RESOLVEABLE))
+            resolveable = Boolean.valueOf(
+                    (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE))
                     .booleanValue();
         }
         catch (NumberFormatException e1)

@@ -27,6 +27,9 @@
     <property reference="enableMetafacadePropertyCaching" default="true"/>
     <property reference="metaclassImplementationNamePattern" default="{0}$Impl"/>
     <property reference="defaultMultiplicity" default="1"/>
+    <property reference="defaultResolveable" default="true"/>
+    <property reference="defaultPageSize" default="20"/>
+    <property reference="defaultMaximumListSize" default="250"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>

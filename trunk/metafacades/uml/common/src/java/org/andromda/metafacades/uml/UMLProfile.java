@@ -185,6 +185,21 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_MANAGEABLE_DISPLAY_NAME = profile.get("MANAGEABLE_DISPLAY_NAME");
 
+    /**
+     * The maximum number of records to load from the DB at the same time.
+     */
+    public static final String TAGGEDVALUE_MANAGEABLE_MAXIMUM_LIST_SIZE = profile.get("MANAGEABLE_MAXIMUM_LIST_SIZE");
+
+    /**
+     * The maximum number of records to show at the same time.
+     */
+    public static final String TAGGEDVALUE_MANAGEABLE_PAGE_SIZE = profile.get("MANAGEABLE_PAGE_SIZE");
+
+    /**
+     * Indicates whether or not the underlying entity keys should be resolved when referencing it.
+     */
+    public static final String TAGGEDVALUE_MANAGEABLE_RESOLVEABLE = profile.get("MANAGEABLE_RESOLVEABLE");
+
     /* ----------------- Data Types -------------------- */
 
     /**

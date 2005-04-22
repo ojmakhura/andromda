@@ -120,6 +120,21 @@ public class UMLMetafacadeProperties
     public static final String DEFAULT_IDENTIFIER_VISIBILITY = "defaultIdentifierVisibility";
 
     /**
+     * Are manageable tables resolved by default when referenced ?
+     */
+    public static final String PROPERTY_DEFAULT_RESOLVEABLE = "defaultResolveable";
+
+    /**
+     * Stores the default upper limit for lists.
+     */
+    public static final String PROPERTY_DEFAULT_MAX_LIST_SIZE = "defaultMaximumListSize";
+
+    /**
+     * Stores the default number of records shown per page.
+     */
+    public static final String PROPERTY_DEFAULT_PAGE_SIZE = "defaultPageSize";
+
+    /**
      * The separator used for packages and element names when constructing fully qualified names.
      */
     public static final String NAMESPACE_SEPARATOR = "namespaceSeparator";
