@@ -4,7 +4,6 @@
 
 <beans>
 
-#if (!$ejbsEnabled)
     <!-- CRUD Service Transactional Interceptor -->
     <bean id="manageableServiceTransactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
         <property name="transactionManager"><ref bean="transactionManager"/></property>
@@ -77,6 +76,5 @@
          </property>
      </bean>
 
-#end
 </beans>
 #end

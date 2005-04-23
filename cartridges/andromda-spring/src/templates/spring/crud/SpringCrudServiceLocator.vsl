@@ -1,6 +1,5 @@
 #if (!$manageables.empty)
 #parse("templates/spring/SpringGlobals.vm")
-#if (!$ejbsEnabled)
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -109,5 +108,4 @@ public class ${manageableServiceLocatorName}
 
 #end
 }
-#end
 #end
