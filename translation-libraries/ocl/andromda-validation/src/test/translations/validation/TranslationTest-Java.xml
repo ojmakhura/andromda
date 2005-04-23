@@ -413,6 +413,24 @@
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"selfTargetting"))).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"targetting"))).booleanValue():true)&amp;&amp;Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"xxxselfyyy.notProcessed"))).booleanValue());
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            context org::andromda::translation::validation::Entity inv: attributes -> forAll(not (type.enumeration or type.embedded) implies type.dataType)
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf((Boolean.valueOf(String.valueOf(!(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.enumeration"))).booleanValue()||Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.embedded"))).booleanValue()))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.dataType"))).booleanValue():true))).booleanValue();}}));
+        </to>
+    </expression>
+    
+    <expression>
+        <from>
+            context org::andromda::translation::validation::Entity inv: attributes -> forAll(not (type.enumeration or oclIsKindOf(EmbeddedValue)) implies type.dataType)
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"attributes"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf((Boolean.valueOf(String.valueOf(!(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.enumeration"))).booleanValue()||object instanceof org.andromda.translation.validation.EmbeddedValue))).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"type.dataType"))).booleanValue():true))).booleanValue();}}));
+        </to>
+    </expression>
 
    <!--
     <expression>

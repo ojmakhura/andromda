@@ -887,7 +887,7 @@ public class ValidationJavaTranslator
      * A flag indicating if the expression needs to be converted/wrapped in a Java Boolean instance.
      */
     private boolean requiresBooleanConversion = false;
-
+    
     public void inARelationalExpression(ARelationalExpression node)
     {
         // in this block of code, we determine whether or not
@@ -896,22 +896,28 @@ public class ValidationJavaTranslator
         if (node.getRelationalExpressionTail() == null)
         {
             Object parent = node.parent();
-            String pattern = "[\\w*[\\.|\\s]*]*";
-            String expression = null;
+            Object expression = null;
             if (parent instanceof ALogicalExp)
             {
                 List tails = ((ALogicalExp)parent).getLogicalExpressionTail();
                 if (tails != null && !tails.isEmpty())
                 {
-                    expression = TranslationUtils.trimToEmpty(tails.get(0));
+                    expression = tails.get(0);
+                    // if it's an AND or OR expression set the expression
+                    // to the node
+                    if (OCLPatterns.isAndOrOrExpression(expression))
+                    {
+                        expression = node;
+                    }
                 }
             }
             else if (parent instanceof ALogicalExpressionTail)
             {
-                expression = TranslationUtils.trimToEmpty(node);
+                expression = node;
             }
-            requiresBooleanConversion = expression != null && expression.matches(pattern) && !OCLPatterns.isOperation(
-                    node);
+            requiresBooleanConversion = expression != null 
+                && OCLPatterns.isNavigationalPath(expression) 
+                && !OCLPatterns.isOperation(node);
             if (this.requiresBooleanConversion)
             {
                 this.write(BOOLEAN_WRAP_PREFIX);
