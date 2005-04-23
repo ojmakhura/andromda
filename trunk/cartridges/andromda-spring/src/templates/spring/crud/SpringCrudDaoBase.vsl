@@ -83,7 +83,7 @@ public final class $manageable.manageableDaoBaseName
         try
         {
             final Session session = getSession(false);
-            final Criteria criteria = session.createCriteria(session, ${manageable.fullyQualifiedEntityImplementationName}.class);
+            final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
 
 #foreach ($member in $manageable.attributes)
 #if ($member.type.primitive)
@@ -121,7 +121,7 @@ public final class $manageable.manageableDaoBaseName
         try
         {
             final Session session = getSession(false);
-            final Criteria criteria = session.createCriteria(session, ${manageable.fullyQualifiedEntityImplementationName}.class);
+            final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
             final java.util.List list = criteria.list();
             this.closeSessionIfNecessary(session);
             return list;
@@ -195,7 +195,7 @@ public final class $manageable.manageableDaoBaseName
             // hibernate 3 provides a better way: Query.executeUpdate(query:String) : int
             final Session session = getSession(false);
 
-            final Criteria criteria = session.createCriteria(session, ${manageable.fullyQualifiedEntityImplementationName}.class);
+            final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
             criteria.add(Expression.in("$manageable.identifiers.iterator().next().name", ids));
             final java.util.List list = criteria.list();
             getHibernateTemplate().deleteAll(list);
