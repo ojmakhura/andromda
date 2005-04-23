@@ -10,6 +10,8 @@ import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.ManageableEntity;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ActorFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
@@ -261,4 +263,40 @@ public class ManageableEntityLogicImpl
 
         return displayAttribute;
     }
+
+    protected Collection handleGetUsers()
+    {
+        final Set users = new HashSet();
+
+        final Collection dependencies = getTargetDependencies();
+        for (Iterator dependencyIterator = dependencies.iterator(); dependencyIterator.hasNext();)
+        {
+            final DependencyFacade dependency = (DependencyFacade)dependencyIterator.next();
+            final Object dependencyObject = dependency.getSourceElement();
+
+            if (!users.contains(dependencyObject) && dependencyObject instanceof ActorFacade)
+            {
+                collectActors((ActorFacade)dependencyObject, users);
+            }
+        }
+
+        return new ArrayList(users);
+    }
+
+    private void collectActors(ActorFacade actor, Collection actors)
+    {
+        if (!actors.contains(actor))
+        {
+            actors.add(actor);
+
+            final Collection childActors = actor.getGeneralizedByActors();
+            for (Iterator iterator = childActors.iterator(); iterator.hasNext();)
+            {
+                final ActorFacade childActor = (ActorFacade)iterator.next();
+                collectActors(childActor, actors);
+            }
+        }
+    }
+
+
 }

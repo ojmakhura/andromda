@@ -229,10 +229,10 @@ public class StrutsUseCaseLogicImpl
         {
             users.add(user);
 
-            Collection childUsers = user.getGeneralizedByUsers();
+            final Collection childUsers = user.getGeneralizedByActors();
             for (Iterator iterator = childUsers.iterator(); iterator.hasNext();)
             {
-                StrutsUser childUser = (StrutsUser)iterator.next();
+                final StrutsUser childUser = (StrutsUser)iterator.next();
                 collectUsers(childUser, users);
             }
         }
