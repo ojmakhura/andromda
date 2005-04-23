@@ -522,11 +522,6 @@ public class ValidationJavaTranslator
     public void handleDotFeatureCall(AFeatureCall featureCall)
     {
         this.prependToTranslationLayer(OCL_INTROSPECTOR_INVOKE_PREFIX);
-        String propertyCallExpression = TranslationUtils.deleteWhitespace(featureCall.parent().parent());
-        if (propertyCallExpression.matches(".*\\s?self\\..*"))
-        {
-            write(CONTEXT_ELEMENT_NAME);
-        }
         this.appendToTranslationLayer(",\"");
         this.appendToTranslationLayer(TranslationUtils.deleteWhitespace(featureCall));
         this.appendToTranslationLayer("\"");
@@ -607,8 +602,12 @@ public class ValidationJavaTranslator
                 APropertyCallExpression expression = (APropertyCallExpression)node.parent();
                 String expressionAsString = ConcreteSyntaxUtils.getPrimaryExpression(expression);
                 // remove any references to 'self.' as we write
-                expressionAsString = expressionAsString.replaceAll("self\\.|self", "");
-                if (StringUtils.isNotBlank(expressionAsString))
+                expressionAsString = expressionAsString.replaceAll("self\\.", "");
+                if (OCLFeatures.isSelf(expressionAsString))
+                {
+                    write(CONTEXT_ELEMENT_NAME);
+                }
+                else if (StringUtils.isNotBlank(expressionAsString))
                 {
                     boolean convertToBoolean = false;
                     if (node.parent().parent() instanceof AUnaryExpression)

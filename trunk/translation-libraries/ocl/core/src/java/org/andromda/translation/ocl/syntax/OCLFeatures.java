@@ -90,4 +90,20 @@ public class OCLFeatures
     {
         return TranslationUtils.deleteWhitespace(expression).matches(ALL_PATTERNS);
     }
+    
+    /**
+     * Represents the <em>self</em> keyword in OCL.
+     */
+    private static final String SELF = "self";
+    
+    /**
+     * Indicates if this <code>expression</code> is an instance of the <em>self</em>
+     * key word.
+     * @param expression the expression to check.
+     * @return true/false
+     */
+    public static boolean isSelf(Object expression)
+    {
+        return TranslationUtils.deleteWhitespace(expression).matches(SELF);
+    }
 }

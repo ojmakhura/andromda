@@ -390,6 +390,18 @@
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(name,""));
         </to>
     </expression>
+    
+    <expression>
+        <from>
+            <![CDATA[
+            context StrutsUseCase inv: 
+            pages->isEmpty() implies activityGraph.finalStates->forAll(targetUseCase <> self) 
+             ]]>
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.isEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"pages")))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"activityGraph.finalStates"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"targetUseCase"),contextElement))).booleanValue();}}):true));
+        </to>
+    </expression>
    
    <!-- 
     <expression>
