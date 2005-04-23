@@ -9,6 +9,7 @@ public final class $manageable.manageableValueObjectClassName
     implements java.io.Serializable
 {
 #foreach ($member in $manageable.attributes)
+//$member
     private $member.type.fullyQualifiedName $member.name;
 
     $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
@@ -22,7 +23,6 @@ public final class $manageable.manageableValueObjectClassName
     }
 
 #* THIS IS WHAT WE NEED, IT JUST DOES NOT WORK YET FOR SOME REASON
-//$member
     private $member.type.fullyQualifiedName $member.manageableName;
 
     $member.visibility $member.type.fullyQualifiedName ${member.manageableGetterName}()
@@ -49,5 +49,20 @@ public final class $manageable.manageableValueObjectClassName
         this.$member.manageableName = $member.manageableName;
     }
 
+#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
+#set ($qualifiedType = $member.type.displayAttribute.type.fullyQualifiedName)
+    private $qualifiedType ${member.manageableName}Label;
+
+    $member.visibility $qualifiedType ${member.manageableGetterName}Label()
+    {
+        return this.${member.manageableName}Label;
+    }
+
+    $member.visibility void ${member.manageableSetterName}Label($qualifiedType ${member.manageableName}Label)
+    {
+        this.${member.manageableName}Label = ${member.manageableName}Label;
+    }
+
+#end
 #end
 }

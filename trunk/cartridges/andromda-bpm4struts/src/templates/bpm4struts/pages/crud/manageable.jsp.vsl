@@ -94,9 +94,10 @@
                             <fmt:formatDate var="date" value="${${dateValue}}" pattern="${member.dateFormat}"/>${date}
                         </display:column>
 #else
-                        <display:column property="$member.manageableName"
+#if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)#set($propertySuffix='Label')#else#set($propertySuffix='')#end
+                        <display:column property="${member.manageableName}${propertySuffix}"
                             headerClass="$member.manageableName" paramId="$member.manageableName"
-                            sortProperty="$member.manageableName" sortable="true"
+                            sortProperty="${member.manageableName}${propertySuffix}" sortable="true"
                             titleKey="$member.messageKey"/>
 #end
 #end
