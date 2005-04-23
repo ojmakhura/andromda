@@ -394,23 +394,34 @@
     <expression>
         <from>
             <![CDATA[
-            context StrutsUseCase inv: 
-            pages->isEmpty() implies activityGraph.finalStates->forAll(targetUseCase <> self) 
+            context StrutsUseCase inv:
+            pages->isEmpty() implies activityGraph.finalStates->forAll(targetUseCase <> self)
              ]]>
         </from>
         <to>
             final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLCollections.isEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"pages")))).booleanValue()?org.andromda.translation.ocl.validation.OCLCollections.forAll(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"activityGraph.finalStates"),new org.apache.commons.collections.Predicate(){public boolean evaluate(java.lang.Object object){return Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLExpressions.notEqual(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(object,"targetUseCase"),contextElement))).booleanValue();}}):true));
         </to>
     </expression>
-   
-   <!-- 
+
     <expression>
         <from>
-            context EnumerationFacade 
+            <![CDATA[
+            context StrutsUseCase inv: selfTargetting implies self.targetting and xxxselfyyy.notProcessed
+             ]]>
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure((Boolean.valueOf(String.valueOf(Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"selfTargetting"))).booleanValue())).booleanValue()?Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"targetting"))).booleanValue():true)&amp;&amp;Boolean.valueOf(String.valueOf(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(contextElement,"xxxselfyyy.notProcessed"))).booleanValue());
+        </to>
+    </expression>
+
+   <!--
+    <expression>
+        <from>
+            context EnumerationFacade
             inv : attributes -> forAll(attribute1, attribute2 | attribute1.type = attribute2.type)
         </from>
         <to>
- 
+
         </to>
     </expression>
     -->
