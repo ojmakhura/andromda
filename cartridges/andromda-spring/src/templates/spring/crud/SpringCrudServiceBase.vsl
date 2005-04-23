@@ -136,10 +136,16 @@ public final class $manageable.manageableServiceBaseName
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.manageableIdentifier)
-        $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
+        final $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
+
+#if (!$member.type.primitive)
         if ($member.name != null)
+#end
         {
             valueObject.${member.manageableSetterName}(${member.name}.${member.manageableIdentifier.getterName}());
+#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
+            valueObject.${member.manageableSetterName}Label(${member.name}.${member.type.displayAttribute.getterName}());
+#end
         }
 #end
 #end
