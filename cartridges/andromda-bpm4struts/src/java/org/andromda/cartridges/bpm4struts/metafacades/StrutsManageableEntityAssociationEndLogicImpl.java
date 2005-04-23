@@ -3,10 +3,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ManageableEntity;
-
-import java.util.Collection;
 
 
 /**
