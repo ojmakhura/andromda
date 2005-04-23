@@ -138,7 +138,6 @@ import java.util.Stack;
 public class ValidationJavaTranslator
         extends BaseTranslator
 {
-
     private static Properties features = null;
 
     static
