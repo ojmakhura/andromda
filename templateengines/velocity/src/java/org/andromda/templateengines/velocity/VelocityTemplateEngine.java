@@ -38,12 +38,10 @@ import java.util.Properties;
  * @see http://jakarta.apache.org/velocity/
  */
 public class VelocityTemplateEngine
-        implements TemplateEngine
+    implements TemplateEngine
 {
 
     protected static Logger logger = null;
-
-    private List macrolibs = new ArrayList();
 
     /**
      * The directory we look in to find velocity properties.
@@ -82,9 +80,9 @@ public class VelocityTemplateEngine
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#init(java.lang.String)
      */
-    public void init(String pluginName) throws Exception
+    public void init(final String namespace) throws Exception
     {
-        this.initLogger(pluginName);
+        this.initLogger(namespace);
 
         ExtendedProperties engineProperties = new ExtendedProperties();
 
@@ -118,10 +116,8 @@ public class VelocityTemplateEngine
         {
             // set the file resource path (to the merge location)
             velocityEngine.addProperty(VelocityEngine.FILE_RESOURCE_LOADER_PATH, this.mergeLocation);
-            // we need to reinitialize the velocity engine
-            // with the file resource loader path
         }
-        this.addProperties(pluginName);
+        this.addProperties(namespace);
         this.velocityEngine.init();
     }
 
@@ -177,13 +173,14 @@ public class VelocityTemplateEngine
         {
             for (Iterator namesIterator = templateObjects.keySet().iterator(); namesIterator.hasNext();)
             {
-                String name = (String)namesIterator.next();
-                Object value = templateObjects.get(name);
-                velocityContext.put(name, value);
+                final String name = (String)namesIterator.next();
+                final Object value = templateObjects.get(name);
+                this.velocityContext.put(name, value);
             }
         }
+        System.out.println("The template file: " + templateFile);
         Template template = this.velocityEngine.getTemplate(templateFile);
-        template.merge(velocityContext, output);
+        template.merge(this.velocityContext, output);
     }
 
     /**
@@ -209,13 +206,15 @@ public class VelocityTemplateEngine
         }
         return evaluatedExpression;
     }
+    
+    private final List macroLibraries = new ArrayList();
 
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#getMacroLibraries()
      */
     public List getMacroLibraries()
     {
-        return macrolibs;
+        return this.macroLibraries;
     }
 
     /**
@@ -223,7 +222,7 @@ public class VelocityTemplateEngine
      */
     public void addMacroLibrary(String libraryName)
     {
-        this.macrolibs.add(libraryName);
+        this.macroLibraries.add(libraryName);
     }
 
     /**
@@ -289,7 +288,7 @@ public class VelocityTemplateEngine
     }
 
     /**
-     * Opens a log file for this plugin.
+     * Opens a log file for this namespace.
      *
      * @throws IOException if the file cannot be opened
      */
