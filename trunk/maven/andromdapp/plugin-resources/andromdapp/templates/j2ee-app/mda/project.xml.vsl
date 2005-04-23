@@ -183,6 +183,7 @@
                  <serviceAccessorPattern>{0}.{1}Util.getHome().create()</serviceAccessorPattern>
 #else
                  <serviceAccessorPattern>${pom.package}.ServiceLocator.instance().get{1}()</serviceAccessorPattern>
+                 <manageableServiceAccessorPattern>${pom.package}.ManageableServiceLocator.instance().get{1}()</manageableServiceAccessorPattern>
 #end
                  <mergeMappingsUri>file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</mergeMappingsUri>
             </properties>
