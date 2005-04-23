@@ -1,5 +1,14 @@
 #set ($generatedFile = "${manageable.actionFullPath}.java")
 ##
+##  convencience macro
+##
+#macro ( memberNull $member )
+#if (!$member.type.primitive)
+null#elseif ($member.type.fullyQualifiedName == 'boolean')
+false#else
+0#end
+#end
+##
 ##  START TEMPLATE
 ##
 // license-header java merge-point
@@ -66,9 +75,9 @@ public final class $manageable.actionClassName extends DispatchAction
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.enumeration)
-            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
 #else
-            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : form.${member.manageableGetterName}()
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : form.${member.manageableGetterName}()
 #end
 #set ($comma = ', ')
 #end
@@ -131,9 +140,9 @@ public final class $manageable.actionClassName extends DispatchAction
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.enumeration)
-            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
 #else
-            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? null : form.${member.manageableGetterName}()
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : form.${member.manageableGetterName}()
 #end
 #set ($comma = ', ')
 #end

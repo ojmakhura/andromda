@@ -28,26 +28,12 @@
             <input type="hidden" name="$manageable.actionParameter" value=""/>
             <div id="criteria">
                 <table>
-#set ($relationsRendered = false)
 #foreach ($member in $manageable.attributes)
                     <tr>
                         <td><bean:message key="$member.messageKey"/></td>
                         <td>
 #renderAttribute($member "                            ")
                         </td>
-#if ($manageable.referencingManageables.size() > 0 && !$relationsRendered)
-#set ($relationsRendered = true)
-                        <td rowspan="$manageable.manageableMembers.size()">
-                            <div id="relations">
-                                <p><bean:message key="other.managable.entities.referencing.this.entity"/></p>
-                                <ul>
-#foreach ($referencingManageable in $manageable.referencingManageables)
-                                    <li><html:link action="$referencingManageable.actionPath">$referencingManageable.manageableName</html:link></li>
-#end
-                                </ul>
-                            </div>
-                        </td>
-#end
                     </tr>
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
