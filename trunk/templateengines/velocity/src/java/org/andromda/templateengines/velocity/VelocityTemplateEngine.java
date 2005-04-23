@@ -175,10 +175,9 @@ public class VelocityTemplateEngine
         // copy the templateObjects to the velocityContext
         if (templateObjects != null)
         {
-            Iterator namesIt = templateObjects.keySet().iterator();
-            while (namesIt.hasNext())
+            for (Iterator namesIterator = templateObjects.keySet().iterator(); namesIterator.hasNext();)
             {
-                String name = (String)namesIt.next();
+                String name = (String)namesIterator.next();
                 Object value = templateObjects.get(name);
                 velocityContext.put(name, value);
             }
