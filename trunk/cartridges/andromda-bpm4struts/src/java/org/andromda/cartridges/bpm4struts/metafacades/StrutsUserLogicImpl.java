@@ -24,38 +24,6 @@ public class StrutsUserLogicImpl
         super(metaObject, context);
     }
 
-    protected java.util.Collection handleGetGeneralizedUsers()
-    {
-        List generalizedUsers = new ArrayList();
-
-        final Collection parentActors = this.getGeneralizations();
-        for (Iterator iterator = parentActors.iterator(); iterator.hasNext();)
-        {
-            Object object = iterator.next();
-            if (object instanceof StrutsUser)
-            {
-                generalizedUsers.add(object);
-            }
-        }
-        return parentActors;
-    }
-
-    protected java.util.Collection handleGetGeneralizedByUsers()
-    {
-        List generalizedByUsers = new ArrayList();
-
-        final Collection parentActors = this.getSpecializations();
-        for (Iterator iterator = parentActors.iterator(); iterator.hasNext();)
-        {
-            Object object = iterator.next();
-            if (object instanceof StrutsUser)
-            {
-                generalizedByUsers.add(object);
-            }
-        }
-        return parentActors;
-    }
-
     protected boolean handleIsAssociatedWithStrutsUseCase()
     {
         boolean associated = false;
@@ -71,7 +39,7 @@ public class StrutsUserLogicImpl
         // a generalized user is a StrutsUser, and therefore is associated with the StrutsUseCase
         if (associated == false)
         {
-            associated = !getGeneralizedUsers().isEmpty();
+            associated = !getGeneralizedActors().isEmpty();
         }
 
         return associated;
