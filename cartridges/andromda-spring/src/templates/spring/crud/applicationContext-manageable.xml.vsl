@@ -33,11 +33,10 @@
     </bean>
 
 #end
-
 #foreach ($manageable in $manageables)
      <!-- $manageable.manageableDaoName Entity Proxy -->
      <bean id="$manageable.manageableDaoName" class="org.springframework.aop.framework.ProxyFactoryBean">
-         <property name="target"><ref bean="$manageable.manageableDaoBaseName"/></property>
+         <property name="target"><ref local="$manageable.manageableDaoBaseName"/></property>
          <property name="proxyInterfaces">
              <value>$manageable.fullyQualifiedManageableDaoName</value>
          </property>
@@ -77,7 +76,7 @@
              </list>
          </property>
      </bean>
-#end
 
+#end
 </beans>
 #end
