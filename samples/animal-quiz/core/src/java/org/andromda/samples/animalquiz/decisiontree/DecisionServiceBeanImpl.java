@@ -23,6 +23,7 @@ public class DecisionServiceBeanImpl
             {
                 dItem = AnimalFactory.create("elephant", true);
                 sess.save(dItem);
+                sess.flush();
             }
             else
             {
