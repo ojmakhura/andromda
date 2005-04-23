@@ -77,11 +77,24 @@ ${indent}</c:choose>
 ##
 ##
 #macro ( renderAssociationLink $field $indent )
-#if ($field.type.manageable)## only render the link when the entity can be managed
-${indent}<html:link action="$field.type.actionPath"><bean:message key="$field.type.messageKey"/></html:link>
+#if ($field.type.manageable)## only render the link when the entity can be managed too
+${indent}<logic:present role="#commaSeparatedNames($field.type.users)">
+${indent}    <html:link action="$field.type.actionPath"><bean:message key="$field.type.messageKey"/></html:link>
+${indent}</logic:present>
+${indent}<logic:notPresent role="#commaSeparatedNames($field.type.users)">
+${indent}    <bean:message key="$field.type.messageKey"/>
+${indent}</logic:notPresent>
 #end
 #end
 ##
 ## This stuff *must* be rendered on a single line
 ##
 #macro ( renderJavascriptCopyRow $manageable )#foreach($member in $manageable.manageableMembers)#set($property = "row.${member.manageableName}")document.${manageable.formBeanName}.${member.manageableName}.value='${${property}}';#end#end
+##
+## convenient helper for converting collections into strings
+##
+#macro (commaSeparatedNames $items)
+#set($comma='')
+#foreach($item in $items)${comma}${item.name}#set($comma=',')#end
+#end
+##
