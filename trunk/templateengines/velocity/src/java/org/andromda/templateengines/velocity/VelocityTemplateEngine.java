@@ -178,7 +178,6 @@ public class VelocityTemplateEngine
                 this.velocityContext.put(name, value);
             }
         }
-        System.out.println("The template file: " + templateFile);
         Template template = this.velocityEngine.getTemplate(templateFile);
         template.merge(this.velocityContext, output);
     }
