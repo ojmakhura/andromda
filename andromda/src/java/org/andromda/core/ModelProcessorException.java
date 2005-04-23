@@ -1,41 +1,45 @@
 package org.andromda.core;
 
 /**
- * Any unchecked exception that will be thrown during the execution of the ModelProcessor
+ * Any unchecked exception that will be thrown during the execution of the
+ * ModelProcessor
  */
 public class ModelProcessorException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of ModelProcessorException.
-     *
-     * @param th
+     * 
+     * @param parent the parent throwable.
      */
-    public ModelProcessorException(Throwable th)
+    public ModelProcessorException(
+        Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of ModelProcessorException.
-     *
-     * @param msg
+     * 
+     * @param message the exception message.
      */
-    public ModelProcessorException(String msg)
+    public ModelProcessorException(
+        String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of ModelProcessorException.
-     *
-     * @param msg
-     * @param th
+     * 
+     * @param message the exception message.
+     * @param parent the parent throwable.
      */
-    public ModelProcessorException(String msg, Throwable th)
+    public ModelProcessorException(
+        String message,
+        Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

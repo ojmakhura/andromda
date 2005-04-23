@@ -158,7 +158,7 @@ public class VelocityTemplateEngine
 
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(java.lang.String, java.util.Map,
-            *      java.io.StringWriter)
+     *      java.io.StringWriter)
      */
     public void processTemplate(String templateFile, Map templateObjects, Writer output) throws Exception
     {

@@ -33,7 +33,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * <p/>
+ * <p>
  * The main entry point to the framework, handles the loading/processing of models by plugins. Facilitates Model Driven
  * Architecture by enabling the generation of source code, configuration files, and other such artifacts from a single
  * or multiple <code>MOF</code> models. </p>
