@@ -28,14 +28,10 @@ public class SpringManageableEntityAssociationEndLogicImpl
         String referenceName = null;
 
         final ClassifierFacade type = getType();
-        if (type != null)
+        if (type instanceof SpringManageableEntity)
         {
-            final char[] name = getName().toCharArray();
-            if (name.length > 0)
-            {
-                name[0] = Character.toLowerCase(name[0]);
-            }
-            referenceName = new String(name) + "Dao";
+            final SpringManageableEntity entity = (SpringManageableEntity)type;
+            referenceName = entity.getBeanName(false);
         }
 
         return referenceName;
