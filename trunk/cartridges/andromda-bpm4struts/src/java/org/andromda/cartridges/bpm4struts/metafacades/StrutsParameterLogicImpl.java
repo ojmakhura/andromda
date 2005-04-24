@@ -759,7 +759,18 @@ public class StrutsParameterLogicImpl
             for (Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
             {
                 final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
-                tableColumnsMap.put(parameter.getName(), parameter);
+                final String parameterName = parameter.getName();
+                if (parameterName != null)
+                {
+                    // never overwrite column specific table links
+                    // the hyperlink table links working on a real column get priority
+                    final StrutsParameter existingParameter = (StrutsParameter)tableColumnsMap.get(parameterName);
+                    if (existingParameter == null ||
+                            (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())))
+                    {
+                        tableColumnsMap.put(parameterName, parameter);
+                    }
+                }
             }
         }
 
@@ -809,7 +820,7 @@ public class StrutsParameterLogicImpl
                 }
             }
         }
-        else if (isControllerOperationArgument())
+        else if (isControllerOperationArgument())   // @todo: remove (wouter)
         {
             tableColumnNames = new HashSet();
             final String name = StringUtils.trimToEmpty(getName());
@@ -1602,9 +1613,7 @@ public class StrutsParameterLogicImpl
     private boolean isRangeFormat(String format)
     {
         return "range".equalsIgnoreCase(getToken(format, 0, 2)) && (isValidatorInteger() || isValidatorLong() ||
-                isValidatorShort() ||
-                isValidatorFloat() ||
-                isValidatorDouble());
+                isValidatorShort() || isValidatorFloat() || isValidatorDouble());
 
     }
 
