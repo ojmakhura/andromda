@@ -105,7 +105,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetExceptionPath()
     {
-        return getActionPath() + ".do";
+        return getPageFullPath();
     }
 
     protected java.lang.String handleGetActionFullPath()
