@@ -18,6 +18,8 @@ import org.apache.struts.actions.DispatchAction;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -84,6 +86,13 @@ public final class $manageable.actionClassName extends DispatchAction
         );
         form.${manageable.listSetterName}(list);
 
+#if ($manageable.maximumListSize > 0)
+        if (list.size() >= $manageable.maximumListSize)
+        {
+            saveMaxResultsWarning(request);
+        }
+
+#end
 #if (!$manageable.manageableAssociationEnds.empty)
         final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
 #foreach ($member in $manageable.manageableAssociationEnds)
@@ -103,6 +112,13 @@ public final class $manageable.actionClassName extends DispatchAction
         final java.util.List list = ${manageable.manageableServiceAccessorCall}.readAll();
         form.${manageable.listSetterName}(list);
 
+#if ($manageable.maximumListSize > 0)
+        if (list.size() >= $manageable.maximumListSize)
+        {
+            saveMaxResultsWarning(request);
+        }
+
+#end
 #if (!$manageable.manageableAssociationEnds.empty)
         final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
 #foreach ($member in $manageable.manageableAssociationEnds)
@@ -167,6 +183,19 @@ public final class $manageable.actionClassName extends DispatchAction
         }
 
         return preload(mapping, actionForm, request, response);
+    }
+
+#end
+#if ($manageable.maximumListSize > 0)
+    private void saveMaxResultsWarning(HttpServletRequest request)
+    {
+        ActionMessages messages = (ActionMessages)request.getAttribute("$warningMessagesKey");
+        if (messages == null)
+        {
+            messages = new ActionMessages();
+            request.setAttribute("$warningMessagesKey", messages);
+        }
+        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("maximum.results.fetched.warning", "$manageable.maximumListSize"));
     }
 
 #end
