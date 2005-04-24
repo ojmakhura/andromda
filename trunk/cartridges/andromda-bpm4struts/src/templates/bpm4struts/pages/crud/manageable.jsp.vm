@@ -82,10 +82,10 @@ ${indent}</c:choose>
 ${indent}<logic:present role="#commaSeparatedNames($field.type.users)">
 #end
 ${indent}    <html:link action="$field.type.actionPath"><bean:message key="$field.type.messageKey"/></html:link>
+#if ($security == 'true')
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="#commaSeparatedNames($field.type.users)">
 ${indent}    <bean:message key="$field.type.messageKey"/>
-#if ($security == 'true')
 ${indent}</logic:notPresent>
 #end
 #end
