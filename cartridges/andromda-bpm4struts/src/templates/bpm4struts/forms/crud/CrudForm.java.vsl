@@ -1,5 +1,19 @@
 #set ($generatedFile = "${manageable.formBeanFullPath}.java")
 ##
+##
+##
+#macro (resetField $fieldName $fieldType)
+#if ($fieldType.primitive)
+#if ($fieldType.fullyQualifiedName == 'boolean')
+$fieldName = false;
+#else
+$fieldName = 0;
+#end
+#else
+$fieldName = null;
+#end
+#end
+##
 ##  START TEMPLATE
 ##
 // license-header java merge-point
@@ -85,8 +99,18 @@ public class $manageable.formBeanClassName
     }
 
 #end
-
-// @todo: reset
-// @todo: validate
-// @todo: toString
+    /**
+     * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
+     */
+    public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
+    {
+#foreach ($member in $manageable.attributes)
+        #resetField($member.manageableName $member.type)
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+#set ($identifier = $member.type.manageableIdentifier)
+        #resetField($member.manageableName $identifier.type)
+        ${member.manageableName}BackingList = null;
+#end
+    }
 }
