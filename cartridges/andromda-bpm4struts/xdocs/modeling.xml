@@ -56,21 +56,21 @@
             </subsection>
 
             <subsection name="Supported Tagged Values">
-                <p class="std">
+                <p>
                     Sometimes it happens you want to add information to the model but there is no clean way of doing it.
                     In those cases you may want to resort to tagged values, but these cases should be considered with
                     caution. A tagged value is something extra, something optional, and the application should
                     run fine without them.
                 </p>
-                <p class="std">
+                <p>
                     Bpm4struts allows you to add tagged values here and there but provides a default value
                     in case they are missing.
                 </p>
-                <p class="std">
+                <p>
                     What follows is a table indicating on which model element the tagged value applies
                     and a description of the meaning.
                 </p>
-                <p class="std">
+                <p>
                     <table cellpadding="5" rules="all">
                         <tr>
                             <th>Tagged value</th>
@@ -330,12 +330,12 @@
                         </tr>	
                     </table>
                 </p>
-                <p class="std">
+                <p>
                     (*) See below for the difference between both action types
                     <br/>
                     (**) For information on how to specify field validation formats see the table below.
                 </p>
-                <p class="std">
+                <p>
                     <table cellpadding="5" rules="all">
                         <tr>
                             <th>Type</th>
@@ -396,7 +396,7 @@
                         </tr>
                     </table>
                 </p>
-                <p class="std">
+                <p>
                     (*) The format is specified by the java.text.SimpleDateFormat class from the Java 2 SDK, please
                     refer to the JavaDoc documentation of that class for more information, this format is case-sensitive
                     <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">
