@@ -142,7 +142,7 @@ public final class $manageable.manageableDaoBaseName
         {
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($identifier = $member.manageableIdentifier)
-            lists.put("${member.manageableName}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityName item").list());
+            lists.put("${member.manageableName}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityName item order by item.$member.type.displayAttribute.name").list());
 #end
         }
         catch (HibernateException ex)
