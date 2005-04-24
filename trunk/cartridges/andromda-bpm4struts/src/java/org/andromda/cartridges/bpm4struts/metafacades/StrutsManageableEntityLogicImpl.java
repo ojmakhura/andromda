@@ -1,8 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.andromda.metafacades.uml.UMLProfile;
 
 
 /**
@@ -72,7 +70,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetPageName()
     {
-        return getName().toLowerCase() + "-manageable.jsp";
+        return getName().toLowerCase() + "-crud.jsp";
     }
 
     protected String handleGetPageFullPath()
