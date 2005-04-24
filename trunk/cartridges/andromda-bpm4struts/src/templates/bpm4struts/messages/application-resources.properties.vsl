@@ -219,10 +219,10 @@ ${messageKey}.exception={0} (java.lang.Exception)
 #end ## for each use-case
 
 
+#if (!$manageables.empty)
 #
 #   Messages related to entity management (CRUD)
 #
-#if (!$manageables.empty)
 
 button.create=Create
 button.read=Search
