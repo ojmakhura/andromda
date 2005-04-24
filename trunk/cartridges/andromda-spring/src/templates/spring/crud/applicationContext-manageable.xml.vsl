@@ -31,7 +31,6 @@
         </property>
     </bean>
 
-#end
 #foreach ($manageable in $manageables)
      <!-- $manageable.manageableDaoName Entity Proxy -->
      <bean id="$manageable.manageableDaoName" class="org.springframework.aop.framework.ProxyFactoryBean">
@@ -76,5 +75,6 @@
          </property>
      </bean>
 
+#end
 </beans>
 #end
