@@ -227,11 +227,12 @@ button.update=Update
 button.delete=Delete
 
 copy.row.values=Copy
+referencing.entity.marker= *
 select.option.blank=-- Select --
 other.managable.entities.referencing.this.entity=Related entities:
 select.other.entity=Select other entity:
 entity.management=Entity Management (click)
-maximum.results.fetched.warning=Maximum of {0} records retrieved, more records may be available. Please specify more search criteria to narrow result set.
+maximum.results.fetched.warning=Maximum of {0} records retrieved, other records may be available. Please specify more search criteria to narrow result set.
 
 #foreach ($manageable in $manageables)
 $manageable.messageKey=$manageable.messageValue
