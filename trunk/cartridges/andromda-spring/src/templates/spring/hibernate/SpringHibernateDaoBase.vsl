@@ -614,7 +614,7 @@ public abstract class $entity.daoBaseName
      * {@link $entity.daoImplementationName} class if you intend to use reporting queries.
      * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
      */
-    protected $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(Object[] entity)
+    protected $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(Object[] row)
     {
         return null;
     }
@@ -624,7 +624,7 @@ public abstract class $entity.daoBaseName
      * (which result in an array of objects) to {@link ${valueObjectRef.targetElement.fullyQualifiedName}}
      * using the Jakarta Commons-Collections Transformation API.
      */
-    private final org.apache.commons.collections.Transformer ${valueObjectRef.transformationAnonymousName} =
+    private final org.apache.commons.collections.Transformer $valueObjectRef.transformationAnonymousName =
         new org.apache.commons.collections.Transformer()
         {
             public Object transform(Object input)
