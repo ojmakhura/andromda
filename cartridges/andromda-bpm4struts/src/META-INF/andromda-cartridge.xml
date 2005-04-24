@@ -40,6 +40,8 @@
     <property reference="xmlEncoding" default="UTF-8"/>
     <!-- generate id attribute in web.xml elements -->
     <property reference="generateWebXmlIds" default="false"/>
+    <!-- the maximum number of characters to allow in a managed entity's table (truncated using an ellipsis) -->
+    <property reference="manageableFieldMaxLenght" default="36"/>
     <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->

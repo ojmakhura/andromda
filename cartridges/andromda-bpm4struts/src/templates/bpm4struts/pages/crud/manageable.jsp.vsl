@@ -83,22 +83,19 @@
                         </display:column>
                         <display:column media="xml csv excel pdf" property="$member.manageableName"
                             headerClass="$member.manageableName" paramId="$member.manageableName"
-                            sortProperty="$member.manageableName" sortable="true"
-                            titleKey="$member.messageKey"/>
+                            sortProperty="$member.manageableName" sortable="true" titleKey="$member.messageKey"/>
 #elseif ($member.type.dateType)
-                        <display:column
-                            headerClass="$member.manageableName" paramId="$member.manageableName"
-                            sortProperty="$member.manageableName" sortable="true"
-                            titleKey="$member.messageKey">
+                        <display:column media="all"
+                            headerClass="$member.manageableName" paramId="$member.manageableName" maxLength="$manageableFieldMaxLenght"
+                            sortProperty="$member.manageableName" sortable="true" titleKey="$member.messageKey">
 #set ($dateValue = "row.${member.manageableName}")
                             <fmt:formatDate var="date" value="${${dateValue}}" pattern="${member.dateFormat}"/>${date}
                         </display:column>
 #else
 #if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)#set($propertySuffix='Label')#else#set($propertySuffix='')#end
-                        <display:column property="${member.manageableName}${propertySuffix}"
-                            headerClass="$member.manageableName" paramId="$member.manageableName"
-                            sortProperty="${member.manageableName}${propertySuffix}" sortable="true"
-                            titleKey="$member.messageKey"/>
+                        <display:column media="all" property="${member.manageableName}${propertySuffix}"
+                            headerClass="$member.manageableName" paramId="$member.manageableName" maxLength="$manageableFieldMaxLenght"
+                            sortProperty="${member.manageableName}${propertySuffix}" sortable="true" titleKey="$member.messageKey"/>
 #end
 #end
                     </display:table>
