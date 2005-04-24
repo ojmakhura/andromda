@@ -78,12 +78,16 @@ ${indent}</c:choose>
 ##
 #macro ( renderAssociationLink $field $indent )
 #if ($field.type.manageable)## only render the link when the entity can be managed too
+#if ($security == 'true')
 ${indent}<logic:present role="#commaSeparatedNames($field.type.users)">
+#end
 ${indent}    <html:link action="$field.type.actionPath"><bean:message key="$field.type.messageKey"/></html:link>
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="#commaSeparatedNames($field.type.users)">
 ${indent}    <bean:message key="$field.type.messageKey"/>
+#if ($security == 'true')
 ${indent}</logic:notPresent>
+#end
 #end
 #end
 ##
