@@ -49,6 +49,11 @@ public class ModelFacadeLogicImpl
         return metaObject.getUseCases().getUseCase().refAllOfType();
     }
 
+    protected Collection handleGetAllClasses()
+    {
+        return metaObject.getCore().getUmlClass().refAllOfType();
+    }
+
     // ------------------------------------------------------------
 
     protected UseCaseFacade handleFindUseCaseWithTaggedValueOrHyperlink(String tag, String value)
