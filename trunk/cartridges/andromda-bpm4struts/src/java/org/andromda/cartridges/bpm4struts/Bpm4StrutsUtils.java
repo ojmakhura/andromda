@@ -1,7 +1,12 @@
 package org.andromda.cartridges.bpm4struts;
 
+import org.andromda.metafacades.uml.ManageableEntity;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -11,7 +16,7 @@ import java.util.regex.Pattern;
  *
  * @author Wouter Zoons
  */
-public class Bpm4StrutsUtils
+public final class Bpm4StrutsUtils
 {
     /**
      * Creates and returns a List from an <code>enumeration</code>.
@@ -133,5 +138,28 @@ public class Bpm4StrutsUtils
 
         int leftParen = validatorTaggedValue.indexOf('(');
         return (leftParen == -1) ? validatorTaggedValue : validatorTaggedValue.substring(0, leftParen);
+    }
+
+    /**
+     * Sorts a collection of Manageable entities according to their 'manageableName' property.
+     * Returns a new collection.
+     */
+    public static Collection sortManageables(Collection collection)
+    {
+        final List sorted = new ArrayList(collection);
+        Collections.sort(sorted, new ManageableEntityComparator());
+        return sorted;
+    }
+
+    private final static class ManageableEntityComparator
+            implements Comparator
+    {
+        public int compare(Object left, Object right)
+        {
+            ManageableEntity leftEntity = (ManageableEntity)left;
+            ManageableEntity rightEntity = (ManageableEntity)right;
+            return StringUtils.trimToEmpty(leftEntity.getName()).compareTo(
+                    StringUtils.trimToEmpty(rightEntity.getName()));
+        }
     }
 }

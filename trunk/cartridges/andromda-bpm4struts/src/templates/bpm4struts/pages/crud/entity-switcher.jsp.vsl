@@ -1,4 +1,5 @@
 #if (!$manageables.empty)
+#set ($manageables = $bpmUtils.sortManageables($manageables))
 #parse("templates/bpm4struts/pages/crud/manageable.jsp.vm")
 <%@ include file="/taglib-imports.jspf" %>
 
@@ -6,12 +7,13 @@
 <html:xhtml/>
 
 #end
-
 <div id="entitySwitcher">
     <bean:message key="select.other.entity"/>
     <select onchange="document.location=this.options[this.selectedIndex].value;">
 #foreach ($manageable in $manageables)
+#if ($security == 'true')
         <logic:present role="#commaSeparatedNames($manageable.users)">
+#end
             <c:choose>
 #set ($test = "manageableForm.currentEntity eq '$manageable.manageableName'")
                 <c:when test="${${test}}">
@@ -21,7 +23,9 @@
                     <option value="<html:rewrite page="${manageable.actionPath}.do"/>">$manageable.manageableName</option>
                 </c:otherwise>
             </c:choose>
+#if ($security == 'true')
         </logic:present>
+#end
 #end
     </select>
 </div>
