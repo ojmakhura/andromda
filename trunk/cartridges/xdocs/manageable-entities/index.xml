@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <title>AndroMDA - Manageable Entities - Introduction</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="Abstract">
+            <p class="abstract">
+                These pages describe an AndroMDA feature called <em>Manageable Entities</em>, probably better known
+                as <em>CRUD</em>. This feature is something which can optionally be applied on existing
+                <![CDATA[<<Entity>>]]> elements so that it becomes very easy to manage them: creation, searching,
+                updating and deleting.
+            </p>
+            <p class="highlight">
+                This feature is experimental and in an early stage but since it's already working nicely on at least
+                one project in production we decided to make it available nonetheless,
+                please report any issues you encounter. <em>THIS FEATURE IS STILL UNDER DEVELOPMENT</em>
+            </p>
+        </section>
+
+        <section name="Introduction">
+            <p>
+                An always recurring feature in J2EE applications is the one where it needs to be possible to
+                directly maintain or manage the data in the database. Customers expect pages or windows which nicely
+                integrate with the rest of the application and that allow them to apply any kind of change against
+                the existing database content.
+            </p>
+            <p>
+                AndroMDA supports this, and can generate the complete set of required files and resources as to be
+                able to manage the entities. Currently this is supported in each of these cartridges:
+            </p>
+            <p>
+                <ul>
+                    <li><strong>bpm4struts</strong>: generates all pages, action forms, actions, struts-config, i18n,
+                        security, input validation, etc...</li>
+                    <li><strong>spring</strong>: generates separate DAOs and services dedicated and optimized
+                        for efficiently calling the backend data-source for these CRUD operations</li>
+                </ul>
+            </p>
+            <p>
+                So if you're already using AndroMDA with the bpm4struts and Spring cartridges you will be able to
+                get things up and running in no-time.
+            </p>
+            <p>
+                Interesting to note is that the generated CRUD pages, services and DAOs nicely integrate with the
+                rest of the generated code: the Hibernate SessionFactory is reused, Spring transaction manager,
+                Struts configuration, CSS styles, Web security etc...
+            </p>
+        </section>
+
+        <section name="So what do I do ?">
+            <p>
+                It's extremely simple: just add a <![CDATA[<<Manageable>>]]> stereotype to each class carrying an
+                <![CDATA[<<Entity>>]]> stereotype you wish to manage. Currently there is a restriction where you also
+                will need to add this stereotype on the entities associated with this one.
+            </p>
+            <p>
+                Make sure the bpm4struts cartridge knows how to call the back-end, set this namespace property:
+                <code><manageableServiceAccessorPattern>${pom.package}.ManageableServiceLocator.instance().get{1}()</manageableServiceAccessorPattern></code>.
+                (when not using EJB session beans, this feature's compatibility has not yet been fully tested with
+                EJBs enabled)
+            </p>
+            <p>
+                Make sure the schema in your database exists before actually calling the manageable actions, or you'll
+                get an exception saying the operation could not be performed (obviously).
+            </p>
+        </section>
+
+        <section name="Features">
+            <p>
+                todo: add more docs here
+            </p>
+            <p>
+                <img src="images/crud-thumb.gif"/>
+                <a href="images/crud-screen.gif">(Larger View)</a>
+            </p>
+        </section>
+
+    </body>
+</document>
