@@ -95,6 +95,21 @@
                     different events, then the hyperlink events with take priority, meaning you will never see any
                     input widget for those parameters in an hyperlink event.
                 </p>
+                <p>
+                    It's possible to have an image instead of an hyperlink or button, for this you'll have to
+                    use the <code>@andromda.struts.action.type=image</code> tagged value on the event transition.
+                    An entry in the resource bundle will be generated for the image, and the value will be resolved
+                    against the current contextPath (much like the struts tags taking a <code>page</code> attribute).
+                </p>
+                <p>
+                    This has the advantage that the image can be i18n'ed, allowing you to display a different image
+                    per language or locale.
+                </p>
+                <p class="highlight">
+                    By default the image will be missing from the generated application, you will have to add it
+                    manually to your source directory and have it copied into the war bundle. You can use the
+                    <a href="tips.html">copy-over</a> feature to achieve this.
+                </p>
             </subsection>
             <subsection name="Multibox">
                 <p>
