@@ -76,9 +76,10 @@ public final class $manageable.manageableDaoBaseName
 #if ($manageable.read)
     public java.util.List read($memberList)
     {
+        final Session session = getSession(false);
+
         try
         {
-            final Session session = getSession(false);
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
 
 #foreach ($member in $manageable.attributes)
@@ -105,32 +106,37 @@ public final class $manageable.manageableDaoBaseName
             criteria.setMaxResults($manageable.maximumListSize);
 
 #end
-            final java.util.List list = criteria.list();
-            this.closeSessionIfNecessary(session);
-            return list;
+            return criteria.list();
         }
         catch (net.sf.hibernate.HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }
+        finally
+        {
+            this.closeSessionIfNecessary(session);
+        }
     }
 
     public java.util.List readAll()
     {
+        final Session session = getSession(false);
+
         try
         {
-            final Session session = getSession(false);
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
 #if ($manageable.maximumListSize > 0)
             criteria.setMaxResults($manageable.maximumListSize);
 #end
-            final java.util.List list = criteria.list();
-            this.closeSessionIfNecessary(session);
-            return list;
+            return criteria.list();
         }
         catch (HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
+        }
+        finally
+        {
+            this.closeSessionIfNecessary(session);
         }
     }
 
@@ -151,8 +157,11 @@ public final class $manageable.manageableDaoBaseName
         {
             throw super.convertHibernateAccessException(ex);
         }
+        finally
+        {
+            this.closeSessionIfNecessary(session);
+        }
 
-        this.closeSessionIfNecessary(session);
         return lists;
     }
 
@@ -192,21 +201,23 @@ public final class $manageable.manageableDaoBaseName
                 "${manageable.fullyQualifiedManageableDaoBaseName}.delete(${identifier.type.fullyQualifiedName}[] ids) - 'ids' cannot be null");
         }
 
+        final Session session = getSession(false);
+
         try
         {
             // hibernate 3 provides a better way: Query.executeUpdate(query:String) : int
-            final Session session = getSession(false);
-
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
             criteria.add(Expression.in("$manageable.identifiers.iterator().next().name", ids));
             final java.util.List list = criteria.list();
             getHibernateTemplate().deleteAll(list);
-
-            this.closeSessionIfNecessary(session);
         }
         catch (HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
+        }
+        finally
+        {
+            this.closeSessionIfNecessary(session);
         }
     }
 
