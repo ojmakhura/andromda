@@ -68,7 +68,11 @@ ${indent}</html:link>
 #set ($parameterValue = "${beanName}.${parameter.name}")
 #set ($linkParameters = "${linkParameters}&${parameter.name}=${${parameterValue}}")
 #end
+#if ($action.imageLink)
+${indent}<html:link action="$action.actionPath?$linkParameters" styleClass="imageLink"><html:img pageKey="${action.actionTrigger.triggerKey}.image"/></html:link>
+#else
 ${indent}<html:link action="$action.actionPath?$linkParameters" styleClass="buttonLink"><bean:message key="$action.actionTrigger.triggerKey"/></html:link>
+#end
 #end
 ##
 ##

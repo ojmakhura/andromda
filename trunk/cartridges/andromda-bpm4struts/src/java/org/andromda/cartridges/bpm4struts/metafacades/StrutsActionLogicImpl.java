@@ -219,9 +219,21 @@ public class StrutsActionLogicImpl
 
     protected boolean handleIsHyperlink()
     {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
         return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
                 value == null ? null : value.toString());
+    }
+
+    protected boolean handleIsImageLink()
+    {
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
+        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_IMAGE.equalsIgnoreCase(
+                value == null ? null : value.toString());
+    }
+
+    protected String handleGetImagePath()
+    {
+        return getPackagePath() + '/' + StringUtilsHelper.toWebFileName(getActionClassName()) + ".gif";
     }
 
     protected java.lang.String handleGetActionPath()

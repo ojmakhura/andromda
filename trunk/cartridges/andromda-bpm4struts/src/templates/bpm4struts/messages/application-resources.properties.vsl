@@ -165,6 +165,9 @@ $message.key=$message.value
 #end
 #end
 $actionTrigger.triggerKey=$actionTrigger.triggerValue
+#if ($action.imageLink)
+${actionTrigger.triggerKey}.image=${action.imagePath}
+#end
 $actionTrigger.titleKey=$actionTrigger.titleValue
 $actionTrigger.notAllowedTitleKey=$actionTrigger.notAllowedTitleValue
 $actionTrigger.resetTitleKey=$actionTrigger.resetTitleValue
