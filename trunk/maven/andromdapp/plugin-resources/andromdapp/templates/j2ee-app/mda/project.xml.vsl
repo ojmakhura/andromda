@@ -89,6 +89,15 @@
             <type>jar</type>
             <properties>
                 <dataSource>${dataSource}</dataSource>
+                <!--
+                 use these properties and comment
+                 out the above dataSource property
+                 if you don't want a JNDI datasource
+                <username>${dataSource.user}</username>
+                <password>${dataSource.password}</password>
+                <driver>${dataSource.driver.class}</driver>
+                <connectionUrl>${dataSource.url}</connectionUrl>
+                -->
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
                 <hibernateUseQueryCache>false</hibernateUseQueryCache>
