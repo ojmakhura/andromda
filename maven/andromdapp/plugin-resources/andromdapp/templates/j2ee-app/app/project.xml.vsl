@@ -73,27 +73,27 @@
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
-         </dependency>
-         <!-- This dependency causes class loading issues with jboss-tomcat,
-              however other app servers may require it (since it may not
-              be bundled with the server like it is with jboss/tomcat
-         <dependency>
-             <groupId>commons-logging</groupId>
-             <artifactId>commons-logging</artifactId>
-             <version>1.0.4</version>
-             <properties>
+        </dependency>
+        <!-- This dependency causes class loading issues with jboss-tomcat,
+             however other app servers may require it (since it may not
+             be bundled with the server like it is with jboss/tomcat
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+            <properties>
                 <ear.bundle>true</ear.bundle>
-             </properties>
-          </dependency>
+            </properties>
+        </dependency>
           -->
 #if ($hibernate || $spring)
-          <dependency>
-              <groupId>hibernate</groupId>
-              <artifactId>hibernate</artifactId>
-              <version>2.1.8</version>
-              <properties>
-                  <ear.bundle>true</ear.bundle>
-              </properties>
+        <dependency>
+            <groupId>hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <version>2.1.8</version>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
         </dependency>
         <dependency>
             <groupId>cglib</groupId>
@@ -159,7 +159,7 @@
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
-       </dependency>
+        </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
