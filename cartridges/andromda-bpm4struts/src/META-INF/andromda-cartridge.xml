@@ -603,7 +603,15 @@
         outlet="pages"
         overwrite="true"
         outputToSingleFile="true"
-        generateEmptyFiles="false"/>
+        generateEmptyFiles="false">
+        <modelElements>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="manageable"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 
 <!--
     <template
