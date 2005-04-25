@@ -9,8 +9,14 @@ maven.idea.project.multiproject.basedir=.
 service.host=localhost
 # Change this the port on which your webservice will be deploy
 service.port=8080
-#end
 
+#end
+#set ($deployExploded = "false")
+#if ($war)
+#set ($deployExploded = "true")
+#end
+# setting this to true will deploy the $projectType exploded
+deployExploded=$deployExploded
 
 # The datasource for the application
 dataSource=java:/DefaultDS
@@ -22,9 +28,9 @@ dataSource.driver.class=org.hsqldb.jdbcDriver
 dataSource.url=jdbc:hsqldb:hsql://127.0.0.1:1701
 dataSource.user=sa
 dataSource.password=
-dataSource.sql.init=app/target/hibernate-schema-initialize.sql
-dataSource.sql.drop=app/target/hibernate-schema-remove.sql
-dataSource.sql.load=app/target/db/create-dummy-load.sql
+dataSource.sql.init=core/target/schema-create.sql
+dataSource.sql.drop=core/target/schema-drop.sql
+dataSource.sql.load=core/target/db/create-dummy-load.sql
 # What schema related goals should do when an error occurs.
 dataSource.sql.onError=continue
 

@@ -6,7 +6,7 @@
 
     <goal name="deploy" prereqs="undeploy,ear:ear">
         <j:choose>
-            <j:when test="${explodeOnDeploy}">
+            <j:when test="${deployExploded}">
                 <j:set var="explodedDir" value="${maven.build.dir}/exploded"/>
                 <j:set var="explodedTmpDir" value="${maven.build.dir}/explodedTmp"/>
                 <ant:delete dir="${explodedDir}"/>
