@@ -77,11 +77,12 @@
                     setup after installation.
                 </p>
             </subsection>
-            <subsection name="JBoss">
+            <subsection name="JBoss or Tomcat">
                 <p>
                     AndroMDA in no way depends on JBoss in order to properly function, it is just that the generated
-                    code by default will run in the <strong>free</strong> JBoss container. You will see later what is
-                    needed to have generated code deployed on other application servers.
+                    code by default will run in either the <strong>free</strong> <a href="http://www.jboss.org">JBoss</a> 
+                    container or <strong>free</strong> <a href="http://jakarta.apache.org/tomcat">Tomcat</a> container. 
+                    You will see later what is needed to have generated code deployed on other application servers.
                 </p>
                 <p>
                     <i>Note: not only the generated
@@ -89,7 +90,8 @@
                 </p>
                 <p>
                     You may go here to download a copy of JBoss:
-                    <a href="http://www.jboss.org" target="blank">http://www.jboss.org</a>
+                    <a href="http://www.jboss.org" target="blank">http://www.jboss.org</a>, or here to download a copy
+                    of Tomcat: <a href="http://jakarta.apache.org/tomcat" target="blank">http://jakarta.apache.org/tomcat</a>
                 </p>
             </subsection>
             <subsection name="MagicDraw or Poseidon">
@@ -144,7 +146,7 @@
                 </p>
                 <p>
                     In the dialog that you just opened you should add/edit the variable <code>JAVA_HOME</code> and set it
-                    the Java SDK installation directory, eg. C:\j2sdk1.4.2_06.
+                    the Java SDK installation directory, eg. C:\j2sdk1.4.2_08.
                 </p>
             </subsection>
             <subsection name="Maven">
@@ -169,23 +171,36 @@
                     </ol>
                 </p>
             </subsection>
-            <subsection name="JBoss">
+            <subsection name="JBoss/Tomcat">
                 <p class="highlight">
-                    This step is optional but will allow you to automatically deploy your generated applications.
+                    This step is optional but will allow you to automatically deploy your generated applications to JBoss or Tomcat.
                 </p>
+                <h4>JBoss</h4>
                 <p>
-                    This application server can be used to deploy your generated applications, follow these simple steps
+                    The JBoss application server can be used to deploy your generated EAR applications, follow these simple steps
                     to install and configure:
                     <ol>
                         <li>Download JBoss from this site:
                             <a href="http://www.jboss.org/downloads/index" target="_blank">http://www.jboss.org/downloads/index</a>
-                            Version 3.2.x should do the job.
+                            Version 4.0.x should do the job.
                         </li>
-                        <li>Unzip the downloaded binary into a directory of your choice, eg. <code>C:\apps\jboss-3.2.5</code></li>
+                        <li>Unzip the downloaded binary into a directory of your choice, eg. <code>C:\apps\jboss-4.0.1sp1</code></li>
                     </ol>
                 </p>
+                <h4>Tomcat</h4>
+                <p>
+                    The Tomcat servlet container can be used to deploy your generated WAR applications, follow these simple steps
+                    to install and configure:
+                    <ol>
+                        <li>Download Tomcat from this site:
+                            <a href="http://jakarta.apache.org/tomcat" target="_blank">http://jakarta.apache.org/tomcat</a>
+                            Version 5.x should do the job.
+                        </li>
+                        <li>Unzip the downloaded binary into a directory of your choice, eg. <code>C:\apps\jakarta-tomcat-5.5.9</code></li>
+                    </ol>
+                </p>                
             </subsection>
-            <subsection nama="MagicDraw/Poseidon">
+            <subsection name="MagicDraw/Poseidon">
                 <p>
                     Download at least one of these tools, they will allow you to model your application in UML and export
                     it into a format that AndroMDA understands (UML 1.4).
@@ -206,26 +221,36 @@
                         <tr>
                             <th>Property</th>
                             <th>Value</th>
+                            <th>Required?</th>
                         </tr>
                         <tr>
                             <td>JAVA_HOME</td>
-                            <td>Java installation directory, eg. <code>C:\j2sdk1.4.2_06</code>.</td>
+                            <td>Java installation directory, eg. <code>C:\j2sdk1.4.2_08</code>.</td>
+                            <td>Yes</td>
                         </tr>
                         <tr>
                             <td>MAVEN_HOME</td>
                             <td>Maven installation directory, eg. <code>C:\apps\maven</code>, this might have already
                                 been set by the Maven installer.</td>
+                            <td>Yes</td>
                         </tr>
                         <tr>
                             <td>JBOSS_HOME</td>
-                            <td>JBoss installation directory, eg. <code>C:\apps\jboss-3.2.5</code>. Optional.</td>
+                            <td>JBoss installation directory, eg. <code>C:\apps\jboss-4.0.1sp1</code>.</td>
+                            <td>No (unless you're deploying to Jboss)</td>
+                        </tr>
+                        <tr>
+                            <td>CATALINA_HOME</td>
+                            <td>Tomcat installation directory, eg. <code>C:\apps\jakarta-tomcat-5.5.9.</code></td>
+                            <td>No (unless you're deploying to Tomcat)</td>
                         </tr>
                         <tr>
                             <td>PATH</td>
-                            <td>This is optional, but it make will sure the system will search for console commands in the
+                            <td>This makes sure the system will search for console commands in the
                                 directories listed here. If this property already exists you should simply add
                                 <code>%JAVA_HOME%\bin;%MAVEN_HOME%\bin</code>.
                             </td>
+                            <td>Yes</td>
                         </tr>
                     </table>
                 </p>
@@ -306,7 +331,11 @@ BUILD SUCCESSFUL
             <p>
                 Now you have installed the <code>andromdapp</code> AndroMDA plugin, it can create a directory structure
                 for a J2EE project. The build process for that project will use Maven too. Type the following at the
-                command prompt and answer the questions:
+                command prompt and answer the questions.
+            </p>
+            <p class="highlight">
+                Please note, that this example below assumes you're generating an EAR, however a standalone WAR can be generated as well, by 
+                answering <em>'war'</em> to the question about whether you would like an ear or standalone war):
             </p>
             <p>
                 <code>maven andromdapp:generate</code>
@@ -329,8 +358,10 @@ Please enter a version for your project (i.e. 1.0-SNAPSHOT):
 <strong>1.0-demo</strong>
 Please enter the base package name for your J2EE project (i.e. org.andromda.samples):
 <strong>org.andromda.demo</strong>
+Would you like an EAR or standalone WAR (enter 'ear' or 'war')?
+<strong>ear</strong>
 Please enter the type of transactional/persistence cartridge to use ('hibernate', 'ejb', or 'spring'):
-<strong>hibernate</strong>
+<strong>spring</strong>
 Would you like a web application? (enter 'yes' or 'no'):
 <strong>yes</strong>
 Would you like to be able to expose your services as web services? (enter 'yes' or 'no'):
@@ -416,16 +447,17 @@ BUILD SUCCESSFUL
                 Congratulations, just now you have created your first AndroMDA project and you are ready
                 to start modeling. The generated project in this example allows you to model entities and services,
                 the services can be accessed via webservices which in turn can be used by a Struts front-end.
-                The generated code is J2EE compliant and will by default deploy in a JBoss container compatible
-                with the generated J2EE implementation (at the time of this writing that would be
-                J2EE 1.3 on JBoss 3.2.6 or above).
+                The generated code is J2EE compliant and will by default deploy in a JBoss container compatible with 
+                the generated J2EE implementation (at the time of this writing that would be J2EE 1.3 or above 
+                on JBoss 3.2.7 or above).
             </p>
             <p class="highlight">
                 Make sure to read the <code>/readme.txt</code> file generated in the root of the project,
                 it explains the directory structure and the files contained therein.
             </p>
             <p>
-                Here are some pointers on how to proceed from here:
+                Here are some pointers on how to proceed from here (please note there will be slight differences if 
+                you generated a standalone war):
             </p>
             <p>
                 <ol>
