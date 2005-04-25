@@ -88,16 +88,14 @@
             <version>${andromda}</version>
             <type>jar</type>
             <properties>
+#if ($ear)
                 <dataSource>${dataSource}</dataSource>
-                <!--
-                 use these properties and comment
-                 out the above dataSource property
-                 if you don't want a JNDI datasource
+#else
                 <username>${dataSource.user}</username>
                 <password>${dataSource.password}</password>
                 <driver>${dataSource.driver.class}</driver>
                 <connectionUrl>${dataSource.url}</connectionUrl>
-                -->
+#end
                 <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
                 <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
                 <hibernateUseQueryCache>false</hibernateUseQueryCache>
@@ -111,10 +109,12 @@
                 <spring-configuration>${maven.andromda.core.generated.dir}</spring-configuration>
                 <services>${maven.andromda.core.generated.dir}</services>
                 <service-impls>${maven.andromda.core.manual.dir}</service-impls>
+#if ($ear)
                 <!-- to remove any dependency on EJB, comment the following property -->
                 <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
                 <!-- uncomment to enable EJB security -->
                 <!-- <securityRealm>${pom.groupId}</securityRealm> -->
+#end
             </properties>
         </dependency>
         <dependency>

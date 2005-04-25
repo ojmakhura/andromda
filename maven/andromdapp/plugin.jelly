@@ -51,7 +51,9 @@
             basedir="${templatesDir}"
             template="/readme.txt.vsl"/>
 
-        <attainGoal name="andromdapp:generate-app-subproject"/>
+        <j:if test="${projectType == 'ear'}">
+            <attainGoal name="andromdapp:generate-app-subproject"/>
+        </j:if>
         <attainGoal name="andromdapp:generate-${persistenceType}-subproject"/>
         <attainGoal name="andromdapp:generate-common-subproject"/>
         <attainGoal name="andromdapp:generate-mda-subproject"/>
@@ -185,6 +187,13 @@
           prereqs="andromdapp:init"
           description="private internal goal">
         <j:set var="moduleName" value="spring"/>
+        <j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
+        <j:set var="moduleDir" value="${projectId}/core"/>
+        <ant:mkdir dir="${moduleDir}"/>
+        <velocity:merge
+          name="${moduleDir}/project.properties"
+          basedir="${moduleTemplatesDir}"
+          template="project.properties.vsl"/>
         <attainGoal name="andromdapp:generate-core-subproject"/>
     </goal>
 
@@ -213,8 +222,7 @@
     <goal name="andromdapp:generate-core-subproject"
           prereqs="andromdapp:init"
           description="private internal goal">
-
-        <maven:param-check value="${moduleDir}" fail="true">
+        <maven:param-check value="${moduleName}" fail="true">
                 Property "moduleName" is not set, please define before running 'andromdapp:generate-core-subproject'
         </maven:param-check>
         <j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
@@ -234,9 +242,8 @@
         </j:if>
         <ant:mkdir dir="${moduleDir}/${javaSrcDir}"/>
         <!-- create an empty build directory so that maven doesn't complain
-             when building the ejb until model content is added -->
+             when building the artifact until model content is added -->
         <ant:mkdir dir="${moduleDir}/target/src"/>
-
     </goal>
 
     <!--==================================================================
@@ -288,8 +295,7 @@
     <!--==================================================================
               Asks the generate questions to get the required input.
         ==================================================================-->
-    <goal name="andromdapp:init"
-          description="private internal goal">
+    <goal name="andromdapp:init" description="private internal goal">
         <j:while test="${empty(projectCreator)}">
             <i:ask
                 question="Please enter your first and last name (i.e. Chad Brandon):"
@@ -315,34 +321,46 @@
                 question="Please enter the base package name for your J2EE project (i.e. org.andromda.samples):"
                 answer="baseProjectPackage"/>
         </j:while>
-        <j:while test="${empty(persistenceType) or
-                          (persistenceType ne 'hibernate' and persistenceType ne 'ejb' and persistenceType ne 'spring')}">
+        <j:while test="${empty(projectType) or (projectType ne 'war' and projectType ne 'ear')}">
             <i:ask
-                question="Please enter the type of transactional/persistence cartridge to use (enter 'hibernate', 'ejb', or 'spring'):"
-                answer="persistenceType"/>
-        </j:while>
-        <j:while test="${empty(webComponent) or
-                          (webComponent ne 'yes' and webComponent ne 'no')}">
-            <i:ask
-                question="Would you like a web application? (enter 'yes' or 'no'):"
-                answer="webComponent"/>
-        </j:while>
-        <j:while test="${empty(exposeAsWebService) or
-                          (exposeAsWebService ne 'yes' and exposeAsWebService ne 'no')}">
-            <i:ask
-                question="Would you like to be able to expose your services as web services? (enter 'yes' or 'no'):"
-                answer="exposeAsWebService"/>
-        </j:while>
+                question="Would you like an EAR or standalone WAR (enter 'ear' or 'war')?"
+                answer="projectType"/>
+        </j:while>        
+        <j:choose>       
+            <j:when test="${projectType == 'ear'}">
+                <j:while test="${empty(persistenceType) or
+                                  (persistenceType ne 'hibernate' and persistenceType ne 'ejb' and persistenceType ne 'spring')}">
+                    <i:ask
+                        question="Please enter the type of transactional/persistence cartridge to use (enter 'hibernate', 'ejb', or 'spring'):"
+                        answer="persistenceType"/>
+                </j:while>
+                <j:while test="${empty(webComponent) or (webComponent ne 'yes' and webComponent ne 'no')}">
+                    <i:ask
+                        question="Would you like a web application? (enter 'yes' or 'no'):"
+                        answer="webComponent"/>
+                </j:while>
+                <j:while test="${empty(exposeAsWebService) or
+                                  (exposeAsWebService ne 'yes' and exposeAsWebService ne 'no')}">
+                    <i:ask
+                        question="Would you like to be able to expose your services as web services? (enter 'yes' or 'no'):"
+                        answer="exposeAsWebService"/>
+                </j:while>
+            </j:when>
+            <j:otherwise>
+                <j:set var="persistenceType" value="spring"/>
+                <j:set var="webComponent" value="yes"/>
+            </j:otherwise>
+        </j:choose>
 
         <j:set var="web" value="${webComponent == 'yes'}"/>
         <j:set var="ejb" value="${persistenceType == 'ejb'}"/>
         <j:set var="hibernate" value="${persistenceType == 'hibernate'}"/>
         <j:set var="spring" value="${persistenceType == 'spring'}"/>
         <j:set var="webservice" value="${exposeAsWebService == 'yes'}"/>
+        <j:set var="war" value="${projectType == 'war'}"/>
+        <j:set var="ear" value="${projectType == 'ear'}"/>
 
-        <j:new
-          var="stringUtils"
-            className="org.apache.commons.lang.StringUtils"/>
+        <j:new var="stringUtils" className="org.apache.commons.lang.StringUtils"/>
 
         <j:set var="projectId" value="${stringUtils.deleteWhitespace(projectId)}"/>
         <j:set var="projectPackage" value="${baseProjectPackage}.${projectId}"/>

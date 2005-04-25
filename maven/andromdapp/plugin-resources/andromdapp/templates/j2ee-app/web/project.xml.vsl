@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project>
     <extend>../project.xml</extend>
-    <artifactId>${projectId}-web</artifactId>
+#set ($artifactIdSuffix = "-web")
+#if ($war)
+#set ($artifactIdSuffix = "")
+#end
+    <artifactId>${projectId}${artifactIdSuffix}</artifactId>
     <name>${projectName} Web</name>
     <shortDescription>${pom.name} Web Component</shortDescription>
     <description>
@@ -19,17 +22,33 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>${pom.groupId}-common</artifactId>
             <version>${pom.currentVersion}</version>
+#if ($war)
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+#end
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${pom.groupId}-core</artifactId>
             <version>${pom.currentVersion}</version>
+#if ($ear)
             <type>ejb</type>
+#else
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+#end
        </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.1</version>
+#if ($war)
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+#end
         </dependency>
         <dependency>
             <groupId>commons-digester</groupId>
@@ -43,16 +62,31 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
+#if ($war)
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+#end
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.0.4</version>
+#if ($war)
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+#end
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.0</version>
+#if ($war)
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+#end
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
@@ -91,7 +125,8 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        <dependency>    <!-- for exporting PDFs in displaytag -->
+        <dependency>
+            <!-- for exporting PDFs in displaytag -->
             <groupId>itext</groupId>
             <artifactId>itext</artifactId>
             <version>0.99</version>
@@ -137,6 +172,105 @@
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
             <version>3.2.3</version>
+#if ($war)
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+#end
+        </dependency>
+#if ($war)
+        <dependency>
+            <groupId>hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <version>2.1.8</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+         </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.0.2</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.4</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>odmg</groupId>
+            <artifactId>odmg</artifactId>
+            <version>3.0</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>0.9</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>1.4.3</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>1.1.5</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+#end
+        <!-- The dependencies are used for precompilation -->
+        <dependency>
+            <groupId>tomcat</groupId>
+            <artifactId>jasper-compiler</artifactId>
+            <version>5.0.18</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>tomcat</groupId>
+            <artifactId>jasper-runtime</artifactId>
+            <version>5.0.18</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>tomcat</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>5.0.18</version>
+        </dependency>
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-el</groupId>
+            <artifactId>commons-el</artifactId>
+            <version>1.0</version>
         </dependency>
  #if ($webservice)
         <dependency>
@@ -185,34 +319,6 @@
             </properties>
         </dependency>
 #end
-        <!-- The dependencies are used for precompilation -->
-        <dependency>
-            <groupId>tomcat</groupId>
-            <artifactId>jasper-compiler</artifactId>
-            <version>5.0.18</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>tomcat</groupId>
-            <artifactId>jasper-runtime</artifactId>
-            <version>5.0.18</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>tomcat</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>5.0.18</version>
-        </dependency>
-        <dependency>
-            <groupId>ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-el</groupId>
-            <artifactId>commons-el</artifactId>
-            <version>1.0</version>
-        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>

@@ -99,7 +99,9 @@
          |              the Hibernate resources and classes here will be
          |              overwriten each time AndroMDA generates new code
          |              using the Hibernate cartridge; this includes both
-         |              the entities and the *.hbm.xml mapping files
+         |              the entities and the *.hbm.xml mapping files.
+         |              You'll also find the DDL for creating and dropping
+         |              your schema within this directory.
          |
 #end
 #if ($spring)
@@ -129,14 +131,22 @@
          |              using the Spring cartridge; this includes both
          |              the Hibernate entities and the correponding
          |              *.hbm.xml mapping files as well as the service
-         |              and DAO base classes
+         |              and DAO base classes. You'll also find the DDL 
+         |              for creating and dropping your schema within this 
+         |              directory.
          |
 #end
 #if ($web)
          +-- /web
          |     |
+#if ($ear)
          |     |    The WEB module collects those resources and classes
-         |     |    that use the Struts framework
+         |     |    that make up the presentation layer.
+#else
+         |     |    The WEB module collects all resources and classes
+         |     |    that make up the presentation layer, as well as 
+         |     |    bundling all other modules to create a deployable war.
+#end
          |     |
          |     +-- /project.xml
          |     |        lists WebApp dependencies
@@ -155,8 +165,12 @@
          |     |        be copied over the generated ones when bundling the
          |     |        .war file
          |     +-- /target
+#if ($ear)
          |              any Struts classes, JSPs, resource bundles and
          |              configuration files are generated here
+#else
+         |              a deployable war is bundled here
+#end
          |
 #end
 #if ($webservice)
@@ -173,6 +187,7 @@
          |              generated files are emitted here
          |     |
 #end
+#if ($ear)
          +-- /app
                |
                |    The APP module collects those resources and classes
@@ -193,6 +208,7 @@
                |        (eg. server deployment descriptors)
                +-- /target
                         a deployable application is bundled here
+#end
 
 
 
@@ -206,7 +222,7 @@
 
         %> maven deploy
 
-            collects all artifacts and builds en .ear bundle which is then
+            collects all artifacts and builds a deployable .$projectType which is then
             deployed, you will need to have built the other modules before
 
         %> maven clean install deploy

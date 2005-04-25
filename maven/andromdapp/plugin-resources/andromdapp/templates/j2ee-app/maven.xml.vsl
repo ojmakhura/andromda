@@ -27,12 +27,16 @@
         </ant:delete>
     </goal>
 
+#set ($appModule = "app")
+#if ($war)
+#set ($appModule = "web")
+#end
     <!-- ==================================================================
             Deploy the Application
          ================================================================== -->
     <goal name="deploy">
         <maven:maven
-            descriptor="app/project.xml"
+            descriptor="${appModule}/project.xml"
             goals="deploy"/>
     </goal>
 
@@ -41,7 +45,7 @@
          ================================================================== -->
     <goal name="undeploy">
         <maven:maven
-            descriptor="app/project.xml"
+            descriptor="${appModule}/project.xml"
             goals="undeploy"/>
     </goal>
 

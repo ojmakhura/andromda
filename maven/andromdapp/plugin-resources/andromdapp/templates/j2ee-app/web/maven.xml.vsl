@@ -4,6 +4,36 @@
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core">
 
+#if ($war)
+    <ant:property environment="env"/>
+
+    <j:set var="deployDirectory" value="${env.CATALINA_HOME}/webapps"/>
+    <goal name="deploy" prereqs="war:war">
+        <j:choose>
+            <j:when test="${deployExploded}">
+                <ant:copy todir="${deployDirectory}/${pom.artifactId}">
+                    <ant:fileset dir="${maven.war.webapp.dir}"/>
+                </ant:copy>
+            </j:when>
+            <j:otherwise>
+                <ant:copy file="${maven.build.dir}/${pom.artifactId}.war"
+                    tofile="${deployDirectory}/${pom.artifactId}.war"/>
+            </j:otherwise>
+        </j:choose>
+    </goal>
+
+    <goal name="undeploy">
+        <ant:delete includeEmptyDirs="true">
+            <ant:fileset dir="${deployDirectory}">
+                <!-- in case previously deployed as a file -->
+                <ant:include name="${pom.artifactId}.war"/>
+                <!-- in case previously deployed as a directory -->
+                <ant:include name="${pom.artifactId}"/>
+            </ant:fileset>
+        </ant:delete>
+    </goal>
+#end
+
     <!-- copying custom web files over the generated ones (or just adding them) -->
 <!-- uncomment this section and put files in src/jsp to have them copied over the generated ones
     <preGoal name="war:init">
