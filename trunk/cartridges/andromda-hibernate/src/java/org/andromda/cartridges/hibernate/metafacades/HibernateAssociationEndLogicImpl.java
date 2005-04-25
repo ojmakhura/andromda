@@ -110,12 +110,12 @@ public class HibernateAssociationEndLogicImpl
                         HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
                 if (type != null && type.equalsIgnoreCase(COLLECTION_TYPE_SET))
                 {
-                    getterSetterTypeName=mappings.getTo(UMLProfile.SET_TYPE_NAME);
+                    getterSetterTypeName = mappings.getTo(UMLProfile.SET_TYPE_NAME);
                 }
             }
             else if (isOrdered() && isMap())
             {
-                getterSetterTypeName=mappings.getTo(UMLProfile.MAP_TYPE_NAME);
+                getterSetterTypeName = mappings.getTo(UMLProfile.MAP_TYPE_NAME);
             }
         }
         return getterSetterTypeName;
