@@ -9,8 +9,8 @@
 			<goal>
 				<name>andromdapp:generate</name>
 				<description> 
-					Generates an AndroMDA Powered Maven J2EE application.  
-					When you run this goal, you will be prompted to 
+					Generates an AndroMDA Powered Maven J2EE application (standalone
+                    WAR or EAR). When you run this goal, you will be prompted to 
 					enter some application values before your application 
 					will be generated.
 				</description>
