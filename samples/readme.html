@@ -93,8 +93,9 @@
                 </li>
                 <li>[Re]Start JBoss as neccessary.</li>
                 <li>
-                    Change directory to the animal-quiz/app/target and 
-                    execute the initializeSchema.[sh|cmd] script.
+                    Change directory to samples/animal-quiz and 
+                    execute maven create-schema. You may have to tweak the
+					settings in project.properties if you change the database.
                 </li>
                 <li>Open <a href="http://localhost:8080/AnimalQuiz">Local AnimalQuiz</a></li>
                 <li>Now you have to think of an animal and click the got one button.</li>
@@ -119,8 +120,10 @@
                 and uncomment two pragmas, one for the connection and one for the mbean.</li>
                 <li>[Re]Start JBoss as neccessary.</li>
                 <li>
-                    Change directory to the cd car-rental-system/app/hibernate/target and 
-                    execute the initializeSchema.[sh|cmd] script.
+                    Change directory to the cd samples/car-rental-system
+                    execute maven create-schema. You may have to tweak the
+					settings in project.properties if you change the database.
+
                 </li>
                 <li>Open <a href="http://localhost:8080/carrental-ejb">Local EJB Car Rental System</a> or</li>
                 <li>Open <a href="http://localhost:8080/carrental-hibernate">Local Hibernate Car Rental System</a></li>
