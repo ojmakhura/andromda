@@ -4,7 +4,7 @@ import java.net.URL;
 
 /**
  * Stores the information about a transformation. Transformations are applied to
- * the model(s) before actual model processing occurs.
+ * model(s) before actual model processing occurs.
  * 
  * @author Chad Brandon
  */
