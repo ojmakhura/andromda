@@ -110,21 +110,14 @@
         <p>
             To run:
             <ol>
-                <li>Copy the ear files to [JBOSS_HOME]/server/[SERVER_NAME]/deploy<li>
+                <li>Copy the ear file to [JBOSS_HOME]/server/[SERVER_NAME]/deploy<li>
                 <ul>
-                    <li>car-rental-system/app/ejb/target/car-rental-sample-ejb-app-[VERSION].ear</li>
-                    <li>car-rental-system/app/hibernate/target/car-rental-sample-hibernate-app-[VERSION].ear</li>
+                    <li>car-rental-system/app/ejb/target/car-rental-system-[VERSION].ear</li>
                 </ul>
                 <li>Check that HSQLDB TCP connnections are enabled.</li>
                 Edit [JBOSS_HOME]/server/[SERVER_NAME]/deploy/hsqldb-ds.xml</li>
                 and uncomment two pragmas, one for the connection and one for the mbean.</li>
-                <li>[Re]Start JBoss as neccessary.</li>
-                <li>
-                    Change directory to the cd samples/car-rental-system
-                    execute maven create-schema. You may have to tweak the
-					settings in project.properties if you change the database.
-
-                </li>
+                <li>[Re]Start JBoss as necessary.</li>
                 <li>Open <a href="http://localhost:8080/car-rental-system">Local Car Rental System</a></li>
                 <li>
                     The follow the instructions at  
