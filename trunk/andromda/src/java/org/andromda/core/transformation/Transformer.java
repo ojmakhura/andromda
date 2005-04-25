@@ -6,7 +6,7 @@ import java.net.URL;
 import org.andromda.core.Transformation;
 
 /**
- * Is able to perform transformation of documents (such as XMI files).
+ * Is able to apply transformations to a given model (such as an XMI file).
  * 
  * @author Chad Brandon
  */
