@@ -9,7 +9,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-19" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2-SNAPSHOT" date="2005-04-25" description="Second release candidate for version 3.0">
+            <action dev="cwbrandon" type="add">
+                The <a href="maven-andromdapp-plugin/index.html">AndroMDA App Maven Plugin</a> can now generate 
+                standalone war files (that can be deployed to tomcat).
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-40">
                 Mapping files can now extend other mapping files (this allows you to only add or customize
                 the specific mapping entries you need and inherit the rest).  For more information see
