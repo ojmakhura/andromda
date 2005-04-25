@@ -79,7 +79,7 @@
             </subsection>
             <subsection name="JBoss or Tomcat">
                 <p>
-                    AndroMDA in no way depends on JBoss in order to properly function, it is just that the generated
+                    AndroMDA in no way depends on JBoss or Tomcat in order to properly function, it is just that the generated
                     code by default will run in either the <strong>free</strong> <a href="http://www.jboss.org">JBoss</a> 
                     container or <strong>free</strong> <a href="http://jakarta.apache.org/tomcat">Tomcat</a> container. 
                     You will see later what is needed to have generated code deployed on other application servers.
