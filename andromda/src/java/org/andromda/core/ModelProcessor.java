@@ -44,7 +44,10 @@ public class ModelProcessor
 {
     private static final Logger logger = Logger.getLogger(ModelProcessor.class);
 
-    private static ModelProcessor instance = null;
+    /**
+     * The shared instance.
+     */
+    private static final ModelProcessor instance = new ModelProcessor();
 
     /**
      * Stores whether or not to process all model packages
@@ -58,10 +61,6 @@ public class ModelProcessor
      */
     public static ModelProcessor instance()
     {
-        if (instance == null)
-        {
-            instance = new ModelProcessor();
-        }
         return instance;
     }
 
