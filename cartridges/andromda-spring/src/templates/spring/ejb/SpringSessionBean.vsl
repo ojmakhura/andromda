@@ -13,7 +13,7 @@ package ${service.ejbPackageName};
  */
 public class $service.ejbImplementationName
 #if($service.generalization)
-    extends $service.generalization.ejbImplementationName
+    extends $service.generalization.fullyQualifiedEjbImplementationName
 #else
     extends org.springframework.ejb.support.AbstractStatelessSessionBean
 #end
