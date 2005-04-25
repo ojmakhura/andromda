@@ -1,12 +1,14 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
+import org.andromda.metafacades.uml.TypeMappings;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd.
@@ -43,7 +45,11 @@ public class HibernateAssociationEndLogicImpl
      * Value for list
      */
     private static final String COLLECTION_TYPE_LIST = "list";
-
+    /**
+     * Value for collections
+     */
+    private static final String COLLECTION_TYPE_COLLECTION = "collection";
+    
     /**
      * Stores the valid collection types
      */
@@ -55,6 +61,7 @@ public class HibernateAssociationEndLogicImpl
         collectionTypes.add(COLLECTION_TYPE_MAP);
         collectionTypes.add(COLLECTION_TYPE_BAG);
         collectionTypes.add(COLLECTION_TYPE_LIST);
+        collectionTypes.add(COLLECTION_TYPE_COLLECTION);
     }
 
     /**
@@ -92,6 +99,23 @@ public class HibernateAssociationEndLogicImpl
                 {
                     getterSetterTypeName = typeName;
                 }
+            }
+        }
+        if (this.isMany())
+        {
+            TypeMappings mappings = this.getLanguageMappings();
+            if (!isOrdered())
+            {
+                String type = (String)this.findTaggedValue(
+                        HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
+                if (type != null && type.equalsIgnoreCase(COLLECTION_TYPE_SET))
+                {
+                    getterSetterTypeName=mappings.getTo(UMLProfile.SET_TYPE_NAME);
+                }
+            }
+            else if (isOrdered() && isMap())
+            {
+                getterSetterTypeName=mappings.getTo(UMLProfile.MAP_TYPE_NAME);
             }
         }
         return getterSetterTypeName;
