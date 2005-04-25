@@ -16,7 +16,7 @@ public interface $service.name
 #end
 {
 
-#foreach ( $operation in $service.operations )
+#foreach ($operation in $service.operations)
     /**
 $operation.getDocumentation("     * ")
      */
