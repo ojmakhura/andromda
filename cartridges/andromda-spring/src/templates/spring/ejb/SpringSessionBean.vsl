@@ -8,13 +8,12 @@
 //
 package ${service.ejbPackageName};
 
-#set ($superclass = $service.generalization)
 /**
  * @see $service.fullyQualifiedName
  */
 public class $service.ejbImplementationName
-#if($superclass)
-    extends $superclass.ejbImplementationName
+#if($service.generalization)
+    extends $service.generalization.ejbImplementationName
 #else
     extends org.springframework.ejb.support.AbstractStatelessSessionBean
 #end
