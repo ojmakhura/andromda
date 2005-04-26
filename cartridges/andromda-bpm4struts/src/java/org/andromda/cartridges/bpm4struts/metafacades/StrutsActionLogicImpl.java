@@ -364,7 +364,7 @@ public class StrutsActionLogicImpl
         if (useCase != null)
         {
             String useCaseName = useCase.getName();
-            formBeanName = StringUtilsHelper.lowerCamelCaseName(useCaseName) + getFormBeanClassName();
+            formBeanName = StringUtilsHelper.lowerCamelCaseName(useCaseName) + getActionClassName() + "Form";
         }
         return formBeanName;
     }
