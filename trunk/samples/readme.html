@@ -50,7 +50,6 @@
         <p>
             To run:
             <ol>
-                <li>Copy the app/target/ ear file to [JBOSS_HOME]/server/[SERVER_NAME]/deploy</li>
                 <li>[Re]Start JBoss.</li>
                 <li>Open <a href="http://localhost:8080/OnlineStore">Local OnlineStore</a></li>
                 <li>
@@ -82,7 +81,22 @@
                 <li>
                     Check that HSQLDB TCP connnections are enabled. 
                     Edit [JBOSS_HOME]/server/[SERVER_NAME]/deploy/hsqldb-ds.xml
-                    and uncomment two pragmas, one for the connection and one for the mbean.
+                    and uncomment two pragmas, one for the connection 
+					<pre>
+      &lt;connection-url&gt;jdbc:hsqldb:hsql://localhost:1701&lt;/connection-url&gt;					
+					</pre>
+					and one for the mbean.
+					<pre>
+   &lt;mbean code="org.jboss.jdbc.HypersonicDatabase"
+     name="jboss:service=Hypersonic"&gt;
+     &lt;attribute name="Port"&gt;1701&lt;/attribute&gt;
+     &lt;attribute name="Silent"&gt;true&lt;/attribute&gt;
+     &lt;attribute name="Database"&gt;default&lt;/attribute&gt;
+     &lt;attribute name="Trace"&gt;false&lt;/attribute&gt;
+     &lt;attribute name="No_system_exit"&gt;true&lt;/attribute&gt;
+   &lt;/mbean&gt;
+						
+					</pre>
                 </li>
                 <li>
                     If deploying against JBoss 4.x, remove the jboss-ws4ee.sar file from your jboss configuration's 
@@ -94,9 +108,77 @@
                 <li>[Re]Start JBoss as neccessary.</li>
                 <li>
                     Change directory to samples/animal-quiz and 
-                    execute maven create-schema. You may have to tweak the
+                    execute maven -o create-schema. You may have to tweak the
 					settings in project.properties if you change the database.
+                    You should see something like:
+                                        <pre>
+create-schema:
+execute-script:
+    [sql] Executing file: /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/core/target/schema-create.sql
+    [sql] 3 of 3 SQL statements executed successfully
+BUILD SUCCESSFUL
+                                        </pre>
                 </li>
+                <li>run maven -o deploy, you should see something like:
+                                   <pre>
+build:start:
+
+deploy:
+build:start:
+
+ear:init:
+
+ear:ear:
+    [echo] Generating appxml file:"/work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/application.xml version 1.3 encoding: UTF-8"
+
+    [echo] Building EAR animal-quiz-app-3.0-RC2 with appxml "/work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/application.xml"
+    [echo] Bundling: ejb - andromda/samples:animal-quiz-core - 3.0-RC2
+    [echo] Dependency animal-quiz-core-3.0-RC2.jar will be bundled as /animal-quiz-core-3.0-RC2.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: war - andromda/samples:animal-quiz-webservice - 3.0-RC2
+    [echo] Dependency animal-quiz-webservice-3.0-RC2.war will be bundled as /animal-quiz-webservice-3.0-RC2.war
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: war - andromda/samples:animal-quiz-web - 3.0-RC2
+    [echo] Dependency animal-quiz-web-3.0-RC2.war will be bundled as /animal-quiz-web-3.0-RC2.war
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - andromda/samples:animal-quiz-common - 3.0-RC2
+    [echo] Dependency animal-quiz-common-3.0-RC2.jar will be bundled as /animal-quiz-common-3.0-RC2.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - commons-beanutils:commons-beanutils - 1.7.0
+    [echo] Dependency commons-beanutils-1.7.0.jar will be bundled as /commons-beanutils-1.7.0.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - commons-collections:commons-collections - 3.1
+    [echo] Dependency commons-collections-3.1.jar will be bundled as /commons-collections-3.1.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - commons-lang:commons-lang - 2.0
+    [echo] Dependency commons-lang-2.0.jar will be bundled as /commons-lang-2.0.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - hibernate:hibernate - 2.1.8
+    [echo] Dependency hibernate-2.1.8.jar will be bundled as /hibernate-2.1.8.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - cglib:cglib - 2.0.2
+    [echo] Dependency cglib-2.0.2.jar will be bundled as /cglib-2.0.2.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - dom4j:dom4j - 1.4
+    [echo] Dependency dom4j-1.4.jar will be bundled as /dom4j-1.4.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - odmg:odmg - 3.0
+    [echo] Dependency odmg-3.0.jar will be bundled as /odmg-3.0.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - ehcache:ehcache - 0.9
+    [echo] Dependency ehcache-0.9.jar will be bundled as /ehcache-0.9.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - asm:asm - 1.4.3
+    [echo] Dependency asm-1.4.3.jar will be bundled as /asm-1.4.3.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [ear] Building ear: /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/animal-quiz-app-3.0-RC2.ear
+    [delete] Deleting directory /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+
+deploy:
+    [copy] Copying 1 file to /usr/local/jboss/server/default/deploy
+BUILD SUCCESSFUL
+                                   </pre>
+				</li>				   
                 <li>Open <a href="http://localhost:8080/AnimalQuiz">Local AnimalQuiz</a></li>
                 <li>Now you have to think of an animal and click the got one button.</li>
                 <li>
