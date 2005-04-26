@@ -1,9 +1,13 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import java.util.Collection;
+
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -73,4 +77,20 @@ class HibernateMetafacadeUtils
         fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
         return fullyQualifiedName.toString();
     }
+    
+    /**
+     * filters all static operations
+     */
+    static java.util.Collection filterBusinessOperations( Collection operations)
+    {
+        Collection businessOperations = new FilteredCollection( operations)
+        {
+            public boolean evaluate(Object object)
+            {
+                return !((OperationFacade) object).isStatic();
+            }
+        };
+        return businessOperations;
+    }    
+
 }

@@ -1,0 +1,42 @@
+#set ($generatedFile = "${embeddedValue.packagePath}/${embeddedValue.implementationName}.java")
+// license-header java merge-point
+/**
+ * This is only generated once! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ */
+#if ($stringUtils.isNotBlank($embeddedValue.packageName))
+package $embeddedValue.packageName;
+#end
+
+/**
+ * @see $embeddedValue.fullyQualifiedName
+ */
+public#if ($embeddedValue.abstract) abstract#end class $embeddedValue.implementationName
+    extends $embeddedValue.fullyQualifiedName
+    implements java.io.Serializable
+{
+
+    /** 
+     * The serial version UID of this class. Needed for serialization. 
+     */
+    private static final long serialVersionUID = ${embeddedValue.serialVersionUID}L;
+    
+#foreach ($operation in $embeddedValue.operations)
+    /**
+     * @see ${embeddedValue.fullyQualifiedName}#${operation.getSignature(false)}
+     */
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#if ($operation.exceptionsPresent)
+        throws $operation.exceptionList
+#end
+    {
+        //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#if ($operation.returnTypePresent)
+        return $operation.returnType.javaNullString;
+#else
+        throw new java.lang.UnsupportedOperationException("${embeddedValue.fullyQualifiedName}.${operation.signature} Not implemented!");
+#end
+    }
+
+#end
+}

@@ -40,8 +40,10 @@ public class EntityAttributeLogicImpl
      */
     public String handleGetColumnName()
     {
-        return EntityMetafacadeUtils.getSqlNameFromTaggedValue(this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN, ((Entity)this.getOwner()).getMaxSqlNameLength(), this.getConfiguredProperty(
-                UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+        final Short maxSqlNameLength = 
+            Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
+        return EntityMetafacadeUtils.getSqlNameFromTaggedValue(this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN, 
+                maxSqlNameLength,this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**
