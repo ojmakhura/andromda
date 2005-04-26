@@ -70,6 +70,14 @@
                     <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
                             export="true" pagesize="$manageable.pageSize" sort="list">
                         <display:column media="html" sortable="false">
+#foreach ($member in $manageable.attributes)
+#if ($member.type.dateType)
+#set ($rowValue = "row.${member.manageableName}")
+## here we are properly converting the date into the desired format so that the rendered Javascript
+## copies the proper string into the corresponding criteria field
+                            <fmt:formatDate var="${member.manageableName}Formatted" value="${${rowValue}}" pattern="${member.dateFormat}"/>
+#end
+#end
                             <a href="#" onclick="#renderJavascriptCopyRow($manageable)return false;"><bean:message key="copy.row.values"/></a>
 #if ($manageable.delete)
 #set ($identifierValue = "row.${manageable.identifiers.iterator().next().name}")
@@ -88,8 +96,8 @@
                         <display:column media="all"
                             headerClass="$member.manageableName" paramId="$member.manageableName" maxLength="$manageableFieldMaxLength"
                             sortProperty="$member.manageableName" sortable="true" titleKey="$member.messageKey">
-#set ($dateValue = "row.${member.manageableName}")
-                            <fmt:formatDate var="date" value="${${dateValue}}" pattern="${member.dateFormat}"/>${date}
+#set ($dateValue = "${member.manageableName}Formatted")
+                            ${${dateValue}}
                         </display:column>
 #else
 #if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)#set($propertySuffix='Label')#else#set($propertySuffix='')#end

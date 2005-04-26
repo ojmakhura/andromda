@@ -94,7 +94,28 @@ public final class $manageable.formBeanClassName
     {
         this.$member.manageableName = $member.manageableName;
     }
-    
+
+#if ($member.type.dateType)
+    private static final java.text.DateFormat ${member.name}Formatter = new java.text.SimpleDateFormat("$member.dateFormat");
+
+    $member.visibility java.lang.String ${member.getterName}AsString()
+    {
+        return ($member.name == null) ? null : ${member.name}Formatter.format($member.name);
+    }
+
+    $member.visibility void ${member.setterName}AsString(java.lang.String $member.name)
+    {
+        try
+        {
+            this.$member.name = (org.apache.commons.lang.StringUtils.isBlank($member.name)) ? null : ${member.name}Formatter.parse($member.name);
+        }
+        catch (java.text.ParseException pe)
+        {
+            throw new RuntimeException(pe);
+        }
+    }
+
+#end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($identifier = $member.type.manageableIdentifier)

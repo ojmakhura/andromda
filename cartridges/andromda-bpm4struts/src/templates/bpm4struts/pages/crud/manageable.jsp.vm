@@ -11,9 +11,8 @@ ${indent}<html:select name="manageableForm" property="$field.manageableName">
 ${indent}    <html:option value=${quote}${literal.enumerationValue}${quote}>$literal.name</html:option>
 #end
 ${indent}</html:select>
-#else
-${indent}<html:text name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName"/>
-#if ($field.type.dateType)
+#elseif ($field.type.dateType)
+${indent}<html:text name="manageableForm" property="${field.manageableName}AsString" styleClass="criteriaField" styleId="$field.manageableName"/>
 ${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.manageableName}_trigger" styleClass="calendar"/>
 ${indent}<script type="text/javascript">
 #if ($xhtml == "true")
@@ -36,7 +35,8 @@ ${indent}//]]>
 ${indent}//-->
 #end
 ${indent}</script>
-#end
+#else
+${indent}<html:text name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName"/>
 #end
 #end
 ##
@@ -91,9 +91,22 @@ ${indent}</logic:notPresent>
 #end
 #end
 ##
-## This stuff *must* be rendered on a single line
+## This stuff *must* be rendered on a single line, it assumes date fields have been properly formatted
+## into a xxxFomatted variables
 ##
-#macro ( renderJavascriptCopyRow $manageable )#foreach($member in $manageable.manageableMembers)#set($property = "row.${member.manageableName}")document.${manageable.formBeanName}.${member.manageableName}.value='${${property}}';#end#end
+#macro ( renderJavascriptCopyRow $manageable )
+#foreach($member in $manageable.manageableMembers)
+#if ($member.type.dateType)
+#set($property = "${member.manageableName}Formatted")## this variable is expected to be in page scope
+#else
+#set($property = "row.${member.manageableName}")## we take it straight for the row value object
+#end
+document.forms['${manageable.formBeanName}'].elements['${member.manageableName}'].value='${${property}}';## no newline
+#end
+#end
+
+
+
 ##
 ## convenient helper for converting collections into strings
 ##

@@ -78,6 +78,8 @@ public final class $manageable.actionClassName extends DispatchAction
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.enumeration)
             ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+#elseif ($member.type.dateType)
+            ${comma}(StringUtils.isBlank(request.getParameter("${member.manageableName}AsString"))) ? #memberNull($member) : form.${member.manageableGetterName}()
 #else
             ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : form.${member.manageableGetterName}()
 #end
@@ -157,6 +159,8 @@ public final class $manageable.actionClassName extends DispatchAction
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.enumeration)
             ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+#elseif ($member.type.dateType)
+            ${comma}(StringUtils.isBlank(request.getParameter("${member.manageableName}AsString"))) ? #memberNull($member) : form.${member.manageableGetterName}()
 #else
             ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : form.${member.manageableGetterName}()
 #end
