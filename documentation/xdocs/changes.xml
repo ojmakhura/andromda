@@ -9,7 +9,7 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-RC2-SNAPSHOT" date="2005-04-25" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2" date="2005-04-25" description="Second release candidate for version 3.0">
             <action dev="cwbrandon" type="add" issue="MAVEN-23">
                 The <a href="maven-andromdapp-plugin/index.html">AndroMDA App Maven Plugin</a> can now generate 
                 standalone war files (that can be deployed to <a href="http://jakarta.apache.org/tomcat">Tomcat</a>).
