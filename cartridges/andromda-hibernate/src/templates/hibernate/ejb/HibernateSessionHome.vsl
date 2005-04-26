@@ -13,11 +13,7 @@ package $service.packageName;
  * @see $service.fullyQualifiedName
  */
 public interface ${service.name}Home
-#if ($service.generalization)
-    extends ${service.generalization.fullyQualifiedName}Home
-#else
     extends $ejbHomeInterface
-#end
 {
 #set ($throwsList = "throws javax.ejb.CreateException")
 #if ($service.ejbRemoteView)

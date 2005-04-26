@@ -17,7 +17,7 @@ import net.sf.hibernate.SessionFactory;
 
 import ${customTypesPackage}.HibernateUtils;
 
-#foreach ( $serviceRef in $service.serviceReferences )
+#foreach ($serviceRef in $service.serviceReferences)
 import ${serviceRef.targetElement.fullyQualifiedName}Home;
 #end
 
