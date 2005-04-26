@@ -94,7 +94,7 @@
                             sortProperty="$member.manageableName" sortable="true" titleKey="$member.messageKey"/>
 #elseif ($member.type.dateType)
                         <display:column media="all"
-                            headerClass="$member.manageableName" paramId="$member.manageableName" maxLength="$manageableFieldMaxLength"
+                            headerClass="$member.manageableName" paramId="$member.manageableName"
                             sortProperty="$member.manageableName" sortable="true" titleKey="$member.messageKey">
 #set ($dateValue = "${member.manageableName}Formatted")
                             ${${dateValue}}
