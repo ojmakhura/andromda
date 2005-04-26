@@ -68,6 +68,10 @@
         <from>UNSECURED</from>
         <to>Unsecured</to>
     </mapping>
+    <mapping>
+        <from>EMBEDDED_VALUE</from>
+        <to>EmbeddedValue</to> 
+    </mapping>
     <!-- tagged values -->
     <mapping>
         <from>DOCUMENTATION</from>
