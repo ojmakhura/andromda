@@ -146,7 +146,7 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>andromda-ocl-validation-library</artifactId>
+            <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${andromda}</version>
             <type>jar</type>
             <properties>
@@ -155,7 +155,7 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>andromda-ocl-translation-core</artifactId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${andromda}</version>
             <type>jar</type>
             <properties>
