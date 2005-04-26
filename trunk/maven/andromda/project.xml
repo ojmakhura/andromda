@@ -138,6 +138,12 @@
             <artifactId>openide-util</artifactId>
             <version>20040826</version>
         </dependency>
+        <!-- for XSL transformation preprocessing -->
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.6.0</version>
+        </dependency>
         <dependency>
             <groupId>commons-jelly</groupId>
             <artifactId>commons-jelly-tags-velocity</artifactId>
