@@ -70,16 +70,14 @@
              Executes the given DDL script
          ============================================================ -->
     <goal name="execute-script">
-        <j:if test="{script != null}">
-            <util:file var="scriptFile" name="${script}"/>
-            <j:if test="${scriptFile.exists()}">
-                <ant:sql driver="${dataSource.driver.class}" src="${scriptFile}"
-                    url="${dataSource.url}" userid="${dataSource.user}" password="${dataSource.password}" >
-                    <ant:classpath>
-                        <ant:pathelement location="${dataSource.driver.jar}"/>
-                    </ant:classpath>
-                </ant:sql>
-            </j:if>
+        <util:file var="scriptFile" name="${script}"/>
+        <j:if test="${scriptFile.exists()}">
+            <ant:sql driver="${dataSource.driver.class}" src="${scriptFile}"
+                url="${dataSource.url}" userid="${dataSource.user}" password="${dataSource.password}" >
+                <ant:classpath>
+                    <ant:pathelement location="${dataSource.driver.jar}"/>
+                </ant:classpath>
+            </ant:sql>
         </j:if>
     </goal>
 
