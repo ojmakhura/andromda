@@ -23,41 +23,39 @@ public abstract class $embeddedValue.name
     private static final long serialVersionUID = ${embeddedValue.serialVersionUID}L;
 
     /**
-     * create method taking all properties.
+     * Creates a new instance of {@link ${embeddedValue.name}}
+     * taking all properties.
      */
 #set ($parenthesis = "(")
 #if ($embeddedValue.properties.empty)
 #set ($parenthesis = "()")
 #end
-    public static ${embeddedValue.implementationName} create${parenthesis} #foreach ($property in $embeddedValue.properties)
- $property.getterSetterTypeName ${property.name}#if($velocityCount != $embeddedValue.properties.size()),#else)
+    public static $embeddedValue.name newInstance${parenthesis}#foreach ($property in $embeddedValue.properties)
+$property.getterSetterTypeName ${property.name}#if($velocityCount != $embeddedValue.properties.size()),#else)
 #end
 #end
     {
         $embeddedValue.implementationName object = new ${embeddedValue.implementationName}();
 #foreach ($property in $embeddedValue.properties)
-        object.${property.setterName}(${property.name});
+        object.${property.setterName}($property.name);
 #end
         object.initialize();
         return object;
     }
 
     /**
-     * Create from other $embeddedValue.name instance.
+     * Creates a new instance from other $embeddedValue.name instance.
      */
-    public static ${embeddedValue.implementationName} create(${embeddedValue.name} otherObject)
+    public static ${embeddedValue.name} newInstance($embeddedValue.name otherObject)
     {
         if (otherObject != null)
         {
-            return create(#foreach ( $property in $embeddedValue.properties)
- otherObject.${property.getterName}()#if($velocityCount != $embeddedValue.properties.size()),#else);
+            return newInstance(#foreach ($property in $embeddedValue.properties)
+otherObject.${property.getterName}()#if($velocityCount != $embeddedValue.properties.size()),#else);
 #end
 #end
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     protected ${embeddedValue.name}()
@@ -65,15 +63,15 @@ public abstract class $embeddedValue.name
     }
 
     /**
-     * hook for initializing the object in the subclass
+     * Hook for initializing the object in the subclass
      */
     protected void initialize()
     {
     }
 
 #foreach ($attribute in $embeddedValue.attributes)
-
     private $attribute.getterSetterTypeName $attribute.name;
+    
     /**
 $attribute.getDocumentation("     * ")
      */
@@ -81,8 +79,9 @@ $attribute.getDocumentation("     * ")
     {
         return this.${attribute.name};
     }
-#if ( $embeddedValue.immutable )
-    // protected setter, if subclass methods need to normalize the ${embeddedValue.name}
+    
+#if ($embeddedValue.immutable)
+    // protected setter, if subclass methods need to normalize the $embeddedValue.name
     protected void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
 #else
     $attribute.visibility void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
@@ -90,8 +89,8 @@ $attribute.getDocumentation("     * ")
     {
         this.${attribute.name} = $attribute.name;
     }
+    
 #end
-#### operations as abstract declarations
 #foreach ($operation in $embeddedValue.operations)
 #set ($returnType = $operation.returnType)
 #set ($signature = $operation.signature)
