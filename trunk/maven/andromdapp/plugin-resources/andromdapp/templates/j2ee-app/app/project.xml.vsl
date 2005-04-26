@@ -17,6 +17,14 @@
                 <ear.bundle>true</ear.bundle>
             </properties>
         </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-common</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
 #if ($web)
         <dependency>
             <groupId>${pom.groupId}</groupId>
@@ -148,14 +156,6 @@
             <groupId>springframework</groupId>
             <artifactId>spring</artifactId>
             <version>1.1.5</version>
-            <properties>
-                <ear.bundle>true</ear.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-common</artifactId>
-            <version>${pom.currentVersion}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
