@@ -2,32 +2,32 @@
          xmlns:ant="jelly:ant"
          xmlns:j="jelly:core">
 
-  	<!-- ==================================================================
-  			 Installs all libraries in the local repository                                                    
-  		 ================================================================== -->
+      <!-- ==================================================================
+               Installs all libraries in the local repository
+           ================================================================== -->
     <goal name="install">
-		<attainGoal name="multiproject:install"/>	
-  	</goal> 
-  	
-  	<!-- ==================================================================
-             Clean                                                     
-  		 ================================================================== -->
-   	<goal name="clean">  		
-		<attainGoal name="multiproject:clean"/>
-		<!-- get rid of all the log files -->
-		<ant:delete>
-			<ant:fileset dir=".">
-				<ant:include name="**/*.log*"/>
-				<ant:exclude name="maven.log"/>
-			</ant:fileset>
-		</ant:delete>
-  	</goal> 
-  	
-  	<!-- ==================================================================
-  			 Copies all libraries to the ${maven.repo.local} if the 
-  			 libraries exists.  This is so nothing is required
-  			 to be downloaded by Maven when building the samples.                                                   
-  		 ================================================================== -->
+        <attainGoal name="multiproject:install"/>
+    </goal>
+
+      <!-- ==================================================================
+             Clean
+           ================================================================== -->
+    <goal name="clean">
+        <attainGoal name="multiproject:clean"/>
+        <!-- get rid of all the log files -->
+        <ant:delete>
+            <ant:fileset dir=".">
+                <ant:include name="**/*.log*"/>
+                <ant:exclude name="maven.log"/>
+            </ant:fileset>
+        </ant:delete>
+   </goal>
+
+    <!-- ==================================================================
+               Copies all libraries to the ${maven.repo.local} if the
+               libraries exists.  This is so nothing is required
+               to be downloaded by Maven when building the samples.
+         ================================================================== -->
     <preGoal name="install">
         <j:set var="distributionDir" value="${basedir}/.."/>
         <j:set var="libDir" value="${distributionDir}/lib"/>
@@ -45,5 +45,4 @@
             </ant:copy>
         </j:if>
     </preGoal>
-  	  	
 </project>
