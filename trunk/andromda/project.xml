@@ -65,6 +65,12 @@
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
         </dependency>
+        <dependency>
+            <type>test</type>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.6.0</version>            
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
