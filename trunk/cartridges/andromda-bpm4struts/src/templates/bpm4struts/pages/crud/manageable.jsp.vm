@@ -96,17 +96,18 @@ ${indent}</logic:notPresent>
 ##
 #macro ( renderJavascriptCopyRow $manageable )
 #foreach($member in $manageable.manageableMembers)
+document.forms['${manageable.formBeanName}'].elements['${member.manageableName}']## no newline
+#set($property = "row.${member.manageableName}")## by default we take the property straight for the row value object
+#if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+.checked=${${property}};## no newline
+#else
 #if ($member.type.dateType)
 #set($property = "${member.manageableName}Formatted")## this variable is expected to be in page scope
-#else
-#set($property = "row.${member.manageableName}")## we take it straight for the row value object
 #end
-document.forms['${manageable.formBeanName}'].elements['${member.manageableName}'].value='${${property}}';## no newline
+.value='${${property}}';## no newline
 #end
 #end
-
-
-
+#end
 ##
 ## convenient helper for converting collections into strings
 ##
