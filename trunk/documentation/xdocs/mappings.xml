@@ -136,7 +136,7 @@
                     <p>
                         If you were overriding a mapping, all you'd do is customize an existing file and tell AndroMDA
                         to use the the URI to your new mapping file (like you see above).  If, on the other hand, you want 
-                        to <strong>extend</strong> a mapping (this is much better in most case because then you only need to add or 
+                        to <strong>extend</strong> a mapping (this is much better in most cases because then you only need to add or 
                         customize the specific <![CDATA[<mapping/>]]> entry(s) you need and inherit the default ones), you'll 
                         need to add the <em>extends</em> element to your mapping file.  Note this example is saying to extend
                         the mappings found with the logical name <em>Hibernate</em>:
