@@ -100,7 +100,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetExceptionKey()
     {
-        return getName().toLowerCase() + ".exception";
+        return StringUtilsHelper.toResourceMessageKey(getName()) + ".exception";
     }
 
     protected java.lang.String handleGetExceptionPath()
