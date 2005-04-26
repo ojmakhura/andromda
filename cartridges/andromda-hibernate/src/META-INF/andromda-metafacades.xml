@@ -83,4 +83,17 @@
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValueLogicImpl" contextRoot="true">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>EMBEDDED_VALUE</stereotype>
+        </mapping>
+        <property reference="embeddedValueImplementationNamePattern" default="{0}Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue</context>
+        </mapping>
+        <property reference="sqlMappingsUri"/>
+        <property reference="jdbcMappingsUri"/>
+    </metafacade>
 </metafacades>

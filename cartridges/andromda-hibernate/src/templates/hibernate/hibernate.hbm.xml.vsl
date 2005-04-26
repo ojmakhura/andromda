@@ -32,11 +32,11 @@
 ## If super inheritance is 'interface', render super properties etc
 #foreach ($generalization in $entity.allGeneralizations)
 #if($generalization.mappingRequiresSuperProperties)
-#renderPropertiesAndAssociations($generalization)
+#renderPropertiesAndAssociations($generalization "" )
 #end
 #end
 ## render the properties and associations (if any)
-#renderPropertiesAndAssociations($entity)
+#renderPropertiesAndAssociations($entity "" )
 ## render the subclass elements if class or subclass strategy.
 #if ($entity.requiresSpecializationMapping)
 #foreach ($entity in $entity.specializations)

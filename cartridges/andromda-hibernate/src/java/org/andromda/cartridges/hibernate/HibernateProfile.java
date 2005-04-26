@@ -13,7 +13,6 @@ import org.andromda.metafacades.uml.UMLProfile;
 public class HibernateProfile
         extends UMLProfile
 {
-
     /**
      * The Profile instance from which we retrieve the mapped profile names.
      */
@@ -151,5 +150,4 @@ public class HibernateProfile
      */
     public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN = profile.get(
             "HIBERNATE_ASSOCIATION_INDEX_COLUMN");
-
 }

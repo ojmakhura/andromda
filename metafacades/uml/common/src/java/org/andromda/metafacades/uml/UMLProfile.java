@@ -138,6 +138,11 @@ public class UMLProfile
      * Represents a relational table column index name.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX = profile.get("PERSISTENCE_COLUMN_INDEX");
+    
+    /**
+     * Indicates if a persistence type is immutable.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_IMMUTABLE = profile.get("PERSISTENCE_IMMUTABLE");
 
     /**
      * Used on an association end to indicate whether its owning entity should have its identifier also be the foreign

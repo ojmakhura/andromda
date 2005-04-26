@@ -87,7 +87,7 @@
 #end
         <!-- mapping files -->
 #foreach($entity in $entities)
-        <mapping resource="${entity.packagePath}/${entity.name}.hbm.xml"/>
+        <mapping resource="${entity.packagePath}/${entity.entityName}.hbm.xml"/>
 #end
     </session-factory>
 </hibernate-configuration>

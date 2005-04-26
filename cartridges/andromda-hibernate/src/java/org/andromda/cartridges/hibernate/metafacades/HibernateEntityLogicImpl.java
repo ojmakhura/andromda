@@ -2,20 +2,18 @@
  */
 package org.andromda.cartridges.hibernate.metafacades;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAttribute;
-import org.andromda.metafacades.uml.FilteredCollection;
-import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
-
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * <p/>
@@ -305,30 +303,20 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * The namespace to specify the pattern for determining the entity name.
-     */
-    private static final String ENTITY_NAME_PATTERN = "entityNamePattern";
-
-    /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityName()
      */
     protected String handleGetEntityName()
     {
-        String entityNamePattern = (String)this.getConfiguredProperty(ENTITY_NAME_PATTERN);
+        String entityNamePattern = (String)this.getConfiguredProperty(HibernateGlobals.ENTITY_NAME_PATTERN);
         return MessageFormat.format(entityNamePattern, new Object[]{StringUtils.trimToEmpty(this.getName())});
     }
-
-    /**
-     * The property which stores the pattern defining the entity implementation name.
-     */
-    private static final String ENTITY_IMPLEMENTATION_NAME_PATTERN = "entityImplementationNamePattern";
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityImplementationName()
      */
     protected String handleGetEntityImplementationName()
     {
-        String implNamePattern = String.valueOf(this.getConfiguredProperty(ENTITY_IMPLEMENTATION_NAME_PATTERN));
+        String implNamePattern = String.valueOf(this.getConfiguredProperty(HibernateGlobals.ENTITY_IMPLEMENTATION_NAME_PATTERN));
         return MessageFormat.format(implNamePattern, new Object[]{StringUtils.trimToEmpty(this.getName())});
     }
 
@@ -363,14 +351,7 @@ public class HibernateEntityLogicImpl
      */
     public Collection getBusinessOperations()
     {
-        Collection businessOperations = new FilteredCollection(super.getBusinessOperations())
-        {
-            public boolean evaluate(Object object)
-            {
-                return !((OperationFacade)object).isStatic();
-            }
-        };
-        return businessOperations;
+        return HibernateMetafacadeUtils.filterBusinessOperations(super.getBusinessOperations());
     }
 
     /**

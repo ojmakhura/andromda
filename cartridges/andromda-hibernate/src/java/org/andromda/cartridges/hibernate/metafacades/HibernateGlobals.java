@@ -86,5 +86,19 @@ class HibernateGlobals
      * The namespace property storing default sort method for collections
      */
     static final String HIBERNATE_ASSOCIATION_SORT_TYPE = "hibernateAssociationSortType";
-
+    
+    /**
+     * The namespace property to specify the pattern for determining the entity name.
+     */
+    static final String ENTITY_NAME_PATTERN = "entityNamePattern";
+    
+    /**
+     * The property which stores the pattern defining the entity implementation name.
+     */
+    static final String ENTITY_IMPLEMENTATION_NAME_PATTERN = "entityImplementationNamePattern";
+    
+    /**
+     * The property which stores the pattern defining the embedded value implementation name.
+     */
+    static final String EMBEDDED_VALUE_IMPLEMENTATION_NAME_PATTERN = "embeddedValueImplementationNamePattern";
 }

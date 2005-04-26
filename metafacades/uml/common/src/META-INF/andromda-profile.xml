@@ -102,6 +102,10 @@
         <to>@andromda.persistence.foreignkey.constraint</to>
     </mapping>
     <mapping>
+        <from>PERSISTENCE_IMMUTABLE</from>
+        <to>@andromda.persistence.immutable</to>
+    </mapping>
+    <mapping>
         <from>WEBSERVICE_STYLE</from>
         <to>@andromda.webservice.style</to>
     </mapping>

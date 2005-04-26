@@ -17,19 +17,24 @@ public abstract class $entity.entityName
 #end
     implements java.io.Serializable
 {
-    /** The serial version UID of this class. Needed for serialization. */
+    /** 
+     * The serial version UID of this class. Needed for serialization. 
+     */
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
 
 #if ($stringUtils.isNotBlank($versionProperty))
 #set ($versionPropertyCapitalized = $stringUtils.capitalize($versionProperty))
-    private int $versionProperty;
+    /**
+     * Version property managed by Hibernate.
+     */
+    private int $versionProperty;   
 
     public int get$versionPropertyCapitalized()
     {
         return this.$versionProperty;
     }
 
-    public void set$versionPropertyCapitalized (int $versionProperty)
+    private void set$versionPropertyCapitalized (int $versionProperty)
     {
         this.$versionProperty = $versionProperty;
     }
@@ -37,6 +42,9 @@ public abstract class $entity.entityName
 #end
 #foreach ( $attribute in $entity.attributes )
 #set ($typeName = $attribute.type.fullyQualifiedName)
+#if ($attribute.containsEmbeddedObject)
+#set ($typeName = $attribute.type.fullyQualifiedEntityName)
+#end
     private $typeName $attribute.name;
 
     /**
@@ -57,7 +65,18 @@ $attribute.getDocumentation("     * ")
 #foreach ( $associationEnd in $entity.associationEnds )
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
+##if collection, initialize it
+#if ($target.many)
+#if ($target.set)
+    private $target.getterSetterTypeName $target.name = new	 java.util.HashSet();
+#elseif ($target.map)
+    private $target.getterSetterTypeName $target.name = new	 java.util.HashMap();
+#elseif ($target.bag || $target.list)
+    private $target.getterSetterTypeName $target.name = new	 java.util.ArrayList();
+#end
+#else
     private $target.getterSetterTypeName $target.name;
+#end
 
     /**
 $target.getDocumentation("     * ")
@@ -116,42 +135,7 @@ $operation.getDocumentation("     * ")
 #end
 #end
      */
-    public boolean equals(Object object)
-    {
-#if ($identifiers.empty)
-        return super.equals(object);
-#else
-        if (this == object)
-        {
-            return true;
-        }
-        if (!(object instanceof $entity.entityName))
-        {
-            return false;
-        }
-        final $entity.entityName that = ($entity.entityName)object;
-#foreach ($identifier in $identifiers)
-#set ($idType = $identifier.type)
-#if ($idType.primitive)
-        if (this.$identifier.name != that.$identifier.name)
-        {
-            return false;
-        }
-#elseif ($idType.arrayType)
-        if (!java.util.Arrays.equals(this.$identifier.name, that.$identifier.name))
-        {
-            return false;
-        }
-#else
-        if (this.$identifier.name == null || that.$identifier.name == null || !this.${identifier.name}.equals(that.$identifier.name))
-        {
-            return false;
-        }
-#end
-#end
-        return true;
-#end
-    }
+#renderEqualsMethod($entity $entity.entityName $identifiers)
 
     /**
 #if ($identifiers.empty)
@@ -175,31 +159,7 @@ $operation.getDocumentation("     * ")
 #end
 #end
      */
-    public int hashCode()
-    {
-#if ($identifiers.empty)
-        return super.hashCode();
-#else
-#if ($entity.generalization)
-        int hashCode = super.hashCode();
-#else
-        int hashCode = 0;
-#end
-#foreach ($identifier in $entity.identifiers)
-#set ($idType = $identifier.type)
-#if ($idType.booleanType)
-        hashCode = 29 * hashCode + (${identifier.name} ? 1 : 0);
-#elseif ($idType.arrayType)
-        // arrays are not part of the hashCode calculation
-#elseif ($idType.primitive)
-        hashCode = 29 * hashCode + (int)${identifier.name};
-#else
-        hashCode = 29 * hashCode + (${identifier.name} == null ? 0 : ${identifier.name}.hashCode());
-#end
-#end
-        return hashCode;
-#end
-    }
+#renderHashCodeMethod($entity $identifiers)
 
 #end
 #if (!$entity.abstract)

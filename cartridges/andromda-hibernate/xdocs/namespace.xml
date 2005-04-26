@@ -209,6 +209,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>embeddedValueImplementationNamePattern</td>
+                    <td>
+                        The pattern to use when constructing an embedded value implementation
+                        name.                        
+                    </td>
+                    <td>
+                        No, default is <code>{0}Impl</code> where <em>{0}</em>
+                        is the name of the modeled embedded value.                   
+                    </td>
+                </tr>
+                <tr>
                     <td>
                           enumerationNamePattern
                     </td>
