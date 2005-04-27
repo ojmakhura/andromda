@@ -601,15 +601,12 @@ public final class OCLCollections
         List list = null;
         if (object instanceof Collection)
         {
-            Collection collection = (Collection)object;
-            if (!collection.isEmpty())
+            final Collection collection = (Collection)object;
+            if (!(object instanceof List))
             {
-                if (!(object instanceof List))
-                {
-                    object = new ArrayList(collection);
-                }
-                list = (List)object;
+                object = new ArrayList(collection);
             }
+            list = (List)object;
         }
         else
         {
