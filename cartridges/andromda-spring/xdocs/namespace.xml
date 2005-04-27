@@ -811,6 +811,17 @@
                             No, default is <code>org.springframework.jdbc.datasource.DriverManagerDataSource</code>.
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            jdbcDataSourceDestroyMethod
+                        </td>
+                        <td>
+                            The name of the method to use for destroying the JDBC datasource.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
                 </table>
             </subsection>
             <subsection name="EJB Specific Properties">
