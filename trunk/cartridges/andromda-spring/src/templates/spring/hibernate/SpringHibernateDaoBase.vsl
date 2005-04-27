@@ -372,18 +372,18 @@ public abstract class $entity.daoBaseName
             net.sf.hibernate.Query queryObject = super.getSession(false).createQuery(queryString);
 #foreach($argument in $finder.arguments)
 #set ($count = $velocityCount - 1)
-#set ($argumentName = $argument.name)
+#set ($argumentValue = $argument.name)
 #if($argument.type.primitive)
-#set ($argumentName = "new ${argument.type.wrapperName}($argument.name)")
+#set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
 #elseif ($argument.type.enumeration)
-#set ($argumentName = "${argument.name}.getValue()")
+#set ($argumentValue = "${argument.name}.getValue()")
 #end
 #set ($setParameterOperation = "setParameter")
 #if ($argument.type.collectionType)
 #set ($setParameterOperation = "${setParameterOperation}List")
 #end
 #if ($finder.useNamedParameters)
-            queryObject.${setParameterOperation}("$argument.name", $argumentName);
+            queryObject.${setParameterOperation}("$argument.name", $argumentValue);
 #else
             queryObject.${setParameterOperation}($count, $argumentName);
 #end
