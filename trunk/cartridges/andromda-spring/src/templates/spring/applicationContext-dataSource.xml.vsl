@@ -7,7 +7,7 @@
     
 #if ($stringUtils.isNotBlank($dataSource))
     <!-- JNDI DataSource for J2EE environments -->
-    <bean id="dataSource" class="$jndiDataSourceClass">
+    <bean id="dataSource" class="$jndiDataSourceClass"#if ($stringUtils.isNotBlank($jdbcDataSourceDestroyMethod)) destroy-method="$jdbcDataSourceDestroyMethod"#end>
         <property name="jndiName"><value>$dataSource</value></property>
     </bean>
 #else
