@@ -36,6 +36,13 @@
 					<exclude>**/*.java</exclude>
 				</excludes>
 			</resource>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>META-INF/**/*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
 		</resources>	
   	</build>
   	
