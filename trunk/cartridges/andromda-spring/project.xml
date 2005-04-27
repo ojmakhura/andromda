@@ -5,25 +5,26 @@
     <package>org.andromda.cartridges.spring</package>
     <description>
         Generates spring with Hibernate
-  	</description>
+      </description>
     <shortDescription>AndroMDA Spring Cartridge</shortDescription>
     <developers>
         <developer>
             <name>Chad Brandon</name>
             <id>cwbrandon</id>
             <email>cwbrandon@users.sourceforge.net</email>
-            <roles/>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Peter Friese</name>
+            <id>freter</id>
+            <email>freter@users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
         </developer>
     </developers>
-    <contributors>
-        <contributor>
-            <name>Peter Friese</name>
-            <email>peter.friese@lhsystems.com</email>
-            <roles>
-                <role>Spring Remoting Support</role>
-            </roles>
-        </contributor>
-    </contributors>
     <dependencies>
         <dependency>
             <groupId>andromda</groupId>
