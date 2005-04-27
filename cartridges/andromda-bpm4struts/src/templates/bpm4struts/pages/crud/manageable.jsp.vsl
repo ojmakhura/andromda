@@ -49,16 +49,16 @@
                 </table>
 
 #if ($manageable.read)
-                <input type="submit" value="<bean:message key="button.read"/>" onclick="this.form.${manageable.actionParameter}.value='read';"/>
+                <input type="submit" value="<bean:message key="button.read"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='read';"/>
 #end
 #if ($manageable.create)
-                <input type="submit" value="<bean:message key="button.create"/>" onclick="this.form.${manageable.actionParameter}.value='create';"/>
+                <input type="submit" value="<bean:message key="button.create"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='create';"/>
 #end
 #if ($manageable.delete)
-                <input type="submit" value="<bean:message key="button.delete"/>" onclick="this.form.${manageable.actionParameter}.value='delete';"/>
+                <input type="submit" value="<bean:message key="button.delete"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='delete';"/>
 #end
 #if ($manageable.update)
-                <input type="submit" value="<bean:message key="button.update"/>" onclick="this.form.${manageable.actionParameter}.value='update';"/>
+                <input type="submit" value="<bean:message key="button.update"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='update';"/>
 #end
                 <tiles:insert page="/entity-switcher.jsp" flush="false"/>
 
