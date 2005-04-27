@@ -78,16 +78,22 @@
                             <fmt:formatDate var="${member.manageableName}Formatted" value="${${rowValue}}" pattern="${member.dateFormat}"/>
 #end
 #end
-                            <a href="#" onclick="#renderJavascriptCopyRow($manageable)return false;"><bean:message key="copy.row.values"/></a>
+                            <nobr>
+                                <a href="#" onclick="#renderJavascriptCopyRow($manageable)return false;"><bean:message key="copy.row.values"/></a>
 #if ($manageable.delete)
 #set ($identifierValue = "row.${manageable.identifiers.iterator().next().name}")
-                            <input type="checkbox" name="selectedRows" value="${${identifierValue}}"/>
+                                <input type="checkbox" name="selectedRows" value="${${identifierValue}}"/>
 #end
+                            </nobr>
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
                         <display:column media="html" headerClass="$member.manageableName" titleKey="$member.messageKey">
-                            <html:checkbox name="row" property="$member.manageableName" disabled="true"/>
+                            <c:choose>
+#set ($test = "row.${member.manageableName}")
+                                <c:when test="${${test}}"><input type="checkbox" checked="checked" disabled="disabled"/></c:when>
+                                <c:otherwise><input type="checkbox" disabled="disabled"/></c:otherwise>
+                            </c:choose>
                         </display:column>
                         <display:column media="xml csv excel pdf" property="$member.manageableName"
                             headerClass="$member.manageableName" paramId="$member.manageableName"
