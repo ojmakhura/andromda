@@ -7,12 +7,12 @@
     
 #if ($stringUtils.isNotBlank($dataSource))
     <!-- JNDI DataSource for J2EE environments -->
-    <bean id="dataSource" class="$jndiDataSourceClass"#if ($stringUtils.isNotBlank($jdbcDataSourceDestroyMethod)) destroy-method="$jdbcDataSourceDestroyMethod"#end>
+    <bean id="dataSource" class="$jndiDataSourceClass">
         <property name="jndiName"><value>$dataSource</value></property>
     </bean>
 #else
     <!-- Local DataSource that works in any environment -->
-    <bean id="dataSource" class="$jdbcDataSourceClass">
+    <bean id="dataSource" class="$jdbcDataSourceClass"#if ($stringUtils.isNotBlank($jdbcDataSourceDestroyMethod)) destroy-method="$jdbcDataSourceDestroyMethod"#end>
 #if ($stringUtils.isNotBlank($driver))
         <property name="driverClassName"><value>$driver</value></property>
 #end
