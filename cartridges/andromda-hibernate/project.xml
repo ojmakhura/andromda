@@ -6,7 +6,7 @@
     <name>AndroMDA Hibernate Cartridge</name>
     <shortDescription>Hibernate Cartridge</shortDescription>
     <description>
-		Produces Hibernate entities optionally services implemented as Session EJB facades.
+        Produces Hibernate entities optionally services implemented as Session EJB facades.
     </description>
     <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10012&amp;decorator=none</issueTrackingUrl>
     <developers>
@@ -30,6 +30,14 @@
             <name>Carlos Cuenca</name>
             <id>carloslcuenca</id>
             <email>carloslcuenca@users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Peter Friese</name>
+            <id>freter</id>
+            <email>freter@users.sourceforge.net</email>
             <roles>
                 <role>Developer</role>
             </roles>
@@ -85,7 +93,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-     		<version>3.1</version>
+             <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>

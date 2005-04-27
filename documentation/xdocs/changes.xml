@@ -17,6 +17,15 @@
                 The <a href="maven-andromdapp-plugin/index.html">AndroMDA App Maven Plugin</a> can now generate 
                 standalone war files (that can be deployed to <a href="http://jakarta.apache.org/tomcat">Tomcat</a>).
             </action>
+
+            <action dev="freter" type="add" issue="HIB-87">
+                Hibernate entities (which are marked as serializable) will now contain a field <code>serialVersionUID</code>
+                in order to satisfy
+                <a href="http://java.sun.com/j2se/1.4.2/docs/guide/serialization/spec/version.html">Versioning of Serializable Objects</a>
+                and
+                <a href="http://c2.com/cgi/wiki?AlwaysDeclareSerialVersionUid">Always Declare Serial Version Uid</a>.
+                Users can override the automatically calculated SUID by setting the tagged value "@andromda.serialVersionUID".
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-40">
                 Mapping files can now extend other mapping files (this allows you to only add or customize
                 the specific mapping entries you need and inherit the rest).  For more information see
@@ -30,14 +39,14 @@
                 <a href="andromda-bpm4struts-cartridge/howto10.html">Bpm4Struts i18n</a>.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-62">
-                It is now possible to merge the entire contents of one or more files into a merge-point. Please see the 
-                <a href="andromda-cartridges/index.html#mergingFileContents">merge-point documentation</a> 
+                It is now possible to merge the entire contents of one or more files into a merge-point. Please see the
+                <a href="andromda-cartridges/index.html#mergingFileContents">merge-point documentation</a>
                 for more information.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-56">
                 It is now possible to specify XSL transformation templates to be applied to the model(s) before model
-                processing begins, please see the 
-                <a href="maven-andromda-plugin/properties.html#maven_andromda_transformation_uri">AndroMDA Maven Plugin</a> or 
+                processing begins, please see the
+                <a href="maven-andromda-plugin/properties.html#maven_andromda_transformation_uri">AndroMDA Maven Plugin</a> or
                 the <a href="andromda-ant-task/index.html#transformation">AndroMDA Ant Task</a> (depending on what
                 you use) for more information.
             </action>
@@ -52,7 +61,7 @@
                 new <em>org.andromda.ant.task</em>.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-59">
-                The encoding can now be set for both the Ant Task and the AndroMDA Maven plugin, 
+                The encoding can now be set for both the Ant Task and the AndroMDA Maven plugin,
                 <code>maven.andromda.outputEncoding</code> is the required property for the Maven plugin,
                  and the <code>outputEncoding</code> is the attribute for the Andromda Ant task.  Please see the documentation
                  for each for more information.
@@ -89,9 +98,9 @@
                 value can now also take the <code>none</code> value to turn off export for the corresponding table.
             </action>
             <action dev="cwbrandon" type="fix" issue="MISC-29">
-                Mappings are now required to use the correct '::' namespace separator istead of the Java 
+                Mappings are now required to use the correct '::' namespace separator istead of the Java
                 specific '.' separator.  This requires any custom type mapping files to replace all occurances
-                of '.' with '::' (for example <em>datatype.Long</em> now needs to be mapped as <em>datatype::Long</em> 
+                of '.' with '::' (for example <em>datatype.Long</em> now needs to be mapped as <em>datatype::Long</em>
                 within the JavaMappings.xml file).
             </action>
             <action dev="draftdog" type="fix" issue="BPM-160">
@@ -119,7 +128,7 @@
                 value objects but instead uses the ones generated from the java cartridge, it's just required
                 to set the <a href="andromda-metafacades-uml/namespace.html#useArraysForMultiplicitiesOfTypeMany">useArraysForMultiplicitiesOfTypeMany</a>
                 namespace property to true (so that arrays are generated for association ends with multiplicities
-                of type many) and make sure you have the 
+                of type many) and make sure you have the
                 <a href="andromda-java-cartridge/namespace.html#value-objects">value-objects</a> namespace property defined
                 for the java cartridge.
             </action>
@@ -146,13 +155,13 @@
             </action>
             <action dev="cwbrandon" type="add" issue="SPRING-52">
                 The Spring cartridge now has configurable transactions for Spring service operations.  This change required
-                the rename of @andromda.transaction.type to @andromda.ejb.transaction.type to prevent conflicts with 
+                the rename of @andromda.transaction.type to @andromda.ejb.transaction.type to prevent conflicts with
                 the spring service transaction tagged value (@andromda.spring.transaction.type) and to be consistent
                 with other cartridge specific tagged values.
             </action>
             <action dev="cwbrandon" type="update" issue="HIB-71">
                 Hibernate enumerations (generated by the Hibernate cartridge) now extend the regular java enumerations
-                generated by the java cartridge (so that they can co-exist peacefully).  Note, you'll now need to enable 
+                generated by the java cartridge (so that they can co-exist peacefully).  Note, you'll now need to enable
                 the enumerations outlet from the java cartridge when using the hibernate enumerations.
             </action>
             <action dev="draftdog" type="update">
@@ -169,7 +178,7 @@
                 The spring cartridge now supports nullable attributes in criteria finders.
             </action>
             <action dev="cwbrandon" type="fix" issue="OCL-9">
-                A bug in the OCL query translation library was causing some relational operations (such as 
+                A bug in the OCL query translation library was causing some relational operations (such as
                 <![CDATA['<>' and '<=') to be incorrectly translated to '>']]>, this has been fixed.
             </action>
             <action dev="draftdog" type="add">
@@ -182,7 +191,7 @@
             </action>
             <action dev="cwbrandon" type="update" issue="CORE-15">
                 OCL translation support has been moved into the translation-libraries/ocl module (out of the andromda-core)
-                and all ocl translation specific classes are now in a package beginning with 
+                and all ocl translation specific classes are now in a package beginning with
                 <em>org.andromda.translation.ocl</em>.
             </action>
             <action dev="draftdog" type="add" issue="BPM-13">
@@ -473,10 +482,10 @@
             </action>
             <action dev="amartinwest" type="add" >
                 Refactored exception handling. Exceptions are now recorded in
-				exception dump files. The file name convention is
-				<![CDATA[<cartridge name>]]>timestamp.exc. Timestamp takes the form
-				YYMMDDHHMMSS[_SUFFIX]. Suffix is an incrementing number
-				which is used when two or more exceptions occur in the same second.
+                exception dump files. The file name convention is
+                <![CDATA[<cartridge name>]]>timestamp.exc. Timestamp takes the form
+                YYMMDDHHMMSS[_SUFFIX]. Suffix is an incrementing number
+                which is used when two or more exceptions occur in the same second.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-33">
                 The ability to filter (or select) the cartridges you want
