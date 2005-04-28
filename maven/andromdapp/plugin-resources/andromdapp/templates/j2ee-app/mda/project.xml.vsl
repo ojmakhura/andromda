@@ -142,6 +142,7 @@
             <type>jar</type>
             <properties>
                 <schemaTypeMappingsUri>AxisWSDLMappings</schemaTypeMappingsUri>
+                <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
                 <defaultProvider>${default.provider}</defaultProvider>
                 <applicationName>${pom.groupId}</applicationName>
                 <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
@@ -165,6 +166,7 @@
             <version>${andromda}</version>
             <properties>
 #if ($webservice)
+                <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
                 <useArraysForMultiplicitiesOfTypeMany>true</useArraysForMultiplicitiesOfTypeMany>
 #end
                 <enumerations>${maven.andromda.common.generated.dir}</enumerations>
