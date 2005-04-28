@@ -41,7 +41,6 @@
     <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
     <property reference="hibernateHbm2DDLAuto" default=""/>
     <property reference="hibernateQuerySubstitutions" default=""/>
-    <property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
     <property reference="hibernateEnableCache" default="false"/>
     <property reference="hibernateEnableAssociationsCache" default="false"/>
     <property reference="hibernateEhCacheDiskStore" default="java.io.tmpdir"/>
