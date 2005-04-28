@@ -1,7 +1,6 @@
 package org.andromda.metafacades.uml14;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.NameMasker;
