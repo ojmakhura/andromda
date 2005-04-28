@@ -3,7 +3,6 @@ package org.andromda.core.transformation;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.andromda.core.Transformation;
 
 /**
  * Is able to apply transformations to a given model (such as an XMI file).
