@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  This is used to map the Axis WSDL types to the model types
+  for generated code.
+-->
+<mappings name="AxisWSDLMappings">
+    <extends>XmlSchema</extends>
+    <mapping>
+        <from>datatype::DateTime</from>
+        <from>datatype::Timestamp</from>
+        <from>datatype::Date</from>
+        <to>dateTime</to>
+    </mapping>
+</mappings>
