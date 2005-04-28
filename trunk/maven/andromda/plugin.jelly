@@ -122,16 +122,16 @@
 
                     <ant:namespace name="${namespaceName}">
 
-                    <j:forEach var="property" items="${dependency.properties}">
-
-                        <j:set var="propertyName" value="${pluginUtils.getDependencyPropertyName(property)}"/>
-                        <j:set var="propertyValue" value="${pluginUtils.getDependencyPropertyValue(property)}"/>
-                        <j:set var="isIgnored" value="${pluginUtils.isDependencyPropertyIgnored(property)}"/>
-                        <j:if test="${propertyName != null and propertyName != ''}">
-                            <ant:property name="${propertyName}" value="${propertyValue}" ignore="${isIgnored}"/>
-                        </j:if>
-
-                    </j:forEach>
+                        <j:forEach var="property" items="${dependency.properties}">
+    
+                            <j:set var="propertyName" value="${pluginUtils.getDependencyPropertyName(property)}"/>
+                            <j:set var="propertyValue" value="${pluginUtils.getDependencyPropertyValue(property)}"/>
+                            <j:set var="isIgnored" value="${pluginUtils.isDependencyPropertyIgnored(property)}"/>
+                            <j:if test="${propertyName != null and propertyName != ''}">
+                                <ant:property name="${propertyName}" value="${propertyValue}" ignore="${isIgnored}"/>
+                            </j:if>
+    
+                        </j:forEach>
 
                     </ant:namespace>
 
