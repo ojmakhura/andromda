@@ -16,7 +16,6 @@ import org.andromda.core.common.ModelPackages;
 import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.XmlObjectFactory;
-import org.andromda.core.mapping.Mappings;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.tools.ant.BuildException;
@@ -444,7 +443,7 @@ public class AndroMDAGenTask
             {
                 try
                 {
-                    Mappings.addLogicalMappings(Mappings.getInstance(((File)mappingsLocationIt.next()).toURL()));
+                    ModelProcessor.instance().addLogicalMappings(((File)mappingsLocationIt.next()).toURL());
                 }
                 catch (Throwable th)
                 {

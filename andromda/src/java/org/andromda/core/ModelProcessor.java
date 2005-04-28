@@ -1,6 +1,7 @@
 package org.andromda.core;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import org.andromda.core.common.Namespace;
 import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceWriter;
+import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
@@ -113,9 +115,10 @@ public class ModelProcessor
                     }
                     AndroMDALogger.reset();
                 }
-                AndroMDALogger.info("completed model processing --> TIME: " +
-                        ((System.currentTimeMillis() - startTime) / 1000.0) + "[s], RESOURCES WRITTEN: " + ResourceWriter.instance()
-                        .getWrittenCount() + totalMessagesMessage);
+                AndroMDALogger.info("completed model processing --> TIME: "
+                    + ((System.currentTimeMillis() - startTime) / 1000.0)
+                    + "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount()
+                    + totalMessagesMessage);
                 if (failOnValidationErrors && !messages.isEmpty())
                 {
                     throw new ModelProcessorException("Model validation failed!");
@@ -173,6 +176,7 @@ public class ModelProcessor
                 // discover all plugins
                 PluginDiscoverer.instance().discoverPlugins();
                 MetafacadeFactory.getInstance().initialize();
+                Mappings.initializeLogicalMappings();
 
                 final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
                 if (cartridges.isEmpty())
@@ -350,6 +354,18 @@ public class ModelProcessor
                 this.cartridgeFilter = Arrays.asList(namespaces.split(","));
             }
         }
+    }
+    
+    /**
+     * Adds a mappings URI to the store of logical
+     * mappings.  This allows {@link Mappings} instances
+     * to be retrieved from their logial name.
+     *  
+     * @param mappingsUri the URI of the mappings file.
+     */
+    public void addLogicalMappings(final URL mappingsUri)
+    {
+        Mappings.addLogicalMappings(mappingsUri);
     }
     
     /**
