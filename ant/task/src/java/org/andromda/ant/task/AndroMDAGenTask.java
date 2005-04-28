@@ -417,8 +417,8 @@ public class AndroMDAGenTask
      */
     private void initializeMappings()
     {
-        String[] mappingsPaths = this.createMappingsSearchPath().list();
-        Collection mappingsLocations = new ArrayList();
+        final String[] mappingsPaths = this.createMappingsSearchPath().list();
+        final Collection mappingsLocations = new ArrayList();
         if (mappingsLocations != null)
         {
             for (int ctr = 0; ctr < mappingsPaths.length; ctr++)
@@ -440,8 +440,7 @@ public class AndroMDAGenTask
                     mappingsLocations.add(mappingsPath);
                 }
             }
-            Iterator mappingsLocationIt = mappingsLocations.iterator();
-            while (mappingsLocationIt.hasNext())
+            for (Iterator mappingsLocationIt = mappingsLocations.iterator(); mappingsLocationIt.hasNext();)
             {
                 try
                 {
