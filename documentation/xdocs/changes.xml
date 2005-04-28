@@ -12,12 +12,11 @@
         <release version="3.0-SNAPSHOT" date="2005-04-25" description="Version 3.0 final">
             
         </release>
-        <release version="3.0-SNAPSHOT" date="2005-04-25" description="Second release candidate for version 3.0">
+        <release version="3.0-RC2" date="2005-04-25" description="Second release candidate for version 3.0">
             <action dev="cwbrandon" type="add" issue="MAVEN-23">
                 The <a href="maven-andromdapp-plugin/index.html">AndroMDA App Maven Plugin</a> can now generate 
                 standalone war files (that can be deployed to <a href="http://jakarta.apache.org/tomcat">Tomcat</a>).
             </action>
-
             <action dev="freter" type="add" issue="HIB-87">
                 Hibernate entities (which are marked as serializable) will now contain a field <code>serialVersionUID</code>
                 in order to satisfy
