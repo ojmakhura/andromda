@@ -33,6 +33,8 @@ import java.util.Iterator;
 public class EntityLogicImpl
         extends EntityLogic
 {
+    private boolean internalDynamicIdentifiersPresent = false;
+
     // ---------------- constructor -------------------------------
 
     public EntityLogicImpl(java.lang.Object metaObject, String context)
@@ -51,6 +53,7 @@ public class EntityLogicImpl
         if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers())
         {
             this.createIdentifier();
+            this.internalDynamicIdentifiersPresent = true;
         }
     }
 
@@ -155,6 +158,14 @@ public class EntityLogicImpl
     {
         Collection identifiers = this.getIdentifiers(true);
         return identifiers != null && !identifiers.isEmpty();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.Entity#isDynamicIdentifiersPresent()
+     */
+    protected boolean handleIsDynamicIdentifiersPresent()
+    {
+        return this.internalDynamicIdentifiersPresent;
     }
 
     /**
