@@ -1,4 +1,4 @@
-package org.andromda.core;
+package org.andromda.core.transformation;
 
 import java.net.URL;
 

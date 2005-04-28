@@ -2,7 +2,7 @@ package org.andromda.ant.task;
 
 import java.net.URL;
 
-import org.andromda.core.Transformation;
+import org.andromda.core.transformation.Transformation;
 
 /**
  * This class implements the <code>&lt;transformation&gt;</code> element which

@@ -26,6 +26,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
+import org.andromda.core.transformation.Transformation;
 import org.andromda.core.transformation.Transformer;
 import org.andromda.core.transformation.XslTransformer;
 import org.apache.commons.collections.CollectionUtils;

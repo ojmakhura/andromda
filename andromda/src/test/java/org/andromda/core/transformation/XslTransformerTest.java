@@ -5,7 +5,6 @@ import java.net.URL;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.Transformation;
 
 /**
  * Tests the {@link org.andromda.core.transformation.XslTransformer}
