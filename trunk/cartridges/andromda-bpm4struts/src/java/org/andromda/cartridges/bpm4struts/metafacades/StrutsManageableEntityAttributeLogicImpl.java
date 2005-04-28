@@ -65,4 +65,8 @@ public class StrutsManageableEntityAttributeLogicImpl
         return defaultDateFormat;
     }
 
+    protected boolean handleIsDisplay()
+    {
+        return !isIdentifier(); // @todo: handle assigned, TVs etc..
+    }
 }

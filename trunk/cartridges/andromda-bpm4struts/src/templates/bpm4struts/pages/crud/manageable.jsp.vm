@@ -1,6 +1,12 @@
 ##
 ##
 ##
+#macro ( renderHiddenAttribute $field $indent )
+${indent}<html:hidden name="manageableForm" property="$field.manageableName"/>
+#end
+##
+##
+##
 #macro ( renderAttribute $field $indent )
 #if ($field.type.fullyQualifiedName == 'boolean' || $field.type.fullyQualifiedName == 'java.lang.Boolean')
 ${indent}<html:checkbox name="manageableForm" property="$field.manageableName" styleClass="criteriaField" styleId="$field.manageableName"/>

@@ -27,39 +27,45 @@
         <html:form action="$manageable.actionPath" method="post">
             <input type="hidden" name="$manageable.actionParameter" value=""/>
             <div id="criteria">
-                <table>
+                <c:if test="${!empty manageableForm}">
+                    <table>
 #foreach ($member in $manageable.attributes)
-                    <tr>
-                        <td><bean:message key="$member.messageKey"/></td>
-                        <td>
-#renderAttribute($member "                            ")
-                        </td>
-                    </tr>
+#if (!$member.display)
+#renderHiddenAttribute($member "                    ")
+#else
+                        <tr>
+                            <td><bean:message key="$member.messageKey"/></td>
+                            <td>
+#renderAttribute($member "                                ")
+                            </td>
+                        </tr>
+#end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
-                    <tr>
-                        <td>
-#renderAssociationLink($member "                            ")
-                        </td>
-                        <td>
-#renderAssociationEnd($member "                            ")
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+#renderAssociationLink($member "                                ")
+                            </td>
+                            <td>
+#renderAssociationEnd($member "                                ")
+                            </td>
+                        </tr>
 #end
-                </table>
+                    </table>
 
 #if ($manageable.read)
-                <input type="submit" value="<bean:message key="button.read"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='read';"/>
+                    <input type="submit" value="<bean:message key="button.read"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='read';"/>
 #end
 #if ($manageable.create)
-                <input type="submit" value="<bean:message key="button.create"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='create';"/>
+                    <input type="submit" value="<bean:message key="button.create"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='create';"/>
 #end
 #if ($manageable.delete)
-                <input type="submit" value="<bean:message key="button.delete"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='delete';"/>
+                    <input type="submit" value="<bean:message key="button.delete"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='delete';"/>
 #end
 #if ($manageable.update)
-                <input type="submit" value="<bean:message key="button.update"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='update';"/>
+                    <input type="submit" value="<bean:message key="button.update"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='update';"/>
 #end
+                </c:if>
                 <tiles:insert page="/entity-switcher.jsp" flush="false"/>
 
             </div>
@@ -87,6 +93,7 @@
                             </nobr>
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
+#if ($member.display)
 #if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
                         <display:column media="html" headerClass="$member.manageableName" titleKey="$member.messageKey">
                             <c:choose>
@@ -110,6 +117,7 @@
                         <display:column media="all" property="${member.manageableName}${propertySuffix}"
                             headerClass="$member.manageableName" paramId="$member.manageableName" maxLength="$manageableFieldMaxLength"
                             sortProperty="${member.manageableName}${propertySuffix}" sortable="true" titleKey="$member.messageKey"/>
+#end
 #end
 #end
                     </display:table>
