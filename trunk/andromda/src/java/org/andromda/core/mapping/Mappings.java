@@ -86,6 +86,25 @@ public class Mappings
     private static Mappings getInheritedMappings(Mappings mappings)
         throws Exception
     {
+        return getInheritedMappings(mappings, false);
+    }
+    
+    /**
+     * Attempts to get any inherited mappings for the 
+     * given <code>mappings</code>.
+     * 
+     * @param mappings the mappings instance for which to 
+     *        get the inherited mappings.
+     * @param ignoreInheritanceFailure whether or not a failure retrieving the parent
+     *        should be ignored (an exception will be thrown otherwise).
+     * @return the Mappings populated with any inherited mappings
+     *         or just the same mappings unchanged if the 
+     *         <code>mappings</code> doesn't extend anything.
+     * @throws Exception if an exception occurs.
+     */
+    private static Mappings getInheritedMappings(final Mappings mappings, final boolean ignoreInheritanceFailure)
+        throws Exception
+    {
         // if we have a parent then we add the child mappings to
         // the parent's (so we can override any duplicates in the
         // parent) and set the child mappings to the parent's
@@ -94,9 +113,19 @@ public class Mappings
             Mappings parentMappings = (Mappings)logicalMappings.get(mappings.extendsUri);
             if (parentMappings == null)
             {
-                // since we didn't find the parent in the logical 
-                // mappings, try a relative path
-                parentMappings = getInstance(new File(mappings.getCompletePath(mappings.extendsUri)));
+                try
+                {
+                    // since we didn't find the parent in the logical 
+                    // mappings, try a relative path
+                    parentMappings = getInstance(new File(mappings.getCompletePath(mappings.extendsUri)));
+                }
+                catch (Exception ex)
+                {
+                    if (!ignoreInheritanceFailure)
+                    {
+                        throw ex;
+                    }
+                }
             }
             if (parentMappings != null)
             {
@@ -107,7 +136,7 @@ public class Mappings
         }        
         return mappings;
     }
-
+    
     /**
      * Returns a new configured instance of this Mappings configured from the
      * mappings configuration URI.
@@ -115,7 +144,21 @@ public class Mappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
      */
-    public static Mappings getInstance(URL mappingsUri)
+    public static Mappings getInstance(final URL mappingsUri)
+    {
+        return getInstance(mappingsUri, false);    
+    }
+
+    /**
+     * Returns a new configured instance of this Mappings configured from the
+     * mappings configuration URI.
+     * 
+     * @param mappingsUri the URI to the XML type mappings configuration file.
+     * @param ignoreInheritanceFailure a flag indicating whether or not failures while attempting
+     *        to retrieve the mapping's inheritance should be ignored.
+     * @return Mappings the configured Mappings instance.
+     */
+    private static Mappings getInstance(final URL mappingsUri, boolean ignoreInheritanceFailure)
     {
         final String methodName = "Mappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
@@ -124,7 +167,7 @@ public class Mappings
             Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(
                 mappingsUri);
             mappings.resource = mappingsUri;
-            return getInheritedMappings(mappings);
+            return getInheritedMappings(mappings, ignoreInheritanceFailure);
         }
         catch (Throwable th)
         {
@@ -147,6 +190,25 @@ public class Mappings
             new FileReader(mappingsFile));
         mappings.resource = mappingsFile.toURL();
         return mappings;
+    }
+    
+    /**
+     * This initializes all logical mappings that
+     * are contained with global Mapping set.  This 
+     * <strong>MUST</strong> be called after all logical 
+     * mappings have been added through {@link #addLogicalMappings(Mappings)}
+     * otherwise inheritance between logical mappings will not work correctly.
+     */
+    public static void initializeLogicalMappings()
+    {
+        final Map initialized = new HashMap();
+        for (Iterator nameIterator = logicalMappings.keySet().iterator(); nameIterator.hasNext();)
+        {
+            final String name = (String)nameIterator.next();
+            final Mappings mappings = (Mappings)logicalMappings.get(name);
+            initialized.put(name, getInstance(mappings.getResource()));
+        }
+        logicalMappings.putAll(initialized);
     }
 
     /**
@@ -267,8 +329,9 @@ public class Mappings
      * @param mappings the Mappings to add to the globally available Mapping
      *        instances.
      */
-    public static void addLogicalMappings(Mappings mappings)
+    public static void addLogicalMappings(final URL mappingsUri)
     {
+        final Mappings mappings = Mappings.getInstance(mappingsUri, true);
         logicalMappings.put(mappings.getName(), mappings);
     }
 
