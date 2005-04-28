@@ -88,6 +88,11 @@ public class StrutsForwardLogicImpl
         return null;
     }
 
+    /**
+     * If this forward has a trigger this method returns that trigger's name, otherwise if this forward
+     * has a name this method returns that name, otherwise if this forward's target has a name this
+     * method returns that name, otherwise simply returns <code>"unknown"</code>
+     */
     private String resolveName()
     {
         String forwardName = null;
@@ -131,11 +136,20 @@ public class StrutsForwardLogicImpl
         return messageKey;
     }
 
+    /**
+     * Collects specific messages in a map.
+     *
+     * @param messageType success or warning
+     * @param messageKey the message resource key to use as a prefix
+     * @param taggedValue the tagged value from which to read the message
+     * @return maps message keys to message values, but only those that match the arguments
+     *  will have been recorded
+     */
     private Map getMessages(String messageType, String messageKey, String taggedValue)
     {
         Map messages = null;
 
-        Collection taggedValues = findTaggedValues(taggedValue);
+        final Collection taggedValues = findTaggedValues(taggedValue);
         if (taggedValues.isEmpty())
         {
             messages = Collections.EMPTY_MAP;
@@ -144,16 +158,16 @@ public class StrutsForwardLogicImpl
         {
             messages = new LinkedHashMap(); // we want to keep the order
 
-            StringBuffer buffer = new StringBuffer();
+            final StringBuffer buffer = new StringBuffer();
             buffer.append(StringUtilsHelper.toResourceMessageKey(messageKey));
             buffer.append('.');
             buffer.append(messageType);
             buffer.append('.');
 
-            String prefix = buffer.toString();
+            final String prefix = buffer.toString();
             for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
-                String value = (String)iterator.next();
+                final String value = (String)iterator.next();
                 messages.put(prefix + value.hashCode(), value);
             }
         }
@@ -213,11 +227,21 @@ public class StrutsForwardLogicImpl
 
     protected Collection handleGetActions()
     {
-        Set actions = new HashSet();
+        final Set actions = new HashSet();
         findActions(actions, new HashSet());
         return actions;
     }
 
+    /**
+     * Recursively finds all actions for this forward, what this means depends on the context in which
+     * this forward is used: if the source is a page action state it will collect all actions going out
+     * of this page, if the source is a regular action state it will collect all actions that might traverse
+     * this action state, if the source is the initial state it will collect all actions forwarding to this
+     * forward's use-case (please not that those actions most likely are defined in other use-cases).
+     *
+     * @param actions the default set of actions, duplicates will not be recorded
+     * @param handledForwards the forwards already processed
+     */
     private void findActions(Set actions, Set handledForwards)
     {
         if (!handledForwards.contains(this))

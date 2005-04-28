@@ -587,6 +587,12 @@ public class StrutsParameterLogicImpl
         return true;
     }
 
+    /**
+     * If this is a table this method returns all those actions that are declared to work
+     * on this table.
+     *
+     * @param hyperlink denotes on which type of actions to filter
+     */
     private Collection internalGetTableActions(boolean hyperlink)
     {
         final String name = StringUtils.trimToNull(getName());
@@ -1102,6 +1108,9 @@ public class StrutsParameterLogicImpl
         return getName() + "LabelList";
     }
 
+    /**
+     * @return A String representing Java code for the initialization of an array using 5 elements.
+     */
     private String constructArray()
     {
         final String name = getName();
@@ -1153,6 +1162,9 @@ public class StrutsParameterLogicImpl
         return (format == null) ? getDefaultDateFormat() : getDateFormat(format);
     }
 
+    /**
+     * @return the default date format pattern as defined using the configured property
+     */
     private String getDefaultDateFormat()
     {
         return (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
@@ -1167,6 +1179,9 @@ public class StrutsParameterLogicImpl
         return (format == null) ? false : isStrictDateFormat(format);
     }
 
+    /**
+     * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
+     */
     private boolean isTrue(String string)
     {
         return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(
@@ -1545,71 +1560,113 @@ public class StrutsParameterLogicImpl
         return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(getWidgetType());
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a boolean, <code>false</code> otherwise
+     */
     private boolean isValidatorBoolean()
     {
         return UMLMetafacadeUtils.isType(this.getType(), UMLProfile.BOOLEAN_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a character, <code>false</code> otherwise
+     */
     private boolean isValidatorChar()
     {
         return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.CHARACTER_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a byte, <code>false</code> otherwise
+     */
     private boolean isValidatorByte()
     {
         return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.BYTE_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a short, <code>false</code> otherwise
+     */
     private boolean isValidatorShort()
     {
         return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.SHORT_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is an integer, <code>false</code> otherwise
+     */
     private boolean isValidatorInteger()
     {
         return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.INTEGER_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a long integer, <code>false</code> otherwise
+     */
     private boolean isValidatorLong()
     {
         return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.LONG_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a floating point, <code>false</code> otherwise
+     */
     private boolean isValidatorFloat()
     {
         return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.FLOAT_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a double precision floating point, <code>false</code> otherwise
+     */
     private boolean isValidatorDouble()
     {
         return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.DOUBLE_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a date, <code>false</code> otherwise
+     */
     private boolean isValidatorDate()
     {
         return this.getType() != null ? this.getType().isDateType() : false;
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a URL, <code>false</code> otherwise
+     */
     private boolean isValidatorUrl()
     {
         return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.URL_TYPE_NAME);
     }
 
+    /**
+     * @return <code>true</code> if the type of this field is a String, <code>false</code> otherwise
+     */
     private boolean isValidatorString()
     {
         return this.getType() != null ? this.getType().isStringType() : false;
     }
 
+    /**
+     * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
+     */
     private boolean isEmailFormat(String format)
     {
         return "email".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
+    /**
+     * @return <code>true</code> if this field is to be formatted as a credit card, <code>false</code> otherwise
+     */
     private boolean isCreditCardFormat(String format)
     {
         return "creditcard".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
+    /**
+     * @return <code>true</code> if this field's value needs to be in a specific range, <code>false</code> otherwise
+     */
     private boolean isRangeFormat(String format)
     {
         return "range".equalsIgnoreCase(getToken(format, 0, 2)) && (isValidatorInteger() || isValidatorLong() ||
@@ -1617,56 +1674,89 @@ public class StrutsParameterLogicImpl
 
     }
 
+    /**
+     * @return <code>true</code> if this field's value needs to respect a certain pattern, <code>false</code> otherwise
+     */
     private boolean isPatternFormat(String format)
     {
         return "pattern".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
+    /**
+     * @return <code>true</code> if this field's value needs to conform to a strict date format, <code>false</code> otherwise
+     */
     private boolean isStrictDateFormat(String format)
     {
         return "strict".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
+    /**
+     * @return <code>true</code> if this field's value needs to consist of at least a certain number of characters, <code>false</code> otherwise
+     */
     private boolean isMinLengthFormat(String format)
     {
         return "minlength".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
+    /**
+     * @return <code>true</code> if this field's value needs to consist of at maximum a certain number of characters, <code>false</code> otherwise
+     */
     private boolean isMaxLengthFormat(String format)
     {
         return "maxlength".equalsIgnoreCase(getToken(format, 0, 2));
     }
 
+    /**
+     * @return the lower limit for this field's value's range
+     */
     private String getRangeStart(String format)
     {
         return getToken(format, 1, 3);
     }
 
+    /**
+     * @return the upper limit for this field's value's range
+     */
     private String getRangeEnd(String format)
     {
         return getToken(format, 2, 3);
     }
 
+    /**
+     * @return this field's date format
+     */
     private String getDateFormat(String format)
     {
         return (isStrictDateFormat(format)) ? getToken(format, 1, 2) : getToken(format, 0, 1);
     }
 
+    /**
+     * @return the minimum number of characters this field's value must consist of
+     */
     private String getMinLengthValue(String format)
     {
         return getToken(format, 1, 2);
     }
 
+    /**
+     * @return the maximum number of characters this field's value must consist of
+     */
     private String getMaxLengthValue(String format)
     {
         return getToken(format, 1, 2);
     }
 
+    /**
+     * @return the pattern this field's value must respect
+     */
     private String getPatternValue(String format)
     {
         return '^' + getToken(format, 1, 2) + '$';
     }
 
+    /**
+     * @return the i-th space delimited token read from the argument String, where i does not exceed the specified limit
+     */
     private String getToken(String string, int index, int limit)
     {
         if (string == null) return null;

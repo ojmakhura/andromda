@@ -179,6 +179,10 @@ public class StrutsUseCaseLogicImpl
         return activityGraph;
     }
 
+    /**
+     * @return those users directly associated to this use-case, the returned collection only contains StrutsUser
+     *  instances
+     */
     private Collection associatedUsers()
     {
         final Collection usersList = new ArrayList();
@@ -187,7 +191,7 @@ public class StrutsUseCaseLogicImpl
         for (Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
         {
             AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
-            ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
+            final ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
             if (classifier instanceof StrutsUser)
                 usersList.add(classifier);
         }
@@ -201,7 +205,7 @@ public class StrutsUseCaseLogicImpl
         final Collection associatedUsers = associatedUsers();
         for (Iterator iterator = associatedUsers.iterator(); iterator.hasNext();)
         {
-            StrutsUser user = (StrutsUser)iterator.next();
+            final StrutsUser user = (StrutsUser)iterator.next();
             collectUsers(user, allUsersList);
         }
         return allUsersList;
@@ -223,6 +227,9 @@ public class StrutsUseCaseLogicImpl
         return allUsers;
     }
 
+    /**
+     * Recursively collects all users generalizing the argument user, in the specified collection.
+     */
     private void collectUsers(StrutsUser user, Collection users)
     {
         if (!users.contains(user))
@@ -358,33 +365,27 @@ public class StrutsUseCaseLogicImpl
         return actions;
     }
 
-    private Collection pageVariables = null;
-
     protected Collection handleGetPageVariables()
     {
-        if (pageVariables == null)
-        {
-            final Map pageVariableMap = new HashMap();
+        final Map pageVariableMap = new HashMap();
 
-            /**
-             * page variables can occur twice or more in the usecase in case their
-             * names are the same for different forms, storing them in a map
-             * solves this issue because those names do not have the action-name prefix
-             */
-            final Collection pages = getPages();
-            for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+        /**
+         * page variables can occur twice or more in the usecase in case their
+         * names are the same for different forms, storing them in a map
+         * solves this issue because those names do not have the action-name prefix
+         */
+        final Collection pages = getPages();
+        for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+        {
+            final StrutsJsp jsp = (StrutsJsp)pageIterator.next();
+            final Collection variables = jsp.getPageVariables();
+            for (Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
             {
-                final StrutsJsp jsp = (StrutsJsp)pageIterator.next();
-                final Collection variables = jsp.getPageVariables();
-                for (Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
-                {
-                    final StrutsParameter variable = (StrutsParameter)variableIterator.next();
-                    pageVariableMap.put(variable.getName(), variable);
-                }
+                final StrutsParameter variable = (StrutsParameter)variableIterator.next();
+                pageVariableMap.put(variable.getName(), variable);
             }
-            pageVariables = pageVariableMap.values();
         }
-        return pageVariables;
+        return pageVariableMap.values();
     }
 
     protected boolean handleIsSecured()
@@ -453,6 +454,10 @@ public class StrutsUseCaseLogicImpl
         return hierarchy;
     }
 
+    /**
+     * Recursively creates a hierarchy of use-cases, starting with the argument use-case as the root. This is primarily
+     * meant to build a set of menu items.
+     */
     private void createHierarchy(UseCaseNode root)
     {
         StrutsUseCase useCase = (StrutsUseCase)root.getUserObject();
@@ -463,7 +468,7 @@ public class StrutsUseCaseLogicImpl
             Collection finalStates = graph.getFinalStates();
             for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
             {
-                StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
+                 StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
                 StrutsUseCase targetUseCase = finalState.getTargetUseCase();
                 if (targetUseCase != null)
                 {
@@ -478,29 +483,38 @@ public class StrutsUseCaseLogicImpl
         }
     }
 
-    // DefaultMutableTreeNode's isNodeAncestor does not work because of its specific impl.
+    /**
+     * <code>true</code> if the argument ancestor node is actually an ancestor of the first node.
+     *
+     * <em>Note: DefaultMutableTreeNode's isNodeAncestor does not work because of its specific impl.</em>
+     */
     private boolean isNodeAncestor(UseCaseNode node, UseCaseNode ancestorNode)
     {
+        boolean ancestor = false;
+
         if (node.getUseCase().equals(ancestorNode.getUseCase()))
         {
-            return true;
+            ancestor = true;
         }
-        while (node.getParent() != null)
+        while (!ancestor && node.getParent() != null)
         {
             node = (UseCaseNode)node.getParent();
             if (isNodeAncestor(node, ancestorNode))
             {
-                return true;
+                ancestor = true;
             }
         }
-        return false;
+        return ancestor;
     }
 
+    /**
+     * Given a root use-case, finds the node in the hierarchy that represent the argument StrutsUseCase node.
+     */ 
     private UseCaseNode findNode(UseCaseNode root, StrutsUseCase useCase)
     {
         UseCaseNode useCaseNode = null;
 
-        List nodeList = Collections.list(root.breadthFirstEnumeration());
+        final List nodeList = Collections.list(root.breadthFirstEnumeration());
         for (Iterator nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode == null;)
         {
             UseCaseNode node = (UseCaseNode)nodeIterator.next();
