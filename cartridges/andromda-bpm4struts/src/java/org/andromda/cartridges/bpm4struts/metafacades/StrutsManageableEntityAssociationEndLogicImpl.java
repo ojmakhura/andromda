@@ -60,4 +60,8 @@ public class StrutsManageableEntityAssociationEndLogicImpl
         return StringUtilsHelper.toPhrase(messageValue);
     }
 
+    protected boolean handleIsDisplay()
+    {
+        return true; // @todo
+    }
 }
