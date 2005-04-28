@@ -1,6 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.core.common.StringUtilsHelper;
 
 
 /**
@@ -20,7 +21,7 @@ public class SpringManageableEntityAssociationEndLogicImpl
 
     protected java.lang.String handleGetDaoName()
     {
-        return getName() + "Dao";
+        return StringUtilsHelper.lowerCamelCaseName(getName()) + "Dao";
     }
 
     protected java.lang.String handleGetDaoReferenceName()
