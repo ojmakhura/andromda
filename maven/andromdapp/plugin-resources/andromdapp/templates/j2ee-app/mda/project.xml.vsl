@@ -141,7 +141,7 @@
             <version>${andromda}</version>
             <type>jar</type>
             <properties>
-                <schemaTypeMappingsUri>XmlSchema</schemaTypeMappingsUri>
+                <schemaTypeMappingsUri>AxisWSDLMappings</schemaTypeMappingsUri>
                 <defaultProvider>${default.provider}</defaultProvider>
                 <applicationName>${pom.groupId}</applicationName>
                 <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
