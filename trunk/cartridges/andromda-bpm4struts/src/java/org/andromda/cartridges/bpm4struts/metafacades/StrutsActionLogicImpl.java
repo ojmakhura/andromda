@@ -31,18 +31,36 @@ import java.util.LinkedHashMap;
 public class StrutsActionLogicImpl
         extends StrutsActionLogic
 {
+    /**
+     * All action states that make up this action, this includes all possible action states traversed
+     * after a decision point too.
+     */
     private Collection actionStates = null;
-    private Map actionForwards = null;
-    private Collection decisionTransitions = null;
-    private Collection transitions = null;
 
-    // ---------------- constructor -------------------------------
+    /**
+     * All transitions leading into either a page or final state that originated from a call to this action.
+     */
+    private Map actionForwards = null;
+
+    /**
+     * All transitions leading into a decision point that originated from a call to this action.
+     */
+    private Collection decisionTransitions = null;
+
+    /**
+     * All transitions that can be traversed when calling this action.
+     */
+    private Collection transitions = null;
 
     public StrutsActionLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
+    /**
+     * Initializes all action states, action forwards, decision transitions and transitions in one shot, so that they
+     * can be queried more effiencently later on.
+     */
     private void initializeCollections()
     {
         actionStates = new HashSet();
@@ -52,6 +70,12 @@ public class StrutsActionLogicImpl
         collectTransitions(this, transitions);
     }
 
+    /**
+     * Recursively collects all action states, action forwards, decision transitions and transitions.
+     *
+     * @param transition the current transition that is being processed
+     * @param processedTransitions the set of transitions already processed
+     */
     private void collectTransitions(TransitionFacade transition, Collection processedTransitions)
     {
         if (processedTransitions.contains(transition))
@@ -97,11 +121,6 @@ public class StrutsActionLogicImpl
             }
         }
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsAction ...
 
     protected String handleGetActionName()
     {
@@ -409,10 +428,13 @@ public class StrutsActionLogicImpl
         return isTrue(value == null ? null : value.toString());
     }
 
+    /**
+     * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
+     */
     private boolean isTrue(String string)
     {
-        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(
-                string);
+        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
+                "1".equalsIgnoreCase(string);
     }
 
     protected boolean handleIsUseCaseStart()
