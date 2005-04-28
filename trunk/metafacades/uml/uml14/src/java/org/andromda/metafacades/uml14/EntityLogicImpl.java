@@ -32,8 +32,7 @@ import java.util.Iterator;
  */
 public class EntityLogicImpl
         extends EntityLogic
-{
-    private boolean internalDynamicIdentifiersPresent = false;
+        {
 
     // ---------------- constructor -------------------------------
 
@@ -41,6 +40,11 @@ public class EntityLogicImpl
     {
         super(metaObject, context);
     }
+    
+    /**
+     * A flag indicating if an identifier was dynamically added.
+     */
+    private boolean internalDynamicIdentifiersPresent = false;
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
