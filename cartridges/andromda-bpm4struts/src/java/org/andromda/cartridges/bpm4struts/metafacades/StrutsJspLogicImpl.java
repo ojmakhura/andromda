@@ -244,11 +244,14 @@ public class StrutsJspLogicImpl
         return variablesMap.values();
     }
 
+    /**
+     * Iterates over the model elements and maps their name on their instance in the argument map.
+     */
     private void collectByName(Collection modelElements, Map elementMap)
     {
         for (Iterator iterator = modelElements.iterator(); iterator.hasNext();)
         {
-            ModelElementFacade modelElement = (ModelElementFacade)iterator.next();
+            final ModelElementFacade modelElement = (ModelElementFacade)iterator.next();
             elementMap.put(modelElement.getName(), modelElement);
         }
     }
@@ -260,17 +263,31 @@ public class StrutsJspLogicImpl
         return incomingActionsList;
     }
 
+    /**
+     * Collects all actions that are entering the argument state vertex.
+     *
+     * @param stateVertex the statevertex to process
+     * @param processedTransitions the transitions that have already been processed
+     * @param actions the actions collected so far
+     */
     private void collectIncomingActions(StateVertexFacade stateVertex, Collection processedTransitions,
                                         Collection actions)
     {
         final Collection incomingTransitions = stateVertex.getIncoming();
         for (Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
         {
-            TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
+            final TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
             collectIncomingActions(incomingTransition, processedTransitions, actions);
         }
     }
 
+    /**
+     * Collects all actions that are possibly traversing the argument transitions.
+     *
+     * @param transition the transition to process
+     * @param processedTransitions the transitions that have already been processed
+     * @param actions the actions collected so far
+     */
     private void collectIncomingActions(TransitionFacade transition, Collection processedTransitions,
                                         Collection actions)
     {
@@ -295,10 +312,10 @@ public class StrutsJspLogicImpl
             }
             else
             {
-                Collection incomingTransitions = transition.getSource().getIncoming();
+                final Collection incomingTransitions = transition.getSource().getIncoming();
                 for (Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
                 {
-                    TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
+                    final TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
                     collectIncomingActions(incomingTransition, processedTransitions, actions);
                 }
             }

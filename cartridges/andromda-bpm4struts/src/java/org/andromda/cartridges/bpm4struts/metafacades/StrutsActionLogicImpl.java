@@ -297,7 +297,7 @@ public class StrutsActionLogicImpl
     protected java.lang.String handleGetActionRoles()
     {
         final Collection users = getRoleUsers();
-        StringBuffer roles = new StringBuffer();
+        final StringBuffer roles = new StringBuffer();
         for (Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
             roles.append(((ModelElementFacade)userIterator.next()).getName());
@@ -309,13 +309,19 @@ public class StrutsActionLogicImpl
         return roles.toString();
     }
 
+    /**
+     * Returns a collection containing StrutsUser instances representing the roles
+     * authorized to call this action. If this action starts the use-case that use-case's users
+     * are returned, otherwise it will return the users associated to the use-cases targetted by this
+     * action (which may be none at all)
+     */
     private Collection getRoleUsers()
     {
-        Collection roleUsers = new ArrayList();
+        final Collection roleUsers = new ArrayList();
 
         if (isUseCaseStart())
         {
-            StrutsUseCase useCase = getUseCase();
+            final StrutsUseCase useCase = getUseCase();
             if (useCase != null)
             {
                 roleUsers.addAll(useCase.getUsers());
@@ -325,10 +331,10 @@ public class StrutsActionLogicImpl
         {
             for (Iterator iterator = getActionForwards().iterator(); iterator.hasNext();)
             {
-                TransitionFacade transition = (TransitionFacade)iterator.next();
+                final TransitionFacade transition = (TransitionFacade)iterator.next();
                 if (transition.getTarget() instanceof StrutsFinalState)
                 {
-                    StrutsUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
+                    final StrutsUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
                     if (useCase != null)
                     {
                         roleUsers.addAll(useCase.getUsers());
@@ -336,6 +342,7 @@ public class StrutsActionLogicImpl
                 }
             }
         }
+
         return roleUsers;
     }
 
@@ -346,10 +353,10 @@ public class StrutsActionLogicImpl
 
         if (source instanceof PseudostateFacade)
         {
-            PseudostateFacade pseudostate = (PseudostateFacade)source;
+            final PseudostateFacade pseudostate = (PseudostateFacade)source;
             if (pseudostate.isInitialState())
             {
-                StrutsUseCase useCase = getUseCase();
+                final StrutsUseCase useCase = getUseCase();
                 if (useCase != null)
                 {
                     name = useCase.getName();
