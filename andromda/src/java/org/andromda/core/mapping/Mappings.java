@@ -100,8 +100,9 @@ public class Mappings
             }
             if (parentMappings != null)
             {
-                parentMappings.mappings.putAll(mappings.mappings);
-                mappings.mappings = parentMappings.mappings;
+                final Map allMappings = new LinkedHashMap(parentMappings.mappings);
+                allMappings.putAll(mappings.mappings);
+                mappings.mappings = allMappings;
             }
         }        
         return mappings;
