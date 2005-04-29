@@ -31,24 +31,37 @@ public class WebServiceParameterLogicImpl
     protected String handleGetTestTypeName()
     {
         String testTypeName = null;
-        ClassifierFacade type = this.getType();
-        if (type != null)
+        final ClassifierFacade type = this.getType();
+        if (type instanceof WSDLType || type instanceof WSDLEnumerationType)
         {
-            if (WSDLType.class.isAssignableFrom(type.getClass()))
+            ClassifierFacade service = this.getOperation().getOwner();
+            if (service instanceof WebService)
             {
-                WSDLType wsdlType = (WSDLType)type;
-                ClassifierFacade service = this.getOperation().getOwner();
-                if (service != null && WebService.class.isAssignableFrom(service.getClass()))
+                WebService webService = (WebService)service;
+                final String testPackageName = webService.getTestPackageName();
+                if (type instanceof WSDLType)
                 {
-                    WebService webService = (WebService)service;
+                    final WSDLType wsdlType = (WSDLType)type;
                     if (!webService.isRpcStyle() && wsdlType.isArrayType())
                     {
-                        testTypeName = webService.getTestPackageName() + '.' + wsdlType.getWsdlArrayName();
+                        testTypeName = testPackageName + '.' + wsdlType.getWsdlArrayName();
                     }
                     else if (!type.isDataType())
                     {
-                        testTypeName = webService.getTestPackageName() + '.' + wsdlType.getName();
+                        testTypeName = testPackageName + '.' + wsdlType.getName();
                     }
+                }
+                else
+                {
+                    final WSDLEnumerationType wsdlType = (WSDLEnumerationType)type;
+                    if (!webService.isRpcStyle() && wsdlType.isArrayType())
+                    {
+                        testTypeName = testPackageName + '.' + wsdlType.getWsdlArrayName();
+                    }
+                    else if (!type.isDataType())
+                    {
+                        testTypeName = testPackageName + '.' + wsdlType.getName();
+                    }                    
                 }
             }
             if (testTypeName == null)
