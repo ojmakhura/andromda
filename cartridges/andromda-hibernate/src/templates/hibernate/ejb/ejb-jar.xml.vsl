@@ -34,17 +34,13 @@
 #foreach ($serviceRef in $service.serviceReferences)
 #set ($serviceRef = $serviceRef.targetElement)
 #set ($ejbRefTag = "ejb-ref")
-#if (!$service.ejbRemoteView)
+#if (!$serviceRef.ejbRemoteView)
 #set ($ejbRefTag = "ejb-local-ref")
 #end
             <$ejbRefTag>
                 <ejb-ref-name>ejb/${serviceRef.name}Ref</ejb-ref-name>
                 <ejb-ref-type>Session</ejb-ref-type>
-#set ($homeTag = "home")
-#if (!$service.ejbRemoteView)
-#set ($homeTag = "${serviceRef.ejbViewType}-${homeTag}")
-#end
-#if ($service.ejbRemoteView)
+#if ($serviceRef.ejbRemoteView)
                 <home>${serviceRef.fullyQualifiedName}Home</home>
 #else
                 <local-home>${serviceRef.fullyQualifiedName}Home</local-home>
@@ -83,7 +79,7 @@
               <description><![CDATA[Creates the $service.name Session EJB]]></description>
               <ejb-name>$service.name</ejb-name>
 #set ($homeInterface = "LocalHome")
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
 #set ($homeInterface = "Home")
 #end
               <method-intf>$homeInterface</method-intf>
@@ -105,7 +101,7 @@
                 <description><![CDATA[$operation.getDocumentation("", -1, false)]]></description>
                 <ejb-name>$service.name</ejb-name>
 #set ($interface = "Local")
-#if ($ejbRemoteView)
+#if ($service.ejbRemoteView)
 #set ($interface = "Remote")
 #end
                 <method-intf>$interface</method-intf>
