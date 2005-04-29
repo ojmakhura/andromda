@@ -46,6 +46,9 @@ public class ManageableEntityAssociationEndLogicImpl
         return getSetterName();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableIdentifier()
+     */
     protected Object handleGetManageableIdentifier()
     {
         AttributeFacade manageableIdentifier = null;
@@ -63,5 +66,14 @@ public class ManageableEntityAssociationEndLogicImpl
         }
 
         return manageableIdentifier;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#isDisplay()
+     */
+    protected boolean handleIsDisplay()
+    {
+        // we always display association ends
+        return true;
     }
 }
