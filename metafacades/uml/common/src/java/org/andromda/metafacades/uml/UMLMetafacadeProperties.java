@@ -201,4 +201,11 @@ public class UMLMetafacadeProperties
      * an attribute or association end (when one isn't modeled).
      */
     public static final String DEFAULT_MULTIPLICITY = "defaultMultiplicity";
+
+    /**
+     * Denotes whether or not the id needs to be displayed when managing an entity, or whether this
+     * should be transparent for the user.
+     */
+    public static final String MANAGEABLE_ID_DISPLAY_STRATEGY = "manageableIdDisplayStrategy";
+
 }

@@ -34,8 +34,16 @@
                 </tr>
                 <tr>
                     <td>manageablePackageSuffix</td>
-                    <td>the package name in which to store the entity's crud related files and resources, will be appended the the entity's default package name</td>
+                    <td>The package name in which to store the entity's crud related files and resources, will be appended the the entity's default package name</td>
                     <td>No, default is <code>crud</code></td>
+                </tr>
+                <tr>
+                    <td>manageableIdDisplayStrategy</td>
+                    <td>Denotes the strategy for displaying entities' identifiers, values may be
+                        <code>auto</code>, <code>always</code> and <code>never</code>. the <code>auto</code>
+                        value means the identifier will be displayed when it has been explicitely modeled.
+                    </td>
+                    <td>No, default is <code>auto</code></td>
                 </tr>
             </table>
         </section>
