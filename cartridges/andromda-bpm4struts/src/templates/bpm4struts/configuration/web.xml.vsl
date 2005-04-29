@@ -37,6 +37,8 @@
         <filter-name>ResponseOverrideFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
+    
+    <!-- listener merge-point -->
 
     <!-- servlet merge-point -->
 #if ($generateWebXmlIds=="true")
@@ -77,6 +79,8 @@
     </servlet-mapping>
     
     <!-- session-config merge-point -->
+    
+    <!-- mime-type merge-point -->
 
 #if ($generateWebXmlIds=="true")
     <welcome-file-list id="welcome_file_list">
