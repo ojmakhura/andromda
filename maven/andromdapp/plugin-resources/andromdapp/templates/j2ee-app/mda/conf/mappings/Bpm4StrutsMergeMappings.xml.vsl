@@ -28,6 +28,18 @@
         </to>
     </mapping>
     <mapping>
+        <from><![CDATA[<!-- listener merge-point -->]]></from>
+        <to>
+            <![CDATA[
+#if ($webservice)           
+    <listener>
+        <listener-class>org.apache.axis.transport.http.AxisHTTPSessionListener</listener-class>
+    </listener>
+#end
+            ]]>
+        </to>      
+    </mapping>
+    <mapping>
         <from><![CDATA[<!-- error-page merge-point -->]]></from>
         <to>
             <![CDATA[
@@ -38,6 +50,13 @@
         <from><![CDATA[<!-- servlet merge-point -->]]></from>
         <to>
             <![CDATA[
+#if ($webservice)
+    <servlet>
+        <display-name>Apache-Axis Servlet</display-name>
+        <servlet-name>AxisServlet</servlet-name>
+        <servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+    </servlet>
+#end
             ]]>
         </to>
     </mapping>
@@ -45,6 +64,20 @@
         <from><![CDATA[<!-- servlet-mapping merge-point -->]]></from>
         <to>
             <![CDATA[
+#if ($webservice)
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>/servlet/AxisServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>*.jws</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AxisServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+#end
             ]]>
         </to>
     </mapping>
@@ -73,6 +106,23 @@
         <from><![CDATA[<!-- global-forwards merge-point -->]]></from>
         <to>
             <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- mime-type merge-point -->]]></from>
+        <to>
+            <![CDATA[
+#if ($webservice)
+    <mime-mapping>
+        <extension>wsdl</extension>
+        <mime-type>text/xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>xsd</extension>
+        <mime-type>text/xml</mime-type>
+    </mime-mapping>
+#end
             ]]>
         </to>
     </mapping>
