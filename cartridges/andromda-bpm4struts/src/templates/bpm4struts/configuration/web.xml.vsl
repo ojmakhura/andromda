@@ -47,7 +47,7 @@
     <servlet>
 #end
         <servlet-name>action</servlet-name>
-        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <servlet-class>${servletPackage}.ActionServlet</servlet-class>
         <init-param>
             <param-name>config</param-name>
             <param-value>/WEB-INF/struts-config.xml</param-value>
