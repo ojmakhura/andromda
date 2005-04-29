@@ -99,7 +99,7 @@
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
     </bean>
 
-#if (!$ejbsEnabled)
+#if (!$ejbsEnabled || !$manageables.empty)
     <!-- Transaction Manager -->
     <bean id="transactionManager" class="$transactionManager">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
