@@ -136,10 +136,11 @@ public class EntityLogicImpl
     }
 
     /**
-     * Creates a new identifier and adds it to the underlying meta model classifier instance.
-     *
-     * @param name       the name to give the identifier
-     * @param type       the type to give the identifier
+     * Creates a new identifier and adds it to the underlying meta model
+     * classifier instance.
+     * 
+     * @param name the name to give the identifier
+     * @param type the type to give the identifier
      * @param visibility the visibility to give the identifier
      */
     private void createIdentifier(String name, String type, String visibility)
