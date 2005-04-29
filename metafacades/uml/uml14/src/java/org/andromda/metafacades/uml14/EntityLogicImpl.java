@@ -25,7 +25,9 @@ import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Metaclass facade implementation.
@@ -42,10 +44,10 @@ public class EntityLogicImpl
     }
     
     /**
-     * A flag indicating if an identifier was dynamically added (note
+     * Stores flag indicating if an identifier was dynamically added (note
      * this MUST be static since the model only changes once).
      */
-    private static boolean internalDynamicIdentifiersPresent = false;
+    private static final Map dynamicIdentifiersPresent = new HashMap();
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
@@ -58,7 +60,7 @@ public class EntityLogicImpl
         if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers())
         {
             this.createIdentifier();
-            internalDynamicIdentifiersPresent = true;
+            dynamicIdentifiersPresent.put(this.getId(), Boolean.TRUE);
         }
     }
 
@@ -170,7 +172,8 @@ public class EntityLogicImpl
      */
     protected boolean handleIsDynamicIdentifiersPresent()
     {
-        return internalDynamicIdentifiersPresent;
+        final Boolean present = (Boolean)dynamicIdentifiersPresent.get(this.getId());
+        return present != null ? present.booleanValue() : false;
     }
 
     /**
