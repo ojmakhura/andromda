@@ -340,6 +340,9 @@
                     <property name="abstract">false</property>
                 </type>
             </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+            </modelElement>
         </modelElements>
     </template>
 
@@ -441,7 +444,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/spring/hibernate/HibernateSearch.vsl"
         outputPattern="$generatedFile"
@@ -455,7 +458,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/spring/hibernate/HibernateSearchConfiguration.vsl"
         outputPattern="$generatedFile"
@@ -469,7 +472,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/spring/hibernate/HibernateSearchParameter.vsl"
         outputPattern="$generatedFile"
@@ -483,7 +486,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/spring/hibernate/SearchCriteria.vsl"
         outputPattern="{0}/{1}.java"
@@ -493,7 +496,7 @@
         <modelElements variable="class">
             <modelElement stereotype="CRITERIA"/>
         </modelElements>
-    </template>    
+    </template>
 
     <!--
             C R U D
