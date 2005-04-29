@@ -42,9 +42,10 @@ public class EntityLogicImpl
     }
     
     /**
-     * A flag indicating if an identifier was dynamically added.
+     * A flag indicating if an identifier was dynamically added (note
+     * this MUST be static since the model only changes once).
      */
-    private static Boolean internalDynamicIdentifiersPresent = null;
+    private static boolean internalDynamicIdentifiersPresent = false;
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
@@ -57,17 +58,7 @@ public class EntityLogicImpl
         if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers())
         {
             this.createIdentifier();
-            if (internalDynamicIdentifiersPresent == null)
-            {
-                internalDynamicIdentifiersPresent = Boolean.TRUE;
-            }
-        }
-        else
-        {
-            if (internalDynamicIdentifiersPresent == null)
-            {
-                internalDynamicIdentifiersPresent = Boolean.FALSE;
-            }
+            internalDynamicIdentifiersPresent = true;
         }
     }
 
@@ -179,7 +170,7 @@ public class EntityLogicImpl
      */
     protected boolean handleIsDynamicIdentifiersPresent()
     {
-        return internalDynamicIdentifiersPresent.booleanValue();
+        return internalDynamicIdentifiersPresent;
     }
 
     /**
