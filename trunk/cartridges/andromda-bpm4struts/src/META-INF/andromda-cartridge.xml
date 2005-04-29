@@ -32,6 +32,7 @@
     <property reference="exceptionHandlerPattern" default="(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)"/>
     <property reference="exceptionHandlerPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="validatorPackage" default="org.andromda.presentation.bpm4struts"/>
+    <property reference="servletPackage" default="org.andromda.presentation.bpm4struts"/>
     <property reference="errorMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
     <!-- the name of the form passed along with the application flow (normally
          stored within the session) -->
@@ -305,6 +306,12 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <template
+        path="templates/bpm4struts/actions/ActionServlet.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"/>
 
     <template
         path="templates/bpm4struts/configuration/jboss-web.xml.vsl"
