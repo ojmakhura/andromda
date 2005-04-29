@@ -1,5 +1,9 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.metafacade.MetafacadeProperties;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -24,11 +28,6 @@ import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 /**
  * Metaclass facade implementation.
  */
@@ -44,10 +43,10 @@ public class EntityLogicImpl
     }
     
     /**
-     * Stores flag indicating if an identifier was dynamically added (note
-     * this MUST be static since the model only changes once).
+     * A collection of MOF ids for entities that have dynamic
+     * identifiers present.
      */
-    private static final Map dynamicIdentifiersPresent = new HashMap();
+    private static final Collection dynamicIdentifiersPresent = new ArrayList();
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
@@ -60,7 +59,7 @@ public class EntityLogicImpl
         if (!this.isIdentifiersPresent() && this.isAllowDefaultIdentifiers())
         {
             this.createIdentifier();
-            dynamicIdentifiersPresent.put(this.getId(), Boolean.TRUE);
+            dynamicIdentifiersPresent.add(this.getId());
         }
     }
 
@@ -173,8 +172,7 @@ public class EntityLogicImpl
      */
     protected boolean handleIsDynamicIdentifiersPresent()
     {
-        final Boolean present = (Boolean)dynamicIdentifiersPresent.get(this.getId());
-        return present != null ? present.booleanValue() : false;
+        return dynamicIdentifiersPresent.contains(this.getId());
     }
 
     /**
