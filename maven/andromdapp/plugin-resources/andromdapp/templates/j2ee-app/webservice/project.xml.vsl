@@ -52,16 +52,7 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>target/src/axis</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>target/src/wsdl</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
+        <sourceDirectory>src/java</sourceDirectory>
     </build>
     <properties/>
 </project>
