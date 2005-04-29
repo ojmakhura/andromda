@@ -166,6 +166,7 @@
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
             <context>org.andromda.metafacades.uml.ManageableEntity</context>
         </mapping>
+        <property reference="manageableIdDisplayStrategy" default="auto"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
