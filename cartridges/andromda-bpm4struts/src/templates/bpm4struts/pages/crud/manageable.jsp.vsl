@@ -29,9 +29,11 @@
             <div id="criteria">
                 <c:if test="${!empty manageableForm}">
                     <table>
+#set ($displayId = true)
 #foreach ($member in $manageable.attributes)
 #if (!$member.display)
 #renderHiddenAttribute($member "                    ")
+#set ($displayId = false)
 #else
                         <tr>
                             <td><bean:message key="$member.messageKey"/></td>
@@ -54,7 +56,13 @@
                     </table>
 
 #if ($manageable.read)
-                    <input type="submit" value="<bean:message key="button.read"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='read';"/>
+## if the id is not displayed we need to make sure the hidden field is cleared before searching
+#if (!$displayId && $manageable.identifiersPresent)
+#set ($onclickEvent = "this.form.elements['${manageable.identifiers.iterator().next().manageableName}'].value='';")
+#else
+#set ($onclickEvent = "")
+#end
+                    <input type="submit" value="<bean:message key="button.read"/>" onclick="${onclickEvent}this.form.elements['${manageable.actionParameter}'].value='read';"/>
 #end
 #if ($manageable.create)
                     <input type="submit" value="<bean:message key="button.create"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='create';"/>
