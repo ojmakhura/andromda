@@ -271,7 +271,17 @@
                     <td>validatorPackage</td>
                     <td>
                         The package to which the validator (containing extra commons-validator
-                        handlers) will be generated.              
+                        handlers) will be generated.
+                    </td>
+                    <td>
+                        No, default is <code>org.andromda.presentation.bpm4struts</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>servletPackage</td>
+                    <td>
+                        The package to which the custom servlet (extending the default Struts ActionServlet)
+                        is generated.
                     </td>
                     <td>
                         No, default is <code>org.andromda.presentation.bpm4struts</code>.
