@@ -14,8 +14,9 @@ $entity.getDocumentation(" * ")
 public abstract class $entity.entityName
 #if($entity.generalization)
     extends $entity.generalization.fullyQualifiedEntityImplementationName
-#end
+#else
     implements java.io.Serializable
+#end
 {
     /** 
      * The serial version UID of this class. Needed for serialization. 
