@@ -9,8 +9,6 @@ public class DecisionServiceBeanImpl
         extends DecisionServiceBean
         implements javax.ejb.SessionBean
 {
-    // concrete business methods that were declared
-    // abstract in class DecisionServiceBean ...
 
     protected org.andromda.samples.animalquiz.decisiontree.VODecisionItem handleGetFirstQuestion(
             net.sf.hibernate.Session sess) throws DecisionException
@@ -73,29 +71,5 @@ public class DecisionServiceBeanImpl
         {
             throw new EJBException(e);
         }
-    }
-
-    // ---------- the usual session bean stuff... ------------
-
-    public void setSessionContext(javax.ejb.SessionContext ctx)
-    {
-        //Log.trace("DecisionServiceBean.setSessionContext...");
-        super.setSessionContext(ctx);
-    }
-
-    public void ejbRemove()
-    {
-        //Log.trace(
-        //    "DecisionServiceBean.ejbRemove...");
-    }
-
-    public void ejbPassivate()
-    {
-        //Log.trace("DecisionServiceBean.ejbPassivate...");
-    }
-
-    public void ejbActivate()
-    {
-        //Log.trace("DecisionServiceBean.ejbActivate...");
     }
 }
