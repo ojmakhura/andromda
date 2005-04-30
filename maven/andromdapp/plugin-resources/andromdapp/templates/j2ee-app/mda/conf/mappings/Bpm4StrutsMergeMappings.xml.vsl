@@ -5,6 +5,7 @@
     CDATA sections of the <to/> elements in order to
     use the following merge points.
 -->
+#set ($requiresAxisMergePoints = $webservice && $war)
 <mappings name="Bpm4StrutsMerge">
     <mapping>
         <from><![CDATA[<!-- context-param merge-point -->]]></from>
@@ -31,7 +32,7 @@
         <from><![CDATA[<!-- listener merge-point -->]]></from>
         <to>
             <![CDATA[
-#if ($webservice)           
+#if ($requiresAxisMergePoints)           
     <listener>
         <listener-class>org.apache.axis.transport.http.AxisHTTPSessionListener</listener-class>
     </listener>
@@ -50,7 +51,7 @@
         <from><![CDATA[<!-- servlet merge-point -->]]></from>
         <to>
             <![CDATA[
-#if ($webservice)
+#if ($requiresAxisMergePoints)
     <servlet>
         <display-name>Apache-Axis Servlet</display-name>
         <servlet-name>AxisServlet</servlet-name>
@@ -64,7 +65,7 @@
         <from><![CDATA[<!-- servlet-mapping merge-point -->]]></from>
         <to>
             <![CDATA[
-#if ($webservice)
+#if ($requiresAxisMergePoints)
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
         <url-pattern>/servlet/AxisServlet</url-pattern>
@@ -113,7 +114,7 @@
         <from><![CDATA[<!-- mime-type merge-point -->]]></from>
         <to>
             <![CDATA[
-#if ($webservice)
+#if ($requiresAxisMergePoints)
     <mime-mapping>
         <extension>wsdl</extension>
         <mime-type>text/xml</mime-type>
