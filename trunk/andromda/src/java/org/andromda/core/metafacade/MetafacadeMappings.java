@@ -93,7 +93,7 @@ public class MetafacadeMappings
     {
         final String methodName = "MetafacadeMappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
-        XmlObjectFactory factory = XmlObjectFactory.getInstance(MetafacadeMappings.class);
+        final XmlObjectFactory factory = XmlObjectFactory.getInstance(MetafacadeMappings.class);
         MetafacadeMappings mappings = (MetafacadeMappings)factory.getObject(mappingsUri);
         // after we've gotten the initial instance we can merge the file
         // since we know the namespace
@@ -177,14 +177,14 @@ public class MetafacadeMappings
         final String methodName = "MetafacadeMappings.addMapping";
         ExceptionUtils.checkNull(methodName, "mapping", mapping);
 
-        String mappingClassName = mapping.getMappingClassName();
+        final String mappingClassName = mapping.getMappingClassName();
         ExceptionUtils.checkEmpty(methodName, "mapping.mappingClassName", mappingClassName);
         ExceptionUtils.checkNull(methodName, "mapping.metafacadeClass", mapping.getMetafacadeClass());
         mapping.setMetafacadeMappings(this);
         // find any mappings that match, if they do we add the properties
         // from that mapping to the existing matched mapping (so we only
         // have one mapping containing properties that can be 'OR'ed together.
-        MetafacadeMapping foundMapping = (MetafacadeMapping)CollectionUtils.find(this.mappings, new Predicate()
+        final MetafacadeMapping foundMapping = (MetafacadeMapping)CollectionUtils.find(this.mappings, new Predicate()
         {
             public boolean evaluate(Object object)
             {
@@ -306,7 +306,10 @@ public class MetafacadeMappings
         List hierachy = (List)this.mappingObjectHierachyCache.get(mappingObject);
         if (hierachy == null)
         {
-            final String pattern = this.getPropertyValue(MetafacadeProperties.METACLASS_IMPLEMENTATION_NAME_PATTERN);
+            // we construct the mapping object name from the interface 
+            // (using the implementation name pattern).
+            final String pattern = this.getPropertyValue(
+                MetafacadeProperties.METACLASS_IMPLEMENTATION_NAME_PATTERN);
             if (StringUtils.isNotBlank(pattern))
             {
                 hierachy = new ArrayList();
@@ -383,7 +386,7 @@ public class MetafacadeMappings
         final String metaclassName = mappingClassName != null ? mappingClassName : mappingObject.getClass().getName();      
         // verfiy we can at least find the meta class, so we don't perform the rest of
         // the search for nothing
-        boolean validMetaclass = CollectionUtils.find(this.mappings, new Predicate()
+        final boolean validMetaclass = CollectionUtils.find(this.mappings, new Predicate()
         {
             public boolean evaluate(Object object)
             {
@@ -402,7 +405,7 @@ public class MetafacadeMappings
                     public boolean evaluate(Object object)
                     {
                         boolean valid = false;
-                        MetafacadeMapping mapping = (MetafacadeMapping)object;
+                        final MetafacadeMapping mapping = (MetafacadeMapping)object;
                         if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext()
                             && mapping.hasStereotypes() && !mapping.hasMappingProperties())
                         {
@@ -420,7 +423,7 @@ public class MetafacadeMappings
                 {
                     public boolean evaluate(Object object)
                     {
-                        MetafacadeMapping mapping = (MetafacadeMapping)object;
+                        final MetafacadeMapping mapping = (MetafacadeMapping)object;
                         boolean valid = false;
                         if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes()
                             && mapping.hasContext() && mapping.hasMappingProperties()
@@ -429,7 +432,7 @@ public class MetafacadeMappings
                             if (getContextHierarchy(context).contains(mapping.getContext()))
                             {
                                 inProcessMappings.add(mapping);
-                                MetafacadeBase metafacade = MetafacadeFactory.getInstance().createMetafacade(
+                                final MetafacadeBase metafacade = MetafacadeFactory.getInstance().createMetafacade(
                                     mappingObject,
                                     mapping);
                                 inProcessMetafacades.add(metafacade);
@@ -468,7 +471,7 @@ public class MetafacadeMappings
                     public boolean evaluate(Object object)
                     {
                         boolean valid = false;
-                        MetafacadeMapping mapping = (MetafacadeMapping)object;
+                        final MetafacadeMapping mapping = (MetafacadeMapping)object;
                         if (metaclassName.equals(mapping.getMappingClassName())  && mapping.hasStereotypes()
                             && !mapping.hasContext() && !mapping.hasMappingProperties())
                         {
@@ -485,14 +488,14 @@ public class MetafacadeMappings
                 {
                     public boolean evaluate(Object object)
                     {
-                        MetafacadeMapping mapping = (MetafacadeMapping)object;
+                        final MetafacadeMapping mapping = (MetafacadeMapping)object;
                         boolean valid = false;
                         if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes()
                             && !mapping.hasContext() && mapping.hasMappingProperties()
                             && !inProcessMappings.contains(mapping) && inProcessMetafacades.isEmpty())
                         {
                             inProcessMappings.add(mapping);
-                            MetafacadeBase metafacade = MetafacadeFactory.getInstance().createMetafacade(
+                            final MetafacadeBase metafacade = MetafacadeFactory.getInstance().createMetafacade(
                                 mappingObject,
                                 mapping);
                             inProcessMetafacades.add(metafacade);
@@ -511,7 +514,7 @@ public class MetafacadeMappings
                 {
                     public boolean evaluate(Object object)
                     {
-                        MetafacadeMapping mapping = (MetafacadeMapping)object;
+                        final MetafacadeMapping mapping = (MetafacadeMapping)object;
                         return metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasContext()
                             && !mapping.hasStereotypes() && !mapping.hasMappingProperties();
                     }
@@ -628,10 +631,10 @@ public class MetafacadeMappings
      */
     private List getInterfaces(String className)
     {
-        List interfaces = new ArrayList();
+        final List interfaces = new ArrayList();
         if (StringUtils.isNotEmpty(className))
         {
-            Class contextClass = ClassUtils.loadClass(className);
+            final Class contextClass = ClassUtils.loadClass(className);
             interfaces.addAll(ClassUtils.getAllInterfaces(contextClass));
             interfaces.add(0, contextClass);
         }
@@ -708,15 +711,11 @@ public class MetafacadeMappings
         final String methodName = "MetafacadeMappings.getMetafacadeMapping";
         if (this.getLogger().isDebugEnabled())
             this.getLogger().debug(
-                    "performing '" + methodName + "' with mappingObject '" + mappingObject + "', stereotypes '" +
-                    stereotypes +
-                    "', namespace '" +
-                    namespace +
-                    "' and context '" +
-                    context +
-                    "'");
+                "performing '" + methodName + "' with mappingObject '" + mappingObject
+                    + "', stereotypes '" + stereotypes + "', namespace '" + namespace
+                    + "' and context '" + context + "'");
 
-        MetafacadeMappings mappings = this.getNamespaceMappings(namespace);
+        final MetafacadeMappings mappings = this.getNamespaceMappings(namespace);
         MetafacadeMapping mapping = null;
 
         // first try the namespace mappings
@@ -730,15 +729,15 @@ public class MetafacadeMappings
         // references from the shared mapping to the namespace mapping.
         if (mapping != null)
         {
-            Map propertyReferences = mapping.getPropertyReferences();
-            MetafacadeMapping defaultMapping = this.getMapping(mappingObject, context, stereotypes);
+            final Map propertyReferences = mapping.getPropertyReferences();
+            final MetafacadeMapping defaultMapping = this.getMapping(mappingObject, context, stereotypes);
             if (defaultMapping != null)
             {
                 Map defaultPropertyReferences = defaultMapping.getPropertyReferences();
                 MetafacadeImpls metafacadeClasses = MetafacadeImpls.instance();
-                Class metafacadeInterface = metafacadeClasses.getMetafacadeClass(
+                final Class metafacadeInterface = metafacadeClasses.getMetafacadeClass(
                         mapping.getMetafacadeClass().getName());
-                Class defaultMetafacadeInterface = metafacadeClasses.getMetafacadeClass(defaultMapping.getMetafacadeClass()
+                final Class defaultMetafacadeInterface = metafacadeClasses.getMetafacadeClass(defaultMapping.getMetafacadeClass()
                         .getName());
                 if (defaultMetafacadeInterface.isAssignableFrom(metafacadeInterface))
                 {
@@ -802,7 +801,7 @@ public class MetafacadeMappings
     public void discoverMetafacades()
     {
         final String methodName = "MetafacadeMappings.discoverMetafacadeMappings";
-        URL uris[] = ResourceFinder.findResources(METAFACADES_URI);
+        final URL uris[] = ResourceFinder.findResources(METAFACADES_URI);
         if (uris == null || uris.length == 0)
         {
             this.getLogger().error("ERROR!! No metafacades found, please check your classpath");
@@ -813,11 +812,11 @@ public class MetafacadeMappings
             try
             {
                 // will store all namespaces (other than default)
-                Collection namespaces = new ArrayList();
+                final Collection namespaces = new ArrayList();
                 for (int ctr = 0; ctr < uris.length; ctr++)
                 {
-                    MetafacadeMappings mappings = MetafacadeMappings.getInstance(uris[ctr]);
-                    String namespace = mappings.getNamespace();
+                    final MetafacadeMappings mappings = MetafacadeMappings.getInstance(uris[ctr]);
+                    final String namespace = mappings.getNamespace();
                     if (StringUtils.isEmpty(namespace))
                     {
                         throw new MetafacadeMappingsException(methodName +
@@ -839,7 +838,7 @@ public class MetafacadeMappings
                     }
                     // construct the found informational based
                     // on whether or not the mappings are shared.
-                    StringBuffer foundMessage = new StringBuffer("found");
+                    final StringBuffer foundMessage = new StringBuffer("found");
                     if (mappings.isShared())
                     {
                         foundMessage.append(" shared");
@@ -873,7 +872,7 @@ public class MetafacadeMappings
      *
      * @return Returns the defaultMetafacadeClass.
      */
-    public Class getDefaultMetafacadeClass(String namespace)
+    public Class getDefaultMetafacadeClass(final String namespace)
     {
         Class defaultMetafacadeClass = null;
         MetafacadeMappings mappings = this.getNamespaceMappings(namespace);
