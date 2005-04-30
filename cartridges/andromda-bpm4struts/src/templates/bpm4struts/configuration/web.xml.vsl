@@ -134,10 +134,10 @@
 #foreach ($manageable in $manageables)
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>$manageable.manageableName resources</web-resource-name>
+            <web-resource-name>$manageable.name resources</web-resource-name>
             <description>
                 This collection bundles all pages and resources
-                as well as the actions called in the "$manageable.manageableName" use-case
+                as well as the actions called in the "$manageable.name" use-case
                 for managing the $manageable.name entity
             </description>
             <url-pattern>${manageable.actionPath}.do</url-pattern>

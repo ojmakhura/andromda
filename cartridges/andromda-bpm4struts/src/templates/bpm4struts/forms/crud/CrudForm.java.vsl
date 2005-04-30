@@ -28,7 +28,7 @@ public final class $manageable.formBeanClassName
      */
     public String getEntityName()
     {
-        return "$manageable.manageableName";
+        return "$manageable.name";
     }
 
 #if ($manageable.referencingManageables.empty)
@@ -38,7 +38,7 @@ public final class $manageable.formBeanClassName
     static
     {
 #foreach ($manageable in $manageable.referencingManageables)
-        ENTITIES.put("$manageable.manageableName", Boolean.TRUE);
+        ENTITIES.put("$manageable.name", Boolean.TRUE);
 #end
         ENTITIES = java.util.Collections.unmodifiableMap(ENTITIES);
     }
@@ -83,16 +83,16 @@ public final class $manageable.formBeanClassName
 #else
 #set ($memberType = $member.type.fullyQualifiedName)
 #end
-    private $memberType $member.manageableName;
+    private $memberType $member.name;
 
-    $member.visibility $memberType ${member.manageableGetterName}()
+    $member.visibility $memberType ${member.getterName}()
     {
-        return this.$member.manageableName;
+        return this.$member.name;
     }
 
-    $member.visibility void ${member.manageableSetterName}($memberType $member.manageableName)
+    $member.visibility void ${member.setterName}($memberType $member.name)
     {
-        this.$member.manageableName = $member.manageableName;
+        this.$member.name = $member.name;
     }
 
 #if ($member.type.dateType)
@@ -119,28 +119,28 @@ public final class $manageable.formBeanClassName
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($identifier = $member.type.manageableIdentifier)
-    private $member.manageableIdentifier.type.fullyQualifiedName $member.manageableName;
+    private $member.manageableIdentifier.type.fullyQualifiedName $member.name;
 
-    $member.visibility $member.manageableIdentifier.type.fullyQualifiedName ${member.manageableGetterName}()
+    $member.visibility $member.manageableIdentifier.type.fullyQualifiedName ${member.getterName}()
     {
-        return this.$member.manageableName;
+        return this.$member.name;
     }
 
-    $member.visibility void ${member.manageableSetterName}($member.manageableIdentifier.type.fullyQualifiedName $member.manageableName)
+    $member.visibility void ${member.setterName}($member.manageableIdentifier.type.fullyQualifiedName $member.name)
     {
-        this.$member.manageableName = $member.manageableName;
+        this.$member.name = $member.name;
     }
 
-    private java.util.List ${member.manageableName}BackingList;
+    private java.util.List ${member.name}BackingList;
 
-    $member.visibility java.util.List ${member.manageableGetterName}BackingList()
+    $member.visibility java.util.List ${member.getterName}BackingList()
     {
-        return this.${member.manageableName}BackingList;
+        return this.${member.name}BackingList;
     }
 
-    public void ${member.manageableSetterName}BackingList(java.util.List ${member.manageableName}BackingList)
+    public void ${member.setterName}BackingList(java.util.List ${member.name}BackingList)
     {
-        this.${member.manageableName}BackingList = ${member.manageableName}BackingList;
+        this.${member.name}BackingList = ${member.name}BackingList;
     }
 
 #end
@@ -150,12 +150,12 @@ public final class $manageable.formBeanClassName
     public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     {
 #foreach ($member in $manageable.attributes)
-        #resetField($member.manageableName $member.type)
+        #resetField($member.name $member.type)
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($identifier = $member.type.manageableIdentifier)
-        #resetField($member.manageableName $identifier.type)
-        ${member.manageableName}BackingList = null;
+        #resetField($member.name $identifier.type)
+        ${member.name}BackingList = null;
 #end
     }
 }

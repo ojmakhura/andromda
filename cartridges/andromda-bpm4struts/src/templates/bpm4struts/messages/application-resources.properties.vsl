@@ -240,7 +240,7 @@ maximum.results.fetched.warning=Maximum of {0} records retrieved, other records 
 #foreach ($manageable in $manageables)
 $manageable.messageKey=$manageable.messageValue
 $manageable.pageTitleKey=$manageable.pageTitleValue
-$manageable.exceptionKey=Problem managing $manageable.manageableName: {0}
+$manageable.exceptionKey=Problem managing $manageable.name: {0}
 #foreach ($member in $manageable.manageableMembers)
 $member.messageKey=$member.messageValue
 #end

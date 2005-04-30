@@ -31,7 +31,7 @@ public class StrutsManageableEntityAssociationEndLogicImpl
         final ClassifierFacade ownerType = getOtherEnd().getType();
         if (ownerType instanceof ManageableEntity)
         {
-            messageKeyBuffer.append(((ManageableEntity)ownerType).getManageableName());
+            messageKeyBuffer.append(((ManageableEntity)ownerType).getName());
         }
         else
         {

@@ -33,7 +33,7 @@
 #foreach ($member in $manageable.attributes)
 #if (!$member.display)
 #renderHiddenAttribute($member "                    ")
-#set ($displayId = false)
+#if ($member.identifier)#set ($displayId = false)#end
 #else
                         <tr>
                             <td><bean:message key="$member.messageKey"/></td>
@@ -58,7 +58,7 @@
 #if ($manageable.read)
 ## if the id is not displayed we need to make sure the hidden field is cleared before searching
 #if (!$displayId && $manageable.identifiersPresent)
-#set ($onclickEvent = "this.form.elements['${manageable.identifiers.iterator().next().manageableName}'].value='';")
+#set ($onclickEvent = "this.form.elements['${manageable.identifiers.iterator().next().name}'].value='';")
 #else
 #set ($onclickEvent = "")
 #end
@@ -86,10 +86,10 @@
                         <display:column media="html" sortable="false">
 #foreach ($member in $manageable.attributes)
 #if ($member.type.dateType)
-#set ($rowValue = "row.${member.manageableName}")
+#set ($rowValue = "row.${member.name}")
 ## here we are properly converting the date into the desired format so that the rendered Javascript
 ## copies the proper string into the corresponding criteria field
-                            <fmt:formatDate var="${member.manageableName}Formatted" value="${${rowValue}}" pattern="${member.dateFormat}"/>
+                            <fmt:formatDate var="${member.name}Formatted" value="${${rowValue}}" pattern="${member.dateFormat}"/>
 #end
 #end
                             <nobr>
@@ -103,28 +103,28 @@
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.display)
 #if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
-                        <display:column media="html" headerClass="$member.manageableName" titleKey="$member.messageKey">
+                        <display:column media="html" headerClass="$member.name" titleKey="$member.messageKey">
                             <c:choose>
-#set ($test = "row.${member.manageableName}")
+#set ($test = "row.${member.name}")
                                 <c:when test="${${test}}"><input type="checkbox" checked="checked" disabled="disabled"/></c:when>
                                 <c:otherwise><input type="checkbox" disabled="disabled"/></c:otherwise>
                             </c:choose>
                         </display:column>
-                        <display:column media="xml csv excel pdf" property="$member.manageableName"
-                            headerClass="$member.manageableName" paramId="$member.manageableName"
-                            sortProperty="$member.manageableName" sortable="true" titleKey="$member.messageKey"/>
+                        <display:column media="xml csv excel pdf" property="$member.name"
+                            headerClass="$member.name" paramId="$member.name"
+                            sortProperty="$member.name" sortable="true" titleKey="$member.messageKey"/>
 #elseif ($member.type.dateType)
                         <display:column media="all"
-                            headerClass="$member.manageableName" paramId="$member.manageableName"
-                            sortProperty="$member.manageableName" sortable="true" titleKey="$member.messageKey">
-#set ($dateValue = "${member.manageableName}Formatted")
+                            headerClass="$member.name" paramId="$member.name"
+                            sortProperty="$member.name" sortable="true" titleKey="$member.messageKey">
+#set ($dateValue = "${member.name}Formatted")
                             ${${dateValue}}
                         </display:column>
 #else
 #if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)#set($propertySuffix='Label')#else#set($propertySuffix='')#end
-                        <display:column media="all" property="${member.manageableName}${propertySuffix}"
-                            headerClass="$member.manageableName" paramId="$member.manageableName" maxLength="$manageableFieldMaxLength"
-                            sortProperty="${member.manageableName}${propertySuffix}" sortable="true" titleKey="$member.messageKey"/>
+                        <display:column media="all" property="${member.name}${propertySuffix}"
+                            headerClass="$member.name" paramId="$member.name" maxLength="$manageableFieldMaxLength"
+                            sortProperty="${member.name}${propertySuffix}" sortable="true" titleKey="$member.messageKey"/>
 #end
 #end
 #end
