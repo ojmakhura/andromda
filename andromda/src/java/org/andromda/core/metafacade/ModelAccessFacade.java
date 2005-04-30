@@ -18,7 +18,6 @@ import java.util.Collection;
  */
 public interface ModelAccessFacade
 {
-
     /**
      * Sets the object that represents the entire model.
      *
@@ -71,5 +70,4 @@ public interface ModelAccessFacade
      * @return Collection
      */
     public Collection getModelElements();
-
 }
