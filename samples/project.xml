@@ -3,7 +3,7 @@
 <project>
     <extend>../project.xml</extend>
     <artifactId>andromda-samples</artifactId>
-    <name>AndroMDA Cartridges</name>
+    <name>AndroMDA Samples</name>
     <groupId>andromda/samples</groupId>
     <repository>
         <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</connection>
