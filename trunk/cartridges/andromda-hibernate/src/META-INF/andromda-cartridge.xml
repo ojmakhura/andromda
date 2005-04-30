@@ -16,7 +16,6 @@
     <!-- the name to give the service locator class -->
     <property reference="serviceLocatorName" default="ServiceLocator"/>
     <property reference="sequenceIdentifierSuffix" default="_SEQ"/>
-    <property reference="versionPropertyName" default="version"/>
     <property reference="driver" default=""/>
     <property reference="username" default=""/>
     <property reference="password" default=""/>
