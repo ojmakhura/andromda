@@ -94,7 +94,13 @@ $finder.getDocumentation("     * ")
         query.setCacheable(true);
 #end
 ##
+#if ($returnType.primitive)
+        return (($returnType.wrapperName) query.uniqueResult()).${returnType}Value();
+#elseif (!$finder.returnType.collectionType)
+        return ($returnType) query.uniqueResult();
+#else
         return query.list();
+#end
     }
 
 #end##foreach operation
