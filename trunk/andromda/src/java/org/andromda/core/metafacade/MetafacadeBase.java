@@ -20,7 +20,7 @@ public class MetafacadeBase
     private Object metaObject;
     protected Logger logger;
 
-    public MetafacadeBase(Object metaObject, String context)
+    public MetafacadeBase(final Object metaObject, final String context)
     {
         this.metaObject = metaObject;
         this.context = context;
@@ -83,7 +83,7 @@ public class MetafacadeBase
      * @param validationMessages any messages generated during validation.
      * @see MetafacadeFactory#createMetafacade(Object, String, Class)
      */
-    public final void validate(Collection validationMessages)
+    public final void validate(final Collection validationMessages)
     {
         this.validateInvariants(validationMessages);
     }
@@ -96,7 +96,7 @@ public class MetafacadeBase
      * <p/>
      * By default this method is empty. </p>
      */
-    public void validateInvariants(Collection messages)
+    public void validateInvariants(final Collection messages)
     {
         // By default this does nothing
     }
@@ -119,7 +119,7 @@ public class MetafacadeBase
      * @return MetafacadeBase the facade
      * @see MetafacadeFactory
      */
-    protected MetafacadeBase shieldedElement(Object metaObject)
+    protected MetafacadeBase shieldedElement(final Object metaObject)
     {
         MetafacadeBase metafacade = null;
         if (metaObject != null)
@@ -137,7 +137,7 @@ public class MetafacadeBase
      * @return Collection of MetafacadeBase-derived objects
      * @see MetafacadeFactory
      */
-    protected Collection shieldedElements(Collection metaobjects)
+    protected Collection shieldedElements(final Collection metaobjects)
     {
         Collection metafacades = new ArrayList();
         if (metaobjects != null)
@@ -178,7 +178,7 @@ public class MetafacadeBase
      * @see MetafacadeMapping#isContextRoot()
      * @see MetafacadeFactory#createMetafacade(Object, String, Class)
      */
-    public void setMetafacadeContext(String context)
+    public void setMetafacadeContext(final String context)
     {
         this.context = StringUtils.trimToEmpty(context);
     }
@@ -210,9 +210,9 @@ public class MetafacadeBase
      * @param context the context name with which to construct the name.
      * @return the new property namespace name
      */
-    private String constructPropertyNamespace(String context)
+    private String constructPropertyNamespace(final String context)
     {
-        StringBuffer propertyNamespace = new StringBuffer();
+        final StringBuffer propertyNamespace = new StringBuffer();
         propertyNamespace.append(this.getNamespace());
         propertyNamespace.append(":");
         propertyNamespace.append(context);
@@ -239,7 +239,7 @@ public class MetafacadeBase
      *
      * @param namespace
      */
-    void setNamespace(String namespace)
+    void setNamespace(final String namespace)
     {
         this.namespace = namespace;
     }
@@ -250,7 +250,7 @@ public class MetafacadeBase
      * @param property the name of the property to check.
      * @return true/false on whether or not its regisgterd.
      */
-    protected boolean isConfiguredProperty(String property)
+    protected boolean isConfiguredProperty(final String property)
     {
         return MetafacadeFactory.getInstance().isPropertyRegistered(this.getPropertyNamespace(), property);
     }
@@ -261,7 +261,7 @@ public class MetafacadeBase
      * @param property the property name
      * @return Object the configured property instance (mappings, etc)
      */
-    protected Object getConfiguredProperty(String property)
+    protected Object getConfiguredProperty(final String property)
     {
         return MetafacadeFactory.getInstance().getRegisteredProperty(this.getPropertyNamespace(), property);
     }
@@ -269,7 +269,7 @@ public class MetafacadeBase
     /**
      * Attempts to set the property with <code>name</code> having the specified <code>value</code> on this metafacade.
      */
-    protected void setProperty(String name, Object value)
+    protected void setProperty(final String name, final Object value)
     {
         MetafacadeFactory.getInstance().registerProperty(this.getPropertyNamespace(), name, value);
     }
@@ -291,7 +291,7 @@ public class MetafacadeBase
      *
      * @param logger the logger to set
      */
-    void setLogger(Logger logger)
+    void setLogger(final Logger logger)
     {
         this.logger = logger;
     }
@@ -308,7 +308,7 @@ public class MetafacadeBase
      *
      * @param contextRoot
      */
-    void setContextRoot(boolean contextRoot)
+    void setContextRoot(final boolean contextRoot)
     {
         this.contextRoot = contextRoot;
     }
@@ -360,7 +360,7 @@ public class MetafacadeBase
     {
         if (metafacadePropertyCachingEnabled == null)
         {
-            String enableCache = (String)this.getConfiguredProperty(
+            final String enableCache = (String)this.getConfiguredProperty(
                 MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
             metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache);
         }
