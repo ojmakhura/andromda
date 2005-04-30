@@ -39,9 +39,8 @@ public class PropertyUtils
                 if (valid)
                 {
                     // if it's a collection then we check to see if the
-                    // collection
-                    // is not empty
-                    if (Collection.class.isAssignableFrom(propertyValue.getClass()))
+                    // collection is not empty
+                    if (propertyValue instanceof Collection)
                     {
                         valid = !((Collection)propertyValue).isEmpty();
                     }
@@ -52,7 +51,7 @@ public class PropertyUtils
                         {
                             valid = valueAsString.equals(value);
                         }
-                        else if (Boolean.class.isAssignableFrom(propertyValue.getClass()))
+                        else if (propertyValue instanceof Boolean)
                         {
                             valid = Boolean.valueOf(valueAsString).booleanValue();
                         }
@@ -60,7 +59,7 @@ public class PropertyUtils
                 }
             }
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
             valid = false;
         }

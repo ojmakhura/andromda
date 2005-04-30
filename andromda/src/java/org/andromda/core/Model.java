@@ -24,7 +24,7 @@ public class Model
      * @param moduleSearchPath any array of path's to search for any HREF modules (profile, etc) referenced from within
      *                         ths model.
      */
-    public Model(URL url, ModelPackages packages, boolean lastModifiedCheck, String[] moduleSearchPath)
+    public Model(final URL url, final ModelPackages packages, final boolean lastModifiedCheck, final String[] moduleSearchPath)
     {
         final String constructorName = "Model.Model";
         ExceptionUtils.checkNull(constructorName, "url", url);

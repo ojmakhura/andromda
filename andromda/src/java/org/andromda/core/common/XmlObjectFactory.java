@@ -65,14 +65,14 @@ public class XmlObjectFactory
     /**
      * Cache containing XmlObjectFactory instances which have already been configured for given objectRulesXml
      */
-    private static Map factoryCache = new HashMap();
+    private static final Map factoryCache = new HashMap();
 
     /**
      * Creates an instance of this XmlObjectFactory with the given <code>objectRulesXml</code>
      *
      * @param objectRulesXml
      */
-    private XmlObjectFactory(URL objectRulesXml)
+    private XmlObjectFactory(final URL objectRulesXml)
     {
         final String methodName = "XmlObjectFactory.XmlObjectFactory";
         if (logger.isDebugEnabled())
@@ -87,7 +87,7 @@ public class XmlObjectFactory
      * @param objectClass the Class of the object from which to configure this factory.
      * @return the XmlObjectFactoy instance.
      */
-    public static XmlObjectFactory getInstance(Class objectClass)
+    public static XmlObjectFactory getInstance(final Class objectClass)
     {
         final String methodName = "XmlObjectFactory.getInstance";
         ExceptionUtils.checkNull(methodName, "objectClass", objectClass);
@@ -95,7 +95,7 @@ public class XmlObjectFactory
         XmlObjectFactory factory = (XmlObjectFactory)factoryCache.get(objectClass);
         if (factory == null)
         {
-            URL objectRulesXml = XmlObjectFactory.class.getResource(
+            final URL objectRulesXml = XmlObjectFactory.class.getResource(
                     '/' + objectClass.getName().replace('.', '/') + RULES_SUFFIX);
             if (objectRulesXml == null)
             {
@@ -118,7 +118,7 @@ public class XmlObjectFactory
      *
      * @param validating true/false
      */
-    public static void setDefaultValidating(boolean validating)
+    public static void setDefaultValidating(final boolean validating)
     {
         defaultValidating = validating;
     }
@@ -130,14 +130,14 @@ public class XmlObjectFactory
      *
      * @param validating true/false
      */
-    public void setValidating(boolean validating)
+    public void setValidating(final boolean validating)
     {
         this.digester.setValidating(validating);
         if (validating)
         {
             if (this.schemaUri == null)
             {
-                String schemaLocation = '/' + this.objectClass.getName().replace('.', '/') + SCHEMA_SUFFIX;
+                final String schemaLocation = '/' + this.objectClass.getName().replace('.', '/') + SCHEMA_SUFFIX;
                 this.schemaUri = XmlObjectFactory.class.getResource(schemaLocation);
                 try
                 {
@@ -195,7 +195,7 @@ public class XmlObjectFactory
      * @param objectXml the path to the Object XML config file.
      * @return Object the created instance.
      */
-    public Object getObject(URL objectXml)
+    public Object getObject(final URL objectXml)
     {
         return this.getObject(objectXml != null ? ResourceUtils.getContents(objectXml) : null);
     }
@@ -206,7 +206,7 @@ public class XmlObjectFactory
      * @param objectXml the path to the Object XML config file.
      * @return Object the created instance.
      */
-    public Object getObject(Reader objectXml)
+    public Object getObject(final Reader objectXml)
     {
         return getObject(ResourceUtils.getContents(objectXml));
     }

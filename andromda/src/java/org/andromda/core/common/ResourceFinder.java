@@ -1,7 +1,5 @@
 package org.andromda.core.common;
 
-import org.apache.log4j.Logger;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,9 +12,6 @@ import java.util.Enumeration;
  */
 public class ResourceFinder
 {
-
-    private static Logger logger = Logger.getLogger(ResourceFinder.class);
-
     /**
      * Returns a URL[] containing the URL of each resource and the File which represents the library the resource was
      * found in.
@@ -24,31 +19,24 @@ public class ResourceFinder
      * @param resource the resource to find
      * @return a <code>array of resource URLs<code>
      */
-    public static URL[] findResources(String resource)
+    public static URL[] findResources(final String resource)
     {
         final String methodName = "ResourceFinder.findResource";
-        if (logger.isDebugEnabled())
-            logger.debug("performing " + methodName);
         ExceptionUtils.checkEmpty(methodName, "resource", resource);
-
-        URL[] resourceUrls;
         try
         {
             Collection resources = new ArrayList();
-            Enumeration resourceEnum = Thread.currentThread().getContextClassLoader().getResources(resource);
-            while (resourceEnum.hasMoreElements())
+            Enumeration resourceEnumeration = Thread.currentThread().getContextClassLoader().getResources(resource);
+            while (resourceEnumeration.hasMoreElements())
             {
-                resources.add(resourceEnum.nextElement());
+                resources.add(resourceEnumeration.nextElement());
             }
-            resourceUrls = (URL[])resources.toArray(new URL[0]);
+            return (URL[])resources.toArray(new URL[0]);
         }
         catch (Exception ex)
         {
             String errMsg = "Error performing " + methodName;
             throw new ResourceFinderException(errMsg, ex);
         }
-
-        return resourceUrls;
     }
-
 }

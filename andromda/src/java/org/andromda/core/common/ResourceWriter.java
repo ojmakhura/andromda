@@ -44,7 +44,7 @@ public class ResourceWriter
      *        written.
      * @throws IOException
      */
-    public void writeStringToFile(String string, File file, String namespace) throws IOException
+    public void writeStringToFile(final String string, final File file, final String namespace) throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
         ExceptionUtils.checkNull(methodName, "file", file);
@@ -57,7 +57,7 @@ public class ResourceWriter
      * @param string the string to write to the file
      * @param fileLocation the location of the file which to write.
      */
-    public void writeStringToFile(String string, String fileLocation) throws IOException
+    public void writeStringToFile(final String string, final String fileLocation) throws IOException
     {
         this.writeStringToFile(string, fileLocation, true);
     }
@@ -70,7 +70,7 @@ public class ResourceWriter
      * @param recordHistory whether or not the history of the file should be
      *        recorded.
      */
-    private void writeStringToFile(String string, String fileLocation, boolean recordHistory) throws IOException
+    private void writeStringToFile(final String string, final String fileLocation, final boolean recordHistory) throws IOException
     {
         this.writeStringToFile(string, fileLocation, null, recordHistory);
     }
@@ -84,7 +84,7 @@ public class ResourceWriter
      *        written.
      * @throws IOException
      */
-    public void writeStringToFile(String string, String fileLocation, String namespace) throws IOException
+    public void writeStringToFile(final String string, final String fileLocation, final String namespace) throws IOException
     {
         this.writeStringToFile(string, fileLocation, namespace, true);
     }
@@ -100,7 +100,7 @@ public class ResourceWriter
      *        recorded.
      * @throws IOException
      */
-    private void writeStringToFile(String string, String fileLocation, String namespace, boolean recordHistory)
+    private void writeStringToFile(String string, final String fileLocation, final String namespace, final boolean recordHistory)
             throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
@@ -109,8 +109,8 @@ public class ResourceWriter
             string = "";
         }
         ExceptionUtils.checkEmpty(methodName, "fileLocation", fileLocation);
-        File file = new File(fileLocation);
-        File parent = file.getParentFile();
+        final File file = new File(fileLocation);
+        final File parent = file.getParentFile();
         if (parent != null)
         {
             parent.mkdirs();
@@ -142,7 +142,7 @@ public class ResourceWriter
      * @param url the URL to read
      * @param fileLocation the location which to write.
      */
-    public void writeUrlToFile(URL url, String fileLocation) throws IOException
+    public void writeUrlToFile(final URL url, final String fileLocation) throws IOException
     {
         final String methodName = "ResourceWriter.writeUrlToFile";
         ExceptionUtils.checkNull(methodName, "url", url);
@@ -201,7 +201,7 @@ public class ResourceWriter
     /**
      * Resets the a history file, to write the history {@link #writeHistory()} must be called.
      */
-    public void resetHistory(URL modelUrl)
+    public void resetHistory(final URL modelUrl)
     {
         String modelFile = modelUrl.toString().replace('\\', '/');
         int lastSlash = modelFile.lastIndexOf('/');
@@ -240,8 +240,8 @@ public class ResourceWriter
      */
     private String getHistoryStorage()
     {
-        String tmpDir = System.getProperty("java.io.tmpdir").replace('\\', '/');
-        StringBuffer historyStorage = new StringBuffer(tmpDir);
+        final String tmpDir = System.getProperty("java.io.tmpdir").replace('\\', '/');
+        final StringBuffer historyStorage = new StringBuffer(tmpDir);
         if (!historyStorage.toString().endsWith("/"))
         {
             historyStorage.append("/");
@@ -289,15 +289,15 @@ public class ResourceWriter
         boolean before = true;
         try
         {
-            File historyFile = new File(getHistoryStorage());
+            final File historyFile = new File(getHistoryStorage());
             if (historyFile.exists() && historyFile.lastModified() >= time)
             {
-                String history = ResourceUtils.getContents(new File(getHistoryStorage()).toURL());
-                String[] files = history.split(",");
+                final String history = ResourceUtils.getContents(new File(getHistoryStorage()).toURL());
+                final String[] files = history.split(",");
                 long lastModified = 0;
                 for (int ctr = 0; ctr < files.length; ctr++)
                 {
-                    String fileString = StringUtils.trimToEmpty(files[ctr]);
+                    final String fileString = StringUtils.trimToEmpty(files[ctr]);
                     if (StringUtils.isNotEmpty(fileString))
                     {
                         File file = new File(fileString);

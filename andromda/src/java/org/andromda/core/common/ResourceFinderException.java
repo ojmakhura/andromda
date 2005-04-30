@@ -10,32 +10,32 @@ public class ResourceFinderException
     /**
      * Constructs an instance of ResourceFinderException.
      *
-     * @param th
+     * @param parent
      */
-    public ResourceFinderException(Throwable th)
+    public ResourceFinderException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of ResourceFinderException.
      *
-     * @param msg
+     * @param message
      */
-    public ResourceFinderException(String msg)
+    public ResourceFinderException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of ResourceFinderException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public ResourceFinderException(String msg, Throwable th)
+    public ResourceFinderException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

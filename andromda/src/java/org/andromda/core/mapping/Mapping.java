@@ -35,7 +35,7 @@ public class Mapping
      *
      * @param from the type that we are mapping from.
      */
-    public void addFrom(String from)
+    public void addFrom(final String from)
     {
         final String methodName = "Mappings.addFrom";
         ExceptionUtils.checkNull(methodName, "from", from);
@@ -88,7 +88,7 @@ public class Mapping
      * Adds the path to the listof paths.
      * @param path
      */
-    public void addPath(String path)
+    public void addPath(final String path)
     {
         this.paths.add(path);
     }
@@ -99,7 +99,7 @@ public class Mapping
      * @param to the value to which the from
      *        values are mapped.
      */
-    public void setTo(String to)
+    public void setTo(final String to)
     {
         this.to = to;
     }
@@ -115,7 +115,7 @@ public class Mapping
      * 
      * @param mappings the owning mappings.
      */
-    void setMappings(Mappings mappings)
+    void setMappings(final Mappings mappings)
     {
         this.mappings = mappings;    
     }

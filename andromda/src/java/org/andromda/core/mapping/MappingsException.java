@@ -9,31 +9,31 @@ public class MappingsException
     /**
      * Constructs an instance of MappingsException.
      *
-     * @param th
+     * @param parent
      */
-    public MappingsException(Throwable th)
+    public MappingsException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of MappingsException.
      *
-     * @param msg
+     * @param message
      */
-    public MappingsException(String msg)
+    public MappingsException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of MappingsException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public MappingsException(String msg, Throwable th)
+    public MappingsException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 }

@@ -68,7 +68,7 @@ public class ComponentContainer
      * @param key the unique key of the component as an Object.
      * @return Object the component instance.
      */
-    public Object findComponent(Object key)
+    public Object findComponent(final Object key)
     {
         return this.container.getComponentInstance(key);
     }
@@ -80,7 +80,7 @@ public class ComponentContainer
      *
      * @return a new instance of the given <code>type</code>
      */
-    public Object newComponent(String implementation, Class type)
+    public Object newComponent(String implementation, final Class type)
     {
         Object component = null;
         implementation = StringUtils.trimToEmpty(implementation);
@@ -101,14 +101,14 @@ public class ComponentContainer
      *
      * @return a new instance of the given <code>type</code>
      */
-    public Object newDefaultComponent(Class type)
+    public Object newDefaultComponent(final Class type)
     {
         final String methodName = "Component.newComponent";
         ExceptionUtils.checkNull(methodName, "type", type);
         Object component = null;
         try
         {
-            String implementation = this.getDefaultImplementation(type.getName());
+            final String implementation = this.getDefaultImplementation(type.getName());
             if (StringUtils.isBlank(implementation))
             {
                 throw new ComponentContainerException(
@@ -134,7 +134,7 @@ public class ComponentContainer
      * @param key the unique key as a Class.
      * @return Object the component instance.
      */
-    public Object findComponent(Class key)
+    public Object findComponent(final Class key)
     {
         final String methodName = "ComponentContainer.findComponent";
         ExceptionUtils.checkNull(methodName, "key", key);
@@ -150,7 +150,7 @@ public class ComponentContainer
      * @param type the default type to retrieve if the component can not be found.
      * @return Object the component instance.
      */
-    public Object findComponent(String key, Class type)
+    public Object findComponent(final String key, final Class type)
     {
         final String methodName = "ComponentContainer.findComponent";
         ExceptionUtils.checkNull(methodName, "type", type);
@@ -160,26 +160,24 @@ public class ComponentContainer
             Object component = this.container.getComponentInstance(key);
             if (component == null)
             {
-                String typeName = type.getName();
+                final String typeName = type.getName();
                 component = this.container.getComponentInstance(typeName);
                 // if the component doesn't have a default already
                 // (i.e. componet == null), then see if we can find the default
                 // configuration file.
                 if (component == null)
                 {
-                    String defaultImpl = this.getDefaultImplementation(type.getName());
-                    if (StringUtils.isNotEmpty(defaultImpl))
+                    final String defaultImplementation = this.getDefaultImplementation(type.getName());
+                    if (StringUtils.isNotEmpty(defaultImplementation))
                     {
-                        component = this.registerDefaultComponent(ClassUtils.loadClass(typeName), ClassUtils.loadClass(
-                                defaultImpl));
+                        component = this.registerDefaultComponent(
+                            ClassUtils.loadClass(typeName),
+                            ClassUtils.loadClass(defaultImplementation));
                     }
                     else
                     {
-                        logger.warn(
-                                "WARNING! No default implementation for '" + type +
-                                "' found, check services directory --> '" +
-                                SERVICES +
-                                "'");
+                        logger.warn("WARNING! No default implementation for '" + type
+                            + "' found, check services directory --> '" + SERVICES + "'");
                     }
                 }
             }
@@ -199,7 +197,7 @@ public class ComponentContainer
      * @param typeName the name of the type (i.e. org.andromda.core.templateengine.TemplateEngine)
      * @return
      */
-    private String getDefaultImplementation(String typeName)
+    private String getDefaultImplementation(final String typeName)
     {
         return StringUtils.trimToEmpty(ResourceUtils.getContents(SERVICES + typeName));
     }
@@ -212,8 +210,9 @@ public class ComponentContainer
      */
     public Collection findComponentsOfType(final Class type)
     {
-        class ClassMatcher
-                implements Predicate
+
+        Collection components = new ArrayList(this.container.getComponentInstances());
+        CollectionUtils.filter(components, new Predicate()
         {
             public boolean evaluate(Object object)
             {
@@ -224,9 +223,7 @@ public class ComponentContainer
                 }
                 return match;
             }
-        }
-        Collection components = new ArrayList(this.container.getComponentInstances());
-        CollectionUtils.filter(components, new ClassMatcher());
+        });
         return components;
     }
 
@@ -236,7 +233,7 @@ public class ComponentContainer
      * @param key the unique key.
      * @return Object the registered component.
      */
-    public Object unregisterComponent(String key)
+    public Object unregisterComponent(final String key)
     {
         final String methodName = "ComponentContainer.unregisterComponent";
         ExceptionUtils.checkEmpty(methodName, "key", key);
@@ -253,14 +250,14 @@ public class ComponentContainer
      * @param key       the unique key.
      * @return the found component, or null.
      */
-    public Object findComponentByNamespace(String namespace, String key)
+    public Object findComponentByNamespace(final String namespace, final String key)
     {
         final String methodName = "findComponentByNamespace";
         ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
         ExceptionUtils.checkNull(methodName, "key", key);
 
         Object component = null;
-        ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
+        final ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
         if (container != null)
         {
             component = container.findComponent(key);
@@ -276,14 +273,12 @@ public class ComponentContainer
      * @param key       the unique key.
      * @return boolean true/false depending on whether or not it is registerd.
      */
-    public boolean isRegisteredByNamespace(String namespace, String key)
+    public boolean isRegisteredByNamespace(final String namespace, final String key)
     {
         final String methodName = "ComponentContainer.isRegisteredByNamespace";
         ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
         ExceptionUtils.checkNull(methodName, "key", key);
-
         ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
-
         return container != null && container.isRegistered(key);
     }
 
@@ -294,7 +289,7 @@ public class ComponentContainer
      * @param key the unique key.
      * @return boolean true/false depending on whether or not it is registerd.
      */
-    public boolean isRegistered(String key)
+    public boolean isRegistered(final String key)
     {
         return this.findComponent(key) != null;
     }
@@ -307,7 +302,7 @@ public class ComponentContainer
      * @param key       the unique key.
      * @return Object the registered component.
      */
-    public Object registerComponentByNamespace(String namespace, String key, Object component)
+    public Object registerComponentByNamespace(final String namespace, final String key, final Object component)
     {
         final String methodName = "ComponentContainer.registerComponentByNamespace";
         ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
@@ -330,7 +325,7 @@ public class ComponentContainer
      * @param key the unique key.
      * @return Object the registered component.
      */
-    public Object registerComponent(String key, Object component)
+    public Object registerComponent(final String key, final Object component)
     {
         final String methodName = "ComponentContainer.registerComponent";
         ExceptionUtils.checkNull(methodName, "component", component);
@@ -341,13 +336,14 @@ public class ComponentContainer
 
     /**
      * Registers the "default" for the specified componentInterface.
-     *
+     * 
      * @param componentInterface the interface for the component.
-     * @param defaultTypeName    the name of the "default" type of the implementation to use for the componentInterface.
-     *                           Its expected that this is the name of a class.
+     * @param defaultTypeName the name of the "default" type of the
+     *        implementation to use for the componentInterface. Its expected
+     *        that this is the name of a class.
      * @return Object the registered component.
      */
-    public Object registerDefaultComponent(Class componentInterface, String defaultTypeName)
+    public Object registerDefaultComponent(final Class componentInterface, final String defaultTypeName)
     {
         final String methodName = "ComponentContainer.registerDefaultComponent";
         ExceptionUtils.checkNull(methodName, "componentInterface", componentInterface);
@@ -370,17 +366,17 @@ public class ComponentContainer
      * @param defaultType        the "default" implementation to use for the componentInterface.
      * @return Object the registered component.
      */
-    public Object registerDefaultComponent(Class componentInterface, Class defaultType)
+    public Object registerDefaultComponent(final Class componentInterface, final Class defaultType)
     {
         final String methodName = "ComponentContainer.registerDefaultComponent";
         ExceptionUtils.checkNull(methodName, "componentInterface", componentInterface);
         ExceptionUtils.checkNull(methodName, "defaultType", defaultType);
         if (logger.isDebugEnabled())
-            logger.debug(
-                    "registering default for component '" + componentInterface + "' as type --> '" + defaultType + "'");
+            logger.debug("registering default for component '" + componentInterface
+                + "' as type --> '" + defaultType + "'");
         try
         {
-            String interfaceName = componentInterface.getName();
+            final String interfaceName = componentInterface.getName();
             // check and unregister the component if its registered
             // so that we can register a new default component.
             if (this.isRegistered(interfaceName))
@@ -388,7 +384,7 @@ public class ComponentContainer
                 this.unregisterComponent(interfaceName);
             }
             return container.registerComponentInstance(interfaceName, defaultType.newInstance()).getComponentInstance(
-                    this.container);
+                this.container);
         }
         catch (Throwable th)
         {
@@ -403,7 +399,7 @@ public class ComponentContainer
      * @param type the type Class.
      * @return Object an instance of the type registered.
      */
-    public Object registerComponentType(Class type)
+    public Object registerComponentType(final Class type)
     {
         final String methodName = "ComponentContainer.registerComponent";
         ExceptionUtils.checkNull(methodName, "type", type);
@@ -416,14 +412,13 @@ public class ComponentContainer
      * @param type the name of a type (must have be able to be instantiated into a Class instance)
      * @return Object an instance of the type registered.
      */
-    public Object registerComponentType(String type)
+    public Object registerComponentType(final String type)
     {
         final String methodName = "ComponentContainer.registerComponent";
         ExceptionUtils.checkNull(methodName, "type", type);
         try
         {
-            Object component = ClassUtils.loadClass(type).newInstance();
-            return this.registerComponent(type, component);
+            return this.registerComponent(type, ClassUtils.loadClass(type).newInstance());
         }
         catch (Throwable th)
         {

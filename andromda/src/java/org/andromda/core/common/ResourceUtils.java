@@ -33,15 +33,14 @@ public class ResourceUtils
      * @param resourceName the name of the resource
      * @return the resource url
      */
-    public static URL getResource(String resourceName)
+    public static URL getResource(final String resourceName)
     {
         final String methodName = "ResourceUtils.getResource";
         if (logger.isDebugEnabled())
             logger.debug("performing '" + methodName + "' with resourceName '" + resourceName + "'");
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        URL resource = loader.getResource(resourceName);
-        return resource;
+        final ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        return loader.getResource(resourceName);
     }
 
     /**
@@ -50,17 +49,17 @@ public class ResourceUtils
      * @param resource the name of the resource.
      * @return String
      */
-    public static String getContents(URL resource)
+    public static String getContents(final URL resource)
     {
         final String methodName = "ResourceUtils.getContents";
         try
         {
             return getContents(resource != null ? new InputStreamReader(resource.openStream()) : null);
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
             String errMsg = "Error performing " + methodName;
-            throw new RuntimeException(errMsg, th);
+            throw new RuntimeException(errMsg, throwable);
         }
     }
 
@@ -70,12 +69,12 @@ public class ResourceUtils
      * @param resource the name of the resource.
      * @return String
      */
-    public static String getContents(Reader resource)
+    public static String getContents(final Reader resource)
     {
         final String methodName = "ResourceUtils.getContents";
         if (logger.isDebugEnabled())
             logger.debug("performing " + methodName + " with resource '" + resource + "'");
-        StringBuffer contents = new StringBuffer();
+        final StringBuffer contents = new StringBuffer();
         try
         {
             if (resource != null)
@@ -90,11 +89,11 @@ public class ResourceUtils
                 in = null;
             }
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
-            throw new RuntimeException(errMsg, th);
+            final String errMsg = "Error performing " + methodName;
+            logger.error(errMsg, throwable);
+            throw new RuntimeException(errMsg, throwable);
         }
         return contents.toString();
     }
@@ -107,18 +106,17 @@ public class ResourceUtils
      * @param resource the resource from which to retrieve the contents
      * @return a list of Strings containing the names of every nested resource found in this resource.
      */
-    public static List getClassPathArchiveContents(URL resource)
+    public static List getClassPathArchiveContents(final URL resource)
     {
-        List contents = new ArrayList();
+        final List contents = new ArrayList();
         if (isArchive(resource))
         {
-            ZipFile archive = getArchive(resource);
+            final ZipFile archive = getArchive(resource);
             if (archive != null)
             {
-                Enumeration entries = archive.entries();
-                while (entries.hasMoreElements())
+                for (Enumeration entries = archive.entries(); entries.hasMoreElements();)
                 {
-                    ZipEntry entry = (ZipEntry)entries.nextElement();
+                    final ZipEntry entry = (ZipEntry)entries.nextElement();
                     contents.add(entry.getName());
                 }
             }
@@ -136,9 +134,9 @@ public class ResourceUtils
      *                 levels will be ignored).
      * @return a list of Strings containing the names of every nested resource found in this resource.
      */
-    public static List getDirectoryContents(URL resource, int levels)
+    public static List getDirectoryContents(final URL resource, final int levels)
     {
-        List contents = new ArrayList();
+        final List contents = new ArrayList();
         if (resource != null)
         {
             final File fileResource = new File(resource.getFile());
@@ -173,9 +171,9 @@ public class ResourceUtils
      * @param directory the directory from which to load all files.
      * @param fileList  the List of files to which we'll add the found files.
      */
-    private static void loadAllFiles(File directory, List fileList)
+    private static void loadAllFiles(final File directory, final List fileList)
     {
-        File[] files = directory.listFiles();
+        final File[] files = directory.listFiles();
         for (int ctr = 0; ctr < files.length; ctr++)
         {
             File file = files[ctr];
@@ -201,7 +199,7 @@ public class ResourceUtils
      *
      * @return true if its an archive, false otherwise.
      */
-    public static boolean isArchive(URL resource)
+    public static boolean isArchive(final URL resource)
     {
         return resource != null && resource.toString().startsWith(ARCHIVE_PREFIX);
     }
@@ -211,7 +209,7 @@ public class ResourceUtils
      *
      * @return the archive as a ZipFile
      */
-    public static ZipFile getArchive(URL resource)
+    public static ZipFile getArchive(final URL resource)
     {
         final String methodName = "ResourceUtils.getArchive";
         try
@@ -244,7 +242,7 @@ public class ResourceUtils
      * @param resourceName the name of the resource.
      * @return String
      */
-    public static String getContents(String resourceName)
+    public static String getContents(final String resourceName)
     {
         return getContents(getResource(resourceName));
     }
@@ -255,7 +253,7 @@ public class ResourceUtils
      * @param className
      * @return java.net.URL
      */
-    public static URL getClassResource(String className)
+    public static URL getClassResource(final String className)
     {
         final String methodName = "ResourceUtils.getClassResource";
         ExceptionUtils.checkEmpty(methodName, "className", className);
@@ -268,7 +266,7 @@ public class ResourceUtils
      * @param className
      * @return String
      */
-    private static String getClassNameAsResource(String className)
+    private static String getClassNameAsResource(final String className)
     {
         return className.replace('.', '/') + ".class";
     }
@@ -285,19 +283,17 @@ public class ResourceUtils
      * @param directory the directory location
      * @return the resource url
      */
-    public static URL getResource(String resourceName, String directory)
+    public static URL getResource(final String resourceName, final String directory)
     {
         final String methodName = "ResourceUtils.getResource";
         if (logger.isDebugEnabled())
-            logger.debug(
-                    "performing '" + methodName + "' with resourceName '" + resourceName + "' and directory '" +
-                    directory +
-                    "'");
+            logger.debug("performing '" + methodName + "' with resourceName '" + resourceName
+                + "' and directory '" + directory + "'");
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
 
         if (directory != null)
         {
-            File file = new File(directory, resourceName);
+            final File file = new File(directory, resourceName);
             if (file.exists())
             {
                 try
@@ -327,7 +323,7 @@ public class ResourceUtils
      * @param directory the directory location
      * @return the resource url
      */
-    public static URL getResource(String resourceName, URL directory)
+    public static URL getResource(final String resourceName, final URL directory)
     {
         String directoryLocation = null;
         if (directory != null)

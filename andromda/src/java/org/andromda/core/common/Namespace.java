@@ -18,7 +18,7 @@ public class Namespace
     private String name;
     private Map properties;
     private boolean ignore = false;
-    private Collection initCollection = new ArrayList();
+    private final Collection initCollection = new ArrayList();
 
     /**
      * This method normally would be unnecessary. It is here because of the way Ant behaves. Ant calls addProperty()
@@ -55,7 +55,7 @@ public class Namespace
      *
      * @param name The name to set
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -66,7 +66,7 @@ public class Namespace
      *
      * @param property
      */
-    public void addProperty(Property property)
+    public void addProperty(final Property property)
     {
         final String methodName = "Namespace.addProperty";
         ExceptionUtils.checkNull(methodName, "property", property);
@@ -79,7 +79,7 @@ public class Namespace
      * @param name
      * @return PropertyReference.
      */
-    public Property getProperty(String name)
+    public Property getProperty(final String name)
     {
         this.init();
         return (Property)this.properties.get(name);
@@ -108,7 +108,7 @@ public class Namespace
     /**
      * @param ignore The ignore to set.
      */
-    public void setIgnore(boolean ignore)
+    public void setIgnore(final boolean ignore)
     {
         this.ignore = ignore;
     }

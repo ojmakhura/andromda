@@ -41,7 +41,7 @@ public class Namespaces
      *
      * @param namespace the Namespace to add to this instance.
      */
-    public void addNamespace(Namespace namespace)
+    public void addNamespace(final Namespace namespace)
     {
         if (logger.isDebugEnabled())
             logger.debug("adding namespace --> '" + namespace + "'");
@@ -54,7 +54,7 @@ public class Namespaces
      * @param namespaceName
      * @return the found Namespace
      */
-    public Namespace findNamespace(String namespaceName)
+    public Namespace findNamespace(final String namespaceName)
     {
         return (Namespace)namespaces.get(namespaceName);
     }
@@ -69,7 +69,7 @@ public class Namespaces
      * @param propertyName  name of the namespace property to find.
      * @return String the namespace property value.
      */
-    public Property findNamespaceProperty(String namespaceName, String propertyName)
+    public Property findNamespaceProperty(final String namespaceName, final String propertyName)
     {
         return this.findNamespaceProperty(namespaceName, propertyName, true);
     }
@@ -84,16 +84,14 @@ public class Namespaces
      * @param showWarning   true/false if we'd like to display a warning if the property/namespace can not be found.
      * @return String the namespace property value.
      */
-    public Property findNamespaceProperty(String namespaceName, String propertyName, boolean showWarning)
+    public Property findNamespaceProperty(final String namespaceName, final String propertyName, final boolean showWarning)
     {
         final String methodName = "Namespaces.findNamespaceProperty";
         ExceptionUtils.checkEmpty(methodName, "namespaceName", namespaceName);
         ExceptionUtils.checkEmpty(methodName, "propertyName", propertyName);
 
         Property property = null;
-
         Namespace namespace = (Namespace)namespaces.get(namespaceName);
-
         if (namespace != null)
         {
             property = namespace.getProperty(propertyName);

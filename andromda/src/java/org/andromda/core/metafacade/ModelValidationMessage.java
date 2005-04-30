@@ -21,7 +21,7 @@ public class ModelValidationMessage
      * @param modelElementName the name of the model element being validated.
      * @param message          the message to to communitate about the validation.
      */
-    public ModelValidationMessage(MetafacadeBase metafacade, String message)
+    public ModelValidationMessage(final MetafacadeBase metafacade, final String message)
     {
         final String constructorName = "MetafacadeValidationMessage";
         ExceptionUtils.checkNull(constructorName, "metafacade", metafacade);
@@ -61,7 +61,7 @@ public class ModelValidationMessage
         {
             final String seperator = String.valueOf(this.metafacade.getConfiguredProperty(
                     MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR));
-            StringBuffer name = new StringBuffer();
+            final StringBuffer name = new StringBuffer();
             for (MetafacadeBase metafacade = this.metafacade;
                  metafacade != null; metafacade = (MetafacadeBase)metafacade.getValidationOwner())
             {
@@ -100,7 +100,7 @@ public class ModelValidationMessage
         if (metafacadeClass == null)
         {
             this.metafacadeClass = this.metafacade.getClass();
-            List interfaces = ClassUtils.getAllInterfaces(this.metafacade.getClass());
+            final List interfaces = ClassUtils.getAllInterfaces(this.metafacade.getClass());
             if (interfaces != null && !interfaces.isEmpty())
             {
                 this.metafacadeClass = (Class)interfaces.iterator().next();
@@ -114,7 +114,7 @@ public class ModelValidationMessage
      */
     public String toString()
     {
-        StringBuffer toString = new StringBuffer();
+        final StringBuffer toString = new StringBuffer();
         toString.append("[");
         toString.append(this.getMetafacadeName());
         toString.append("]");
@@ -139,7 +139,7 @@ public class ModelValidationMessage
         boolean equals = object != null && ModelValidationMessage.class == object.getClass();
         if (equals)
         {
-            ModelValidationMessage message = (ModelValidationMessage)object;
+            final ModelValidationMessage message = (ModelValidationMessage)object;
             equals = message.toString().equals(this.toString());
         }
         return equals;
