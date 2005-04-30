@@ -79,6 +79,25 @@ public final class $manageable.manageableDaoBaseName
             if ($member.name != null)
 #if ($member.type.stringType)
                 criteria.add(Expression.ilike("$member.name", $member.name, MatchMode.START));
+#elseif ($member.type.dateType)
+            {
+                // we check whether or not the user supplied time information within this particular date argument
+                // if he/she didn't we assume he/she wishes to search in the scope of the entire day
+                final java.util.Calendar calendar = new java.util.GregorianCalendar();
+                calendar.setTime($member.name);
+                if ( calendar.get(java.util.Calendar.HOUR) != 0
+                     || calendar.get(java.util.Calendar.MINUTE) != 0
+                     || calendar.get(java.util.Calendar.SECOND) != 0
+                     || calendar.get(java.util.Calendar.MILLISECOND) != 0 )
+                {
+                    criteria.add(Expression.eq("$member.name", $member.name));
+                }
+                else
+                {
+                    calendar.add(java.util.Calendar.DATE, 1);
+                    criteria.add(Expression.between("$member.name", $member.name, calendar.getTime()));
+                }
+            }
 #else
                 criteria.add(Expression.eq("$member.name", $member.name));
 #end
@@ -140,7 +159,7 @@ public final class $manageable.manageableDaoBaseName
         {
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($identifier = $member.manageableIdentifier)
-            lists.put("${member.manageableName}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityName item order by item.$member.type.displayAttribute.name").list());
+            lists.put("${member.name}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityName item order by item.$member.type.displayAttribute.name").list());
 #end
         }
         catch (HibernateException ex)
@@ -165,14 +184,14 @@ public final class $manageable.manageableDaoBaseName
         entity.${member.setterName}(${member.name});
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
-        entity.${member.setterName}(this.${member.daoGetterName}().load(${member.manageableName}));
+        entity.${member.setterName}(this.${member.daoGetterName}().load(${member.name}));
 #end
 
         this.getDao().update(entity);
     }
 
 #end
-#if ($manageable.delete)
+#if ($manageable.delete && $manageable.identifiersPresent)
     public void delete(${identifier.type.fullyQualifiedName}[] ids)
     {
         final Session session = getSession(false);
