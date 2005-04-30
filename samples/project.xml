@@ -6,8 +6,8 @@
     <name>AndroMDA Samples</name>
     <groupId>andromda/samples</groupId>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}</connection>
-        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/cartridges/${pom.artifactId.replaceAll('-cartridge', '')}/</url>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/samples/${pom.artifactId}</connection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/samples/${pom.artifactId}/</url>
     </repository>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
