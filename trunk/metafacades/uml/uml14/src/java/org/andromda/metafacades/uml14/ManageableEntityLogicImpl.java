@@ -410,7 +410,7 @@ public class ManageableEntityLogicImpl
                     (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE))
                     .booleanValue();
         }
-        catch (NumberFormatException e1)
+        catch (NumberFormatException ex)
         {
             resolveable = true;
         }
