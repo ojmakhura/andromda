@@ -37,6 +37,9 @@
     <!-- the name of the form passed along with the application flow (normally
          stored within the session) -->
     <property reference="formName" default="form"/>
+    <!-- the name of the form passed along with the application flow (normally
+         stored within the session), only used for manageable entities -->
+    <property reference="manageableFormName" default="manageableForm"/>
     <!-- generated xml's encoding -->
     <property reference="xmlEncoding" default="UTF-8"/>
     <!-- generate id attribute in web.xml elements -->
