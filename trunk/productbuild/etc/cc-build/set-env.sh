@@ -37,9 +37,13 @@ case "$JDK" in
      export JAVA_HOME=/opt/java/jdk1.5
   ;;
   * )
-  logger "**** ERROR JDK($JDK) environment variable incorrect"
-  logger "**** Should be one of IBMJava142, SUNJava142, SUNJava150"
-  export JAVA_HOME=NULL
+     echo "**** ERROR JDK($JDK) environment variable incorrect"
+     echo "**** Should be one of IBMJava142, SUNJava142, SUNJava150"
+     echo "**** Defaulting to SunJava42"
+     logger "**** ERROR JDK($JDK) environment variable incorrect"
+     logger "**** Should be one of IBMJava142, SUNJava142, SUNJava150"
+     export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
+     export JAVA_HOME=/opt/java/j2sdk1.4
   ;;
 esac
 
