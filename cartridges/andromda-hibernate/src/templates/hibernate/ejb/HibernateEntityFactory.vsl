@@ -95,9 +95,9 @@ $finder.getDocumentation("     * ")
 #end
 ##
 #if ($finder.returnType.primitive)
-        return (($finder.returnType.wrapperName) query.uniqueResult()).${returnType}Value();
+        return (($finder.returnType.wrapperName)query.uniqueResult()).${returnType}Value();
 #elseif (!$finder.returnType.collectionType)
-        return ($returnType) query.uniqueResult();
+        return ($returnType)query.uniqueResult();
 #else
         return query.list();
 #end
