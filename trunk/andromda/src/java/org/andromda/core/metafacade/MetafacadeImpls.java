@@ -61,7 +61,7 @@ public class MetafacadeImpls
      */
     public void discoverMetafacadeImpls()
     {
-        String methodName = "MetafacadeImpls.discoverMetafacadeImpls";
+        final String methodName = "MetafacadeImpls.discoverMetafacadeImpls";
         if (logger.isDebugEnabled())
         {
             logger.debug("performing " + methodName + " with propertiesName '" + METAFACADE_IMPLS + "'");
@@ -71,8 +71,8 @@ public class MetafacadeImpls
             this.implsByMetafacades = new HashMap();
             this.metafacadesByImpls = new HashMap();
 
-            Properties properties = new Properties();
-            URL resources[] = ResourceFinder.findResources(METAFACADE_IMPLS);
+            final Properties properties = new Properties();
+            final URL resources[] = ResourceFinder.findResources(METAFACADE_IMPLS);
             if (resources != null && resources.length > 0)
             {
                 for (int ctr = 0; ctr < resources.length; ctr++)
@@ -87,20 +87,19 @@ public class MetafacadeImpls
                     stream.close();
                     stream = null;
                 }
-                Iterator propertyIt = properties.keySet().iterator();
-                while (propertyIt.hasNext())
+                for (final Iterator propertyIterator = properties.keySet().iterator(); propertyIterator.hasNext();)
                 {
-                    String metafacade = (String)propertyIt.next();
-                    String metafacadeImpl = properties.getProperty(metafacade);
-                    this.metafacadesByImpls.put(metafacadeImpl, metafacade);
-                    this.implsByMetafacades.put(metafacade, metafacadeImpl);
+                    final String metafacade = (String)propertyIterator.next();
+                    final String metafacadeImplementation = properties.getProperty(metafacade);
+                    this.metafacadesByImpls.put(metafacadeImplementation, metafacade);
+                    this.implsByMetafacades.put(metafacade, metafacadeImplementation);
                 }
             }
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
             String errMsg = "Error performing " + methodName;
-            throw new MetafacadeImplsException(errMsg, th);
+            throw new MetafacadeImplsException(errMsg, throwable);
         }
     }
 
@@ -116,13 +115,13 @@ public class MetafacadeImpls
     {
         final String methodName = "MetafacadeImpls.getMetafacadeImplClass";
         ExceptionUtils.checkEmpty(methodName, "metafacadeClass", metafacadeClass);
-        Class metafacadeImplClass = null;
+        Class metafacadeImplementationClass = null;
         if (this.implsByMetafacades != null)
         {
             try
             {
-                String metafacadeImplClassName = (String)this.implsByMetafacades.get(metafacadeClass);
-                if (StringUtils.isEmpty(metafacadeImplClassName))
+                final String metafacadeImplementationClassName = (String)this.implsByMetafacades.get(metafacadeClass);
+                if (StringUtils.isEmpty(metafacadeImplementationClassName))
                 {
                     throw new MetafacadeImplsException(
                             "Can not find a metafacade implementation class for --> '" + metafacadeClass +
@@ -130,16 +129,16 @@ public class MetafacadeImpls
                             METAFACADE_IMPLS +
                             "' file available with this mapping");
                 }
-                metafacadeImplClass = ClassUtils.loadClass(metafacadeImplClassName);
+                metafacadeImplementationClass = ClassUtils.loadClass(metafacadeImplementationClassName);
             }
-            catch (Throwable th)
+            catch (Throwable throwable)
             {
                 String errMsg = "Error performing " + methodName;
-                logger.error(errMsg, th);
-                throw new MetafacadeImplsException(errMsg, th);
+                logger.error(errMsg, throwable);
+                throw new MetafacadeImplsException(errMsg, throwable);
             }
         }
-        return metafacadeImplClass;
+        return metafacadeImplementationClass;
     }
 
     /**
@@ -158,7 +157,7 @@ public class MetafacadeImpls
         {
             try
             {
-                String metafacadeClassName = (String)this.metafacadesByImpls.get(metafacadeImplClass);
+                final String metafacadeClassName = (String)this.metafacadesByImpls.get(metafacadeImplClass);
                 if (StringUtils.isEmpty(metafacadeClassName))
                 {
                     throw new MetafacadeImplsException(
@@ -169,10 +168,10 @@ public class MetafacadeImpls
                 }
                 metafacadeClass = ClassUtils.loadClass(metafacadeClassName);
             }
-            catch (Throwable th)
+            catch (Throwable throwable)
             {
                 String errMsg = "Error performing " + methodName;
-                throw new MetafacadeImplsException(errMsg, th);
+                throw new MetafacadeImplsException(errMsg, throwable);
             }
         }
         return metafacadeClass;

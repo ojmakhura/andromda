@@ -376,12 +376,12 @@ public class MetafacadeMapping
          */
         public String toString()
         {
-            StringBuffer toString = new StringBuffer();
+            final StringBuffer toString = new StringBuffer();
             Iterator propertyIterator = this.getProperties().iterator();
             char seperator = ':';
             while (propertyIterator.hasNext())
             {
-                Property property = (Property)propertyIterator.next();
+                final Property property = (Property)propertyIterator.next();
                 toString.append(property.getName());
                 if (StringUtils.isNotEmpty(property.getValue()))
                 {
