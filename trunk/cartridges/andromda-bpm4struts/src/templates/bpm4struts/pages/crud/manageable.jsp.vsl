@@ -1,7 +1,7 @@
 #parse("templates/bpm4struts/pages/crud/manageable.jsp.vm")
 #set ($generatedFile = "$manageable.pageFullPath")
 ##
-#set ($tableVariable = "manageableForm.${manageable.listName}")
+#set ($tableVariable = "${manageableFormName}.${manageable.listName}")
 #set ($tablePresentTest = "!empty $tableVariable")
 #set ($tablePresentTest = "${${tablePresentTest}}")
 ##
@@ -27,7 +27,8 @@
         <html:form action="$manageable.actionPath" method="post">
             <input type="hidden" name="$manageable.actionParameter" value=""/>
             <div id="criteria">
-                <c:if test="${!empty manageableForm}">
+#set ($test = "!empty ${manageableFormName}")
+                <c:if test="${${test}}">
                     <table>
 #set ($displayId = true)
 #foreach ($member in $manageable.attributes)
@@ -80,7 +81,7 @@
 
             <div id="${manageable.listName}" class="table">
                 <c:if test="$tablePresentTest">
-#set ($listBean = "manageableForm.${manageable.listName}")
+#set ($listBean = "${manageableFormName}.${manageable.listName}")
                     <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
                             export="true" pagesize="$manageable.pageSize" sort="list">
                         <display:column media="html" sortable="false">
