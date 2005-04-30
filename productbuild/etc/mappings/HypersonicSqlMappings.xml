@@ -67,6 +67,10 @@
         <to>LONGVARBINARY</to>
     </mapping>
     <mapping>
+        <from>datatype::Clob</from>
+        <to>LONGVARCHAR</to>
+    </mapping>
+    <mapping>
         <from>datatype::Time</from>
         <to>TIME</to>
     </mapping>
