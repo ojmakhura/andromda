@@ -22,21 +22,21 @@ public abstract class $entity.entityName
      */
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
 
-#if ($stringUtils.isNotBlank($versionProperty))
-#set ($versionPropertyCapitalized = $stringUtils.capitalize($versionProperty))
+#if ($entity.hibernateVersion && $stringUtils.isNotBlank($versionPropertyName))
+#set ($versionPropertyNameCapitalized = $stringUtils.capitalize($versionPropertyName))
     /**
      * Version property managed by Hibernate.
      */
-    private int $versionProperty;   
+    private int $versionPropertyName;   
 
-    public int get$versionPropertyCapitalized()
+    public int get$versionPropertyNameCapitalized()
     {
-        return this.$versionProperty;
+        return this.$versionPropertyName;
     }
 
-    private void set$versionPropertyCapitalized (int $versionProperty)
+    private void set$versionPropertyNameCapitalized (int $versionPropertyName)
     {
-        this.$versionProperty = $versionProperty;
+        this.$versionPropertyName = $versionPropertyName;
     }
 
 #end

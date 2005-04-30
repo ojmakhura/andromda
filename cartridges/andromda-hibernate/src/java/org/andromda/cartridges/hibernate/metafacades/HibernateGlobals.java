@@ -101,4 +101,9 @@ class HibernateGlobals
      * The property which stores the pattern defining the embedded value implementation name.
      */
     static final String EMBEDDED_VALUE_IMPLEMENTATION_NAME_PATTERN = "embeddedValueImplementationNamePattern";
+
+    /**
+     * The property which defines a default value for hibernate entities versioning.
+     */
+    static final String HIBERNATE_VERSION = "versionProperty";
 }

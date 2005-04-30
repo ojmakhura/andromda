@@ -26,8 +26,8 @@
 #if (!$entity.specializations.empty && $entity.hibernateInheritanceClass)
         <discriminator column="$entity.hibernateDiscriminatorColumn" type="$entity.hibernateDiscriminatorType"/>
 #end
-#if ($stringUtils.isNotBlank($versionProperty))
-        <version name="$versionProperty" type="int" column="$versionProperty"/>
+#if ($entity.hibernateVersion && $stringUtils.isNotBlank($versionPropertyName))
+        <version name="$versionPropertyName" type="int" column="$versionPropertyName"/>
 #end
 ## If super inheritance is 'interface', render super properties etc
 #foreach ($generalization in $entity.allGeneralizations)

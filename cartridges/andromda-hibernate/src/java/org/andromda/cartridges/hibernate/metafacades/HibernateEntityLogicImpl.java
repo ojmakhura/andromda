@@ -591,4 +591,18 @@ public class HibernateEntityLogicImpl
         return this.isHibernateInheritanceInterface() || (this.isHibernateInheritanceConcrete() && this.isAbstract());
     }
 
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateVersion()
+     */
+    protected boolean handleIsHibernateVersion()
+    {
+        String version = (String)this.findTaggedValue(
+                HibernateProfile.TAGGEDVALUE_HIBERNATE_VERSION);
+        if (version == null)
+        {
+            version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
+        }
+        return Boolean.valueOf(version).booleanValue();
+    }
+
 }
