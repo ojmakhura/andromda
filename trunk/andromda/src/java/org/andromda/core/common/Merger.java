@@ -42,13 +42,15 @@ public class Merger
     private Map mergeMappingsCache = new HashMap();
 
     /**
-     * <p/>
-     * Retrieves the <em>merged</em> string. The merging takes place when the {@link
-     * NamespaceProperties#MERGE_MAPPINGS_URI}is found within the <code>namespace</code> and the merge mappings are used
-     * to replace any matching patterns in the given <code>string</code>. </p>
-     *
-     * @param string    the String to be replaced
-     * @param namespace This namespace is searched when attempting to find the {@link NamespaceProperties#MERGE_MAPPINGS_URI}.
+     * <p/> Retrieves the <em>merged</em> string. The merging takes place when
+     * the {@link NamespaceProperties#MERGE_MAPPINGS_URI}is found within the
+     * <code>namespace</code> and the merge mappings are used to replace any
+     * matching patterns in the given <code>string</code>.
+     * </p>
+     * 
+     * @param string the String to be replaced
+     * @param namespace This namespace is searched when attempting to find the
+     *        {@link NamespaceProperties#MERGE_MAPPINGS_URI}.
      * @return the replaced String.
      */
     public String getMergedString(String string, final String namespace)

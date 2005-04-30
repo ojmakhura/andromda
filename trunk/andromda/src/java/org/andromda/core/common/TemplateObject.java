@@ -22,16 +22,11 @@ public class TemplateObject
 {
     private static Logger logger = Logger.getLogger(TemplateObject.class);
 
+    /**
+     * The name of this template object made available to the 
+     * template.
+     */
     private String name;
-    private String className;
-
-    private Map objectCache = new HashMap();
-
-    private Collection propertyReferences = new ArrayList();
-
-    private URL resource;
-
-    private String namespace;
 
     /**
      * Gets the current name of this TemplateObject.
@@ -47,6 +42,11 @@ public class TemplateObject
         }
         return name;
     }
+    
+    /**
+     * Caches the template objects.
+     */
+    private final Map objectCache = new HashMap();
 
     /**
      * Returns the TemplateObject instance.
@@ -60,13 +60,12 @@ public class TemplateObject
         {
             throw new TemplateObjectException(methodName + " - templateObject '" + this + "' has no className defined");
         }
-
         Object templateObject = this.objectCache.get(className);
         try
         {
             if (templateObject == null)
             {
-                Class templateObjectClass = ClassUtils.loadClass(className);
+                final Class templateObjectClass = ClassUtils.loadClass(className);
                 templateObject = templateObjectClass.newInstance();
                 this.setProperties(templateObject);
                 this.objectCache.put(className, templateObject);
@@ -85,33 +84,25 @@ public class TemplateObject
      *
      * @param templateObject
      */
-    protected void setProperties(Object templateObject)
+    protected void setProperties(final Object templateObject)
     {
-        Iterator referenceIt = this.propertyReferences.iterator();
-        while (referenceIt.hasNext())
+        for (final Iterator referenceIterator = this.propertyReferences.iterator(); referenceIterator.hasNext();)
         {
-            String reference = (String)referenceIt.next();
-
-            Property property = Namespaces.instance().findNamespaceProperty(this.getNamespace(), reference);
-
+            final String reference = (String)referenceIterator.next();
+            final Property property = Namespaces.instance().findNamespaceProperty(this.getNamespace(), reference);
             if (!property.isIgnore())
             {
                 if (logger.isDebugEnabled())
-                    logger.debug(
-                            "setting property '" + name + "' with value '" + property.getValue() +
-                            "' on templateObject '" +
-                            templateObject +
-                            "'");
+                    logger.debug("setting property '" + name + "' with value '"
+                        + property.getValue() + "' on templateObject '" + templateObject + "'");
                 try
                 {
                     PropertyUtils.setProperty(templateObject, reference, property.getValue());
                 }
                 catch (Exception ex)
                 {
-                    String errMsg = "Error setting property '" + reference + "' with '" + property.getValue() +
-                            "' on templateObject --> '" +
-                            templateObject +
-                            "'";
+                    String errMsg = "Error setting property '" + reference + "' with '"
+                        + property.getValue() + "' on templateObject --> '" + templateObject + "'";
                     logger.warn(errMsg, ex);
                     // don't throw the exception
                 }
@@ -124,17 +115,22 @@ public class TemplateObject
      *
      * @param name the name of the template object.
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = StringUtils.trimToEmpty(name);
     }
+    
+    /**
+     * The name of the class for this template object.
+     */
+    private String className;
 
     /**
      * Sets the class of the transformation object.
      *
      * @param className
      */
-    public void setClassName(String className)
+    public void setClassName(final String className)
     {
         final String methodName = "TemplateObject.setTransformationClass";
         ExceptionUtils.checkEmpty(methodName, "className", className);
@@ -142,15 +138,25 @@ public class TemplateObject
     }
 
     /**
+     * The property references that configure this template object.
+     */
+    private final Collection propertyReferences = new ArrayList();
+    
+    /**
      * Adds a templateObject property reference (used to customize templateObjects). Property references are used to
      * populate bean like properties of template objects.
      *
      * @param reference
      */
-    public void addPropertyReference(String reference)
+    public void addPropertyReference(final String reference)
     {
         this.propertyReferences.add(reference);
     }
+    
+    /**
+     * The resource in which the template object was found.
+     */
+    private URL resource;
 
     /**
      * The resource in which the templateObject was found.
@@ -167,11 +173,16 @@ public class TemplateObject
      *
      * @param resource
      */
-    public void setResource(URL resource)
+    public void setResource(final URL resource)
     {
         this.resource = resource;
     }
 
+    /**
+     * The namespace to which this template object belongs.
+     */
+    private String namespace;
+    
     /**
      * @return Returns the namespace.
      */
@@ -183,7 +194,7 @@ public class TemplateObject
     /**
      * @param namespace The namespace to set.
      */
-    public void setNamespace(String namespace)
+    public void setNamespace(final String namespace)
     {
         this.namespace = StringUtils.trimToEmpty(namespace);
     }

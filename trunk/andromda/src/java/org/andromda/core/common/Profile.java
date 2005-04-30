@@ -48,7 +48,7 @@ public class Profile
      * @param from the <code>from</code> value of the mapped profile value.
      * @return the mapped profile value.
      */
-    public String get(String from)
+    public String get(final String from)
     {
         String value = from;
         if (this.profileMappings != null)
@@ -79,14 +79,14 @@ public class Profile
      */
     private Mappings getMappings()
     {
-        String defaultLocation = DEFAULT_LOCATION;
+        final String defaultLocation = DEFAULT_LOCATION;
         Mappings mappings = null;
-        URL[] profileResources = ResourceFinder.findResources(defaultLocation);
+        final URL[] profileResources = ResourceFinder.findResources(defaultLocation);
         if (profileResources != null && profileResources.length > 0)
         {
             for (int ctr = 0; ctr < profileResources.length; ctr++)
             {
-                URL profileResource = profileResources[ctr];
+                final URL profileResource = profileResources[ctr];
                 if (mappings == null)
                 {
                     mappings = Mappings.getInstance(profileResource);
@@ -97,10 +97,11 @@ public class Profile
                 }
             }
         }
-        Property mappingsUri = Namespaces.instance().findNamespaceProperty(Namespaces.DEFAULT,
-                NamespaceProperties.PROFILE_MAPPINGS_URI, false);
-        String mappingsUriValue = mappingsUri != null ? mappingsUri.getValue() : null;
-        mappingsUriValue = StringUtils.trimToEmpty(mappingsUriValue);
+        final Property mappingsUri = Namespaces.instance().findNamespaceProperty(
+            Namespaces.DEFAULT,
+            NamespaceProperties.PROFILE_MAPPINGS_URI,
+            false);
+        final String mappingsUriValue = StringUtils.trimToEmpty(mappingsUri != null ? mappingsUri.getValue() : null);
         if (StringUtils.isNotEmpty(mappingsUriValue))
         {
             if (mappings == null)

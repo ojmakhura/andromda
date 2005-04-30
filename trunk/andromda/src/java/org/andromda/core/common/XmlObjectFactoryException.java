@@ -10,32 +10,32 @@ public class XmlObjectFactoryException
     /**
      * Constructs an instance of XmlObjectFactoryException.
      *
-     * @param th
+     * @param parent
      */
-    public XmlObjectFactoryException(Throwable th)
+    public XmlObjectFactoryException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of XmlObjectFactoryException.
      *
-     * @param msg
+     * @param message
      */
-    public XmlObjectFactoryException(String msg)
+    public XmlObjectFactoryException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of XmlObjectFactoryException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public XmlObjectFactoryException(String msg, Throwable th)
+    public XmlObjectFactoryException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

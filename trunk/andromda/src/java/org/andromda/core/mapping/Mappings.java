@@ -83,7 +83,7 @@ public class Mappings
      *         <code>mappings</code> doesn't extend anything.
      * @throws Exception if an exception occurs.
      */
-    private static Mappings getInheritedMappings(Mappings mappings)
+    private static Mappings getInheritedMappings(final Mappings mappings)
         throws Exception
     {
         return getInheritedMappings(mappings, false);
@@ -158,13 +158,13 @@ public class Mappings
      *        to retrieve the mapping's inheritance should be ignored.
      * @return Mappings the configured Mappings instance.
      */
-    private static Mappings getInstance(final URL mappingsUri, boolean ignoreInheritanceFailure)
+    private static Mappings getInstance(final URL mappingsUri, final boolean ignoreInheritanceFailure)
     {
         final String methodName = "Mappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
         try
         {
-            Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(
+            final Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(
                 mappingsUri);
             mappings.resource = mappingsUri;
             return getInheritedMappings(mappings, ignoreInheritanceFailure);
@@ -183,10 +183,10 @@ public class Mappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
      */
-    private static Mappings getInstance(File mappingsFile)
+    private static Mappings getInstance(final File mappingsFile)
         throws Exception
     {
-        Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(
+        final Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(
             new FileReader(mappingsFile));
         mappings.resource = mappingsFile.toURL();
         return mappings;
@@ -202,7 +202,7 @@ public class Mappings
     public static void initializeLogicalMappings()
     {
         final Map initialized = new HashMap();
-        for (Iterator nameIterator = logicalMappings.keySet().iterator(); nameIterator.hasNext();)
+        for (final Iterator nameIterator = logicalMappings.keySet().iterator(); nameIterator.hasNext();)
         {
             final String name = (String)nameIterator.next();
             final Mappings mappings = (Mappings)logicalMappings.get(name);
@@ -238,7 +238,7 @@ public class Mappings
      * 
      * @param name
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -255,7 +255,7 @@ public class Mappings
      * @param extendsUri the URI of the mapping which
      *        this one extends.
      */
-    public void setExtendsUri(String extendsUri)
+    public void setExtendsUri(final String extendsUri)
     {
         this.extendsUri = extendsUri;
     }
@@ -265,12 +265,11 @@ public class Mappings
      * 
      * @param mapping the Mapping instance.
      */
-    public void addMapping(Mapping mapping)
+    public void addMapping(final Mapping mapping)
     {
         final String methodName = "Mappings.addMapping";
         ExceptionUtils.checkNull(methodName, "mapping", mapping);
-
-        Collection fromTypes = mapping.getFroms();
+        final Collection fromTypes = mapping.getFroms();
         ExceptionUtils.checkNull(methodName, "mapping.fromTypes", fromTypes);
         for (final Iterator typeIterator = fromTypes.iterator(); typeIterator.hasNext();)
         {
@@ -285,7 +284,7 @@ public class Mappings
      * 
      * @param mappings the Mappings instance to add this instance.
      */
-    public void addMappings(Mappings mappings)
+    public void addMappings(final Mappings mappings)
     {
         if (mappings != null && mappings.mappings != null)
         {
@@ -309,7 +308,7 @@ public class Mappings
         String to = null;
         // first we check to see if there's an array
         // type mapping directly defined in the mappings
-        Mapping mapping = this.getMapping(from);
+        final Mapping mapping = this.getMapping(from);
         if (mapping != null)
         {
             to = mapping.getTo();
@@ -341,7 +340,7 @@ public class Mappings
      * @param from the value of the from mapping.
      * @return true if it contains <code>from</code>, false otherwise.
      */
-    public boolean containsFrom(String from)
+    public boolean containsFrom(final String from)
     {
         return this.getMapping(from) != null;
     }
@@ -372,7 +371,7 @@ public class Mappings
      * @param from the <code>from</code> mapping.
      * @return the Mapping instance (or null if it doesn't exist).
      */
-    public Mapping getMapping(String from)
+    public Mapping getMapping(final String from)
     {
         return (Mapping)this.mappings.get(StringUtils.trimToEmpty(from));
     }

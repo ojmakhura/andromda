@@ -28,13 +28,13 @@ public class PluginDiscoverer
 
     static
     {
-        final String ANDROMDA_PLUGINS = "META-INF/andromda-plugins.properties";
+        final String pluginsUri = "META-INF/andromda-plugins.properties";
         try
         {
-            URL andromdaPluginsUri = ResourceUtils.getResource(ANDROMDA_PLUGINS);
+            final URL andromdaPluginsUri = ResourceUtils.getResource(pluginsUri);
             if (andromdaPluginsUri == null)
             {
-                String errMsg = "Could not find --> '" + ANDROMDA_PLUGINS + "'";
+                String errMsg = "Could not find --> '" + pluginsUri + "'";
                 logger.error(errMsg);
                 throw new PluginDiscovererException(errMsg);
             }
@@ -43,10 +43,10 @@ public class PluginDiscoverer
             stream.close();
             stream = null;
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
-            String errMsg = "Error loading --> '" + ANDROMDA_PLUGINS + "'";
-            throw new PluginDiscovererException(errMsg, th);
+            String errMsg = "Error loading --> '" + pluginsUri + "'";
+            throw new PluginDiscovererException(errMsg, throwable);
         }
     }
 
@@ -89,34 +89,31 @@ public class PluginDiscoverer
         }
         try
         {
-            Enumeration pluginEnum = pluginResources.keys();
-
-            while (pluginEnum.hasMoreElements())
+            for (final Enumeration plugins = pluginResources.keys(); plugins.hasMoreElements();)
             {
-                String pluginXmlUri = StringUtils.trimToEmpty((String)pluginEnum.nextElement());
-                String pluginClassName = pluginResources.getProperty(pluginXmlUri);
-                Class pluginClass = ClassUtils.loadClass(pluginClassName);
+                final String pluginXmlUri = StringUtils.trimToEmpty((String)plugins.nextElement());
+                final String pluginClassName = pluginResources.getProperty(pluginXmlUri);
+                final Class pluginClass = ClassUtils.loadClass(pluginClassName);
                 if (!Plugin.class.isAssignableFrom(pluginClass))
                 {
-                    throw new PluginDiscovererException(
-                            methodName + " plugin class '" + pluginClassName + "' must implement --> '" + Plugin.class +
-                            "'");
+                    throw new PluginDiscovererException(methodName + " plugin class '"
+                        + pluginClassName + "' must implement --> '" + Plugin.class + "'");
                 }
 
-                URL[] pluginResources = ResourceFinder.findResources(pluginXmlUri);
-
+                final URL[] pluginResources = ResourceFinder.findResources(pluginXmlUri);
                 if (pluginResources != null && pluginResources.length > 0)
                 {
                     for (int ctr = 0; ctr < pluginResources.length; ctr++)
                     {
 
-                        URL pluginUri = pluginResources[ctr];
-                        XmlObjectFactory factory = XmlObjectFactory.getInstance(pluginClass);
+                        final URL pluginUri = pluginResources[ctr];
+                        final XmlObjectFactory factory = XmlObjectFactory.getInstance(pluginClass);
                         Plugin plugin = (Plugin)factory.getObject(pluginUri);
                         // perform the merge of the configuration file since
                         // we now know the namespace
-                        String pluginUriContents = Merger.instance().getMergedString(
-                                ResourceUtils.getContents(pluginUri), plugin.getName());
+                        final String pluginUriContents = Merger.instance().getMergedString(
+                            ResourceUtils.getContents(pluginUri),
+                            plugin.getName());
                         plugin = (Plugin)factory.getObject(pluginUriContents);
                         plugin.setResource(pluginUri);
 
@@ -145,9 +142,9 @@ public class PluginDiscoverer
      * @param type the Plugin type.
      * @return Collection of all found Plugin instances of the given <code>type</code>.
      */
-    public Collection findPlugins(Class type)
+    public Collection findPlugins(final Class type)
     {
-        Collection plugins = ComponentContainer.instance().findComponentsOfType(type);
+        final Collection plugins = ComponentContainer.instance().findComponentsOfType(type);
         if (plugins == null)
         {
             logger.error("ERROR! No plugins with type '" + type + "' found");

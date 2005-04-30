@@ -16,7 +16,6 @@ import java.util.StringTokenizer;
  */
 public class Paragraph
 {
-    private ArrayList lines = new ArrayList();
     private StringBuffer currentLine = new StringBuffer();
     private int maxLineWidth;
 
@@ -26,7 +25,7 @@ public class Paragraph
      *
      * @param lineLength maximum line length
      */
-    public Paragraph(int lineLength)
+    public Paragraph(final int lineLength)
     {
         this.maxLineWidth = lineLength;
     }
@@ -37,7 +36,7 @@ public class Paragraph
      *
      * @param word the word
      */
-    public void appendWord(String word)
+    public void appendWord(final String word)
     {
         if ((currentLine.length() + word.length() + 1) > maxLineWidth)
         {
@@ -53,7 +52,7 @@ public class Paragraph
      *
      * @param text the text to add to the paragraph
      */
-    public void appendText(String text)
+    public void appendText(final String text)
     {
         if ((currentLine.length() + text.length() + 1) <= maxLineWidth)
         {
@@ -61,12 +60,14 @@ public class Paragraph
             currentLine.append(text);
             return;
         }
-        StringTokenizer st = new StringTokenizer(text);
-        while (st.hasMoreTokens())
+        StringTokenizer tokenizer = new StringTokenizer(text);
+        while (tokenizer.hasMoreTokens())
         {
-            appendWord(st.nextToken());
+            appendWord(tokenizer.nextToken());
         }
     }
+    
+    private final ArrayList lines = new ArrayList();
 
     /**
      * <p/>
@@ -88,13 +89,13 @@ public class Paragraph
      */
     public String toString()
     {
-        StringBuffer st = new StringBuffer();
-        for (Iterator it = getLines().iterator(); it.hasNext();)
+        final StringBuffer buffer = new StringBuffer();
+        for (final Iterator iterator = this.getLines().iterator(); iterator.hasNext();)
         {
-            st.append((String)it.next());
-            st.append("\n");
+            buffer.append((String)iterator.next());
+            buffer.append("\n");
         }
-        return st.toString();
+        return buffer.toString();
     }
 
     private void nextLine()

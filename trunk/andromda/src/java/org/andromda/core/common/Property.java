@@ -12,11 +12,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @see org.andromda.core.common.Namespaces
  */
 public class Property
-{
-
+{    
+    /**
+     * The property name.
+     */
     private String name;
-    private String value;
-    private boolean ignore = false;
 
     /**
      * Returns the name. This is used by Namespaces to find this property.
@@ -29,6 +29,21 @@ public class Property
     }
 
     /**
+     * Sets the name.
+     *
+     * @param name The name to set
+     */
+    public void setName(final String name)
+    {
+        this.name = StringUtils.trimToEmpty(name);
+    }
+
+    /**
+     * The property value.
+     */
+    private String value;
+    
+    /**
      * Returns the value. This is the value that is stored in this property.
      *
      * @return the value as a String
@@ -37,26 +52,21 @@ public class Property
     {
         return value;
     }
-
-    /**
-     * Sets the name.
-     *
-     * @param name The name to set
-     */
-    public void setName(String name)
-    {
-        this.name = StringUtils.trimToEmpty(name);
-    }
-
+    
     /**
      * Sets the value.
      *
      * @param value The value to set
      */
-    public void setValue(String value)
+    public void setValue(final String value)
     {
         this.value = StringUtils.trimToEmpty(value);
     }
+    
+    /**
+     * Stores whether or not this property should be ignored.
+     */
+    private boolean ignore = false;
 
     /**
      * If a property is set to ignore then Namespaces will ignore it if it doesn't exist on lookup (otherwise errors
@@ -75,7 +85,7 @@ public class Property
      * @param ignore The ignore to set.
      * @see #isIgnore()
      */
-    public void setIgnore(boolean ignore)
+    public void setIgnore(final boolean ignore)
     {
         this.ignore = ignore;
     }

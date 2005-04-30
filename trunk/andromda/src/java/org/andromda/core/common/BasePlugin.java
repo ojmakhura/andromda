@@ -24,12 +24,12 @@ public abstract class BasePlugin
     /**
      * Property references made available to the plugin
      */
-    private Map propertyReferences = new HashMap();
+    private final Map propertyReferences = new HashMap();
 
     /**
      * The template objects made available to templates of this BasePlugin.
      */
-    private Collection templateObjects = new ArrayList();
+    private final Collection templateObjects = new ArrayList();
 
     /**
      * Stores the name of this plugin.
@@ -113,7 +113,7 @@ public abstract class BasePlugin
     /**
      * @see org.andromda.core.common.Plugin#setResource(java.net.URL)
      */
-    public void setResource(URL resource)
+    public void setResource(final URL resource)
     {
         this.resource = resource;
     }
@@ -124,7 +124,7 @@ public abstract class BasePlugin
      *
      * @param templateObject the TemplateObject to add.
      */
-    public void addTemplateObject(TemplateObject templateObject)
+    public void addTemplateObject(final TemplateObject templateObject)
     {
         final String methodName = "BasePlugin.addTemplateObjects";
         ExceptionUtils.checkNull(methodName, "templateObject", templateObject);
@@ -138,7 +138,7 @@ public abstract class BasePlugin
      *
      * @param macrolibrary
      */
-    public void addMacrolibrary(String macrolibrary)
+    public void addMacrolibrary(final String macrolibrary)
     {
         this.getTemplateEngine().addMacroLibrary(macrolibrary);
     }
@@ -158,7 +158,7 @@ public abstract class BasePlugin
      *
      * @param templateEngineClass the Class of the template engine implementation.
      */
-    public void setTemplateEngineClass(String templateEngineClass)
+    public void setTemplateEngineClass(final String templateEngineClass)
     {
         this.templateEngineClass = templateEngineClass;
     }
@@ -193,7 +193,7 @@ public abstract class BasePlugin
      * @param reference    the name of the reference.
      * @param defaultValue the default value of the property reference.
      */
-    public void addPropertyReference(String reference, String defaultValue)
+    public void addPropertyReference(final String reference, final String defaultValue)
     {
         this.propertyReferences.put(reference, defaultValue);
     }
@@ -222,16 +222,15 @@ public abstract class BasePlugin
      * @param templateContext the template context
      * @param properties      the user properties
      */
-    private void addTemplateObjectsToContext(Map templateContext)
+    private void addTemplateObjectsToContext(final Map templateContext)
     {
         // add all the TemplateObject objects to the template context
-        Collection templateObjects = this.getTemplateObjects();
+        final Collection templateObjects = this.getTemplateObjects();
         if (templateObjects != null && !templateObjects.isEmpty())
         {
-            Iterator templateObjectIt = templateObjects.iterator();
-            while (templateObjectIt.hasNext())
+            for (final Iterator templateObjectIterator = templateObjects.iterator(); templateObjectIterator.hasNext();)
             {
-                TemplateObject templateObject = (TemplateObject)templateObjectIt.next();
+                final TemplateObject templateObject = (TemplateObject)templateObjectIterator.next();
                 templateContext.put(templateObject.getName(), templateObject.getTemplateObject());
             }
         }
@@ -244,16 +243,15 @@ public abstract class BasePlugin
      * @param templateContext the template context
      * @param properties      the user properties
      */
-    private void addPropertyReferencesToContext(Map templateContext)
+    private void addPropertyReferencesToContext(final Map templateContext)
     {
-        Map propertyReferences = this.getPropertyReferences();
+        final Map propertyReferences = this.getPropertyReferences();
         if (propertyReferences != null && !propertyReferences.isEmpty())
         {
-            Iterator referenceIt = propertyReferences.keySet().iterator();
-            while (referenceIt.hasNext())
+            for (final Iterator referenceIterator = propertyReferences.keySet().iterator(); referenceIterator.hasNext();)
             {
-                String reference = (String)referenceIt.next();
-                String defaultValue = (String)propertyReferences.get(reference);
+                final String reference = (String)referenceIterator.next();
+                final String defaultValue = (String)propertyReferences.get(reference);
 
                 // if we have a default value, then don't warn
                 // that we don't have a property, otherwise we'll
@@ -264,7 +262,7 @@ public abstract class BasePlugin
                     showWarning = true;
                 }
                 // find the property from the namespace
-                Property property = Namespaces.instance().findNamespaceProperty(this.getName(), reference, showWarning);
+                final Property property = Namespaces.instance().findNamespaceProperty(this.getName(), reference, showWarning);
                 // if property isn't ignore, then add it to
                 // the context
                 if (property != null && !property.isIgnore())

@@ -33,7 +33,7 @@ public class AndroMDALogger
     {
         String defaultConfiguration = "log4j.xml";
         URL url = null;
-        String configuration = loggingConfigurationUri;
+        final String configuration = loggingConfigurationUri;
         if (StringUtils.isNotEmpty(configuration))
         {
             try
@@ -45,7 +45,7 @@ public class AndroMDALogger
                 configure(url);
                 logger.info("Logging configured from external source --> '" + configuration + "'");
             }
-            catch (Throwable th)
+            catch (Throwable throwable)
             {
                 url = AndroMDALogger.class.getResource(defaultConfiguration);
                 configure(url);
@@ -74,7 +74,7 @@ public class AndroMDALogger
      *
      * @param loggingConfigurationUri the URI to the logging configuraiton file.
      */
-    public static void setLoggingConfigurationUri(String loggingConfigurationUri)
+    public static void setLoggingConfigurationUri(final String loggingConfigurationUri)
     {
         AndroMDALogger.loggingConfigurationUri = loggingConfigurationUri;
     }
@@ -84,7 +84,7 @@ public class AndroMDALogger
      *
      * @param logConfigurationXml
      */
-    protected static void configure(URL logConfigurationXml)
+    protected static void configure(final URL logConfigurationXml)
     {
         try
         {
@@ -105,7 +105,7 @@ public class AndroMDALogger
      * @param namespaceName the name of the namespace for which we'll retrieve the logger instance.
      * @return the namespace or root logger instance.
      */
-    public static Logger getNamespaceLogger(String namespaceName)
+    public static Logger getNamespaceLogger(final String namespaceName)
     {
         Logger logger;
         if (namespaceName != null && !Namespaces.DEFAULT.equals(namespaceName))
@@ -125,7 +125,7 @@ public class AndroMDALogger
      * @param namespace the name of the namespace for which this logger is used.
      * @return the logger name.
      */
-    public static String getNamespaceLoggerName(String namespace)
+    public static String getNamespaceLoggerName(final String namespace)
     {
         return "org.andromda.namespaces." + namespace;
     }
@@ -136,7 +136,7 @@ public class AndroMDALogger
      * @param namespace the name of the namespace for which this logger is used.
      * @return the namespace logging file name.
      */
-    public static String getNamespaceLogFileName(String namespace)
+    public static String getNamespaceLogFileName(final String namespace)
     {
         return "andromda-" + namespace + ".log";
     }
@@ -146,7 +146,7 @@ public class AndroMDALogger
      *
      * @param name
      */
-    public static void setSuffix(String suffix)
+    public static void setSuffix(final String suffix)
     {
         logger = Logger.getLogger(DEFAULT_LOGGER_NAME + ':' + suffix);
     }

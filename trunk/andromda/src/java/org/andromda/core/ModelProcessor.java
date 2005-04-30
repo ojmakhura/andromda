@@ -86,10 +86,9 @@ public class ModelProcessor
                         RepositoryFacade.class);
                 if (repository == null)
                 {
-                    throw new ModelProcessorException(
-                            "No Repository could be found, " + "please make sure you have a " +
-                            RepositoryFacade.class.getName() +
-                            " instance on your classpath");
+                    throw new ModelProcessorException("No Repository could be found, "
+                        + "please make sure you have a " + RepositoryFacade.class.getName()
+                        + " instance on your classpath");
                 }
                 repository.open();
                 process(repository, models);
@@ -141,7 +140,7 @@ public class ModelProcessor
      * @param models     the Model(s) to process.
      * @param cartridges the collection of cartridge used to process the models.
      */
-    private void process(RepositoryFacade repository, Model[] models)
+    private void process(final RepositoryFacade repository, final Model[] models)
     {
         final String methodName = "ModelProcessor.process";
         // filter out any models that are null or have null URLs
@@ -229,13 +228,13 @@ public class ModelProcessor
                 ResourceWriter.instance().writeHistory();
             }
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
-            String errorMesssage = "Error performing " + methodName + " with model(s) --> '" + StringUtils.join(models,
+            final String errorMesssage = "Error performing " + methodName + " with model(s) --> '" + StringUtils.join(models,
                     ",") + "'";
             logger.error(errorMesssage);
-            ExceptionRecorder.instance().record(errorMesssage, th, cartridgeName);
-            throw new ModelProcessorException(errorMesssage, th);
+            ExceptionRecorder.instance().record(errorMesssage, throwable, cartridgeName);
+            throw new ModelProcessorException(errorMesssage, throwable);
         }
     }
 
@@ -275,7 +274,7 @@ public class ModelProcessor
      * @param modelValidation true/false on whether model validation should be performed or not.
      * @see org.andromda.core.metafacade.MetafacadeFactory#setModelValidation(boolean)
      */
-    public void setModelValidation(boolean modelValidation)
+    public void setModelValidation(final boolean modelValidation)
     {
         MetafacadeFactory.getInstance().setModelValidation(modelValidation);
     }
@@ -287,7 +286,7 @@ public class ModelProcessor
      *
      * @param failOnValidationErrors whether or not processing should fail if any validation errors are present.
      */
-    public void setFailOnValidationErrors(boolean failOnValidationErrors)
+    public void setFailOnValidationErrors(final boolean failOnValidationErrors)
     {
         this.failOnValidationErrors = failOnValidationErrors;
     }
@@ -310,7 +309,7 @@ public class ModelProcessor
      * @param namespace the namespace to check whether or not it should be processed.
      * @return true/false on whether or not it should be processed.
      */
-    protected boolean shouldProcess(String namespace)
+    protected boolean shouldProcess(final String namespace)
     {
         boolean shouldProcess = this.cartridgeFilter == null || this.cartridgeFilter.isEmpty();
         if (!shouldProcess)
@@ -403,7 +402,7 @@ public class ModelProcessor
      * 
      * @param outputEncoding the encoding.
      */
-    public void setOuputEncoding(String outputEncoding)
+    public void setOuputEncoding(final String outputEncoding)
     {
         ResourceWriter.instance().setEncoding(outputEncoding);
     }
@@ -418,7 +417,7 @@ public class ModelProcessor
      *
      * @param loggingConfigurationUri the URI to the external logging configuation file.
      */
-    public void setLoggingConfigurationUri(String loggingConfigurationUri)
+    public void setLoggingConfigurationUri(final String loggingConfigurationUri)
     {
         AndroMDALogger.setLoggingConfigurationUri(loggingConfigurationUri);
     }
@@ -430,7 +429,7 @@ public class ModelProcessor
      * @param models the models to filter.
      * @return the array of valid models
      */
-    public Model[] filterInvalidModels(Model[] models)
+    public Model[] filterInvalidModels(final Model[] models)
     {
         Collection validModels = new ArrayList(Arrays.asList(models));
         CollectionUtils.filter(validModels, new Predicate()
