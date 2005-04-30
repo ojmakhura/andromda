@@ -83,7 +83,7 @@ public class MetafacadeFactory
      *
      * @param activeNamespace the name of the active namespace.
      */
-    public void setActiveNamespace(String activeNamespace)
+    public void setActiveNamespace(final String activeNamespace)
     {
         this.activeNamespace = activeNamespace;
         MetafacadeCache.instance().setNamespace(this.activeNamespace);
@@ -106,7 +106,7 @@ public class MetafacadeFactory
      *
      * @param modelValidation The modelValidation to set.
      */
-    public void setModelValidation(boolean modelValidation)
+    public void setModelValidation(final boolean modelValidation)
     {
         this.modelValidation = modelValidation;
     }
@@ -119,7 +119,7 @@ public class MetafacadeFactory
      * @param context       the name of the context the meta model element is registered under.
      * @return the new metafacade
      */
-    public MetafacadeBase createMetafacade(Object mappingObject, String context)
+    public MetafacadeBase createMetafacade(final Object mappingObject, final String context)
     {
         return this.createMetafacade(mappingObject, context, null);
     }
@@ -282,8 +282,8 @@ public class MetafacadeFactory
      * @param metafacade
      * @param mapping
      */
-    private void populateMetafacadeProperties(MetafacadeBase metafacade, MetafacadeMappings mappings,
-                                              MetafacadeMapping mapping)
+    private void populateMetafacadeProperties(final MetafacadeBase metafacade, final MetafacadeMappings mappings,
+                                              final MetafacadeMapping mapping)
     {
         // Populate the global metafacade properties
         // NOTE: ordering here matters, we populate the global
@@ -304,7 +304,7 @@ public class MetafacadeFactory
      * @param mappingObject the object which is used to map to the metafacade
      * @return MetafacadeBase the facade object (not yet attached to mappingClass object)
      */
-    public MetafacadeBase createMetafacade(Object mappingObject)
+    public MetafacadeBase createMetafacade(final Object mappingObject)
     {
         return this.createMetafacade(mappingObject, null, null);
     }
@@ -318,7 +318,7 @@ public class MetafacadeFactory
      * @param context       the context in which this metafacade will be created.
      * @return MetafacadeBase the metafacade
      */
-    public MetafacadeBase createFacadeImpl(String interfaceName, Object mappingObject, String context)
+    public MetafacadeBase createFacadeImpl(final String interfaceName, final Object mappingObject, final String context)
     {
         final String methodName = "MetafacadeFactory.createFacadeImpl";
         ExceptionUtils.checkEmpty(methodName, "interfaceName", interfaceName);
@@ -328,9 +328,7 @@ public class MetafacadeFactory
         try
         {
             metafacadeClass = MetafacadeImpls.instance().getMetafacadeImplClass(interfaceName);
-
-            MetafacadeBase metafacade = this.createMetafacade(mappingObject, context, metafacadeClass);
-            return metafacade;
+            return this.createMetafacade(mappingObject, context, metafacadeClass);
         }
         catch (Throwable th)
         {
@@ -347,21 +345,19 @@ public class MetafacadeFactory
      *
      * @param propertyReferences the Map of property references which we'll populate.
      */
-    protected void populatePropertyReferences(MetafacadeBase metafacade, Map propertyReferences)
+    protected void populatePropertyReferences(final MetafacadeBase metafacade, final Map propertyReferences)
     {
         final String methodName = "MetafacadeFactory.populatePropertyReferences";
         ExceptionUtils.checkNull(methodName, "metafacade", metafacade);
         ExceptionUtils.checkNull(methodName, "propertyReferences", propertyReferences);
-
-        Iterator referenceIt = propertyReferences.keySet().iterator();
-        while (referenceIt.hasNext())
+        for (final Iterator referenceIterator = propertyReferences.keySet().iterator(); referenceIterator.hasNext();)
         {
-            String reference = (String)referenceIt.next();
+            final String reference = (String)referenceIterator.next();
             // ensure that each property is only set once per context
             // for performance reasons
             if (!this.isPropertyRegistered(metafacade.getPropertyNamespace(), reference))
             {
-                String defaultValue = (String)propertyReferences.get(reference);
+                final String defaultValue = (String)propertyReferences.get(reference);
 
                 // if we have a default value, then don't warn
                 // that we don't have a property, otherwise we'll
@@ -372,7 +368,7 @@ public class MetafacadeFactory
                     showWarning = true;
                 }
 
-                Property property = Namespaces.instance().findNamespaceProperty(this.getActiveNamespace(), reference,
+                final Property property = Namespaces.instance().findNamespaceProperty(this.getActiveNamespace(), reference,
                         showWarning);
                 // don't attempt to set if the property is null, or it's set to
                 // ignore.
@@ -408,15 +404,14 @@ public class MetafacadeFactory
      * @param contextName    the name of the context the meta model element is registered under.
      * @return the Collection of newly created Metafacades.
      */
-    protected Collection createMetafacades(Collection mappingObjects, String contextName)
+    protected Collection createMetafacades(final Collection mappingObjects, final String contextName)
     {
-        Collection metafacades = new ArrayList();
+        final Collection metafacades = new ArrayList();
         if (mappingObjects != null && !mappingObjects.isEmpty())
         {
-            Iterator mappingObjectIt = mappingObjects.iterator();
-            while (mappingObjectIt.hasNext())
+            for (final Iterator mappingObjectIterator = mappingObjects.iterator(); mappingObjectIterator.hasNext();)
             {
-                metafacades.add(createMetafacade(mappingObjectIt.next(), contextName, null));
+                metafacades.add(createMetafacade(mappingObjectIterator.next(), contextName, null));
             }
         }
         return metafacades;
@@ -430,7 +425,7 @@ public class MetafacadeFactory
      *                       metafacade itself).
      * @return Collection of metafacades
      */
-    public Collection createMetafacades(Collection mappingObjects)
+    public Collection createMetafacades(final Collection mappingObjects)
     {
         return this.createMetafacades(mappingObjects, null);
     }
@@ -472,7 +467,7 @@ public class MetafacadeFactory
      * @param namespace the namespace in which the property is stored.
      * @param name      the name of the property
      */
-    protected void registerProperty(String namespace, String name, Object value)
+    protected void registerProperty(final String namespace, final String name, final Object value)
     {
         final String methodName = "MetafacadeFactory.registerProperty";
         ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
@@ -530,10 +525,10 @@ public class MetafacadeFactory
      * @param name      the name of the property to check.
      * @return the registered property
      */
-    Object getRegisteredProperty(String namespace, String name)
+    Object getRegisteredProperty(final String namespace, final String name)
     {
         final String methodName = "MetafacadeFactory.getRegisteredProperty";
-        Object registeredProperty = this.findProperty(namespace, name);
+        final Object registeredProperty = this.findProperty(namespace, name);
         if (registeredProperty == null)
         {
             throw new MetafacadeFactoryException(
