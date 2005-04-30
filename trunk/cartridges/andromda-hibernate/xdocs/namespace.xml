@@ -158,8 +158,22 @@
                     </td>
                 </tr>
                 <tr>
+                <a name="versionProperty"/>
                     <td>
                           versionProperty
+                    </td>
+                    <td>
+                          Specified the default value to automatically add to entities
+                          version attribute. This value can be overwridden with the 
+                          <a href="modeling.html#andromda.hibernate.version">@andromda.hibernate.version</a>tagged value.
+                    </td>
+                    <td>
+                          No, default is <code>false</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                          versionPropertyName
                     </td>
                     <td>
                           The name of the property/attribute to automatically add to entities
@@ -168,7 +182,7 @@
                           not be generated.
                     </td>
                     <td>
-                          No
+                          version
                     </td>
                 </tr>
                 <tr>

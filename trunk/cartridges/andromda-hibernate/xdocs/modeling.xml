@@ -365,6 +365,19 @@
                         </td>
                     </tr>
                     <tr>
+                        <a name="modeling.html#andromda.hibernate.version"/>
+                          <td>
+                              @andromda.hibernate.version
+                          </td>
+                        <td>
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a>
+                        </td>
+                        <td>
+                            Specfies wheter or not the entity will have a version property. The name of the version
+                            property is specified within the <a href="namespace.html#versionProperty">versionProperty</a>
+                        </td>
+                    </tr>
+                    <tr>
                         <a name="@andromda.role.name"/>
                           <td>
                               @andromda.role.name
