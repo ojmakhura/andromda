@@ -163,26 +163,14 @@
                           versionProperty
                     </td>
                     <td>
-                          Specified the default value to automatically add to entities
-                          version attribute. This value can be overwridden with the 
-                          <a href="modeling.html#andromda.hibernate.version">@andromda.hibernate.version</a>tagged value.
-                    </td>
-                    <td>
-                          No, default is <code>false</code>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                          versionPropertyName
-                    </td>
-                    <td>
                           The name of the property/attribute to automatically add to entities
                           for versioning purposes. If this value is not specified or it contains
                           only whitespace characters it will be ignored and the property will
-                          not be generated.
+                          not be generated. This value can be overwridden with the 
+                          <a href="modeling.html#andromda.hibernate.version">@andromda.hibernate.version</a>tagged value.
                     </td>
                     <td>
-                          version
+                          No
                     </td>
                 </tr>
                 <tr>

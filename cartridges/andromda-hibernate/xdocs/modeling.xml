@@ -373,8 +373,8 @@
                             <a href="#Entity"><![CDATA[<<Entity>>]]></a>
                         </td>
                         <td>
-                            Specfies wheter or not the entity will have a version property. The name of the version
-                            property is specified within the <a href="namespace.html#versionProperty">versionProperty</a>
+                            Specfies wheter or not the entity will have a version property. If a value is present, then the entity will have
+                            a version property with the name specified within the tagged value.
                         </td>
                     </tr>
                     <tr>

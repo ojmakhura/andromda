@@ -592,9 +592,9 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateVersion()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateVersion()
      */
-    protected boolean handleIsHibernateVersion()
+    protected String handleGetHibernateVersion()
     {
         String version = (String)this.findTaggedValue(
                 HibernateProfile.TAGGEDVALUE_HIBERNATE_VERSION);
@@ -602,7 +602,7 @@ public class HibernateEntityLogicImpl
         {
             version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
         }
-        return Boolean.valueOf(version).booleanValue();
+        return version;
     }
 
 }
