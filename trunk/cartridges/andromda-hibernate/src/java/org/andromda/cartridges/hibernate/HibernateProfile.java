@@ -150,4 +150,10 @@ public class HibernateProfile
      */
     public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN = profile.get(
             "HIBERNATE_ASSOCIATION_INDEX_COLUMN");
+    
+    /**
+     * Defines the tagged value for hibernate version on entities 
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_VERSION = profile.get(
+            "HIBERNATE_VERSION");
 }
