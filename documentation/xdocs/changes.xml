@@ -9,8 +9,17 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-SNAPSHOT" date="2005-04-25" description="Version 3.0 final">
-            
+        <release version="3.0-SNAPSHOT" date="2005-04-30" description="Version 3.0 final">
+            <action dev="draftdog" type="update">
+                Generating CRUD for entities has been updated:
+                <ol>
+                    <li>Identifiers are only rendered when explicitely modeled (unless the
+                        <code>manageableIdDisplayStrategy</code> namespace property is used).</li>
+                    <li>Dates are handled in a special way, if no time information is given the generated code
+                        will assume the user wishes to search in the scope of an entire day instead of
+                        the exact date (matching that date at midnight).</li>
+                </ol>
+            </action>
         </release>
         <release version="3.0-RC2" date="2005-04-25" description="Second release candidate for version 3.0">
             <action dev="cwbrandon" type="add" issue="MAVEN-23">
