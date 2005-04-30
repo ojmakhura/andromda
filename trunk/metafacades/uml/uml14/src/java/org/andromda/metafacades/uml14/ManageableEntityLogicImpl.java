@@ -38,11 +38,6 @@ public class ManageableEntityLogicImpl
         super(metaObject, context);
     }
 
-    protected String handleGetManageableName()
-    {
-        return getName();
-    }
-
     /**
      * @see org.andromda.metafacades.uml.ManageableEntity#getManageablePackageName()
      */
@@ -167,7 +162,7 @@ public class ManageableEntityLogicImpl
                     buffer.append(type.getFullyQualifiedName());
                     buffer.append(' ');
                 }
-                buffer.append(attribute.getManageableName());
+                buffer.append(attribute.getName());
             }
         }
 
@@ -196,7 +191,7 @@ public class ManageableEntityLogicImpl
                             buffer.append(type.getFullyQualifiedName());
                             buffer.append(' ');
                         }
-                        buffer.append(associationEnd.getManageableName());
+                        buffer.append(associationEnd.getName());
                     }
                 }
             }

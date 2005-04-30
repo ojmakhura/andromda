@@ -15,10 +15,10 @@
         <logic:present role="#commaSeparatedNames($manageable.users)">
 #end
             <c:choose>
-#set ($test = "manageableForm.entityName eq '$manageable.manageableName'")
+#set ($test = "manageableForm.entityName eq '$manageable.name'")
                 <c:when test="${${test}}">
                     <option selected="selected" value="<html:rewrite page="${manageable.actionPath}.do"/>">
-#set ($test = "manageableForm.referencingEntityNames.$manageable.manageableName")
+#set ($test = "manageableForm.referencingEntityNames.$manageable.name")
                         <bean:message key="$manageable.messageKey"/><c:if test="${${test}}"><bean:message key="referencing.entity.marker"/></c:if>
                     </option>
                 </c:when>

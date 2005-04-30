@@ -22,45 +22,32 @@ public final class $manageable.manageableValueObjectClassName
         this.$member.name = $member.name;
     }
 
-#* THIS IS WHAT WE NEED, IT JUST DOES NOT WORK YET FOR SOME REASON
-    private $member.type.fullyQualifiedName $member.manageableName;
-
-    $member.visibility $member.type.fullyQualifiedName ${member.manageableGetterName}()
-    {
-        return this.$member.manageableName;
-    }
-
-    $member.visibility void ${member.manageableSetterName}($member.type.fullyQualifiedName $member.manageableName)
-    {
-        this.$member.manageableName = $member.manageableName;
-    }
-*#
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
-    private $member.manageableIdentifier.type.fullyQualifiedName $member.manageableName;
+    private $member.manageableIdentifier.type.fullyQualifiedName $member.name;
 
-    $member.visibility $member.manageableIdentifier.type.fullyQualifiedName ${member.manageableGetterName}()
+    $member.visibility $member.manageableIdentifier.type.fullyQualifiedName ${member.getterName}()
     {
-        return this.$member.manageableName;
+        return this.$member.name;
     }
 
-    $member.visibility void ${member.manageableSetterName}($member.manageableIdentifier.type.fullyQualifiedName $member.manageableName)
+    $member.visibility void ${member.setterName}($member.manageableIdentifier.type.fullyQualifiedName $member.name)
     {
-        this.$member.manageableName = $member.manageableName;
+        this.$member.name = $member.name;
     }
 
 #if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
 #set ($qualifiedType = $member.type.displayAttribute.type.fullyQualifiedName)
-    private $qualifiedType ${member.manageableName}Label;
+    private $qualifiedType ${member.name}Label;
 
-    $member.visibility $qualifiedType ${member.manageableGetterName}Label()
+    $member.visibility $qualifiedType ${member.getterName}Label()
     {
-        return this.${member.manageableName}Label;
+        return this.${member.name}Label;
     }
 
-    $member.visibility void ${member.manageableSetterName}Label($qualifiedType ${member.manageableName}Label)
+    $member.visibility void ${member.setterName}Label($qualifiedType ${member.name}Label)
     {
-        this.${member.manageableName}Label = ${member.manageableName}Label;
+        this.${member.name}Label = ${member.name}Label;
     }
 
 #end

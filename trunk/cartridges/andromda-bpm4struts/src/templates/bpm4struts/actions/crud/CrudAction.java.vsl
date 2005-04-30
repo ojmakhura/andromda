@@ -42,11 +42,11 @@ public final class $manageable.actionClassName extends DispatchAction
 
 #foreach ($member in $manageable.attributes)
 #if ($member.type.enumeration)
-        if (StringUtils.isNotBlank(request.getParameter("$member.manageableName")))
+        if (StringUtils.isNotBlank(request.getParameter("$member.name")))
         {
-            if (!${member.type.fullyQualifiedName}.literals().contains(form.${member.manageableGetterName}()))
+            if (!${member.type.fullyQualifiedName}.literals().contains(form.${member.getterName}()))
             {
-                throw new IllegalArgumentException("$member.manageableName must be one of " + ${member.type.fullyQualifiedName}.literals());
+                throw new IllegalArgumentException("$member.name must be one of " + ${member.type.fullyQualifiedName}.literals());
             }
         }
 
@@ -56,9 +56,9 @@ public final class $manageable.actionClassName extends DispatchAction
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.enumeration)
-            ${comma}${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+            ${comma}${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.getterName}())
 #else
-            ${comma}form.${member.manageableGetterName}()
+            ${comma}form.${member.getterName}()
 #end
 #set ($comma = ', ')
 #end
@@ -77,11 +77,11 @@ public final class $manageable.actionClassName extends DispatchAction
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.enumeration)
-            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.getterName}())
 #elseif ($member.type.dateType)
-            ${comma}(StringUtils.isBlank(request.getParameter("${member.manageableName}AsString"))) ? #memberNull($member) : form.${member.manageableGetterName}()
+            ${comma}(StringUtils.isBlank(request.getParameter("${member.name}AsString"))) ? #memberNull($member) : form.${member.getterName}()
 #else
-            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : form.${member.manageableGetterName}()
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : form.${member.getterName}()
 #end
 #set ($comma = ', ')
 #end
@@ -98,7 +98,7 @@ public final class $manageable.actionClassName extends DispatchAction
 #if (!$manageable.manageableAssociationEnds.empty)
         final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
 #foreach ($member in $manageable.manageableAssociationEnds)
-        form.${member.manageableSetterName}BackingList((java.util.List)backingLists.get("$member.manageableName"));
+        form.${member.setterName}BackingList((java.util.List)backingLists.get("$member.name"));
 #end
 
 #end
@@ -124,7 +124,7 @@ public final class $manageable.actionClassName extends DispatchAction
 #if (!$manageable.manageableAssociationEnds.empty)
         final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
 #foreach ($member in $manageable.manageableAssociationEnds)
-        form.${member.manageableSetterName}BackingList((java.util.List)backingLists.get("$member.manageableName"));
+        form.${member.setterName}BackingList((java.util.List)backingLists.get("$member.name"));
 #end
 
 #end
@@ -144,11 +144,11 @@ public final class $manageable.actionClassName extends DispatchAction
 
 #foreach ($member in $manageable.attributes)
 #if ($member.type.enumeration)
-        if (StringUtils.isNotBlank(request.getParameter("$member.manageableName")))
+        if (StringUtils.isNotBlank(request.getParameter("$member.name")))
         {
-            if (!${member.type.fullyQualifiedName}.literals().contains(form.${member.manageableGetterName}()))
+            if (!${member.type.fullyQualifiedName}.literals().contains(form.${member.getterName}()))
             {
-                throw new IllegalArgumentException("$member.manageableName must be one of " + ${member.type.fullyQualifiedName}.literals());
+                throw new IllegalArgumentException("$member.name must be one of " + ${member.type.fullyQualifiedName}.literals());
             }
         }
 
@@ -158,11 +158,11 @@ public final class $manageable.actionClassName extends DispatchAction
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.enumeration)
-            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.manageableGetterName}())
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.getterName}())
 #elseif ($member.type.dateType)
-            ${comma}(StringUtils.isBlank(request.getParameter("${member.manageableName}AsString"))) ? #memberNull($member) : form.${member.manageableGetterName}()
+            ${comma}(StringUtils.isBlank(request.getParameter("${member.name}AsString"))) ? #memberNull($member) : form.${member.getterName}()
 #else
-            ${comma}(StringUtils.isBlank(request.getParameter("$member.manageableName"))) ? #memberNull($member) : form.${member.manageableGetterName}()
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : form.${member.getterName}()
 #end
 #set ($comma = ', ')
 #end

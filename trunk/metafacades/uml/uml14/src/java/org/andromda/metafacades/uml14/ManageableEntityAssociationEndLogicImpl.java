@@ -23,30 +23,6 @@ public class ManageableEntityAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableName()
-     */
-    protected java.lang.String handleGetManageableName()
-    {
-        return getName();
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableGetterName()
-     */
-    protected java.lang.String handleGetManageableGetterName()
-    {
-        return getGetterName();
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableSetterName()
-     */
-    protected java.lang.String handleGetManageableSetterName()
-    {
-        return getSetterName();
-    }
-
-    /**
      * @see org.andromda.metafacades.uml.ManageableEntityAssociationEnd#getManageableIdentifier()
      */
     protected Object handleGetManageableIdentifier()

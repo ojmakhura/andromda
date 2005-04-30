@@ -21,30 +21,6 @@ public class ManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getManageableGetterName()
-     */
-    protected java.lang.String handleGetManageableGetterName()
-    {
-        return getGetterName();
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getManageableName()
-     */
-    protected java.lang.String handleGetManageableName()
-    {
-        return getName();
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#getManageableSetterName()
-     */
-    protected java.lang.String handleGetManageableSetterName()
-    {
-        return getSetterName();
-    }
-
-    /**
      * @see org.andromda.metafacades.uml.ManageableEntityAttribute#isDisplay()
      */
     protected boolean handleIsDisplay()

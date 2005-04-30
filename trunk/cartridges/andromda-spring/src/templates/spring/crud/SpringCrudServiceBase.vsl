@@ -142,9 +142,9 @@ public final class $manageable.manageableServiceBaseName
         if ($member.name != null)
 #end
         {
-            valueObject.${member.manageableSetterName}(${member.name}.${member.manageableIdentifier.getterName}());
+            valueObject.${member.setterName}(${member.name}.${member.manageableIdentifier.getterName}());
 #if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
-            valueObject.${member.manageableSetterName}Label(${member.name}.${member.type.displayAttribute.getterName}());
+            valueObject.${member.setterName}Label(${member.name}.${member.type.displayAttribute.getterName}());
 #end
         }
 #end
