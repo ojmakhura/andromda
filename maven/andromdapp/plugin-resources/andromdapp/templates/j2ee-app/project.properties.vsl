@@ -46,8 +46,8 @@ sql.mappings=HypersonicSql
 # For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect
 hibernate.db.dialect=net.sf.hibernate.dialect.HSQLDialect
 #end
-
 #if ($ejb)
+
 # Change this to the correct database type mappings (for Jboss)
 jboss.typeMappings=Hypersonic SQL
 #end
