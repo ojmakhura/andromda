@@ -12,6 +12,7 @@ ${indent}<html:hidden name="$manageableFormName" property="$field.name"/>
 ${indent}<html:checkbox name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
 #elseif ($field.type.enumeration)
 ${indent}<html:select name="$manageableFormName" property="$field.name">
+${indent}    <option value=""><bean:message key="select.option.blank"/></option>
 #foreach ($literal in $field.type.literals)
 #if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
 ${indent}    <html:option value=${quote}${literal.enumerationValue}${quote}>$literal.name</html:option>
