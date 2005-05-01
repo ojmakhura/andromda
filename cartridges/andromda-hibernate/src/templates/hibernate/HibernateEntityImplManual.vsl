@@ -14,19 +14,23 @@ package $entity.packageName;
 public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
     extends $entity.fullyQualifiedEntityName
 {
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
-    
+
 #foreach ($operation in $entity.businessOperations)
     /**
      * @see ${entity.fullyQualifiedEntityName}#${operation.getSignature(false)}
      */
-    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#set ($abstract = $entity.abstract && $operation.abstract)
+    $operation.visibility#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.signature#if ($abstract && !$operation.exceptionsPresent);#end
 #if ($operation.exceptionsPresent)
-        throws $operation.exceptionList
+
+        throws $operation.exceptionList#if ($abstract);#end
 #end
+#if (!$abstract)
+
     {
         //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.returnTypePresent)
@@ -35,6 +39,7 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
         throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
 #end
     }
+#end
 
 #end
 }

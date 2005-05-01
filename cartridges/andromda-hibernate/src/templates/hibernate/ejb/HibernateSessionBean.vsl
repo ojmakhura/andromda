@@ -65,11 +65,9 @@ $attribute.getDocumentation("     * ")
 #else
 #set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
 #end
-#if ($operation.exceptionsPresent)
-    protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})} ($parameters)
-        throws $operation.exceptionList;
-#else
     protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})} ($parameters);
+#if ($operation.exceptionsPresent)
+        throws $operation.exceptionList;
 #end
 
     /**
