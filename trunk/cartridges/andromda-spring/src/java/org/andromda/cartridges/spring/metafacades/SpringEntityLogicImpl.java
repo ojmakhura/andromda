@@ -1,19 +1,18 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringEntity.
@@ -247,7 +246,25 @@ public class SpringEntityLogicImpl
      */
     protected Collection handleGetValueObjectReferences()
     {
-        return new FilteredCollection(this.getSourceDependencies())
+        return this.getValueObjectReferences(false);
+    }
+    
+    /**
+     * Retrieves the values object references for this entity.  If
+     * <code>follow</code> is true, then all value object references
+     * (including those that were inherited) will be retrieved.
+     */
+    protected Collection getValueObjectReferences(boolean follow)
+    {
+        final Collection sourceDependencies = new ArrayList(this.getSourceDependencies());
+        if (follow)
+        {
+            for (GeneralizableElementFacade entity = this.getGeneralization(); entity != null; entity = entity.getGeneralization())
+            {
+                sourceDependencies.addAll(entity.getSourceDependencies());
+            }
+        }
+        return new FilteredCollection(sourceDependencies)
         {
             public boolean evaluate(Object object)
             {
@@ -261,6 +278,14 @@ public class SpringEntityLogicImpl
                 return valid;
             }
         };
+    }
+    
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getAllValueObjectReferences()
+     */
+    protected Collection handleGetAllValueObjectReferences()
+    {
+        return this.getValueObjectReferences(true);
     }
 
     /**
@@ -323,25 +348,6 @@ public class SpringEntityLogicImpl
     protected boolean handleIsHibernateInheritanceConcrete()
     {
         return checkHibInheritance(INHERITANCE_STRATEGY_CONCRETE);
-    }
-
-    /**
-     * Return all the business operations, used when leafImpl true.
-     *
-     * @return all business operations
-     * @see org.andromda.cartridges.hibernate.metafacades.SpringEntity#getAllBusinessOperations()
-     */
-    protected Collection handleGetAllBusinessOperations()
-    {
-        Entity superElement = (Entity)this.getGeneralization();
-
-        Collection result = super.getBusinessOperations();
-        while (superElement != null)
-        {
-            result.addAll(superElement.getBusinessOperations());
-            superElement = (Entity)superElement.getGeneralization();
-        }
-        return result;
     }
 
     /**

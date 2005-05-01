@@ -9,7 +9,6 @@
 package $entity.packageName;
 #end
 
-#set ($valueObjectReferences = $entity.valueObjectReferences)
 /**
  * <p>
  * Base Spring DAO Class: is able to create, update, remove, load, and find
@@ -47,8 +46,6 @@ public abstract class $entity.daoBaseName
     }
 
 #end
-## Only add these methods if the entity isn't abstract
-#if (!$entity.abstract)
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
@@ -89,6 +86,8 @@ public abstract class $entity.daoBaseName
     {
         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
     }
+## Only add these methods if the entity isn't abstract
+#if (!$entity.abstract)
 
     /**
      * @see ${entity.fullyQualifiedDaoName}#create($entity.fullyQualifiedEntityName)
@@ -218,6 +217,7 @@ public abstract class $entity.daoBaseName
 
 #end
 #end
+#end
     /**
      * @see ${entity.fullyQualifiedDaoName}#update($entity.fullyQualifiedEntityName)
      */
@@ -308,8 +308,6 @@ public abstract class $entity.daoBaseName
         }
         this.getHibernateTemplate().deleteAll(entities);
     }
-
-#end
 
 #set ($finders = $entity.getQueryOperations(true))
 #foreach ($finder in $finders)
@@ -524,12 +522,12 @@ public abstract class $entity.daoBaseName
      * flag is set to one of the constants defined in <code>$entity.fullyQualifiedDaoName</code>, please note
      * that the {@link #$entity.daoNoTransformationConstantName} constant denotes no transformation, so the entity itself
      * will be returned.
-#if (!$valueObjectReferences.empty)
+#if (!$entity.valueObjectReferences.empty)
      * <p/>
      * This method will return instances of these types:
      * <ul>
      *   <li>{@link $entity.fullyQualifiedName} - {@link #$entity.daoNoTransformationConstantName}</li>
-#foreach ($valueObjectRef in $valueObjectReferences)
+#foreach ($valueObjectRef in $entity.valueObjectReferences)
 #set ($targetElement = $valueObjectRef.targetElement)
      *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${valueObjectRef.transformationConstantName}}</li>
 #end
@@ -550,8 +548,8 @@ public abstract class $entity.daoBaseName
         {
             switch (transform)
             {
-#foreach ($valueObjectRef in $valueObjectReferences)
-                case $valueObjectRef.transformationConstantName :
+#foreach ($valueObjectRef in $entity.allValueObjectReferences)
+                case ${valueObjectRef.sourceElement.fullyQualifiedDaoName}.${valueObjectRef.transformationConstantName} :
                     target = ${valueObjectRef.transformationMethodName}(entity);
                     break;
 #end
@@ -580,8 +578,8 @@ public abstract class $entity.daoBaseName
     {
         switch (transform)
         {
-#foreach ($valueObjectRef in $valueObjectReferences)
-            case $valueObjectRef.transformationConstantName :
+#foreach ($valueObjectRef in $entity.allValueObjectReferences)
+            case ${valueObjectRef.sourceElement.fullyQualifiedDaoName}.${valueObjectRef.transformationConstantName} :
                 ${valueObjectRef.transformationToCollectionMethodName}(entities);
                 break;
 #end
@@ -592,7 +590,7 @@ public abstract class $entity.daoBaseName
     }
 
 #end
-#foreach ($valueObjectRef in $valueObjectReferences)
+#foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
      * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
      */

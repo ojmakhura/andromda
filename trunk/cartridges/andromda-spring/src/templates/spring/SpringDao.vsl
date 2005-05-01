@@ -43,10 +43,13 @@ public interface $entity.daoName
      * Converts this DAO's entity to an object of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
+    
+    /**
+     * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     */
+    public void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection entities);
 
 #end
-## Only add these methods if the entity isn't abstract
-#if (!$entity.abstract)
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
@@ -59,7 +62,7 @@ public interface $entity.daoName
      *   Does the same thing as {@link #load($identifier.type.fullyQualifiedName)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
-     *   defined in this class then the finder results <strong>WILL BE</strong> passed through an operation which can
+     *   defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
      *   optionally transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      * </p>
@@ -69,6 +72,8 @@ public interface $entity.daoName
      */
      public Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
 
+## Only add these methods if the entity isn't abstract
+#if (!$entity.abstract)
     /**
      * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
      */
@@ -79,7 +84,7 @@ public interface $entity.daoName
      *   Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
-     *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
      *   transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      * </p>
@@ -102,7 +107,7 @@ public interface $entity.daoName
      *   Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
-     *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
      *   transform the entities (into value objects for example).  By default, transformation does
      *   not occur.
      * </p>
@@ -129,7 +134,7 @@ public interface $entity.daoName
      *   Does the same thing as {@link #create($entity.getAttributeTypeList(true,false))} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
-     *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
      *   transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      * </p>
@@ -161,7 +166,7 @@ public interface $entity.daoName
      *   Does the same thing as {@link #create($entity.getRequiredAttributeTypeList(true,false))} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
-     *   defined here then finder results <strong>WILL BE</strong> passed through an operation which can optionally
+     *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
      *   transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      * </p>
@@ -174,6 +179,7 @@ public interface $entity.daoName
 #end
 #end
 
+#end
 #end
     /**
      * Updates the <code>$argumentName</code> instance in the persistent store.
@@ -201,7 +207,7 @@ public interface $entity.daoName
      */
     public void remove(java.util.Collection entities);
 
-#foreach ( $operation in $entity.queryOperations )
+#foreach ($operation in $entity.queryOperations)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
     /**
 $operation.getDocumentation("     * ")
@@ -295,6 +301,5 @@ $operation.getDocumentation("     * ")
     $operation.visibility $returnType $operation.signature;
 #end
 
-#end
 #end
 }
