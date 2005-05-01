@@ -3,7 +3,7 @@
 <document>
 
     <properties>
-        <author email="draftdog@users.sourceforge.net">Wouter Zoons</author>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
         <title>AndroMDA - Manageable Entities - Introduction</title>
         <gennews>no</gennews>
     </properties>
@@ -23,8 +23,7 @@
                 please report any issues you encounter. <em>THIS FEATURE IS STILL UNDER DEVELOPMENT</em>
             </p>
         </section>
-
-        <section name="Introduction">
+        <section name="Features">
             <p>
                 An always recurring feature in J2EE applications is the one where it needs to be possible to
                 directly maintain or manage the data in the database. Customers expect pages or windows which nicely
@@ -33,27 +32,87 @@
             </p>
             <p>
                 AndroMDA supports this, and can generate the complete set of required files and resources as to be
-                able to manage the entities. Currently this is supported in each of these cartridges:
+                able to manage the entities. Here's what's currently supported:
             </p>
             <p>
-                <ul>
-                    <li><strong>bpm4struts</strong>: generates all pages, action forms, actions, struts-config, i18n,
-                        security, input validation, etc...</li>
-                    <li><strong>spring</strong>: generates separate DAOs and services dedicated and optimized
-                        for efficiently calling the backend data-source for these CRUD operations</li>
-                </ul>
+                <ol>
+                    <li>Inserting new data (create)</li>
+                    <li>Searching for data based on any of the entity's attributes and associations (read)</li>
+                    <li>Updating existing data (update)</li>
+                    <li>Deleting data, possibly many at once (delete)</li>
+                    <li>Hide database specific details from the user, such as auto-generated identifiers</li>
+                    <li>Easily switch to another entity</li>
+                    <li>Easily switch to an entity referred to by the current entity</li>
+                    <li>Easily switch to an entity refering to the current entity</li>
+                    <li>Allowing actors to be associated to an entity when <code>security</code> has been enabled,
+                        this will authenticate only those users with the corresponding role</li>
+                    <li>Fetched records are pageable</li>
+                    <li>Fetched records are sortable</li>
+                    <li>Generated code easily integrates into an existing AndroMDA generated application by
+                        making use of the same stylesheets and XML deployment descriptors</li>
+                    <li>Generated code is optimized for performance; since the only thing it needs to do is very
+                        straightforward it has been stripped of all generic overhead so that only the minimum set
+                        of objects is created, a minimal set of SQL queries are executed (there's still room for
+                        improvement though, and will be optimized even more in the future)</li>
+                    <li>The generated pages are internationalized and translation should be as simple as
+                        adding a new resource bundle</li>
+                    <li>No manual coding is required: you run AndroMDA on your model and you deploy</li>
+                    <li>Tuning the generation process can be done by means of namespace properties and tagged
+                        values</li>
+                </ol>
             </p>
             <p>
-                So if you're already using AndroMDA with the bpm4struts and Spring cartridges you will be able to
-                get things up and running in no-time.
+                <img src="images/crud-thumb.gif"/>
+                <a href="images/crud-screen.gif">(Larger View)</a>
             </p>
             <p>
-                Interesting to note is that the generated CRUD pages, services and DAOs nicely integrate with the
-                rest of the generated code: the Hibernate SessionFactory is reused, Spring transaction manager,
-                Struts configuration, CSS styles, Web security etc...
+                Here's the online sample: TODO
             </p>
+            <subsection name="Configuration">
+                <p>
+                    In order not to fetch thousands of records everytime you perform a search query it is possible
+                    to set an upper limit, the maximum number of records to fetch in a single call. Use the
+                    <code>defaultMaximumListSize</code> namespace property.
+                </p>
+                <p>
+                    Associated entities will be represented by their identifiers, but you might want to consider
+                    using <![CDATA[<<Unique>>]]> entity attributes, when the CRUD feature sees such as attribute
+                    it will take that one instead of the identifier (only for displaying of course). When more than
+                    one such attribute is present, the first one found will be used. 
+                </p>
+            </subsection>
+            <subsection name="Pitfalls">
+                <p>
+                    The current implementation of this feature does not take special care in the cases where entities
+                    inherit from other entities.
+                </p>
+                <p>
+                    In order to enable entities associated with a certain entity the association ends to those
+                    other entities need to be navigable. The entities are required to also be <![CDATA[Manageable]]>.
+                </p>
+                <p>
+                    Todo: write the necessary OCL constraints where applicable, and make the associated entities work
+                    even when they don't have the <![CDATA[Manageable]]> stereotype.
+                </p>
+            </subsection>
+            <subsection name="Future improvements">
+                <p>
+                    Database error messages should be translated into something more readable, in the case where
+                    a record is to be deleted but there are foreign keys pointing to it HSQLDB will complain with a
+                    message saying <code>Batch failed</code>, which isn't exactly very indicative of the actual problem.
+                </p>
+                <p>
+                    Input should be validated using the Struts validator plugin, this will avoid unnecessary calls
+                    to tbe backend.
+                </p>
+                <p>
+                    The returned lists should be pageable with a direct link to the database, this will yield better
+                    performance and memory management as only the displayed records will be loaded and the
+                    next and previous pages will be auto-loaded on DB idle-time, such as solution scales much better
+                    than the current one which simply loads all records (it is possible to set an upper limit though).
+                </p>
+            </subsection>
         </section>
-
         <section name="So what do I do ?">
             <p>
                 It's extremely simple: just add a <![CDATA[<<Manageable>>]]> stereotype to each class carrying an
@@ -69,16 +128,6 @@
             <p>
                 Make sure the schema in your database exists before actually calling the manageable actions, or you'll
                 get an exception saying the operation could not be performed (obviously).
-            </p>
-        </section>
-
-        <section name="Features">
-            <p>
-                todo: add more docs here
-            </p>
-            <p>
-                <img src="images/crud-thumb.gif"/>
-                <a href="images/crud-screen.gif">(Larger View)</a>
             </p>
         </section>
 
