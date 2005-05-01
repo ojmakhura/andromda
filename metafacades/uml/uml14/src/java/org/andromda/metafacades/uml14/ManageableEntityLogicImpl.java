@@ -1,26 +1,26 @@
 package org.andromda.metafacades.uml14;
 
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.ManageableEntity;
 import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.andromda.metafacades.uml.ManageableEntity;
-import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.ActorFacade;
-import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 
 /**
@@ -76,10 +76,13 @@ public class ManageableEntityLogicImpl
             if (associationEnd.isMany2One())
             {
                 final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
-                final Object otherEndType = otherEnd.getType();
-                if (otherEndType instanceof Entity)
+                if (otherEnd.isNavigable())
                 {
-                    manageableAssociationEnds.add(otherEnd);
+                    final Object otherEndType = otherEnd.getType();
+                    if (otherEndType instanceof Entity)
+                    {
+                        manageableAssociationEnds.add(otherEnd);
+                    }
                 }
             }
         }
