@@ -32,7 +32,7 @@ public final class $manageable.manageableServiceBaseName
 #end
     {
 #foreach ($member in $manageable.manageableMembers)
-#if ($member.required && !$member.type.primitive)
+#if ($member.required && !$member.type.primitive && !($member.identifier && !$member.display))
         if ($member.name == null)
         {
             throw new IllegalArgumentException(
