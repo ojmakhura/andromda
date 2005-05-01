@@ -163,6 +163,42 @@ catch (Exception ex)
 }
                         </source>
                     </li>
+                    <li>
+                        <p>
+                            <strong>Exception Recording</strong> Do <strong>NOT</strong> use ex.printStackTrace()
+                            for debugging purposes in your code, instead use the provided ExceptionRecorder class.
+                        </p>
+                        <source language="java">
+try
+{
+   ...
+}
+catch (Exception ex)
+{
+    logger.error("Some error has occurred" + ex);
+	ExceptionRecorder.instance().record( ex );
+}
+                        </source>
+						<p>
+							This will create a .exc file with the stacktrace and additional
+							debugging and environment information:
+<sample>
+------- AndroMDA Exception Recording -------
+Version ........: 3.0-RC2-20050420181638
+Error ..........: Error performing ModelProcessor.process with model(s) --> 'jar:file:/home/martin/ews30andromda/workspace/andromda-all/cartridges/andromda-webservice/src/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml'
+Build ..........: 2005-04-20 18:16:38
+Build System ...: Linux-2.6.11-suspend2
+Build JDK ......: Sun Microsystems Inc.-1.4.2_07-b05
+Build Builder ..: martin
+Run System .....: Linux2.6.11-suspend2
+Run JDK ........: Sun Microsystems Inc.1.4.2_07-b05
+Main Exception .: Error performing MDRepositoryFacade.readModel
+Root Exception .: java.lang.OutOfMemoryError
+java.lang.OutOfMemoryError
+	
+</sample>							
+						</p>
+                    </li>
                 </ul>
             </subsection>
             <subsection name="Template Coding Conventions">
