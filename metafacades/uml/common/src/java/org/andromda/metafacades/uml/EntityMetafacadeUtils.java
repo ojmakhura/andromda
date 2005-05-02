@@ -14,7 +14,7 @@ import java.util.Collection;
  * @author Chad Brandon
  */
 public class EntityMetafacadeUtils
-{
+{    
     /**
      * <p/>
      * Converts a string following the Java naming conventions to a database attribute name. For example convert
@@ -182,5 +182,36 @@ public class EntityMetafacadeUtils
             }
         }
         return identifiers;
+    }
+    
+    /**
+     * Constructs a sql type name from the given <code>mappedName</code>
+     * and <code>columnLength</code>.
+     * 
+     * @param typeName the actual type name (usually retrieved from a mappings file, ie
+     *                 NUMBER(19).
+     * @param columnLength the length of the column.
+     * @return the new name co
+     */
+    public static String constructSqlTypeName(final String typeName, final String columnLength)
+    {
+        String value = typeName;
+        if (StringUtils.isNotEmpty(typeName))
+        {
+            char beginChar = '(';
+            char endChar = ')';
+            int beginIndex = value.indexOf(beginChar);
+            int endIndex = value.indexOf(endChar);
+            if (beginIndex != -1 && endIndex != -1 && endIndex > beginIndex)
+            {
+                String replacement = value.substring(beginIndex, endIndex) + endChar;
+                value = StringUtils.replace(value, replacement, beginChar + columnLength + endChar);
+            }
+            else
+            {
+                value = value + beginChar + columnLength + endChar;
+            }
+        }
+        return value;
     }
 }
