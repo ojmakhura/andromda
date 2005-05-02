@@ -165,7 +165,7 @@ catch (Exception ex)
                     </li>
                     <li>
                         <p>
-                            <strong>Exception Recording</strong> Do <strong>NOT</strong> use ex.printStackTrace()
+                            <strong>Exception Recording:</strong> Do <strong>NOT</strong> use ex.printStackTrace()
                             for debugging purposes in your code, instead use the provided ExceptionRecorder class.
                         </p>
                         <source language="java">
