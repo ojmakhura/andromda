@@ -464,11 +464,11 @@
                     When applicable, the following masks are available:
                     <ul>
                         <li>uppercase - upper cases the name (i.e. "Hospital Visit" would become <em>HOSPITAL VISIT</em>)</li>
-                        <li>lowercase - lower cases the name (i.e. "Hospital Visit" would become <em>hosptial visit</em>)</li>
+                        <li>lowercase - lower cases the name (i.e. "Hospital Visit" would become <em>hospital visit</em>)</li>
                         <li>upperunderscore - upper cases the name and replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>HOSPITAL_VISIT</em>)</li>
-                        <li>lowerunderscore - lower cases the name and replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>hosptial_visit</em>)</li>
-                        <li>underscore - replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>Hosptial_Visit</em>)</li>
-                        <li>nospace - removes all spaces (i.e. "Hospital Visit" would become <em>HosptialVisit</em>)</li>
+                        <li>lowerunderscore - lower cases the name and replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>hospital_visit</em>)</li>
+                        <li>underscore - replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>Hospital_Visit</em>)</li>
+                        <li>nospace - removes all spaces (i.e. "Hospital Visit" would become <em>HospitalVisit</em>)</li>
                         <li>uppercamelcase - camel cases the word beginning with an upper cased letter (i.e. "Hospital Visit" would become <em>HospitalVisit</em>)</li>
                         <li>lowercamelcase - camel cases the word beginning with a lower cased letter (i.e. "Hospital Visit" would become <em>hospitalVisit</em></li>
                         <li>none - no mask is applied</li>
