@@ -13,6 +13,8 @@
 
     <property reference="securityRealm" default=""/>
     <property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
+    <!-- contains the package for the Hibernate user types -->
+    <property reference="userTypesPackage" default="org.andromda.persistence.hibernate.usertypes"/>
     <!-- the name to give the service locator class -->
     <property reference="serviceLocatorName" default="ServiceLocator"/>
     <property reference="sequenceIdentifierSuffix" default="_SEQ"/>
@@ -151,14 +153,14 @@
     </template>
 
     <template
-        path="templates/hibernate/HibernateByteBlobType.vsl"
+        path="templates/hibernate/usertypes/HibernateByteBlobType.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
         overwrite="true"
         required="false"/>
 
     <template
-        path="templates/hibernate/HibernateStringClobType.vsl"
+        path="templates/hibernate/usertypes/HibernateStringClobType.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
         overwrite="true"
