@@ -1,117 +1,110 @@
+// license-header java merge-point
 package org.andromda.samples.animalquiz.guess;
 
-import org.andromda.samples.animalquiz.decisiontree.client.VODecisionItem;
+import org.andromda.samples.animalquiz.decisiontree.VODecisionItem;
 import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.rpc.ServiceException;
 
 /**
- * This controller class implements all the methods that are called from the activities inside the "Guess" activity
- * graph.
- *
- * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
- * @author Chad Brandon
- * @author Wouter Zoons
+ * @see org.andromda.samples.animalquiz.guess.GuessController
  */
-final class GuessControllerImpl
-        extends GuessController
+public class GuessControllerImpl extends GuessController
 {
-    public void initializeSession(ActionMapping mapping, InitializeSessionForm form, HttpServletRequest request,
-                                  HttpServletResponse response) throws Exception
+    /**
+     * @see org.andromda.samples.animalquiz.guess.GuessController#getFirstQuestion(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.GetFirstQuestionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    public final void getFirstQuestion(ActionMapping mapping, org.andromda.samples.animalquiz.guess.GetFirstQuestionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        setGuessSessionState(request, new GuessSessionState());
+        try
+        {
+            final VODecisionItem item = this.getDecisionService().getFirstQuestion();
+            form.setQuestion(item.getPrompt());
+            
+            // Keep the decision item in the session so that
+            // the next step can process it.
+            this.getGuessSessionState(request).setLastDecisionItem(item);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
+        }
     }
 
     /**
-     * Fetches the first question from the business tier and returns the prompt string in the form.
+     * @see org.andromda.samples.animalquiz.guess.GuessController#nextDecisionItemAvailable(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.NextDecisionItemAvailableForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public void getFirstQuestion(ActionMapping mapping, GetFirstQuestionForm form, HttpServletRequest request,
-                                 HttpServletResponse response) throws Exception
+    public final java.lang.String nextDecisionItemAvailable(ActionMapping mapping, org.andromda.samples.animalquiz.guess.NextDecisionItemAvailableForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        VODecisionItem vodi = this.getDecisionService().getFirstQuestion();
-        form.setQuestion(vodi.getPrompt());
-        
-        // Keep the decision item in the session so that
-        // the next step can process it.
-        getGuessSessionState(request).setLastDecisionItem(vodi);
-    }
+        final GuessSessionState sessionState = this.getGuessSessionState(request);
+        VODecisionItem item = sessionState.getLastDecisionItem();
 
-    /**
-     * Checks whether a next decision item is available in the decision tree.
-     *
-     * @return String "yes" or "no".
-     */
-    public String nextDecisionItemAvailable(ActionMapping mapping, NextDecisionItemAvailableForm form,
-                                            HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        GuessSessionState sessionState = getGuessSessionState(request);
-        VODecisionItem vodi = sessionState.getLastDecisionItem();
-
-        String idNextItem = "yes".equals(sessionState.getLastAnswerFromUser()) ?
-                vodi.getIdYesItem() : vodi.getIdNoItem();
+        final Long idNextItem = "yes".equals(sessionState.getLastAnswerFromUser()) ?
+                item.getIdYesItem() : item.getIdNoItem();
 
         if (idNextItem != null)
         {
-            vodi = this.getDecisionService().getNextQuestion(idNextItem);
+            item = this.getDecisionService().getNextQuestion(idNextItem);
 
-            form.setQuestion(vodi.getPrompt());
+            form.setQuestion(item.getPrompt());
 
             // Keep the decision item in the session so that
             // the next step can process it.
-            sessionState.setLastDecisionItem(vodi);
+            sessionState.setLastDecisionItem(item);
             return "yes";
         }
         return "no";
     }
 
     /**
-     * Stores the name of the animal that the user has given. It is stored inside the session state - no call to the
-     * business tier.
+     * @see org.andromda.samples.animalquiz.guess.GuessController#rememberAnimal(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.RememberAnimalForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public void rememberAnimal(ActionMapping mapping, RememberAnimalForm form, HttpServletRequest request,
-                               HttpServletResponse response) throws Exception
+    public final void rememberAnimal(ActionMapping mapping, org.andromda.samples.animalquiz.guess.RememberAnimalForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        getGuessSessionState(request).setLastAnimalName(form.getAnimal());
+        this.getGuessSessionState(request).setLastAnimalName(form.getAnimal());
     }
 
     /**
-     * Takes the differentiator question that the user has given and creates a new animal in the business tier. If the
-     * user answers "yes" to that question during the next run of the game, that animal is presented as a guess.
+     * @see org.andromda.samples.animalquiz.guess.GuessController#rememberQuestion(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.RememberQuestionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public void rememberQuestion(ActionMapping mapping, RememberQuestionForm form, HttpServletRequest request,
-                                 HttpServletResponse response) throws Exception
+    public final void rememberQuestion(ActionMapping mapping, org.andromda.samples.animalquiz.guess.RememberQuestionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        GuessSessionState sessionState = getGuessSessionState(request);
+        final GuessSessionState sessionState = this.getGuessSessionState(request);
         this.getDecisionService().addNewAnimalWithQuestion(sessionState.getLastAnimalName(), form.getQuestion(),
                 sessionState.getLastDecisionItem().getId());
     }
 
     /**
-     * Checks if the last answer from the user was "yes".
+     * @see org.andromda.samples.animalquiz.guess.GuessController#lastAnswerWasYes(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.LastAnswerWasYesForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public boolean lastAnswerWasYes(ActionMapping mapping, LastAnswerWasYesForm form, HttpServletRequest request,
-                                    HttpServletResponse response) throws Exception
+    public final boolean lastAnswerWasYes(ActionMapping mapping, org.andromda.samples.animalquiz.guess.LastAnswerWasYesForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        return "yes".equals(getGuessSessionState(request).getLastAnswerFromUser());
+        return "yes".equals(this.getGuessSessionState(request).getLastAnswerFromUser());
     }
 
     /**
-     * Stores the fact that the last answer from the user was positive.
+     * @see org.andromda.samples.animalquiz.guess.GuessController#rememberPositiveAnswer(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.RememberPositiveAnswerForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public void rememberPositiveAnswer(ActionMapping mapping, RememberPositiveAnswerForm form,
-                                       HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void rememberPositiveAnswer(ActionMapping mapping, org.andromda.samples.animalquiz.guess.RememberPositiveAnswerForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        getGuessSessionState(request).setLastAnswerFromUser("yes");
+        this.getGuessSessionState(request).setLastAnswerFromUser("yes");
     }
 
     /**
-     * Stores the fact that the last answer from the user was negative.
+     * @see org.andromda.samples.animalquiz.guess.GuessController#rememberNegativeAnswer(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.RememberNegativeAnswerForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public void rememberNegativeAnswer(ActionMapping mapping, RememberNegativeAnswerForm form,
-                                       HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void rememberNegativeAnswer(ActionMapping mapping, org.andromda.samples.animalquiz.guess.RememberNegativeAnswerForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        getGuessSessionState(request).setLastAnswerFromUser("no");
+        this.getGuessSessionState(request).setLastAnswerFromUser("no");
+    }
+
+    /**
+     * @see org.andromda.samples.animalquiz.guess.GuessController#initializeSession(org.apache.struts.action.ActionMapping, org.andromda.samples.animalquiz.guess.InitializeSessionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    public final void initializeSession(ActionMapping mapping, org.andromda.samples.animalquiz.guess.InitializeSessionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        setGuessSessionState(request, new GuessSessionState());
     }
 }

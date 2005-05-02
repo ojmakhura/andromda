@@ -8,22 +8,6 @@
   	<description>
   		Contains the Animal Quiz Sample Project.
   	</description>
+  	<package>org.andromda.samples.animalquiz</package>
     <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10021&amp;decorator=none</issueTrackingUrl>
-  	<build>
-    	<sourceDirectory>src/java</sourceDirectory>
-		<resources>
-	      	<resource>
-		        <directory>src/java</directory>
-	        	<excludes>
-	        		<exclude>**/*.java</exclude>
-	        	</excludes>
-	      	</resource>
-	      	<resource>
-		        <directory>src</directory>
-	        	<includes>
-	        		<include>META-INF/**/*</include>
-	        	</includes>
-	      	</resource>
-    	</resources>
-  	</build>
 </project>

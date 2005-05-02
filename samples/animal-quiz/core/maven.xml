@@ -1,29 +1,17 @@
-<project xmlns:ant="jelly:ant"
-  		 xmlns:maven="jelly:maven">
-  		 
-    <preGoal name="java:compile"> 
-        
-		<!-- add the paths of the generated source to the
-		     maven compile path -->
-	 	<ant:path
-	       	id="andromda.ejb.gen.src"
-	       	location="${maven.build.src}"/>
-		<maven:addPath
-	       	id="maven.compile.src.set"
-	       	refid="andromda.ejb.gen.src"/>
-        
-    </preGoal>
+<project default="ejb:install"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven">
 
-  	<postGoal name="ejb:ejb">
-				
-		<ant:mkdir dir="${hibernate.schema.output.dir}"/>
-		
+    <postGoal name="ejb:ejb">
+
         <ant:path id="schema.classpath">
             <ant:path refid="maven.dependency.classpath"/>
             <ant:path location="${maven.build.dest}"/>
         </ant:path>
 
-        <ant:fileset id="hibernate.mapping.files" dir="${maven.build.dest}">
+        <ant:mkdir dir="${hibernate.schema.output.dir}"/>
+
+        <ant:fileset id="hibernate.mapping.files" dir="${maven.build.src}">
             <ant:include name="**/*.hbm.xml"/>
         </ant:fileset>
 
@@ -38,8 +26,8 @@
             <ant:arg line="${hibernate.mappings}"/>
             <ant:jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
             <ant:classpath refid="schema.classpath" />
-        </ant:java> 
-        
+        </ant:java>
+
         <ant:replaceregexp file="${hibernate.schema.output.dir}/schema-create.sql"
                        match="^(alter table .* drop constraint|drop table)"
                        replace="-- SKIP \1"
@@ -50,6 +38,7 @@
             <ant:arg value="--output=${hibernate.schema.output.dir}/schema-drop.sql"/>
             <ant:arg value="--text"/>
             <ant:arg value="--quiet"/>
+            <ant:arg value="--drop"/>
             <ant:arg value="--delimiter=;"/>
             <ant:arg value="--format"/>
             <ant:arg line="${hibernate.mappings}"/>
@@ -57,6 +46,6 @@
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 
-  	</postGoal>
-  		 
+    </postGoal>
+
 </project>

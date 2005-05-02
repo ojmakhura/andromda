@@ -1,19 +1,24 @@
+// license-header java merge-point
 /**
- * This class is only generated once! It will never be overwritten.
+ * This is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
  */
 package org.andromda.samples.animalquiz.decisiontree;
 
+/**
+ * @see org.andromda.samples.animalquiz.decisiontree.DecisionItem
+ */
 public abstract class DecisionItemImpl
-        extends DecisionItem
+    extends org.andromda.samples.animalquiz.decisiontree.DecisionItem
 {
-    public abstract java.lang.String getPrompt();
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = -2291269241763377348L;
 
-    public org.andromda.samples.animalquiz.decisiontree.VODecisionItem getVO()
-    {
-        DecisionItem yesSuccessor = getYesSuccessor();
-        DecisionItem noSuccessor = getNoSuccessor();
-        return new VODecisionItem(getId(), getPrompt(), (yesSuccessor == null) ? null : yesSuccessor.getId(),
-                (noSuccessor == null) ? null : noSuccessor.getId());
-    }
+    /**
+     * @see org.andromda.samples.animalquiz.decisiontree.DecisionItem#getPrompt()
+     */
+    public abstract java.lang.String getPrompt()
+        throws org.andromda.samples.animalquiz.decisiontree.DecisionException;
 }

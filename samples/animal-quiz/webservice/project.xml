@@ -1,9 +1,15 @@
 <project>
     <extend>../project.xml</extend>
-    <name>Animal Quiz Sample WebService</name>
+    <name>Animal Quiz WebService</name>
     <artifactId>animal-quiz-webservice</artifactId>
-    <shortDescription>Animal Quiz WebService</shortDescription>
+    <shortDescription>${pom.name} WebService Component</shortDescription>
     <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>animal-quiz-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>ejb</type>
+        </dependency>
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis</artifactId>
@@ -46,16 +52,7 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>target/src/axis</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>target/src/wsdl</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
+        <sourceDirectory>src/java</sourceDirectory>
     </build>
     <properties/>
 </project>
