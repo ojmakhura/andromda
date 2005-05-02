@@ -39,6 +39,14 @@ public class ManageableEntityLogicImpl
     }
 
     /**
+     * @return the configured property denoting the character sequence to use for the separation of namespaces
+     */
+    private String internalGetNamespaceProperty()
+    {
+        return (String)getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ManageableEntity#getManageablePackageName()
      */
     protected java.lang.String handleGetManageablePackageName()
@@ -54,7 +62,7 @@ public class ManageableEntityLogicImpl
         final Object suffix = getConfiguredProperty(UMLMetafacadeProperties.MANAGEABLE_PACKAGE_NAME_SUFFIX);
         if (suffix != null && StringUtils.isNotBlank(suffix.toString()))
         {
-            manageablePackageName += "." + suffix;
+            manageablePackageName += internalGetNamespaceProperty() + suffix;
         }
 
         return manageablePackageName;
@@ -62,7 +70,7 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageablePackagePath()
     {
-        return getManageablePackageName().replace('.', '/');
+        return getManageablePackageName().replace(internalGetNamespaceProperty(), "/");
     }
 
     protected java.util.Collection handleGetManageableAssociationEnds()
@@ -105,12 +113,12 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageableServiceFullPath()
     {
-        return '/' + getFullyQualifiedManageableServiceName().replace('.', '/');
+        return '/' + getFullyQualifiedManageableServiceName().replace(internalGetNamespaceProperty(), "/");
     }
 
     protected String handleGetFullyQualifiedManageableServiceName()
     {
-        return getManageablePackageName() + '.' + getManageableServiceName();
+        return getManageablePackageName() + internalGetNamespaceProperty() + getManageableServiceName();
     }
 
     protected String handleGetManageableServiceAccessorCall()
@@ -326,9 +334,8 @@ public class ManageableEntityLogicImpl
 
         try
         {
-            maximumListSize =
-                    Integer.parseInt(
-                            (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_MAX_LIST_SIZE));
+            maximumListSize = Integer.parseInt(
+                    (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_MAX_LIST_SIZE));
         }
         catch (NumberFormatException e1)
         {
@@ -410,8 +417,7 @@ public class ManageableEntityLogicImpl
         try
         {
             resolveable = Boolean.valueOf(
-                    (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE))
-                    .booleanValue();
+                    (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE)).booleanValue();
         }
         catch (NumberFormatException ex)
         {

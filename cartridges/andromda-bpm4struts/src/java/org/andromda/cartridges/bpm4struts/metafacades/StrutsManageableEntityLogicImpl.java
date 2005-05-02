@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 
 
 /**
@@ -13,6 +14,14 @@ public class StrutsManageableEntityLogicImpl
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @return the configured property denoting the character sequence to use for the separation of namespaces
+     */
+    private String internalGetNamespaceProperty()
+    {
+        return (String)getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
+    }
+
     public StrutsManageableEntityLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -20,7 +29,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetFormBeanType()
     {
-        return getManageablePackageName() + '.' + getFormBeanClassName();
+        return getManageablePackageName() + internalGetNamespaceProperty() + getFormBeanClassName();
     }
 
     protected String handleGetFormBeanClassName()
@@ -30,7 +39,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetFormBeanFullPath()
     {
-        return getFormBeanType().replace('.', '/');
+        return getFormBeanType().replace(internalGetNamespaceProperty(), "/");
     }
 
     protected java.lang.String handleGetMessageKey()
@@ -95,7 +104,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetActionType()
     {
-        return getManageablePackageName() + '.' + getActionClassName();
+        return getManageablePackageName() + internalGetNamespaceProperty() + getActionClassName();
     }
 
     protected java.lang.String handleGetExceptionKey()
@@ -110,7 +119,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetActionFullPath()
     {
-        return '/' + getActionType().replace('.', '/');
+        return '/' + getActionType().replace(internalGetNamespaceProperty(), "/");
     }
 
     protected java.lang.String handleGetActionClassName()

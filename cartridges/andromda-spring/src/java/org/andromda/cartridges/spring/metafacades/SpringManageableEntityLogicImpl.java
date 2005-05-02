@@ -1,5 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringManageableEntity.
@@ -14,6 +16,14 @@ public class SpringManageableEntityLogicImpl
     public SpringManageableEntityLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
+    }
+
+    /**
+     * @return the configured property denoting the character sequence to use for the separation of namespaces
+     */
+    private String internalGetNamespaceProperty()
+    {
+        return (String)getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
     }
 
     protected java.lang.String handleGetDaoReferenceName()
@@ -34,12 +44,12 @@ public class SpringManageableEntityLogicImpl
 
     protected java.lang.String handleGetFullyQualifiedManageableDaoName()
     {
-        return getManageablePackageName() + '.' + getManageableDaoName();
+        return getManageablePackageName() + internalGetNamespaceProperty() + getManageableDaoName();
     }
 
     protected String handleGetManageableDaoFullPath()
     {
-        return getFullyQualifiedManageableDaoName().replace('.', '/');
+        return getFullyQualifiedManageableDaoName().replace(internalGetNamespaceProperty(), "/");
     }
 
     protected String handleGetManageableDaoBaseName()
@@ -49,12 +59,12 @@ public class SpringManageableEntityLogicImpl
 
     protected String handleGetFullyQualifiedManageableDaoBaseName()
     {
-        return getManageablePackageName() + '.' + getManageableDaoBaseName();
+        return getManageablePackageName() + internalGetNamespaceProperty() + getManageableDaoBaseName();
     }
 
     protected String handleGetManageableDaoBaseFullPath()
     {
-        return getFullyQualifiedManageableDaoBaseName().replace('.', '/');
+        return getFullyQualifiedManageableDaoBaseName().replace(internalGetNamespaceProperty(), "/");
     }
 
     protected String handleGetManageableServiceBaseName()
@@ -64,17 +74,17 @@ public class SpringManageableEntityLogicImpl
 
     protected String handleGetFullyQualifiedManageableServiceBaseName()
     {
-        return getManageablePackageName() + '.' + getManageableServiceBaseName();
+        return getManageablePackageName() + internalGetNamespaceProperty() + getManageableServiceBaseName();
     }
 
     protected String handleGetManageableServiceBaseFullPath()
     {
-        return getFullyQualifiedManageableServiceBaseName().replace('.', '/');
+        return getFullyQualifiedManageableServiceBaseName().replace(internalGetNamespaceProperty(), "/");
     }
 
     protected String handleGetManageableValueObjectFullPath()
     {
-        return getFullyQualifiedManageableValueObjectName().replace('.', '/');
+        return getFullyQualifiedManageableValueObjectName().replace(internalGetNamespaceProperty(), "/");
     }
 
     protected String handleGetManageableValueObjectClassName()
@@ -84,6 +94,6 @@ public class SpringManageableEntityLogicImpl
 
     protected String handleGetFullyQualifiedManageableValueObjectName()
     {
-        return getManageablePackageName() + '.' + getManageableValueObjectClassName();
+        return getManageablePackageName() + internalGetNamespaceProperty() + getManageableValueObjectClassName();
     }
 }
