@@ -76,7 +76,7 @@
                 </p>
                 <p>
                     Associated entities will be represented by their identifiers, but you might want to consider
-                    using <![CDATA[<<Unique>>]]> entity attributes, when the CRUD feature sees such as attribute
+                    using <![CDATA[<<Unique>>]]> entity attributes, when the CRUD feature sees such an attribute
                     it will take that one instead of the identifier (only for displaying of course). When more than
                     one such attribute is present, the first one found will be used. 
                 </p>
