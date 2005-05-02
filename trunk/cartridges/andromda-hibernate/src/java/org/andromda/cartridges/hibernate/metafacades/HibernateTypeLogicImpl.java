@@ -45,7 +45,7 @@ public class HibernateTypeLogicImpl
     protected TypeMappings getHibernateTypeMappings()
     {
         TypeMappings mappings = null;
-        final String propertyName = "customTypesPackage";
+        final String propertyName = "hibernateTypeMappingsUri";
         if (this.isConfiguredProperty(propertyName))
         {
             Object property = this.getConfiguredProperty(propertyName);
