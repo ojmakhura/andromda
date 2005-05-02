@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project>
     <extend>../project.xml</extend>
     <artifactId>animal-quiz-web</artifactId>
-    <name>Animal Quiz Sample Web</name>
-    <shortDescription>Animal Quiz Sample Web</shortDescription>
+    <name>Animal Quiz Web</name>
+    <shortDescription>${pom.name} Web Component</shortDescription>
     <description>
-  		Contains the Animal Quiz Sample's web application.
+        Contains the ${pom.name}'s web module.
     </description>
     <dependencies>
         <dependency>
@@ -16,15 +15,16 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.7.0</version>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>animal-quiz-common</artifactId>
+            <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.0</version>
-        </dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>animal-quiz-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>ejb</type>
+       </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
@@ -39,22 +39,32 @@
             </properties>
         </dependency>
         <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.0.4</version>
         </dependency>
         <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.0</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>1.1.3</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.0</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -73,14 +83,6 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>oro</groupId>
-            <artifactId>oro</artifactId>
-            <version>2.0.8</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
             <version>1.0</version>
@@ -89,6 +91,7 @@
             </properties>
         </dependency>
         <dependency>
+            <!-- for exporting PDFs in displaytag -->
             <groupId>itext</groupId>
             <artifactId>itext</artifactId>
             <version>0.99</version>
@@ -112,7 +115,8 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        <!-- commons validator depends on antlr for 'validwhen' -->
+        <!-- commons validator depends on antlr and oro for
+             certain validation types -->
         <dependency>
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
@@ -122,57 +126,19 @@
             </properties>
         </dependency>
         <dependency>
+            <groupId>oro</groupId>
+            <artifactId>oro</artifactId>
+            <version>2.0.8</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
             <version>3.2.3</version>
         </dependency>
-        <!-- Apache Axis dependencies -->
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis-ant</artifactId>
-            <version>1.2-RC2</version>
-        </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis</artifactId>
-            <version>1.2-RC2</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>commons-discovery</groupId>
-            <artifactId>commons-discovery</artifactId>
-            <version>0.2</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis-jaxrpc</artifactId>
-            <version>1.2-RC2</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis-saaj</artifactId>
-            <version>1.2-RC2</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis-wsdl4j</artifactId>
-            <version>1.2-RC2</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <!-- These dependencies are used for precompilation -->
+        <!-- The dependencies are used for precompilation -->
         <dependency>
             <groupId>tomcat</groupId>
             <artifactId>jasper-compiler</artifactId>
@@ -200,8 +166,53 @@
             <artifactId>commons-el</artifactId>
             <version>1.0</version>
         </dependency>
+         <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis-ant</artifactId>
+            <version>1.2-RC3</version>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis</artifactId>
+            <version>1.2-RC3</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-discovery</groupId>
+            <artifactId>commons-discovery</artifactId>
+            <version>0.2</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis-jaxrpc</artifactId>
+            <version>1.2-RC3</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis-saaj</artifactId>
+            <version>1.2-RC3</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
+            <artifactId>axis-wsdl4j</artifactId>
+            <version>1.2-RC3</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
     </dependencies>
-  	<build>
-    	<sourceDirectory>src/java</sourceDirectory>
-  	</build>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+    </build>
 </project>

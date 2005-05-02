@@ -1,15 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
     <extend>../project.xml</extend>
-    <name>Animal Quiz Core</name>
     <artifactId>animal-quiz-core</artifactId>
-    <shortDescription>The Animal Quiz Core Components</shortDescription>
+    <name>Animal Quiz Core Business Tier</name>
+    <shortDescription>The ${pom.name} Component</shortDescription>
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>animal-quiz-mda</artifactId>
             <version>${pom.currentVersion}</version>
             <type>pom</type>
-            <properties/>
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
@@ -20,10 +20,31 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
-            <version>3.2.3</version>
-            <properties/>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-ocl-translation-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
@@ -34,25 +55,10 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-     		<version>3.1</version>
-            <properties>
-                <ejb.manifest.classpath>true</ejb.manifest.classpath>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.0</version>
-            <properties>
-                <ejb.manifest.classpath>true</ejb.manifest.classpath>
-            </properties>
-        </dependency>
-        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.0.4</version>
+            <properties/>
         </dependency>
         <dependency>
             <groupId>hibernate</groupId>
@@ -66,6 +72,14 @@
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>2.0.2</version>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>1.4.3</version>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -95,30 +109,55 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>1.4.3</version>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
         </dependency>
+        <dependency>
+            <groupId>springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>1.1.5</version>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-j2ee</artifactId>
+            <version>3.2.3</version>
+            <type>jar</type>
+            <properties/>
+        </dependency>
     </dependencies>
-    <properties/>
-  	<build>
-    	<sourceDirectory>src/java</sourceDirectory>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
         <resources>
             <resource>
-                <directory>conf</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>target/src</directory>
+                <directory>${maven.build.src}</directory>
                 <excludes>
                     <exclude>**/*.java</exclude>
                 </excludes>
             </resource>
         </resources>
-  	</build>
+    </build>
+    <properties/>
 </project>

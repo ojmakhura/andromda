@@ -4,7 +4,8 @@
     <extend>../project.xml</extend>
     <name>Animal Quiz MDA</name>
     <artifactId>animal-quiz-mda</artifactId>
-    <shortDescription>The Animal Quiz MDA Component</shortDescription>
+    <shortDescription>${pom.name} Component</shortDescription>
+    <description>Contains the ${pom.name} module</description>
     <dependencies>
         <dependency>
             <groupId>andromda</groupId>
@@ -14,39 +15,70 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>maven-andromda-plugin</artifactId>
+             <artifactId>maven-andromda-plugin</artifactId>
             <version>${pom.currentVersion}</version>
-            <type>plugin</type>
+             <type>plugin</type>
+             <properties>
+                 <languageMappingsUri>Java</languageMappingsUri>
+                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
+                 <sqlMappingsUri>${sql.mappings}</sqlMappingsUri>
+                 <jdbcMappingsUri>JDBC</jdbcMappingsUri>
+                 <maxSqlNameLength>30</maxSqlNameLength>
+                 <foreignKeySuffix>_FK</foreignKeySuffix>
+                 <ejbJndiNamePrefix>${pom.groupId}</ejbJndiNamePrefix>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                 <classifierNameMask>none</classifierNameMask>
+                 <classifierPropertyNameMask>none</classifierPropertyNameMask>
+                 <operationNameMask>none</operationNameMask>
+                 <roleNameMask>none</roleNameMask>
+                 <enumerationNameMask>none</enumerationNameMask>
+                 <enumerationLiteralNameMask>none</enumerationLiteralNameMask>
+                 <entityNameMask>none</entityNameMask>
+                 <entityPropertyNameMask>none</entityPropertyNameMask>
+                 <parameterNameMask>none</parameterNameMask>
+             </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-spring-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
             <properties>
-                <languageMappingsUri>Java</languageMappingsUri>
-                <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-                <sqlMappingsUri>${sql.mappings}</sqlMappingsUri>
-                <jdbcMappingsUri>JDBC</jdbcMappingsUri>
-                <maxSqlNameLength>30</maxSqlNameLength>
-                <foreignKeySuffix>_FK</foreignKeySuffix>
+                <dataSource>${dataSource}</dataSource>
+                <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
+                <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
+                <hibernateUseQueryCache>false</hibernateUseQueryCache>
+                <hibernateQueryUseNamedParameters>true</hibernateQueryUseNamedParameters>
+                <hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
+                <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
+                <hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
+                <springTypesPackage>${pom.package}</springTypesPackage>
+                <daos>${maven.andromda.core.generated.dir}</daos>
+                <dao-impls>${maven.andromda.core.manual.dir}</dao-impls>
+                <spring-configuration>${maven.andromda.core.generated.dir}</spring-configuration>
+                <services>${maven.andromda.core.generated.dir}</services>
+                <service-impls>${maven.andromda.core.manual.dir}</service-impls>
+                <!-- to remove any dependency on EJB, comment the following property -->
+                <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
+                <!-- uncomment to enable EJB security -->
+                <!-- <securityRealm>${pom.groupId}</securityRealm> -->
             </properties>
         </dependency>
-        <!-- specify and configure our cartridges -->
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
+            <type>jar</type>
             <properties>
-                <defaultIdentifierType>datatype::String</defaultIdentifierType>
-                <defaultHibernateGeneratorClass>uuid.hex</defaultHibernateGeneratorClass>
                 <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
-                <dataSource>${dataSource}</dataSource>
-                <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
-                <hibernateTransactionManagerLookup>${hibernate.transaction.manager.lookup}</hibernateTransactionManagerLookup>
-                <hibernateShowSql>true</hibernateShowSql>
-                <hibernateInheritanceStrategy>class</hibernateInheritanceStrategy>
-                <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
-                <entities>${maven.andromda.hibernate.generated.dir}</entities>
-                <man-impls>${maven.andromda.hibernate.manual.dir}</man-impls>
-                <entity-impls>${maven.andromda.hibernate.manual.dir}</entity-impls>
-                <session-beans>${maven.andromda.hibernate.generated.dir}</session-beans>
-                <session-impls>${maven.andromda.hibernate.manual.dir}</session-impls>
-                <configuration>${maven.andromda.hibernate.generated.dir}</configuration>
+                <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
+                <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
+                <hibernateDefaultCascade>none</hibernateDefaultCascade>
+                <entities>${maven.andromda.core.generated.dir}</entities>
+                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
+                <customTypesPackage>${pom.package}</customTypesPackage>
+                <compositionDefinesEagerLoading>true</compositionDefinesEagerLoading>
             </properties>
         </dependency>
         <dependency>
@@ -55,12 +87,14 @@
             <version>${pom.currentVersion}</version>
             <type>jar</type>
             <properties>
-                <defaultProvider>EJB</defaultProvider>
-                <applicationName>${animalQuiz.services.app.name}</applicationName>
-                <wsdlSoapAddress>${animalQuiz.webservice.soap.address}</wsdlSoapAddress>
-                <schemaTypeMappingsUri>XmlSchema</schemaTypeMappingsUri>
-                <wsdls>${maven.andromda.webservice.wsdl.dir}</wsdls>
-                <axis-configuration>${maven.andromda.webservice.axis.dir}</axis-configuration>
+                <schemaTypeMappingsUri>AxisWSDLMappings</schemaTypeMappingsUri>
+                <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
+                <defaultProvider>${default.provider}</defaultProvider>
+                <applicationName>${pom.groupId}</applicationName>
+                <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
+                <rpcClassNamePattern>{0}.{1}WSDelegator</rpcClassNamePattern>
+                <wsdls>${maven.andromda.webservice.generated.dir}/WEB-INF/classes</wsdls>
+                <axis-configuration>${maven.andromda.webservice.generated.dir}</axis-configuration>
             </properties>
         </dependency>
         <dependency>
@@ -68,10 +102,11 @@
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
+                <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
                 <useArraysForMultiplicitiesOfTypeMany>true</useArraysForMultiplicitiesOfTypeMany>
-                <exceptions>${maven.andromda.java.generated.dir}</exceptions>
-                <enumerations>${maven.andromda.java.generated.dir}</enumerations>
-                <value-objects>${maven.andromda.java.generated.dir}</value-objects>
+                <enumerations>${maven.andromda.common.generated.dir}</enumerations>
+                <exceptions>${maven.andromda.common.generated.dir}</exceptions>
+                <value-objects>${maven.andromda.common.generated.dir}</value-objects>
             </properties>
         </dependency>
         <dependency>
@@ -79,34 +114,27 @@
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <properties>
-                <xhtml>false</xhtml>
-                <maxBreadCrumbs>4</maxBreadCrumbs>
-                <dummyData>true</dummyData>
-                <onlineHelp>true</onlineHelp>
-                <welcomeFileName>welcome.jsp</welcomeFileName>
-                <clientValidation>true</clientValidation>
-                <serverValidation>true</serverValidation>
-                <security>false</security>
-                <securityRealm>other</securityRealm>
-                <forms>${maven.andromda.bpm4struts.generated.dir}</forms>
-                <pages>${maven.andromda.bpm4struts.generated.dir}</pages>
-                <actions>${maven.andromda.bpm4struts.generated.dir}</actions>
-                <controllers>${maven.andromda.bpm4struts.generated.dir}</controllers>
-                <controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
-                <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
-                <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
-                <servicePackageNamePattern>{0}.client</servicePackageNamePattern>
-                <serviceAccessorPattern>new {0}.client.{1}ServiceLocator().get{1}()</serviceAccessorPattern>
+                 <forms>${maven.andromda.web.generated.dir}</forms>
+                 <pages>${maven.andromda.web.generated.dir}</pages>
+                 <actions>${maven.andromda.web.generated.dir}</actions>
+                 <controllers>${maven.andromda.web.generated.dir}</controllers>
+                 <controller-impls>${maven.andromda.web.manual.java.dir}</controller-impls>
+                 <decorators>${maven.andromda.web.manual.java.dir}</decorators>
+                 <messages>${maven.andromda.web.generated.dir}/WEB-INF/classes</messages>
+                 <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
+                 <security>false</security>
+                 <securityRealm>other</securityRealm>
+                 <serviceAccessorPattern>${pom.package}.ServiceLocator.instance().get{1}()</serviceAccessorPattern>
             </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>andromda-ocl-query-library</artifactId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-            <artifactId>andromda-ocl-validation-library</artifactId>
+            <artifactId>andromda-ocl-query-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
     </dependencies>

@@ -1,12 +1,24 @@
+// license-header java merge-point
 /**
- * This class is only generated once! It will never be overwritten.
+ * This is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
  */
 package org.andromda.samples.animalquiz.decisiontree;
 
+/**
+ * @see org.andromda.samples.animalquiz.decisiontree.Animal
+ */
 public class AnimalImpl
-        extends Animal
+    extends org.andromda.samples.animalquiz.decisiontree.Animal
 {
+    /** 
+     * The serial version UID of this class. Needed for serialization. 
+     */
+    private static final long serialVersionUID = -99977346143369122L;
+    
+    /**
+     * @see org.andromda.samples.animalquiz.decisiontree.Animal#getPrompt()
+     */
     public java.lang.String getPrompt()
     {
         return "Is it " + formatAnimalWithPredicate(getName()) + " ?";
@@ -33,4 +45,5 @@ public class AnimalImpl
 
         return formattedBuffer.toString();
     }
+
 }
