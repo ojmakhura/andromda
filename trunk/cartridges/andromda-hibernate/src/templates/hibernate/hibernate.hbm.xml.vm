@@ -31,7 +31,7 @@
 #else
 #if($sourceEnd.one2OnePrimary)
         <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName"#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end>
-            <column name="$otherEnd.columnName" not-null="$otherEnd.required" #if ($otherEnd.required) unique="true" #end/>
+            <column name="$otherEnd.columnName" not-null="$otherEnd.required" sql-type="$otherEnd.sqlType"#if ($otherEnd.required) unique="true"#end/>
         </many-to-one>
 #else
         <one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" property-ref="$sourceEnd.name" foreign-key="$otherEnd.foreignKeyConstraintName"/>
@@ -59,7 +59,7 @@
         </$otherEnd.collectionType>
 #elseif ($sourceEnd.many2One)
         <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName">
-            <column name="$otherEnd.columnName" not-null="$otherEnd.required"/>
+            <column name="$otherEnd.columnName" not-null="$otherEnd.required" sql-type="$otherEnd.sqlType"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
         <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>

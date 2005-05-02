@@ -101,29 +101,16 @@ public class EntityAttributeLogicImpl
                     }
                 }
                 value = this.getSqlMappings().getTo(typeName);
-                if (StringUtils.isBlank(value))
-                {
-                    logger.error("ERROR! missing SQL type mapping for model type '" + typeName +
-                            "' --> please adjust your model or SQL type mappings '" + this.getSqlMappings()
-                            .getMappings().getResource() + "' accordingly");
-                }
                 String columnLength = this.getColumnLength();
                 if (StringUtils.isNotEmpty(columnLength))
                 {
-                    char beginChar = '(';
-                    char endChar = ')';
-                    int beginIndex = value.indexOf(beginChar);
-                    int endIndex = value.indexOf(endChar);
-                    if (beginIndex != -1 && endIndex != -1 && endIndex > beginIndex)
-                    {
-                        String replacement = value.substring(beginIndex, endIndex) + endChar;
-                        value = StringUtils.replace(value, replacement, beginChar + columnLength + endChar);
-                    }
+                    value = EntityMetafacadeUtils.constructSqlTypeName(value, columnLength);
                 }
             }
         }
         return value;
     }
+    
 
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getJdbcType()
@@ -138,12 +125,6 @@ public class EntityAttributeLogicImpl
             {
                 String typeName = type.getFullyQualifiedName(true);
                 value = this.getJdbcMappings().getTo(typeName);
-                if (StringUtils.isBlank(value))
-                {
-                    logger.error("ERROR! missing JDBC type mapping for model type '" + typeName +
-                            "' --> please adjust your model or JDBC type mappings '" + this.getJdbcMappings()
-                            .getMappings().getResource() + "' accordingly");
-                }
             }
         }
 

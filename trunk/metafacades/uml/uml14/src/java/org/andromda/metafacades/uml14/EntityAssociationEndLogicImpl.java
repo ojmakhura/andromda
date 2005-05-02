@@ -1,9 +1,14 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.NameMasker;
+import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +35,7 @@ public class EntityAssociationEndLogicImpl
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(
-                this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
+            this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
@@ -44,9 +49,9 @@ public class EntityAssociationEndLogicImpl
         if (this.getType() instanceof Entity)
         {
             columnName =
-                    EntityMetafacadeUtils.getSqlNameFromTaggedValue(this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                            ((Entity)this.getType()).getMaxSqlNameLength(), this.getForeignKeySuffix(),
-                            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+                EntityMetafacadeUtils.getSqlNameFromTaggedValue(this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                    ((Entity)this.getType()).getMaxSqlNameLength(), this.getForeignKeySuffix(),
+                    this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
         return columnName;
     }
@@ -83,7 +88,7 @@ public class EntityAssociationEndLogicImpl
             // we construct our own foreign key constraint name here
             final StringBuffer buffer = new StringBuffer();
 
-            ClassifierFacade type = getOtherEnd().getType();
+            final ClassifierFacade type = getOtherEnd().getType();
             if (type instanceof Entity)
             {
                 Entity entity = (Entity)type;
@@ -108,9 +113,8 @@ public class EntityAssociationEndLogicImpl
         }
 
         // we take into consideration the maximum length allowed
-        String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
-        Short maxLength = Short.valueOf(maxLengthString);
-
+        final String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
+        final Short maxLength = Short.valueOf(maxLengthString);
         return EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, maxLength);
     }
 
@@ -119,8 +123,78 @@ public class EntityAssociationEndLogicImpl
      */
     public java.lang.String handleGetColumnIndex()
     {
-        String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
+        final String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml14.EntityAssociationEndLogic#handleGetSqlType()
+     */
+    protected String handleGetSqlType()
+    {
+        String value = null;
+        if (this.getSqlMappings() != null)
+        {
+            EntityAttribute identifier = null;
+            // we retrieve the column length from the first identifier of the primary key 
+            // on the other side (since that should correspond to the foreign key).         
+            if (this.getType() instanceof Entity)
+            {
+                final Entity type = (Entity)this.getType(); 
+                final Collection identifiers = type.getIdentifiers();
+                if (identifiers != null && !identifiers.isEmpty())
+                {
+                    AttributeFacade attribute = (AttributeFacade)identifiers.iterator().next();
+                    if (attribute instanceof EntityAttribute)
+                    {
+                        identifier = (EntityAttribute)attribute;                     
+                    }
+                }
+            }
+            if (identifier != null && identifier.getType() != null)
+            {
+                String typeName = identifier.getType().getFullyQualifiedName(true);
+                value = this.getSqlMappings().getTo(typeName);
+                final String columnLength = identifier.getColumnLength();
+                if (StringUtils.isNotEmpty(columnLength))
+                {
+                    value = EntityMetafacadeUtils.constructSqlTypeName(value, columnLength);
+                }     
+            }
+        }
+        return value;
+    }
+    
+    /**
+     * Gets the SQL mappings that have been set for this entity attribute.
+     *
+     * @return the SQL Mappings instance.
+     */
+    public TypeMappings getSqlMappings()
+    {
+        final String propertyName = UMLMetafacadeProperties.SQL_MAPPINGS_URI;
+        Object property = this.getConfiguredProperty(propertyName);
+        TypeMappings mappings = null;
+        String uri = null;
+        if (property instanceof String)
+        {
+            uri = (String)property;
+            try
+            {
+                mappings = TypeMappings.getInstance(uri);
+                this.setProperty(propertyName, mappings);
+            }
+            catch (Throwable th)
+            {
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                logger.error(errMsg, th);
+                // don't throw the exception
+            }
+        }
+        else
+        {
+            mappings = (TypeMappings)property;
+        }
+        return mappings;
+    }
 }
