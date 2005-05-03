@@ -36,9 +36,8 @@ import java.util.Map;
  * @author Chad Brandon
  */
 public class Cartridge
-        extends BasePlugin
+    extends BasePlugin
 {
-
     /**
      * The default Cartridge constructor.
      */
