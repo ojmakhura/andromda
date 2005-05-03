@@ -105,7 +105,7 @@ public class UMLMetafacadeProperties
     public static final String ALLOW_DEFAULT_IDENTITIFIERS = "allowDefaultIdentifiers";
 
     /**
-     * The name given to default identifiers (if enabled).
+     * The pattern used to construct the name entity default identifiers (if enabled).
      */
     public static final String DEFAULT_IDENTIFIER_PATTERN = "defaultIdentifierPattern";
 
