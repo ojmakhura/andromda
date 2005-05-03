@@ -68,13 +68,13 @@
                             Calls the default goal: <code>clean-dist</code> (see below).
                         </li>
                         <li><code>maven clean-dist</code><br/>
-                            Cleans everything and then builds the binary and documentation distributions.
+                            Cleans everything and then builds the binary distribution.
                         </li>
                         <li><code>maven docs</code><br/>
                             Builds the documentation and includes it in the binary distribution.
                         </li>
                         <li><code>maven dist</code><br/>
-                            Builds the binary and documentation distributions.
+                            Builds the binary distribution.
                         </li>
                     </ul>
                 </p>
