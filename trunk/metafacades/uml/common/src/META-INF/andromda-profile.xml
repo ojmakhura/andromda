@@ -98,6 +98,10 @@
         <to>@andromda.persistence.foreign.identifier</to>
     </mapping>
     <mapping>
+        <from>PERSISTENCE_ASSIGNED_IDENTIFIER</from>
+        <to>@andromda.persistence.assigned.identifier</to>
+    </mapping>
+    <mapping>
         <from>PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME</from>
         <to>@andromda.persistence.foreignkey.constraint</to>
     </mapping>
