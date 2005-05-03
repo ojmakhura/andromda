@@ -96,4 +96,14 @@ public class UseCaseFacadeLogicImpl
     {
         return getPackage();
     }
+
+    protected Collection handleGetExtensionPoints()
+    {
+        return metaObject.getExtensionPoint();
+    }
+
+    protected Collection handleGetExtends()
+    {
+        return metaObject.getExtend();
+    }
 }
