@@ -85,7 +85,12 @@ public final class $enumeration.enumerationName
      */
     public Object nullSafeGet(ResultSet resultSet, String[] values, Object owner) throws HibernateException, SQLException
     {
-        final $enumeration.literalType.fullyQualifiedName value = ($enumeration.literalType.fullyQualifiedName)resultSet.getObject(values[0]);
+#if ($enumeration.literalType.primitive)
+#set ($valueAssignment = "(($enumeration.literalType.wrapperName)resultSet.getObject(values[0])).${enumeration.literalType.fullyQualifiedName}Value()")
+#else
+#set ($valueAssignment = "($enumeration.literalType.fullyQualifiedName)resultSet.getObject(values[0])")
+#end
+        final $enumeration.literalType.fullyQualifiedName value = $valueAssignment;
         return resultSet.wasNull() ? null : ${enumeration.fromOperationName}(value);
     }
 
@@ -100,7 +105,12 @@ public final class $enumeration.enumerationName
         }
         else
         {
-            statement.setObject(index, ${enumeration.literalType.fullyQualifiedName}.valueOf(java.lang.String.valueOf(value)));
+#if ($enumeration.literalType.primitive)
+#set ($typeName = $enumeration.literalType.wrapperName)
+#else
+#set ($typeName = $enumeration.literalType.fullyQualifiedName)
+#end
+            statement.setObject(index, ${typeName}.valueOf(java.lang.String.valueOf(value)));
         }
     }
 }
