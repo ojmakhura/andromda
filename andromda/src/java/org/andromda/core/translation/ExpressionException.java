@@ -10,32 +10,32 @@ public class ExpressionException
     /**
      * Constructs an instance of ExpressionException.
      *
-     * @param th
+     * @param parent
      */
-    public ExpressionException(Throwable th)
+    public ExpressionException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of ExpressionException.
      *
-     * @param msg
+     * @param message
      */
-    public ExpressionException(String msg)
+    public ExpressionException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of ExpressionException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public ExpressionException(String msg, Throwable th)
+    public ExpressionException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

@@ -10,32 +10,32 @@ public class PluginDiscovererException
     /**
      * Constructs an instance of PluginDiscovererException.
      *
-     * @param th
+     * @param parent
      */
-    public PluginDiscovererException(Throwable th)
+    public PluginDiscovererException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of PluginDiscovererException.
      *
-     * @param msg
+     * @param message
      */
-    public PluginDiscovererException(String msg)
+    public PluginDiscovererException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of PluginDiscovererException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public PluginDiscovererException(String msg, Throwable th)
+    public PluginDiscovererException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

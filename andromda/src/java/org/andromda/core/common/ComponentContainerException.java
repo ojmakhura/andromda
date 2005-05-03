@@ -10,32 +10,32 @@ public class ComponentContainerException
     /**
      * Constructs an instance of ComponentContainerException.
      *
-     * @param th
+     * @param parent
      */
-    public ComponentContainerException(Throwable th)
+    public ComponentContainerException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of ComponentContainerException.
      *
-     * @param msg
+     * @param message
      */
-    public ComponentContainerException(String msg)
+    public ComponentContainerException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of ComponentContainerException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public ComponentContainerException(String msg, Throwable th)
+    public ComponentContainerException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

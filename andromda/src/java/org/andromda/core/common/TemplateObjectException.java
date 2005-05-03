@@ -12,32 +12,32 @@ public class TemplateObjectException
     /**
      * Constructs an instance of TemplateObjectException.
      *
-     * @param th
+     * @param parent
      */
-    public TemplateObjectException(Throwable th)
+    public TemplateObjectException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of TemplateObjectException.
      *
-     * @param msg
+     * @param message
      */
-    public TemplateObjectException(String msg)
+    public TemplateObjectException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of TemplateObjectException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public TemplateObjectException(String msg, Throwable th)
+    public TemplateObjectException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

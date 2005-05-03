@@ -10,32 +10,32 @@ public class TranslatorException
     /**
      * Constructs an instance of TranslatorException.
      *
-     * @param th
+     * @param parent
      */
-    public TranslatorException(Throwable th)
+    public TranslatorException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of TranslatorException.
      *
-     * @param msg
+     * @param message
      */
-    public TranslatorException(String msg)
+    public TranslatorException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of TranslatorException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public TranslatorException(String msg, Throwable th)
+    public TranslatorException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }
