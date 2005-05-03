@@ -463,7 +463,7 @@ public class MetafacadeFactory
      *
      * @return the logger
      */
-    Logger getLogger()
+    final Logger getLogger()
     {
         return AndroMDALogger.getNamespaceLogger(this.getActiveNamespace());
     }
@@ -501,7 +501,7 @@ public class MetafacadeFactory
      * @param name      the name of the property.
      * @return true if the property is registered, false otherwise.
      */
-    boolean isPropertyRegistered(final String namespace, final String name)
+    final boolean isPropertyRegistered(final String namespace, final String name)
     {
         return this.findProperty(namespace, name) != null;
     }
