@@ -74,6 +74,9 @@
 #if ($manageable.update)
                     <input type="submit" value="<bean:message key="button.update"/>" onclick="this.form.elements['${manageable.actionParameter}'].value='update';"/>
 #end
+#if ($manageable.preload)
+                    <input type="button" value="<bean:message key="button.clear"/>" onclick="#renderJavascriptClearFields($manageable)"/>
+#end
                 </c:if>
                 <tiles:insert page="/entity-switcher.jsp" flush="false"/>
 
@@ -105,11 +108,7 @@
 #if ($member.display)
 #if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
                         <display:column media="html" headerClass="$member.name" titleKey="$member.messageKey">
-                            <c:choose>
-#set ($test = "row.${member.name}")
-                                <c:when test="${${test}}"><input type="checkbox" checked="checked" disabled="disabled"/></c:when>
-                                <c:otherwise><input type="checkbox" disabled="disabled"/></c:otherwise>
-                            </c:choose>
+                            <html:checkbox name="row" property="${member.name}" disabled="true"/>
                         </display:column>
                         <display:column media="xml csv excel pdf" property="$member.name"
                             headerClass="$member.name" paramId="$member.name"

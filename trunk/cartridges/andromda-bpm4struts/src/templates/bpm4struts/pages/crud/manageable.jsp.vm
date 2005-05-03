@@ -103,15 +103,29 @@ ${indent}</logic:notPresent>
 ##
 #macro ( renderJavascriptCopyRow $manageable )
 #foreach($member in $manageable.manageableMembers)
-document.forms['${manageable.formBeanName}'].elements['${member.name}']## no newline
+document.forms['${manageable.formBeanName}'].elements['${member.name}'].## no newline
 #set($property = "row.${member.name}")## by default we take the property straight for the row value object
 #if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
-.checked=${${property}};## no newline
+checked=${${property}};## no newline
 #else
 #if ($member.type.dateType)
 #set($property = "${member.name}Formatted")## this variable is expected to be in page scope
 #end
-.value='${${property}}';## no newline
+value='<formatting:escape language="javascript">${${property}}</formatting:escape>';## no newline
+#end
+#end
+#end
+##
+## This stuff *must* be rendered on a single line, it will clear all fields, except the ones that
+## are not displayed. Checkboxes are set to false.
+##
+#macro ( renderJavascriptClearFields $manageable )
+#foreach($member in $manageable.manageableMembers)
+document.forms['${manageable.formBeanName}'].elements['${member.name}'].## no newline
+#if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+checked=false;## no newline
+#else
+value='';## no newline
 #end
 #end
 #end
