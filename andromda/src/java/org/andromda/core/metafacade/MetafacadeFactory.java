@@ -14,9 +14,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * The factory in charge of constucting Metafacade instances. In order for a metafacade (i.e. a facade around a meta
- * model element) to be constructed, it must be constructed through this factory.
- *
+ * The factory in charge of constucting Metafacade instances. In order for a
+ * metafacade (i.e. a facade around a meta model element) to be constructed, it
+ * must be constructed through this factory.
+ * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  */
@@ -112,11 +113,14 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns a metafacade for a mappingObject, depending on its <code>mappingClass</code> and (optionally) its
-     * <code>sterotypes</code> and <code>context</code>.
-     *
-     * @param mappingObject the object used to map the metafacade (a meta model object or a metafacade itself).
-     * @param context       the name of the context the meta model element is registered under.
+     * Returns a metafacade for a mappingObject, depending on its
+     * <code>mappingClass</code> and (optionally) its <code>sterotypes</code>
+     * and <code>context</code>.
+     * 
+     * @param mappingObject the object used to map the metafacade (a meta model
+     *        object or a metafacade itself).
+     * @param context the name of the context the meta model element is
+     *        registered under.
      * @return the new metafacade
      */
     public MetafacadeBase createMetafacade(final Object mappingObject, final String context)
@@ -125,15 +129,18 @@ public class MetafacadeFactory
     }
 
     /**
-     * Creates a metafacade given the <code>mappingObject</code>, <code>contextName</code> and
-     * <code>metafacadeClass</code>.
-     *
-     * @param mappingObject   the object used to map the metafacade (a meta model object or a metafacade itself).
-     * @param context         the name of the context the meta model element (if the mappObject is a meta model element)
-     *                        is registered under.
-     * @param metafacadeClass if not null, it contains the name of the metafacade class to be used. This is used ONLY
-     *                        when instantiating super metafacades in an inheritance chain. The final metafacade will
-     *                        NEVER have a metafacadeClass specified (it will ALWAYS be null).
+     * Creates a metafacade given the <code>mappingObject</code>,
+     * <code>contextName</code> and <code>metafacadeClass</code>.
+     * 
+     * @param mappingObject the object used to map the metafacade (a meta model
+     *        object or a metafacade itself).
+     * @param context the name of the context the meta model element (if the
+     *        mappObject is a meta model element) is registered under.
+     * @param metafacadeClass if not null, it contains the name of the
+     *        metafacade class to be used. This is used ONLY when instantiating
+     *        super metafacades in an inheritance chain. The final metafacade
+     *        will NEVER have a metafacadeClass specified (it will ALWAYS be
+     *        null).
      * @return the new metafacade
      */
     private final MetafacadeBase createMetafacade(final Object mappingObject, final String context, Class metafacadeClass)
@@ -209,10 +216,12 @@ public class MetafacadeFactory
     }
 
     /**
-     * Creates a metacade from the passed in <code>mappingObject</code>, and <code>mapping</code> instance.
-     *
-     * @param mappingObject the mapping object for which to create the metafacade.
-     * @param mapping       the mapping from which to create the metafacade
+     * Creates a metacade from the passed in <code>mappingObject</code>, and
+     * <code>mapping</code> instance.
+     * 
+     * @param mappingObject the mapping object for which to create the
+     *        metafacade.
+     * @param mapping the mapping from which to create the metafacade
      * @return the metafacade, or null if it can't be created.
      */
     protected MetafacadeBase createMetafacade(final Object mappingObject, final MetafacadeMapping mapping)
@@ -281,11 +290,14 @@ public class MetafacadeFactory
     }
 
     /**
-     * Populates the given <code>metafacade</code> with the properties from the given <code>mapping</code> as well as
-     * the properties from the {@link MetafacadeMappings}instance to which the <code>mapping</code> belongs.
-     *
-     * @param metafacade
-     * @param mapping
+     * Populates the given <code>metafacade</code> with the properties from
+     * the given <code>mapping</code> as well as the properties from the
+     * {@link MetafacadeMappings}instance to which the <code>mapping</code>
+     * belongs.
+     * 
+     * @param metafacade the metafacade instance to populate.
+     * @param mappings the mappings from which to populate the properties.
+     * @param mapping the mapping from which to populate the properties.
      */
     private final void populateMetafacadeProperties(
         final MetafacadeBase metafacade,
@@ -317,12 +329,15 @@ public class MetafacadeFactory
     }
 
     /**
-     * Create a facade implementation object for a mappingObject. The facade implementation object must be found in a
-     * way that it implements the interface <code>interfaceName</code>.
-     *
-     * @param interfaceName the name of the interface that the implementation object has to implement
-     * @param mappingObject the mappingObject for which a facade shall be created
-     * @param context       the context in which this metafacade will be created.
+     * Create a facade implementation object for a mappingObject. The facade
+     * implementation object must be found in a way that it implements the
+     * interface <code>interfaceName</code>.
+     * 
+     * @param interfaceName the name of the interface that the implementation
+     *        object has to implement
+     * @param mappingObject the mappingObject for which a facade shall be
+     *        created
+     * @param context the context in which this metafacade will be created.
      * @return MetafacadeBase the metafacade
      */
     public MetafacadeBase createFacadeImpl(final String interfaceName, final Object mappingObject, final String context)
@@ -403,12 +418,14 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns a metafacade for each mappingObject, contained within the <code>mappingObjects</code> collection
-     * depending on its <code>mappingClass</code> and (optionally) its <code>sterotypes</code>, and
-     * <code>contextName</code>.
-     *
+     * Returns a metafacade for each mappingObject, contained within the
+     * <code>mappingObjects</code> collection depending on its
+     * <code>mappingClass</code> and (optionally) its <code>sterotypes</code>,
+     * and <code>contextName</code>.
+     * 
      * @param mappingObjects the meta model element.
-     * @param contextName    the name of the context the meta model element is registered under.
+     * @param contextName the name of the context the meta model element is
+     *        registered under.
      * @return the Collection of newly created Metafacades.
      */
     protected Collection createMetafacades(final Collection mappingObjects, final String contextName)
@@ -425,11 +442,12 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns a metafacade for each mappingObject, contained within the <code>mappingObjects</code> collection
-     * depending on its <code>mappingClass</code>.
-     *
-     * @param mappingObjects the objects used to map the metafacades (can be a meta model element or an actual
-     *                       metafacade itself).
+     * Returns a metafacade for each mappingObject, contained within the
+     * <code>mappingObjects</code> collection depending on its
+     * <code>mappingClass</code>.
+     * 
+     * @param mappingObjects the objects used to map the metafacades (can be a
+     *        meta model element or an actual metafacade itself).
      * @return Collection of metafacades
      */
     public Collection createMetafacades(final Collection mappingObjects)
@@ -469,10 +487,11 @@ public class MetafacadeFactory
     }
 
     /**
-     * Registers a property with the specified <code>name</code> in the given <code>namespace</code>.
-     *
+     * Registers a property with the specified <code>name</code> in the given
+     * <code>namespace</code>.
+     * 
      * @param namespace the namespace in which the property is stored.
-     * @param name      the name of the property
+     * @param name the name of the property
      */
     protected void registerProperty(final String namespace, final String name, final Object value)
     {
@@ -495,10 +514,11 @@ public class MetafacadeFactory
     }
 
     /**
-     * Returns true if this property is registered under the given <code>namespace</code>, false otherwise.
-     *
+     * Returns true if this property is registered under the given
+     * <code>namespace</code>, false otherwise.
+     * 
      * @param namespace the namespace to check.
-     * @param name      the name of the property.
+     * @param name the name of the property.
      * @return true if the property is registered, false otherwise.
      */
     final boolean isPropertyRegistered(final String namespace, final String name)
@@ -507,11 +527,11 @@ public class MetafacadeFactory
     }
 
     /**
-     * Finds the first property having the given <code>namespaces</code>, or <code>null</code> if the property can
-     * <strong>NOT </strong> be found.
-     *
+     * Finds the first property having the given <code>namespaces</code>, or
+     * <code>null</code> if the property can <strong>NOT </strong> be found.
+     * 
      * @param namespace the namespace to search.
-     * @param name      the name of the property to find.
+     * @param name the name of the property to find.
      * @return the property or null if it can't be found.
      */
     private final Object findProperty(final String namespace, final String name)
@@ -526,10 +546,11 @@ public class MetafacadeFactory
     }
 
     /**
-     * Gets the registered property registered under the <code>namespace</code> with the <code>name</code>
-     *
+     * Gets the registered property registered under the <code>namespace</code>
+     * with the <code>name</code>
+     * 
      * @param namespace the namespace of the property to check.
-     * @param name      the name of the property to check.
+     * @param name the name of the property to check.
      * @return the registered property
      */
     final Object getRegisteredProperty(final String namespace, final String name)
