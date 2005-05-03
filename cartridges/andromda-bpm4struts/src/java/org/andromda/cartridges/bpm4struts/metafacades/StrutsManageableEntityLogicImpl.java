@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -17,9 +18,9 @@ public class StrutsManageableEntityLogicImpl
     /**
      * @return the configured property denoting the character sequence to use for the separation of namespaces
      */
-    private String internalGetNamespaceProperty()
+    private String getNamespaceProperty()
     {
-        return (String)getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
+        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
     }
 
     public StrutsManageableEntityLogicImpl(Object metaObject, String context)
@@ -29,7 +30,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetFormBeanType()
     {
-        return getManageablePackageName() + internalGetNamespaceProperty() + getFormBeanClassName();
+        return getManageablePackageName() + this.getNamespaceProperty() + getFormBeanClassName();
     }
 
     protected String handleGetFormBeanClassName()
@@ -39,7 +40,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetFormBeanFullPath()
     {
-        return getFormBeanType().replace(internalGetNamespaceProperty(), "/");
+        return StringUtils.replace(this.getFormBeanType(), this.getNamespaceProperty(), "/");
     }
 
     protected java.lang.String handleGetMessageKey()
@@ -104,7 +105,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetActionType()
     {
-        return getManageablePackageName() + internalGetNamespaceProperty() + getActionClassName();
+        return getManageablePackageName() + this.getNamespaceProperty() + getActionClassName();
     }
 
     protected java.lang.String handleGetExceptionKey()
@@ -119,7 +120,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetActionFullPath()
     {
-        return '/' + getActionType().replace(internalGetNamespaceProperty(), "/");
+        return '/' + StringUtils.replace(this.getActionType(), this.getNamespaceProperty(), "/");
     }
 
     protected java.lang.String handleGetActionClassName()
