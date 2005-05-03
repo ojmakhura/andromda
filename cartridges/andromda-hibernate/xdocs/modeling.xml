@@ -108,7 +108,7 @@
                         <th>Description</th>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.query"/>
+                        <a name="andromda_hibernate_query"/>
                         <td>
                             @andromda.hibernate.query
                         </td>
@@ -203,7 +203,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.persistence.column.index"/>
+                        <a name="andromda_persistence_column_index"/>
                         <td>
                             @andromda.persistence.column.index
                         </td>
@@ -215,7 +215,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.entity.cache"/>
+                        <a name="andromda_hibernate_entity_cache"/>
                         <td>
                             @andromda.hibernate.entity.cache
                         </td>
@@ -232,7 +232,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.query.useCache"/>
+                        <a name="andromda_hibernate_query_useCache"/>
                         <td>
                             @andromda.hibernate.query.useCache
                         </td>
@@ -244,7 +244,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.entity.proxy"/>
+                        <a name="andromda_hibernate_entity_proxy"/>
                         <td>
                             @andromda.hibernate.entity.proxy
                         </td>
@@ -261,7 +261,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.entity.dynamicInsert"/>
+                        <a name="andromda_hibernate_entity_dynamicInsert"/>
                           <td>
                               @andromda.hibernate.entity.dynamicInsert
                           </td>
@@ -278,7 +278,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.entity.dynamicUpdate"/>
+                        <a name="andromda_hibernate_entity_dynamicUpdate"/>
                           <td>
                               @andromda.hibernate.entity.dynamicUpdate
                           </td>
@@ -295,7 +295,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.ehcache.maxElementsInMemory"/>
+                        <a name="andromda_hibernate_ehcache_maxElementsInMemory"/>
                         <td>
                             @andromda.hibernate.ehcache.maxElementsInMemory
                         </td>
@@ -307,7 +307,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.ehcache.eternal"/>
+                        <a name="andromda_hibernate_ehcache_eternal"/>
                         <td>
                             @andromda.hibernate.ehcache.eternal
                         </td>
@@ -324,7 +324,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.ehcache.timeToIdleSeconds"/>
+                        <a name="andromda_hibernate_ehcache_timeToIdleSeconds"/>
                         <td>
                             @andromda.hibernate.ehcache.timeToIdleSeconds
                         </td>
@@ -336,7 +336,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.ehcache.timeToLiveSeconds"/>
+                        <a name="andromda_hibernate_ehcache_timeToLiveSeconds"/>
                         <td>
                             @andromda.hibernate.ehcache.timeToLiveSeconds
                         </td>
@@ -348,7 +348,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.ehcache.overflowToDisk"/>
+                        <a name="andromda_hibernate_ehcache_overflowToDisk"/>
                           <td>
                               @andromda.hibernate.ehcache.overflowToDisk
                           </td>
@@ -378,7 +378,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.role.name"/>
+                        <a name="andromda_role_name"/>
                           <td>
                               @andromda.role.name
                           </td>
@@ -393,7 +393,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="andromda.hibernate.generator.class"/>
+                        <a name="andromda_hibernate_generator_class"/>
                         <td>
                             @andromda.hibernate.generator.class
                         </td>
@@ -428,7 +428,7 @@
                         <th>Description</th>
                     </tr>
                     <tr>
-                        <a name="@andromda.ejb.viewType"/>
+                        <a name="andromda_ejb_viewType"/>
                         <td>
                             @andromda.ejb.viewType
                         </td>
@@ -442,7 +442,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="andromda.ejb.transaction.type"/>
+                        <a name="andromda_ejb_transaction_type"/>
                         <td>
                             @andromda.ejb.transaction.type
                         </td>
@@ -472,7 +472,7 @@
                         <th>Description</th>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.lazy"/>
+                        <a name="andromda_hibernate_lazy"/>
                         <td>
                             @andromda.hibernate.lazy
                         </td>
@@ -488,7 +488,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.outerjoin"/>
+                        <a name="andromda_hibernate_outerjoin"/>
                         <td>
                             @andromda.hibernate.outerjoin
                         </td>
@@ -511,7 +511,7 @@
                         </td>
                     </tr>
                     <tr>
-                         <a name="@andromda.hibernate.association.cache"/>
+                         <a name="andromda_hibernate_association_cache"/>
                         <td>
                             @andromda.hibernate.association.cache
                         </td>
@@ -528,7 +528,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.persistence.foreign.identifier"/>
+                        <a name="andromda_persistence_foreign_identifier"/>
                         <td>
                             @andromda.persistence.foreign.identifier
                         </td>
@@ -547,7 +547,24 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.collection.type"/>
+                        <a name="andromda_persistence_assigned_identifier"/>
+                        <td>
+                            @andromda.persistence.assigned.identifier
+                        </td>
+                        <td>
+                            An attribute marked as an <strong><![CDATA[<<Identifier>>]]></strong>.
+                        </td>
+                        <td>
+                            Indicates whether or not the identifier is assigned (this means
+                            that the identifier is manually assigned as opposed to automatically
+                            generated). Note that setting this has the same affect as setting the 
+                            <a href="#andromda_hibernate_generator_class">@andromda.hibernate.generator.class</a> 
+                            to <em>assigned</em>, this is tagged value is just the preferred way as it can be applied
+                            to other frameworks besides Hibernate.                 
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="andromda_hibernate_collection_type"/>
                         <td>
                             @andromda.hibernate.collection.type
                         </td>
@@ -567,7 +584,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.sort.type"/>
+                        <a name="andromda_hibernate_sort_type"/>
                         <td>
                             @andromda.hibernate.sort.type
                         </td>
@@ -586,7 +603,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.orderByColumns"/>
+                        <a name="andromda_hibernate_orderByColumns"/>
                         <td>
                             @andromda.hibernate.orderByColumns
                         </td>
@@ -598,7 +615,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.whereClause"/>
+                        <a name="andromda_hibernate_whereClause"/>
                         <td>
                             @andromda.hibernate.whereClause
                         </td>
@@ -610,7 +627,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.hibernate.collection.index"/>
+                        <a name="andromda_hibernate_collection_index"/>
                         <td>
                             @andromda.hibernate.collection.index
                         </td>
@@ -622,7 +639,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <a name="@andromda.persistence.column.index"/>
+                        <a name="andromda_persistence_column_index"/>
                         <td>
                             @andromda.persistence.column.index
                         </td>

@@ -149,13 +149,20 @@ public class UMLProfile
      * key to the related entity.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER = profile.get(
-            "PERSISTENCE_FOREIGN_IDENTIFIER");
+        "PERSISTENCE_FOREIGN_IDENTIFIER");
+    
+    /**
+     * Used on an identifier to indicate whether or not the identifier is <em>assigned</em> (meaning
+     * that the identifier is manually assigned instead of generated.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER = profile.get(
+        "PERSISTENCE_ASSIGNED_IDENTIFIER");
 
     /**
      * Used on an association end to denote to name of the foreign key constraint to use in the database.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME = profile.get(
-            "PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME");
+        "PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME");
 
     /**
      * Stores the style of a web service (document, wrapped, rpc).

@@ -267,6 +267,10 @@ public class HibernateEntityLogicImpl
         {
             hibernateGeneratorClass = HIBERNATE_GENERATOR_CLASS_FOREIGN;
         }
+        else if (this.isUsingAssignedIdentifier())
+        {
+            hibernateGeneratorClass = HIBERNATE_GENERATOR_CLASS_ASSIGNED;
+        }
         else
         {
             hibernateGeneratorClass = (String)this.findTaggedValue(
@@ -279,7 +283,15 @@ public class HibernateEntityLogicImpl
         return StringUtils.trimToEmpty(hibernateGeneratorClass).toLowerCase();
     }
 
+    /**
+     * Represents a <em>foreign</em> Hibernate generator class.
+     */
     private static final String HIBERNATE_GENERATOR_CLASS_FOREIGN = "foreign";
+    
+    /**
+     * Represents an <em>assigned</em> Hibernate generator class.
+     */
+    private static final String HIBERNATE_GENERATOR_CLASS_ASSIGNED = "assigned";
 
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isForeignHibernateGeneratorClass()

@@ -34,8 +34,8 @@ import org.omg.uml.foundation.core.Classifier;
  * Metaclass facade implementation.
  */
 public class EntityLogicImpl
-        extends EntityLogic
-        {
+    extends EntityLogic
+{
 
     // ---------------- constructor -------------------------------
 
@@ -603,5 +603,22 @@ public class EntityLogicImpl
                 return valid;
             }
         });
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.Entity#isUsingAssignedIdentifier()
+     */
+    protected boolean handleIsUsingAssignedIdentifier()
+    {
+        boolean assigned = false;
+        final Collection identifiers = this.getIdentifiers();
+        if (identifiers != null && !identifiers.isEmpty())
+        {
+            final AttributeFacade identifier = (AttributeFacade)identifiers.iterator().next();
+            assigned = Boolean.valueOf(ObjectUtils.toString(
+                identifier.findTaggedValue(
+                    UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER))).booleanValue();
+        }
+        return assigned;
     }
 }
