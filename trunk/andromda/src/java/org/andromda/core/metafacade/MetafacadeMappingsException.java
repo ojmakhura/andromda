@@ -10,32 +10,32 @@ public class MetafacadeMappingsException
     /**
      * Constructs an instance of MetafacadeMappingsException.
      *
-     * @param th
+     * @param parent
      */
-    public MetafacadeMappingsException(Throwable th)
+    public MetafacadeMappingsException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of MetafacadeMappingsException.
      *
-     * @param msg
+     * @param message
      */
-    public MetafacadeMappingsException(String msg)
+    public MetafacadeMappingsException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of MetafacadeMappingsException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public MetafacadeMappingsException(String msg, Throwable th)
+    public MetafacadeMappingsException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

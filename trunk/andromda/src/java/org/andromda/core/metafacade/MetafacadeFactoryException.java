@@ -10,32 +10,32 @@ public class MetafacadeFactoryException
     /**
      * Constructs an instance of MetafacadeFactoryException.
      *
-     * @param th
+     * @param parent
      */
-    public MetafacadeFactoryException(Throwable th)
+    public MetafacadeFactoryException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of MetafacadeFactoryException.
      *
-     * @param msg
+     * @param message
      */
-    public MetafacadeFactoryException(String msg)
+    public MetafacadeFactoryException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of MetafacadeFactoryException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public MetafacadeFactoryException(String msg, Throwable th)
+    public MetafacadeFactoryException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

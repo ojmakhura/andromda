@@ -10,32 +10,32 @@ public class MetafacadeImplsException
     /**
      * Constructs an instance of MetafacadeImplsException.
      *
-     * @param th
+     * @param parent
      */
-    public MetafacadeImplsException(Throwable th)
+    public MetafacadeImplsException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of MetafacadeImplsException.
      *
-     * @param msg
+     * @param message
      */
-    public MetafacadeImplsException(String msg)
+    public MetafacadeImplsException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of MetafacadeImplsException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public MetafacadeImplsException(String msg, Throwable th)
+    public MetafacadeImplsException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

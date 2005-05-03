@@ -10,32 +10,32 @@ public class ClassUtilsException
     /**
      * Constructs an instance of ClassUtilsException.
      *
-     * @param th
+     * @param parent
      */
-    public ClassUtilsException(Throwable th)
+    public ClassUtilsException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of ClassUtilsException.
      *
-     * @param msg
+     * @param message
      */
-    public ClassUtilsException(String msg)
+    public ClassUtilsException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of ClassUtilsException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public ClassUtilsException(String msg, Throwable th)
+    public ClassUtilsException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

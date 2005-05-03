@@ -1,5 +1,11 @@
 package org.andromda.core.transformation;
 
+/**
+ * Thrown when an exception occurs during
+ * XSTL transformation by the {@link XslTransformer).
+ * 
+ * @author Chad Brandon
+ */
 public class XslTransformerException
     extends RuntimeException
 {
