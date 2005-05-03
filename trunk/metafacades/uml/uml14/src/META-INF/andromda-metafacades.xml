@@ -179,7 +179,7 @@
             <stereotype>ENTITY</stereotype>
         </mapping>
         <property reference="allowDefaultIdentifiers" default="true"/>
-        <property reference="defaultIdentifier" default="id"/>
+        <property reference="defaultIdentifierPattern" default="id"/>
         <property reference="defaultIdentifierType" default="datatype::Long"/>
         <property reference="defaultIdentifierVisibility" default="public"/>
         <property reference="relationNameSeparator" default="2"/>
