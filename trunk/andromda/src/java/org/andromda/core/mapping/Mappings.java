@@ -51,7 +51,7 @@ public class Mappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
      */
-    public static Mappings getInstance(String mappingsUri)
+    public static final Mappings getInstance(String mappingsUri)
     {
         final String methodName = "Mappings.getInstance";
         mappingsUri = StringUtils.trimToEmpty(mappingsUri);
@@ -83,7 +83,7 @@ public class Mappings
      *         <code>mappings</code> doesn't extend anything.
      * @throws Exception if an exception occurs.
      */
-    private static Mappings getInheritedMappings(final Mappings mappings)
+    private static final Mappings getInheritedMappings(final Mappings mappings)
         throws Exception
     {
         return getInheritedMappings(mappings, false);
@@ -102,7 +102,7 @@ public class Mappings
      *         <code>mappings</code> doesn't extend anything.
      * @throws Exception if an exception occurs.
      */
-    private static Mappings getInheritedMappings(final Mappings mappings, final boolean ignoreInheritanceFailure)
+    private static final Mappings getInheritedMappings(final Mappings mappings, final boolean ignoreInheritanceFailure)
         throws Exception
     {
         // if we have a parent then we add the child mappings to
@@ -144,7 +144,7 @@ public class Mappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
      */
-    public static Mappings getInstance(final URL mappingsUri)
+    public static final Mappings getInstance(final URL mappingsUri)
     {
         return getInstance(mappingsUri, false);    
     }
@@ -158,7 +158,7 @@ public class Mappings
      *        to retrieve the mapping's inheritance should be ignored.
      * @return Mappings the configured Mappings instance.
      */
-    private static Mappings getInstance(final URL mappingsUri, final boolean ignoreInheritanceFailure)
+    private static final Mappings getInstance(final URL mappingsUri, final boolean ignoreInheritanceFailure)
     {
         final String methodName = "Mappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
@@ -183,7 +183,7 @@ public class Mappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
      */
-    private static Mappings getInstance(final File mappingsFile)
+    private static final Mappings getInstance(final File mappingsFile)
         throws Exception
     {
         final Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(
@@ -388,7 +388,7 @@ public class Mappings
      * 
      * @return the complete path.
      */
-    String getCompletePath(final String relativePath)
+    final String getCompletePath(final String relativePath)
     {
         if (this.completePath == null)
         {

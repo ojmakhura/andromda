@@ -136,7 +136,7 @@ public class MetafacadeFactory
      *                        NEVER have a metafacadeClass specified (it will ALWAYS be null).
      * @return the new metafacade
      */
-    private MetafacadeBase createMetafacade(final Object mappingObject, final String context, Class metafacadeClass)
+    private final MetafacadeBase createMetafacade(final Object mappingObject, final String context, Class metafacadeClass)
     {
         final String methodName = "MetafacadeFactory.createMetafacade";
         ExceptionUtils.checkNull(methodName, "mappingObject", mappingObject);
@@ -234,21 +234,26 @@ public class MetafacadeFactory
     }
 
     /**
-     * Retrieves (if one has already been constructed) or constructs a new <code>metafacade</code> from the given
-     * <code>metafacadeClass</code> and <code>mappingObject</code>.
-     *
+     * Retrieves (if one has already been constructed) or constructs a new
+     * <code>metafacade</code> from the given <code>metafacadeClass</code>
+     * and <code>mappingObject</code>.
+     * 
      * @param metafacadeClass the metafacade class.
-     * @param mappingObject   the object to which the metafacade is mapped.
-     * @param context         the context to which the metafacade applies
-     * @param mappings        the MetafacadeMappings instance to which the optional <code>mapping</code> instance
-     *                        belongs.
-     * @param mapping         the optional MetafacadeMapping instance from which the metafacade is mapped.
+     * @param mappingObject the object to which the metafacade is mapped.
+     * @param context the context to which the metafacade applies
+     * @param mappings the MetafacadeMappings instance to which the optional
+     *        <code>mapping</code> instance belongs.
+     * @param mapping the optional MetafacadeMapping instance from which the
+     *        metafacade is mapped.
      * @return the new (or cached) metafacade.
      * @throws Exception if any error occurs during metafacade creation
      */
-    private MetafacadeBase getMetafacade(final Class metafacadeClass, final Object mappingObject, final String context,
-                                         final MetafacadeMappings mappings, final MetafacadeMapping mapping)
-            throws Exception
+    private final MetafacadeBase getMetafacade(
+        final Class metafacadeClass,
+        final Object mappingObject,
+        final String context,
+        final MetafacadeMappings mappings,
+        final MetafacadeMapping mapping) throws Exception
     {
         final MetafacadeCache cache = MetafacadeCache.instance();
         MetafacadeBase metafacade = cache.get(mappingObject, metafacadeClass);
@@ -282,8 +287,10 @@ public class MetafacadeFactory
      * @param metafacade
      * @param mapping
      */
-    private void populateMetafacadeProperties(final MetafacadeBase metafacade, final MetafacadeMappings mappings,
-                                              final MetafacadeMapping mapping)
+    private final void populateMetafacadeProperties(
+        final MetafacadeBase metafacade,
+        final MetafacadeMappings mappings,
+        final MetafacadeMapping mapping)
     {
         // Populate the global metafacade properties
         // NOTE: ordering here matters, we populate the global
@@ -507,7 +514,7 @@ public class MetafacadeFactory
      * @param name      the name of the property to find.
      * @return the property or null if it can't be found.
      */
-    private Object findProperty(final String namespace, final String name)
+    private final Object findProperty(final String namespace, final String name)
     {
         Object property = null;
         Map propertyNamespace = (Map)registeredProperties.get(namespace);
@@ -525,7 +532,7 @@ public class MetafacadeFactory
      * @param name      the name of the property to check.
      * @return the registered property
      */
-    Object getRegisteredProperty(final String namespace, final String name)
+    final Object getRegisteredProperty(final String namespace, final String name)
     {
         final String methodName = "MetafacadeFactory.getRegisteredProperty";
         final Object registeredProperty = this.findProperty(namespace, name);

@@ -115,7 +115,7 @@ public class Mapping
      * 
      * @param mappings the owning mappings.
      */
-    void setMappings(final Mappings mappings)
+    final void setMappings(final Mappings mappings)
     {
         this.mappings = mappings;    
     }

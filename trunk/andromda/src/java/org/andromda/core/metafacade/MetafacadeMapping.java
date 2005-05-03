@@ -127,7 +127,7 @@ public class MetafacadeMapping
      *
      * @return the names of the stereotypes
      */
-    List getStereotypes()
+    final List getStereotypes()
     {
         return this.stereotypes;
     }
@@ -137,7 +137,7 @@ public class MetafacadeMapping
      *
      * @return true/false
      */
-    boolean hasStereotypes()
+    final boolean hasStereotypes()
     {
         return !this.stereotypes.isEmpty();
     }
@@ -207,7 +207,7 @@ public class MetafacadeMapping
      * @param mappingProperties the collection of mapping properties to add to the mapping properties within this
      *                          mappings instance.
      */
-    void addMappingPropertyGroup(PropertyGroup propertyGroup)
+    final void addMappingPropertyGroup(PropertyGroup propertyGroup)
     {
         this.mappingPropertyGroups.add(propertyGroup);
     }
@@ -215,7 +215,7 @@ public class MetafacadeMapping
     /**
      * Returns all mapping property groups for this MetafacadeMapping instance.
      */
-    Collection getMappingPropertyGroups()
+    final Collection getMappingPropertyGroups()
     {
         return this.mappingPropertyGroups;
     }
@@ -226,7 +226,7 @@ public class MetafacadeMapping
      *
      * @return the mapping property group.
      */
-    PropertyGroup getMappingProperties()
+    final PropertyGroup getMappingProperties()
     {
         return this.mappingProperties;
     }
@@ -236,7 +236,7 @@ public class MetafacadeMapping
      *
      * @return true/false
      */
-    boolean hasMappingProperties()
+    final boolean hasMappingProperties()
     {
         return this.mappingProperties != null && !this.mappingProperties.getProperties().isEmpty();
     }
@@ -275,7 +275,7 @@ public class MetafacadeMapping
      *
      * @return the name of the context
      */
-    String getContext()
+    final String getContext()
     {
         return this.context;
     }
@@ -285,7 +285,7 @@ public class MetafacadeMapping
      *
      * @return true/false
      */
-    boolean hasContext()
+    final boolean hasContext()
     {
         return StringUtils.isNotEmpty(this.context);
     }
@@ -301,7 +301,7 @@ public class MetafacadeMapping
      *
      * @param mappings the MetacadeMappings instance to which this mapping belongs.
      */
-    void setMetafacadeMappings(MetafacadeMappings mappings)
+    final void setMetafacadeMappings(MetafacadeMappings mappings)
     {
         this.mappings = mappings;
     }
@@ -311,7 +311,7 @@ public class MetafacadeMapping
      *
      * @return the parent metafacade mappings instance.
      */
-    MetafacadeMappings getMetafacadeMappings()
+    final MetafacadeMappings getMetafacadeMappings()
     {
         return this.mappings;
     }
@@ -320,12 +320,12 @@ public class MetafacadeMapping
      * Indicates whether or not the <code>mapping</code> matches this mapping. It matches on the following: <ul>
      * <li>metafacadeClass</li> <li>mappingClassName</li> <li>stereotypes</li> </ul>
      */
-    boolean match(MetafacadeMapping mapping)
+    final boolean match(MetafacadeMapping mapping)
     {
-        return mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass()) &&
-                this.getStereotypes().equals(mapping.getStereotypes()) &&
-                this.getMappingClassName().equals(mapping.getMappingClassName()) &&
-                this.getContext().equals(mapping.getContext());
+        return mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass())
+            && this.getStereotypes().equals(mapping.getStereotypes())
+            && this.getMappingClassName().equals(mapping.getMappingClassName())
+            && this.getContext().equals(mapping.getContext());
     }
 
     /**
@@ -343,7 +343,7 @@ public class MetafacadeMapping
      *
      * @see MetafacadeMappings#addMapping(MetafacadeMapping)
      */
-    static class PropertyGroup
+    static final class PropertyGroup
     {
         private final Map properties = new LinkedHashMap();
 
@@ -352,7 +352,7 @@ public class MetafacadeMapping
          *
          * @param property the property to add to this group.
          */
-        void addProperty(Property property)
+        final void addProperty(Property property)
         {
             final String name = property.getName();
             if (!this.properties.containsKey(name))
@@ -366,7 +366,7 @@ public class MetafacadeMapping
          *
          * @return the properties collection.
          */
-        Collection getProperties()
+        final Collection getProperties()
         {
             return this.properties.values();
         }
@@ -400,7 +400,7 @@ public class MetafacadeMapping
     /**
      * Stores and provides access to the mapping element's nested &lt;property/&gt;.
      */
-    static class Property
+    static final class Property
     {
         private String name;
         private String value;
@@ -416,7 +416,7 @@ public class MetafacadeMapping
          *
          * @return the name
          */
-        String getName()
+        final String getName()
         {
             return StringUtils.trimToEmpty(this.name);
         }
@@ -426,7 +426,7 @@ public class MetafacadeMapping
          *
          * @return the value
          */
-        String getValue()
+        final String getValue()
         {
             return StringUtils.trimToEmpty(this.value);
         }

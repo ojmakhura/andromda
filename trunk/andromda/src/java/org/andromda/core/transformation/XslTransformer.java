@@ -119,7 +119,7 @@ public class XslTransformer
      * Provides the URI resolving capabilities for the 
      * {@ XslTransformer}
      */
-    private static class TransformerURIResolver
+    private static final class TransformerURIResolver
         implements URIResolver
     {
         /**

@@ -59,7 +59,7 @@ public class Type
     /**
      * Stores and provides access to the type's &lt;property/&gt; elements.
      */
-    class Property
+    static final class Property
     {
         private String name;
         private String value;

@@ -164,7 +164,7 @@ public class MetafacadeBase
      *
      * @return the context name.
      */
-    String getContext()
+    final String getContext()
     {
         return this.context;
     }
@@ -194,7 +194,7 @@ public class MetafacadeBase
      *
      * @return the property namespace name
      */
-    String getPropertyNamespace()
+    final String getPropertyNamespace()
     {
         if (StringUtils.isEmpty(this.propertyNamespace))
         {
@@ -210,7 +210,7 @@ public class MetafacadeBase
      * @param context the context name with which to construct the name.
      * @return the new property namespace name
      */
-    private String constructPropertyNamespace(final String context)
+    private final String constructPropertyNamespace(final String context)
     {
         final StringBuffer propertyNamespace = new StringBuffer();
         propertyNamespace.append(this.getNamespace());
@@ -229,7 +229,7 @@ public class MetafacadeBase
      *
      * @return String
      */
-    String getNamespace()
+    final String getNamespace()
     {
         return this.namespace;
     }
@@ -239,7 +239,7 @@ public class MetafacadeBase
      *
      * @param namespace
      */
-    void setNamespace(final String namespace)
+    final void setNamespace(final String namespace)
     {
         this.namespace = namespace;
     }
@@ -281,7 +281,7 @@ public class MetafacadeBase
      *
      * @return the underlying model's meta object instance.
      */
-    Object getMetaObject()
+    final Object getMetaObject()
     {
         return this.metaObject;
     }
@@ -291,7 +291,7 @@ public class MetafacadeBase
      *
      * @param logger the logger to set
      */
-    void setLogger(final Logger logger)
+    final void setLogger(final Logger logger)
     {
         this.logger = logger;
     }
@@ -308,7 +308,7 @@ public class MetafacadeBase
      *
      * @param contextRoot
      */
-    void setContextRoot(final boolean contextRoot)
+    final void setContextRoot(final boolean contextRoot)
     {
         this.contextRoot = contextRoot;
     }
@@ -356,7 +356,7 @@ public class MetafacadeBase
      * MetafacadeProperties#ENABLE_METAFACADE_PROPERTY_CACHING} namespace property has been set, if this is not the case
      * then the caching will be enabled by default.
      */
-    public boolean isMetafacadePropertyCachingEnabled()
+    public final boolean isMetafacadePropertyCachingEnabled()
     {
         if (metafacadePropertyCachingEnabled == null)
         {

@@ -132,7 +132,7 @@ public class ModelElement
      *
      * @param metafacades the metafacades to filter
      */
-    private void applyTypeFiltering()
+    private final void applyTypeFiltering()
     {
         if (this.hasTypes())
         {

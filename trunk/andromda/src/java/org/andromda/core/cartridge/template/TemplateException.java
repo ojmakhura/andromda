@@ -11,11 +11,11 @@ public class TemplateException
     /**
      * Constructs an instance of TemplateException.
      *
-     * @param th
+     * @param parent
      */
-    public TemplateException(Throwable th)
+    public TemplateException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
@@ -32,10 +32,10 @@ public class TemplateException
      * Constructs an instance of TemplateException.
      *
      * @param message the exception message
-     * @param th      the parent exception
+     * @param parent      the parent exception
      */
-    public TemplateException(String message, Throwable th)
+    public TemplateException(String message, Throwable parent)
     {
-        super(message, th);
+        super(message, parent);
     }
 }

@@ -232,7 +232,7 @@ public class MetafacadeMappings
      *
      * @param mappings the mappings to add
      */
-    private void copyMappings(MetafacadeMappings mappings)
+    private final void copyMappings(MetafacadeMappings mappings)
     {
         final String methodName = "MetafacadeMappings.copyMappings";
         ExceptionUtils.checkNull(methodName, "mappings", mappings);
@@ -380,7 +380,7 @@ public class MetafacadeMappings
      *                      'root' context).
      * @return MetafacadeMapping (or null if none was found matching the criteria).
      */
-    private MetafacadeMapping getMapping(final String mappingClassName, final Object mappingObject, final String context,
+    private final MetafacadeMapping getMapping(final String mappingClassName, final Object mappingObject, final String context,
         final Collection stereotypes)
     {
         final String metaclassName = mappingClassName != null ? mappingClassName : mappingObject.getClass().getName();      
@@ -540,7 +540,7 @@ public class MetafacadeMappings
      * @param context the context from which the property references are inherited.
      * @return The MetafacadeMapping with all loaded property references.
      */
-    private void loadInheritedPropertyReferences(MetafacadeMapping mapping)
+    private final void loadInheritedPropertyReferences(MetafacadeMapping mapping)
     {
         if (mapping != null)
         {
@@ -607,7 +607,7 @@ public class MetafacadeMappings
      * @param className the name of the class for which to retrieve the interfaces
      * @return the array containing the reversed interfaces.
      */
-    private Class[] getInterfacesReversed(String className)
+    private final Class[] getInterfacesReversed(String className)
     {
         Class[] interfaces = (Class[])this.reversedInterfaceArrayCache.get(className);
         if (interfaces == null)
@@ -629,7 +629,7 @@ public class MetafacadeMappings
      * @param context the root context
      * @return a list containing all context interfaces ordered from the root down.
      */
-    private List getInterfaces(String className)
+    private final List getInterfaces(String className)
     {
         final List interfaces = new ArrayList();
         if (StringUtils.isNotEmpty(className))
@@ -769,7 +769,7 @@ public class MetafacadeMappings
      * @param namespace the namespace name to check.
      * @return the found MetafacadeMappings.
      */
-    private MetafacadeMappings getNamespaceMappings(String namespace)
+    private final MetafacadeMappings getNamespaceMappings(String namespace)
     {
         return (MetafacadeMappings)this.namespaceMetafacadeMappings.get(namespace);
     }
@@ -785,7 +785,7 @@ public class MetafacadeMappings
      * @param namespace the namespace name to which the <code>mappings</code> will belong.
      * @param mappings  the MetafacadeMappings instance to add.
      */
-    private void addNamespaceMappings(String namespace, MetafacadeMappings mappings)
+    private final void addNamespaceMappings(String namespace, MetafacadeMappings mappings)
     {
         if (mappings != null)
         {
@@ -918,7 +918,7 @@ public class MetafacadeMappings
      *        we'll retrieve.
      * @return the property value or null if one doesn't exist.
      */
-    private String getPropertyValue(String name)
+    private final String getPropertyValue(String name)
     {
         if (this.propertyValues == null)
         {
@@ -935,7 +935,7 @@ public class MetafacadeMappings
      * Performs shutdown procedures for the factory. This should be called <strong>ONLY</code> when {@link
      * MetafacadeFactory#shutdown()}is called.
      */
-    void shutdown()
+    final void shutdown()
     {
         this.mappings.clear();
         this.namespaceMetafacadeMappings.clear();
@@ -955,7 +955,7 @@ public class MetafacadeMappings
      *
      * @return the plugin logger
      */
-    private Logger getLogger()
+    private final Logger getLogger()
     {
         return AndroMDALogger.getNamespaceLogger(this.namespace);
     }
