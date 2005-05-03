@@ -37,7 +37,7 @@ public interface $entity.daoName
      * This specific flag denotes entities must be transformed into objects of type
      * {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
-    public final static int $valueObjectRef.transformationConstantName = $velocityCount;
+    public final static int $valueObjectRef.transformationConstantName = $valueObjectRef.transformationConstantValue;
 
     /**
      * Converts this DAO's entity to an object of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
