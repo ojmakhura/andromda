@@ -41,11 +41,11 @@ public class CartridgeException
     /**
      * Constructor for PluginException.
      *
-     * @param message
+     * @param parent
      */
-    public CartridgeException(Throwable message)
+    public CartridgeException(Throwable parent)
     {
-        super(message);
+        super(parent);
     }
 
 }
