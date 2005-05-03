@@ -10,32 +10,32 @@ public class LibraryException
     /**
      * Constructs an instance of LibraryException.
      *
-     * @param th
+     * @param parent
      */
-    public LibraryException(Throwable th)
+    public LibraryException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of LibraryException.
      *
-     * @param msg
+     * @param message
      */
-    public LibraryException(String msg)
+    public LibraryException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of LibraryException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public LibraryException(String msg, Throwable th)
+    public LibraryException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }

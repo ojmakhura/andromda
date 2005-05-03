@@ -57,7 +57,7 @@ public class ComponentContainer
      *
      * @return PluginDiscoverer the static instance.
      */
-    public static ComponentContainer instance()
+    public final static ComponentContainer instance()
     {
         return instance;
     }
@@ -197,7 +197,7 @@ public class ComponentContainer
      * @param typeName the name of the type (i.e. org.andromda.core.templateengine.TemplateEngine)
      * @return
      */
-    private String getDefaultImplementation(final String typeName)
+    private final String getDefaultImplementation(final String typeName)
     {
         return StringUtils.trimToEmpty(ResourceUtils.getContents(SERVICES + typeName));
     }
@@ -210,7 +210,6 @@ public class ComponentContainer
      */
     public Collection findComponentsOfType(final Class type)
     {
-
         Collection components = new ArrayList(this.container.getComponentInstances());
         CollectionUtils.filter(components, new Predicate()
         {

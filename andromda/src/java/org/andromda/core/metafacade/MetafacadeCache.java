@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author Chad Brandon
  */
-public class MetafacadeCache
+public final class MetafacadeCache
 {
     /**
      * The shared metafacade cache instance.
@@ -21,7 +21,7 @@ public class MetafacadeCache
      *
      * @return the shared instance.
      */
-    public static MetafacadeCache instance()
+    public static final MetafacadeCache instance()
     {
         return instance;
     }
@@ -36,7 +36,7 @@ public class MetafacadeCache
      *
      * @param namespace the current namespace.
      */
-    public void setNamespace(String namespace)
+    public final void setNamespace(String namespace)
     {
         this.namespace = namespace;
     }
@@ -60,7 +60,7 @@ public class MetafacadeCache
      * @param metafacadeClass the class of the metafacade.
      * @return MetafacadeBase stored in the cache.
      */
-    public MetafacadeBase get(Object mappingObject, Class metafacadeClass)
+    public final MetafacadeBase get(Object mappingObject, Class metafacadeClass)
     {
         MetafacadeBase metafacade = null;
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
@@ -82,7 +82,7 @@ public class MetafacadeCache
      * @param mappingObject the mappingObject for which to cache the metafacade.
      * @param metafacade    the metafacade to cache.
      */
-    public void add(Object mappingObject, MetafacadeBase metafacade)
+    public final void add(Object mappingObject, MetafacadeBase metafacade)
     {
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache == null)
@@ -103,7 +103,7 @@ public class MetafacadeCache
      * Performs shutdown procedures for the cache. This should be called <strong>ONLY</code> when model processing has
      * completed.
      */
-    public void shutdown()
+    public final void shutdown()
     {
         this.metafacadeCache.clear();
     }

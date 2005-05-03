@@ -62,7 +62,7 @@ public class ModelProcessor
      *
      * @return the shared ModelProcessor instance.
      */
-    public static ModelProcessor instance()
+    public static final ModelProcessor instance()
     {
         return instance;
     }

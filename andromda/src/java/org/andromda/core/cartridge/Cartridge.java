@@ -282,7 +282,7 @@ public class Cartridge
      * @param modelElementPackage the name of the package (if we are processing a single model element, otherwise this
      *                            will be ignored).
      */
-    private void processWithTemplate(Template template, Map templateContext, Property outletProperty,
+    private final void processWithTemplate(Template template, Map templateContext, Property outletProperty,
                                      String modelElementName, String modelElementPackage)
     {
         final String methodName = "Cartridge.processWithTemplate";
@@ -401,7 +401,7 @@ public class Cartridge
      * @param resource    contains the outlet where the resource is written.
      * @param resourceUrl the URL contents to write.
      */
-    private void writeResource(Resource resource, URL resourceUrl)
+    private final void writeResource(Resource resource, URL resourceUrl)
     {
         final String methodName = "Cartridge.writeResource";
         File outFile = null;
@@ -452,7 +452,7 @@ public class Cartridge
      * @param template         the template.
      * @return File the output file
      */
-    private File outputFileFromTemplate(String modelElementName, String packageName, Template template,
+    private final File outputFileFromTemplate(String modelElementName, String packageName, Template template,
                                         String outputLocation)
     {
         return template.getOutputLocation(modelElementName, packageName, new File(outputLocation));
@@ -464,7 +464,7 @@ public class Cartridge
      * @param resource the Cartridge resource.
      * @return outputLocation the location to which the file will be output.
      */
-    private File outputFileFromTemplateEngineContext(Resource resource, String outputLocation)
+    private final File outputFileFromTemplateEngineContext(Resource resource, String outputLocation)
     {
         String fileName = this.getTemplateEngine().getEvaluatedExpression(resource.getOutputPattern());
         return new File(outputLocation, fileName);

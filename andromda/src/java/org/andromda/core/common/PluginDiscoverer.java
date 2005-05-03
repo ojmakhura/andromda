@@ -60,7 +60,7 @@ public class PluginDiscoverer
      *
      * @return PluginDiscoverer the static instance.
      */
-    public static PluginDiscoverer instance()
+    public final static PluginDiscoverer instance()
     {
         return instance;
     }

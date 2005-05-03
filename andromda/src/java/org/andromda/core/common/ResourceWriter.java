@@ -100,7 +100,7 @@ public class ResourceWriter
      *        recorded.
      * @throws IOException
      */
-    private void writeStringToFile(String string, final String fileLocation, final String namespace, final boolean recordHistory)
+    private final void writeStringToFile(String string, final String fileLocation, final String namespace, final boolean recordHistory)
             throws IOException
     {
         final String methodName = "ResourceWriter.writeStringToFile";
@@ -233,12 +233,12 @@ public class ResourceWriter
     /**
      * The location to which history is written.
      */
-    private final String HISTORY_LOCATION = ".andromda/history/";
+    private static final String HISTORY_LOCATION = ".andromda/history/";
 
     /**
      * Stores the file history.
      */
-    private String getHistoryStorage()
+    private final String getHistoryStorage()
     {
         final String tmpDir = System.getProperty("java.io.tmpdir").replace('\\', '/');
         final StringBuffer historyStorage = new StringBuffer(tmpDir);
@@ -269,7 +269,7 @@ public class ResourceWriter
      * @param overwrite if true, replaces the file (if it exists, otherwise),
      *        adds to the contents of the file.
      */
-    private void recordHistory(File file)
+    private final void recordHistory(File file)
     {
         if (this.history != null)
         {
