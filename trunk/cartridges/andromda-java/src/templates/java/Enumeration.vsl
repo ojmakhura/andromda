@@ -13,7 +13,7 @@ $enumeration.getDocumentation(" * ")
 public class $enumeration.name
 #if($enumeration.generalization)
     extends ${enumeration.generalization.fullyQualifiedName}
-#elseif ($serializable == 'true')
+#elseif ($serializable.equalsIgnoreCase("true"))
     implements java.io.Serializable
 #end
 {
@@ -30,7 +30,7 @@ $literal.getDocumentation("     * ")
     {
         this.value = value;
     }
-    
+
     /**
      * The default constructor allowing
      * super classes to access it.
@@ -65,47 +65,47 @@ $literal.getDocumentation("     * ")
         }
         return new ${enumeration.name}(value);
     }
-    
+
     /**
      * Gets the underlying value of this type safe enumeration.
      *
      * @return the underlying value.
-     */ 
+     */
     public $enumeration.literalType.fullyQualifiedName getValue()
     {
         return this.value;
     }
-    
+
     /**
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(Object that)
     {
 #if($enumeration.literalType.primitive)
-        return this.getValue() < ((EnumerationTest)that).getValue() ? -1 : 
+        return this.getValue() < ((EnumerationTest)that).getValue() ? -1 :
             (this.getValue() == ((EnumerationTest)that).getValue() ? 0 : 1);
 #else
         return (this == that) ? 0 : this.getValue().compareTo(
             (($enumeration.name)that).getValue());
 #end
     }
-    
+
     /**
      * Returns an unmodifiable list containing the literals that are known by this enumeration.
      *
-     * @return A List containing the actual literals defined by this enumeration, this list 
+     * @return A List containing the actual literals defined by this enumeration, this list
      *         can not be modified.
      */
     public static java.util.List literals()
     {
         return literals;
     }
-    
+
     /**
-     * Returns an unmodifiable list containing the names of the literals that are known 
+     * Returns an unmodifiable list containing the names of the literals that are known
      * by this enumeration.
      *
-     * @return A List containing the actual names of the literals defined by this 
+     * @return A List containing the actual names of the literals defined by this
      *         enumeration, this list can not be modified.
      */
     public static java.util.List names()
@@ -119,8 +119,8 @@ $literal.getDocumentation("     * ")
     public boolean equals(Object object)
     {
 #if ($enumeration.literalType.primitive)
-        return (this == object) 
-            || (object instanceof EnumerationTest 
+        return (this == object)
+            || (object instanceof EnumerationTest
             && ((EnumerationTest)object).getValue() == this.getValue());
 #else
         return (this == object)
@@ -140,14 +140,14 @@ $literal.getDocumentation("     * ")
         return this.getValue().hashCode();
 #end
     }
-    
+
     private static final java.util.Map values = new java.util.HashMap();
     private static java.util.List literals = new java.util.ArrayList();
     private static java.util.List names = new java.util.ArrayList();
-    
+
     /**
      * Initializes the values.
-     */ 
+     */
     static
     {
 #foreach ($literal in $enumeration.literals)
