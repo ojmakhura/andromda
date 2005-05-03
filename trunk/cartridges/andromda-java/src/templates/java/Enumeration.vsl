@@ -56,7 +56,7 @@ $literal.getDocumentation("     * ")
     {
 #set ($value = "value")
 #if($enumeration.literalType.primitive)
-#set ($value = "new ${enumeration.literalType.wrapperName}(value);")
+#set ($value = "new ${enumeration.literalType.wrapperName}(value)")
 #end
         if (!literals.contains($value))
         {
@@ -81,8 +81,13 @@ $literal.getDocumentation("     * ")
      */
     public int compareTo(Object that)
     {
+#if($enumeration.literalType.primitive)
+        return this.getValue() < ((EnumerationTest)that).getValue() ? -1 : 
+            (this.getValue() == ((EnumerationTest)that).getValue() ? 0 : 1);
+#else
         return (this == that) ? 0 : this.getValue().compareTo(
             (($enumeration.name)that).getValue());
+#end
     }
     
     /**
@@ -113,9 +118,15 @@ $literal.getDocumentation("     * ")
      */
     public boolean equals(Object object)
     {
+#if ($enumeration.literalType.primitive)
+        return (this == object) 
+            || (object instanceof EnumerationTest 
+            && ((EnumerationTest)object).getValue() == this.getValue());
+#else
         return (this == object)
             || (object instanceof $enumeration.name && (($enumeration.name)object).getValue().equals(
                 this.getValue()));
+#end
     }
 
     /**
@@ -123,7 +134,11 @@ $literal.getDocumentation("     * ")
      */
     public int hashCode()
     {
+#if ($enumeration.literalType.primitive)
+        return this.getValue();
+#else
         return this.getValue().hashCode();
+#end
     }
     
     private static final java.util.Map values = new java.util.HashMap();
@@ -138,7 +153,7 @@ $literal.getDocumentation("     * ")
 #foreach ($literal in $enumeration.literals)
 #set ($value = "${literal.name}.value")
 #if($literal.type.primitive)
-#set ($value = "new ${literal.type.wrapperName}(value)")
+#set ($value = "new ${literal.type.wrapperName}(${literal.name}.value)")
 #end
         values.put($value, $literal.name);
         literals.add($value);
