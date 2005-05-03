@@ -89,7 +89,7 @@ public class MetafacadeMappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return MetafacadeMappings the configured MetafacadeMappings instance.
      */
-    protected static MetafacadeMappings getInstance(URL mappingsUri)
+    protected static final MetafacadeMappings getInstance(URL mappingsUri)
     {
         final String methodName = "MetafacadeMappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
@@ -252,22 +252,33 @@ public class MetafacadeMappings
     }
     
     /**
-     * <p/>
-     * Retrieves the MetafacadeMapping belonging to the unique <code>key</code> created from the
-     * <code>mappingObject</code>'s class, <code>context</code> and given <code>stereotypes</code>. It's
-     * <strong>IMPORTANT </strong> to note that contexts have a higher priority than stereotypes. This allows us to
-     * retrieve mappings based on the following combinations: <ul> <li>A single stereotype no context</li> <li>A single
-     * stereotype with a context</li> <li>metafacade properties no context</li> <li>metafacade properties with a
-     * context</code> <li>multiple stereotypes no context</li> <li>multiple stereotypes with a context</li> </ul> </p>
-     * <p/>
-     * NOTE: mapping properties are inherited from super metafacades. </p>
-     *
-     * @param mappingObject an instance of the class to which the mapping applies.
-     * @param stereotypes   the stereotypes to check.
-     * @param rootContext   the context within the namespace for which the mapping applies (has 'root' in the name
-     *                      because of the fact that we also search the context inheritance hiearchy started with this
-     *                      'root' context).
-     * @return MetafacadeMapping (or null if none was found matching the criteria).
+     * <p/> Retrieves the MetafacadeMapping belonging to the unique
+     * <code>key</code> created from the <code>mappingObject</code>'s
+     * class, <code>context</code> and given <code>stereotypes</code>. It's
+     * <strong>IMPORTANT </strong> to note that contexts have a higher priority
+     * than stereotypes. This allows us to retrieve mappings based on the
+     * following combinations:
+     * <ul>
+     * <li>A single stereotype no context</li>
+     * <li>A single stereotype with a context</li>
+     * <li>metafacade properties no context</li>
+     * <li>metafacade properties with a context</code>
+     * <li>multiple stereotypes no context</li>
+     * <li>multiple stereotypes with a context</li>
+     * </ul>
+     * </p>
+     * <p/> NOTE: mapping properties are inherited from super metafacades.
+     * </p>
+     * 
+     * @param mappingObject an instance of the class to which the mapping
+     *        applies.
+     * @param stereotypes the stereotypes to check.
+     * @param rootContext the context within the namespace for which the mapping
+     *        applies (has 'root' in the name because of the fact that we also
+     *        search the context inheritance hiearchy started with this 'root'
+     *        context).
+     * @return MetafacadeMapping (or null if none was found matching the
+     *         criteria).
      */
     protected MetafacadeMapping getMapping(final Object mappingObject, final String context,
                                            final Collection stereotypes)
@@ -336,49 +347,67 @@ public class MetafacadeMappings
     }
     
     /**
-     * <p/>
-     * Stores the mappings which are currently "in process" (within the {@link #getMapping(Object, String, Collection)}.
-     * This means the mapping is being processed by the {@link #getMapping(Object, String, Collection)} operation. We
-     * store these "in process" mappings in order to keep track of the mappings currently being evaluated so we avoid
-     * stack over flow errors {@link #getMapping(Object, String, Collection)}when finding mappings that are mapped to
-     * super metafacade properties. </p>
-     * <p/>
-     * Note: visibility is defined as <code>protected</code> in order to improve inner class access performance. </p>
+     * <p/> Stores the mappings which are currently "in process" (within the
+     * {@link #getMapping(Object, String, Collection)}. This means the mapping
+     * is being processed by the {@link #getMapping(Object, String, Collection)}
+     * operation. We store these "in process" mappings in order to keep track of
+     * the mappings currently being evaluated so we avoid stack over flow errors
+     * {@link #getMapping(Object, String, Collection)}when finding mappings
+     * that are mapped to super metafacade properties.
+     * </p>
+     * <p/> Note: visibility is defined as <code>protected</code> in order to
+     * improve inner class access performance.
+     * </p>
      */
     protected final Collection inProcessMappings = new ArrayList();
 
     /**
-     * <p/>
-     * Stores the metafacades which are currently "in process" (within the {@link #getMapping(Object, String,
-     * Collection)}. This means the metafacade being processed by the {@link #getMapping(Object, String,
-     * Collection)}operation. We store these "in process" metafacades in order to keep track of the metafacades
-     * currently being evaluated so we avoid stack over flow errors {@link #getMapping(Object, String, Collection)}when
-     * finding metafacades that are mapped to super metafacade properties. </p>
-     * <p/>
-     * Note: visibility is defined as <code>protected</code> in order to improve inner class access performance. </p>
+     * <p/> Stores the metafacades which are currently "in process" (within the
+     * {@link #getMapping(Object, String, Collection)}. This means the
+     * metafacade being processed by the {@link #getMapping(Object, String,
+     * Collection)}operation. We store these "in process" metafacades in order
+     * to keep track of the metafacades currently being evaluated so we avoid
+     * stack over flow errors {@link #getMapping(Object, String, Collection)}when
+     * finding metafacades that are mapped to super metafacade properties.
+     * </p>
+     * <p/> Note: visibility is defined as <code>protected</code> in order to
+     * improve inner class access performance.
+     * </p>
      */
     protected final Collection inProcessMetafacades = new ArrayList();
 
     /**
-     * <p/>
-     * Retrieves the MetafacadeMapping belonging to the unique <code>key</code> created from the
-     * <code>mappingObject</code>'s class, <code>context</code> and given <code>stereotypes</code>. It's
-     * <strong>IMPORTANT </strong> to note that contexts have a higher priority than stereotypes. This allows us to
-     * retrieve mappings based on the following combinations: <ul> <li>A single stereotype no context</li> <li>A single
-     * stereotype with a context</li> <li>metafacade properties no context</li> <li>metafacade properties with a
-     * context</code> <li>multiple stereotypes no context</li> <li>multiple stereotypes with a context</li> </ul> </p>
-     * <p/>
-     * NOTE: mapping properties are inherited from super metafacades. </p>
-     *
-     * @param mappingClassName the name of the mapping class to use instead of the actual class name taken 
-     *                         from the <code>mappingObject</code>.  If null then the class name from the 
-     *                         <code>mappingObject</code> is used.
-     * @param mappingObject an instance of the class to which the mapping applies.
-     * @param stereotypes   the stereotypes to check.
-     * @param rootContext   the context within the namespace for which the mapping applies (has 'root' in the name
-     *                      because of the fact that we also search the context inheritance hiearchy started with this
-     *                      'root' context).
-     * @return MetafacadeMapping (or null if none was found matching the criteria).
+     * <p/> Retrieves the MetafacadeMapping belonging to the unique
+     * <code>key</code> created from the <code>mappingObject</code>'s
+     * class, <code>context</code> and given <code>stereotypes</code>. It's
+     * <strong>IMPORTANT </strong> to note that contexts have a higher priority
+     * than stereotypes. This allows us to retrieve mappings based on the
+     * following combinations:
+     * <ul>
+     * <li>A single stereotype no context</li>
+     * <li>A single stereotype with a context</li>
+     * <li>metafacade properties no context</li>
+     * <li>metafacade properties with a context</li>
+     * <li>multiple stereotypes no context</li>
+     * <li>multiple stereotypes with a context</li>
+     * </ul>
+     * </p>
+     * <p/> NOTE: mapping properties are inherited from super metafacades.
+     * </p>
+     * 
+     * @param mappingClassName the name of the mapping class to use instead of
+     *        the actual class name taken from the <code>mappingObject</code>.
+     *        If null then the class name from the <code>mappingObject</code>
+     *        is used.
+     * @param mappingObject an instance of the class to which the mapping
+     *        applies.
+     * @param stereotypes the stereotypes to check.
+     * @param rootContext the context within the namespace for which the mapping
+     *        applies (has 'root' in the name because of the fact that we also
+     *        search the context inheritance hiearchy started with this 'root'
+     *        context).
+     * @return MetafacadeMapping (or null if none was found matching the
+     *         criteria).
      */
     private final MetafacadeMapping getMapping(final String mappingClassName, final Object mappingObject, final String context,
         final Collection stereotypes)
@@ -575,7 +604,7 @@ public class MetafacadeMappings
      * @param context the root contexts
      * @return a list containing all inherited contexts
      */
-    protected List getContextHierarchy(String context)
+    protected final List getContextHierarchy(String context)
     {
         List contexts = (List)this.contextHierachyCache.get(context);
         if (contexts == null)
