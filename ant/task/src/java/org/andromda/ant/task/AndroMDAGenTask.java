@@ -24,17 +24,18 @@ import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.apache.tools.ant.types.Path;
 
 /**
- * <p/>
- * This class wraps the AndroMDA model processor so that AndroMDA can be used as an Ant task. Represents the
- * <code>&lt;andromda&gt;</code> custom task which can be called from an Ant build script. </p>
- *
+ * <p/> This class wraps the AndroMDA model processor so that AndroMDA can be
+ * used as an Ant task. Represents the <code>&lt;andromda&gt;</code> custom
+ * task which can be called from an Ant build script.
+ * </p>
+ * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
  * @see org.andromda.core.ModelProcessor
  */
 public class AndroMDAGenTask
-        extends MatchingTask
+    extends MatchingTask
 {
     /**
      * Initialize the context class loader.
@@ -77,7 +78,7 @@ public class AndroMDAGenTask
      *
      * @param namespace a Namespace to add to this
      */
-    public void addNamespace(Namespace namespace)
+    public void addNamespace(final Namespace namespace)
     {
         namespaces.add(namespace);
     }
@@ -89,9 +90,9 @@ public class AndroMDAGenTask
      *
      * @param dir a <code>File</code> with the path to the base directory
      */
-    public void setBasedir(File dir)
+    public void setBasedir(final File baseDir)
     {
-        baseDir = dir;
+        this.baseDir = baseDir;
     }
 
     /**
@@ -101,9 +102,9 @@ public class AndroMDAGenTask
      *
      * @param lastmod set the modified check, yes or no?
      */
-    public void setLastModifiedCheck(boolean lastmod)
+    public void setLastModifiedCheck(final boolean lastModifiedCheck)
     {
-        this.lastModifiedCheck = lastmod;
+        this.lastModifiedCheck = lastModifiedCheck;
     }
 
     private String cartridgeFilter;
@@ -119,7 +120,7 @@ public class AndroMDAGenTask
      * @param cartridgeFilter a comma seperated list of cartridge names to be processed.
      * @see org.andromda.core.ModelProcessor#setCartridgeFilter(String)
      */
-    public void setCartridgeFilter(String cartridgeFilter)
+    public void setCartridgeFilter(final String cartridgeFilter)
     {
         this.cartridgeFilter = cartridgeFilter;
     }
@@ -242,7 +243,7 @@ public class AndroMDAGenTask
      * Set the context class loader so that any classes using it (the contextContextClassLoader) have access to the
      * correct loader.
      */
-    private static void initializeContextClassLoader()
+    private final static void initializeContextClassLoader()
     {
         Thread.currentThread().setContextClassLoader(AndroMDAGenTask.class.getClassLoader());
     }
@@ -252,7 +253,7 @@ public class AndroMDAGenTask
      * the Namespace javabean is fully initialized. So we kept the javabeans in an ArrayList that we have to copy into
      * the Namespaces instance.
      */
-    private void initializeNamespaces()
+    private final void initializeNamespaces()
     {
         CollectionUtils.forAllDo(this.namespaces, new Closure()
         {
@@ -290,7 +291,7 @@ public class AndroMDAGenTask
      *
      * @param model a model to process.
      */
-    public void addModel(ModelConfiguration model)
+    public void addModel(final ModelConfiguration model)
     {
         this.models.add(model);
     }
@@ -302,7 +303,7 @@ public class AndroMDAGenTask
      * @see #addModelPackage(org.andromda.core.common.ModelPackage)
      * @see org.andromda.core.ModelProcessor#setProcessAllModelPackages(boolean)
      */
-    public void setProcessAllModelPackages(boolean processAllModelPackages)
+    public void setProcessAllModelPackages(final boolean processAllModelPackages)
     {
         ModelProcessor.instance().setProcessAllModelPackages(processAllModelPackages);
     }
@@ -315,7 +316,7 @@ public class AndroMDAGenTask
      * @param modelPackage the ModelPackage that should/shouldn't be processed.
      * @see #setProcessAllModelPackages(boolean)
      */
-    public void addModelPackage(ModelPackage modelPackage)
+    public void addModelPackage(final ModelPackage modelPackage)
     {
         this.packages.addPackage(modelPackage);
     }
@@ -327,7 +328,7 @@ public class AndroMDAGenTask
      *
      * @param xmlValidation true/false on whether we should validate XML resources used by AndroMDA
      */
-    public void setXmlValidation(boolean xmlValidation)
+    public void setXmlValidation(final boolean xmlValidation)
     {
         XmlObjectFactory.setDefaultValidating(xmlValidation);
     }
@@ -338,7 +339,7 @@ public class AndroMDAGenTask
      * @param loggingConfigurationUri the URI to the external logging configuration file.
      * @see ModelProcessor#setLoggingConfigurationUri(String)
      */
-    public void setLoggingConfigurationUri(String loggingConfigurationUri)
+    public void setLoggingConfigurationUri(final String loggingConfigurationUri)
     {
         ModelProcessor.instance().setLoggingConfigurationUri(loggingConfigurationUri);
     }
@@ -350,7 +351,7 @@ public class AndroMDAGenTask
      * @param failOnModelValidationErrors true/false on whether AndroMDA should fail when model validation errors
      *                                    occurr.
      */
-    public void setFailOnModelValidationErrors(boolean failOnModelValidationErrors)
+    public void setFailOnModelValidationErrors(final boolean failOnModelValidationErrors)
     {
         ModelProcessor.instance().setFailOnValidationErrors(failOnModelValidationErrors);
     }
@@ -362,7 +363,7 @@ public class AndroMDAGenTask
      *                                    occur.
      * @see ModelProcessor#setOuputEncoding(String)
      */
-    public void setOutputEncoding(String outputEncoding)
+    public void setOutputEncoding(final String outputEncoding)
     {
         ModelProcessor.instance().setOuputEncoding(outputEncoding);
     }
@@ -375,7 +376,7 @@ public class AndroMDAGenTask
      * @see org.andromda.core.ModelProcessor#setModelValidation(boolean)
      * @see org.andromda.core.metafacade.MetafacadeFactory#setModelValidation(boolean)
      */
-    public void setModelValidation(boolean modelValidation)
+    public void setModelValidation(final boolean modelValidation)
     {
         ModelProcessor.instance().setModelValidation(modelValidation);
     }
@@ -390,7 +391,7 @@ public class AndroMDAGenTask
      * added will be applied to the model before processing occurs.
      * @param transformation the transformation configuration.
      */
-    public void addTransformation(TransformationConfiguration transformation)
+    public void addTransformation(final TransformationConfiguration transformation)
     {
         transformations.add(transformation);
     }
@@ -414,7 +415,7 @@ public class AndroMDAGenTask
      * Loads all mappings from the specified mapping seach path. If the path points to a directory the directory
      * contents will be loaded, otherwise just the mapping itself will be loaded.
      */
-    private void initializeMappings()
+    private final void initializeMappings()
     {
         final String[] mappingsPaths = this.createMappingsSearchPath().list();
         final Collection mappingsLocations = new ArrayList();
