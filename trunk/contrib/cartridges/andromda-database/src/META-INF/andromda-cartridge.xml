@@ -137,20 +137,4 @@
         </modelElements>
     </template>
 
-    <template
-        path="templates/database/admin-console-config.vsl"
-        outputPattern="admin-console.cfg.xml"
-        outlet="console-config"
-        overwrite="true"
-        outputToSingleFile="true"
-        required="false">
-        <modelElements variable="consoleTables">
-            <modelElement>
-                <type name="org.andromda.cartridges.database.metafacades.Table">
-                    <property name="consoleAllowed"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
 </cartridge>

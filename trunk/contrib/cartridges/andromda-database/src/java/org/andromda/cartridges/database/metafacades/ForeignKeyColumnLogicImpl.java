@@ -3,11 +3,8 @@ package org.andromda.cartridges.database.metafacades;
 import java.util.Random;
 
 import org.andromda.cartridges.database.DatabaseGlobals;
-import org.andromda.cartridges.database.DatabaseProfile;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.andromda.core.common.StringUtilsHelper;
-import org.apache.log4j.Priority;
 
 /**
  * MetafacadeLogic implementation for
@@ -168,103 +165,5 @@ public class ForeignKeyColumnLogicImpl
     public boolean isRequired()
     {
         return super.isRequired() || super.isMany2Many();
-    }
-
-    protected Boolean handleGetConsoleHide()
-    {
-        Boolean hide = null;
-
-        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_HIDE);
-        if (taggedValue != null)
-            hide = Boolean.valueOf(String.valueOf(taggedValue));
-
-        return hide;
-    }
-
-    protected Boolean handleGetConsoleSortable()
-    {
-        Boolean sortable = null;
-
-        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_SORTABLE);
-        if (taggedValue != null)
-            sortable = Boolean.valueOf(String.valueOf(taggedValue));
-
-        return sortable;
-    }
-
-    protected Boolean handleGetConsoleExportable()
-    {
-        Boolean exportable = null;
-
-        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_EXPORTABLE);
-        if (taggedValue != null)
-            exportable = Boolean.valueOf(String.valueOf(taggedValue));
-
-        return exportable;
-    }
-
-    protected Integer handleGetConsoleSize()
-    {
-        Integer size = null;
-
-        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_SIZE);
-        if (taggedValue != null)
-        {
-            try
-            {
-                size = new Integer(String.valueOf(taggedValue));
-            }
-            catch (NumberFormatException e)
-            {
-                if (logger.isEnabledFor(Priority.WARN))
-                {
-                    logger.warn(
-                            "Invalid " + DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_SIZE +
-                            " value on column "+getFullyQualifiedName()+", ignoring: not an integer", e);
-                }
-                size = null;
-            }
-        }
-
-        return size;
-    }
-
-    protected Boolean handleGetConsoleUpdateable()
-    {
-        Boolean updateable = null;
-
-        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_UPDATEABLE);
-        if (taggedValue != null)
-            updateable = Boolean.valueOf(String.valueOf(taggedValue));
-
-        return updateable;
-    }
-
-    protected Boolean handleGetConsoleResolveForeignKeys()
-    {
-        Boolean resolveForeignKeys = null;
-
-        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_RESOLVEFK);
-        if (taggedValue != null)
-            resolveForeignKeys = Boolean.valueOf(String.valueOf(taggedValue));
-
-        return resolveForeignKeys;
-    }
-
-    protected String handleGetConsoleDisplayName()
-    {
-        String displayName = null;
-
-        Object taggedValue = findTaggedValue(DatabaseProfile.TAGGEDVALUE_DATABASE_CONSOLE_COLUMN_DISPLAYNAME);
-        if (taggedValue == null)
-        {
-            displayName = StringUtilsHelper.toPhrase(getName());
-        }
-        else
-        {
-            displayName = String.valueOf(taggedValue);
-        }
-
-        return displayName;
     }
 }
