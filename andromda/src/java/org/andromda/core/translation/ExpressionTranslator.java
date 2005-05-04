@@ -25,7 +25,7 @@ public class ExpressionTranslator
      *
      * @return ExpressionTranslator.
      */
-    public static ExpressionTranslator instance()
+    public static final ExpressionTranslator instance()
     {
         return translator;
     }
@@ -55,7 +55,7 @@ public class ExpressionTranslator
      * @return Expression the resulting expression instance which contains the translated expression as well as
      *         additional information about the expression.
      */
-    public Expression translate(String translationName, String expression, Object contextElement)
+    public Expression translate(final String translationName, final String expression, final Object contextElement)
     {
         final String methodName = "ExpressionTranslator.translate";
         ExceptionUtils.checkEmpty(methodName, "translationName", translationName);

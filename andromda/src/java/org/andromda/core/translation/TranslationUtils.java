@@ -35,7 +35,7 @@ public class TranslationUtils
      * @param replaceWith the pattern to place the existing one with.
      * @return String the string will all replacements
      */
-    public static String replacePattern(String string, String pattern, String replaceWith)
+    public static String replacePattern(String string, final String pattern, final String replaceWith)
     {
         final String methodName = "TranslationUtils.replacePattern";
         if (string != null)
@@ -56,7 +56,7 @@ public class TranslationUtils
      * @param replaceWith the pattern to place the existing one with.
      * @return String the string will all replacements
      */
-    public static String replaceFirstPattern(String string, String pattern, String replaceWith)
+    public static String replaceFirstPattern(String string, final String pattern, final String replaceWith)
     {
         final String methodName = "TranslationUtils.replacePattern";
         if (string != null)
@@ -75,7 +75,7 @@ public class TranslationUtils
      * @param pattern the pattern to find
      * @return boolean true if the string contains the pattern, false otherwise
      */
-    public static boolean containsPattern(String string, String pattern)
+    public static boolean containsPattern(final String string, final String pattern)
     {
         boolean containsPattern = string != null && pattern != null;
         if (containsPattern)
@@ -91,7 +91,7 @@ public class TranslationUtils
      * @param object the object to use.
      * @return String
      */
-    public static String trimToEmpty(Object object)
+    public static String trimToEmpty(final Object object)
     {
         return StringUtils.trimToEmpty(ObjectUtils.toString(object));
     }
@@ -103,7 +103,7 @@ public class TranslationUtils
      * @param object the object to deleteWhite space from.
      * @return String
      */
-    public static String deleteWhitespace(Object object)
+    public static String deleteWhitespace(final Object object)
     {
         return StringUtils.deleteWhitespace(ObjectUtils.toString(object));
     }
@@ -133,7 +133,7 @@ public class TranslationUtils
      * @param string
      * @return String the string with the removed extra spaces.
      */
-    public static String removeExtraWhitespace(String string)
+    public static String removeExtraWhitespace(final String string)
     {
         return StringUtilsHelper.toSingleLine(string);
     }
@@ -146,7 +146,7 @@ public class TranslationUtils
      * @param property the property name
      * @return Object the value of the property
      */
-    public static Object getProperty(Object bean, String property)
+    public static Object getProperty(final Object bean, final String property)
     {
         final String methodName = "TranslationUtils.getProperty";
         try
@@ -169,7 +169,7 @@ public class TranslationUtils
      * @param property the property to check the existence of.
      * @return boolean
      */
-    public static boolean hasProperty(Object bean, String property)
+    public static boolean hasProperty(final Object bean, final String property)
     {
         return PropertyUtils.isReadable(bean, property);
     }
@@ -182,7 +182,7 @@ public class TranslationUtils
      * @param property the property name
      * @return Object the value of the property
      */
-    public static String getPropertyAsString(Object bean, String property)
+    public static String getPropertyAsString(final Object bean, final String property)
     {
         return TranslationUtils.trimToEmpty(TranslationUtils.getProperty(bean, property));
     }

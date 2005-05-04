@@ -15,9 +15,7 @@ import java.util.Map;
  */
 public class Namespace
 {
-    private String name;
     private Map properties;
-    private boolean ignore = false;
     private final Collection initCollection = new ArrayList();
 
     /**
@@ -37,6 +35,11 @@ public class Namespace
             }
         }
     }
+    
+    /**
+     * The namespace name.
+     */
+    private String name;
 
     /**
      * Returns name of this Namespace. Will correspond to a Plugin name (or it can be be 'default' if we want it's
@@ -93,6 +96,11 @@ public class Namespace
         return ToStringBuilder.reflectionToString(this);
     }
 
+    /**
+     * The ignore flag.
+     */
+    private boolean ignore = false;
+    
     /**
      * If a namespace is set to ignore then anything looking up or using a namespace can use it for its own purposes,
      * for example if there is a plugin on the classpath (which is unavoidable) and you want to ingore that plugin, the

@@ -52,7 +52,7 @@ public class ModelElements
      *
      * @param modelElement the new ModelElement to add.
      */
-    public void addModelElement(ModelElement modelElement)
+    public void addModelElement(final ModelElement modelElement)
     {
         final String methodName = "ModelElements.addModelElement";
         ExceptionUtils.checkNull(methodName, "modelElement", modelElement);

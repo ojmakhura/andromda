@@ -54,7 +54,7 @@ public class Fragment
      *
      * @param name the name to set.
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = StringUtils.trimToEmpty(name);
     }
@@ -100,7 +100,7 @@ public class Fragment
      * @param name the name of the kind of expression.
      * @param body the body of the kind of expression.
      */
-    public void addKind(String name, String body)
+    public void addKind(final String name, final String body)
     {
         kinds.put(StringUtils.trimToEmpty(name), body);
     }
@@ -122,7 +122,7 @@ public class Fragment
      * @param handlerMethod The handlerMethod to set.
      * @see org.andromda.core.translation.Translator
      */
-    public void setHandlerMethod(String handlerMethod)
+    public void setHandlerMethod(final String handlerMethod)
     {
         this.handlerMethod = handlerMethod;
     }
@@ -148,7 +148,7 @@ public class Fragment
      *
      * @param translation
      */
-    public void setTranslation(Translation translation)
+    public void setTranslation(final Translation translation)
     {
         this.translation = translation;
     }

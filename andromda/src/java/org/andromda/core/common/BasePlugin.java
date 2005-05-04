@@ -97,7 +97,7 @@ public abstract class BasePlugin
      *
      * @param name
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }

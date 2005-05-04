@@ -15,7 +15,7 @@ public class CodeGenerationContext
     private RepositoryFacade repository = null;
     private ModelPackages modelPackages;
 
-    public CodeGenerationContext(RepositoryFacade repository, ModelPackages modelPackages)
+    public CodeGenerationContext(final RepositoryFacade repository, final ModelPackages modelPackages)
     {
         this.repository = repository;
         this.modelPackages = modelPackages;

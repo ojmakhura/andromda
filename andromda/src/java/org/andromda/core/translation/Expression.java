@@ -41,7 +41,7 @@ public class Expression
      *
      * @param originalExpression the expression that will be translated.
      */
-    public Expression(String originalExpression)
+    public Expression(final String originalExpression)
     {
         final String methodName = "Expression";
         ExceptionUtils.checkEmpty(methodName, "originalExpression", originalExpression);
@@ -55,7 +55,7 @@ public class Expression
      *
      * @param object the object to append.
      */
-    public void appendToTranslatedExpression(Object object)
+    public void appendToTranslatedExpression(final Object object)
     {
         this.translatedExpression.append(object);
     }
@@ -75,7 +75,7 @@ public class Expression
      * @param pattern     the regular expression pattern to replace
      * @param replacement the replacement string.
      */
-    public void replaceInTranslatedExpression(String pattern, String replacement)
+    public void replaceInTranslatedExpression(final String pattern, final String replacement)
     {
         this.translatedExpression = new StringBuffer(this.getTranslatedExpression().toString().replaceAll(pattern,
                 replacement));
@@ -89,7 +89,7 @@ public class Expression
      * @param object   the
      * @see java.lang.StringBuffer#insert(int,java.lang.String)
      */
-    public void insertInTranslatedExpression(int position, Object object)
+    public void insertInTranslatedExpression(final int position, final Object object)
     {
         this.translatedExpression.insert(position, object);
     }
@@ -157,7 +157,7 @@ public class Expression
      *
      * @param name the name to set.
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -168,7 +168,7 @@ public class Expression
      *
      * @param contextElement the name of the element which is the context element.
      */
-    public void setContextElement(String contextElement)
+    public void setContextElement(final String contextElement)
     {
         this.contextElement = contextElement;
     }
@@ -178,7 +178,7 @@ public class Expression
      *
      * @param kind the kind to set.
      */
-    public void setKind(String kind)
+    public void setKind(final String kind)
     {
         this.kind = kind;
     }

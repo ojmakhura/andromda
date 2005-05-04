@@ -22,7 +22,7 @@ public class BuildInformation
      *
      * @return the shared BuildInformation instance.
      */
-    public static BuildInformation instance()
+    public static final BuildInformation instance()
     {
         return instance;
     }
@@ -60,7 +60,7 @@ public class BuildInformation
      */
     private String buildVersion;
 
-    private void initialize()
+    private final void initialize()
     {
         final String buildPropertiesUri = "META-INF/andromda-build.properties";
         final String versionPropertyName = "andromda.build.version";
@@ -73,10 +73,10 @@ public class BuildInformation
             URL versionUri = ResourceUtils.getResource(buildPropertiesUri);
             if (versionUri == null)
             {
-                throw new IllegalStateException(
-                        "BuildInformation: could not load file --> '" + buildPropertiesUri + "'");
+                throw new IllegalStateException("BuildInformation: could not load file --> '"
+                    + buildPropertiesUri + "'");
             }
-            Properties properties = new Properties();
+            final Properties properties = new Properties();
             InputStream stream = versionUri.openStream();
             properties.load(stream);
             stream.close();

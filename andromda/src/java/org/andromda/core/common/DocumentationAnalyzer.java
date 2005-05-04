@@ -47,7 +47,7 @@ public class DocumentationAnalyzer
      *
      * @param lineLength the width of the lines before they are wrapped.
      */
-    public DocumentationAnalyzer(int lineLength)
+    public DocumentationAnalyzer(final int lineLength)
     {
         this.lineLength = lineLength;
     }
@@ -61,9 +61,9 @@ public class DocumentationAnalyzer
      * @return Collection the list of paragraphs found in the text string
      * @throws IOException if something goes wrong
      */
-    public Collection toParagraphs(String line, boolean html) throws IOException
+    public Collection toParagraphs(String line, final boolean html) throws IOException
     {
-        ParserDelegator delegator = new ParserDelegator();
+        final ParserDelegator delegator = new ParserDelegator();
         if (html)
         {
             line = StringEscapeUtils.escapeHtml(line);
@@ -76,15 +76,18 @@ public class DocumentationAnalyzer
     // access
     protected ArrayList paragraphs = new ArrayList();
 
-    private class HTMLParserCallback
-            extends ParserCallback
+    /**
+     * The the call back.
+     */
+    private final class HTMLParserCallback
+        extends ParserCallback
     {
         private Paragraph currentParagraph = null;
         private Paragraph nonHtmlParagraph = null;
 
         /**
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleSimpleTag(javax.swing.text.html.HTML.Tag,
-                *      javax.swing.text.MutableAttributeSet, int)
+         *      javax.swing.text.MutableAttributeSet, int)
          */
         public void handleSimpleTag(Tag tag, MutableAttributeSet attribs, int pos)
         {
@@ -93,7 +96,7 @@ public class DocumentationAnalyzer
 
         /**
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleStartTag(javax.swing.text.html.HTML.Tag,
-                *      javax.swing.text.MutableAttributeSet, int)
+         *      javax.swing.text.MutableAttributeSet, int)
          */
         public void handleStartTag(Tag tag, MutableAttributeSet attribs, int pos)
         {
@@ -141,7 +144,7 @@ public class DocumentationAnalyzer
             }
         }
 
-        private void appendWord(String string)
+        private final void appendWord(String string)
         {
             if (currentParagraph != null)
             {
@@ -149,7 +152,7 @@ public class DocumentationAnalyzer
             }
         }
 
-        private void appendText(char[] text)
+        private final void appendText(char[] text)
         {
             if (currentParagraph != null)
             {

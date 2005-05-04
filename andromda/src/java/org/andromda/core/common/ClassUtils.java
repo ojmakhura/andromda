@@ -11,9 +11,9 @@ import java.lang.reflect.Field;
  * @author Chad Brandon
  */
 public class ClassUtils
-        extends org.apache.commons.lang.ClassUtils
+    extends org.apache.commons.lang.ClassUtils
 {
-    private static Logger logger = Logger.getLogger(ClassUtils.class);
+    private static final Logger logger = Logger.getLogger(ClassUtils.class);
 
     /**
      * Creates a new instance of the class having the given <code>className</code>.
@@ -21,7 +21,7 @@ public class ClassUtils
      * @param className the name of the class to instantiate.
      * @return Object the new instance
      */
-    public static Object newInstance(String className)
+    public static Object newInstance(final String className)
     {
         final String methodName = "ClassUtils.newInstance";
         try
@@ -79,15 +79,16 @@ public class ClassUtils
     }
 
     /**
-     * <p/>
-     * Returns the type class name for a Java primitive. </p>
-     *
-     * @param name   a <code>String</code> with the name of the type
+     * <p/> Returns the type class name for a Java primitive.
+     * </p>
+     * 
+     * @param name a <code>String</code> with the name of the type
      * @param loader the loader to use.
-     * @return a <code>String</code> with the name of the corresponding java.lang wrapper class if <code>name</code> is
-     *         a Java primitive type; <code>false</code> if not
+     * @return a <code>String</code> with the name of the corresponding
+     *         java.lang wrapper class if <code>name</code> is a Java
+     *         primitive type; <code>false</code> if not
      */
-    protected static Class getPrimitiveClass(String name, ClassLoader loader)
+    protected static final Class getPrimitiveClass(final String name, final ClassLoader loader)
     {
         final String methodName = "ClassUtils.getPrimitiveClass";
         ExceptionUtils.checkEmpty(methodName, "name", name);
@@ -132,10 +133,10 @@ public class ClassUtils
      * @param name a <code>String</code> with the name of the type
      * @return <code>true</code> if <code>name</code> is a Java primitive type; <code>false</code> if not
      */
-    protected static boolean isPrimitiveType(String name)
+    protected static final boolean isPrimitiveType(final String name)
     {
-        return ("void".equals(name) || "char".equals(name) || "byte".equals(name) || "short".equals(name) || "int".equals(
-                name) || "long".equals(name) || "float".equals(name) || "double".equals(name) ||
-                "boolean".equals(name));
+        return ("void".equals(name) || "char".equals(name) || "byte".equals(name)
+            || "short".equals(name) || "int".equals(name) || "long".equals(name)
+            || "float".equals(name) || "double".equals(name) || "boolean".equals(name));
     }
 }

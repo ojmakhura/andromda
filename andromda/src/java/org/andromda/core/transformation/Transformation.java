@@ -15,7 +15,7 @@ public class Transformation
      * 
      * @param url the URL to the transformation to apply.
      */
-    public Transformation(URL url)
+    public Transformation(final URL url)
     {
         this.url = url;
     }
@@ -47,7 +47,7 @@ public class Transformation
      * 
      * @param outputLocation the location of the output to be written.
      */
-    public void setOuputLocation(String outputLocation)
+    public void setOuputLocation(final String outputLocation)
     {
         this.outputLocation = outputLocation;
     }

@@ -57,7 +57,7 @@ public class LibraryTranslation
      *
      * @param name
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -82,7 +82,7 @@ public class LibraryTranslation
      *
      * @param template
      */
-    public void setTemplate(String template)
+    public void setTemplate(final String template)
     {
         this.template = template;
     }
@@ -102,7 +102,7 @@ public class LibraryTranslation
      *
      * @param library
      */
-    public void setLibrary(Library library)
+    public void setLibrary(final Library library)
     {
         this.library = library;
     }
@@ -127,7 +127,7 @@ public class LibraryTranslation
      *
      * @param variable the variable name.
      */
-    public void setVariable(String variable)
+    public void setVariable(final String variable)
     {
         this.variable = variable;
     }
@@ -142,7 +142,7 @@ public class LibraryTranslation
      *
      * @param translatorClass the class of the translator.
      */
-    public void setTranslator(String translatorClass)
+    public void setTranslator(final String translatorClass)
     {
         this.translatorClass = translatorClass;
         ComponentContainer.instance().unregisterComponent(translatorClass);
@@ -179,7 +179,7 @@ public class LibraryTranslation
      * @param node the node Object which from the parsed expression.
      * @param kind the kind of the translation fragment to handle.
      */
-    public void handleTranslationFragment(String name, String kind, Object node)
+    public void handleTranslationFragment(final String name, final String kind, final Object node)
     {
         final String methodName = "LibraryTranslation.handleTranslationFragment";
         ExceptionUtils.checkNull(methodName, "node", node);
@@ -231,7 +231,7 @@ public class LibraryTranslation
      *             pre, etc).
      * @return String the value of the translated fragment or null of one wasn't found with the specified name.
      */
-    public String getTranslationFragment(String name, String kind)
+    public String getTranslationFragment(final String name, final String kind)
     {
         String fragment = null;
         if (this.translation != null)
@@ -246,7 +246,7 @@ public class LibraryTranslation
      *
      * @param translationInput
      */
-    protected void setTranslation(Reader translationInput)
+    protected void setTranslation(final Reader translationInput)
     {
         final String methodName = "LibraryTranslation.setTranslation";
         ExceptionUtils.checkNull(methodName, "translationInput", translationInput);

@@ -28,7 +28,7 @@ public class Type
     /**
      * @param name The name to set.
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -48,7 +48,7 @@ public class Type
      * @param name  the name of the property
      * @param value the value the property must be
      */
-    public void addProperty(String name, String value)
+    public void addProperty(final String name, final String value)
     {
         if (value != null && !this.properties.containsKey(name))
         {

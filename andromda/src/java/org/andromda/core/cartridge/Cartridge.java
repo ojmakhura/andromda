@@ -67,7 +67,7 @@ public class Cartridge
      *
      * @param context the context containing the ModelAccessFacade (among other things).
      */
-    public void processModelElements(CodeGenerationContext context)
+    public void processModelElements(final CodeGenerationContext context)
     {
         final String methodName = "Cartridge.processModelElements";
         ExceptionUtils.checkNull(methodName, "context", context);
@@ -102,7 +102,7 @@ public class Cartridge
      *
      * @param template the Template instance to process.
      */
-    protected void processTemplate(Template template)
+    protected void processTemplate(final Template template)
     {
         final String methodName = "Cartridge.processTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
@@ -254,7 +254,7 @@ public class Cartridge
      *
      * @param template the template to process.
      */
-    protected void processTemplateWithoutModelElements(Template template)
+    protected void processTemplateWithoutModelElements(final Template template)
     {
         final String methodName = "Cartridge.processTemplateWithoutModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
@@ -268,21 +268,28 @@ public class Cartridge
     }
 
     /**
-     * <p/>
-     * Perform processing with the <code>template</code>. </p>
-     *
-     * @param template            the Template containing the template path to process.
-     * @param templateContext     the context to which variables are added and made available to the template engine for
-     *                            processing. This will contain any model elements being made avaiable to the
-     *                            template(s) as well as properties/template objects.
-     * @param outletProperty      the property defining the outlet to which output will be written.
-     * @param modelElementName    the name of the model element (if we are processing a single model element, otherwise
-     *                            this will be ignored).
-     * @param modelElementPackage the name of the package (if we are processing a single model element, otherwise this
-     *                            will be ignored).
+     * <p/> Perform processing with the <code>template</code>.
+     * </p>
+     * 
+     * @param template the Template containing the template path to process.
+     * @param templateContext the context to which variables are added and made
+     *        available to the template engine for processing. This will contain
+     *        any model elements being made avaiable to the template(s) as well
+     *        as properties/template objects.
+     * @param outletProperty the property defining the outlet to which output
+     *        will be written.
+     * @param modelElementName the name of the model element (if we are
+     *        processing a single model element, otherwise this will be
+     *        ignored).
+     * @param modelElementPackage the name of the package (if we are processing
+     *        a single model element, otherwise this will be ignored).
      */
-    private final void processWithTemplate(Template template, Map templateContext, Property outletProperty,
-                                     String modelElementName, String modelElementPackage)
+    private final void processWithTemplate(
+        final Template template,
+        final Map templateContext,
+        final Property outletProperty,
+        final String modelElementName,
+        final String modelElementPackage)
     {
         final String methodName = "Cartridge.processWithTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
@@ -357,7 +364,7 @@ public class Cartridge
      *
      * @param resource the resource to process.
      */
-    protected void processResource(Resource resource)
+    protected void processResource(final Resource resource)
     {
         final String methodName = "Cartridge.processResource";
         ExceptionUtils.checkNull(methodName, "resource", resource);
@@ -400,7 +407,7 @@ public class Cartridge
      * @param resource    contains the outlet where the resource is written.
      * @param resourceUrl the URL contents to write.
      */
-    private final void writeResource(Resource resource, URL resourceUrl)
+    private final void writeResource(final Resource resource, final URL resourceUrl)
     {
         final String methodName = "Cartridge.writeResource";
         File outFile = null;
@@ -444,15 +451,19 @@ public class Cartridge
     }
 
     /**
-     * Creates a File object from an output pattern in the template configuration.
-     *
+     * Creates a File object from an output pattern in the template
+     * configuration.
+     * 
      * @param modelElementName the name of the model element
-     * @param packageName      the name of the package
-     * @param template         the template.
+     * @param packageName the name of the package
+     * @param template the template.
      * @return File the output file
      */
-    private final File outputFileFromTemplate(String modelElementName, String packageName, Template template,
-                                        String outputLocation)
+    private final File outputFileFromTemplate(
+        final String modelElementName,
+        final String packageName,
+        final Template template,
+        final String outputLocation)
     {
         return template.getOutputLocation(modelElementName, packageName, new File(outputLocation));
     }
@@ -463,7 +474,7 @@ public class Cartridge
      * @param resource the Cartridge resource.
      * @return outputLocation the location to which the file will be output.
      */
-    private final File outputFileFromTemplateEngineContext(Resource resource, String outputLocation)
+    private final File outputFileFromTemplateEngineContext(final Resource resource, final String outputLocation)
     {
         String fileName = this.getTemplateEngine().getEvaluatedExpression(resource.getOutputPattern());
         return new File(outputLocation, fileName);
@@ -474,7 +485,7 @@ public class Cartridge
      *
      * @param modelElements the Collection of modelElements.
      */
-    protected void filterModelPackages(Collection modelElements)
+    protected void filterModelPackages(final Collection modelElements)
     {
         CollectionUtils.filter(modelElements, new Predicate()
         {
@@ -505,7 +516,7 @@ public class Cartridge
      *
      * @param resource the new resource to add
      */
-    public void addResource(Resource resource)
+    public void addResource(final Resource resource)
     {
         ExceptionUtils.checkNull("Cartridge.addResource", "resource", resource);
         resource.setCartridge(this);

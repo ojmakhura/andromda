@@ -26,7 +26,7 @@ public class StringUtilsHelper
      * @param suffixNew a <code>String</code> with the new suffix
      * @return a <code>String</code> with the given suffix replaced or unmodified if the suffix isn't present
      */
-    public static String replaceSuffix(String src, String suffixOld, String suffixNew)
+    public static String replaceSuffix(final String src, final String suffixOld, final String suffixNew)
     {
         if (src.endsWith(suffixOld))
         {
@@ -44,7 +44,7 @@ public class StringUtilsHelper
      * @param string any string
      * @return the string converted to a camel cased name beginning with a lower cased letter.
      */
-    public static String upperCamelCaseName(String string)
+    public static String upperCamelCaseName(final String string)
     {
         if (StringUtils.isEmpty(string))
             return string;
@@ -73,7 +73,7 @@ public class StringUtilsHelper
      * @param value  the value to remove.
      * @return String the resulting string.
      */
-    public static String removeLastOccurrence(String string, String value)
+    public static String removeLastOccurrence(String string, final String value)
     {
         if (string != null && value != null)
         {
@@ -98,7 +98,7 @@ public class StringUtilsHelper
      * @param string any string
      * @return the string converted to a camel cased name beginning with a lower cased letter.
      */
-    public static String lowerCamelCaseName(String string)
+    public static String lowerCamelCaseName(final String string)
     {
         return uncapitalize(upperCamelCaseName(string));
     }
@@ -110,7 +110,7 @@ public class StringUtilsHelper
      * @param string any string
      * @return the string converted to a value that would be well-suited for a web file name
      */
-    public static String toWebFileName(String string)
+    public static String toWebFileName(final String string)
     {
         return separate(string, "-").toLowerCase();
     }
@@ -122,7 +122,7 @@ public class StringUtilsHelper
      * @param string any string
      * @return the string converted to a value that would be well-suited for a message key
      */
-    public static String toResourceMessageKey(String string)
+    public static String toResourceMessageKey(final String string)
     {
         return separate(StringUtils.trimToEmpty(string), ".").toLowerCase();
     }
@@ -134,7 +134,7 @@ public class StringUtilsHelper
      * @param string any string
      * @return the string converted to a value that would be well-suited for a human readable phrase
      */
-    public static String toPhrase(String string)
+    public static String toPhrase(final String string)
     {
         return capitalize(separate(string, " "));
     }
@@ -143,7 +143,7 @@ public class StringUtilsHelper
      * Converts the argument to lowercase, removes all non-word characters, and replaces each of those sequences by the
      * separator.
      */
-    public static String separate(String string, String separator)
+    public static String separate(final String string, final String separator)
     {
         if (StringUtils.isBlank(string))
             return string;
@@ -162,7 +162,7 @@ public class StringUtilsHelper
     /**
      * Splits at each sequence of non-word characters. <p/>Sequences of capitals will be left untouched.
      */
-    private static String[] splitAtNonWordCharacters(String string)
+    private static String[] splitAtNonWordCharacters(final String string)
     {
         Pattern capitalSequencePattern = Pattern.compile("[A-Z]+");
         Matcher matcher = capitalSequencePattern.matcher(StringUtils.trimToEmpty(string));
@@ -184,7 +184,7 @@ public class StringUtilsHelper
      * @param suffix     The suffix to append to the end of each line
      * @return String The input String with the suffix appended at the end of each line
      */
-    public static String suffixLines(String multiLines, String suffix)
+    public static String suffixLines(final String multiLines, final String suffix)
     {
         final String[] lines = StringUtils.trimToEmpty(multiLines).split("\n");
         final StringBuffer linesBuffer = new StringBuffer();
@@ -235,7 +235,7 @@ public class StringUtilsHelper
      * @return the argument prefixed with the predicate
      * @todo: this method could be implemented with better logic, for example to support 'an r' and 'a rattlesnake'
      */
-    public static String prefixWithAPredicate(String word)
+    public static String prefixWithAPredicate(final String word)
     {
         final StringBuffer formattedBuffer = new StringBuffer();
 
@@ -288,7 +288,7 @@ public class StringUtilsHelper
      * @param singularNoun A singularNoun to pluralize
      * @return The plural of the argument singularNoun
      */
-    public static String pluralize(String singularNoun)
+    public static String pluralize(final String singularNoun)
     {
         String pluralNoun = trimToEmpty(singularNoun);
 

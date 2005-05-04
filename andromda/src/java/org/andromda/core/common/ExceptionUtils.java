@@ -16,7 +16,7 @@ public class ExceptionUtils
      * @param argumentName      the name of the argument we are checking for null
      * @param argument          the argument we are checking
      */
-    public static void checkNull(String methodExecuteName, String argumentName, Object argument)
+    public static void checkNull(final String methodExecuteName, final String argumentName, final Object argument)
     {
         final String methodName = "ExceptionUtils.checkNull";
         if (StringUtils.isEmpty(methodExecuteName))

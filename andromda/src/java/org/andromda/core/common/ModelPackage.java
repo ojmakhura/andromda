@@ -27,7 +27,7 @@ public class ModelPackage
      *
      * @param name The name to set.
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -47,7 +47,7 @@ public class ModelPackage
      *
      * @param shouldProcess The shouldProcess to set.
      */
-    public void setShouldProcess(boolean shouldProcess)
+    public void setShouldProcess(final boolean shouldProcess)
     {
         this.shouldProcess = shouldProcess;
     }
