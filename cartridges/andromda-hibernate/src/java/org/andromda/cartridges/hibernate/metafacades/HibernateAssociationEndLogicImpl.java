@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -92,9 +95,9 @@ public class HibernateAssociationEndLogicImpl
         if (!this.isMany())
         {
             ClassifierFacade type = this.getType();
-            if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()))
+            if (type instanceof HibernateEntity)
             {
-                String typeName = ((HibernateEntity)type).getFullyQualifiedEntityName();
+                final String typeName = ((HibernateEntity)type).getFullyQualifiedEntityName();
                 if (StringUtils.isNotEmpty(typeName))
                 {
                     getterSetterTypeName = typeName;
@@ -103,19 +106,17 @@ public class HibernateAssociationEndLogicImpl
         }
         if (this.isMany())
         {
-            TypeMappings mappings = this.getLanguageMappings();
-            if (!isOrdered())
+            final TypeMappings mappings = this.getLanguageMappings();
+            if (mappings != null)
             {
-                String type = (String)this.findTaggedValue(
-                        HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
-                if (type != null && type.equalsIgnoreCase(COLLECTION_TYPE_SET))
+                if (this.isSet())
                 {
                     getterSetterTypeName = mappings.getTo(UMLProfile.SET_TYPE_NAME);
                 }
-            }
-            else if (isOrdered() && isMap())
-            {
-                getterSetterTypeName = mappings.getTo(UMLProfile.MAP_TYPE_NAME);
+                else if (this.isMap())
+                {
+                    getterSetterTypeName = mappings.getTo(UMLProfile.MAP_TYPE_NAME);
+                }
             }
         }
         return getterSetterTypeName;
@@ -278,14 +279,30 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetCollectionType()
     {
-        String collectionType = String.valueOf(this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE));
+        String collectionType = this.getSpecificCollectionType();
         if (!collectionTypes.contains(collectionType))
         {
-            collectionType = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
+            if (this.isOrdered())
+            {
+                collectionType = COLLECTION_TYPE_LIST;
+            }
+            else
+            {
+                collectionType = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ASSOCIATION_COLLECTION_TYPE);
+            }
         }
         return collectionType;
-
+    }
+    
+    /**
+     * Gets the collection type defined on this association end.
+     * 
+     * @return the specific collection type.
+     */
+    private String getSpecificCollectionType()
+    {
+        return ObjectUtils.toString(this.findTaggedValue(
+            HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE));
     }
 
     /**
@@ -293,8 +310,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetSortType()
     {
-        String sortType = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE);
-        return sortType;
+        return ObjectUtils.toString(this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE));
     }
 
     /**
@@ -307,7 +323,6 @@ public class HibernateAssociationEndLogicImpl
         if (orderColumns == null)
         {
             orderColumns = ((EntityAssociationEnd)this.getOtherEnd()).getColumnName();
-
         }
         return orderColumns;
     }
@@ -330,8 +345,9 @@ public class HibernateAssociationEndLogicImpl
         boolean indexed = false;
         if (this.isOrdered())
         {
-            if (this.getCollectionType().equals(COLLECTION_TYPE_LIST) ||
-                    this.getCollectionType().equals(COLLECTION_TYPE_MAP))
+            if ((this.getCollectionType().equals(COLLECTION_TYPE_LIST)
+                || this.getCollectionType().equals(COLLECTION_TYPE_MAP)) 
+                && StringUtils.isNotBlank(this.getCollectionIndexName()))
             {
                 indexed = true;
             }
@@ -344,15 +360,52 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetCollectionIndexName()
     {
-        String indexName = (String)this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
-        ClassifierFacade type = this.getType();
-        if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()))
+        final AttributeFacade attribute = this.getIndexAttribute();
+        return attribute != null ? attribute.getName() : null;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexType()
+     */
+    protected String handleGetCollectionIndexType()
+    {
+        final AttributeFacade attribute = this.getIndexAttribute();
+        String indexType = null;
+        if (attribute != null && attribute.getType() != null)
         {
-            HibernateEntity entity = (HibernateEntity)type;
-            indexName = entity.findAttribute(indexName).getName();
+            indexType = attribute.getType().getFullyQualifiedName();
         }
-        return indexName;
+        return indexType;
+    }
+    
+    /**
+     * Gets the attribute that is the index for an indexed
+     * collection.
+     * 
+     * @return the index attribute of the entity.
+     */
+    private final AttributeFacade getIndexAttribute()
+    {
+        String indexName = (String)this.findTaggedValue(
+            HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
+        ClassifierFacade type = this.getType();
+        AttributeFacade attribute = null;
+        if (type instanceof HibernateEntity)
+        {
+            Entity entity = (Entity)type;
+            attribute = entity.findAttribute(indexName);
+            // if the attribute isn't marked explicitly, use the primary key
+            // of the entity as the index attribute.
+            if (attribute == null)
+            {
+                final Collection identifiers = entity.getIdentifiers();
+                if (identifiers != null && !identifiers.isEmpty())
+                {
+                    attribute = (AttributeFacade)identifiers.iterator().next();
+                }
+            }
+        }
+        return attribute;
     }
 
     /**
@@ -360,7 +413,12 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsMap()
     {
-        return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_MAP);
+        boolean isMap = this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_MAP);   
+        if (isMap && StringUtils.isBlank(this.getSpecificCollectionType()))
+        {
+            isMap = !this.isOrdered();
+        }       
+        return isMap;
     }
 
     /**
@@ -368,7 +426,12 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsList()
     {
-        return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_LIST);
+        boolean isList = this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_LIST);  
+        if (!isList && StringUtils.isBlank(this.getSpecificCollectionType()))
+        {
+            isList = this.isOrdered(); 
+        }       
+        return isList;
     }
 
     /**
@@ -376,7 +439,12 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsSet()
     {
-        return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_SET);
+        boolean isSet = this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_SET);  
+        if (isSet && StringUtils.isBlank(this.getSpecificCollectionType()))
+        {
+            isSet = !this.isOrdered();  
+        }       
+        return isSet;
     }
 
     /**
@@ -388,19 +456,37 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexType()
+     * 
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionTypeImplementation()
      */
-    protected String handleGetCollectionIndexType()
+    protected String handleGetCollectionTypeImplementation()
     {
-        String indexName = (String)this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
-        ClassifierFacade type = this.getType();
-        if (type != null && HibernateEntity.class.isAssignableFrom(type.getClass()))
+        StringBuffer implementation = new StringBuffer();
+        if (this.isMany())
         {
-            HibernateEntity entity = (HibernateEntity)type;
-            indexName = entity.findAttribute(indexName).getType().getFullyQualifiedName();
+            implementation.append("new ");
+            if (this.isSet())
+            {
+                implementation.append(this.getConfiguredProperty(HibernateGlobals.SET_TYPE_IMPLEMENTATION));
+            }
+            else if (this.isMap())
+            {
+                implementation.append(this.getConfiguredProperty(HibernateGlobals.MAP_TYPE_IMPLEMENTATION));
+            }
+            else if (this.isBag())
+            {
+                implementation.append(this.getConfiguredProperty(HibernateGlobals.BAG_TYPE_IMPLEMENTATION));                
+            }
+            else if (this.isList())
+            {
+                implementation.append(this.getConfiguredProperty(HibernateGlobals.LIST_TYPE_IMPLEMENTATION));                
+            }
+            else
+            {
+                implementation.append(this.getConfiguredProperty(HibernateGlobals.COLLECTION_TYPE_IMPLEMENTATION));
+            }
+            implementation.append("()");
         }
-        return indexName;
+        return implementation.toString();
     }
-
 }

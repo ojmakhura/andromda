@@ -35,6 +35,11 @@
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
         <property reference="hibernateAssociationEndOuterJoin" default="auto"/>
+        <property reference="listTypeImplementation" default="java.util.ArrayList"/>
+        <property reference="setTypeImplementation" default="java.util.HashSet"/>
+        <property reference="mapTypeImplementation" default="java.util.HashMap"/>
+        <property reference="bagTypeImplementation" default="java.util.ArrayList"/>
+        <property reference="collectionTypeImplementation" default="java.util.ArrayList"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
