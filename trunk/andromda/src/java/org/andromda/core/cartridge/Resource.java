@@ -62,7 +62,7 @@ public class Resource
      *
      * @param outlet The outlet to set.
      */
-    public void setOutlet(String outlet)
+    public void setOutlet(final String outlet)
     {
         this.outlet = outlet;
     }
@@ -75,7 +75,7 @@ public class Resource
      * @param directory the directory to which output will be written.
      * @return File absolute directory.
      */
-    public File getOutputLocation(Object[] arguments, File directory)
+    public File getOutputLocation(final Object[] arguments, final File directory)
     {
         File file = null;
         // clean any whitespace off the arguments
@@ -117,7 +117,7 @@ public class Resource
      *
      * @param overwrite The overwrite to set.
      */
-    public void setOverwrite(boolean overwrite)
+    public void setOverwrite(final boolean overwrite)
     {
         this.overwrite = overwrite;
     }
@@ -139,7 +139,7 @@ public class Resource
      *
      * @param required The required to set.
      */
-    public void setRequired(boolean optional)
+    public void setRequired(final boolean optional)
     {
         this.required = optional;
     }
@@ -159,7 +159,7 @@ public class Resource
      *
      * @param path The path to set.
      */
-    public void setPath(String path)
+    public void setPath(final String path)
     {
         this.path = path;
     }
@@ -179,7 +179,7 @@ public class Resource
      *
      * @param cartridge the parent Cartridge to set.
      */
-    public void setCartridge(Cartridge cartridge)
+    public void setCartridge(final Cartridge cartridge)
     {
         this.cartridge = cartridge;
     }
@@ -189,7 +189,7 @@ public class Resource
      *
      * @param outputPattern the pattern in java.text.MessageFormat syntax
      */
-    public void setOutputPattern(String outputPattern)
+    public void setOutputPattern(final String outputPattern)
     {
         this.outputPattern = outputPattern;
     }

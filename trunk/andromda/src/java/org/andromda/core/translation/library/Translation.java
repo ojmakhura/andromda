@@ -55,7 +55,7 @@ public class Translation
      *
      * @param translation the LibraryTranslation to which this Translation belongs.
      */
-    protected void setLibraryTranslation(LibraryTranslation translation)
+    protected void setLibraryTranslation(final LibraryTranslation translation)
     {
         libraryTranslation = translation;
     }
@@ -66,7 +66,7 @@ public class Translation
      * @param name the name of the fragment to retrieve.
      * @return Fragment
      */
-    protected Fragment getFragment(String name)
+    protected Fragment getFragment(final String name)
     {
         Fragment fragment = null;
         Iterator names = fragments.keySet().iterator();
@@ -100,7 +100,7 @@ public class Translation
      *
      * @param fragment
      */
-    public void addFragment(Fragment fragment)
+    public void addFragment(final Fragment fragment)
     {
         final String methodName = "Translation.addFragment";
         ExceptionUtils.checkNull(methodName, "fragment", fragment);
@@ -121,7 +121,7 @@ public class Translation
     /**
      * @param name
      */
-    protected void setName(String name)
+    protected void setName(final String name)
     {
         this.name = name;
     }
@@ -131,7 +131,7 @@ public class Translation
      *
      * @param ignorePattern the pattern to ignore.
      */
-    public void addIgnorePattern(String ignorePattern)
+    public void addIgnorePattern(final String ignorePattern)
     {
         this.ignorePatterns.add(StringUtils.trimToEmpty(ignorePattern));
     }
@@ -141,7 +141,7 @@ public class Translation
      *
      * @param validatePattern the pattern to validate.
      */
-    public void addValidatePattern(String validatePattern)
+    public void addValidatePattern(final String validatePattern)
     {
         this.validatePatterns.add(StringUtils.trimToEmpty(validatePattern));
     }

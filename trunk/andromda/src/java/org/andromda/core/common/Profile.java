@@ -27,7 +27,7 @@ public class Profile
      *
      * @return the shared instance.
      */
-    public static Profile instance()
+    public static final Profile instance()
     {
         return instance;
     }
@@ -77,7 +77,7 @@ public class Profile
      *                         default profile values.
      * @param defaultFileName  the name of the file to search for that contains the default profile values.
      */
-    private Mappings getMappings()
+    private final Mappings getMappings()
     {
         final String defaultLocation = DEFAULT_LOCATION;
         Mappings mappings = null;

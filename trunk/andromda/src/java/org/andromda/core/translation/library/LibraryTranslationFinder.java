@@ -16,7 +16,7 @@ public class LibraryTranslationFinder
 {
     private static Logger logger = Logger.getLogger(LibraryTranslationFinder.class);
 
-    protected static Map libraryTranslations = new HashMap();
+    protected static final Map libraryTranslations = new HashMap();
 
     /**
      * Finds the library with the specified libraryName.
@@ -24,7 +24,7 @@ public class LibraryTranslationFinder
      * @param libraryName
      * @return Library - returns the Library found or null if none is found.
      */
-    protected static Library findLibrary(String libraryName)
+    protected static final Library findLibrary(final String libraryName)
     {
         return (Library)ComponentContainer.instance().findComponent(libraryName);
     }
@@ -35,7 +35,7 @@ public class LibraryTranslationFinder
      * @param translation the name of the translation to find.
      * @return LibraryTranslation returns the LibraryTranslation found or null if none is found.
      */
-    public static LibraryTranslation findLibraryTranslation(String translation)
+    public static LibraryTranslation findLibraryTranslation(final String translation)
     {
         final String methodName = "LibraryTranslation.findLibraryTranslation";
         ExceptionUtils.checkEmpty(methodName, "translation", translation);

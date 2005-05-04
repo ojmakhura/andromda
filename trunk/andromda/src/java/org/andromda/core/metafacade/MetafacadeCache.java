@@ -36,7 +36,7 @@ public final class MetafacadeCache
      *
      * @param namespace the current namespace.
      */
-    public final void setNamespace(String namespace)
+    public final void setNamespace(final String namespace)
     {
         this.namespace = namespace;
     }
@@ -60,7 +60,7 @@ public final class MetafacadeCache
      * @param metafacadeClass the class of the metafacade.
      * @return MetafacadeBase stored in the cache.
      */
-    public final MetafacadeBase get(Object mappingObject, Class metafacadeClass)
+    public final MetafacadeBase get(final Object mappingObject, final Class metafacadeClass)
     {
         MetafacadeBase metafacade = null;
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
@@ -82,7 +82,7 @@ public final class MetafacadeCache
      * @param mappingObject the mappingObject for which to cache the metafacade.
      * @param metafacade    the metafacade to cache.
      */
-    public final void add(Object mappingObject, MetafacadeBase metafacade)
+    public final void add(final Object mappingObject, final MetafacadeBase metafacade)
     {
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache == null)

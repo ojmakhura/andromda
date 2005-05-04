@@ -30,7 +30,7 @@ public class ResourceWriter
      * 
      * @return the shared instance.
      */
-    public static ResourceWriter instance()
+    public static final ResourceWriter instance()
     {
         return instance;
     }

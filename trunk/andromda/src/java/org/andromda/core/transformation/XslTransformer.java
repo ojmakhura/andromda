@@ -42,7 +42,7 @@ public class XslTransformer
      * 
      * @return the shared transformer instance.
      */
-    public static Transformer instance()
+    public static final Transformer instance()
     {
         return transformer;
     }

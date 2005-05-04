@@ -45,7 +45,7 @@ public class ModelPackages
      *
      * @param processAllModelPackages
      */
-    public void setProcessAllPackages(boolean processAllModelPackages)
+    public void setProcessAllPackages(final boolean processAllModelPackages)
     {
         this.processAllModelPackages = processAllModelPackages;
     }
@@ -55,7 +55,7 @@ public class ModelPackages
      *
      * @param modelPackage the ModelPackage instance.
      */
-    public void addPackage(ModelPackage modelPackage)
+    public void addPackage(final ModelPackage modelPackage)
     {
         this.initCollection.add(modelPackage);
     }
@@ -65,7 +65,7 @@ public class ModelPackages
      *
      * @param modelPackages the ModelPackages instance to add.
      */
-    public void addPackages(ModelPackages modelPackages)
+    public void addPackages(final ModelPackages modelPackages)
     {
         if (modelPackages != null)
         {
@@ -86,7 +86,7 @@ public class ModelPackages
      * @param packageName the name of the model package to check.
      * @return boolean
      */
-    public boolean shouldProcess(String packageName)
+    public boolean shouldProcess(final String packageName)
     {
         boolean shouldProcess = this.processAllModelPackages;
         this.init();

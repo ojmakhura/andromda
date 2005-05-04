@@ -7,14 +7,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import java.io.File;
 
 /**
- * This class implements the <code>&lt;template&gt;</code> tag in a cartridge descriptor file.
- *
+ * This class implements the <code>&lt;template&gt;</code> tag in a cartridge
+ * descriptor file.
+ * 
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Anthony Mowers
  * @author Chad Brandon
  */
 public class Template
-        extends Resource
+    extends Resource
 {
     /**
      * The default constructor used by the XmlObjectFactory to instantiate the template configuration.
@@ -31,7 +32,7 @@ public class Template
      *
      * @param generateEmptyFiles generate files for empty output yes/no
      */
-    public void setGenerateEmptyFiles(boolean generateEmptyFiles)
+    public void setGenerateEmptyFiles(final boolean generateEmptyFiles)
     {
         this.generateEmptyFiles = generateEmptyFiles;
     }
@@ -47,15 +48,19 @@ public class Template
     }
 
     /**
-     * Returns the fully qualified output file, this means: <ul> <li>the output pattern has been translated</li> <li>the
-     * output dir name has been prepended</li> </ul>
-     *
+     * Returns the fully qualified output file, this means:
+     * <ul>
+     * <li>the output pattern has been translated</li>
+     * <li>the output dir name has been prepended</li>
+     * </ul>
+     * 
      * @param modelElementName name of the element from the model
-     * @param packageName      name of the package from the model in which the class is contained
-     * @param directory        the directory as a File.
+     * @param packageName name of the package from the model in which the class
+     *        is contained
+     * @param directory the directory as a File.
      * @return File absolute directory.
      */
-    public File getOutputLocation(String modelElementName, String packageName, File directory)
+    public File getOutputLocation(final String modelElementName, final String packageName, final File directory)
     {
         File file = null;
         // if singleFileOutput is set to true, then
@@ -95,7 +100,7 @@ public class Template
      * @param supportedModelElements the ModelElements instance.
      * @see org.andromda.core.cartridge.template.ModelElements
      */
-    public void setSupportedModelElements(ModelElements supportedModelElements)
+    public void setSupportedModelElements(final ModelElements supportedModelElements)
     {
         this.supportedModelElements = supportedModelElements;
     }
@@ -118,7 +123,7 @@ public class Template
      *
      * @param outputToSingleFile The outputToSingleFile to set.
      */
-    public void setOutputToSingleFile(boolean outputToSingleFile)
+    public void setOutputToSingleFile(final boolean outputToSingleFile)
     {
         this.outputToSingleFile = outputToSingleFile;
     }
@@ -148,7 +153,7 @@ public class Template
      * @see #isOutputOnEmptyElements()
      * @see #isOutputToSingleFile()
      */
-    public void setOutputOnEmptyElements(boolean outputOnEmptyElements)
+    public void setOutputOnEmptyElements(final boolean outputOnEmptyElements)
     {
         this.outputOnEmptyElements = outputOnEmptyElements;
     }

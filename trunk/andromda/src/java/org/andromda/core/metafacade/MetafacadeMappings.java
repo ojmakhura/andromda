@@ -89,7 +89,7 @@ public class MetafacadeMappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return MetafacadeMappings the configured MetafacadeMappings instance.
      */
-    protected static final MetafacadeMappings getInstance(URL mappingsUri)
+    protected static final MetafacadeMappings getInstance(final URL mappingsUri)
     {
         final String methodName = "MetafacadeMappings.getInstance";
         ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
@@ -136,7 +136,7 @@ public class MetafacadeMappings
     /**
      * @param namespace The namepace to set.
      */
-    public void setNamespace(String namespace)
+    public void setNamespace(final String namespace)
     {
         this.namespace = StringUtils.trimToEmpty(namespace);
     }
@@ -162,7 +162,7 @@ public class MetafacadeMappings
      *
      * @param shared The shared to set.
      */
-    public void setShared(boolean shared)
+    public void setShared(final boolean shared)
     {
         this.shared = shared;
     }
@@ -207,7 +207,7 @@ public class MetafacadeMappings
      *
      * @return the metafacade interface Class.
      */
-    public Class getMetafacadeInterface(Class metafacadeClass)
+    public Class getMetafacadeInterface(final Class metafacadeClass)
     {
         Class metafacadeInterface = null;
         if (metafacadeClass != null)
@@ -232,7 +232,7 @@ public class MetafacadeMappings
      *
      * @param mappings the mappings to add
      */
-    private final void copyMappings(MetafacadeMappings mappings)
+    private final void copyMappings(final MetafacadeMappings mappings)
     {
         final String methodName = "MetafacadeMappings.copyMappings";
         ExceptionUtils.checkNull(methodName, "mappings", mappings);
@@ -312,7 +312,7 @@ public class MetafacadeMappings
      * @param mappingObject the object from which to retrieve the hierarchy.
      * @return a list containing all inherited class names.
      */
-    protected List getMappingObjectHierarchy(Object mappingObject)
+    protected List getMappingObjectHierarchy(final Object mappingObject)
     {
         List hierachy = (List)this.mappingObjectHierachyCache.get(mappingObject);
         if (hierachy == null)
@@ -409,7 +409,10 @@ public class MetafacadeMappings
      * @return MetafacadeMapping (or null if none was found matching the
      *         criteria).
      */
-    private final MetafacadeMapping getMapping(final String mappingClassName, final Object mappingObject, final String context,
+    private final MetafacadeMapping getMapping(
+        final String mappingClassName,
+        final Object mappingObject,
+        final String context,
         final Collection stereotypes)
     {
         final String metaclassName = mappingClassName != null ? mappingClassName : mappingObject.getClass().getName();      
@@ -569,7 +572,7 @@ public class MetafacadeMappings
      * @param context the context from which the property references are inherited.
      * @return The MetafacadeMapping with all loaded property references.
      */
-    private final void loadInheritedPropertyReferences(MetafacadeMapping mapping)
+    private final void loadInheritedPropertyReferences(final MetafacadeMapping mapping)
     {
         if (mapping != null)
         {
@@ -604,7 +607,7 @@ public class MetafacadeMappings
      * @param context the root contexts
      * @return a list containing all inherited contexts
      */
-    protected final List getContextHierarchy(String context)
+    protected final List getContextHierarchy(final String context)
     {
         List contexts = (List)this.contextHierachyCache.get(context);
         if (contexts == null)
@@ -636,7 +639,7 @@ public class MetafacadeMappings
      * @param className the name of the class for which to retrieve the interfaces
      * @return the array containing the reversed interfaces.
      */
-    private final Class[] getInterfacesReversed(String className)
+    private final Class[] getInterfacesReversed(final String className)
     {
         Class[] interfaces = (Class[])this.reversedInterfaceArrayCache.get(className);
         if (interfaces == null)
@@ -658,7 +661,7 @@ public class MetafacadeMappings
      * @param context the root context
      * @return a list containing all context interfaces ordered from the root down.
      */
-    private final List getInterfaces(String className)
+    private final List getInterfaces(final String className)
     {
         final List interfaces = new ArrayList();
         if (StringUtils.isNotEmpty(className))
@@ -688,7 +691,7 @@ public class MetafacadeMappings
      * @param reference    the name of the reference.
      * @param defaultValue the default value of the property reference.
      */
-    public void addPropertyReference(String reference, String defaultValue)
+    public void addPropertyReference(final String reference, final String defaultValue)
     {
         this.propertyReferences.put(reference, defaultValue);
     }
@@ -699,7 +702,7 @@ public class MetafacadeMappings
      *
      * @param namespace the namespace to search
      */
-    public Map getPropertyReferences(String namespace)
+    public Map getPropertyReferences(final String namespace)
     {
         Map propertyReferences = (Map)namespacePropertyReferences.get(namespace);
         if (propertyReferences == null)
@@ -720,8 +723,8 @@ public class MetafacadeMappings
     }
 
     /**
-     * <p/>
-     * Attempts to get the MetafacadeMapping identified by the given <code>mappingClass</code>,<code>context</code> and
+     * <p/> Attempts to get the MetafacadeMapping identified by the given
+     * <code>mappingClass</code>,<code>context</code> and
      * <code>stereotypes<code>, from the mappings for the given <code>namespace</code>. If it can <strong>not</strong>
      * be found, it will search the default mappings and return that instead. </p>
      * <p/>
@@ -734,8 +737,11 @@ public class MetafacadeMappings
      * @param stereotypes  collection of sterotype names.  We'll check to see if the mapping for the given
      *                     <code>mappingClass</code> is defined for it.
      */
-    public MetafacadeMapping getMetafacadeMapping(Object mappingObject, String namespace, String context,
-                                                  Collection stereotypes)
+    public MetafacadeMapping getMetafacadeMapping(
+        final Object mappingObject,
+        final String namespace,
+        final String context,
+        final Collection stereotypes)
     {
         final String methodName = "MetafacadeMappings.getMetafacadeMapping";
         if (this.getLogger().isDebugEnabled())
@@ -798,7 +804,7 @@ public class MetafacadeMappings
      * @param namespace the namespace name to check.
      * @return the found MetafacadeMappings.
      */
-    private final MetafacadeMappings getNamespaceMappings(String namespace)
+    private final MetafacadeMappings getNamespaceMappings(final String namespace)
     {
         return (MetafacadeMappings)this.namespaceMetafacadeMappings.get(namespace);
     }
@@ -814,7 +820,7 @@ public class MetafacadeMappings
      * @param namespace the namespace name to which the <code>mappings</code> will belong.
      * @param mappings  the MetafacadeMappings instance to add.
      */
-    private final void addNamespaceMappings(String namespace, MetafacadeMappings mappings)
+    private final void addNamespaceMappings(final String namespace, final MetafacadeMappings mappings)
     {
         if (mappings != null)
         {
@@ -919,7 +925,7 @@ public class MetafacadeMappings
     /**
      * @param defaultMetafacadeClass The defaultMetafacadeClass to set.
      */
-    public void setDefaultMetafacadeClass(String defaultMetafacadeClass)
+    public void setDefaultMetafacadeClass(final String defaultMetafacadeClass)
     {
         try
         {
@@ -947,7 +953,7 @@ public class MetafacadeMappings
      *        we'll retrieve.
      * @return the property value or null if one doesn't exist.
      */
-    private final String getPropertyValue(String name)
+    private final String getPropertyValue(final String name)
     {
         if (this.propertyValues == null)
         {

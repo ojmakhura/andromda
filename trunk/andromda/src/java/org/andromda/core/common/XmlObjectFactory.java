@@ -87,7 +87,7 @@ public class XmlObjectFactory
      * @param objectClass the Class of the object from which to configure this factory.
      * @return the XmlObjectFactoy instance.
      */
-    public static XmlObjectFactory getInstance(final Class objectClass)
+    public static final XmlObjectFactory getInstance(final Class objectClass)
     {
         final String methodName = "XmlObjectFactory.getInstance";
         ExceptionUtils.checkNull(methodName, "objectClass", objectClass);
@@ -261,13 +261,13 @@ public class XmlObjectFactory
     /**
      * Handles the validation errors.
      */
-    protected class XmlObjectValidator
-            implements org.xml.sax.ErrorHandler
+    private final class XmlObjectValidator
+        implements org.xml.sax.ErrorHandler
     {
         /**
          * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
          */
-        public void error(SAXParseException exception) throws SAXException
+        public final void error(SAXParseException exception) throws SAXException
         {
             throw new SAXException(this.getMessage(exception));
         }
@@ -275,7 +275,7 @@ public class XmlObjectFactory
         /**
          * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
          */
-        public void fatalError(SAXParseException exception) throws SAXException
+        public final void fatalError(SAXParseException exception) throws SAXException
         {
             throw new SAXException(this.getMessage(exception));
         }
@@ -283,7 +283,7 @@ public class XmlObjectFactory
         /**
          * @see org.xml.sax.ErrorHandler#warning(org.xml.sax.SAXParseException)
          */
-        public void warning(SAXParseException exception)
+        public final void warning(SAXParseException exception)
         {
             logger.warn("WARNING!: " + this.getMessage(exception));
         }
@@ -294,7 +294,7 @@ public class XmlObjectFactory
          * @param exception the exception from which to extract the message.
          * @return the message.
          */
-        private String getMessage(SAXParseException exception)
+        private final String getMessage(SAXParseException exception)
         {
             StringBuffer message = new StringBuffer();
             if (exception != null)

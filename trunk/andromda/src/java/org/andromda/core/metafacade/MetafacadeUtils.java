@@ -86,16 +86,18 @@ class MetafacadeUtils
     }
 
     /**
-     * Constructs a new <code>metafacade</code> from the given <code>metafacadeClass</code> and
-     * <code>mappingObject</code>.
-     *
+     * Constructs a new <code>metafacade</code> from the given
+     * <code>metafacadeClass</code> and <code>mappingObject</code>.
+     * 
      * @param metafacadeClass the metafacade class.
-     * @param mappingObject   the object to which the metafacade is mapped.
+     * @param mappingObject the object to which the metafacade is mapped.
      * @return the new metafacade.
      * @throws Exception if any error occurs during metafacade creation
      */
-    static MetafacadeBase constructMetafacade(final Class metafacadeClass, final Object mappingObject,
-                                              final String context) throws Exception
+    static MetafacadeBase constructMetafacade(
+        final Class metafacadeClass,
+        final Object mappingObject,
+        final String context) throws Exception
     {
         if (getLogger().isDebugEnabled())
             getLogger().debug(
@@ -113,7 +115,7 @@ class MetafacadeUtils
      *
      * @return the logger instance.
      */
-    private static Logger getLogger()
+    private static final Logger getLogger()
     {
         return MetafacadeFactory.getInstance().getLogger();
     }

@@ -80,7 +80,7 @@ public class PluginDiscoverer
      *
      * @param showPlugins if true then the plugin found will be logged, otherwise nothing will be shown.
      */
-    public void discoverPlugins(boolean showPlugins)
+    public void discoverPlugins(final boolean showPlugins)
     {
         final String methodName = "PluginDiscoverer.discoverPlugins";
         if (showPlugins)

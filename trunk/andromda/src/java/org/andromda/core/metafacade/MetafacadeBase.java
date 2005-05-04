@@ -59,7 +59,7 @@ public class MetafacadeBase
     /**
      * Sets the flag indicating this metafacade has been initlized.
      */
-    void setInitialized()
+    final void setInitialized()
     {
         this.initialized = true;
     }
@@ -69,7 +69,7 @@ public class MetafacadeBase
      *
      * @return true/false
      */
-    boolean isInitialized()
+    final boolean isInitialized()
     {
         return this.initialized;
     }

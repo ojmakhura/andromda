@@ -13,8 +13,11 @@ import java.util.Map;
  */
 public class Namespaces
 {
-    private static Logger logger = Logger.getLogger(Namespaces.class);
+    private static final Logger logger = Logger.getLogger(Namespaces.class);
 
+    /**
+     * The shared instance.
+     */
     private final static Namespaces instance = new Namespaces();
 
     /**
@@ -24,6 +27,9 @@ public class Namespaces
      */
     public static final String DEFAULT = "default";
 
+    /**
+     * Stores all namespaces.
+     */
     private final Map namespaces = new HashMap();
     
     /**
@@ -31,7 +37,7 @@ public class Namespaces
      *
      * @return instance.
      */
-    public static Namespaces instance()
+    public static final Namespaces instance()
     {
         return instance;
     }

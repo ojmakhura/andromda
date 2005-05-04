@@ -33,7 +33,7 @@ public class Library
      *
      * @param libraryTranslation
      */
-    public void addLibraryTranslation(LibraryTranslation libraryTranslation)
+    public void addLibraryTranslation(final LibraryTranslation libraryTranslation)
     {
         final String methodName = "Library.addLibraryTranslation";
         ExceptionUtils.checkNull(methodName, "libraryTranslation", libraryTranslation);
@@ -57,7 +57,7 @@ public class Library
      * @param name
      * @return LibraryTranslation the LibraryTranslation corresponding to the <code>name</code>.
      */
-    public LibraryTranslation getLibraryTranslation(String name)
+    public LibraryTranslation getLibraryTranslation(final String name)
     {
         final String methodName = "Library.getLibraryTranslation";
         ExceptionUtils.checkEmpty(methodName, "name", name);
@@ -69,7 +69,7 @@ public class Library
      *
      * @param translatorClass the Class for the Translator implementation.
      */
-    public void setTranslator(String translatorClass)
+    public void setTranslator(final String translatorClass)
     {
         final String methodName = "Library.setTranslator";
         try
@@ -87,7 +87,7 @@ public class Library
     /**
      * @see org.andromda.core.common.BasePlugin#populateTemplateContext(java.util.Map)
      */
-    public void populateTemplateContext(Map templateContext)
+    public void populateTemplateContext(final Map templateContext)
     {
         super.populateTemplateContext(templateContext);
     }

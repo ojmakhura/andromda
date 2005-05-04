@@ -64,7 +64,7 @@ public class ModelElement
      *
      * @param stereotype The stereotype to set.
      */
-    public void setStereotype(String stereotype)
+    public void setStereotype(final String stereotype)
     {
         final String methodName = "ModelElement.setStereotype";
         this.stereotype = Profile.instance().get(StringUtils.trimToEmpty(stereotype));
@@ -76,7 +76,7 @@ public class ModelElement
      *
      * @param type the {@link Type}instance.
      */
-    public void addType(Type type)
+    public void addType(final Type type)
     {
         final String methodName = "ModelElement.addType";
         ExceptionUtils.checkNull(methodName, "type", type);
@@ -99,7 +99,7 @@ public class ModelElement
      *
      * @param variable The variable to set.
      */
-    public void setVariable(String variable)
+    public void setVariable(final String variable)
     {
         this.variable = StringUtils.trimToEmpty(variable);
     }
@@ -109,7 +109,7 @@ public class ModelElement
      *
      * @param metafacades the collection of metafacdes
      */
-    public void setMetafacades(Collection metafacades)
+    public void setMetafacades(final Collection metafacades)
     {
         final String methodName = "ModelElement.setMetafacades";
         ExceptionUtils.checkNull(methodName, "metafacades", metafacades);
@@ -154,7 +154,7 @@ public class ModelElement
      * @param metafacade the metafacade to check
      * @return true/false
      */
-    protected boolean accept(Object metafacade)
+    protected boolean accept(final Object metafacade)
     {
         Iterator typeIt = types.iterator();
         boolean accept = true;

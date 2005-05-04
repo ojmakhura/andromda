@@ -42,7 +42,7 @@ public class MetafacadeImpls
     /**
      * The shared instance.
      */
-    private static MetafacadeImpls instance = new MetafacadeImpls();
+    private static final MetafacadeImpls instance = new MetafacadeImpls();
 
     /**
      * Returns the shared instance of this class.
@@ -111,7 +111,7 @@ public class MetafacadeImpls
      * @param metafacadeClass the name of the metafacade class.
      * @return the metafacacade implementation Class
      */
-    public Class getMetafacadeImplClass(String metafacadeClass)
+    public Class getMetafacadeImplClass(final String metafacadeClass)
     {
         final String methodName = "MetafacadeImpls.getMetafacadeImplClass";
         ExceptionUtils.checkEmpty(methodName, "metafacadeClass", metafacadeClass);
@@ -148,7 +148,7 @@ public class MetafacadeImpls
      * @param metafacadeImplClass the name of the metafacade implementation class.
      * @return the metafacacade Class
      */
-    public Class getMetafacadeClass(String metafacadeImplClass)
+    public Class getMetafacadeClass(final String metafacadeImplClass)
     {
         final String methodName = "MetafacadeImpls.getMetafacadeClass";
         ExceptionUtils.checkEmpty(methodName, "metafacadeImplClass", metafacadeImplClass);
