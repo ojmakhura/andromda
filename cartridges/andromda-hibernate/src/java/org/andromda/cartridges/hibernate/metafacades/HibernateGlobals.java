@@ -126,9 +126,4 @@ class HibernateGlobals
      * The 'bag' type implementation to use.
      */
     static final String BAG_TYPE_IMPLEMENTATION = "bagTypeImplementation";
-    
-    /**
-     * The 'collection' type implementation to use.
-     */
-    static final String COLLECTION_TYPE_IMPLEMENTATION = "collectionTypeImplementation";
 }

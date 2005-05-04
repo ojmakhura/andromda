@@ -481,10 +481,6 @@ public class HibernateAssociationEndLogicImpl
             {
                 implementation.append(this.getConfiguredProperty(HibernateGlobals.LIST_TYPE_IMPLEMENTATION));                
             }
-            else
-            {
-                implementation.append(this.getConfiguredProperty(HibernateGlobals.COLLECTION_TYPE_IMPLEMENTATION));
-            }
             implementation.append("()");
         }
         return implementation.toString();
