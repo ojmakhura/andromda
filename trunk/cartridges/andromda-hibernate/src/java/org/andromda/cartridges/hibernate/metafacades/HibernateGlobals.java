@@ -106,4 +106,29 @@ class HibernateGlobals
      * The property which defines a default value for hibernate entities versioning.
      */
     static final String HIBERNATE_VERSION = "versionProperty";
+    
+    /**
+     * The 'list' type implementation to use.
+     */
+    static final String LIST_TYPE_IMPLEMENTATION = "listTypeImplementation";
+    
+    /**
+     * The 'set' type implementation to use.
+     */
+    static final String SET_TYPE_IMPLEMENTATION = "setTypeImplementation";
+    
+    /**
+     * The 'map' type implementation to use.
+     */
+    static final String MAP_TYPE_IMPLEMENTATION = "mapTypeImplementation";
+    
+    /**
+     * The 'bag' type implementation to use.
+     */
+    static final String BAG_TYPE_IMPLEMENTATION = "bagTypeImplementation";
+    
+    /**
+     * The 'collection' type implementation to use.
+     */
+    static final String COLLECTION_TYPE_IMPLEMENTATION = "collectionTypeImplementation";
 }

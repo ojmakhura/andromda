@@ -18,8 +18,8 @@ public abstract class $entity.entityName
     implements java.io.Serializable
 #end
 {
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
 
@@ -63,19 +63,12 @@ $attribute.getDocumentation("     * ")
     }
 
 #end
-## Generate the relation methods.
-#foreach ( $associationEnd in $entity.associationEnds )
+## Generate the associations
+#foreach ($associationEnd in $entity.associationEnds)
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
-##if collection, initialize it
 #if ($target.many)
-#if ($target.set)
-    private $target.getterSetterTypeName $target.name = new	 java.util.HashSet();
-#elseif ($target.map)
-    private $target.getterSetterTypeName $target.name = new	 java.util.HashMap();
-#elseif ($target.bag || $target.list)
-    private $target.getterSetterTypeName $target.name = new	 java.util.ArrayList();
-#end
+    private $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
 #else
     private $target.getterSetterTypeName $target.name;
 #end
