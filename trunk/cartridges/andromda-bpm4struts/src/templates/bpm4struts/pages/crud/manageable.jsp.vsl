@@ -108,7 +108,14 @@
 #if ($member.display)
 #if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
                         <display:column media="html" headerClass="$member.name" titleKey="$member.messageKey">
-                            <html:checkbox name="row" property="${member.name}" disabled="true"/>
+## we're not using <html:checkbox> here because this renders a 'name' attribute which interferes with the
+## corresponding criteria field used as input (which has the same name of course: the copy feature would not
+## know which field to set)
+                            <c:choose>
+#set ($test = "row.${member.name}")
+                                <c:when test="${${test}}"><input type="checkbox" checked="checked" disabled="disabled"/></c:when>
+                                <c:otherwise><input type="checkbox" disabled="disabled"/></c:otherwise>
+                            </c:choose>
                         </display:column>
                         <display:column media="xml csv excel pdf" property="$member.name"
                             headerClass="$member.name" paramId="$member.name"
