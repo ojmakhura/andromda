@@ -13,7 +13,7 @@
                 namespace properties specific to this cartridge only.
             </p>
             <table>
-                  <tr>
+                <tr>
                       <th>Property</th>
                       <th>Description</th>
                       <th>Required</th>
@@ -612,16 +612,15 @@
                     <td>
                          Defines the default outer join value for many to one and
                          one to one association ends. Possible values are:
-                         <ul>
+                        <ul>
                             <li>auto</li>
                             <li>true</li>
                             <li>false</li>
                          </ul>
-
-			 For hibernate 3 the above values will be translated to
+			                For hibernate 3 the above values will be translated to
                          <ul>
-                            <li>join</li>
-                            <li>select</li>
+                             <li>join</li>
+                             <li>select</li>
                          </ul>
                     </td>
                     <td>
@@ -677,273 +676,333 @@
                     </td>
                  </tr>
             </table>
-            <subsection name="Hibernate 3 specific settings">
-             <table>
-                <tr>
-                    <td>
-                        hibernateQueryFactory
-                    </td>
-                    <td>
-		         Hibernate3 comes with a brand-new, ANTLR-based HQL/SQL query translator. However, it is still buggy and so in mean time use the Hibernate 2.1 query parser which is still available. 
-			 Possible values are:
-                         <ul>
-                            <li>org.hibernate.hql.ast.ASTQueryTranslatorFactory (for the new query parser)</li>
-			    <li>org.hibernate.hql.classic.ClassicQueryTranslatorFactory (for the old parser)</li>
-                         </ul>
-                    </td>
-                    <td>
-                        No, default is <code>org.hibernate.hql.classic.ClassicQueryTranslatorFactory</code>.
-                    </td>
-                </tr>
-             </table>
-            </subsection>
-            <subsection name="Hibernate Second Level Cache Values">
-            <a name="SecondLevelCache"/>
-             <table>
+            <subsection name="Collection type implementations">
+                <table>
                     <tr>
-                      <th>Property</th>
-                      <th>Description</th>
-                      <th>Required?</th>
+                        <th>Property</th>
+                        <th>Description</th>
+                        <th>Required</th>
                     </tr>
                     <tr>
                         <td>
-                            hibernateEnableCache
+                            listTypeImplementation
                         </td>
                         <td>
-                            Enable/disable hibernate's second level cache features for the cartridge.
+                            The implementation type to use for association ends
+                            that are modeled as lists.
                         </td>
                         <td>
-                            No, default is <code>false</code>.
+                            No, default is <code>java.util.ArrayList</code>.
                         </td>
-                   </tr>
+                     </tr>
                     <tr>
                         <td>
-                            hibernateEnableAssociationsCache
+                            setTypeImplementation
                         </td>
                         <td>
-                            Enable/disable Hibernate's second level cache feature for entity associations.
-                            Please <strong>NOTE</strong> that hibernateEnableCache should also be enabled when
-                            specifying this property.
+                            The implementation type to use for association ends
+                            that are modeled as sets.
+                        </td>
+                        <td>
+                            No, default is <code>java.util.HashSet</code>.
+                        </td>
+                     </tr>
+                    <tr>
+                        <td>
+                            mapTypeImplementation
+                        </td>
+                        <td>
+                            The implementation type to use for association ends
+                            that are modeled as maps.
+                        </td>
+                        <td>
+                            No, default is <code>java.util.HashMap</code>.
+                        </td>
+                     </tr>
+                    <tr>
+                        <td>
+                            bagTypeImplementation
+                        </td>
+                        <td>
+                            The implementation type to use for association ends
+                            that are modeled as bags.
+                        </td>
+                        <td>
+                            No, default is <code>java.util.HashMap</code>.
+                        </td>
+                     </tr>
+                </table>
+            </subsection>
+            <subsection name="Hibernate 3 specific settings">
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateQueryFactory
+                        </td>
+                        <td>
+                            Hibernate3 comes with a brand-new, ANTLR-based HQL/SQL query translator. However, it is still buggy and so in mean time use the Hibernate 2.1 query parser which is still available. 
+                            Possible values are:
+                             <ul>
+                                <li>org.hibernate.hql.ast.ASTQueryTranslatorFactory (for the new query parser)</li>
+                                <li>org.hibernate.hql.classic.ClassicQueryTranslatorFactory (for the old parser)</li>
+                             </ul>
+                        </td>
+                        <td>
+                            No, default is <code>org.hibernate.hql.classic.ClassicQueryTranslatorFactory</code>.
+                        </td>
+                    </tr>
+                 </table>
+                </subsection>
+                <subsection name="Hibernate Second Level Cache Values">
+                <a name="SecondLevelCache"/>
+                 <table>
+                        <tr>
+                          <th>Property</th>
+                          <th>Description</th>
+                          <th>Required?</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                hibernateEnableCache
+                            </td>
+                            <td>
+                                Enable/disable hibernate's second level cache features for the cartridge.
+                            </td>
+                            <td>
+                                No, default is <code>false</code>.
+                            </td>
+                       </tr>
+                        <tr>
+                            <td>
+                                hibernateEnableAssociationsCache
+                            </td>
+                            <td>
+                                Enable/disable Hibernate's second level cache feature for entity associations.
+                                Please <strong>NOTE</strong> that hibernateEnableCache should also be enabled when
+                                specifying this property.
+                            </td>
+                            <td>
+                                No, default is <code>false</code>.
+                            </td>
+                       </tr>
+                       <tr>
+                            <td>
+                                hibernateEhCacheDiskStore
+                            </td>
+                            <td>
+                                Defines the path to the directory where cache files will be created
+                            </td>
+                            <td>
+                                No, default is <code>java.io.tmpdir</code>.
+                            </td>
+                       </tr>
+                       <tr>
+                        <td>
+                            hibernateCacheProvider
+                        </td>
+                        <td>
+                             Defines Hibernate Cache Provider implementation class.
+                             Possible values for Hibernate2 are:
+                             <ul>
+                                <li>net.sf.hibernate.cache.EhCacheProvider</li>
+                                <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
+                                <li>net.sf.hibernate.cache.JCSCacheProvider</li>
+                                <li>net.sf.hibernate.cache.SwarmCacheProvider</li>
+                                <li>net.sf.hibernate.cache.TreeCacheProvider</li>
+                                <li>net.sf.hibernate.cache.OSCacheProvider</li>
+                             </ul>
+                             Possible values for Hibernate3 are:
+                             <ul>
+                                <li>org.hibernate.cache.EhCacheProvider</li>
+                                <li>org.hibernate.cache.HashtableCacheProvider</li>
+                                <li>org.hibernate.cache.JCSCacheProvider</li>
+                                <li>org.hibernate.cache.SwarmCacheProvider</li>
+                                <li>org.hibernate.cache.TreeCacheProvider</li>
+                                <li>org.hibernate.cache.OSCacheProvider</li>
+                             </ul>
+                        </td>
+                        <td>
+                            No, default is <code>net.sf.hibernate.cache.EhCacheProvider</code> for Hibernate2 and <code>org.hibernate.cache.EhCacheProvider</code> for Hibernate3.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateQueryCacheFactory
+                        </td>
+                        <td>
+                             Defines Hibernate Query Cache Factory implementation class. Possible value for Hibernate2 is:
+                             <ul>
+                                <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
+                             </ul>
+                             Possible value for Hibernate3 is:
+                             <ul>
+                                <li>org.hibernate.cache.StandardQueryCacheFactory</li>
+                             </ul>
+                        </td>
+                        <td>
+                            No, default is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code> for Hibernate2 and <code>org.hibernate.cache.StandardQueryCacheFactory</code> for Hibernate3.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            hibernateUseQueryCache
+                        </td>
+                        <td>
+                             The default query cache usage.
+                             Can be overwritten using
+                             <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
+                             Possible values are:
+                             <ul>
+                                <li>true</li>
+                                <li>false</li>
+                             </ul>
                         </td>
                         <td>
                             No, default is <code>false</code>.
                         </td>
-                   </tr>
-                   <tr>
+                    </tr>
+                     <tr>
                         <td>
-                            hibernateEhCacheDiskStore
+                            hibernateEntityCache
                         </td>
                         <td>
-                            Defines the path to the directory where cache files will be created
+                             Defines the default strategy for Entities caching. Can be overwritten using the corresponding
+                             tagged value. Possible values are:
+                             <ul>
+                                    <li>read-write</li>
+                                    <li>nonstrict-read-write</li>
+                                    <li>read-only</li>
+                                </ul>
                         </td>
                         <td>
-                            No, default is <code>java.io.tmpdir</code>.
+                            No, default is <code>read-write</code>.
                         </td>
-                   </tr>
-                   <tr>
-                    <td>
-                        hibernateCacheProvider
-                    </td>
-                    <td>
-                         Defines Hibernate Cache Provider implementation class.
-			 Possible values for Hibernate2 are:
-                         <ul>
-                            <li>net.sf.hibernate.cache.EhCacheProvider</li>
-                            <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
-                            <li>net.sf.hibernate.cache.JCSCacheProvider</li>
-                            <li>net.sf.hibernate.cache.SwarmCacheProvider</li>
-                            <li>net.sf.hibernate.cache.TreeCacheProvider</li>
-                            <li>net.sf.hibernate.cache.OSCacheProvider</li>
-                         </ul>
-
-			 Possible values for Hibernate3 are:
-                         <ul>
-                            <li>org.hibernate.cache.EhCacheProvider</li>
-                            <li>org.hibernate.cache.HashtableCacheProvider</li>
-                            <li>org.hibernate.cache.JCSCacheProvider</li>
-                            <li>org.hibernate.cache.SwarmCacheProvider</li>
-                            <li>org.hibernate.cache.TreeCacheProvider</li>
-                            <li>org.hibernate.cache.OSCacheProvider</li>
-                         </ul>
-                    </td>
-                    <td>
-                        No, default is <code>net.sf.hibernate.cache.EhCacheProvider</code> for Hibernate2 and <code>org.hibernate.cache.EhCacheProvider</code> for Hibernate3.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        hibernateQueryCacheFactory
-                    </td>
-                    <td>
-                         Defines Hibernate Query Cache Factory implementation class. Possible value for Hibernate2 is:
-                         <ul>
-                            <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
-                         </ul>
-
-			 Possible value for Hibernate3 is:
-                         <ul>
-                            <li>org.hibernate.cache.StandardQueryCacheFactory</li>
-                         </ul>
-                    </td>
-                    <td>
-                        No, default is <code>net.sf.hibernate.cache.StandardQueryCacheFactory</code> for Hibernate2 and <code>org.hibernate.cache.StandardQueryCacheFactory</code> for Hibernate3.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        hibernateUseQueryCache
-                    </td>
-                    <td>
-                         The default query cache usage.
-                         Can be overwritten using
-                         <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
-                         Possible values are:
-                         <ul>
-                            <li>true</li>
-                            <li>false</li>
-                         </ul>
-                    </td>
-                    <td>
-                        No, default is <code>false</code>.
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        hibernateEntityCache
-                    </td>
-                    <td>
-                         Defines the default strategy for Entities caching. Can be overwritten using the corresponding
-                         tagged value. Possible values are:
-                         <ul>
-                                <li>read-write</li>
-                                <li>nonstrict-read-write</li>
-                                <li>read-only</li>
-                            </ul>
-                    </td>
-                    <td>
-                        No, default is <code>read-write</code>.
-                    </td>
-                </tr>
-                <tr>
-                <a name="hibernateEntityDynamicInsert"/>
-                    <td>
-                        hibernateEntityDynamicInsert
-                    </td>
-                    <td>
-                         Hibernate Entities mapping property. Defines the default value dynamic-insert property on entities.
-                    </td>
-                    <td>
-                        No, default is <code>false</code>.
-                    </td>
-                </tr>
-                <tr>
-                <a name="hibernateEntityDynamicUpdate"/>
-                    <td>
-                        hibernateEntityDynamicUpdate
-                    </td>
-                    <td>
-                         Hibernate Entities mapping property. Defines the default value dynamic-update property on entities.
-                    </td>
-                    <td>
-                        No, default is <code>false</code>.
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        hibernateAssociationCache
-                    </td>
-                    <td>
-                         Defines the default strategy for associations between Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
-                         <ul>
-                                <li>read-write</li>
-                                <li>nonstrict-read-write</li>
-                                <li>read-only</li>
-                            </ul>
-                    </td>
-                    <td>
-                        No, default is <code>read-write</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        ehCacheMaxElementsInMemory
-                    </td>
-                    <td>
-                         EhCache property. Defines the default maximum number of objects that will be created in memory.
-                    </td>
-                    <td>
-                        No, default is <code>10000</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        ehCacheEternal
-                    </td>
-                    <td>
-                         EhCache property. Defines a default value for the eternal parameter.
-                    </td>
-                    <td>
-                        No, default is <code>false</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        ehCacheTimeToIdleSeconds
-                    </td>
-                    <td>
-                         EhCache property. Defines the default time to idle for an element before it expires.
-                    </td>
-                    <td>
-                        No, default is <code>120</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        ehCacheTimeToLiveSeconds
-                    </td>
-                    <td>
-                         EhCache property. Defines the default time to live for an element before it expires.
-                    </td>
-                    <td>
-                        No, default is <code>120</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        ehCacheOverflowToDisk
-                    </td>
-                    <td>
-                         EhCache property. Defines the default value for the overflow to disk property.
-                    </td>
-                    <td>
-                        No, default is <code>true</code>.
-                    </td>
-                </tr>
-                <tr>
-                <a name="hibernateAssociationCollectionType"/>
-                    <td>
-                        hibernateAssociationCollectionType
-                    </td>
-                    <td>
-                         Used to define the default mapping for hibernate collections.
-                    </td>
-                    <td>
-                        No, default is <code>set</code>.
-                    </td>
-                </tr>
-                <tr>
-                <a name="hibernateAssociationSortType"/>
-                    <td>
-                        hibernateAssociationSortType
-                    </td>
-                    <td>
-                         Used to define how elements will be sorted within the collection defined by the association. (Only available for maps and sets).
-                    </td>
-                    <td>
-                        No, default is <code>unsorted</code>.
-                    </td>
-                </tr>
-             </table>
+                    </tr>
+                    <tr>
+                    <a name="hibernateEntityDynamicInsert"/>
+                        <td>
+                            hibernateEntityDynamicInsert
+                        </td>
+                        <td>
+                             Hibernate Entities mapping property. Defines the default value dynamic-insert property on entities.
+                        </td>
+                        <td>
+                            No, default is <code>false</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                    <a name="hibernateEntityDynamicUpdate"/>
+                        <td>
+                            hibernateEntityDynamicUpdate
+                        </td>
+                        <td>
+                             Hibernate Entities mapping property. Defines the default value dynamic-update property on entities.
+                        </td>
+                        <td>
+                            No, default is <code>false</code>.
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            hibernateAssociationCache
+                        </td>
+                        <td>
+                             Defines the default strategy for associations between Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
+                             <ul>
+                                    <li>read-write</li>
+                                    <li>nonstrict-read-write</li>
+                                    <li>read-only</li>
+                                </ul>
+                        </td>
+                        <td>
+                            No, default is <code>read-write</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ehCacheMaxElementsInMemory
+                        </td>
+                        <td>
+                             EhCache property. Defines the default maximum number of objects that will be created in memory.
+                        </td>
+                        <td>
+                            No, default is <code>10000</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ehCacheEternal
+                        </td>
+                        <td>
+                             EhCache property. Defines a default value for the eternal parameter.
+                        </td>
+                        <td>
+                            No, default is <code>false</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ehCacheTimeToIdleSeconds
+                        </td>
+                        <td>
+                             EhCache property. Defines the default time to idle for an element before it expires.
+                        </td>
+                        <td>
+                            No, default is <code>120</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ehCacheTimeToLiveSeconds
+                        </td>
+                        <td>
+                             EhCache property. Defines the default time to live for an element before it expires.
+                        </td>
+                        <td>
+                            No, default is <code>120</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ehCacheOverflowToDisk
+                        </td>
+                        <td>
+                             EhCache property. Defines the default value for the overflow to disk property.
+                        </td>
+                        <td>
+                            No, default is <code>true</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                    <a name="hibernateAssociationCollectionType"/>
+                        <td>
+                            hibernateAssociationCollectionType
+                        </td>
+                        <td>
+                             Used to define the default mapping for hibernate collections.
+                        </td>
+                        <td>
+                            No, default is <code>set</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                    <a name="hibernateAssociationSortType"/>
+                        <td>
+                            hibernateAssociationSortType
+                        </td>
+                        <td>
+                             Used to define how elements will be sorted within the collection defined by the association. (Only available for maps and sets).
+                        </td>
+                        <td>
+                            No, default is <code>unsorted</code>.
+                        </td>
+                    </tr>
+                </table>
             </subsection>
         </section>
     </body>
