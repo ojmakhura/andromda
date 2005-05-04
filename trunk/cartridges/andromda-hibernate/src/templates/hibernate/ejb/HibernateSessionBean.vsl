@@ -170,7 +170,7 @@ $operation.getDocumentation("     * ")
         this.ctx = ctx;
     }
 
-    private SessionFactory getSessionFactory() throws HibernateException, NamingException
+    private SessionFactory getSessionFactory() throws NamingException
     {
         if(sessionFactory == null)
         {
