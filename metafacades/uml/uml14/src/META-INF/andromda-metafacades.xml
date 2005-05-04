@@ -133,6 +133,12 @@
     <metafacade class="org.andromda.metafacades.uml14.UseCaseFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ExtendFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.Extend$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.ExtensionPointFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.ExtensionPoint$Impl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.RoleLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
             <property name="referencesPresent"/>
