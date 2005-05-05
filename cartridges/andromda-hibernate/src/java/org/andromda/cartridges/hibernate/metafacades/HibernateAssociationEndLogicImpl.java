@@ -22,8 +22,6 @@ public class HibernateAssociationEndLogicImpl
         extends HibernateAssociationEndLogic
 {
 
-    // ---------------- constructor -------------------------------
-
     public HibernateAssociationEndLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -106,17 +104,27 @@ public class HibernateAssociationEndLogicImpl
         }
         if (this.isMany())
         {
-            final TypeMappings mappings = this.getLanguageMappings();
-            if (mappings != null)
+            final boolean specificInterfaces = Boolean.valueOf(ObjectUtils.toString(
+                this.getConfiguredProperty(HibernateGlobals.SPECIFIC_COLLECTION_INTERFACES))).booleanValue();
+            if (specificInterfaces)
             {
-                if (this.isSet())
+                final TypeMappings mappings = this.getLanguageMappings();
+                if (mappings != null)
                 {
-                    getterSetterTypeName = mappings.getTo(UMLProfile.SET_TYPE_NAME);
-                }
-                else if (this.isMap())
-                {
-                    getterSetterTypeName = mappings.getTo(UMLProfile.MAP_TYPE_NAME);
-                }
+                    if (this.isSet())
+                    {
+                        getterSetterTypeName = mappings.getTo(UMLProfile.SET_TYPE_NAME);
+                    }
+                    else if (this.isMap())
+                    {
+                        getterSetterTypeName = mappings.getTo(UMLProfile.MAP_TYPE_NAME);
+                    }
+                }                
+            }
+            else
+            {
+                getterSetterTypeName = ObjectUtils.toString(
+                    this.getConfiguredProperty(HibernateGlobals.DEFAULT_COLLECTION_INTERFACE));
             }
         }
         return getterSetterTypeName;

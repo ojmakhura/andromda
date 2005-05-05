@@ -617,7 +617,7 @@
                             <li>true</li>
                             <li>false</li>
                          </ul>
-			                For hibernate 3 the above values will be translated to
+                            For hibernate 3 the above values will be translated to
                          <ul>
                              <li>join</li>
                              <li>select</li>
@@ -627,7 +627,7 @@
                         No, default is <code>auto</code>.
                     </td>
                 </tr>
-                 <tr>
+                <tr>
                     <a name="ejbViewType"/>
                     <td>
                         ejbViewType
@@ -674,7 +674,60 @@
                     <td>
                         No, default is <code>false</code>.
                     </td>
-                 </tr>
+                </tr>
+                <tr>
+                    <a name="hibernateAssociationCollectionType"/>
+                    <td>
+                        hibernateAssociationCollectionType
+                    </td>
+                    <td>
+                         Used to define the default mapping for hibernate collections.
+                    </td>
+                    <td>
+                        No, default is <code>set</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <a name="hibernateAssociationSortType"/>
+                    <td>
+                        hibernateAssociationSortType
+                    </td>
+                    <td>
+                         Used to define how elements will be sorted within the collection defined by the association. (Only available for maps and sets).
+                    </td>
+                    <td>
+                        No, default is <code>unsorted</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <a name="specificCollectionInterfaces"/>
+                    <td>
+                        specificCollectionInterfaces
+                    </td>
+                    <td>
+                         A flag indicating whether or not specific collection interfaces will be used
+                         in association end mutators and accessors (i.e. java.util.Set, java.util.Liset, etc).
+                         If this is set to false, then the value of the <a href="#defaultCollectionInterface">defaultCollectionInterface</a>
+                         property will used to provide the collection interface.
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <a name="defaultCollectionInterface"/>
+                    <td>
+                        defaultCollectionInterface
+                    </td>
+                    <td>
+                         The default collection interface, this is the interface used with association end 
+                         accessors and mutators if the <a href="#specificCollectionInterfaces">specificCollectionInterfaces</a>
+                         flag is set to <code>false</code>.
+                    </td>
+                    <td>
+                        No, default is <code>java.util.Collection</code>.
+                    </td>
+                </tr>
             </table>
             <subsection name="Collection type implementations">
                 <table>
@@ -976,30 +1029,6 @@
                         </td>
                         <td>
                             No, default is <code>true</code>.
-                        </td>
-                    </tr>
-                    <tr>
-                    <a name="hibernateAssociationCollectionType"/>
-                        <td>
-                            hibernateAssociationCollectionType
-                        </td>
-                        <td>
-                             Used to define the default mapping for hibernate collections.
-                        </td>
-                        <td>
-                            No, default is <code>set</code>.
-                        </td>
-                    </tr>
-                    <tr>
-                    <a name="hibernateAssociationSortType"/>
-                        <td>
-                            hibernateAssociationSortType
-                        </td>
-                        <td>
-                             Used to define how elements will be sorted within the collection defined by the association. (Only available for maps and sets).
-                        </td>
-                        <td>
-                            No, default is <code>unsorted</code>.
                         </td>
                     </tr>
                 </table>
