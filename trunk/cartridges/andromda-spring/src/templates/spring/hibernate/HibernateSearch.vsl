@@ -143,14 +143,13 @@ public class ${criteriaSearchBaseName}
         if (considerParameter(parameter))
         {
             // parsing the pattern of the parameter
-            String parameterName = parameter.getParameterName();
+            String[] path = ${criteriaSearchBaseName}Parameter.PATTERN.split(parameter.getParameterPattern());
+            String parameterName = path[path.length - 1];
             net.sf.hibernate.Criteria parameterCriteria = rootCriteria;
-            // Peter needs to fix this (not sure where the path variable comes from), so
-            // just adding one here so the class compiles
-            String[] path = new String[0];
+
             if (path.length > 1)
             {
-                // We have a parameter affacting an attribute of an inner childEntity object so we need
+                // We have a parameter affecting an attribute of an inner childEntity object so we need
                 // to traverse to get the right criteria object
                 String childEntityName;
                 net.sf.hibernate.Criteria childEntityCriteria = rootCriteria;
