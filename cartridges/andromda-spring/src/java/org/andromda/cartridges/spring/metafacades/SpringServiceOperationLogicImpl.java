@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 public class SpringServiceOperationLogicImpl
         extends SpringServiceOperationLogic
 {
-    // ---------------- constructor -------------------------------
 
     public SpringServiceOperationLogicImpl(Object metaObject, String context)
     {

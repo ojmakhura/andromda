@@ -15,7 +15,6 @@ import java.util.Iterator;
 public class SpringQueryOperationLogicImpl
         extends SpringQueryOperationLogic
 {
-    // ---------------- constructor -------------------------------
 
     public SpringQueryOperationLogicImpl(Object metaObject, String context)
     {

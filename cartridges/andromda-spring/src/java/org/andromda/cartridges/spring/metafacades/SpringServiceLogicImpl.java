@@ -22,7 +22,6 @@ import org.apache.commons.lang.StringUtils;
 public class SpringServiceLogicImpl
         extends SpringServiceLogic
 {
-    // ---------------- constructor -------------------------------
 
     public SpringServiceLogicImpl(Object metaObject, String context)
     {
