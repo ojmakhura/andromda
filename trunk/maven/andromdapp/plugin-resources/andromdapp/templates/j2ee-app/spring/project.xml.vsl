@@ -22,7 +22,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>

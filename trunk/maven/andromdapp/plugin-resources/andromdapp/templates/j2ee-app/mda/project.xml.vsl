@@ -10,13 +10,13 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-profile</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>xml.zip</type>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
              <artifactId>maven-andromda-plugin</artifactId>
-             <version>${andromda}</version>
+             <version>${andromda.version}</version>
              <type>plugin</type>
              <properties>
                  <languageMappingsUri>Java</languageMappingsUri>
@@ -44,7 +44,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ejb-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <properties>
                 <entity-beans>${maven.andromda.core.generated.dir}</entity-beans>
                 <session-beans>${maven.andromda.core.generated.dir}</session-beans>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <properties>
                 <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
                 <dataSource>${dataSource}</dataSource>
@@ -85,7 +85,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-spring-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
 #if ($ear)
@@ -120,7 +120,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
                 <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
@@ -138,7 +138,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
                 <schemaTypeMappingsUri>AxisWSDLMappings</schemaTypeMappingsUri>
@@ -163,7 +163,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <properties>
 #if ($webservice)
                 <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
@@ -178,7 +178,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <properties>
                  <forms>${maven.andromda.web.generated.dir}</forms>
                  <pages>${maven.andromda.web.generated.dir}</pages>
@@ -203,12 +203,12 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-query-library</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
         </dependency>
     </dependencies>
 </project>
