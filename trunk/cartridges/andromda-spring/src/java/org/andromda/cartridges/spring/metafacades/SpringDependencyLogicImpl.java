@@ -19,8 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class SpringDependencyLogicImpl
         extends SpringDependencyLogic
 {
-    // ---------------- constructor -------------------------------
-
+    
     public SpringDependencyLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);

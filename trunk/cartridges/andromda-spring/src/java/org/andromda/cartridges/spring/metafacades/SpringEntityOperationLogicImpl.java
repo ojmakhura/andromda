@@ -10,8 +10,7 @@ import org.apache.commons.lang.StringUtils;
 public class SpringEntityOperationLogicImpl
         extends SpringEntityOperationLogic
 {
-    // ---------------- constructor -------------------------------
-
+    
     public SpringEntityOperationLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);

@@ -12,13 +12,7 @@ import org.apache.commons.lang.StringUtils;
 public class SpringCriteriaAttributeLogicImpl
         extends SpringCriteriaAttributeLogic
 {
-    private static final String ORDER_UNSET = "ORDER_UNSET";
-
-    /** Used for undefined states of the criteria ordering. */
-    private static final int UNSET = -1;
-
-    // ---------------- constructor -------------------------------
-
+    
     public SpringCriteriaAttributeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -170,6 +164,10 @@ public class SpringCriteriaAttributeLogicImpl
         return !StringUtils.isEmpty(getMatchMode());
     }
 
+    private static final String ORDER_UNSET = "ORDER_UNSET";
+    
+
+    
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleIsOrderable()
      */
@@ -199,6 +197,11 @@ public class SpringCriteriaAttributeLogicImpl
         }
         return result;
     }
+    
+    /** 
+     * Used for undefined states of the criteria ordering.
+     */
+    private static final int UNSET = -1;
 
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleGetOrderRelevance()

@@ -12,7 +12,6 @@ import org.andromda.core.common.StringUtilsHelper;
 public class SpringManageableEntityAssociationEndLogicImpl
     extends SpringManageableEntityAssociationEndLogic
 {
-    // ---------------- constructor -------------------------------
 
     public SpringManageableEntityAssociationEndLogicImpl (Object metaObject, String context)
     {

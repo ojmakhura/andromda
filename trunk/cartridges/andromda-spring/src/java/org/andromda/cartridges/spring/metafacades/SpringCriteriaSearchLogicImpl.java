@@ -8,8 +8,6 @@ package org.andromda.cartridges.spring.metafacades;
 public class SpringCriteriaSearchLogicImpl
         extends SpringCriteriaSearchLogic
 {
-    // ---------------- constructor -------------------------------
-
     public SpringCriteriaSearchLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
