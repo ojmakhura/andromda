@@ -138,7 +138,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
@@ -147,7 +147,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
@@ -156,7 +156,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>${andromda}</version>
+            <version>${andromda.version}</version>
             <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>

@@ -12,24 +12,23 @@
             var="pluginResourceJ2eeDir"
             value="${pluginResources}/templates/j2ee-app"/>
         <!-- merge all the versions in -->
+        <ant:delete file="${maven.build.dest}/project.xml"/>
         <velocity:merge
-            name="${maven.build.dest}/${pluginResourceJ2eeDir}/build.properties"
-            basedir="${basedir}/${pluginResourceJ2eeDir}"
-            template="/build.properties.vsl"/>
-            <ant:delete file="${maven.build.dest}/project.xml"/>
-            <velocity:merge
-                name="${maven.build.dest}/project.xml"
-                basedir="${basedir}"
-                template="/project.xml"/>
+            name="${maven.build.dest}/project.xml"
+            basedir="${basedir}"
+            template="/project.xml"/>
         <!-- copy over the empty model -->
         <ant:copy
             file="${model.location}"
             todir="${maven.build.dest}/${pluginResourceJ2eeDir}/mda/src/uml"/>
-       <!-- Replace references to the '${andromdaVersion} property' -->
-       <ant:replace file="${maven.build.dest}/${pluginResourceJ2eeDir}/readme.txt.vsl"
-           token="andromda.version"
-           value="${pom.currentVersion}">
-       </ant:replace>
+        <!-- Replace references to the '${andromdaVersion} property' -->
+        <ant:replace file="${maven.build.dest}/${pluginResourceJ2eeDir}/readme.txt.vsl"
+            token="current.version"
+            value="${pom.currentVersion}"/>
+        <!-- Replace references to the '${andromdaVersion} property' -->
+        <ant:replace file="${maven.build.dest}/${pluginResourceJ2eeDir}/build.properties.vsl"
+            token="current.version"
+            value="${pom.currentVersion}"/>
     </preGoal>
 
     <!-- Install into the local repository -->
