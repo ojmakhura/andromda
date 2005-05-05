@@ -1,7 +1,7 @@
 ##
 ##  This macro will render the appropriate java preconditions
 ##
-##      o   $operation: the element from which for are going to translate preconditions
+##      o   $operation: the operation from which we are going to translate preconditions
 ##
 #macro (renderPreconditions $operation)
 #foreach ($precondition in $operation.preconditions)
