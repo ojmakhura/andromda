@@ -387,7 +387,7 @@ public class ${criteriaSearchBaseName}Parameter
      *
      * @param order The ordering relevance for this parameter.
      */
-    public int setOrderRelevance(int relevance)
+    public void setOrderRelevance(int relevance)
     {
         this.orderRelevance = relevance;
     }
