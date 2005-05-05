@@ -65,7 +65,7 @@ public class UMLModelAccessFacade
         final String methodName = "UMLModelAccessFacade.getPackageName";
         ExceptionUtils.checkNull(methodName, "modelElement", modelElement);
         ExceptionUtils.checkAssignable(methodName, ModelElementFacade.class, "modelElement", modelElement.getClass());
-        return ((ModelElementFacade)modelElement).getPackageName();
+        return ((ModelElementFacade)modelElement).getPackageName(true);
     }
 
     /**

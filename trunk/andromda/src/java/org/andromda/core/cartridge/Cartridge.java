@@ -303,14 +303,14 @@ public class Cartridge
             // properties and template objects
             this.populateTemplateContext(templateContext);
 
-            StringWriter output = new StringWriter();
+            final StringWriter output = new StringWriter();
 
             // process the template with the set TemplateEngine
             this.getTemplateEngine().processTemplate(template.getPath(), templateContext, output);
 
             if (template.getOutputPattern().startsWith(TEMPLATE_ENGINE_OUTPUT_PREFIX))
             {
-                outFile = outputFileFromTemplateEngineContext(template, outletProperty.getValue());
+                outFile = this.outputFileFromTemplateEngineContext(template, outletProperty.getValue());
             }
             else
             {
@@ -323,8 +323,7 @@ public class Cartridge
                 // those that have overwrite set to 'true'
                 if (!outFile.exists() || template.isOverwrite())
                 {
-                    String outputString = output.toString();
-
+                    final String outputString = output.toString();
                     AndroMDALogger.setSuffix(this.getName());
                     // check to see if generateEmptyFiles is true and if
                     // outString is not blank

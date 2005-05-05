@@ -336,7 +336,7 @@
         <pathelement location="${basedir}/src/mappings"/>
     </mappingsSearchPath>
     <!-- This example package will not be processed -->
-    <modelPackage name="my.package.foo" shouldProcess="false"/>
+    <modelPackage name="my::package::foo" shouldProcess="false"/>
     <!-- This file tells AndroMDA how to map abstract datatypes to classes -->
     <namespace name="default" ignore="false">
         <property name="languageMappingsUri" value="file:${basedir}/JavaMappings.xml"/>
@@ -444,8 +444,8 @@
             <source language="xml"><![CDATA[
 <andromda>
   ...
-    <modelPackage name="my.package.foo" shouldProcess="true"/>
-    <modelPackage name="my.package.bar" shouldProcess="false"/>
+    <modelPackage name="my::package::foo" shouldProcess="true"/>
+    <modelPackage name="my::package::bar" shouldProcess="false"/>
   ...
 </andromda>
                 ]]></source>
@@ -455,7 +455,7 @@
             <source language="xml"><![CDATA[
 <andromda>
   ...
-    <modelPackage name="my.package.bar" shouldProcess="false"/>
+    <modelPackage name="my::package::bar" shouldProcess="false"/>
   ...
 </andromda>
                 ]]></source>

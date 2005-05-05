@@ -9,11 +9,19 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-SNAPSHOT" date="2005-04-30" description="Version 3.0 final">
+        <release version="3.0-SNAPSHOT" date="2005-05-04" description="Version 3.0 final">
+            <action dev="cwbrandon" type="update">
+                Package filtering has been changed to use the correct '::' namespace separator instead of the 
+                java specific separator; this means that whenever you apply package filtering you'll have to use
+                the '::' seperator between packages instead of '.' 
+                (see <a href="andromda-ant-task/index.html#modelPackage"><![CDATA[<modelPackage/>]]></a> for
+                Ant or <a href="maven-andromda-plugin/properties.html#maven_andromda_modelPackage">maven.andromda.modelPackage.<em>n</em>.name</a>
+                for Maven).
+            </action>
             <action dev="draftdog" type="update">
                 Generating CRUD for entities has been updated:
                 <ol>
-                    <li>Identifiers are only rendered when explicitely modeled (unless the
+                    <li>Identifiers are only rendered when explicitly modeled (unless the
                         <code>manageableIdDisplayStrategy</code> namespace property is used).</li>
                     <li>Dates are handled in a special way, if no time information is given the generated code
                         will assume the user wishes to search in the scope of an entire day instead of

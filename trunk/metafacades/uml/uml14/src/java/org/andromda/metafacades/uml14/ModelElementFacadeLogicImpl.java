@@ -6,8 +6,8 @@ import java.util.Iterator;
 
 import org.andromda.core.common.DocumentationAnalyzer;
 import org.andromda.core.common.Paragraph;
+import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.core.metafacade.MetafacadeProperties;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.EnumerationLiteralFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
@@ -19,6 +19,7 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.translation.ocl.ExpressionKinds;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.foundation.core.Abstraction;
@@ -62,8 +63,15 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackageName(boolean modelName)
     {
-        return UML14MetafacadeUtils.getPackageName(this.metaObject,
-                String.valueOf(this.getConfiguredProperty(this.getNamespaceScopeProperty(modelName))));
+        String packageName = UML14MetafacadeUtils.getPackageName(this.metaObject, this.getNamespaceScope(modelName), modelName);
+        if (modelName)
+        {
+            packageName = StringUtils.replace(
+                packageName, 
+                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), 
+                MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);
+        }
+        return packageName;
     }
 
     /**
@@ -73,8 +81,7 @@ public class ModelElementFacadeLogicImpl
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
         final String packageName = this.getPackageName(true);
-        final String metafacadeNamespaceScopeOperator = String.valueOf(
-                this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR));
+        final String metafacadeNamespaceScopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         if (StringUtils.isNotBlank(packageName))
         {
             fullName = packageName + metafacadeNamespaceScopeOperator + fullName;
@@ -102,14 +109,14 @@ public class ModelElementFacadeLogicImpl
      *                  scope operator.
      * @return the scope operator.
      */
-    private String getNamespaceScopeProperty(boolean modelName)
+    private String getNamespaceScope(boolean modelName)
     {
-        String namespaceScopeProperty = MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR;
+        String namespaceScope = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         if (!modelName)
         {
-            namespaceScopeProperty = UMLMetafacadeProperties.NAMESPACE_SEPARATOR;
+            namespaceScope = ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
         }
-        return namespaceScopeProperty;
+        return namespaceScope;
     }
 
     /**
@@ -660,8 +667,8 @@ public class ModelElementFacadeLogicImpl
      */
     public String getValidationName()
     {
-        StringBuffer validationName = new StringBuffer("");
-        Object seperator = this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR);
+        StringBuffer validationName = new StringBuffer();
+        final Object seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         for (ModelElement namespace = metaObject.getNamespace();
              namespace != null; namespace = namespace.getNamespace())
         {

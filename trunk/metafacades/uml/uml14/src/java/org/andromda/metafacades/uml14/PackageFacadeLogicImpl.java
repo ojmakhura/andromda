@@ -1,13 +1,14 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.andromda.core.metafacade.MetafacadeProperties;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.apache.commons.lang.ObjectUtils;
 import org.omg.uml.UmlPackage;
 import org.omg.uml.foundation.core.UmlClass;
-
-import java.util.Collection;
 
 /**
  * Metaclass facade implementation.
@@ -65,8 +66,10 @@ public class PackageFacadeLogicImpl
     public ModelElementFacade handleFindModelElement(final String fullyQualifiedName)
     {
         return (ModelElementFacade)this.shieldedElement(UML14MetafacadeUtils.findByFullyQualifiedName(
-                fullyQualifiedName, String.valueOf(this.getConfiguredProperty(
-                        MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR))));
+                fullyQualifiedName, 
+                ObjectUtils.toString(
+                    this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
+                    true));
     }
 
     /**
