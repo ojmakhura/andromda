@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class LibraryTranslation
 {
-    private static Logger logger = Logger.getLogger(LibraryTranslation.class);
+    private static final Logger logger = Logger.getLogger(LibraryTranslation.class);
 
     /**
      * The parent library to which this LibraryTranslation belongs.

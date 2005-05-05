@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class LibraryTranslationFinder
 {
-    private static Logger logger = Logger.getLogger(LibraryTranslationFinder.class);
+    private static final Logger logger = Logger.getLogger(LibraryTranslationFinder.class);
 
     protected static final Map libraryTranslations = new HashMap();
 
