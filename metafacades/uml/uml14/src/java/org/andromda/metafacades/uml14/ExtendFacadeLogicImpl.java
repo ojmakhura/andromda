@@ -1,6 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
 
 
 /**
@@ -16,16 +15,25 @@ public class ExtendFacadeLogicImpl
         super (metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ExtendFacade#handleGetBase()
+     */
     protected Object handleGetBase()
     {
         return metaObject.getBase();
     }
 
-    protected Collection handleGetExtensionPoints()
+    /**
+     * @see org.andromda.metafacades.uml.ExtendFacade#getExtensionPoints()
+     */
+    protected java.util.List handleGetExtensionPoints()
     {
         return metaObject.getExtensionPoint();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ExtendFacade#handleGetExtension()
+     */
     protected Object handleGetExtension()
     {
         return metaObject.getExtension();

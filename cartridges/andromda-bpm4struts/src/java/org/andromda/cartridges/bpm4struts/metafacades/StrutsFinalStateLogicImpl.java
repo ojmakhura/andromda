@@ -1,13 +1,15 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.metafacades.uml.UseCaseFacade;
-import org.apache.commons.lang.StringUtils;
-
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -102,7 +104,7 @@ public class StrutsFinalStateLogicImpl
         return targetUseCase;
     }
 
-    protected Collection handleGetActions()
+    protected List handleGetActions()
     {
         Set actions = new HashSet();
         Collection incoming = this.getIncoming();
@@ -112,6 +114,6 @@ public class StrutsFinalStateLogicImpl
             StrutsForward forward = (StrutsForward)incomingIterator.next();
             actions.addAll(forward.getActions());
         }
-        return actions;
+        return new ArrayList(actions);
     }
 }

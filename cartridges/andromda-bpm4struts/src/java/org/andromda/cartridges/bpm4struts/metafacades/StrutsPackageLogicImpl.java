@@ -3,6 +3,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -20,9 +21,9 @@ public class StrutsPackageLogicImpl
         super(metaObject, context);
     }
 
-    protected java.util.Collection handleGetStrutsUseCases()
+    protected java.util.List handleGetStrutsUseCases()
     {
-        Collection useCases = new ArrayList();
+        final List useCases = new ArrayList();
 
         Collection ownedElements = getOwnedElements();
         for (Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
@@ -37,11 +38,11 @@ public class StrutsPackageLogicImpl
         return useCases;
     }
 
-    protected java.util.Collection handleGetStrutsControllers()
+    protected java.util.List handleGetStrutsControllers()
     {
-        Collection useCases = new ArrayList();
+        final List useCases = new ArrayList();
 
-        Collection ownedElements = getOwnedElements();
+        final Collection ownedElements = getOwnedElements();
         for (Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
         {
             Object object = elementIterator.next();

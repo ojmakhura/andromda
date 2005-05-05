@@ -73,9 +73,9 @@ public class ManageableEntityLogicImpl
         return StringUtils.replace(this.getManageablePackageName(), this.getNamespaceProperty(), "/");
     }
 
-    protected java.util.Collection handleGetManageableAssociationEnds()
+    protected java.util.List handleGetManageableAssociationEnds()
     {
-        final Collection manageableAssociationEnds = new ArrayList();
+        final List manageableAssociationEnds = new ArrayList();
 
         final Collection associationEnds = getAssociationEnds();
         for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
@@ -216,10 +216,9 @@ public class ManageableEntityLogicImpl
         return true;
     }
 
-    protected Collection handleGetReferencingManageables()
+    protected java.util.List handleGetReferencingManageables()
     {
         final Set referencingManageables = new HashSet();
-
         final Collection associationEnds = getAssociationEnds();
         for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
@@ -230,8 +229,7 @@ public class ManageableEntityLogicImpl
                 referencingManageables.add(otherEnd.getType());
             }
         }
-
-        return referencingManageables;
+        return new ArrayList(referencingManageables);
     }
 
     protected Object handleGetDisplayAttribute()
@@ -270,7 +268,7 @@ public class ManageableEntityLogicImpl
         return displayAttribute;
     }
 
-    protected Collection handleGetUsers()
+    protected java.util.List handleGetUsers()
     {
         final Set users = new HashSet();
 

@@ -1,5 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -9,11 +15,6 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UseCaseFacade;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 
 
 /**
@@ -47,7 +48,7 @@ public class StrutsControllerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getDeferringActions()
      */
-    protected Collection handleGetDeferringActions()
+    protected List handleGetDeferringActions()
     {
         Collection deferringActions = new HashSet();
 
@@ -57,15 +58,15 @@ public class StrutsControllerLogicImpl
             StrutsControllerOperation operation = (StrutsControllerOperation)operationIterator.next();
             deferringActions.addAll(operation.getDeferringActions());
         }
-        return deferringActions;
+        return new ArrayList(deferringActions);
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getSessionObjects()
      */
-    protected Collection handleGetSessionObjects()
+    protected List handleGetSessionObjects()
     {
-        final Collection objectsList = new ArrayList();
+        final List objectsList = new ArrayList();
 
         final Collection dependencies = this.getSourceDependencies();
         for (Iterator iterator = dependencies.iterator(); iterator.hasNext();)
@@ -82,7 +83,7 @@ public class StrutsControllerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getServiceReferences()
      */
-    protected Collection handleGetServiceReferences()
+    protected List handleGetServiceReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
         {
@@ -128,9 +129,9 @@ public class StrutsControllerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getAllArguments()
      */
-    protected Collection handleGetAllArguments()
+    protected List handleGetAllArguments()
     {
-        final Collection allArguments = new ArrayList();
+        final List allArguments = new ArrayList();
         final Collection operations = this.getOperations();
 
         for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)

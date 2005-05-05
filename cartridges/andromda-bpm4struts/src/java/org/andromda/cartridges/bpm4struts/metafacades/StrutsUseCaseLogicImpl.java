@@ -199,7 +199,7 @@ public class StrutsUseCaseLogicImpl
         return usersList;
     }
 
-    protected Collection handleGetUsers()
+    protected List handleGetUsers()
     {
         final Collection allUsersList = new HashSet();
         final Collection associatedUsers = associatedUsers();
@@ -208,12 +208,12 @@ public class StrutsUseCaseLogicImpl
             final StrutsUser user = (StrutsUser)iterator.next();
             collectUsers(user, allUsersList);
         }
-        return allUsersList;
+        return new ArrayList(allUsersList);
     }
 
-    protected Collection handleGetAllUsers()
+    protected List handleGetAllUsers()
     {
-        Collection allUsers = new ArrayList();
+        List allUsers = new ArrayList();
         Collection allActors = getModel().getAllActors();
 
         for (Iterator actorIterator = allActors.iterator(); actorIterator.hasNext();)
@@ -245,9 +245,9 @@ public class StrutsUseCaseLogicImpl
         }
     }
 
-    protected Collection handleGetPages()
+    protected List handleGetPages()
     {
-        Collection pagesList = null;
+        List pagesList = null;
 
         StrutsActivityGraph graph = getActivityGraph();
         if (graph == null)
@@ -256,14 +256,14 @@ public class StrutsUseCaseLogicImpl
         }
         else
         {
-            pagesList = getModel().getAllActionStatesWithStereotype(graph, Bpm4StrutsProfile.STEREOTYPE_VIEW);
+            pagesList = new ArrayList(getModel().getAllActionStatesWithStereotype(graph, Bpm4StrutsProfile.STEREOTYPE_VIEW));
         }
         return pagesList;
     }
 
-    protected Collection handleGetAllPages()
+    protected List handleGetAllPages()
     {
-        final Collection pagesList = new ArrayList();
+        final List pagesList = new ArrayList();
         final Collection allActionStates = getModel().getAllActionStates();
 
         for (Iterator actionStateIterator = allActionStates.iterator(); actionStateIterator.hasNext();)
@@ -275,9 +275,9 @@ public class StrutsUseCaseLogicImpl
         return pagesList;
     }
 
-    protected Collection handleGetAllUseCases()
+    protected List handleGetAllUseCases()
     {
-        final Collection useCases = new ArrayList();
+        final List useCases = new ArrayList();
 
         for (Iterator useCaseIterator = getModel().getAllUseCases().iterator(); useCaseIterator.hasNext();)
         {
@@ -294,9 +294,9 @@ public class StrutsUseCaseLogicImpl
         return (graph == null) ? null : graph.getController();
     }
 
-    protected Collection handleGetFormFields()
+    protected List handleGetFormFields()
     {
-        final Collection formFields = new ArrayList(); // parameter names are supposed to be unique
+        final List formFields = new ArrayList(); // parameter names are supposed to be unique
 
         final Collection pages = getPages();
         for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
@@ -344,7 +344,7 @@ public class StrutsUseCaseLogicImpl
         return false;
     }
 
-    protected Collection handleGetActions()
+    protected List handleGetActions()
     {
         Collection actions = new HashSet();
 
@@ -362,10 +362,10 @@ public class StrutsUseCaseLogicImpl
             if (action != null) actions.add(action);
         }
 
-        return actions;
+        return new ArrayList(actions);
     }
 
-    protected Collection handleGetPageVariables()
+    protected List handleGetPageVariables()
     {
         final Map pageVariableMap = new HashMap();
 
@@ -385,7 +385,7 @@ public class StrutsUseCaseLogicImpl
                 pageVariableMap.put(variable.getName(), variable);
             }
         }
-        return pageVariableMap.values();
+        return new ArrayList(pageVariableMap.values());
     }
 
     protected boolean handleIsSecured()
@@ -419,9 +419,9 @@ public class StrutsUseCaseLogicImpl
         return selfTargetting;
     }
 
-    protected Collection handleGetReferencingFinalStates()
+    protected List handleGetReferencingFinalStates()
     {
-        final Collection referencingFinalStates = getModel().findFinalStatesWithNameOrHyperlink(this);
+        final List referencingFinalStates = new ArrayList(this.getModel().findFinalStatesWithNameOrHyperlink(this));
         return referencingFinalStates;
     }
 

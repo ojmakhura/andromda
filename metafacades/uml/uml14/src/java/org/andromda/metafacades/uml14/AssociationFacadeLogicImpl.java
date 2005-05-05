@@ -25,7 +25,7 @@ public class AssociationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationFacade#handleGetAssociationEnds()
      */
-    public java.util.Collection handleGetAssociationEnds()
+    public java.util.List handleGetAssociationEnds()
     {
         return metaObject.getConnection();
     }

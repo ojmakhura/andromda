@@ -1,18 +1,19 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 
 
 /**
@@ -42,7 +43,7 @@ public class StrutsActionStateLogicImpl
 
     // ------------- relations ------------------
 
-    protected Collection handleGetContainerActions()
+    protected List handleGetContainerActions()
     {
         Collection actionSet = new HashSet();
         ActivityGraphFacade activityGraphFacade = this.getActivityGraph();
@@ -65,13 +66,13 @@ public class StrutsActionStateLogicImpl
                 }
             }
         }
-        return actionSet;
+        return new ArrayList(actionSet);
     }
 
 
-    protected Collection handleGetControllerCalls()
+    protected List handleGetControllerCalls()
     {
-        final Collection controllerCallsList = new ArrayList();
+        final List controllerCallsList = new ArrayList();
         final Collection deferrableEvents = getDeferrableEvents();
         for (Iterator iterator = deferrableEvents.iterator(); iterator.hasNext();)
         {
@@ -111,7 +112,7 @@ public class StrutsActionStateLogicImpl
         return forward;
     }
 
-    protected java.util.Collection handleGetExceptions()
+    protected java.util.List handleGetExceptions()
     {
         final Map exceptionsMap = new HashMap();
         final Collection outgoing = getOutgoing();
@@ -123,7 +124,7 @@ public class StrutsActionStateLogicImpl
                 exceptionsMap.put(((StrutsExceptionHandler)transition).getExceptionKey(), transition);
             }
         }
-        return exceptionsMap.values();
+        return new ArrayList(exceptionsMap.values());
     }
 
     protected boolean handleIsServerSide()
