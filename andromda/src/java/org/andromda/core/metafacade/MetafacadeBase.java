@@ -17,15 +17,26 @@ import java.util.Collection;
  */
 public class MetafacadeBase
 {
-    private Object metaObject;
-    protected Logger logger;
-
+    /**
+     * Construts a new instance of this class with the given <code>metaObject</code>
+     * and <code>context</code>.  The metaObject is the meta model element which
+     * this metafacade insulates. The <code>context</code> is the name of the 
+     * context for this metafacade instance.
+     * 
+     * @param metaObject the meta object.
+     * @param context the context of this meta object.
+     */
     public MetafacadeBase(final Object metaObject, final String context)
     {
         this.metaObject = metaObject;
         this.context = context;
     }
-
+    
+    /**
+     * The meta object which this metafacade wraps.
+     */
+    private Object metaObject;
+    
     /**
      * Retrieves the <code>owner</code> of this metafacade (for example: an operation owns its parameters, a class owns
      * its attributes).
@@ -285,6 +296,11 @@ public class MetafacadeBase
     {
         return this.metaObject;
     }
+    
+    /**
+     * The metafacade logger instance.
+     */
+    protected Logger logger;
 
     /**
      * Package-local setter, called by facade factory. Sets the logger to use inside the facade's code.
