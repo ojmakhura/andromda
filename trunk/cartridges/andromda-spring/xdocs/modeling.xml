@@ -121,15 +121,15 @@
                   <table>
                     <tr>
                         <th>Tagged Value</th>
-						<th>Used With</th>
-						<th>Description</th>
+                        <th>Used With</th>
+                        <th>Description</th>
                     </tr>
                     <tr>
                         <td>
                             @andromda.persistence.table
                         </td>
                         <td>
-                            <a href="#Entity"><![CDATA[<<Entity>>]]></a> or 
+                            <a href="#Entity"><![CDATA[<<Entity>>]]></a> or
                             a many-to many association.
                         </td>
                         <td>
@@ -179,13 +179,13 @@
                             AssociationEnd connecting two entities
                         </td>
                         <td>
-                            Indicates whether or not the entity should use 
+                            Indicates whether or not the entity should use
                             the identifier of the foreign entity.  This has
-                            the same effect as if you set <em>@andromda.hibernate.generator.class</em> 
-                            to <em>foreign</em>. 
+                            the same effect as if you set <em>@andromda.hibernate.generator.class</em>
+                            to <em>foreign</em>.
                             <strong>NOTE:</strong>
-                            that this can only be applied to the child end of a 
-                            parent-child (one end is marked as composition) 
+                            that this can only be applied to the child end of a
+                            parent-child (one end is marked as composition)
                             one-to-one association.
                         </td>
                     </tr>
@@ -213,7 +213,7 @@
                         </td>
                         <td>
                             Used to define the generator class used for the hibernate entity.
-                            Any of the hibernate generator classes may be used.  
+                            Any of the hibernate generator classes may be used.
                             <ul>
                                 The possible options are:
                                 <li>increment</li>
@@ -243,31 +243,31 @@
                             relationships and defaults to <code>true</code> for the other kinds.
                         </td>
                     </tr>
-					<tr>
-						<a name="@andromda.hibernate.outerjoin"/>
-			          	<td>
-			          		@andromda.hibernate.outerjoin
-			          	</td>
-						<td>
-							Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
-						</td>
-			          	<td>
-			          		Defines if Hibernate will use a outer join for fetching the given assocation end. 
-			          		<ul>
+                    <tr>
+                        <a name="@andromda.hibernate.outerjoin"/>
+                          <td>
+                              @andromda.hibernate.outerjoin
+                          </td>
+                        <td>
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                        </td>
+                          <td>
+                              Defines if Hibernate will use a outer join for fetching the given assocation end.
+                              <ul>
                                 Permited values are:
-								<li>auto</li>
-								<li>true</li>
-								<li>false</li>
-							</ul>
-			          	</td>
-					</tr>
+                                <li>auto</li>
+                                <li>true</li>
+                                <li>false</li>
+                            </ul>
+                          </td>
+                    </tr>
                     <tr>
                         <a name="@andromda.role.name"/>
                           <td>
                               @andromda.role.name
                           </td>
                         <td>
-                            An actor with a dependency to a 
+                            An actor with a dependency to a
                             <a href="Service"><![CDATA[<<Service>>]]></a> or
                             a <a href="Service"><![CDATA[<<Service>>]]></a> operation.
                         </td>
@@ -277,58 +277,58 @@
                         </td>
                     </tr>
                     <tr>
-						<a name="@andromda.spring.service.remoting.type"/>
-						<td>
-							@andromda.spring.service.remoting.type
-						</td>
+                        <a name="@andromda.spring.service.remoting.type"/>
                         <td>
-							<a href="#Service"><![CDATA[<<Service>>]]></a>
+                            @andromda.spring.service.remoting.type
                         </td>
-						<td>
-							Services marked with this stereotype will be exported using Spring's remoting
-							architecture. You can choose among the following remoting protocols:
-	                        <ul>
-	                        	<li>none</li>
-	                        	<li>rmi</li>
-	                        	<li>httpinvoker</li>
-	                        	<li>burlap</li>
-	                        	<li>hessian</li>
-	                        </ul>
-	                        by setting the namespace property <code>serviceRemotingType</code>.
-						</td>
+                        <td>
+                            <a href="#Service"><![CDATA[<<Service>>]]></a>
+                        </td>
+                        <td>
+                            Services marked with this stereotype will be exported using Spring's remoting
+                            architecture. You can choose among the following remoting protocols:
+                            <ul>
+                                <li>none</li>
+                                <li>rmi</li>
+                                <li>httpinvoker</li>
+                                <li>burlap</li>
+                                <li>hessian</li>
+                            </ul>
+                            by setting the namespace property <code>serviceRemotingType</code>.
+                        </td>
                     </tr>
                     <tr>
-						<a name="@andromda.spring.service.remote.port"/>
-						<td>
-							@andromda.spring.service.remote.port
-						</td>
+                        <a name="@andromda.spring.service.remote.port"/>
                         <td>
-							<a href="#Service"><![CDATA[<<Service>>]]></a>
+                            @andromda.spring.service.remote.port
                         </td>
-						<td>
-							Sets the port this service will be exported on. You must also tag the
-							service using <a href="#@andromda.spring.service.remote.port">@andromda.spring.service.remote.port</a>.
-						</td>
+                        <td>
+                            <a href="#Service"><![CDATA[<<Service>>]]></a>
+                        </td>
+                        <td>
+                            Sets the port this service will be exported on. You must also tag the
+                            service using <a href="#@andromda.spring.service.remote.port">@andromda.spring.service.remote.port</a>.
+                        </td>
                     </tr>
                     <tr>
-						<a name="@andromda.hibernate.criteria.attribute"/>
-						<td>
-							@andromda.hibernate.criteria.attribute
-						</td>
+                        <a name="@andromda.hibernate.criteria.attribute"/>
                         <td>
-							<a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                            @andromda.hibernate.criteria.attribute
                         </td>
-						<td>
-							Sets the name of the attribute on the hibernate entity that should be added to a criteria
-							search. If the attribute you want to search for is not in the entity itself, but rather in
-							an associated class, you can use a fully qualified name here. Assume you have two entites
-							<code>Person</code> and <code>Address</code>, the address being referenced as a one-to-one
-							relationship with the role name <code>homeAddress</code> and the address having an attribute
-							named "city". If you want to retrieve all people living in Hamburg, simply set the value of 
-							this tagged value to <code>homeAddress.city</code>.
-							
-							If you ommit this tagged value, the name of the attribute in the criteria class will be used.
-						</td>
+                        <td>
+                            <a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                        </td>
+                        <td>
+                            Sets the name of the attribute on the hibernate entity that should be added to a criteria
+                            search. If the attribute you want to search for is not in the entity itself, but rather in
+                            an associated class, you can use a fully qualified name here. Assume you have two entites
+                            <code>Person</code> and <code>Address</code>, the address being referenced as a one-to-one
+                            relationship with the role name <code>homeAddress</code> and the address having an attribute
+                            named "city". If you want to retrieve all people living in Hamburg, simply set the value of
+                            this tagged value to <code>homeAddress.city</code>.
+
+                            If you ommit this tagged value, the name of the attribute in the criteria class will be used.
+                        </td>
                     </tr>
                     <tr>
                         <a name="@andromda.hibernate.criteria.nullable"/>
@@ -363,9 +363,9 @@
                                 <li>less</li>
                                 <li>less_equal</li>
                             </ul>
-                            
-                            If you ommit this tagged value and the underlying attribute is a <code>String</code>, 
-                            <code>like</code> will be used. If the underlying attribute is anything else but a 
+
+                            If you ommit this tagged value and the underlying attribute is a <code>String</code>,
+                            <code>like</code> will be used. If the underlying attribute is anything else but a
                             <code>String</code>, <code>equal</code> will be used.
                         </td>
                     </tr>
@@ -378,7 +378,7 @@
                             <a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
                         </td>
                         <td>
-                        	Use this value to denote the hibernate matchmode to be used for comparing strings.
+                            Use this value to denote the hibernate matchmode to be used for comparing strings.
                             Possible values are
                             <ul>
                                 <li>anywhere</li>
@@ -386,6 +386,36 @@
                                 <li>end</li>
                                 <li>exact</li>
                             </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.criteria.order.direction"/>
+                        <td>
+                            @andromda.hibernate.criteria.order.direction
+                        </td>
+                        <td>
+                            <a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                        </td>
+                        <td>
+                            Using this tagged value, you can determine the sort order of the result set.
+                            Possible values are
+                            <ul>
+                                <li>ascending</li>
+                                <li>descending</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="@andromda.hibernate.criteria.order.relevance"/>
+                        <td>
+                            @andromda.hibernate.criteria.order.relevance
+                        </td>
+                        <td>
+                            <a href="#Criteria">an attribute of a <![CDATA[<<Criteria>>]]> class</a>
+                        </td>
+                        <td>
+                            Use this tagged value to determine the relevance of this ordering. You may enter any
+                            integer value. The smaller the value, the more relevant the ordering will be.
                         </td>
                     </tr>
                     <tr>
@@ -397,7 +427,7 @@
                             Service Operation
                         </td>
                         <td>
-                            Defines a Spring transaction type for the service operation 
+                            Defines a Spring transaction type for the service operation
                             (when <strong>NOT</strong> wrapped by EJBs).
                             <ul>
                                 Permitted values are:
@@ -454,14 +484,14 @@
                 </p>
                 <p>
                     Entity query operations (i.e. finders) can be denoted by setting the
-                    query flag on the modeled operation to true 
+                    query flag on the modeled operation to true
                     (they do not require any stereotypes).
                 </p>
                 <p>
-                    Actors represent roles within your model.  To designate that a role 
-                    has access to a given service you must draw a dependency from an Actor 
-                    to the <a href="Service"><![CDATA[<<Service>>]]></a>.  To designate the 
-                    role has access to to a given operation, you must draw a dependency from 
+                    Actors represent roles within your model.  To designate that a role
+                    has access to a given service you must draw a dependency from an Actor
+                    to the <a href="Service"><![CDATA[<<Service>>]]></a>.  To designate the
+                    role has access to to a given operation, you must draw a dependency from
                     an Actor to the operation.
                 </p>
             </subsection>

@@ -81,10 +81,12 @@
                 of existing properties.
             </p>
             <p>
-                Tagged values may be added to the attributes of such class. They are interesting when you want to
+                Tagged values may be added to the attributes of such a class. They are interesting when you want to
                 wire the attributes to specific properties of the domain model. You can
-                also set the comparator for the criteria search (equal, like, less, ...) or define certain attributes 
-                to be included in the search even if they are <code>null</code>. For more details
+                also set the comparator for the criteria search (equal, like, less, ...) or define certain attributes
+                to be included in the search even if they are <code>null</code>.
+                You can even activate result set ordering (ascending / descending) by just applying two tagged values
+                to one or more criteria search attributes. For more details
                 go here: <a href="modeling.html#Supported_Tagged_Values">Tagged Values</a>.
             </p>
             <p>
@@ -115,7 +117,7 @@
 <source language="java"><![CDATA[
 public List findActiveUsers(int transform)
 {
-    // the next query is user-specified and overrides the one generated in super.findActiveUsers(int transform) 
+    // the next query is user-specified and overrides the one generated in super.findActiveUsers(int transform)
     return super.findActiveUsers(transform, "from org.andromda.test.Users as user where user.exitDate is null");
 }
 ]]></source>
