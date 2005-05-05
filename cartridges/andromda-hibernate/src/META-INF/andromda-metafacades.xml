@@ -40,7 +40,7 @@
         <property reference="mapTypeImplementation" default="java.util.HashMap"/>
         <property reference="bagTypeImplementation" default="java.util.ArrayList"/>
         <property reference="specificCollectionInterfaces" default="true"/>
-        <property reference="genericCollectionInterface" default="java.util.Collection"/>
+        <property reference="defaultCollectionInterface" default="java.util.Collection"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
