@@ -26,11 +26,6 @@ public class Mapping
     private final Collection froms = new HashSet();
 
     /**
-     * Stores the to mapping.
-     */
-    private String to;
-
-    /**
      * Adds the <code>from</code> type to the mapping.
      *
      * @param from the type that we are mapping from.
@@ -92,6 +87,11 @@ public class Mapping
     {
         this.paths.add(path);
     }
+    
+    /**
+     * Stores the to mapping.
+     */
+    private String to;
 
     /**
      * Sets the type for this mapping.
