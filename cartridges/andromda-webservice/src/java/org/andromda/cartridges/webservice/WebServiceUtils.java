@@ -53,24 +53,34 @@ public class WebServiceUtils
     }
 
     /**
-     * <p/>
-     * Creates and returns the schema type for the given <code>type</code>. It finds the mapped schema type from the
-     * passed in <code>schemaTypeMappings</code>. </p>
-     *
-     * @param type                   the ClassifierFacade instance
-     * @param schemaTypeMappings     contains the mappings from model datatypes to schema datatypes.
-     * @param namespacePrefix        the prefix given to the schema type if it's a custom type (non XSD type).
-     * @param qName                  the qualifed name
+     * <p/> Creates and returns the schema type for the given <code>type</code>.
+     * It finds the mapped schema type from the passed in
+     * <code>schemaTypeMappings</code>.
+     * </p>
+     * 
+     * @param type the ClassifierFacade instance
+     * @param schemaTypeMappings contains the mappings from model datatypes to
+     *        schema datatypes.
+     * @param namespacePrefix the prefix given to the schema type if it's a
+     *        custom type (non XSD type).
+     * @param qName the qualifed name
      * @param wrappedArrayTypePrefix a prefix to give to wrapped array types.
-     * @param withPrefix             a flag indicating whether or not the type should have the prefix defined
-     * @param preserveArray          true/false, if true then if the schema type is an array we'll preserve the fact
-     *                               that its an array and return an array schema type name. If false we will return
-     *                               back the non array type even if its an array.
+     * @param withPrefix a flag indicating whether or not the type should have
+     *        the prefix defined
+     * @param preserveArray true/false, if true then if the schema type is an
+     *        array we'll preserve the fact that its an array and return an
+     *        array schema type name. If false we will return back the non array
+     *        type even if its an array.
      * @return the schema type name.
      */
-    public static java.lang.String getSchemaType(ClassifierFacade type, TypeMappings schemaTypeMappings,
-                                                 String namespacePrefix, String qName, String wrappedArrayTypePrefix,
-                                                 boolean withPrefix, boolean preserveArray)
+    public static java.lang.String getSchemaType(
+        ClassifierFacade type,
+        TypeMappings schemaTypeMappings,
+        String namespacePrefix,
+        String qName,
+        String wrappedArrayTypePrefix,
+        boolean withPrefix,
+        boolean preserveArray)
     {
         StringBuffer schemaType = new StringBuffer();
         String modelName = type.getFullyQualifiedName(true);
@@ -119,7 +129,7 @@ public class WebServiceUtils
                     {
                         // add the prefix for any normal XSD types
                         // that may not have been set above
-                        schemaType.insert(0, namespacePrefix);
+                        schemaType.insert(0, namespacePrefix);                     
                     }
                     else
                     {

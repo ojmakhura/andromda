@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -41,16 +42,20 @@ import org.omg.uml.modelmanagement.UmlPackage;
  */
 public class UML14MetafacadeUtils
 {
-
     /**
-     * Finds a given model element in the model having the specified <code>fullyQualifiedName</code>. If the model
-     * element can <strong>NOT </strong> be found, <code>null</code> will be returned instead.
-     *
-     * @param fullyQualifiedName the fully qualified name of the element to search for.
-     * @param separator          the separator used for qualifying the name (example '::').
+     * Finds a given model element in the model having the specified
+     * <code>fullyQualifiedName</code>. If the model element can <strong>NOT
+     * </strong> be found, <code>null</code> will be returned instead.
+     * 
+     * @param fullyQualifiedName the fully qualified name of the element to
+     *        search for.
+     * @param separator the PSM separator used for qualifying the name (example
+     *        ".").
+     * @param modelName a flag indicating whether or not a search shall be performed using
+     *        the fully qualified model name or fully qualified PSM name.
      * @return the found model element
      */
-    static Object findByFullyQualifiedName(final String fullyQualifiedName, final String separator)
+    static Object findByFullyQualifiedName(final String fullyQualifiedName, final String separator, final boolean modelName)
     {
         Object modelElement = null;
         Collection elements = ((org.omg.uml.UmlPackage)MetafacadeFactory.getInstance().getModel().getModel()).getCore()
@@ -61,11 +66,16 @@ public class UML14MetafacadeUtils
             public boolean evaluate(Object object)
             {
                 ModelElement element = (ModelElement)object;
-                StringBuffer fullName = new StringBuffer(getPackageName(element, separator));
+                StringBuffer fullName = new StringBuffer(getPackageName(element, separator, modelName));
                 String name = element.getName();
                 if (StringUtils.isNotBlank(name))
                 {
-                    fullName.append(separator);
+                    String namespaceSeparator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
+                    if (!modelName)
+                    {
+                        namespaceSeparator = separator;
+                    }
+                    fullName.append(namespaceSeparator);
                     fullName.append(name);
                 }
                 return fullName.toString().equals(fullyQualifiedName);
@@ -79,15 +89,22 @@ public class UML14MetafacadeUtils
      * <code>separator</code>.
      *
      * @param metaObject the Model Element
-     * @return
+     * @param separator the PSM namespace separator
+     * @param modelName true/false on whether or not to get the model package name instead
+     *        of the PSM package name.
+     * @return the package name.
      */
-    static String getPackageName(ModelElement metaObject, String separator)
+    static String getPackageName(ModelElement metaObject, String separator, boolean modelName)
     {
         String packageName = "";
         for (ModelElement namespace = metaObject.getNamespace(); (namespace instanceof UmlPackage) &&
                 !(namespace instanceof Model); namespace = namespace.getNamespace())
         {
             packageName = packageName.equals("") ? namespace.getName() : namespace.getName() + separator + packageName;
+        }
+        if (modelName && StringUtils.isNotBlank(packageName))
+        {
+            packageName = StringUtils.replace(packageName, separator, MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);
         }
         return packageName;
     }
@@ -191,14 +208,15 @@ public class UML14MetafacadeUtils
     }
 
     /**
-     * Creates an attribute having the give <code>name</code> and the type having the given
-     * <code>fullyQualifiedTypeName</code>, with the specified visibility, if no type can be found with the given name,
-     * no type is set.
-     *
-     * @param name                   the new name
+     * Creates an attribute having the give <code>name</code> and the type
+     * having the given <code>fullyQualifiedTypeName</code>, with the
+     * specified visibility, if no type can be found with the given name, no
+     * type is set.
+     * 
+     * @param name the new name
      * @param fullyQualifiedTypeName the name of the fully qualified type
-     * @param visibility             the visibility name
-     * @param the                    separator used for qualifying the name.
+     * @param visibility the visibility name
+     * @param the separator used for qualifying the name.
      * @return the new Attribute.
      */
     static Attribute createAttribute(String name, String fullyQualifiedTypeName, String visibility, String separator)
@@ -206,7 +224,7 @@ public class UML14MetafacadeUtils
         Attribute attribute = UML14MetafacadeUtils.getCorePackage().getAttribute().createAttribute();
         attribute.setName(name);
         attribute.setVisibility(UML14MetafacadeUtils.getVisibilityKind(visibility));
-        Object type = UML14MetafacadeUtils.findByFullyQualifiedName(fullyQualifiedTypeName, separator);
+        Object type = UML14MetafacadeUtils.findByFullyQualifiedName(fullyQualifiedTypeName, separator, false);
         if (type != null && Classifier.class.isAssignableFrom(type.getClass()))
         {
             attribute.setType((Classifier)type);
@@ -216,10 +234,10 @@ public class UML14MetafacadeUtils
 
     /**
      * Indicates whether or not the attribute exists on the given </code>classifier</code>.
-     *
+     * 
      * @param classifier the classifier to check
-     * @param name       the name of the attribute
-     * @return
+     * @param name the name of the attribute
+     * @return true/false
      */
     static boolean attributeExists(Object classifier, String name)
     {
@@ -616,5 +634,4 @@ public class UML14MetafacadeUtils
                 .findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
         return StringUtils.trimToNull(serialVersionString);
     }
-
 }

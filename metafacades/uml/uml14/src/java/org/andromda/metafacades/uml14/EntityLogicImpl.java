@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.core.metafacade.MetafacadeProperties;
+import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -150,8 +150,7 @@ public class EntityLogicImpl
         // already exist
         if (!UML14MetafacadeUtils.attributeExists(this.metaObject, name))
         {
-            Attribute identifier = UML14MetafacadeUtils.createAttribute(name, type, visibility, String.valueOf(
-                    this.getConfiguredProperty(MetafacadeProperties.METAFACADE_NAMESPACE_SCOPE_OPERATOR)));
+            Attribute identifier = UML14MetafacadeUtils.createAttribute(name, type, visibility, MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);
 
             identifier.getStereotype().add(UML14MetafacadeUtils.findOrCreateStereotype(
                     UMLProfile.STEREOTYPE_IDENTIFIER));

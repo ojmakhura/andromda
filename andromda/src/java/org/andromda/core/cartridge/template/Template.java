@@ -1,6 +1,7 @@
 package org.andromda.core.cartridge.template;
 
 import org.andromda.core.cartridge.Resource;
+import org.andromda.core.metafacade.MetafacadeConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -61,19 +62,22 @@ public class Template
      * @return File absolute directory.
      */
     public File getOutputLocation(final String modelElementName, final String packageName, final File directory)
-    {
+    { 
         File file = null;
         // if singleFileOutput is set to true, then
         // just use the output pattern as the file to
         // output to, otherwise we replace using message format.
         if (this.isOutputToSingleFile())
         {
-            file = super.getOutputLocation(new String[]{this.getOutputPattern(), }, directory);
+            file = super.getOutputLocation(new String[]{this.getOutputPattern()}, directory);
         }
         else
         {
-            file = super.getOutputLocation(new String[]{StringUtils.trimToEmpty(packageName).replace('.',
-                    File.separatorChar), modelElementName, }, directory);
+            file = super.getOutputLocation(new String[]{
+                    StringUtils.replace(
+                        StringUtils.trimToEmpty(packageName), 
+                        MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
+                         File.separator), modelElementName}, directory);
         }
         return file;
     }
