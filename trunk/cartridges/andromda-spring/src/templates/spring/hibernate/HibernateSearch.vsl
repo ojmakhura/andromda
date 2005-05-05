@@ -30,15 +30,16 @@ public class ${criteriaSearchBaseName}
     private java.util.Map childCriteriaMap;
     private java.util.List orderList;
 
-    private class ParameterComparator implements java.util.Comparator
+    private static final class ParameterComparator
+        implements java.util.Comparator
     {
         public int compare(Object object1, Object object2)
         {
             CriteriaSearchParameter parameter1 = (CriteriaSearchParameter)object1;
             CriteriaSearchParameter parameter2 = (CriteriaSearchParameter)object2;
 
-            int relevance1 = parameter1.getOrderRelevance;
-            int relevance2 = parameter2.getOrderRelevance;
+            int relevance1 = parameter1.getOrderRelevance();
+            int relevance2 = parameter2.getOrderRelevance();
 
             return relevance2 - relevance1;
 
@@ -58,7 +59,7 @@ public class ${criteriaSearchBaseName}
         configuration = new ${criteriaSearchBaseName}Configuration();
         this.rootCriteria = session.createCriteria(resultType);
         childCriteriaMap = new java.util.HashMap();
-        orderList = new ArrayList();
+        orderList = new java.util.ArrayList();
     }
 
     /**
@@ -71,20 +72,20 @@ public class ${criteriaSearchBaseName}
     public java.util.Collection execute() throws net.sf.hibernate.HibernateException
     {
         // add ordering
-        if (orderList.size > 0)
+        if (orderList.size() > 0)
         {
-            java.util.Arrays.sort(orderList, new ParameterComparator());
+            java.util.Collections.sort(orderList, new ParameterComparator());
             for (java.util.Iterator orderIterator = orderList.iterator(); orderIterator.hasNext();)
             {
                 ${criteriaSearchBaseName}Parameter parameter = (${criteriaSearchBaseName}Parameter)orderIterator.next();
                 int direction = parameter.getOrderDirection();
                 if (direction == ${criteriaSearchBaseName}Parameter.ORDER_ASC)
                 {
-                    rootCriteria.addOrder(Order.asc(parameter.getParameterName()));
+                    rootCriteria.addOrder(net.sf.hibernate.expression.Order.asc(parameter.getParameterName()));
                 }
                 else
                 {
-                    rootCriteria.addOrder(Order.desc(parameter.getParameterName()));
+                    rootCriteria.addOrder(net.sf.hibernate.expression.Order.desc(parameter.getParameterName()));
                 }
             }
         }
@@ -144,10 +145,13 @@ public class ${criteriaSearchBaseName}
             // parsing the pattern of the parameter
             String parameterName = parameter.getParameterName();
             net.sf.hibernate.Criteria parameterCriteria = rootCriteria;
+            // Peter needs to fix this (not sure where the path variable comes from), so
+            // just adding one here so the class compiles
+            String[] path = new String[0];
             if (path.length > 1)
             {
                 // We have a parameter affacting an attribute of an inner childEntity object so we need
-                // to travers to get the right criteria object
+                // to traverse to get the right criteria object
                 String childEntityName;
                 net.sf.hibernate.Criteria childEntityCriteria = rootCriteria;
                 // Evaluating the proper criteria object for the defined parameter
@@ -166,7 +170,7 @@ public class ${criteriaSearchBaseName}
                     parameter.getMatchMode());
 
             // if the parameter is to be ordered, add it to the order list
-            if (parameter.getOrderDirection != ${criteriaSearchBaseName}Parameter.ORDER_UNSET)
+            if (parameter.getOrderDirection() != ${criteriaSearchBaseName}Parameter.ORDER_UNSET)
             {
                 orderList.add(parameter);
             }
@@ -203,11 +207,11 @@ public class ${criteriaSearchBaseName}
      * @param matchMode
      */
     private void addExpression(
-            net.sf.hibernate.Criteria criteria,
-            String parameterName,
-            Object parameterValue,
-            int comparatorID,
-            net.sf.hibernate.expression.MatchMode matchMode)
+        net.sf.hibernate.Criteria criteria,
+        String parameterName,
+        Object parameterValue,
+        int comparatorID,
+        net.sf.hibernate.expression.MatchMode matchMode)
     {
         if (parameterValue != null)
         {
