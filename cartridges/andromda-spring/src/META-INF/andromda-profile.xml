@@ -44,6 +44,14 @@
         <to>@andromda.hibernate.criteria.matchmode</to>
     </mapping>
     <mapping>
+        <from>HIBERNATE_CRITERIA_ORDER_DIRECTION</from>
+        <to>@andromda.hibernate.criteria.order.direction</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_CRITERIA_ORDER_RELEVANCE</from>
+        <to>@andromda.hibernate.criteria.order.relevance</to>
+    </mapping>
+    <mapping>
         <from>LIKE_COMPARATOR</from>
         <to>like</to>
     </mapping>
@@ -82,5 +90,13 @@
     <mapping>
         <from>MATCHMODE_START</from>
         <to>start</to>
+    </mapping>
+    <mapping>
+        <from>ORDER_ASCENDING</from>
+        <to>ascending</to>
+    </mapping>
+    <mapping>
+        <from>ORDER_DESCENDING</from>
+        <to>descending</to>
     </mapping>
 </mappings>

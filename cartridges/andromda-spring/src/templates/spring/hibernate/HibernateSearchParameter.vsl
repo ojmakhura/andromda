@@ -50,11 +50,25 @@ public class ${criteriaSearchBaseName}Parameter
     public static final int LESS_THAN_OR_EQUAL_COMPARATOR = 4;
     public static final int LESS_THAN_COMPARATOR = 5;
 
+    /** Order unset */
+    public static final int ORDER_UNSET = -1;
+
+    /** Ascending order */
+    public static final int ORDER_ASC = 0;
+
+    /** Descending order */
+    public static final int ORDER_DESC = 1;
+
+    /** Order relevance not set */
+    public static final int RELEVANCE_UNSET = -1;
+
     private Object parameterValue;
     private String parameterPattern;
     private boolean searchIfIsNull = false;
     private net.sf.hibernate.expression.MatchMode matchMode = null;
     private int comparatorID = ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR;
+    private int orderDirection = ORDER_UNSET;
+    private int orderRelevance = RELEVANCE_UNSET;
 
     /**
      * Constructor for ${criteriaSearchBaseName}Parameter. Sets <code>searchIfIsNull</code> to
@@ -263,6 +277,27 @@ public class ${criteriaSearchBaseName}Parameter
     }
 
     /**
+     * Parse the parameter pattern and return the last part of the name.
+     *
+     * @param parameterPattern The parameter pattern.
+     * @return The last part of the parameter pattern, i.e. the attribute name.
+     */
+    private String parseParameterName(String parameterPattern)
+    {
+        // parsing the pattern of the parameter
+        String[] path = ${criteriaSearchBaseName}Parameter.PATTERN.split(parameterPattern);
+        return path[path.length - 1];
+    }
+
+    /**
+     * @return The last part of the parameter pattern, i.e. the attribute name.
+     */
+    public String getParameterName()
+    {
+        return parseParameterName(parameterPattern);
+    }
+
+    /**
      * @return The value of this parameter.
      */
     public Object getParameterValue()
@@ -315,6 +350,46 @@ public class ${criteriaSearchBaseName}Parameter
     public void setMatchMode(net.sf.hibernate.expression.MatchMode matchMode)
     {
         this.matchMode = matchMode;
+    }
+
+    /**
+     * @return The order (ascending or descending) for this parameter.
+     * @see ORDER_ASC
+     * @see ORDER_DESC
+     * @see ORDER_UNSET
+     */
+    public int getOrderDirection()
+    {
+        return orderDirection;
+    }
+
+    /**
+     * Sets the ordering for this parameter.
+     *
+     * @param orderDirection The ordering for this parameter.
+     */
+    public void setOrderDirection(int orderDirection)
+    {
+        this.orderDirection = orderDirection;
+    }
+
+    /**
+     * @return The relevance for this parameter.
+     * @see RELEVANCE_UNSET
+     */
+    public int getOrderRelevance()
+    {
+        return orderRelevance;
+    }
+
+    /**
+     * Sets the ordering relevance for this parameter.
+     *
+     * @param order The ordering relevance for this parameter.
+     */
+    public int setOrderRelevance(int relevance)
+    {
+        this.orderRelevance = relevance;
     }
 
 }

@@ -53,6 +53,16 @@ public class SpringProfile
     public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_MATCHMODE = profile.get("HIBERNATE_CRITERIA_MATCHMODE");
 
     /**
+     * Stores the criteria search order direction.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION = profile.get("HIBERNATE_CRITERIA_ORDER_DIRECTION");
+
+    /**
+     * Stores the criteria search order relevance.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE = profile.get("HIBERNATE_CRITERIA_ORDER_RELEVANCE");
+
+    /**
      * Stores a hibernate query.
      */
     public static final String TAGGEDVALUE_HIBERNATE_QUERY = profile.get("HIBERNATE_QUERY");
@@ -108,21 +118,31 @@ public class SpringProfile
     /**
      * The {@link net.sf.hibernate.expression.MatchMode#ANYWHERE} match mode.
      */
-    public static final Object TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE = profile.get("MATCHMODE_ANYWHERE");
+    public static final String TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE = profile.get("MATCHMODE_ANYWHERE");
 
     /**
      * The {@link net.sf.hibernate.expression.MatchMode#END} match mode.
      */
-    public static final Object TAGGEDVALUEVALUE_MATCHMODE_END = profile.get("MATCHMODE_END");
+    public static final String TAGGEDVALUEVALUE_MATCHMODE_END = profile.get("MATCHMODE_END");
 
     /**
      * The {@link net.sf.hibernate.expression.MatchMode#EXACT} match mode.
      */
-    public static final Object TAGGEDVALUEVALUE_MATCHMODE_EXACT = profile.get("MATCHMODE_EXACT");
+    public static final String TAGGEDVALUEVALUE_MATCHMODE_EXACT = profile.get("MATCHMODE_EXACT");
 
     /**
      * The {@link net.sf.hibernate.expression.MatchMode#START} match mode.
      */
-    public static final Object TAGGEDVALUEVALUE_MATCHMODE_START = profile.get("MATCHMODE_START");
+    public static final String TAGGEDVALUEVALUE_MATCHMODE_START = profile.get("MATCHMODE_START");
+
+    /**
+     * Ascending sort order.
+     */
+    public static final String TAGGEDVALUEVALUE_ORDER_ASCENDING = profile.get("ORDER_ASCENDING");
+
+    /**
+     * Descending sort order.
+     */
+    public static final String TAGGEDVALUEVALUE_ORDER_DESCENDING = profile.get("ORDER_DESCENDING");
 
 }
