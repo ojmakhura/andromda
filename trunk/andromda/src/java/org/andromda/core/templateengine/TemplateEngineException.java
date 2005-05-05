@@ -10,32 +10,32 @@ public class TemplateEngineException
     /**
      * Constructs an instance of TemplateEngineException.
      *
-     * @param th
+     * @param parent
      */
-    public TemplateEngineException(Throwable th)
+    public TemplateEngineException(Throwable parent)
     {
-        super(th);
+        super(parent);
     }
 
     /**
      * Constructs an instance of TemplateEngineException.
      *
-     * @param msg
+     * @param message
      */
-    public TemplateEngineException(String msg)
+    public TemplateEngineException(String message)
     {
-        super(msg);
+        super(message);
     }
 
     /**
      * Constructs an instance of TemplateEngineException.
      *
-     * @param msg
-     * @param th
+     * @param message
+     * @param parent
      */
-    public TemplateEngineException(String msg, Throwable th)
+    public TemplateEngineException(String message, Throwable parent)
     {
-        super(msg, th);
+        super(message, parent);
     }
 
 }
