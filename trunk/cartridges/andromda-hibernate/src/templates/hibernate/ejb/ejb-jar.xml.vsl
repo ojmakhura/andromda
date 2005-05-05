@@ -68,7 +68,7 @@
 #foreach ($service in $services)
         <method-permission>
             <description><![CDATA[Create method security constraint]]></description>
-#if (!$ejbSecurityEnabled || $service.roles.empty)
+#if (!$ejbSecurityEnabled || $service.allRoles.empty)
             <unchecked/>
 #else
 #foreach ($role in $service.allRoles)
