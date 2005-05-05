@@ -116,10 +116,10 @@ public class ${criteriaSearchBaseName}Parameter
      * @param comparatorID Indicates what comparator is to be used (e.g. like, =, <, ...).
      */
     public ${criteriaSearchBaseName}Parameter(
-            Object parameterValue,
-            String parameterPattern,
-            boolean searchIfNull,
-            int comparatorID)
+        Object parameterValue,
+        String parameterPattern,
+        boolean searchIfNull,
+        int comparatorID)
     {
         super();
         this.parameterValue = parameterValue;
@@ -137,9 +137,9 @@ public class ${criteriaSearchBaseName}Parameter
      *     <code>IS NULL</code> if the parameter is <code>null</code>.
      */
     public ${criteriaSearchBaseName}Parameter(
-            Object parameterValue,
-            String parameterPattern,
-            boolean searchIfNull)
+        Object parameterValue,
+        String parameterPattern,
+        boolean searchIfNull)
     {
         super();
         this.parameterValue = parameterValue;
