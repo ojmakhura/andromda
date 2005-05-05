@@ -25,7 +25,7 @@ public class $metafacade.logicImplName
 #set ($attributes = $metafacade.attributes)
 #if (!$attributes.empty)
 
-#foreach ( $attribute in $attributes )
+#foreach ($attribute in $attributes)
 #set ($methodName = $attribute.getterName)
 #set ($returnTypeName = $attribute.type.fullyQualifiedName)
     /**
@@ -46,12 +46,13 @@ public class $metafacade.logicImplName
 #set ($returnTypeName = $operation.returnType.fullyQualifiedName)
 #if ($defaultException)
     $operation.visibility $returnTypeName ${operation.implementationName}($operation.typedArgumentList)
-        throws $defaultException.name {
+        throws $defaultException.name 
+    {
 #else
     /**
      * @see ${metafacade.fullyQualifiedName}#${operation.getSignature(false)}
      */
-    protected $returnTypeName ${operation.implementationName}()
+    protected $returnTypeName ${operation.implementationName}($operation.typedArgumentList)
     {
 #end
         // TODO: put your implementation here.
@@ -64,10 +65,8 @@ public class $metafacade.logicImplName
 #end
 ##
 #if (!$metafacade.associationEnds.empty)
-#foreach ( $associationEnd in $metafacade.associationEnds )
+#foreach ($associationEnd in $metafacade.associationEnds)
 #if ($associationEnd.otherEnd.navigable)
-#set ($memberTypeName = $associationEnd.otherEnd.getterSetterTypeName)
-#set ($methodName = $associationEnd.otherEnd.getterName)
 #if ($associationEnd.otherEnd.many)
 #set ($returnTypeName = $associationEnd.otherEnd.getterSetterTypeName)
 #else
@@ -76,7 +75,7 @@ public class $metafacade.logicImplName
     /**
      * @see ${metafacade.fullyQualifiedName}#${associationEnd.otherEnd.getterName}()
      */
-    protected $returnTypeName ${associationEnd.implementationOperationName}()
+    protected $returnTypeName ${associationEnd.otherEnd.implementationOperationName}()
     {
         // TODO: add your implementation here!
         return null;

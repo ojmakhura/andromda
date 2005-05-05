@@ -1,19 +1,21 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.ServiceOperation;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import org.andromda.metafacades.uml.StateVertexFacade;
 
 
 /**
@@ -51,7 +53,7 @@ public class StrutsControllerOperationLogicImpl
         return '/' + getInterfaceType().replace('.', '/');
     }
 
-    protected java.util.Collection handleGetDeferringActions()
+    protected java.util.List handleGetDeferringActions()
     {
         final Collection deferringActions = new HashSet();
 
@@ -106,7 +108,7 @@ public class StrutsControllerOperationLogicImpl
                 }
             }
         }
-        return deferringActions;
+        return new ArrayList(deferringActions);
     }
 
     protected Object handleGetController()
@@ -115,9 +117,9 @@ public class StrutsControllerOperationLogicImpl
         return (owner instanceof StrutsController) ? owner : null;
     }
 
-    protected Collection handleGetFormFields()
+    protected List handleGetFormFields()
     {
-        return this.getArguments();
+        return new ArrayList(this.getArguments());
     }
 
     protected boolean handleIsAllArgumentsHaveFormFields()

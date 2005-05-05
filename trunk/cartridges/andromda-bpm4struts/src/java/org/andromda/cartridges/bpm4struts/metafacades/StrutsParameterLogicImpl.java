@@ -115,9 +115,9 @@ public class StrutsParameterLogicImpl
         return getOperation();
     }
 
-    protected Collection handleGetFormFields()
+    protected List handleGetFormFields()
     {
-        Collection formFields = null;
+        List formFields = null;
         if (isControllerOperationArgument() && getName() != null)
         {
             final String name = getName();
@@ -538,12 +538,12 @@ public class StrutsParameterLogicImpl
         return findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABLELINK) != null;
     }
 
-    protected Collection handleGetTableFormActions()
+    protected List handleGetTableFormActions()
     {
         return internalGetTableActions(false);
     }
 
-    protected Collection handleGetTableHyperlinkActions()
+    protected List handleGetTableHyperlinkActions()
     {
         return internalGetTableActions(true);
     }
@@ -593,7 +593,7 @@ public class StrutsParameterLogicImpl
      *
      * @param hyperlink denotes on which type of actions to filter
      */
-    private Collection internalGetTableActions(boolean hyperlink)
+    private List internalGetTableActions(boolean hyperlink)
     {
         final String name = StringUtils.trimToNull(getName());
         if (name == null || isActionParameter())
@@ -637,7 +637,7 @@ public class StrutsParameterLogicImpl
                 }
             }
         }
-        return tableActions;
+        return  new ArrayList(tableActions);
     }
 
     protected String handleGetTableDecoratorFullyQualifiedName()

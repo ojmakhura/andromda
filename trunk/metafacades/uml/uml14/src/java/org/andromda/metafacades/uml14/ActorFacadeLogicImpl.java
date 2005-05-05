@@ -29,7 +29,10 @@ public class ActorFacadeLogicImpl
         return this.getPackage();
     }
 
-    protected java.util.Collection handleGetGeneralizedActors()
+    /**
+     * @see org.andromda.metafacades.uml.ActorFacade#getGeneralizedActors()
+     */
+    protected java.util.List handleGetGeneralizedActors()
     {
         final List generalizedActors = new ArrayList();
 
@@ -42,10 +45,14 @@ public class ActorFacadeLogicImpl
                 generalizedActors.add(object);
             }
         }
-        return parentActors;
+        return generalizedActors;
     }
 
-    protected java.util.Collection handleGetGeneralizedByActors()
+    /**
+     * 
+     * @see org.andromda.metafacades.uml.ActorFacade#getGeneralizedByActors()
+     */
+    protected java.util.List handleGetGeneralizedByActors()
     {
         final List generalizedByActors = new ArrayList();
 
@@ -58,7 +65,7 @@ public class ActorFacadeLogicImpl
                 generalizedByActors.add(object);
             }
         }
-        return parentActors;
+        return generalizedByActors;
     }
 
 }

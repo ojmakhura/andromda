@@ -1,5 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
@@ -10,17 +21,6 @@ import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.LinkedHashSet;
-import java.util.LinkedHashMap;
 
 
 /**
@@ -168,9 +168,9 @@ public class StrutsActionLogicImpl
         return tableLinkParameter;
     }
 
-    protected Collection handleGetTableNonColumnFormParameters()
+    protected List handleGetTableNonColumnFormParameters()
     {
-        Collection tableNonColumnActionParameters = null;
+        List tableNonColumnActionParameters = null;
 
         final StrutsParameter table = getTableLinkParameter();
         if (table != null)
@@ -191,7 +191,7 @@ public class StrutsActionLogicImpl
                 }
             }
 
-            tableNonColumnActionParameters = tableNonColumnActionParametersMap.values();
+            tableNonColumnActionParameters = new ArrayList(tableNonColumnActionParametersMap.values());
         }
 
         return tableNonColumnActionParameters;
@@ -568,25 +568,25 @@ public class StrutsActionLogicImpl
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
-    protected Collection handleGetActionForwards()
+    protected List handleGetActionForwards()
     {
         if (actionForwards == null) initializeCollections();
-        return actionForwards.values();
+        return new ArrayList(actionForwards.values());
     }
 
-    protected Collection handleGetDecisionTransitions()
+    protected List handleGetDecisionTransitions()
     {
         if (decisionTransitions == null) initializeCollections();
-        return decisionTransitions;
+        return new ArrayList(decisionTransitions);
     }
 
-    protected Collection handleGetActionStates()
+    protected List handleGetActionStates()
     {
         if (actionStates == null) initializeCollections();
-        return actionStates;
+        return new ArrayList(actionStates);
     }
 
-    protected Collection handleGetActionExceptions()
+    protected List handleGetActionExceptions()
     {
         final Collection exceptions = new HashSet();
         final Collection actionStates = getActionStates();
@@ -596,7 +596,7 @@ public class StrutsActionLogicImpl
             exceptions.addAll(actionState.getExceptions());
         }
 
-        return exceptions;
+        return new ArrayList(exceptions);
     }
 
     /**
@@ -634,7 +634,7 @@ public class StrutsActionLogicImpl
         return this.getTrigger();
     }
 
-    protected Collection handleGetActionFormFields()
+    protected List handleGetActionFormFields()
     {
         final Map formFieldMap = new HashMap();
 
@@ -732,10 +732,10 @@ public class StrutsActionLogicImpl
             formFieldMap.put(facade.getName(), facade);
         }
 
-        return formFieldMap.values();
+        return new ArrayList(formFieldMap.values());
     }
 
-    protected Collection handleGetDeferredOperations()
+    protected List handleGetDeferredOperations()
     {
         final Collection deferredOperations = new LinkedHashSet();
 
@@ -760,19 +760,19 @@ public class StrutsActionLogicImpl
                 }
             }
         }
-        return deferredOperations;
+        return new ArrayList(deferredOperations);
     }
 
-    protected Collection handleGetActionParameters()
+    protected List handleGetActionParameters()
     {
         final StrutsTrigger trigger = getActionTrigger();
-        return (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
+        return (trigger == null) ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTargetPages()
      */
-    protected Collection handleGetTargetPages()
+    protected List handleGetTargetPages()
     {
         Collection targetPages = new HashSet();
 
@@ -786,19 +786,19 @@ public class StrutsActionLogicImpl
             }
         }
 
-        return targetPages;
+        return new ArrayList(targetPages);
     }
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#getTransitions()
      */
-    protected Collection handleGetTransitions()
+    protected List handleGetTransitions()
     {
         if (transitions == null)
         {
             initializeCollections();
         }
-        return transitions;
+        return new ArrayList(transitions);
     }
 
     /**
@@ -834,15 +834,15 @@ public class StrutsActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getResettableActionParameters()
      */
-    protected Collection handleGetResettableActionParameters()
+    protected List handleGetResettableActionParameters()
     {
-        return new FilteredCollection(this.getActionParameters())
+        return new ArrayList(new FilteredCollection(this.getActionParameters())
         {
             public boolean evaluate(Object object)
             {
                 return object != null && ((StrutsParameter)object).isShouldReset();
             }
-        };
+        });
     }
 
     /**

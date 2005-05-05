@@ -1,13 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.GuardFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
-
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,6 +8,14 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.GuardFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -208,10 +209,10 @@ public class StrutsForwardLogicImpl
         return messages;
     }
 
-    protected java.util.Collection handleGetForwardParameters()
+    protected java.util.List handleGetForwardParameters()
     {
         final EventFacade trigger = getTrigger();
-        return (trigger == null) ? Collections.EMPTY_LIST : trigger.getParameters();
+        return (trigger == null) ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
     }
 
     protected Object handleGetDecisionTrigger()
@@ -225,11 +226,11 @@ public class StrutsForwardLogicImpl
         return (graph instanceof StrutsActivityGraph) ? graph : null;
     }
 
-    protected Collection handleGetActions()
+    protected java.util.List handleGetActions()
     {
         final Set actions = new HashSet();
         findActions(actions, new HashSet());
-        return actions;
+        return new ArrayList(actions);
     }
 
     /**

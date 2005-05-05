@@ -165,9 +165,9 @@ public class StrutsJspLogicImpl
 
     // ------------- relations ------------------
 
-    protected Collection handleGetAllActionParameters()
+    protected List handleGetAllActionParameters()
     {
-        final Collection actionParameters = new ArrayList();
+        final List actionParameters = new ArrayList();
         final Collection actions = getActions();
         for (Iterator iterator = actions.iterator(); iterator.hasNext();)
         {
@@ -192,9 +192,9 @@ public class StrutsJspLogicImpl
         return useCase;
     }
 
-    protected Collection handleGetActions()
+    protected List handleGetActions()
     {
-        final Collection actions = new ArrayList();
+        final List actions = new ArrayList();
         final Collection outgoing = getOutgoing();
 
         for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
@@ -207,9 +207,9 @@ public class StrutsJspLogicImpl
         return actions;
     }
 
-    protected Collection handleGetNonActionForwards()
+    protected List handleGetNonActionForwards()
     {
-        final Collection actions = new ArrayList();
+        final List actions = new ArrayList();
         final Collection outgoing = getOutgoing();
 
         for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
@@ -228,7 +228,7 @@ public class StrutsJspLogicImpl
         return (StrutsForward)shieldedElement(getOutgoing().iterator().next());
     }
 
-    protected Collection handleGetPageVariables()
+    protected List handleGetPageVariables()
     {
         final Map variablesMap = new HashMap();
 
@@ -241,7 +241,7 @@ public class StrutsJspLogicImpl
                 collectByName(trigger.getParameters(), variablesMap);
         }
 
-        return variablesMap.values();
+        return new ArrayList(variablesMap.values());
     }
 
     /**
@@ -256,9 +256,9 @@ public class StrutsJspLogicImpl
         }
     }
 
-    protected Collection handleGetIncomingActions()
+    protected List handleGetIncomingActions()
     {
-        final Collection incomingActionsList = new ArrayList();
+        final List incomingActionsList = new ArrayList();
         collectIncomingActions(this, new HashSet(), incomingActionsList);
         return incomingActionsList;
     }
@@ -327,9 +327,9 @@ public class StrutsJspLogicImpl
         return getFullPath() + ".css";
     }
 
-    protected Collection handleGetNonTableActions()
+    protected List handleGetNonTableActions()
     {
-        final Collection nonTableActions = new ArrayList();
+        final List nonTableActions = new ArrayList();
 
         final Collection actions = getActions();
         for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
@@ -344,9 +344,9 @@ public class StrutsJspLogicImpl
         return nonTableActions;
     }
 
-    protected Collection handleGetTables()
+    protected List handleGetTables()
     {
-        final Collection tables = new ArrayList();
+        final List tables = new ArrayList();
 
         final List pageVariables = getPageVariables();
         for (int i = 0; i < pageVariables.size(); i++)

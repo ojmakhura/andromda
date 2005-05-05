@@ -1,13 +1,15 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 
 
 /**
@@ -40,7 +42,7 @@ public class StrutsPseudostateLogicImpl
                 "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);
     }
 
-    protected Collection handleGetContainerActions()
+    protected List handleGetContainerActions()
     {
         Collection actionSet = new HashSet();
         ActivityGraphFacade activityGraphFacade = this.getActivityGraph();
@@ -68,6 +70,6 @@ public class StrutsPseudostateLogicImpl
                 }
             }
         }
-        return actionSet;
+        return new ArrayList(actionSet);
     }
 }

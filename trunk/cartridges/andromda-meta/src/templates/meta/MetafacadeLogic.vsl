@@ -260,7 +260,7 @@ public abstract class $metafacade.logicName
     }
 
 #if ($otherEnd.many)
-    protected abstract java.util.Collection ${otherEnd.implementationOperationName}($typedArgumentList);
+    protected abstract $otherEnd.getterSetterTypeName ${otherEnd.implementationOperationName}($typedArgumentList);
 #else
     protected abstract java.lang.Object ${otherEnd.implementationOperationName}($typedArgumentList);
 #end
