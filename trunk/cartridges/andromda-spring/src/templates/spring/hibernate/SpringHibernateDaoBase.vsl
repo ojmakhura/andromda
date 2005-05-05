@@ -452,10 +452,15 @@ public abstract class $entity.daoBaseName
 #else
 #set($comparatorArgument = "")
 #end
-            criteriaSearch.addParameter(
+            ${criteriaSearchBaseName}Parameter parameter =
                 new ${springTypesPackage}.${criteriaSearchBaseName}Parameter(
                     ${criteriaArgumentName}.${criteriaAttribute.getterName}(),
                     "${criteriaAttribute.attributeName}"${nullableArgument}${comparatorArgument}${matchModeArgument}));
+#if($criteriaAttribute.orderable)
+            parameter.setOrderDirection(${criteriaSearchBaseName}Parameter.$criteriaAttribute.orderDirection);
+            parameter.setOrderRelevance($criteriaAttribute.orderRelevance);
+#end
+            criteriaSearch.addParameter(parameter);
 #end
             java.util.Collection results = criteriaSearch.execute();
             transformEntities(transform, results);

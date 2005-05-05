@@ -12,6 +12,11 @@ import org.apache.commons.lang.StringUtils;
 public class SpringCriteriaAttributeLogicImpl
         extends SpringCriteriaAttributeLogic
 {
+    private static final String ORDER_UNSET = "ORDER_UNSET";
+
+    /** Used for undefined states of the criteria ordering. */
+    private static final int UNSET = -1;
+
     // ---------------- constructor -------------------------------
 
     public SpringCriteriaAttributeLogicImpl(Object metaObject, String context)
@@ -157,9 +162,57 @@ public class SpringCriteriaAttributeLogicImpl
         return matchModeConstant;
     }
 
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleIsMatchModePresent()
+     */
     protected boolean handleIsMatchModePresent()
     {
         return !StringUtils.isEmpty(getMatchMode());
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleIsOrderable()
+     */
+    protected boolean handleIsOrderable()
+    {
+        return !ORDER_UNSET.equals(getOrderDirection());
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleGetOrderDirection()
+     */
+    protected String handleGetOrderDirection()
+    {
+        String result = ORDER_UNSET;
+        String value = StringUtils.trimToEmpty(
+                (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION));
+        if (!StringUtils.isEmpty(value))
+        {
+            if (value.equals(SpringProfile.TAGGEDVALUEVALUE_ORDER_ASCENDING))
+            {
+                result = "ORDER_ASC";
+            }
+            else if (value.equals(SpringProfile.TAGGEDVALUEVALUE_ORDER_DESCENDING))
+            {
+                result = "ORDER_DESC";
+            }
+        }
+        return result;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleGetOrderRelevance()
+     */
+    protected int handleGetOrderRelevance()
+    {
+        int result = UNSET;
+        String value = StringUtils.trimToEmpty(
+                (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE));
+        if (!StringUtils.isEmpty(value))
+        {
+            result = Integer.parseInt(value);
+        }
+        return result;
     }
 
 }
