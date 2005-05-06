@@ -40,9 +40,11 @@ ${indent}</logic:notPresent>
 ##
 ##
 #macro ( renderTableHyperlink $action $indent )
-#set($uriQuery='')#set($delim='?')
+#set($uriQuery='')#set($delim='?')#set($beanName="row")
 #foreach ($parameter in $action.actionParameters)
-#if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#end
+## temporarily commented out, we're taking all parameters from the row since we can't easily check if the row property
+## in missing the property (reflection is not supported in taglibs nor JSTL EL)
+##if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#end
 #set($paramValue="${beanName}.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
 #end
 ${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints)onmouseover="hints.show('$parameter.titleKey')" onmouseout="hints.hide()"#end>
@@ -61,17 +63,18 @@ ${indent}</html:link>
 ##
 ##
 #macro ( renderTableButton $action $indent )
-#set ($linkParameters = "")
+#set($linkParameters="")#set($delim='?')#set($beanName="row")
 #set ($parameterCount = $action.actionParameters.size())
 #foreach ($parameter in $action.actionParameters)
-#if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#else#set($beanName="row")#end
-#set ($parameterValue = "${beanName}.${parameter.name}")
-#set ($linkParameters = "${linkParameters}&${parameter.name}=${${parameterValue}}")
+## temporarily commented out, we're taking all parameters from the row since we can't easily check if the row property
+## in missing the property (reflection is not supported in taglibs nor JSTL EL)
+##if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#else#set($beanName="row")#end
+#set($parameterValue="${beanName}.${parameter.name}")#set($linkParameters="${linkParameters}${delim}${parameter.name}=${${parameterValue}}")#set($delim='&')
 #end
 #if ($action.imageLink)
-${indent}<html:link action="$action.actionPath?$linkParameters" styleClass="imageLink"><html:img pageKey="${action.actionTrigger.triggerKey}.image"/></html:link>
+${indent}<html:link action="${action.actionPath}${linkParameters}" styleClass="imageLink"><html:img pageKey="${action.actionTrigger.triggerKey}.image"/></html:link>
 #else
-${indent}<html:link action="$action.actionPath?$linkParameters" styleClass="buttonLink"><bean:message key="$action.actionTrigger.triggerKey"/></html:link>
+${indent}<html:link action="${action.actionPath}${linkParameters}" styleClass="buttonLink"><bean:message key="$action.actionTrigger.triggerKey"/></html:link>
 #end
 #end
 ##
