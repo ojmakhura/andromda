@@ -8,14 +8,16 @@
     <body>
         <section name="AndroMDA Profiles">
             <p>
-                In order to provide the ability to customize existing AndroMDA profiles (as well as creating your own), AndroMDA 
-                has the concept of customizable profile descriptors.  This XML configuration file (which must be named <em>andromda-profile.xml</em>
-                and reside in the <em>META-INF</em> directory of a jar typically containing metafacades and or other cartridge specific 
-                resouces) allows us to map stereotypes, tagged values, and data types to ANY names we want without having to change
-                <code>ANY</code> code.
+                People sometimes ask: "Can I change the stereotype names?, I really don't like using the capitalized <em><![CDATA[<<Entity>>]]></em>
+                to denote an entity, I'd rather use the lowercase <em><![CDATA[<<entity>>]]></em> instead."  Well in order to provide this ability to 
+                customize existing AndroMDA profiles (as well as creating your own), AndroMDA has the concept of customizable profile descriptors.  
+                This XML configuration file (which must be named <em>andromda-profile.xml</em> and reside in the <em>META-INF</em> directory) 
+                allows someone using AndroMDA to map stereotypes, tagged values, and data types to ANY names he or she  wants without having to 
+                change <code>ANY</code> code.
             </p>
             <p>
-                Lets have a look at the contents of what a typical andromda-profile.xml file might contain:
+                Lets have a look at the contents of what a typical andromda-profile.xml file might contain (this snippet was taken from
+                the UML metafacades <em>andromda-profile.xml</em> file):
                 <source language="xml">
 <![CDATA[
 <mappings name="uml">
@@ -65,6 +67,52 @@
 ]]>      
                 </source>
             </p>
+            <p>
+                If you'll familiar with AndroMDA <a href="mappings.html">mappings</a> you'll notice that the above profile is in the same structure: you have the <![CDATA[<from/>]]>
+                element which is the profile constant, and the <![CDATA[<to/>]]> element which is to what the constant should be mapped.   These andromda-profile.xml files
+                are loaded during AndroMDA startup and made available to the framework. 
+            </p>
+            <subsection name="Overriding Profile Values">
+                <p>
+                    In order to customize a specific profile mapping value, one must override that value by creating his/her own
+                    profile mapping and letting AndroMDA know its location by using the <em>profileMappingsUri</em> property.  
+                    For example, this profile mappings file would allow us to change the stereotype indentifying an entity to 
+                    <![CDATA[<<entity>>]]> instead of the default <![CDATA[<<Entity>>]]>, which means in our models we can 
+                    stereotype entities with the <![CDATA[<<entity>>]]> (which is defined in the andromda-profile.xml
+                    of the UML metafacades jar which we saw above) :
+                    <source language="xml">
+<![CDATA[
+<mappings name="CustomProfile">
+    ...
+    <mapping>
+        <from>ENTITY</from>
+        <to>entity</to>
+    </mapping>
+    ...
+</mappings>      
+]]>  
+                    </source>          
+                              
+                    After writing your profile mappings file (the mappings named "CustomProfile" we wrote above), you'd then define the location of this mappings 
+                    file as the namespace property <em>profileMappingsUri</em> (within the mda/project.xml file or your mda/build.xml if using Ant), like
+                    we do here (notice that the path must be a URI):
+                    <source language="xml">
+<![CDATA[
+<dependency>
+    <groupId>andromda</groupId>
+    <artifactId>maven-andromda-plugin</artifactId>
+    <version>${andromda.version}</version>
+    <type>plugin</type>
+    <properties>
+        ...
+        <profileMappingsUri>file:${basedir}/mda/conf/mappings/CustomizedProfileMappings.xml</profileMappingsUri>
+        ...
+    </properties>
+</dependency>
+]]>
+                    </source>
+                </p>
+            </subsection>
         </section>
     </body>
 </document>
