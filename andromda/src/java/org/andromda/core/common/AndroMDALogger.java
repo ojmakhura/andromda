@@ -23,7 +23,7 @@ public class AndroMDALogger
      */
     private static final String DEFAULT_LOGGER_NAME = "AndroMDA";
 
-    private static Logger logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
+    private static final Logger logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
 
     /**
      * Configures logging for the AndroMDA application from the the xml resource "log4j.xml" found within the same

@@ -20,7 +20,7 @@ public class ModelPackages
 
     private Map modelPackages;
 
-    private Collection initCollection = new ArrayList();
+    private final Collection initCollection = new ArrayList();
 
     /**
      * This method normally be unnecessary. It is here because of the way Ant behaves. Ant calls
