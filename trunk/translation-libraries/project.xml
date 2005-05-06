@@ -6,7 +6,7 @@
     <name>AndroMDA Translation Libraries</name>
     <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10002&amp;decorator=none</issueTrackingUrl>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}</connection>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/translation-libraries/${pom.artifactId.replaceAll('-library', '')}/</url>
     </repository>
     <dependencies>

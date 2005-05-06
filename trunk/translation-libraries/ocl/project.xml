@@ -7,7 +7,7 @@
     <package>org.andromda.translation.ocl</package>
     <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10002&amp;decorator=none</issueTrackingUrl>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/translation-libraries/ocl/${pom.artifactId.replaceAll('-library', '').replaceAll('-ocl', '')}</connection>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/translation-libraries/ocl/${pom.artifactId.replaceAll('-library', '').replaceAll('-ocl', '')}</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/translation-libraries/ocl/${pom.artifactId.replaceAll('-library', '').replaceAll('-ocl', '')}/</url>
     </repository>
     <!-- restrict the reports generated -->

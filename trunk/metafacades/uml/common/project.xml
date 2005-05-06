@@ -10,7 +10,7 @@
   		used to provide access UML meta models. 
   	</description>
   	<repository>
-    	<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot:andromda/metafacades/uml/common</connection>
+    	<connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot:andromda/metafacades/uml/common</connection>
     	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/metafacades/uml/common</url>
   	</repository>
 	<dependencies>

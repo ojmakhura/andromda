@@ -6,7 +6,7 @@
     <name>AndroMDA Samples</name>
     <groupId>andromda/samples</groupId>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/samples/${pom.artifactId}</connection>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/samples/${pom.artifactId}</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/samples/${pom.artifactId}/</url>
     </repository>
     <build>

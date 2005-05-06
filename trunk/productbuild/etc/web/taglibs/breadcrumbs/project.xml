@@ -9,7 +9,7 @@
         This tag-library can be used to maintain and display breadcrumbs in a web application.
     </description>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/etc/web/taglibs/breadcrumbs</connection>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/etc/web/taglibs/breadcrumbs</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/etc/web/taglibs/breadcrumbs/</url>
     </repository>
 </project>
