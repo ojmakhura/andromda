@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * @author Wouter Zoons
  * @author Chad Brandon
  */
-public class OCLIntrospector
+public final class OCLIntrospector
 {
 
     private static final Logger logger = Logger.getLogger(OCLIntrospector.class);
@@ -23,7 +23,7 @@ public class OCLIntrospector
      * Invokes the given <code>feature</code> on the <code>element</code>. Its expected that the feature is either an
      * operation or a property.
      */
-    public static Object invoke(Object element, String feature)
+    public static final Object invoke(Object element, String feature)
     {
         Object result = null;
         try
@@ -69,7 +69,7 @@ public class OCLIntrospector
      * Invokes the given <code>feature</code> on the specified <code>element</code> taking the given
      * <code>arguments</code>. If <code>arguments</code> is null its expected that the feature is an empty operation.
      */
-    public static Object invoke(Object element, String feature, Object[] arguments)
+    public static Object invoke(final Object element, String feature, final Object[] arguments)
     {
         Object result = null;
         try
@@ -97,10 +97,9 @@ public class OCLIntrospector
         return result;
     }
 
-    private static Object getNestedProperty(Object element, String propertyName) throws Exception
+    private static final Object getNestedProperty(final Object element, final String propertyName) throws Exception
     {
         Object property = null;
-
         if (element != null && propertyName != null && propertyName.length() > 0)
         {
             int dotIndex = propertyName.indexOf('.');
@@ -122,16 +121,19 @@ public class OCLIntrospector
     }
 
     /**
-     * Gets the value of the property with <code>propertyName</code> on the given <code>element</code>.
-     *
-     * @param element      the element from which to retrieve the property.
+     * Gets the value of the property with <code>propertyName</code> on the
+     * given <code>element</code>.
+     * 
+     * @param element the element from which to retrieve the property.
      * @param propertyName the name of the property
      * @return the resulting property value
-     * @throws InvocationTargetException if an exception occurs during invocation
-     * @throws IllegalAccessException    if an illegal access exception occurs during invocation.
+     * @throws InvocationTargetException if an exception occurs during
+     *         invocation
+     * @throws IllegalAccessException if an illegal access exception occurs
+     *         during invocation.
      */
-    private static Object getProperty(Object element, String propertyName) throws InvocationTargetException,
-            IllegalAccessException
+    private static final Object getProperty(final Object element, final String propertyName)
+        throws Exception
     {
         Object property = null;
         if (element != null || propertyName != null || propertyName.length() > 0)
@@ -152,15 +154,15 @@ public class OCLIntrospector
     }
 
     /**
-     * Retrieves the method from the given <code>element</code> and the given <code>propertyName</code> by capitalizing
-     * the <code>propertyName</code>
-     *
-     * @param prefix       the prefix (either 'get' or 'is')
-     * @param element      the element from which to retrieve the moethod
+     * Retrieves the method from the given <code>element</code> and the given
+     * <code>propertyName</code> by capitalizing the <code>propertyName</code>
+     * 
+     * @param prefix the prefix (either 'get' or 'is')
+     * @param element the element from which to retrieve the moethod
      * @param propertyName the name of the property
      * @return the retrieved Method.
      */
-    private static Method getMethod(String prefix, Object element, String propertyName)
+    private static final Method getMethod(final String prefix, final Object element, final String propertyName)
     {
         Method method = null;
         try
@@ -174,7 +176,10 @@ public class OCLIntrospector
         return method;
     }
 
-    private static Object invokeMethod(Object element, String methodName, Object[] arguments) throws Exception
+    private static final Object invokeMethod(
+        final Object element,
+        final String methodName,
+        final Object[] arguments) throws Exception
     {
         Object property = null;
 
@@ -189,7 +194,7 @@ public class OCLIntrospector
         return property;
     }
 
-    private static Class[] getObjectTypes(Object[] objects)
+    private static final Class[] getObjectTypes(final Object[] objects)
     {
         Class[] objectTypes = null;
 
@@ -215,7 +220,7 @@ public class OCLIntrospector
      * @param throwable the exception from which to retrieve the root cause.
      * @return the root cause of the exception
      */
-    private static Throwable getRootCause(Throwable throwable)
+    private static final Throwable getRootCause(Throwable throwable)
     {
         Throwable root = ExceptionUtils.getRootCause(throwable);
         if (root != null)

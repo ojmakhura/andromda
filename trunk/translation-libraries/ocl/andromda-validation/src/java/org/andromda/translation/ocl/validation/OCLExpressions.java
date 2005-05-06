@@ -5,7 +5,7 @@ import org.apache.commons.lang.BooleanUtils;
 /**
  * Used to translate OCL expressions to their corresponding Java expressions.
  */
-public class OCLExpressions
+public final class OCLExpressions
 {
     public static boolean equal(Object first, Object second)
     {

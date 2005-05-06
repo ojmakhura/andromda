@@ -8,7 +8,7 @@ package org.andromda.translation.ocl.validation;
  *
  * @author Chad Brandon
  */
-public class OCLResultEnsurer
+public final class OCLResultEnsurer
 {
     /**
      * Does nothing but return the passed in <code>result</code> argument.
