@@ -505,7 +505,6 @@ public class EntityLogicImpl
                 }
             });
         }
-        System.out.println("this: " + this + "'" + properties + "'");
         CollectionUtils.filter(properties, new Predicate()
         {
             public boolean evaluate(Object object)
