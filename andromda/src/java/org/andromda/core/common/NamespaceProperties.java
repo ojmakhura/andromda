@@ -26,7 +26,7 @@ public class NamespaceProperties
     /**
      * <p/>
      * The URI to the mappings file containing the AndroMDA profile. This property provides the ability to override the
-     * default profile values (i.e. stereotype names). </p>
+     * default profile values (i.e. stereotype names, etc). </p>
      */
     public static final String PROFILE_MAPPINGS_URI = "profileMappingsUri";
     
