@@ -184,18 +184,19 @@ public abstract class $entity.daoBaseName
         return this.create(transform, entity);
     }
 
-#set ($requiredAttributes = $entity.getRequiredAttributes(true,false))
-#if (!$requiredAttributes.empty && $attributes.size() != $requiredAttributes.size())
+#end
+#set ($requiredProperties = $entity.getRequiredProperties(true,false))
+#if (!$requiredProperties.empty && $attributes.size() != $requiredProperties.size())
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredAttributeTypeList(true, false)})
+     * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredPropertyTypeList(true, false)})
      */
     public $entity.root.fullyQualifiedEntityName create(
-#foreach($attribute in $requiredAttributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else)#end
+#foreach($property in $requiredProperties)
+        $property.type.fullyQualifiedName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
 
 #end
     {
-        return ($entity.root.fullyQualifiedEntityName)this.create($entity.daoNoTransformationConstantName, ${entity.getRequiredAttributeNameList(true,false)});
+        return ($entity.root.fullyQualifiedEntityName)this.create($entity.daoNoTransformationConstantName, ${entity.getRequiredPropertyNameList(true,false)});
     }
 
     /**
@@ -203,19 +204,18 @@ public abstract class $entity.daoBaseName
      */
     public Object create(
         final int transform,
-#foreach($attribute in $requiredAttributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else)#end
+#foreach($property in $requiredProperties)
+        $property.type.fullyQualifiedName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
 
 #end
     {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityImplementationName}();
-#foreach ($attribute in $requiredAttributes)
-        entity.${attribute.setterName}($attribute.name);
+#foreach ($property in $requiredProperties)
+        entity.${property.setterName}($property.name);
 #end
         return this.create(transform, entity);
     }
 
-#end
 #end
 #end
     /**

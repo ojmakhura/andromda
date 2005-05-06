@@ -145,19 +145,19 @@ public interface $entity.daoName
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else);#end
 
 #end
-#set ($requiredAttributes = $entity.getRequiredAttributes(true,false))
-#if (!$requiredAttributes.empty && $attributes.size() != $requiredAttributes.size())
-
+#end
+#set ($requiredProperties = $entity.getRequiredProperties(true,false))
+#if (!$requiredProperties.empty && $attributes.size() != $requiredProperties.size())
     /**
      * <p>
      *  Creates a new <code>$entity.fullyQualifiedEntityName</code>
-     *  instance from only <strong>required</strong> attributes and
-     *  adds it to the persistent store.
+     *  instance from only <strong>required</strong> properties (attributes
+     *  and association ends) and adds it to the persistent store.
      * </p>
      */
     public $entity.root.fullyQualifiedEntityName create(
-#foreach($attribute in $requiredAttributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else);#end
+#foreach($property in $requiredProperties)
+        $property.type.fullyQualifiedName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
 
 #end
 
@@ -173,13 +173,12 @@ public interface $entity.daoName
      */
     public Object create(
         int transform,
-#foreach($attribute in $requiredAttributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $requiredAttributes.size()),#else);#end
+#foreach($property in $requiredProperties)
+        $property.type.fullyQualifiedName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
 
 #end
 #end
 
-#end
 #end
     /**
      * Updates the <code>$argumentName</code> instance in the persistent store.
