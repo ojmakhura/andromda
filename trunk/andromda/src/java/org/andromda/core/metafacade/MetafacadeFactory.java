@@ -206,12 +206,10 @@ public class MetafacadeFactory
         }
         catch (Throwable th)
         {
-            String errMsg = "Failed to construct a meta facade of type '" + metafacadeClass +
-                    "' with mappingObject of type --> '" +
-                    mappingObject.getClass() +
-                    "'";
-            this.getLogger().error(errMsg);
-            throw new MetafacadeFactoryException(errMsg, th);
+            final String message = "Failed to construct a meta facade of type '" + metafacadeClass
+                + "' with mappingObject of type --> '" + mappingObject.getClass() + "'";
+            this.getLogger().error(message);
+            throw new MetafacadeFactoryException(message, th);
         }
     }
 
@@ -233,12 +231,11 @@ public class MetafacadeFactory
         }
         catch (Throwable th)
         {
-            String errMsg = "Failed to construct a meta facade of type '" + mapping.getMetafacadeClass() +
-                    "' with mappingObject of type --> '" +
-                    mapping.getMappingClassName() +
-                    "'";
-            this.getLogger().error(errMsg);
-            throw new MetafacadeFactoryException(errMsg, th);
+            final String message = "Failed to construct a meta facade of type '"
+                + mapping.getMetafacadeClass() + "' with mappingObject of type --> '"
+                + mapping.getMappingClassName() + "'";
+            this.getLogger().error(message);
+            throw new MetafacadeFactoryException(message, th);
         }
     }
 
@@ -354,10 +351,10 @@ public class MetafacadeFactory
         }
         catch (Throwable th)
         {
-            String errMsg = "Failed to construct a meta facade of type '" + metafacadeClass +
+            final String message = "Failed to construct a meta facade of type '" + metafacadeClass +
                     "' with mappingObject of type --> '" + mappingObject.getClass().getName() + "'";
-            this.getLogger().error(errMsg, th);
-            throw new MetafacadeFactoryException(errMsg, th);
+            this.getLogger().error(message);
+            throw new MetafacadeFactoryException(message, th);
         }
     }
 
@@ -399,10 +396,8 @@ public class MetafacadeFactory
                     String value = property.getValue();
                     if (this.getLogger().isDebugEnabled())
                         this.getLogger().debug(
-                                "setting context property '" + reference + "' with value '" + value +
-                                "' for namespace '" +
-                                this.getActiveNamespace() +
-                                "'");
+                            "setting context property '" + reference + "' with value '" + value
+                                + "' for namespace '" + this.getActiveNamespace() + "'");
 
                     if (value != null)
                     {
