@@ -12,7 +12,7 @@ import java.util.Iterator;
  *
  * @author Chad Brandon
  */
-class MetafacadeUtils
+final class MetafacadeUtils
 {
     /**
      * Indicates whether or not the mapping properties (present on the mapping, if any) are valid on the
@@ -22,7 +22,7 @@ class MetafacadeUtils
      * @param mapping    the MetafacadeMapping instance that contains the properties.
      * @return true/false
      */
-    static boolean propertiesValid(final MetafacadeBase metafacade, final MetafacadeMapping mapping)
+    static final boolean propertiesValid(final MetafacadeBase metafacade, final MetafacadeMapping mapping)
     {
         boolean valid = false;
         final Collection propertyGroups = mapping.getMappingPropertyGroups();
@@ -32,8 +32,8 @@ class MetafacadeUtils
             {
                 if (getLogger().isDebugEnabled())
                     getLogger().debug(
-                            "evaluating " + propertyGroups.size() + " property groups(s) on metafacade '" + metafacade +
-                            "'");
+                        "evaluating " + propertyGroups.size()
+                            + " property groups(s) on metafacade '" + metafacade + "'");
                 for (Iterator propertyGroupIterator = propertyGroups.iterator(); propertyGroupIterator.hasNext();)
                 {
                     final MetafacadeMapping.PropertyGroup propertyGroup = (MetafacadeMapping.PropertyGroup)propertyGroupIterator.next();
@@ -45,12 +45,9 @@ class MetafacadeUtils
                                 property.getValue());
                         if (getLogger().isDebugEnabled())
                             getLogger().debug(
-                                    "property '" + property.getName() + "', with value '" + property.getValue() +
-                                    "' on metafacade '" +
-                                    metafacade +
-                                    "', evaluated to --> '" +
-                                    valid +
-                                    "'");
+                                "property '" + property.getName() + "', with value '"
+                                    + property.getValue() + "' on metafacade '" + metafacade
+                                    + "', evaluated to --> '" + valid + "'");
                         // if the property is invalid, we break out
                         // of the loop (since we're evaluating with 'AND')
                         if (!valid)
@@ -70,17 +67,15 @@ class MetafacadeUtils
             {
                 if (getLogger().isDebugEnabled())
                     getLogger().debug(
-                            "An error occured while " + "evaluating properties on metafacade '" + metafacade +
-                            "', setting valid to 'false'",
-                            throwable);
+                        "An error occured while " + "evaluating properties on metafacade '"
+                            + metafacade + "', setting valid to 'false'",
+                        throwable);
                 valid = false;
             }
             if (getLogger().isDebugEnabled())
                 getLogger().debug(
-                        "completed evaluating " + propertyGroups.size() + " properties on metafacade '" + metafacade +
-                        "' with a result of --> '" +
-                        valid +
-                        "'");
+                    "completed evaluating " + propertyGroups.size() + " properties on metafacade '"
+                        + metafacade + "' with a result of --> '" + valid + "'");
         }
         return valid;
     }
@@ -94,20 +89,17 @@ class MetafacadeUtils
      * @return the new metafacade.
      * @throws Exception if any error occurs during metafacade creation
      */
-    static MetafacadeBase constructMetafacade(
+    static final MetafacadeBase constructMetafacade(
         final Class metafacadeClass,
         final Object mappingObject,
         final String context) throws Exception
     {
         if (getLogger().isDebugEnabled())
             getLogger().debug(
-                    "constructing metafacade from class '" + metafacadeClass + "' mapping object '" + mappingObject +
-                    "', and context '" +
-                    context +
-                    "'");
-        Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
-        MetafacadeBase metafacade = (MetafacadeBase)constructor.newInstance(new Object[]{mappingObject, context});
-        return metafacade;
+                "constructing metafacade from class '" + metafacadeClass + "' mapping object '"
+                    + mappingObject + "', and context '" + context + "'");
+        final Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
+        return (MetafacadeBase)constructor.newInstance(new Object[]{mappingObject, context});
     }
 
     /**
