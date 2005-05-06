@@ -10,7 +10,7 @@
         have been developed because no suitable libraries could be found in other open-source projects.
     </description>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/etc/web/taglibs</connection>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/etc/web/taglibs</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/etc/web/taglibs/</url>
     </repository>
     <dependencies>

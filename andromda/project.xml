@@ -12,7 +12,7 @@
     <shortDescription>The Framework Core</shortDescription>
     <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10003&amp;decorator=none</issueTrackingUrl>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/andromda</connection>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/andromda</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda/</url>
     </repository>
     <dependencies>

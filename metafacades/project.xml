@@ -13,7 +13,7 @@
     </description>
     <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10004&amp;decorator=none</issueTrackingUrl>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/metafacades</connection>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/metafacades</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/metafacades/</url>
     </repository>
     <dependencies>

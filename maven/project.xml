@@ -12,7 +12,7 @@
     </description>
     <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10010&amp;decorator=none</issueTrackingUrl>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:andromda/maven</connection>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/maven</connection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/maven/</url>
     </repository>
     <dependencies>
