@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <author email="chad@andromda.org">Chad Brandon</author>
+        <title>AndroMDA Profiles</title>
+    </properties>
+    <body>
+        <section name="AndroMDA Profiles">
+            <p>
+                In order to provide the ability to customize existing AndroMDA profiles (as well as creating your own), AndroMDA 
+                has the concept of customizable profile descriptors.  This XML configuration file (which must be named <em>andromda-profile.xml</em>
+                and reside in the <em>META-INF</em> directory of a jar typically containing metafacades and or other cartridge specific 
+                resouces) allows us to map stereotypes, tagged values, and data types to ANY names we want without having to change
+                <code>ANY</code> code.
+            </p>
+            <p>
+                Lets have a look at the contents of what a typical andromda-profile.xml file might contain:
+                <source language="xml">
+<![CDATA[
+<mappings name="uml">
+    <!-- stereotypes -->
+    <mapping>
+        <from>CRITERIA</from>
+        <to>Criteria</to>
+    </mapping>
+    <mapping>
+        <from>ENTITY</from>
+        <to>Entity</to>
+    </mapping>
+    ...
+    <!-- tagged values -->
+    <mapping>
+        <from>DOCUMENTATION</from>
+        <to>documentation</to>
+    </mapping>
+    <mapping>
+        <from>PERSISTENCE_TABLE</from>
+        <to>@andromda.persistence.table</to>
+    </mapping>
+    <mapping>
+        <from>PERSISTENCE_COLUMN</from>
+        <to>@andromda.persistence.column</to>
+    </mapping>
+    <mapping>
+        <from>PERSISTENCE_COLUMN_LENGTH</from>
+        <to>@andromda.persistence.column.length</to>
+    </mapping>
+    ...
+    <!-- datatypes -->
+    <mapping>
+        <from>COLLECTION_TYPE</from>
+        <to>datatype::Collection</to>
+    </mapping>
+    <mapping>
+        <from>LIST_TYPE</from>
+        <to>datatype::List</to>
+    </mapping>
+    <mapping>
+        <from>SET_TYPE</from>
+        <to>datatype::Set</to>
+    </mapping>
+    ...
+</mappings>              
+]]>      
+                </source>
+            </p>
+        </section>
+    </body>
+</document>
