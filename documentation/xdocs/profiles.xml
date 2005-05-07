@@ -76,10 +76,10 @@
                 <p>
                     In order to customize a specific profile mapping value, one must override that value by creating his/her own
                     profile mapping and letting AndroMDA know its location by using the <em>profileMappingsUri</em> property.  
-                    For example, this profile mappings file would allow us to change the stereotype indentifying an entity to 
-                    <![CDATA[<<entity>>]]> instead of the default <![CDATA[<<Entity>>]]>, which means in our models we can 
-                    stereotype entities with the <![CDATA[<<entity>>]]> (which is defined in the andromda-profile.xml
-                    of the UML metafacades jar which we saw above) :
+                    For example, this profile mappings file below would allow us to change the stereotype indentifying an entity to 
+                    <![CDATA[<<entity>>]]> instead of the default <![CDATA[<<Entity>>]]>  (the <em>ENTITY</em> profile constant
+                    is defined in the andromda-profile.xml of the UML metafacades jar which we saw above).  Once we provide
+                    this customized mappings file AndroMDA will now recognize model elements with the stereotype <![CDATA[<<entity>>]]> :
                     <source language="xml">
 <![CDATA[
 <mappings name="CustomProfile">
@@ -91,8 +91,7 @@
     ...
 </mappings>      
 ]]>  
-                    </source>          
-                              
+                    </source>                                    
                     After writing your profile mappings file (the mappings named "CustomProfile" we wrote above), you'd then define the location of this mappings 
                     file as the namespace property <em>profileMappingsUri</em> (within the mda/project.xml file or your mda/build.xml if using Ant), like
                     we do here (notice that the path must be a URI):
