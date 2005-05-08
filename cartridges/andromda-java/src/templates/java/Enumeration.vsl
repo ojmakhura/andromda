@@ -82,8 +82,8 @@ $literal.getDocumentation("     * ")
     public int compareTo(Object that)
     {
 #if($enumeration.literalType.primitive)
-        return this.getValue() < ((EnumerationTest)that).getValue() ? -1 :
-            (this.getValue() == ((EnumerationTest)that).getValue() ? 0 : 1);
+        return this.getValue() < (($enumeration.name)that).getValue() ? -1 :
+            (this.getValue() == (($enumeration.name)that).getValue() ? 0 : 1);
 #else
         return (this == that) ? 0 : this.getValue().compareTo(
             (($enumeration.name)that).getValue());
