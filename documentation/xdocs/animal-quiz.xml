@@ -24,9 +24,14 @@
                         <th>Cartridge</th>
                     </tr>
                     <tr>
-                        <td>Persistence (Hibernate) and Business (Stateless Session EJBs)</td>
-                        <td>Hibernate 2.x.y and EJB 2.0 (Stateless Session EJBs)</td>
+                        <td>Persistence (Hibernate Cartridge)</td>
+                        <td>Hibernate 2.x</td>
                         <td>andromda-hibernate-cartridge</td>
+                    </tr>
+                    <tr>
+                        <td>Service/Business (Spring Cartridge)</td>
+                        <td>Spring 1.5</td>
+                        <td>andromda-spring-cartridge</td>
                     </tr>
                     <tr>
                         <td>Web Services</td>
@@ -43,11 +48,11 @@
             <p>
                 Make sure to initialize your database by issuing <code>maven create-schema</code> at the command prompt.
                 This will execute
-                <code>app/target/hibernate-schema-initialize.sql</code> which contains HSQLDB compatible DDL statements
+                <code>core/target/create-schema.sql</code> which contains HSQLDB compatible DDL statements
                 that will setup the required tables for the application. Please note that you might need to
                 configure JBoss to allow TCP/IP connections to the embedded database. The schema can be dropped
                 by issuing <code>maven drop-schema</code> which executes
-                <code>app/target/hibernate-schema-remove.sql</code>.
+                <code>app/target/drop-schema.sql</code>.
             </p>
             <p>
                 When playing the game the server will ask you to keep an animal in mind, it will keep guessing
@@ -65,12 +70,12 @@
             </p>
             <p>
                 This application has been generated from a UML model modeled using
-                <a href="http://www.magicdraw.com">MagicDraw 7.8</a>, you can find the model
+                <a href="http://www.magicdraw.com">MagicDraw 9.5</a>, you can find the model
                 <a href="resources/AnimalQuiz.xml.zip">here</a>, this file contains a zipped XMI 1.4.
             </p>
             <p>
                 A running instance of this sample has been put online for everyone to try out:
-                <a href="http://team.andromda.org:8080/AnimalQuiz">http://team.andromda.org:8080/AnimalQuiz</a>.
+                <a href="http://team.andromda.org:8080/AnimalQuiz">http://team.andromda.org:8080/animal-quiz</a>.
             </p>
         </section>
 
