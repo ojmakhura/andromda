@@ -58,7 +58,7 @@
             <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
         </$otherEnd.collectionType>
 #elseif ($sourceEnd.many2One)
-        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName">
+        <many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.child) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName"#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end>
             <column name="$otherEnd.columnName" not-null="$otherEnd.required" sql-type="$otherEnd.sqlType"/>
         </many-to-one>
 #elseif ($sourceEnd.many2Many)
