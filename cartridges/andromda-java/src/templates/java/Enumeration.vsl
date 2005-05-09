@@ -120,8 +120,8 @@ $literal.getDocumentation("     * ")
     {
 #if ($enumeration.literalType.primitive)
         return (this == object)
-            || (object instanceof EnumerationTest
-            && ((EnumerationTest)object).getValue() == this.getValue());
+            || (object instanceof $enumeration.name
+            && (($enumeration.name)object).getValue() == this.getValue());
 #else
         return (this == object)
             || (object instanceof $enumeration.name && (($enumeration.name)object).getValue().equals(
