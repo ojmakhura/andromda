@@ -9,7 +9,7 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.0-SNAPSHOT" date="2005-05-04" description="Version 3.0 final">
+        <release version="3.0" date="2005-05-04" description="Version 3.0 final">
             <action dev="cwbrandon" type="update">
                 Package filtering has been changed to use the correct '::' namespace separator instead of the 
                 java specific separator; this means that whenever you apply package filtering you'll have to use
