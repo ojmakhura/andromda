@@ -5,7 +5,6 @@
 ALTER TABLE $foreignKeyColumn.tableName
     ADD  ( CONSTRAINT $foreignKeyColumn.constraintName
         FOREIGN KEY ($foreignKeyColumn.columnName)
-        // foreignKeyColumn = $foreignKeyColumn
             REFERENCES $foreignKeyColumn.importedTable.tableName
                 #if($foreignKeyColumn.cascadeDelete) ON DELETE CASCADE #end) ;
 
