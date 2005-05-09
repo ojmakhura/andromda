@@ -458,7 +458,7 @@ public abstract class $entity.daoBaseName
                     ${criteriaArgumentName}.${criteriaAttribute.getterName}(),
                     "${criteriaAttribute.attributeName}"${nullableArgument}${comparatorArgument}${matchModeArgument});
 #if($criteriaAttribute.orderable)
-            ${parameterName}.setOrderDirection(${criteriaSearchBaseName}Parameter.$criteriaAttribute.orderDirection);
+            ${parameterName}.setOrderDirection(${springTypesPackage}.${criteriaSearchBaseName}Parameter.$criteriaAttribute.orderDirection);
             ${parameterName}.setOrderRelevance($criteriaAttribute.orderRelevance);
 #end
             criteriaSearch.addParameter($parameterName);

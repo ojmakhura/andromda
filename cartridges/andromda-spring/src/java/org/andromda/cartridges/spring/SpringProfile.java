@@ -61,6 +61,12 @@ public class SpringProfile
      * Stores the criteria search order relevance.
      */
     public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE = profile.get("HIBERNATE_CRITERIA_ORDER_RELEVANCE");
+    
+    /**
+     * Stores whether or not criteria like comparator's should ignore case.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE = 
+        profile.get("HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE");
 
     /**
      * Stores a hibernate query.
@@ -88,6 +94,11 @@ public class SpringProfile
      * The "like" comparator.
      */
     public static final String TAGGEDVALUEVALUE_COMPARATOR_LIKE = profile.get("LIKE_COMPARATOR");
+    
+    /**
+     * The "case insensitive like" comparator.
+     */
+    public static final String TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR = profile.get("INSENSITIVE_LIKE_COMPARATOR");
 
     /**
      * The "equals" comparator.
