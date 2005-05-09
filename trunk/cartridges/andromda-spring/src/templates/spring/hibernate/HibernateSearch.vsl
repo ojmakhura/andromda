@@ -162,11 +162,12 @@ public class ${criteriaSearchBaseName}
                 // We now have the right criteria object
                 parameterCriteria = childEntityCriteria;
             }
-            addExpression(parameterCriteria,
-                    parameterName,
-                    parameter.getParameterValue(),
-                    parameter.getComparatorID(),
-                    parameter.getMatchMode());
+            addExpression(
+                parameterCriteria,
+                parameterName,
+                parameter.getParameterValue(),
+                parameter.getComparatorID(),
+                parameter.getMatchMode());
 
             // if the parameter is to be ordered, add it to the order list
             if (parameter.getOrderDirection() != ${criteriaSearchBaseName}Parameter.ORDER_UNSET)
@@ -218,7 +219,7 @@ public class ${criteriaSearchBaseName}
             {
                 case ${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR:
                 {
-                    if ( (matchMode != null) && (parameterValue instanceof String) )
+                    if ((matchMode != null) && (parameterValue instanceof String))
                     {
                         criteria.add(net.sf.hibernate.expression.Expression.like(
                             parameterName,
@@ -228,7 +229,22 @@ public class ${criteriaSearchBaseName}
                     else
                     {
                         criteria.add(net.sf.hibernate.expression.Expression.like(parameterName, parameterValue));
+                    }                        
+                    break;
+                }
+                case ${criteriaSearchBaseName}Parameter.INSENSITIVE_LIKE_COMPARATOR:
+                {
+                    if ((matchMode != null) && (parameterValue instanceof String))
+                    {
+                        criteria.add(net.sf.hibernate.expression.Expression.ilike(
+                            parameterName,
+                            (String)parameterValue,
+                            matchMode));
                     }
+                    else
+                    {
+                        criteria.add(net.sf.hibernate.expression.Expression.ilike(parameterName, parameterValue));
+                    }                        
                     break;
                 }
                 case ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR:

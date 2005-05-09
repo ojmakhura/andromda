@@ -56,6 +56,10 @@
         <to>like</to>
     </mapping>
     <mapping>
+        <from>INSENSITIVE_LIKE_COMPARATOR</from>
+        <to>insensitive_like</to>
+    </mapping>
+    <mapping>
         <from>EQUAL_COMPARATOR</from>
         <to>equal</to>
     </mapping>

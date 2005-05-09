@@ -2,6 +2,7 @@ package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.cartridges.spring.SpringProfile;
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -68,27 +69,31 @@ public class SpringCriteriaAttributeLogicImpl
 
         if (comparator != null)
         {
-            if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LIKE))
+            if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LIKE.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "LIKE_COMPARATOR";
             }
-            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_EQUAL))
+            else if (SpringProfile.TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR.equalsIgnoreCase(comparator))
+            {
+                comparatorConstant = "INSENSITIVE_LIKE_COMPARATOR";
+            }
+            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_EQUAL.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "EQUAL_COMPARATOR";
             }
-            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL))
+            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "GREATER_THAN_OR_EQUAL_COMPARATOR";
             }
-            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER))
+            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_GREATER.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "GREATER_THAN_COMPARATOR";
             }
-            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS_OR_EQUAL))
+            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS_OR_EQUAL.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "LESS_THAN_OR_EQUAL_COMPARATOR";
             }
-            else if (comparator.equals(SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS))
+            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_LESS.equalsIgnoreCase(comparator))
             {
                 comparatorConstant = "LESS_THAN_COMPARATOR";
             }
@@ -216,6 +221,24 @@ public class SpringCriteriaAttributeLogicImpl
             result = Integer.parseInt(value);
         }
         return result;
+    }
+    
+    /**
+     * The default value for whether hibernate criteria arguments are case insensitive or not.
+     */
+    private static final String HIBERNATE_CRITERIA_QUERY_IGNORE_CASE = "hibernateCriteriaQueryIgnoreCase";
+    
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#isIgnoreCase()
+     */
+    protected boolean handleIsIgnoreCase()
+    {
+        Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE);
+        if (value == null)
+        {
+            value = this.getConfiguredProperty(HIBERNATE_CRITERIA_QUERY_IGNORE_CASE);
+        }
+        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
     }
 
 }
