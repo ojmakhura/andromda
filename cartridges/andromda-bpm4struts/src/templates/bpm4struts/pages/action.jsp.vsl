@@ -43,8 +43,7 @@
 #if (!$field.multiboxPropertyName && ($field.widgetType != "hidden"))
 ## for now multibox field can only be displayed in tables
                     <tr class="$field.name">
-                        <td class="label"><bean:message key="$field.messageKey"/>#if ($requiredness && $field.required) <div class="important">*</div>#end
-</td>
+                        <td class="label">#if ($requiredness && $field.required)<nobr><bean:message key="$field.messageKey"/> <div class="important">*</div></nobr>#else<bean:message key="$field.messageKey"/>#end</td>
                         <td class="field">
 #renderFormField($action $field "                           " '')
                         </td>
