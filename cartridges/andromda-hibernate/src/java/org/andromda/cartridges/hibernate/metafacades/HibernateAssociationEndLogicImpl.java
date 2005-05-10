@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.andromda.cartridges.hibernate.HibernateProfile;
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -362,60 +360,55 @@ public class HibernateAssociationEndLogicImpl
         }
         return indexed;
     }
+    
+    /**
+     * Stores the default collection index name.
+     */
+    private static final String COLLECTION_INDEX_NAME = "associationEndCollectionIndexName";
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexName()
      */
     protected String handleGetCollectionIndexName()
     {
-        final AttributeFacade attribute = this.getIndexAttribute();
-        return attribute != null ? attribute.getName() : null;
+        Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX);
+        if (value == null && this.isConfiguredProperty(COLLECTION_INDEX_NAME))
+        {
+            value = this.getConfiguredProperty(COLLECTION_INDEX_NAME);
+            if (StringUtils.isBlank(ObjectUtils.toString(value)))
+            {
+                value = null;
+            }
+        }
+        return value != null ? ObjectUtils.toString(value) : null;
     }
+    
+    /**
+     * Stores the default collection index type.
+     */
+    private static final String COLLECTION_INDEX_TYPE = "associationEndCollectionIndexType";
     
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexType()
      */
     protected String handleGetCollectionIndexType()
     {
-        final AttributeFacade attribute = this.getIndexAttribute();
-        String indexType = null;
-        if (attribute != null && attribute.getType() != null)
+        Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_TYPE);
+        if (value == null)
         {
-            indexType = attribute.getType().getFullyQualifiedName();
-        }
-        return indexType;
-    }
-    
-    /**
-     * Gets the attribute that is the index for an indexed
-     * collection.
-     * 
-     * @return the index attribute of the entity.
-     */
-    private final AttributeFacade getIndexAttribute()
-    {
-        String indexName = (String)this.findTaggedValue(
-            HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN);
-        ClassifierFacade type = this.getType();
-        AttributeFacade attribute = null;
-        if (type instanceof HibernateEntity)
-        {
-            Entity entity = (Entity)type;
-            attribute = entity.findAttribute(indexName);
-            // if the attribute isn't marked explicitly, use the primary key
-            // of the entity as the index attribute.
-            if (attribute == null)
+            value = this.getConfiguredProperty(COLLECTION_INDEX_TYPE);
+            if (StringUtils.isBlank(ObjectUtils.toString(value)))
             {
-                final Collection identifiers = entity.getIdentifiers();
-                if (identifiers != null && !identifiers.isEmpty())
-                {
-                    attribute = (AttributeFacade)identifiers.iterator().next();
-                }
+                value = null;
             }
         }
-        return attribute;
+        if (value != null)
+        {
+            value = this.getLanguageMappings().getTo(ObjectUtils.toString(value));
+        }
+        return value != null ? ObjectUtils.toString(value) : null;
     }
-
+    
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isMap()
      */

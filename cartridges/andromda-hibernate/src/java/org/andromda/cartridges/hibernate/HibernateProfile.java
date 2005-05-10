@@ -148,8 +148,14 @@ public class HibernateProfile
     /**
      * Defines the index column for hibernate indexed collections
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_COLUMN = profile.get(
-            "HIBERNATE_ASSOCIATION_INDEX_COLUMN");
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX  = profile.get(
+            "HIBERNATE_ASSOCIATION_INDEX");
+    
+    /**
+     * Defines the index column type for hibernate indexed collections
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_TYPE  = profile.get(
+            "HIBERNATE_ASSOCIATION_INDEX_TYPE");
     
     /**
      * Defines the tagged value for hibernate version on entities 

@@ -41,6 +41,8 @@
         <property reference="bagTypeImplementation" default="java.util.ArrayList"/>
         <property reference="specificCollectionInterfaces" default="true"/>
         <property reference="defaultCollectionInterface" default="java.util.Collection"/>
+        <property reference="associationEndCollectionIndexName" default=""/>
+        <property reference="associationEndCollectionIndexType" default=""/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
