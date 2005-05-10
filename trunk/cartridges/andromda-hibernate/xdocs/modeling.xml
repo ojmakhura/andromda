@@ -635,7 +635,21 @@
                             Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
                         </td>
                         <td>
-                            Column containing the collection index
+                            Column containing the collection index, overrides the 
+                            <a href="namespace.html#associationEndCollectionIndexName">associationEndCollectionIndexName</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <a name="andromda_hibernate_collection_index_type"/>
+                        <td>
+                            @andromda.hibernate.collection.index.type
+                        </td>
+                        <td>
+                            Association ends between <a href="#Entity"><![CDATA[<<Entity>>]]></a> classes
+                        </td>
+                        <td>
+                            The type of the column containing the collection index, overrides the 
+                            <a href="namespace.html#associationEndCollectionIndexType">associationEndCollectionIndexType</a>
                         </td>
                     </tr>
                     <tr>

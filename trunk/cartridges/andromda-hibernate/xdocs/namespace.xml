@@ -728,6 +728,33 @@
                         No, default is <code>java.util.Collection</code>.
                     </td>
                 </tr>
+                <tr>
+                    <a name="associationEndCollectionIndexName"/>
+                    <td>
+                        associationEndCollectionIndexName
+                    </td>
+                    <td>
+                        The default association end collection index name (this can be overridden by the
+                        <a href="modeling.html#andromda_hibernate_collection_index">@andromda.hibernate.collection.index</a>.
+                    </td>
+                    <td>
+                        No, by default it isn't set.
+                    </td>
+                </tr>
+                <tr>
+                    <a name="associationEndCollectionIndexType"/>
+                    <td>
+                        associationEndCollectionIndexType
+                    </td>
+                    <td>
+                        The default association end collection index type (this can be overridden by the
+                        <a href="modeling.html#andromda_hibernate_collection_index_type">@andromda.hibernate.collection.index.type</a>
+                        (this is applicable when the collection is a map).
+                    </td>
+                    <td>
+                        No, by default it isn't set.
+                    </td>
+                </tr>
             </table>
             <subsection name="Collection type implementations">
                 <table>

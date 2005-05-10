@@ -93,8 +93,12 @@
         <to>@andromda.hibernate.whereClause</to>
     </mapping>
     <mapping>
-        <from>HIBERNATE_ASSOCIATION_INDEX_COLUMN</from>
+        <from>HIBERNATE_ASSOCIATION_INDEX</from>
         <to>@andromda.hibernate.collection.index</to>
+    </mapping>
+    <mapping>
+        <from>HIBERNATE_ASSOCIATION_INDEX_TYPE</from>
+        <to>@andromda.hibernate.collection.index.type</to>
     </mapping>
     <mapping>
         <from>HIBERNATE_VERSION</from>
