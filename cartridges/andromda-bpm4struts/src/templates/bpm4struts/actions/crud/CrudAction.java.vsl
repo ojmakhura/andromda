@@ -114,6 +114,34 @@ public final class $manageable.actionClassName extends DispatchAction
         final java.util.List list = ${manageable.manageableServiceAccessorCall}.readAll();
         form.${manageable.listSetterName}(list);
 
+## set all default attribute values
+#foreach ($member in $manageable.attributes)
+#if ($member.defaultValue)
+#if ($member.type.enumeration)
+#set ($memberType = $member.type.literalType)
+#else
+#set ($memberType = $member.type)
+#end
+#if ($memberType.dateType)
+        form.${member.setterName}AsString("$member.defaultValue");
+#elseif ($memberType.stringType)
+        form.${member.setterName}("$member.defaultValue");
+#elseif ($memberType.primitive)
+#if ($memberType.fullyQualifiedName == 'char')
+        form.${member.setterName}('$member.defaultValue.charAt(0)');
+#else
+        form.${member.setterName}($member.defaultValue);
+#end
+#else
+#if ($memberType.fullyQualifiedName == 'java.lang.Character')
+        form.${member.setterName}(new ${memberType.fullyQualifiedName}('$member.defaultValue.charAt(0)'));
+#else
+        form.${member.setterName}(new ${memberType.fullyQualifiedName}("$member.defaultValue"));
+#end
+#end
+#end
+#end
+
 #if ($manageable.maximumListSize > 0)
         if (list.size() >= $manageable.maximumListSize)
         {
