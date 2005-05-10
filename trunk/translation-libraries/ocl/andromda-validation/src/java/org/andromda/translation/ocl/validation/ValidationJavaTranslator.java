@@ -136,7 +136,7 @@ import java.util.Stack;
  * @author Chad Brandon
  */
 public class ValidationJavaTranslator
-        extends BaseTranslator
+    extends BaseTranslator
 {
     private static Properties features = null;
 
@@ -705,7 +705,11 @@ public class ValidationJavaTranslator
     public void handleArrowFeatureCall(AFeatureCall featureCall)
     {
         AFeatureCallParameters params = (AFeatureCallParameters)featureCall.getFeatureCallParameters();
-        AActualParameterList list = (AActualParameterList)params.getActualParameterList();
+        AActualParameterList list = null;
+        if (params != null)
+        {
+            list = (AActualParameterList)params.getActualParameterList();
+        }
         boolean arrow = this.arrowPropertyCallStack.peek().equals(Boolean.TRUE) &&
                 !String.valueOf(list).trim().equals("");
         {
@@ -730,52 +734,55 @@ public class ValidationJavaTranslator
             }
             String featureCallName = TranslationUtils.trimToEmpty(featureCall.getPathName());
             AFeatureCallParameters parameters = (AFeatureCallParameters)featureCall.getFeatureCallParameters();
-            if (parameters.getLParen() != null)
+            if (parameters != null)
             {
-                parameters.getLParen().apply(this);
-            }
-            mergeTranslationLayerBefore();
-            AActualParameterList parameterList = (AActualParameterList)parameters.getActualParameterList();
-            if (parameterList != null)
-            {
-                List expressions = parameterList.getCommaExpression();
-
-                if (parameterList.getExpression() != null)
+                if (parameters.getLParen() != null)
                 {
-                    if (arrow)
+                    parameters.getLParen().apply(this);
+                }
+                mergeTranslationLayerBefore();
+                AActualParameterList parameterList = (AActualParameterList)parameters.getActualParameterList();
+                if (parameterList != null)
+                {
+                    List expressions = parameterList.getCommaExpression();
+    
+                    if (parameterList.getExpression() != null)
                     {
-                        write(",");
-                        write(features.getProperty(featureCallName));
-                        write(" ");
-                        if (OCLPredicateFeatures.isPredicateFeature(featureCallName))
+                        if (arrow)
                         {
-                            write(BOOLEAN_WRAP_PREFIX);
+                            write(",");
+                            write(features.getProperty(featureCallName));
+                            write(" ");
+                            if (OCLPredicateFeatures.isPredicateFeature(featureCallName))
+                            {
+                                write(BOOLEAN_WRAP_PREFIX);
+                            }
+                        }
+                        parameterList.getExpression().apply(this);
+                    }
+                    for (int ctr = 0; ctr < expressions.size(); ctr++)
+                    {
+                        Node expression = (Node)expressions.get(ctr);
+                        if (expression != null)
+                        {
+                            write(",");
+                            expression.apply(this);
                         }
                     }
-                    parameterList.getExpression().apply(this);
-                }
-                for (int ctr = 0; ctr < expressions.size(); ctr++)
-                {
-                    Node expression = (Node)expressions.get(ctr);
-                    if (expression != null)
+                    if (parameterList.getExpression() != null)
                     {
-                        write(",");
-                        expression.apply(this);
+                        if (OCLPredicateFeatures.isPredicateFeature(featureCallName))
+                        {
+                            write(BOOLEAN_WRAP_SUFFIX);
+                        }
+                        if (arrow)
+                            write(";}}");
                     }
                 }
-                if (parameterList.getExpression() != null)
+                if (parameters.getRParen() != null)
                 {
-                    if (OCLPredicateFeatures.isPredicateFeature(featureCallName))
-                    {
-                        write(BOOLEAN_WRAP_SUFFIX);
-                    }
-                    if (arrow)
-                        write(";}}");
+                    parameters.getRParen().apply(this);
                 }
-            }
-            if (parameters.getRParen() != null)
-            {
-                parameters.getRParen().apply(this);
             }
             // now since we have a navigational path off of the
             // result we need to write the path and close off
