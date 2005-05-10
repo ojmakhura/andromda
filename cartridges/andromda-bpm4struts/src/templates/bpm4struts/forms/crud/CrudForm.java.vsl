@@ -150,7 +150,11 @@ public final class $manageable.formBeanClassName
     public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     {
 #foreach ($member in $manageable.attributes)
+#if ($member.type.enumeration)
+        #resetField($member.name $member.type.literalType)
+#else
         #resetField($member.name $member.type)
+#end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($identifier = $member.type.manageableIdentifier)
