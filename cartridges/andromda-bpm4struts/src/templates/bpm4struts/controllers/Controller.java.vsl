@@ -95,23 +95,19 @@ HttpServletRequest request, HttpServletResponse response) throws Exception;
      * Set the argument $sessionObject.name object in the session corresponding with the argument request.
      * In case the session would not exist it will be created.
      */
-    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName
-object)
+    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object)
     {
         set${accessorSuffix}(request, object, true);
     }
 
     /**
      * Set the argument $sessionObject.name object in the session corresponding with the argument request.
-Any existing
-     * object will be overwritten.
+     * Any existing object will be overwritten.
      *
      * @param createSession denotes whether or not the session should be created automatically in case it
-would
-     *                      not yet exist
+     * would not yet exist
      */
-    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName
-object, boolean createSession)
+    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object, boolean createSession)
     {
         HttpSession session = request.getSession(createSession);
         if (session != null)
@@ -121,8 +117,7 @@ object, boolean createSession)
     }
 
     /**
-     * Removes the argument $sessionObject.name object from the session corresponding with the argument
-request.
+     * Removes the argument $sessionObject.name object from the session corresponding with the argument request.
      * In any of the following cases this method will do nothing:
      * <ul>
      *   <li>No session corresponds to the argument request</li>
