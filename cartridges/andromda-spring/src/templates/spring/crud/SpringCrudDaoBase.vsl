@@ -56,7 +56,20 @@ public final class $manageable.manageableDaoBaseName
         entity.${member.setterName}($member.name);
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
-        entity.${member.setterName}(${member.daoGetterName}().load($member.name));
+#set ($memberEntityName = "${member.name}Entity")
+        $member.type.fullyQualifiedName $memberEntityName = null;
+        if ($member.name != null)
+        {
+           $memberEntityName = ${member.daoGetterName}().load($member.name);
+        }
+#if ($member.required)
+        entity.${member.setterName}($memberEntityName);
+#else
+        if ($memberEntityName != null)
+        {
+            entity.${member.setterName}($memberEntityName);
+        }
+#end
 #end
 
         this.getDao().create(entity);
@@ -107,8 +120,7 @@ public final class $manageable.manageableDaoBaseName
 #if ($member.type.primitive)
             criteria.add(Expression.eq("$member.name", new ${member.manageableIdentifier.type.wrapperName}($member.name)));
 #else
-            if ($member.name != null)
-                criteria.createCriteria("$member.name").add(Expression.eq("$member.manageableIdentifier.name", $member.name));
+            if ($member.name != null) criteria.createCriteria("$member.name").add(Expression.eq("$member.manageableIdentifier.name", $member.name));
 #end
 #end
 #if ($manageable.maximumListSize > 0)
@@ -184,7 +196,20 @@ public final class $manageable.manageableDaoBaseName
         entity.${member.setterName}(${member.name});
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
-        entity.${member.setterName}(this.${member.daoGetterName}().load(${member.name}));
+#set ($memberEntityName = "${member.name}Entity")
+        $member.type.fullyQualifiedName $memberEntityName = null;
+        if ($member.name != null)
+        {
+           $memberEntityName = ${member.daoGetterName}().load($member.name);
+        }
+#if ($member.required)
+        entity.${member.setterName}($memberEntityName);
+#else
+        if ($memberEntityName != null)
+        {
+            entity.${member.setterName}($memberEntityName);
+        }
+#end
 #end
 
         this.getDao().update(entity);
