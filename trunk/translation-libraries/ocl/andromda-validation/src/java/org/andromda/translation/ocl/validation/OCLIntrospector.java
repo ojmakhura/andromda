@@ -1,12 +1,11 @@
 package org.andromda.translation.ocl.validation;
 
+import java.lang.reflect.Method;
+
 import org.andromda.translation.ocl.syntax.OCLPatterns;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Dynamically invokes operation and property calls on specified <strong>elements</code>.
