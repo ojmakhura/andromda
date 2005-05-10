@@ -88,31 +88,44 @@ ${indent}</c:choose>
 #if ($security == 'true')
 ${indent}<logic:present role="#commaSeparatedNames($field.type.users)">
 #end
+#if ($field.required)
+${indent}    <nobr><html:link action="$field.type.actionPath"><bean:message key="$field.messageKey"/></html:link> <div class="important">*</div></nobr>
+#else
 ${indent}    <html:link action="$field.type.actionPath"><bean:message key="$field.messageKey"/></html:link>
+#end
 #if ($security == 'true')
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="#commaSeparatedNames($field.type.users)">
+#if ($field.required)
+${indent}    <nobr><bean:message key="$field.messageKey"/> <div class="important">*</div></nobr>
+#else
 ${indent}    <bean:message key="$field.messageKey"/>
+#end
 ${indent}</logic:notPresent>
 #end
 #end
 #end
 ##
 ## This stuff *must* be rendered on a single line, it assumes date fields have been properly formatted
-## into a xxxFomatted variables
+## into a xxxFormatted variables
 ##
 #macro ( renderJavascriptCopyRow $manageable )
-#foreach($member in $manageable.manageableMembers)
-document.forms['${manageable.formBeanName}'].elements['${member.name}'].## no newline
+#foreach($member in $manageable.attributes)
 #set($property = "row.${member.name}")## by default we take the property straight for the row value object
-#if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
-checked=${${property}};## no newline
+#if ($member.type.enumeration)
+setSelect('$member.name','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
+#elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+setInput('$member.name',${${property}});## no newline
+#elseif ($member.type.dateType)
+#set($property = "${member.name}Formatted")## by default we take the property straight for the row value object
+setInput('${member.name}AsString','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
 #else
-#if ($member.type.dateType)
-#set($property = "${member.name}Formatted")## this variable is expected to be in page scope
+setInput('$member.name','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
 #end
-value='<formatting:escape language="javascript">${${property}}</formatting:escape>';## no newline
 #end
+#foreach($member in $manageable.manageableAssociationEnds)
+#set($property = "row.${member.name}")## by default we take the property straight for the row value object
+setSelect('$member.name','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
 #end
 #end
 ##
@@ -120,13 +133,19 @@ value='<formatting:escape language="javascript">${${property}}</formatting:escap
 ## are not displayed. Checkboxes are set to false.
 ##
 #macro ( renderJavascriptClearFields $manageable )
-#foreach($member in $manageable.manageableMembers)
-document.forms['${manageable.formBeanName}'].elements['${member.name}'].## no newline
-#if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
-checked=false;## no newline
+#foreach($member in $manageable.attributes)
+#if ($member.type.enumeration)
+setSelect('$member.name','');## no newline
+#elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+setInput('$member.name',false);## no newline
+#elseif ($member.type.dateType)
+setInput('${member.name}AsString','');## no newline
 #else
-value='';## no newline
+setInput('$member.name','');## no newline
 #end
+#end
+#foreach($member in $manageable.manageableAssociationEnds)
+setSelect('$member.name','');## no newline
 #end
 #end
 ##
