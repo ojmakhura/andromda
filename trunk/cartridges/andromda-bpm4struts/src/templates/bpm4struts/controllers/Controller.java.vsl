@@ -139,18 +139,15 @@ $operation.getDocumentation("     * ")
     {
         final javax.servlet.http.HttpSession session = request.getSession();
 
-        if (session != null)
+        // we explicitely store and retrieve the messages from the session, as opposed to using
+        // Action.saveMessages because this constroller does not have access to the current Action instance
+        org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
+        if (messages == null)
         {
-            // we explicitely store and retrieve the messages from the session, as opposed to using
-            // Action.saveMessages because this constroller does not have access to the current Action instance
-            org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
-            if (messages == null)
-            {
-                messages = new org.apache.struts.action.ActionMessages();
-                session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
-            }
-            messages.add("$warningMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
+            messages = new org.apache.struts.action.ActionMessages();
+            session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
         }
+        messages.add("$warningMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
     }
 
     /**
@@ -179,18 +176,15 @@ $operation.getDocumentation("     * ")
     {
         final javax.servlet.http.HttpSession session = request.getSession();
 
-        if (session != null)
+        // we explicitely store and retrieve the messages from the session, as opposed to using
+        // Action.saveMessages because this constroller does not have access to the current Action instance
+        org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
+        if (messages == null)
         {
-            // we explicitely store and retrieve the messages from the session, as opposed to using
-            // Action.saveMessages because this constroller does not have access to the current Action instance
-            org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
-            if (messages == null)
-            {
-                messages = new org.apache.struts.action.ActionMessages();
-                session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
-            }
-            messages.add("$successMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
+            messages = new org.apache.struts.action.ActionMessages();
+            session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
         }
+        messages.add("$successMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
     }
 
     /**
@@ -220,18 +214,15 @@ $operation.getDocumentation("     * ")
     {
         final javax.servlet.http.HttpSession session = request.getSession();
 
-        if (session != null)
+        // we explicitely store and retrieve the messages from the session, as opposed to using
+        // Action.saveMessages because this constroller does not have access to the current Action instance
+        org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
+        if (messages == null)
         {
-            // we explicitely store and retrieve the messages from the session, as opposed to using
-            // Action.saveMessages because this constroller does not have access to the current Action instance
-            org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
-            if (messages == null)
-            {
-                messages = new org.apache.struts.action.ActionMessages();
-                session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
-            }
-            messages.add("$errorMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
+            messages = new org.apache.struts.action.ActionMessages();
+            session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
         }
+        messages.add("$errorMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
     }
 
     /**
