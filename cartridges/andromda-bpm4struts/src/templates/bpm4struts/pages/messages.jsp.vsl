@@ -5,40 +5,36 @@
 
 #end
 <div id="messages">
-    <logic:messagesPresent message="false">
-        <div class="errors">
-            <ul>
-	            <html:messages id="error" message="false">
-	                <div class="error"><li>${error}</li></div>
-	            </html:messages>
-            </ul>
-        </div>
-    </logic:messagesPresent>
-    <logic:messagesPresent name="$errorMessagesKey">
-        <div class="errors">
-            <ul>
-                <html:messages id="error" name="$errorMessagesKey">
-                    <div class="error"><li>${error}</li></div>
+## prints regular errors (just in case such an error would have been recorded)
+        <logic:messagesPresent message="false">
+            <div class="errors">
+                <html:messages id="error" message="false">
+                    <div class="error">${error}</div>
                 </html:messages>
-            </ul>
-        </div>
-    </logic:messagesPresent>
-    <logic:messagesPresent name="$warningMessagesKey">
+            </div>
+        </logic:messagesPresent>
+## prints error messages stored by the controllers
+        <logic:messagesPresent message="true" property="$errorMessagesKey">
+            <div class="errors">
+                <html:messages id="error" message="true" property="$errorMessagesKey">
+                    <div class="error">${error}</div>
+                </html:messages>
+            </div>
+        </logic:messagesPresent>
+## prints warning messages stored by the controllers
+    <logic:messagesPresent message="true" property="$warningMessagesKey">
         <div class="warnings">
-            <ul>
-                <html:messages id="warning" name="$warningMessagesKey">
-                    <div class="warning"><li>${warning}</li></div>
-                </html:messages>
-            </ul>
+            <html:messages id="warning" message="true" property="$warningMessagesKey">
+                <div class="warning">${warning}</div>
+            </html:messages>
         </div>
     </logic:messagesPresent>
-    <logic:messagesPresent name="$successMessagesKey">
+## prints success messages stored by the controllers
+    <logic:messagesPresent message="true" property="$successMessagesKey">
         <div class="messages">
-            <ul>
-                <html:messages id="message" name="$successMessagesKey">
-                    <div class="message"><li>${message}</li></div>
-                </html:messages>
-            </ul>
+            <html:messages id="message" message="true" property="$successMessagesKey">
+                <div class="message">${message}</div>
+            </html:messages>
         </div>
     </logic:messagesPresent>
 </div>
