@@ -46,33 +46,34 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
         org.apache.commons.beanutils.BeanUtils.populate(form, request.getParameterMap());
 
 #end
-        final org.apache.struts.action.ActionForward forward = #processTransition($action)
-#if (!$action.formScopeNone)
-        if (this.errorsNotPresent(request))
+        org.apache.struts.action.ActionForward forward = null;
+
+        try
         {
-#if ($action.formScopeRequest)
-            request.setAttribute("$formName", form);
-#else
-            request.getSession().setAttribute("$formName", form);
-#end
+            forward = #processTransition($action)
         }
-        else
+        catch (java.lang.Exception exception)
         {
 #populateCurrentFormOnError()
+            throw exception;
         }
+
+#if ($action.formScopeRequest)
+        request.setAttribute("$formName", form);
+
+#else
+        request.getSession().setAttribute("$formName", form);
+
 #end
 #saveMessages($action "        ")
-#if ($resettableActionParameters.empty == false)
+#if (!$resettableActionParameters.empty)
 
-        final org.apache.struts.action.ActionMessages errors = this.getExceptionHandlerErrors(request);
-        if (errors.isEmpty())
-        {
-            $formBeanClassName specificForm = ($formBeanClassName)form;
+        $formBeanClassName specificForm = ($formBeanClassName)form;
 #foreach ($field in $resettableActionParameters)
-            specificForm.${field.resetName}();
+        specificForm.${field.resetName}();
 #end
-        }
 #end
+
         return forward;
     }
 
@@ -89,33 +90,22 @@ $actionState.getDocumentation("     * ")
         forward = #processTransition($actionState.forward)
 #else
 
-        final org.apache.struts.action.ActionMessages errors = this.getExceptionHandlerErrors(request);
         try
         {
 #foreach ($controllerCall in $controllerCalls)
-            if (this.errorsNotPresent(request))
-            {
-                ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
-            }
+            ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
 #end
-            if (this.errorsNotPresent(request))
-            {
-                forward = #processTransition($actionState.forward)
-            }
+            forward = #processTransition($actionState.forward)
         }
-        catch (java.lang.Exception ex)
+        catch (java.lang.Exception exception)
         {
-            final String messageKey = ${exceptionHandlerPackage}.PatternMatchingExceptionHandler.instance().handleException(ex);
+            final String messageKey = ${exceptionHandlerPackage}.PatternMatchingExceptionHandler.instance().handleException(exception);
             ${controllerClass.name}Factory.get${controllerClass.name}Instance().saveErrorMessage(request, messageKey);
+            throw exception;
         }
-        if (errors.isEmpty())
-        {
-#saveMessages($actionState.forward "            ")
-        }
-        else
-        {
-            forward = mapping.getInputForward();
-        }
+
+#saveMessages($actionState.forward "        ")
+
 #end
         return forward;
     }
@@ -146,39 +136,4 @@ $decisionTransition.getDocumentation("     * ")
     }
 
 #end
-
-    /**
-     * Returns true if <strong>NO</strong> errors are present in the session.  This includes default validation
-     * errors produced by the struts framework and the exception handler errors caught by the pattern matching
-     * exception handler.
-     *
-     * @return true if errors are <strong>not</strong> present, false otherwise.
-     */
-    private boolean errorsNotPresent(javax.servlet.http.HttpServletRequest request)
-    {
-        final org.apache.struts.action.ActionMessages errors = this.getErrors(request);
-        return (errors == null || errors.isEmpty()) && this.getExceptionHandlerErrors(request).isEmpty();
-    }
-
-    /**
-     * Retrieves the exception handler messages (if any). Creates a new
-     * <code>org.apache.struts.action.ActionMessages</code> instance and returns that if one doesn't already exist.
-     */
-    private org.apache.struts.action.ActionMessages getExceptionHandlerErrors(javax.servlet.http.HttpServletRequest request)
-    {
-        org.apache.struts.action.ActionMessages errors = null;
-
-        final javax.servlet.http.HttpSession session = request.getSession();
-        if (session != null)
-        {
-            errors = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
-            if (errors == null)
-            {
-                errors = new org.apache.struts.action.ActionMessages();
-                session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, errors);
-            }
-        }
-
-        return errors;
-    }
 }
