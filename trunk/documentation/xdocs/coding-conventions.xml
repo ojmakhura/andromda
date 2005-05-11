@@ -33,6 +33,22 @@
                 Anything else not specifically mentioned here should follow the official 
                 <a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Sun Java Coding Conventions</a>.
             </p>
+            <subsection name="General Coding Conventions">
+                <p>
+                    The following applies to any code, whether it be templates, java files, XML files, etc.
+                </p>
+                <ul>
+                    <li>
+                        <p>
+                            <strong>Indentations:</strong> 4 spaces. <strong>NO tabs</strong>. Period.
+                            We understand that a lot of you like to use tabs, but the fact of the
+                            matter is that in a distributed development environment, when the cvs
+                            commit messages get sent to a mailing list, they are almost impossible
+                            to read if you use tabs.
+                        </p>
+                    </li>
+                 </ul>
+            </subsection>
             <subsection name="Java Coding Conventions">
                 <ul>
                     <li>
@@ -54,6 +70,22 @@ public class SomeClass
                     </li>
                     <li>
                         <p>
+                            <strong>Whitespace:</strong> Do not add extra whitespace
+                            around parenthesis (i.e. "if ( this.isComposition() )") or casts
+                            ("(ClassifierFacade) element"), instead they should be written
+                            written like the following:
+                        </p>
+                        <source language="java">
+if (this.isComposition()) 
+{
+}
+                        </source>
+                        <source language="java">
+ClassifierFacade classifier = (ClassifierFacade)element;
+                        </source>
+                    </li>
+                    <li>
+                        <p>
                             <strong>Iterators:</strong> Looping using an iterator, do these in for-loops
                             instead of while loops (because this allows the iterator itself is scoped
                             into that block). Example:
@@ -65,15 +97,6 @@ for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.ha
     stereoTypeNames.add(stereotype.getName());
 }                        
                         </source>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>Identations:</strong> 4 spaces. <strong>NO tabs</strong>. Period.
-                            We understand that a lot of you like to use tabs, but the fact of the
-                            matter is that in a distributed development environment, when the cvs
-                            commit messages get sent to a mailing list, they are almost impossible
-                            to read if you use tabs.
-                        </p>
                     </li>
                     <li>
                         <p>
