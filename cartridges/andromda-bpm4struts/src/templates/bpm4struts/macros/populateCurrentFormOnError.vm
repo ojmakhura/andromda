@@ -26,7 +26,7 @@
                 {
                     org.apache.commons.beanutils.BeanUtils.populate(currentForm, parameters);
                 }
-                catch (Exception exception)
+                catch (java.lang.Exception populateException)
                 {
                     // ignore if we have an exception here (we just don't populate).
                 }
