@@ -6,11 +6,6 @@
 #set ($generatedFile = "$stringUtils.replace($exceptionHandlerPackage, '.', '/')/${className}.java")
 package $exceptionHandlerPackage;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.beanutils.PropertyUtils;
-
 /**
  * <p>
  *  A configurable pattern matching error handler retrieves exception mapping
@@ -25,7 +20,7 @@ public class $className
 {
     private static final $className instance = new PatternMatchingExceptionHandler();
 
-    private static final Pattern compiledPattern = Pattern.compile("$exceptionHandlerPattern");
+    private static final java.util.regex.Pattern compiledPattern = java.util.regex.Pattern.compile("$exceptionHandlerPattern");
 
     /**
      * Gets the shared PatternMatchingExceptionHandler instance.
@@ -47,12 +42,11 @@ public class $className
      */
     public String handleException(Exception exception) throws Exception
     {
-        final Throwable cause =  this.findRootCause(exception);
+        final java.lang.Throwable cause =  this.findRootCause(exception);
         String matched = null;
         if (cause != null && cause.getMessage() != null)
         {
-            Matcher matcher = compiledPattern.matcher(
-                cause.getMessage().replaceAll("[\\s]+", " "));
+            final java.util.regex.Matcher matcher = compiledPattern.matcher(cause.getMessage().replaceAll("[\\s]+", " "));
             try
             {
                 if (matcher.matches())
@@ -60,7 +54,7 @@ public class $className
                     matched = matcher.group(3);
                 }
             }
-            catch (IllegalStateException ex)
+            catch (java.lang.IllegalStateException ex)
             {
                 // no match was found ignore
             }
@@ -69,38 +63,38 @@ public class $className
                 return matched;
             }
         }
-        if (cause instanceof Exception)
+        if (cause instanceof java.lang.Exception)
         {
-            throw (Exception)cause;
+            throw (java.lang.Exception)cause;
         }
-        throw new Exception(cause);
+        throw new java.lang.Exception(cause);
     }
 
     /**
      * Finds the root cause of the parent exception
      * by traveling up the exception tree
      */
-    private Throwable findRootCause(Throwable th)
+    private java.lang.Throwable findRootCause(Throwable th)
     {
         if (th != null)
         {
             // Reflectively get any exception causes.
             try
             {
-                Throwable targetException = null;
+                java.lang.Throwable targetException = null;
                 // java.lang.reflect.InvocationTargetException
                 String exceptionProperty = "targetException";
-                if (PropertyUtils.isReadable(th, exceptionProperty))
+                if (org.apache.commons.beanutils.PropertyUtils.isReadable(th, exceptionProperty))
                 {
-                    targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
+                    targetException = (java.lang.Throwable)org.apache.commons.beanutils.PropertyUtils.getProperty(th, exceptionProperty);
                 }
                 else
                 {
                     exceptionProperty = "causedByException";
                     // javax.ejb.EJBException
-                    if (PropertyUtils.isReadable(th, exceptionProperty))
+                    if (org.apache.commons.beanutils.PropertyUtils.isReadable(th, exceptionProperty))
                     {
-                        targetException = (Throwable)PropertyUtils.getProperty(th, exceptionProperty);
+                        targetException = (java.lang.Throwable)org.apache.commons.beanutils.PropertyUtils.getProperty(th, exceptionProperty);
                     }
                 }
                 if (targetException != null)
@@ -108,7 +102,7 @@ public class $className
                     th = targetException;
                 }
             }
-            catch (Exception ex)
+            catch (java.lang.Exception ex)
             {
                 // just print the exception and continue
                 ex.printStackTrace();
