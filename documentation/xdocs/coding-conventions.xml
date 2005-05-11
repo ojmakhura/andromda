@@ -87,7 +87,7 @@ ClassifierFacade classifier = (ClassifierFacade)element;
                     <li>
                         <p>
                             <strong>Iterators:</strong> Looping using an iterator, do these in for-loops
-                            instead of while loops (because this allows the iterator itself is scoped
+                            instead of while loops (because this allows the iterator itself to be scoped
                             into that block). Example:
                        </p>
                        <source language="java">
@@ -124,6 +124,29 @@ for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.ha
                             <strong>Exiting Methods:</strong> There should be only a single
                             point of exit out of a method (i.e. a single return statement).
                         </p>
+                        <source language="java">
+public int getEntityCount()
+{
+    // don't do this:
+    /*
+        if (condition)
+        {
+           return 6;
+        }
+        return 0;
+    */
+
+    // but do this:
+    int entityCount = 0;
+
+    if (condition)
+    {
+        entityCount = 6;
+    }
+
+    return entityCount;
+}
+                       </source>
                     </li>
                     <li>
                         <p>
@@ -249,7 +272,7 @@ java.lang.OutOfMemoryError
                         <p>
                             If you fixed, added, updated or removed a feature then update
                             <code>/documentation/changes.xml</code>.
-                            Take a look at previous changes for examples on how to properly proceed.
+                            Take a look at previous changes for examples.
                         </p>
                     </li>
                 </ul>
