@@ -157,7 +157,7 @@ public interface $entity.daoName
      */
     public $entity.root.fullyQualifiedEntityName create(
 #foreach($property in $requiredProperties)
-        $property.type.fullyQualifiedName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
+        $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
 
 #end
 
@@ -174,7 +174,7 @@ public interface $entity.daoName
     public Object create(
         int transform,
 #foreach($property in $requiredProperties)
-        $property.type.fullyQualifiedName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
+        $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
 
 #end
 #end
