@@ -706,12 +706,12 @@
                     </td>
                     <td>
                          A flag indicating whether or not specific collection interfaces will be used
-                         in association end mutators and accessors (i.e. java.util.Set, java.util.Liset, etc).
+                         in association end mutators and accessors (i.e. java.util.Set, java.util.List, etc).
                          If this is set to false, then the value of the <a href="#defaultCollectionInterface">defaultCollectionInterface</a>
                          property will used to provide the collection interface.
                     </td>
                     <td>
-                        No, default is <code>true</code>.
+                        No, default is <code>false</code>.
                     </td>
                 </tr>
                 <tr>
