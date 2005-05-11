@@ -109,6 +109,10 @@
                 <spring-configuration>${maven.andromda.core.generated.dir}</spring-configuration>
                 <services>${maven.andromda.core.generated.dir}</services>
                 <service-impls>${maven.andromda.core.manual.dir}</service-impls>
+                <!-- uncomment to generate the OpenSessionInViewFilter that allows the 
+                     open-session-in-view pattern (when you expose your entities 
+                     directly want lazy-loading to be allowed at the presentation tier)
+                <open-session-in-view>${maven.andromda.web.generated.dir}</open-session-in-view> -->
 #if ($ear)
                 <!-- to remove any dependency on EJB, comment the following property -->
                 <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>

@@ -18,13 +18,35 @@
         <from><![CDATA[<!-- filter merge-point -->]]></from>
         <to>
             <![CDATA[
+#if ($spring)
+    <!-- uncomment the following if you're using the open-session-in-view pattern
+         note: that you'll need to update the filter-class value if you've changed
+         the defaults for the package and/or filter name
+    <filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.andromda.spring.presentation.AndroMDAOpenSessionInViewFilter</filter-class>
+        <init-param>
+            <param-name>singleSession</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+    -->
+#end
             ]]>
         </to>
     </mapping>
     <mapping>
         <from><![CDATA[<!-- filter-mapping merge-point -->]]></from>
         <to>
+#if ($spring)
             <![CDATA[
+    <!-- uncomment the following if you're using the open-session-in-view pattern
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping> 
+    -->
+#end
             ]]>
         </to>
     </mapping>
