@@ -32,7 +32,6 @@
     <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
     <property reference="hibernateHbm2DDLAuto" default=""/>
     <property reference="hibernateQuerySubstitutions" default=""/>
-    <property reference="hibernateCustomTypesPackage" default="org.andromda.persistence.hibernate"/>
     <property reference="hibernateUseQueryCache" default="false"/>
     <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider"/>
     <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory"/>
@@ -56,6 +55,8 @@
     <property reference="sessionFactory" default="org.springframework.orm.hibernate.LocalSessionFactoryBean"/>
     <!-- the package to which extra types are generated (i.e. ServiceLocator) -->
     <property reference="springTypesPackage" default="org.andromda.spring"/>
+    <!-- the package to which extra presentation types are generated (i.e. OpenSessionInViewFilter) -->
+    <property reference="springPresentationTypesPackage" default="org.andromda.spring.presentation"/>
     <!-- the name to give the service locator class -->
     <property reference="serviceLocatorName" default="ServiceLocator"/>
     <!-- the name to give the CRUD service locator class -->
@@ -69,8 +70,10 @@
     <property reference="clientExceptionHandlingAdviceName" default="ClientExceptionHandlingAdvice"/>
     <!-- the base name for the hibernate criteria search utility classes -->
     <property reference="criteriaSearchBaseName" default="CriteriaSearch"/>
-    <!-- the name to give the principal store class -->
+    <!-- the name of the principal store class -->
     <property reference="principalStoreName" default="PrincipalStore"/>
+    <!-- the name of the OpenSessionInViewFilter -->
+    <property reference="openSessionInViewFilterName" default="AndroMDAOpenSessionInViewFilter"/>
     <property reference="ejbViewType" default="local"/>
     <!-- the kind of remoting to use for a spring service -->
     <property reference="springRemotingType" default="none"/>
@@ -452,7 +455,7 @@
         overwrite="true"
         required="false"
         outputToSingleFile="true">
-        <modelElements variable="entity">
+        <modelElements variable="entities">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
@@ -466,7 +469,7 @@
         overwrite="true"
         required="false"
         outputToSingleFile="true">
-        <modelElements variable="entity">
+        <modelElements variable="entities">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
@@ -480,7 +483,7 @@
         overwrite="true"
         required="false"
         outputToSingleFile="true">
-        <modelElements variable="entity">
+        <modelElements variable="entities">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
@@ -497,6 +500,19 @@
             <modelElement stereotype="CRITERIA"/>
         </modelElements>
     </template>
+    
+    <template
+        path="templates/spring/presentation/hibernate/OpenSessionInViewFilter.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="open-session-in-view"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>    
 
     <!--
             C R U D

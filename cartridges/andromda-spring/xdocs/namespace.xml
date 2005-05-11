@@ -92,16 +92,51 @@
                 </tr>
                 <tr>
                     <td>
+                        open-session-in-view
+                    </td>
+                    <td>
+                        The location to which the AndroMDA OpenSessionInViewFilter will be generated
+                        (allows the Hibernate <em>open-session-in-view</em> pattern when you want to
+                        expose your enties directly to your presentation tier - allows lazy-loading to 
+                        occur that level).
+                    </td>
+                    <td>
+                        No, unless you want to use the open-session-in-view pattern.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         springTypesPackage
                     </td>
                     <td>
-                        The package to which the extra non modeled spring types
+                        The package to which any extra non-modeled spring types
                         will be generated. (i.e. the service locator, etc).
                     </td>
                     <td>
-                        No (unless <a href="#service-locator">service-locator</a>
-                        has been defined).  If not specified and <code>service-locator</code>
-                        has been defined, it will be generated within <strong>org.andromda.spring</strong>.
+                        No, default is <strong>org.andromda.spring</strong>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        springPresentationTypesPackage
+                    </td>
+                    <td>
+                        The package to which any extra non-modeled spring types dealing
+                        with the presentation layer are generated (i.e. OpenSessionInViewFilter, etc).
+                    </td>
+                    <td>
+                        No, default is <strong>org.andromda.spring.presentation</strong>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        openSessionInViewFilterName
+                    </td>
+                    <td>
+                        The name to give the <em>optional</em> AndroMDA open session in view filter.
+                    </td>
+                    <td>
+                        No, default is <code>AndroMDAOpenSessionInViewFilter</code>
                     </td>
                 </tr>
                 <tr>
