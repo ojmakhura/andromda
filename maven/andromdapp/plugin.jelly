@@ -109,9 +109,9 @@
             <j:set var="mdaTemplatesMappingsDir" value="${mdaTemplatesDir}/conf/mappings"/>
             <ant:mkdir dir="${mdaMappingsDir}"/>
             <velocity:merge
-              name="${mdaMappingsDir}/Bpm4StrutsMergeMappings.xml"
-              basedir="${mdaTemplatesMappingsDir}"
-              template="Bpm4StrutsMergeMappings.xml.vsl"/>
+                name="${mdaMappingsDir}/Bpm4StrutsMergeMappings.xml"
+                basedir="${mdaTemplatesMappingsDir}"
+                template="Bpm4StrutsMergeMappings.xml.vsl"/>
         </j:if>
 
     </goal>
