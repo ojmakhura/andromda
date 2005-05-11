@@ -173,7 +173,7 @@
 </metafacades>               
                 ]]></source>       
                 This property can then be retrieved from within a metafacade implementation
-                class contained within the <em>spring</em>, like so:
+                class contained within the <em>spring</em> cartridge, like so:
                 <a name="getConfiguredProperty"/>
                 <source language="java"><![CDATA[
 private String getDaoNamePattern()
