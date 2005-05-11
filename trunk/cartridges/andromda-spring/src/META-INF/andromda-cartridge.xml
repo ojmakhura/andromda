@@ -505,6 +505,7 @@
         path="templates/spring/presentation/hibernate/OpenSessionInViewFilter.java.vsl"
         outputPattern="$generatedFile"
         outlet="open-session-in-view"
+        required="false"
         overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="entities">
