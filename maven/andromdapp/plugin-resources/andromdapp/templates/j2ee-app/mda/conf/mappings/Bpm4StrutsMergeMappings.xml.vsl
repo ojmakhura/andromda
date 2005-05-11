@@ -38,8 +38,8 @@
     <mapping>
         <from><![CDATA[<!-- filter-mapping merge-point -->]]></from>
         <to>
-#if ($spring)
             <![CDATA[
+#if ($spring)
     <!-- uncomment the following if you're using the open-session-in-view pattern
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
