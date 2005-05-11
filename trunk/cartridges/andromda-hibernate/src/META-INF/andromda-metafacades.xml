@@ -39,7 +39,7 @@
         <property reference="setTypeImplementation" default="java.util.HashSet"/>
         <property reference="mapTypeImplementation" default="java.util.HashMap"/>
         <property reference="bagTypeImplementation" default="java.util.ArrayList"/>
-        <property reference="specificCollectionInterfaces" default="true"/>
+        <property reference="specificCollectionInterfaces" default="false"/>
         <property reference="defaultCollectionInterface" default="java.util.Collection"/>
         <property reference="associationEndCollectionIndexName" default=""/>
         <property reference="associationEndCollectionIndexType" default=""/>
