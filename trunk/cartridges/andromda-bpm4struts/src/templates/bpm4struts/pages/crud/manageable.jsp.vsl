@@ -49,7 +49,7 @@
 
             function setAction(crud)
             {
-                document.forms['${manageable.formBeanName}'].elements['$manageable.actionParameter'].value = value;
+                document.forms['${manageable.formBeanName}'].elements['$manageable.actionParameter'].value = crud;
             }
 #if ($xhtml == "true")
         //]]>
