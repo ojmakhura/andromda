@@ -11,17 +11,6 @@
 // license-header java merge-point
 package $controller.packageName;
 
-import org.apache.struts.action.ActionMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-#if (!$sessionObjects.empty)
-import javax.servlet.http.HttpSession;
-#end
-
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
 /**
 $controller.getDocumentation(" * ")
  */
@@ -43,8 +32,7 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.callingBackEnd)
-    $visibility $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form,
-HttpServletRequest request, HttpServletResponse response) throws Exception
+    $visibility $returnType ${operation.name}(org.apache.struts.action.ActionMapping mapping, $operation.interfaceType form, javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws java.lang.Exception
     {
         ${operation.backEndServiceOperation.owner.accessorImplementation}.${operation.backEndServiceOperation.name}(
 #set ($comma = "")
@@ -55,8 +43,7 @@ HttpServletRequest request, HttpServletResponse response) throws Exception
         );
     }
 #else
-    $visibility abstract $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form,
-HttpServletRequest request, HttpServletResponse response) throws Exception;
+    $visibility abstract $returnType ${operation.name}(org.apache.struts.action.ActionMapping mapping, $operation.interfaceType form, javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws java.lang.Exception;
 #end
 
 #set ($returnType = false)
@@ -72,10 +59,10 @@ HttpServletRequest request, HttpServletResponse response) throws Exception;
      * If there is no session, it will be created; if the session would not contain a session-object
      * the object will be instantiated and subsequently stored in the session.
      */
-    protected final $sessionObject.fullyQualifiedName get${accessorSuffix}(HttpServletRequest request)
+    protected final $sessionObject.fullyQualifiedName get${accessorSuffix}(javax.servlet.http.HttpServletRequest request)
     {
         $sessionObject.fullyQualifiedName object = null;
-        HttpSession session = request.getSession(true);
+        javax.servlet.http.HttpSession session = request.getSession(true);
 
         Object attribute = session.getAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
         if (attribute instanceof $sessionObject.fullyQualifiedName)
@@ -95,7 +82,7 @@ HttpServletRequest request, HttpServletResponse response) throws Exception;
      * Set the argument $sessionObject.name object in the session corresponding with the argument request.
      * In case the session would not exist it will be created.
      */
-    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object)
+    protected final void set${accessorSuffix}(javax.servlet.http.HttpServletRequest request, $sessionObject.fullyQualifiedName object)
     {
         set${accessorSuffix}(request, object, true);
     }
@@ -107,9 +94,9 @@ HttpServletRequest request, HttpServletResponse response) throws Exception;
      * @param createSession denotes whether or not the session should be created automatically in case it
      * would not yet exist
      */
-    protected final void set${accessorSuffix}(HttpServletRequest request, $sessionObject.fullyQualifiedName object, boolean createSession)
+    protected final void set${accessorSuffix}(javax.servlet.http.HttpServletRequest request, $sessionObject.fullyQualifiedName object, boolean createSession)
     {
-        HttpSession session = request.getSession(createSession);
+        javax.servlet.http.HttpSession session = request.getSession(createSession);
         if (session != null)
         {
             session.setAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY, object);
@@ -125,9 +112,9 @@ HttpServletRequest request, HttpServletResponse response) throws Exception;
      *   <li>The object is not of the correct type</li>
      * </ul>
      */
-    protected final void remove${accessorSuffix}(HttpServletRequest request)
+    protected final void remove${accessorSuffix}(javax.servlet.http.HttpServletRequest request)
     {
-        HttpSession session = request.getSession(false);
+        javax.servlet.http.HttpSession session = request.getSession(false);
         if (session != null)
         {
             Object attribute = session.getAttribute(${sessionObject.fullyQualifiedName}.SESSION_KEY);
@@ -140,88 +127,123 @@ HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 #end
     /**
-     * Stores a warning message in the request, if any other warning messages exist, this one
-     * is simply added.
+     * Stores a warning message in the session, if any other warning messages exist, this one
+     * is simply added. This message will be removed from the session after the first time
+     * it has been accessed (a feature supported by Struts since version 1.2.4).
      *
-     * @param request the request to which the messages will be saved/retrieved.
-     * @arguments any arguments used within the message
+     * @param session the session to which the messages will be saved.
+     * @param message the message key to lookup the actual message to display
+     * @param arguments any arguments used within the message
      */
-    protected final void saveWarningMessage(HttpServletRequest request, String message, String[] arguments)
+    protected final void saveWarningMessage(javax.servlet.http.HttpServletRequest request, java.lang.String message, java.lang.String[] arguments)
     {
-        ActionMessages messages = (ActionMessages)request.getAttribute("$warningMessagesKey");
-        if (messages == null)
+        final javax.servlet.http.HttpSession session = request.getSession();
+
+        if (session != null)
         {
-            messages = new ActionMessages();
-            request.setAttribute("$warningMessagesKey", messages);
+            // we explicitely store and retrieve the messages from the session, as opposed to using
+            // Action.saveMessages because this constroller does not have access to the current Action instance
+            org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
+            if (messages == null)
+            {
+                messages = new org.apache.struts.action.ActionMessages();
+                session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
+            }
+            messages.add("$warningMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
         }
-        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
     }
 
     /**
-     * Stores a warning message in the request, if any other warning messages exist, this one
-     * is simply added.
+     * Stores a warning message in the session, if any other warning messages exist, this one
+     * is simply added. This message will be removed from the session after the first time
+     * it has been accessed (a feature supported by Struts since version 1.2.4).
      *
-     * @param request the request to which the messages will be saved/retrieved.
+     * @param session the session to which the messages will be saved.
+     * @param message the message key to lookup the actual message to display
+     * @see #saveWarningMessage(javax.servlet.http.HttpServletRequest, java.lang.String, java.lang.String[])
      */
-    protected final void saveWarningMessage(HttpServletRequest request, String message)
+    protected final void saveWarningMessage(javax.servlet.http.HttpServletRequest request, java.lang.String message)
     {
         this.saveWarningMessage(request, message, null);
     }
 
     /**
-     * Stores a success message in the request, if any other success messages exist, this one
-     * is simply added.
+     * Stores a success message in the session, if any other success messages exist, this one
+     * is simply added. This message will be removed from the session after the first time
+     * it has been accessed (a feature supported by Struts since version 1.2.4).
      *
-     * @param request the request to which the messages will be saved/retrieved.
-     * @arguments any arguments used within the message
+     * @param request the request from which the session will be taken into which the messages will be saved.
+     * @param message the message key to lookup the actual message to display
      */
-    protected final void saveSuccessMessage(HttpServletRequest request, String message, String[] arguments)
+    protected final void saveSuccessMessage(javax.servlet.http.HttpServletRequest request, java.lang.String message, java.lang.String[] arguments)
     {
-        ActionMessages messages = (ActionMessages)request.getAttribute("$successMessagesKey");
-        if (messages == null)
+        final javax.servlet.http.HttpSession session = request.getSession();
+
+        if (session != null)
         {
-            messages = new ActionMessages();
-            request.setAttribute("$successMessagesKey", messages);
+            // we explicitely store and retrieve the messages from the session, as opposed to using
+            // Action.saveMessages because this constroller does not have access to the current Action instance
+            org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
+            if (messages == null)
+            {
+                messages = new org.apache.struts.action.ActionMessages();
+                session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
+            }
+            messages.add("$successMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
         }
-        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
     }
 
     /**
-     * Stores a success message in the request, if any other success messages exist, this one
-     * is simply added.
+     * Stores a success message in the session, if any other success messages exist, this one
+     * is simply added. This message will be removed from the session after the first time
+     * it has been accessed (a feature supported by Struts since version 1.2.4).
      *
-     * @param request the request to which the messages will be saved/retrieved.
+     * @param request the request from which the session will be taken into which the messages will be saved.
+     * @param message the message key to lookup the actual message to display
+     * @see #saveSuccessMessage(javax.servlet.http.HttpServletRequest, java.lang.String, java.lang.String[])
      */
-    protected final void saveSuccessMessage(HttpServletRequest request, String message)
+    protected final void saveSuccessMessage(javax.servlet.http.HttpServletRequest request, java.lang.String message)
     {
         this.saveSuccessMessage(request, message, null);
     }
 
     /**
-     * Stores a error message in the request, if any other error messages exist, this one
-     * is simply added.
+     * Stores an error message in the session, if any other error messages exist, this one
+     * is simply added. This message will be removed from the session after the first time
+     * it has been accessed (a feature supported by Struts since version 1.2.4).
      *
-     * @param request the request to which the messages will be saved/retrieved.
-     * @arguments any arguments used within the message
+     * @param request the request from which the session will be taken into which the messages will be saved.
+     * @param message the message key to lookup the actual message to display
+     * @see #saveSuccessMessage(javax.servlet.http.HttpServletRequest, java.lang.String, java.lang.String[])
      */
-    protected final void saveErrorMessage(HttpServletRequest request, String message, String[] arguments)
+    protected final void saveErrorMessage(javax.servlet.http.HttpServletRequest request, java.lang.String message, java.lang.String[] arguments)
     {
-        ActionMessages messages = (ActionMessages)request.getAttribute("$errorMessagesKey");
-        if (messages == null)
+        final javax.servlet.http.HttpSession session = request.getSession();
+
+        if (session != null)
         {
-            messages = new ActionMessages();
-            request.setAttribute("$errorMessagesKey", messages);
+            // we explicitely store and retrieve the messages from the session, as opposed to using
+            // Action.saveMessages because this constroller does not have access to the current Action instance
+            org.apache.struts.action.ActionMessages messages = (org.apache.struts.action.ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
+            if (messages == null)
+            {
+                messages = new org.apache.struts.action.ActionMessages();
+                session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
+            }
+            messages.add("$errorMessagesKey", new org.apache.struts.action.ActionMessage(message, arguments));
         }
-        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(message, arguments));
     }
 
     /**
-     * Stores a error message in the request, if any other error messages exist, this one
-     * is simply added.
+     * Stores an error message in the session, if any other error messages exist, this one
+     * is simply added. This message will be removed from the session after the first time
+     * it has been accessed (a feature supported by Struts since version 1.2.4).
      *
-     * @param request the request to which the messages will be saved/retrieved.
+     * @param request the request from which the session will be taken into which the messages will be saved.
+     * @param message the message key to lookup the actual message to display
+     * @see #saveSuccessMessage(javax.servlet.http.HttpServletRequest, java.lang.String, java.lang.String[])
      */
-    protected final void saveErrorMessage(HttpServletRequest request, String message)
+    protected final void saveErrorMessage(javax.servlet.http.HttpServletRequest request, java.lang.String message)
     {
         this.saveErrorMessage(request, message, null);
     }
@@ -232,7 +254,7 @@ HttpServletRequest request, HttpServletResponse response) throws Exception;
      * Returns a reference to the $serviceRef.name back-end service.
      */
     protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
-        throws Exception
+        throws java.lang.Exception
     {
         return $serviceRef.targetElement.accessorImplementation;
     }
