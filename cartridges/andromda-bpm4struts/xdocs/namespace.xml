@@ -188,9 +188,11 @@
                 <tr>
                     <td>errorMessagesKey</td>
                     <td>
-                        The key to lookup additional error handler messages from within the request scope, the value will be an
-                        <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
-                        ActionMessages</a> instance
+                        The property used to identify error messages, all messages are stored in the default
+                        location for message used with Struts (in session scope, under Globals.MESSAGE_KEY), but
+                        this property distinguishes those mesage from the other ones. You would only need to change
+                        this value when you have messages already stored with this property and you want to avoid
+                        conflicts.
                     </td>
                     <td>
                         No, default is <code>org.andromda.bpm4struts.errormessages</code>.
@@ -199,9 +201,11 @@
                 <tr>
                     <td>warningMessagesKey</td>
                     <td>
-                        The key to lookup warning messages in a scope, the value will be an 
-                        <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
-                        ActionMessages</a> instance
+                        The property used to identify warning messages, all messages are stored in the default
+                        location for message used with Struts (in session scope, under Globals.MESSAGE_KEY), but
+                        this property distinguishes those mesage from the other ones. You would only need to change
+                        this value when you have messages already stored with this property and you want to avoid
+                        conflicts.
                     </td>
                     <td>
                         No, default is
@@ -211,9 +215,11 @@
                 <tr>
                     <td>successMessagesKey</td>
                     <td>
-                        The key to lookup success messages in a scope, the value will be an 
-                        <a href="http://struts.apache.org/api/org/apache/struts/action/ActionMessages.html">
-                        ActionMessages</a> instance</td>
+                        The property used to identify success messages, all messages are stored in the default
+                        location for message used with Struts (in session scope, under Globals.MESSAGE_KEY), but
+                        this property distinguishes those mesage from the other ones. You would only need to change
+                        this value when you have messages already stored with this property and you want to avoid
+                        conflicts.
                     <td>
                         No, default is
                         <code>org.andromda.bpm4struts.successmessages</code>.
