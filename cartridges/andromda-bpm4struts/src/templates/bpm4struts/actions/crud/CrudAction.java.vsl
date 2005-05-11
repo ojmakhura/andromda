@@ -21,6 +21,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -221,13 +222,15 @@ public final class $manageable.actionClassName extends DispatchAction
 #if ($manageable.maximumListSize > 0)
     private void saveMaxResultsWarning(HttpServletRequest request)
     {
-        ActionMessages messages = (ActionMessages)request.getAttribute("$warningMessagesKey");
+        final HttpSession session = request.getSession();
+
+        ActionMessages messages = (ActionMessages)session.getAttribute(org.apache.struts.Globals.MESSAGE_KEY);
         if (messages == null)
         {
             messages = new ActionMessages();
-            request.setAttribute("$warningMessagesKey", messages);
+            session.setAttribute(org.apache.struts.Globals.MESSAGE_KEY, messages);
         }
-        messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("maximum.results.fetched.warning", "$manageable.maximumListSize"));
+        messages.add("$warningMessagesKey", new ActionMessage("maximum.results.fetched.warning", "$manageable.maximumListSize"));
     }
 
 #end
