@@ -192,7 +192,7 @@ public abstract class $entity.daoBaseName
      */
     public $entity.root.fullyQualifiedEntityName create(
 #foreach($property in $requiredProperties)
-        $property.type.fullyQualifiedName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
+        $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
 
 #end
     {
@@ -205,7 +205,7 @@ public abstract class $entity.daoBaseName
     public Object create(
         final int transform,
 #foreach($property in $requiredProperties)
-        $property.type.fullyQualifiedName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
+        $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
 
 #end
     {
