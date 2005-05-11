@@ -230,6 +230,16 @@
             deletes all generated files, rebuilds and deploys; files in /src
             directories are *not* deleted
 
+        %> maven create-schema
+
+            invokes the generated DDL code and subsequently tells the database
+            to create the schema for the entities
+
+        %> maven drop-schema
+
+            invokes the generated DDL code and subsequently tells the database
+            to drop the schema for the entities
+
         %> maven mda
 
             runs AndroMDA on your model and thereby generating files in
@@ -255,7 +265,7 @@
     having Maven download the dependencies, only build online when Maven
     complains about missing dependencies.
 
-    Each module will install it's artifact into your local Maven repository,
+    Each module will install its artifact into the local Maven repository,
     this might be a directory looking like this:
 
         (Windows)
