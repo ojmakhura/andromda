@@ -60,7 +60,7 @@ public final class $manageable.manageableDaoBaseName
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-           $memberEntityName = ${member.daoGetterName}().load($member.name);
+            $memberEntityName = ${member.daoGetterName}().load($member.name);
         }
 #if ($member.required)
         entity.${member.setterName}($memberEntityName);
@@ -191,16 +191,20 @@ public final class $manageable.manageableDaoBaseName
 #if ($manageable.update)
     public void update($memberList)
     {
-        final $manageable.fullyQualifiedEntityName entity = new ${manageable.fullyQualifiedEntityImplementationName}();
+#set ($identifier = $member.manageableIdentifier)
+        final $manageable.fullyQualifiedEntityName entity = this.getDao().load($identifier.name);
+
 #foreach ($member in $manageable.attributes)
+#if (!$member.equals($identifier))## the identifier is already present since we loaded the entity
         entity.${member.setterName}(${member.name});
+#end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #set ($memberEntityName = "${member.name}Entity")
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-           $memberEntityName = ${member.daoGetterName}().load($member.name);
+            $memberEntityName = ${member.daoGetterName}().load($member.name);
         }
 #if ($member.required)
         entity.${member.setterName}($memberEntityName);
