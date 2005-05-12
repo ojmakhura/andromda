@@ -9,7 +9,6 @@ import org.andromda.translation.ocl.ExpressionKinds;
 public class EntityQueryOperationLogicImpl
         extends EntityQueryOperationLogic
 {
-    // ---------------- constructor -------------------------------
 
     public EntityQueryOperationLogicImpl(java.lang.Object metaObject, String context)
     {

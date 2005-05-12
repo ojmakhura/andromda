@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 public class EnumerationLiteralFacadeLogicImpl
         extends EnumerationLiteralFacadeLogic
 {
-    // ---------------- constructor -------------------------------
 
     public EnumerationLiteralFacadeLogicImpl(org.omg.uml.foundation.core.EnumerationLiteral metaObject, String context)
     {

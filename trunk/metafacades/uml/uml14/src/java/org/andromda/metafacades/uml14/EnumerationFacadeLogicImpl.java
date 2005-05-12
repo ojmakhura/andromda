@@ -16,8 +16,7 @@ import java.util.Collection;
 public class EnumerationFacadeLogicImpl
         extends EnumerationFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
+    
     public EnumerationFacadeLogicImpl(org.omg.uml.foundation.core.Classifier metaObject, String context)
     {
         super(metaObject, context);

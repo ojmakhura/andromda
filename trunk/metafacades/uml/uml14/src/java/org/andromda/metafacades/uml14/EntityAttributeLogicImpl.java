@@ -15,7 +15,6 @@ import org.apache.commons.lang.StringUtils;
 public class EntityAttributeLogicImpl
         extends EntityAttributeLogic
 {
-    // ---------------- constructor -------------------------------
 
     public EntityAttributeLogicImpl(java.lang.Object metaObject, String context)
     {
