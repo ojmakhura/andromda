@@ -23,35 +23,6 @@ public final class $manageable.formBeanClassName
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
 {
-    /**
-     * Returns the name of the currently managed entity.
-     */
-    public String getEntityName()
-    {
-        return "$manageable.name";
-    }
-
-#if ($manageable.referencingManageables.empty)
-    private static final java.util.Map ENTITIES = java.util.Collections.EMPTY_MAP;
-#else
-    private static java.util.Map ENTITIES = new java.util.HashMap($manageable.referencingManageables.size(), 1);
-    static
-    {
-#foreach ($manageable in $manageable.referencingManageables)
-        ENTITIES.put("$manageable.name", Boolean.TRUE);
-#end
-        ENTITIES = java.util.Collections.unmodifiableMap(ENTITIES);
-    }
-#end
-
-    /**
-     * Returns the names of the entities referencing this entity.
-     */
-    public java.util.Map getReferencingEntityNames()
-    {
-        return ENTITIES;
-    }
-
     private java.util.List $manageable.listName = null;
 
     public java.util.List ${manageable.listGetterName}()
