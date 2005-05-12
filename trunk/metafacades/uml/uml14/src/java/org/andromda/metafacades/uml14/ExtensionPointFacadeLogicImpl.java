@@ -14,6 +14,9 @@ public class ExtensionPointFacadeLogicImpl
         super (metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ExtensionPointFacade#getUseCase()
+     */
     protected Object handleGetUseCase()
     {
         return metaObject.getUseCase();

@@ -34,7 +34,6 @@ import java.util.Comparator;
 public class ManageableEntityLogicImpl
         extends ManageableEntityLogic
 {
-    // ---------------- constructor -------------------------------
 
     public ManageableEntityLogicImpl(Object metaObject, String context)
     {

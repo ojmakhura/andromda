@@ -35,8 +35,7 @@ import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 public class ModelElementFacadeLogicImpl
         extends ModelElementFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
+    
     public ModelElementFacadeLogicImpl(org.omg.uml.foundation.core.ModelElement metaObject, String context)
     {
         super(metaObject, context);
@@ -139,27 +138,27 @@ public class ModelElementFacadeLogicImpl
             // trim the name, we don't want leading/trailing spaces
             name = StringUtils.trimToEmpty(name);
             // loop over the tagged values
-            Collection taggedValues = this.getTaggedValues();
-            for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
+            final Collection taggedValues = this.getTaggedValues();
+            for (final Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
             {
                 TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator.next();
                 // does this name match the argument tagged value name ?
                 if (name.equals(taggedValue.getName()))
                 {
-                    for (Iterator valueIterator = taggedValue.getValues().iterator(); valueIterator.hasNext();)
+                    for (final Iterator valueIterator = taggedValue.getValues().iterator(); valueIterator.hasNext();)
                     {
                         // only process tagged values when they actually have a
                         // non-empty value
-                        Object value = valueIterator.next();
+                        final Object value = valueIterator.next();
                         if (value != null)
                         {
                             // if an enumeration literal is referenced we assume
                             // its name
-                            if (EnumerationLiteralFacade.class.isAssignableFrom(value.getClass()))
+                            if (value instanceof EnumerationLiteralFacade)
                             {
                                 values.add(((EnumerationLiteralFacade)value).getValue());
                             }
-                            else if (String.class.isAssignableFrom(value.getClass()))
+                            else if (value instanceof String)
                             {
                                 // only add String when they are not blank
                                 String valueString = (String)value;

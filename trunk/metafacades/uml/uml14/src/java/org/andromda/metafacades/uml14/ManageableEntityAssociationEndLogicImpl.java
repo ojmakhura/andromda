@@ -15,7 +15,6 @@ import java.util.Collection;
 public class ManageableEntityAssociationEndLogicImpl
     extends ManageableEntityAssociationEndLogic
 {
-    // ---------------- constructor -------------------------------
 
     public ManageableEntityAssociationEndLogicImpl (Object metaObject, String context)
     {
