@@ -239,7 +239,7 @@
                     <td>actionPathPrefix</td>
                     <td>
                         The pattern to use when rendering the action paths in <code>struts-config.xml</code>, use
-                        {0} for the package, /${use-case}/${action} is always appended.
+                        {0} for the package, <code>/${use-case}/${action}</code> is always appended.
                         For use-case <code>"org.andromda.test.My UseCase"</code> the
                         <code>"login"</code> action could be rendered using <code>/abc/{0}</code> which would
                         result in <code>/abc/org/andromda/test/MyUseCase/Login</code>. Make sure to start the prefix
@@ -360,12 +360,29 @@
                     </td>
                     <td>
                         Defines the name of the <code>form</code> that is passed along during application execution.
-                        This attribute is passed along in the session (usually, can also be request if 
+                        This attribute is passed along in the session (usually, can also be request if
                         <a href="#actionFormScope">actionFormScope</a> has been changed or its corresponding tagged value
                         changed).  You'll normally never need to modify this value.
                     </td>
                     <td>
                         No, default is <code>form</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <a name="manageableReferenceParameterPrefix"/>
+                    <td>
+                        manageableReferenceParameterPrefix
+                    </td>
+                    <td>
+                        The prefix used for hidden form input fields when pre-filling an entity reference after
+                        switching from the current entity to the next one, this property should only be changed if
+                        you have form fields whose name could conflict with these extra fields. The default value
+                        has been chosen to avoid any possible naming conflicts with the generated code for
+                        manageables (CRUD), but we provide this property nevertheless, just in case you would like
+                        to override the templates or something.
+                    </td>
+                    <td>
+                        No, default is <code>ref_</code>.
                     </td>
                 </tr>
             </table>
