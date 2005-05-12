@@ -105,13 +105,7 @@ $actionState.getDocumentation("     * ")
 #foreach ($controllerCall in $controllerCalls)
             ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
 #end
-            // we only want to process the forward if we don't have
-            // any exception handler errors present, otherwise we 
-            // lose information from the current form.
-            if (this.getExceptionHandlerErrors(request).isEmpty())
-            {
-                forward = #processTransition($actionState.forward)
-            }
+            forward = #processTransition($actionState.forward)
         }
         catch (java.lang.Exception exception)
         {
