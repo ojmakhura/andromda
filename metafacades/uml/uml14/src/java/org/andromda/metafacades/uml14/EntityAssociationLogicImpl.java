@@ -17,7 +17,6 @@ import java.util.Collection;
 public class EntityAssociationLogicImpl
         extends EntityAssociationLogic
 {
-    // ---------------- constructor -------------------------------
 
     public EntityAssociationLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {

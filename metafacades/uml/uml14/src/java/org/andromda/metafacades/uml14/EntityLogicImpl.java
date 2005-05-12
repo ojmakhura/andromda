@@ -39,8 +39,6 @@ public class EntityLogicImpl
     extends EntityLogic
 {
 
-    // ---------------- constructor -------------------------------
-
     public EntityLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
