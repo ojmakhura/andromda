@@ -329,6 +329,8 @@
 <andromda>
     <model url="jar:file:/path/to/my/model1.zuml!/model1.xmi"/>
     <model url="jar:file:/path/to/my/model2.zuml!/model2.xmi"/>
+    <!-- these are any XSL transformations to be applied to the model before
+         model processing begins -->
     <transformation url="file:/path/to/my/transformation1.xsl"/>
     <transformation url="file:/path/to/my/transformation2.xsl" outputLocation="${basedir}/path/to/result/result.xml"/>
     <!-- defines the location of the mapping files -->
@@ -337,8 +339,8 @@
     </mappingsSearchPath>
     <!-- This example package will not be processed -->
     <modelPackage name="my::package::foo" shouldProcess="false"/>
-    <!-- This file tells AndroMDA how to map abstract datatypes to classes -->
     <namespace name="default" ignore="false">
+        <!-- This file tells AndroMDA how to map abstract datatypes to classes -->
         <property name="languageMappingsUri" value="file:${basedir}/JavaMappings.xml"/>
     </namespace>
     <!-- This will generate the Hibernate code -->
