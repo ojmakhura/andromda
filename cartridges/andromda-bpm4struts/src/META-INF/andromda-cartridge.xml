@@ -46,6 +46,10 @@
     <property reference="generateWebXmlIds" default="false"/>
     <!-- the maximum number of characters to allow in a managed entity's table (truncated using an ellipsis) -->
     <property reference="manageableFieldMaxLength" default="36"/>
+    <!-- the prefix used for hidden form input fields when pre-filling an entity reference after switching,
+         this property should only be changed if you have form fields whose name could conflict with
+         these extra fields -->
+    <property reference="manageableReferenceParameterPrefix" default="ref_"/>
     <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->
@@ -588,20 +592,6 @@
         overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/bpm4struts/pages/crud/entity-switcher.jsp.vsl"
-        outputPattern="entity-switcher.jsp"
-        outlet="pages"
-        overwrite="true"
-        outputToSingleFile="true"
-        generateEmptyFiles="false">
-        <modelElements>
-            <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
