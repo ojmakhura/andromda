@@ -6,21 +6,25 @@
 #end
 <div id="messages">
 ## prints regular errors (just in case such an error would have been recorded)
-        <logic:messagesPresent message="false">
+    <logic:messagesPresent message="false">
+## only print out the regular errors if there are no exception handling errors
+## present from the controller (otherwise we get duplicate errors)
+        <logic:messagesNotPresent message="true" property="$errorMessagesKey">
             <div class="errors">
                 <html:messages id="error" message="false">
                     <div class="error">${error}</div>
                 </html:messages>
             </div>
-        </logic:messagesPresent>
+        </logic:messagesNotPresent>
+    </logic:messagesPresent>
 ## prints error messages stored by the controllers
-        <logic:messagesPresent message="true" property="$errorMessagesKey">
-            <div class="errors">
-                <html:messages id="error" message="true" property="$errorMessagesKey">
-                    <div class="error">${error}</div>
-                </html:messages>
-            </div>
-        </logic:messagesPresent>
+    <logic:messagesPresent message="true" property="$errorMessagesKey">
+        <div class="errors">
+            <html:messages id="error" message="true" property="$errorMessagesKey">
+                <div class="error">${error}</div>
+            </html:messages>
+        </div>
+    </logic:messagesPresent>
 ## prints warning messages stored by the controllers
     <logic:messagesPresent message="true" property="$warningMessagesKey">
         <div class="warnings">
