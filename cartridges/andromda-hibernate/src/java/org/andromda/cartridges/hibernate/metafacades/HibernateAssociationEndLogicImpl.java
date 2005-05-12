@@ -404,7 +404,14 @@ public class HibernateAssociationEndLogicImpl
         }
         if (value != null)
         {
-            value = this.getLanguageMappings().getTo(ObjectUtils.toString(value));
+            if (value instanceof String)
+            {
+                value = this.getRootPackage().findModelElement((String)value);
+            }
+            else if (value instanceof HibernateType)
+            {
+                value = ((HibernateType)value).getFullyQualifiedHibernateType();
+            }
         }
         return value != null ? ObjectUtils.toString(value) : null;
     }
