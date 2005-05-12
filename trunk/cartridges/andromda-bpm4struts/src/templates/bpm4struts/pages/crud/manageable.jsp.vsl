@@ -4,6 +4,7 @@
 #set ($tableVariable = "${manageableFormName}.${manageable.listName}")
 #set ($tablePresentTest = "!empty $tableVariable")
 #set ($tablePresentTest = "${${tablePresentTest}}")
+#set ($referencingManageables = $manageable.referencingManageables)
 ##
 <%@ include file="/taglib-imports.jspf" %>
 ##
@@ -115,7 +116,23 @@
                     <input type="button" id="clearButton" class="button" value="<bean:message key="button.clear"/>" onclick="#renderJavascriptClearFields($manageable)"/>
 #end
                 </c:if>
-                <tiles:insert page="/entity-switcher.jsp" flush="false"/>
+
+<div id="entitySwitcher">
+    <nobr>
+        <bean:message key="select.other.entity"/>
+        <select onchange="document.location=this.options[this.selectedIndex].value+'?$manageableReferenceParameterPrefix$manageable.name='+this.form.elements['$manageable.identifiers.iterator().next().name'].value;">
+#foreach ($manageableEntry in $manageable.allManageables)
+#if ($security == 'true')
+        <logic:present role="#commaSeparatedNames($manageableEntry.users)">
+#end
+            <option#if($manageable.name.equals($manageableEntry.name)) selected="selected"#end value="<html:rewrite page="${manageableEntry.actionPath}.do"/>"><bean:message key="$manageableEntry.messageKey"/>#if($referencingManageables.contains($manageableEntry))<bean:message key="referencing.entity.marker"/>#end</option>
+#if ($security == 'true')
+        </logic:present>
+#end
+#end
+        </select>
+    </nobr>
+</div>
 
             </div>
 
