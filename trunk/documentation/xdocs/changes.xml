@@ -9,6 +9,27 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.1-M1-SNAPSHOT" date="2005-05-12" description="Continuous build for the first milestone release of version 3.1">
+            <action dev="draftdog" type="fix">
+                A set of improvements and new features for managing CRUD entities have been implemented
+                <ol>
+                    <li>An issue with Konqueror has been resolved: select boxes did not change value when clicking
+                        on the <em>Copy</em> link</li>
+                    <li>Comboboxes now retain their value after updating an entity</li>
+                    <li>Enumeration types are now properly handled when the literal type is a primitive</li>
+                    <li>Switching to an entity from the drop-down list will remember the current entity's (if any)
+                        identifier and will pre-select any corresponding list with this value</li>
+                    <li>Required fields now have an <em>asterisk</em> next to them</li>
+                    <li>Modeling a default value for an attribute is now supported: the field will have this as a
+                        default value</li>
+                </ol>
+            </action>
+            <action dev="draftdog" type="update" issue="BPM-170">
+                Warning, error and success messages are now stored in session scope, the Struts request processes
+                now properly handles this and removes them once they have been accessed the first time, this feature
+                is available since Struts 1.2.4. Except for the dependency on Struts 1.2.4 this update is transparent.
+            </action>
+        </release>
         <release version="3.0" date="2005-05-08" description="Version 3.0 final">
             <action dev="cwbrandon" type="update">
                 Package filtering has been changed to use the correct '::' namespace separator instead of the 
