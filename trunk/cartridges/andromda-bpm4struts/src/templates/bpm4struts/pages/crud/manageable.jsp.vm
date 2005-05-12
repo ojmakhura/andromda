@@ -62,7 +62,7 @@ ${indent}        <select name="$field.name">
 ${indent}            <option value=""><bean:message key="select.option.blank"/></option>
 ${indent}            <c:forEach var="valueLabel" items="${${list}}">
 ${indent}                <c:choose>
-#set ($test = "valueLabel[0] eq $field.name")
+#set ($test = "valueLabel[0] eq ${manageableFormName}.$field.name")
 ${indent}                    <c:when test="${${test}}">
 #set ($value = '${valueLabel[0]}')
 #set ($label = '${valueLabel[1]}')
