@@ -31,9 +31,8 @@ public final class $manageable.actionClassName extends DispatchAction
 {
     public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        final ActionForward forward = super.execute(mapping, actionForm, request, response);
         request.getSession().setAttribute("$manageableFormName", actionForm);
-        return forward;
+        return super.execute(mapping, actionForm, request, response);
     }
 
 #if ($manageable.create)
@@ -153,6 +152,17 @@ public final class $manageable.actionClassName extends DispatchAction
 #if (!$manageable.manageableAssociationEnds.empty)
         final java.util.Map backingLists = ${manageable.manageableServiceAccessorCall}.readBackingLists();
 #foreach ($member in $manageable.manageableAssociationEnds)
+#set ($referenceParameterName = "$manageableReferenceParameterPrefix$member.type.name")
+        if (StringUtils.isNotBlank(request.getParameter("$referenceParameterName")))
+        {
+## here we assume the id is of a type (with a wrapper) supporting .valueOf(String)
+#set ($identifierType = $member.type.identifiers.iterator().next().type)
+#if ($identifierType.primitive)
+            form.${member.setterName}(${identifierType.wrapperName}.valueOf(request.getParameter("$referenceParameterName")));
+#else
+            form.${member.setterName}(new ${identifierType.fullyQualifiedName}(request.getParameter("$referenceParameterName")));
+#end
+        }
         form.${member.setterName}BackingList((java.util.List)backingLists.get("$member.name"));
 #end
 
