@@ -19,7 +19,6 @@ import java.util.Iterator;
 public class GeneralizableElementFacadeLogicImpl
         extends GeneralizableElementFacadeLogic
 {
-    // ---------------- constructor -------------------------------
 
     public GeneralizableElementFacadeLogicImpl(org.omg.uml.foundation.core.GeneralizableElement metaObject,
                                                java.lang.String context)

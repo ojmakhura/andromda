@@ -14,8 +14,7 @@ import java.util.Iterator;
 public class EventFacadeLogicImpl
         extends EventFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
+    
     public EventFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.Event metaObject,
                                 java.lang.String context)
     {

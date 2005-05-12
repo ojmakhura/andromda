@@ -10,7 +10,6 @@ import org.omg.uml.foundation.datatypes.BooleanExpression;
 public class GuardFacadeLogicImpl
         extends GuardFacadeLogic
 {
-    // ---------------- constructor -------------------------------
 
     public GuardFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.Guard metaObject,
                                 java.lang.String context)

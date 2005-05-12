@@ -8,7 +8,6 @@ package org.andromda.metafacades.uml14;
 public class GeneralizationFacadeLogicImpl
         extends GeneralizationFacadeLogic
 {
-    // ---------------- constructor -------------------------------
 
     public GeneralizationFacadeLogicImpl(org.omg.uml.foundation.core.Generalization metaObject,
                                          java.lang.String context)
