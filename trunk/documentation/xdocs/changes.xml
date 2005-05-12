@@ -22,6 +22,9 @@
                     <li>Required fields now have an <em>asterisk</em> next to them</li>
                     <li>Modeling a default value for an attribute is now supported: the field will have this as a
                         default value</li>
+                    <li>An entity referencing itself would not be able to have an instance pointing to itself
+                        (foreign key being equal to the primary key), Hibernate would complain about different objects
+                        with the same identifier being loaded in the same session; this has been fixed</li>
                 </ol>
             </action>
             <action dev="draftdog" type="update" issue="BPM-170">
