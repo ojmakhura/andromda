@@ -46,17 +46,9 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
         org.apache.commons.beanutils.BeanUtils.populate(form, request.getParameterMap());
 
 #end
-        org.apache.struts.action.ActionForward forward = null;
+        org.apache.struts.action.ActionForward forward = #processTransition($action)
+#if (!$action.formScopeNone)
 
-        try
-        {
-            forward = #processTransition($action)
-        }
-        catch (java.lang.Exception exception)
-        {
-            throw exception;
-        }
-       
         // we only set the new form if no exception handling messages occur
         // otherwise we lose ALL information (such as collections) 
         // from the current form when we go back to the current page
@@ -75,6 +67,7 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
             
 #populateCurrentFormOnError()
         }
+#end
 #saveMessages($action "        ")
 #if (!$resettableActionParameters.empty)
 
