@@ -13,6 +13,7 @@ import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.Comparator;
 
 
 /**
@@ -423,5 +426,33 @@ public class ManageableEntityLogicImpl
         }
 
         return resolveable;
+    }
+
+    protected java.util.List handleGetAllManageables()
+    {
+        final Set allManageableEntities = new TreeSet(new ManageableComparator());
+
+        final Collection allClasses = getModel().getAllClasses();
+        for (Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
+        {
+            final Object classObject = classIterator.next();
+            if (classObject instanceof ManageableEntity)
+            {
+                allManageableEntities.add(classObject);
+            }
+        }
+
+        return new ArrayList(allManageableEntities);
+    }
+
+    private final class ManageableComparator implements Comparator
+    {
+        public int compare(Object left, Object right)
+        {
+            final ModelElementFacade leftEntity = (ModelElementFacade)left;
+            final ModelElementFacade rightEntity = (ModelElementFacade)right;
+
+            return leftEntity.getName().compareTo(rightEntity.getName());
+        }
     }
 }
