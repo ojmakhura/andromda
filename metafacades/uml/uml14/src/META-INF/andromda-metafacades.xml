@@ -90,6 +90,15 @@
     <metafacade class="org.andromda.metafacades.uml14.ActionFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.commonbehavior.Action$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.LinkFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.Link$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.LinkEndFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.LinkEnd$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.InstanceFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.Instance$Impl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActionStateFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"/>
     </metafacade>
