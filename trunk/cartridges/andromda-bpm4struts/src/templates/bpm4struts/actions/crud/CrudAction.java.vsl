@@ -42,12 +42,9 @@ public final class $manageable.actionClassName extends DispatchAction
 
 #foreach ($member in $manageable.attributes)
 #if ($member.type.enumeration)
-        if (StringUtils.isNotBlank(request.getParameter("$member.name")))
+        if (StringUtils.isNotBlank(request.getParameter("$member.name")) && !${member.type.fullyQualifiedName}.literals().contains(form.${member.getterName}()))
         {
-            if (!${member.type.fullyQualifiedName}.literals().contains(form.${member.getterName}()))
-            {
-                throw new IllegalArgumentException("$member.name must be one of " + ${member.type.fullyQualifiedName}.literals());
-            }
+            throw new IllegalArgumentException("$member.name must be #if(!$member.required) empty or#end one of " + ${member.type.fullyQualifiedName}.literals());
         }
 
 #end
@@ -56,9 +53,11 @@ public final class $manageable.actionClassName extends DispatchAction
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
 #if ($member.type.enumeration)
-            ${comma}${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.getterName}())
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.getterName}())
+#elseif ($member.type.dateType)
+            ${comma}(StringUtils.isBlank(request.getParameter("${member.name}AsString"))) ? #memberNull($member) : form.${member.getterName}()
 #else
-            ${comma}form.${member.getterName}()
+            ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : form.${member.getterName}()
 #end
 #set ($comma = ', ')
 #end
@@ -183,12 +182,9 @@ public final class $manageable.actionClassName extends DispatchAction
 
 #foreach ($member in $manageable.attributes)
 #if ($member.type.enumeration)
-        if (StringUtils.isNotBlank(request.getParameter("$member.name")))
+        if (StringUtils.isNotBlank(request.getParameter("$member.name")) && !${member.type.fullyQualifiedName}.literals().contains(form.${member.getterName}()))
         {
-            if (!${member.type.fullyQualifiedName}.literals().contains(form.${member.getterName}()))
-            {
-                throw new IllegalArgumentException("$member.name must be one of " + ${member.type.fullyQualifiedName}.literals());
-            }
+            throw new IllegalArgumentException("$member.name must be #if(!$member.required) empty or#end one of " + ${member.type.fullyQualifiedName}.literals());
         }
 
 #end
