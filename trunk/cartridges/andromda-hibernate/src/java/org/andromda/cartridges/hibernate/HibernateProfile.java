@@ -162,4 +162,11 @@ public class HibernateProfile
      */
     public static final String TAGGEDVALUE_HIBERNATE_VERSION = profile.get(
             "HIBERNATE_VERSION");
+    
+    /**
+     * Defines the tagged value for hibernate cascade on an association end 
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_CASCADE = profile.get(
+    		"HIBERNATE_CASCADE");
+     
 }

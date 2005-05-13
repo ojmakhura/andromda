@@ -17,8 +17,8 @@ public abstract class $embeddedValue.name
 #end
     implements java.io.Serializable
 {
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${embeddedValue.serialVersionUID}L;
 
@@ -27,17 +27,17 @@ public abstract class $embeddedValue.name
      * taking all properties.
      */
 #set ($parenthesis = "(")
-#if ($embeddedValue.properties.empty)
+#if ($embeddedValue.attributes.empty)
 #set ($parenthesis = "()")
 #end
-    public static $embeddedValue.name newInstance${parenthesis}#foreach ($property in $embeddedValue.properties)
-$property.getterSetterTypeName ${property.name}#if($velocityCount != $embeddedValue.properties.size()),#else)
+    public static $embeddedValue.name newInstance${parenthesis}#foreach ($attribute in $embeddedValue.attributes)
+$attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()),#else)
 #end
 #end
     {
         $embeddedValue.implementationName object = new ${embeddedValue.implementationName}();
-#foreach ($property in $embeddedValue.properties)
-        object.${property.setterName}($property.name);
+#foreach ($attribute in $embeddedValue.attributes)
+        object.${attribute.setterName}($attribute.name);
 #end
         object.initialize();
         return object;
@@ -50,8 +50,8 @@ $property.getterSetterTypeName ${property.name}#if($velocityCount != $embeddedVa
     {
         if (otherObject != null)
         {
-            return newInstance(#foreach ($property in $embeddedValue.properties)
-otherObject.${property.getterName}()#if($velocityCount != $embeddedValue.properties.size()),#else);
+            return newInstance(#foreach ($attribute in $embeddedValue.attributes)
+otherObject.${attribute.getterName}()#if($velocityCount != $embeddedValue.attributes.size()),#else);
 #end
 #end
         }
@@ -71,7 +71,7 @@ otherObject.${property.getterName}()#if($velocityCount != $embeddedValue.propert
 
 #foreach ($attribute in $embeddedValue.attributes)
     private $attribute.getterSetterTypeName $attribute.name;
-    
+
     /**
 $attribute.getDocumentation("     * ")
      */
@@ -79,7 +79,7 @@ $attribute.getDocumentation("     * ")
     {
         return this.${attribute.name};
     }
-    
+
 #if ($embeddedValue.immutable)
     // protected setter, if subclass methods need to normalize the $embeddedValue.name
     protected void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
@@ -89,7 +89,7 @@ $attribute.getDocumentation("     * ")
     {
         this.${attribute.name} = $attribute.name;
     }
-    
+
 #end
 #foreach ($operation in $embeddedValue.operations)
 #set ($returnType = $operation.returnType)
