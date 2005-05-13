@@ -36,18 +36,14 @@ protected PersonDetails handleGet(Long id) throws Exception
         </section>
 
         <section name="Running without EJBs">
-            <p>
-                The Spring cartridge by default uses stateless EJB session beans behind the scenes,
-                so you'll need to deploy in a real J2EE container such as
-                <a href="http://www.jboss.org/">JBoss</a>. If you prefer to deploy applications
-                in <a href="http://jakarta.apache.org/tomcat/">Tomcat</a>, or you just want to make your application
-                lighter by dropping EJBs altogether and making use of the Spring transaction manager you can do so
-                by uncommenting the <code>session-ejbs</code> outlet.
+            <p class="highlight">
+                If you have told <code>andromdapp:generate</code> to generate a WAR-only project (i.e. for deployment
+                in Tomcat) EJBs will be disabled by default and you won't need to worry about this section.
             </p>
             <p>
-                If you generated your project using the
-                <a href="../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> Maven plugin you simply
-                need to put the outlet in comment like this (this is done in <code>/mda/project.xml</code>):
+                With the change of a single line it is possible to enable or disable the usage of stateless session
+                EJBs, simply put the <![CDATA[<session-ejbs>]]> outlet in comment, like this 
+                (this is done in <code>/mda/project.xml</code>):
 <source language="xml"><![CDATA[
 <dependency>
     <groupId>andromda</groupId>
