@@ -233,22 +233,14 @@ public class ResourceWriter
     /**
      * The location to which history is written.
      */
-    private static final String HISTORY_LOCATION = ".andromda/history/";
+    private static final String HISTORY_LOCATION = Constants.TEMPORARY_DIRECTORY + "history/";
 
     /**
      * Stores the file history.
      */
     private final String getHistoryStorage()
     {
-        final String tmpDir = System.getProperty("java.io.tmpdir").replace('\\', '/');
-        final StringBuffer historyStorage = new StringBuffer(tmpDir);
-        if (!historyStorage.toString().endsWith("/"))
-        {
-            historyStorage.append("/");
-        }
-        historyStorage.append(HISTORY_LOCATION);
-        historyStorage.append(this.modelFile);
-        return historyStorage.toString();
+        return HISTORY_LOCATION + this.modelFile;
     }
 
     /**
