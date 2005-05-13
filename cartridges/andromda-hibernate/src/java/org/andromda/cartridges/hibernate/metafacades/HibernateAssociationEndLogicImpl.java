@@ -20,6 +20,14 @@ import java.util.Collection;
 public class HibernateAssociationEndLogicImpl
     extends HibernateAssociationEndLogic
 {
+    
+    public HibernateAssociationEndLogicImpl(
+        Object metaObject,
+        String context)
+    {
+        super(metaObject, context);
+    }
+    
     /**
      * Value for set
      */
@@ -82,13 +90,6 @@ public class HibernateAssociationEndLogicImpl
     private static final String COLLECTION_INDEX_TYPE = "associationEndCollectionIndexType";
     private static final String HIBERNATE_AGGREGATION_CASCADE = "hibernateAggregationCascade";
     private static final String HIBERNATE_COMPOSITION_CASCADE = "hibernateCompositionCascade";
-
-    public HibernateAssociationEndLogicImpl(
-        Object metaObject,
-        String context)
-    {
-        super(metaObject, context);
-    }
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAssociationEnd#isOne2OnePrimary()
@@ -252,8 +253,7 @@ public class HibernateAssociationEndLogicImpl
                     HibernateEntity entity = (HibernateEntity)type;
                     final String defaultCascade = entity.getHibernateDefaultCascade();
 
-                    if (
-                        defaultCascade.equalsIgnoreCase(
+                    if (defaultCascade.equalsIgnoreCase(
                             HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE) ||
                         defaultCascade.equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_ALL))
                     {
