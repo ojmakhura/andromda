@@ -38,9 +38,9 @@ public final class $manageable.manageableServiceBaseName
             throw new IllegalArgumentException(
                 "${manageable.fullyQualifiedManageableServiceName}.create(${memberList}) - '${member.name}' can not be null");
         }
-#end
-#end
 
+#end
+#end
         dao.create($memberListArguments);
     }
 
@@ -90,9 +90,9 @@ public final class $manageable.manageableServiceBaseName
             throw new IllegalArgumentException(
                 "${manageable.fullyQualifiedManageableServiceName}.update($memberList) - '${member.name}' can not be null");
         }
-#end
-#end
 
+#end
+#end
         dao.update($memberListArguments);
     }
 
