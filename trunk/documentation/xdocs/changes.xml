@@ -10,6 +10,10 @@
     </properties>
     <body>
         <release version="3.1-M1-SNAPSHOT" date="2005-05-12" description="Continuous build for the first milestone release of version 3.1">
+            <action dev="cwbrandon" type="fix" issue="SPRING-73">
+                Fixed an issue that rendered the create method taking all required properties uncompilable when the multiplicity
+                of an association end was 1..*.
+            </action>
             <action dev="draftdog" type="fix">
                 A set of improvements and new features for managing CRUD entities have been implemented
                 <ol>
