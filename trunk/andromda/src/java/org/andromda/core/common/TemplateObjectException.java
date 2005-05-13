@@ -1,14 +1,14 @@
 package org.andromda.core.common;
 
+
 /**
  * Wraps any exception that occurs when configuring/processing a template object
  *
  * @see org.andromda.core.common.TemplateObject
  */
 public class TemplateObjectException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of TemplateObjectException.
      *
@@ -35,9 +35,10 @@ public class TemplateObjectException
      * @param message
      * @param parent
      */
-    public TemplateObjectException(String message, Throwable parent)
+    public TemplateObjectException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }
