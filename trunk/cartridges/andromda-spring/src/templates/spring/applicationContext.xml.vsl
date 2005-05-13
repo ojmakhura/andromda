@@ -39,9 +39,6 @@
 #if ($stringUtils.isNotBlank($hibernateUserTransactionName))
                 <prop key="hibernate.jta.UserTransaction">$hibernateUserTransactionName</prop>
 #end
-#if ($stringUtils.isNotBlank($hibernateTransactionManagerStrategy))
-                <prop key="hibernate.transaction.manager.strategy">$hibernateTransactionManagerStrategy</prop>
-#end
 #if ($stringUtils.isNotBlank($hibernateTransactionManagerLookup))
                 <prop key="hibernate.transaction.manager_lookup_class">$hibernateTransactionManagerLookup</prop>
 #end
