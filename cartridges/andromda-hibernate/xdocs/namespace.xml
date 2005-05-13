@@ -166,7 +166,7 @@
                           The name of the property/attribute to automatically add to entities
                           for versioning purposes. If this value is not specified or it contains
                           only whitespace characters it will be ignored and the property will
-                          not be generated. This value can be overwridden with the 
+                          not be generated. This value can be overwridden with the
                           <a href="modeling.html#andromda.hibernate.version">@andromda.hibernate.version</a>tagged value.
                     </td>
                     <td>
@@ -214,11 +214,11 @@
                     <td>embeddedValueImplementationNamePattern</td>
                     <td>
                         The pattern to use when constructing an embedded value implementation
-                        name.                        
+                        name.
                     </td>
                     <td>
                         No, default is <code>{0}Impl</code> where <em>{0}</em>
-                        is the name of the modeled embedded value.                   
+                        is the name of the modeled embedded value.
                     </td>
                 </tr>
                 <tr>
@@ -310,6 +310,7 @@
                     </td>
                 </tr>
                 <tr>
+                    <a name="hibernateDefaultCascade"/>
                     <td>
                         hibernateDefaultCascade
                     </td>
@@ -321,6 +322,55 @@
                         No, default is <code>none</code>.
                     </td>
                 </tr>
+                <tr>
+                    <a name="hibernateCompositionCascade"/>
+                    <td>
+                        hibernateCompositionCascade
+                    </td>
+                    <td>
+                        Indicates how a UML composition should be interpreted as cascade.
+                        <ul>
+                            <li>
+                               If undefined, the cascade attribute is computed by AndroMDA in the following manner:
+                               if default-cascade is <em>save-update</em> or <em>all</em>,
+                               then cascade is <em>all</em> (0..1) or <em>all-delete-orphan</em> (many)
+                               otherwise cascade is <em>delete</em>.
+                            </li>
+                            <li>   
+                                If the property IS defined, it's value is generated at each occurence of a UML composition,
+                                and the inverse side is marked with cascade="none".  The value must be a valid Hibernate cascade style.
+                                You should use a cascade value which includes delete to be conform with the
+                                UML concept of a composition, e.g. <em>all-delete-orphan</em>.
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        No, the property is undefined by default.
+                    </td>
+                </tr>
+                <tr>
+                    <a name="hibernateAggregationCascade"/>
+                    <td>
+                        hibernateAggregationCascade
+                    </td>
+                    <td>
+                        Indicates how a UML aggregation should be interpreted as cascade. Possible values are are as follows:
+                        <ul>
+                            <li>
+                                If undefined, aggregation is not interpreted as a cascade value
+                            </li>
+                            <li>
+                                If the property IS defined, its value is generated at each
+                                occurence of a UML aggregation, and the inverse side is marked with <em>cascade="none"</em>.
+                                The value must be a valid Hibernate cascade style, e.g. <em>all</em>.
+                             </li>
+                        </ul>
+                    </td>
+                    <td>
+                        No, the property is undefined by default.
+                    </td>
+                </tr>
+
                 <tr>
                     <td>
                         driver
@@ -668,7 +718,7 @@
                         hibernateQueryUseSpecializedSetters
                     </td>
                     <td>
-                        Defines if the finder setters method for parameters will use "setParameter" for all parameters (by default), 
+                        Defines if the finder setters method for parameters will use "setParameter" for all parameters (by default),
                         or a specialized setter (setDate,setBoolean...) in case the parameter type has it's own setter method.
                     </td>
                     <td>
@@ -720,7 +770,7 @@
                         defaultCollectionInterface
                     </td>
                     <td>
-                         The default collection interface, this is the interface used with association end 
+                         The default collection interface, this is the interface used with association end
                          accessors and mutators if the <a href="#specificCollectionInterfaces">specificCollectionInterfaces</a>
                          flag is set to <code>false</code>.
                     </td>
@@ -825,7 +875,7 @@
                             hibernateQueryFactory
                         </td>
                         <td>
-                            Hibernate3 comes with a brand-new, ANTLR-based HQL/SQL query translator. However, it is still buggy and so in mean time use the Hibernate 2.1 query parser which is still available. 
+                            Hibernate3 comes with a brand-new, ANTLR-based HQL/SQL query translator. However, it is still buggy and so in mean time use the Hibernate 2.1 query parser which is still available.
                             Possible values are:
                              <ul>
                                 <li>org.hibernate.hql.ast.ASTQueryTranslatorFactory (for the new query parser)</li>

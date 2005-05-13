@@ -104,4 +104,8 @@
         <from>HIBERNATE_VERSION</from>
         <to>@andromda.hibernate.version</to>
     </mapping>
+    <mapping>
+        <from>HIBERNATE_CASCADE</from>
+        <to>@andromda.hibernate.cascade</to>
+    </mapping>
 </mappings>

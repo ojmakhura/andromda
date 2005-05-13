@@ -5,6 +5,8 @@
     <property reference="entityImplementationNamePattern" default="{0}Impl"/>
     <property reference="defaultHibernateGeneratorClass" default="native"/>
     <property reference="hibernateDefaultCascade" default="none"/>
+    <property reference="hibernateCompositionCascade" default=""/>
+    <property reference="hibernateAggregationCascade" default=""/>
     <property reference="hibernateEntityCache" default="read-write"/>
     <property reference="hibernateEntityDynamicInsert" default="false"/>
     <property reference="hibernateEntityDynamicUpdate" default="false"/>
