@@ -5,7 +5,6 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.UMLProfile;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -390,7 +389,7 @@ public class StrutsUseCaseLogicImpl
 
     protected boolean handleIsSecured()
     {
-        return !hasStereotype(UMLProfile.STEREOTYPE_UNSECURED);
+        return !getUsers().isEmpty();
     }
 
     protected boolean handleIsApplicationUseCase()
