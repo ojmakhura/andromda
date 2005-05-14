@@ -33,8 +33,8 @@
                 <img src="resources/howto/org/andromda/test/security.gif"/>
             </p>
             <p class="highlight">
-                Use the <![CDATA[<<Unsecured>>]]> stereotype on those use-cases that need to be accessible by anyone,
-                even when security is enabled.
+                Use-cases without any actors associated to them will always be accessible, the application
+                will authorize anyone who requests access to them.
             </p>
             <subsection name="Input validation">
                 <p>
