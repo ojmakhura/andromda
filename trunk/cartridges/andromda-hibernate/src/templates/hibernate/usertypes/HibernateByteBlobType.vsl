@@ -55,25 +55,30 @@ public class $className
     }
 
     /**
-     * @see net.sf.hibernate.UserType#nullSafeGet(java.sql.ResultSet,
-     *      java.lang.String[], java.lang.Object)
+     * @see net.sf.hibernate.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
      */
-    public Object nullSafeGet(ResultSet rs, String[] names, Object owner)
+    public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner)
         throws SQLException
     {
-        Blob blob = rs.getBlob(names[0]);
-        return blob.getBytes(1, (int)blob.length());
+        final Blob blob = resultSet.getBlob(names[0]);
+        return (blob == null) ? null : blob.getBytes(1, (int)blob.length());
     }
 
     /**
-     * @see net.sf.hibernate.UserType#nullSafeSet(java.sql.PreparedStatement,
-     *      java.lang.Object, int)
+     * @see net.sf.hibernate.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
      */
-    public void nullSafeSet(PreparedStatement st, Object value, int index)
+    public void nullSafeSet(PreparedStatement statement, Object value, int index)
         throws SQLException
     {
-        byte[] b = (byte[])value;
-        st.setBinaryStream(index, new ByteArrayInputStream(b), b.length);
+        if (value == null)
+        {
+            statement.setNull(index, java.sql.Types.BLOB);
+        }
+        else
+        {
+            final byte[] bytes = (byte[])value;
+            statement.setBinaryStream(index, new ByteArrayInputStream(bytes), bytes.length);
+        }
     }
 
     /**
