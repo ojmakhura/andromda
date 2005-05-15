@@ -9,6 +9,7 @@ online.help.close=Close
 online.help.title=Online Help:
 online.help.inputfield=Field
 online.help.description=Description
+click.to.go.back=Click to go back
 
 #
 #   Messages for the menu
@@ -237,6 +238,7 @@ other.managable.entities.referencing.this.entity=Related entities:
 select.other.entity=Select other entity:
 entity.management=Entity Management (click)
 maximum.results.fetched.warning=Maximum of {0} records retrieved, other records may be available. Please specify more search criteria to narrow result set.
+binary.data=[Binary Data]
 
 #foreach ($manageable in $manageables)
 $manageable.messageKey=$manageable.messageValue
