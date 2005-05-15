@@ -42,6 +42,8 @@ ${indent}//]]>
 ${indent}//-->
 #end
 ${indent}</script>
+#elseif ($field.needsFileUpload)
+${indent}<html:file name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
 #else
 ${indent}<html:text name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
 #end
@@ -119,6 +121,7 @@ setInput('$member.name',${${property}});## no newline
 #elseif ($member.type.dateType)
 #set($property = "${member.name}Formatted")## by default we take the property straight for the row value object
 setInput('${member.name}AsString','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
+#elseif ($member.needsFileUpload)## we can't fill a file-upload widget with the value from the row, so we do nothing here
 #else
 setInput('$member.name','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
 #end
