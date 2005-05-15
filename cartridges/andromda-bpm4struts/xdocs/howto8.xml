@@ -74,6 +74,13 @@
                     <code>@andromda.struts.action.type=form</code> (which is the default value
                     if it has not been specified, so you don't actually need to set it).
                 </p>
+                <p class="highlight">
+                    Please note that it is not possible to use a hyperlink when submitting a row. It would be possible
+                    only when none of the row values are updateable, but in order to not overly complicate the usage
+                    of the bpm4struts cartridge by adding more/complex modeling constraints we prefer to simply
+                    restrict sending a row's value using the <code>@andromda.struts.action.type=form</code> tagged
+                    value. 
+                </p>
                 <p>
                     Model an event going out of the page showing the table, add one or more parameters to this
                     event. Every one of these parameters will now be rendered in a widget, and next to each
