@@ -41,4 +41,8 @@
             </html:messages>
         </div>
     </logic:messagesPresent>
+## make a link available that will bring to user back to the previous page
+    <logic:messagesPresent message="true">
+        <div class="back"><a href="#" onclick="history.go(-1);"><bean:message key="click.to.go.back"/></a></div>
+    </logic:messagesPresent>
 </div>
