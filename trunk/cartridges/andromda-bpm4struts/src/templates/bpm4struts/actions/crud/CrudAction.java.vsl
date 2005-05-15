@@ -56,6 +56,9 @@ public final class $manageable.actionClassName extends DispatchAction
             ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.getterName}())
 #elseif ($member.type.dateType)
             ${comma}(StringUtils.isBlank(request.getParameter("${member.name}AsString"))) ? #memberNull($member) : form.${member.getterName}()
+#elseif ($member.needsFileUpload)
+            // we don't test using request.getParameter because for file uploads this will always return null
+            ${comma}(form.${member.getterName}() == null) ? null : form.${member.getterName}().getFileData()
 #else
             ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : form.${member.getterName}()
 #end
@@ -79,6 +82,8 @@ public final class $manageable.actionClassName extends DispatchAction
             ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.getterName}())
 #elseif ($member.type.dateType)
             ${comma}(StringUtils.isBlank(request.getParameter("${member.name}AsString"))) ? #memberNull($member) : form.${member.getterName}()
+#elseif ($member.needsFileUpload)## we ignore these ones
+            ${comma} null
 #else
             ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : form.${member.getterName}()
 #end
@@ -115,7 +120,7 @@ public final class $manageable.actionClassName extends DispatchAction
 
 ## set all default attribute values
 #foreach ($member in $manageable.attributes)
-#if ($member.defaultValue)
+#if ($member.defaultValue && !$member.needsFileUpload)
 #if ($member.type.enumeration)
 #set ($memberType = $member.type.literalType)
 #else
@@ -196,6 +201,8 @@ public final class $manageable.actionClassName extends DispatchAction
             ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : ${member.type.fullyQualifiedName}.${member.type.fromOperationName}(form.${member.getterName}())
 #elseif ($member.type.dateType)
             ${comma}(StringUtils.isBlank(request.getParameter("${member.name}AsString"))) ? #memberNull($member) : form.${member.getterName}()
+#elseif ($member.needsFileUpload)
+            ${comma}(StringUtils.isBlank(request.getParameter("${member.name}"))) ? #memberNull($member) : form.${member.getterName}().getFileData()
 #else
             ${comma}(StringUtils.isBlank(request.getParameter("$member.name"))) ? #memberNull($member) : form.${member.getterName}()
 #end

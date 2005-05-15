@@ -62,7 +62,7 @@
 
     <tiles:put name="body" type="string">
 
-        <html:form action="$manageable.actionPath" method="post">
+        <html:form action="$manageable.actionPath" method="post" enctype="multipart/form-data">
             <input type="hidden" name="$manageable.actionParameter" value=""/>
             <div id="criteria">
 #set ($test = "!empty ${manageableFormName}")
@@ -162,9 +162,9 @@
 #if ($member.display)
 #if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
                         <display:column media="html" headerClass="$member.name" titleKey="$member.messageKey">
-## we're not using <html:checkbox> here because this renders a 'name' attribute which interferes with the
+## We're not using <html:checkbox> here because this renders a 'name' attribute which possibly interferes with the
 ## corresponding criteria field used as input (which has the same name of course: the copy feature would not
-## know which field to set)
+## know which field to set). So we're just using <input type="checkbox .. /> without any 'name' attribute.
                             <c:choose>
 #set ($test = "row.${member.name}")
                                 <c:when test="${${test}}"><input type="checkbox" checked="checked" disabled="disabled"/></c:when>
@@ -180,6 +180,11 @@
                             sortProperty="$member.name" sortable="true" titleKey="$member.messageKey">
 #set ($dateValue = "${member.name}Formatted")
                             ${${dateValue}}
+                        </display:column>
+#elseif ($member.needsFileUpload)
+                        <display:column media="all" headerClass="$member.name" paramId="$member.name" titleKey="$member.messageKey">
+#set ($test = "!empty row.${member.name}")
+                            <c:if test="${${test}}"><div class="binaryData"><bean:message key="binary.data"/></div></c:if>
                         </display:column>
 #else
 #if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)#set($propertySuffix='Label')#else#set($propertySuffix='')#end
