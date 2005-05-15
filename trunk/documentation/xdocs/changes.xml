@@ -9,7 +9,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-M1-SNAPSHOT" date="2005-05-14" description="Continuous build for the first milestone release of version 3.1">
+        <release version="3.1-M1-SNAPSHOT" date="2005-05-15" description="Continuous build for the first milestone release of version 3.1">
+            <action dev="draftdog" type="add" issue="BPM-186">
+                When using manageable entities it is now possible to have binary data uploaded into 'blob' fields,
+                just use <code>datatype::Blob</code> and a file-upload field will be generated automatically. It is
+                not possible to actually show the value of a 'blob' field in the table, a default label will be shown
+                instead.
+            </action>
             <action dev="draftdog" type="update" issue="BPM-195">
                 If you want anyone to be able to access a use-case when security is enabled, then simply do not
                 associate any actors to it. This functionality replaces the <![CDATA[<<Unsecured>>]]> stereotype.
