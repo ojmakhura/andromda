@@ -24,18 +24,21 @@
     	<sourceDirectory>src/java</sourceDirectory>
     	<unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
     	<!-- Unit test classes -->
-    	<unitTest>
-	      	<includes>
-	        	<include>**/*Test.java</include>
-	     	</includes>
-    	</unitTest>
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+            <resources>
+                <resource>
+                    <directory>src/test/java</directory>
+                    <excludes>
+                        <exclude>**/*.java</exclude>
+                    </excludes>
+                    <filtering>false</filtering>
+                </resource>
+            </resources>
+        </unitTest>
 		<resources>
-			<resource>
-				<directory>src/test/java</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</resource>
             <resource>
                 <directory>src</directory>
                 <includes>
