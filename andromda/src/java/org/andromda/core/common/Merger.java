@@ -142,7 +142,7 @@ public class Merger
 
     /**
      * Indicates whether or not the given <code>namespace</code>
-     * requires a merge or not.
+     * requires a merge.
      * @param namespace the namespace to evaluate.
      * @return true/false
      */
