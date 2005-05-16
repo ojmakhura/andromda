@@ -22,7 +22,6 @@ public class MetafacadeBase
      * The meta object which this metafacade wraps.
      */
     private Object metaObject;
-    private boolean initialized = false;
 
     /**
      * Stores the context for this metafacade
@@ -98,6 +97,12 @@ public class MetafacadeBase
     {
         return null;
     }
+    
+    /**
+     * Stores whether or not this metafacade has
+     * been initialized.
+     */
+    private boolean initialized = false;
 
     /**
      * Sets the flag indicating this metafacade has been initlized.
