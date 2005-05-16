@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
 /**
  * Base class for all metafacades.
  *
@@ -18,25 +19,58 @@ import java.util.Collection;
 public class MetafacadeBase
 {
     /**
+     * The meta object which this metafacade wraps.
+     */
+    private Object metaObject;
+    private boolean initialized = false;
+
+    /**
+     * Stores the context for this metafacade
+     */
+    private String context = null;
+
+    /**
+     * Stores the property context for this metafacade.
+     */
+    private String propertyNamespace = null;
+
+    /**
+     * Stores the namespace for this metafacade
+     */
+    private String namespace = null;
+
+    /**
+     * The metafacade logger instance.
+     */
+    protected Logger logger;
+
+    /**
+     * The flag indicating whether or not this metafacade is a context root.
+     */
+    private boolean contextRoot = false;
+
+    /**
+     * In order to speed up the check for this property (which will happen many times), we cache it :-)
+     */
+    private Boolean metafacadePropertyCachingEnabled = null;
+
+    /**
      * Construts a new instance of this class with the given <code>metaObject</code>
      * and <code>context</code>.  The metaObject is the meta model element which
-     * this metafacade insulates. The <code>context</code> is the name of the 
+     * this metafacade insulates. The <code>context</code> is the name of the
      * context for this metafacade instance.
-     * 
+     *
      * @param metaObject the meta object.
      * @param context the context of this meta object.
      */
-    public MetafacadeBase(final Object metaObject, final String context)
+    public MetafacadeBase(
+        final Object metaObject,
+        final String context)
     {
         this.metaObject = metaObject;
         this.context = context;
     }
-    
-    /**
-     * The meta object which this metafacade wraps.
-     */
-    private Object metaObject;
-    
+
     /**
      * Retrieves the <code>owner</code> of this metafacade (for example: an operation owns its parameters, a class owns
      * its attributes).
@@ -64,8 +98,6 @@ public class MetafacadeBase
     {
         return null;
     }
-
-    private boolean initialized = false;
 
     /**
      * Sets the flag indicating this metafacade has been initlized.
@@ -102,8 +134,7 @@ public class MetafacadeBase
     /**
      * <p/>
      * The logic of modeled OCL invariants from derived metafacades will be generated into this method and validation
-     * messages created and collected into the <code>messages</code> collection. This method is called by validate
-     * #validate(). </p>
+     * messages created and collected into the <code>messages</code> collection. This method is called by {@link #validate(Collection)}
      * <p/>
      * By default this method is empty. </p>
      */
@@ -135,7 +166,10 @@ public class MetafacadeBase
         MetafacadeBase metafacade = null;
         if (metaObject != null)
         {
-            metafacade = MetafacadeFactory.getInstance().createMetafacade(metaObject, this.getContext());
+            metafacade =
+                MetafacadeFactory.getInstance().createMetafacade(
+                    metaObject,
+                    this.getContext());
         }
         return metafacade;
     }
@@ -154,21 +188,18 @@ public class MetafacadeBase
         if (metaobjects != null)
         {
             metafacades.addAll(metaobjects);
-            CollectionUtils.transform(metafacades, new Transformer()
-            {
-                public Object transform(Object object)
+            CollectionUtils.transform(
+                metafacades,
+                new Transformer()
                 {
-                    return MetafacadeBase.this.shieldedElement(object);
-                }
-            });
+                    public Object transform(Object object)
+                    {
+                        return MetafacadeBase.this.shieldedElement(object);
+                    }
+                });
         }
         return metafacades;
     }
-
-    /**
-     * Stores the context for this metafacade
-     */
-    private String context = null;
 
     /**
      * Gets the context for this metafacade.
@@ -195,11 +226,6 @@ public class MetafacadeBase
     }
 
     /**
-     * Stores the property context for this metafacade.
-     */
-    private String propertyNamespace = null;
-
-    /**
      * Gets the current property context for this metafacade. This is the context in which properties for this
      * metafacade are stored.
      *
@@ -223,17 +249,8 @@ public class MetafacadeBase
      */
     private final String constructPropertyNamespace(final String context)
     {
-        final StringBuffer propertyNamespace = new StringBuffer();
-        propertyNamespace.append(this.getNamespace());
-        propertyNamespace.append(":");
-        propertyNamespace.append(context);
-        return propertyNamespace.toString();
+        return this.getNamespace() + ":" + context;
     }
-
-    /**
-     * Stores the namespace for this metafacade
-     */
-    private String namespace = null;
 
     /**
      * Gets the current namespace for this metafacade
@@ -263,7 +280,9 @@ public class MetafacadeBase
      */
     protected boolean isConfiguredProperty(final String property)
     {
-        return MetafacadeFactory.getInstance().isPropertyRegistered(this.getPropertyNamespace(), property);
+        return MetafacadeFactory.getInstance().isPropertyRegistered(
+            this.getPropertyNamespace(),
+            property);
     }
 
     /**
@@ -274,15 +293,22 @@ public class MetafacadeBase
      */
     protected Object getConfiguredProperty(final String property)
     {
-        return MetafacadeFactory.getInstance().getRegisteredProperty(this.getPropertyNamespace(), property);
+        return MetafacadeFactory.getInstance().getRegisteredProperty(
+            this.getPropertyNamespace(),
+            property);
     }
 
     /**
      * Attempts to set the property with <code>name</code> having the specified <code>value</code> on this metafacade.
      */
-    protected void setProperty(final String name, final Object value)
+    protected void setProperty(
+        final String name,
+        final Object value)
     {
-        MetafacadeFactory.getInstance().registerProperty(this.getPropertyNamespace(), name, value);
+        MetafacadeFactory.getInstance().registerProperty(
+            this.getPropertyNamespace(),
+            name,
+            value);
     }
 
     /**
@@ -296,11 +322,6 @@ public class MetafacadeBase
     {
         return this.metaObject;
     }
-    
-    /**
-     * The metafacade logger instance.
-     */
-    protected Logger logger;
 
     /**
      * Package-local setter, called by facade factory. Sets the logger to use inside the facade's code.
@@ -311,11 +332,6 @@ public class MetafacadeBase
     {
         this.logger = logger;
     }
-
-    /**
-     * The flag indicating whether or not this metafacade is a context root.
-     */
-    private boolean contextRoot = false;
 
     /**
      * Sets whether or not this metafacade represents a contextRoot. If it does represent a context root, then {@link
@@ -341,7 +357,8 @@ public class MetafacadeBase
         String metafacadeContext = this.context;
         if (this.contextRoot)
         {
-            metafacadeContext = MetafacadeImpls.instance().getMetafacadeClass(this.getClass().getName()).getName();
+            metafacadeContext =
+                MetafacadeImpls.instance().getMetafacadeClass(this.getClass().getName()).getName();
         }
         return metafacadeContext;
     }
@@ -376,15 +393,11 @@ public class MetafacadeBase
     {
         if (metafacadePropertyCachingEnabled == null)
         {
-            final String enableCache = (String)this.getConfiguredProperty(
-                MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
+            final String enableCache =
+                (String)this.getConfiguredProperty(
+                    MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
             metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache);
         }
         return metafacadePropertyCachingEnabled.booleanValue();
     }
-
-    /**
-     * In order to speed up the check for this property (which will happen many times), we cache it :-)
-     */
-    private Boolean metafacadePropertyCachingEnabled = null;
 }
