@@ -36,5 +36,23 @@
       		<artifactId>log4j</artifactId>
      		<version>1.2.8</version>
     	</dependency> 
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.6</version>
+            <type>test</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+            <type>test</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+            <type>test</type>
+        </dependency>
 	</dependencies>	
 </project>
