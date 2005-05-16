@@ -61,6 +61,17 @@ public class ResourceWriter
     {
         this.writeStringToFile(string, fileLocation, true);
     }
+    
+    /**
+     * Writes the string to the file specified by the fileLocation argument.
+     * 
+     * @param string the string to write to the file
+     * @param fileLocation the file which to write.
+     */
+    public void writeStringToFile(final String string, final File file) throws IOException
+    {
+        this.writeStringToFile(string, file != null ? file.toString() : null, true);
+    }
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
@@ -115,7 +126,11 @@ public class ResourceWriter
         {
             parent.mkdirs();
         }
-        string = Merger.instance().getMergedString(string, namespace);
+        final Merger merger = Merger.instance();
+        if (merger.requiresMerge(namespace))
+        {
+            string = Merger.instance().getMergedString(string, namespace);
+        }
         FileOutputStream stream = new FileOutputStream(file);
         byte[] output;
         if (StringUtils.isNotBlank(this.encoding))
