@@ -10,6 +10,10 @@
     </properties>
     <body>
         <release version="3.1-M1-SNAPSHOT" date="2005-05-15" description="Continuous build for the first milestone release of version 3.1">
+            <action dev="cwbrandon" type="add" issue="CORE-55">
+                Template merging now occurs before template processing happens, this means you can merge in dynamic content into templates
+                (previously it was only static content).
+            </action>
             <action dev="draftdog" type="add" issue="BPM-186">
                 When using manageable entities it is now possible to have binary data uploaded into 'blob' fields,
                 just use <code>datatype::Blob</code> and a file-upload field will be generated automatically. It is
