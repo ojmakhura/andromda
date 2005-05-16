@@ -9,13 +9,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
 
 /**
  * Provides utilities for loading resources.
@@ -24,8 +27,12 @@ import java.util.zip.ZipFile;
  */
 public class ResourceUtils
 {
-
     private static final Logger logger = Logger.getLogger(ResourceUtils.class);
+
+    /**
+     * All archive files start with this prefix.
+     */
+    private static final String ARCHIVE_PREFIX = "jar:";
 
     /**
      * Retrieves a resource from the current classpath.
@@ -37,7 +44,10 @@ public class ResourceUtils
     {
         final String methodName = "ResourceUtils.getResource";
         if (logger.isDebugEnabled())
-            logger.debug("performing '" + methodName + "' with resourceName '" + resourceName + "'");
+        {
+            logger.debug(
+                "performing '" + methodName + "' with resourceName '" + resourceName + "'");
+        }
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
         final ClassLoader loader = Thread.currentThread().getContextClassLoader();
         return loader.getResource(resourceName);
@@ -54,7 +64,8 @@ public class ResourceUtils
         final String methodName = "ResourceUtils.getContents";
         try
         {
-            return getContents(resource != null ? new InputStreamReader(resource.openStream()) : null);
+            return getContents(
+                (resource != null) ? new InputStreamReader(resource.openStream()) : null);
         }
         catch (Throwable throwable)
         {
@@ -73,7 +84,9 @@ public class ResourceUtils
     {
         final String methodName = "ResourceUtils.getContents";
         if (logger.isDebugEnabled())
+        {
             logger.debug("performing " + methodName + " with resource '" + resource + "'");
+        }
         final StringBuffer contents = new StringBuffer();
         try
         {
@@ -134,7 +147,9 @@ public class ResourceUtils
      *                 levels will be ignored).
      * @return a list of Strings containing the names of every nested resource found in this resource.
      */
-    public static List getDirectoryContents(final URL resource, final int levels)
+    public static List getDirectoryContents(
+        final URL resource,
+        final int levels)
     {
         final List contents = new ArrayList();
         if (resource != null)
@@ -151,15 +166,20 @@ public class ResourceUtils
                 }
                 final File pluginDirectory = rootDirectory;
                 loadAllFiles(pluginDirectory, contents);
+
                 // remove the root path from each file
-                CollectionUtils.transform(contents, new Transformer()
-                {
-                    public Object transform(Object object)
+                CollectionUtils.transform(
+                    contents,
+                    new Transformer()
                     {
-                        return StringUtils.replace(((File)object).getPath().replace('\\', '/'), pluginDirectory.getPath()
-                                .replace('\\', '/') + '/', "");
-                    }
-                });
+                        public Object transform(Object object)
+                        {
+                            return StringUtils.replace(
+                                ((File)object).getPath().replace('\\', '/'),
+                                pluginDirectory.getPath().replace('\\', '/') + '/',
+                                "");
+                        }
+                    });
             }
         }
         return contents;
@@ -171,7 +191,9 @@ public class ResourceUtils
      * @param directory the directory from which to load all files.
      * @param fileList  the List of files to which we'll add the found files.
      */
-    private static void loadAllFiles(final File directory, final List fileList)
+    private static void loadAllFiles(
+        final File directory,
+        final List fileList)
     {
         final File[] files = directory.listFiles();
         for (int ctr = 0; ctr < files.length; ctr++)
@@ -189,11 +211,6 @@ public class ResourceUtils
     }
 
     /**
-     * All archive files start with this prefix.
-     */
-    private static final String ARCHIVE_PREFIX = "jar:";
-
-    /**
      * Returns true/false on whether or not this <code>resource</code> represents an archive or not (i.e. jar, or zip,
      * etc).
      *
@@ -201,7 +218,7 @@ public class ResourceUtils
      */
     public static boolean isArchive(final URL resource)
     {
-        return resource != null && resource.toString().startsWith(ARCHIVE_PREFIX);
+        return (resource != null) && resource.toString().startsWith(ARCHIVE_PREFIX);
     }
 
     /**
@@ -283,12 +300,17 @@ public class ResourceUtils
      * @param directory the directory location
      * @return the resource url
      */
-    public static URL getResource(final String resourceName, final String directory)
+    public static URL getResource(
+        final String resourceName,
+        final String directory)
     {
         final String methodName = "ResourceUtils.getResource";
         if (logger.isDebugEnabled())
-            logger.debug("performing '" + methodName + "' with resourceName '" + resourceName
-                + "' and directory '" + directory + "'");
+        {
+            logger.debug(
+                "performing '" + methodName + "' with resourceName '" + resourceName +
+                "' and directory '" + directory + "'");
+        }
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
 
         if (directory != null)
@@ -303,8 +325,8 @@ public class ResourceUtils
                 catch (MalformedURLException ex)
                 {
                     logger.warn(
-                            "'" + file + "' is an invalid resource," + " attempting to find resource '" + resourceName +
-                            "' on classpath");
+                        "'" + file + "' is an invalid resource," +
+                        " attempting to find resource '" + resourceName + "' on classpath");
                 }
             }
         }
@@ -323,7 +345,9 @@ public class ResourceUtils
      * @param directory the directory location
      * @return the resource url
      */
-    public static URL getResource(final String resourceName, final URL directory)
+    public static URL getResource(
+        final String resourceName,
+        final URL directory)
     {
         String directoryLocation = null;
         if (directory != null)
@@ -331,5 +355,35 @@ public class ResourceUtils
             directoryLocation = directory.getFile();
         }
         return getResource(resourceName, directoryLocation);
+    }
+    
+    /**
+     * Recursively deletes a directory and its contents.
+     * 
+     * @param directory the directory to delete.
+     */
+    public static void deleteDirectory(final File directory)
+    {
+        if (directory != null && directory.exists() && directory.isDirectory())
+        {
+            final File[] files = directory.listFiles();
+            if (files != null && files.length > 0)
+            {
+                final int mergedTemplatesCount = files.length;
+                for (int ctr = 0; ctr < mergedTemplatesCount; ctr++)
+                {
+                    final File file = files[ctr];
+                    if (file.isDirectory())
+                    {
+                        deleteDirectory(file);
+                        file.delete();
+                    }
+                    else
+                    {
+                        file.delete();
+                    }
+                }
+            }    
+        }
     }
 }
