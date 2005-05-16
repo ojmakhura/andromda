@@ -339,6 +339,7 @@ public class VelocityTemplateEngine
     public void shutdown()
     {
         this.deleteMergedTemplatesLocation();
+        this.discoveredTemplates.clear();
         this.shutdownLogger();
         this.velocityEngine = null;
     }
