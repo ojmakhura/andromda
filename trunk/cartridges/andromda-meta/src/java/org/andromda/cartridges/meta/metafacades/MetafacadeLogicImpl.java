@@ -1,5 +1,19 @@
 package org.andromda.cartridges.meta.metafacades;
 
+import org.andromda.cartridges.meta.MetaProfile;
+import org.andromda.core.metafacade.MetafacadeException;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.GeneralizationFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,27 +25,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.andromda.cartridges.meta.MetaProfile;
-import org.andromda.core.metafacade.MetafacadeException;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.AttributeFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.GeneralizationFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.OperationFacade;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Metaclass facade implementation.
- * 
+ *
  * @see org.andromda.cartridges.meta.metafacades.Metafacade
  */
-public class MetafacadeLogicImpl extends MetafacadeLogic
+public class MetafacadeLogicImpl
+    extends MetafacadeLogic
 {
-    // ---------------- constructor -------------------------------
+    /**
+     * This defines the metamodel version package name (i.e.
+     * org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc) used
+     * by this cartridge to create the generated impl package name, if left
+     * empty then the impl package will be the same as the metafacade package
+     * (therefore we default to an empty name)
+     */
+    private static final String METAMODEL_VERSION_PACKAGE = "metamodelVersionPackage";
+    private Map featureMap = null;
 
     public MetafacadeLogicImpl(
         java.lang.Object metaObject,
@@ -44,7 +55,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
      * Returns the class tagged with &lt;&lt;metaclass&gt;&gt;&gt; that is
      * connected to the metaobject via a dependency. If no metaclass is directly
      * connected, the method walks up the supertype hierarchy.
-     * 
+     *
      * @return the metaclass object
      */
     protected Object handleGetMetaclass()
@@ -56,7 +67,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
     /**
      * Returns the class tagged with &lt;&lt;metaclass&gt;&gt; that is connected
      * to cl via a dependency.
-     * 
+     *
      * @param cl the source classifier
      * @return the metaclass object
      */
@@ -67,7 +78,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
             DependencyFacade dep = (DependencyFacade)iter.next();
             ClassifierFacade target = (ClassifierFacade)dep.getTargetElement();
             Collection stereotypes = target.getStereotypeNames();
-            if (stereotypes != null && stereotypes.size() > 0)
+            if ((stereotypes != null) && (stereotypes.size() > 0))
             {
                 String stereotypeName = (String)stereotypes.iterator().next();
                 if (stereotypeName.equals(MetaProfile.STEREOTYPE_METACLASS))
@@ -88,7 +99,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
     {
         boolean isMetaClassDirectDependency = false;
         Collection dependencies = this.getSourceDependencies();
-        if (dependencies != null && !dependencies.isEmpty())
+        if ((dependencies != null) && !dependencies.isEmpty())
         {
             // there should be only one.
             DependencyFacade dependency = (DependencyFacade)dependencies.iterator().next();
@@ -137,15 +148,6 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
     }
 
     /**
-     * This defines the metamodel version package name (i.e.
-     * org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc) used
-     * by this cartridge to create the generated impl package name, if left
-     * empty then the impl package will be the same as the metafacade package
-     * (therefore we default to an empty name)
-     */
-    private static final String METAMODEL_VERSION_PACKAGE = "metamodelVersionPackage";
-
-    /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicFile(java.lang.String)
      */
     protected String handleGetLogicFile()
@@ -190,7 +192,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
      * Creates a metafacade support class name from the given
      * <code>metamodelVersionPackage</code> (i.e. the package for the specific
      * meta model version). Support classes are the 'Logic' classes.
-     * 
+     *
      * @param metamodelVersionPackage the version of the meta model
      * @param the name of the class to append to the package.
      * @return the new metafacade support class name.
@@ -205,7 +207,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
         }
         return fullyQualifiedName.toString();
     }
-    
+
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacadeLogic#handleGetMethodDataForPSM(org.andromda.metafacades.uml.ClassifierFacade)
      */
@@ -213,7 +215,7 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
     {
         return this.getMethodDataForPSM(facade, true);
     }
-    
+
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getMethodDataForPSM()
      */
@@ -221,53 +223,66 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
     {
         return this.getMethodDataForPSM(null, false);
     }
-    
-    private Map featureMap = null;
 
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getMethodDataForPSM(boolean)
      */
-    private Collection getMethodDataForPSM(final ClassifierFacade facade, boolean includeSuperclasses)
+    private final Collection getMethodDataForPSM(
+        final ClassifierFacade facade,
+        final boolean includeSuperclasses)
     {
-        final Set declarationSet = new HashSet();
-        if (this.featureMap == null)
+        try
         {
-            this.featureMap = new HashMap();
-            if (includeSuperclasses && this.getGeneralizations() != null)
+            final Set declarationSet = new HashSet();
+            if (this.featureMap == null)
             {
-                for (Iterator iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
+                this.featureMap = new HashMap();
+                if (includeSuperclasses && this.getGeneralizations() != null)
                 {
-                    final Map methodDataMap = new HashMap();
-                    ClassifierFacade metafacade = (ClassifierFacade)iterator.next();
-                    for (ClassifierFacade classifier = metafacade; classifier != null; 
-                         classifier = (ClassifierFacade)classifier.getGeneralization())
+                    for (final Iterator iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
                     {
-                        this.getAllFeatures(methodDataMap, declarationSet, (Metafacade)classifier);
-                    }        
-                    this.featureMap.put(metafacade, methodDataMap.values());
+                        final Map methodDataMap = new HashMap();
+                        final ClassifierFacade metafacade = (ClassifierFacade)iterator.next();
+                        for (ClassifierFacade classifier = metafacade; classifier instanceof Metafacade;
+                             classifier = (ClassifierFacade)classifier.getGeneralization())
+                        {
+                            this.getAllFeatures(methodDataMap, declarationSet, (Metafacade)classifier);
+                        }
+                        this.featureMap.put(
+                            metafacade,
+                            methodDataMap.values());
+                    }
                 }
             }
-        }
-        final List result = new ArrayList();
-        if (this.featureMap != null)
-        {
-            Collection features = (Collection)this.featureMap.get(facade);
-            if (features != null)
+            final List result = new ArrayList();
+            if (this.featureMap != null)
             {
-                result.addAll(features);                  
+                Collection features = (Collection)this.featureMap.get(facade);
+                if (features != null)
+                {
+                    result.addAll(features);
+                }
             }
+            if (!includeSuperclasses)
+            {
+                final Map methodDataMap = new HashMap();
+                this.getAllFeatures(methodDataMap, declarationSet, this);
+                result.addAll(methodDataMap.values());
+            }
+            Collections.sort(result);
+            return result;
         }
-        if (!includeSuperclasses)
+        catch (Throwable th)
         {
-            final Map methodDataMap = new HashMap();
-            this.getAllFeatures(methodDataMap, declarationSet, this);
-            result.addAll(methodDataMap.values());
+            th.printStackTrace();
+            throw new RuntimeException(th);
         }
-        Collections.sort(result); 
-        return result;
     }
 
-    private void getAllFeatures(Map methodDataMap, Set declarationSet, Metafacade facade)
+    private final void getAllFeatures(
+        final Map methodDataMap,
+        final Set declarationSet,
+        final Metafacade facade)
     {
         final String methodName = "MetafacadeFacadeLogicImpl.internalGetMethodDataForPSM";
         try
@@ -277,52 +292,61 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
             final String fullyQualifiedName = facade.getFullyQualifiedName();
 
             // translate UML attributes and association ends to getter methods
-            for (Iterator propertyIterator = facade.getProperties().iterator(); propertyIterator.hasNext();)
+            for (final Iterator iterator = facade.getProperties().iterator(); iterator.hasNext();)
             {
-                ModelElementFacade property = (ModelElementFacade)propertyIterator.next();
+                final ModelElementFacade property = (ModelElementFacade)iterator.next();
                 MethodData method = null;
                 if (property instanceof AttributeFacade)
                 {
-                    AttributeFacade attribute = (AttributeFacade)property;
-                    method = new MethodData(
-                        fullyQualifiedName, 
-                        methodVisibility, 
-                        false, 
-                        attribute.getGetterSetterTypeName(), 
-                        attribute.getGetterName(), 
-                        attribute.getDocumentation(indendation));
-                }                          
+                    final AttributeFacade attribute = (AttributeFacade)property;
+                    method =
+                        new MethodData(
+                            fullyQualifiedName,
+                            methodVisibility,
+                            false,
+                            attribute.getGetterSetterTypeName(),
+                            attribute.getGetterName(),
+                            attribute.getDocumentation(indendation));
+                }
                 else
                 {
-                    AssociationEndFacade association = (AssociationEndFacade)property;
-                    method = new MethodData(
-                        fullyQualifiedName, 
-                        methodVisibility, 
-                        false, 
-                        association.getGetterSetterTypeName(), 
-                        association.getGetterName(), 
-                        association.getDocumentation(indendation));
+                    final AssociationEndFacade association = (AssociationEndFacade)property;
+                    method =
+                        new MethodData(
+                            fullyQualifiedName,
+                            methodVisibility,
+                            false,
+                            association.getGetterSetterTypeName(),
+                            association.getGetterName(),
+                            association.getDocumentation(indendation));
                 }
                 final String declaration = method.buildMethodDeclaration(true);
+
                 // don't add the new method data if we already have the 
                 // declaration from a previous generalization.
                 if (!declarationSet.contains(declaration))
                 {
-                    methodDataMap.put(method.buildCharacteristicKey(), method);
+                    methodDataMap.put(
+                        method.buildCharacteristicKey(),
+                        method);
                     declarationSet.add(declaration);
                 }
             }
+
             // translate UML operations to methods
-            for (Iterator iterator = facade.getOperations().iterator(); iterator.hasNext();)
+            for (final Iterator iterator = facade.getOperations().iterator(); iterator.hasNext();)
             {
-                OperationFacade operation = (OperationFacade)iterator.next();
+                final OperationFacade operation = (OperationFacade)iterator.next();
                 final UMLOperationData method = new UMLOperationData(fullyQualifiedName, operation);
+
                 // don't add the new method data if we already have the 
                 // declaration from a previous generalization.
                 final String declaration = method.buildMethodDeclaration(true);
                 if (!declarationSet.contains(declaration))
                 {
-                    methodDataMap.put(method.buildCharacteristicKey(), method);
+                    methodDataMap.put(
+                        method.buildCharacteristicKey(),
+                        method);
                     declarationSet.add(declaration);
                 }
             }
@@ -341,11 +365,12 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
     protected boolean handleIsRequiresInheritanceDelegatation()
     {
         boolean requiresInheritanceDelegation = false;
-        ModelElementFacade superMetafacade = this.getGeneralization();
+        final ModelElementFacade superMetafacade = this.getGeneralization();
         if (superMetafacade != null)
         {
-            requiresInheritanceDelegation = !superMetafacade.getPackageName().equals(this.getPackageName())
-                || this.getGeneralizations().size() > 1;
+            requiresInheritanceDelegation =
+                !superMetafacade.getPackageName().equals(this.getPackageName()) ||
+                (this.getGeneralizations().size() > 1);
         }
         return requiresInheritanceDelegation;
     }
@@ -356,43 +381,41 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
     protected boolean handleIsConstructorRequiresMetaclassCast()
     {
         boolean requiresCast = false;
-        Metafacade superMetafacade = (Metafacade)this.getGeneralization();
+        final Metafacade superMetafacade = (Metafacade)this.getGeneralization();
         if (superMetafacade != null)
         {
             requiresCast = superMetafacade.isMetaclassDirectDependency() && !this.isRequiresInheritanceDelegatation();
         }
         return requiresCast;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizations()
      */
     public Collection getGeneralizations()
     {
-        List generalizations = new ArrayList(super.getGeneralizationLinks());
-        Collections.sort(generalizations, new GeneralizationPrecedenceComparator());
-        CollectionUtils.transform(generalizations,
+        final List generalizations = new ArrayList(super.getGeneralizationLinks());
+        Collections.sort(
+            generalizations,
+            new GeneralizationPrecedenceComparator());
+        CollectionUtils.transform(
+            generalizations,
             new Transformer()
             {
-                public Object transform(Object object)
+                public Object transform(final Object object)
                 {
                     return ((GeneralizationFacade)object).getParent();
                 }
             });
+        CollectionUtils.filter(generalizations,
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    return object instanceof Metafacade;
+                }
+            });
         return generalizations;
-    }
-    
-    /**
-     * Used to sort metafacade generalizations by precedence.
-     */
-    private final static class GeneralizationPrecedenceComparator implements Comparator
-    {
-        public int compare(Object objectA, Object objectB)
-        {
-            MetafacadeGeneralization a = (MetafacadeGeneralization)objectA;
-            MetafacadeGeneralization b = (MetafacadeGeneralization)objectB;
-            return a.getPrecedence().compareTo(b.getPrecedence());
-        }
     }
 
     /**
@@ -409,4 +432,19 @@ public class MetafacadeLogicImpl extends MetafacadeLogic
         return count;
     }
 
+    /**
+     * Used to sort metafacade generalizations by precedence.
+     */
+    private static final class GeneralizationPrecedenceComparator
+        implements Comparator
+    {
+        public int compare(
+            Object objectA,
+            Object objectB)
+        {
+            MetafacadeGeneralization a = (MetafacadeGeneralization)objectA;
+            MetafacadeGeneralization b = (MetafacadeGeneralization)objectB;
+            return a.getPrecedence().compareTo(b.getPrecedence());
+        }
+    }
 }

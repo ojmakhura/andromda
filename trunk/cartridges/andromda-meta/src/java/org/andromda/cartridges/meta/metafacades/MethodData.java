@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+
 /**
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  * @since 10.12.2003
  */
 public class MethodData
-        implements Comparable
+    implements Comparable
 {
     private String metafacadeName;
     private String visibility;
@@ -21,8 +22,13 @@ public class MethodData
     private final ArrayList arguments = new ArrayList();
     private final ArrayList exceptions = new ArrayList();
 
-    public MethodData(String metafacadeName, String visibility, boolean isAbstract, String returnTypeName, String name,
-                      String documentation)
+    public MethodData(
+        String metafacadeName,
+        String visibility,
+        boolean isAbstract,
+        String returnTypeName,
+        String name,
+        String documentation)
     {
         this.metafacadeName = metafacadeName;
         this.visibility = visibility;
@@ -93,13 +99,14 @@ public class MethodData
      */
     public String buildMethodDeclaration(boolean suppressAbstractDeclaration)
     {
-        String declaration = visibility + " " + ((isAbstract && !suppressAbstractDeclaration) ? "abstract " : "") +
-                ((returnTypeName != null) ? returnTypeName + " " : "") + name + "(";
+        String declaration =
+            visibility + " " + ((isAbstract && !suppressAbstractDeclaration) ? "abstract " : "") +
+            ((returnTypeName != null) ? (returnTypeName + " ") : "") + name + "(";
 
         for (final Iterator iterator = arguments.iterator(); iterator.hasNext();)
         {
             final ArgumentData argument = (ArgumentData)iterator.next();
-            declaration += argument.getFullyQualifiedTypeName() + " " + argument.getName();
+            declaration += (argument.getFullyQualifiedTypeName() + " " + argument.getName());
             if (iterator.hasNext())
             {
                 declaration += ", ";
@@ -138,7 +145,9 @@ public class MethodData
             final ArgumentData argument = (ArgumentData)iterator.next();
             call += argument.getName();
             if (iterator.hasNext())
+            {
                 call += ", ";
+            }
         }
         call += ")";
         return call;
@@ -152,7 +161,7 @@ public class MethodData
      */
     public String buildCharacteristicKey()
     {
-        String key = ((returnTypeName != null) ? returnTypeName + " " : "") + name + "(";
+        String key = ((returnTypeName != null) ? (returnTypeName + " ") : "") + name + "(";
 
         for (Iterator iterator = arguments.iterator(); iterator.hasNext();)
         {
@@ -205,7 +214,7 @@ public class MethodData
      */
     public boolean hasReturnType()
     {
-        return returnTypeName != null && !returnTypeName.equals("void");
+        return (returnTypeName != null) && !returnTypeName.equals("void");
     }
 
     /**
@@ -215,7 +224,6 @@ public class MethodData
     {
         MethodData other = (MethodData)object;
         int result = getMetafacadeName().compareTo(other.getMetafacadeName());
-        return result != 0 ? result : getName().compareTo(other.getName());
+        return (result != 0) ? result : getName().compareTo(other.getName());
     }
-
 }

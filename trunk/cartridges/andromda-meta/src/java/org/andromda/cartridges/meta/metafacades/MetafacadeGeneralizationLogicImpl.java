@@ -1,11 +1,11 @@
 package org.andromda.cartridges.meta.metafacades;
 
-import java.util.Collection;
-
 import org.andromda.cartridges.meta.MetaProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.Collection;
 
 
 /**
@@ -16,11 +16,16 @@ import org.apache.commons.lang.StringUtils;
 public class MetafacadeGeneralizationLogicImpl
     extends MetafacadeGeneralizationLogic
 {
-    // ---------------- constructor -------------------------------
-
-    public MetafacadeGeneralizationLogicImpl (Object metaObject, String context)
+    public MetafacadeGeneralizationLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
+    }
+    
+    public Object getMetaObject()
+    {
+        return this.metaObject;
     }
 
     /**
@@ -29,8 +34,9 @@ public class MetafacadeGeneralizationLogicImpl
     protected java.lang.Integer handleGetPrecedence()
     {
         Integer precedence = new Integer(999999999);
-        String value = ObjectUtils.toString(this.findTaggedValue(
-            MetaProfile.TAGGEDVALUE_GENERALIZATION_PRECEDENCE));
+        String value =
+            ObjectUtils.toString(
+                this.findTaggedValue(MetaProfile.TAGGEDVALUE_GENERALIZATION_PRECEDENCE));
         if (StringUtils.isNotBlank(value))
         {
             try
@@ -44,7 +50,7 @@ public class MetafacadeGeneralizationLogicImpl
         }
         return precedence;
     }
-    
+
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization#getGetterName()
      */
@@ -74,26 +80,26 @@ public class MetafacadeGeneralizationLogicImpl
             // if we have more than one generalization for the metafacade
             // then we expose the super facade accessors.
             Collection generalizations = child.getGeneralizations();
-            if (generalizations != null && generalizations.size() > 1)
+            if ((generalizations != null) && (generalizations.size() > 1))
             {
                 visibility = "protected";
             }
         }
         return visibility;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     public String getName()
     {
         String name = super.getName();
-        if (StringUtils.isBlank(name) && this.getParent() != null)
+        if (StringUtils.isBlank(name) && (this.getParent() != null))
         {
             name = this.getParent().getName();
         }
-        return ObjectUtils.toString(this.getConfiguredProperty(
-            MetaGlobals.PROPERTY_GENERALIZATION_NAME_PATTERN)).replaceAll("\\{0\\}", name);
+        return ObjectUtils.toString(
+            this.getConfiguredProperty(MetaGlobals.PROPERTY_GENERALIZATION_NAME_PATTERN))
+                          .replaceAll("\\{0\\}", name);
     }
-
 }
