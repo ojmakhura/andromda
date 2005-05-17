@@ -9,11 +9,12 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.meta.metafacades.MetafacadeOperation
  */
 public class MetafacadeOperationLogicImpl
-        extends MetafacadeOperationLogic
+    extends MetafacadeOperationLogic
 {
     // ---------------- constructor -------------------------------
-
-    public MetafacadeOperationLogicImpl(Object metaObject, String context)
+    public MetafacadeOperationLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -23,8 +24,11 @@ public class MetafacadeOperationLogicImpl
      */
     protected String handleGetImplementationName()
     {
-        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
-                MetaGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll("\\{0\\}",
-                        StringUtils.capitalize(this.getName()));
+        return StringUtils.trimToEmpty(
+            String.valueOf(
+                this.getConfiguredProperty(
+                    MetaGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll(
+            "\\{0\\}",
+            StringUtils.capitalize(this.getName()));
     }
 }

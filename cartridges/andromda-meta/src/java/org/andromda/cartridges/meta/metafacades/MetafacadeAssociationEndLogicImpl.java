@@ -9,11 +9,11 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.meta.metafacades.MetafacadeAssociationEnd
  */
 public class MetafacadeAssociationEndLogicImpl
-        extends MetafacadeAssociationEndLogic
+    extends MetafacadeAssociationEndLogic
 {
-    // ---------------- constructor -------------------------------
-
-    public MetafacadeAssociationEndLogicImpl(Object metaObject, String context)
+    public MetafacadeAssociationEndLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -23,9 +23,11 @@ public class MetafacadeAssociationEndLogicImpl
      */
     protected java.lang.String handleGetImplementationOperationName()
     {
-        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
-                MetaGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll("\\{0\\}",
-                        StringUtils.capitalize(this.getGetterName()));
+        return StringUtils.trimToEmpty(
+            String.valueOf(
+                this.getConfiguredProperty(
+                    MetaGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll(
+            "\\{0\\}",
+            StringUtils.capitalize(this.getGetterName()));
     }
-
 }
