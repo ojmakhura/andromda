@@ -622,6 +622,35 @@
                     </tr>
                     <tr>
                         <td>
+                            hibernateCacheProvider
+                        </td>
+                        <td>
+                             Defines Hibernate Cache Provider implementation class.
+                             Possible values for Hibernate2 are:
+                             <ul>
+                                <li>net.sf.hibernate.cache.EhCacheProvider</li>
+                                <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
+                                <li>net.sf.hibernate.cache.JCSCacheProvider</li>
+                                <li>net.sf.hibernate.cache.SwarmCacheProvider</li>
+                                <li>net.sf.hibernate.cache.TreeCacheProvider</li>
+                                <li>net.sf.hibernate.cache.OSCacheProvider</li>
+                             </ul>
+                             Possible values for Hibernate3 are:
+                             <ul>
+                                <li>org.hibernate.cache.EhCacheProvider</li>
+                                <li>org.hibernate.cache.HashtableCacheProvider</li>
+                                <li>org.hibernate.cache.JCSCacheProvider</li>
+                                <li>org.hibernate.cache.SwarmCacheProvider</li>
+                                <li>org.hibernate.cache.TreeCacheProvider</li>
+                                <li>org.hibernate.cache.OSCacheProvider</li>
+                             </ul>
+                        </td>
+                        <td>
+                            No, default is <code>net.sf.hibernate.cache.EhCacheProvider</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             hibernatePoolSize
                         </td>
                         <td>
