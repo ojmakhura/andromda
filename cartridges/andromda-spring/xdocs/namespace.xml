@@ -604,6 +604,24 @@
                     </tr>
                     <tr>
                         <td>
+                            hibernateUseQueryCache
+                        </td>
+                        <td>
+                             The default query cache usage.
+                             Can be overwritten using
+                             <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
+                             Possible values are:
+                             <ul>
+                                <li>true</li>
+                                <li>false</li>
+                             </ul>
+                        </td>
+                        <td>
+                            No, default is <code>false</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             hibernatePoolSize
                         </td>
                         <td>
