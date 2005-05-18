@@ -8,6 +8,8 @@
     <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
     <property reference="actionPathPrefix" default=""/>
     <property reference="actionFormScope" default="session"/>
+    <!-- denotes which kinf of resource messages should be generated -->
+    <property reference="normalizeMessages" default="false"/>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendServiceLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
