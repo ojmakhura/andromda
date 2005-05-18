@@ -270,11 +270,8 @@ public class StringUtilsHelper
      */
     public static String toSingleLine(String string)
     {
-        // first make the string an empty string if it happens to be null
-        string = StringUtils.trimToEmpty(string);
-
         // remove anything that is greater than 1 space.
-        return string.replaceAll("[$\\s]+", " ").trim();
+        return (string == null) ? "" : string.replaceAll("[$\\s]+", " ").trim();
     }
 
     /**
@@ -283,9 +280,9 @@ public class StringUtilsHelper
      * <li><code>property</code> becomes <code>properties</code></li> <li><code>bus</code> becomes
      * <code>busses</code></li> <li><code>boss</code> becomes <code>bosses</code></li> </ul>
      * <p/>
-     * Whitespace as well as <code>null></code> arguments will return an empty String. </p>
+     * Whitespace as well as <code>null</code> arguments will return an empty String. </p>
      *
-     * @param singularNoun A singularNoun to pluralize
+     * @param singularNoun A singular noun to pluralize
      * @return The plural of the argument singularNoun
      */
     public static String pluralize(final String singularNoun)
