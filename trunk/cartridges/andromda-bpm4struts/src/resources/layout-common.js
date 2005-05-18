@@ -1,3 +1,11 @@
+function getElementValueById(id)
+{
+    var element = getDiv(id);
+    if(element.value)
+        return element.value
+
+    return false;
+}
 
 function getDiv(divID)
 {
