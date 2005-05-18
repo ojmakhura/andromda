@@ -46,4 +46,11 @@ public class InstanceFacadeLogicImpl
         return metaObject.getOwnedLink();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.InstanceFacade#getSlots()
+     */
+    protected java.util.Collection handleGetSlots()
+    {
+        return metaObject.getSlot();
+    }
 }
