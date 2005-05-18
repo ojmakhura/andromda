@@ -7,6 +7,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -26,19 +27,11 @@ import java.util.Map;
 public class StrutsJspLogicImpl
         extends StrutsJspLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsJspLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsJsp ...
-
-    // from org.andromda.metafacades.uml.ModelElementFacade
     public String getPackageName()
     {
         String packageName = null;
@@ -61,14 +54,20 @@ public class StrutsJspLogicImpl
 
     protected String handleGetMessageKey()
     {
-        String messageKey = null;
+        final StringBuffer messageKey = new StringBuffer();
 
-        StrutsUseCase useCase = getUseCase();
-        if (useCase != null)
+        if (!normalizeMessages())
         {
-            messageKey = StringUtilsHelper.toResourceMessageKey(useCase.getName() + ' ' + getName());
+            final StrutsUseCase useCase = getUseCase();
+            if (useCase != null)
+            {
+                messageKey.append(StringUtilsHelper.toResourceMessageKey(useCase.getName()));
+                messageKey.append('.');
+            }
         }
-        return messageKey;
+
+        messageKey.append(StringUtilsHelper.toResourceMessageKey(getName()));
+        return messageKey.toString();
     }
 
     protected String handleGetMessageValue()
@@ -162,8 +161,6 @@ public class StrutsJspLogicImpl
         }
         return false;
     }
-
-    // ------------- relations ------------------
 
     protected List handleGetAllActionParameters()
     {
@@ -359,5 +356,11 @@ public class StrutsJspLogicImpl
         }
 
         return tables;
+    }
+
+    private boolean normalizeMessages()
+    {
+        final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 }

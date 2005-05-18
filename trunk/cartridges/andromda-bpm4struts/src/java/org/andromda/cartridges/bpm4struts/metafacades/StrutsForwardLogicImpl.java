@@ -1,5 +1,13 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.GuardFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,14 +16,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.GuardFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -26,17 +26,10 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class StrutsForwardLogicImpl
         extends StrutsForwardLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsForwardLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsForward ...
 
     protected String handleGetGuardName()
     {
@@ -125,18 +118,6 @@ public class StrutsForwardLogicImpl
         return getWarningMessages().isEmpty() == false;
     }
 
-    protected String handleGetMessageKey()
-    {
-        String messageKey = null;
-
-        StrutsUseCase useCase = getUseCase();
-        if (useCase != null)
-        {
-            messageKey = useCase.getName();
-        }
-        return messageKey;
-    }
-
     /**
      * Collects specific messages in a map.
      *
@@ -146,7 +127,7 @@ public class StrutsForwardLogicImpl
      * @return maps message keys to message values, but only those that match the arguments
      *  will have been recorded
      */
-    private Map getMessages(String messageType, String messageKey, String taggedValue)
+    private Map getMessages(String taggedValue)
     {
         Map messages = null;
 
@@ -159,17 +140,10 @@ public class StrutsForwardLogicImpl
         {
             messages = new LinkedHashMap(); // we want to keep the order
 
-            final StringBuffer buffer = new StringBuffer();
-            buffer.append(StringUtilsHelper.toResourceMessageKey(messageKey));
-            buffer.append('.');
-            buffer.append(messageType);
-            buffer.append('.');
-
-            final String prefix = buffer.toString();
             for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
                 final String value = (String)iterator.next();
-                messages.put(prefix + value.hashCode(), value);
+                messages.put(StringUtilsHelper.toResourceMessageKey(value), value);
             }
         }
 
@@ -178,35 +152,12 @@ public class StrutsForwardLogicImpl
 
     protected Map handleGetSuccessMessages()
     {
-        Map messages = null;
-
-        String messageKey = getMessageKey();
-        if (messageKey == null)
-        {
-            messages = Collections.EMPTY_MAP;
-        }
-        else
-        {
-            messages = getMessages("success", messageKey, Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
-        }
-
-        return messages;
+        return getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     protected Map handleGetWarningMessages()
     {
-        Map messages = null;
-
-        String messageKey = getMessageKey();
-        if (messageKey == null)
-        {
-            messages = Collections.EMPTY_MAP;
-        }
-        else
-        {
-            messages = getMessages("warning", messageKey, Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
-        }
-        return messages;
+        return getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     protected java.util.List handleGetForwardParameters()

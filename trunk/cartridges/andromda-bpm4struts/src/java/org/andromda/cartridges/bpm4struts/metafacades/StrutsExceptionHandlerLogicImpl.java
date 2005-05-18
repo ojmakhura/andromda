@@ -13,17 +13,10 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 public class StrutsExceptionHandlerLogicImpl
         extends StrutsExceptionHandlerLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsExceptionHandlerLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsExceptionHandler ...
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionKey()()
@@ -33,7 +26,8 @@ public class StrutsExceptionHandlerLogicImpl
         final String type = getExceptionType();
         final int dotIndex = type.lastIndexOf('.');
 
-        return StringUtilsHelper.toResourceMessageKey((dotIndex < type.length() - 1)   // the dot may not be the last character
+        // the dot may not be the last character
+        return StringUtilsHelper.toResourceMessageKey((dotIndex < type.length() - 1)
                 ? type.substring(dotIndex + 1) : type);
     }
 
@@ -65,6 +59,9 @@ public class StrutsExceptionHandlerLogicImpl
             return "";
     }
 
-    // ------------- relations ------------------
-
+    protected String handleGetMessageKey()
+    {
+        final StrutsUseCase useCase = getUseCase();
+        return (useCase != null) ? StringUtilsHelper.toResourceMessageKey(useCase.getName()) : null;
+    }
 }

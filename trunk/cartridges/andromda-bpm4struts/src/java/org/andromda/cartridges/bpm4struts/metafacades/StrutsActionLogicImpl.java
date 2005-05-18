@@ -386,10 +386,10 @@ public class StrutsActionLogicImpl
     {
         String formBeanName = null;
 
-        StrutsUseCase useCase = getUseCase();
+        final StrutsUseCase useCase = getUseCase();
         if (useCase != null)
         {
-            String useCaseName = useCase.getName();
+            final String useCaseName = useCase.getName();
             formBeanName = StringUtilsHelper.lowerCamelCaseName(useCaseName) + getActionClassName() + "Form";
         }
         return formBeanName;
@@ -400,14 +400,22 @@ public class StrutsActionLogicImpl
         return "validate" + getFormBeanClassName();
     }
 
-    /**
-     * Overrides the one from StrutsForward. This one incorporates the name of the originating page to avoid conflicts.
-     */
-    public String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
-        String messageKey = super.handleGetMessageKey() + ' ';
-        messageKey += isExitingPage() ? getInput().getName() : "";
-        return StringUtilsHelper.toResourceMessageKey(messageKey);
+        String messageKey = null;
+
+        final StrutsTrigger actionTrigger = getActionTrigger();
+        if (actionTrigger != null)
+        {
+            messageKey = actionTrigger.getTriggerKey();
+        }
+
+        return messageKey;
+    }
+
+    protected String handleGetImageMessageKey()
+    {
+        return getMessageKey() + ".image";
     }
 
     /**
@@ -536,10 +544,10 @@ public class StrutsActionLogicImpl
 
     protected String handleGetDocumentationKey()
     {
-        StrutsTrigger trigger = getActionTrigger();
-        return ((trigger == null) ?
-                getMessageKey() + ".is.an.action.without.trigger" : getActionTrigger().getTriggerKey()) +
-                ".documentation";
+        final StrutsTrigger trigger = getActionTrigger();
+        return ((trigger == null)
+                ? getMessageKey() + ".is.an.action.without.trigger"
+                : trigger.getTriggerKey()) + ".documentation";
     }
 
     protected String handleGetDocumentationValue()
@@ -550,18 +558,18 @@ public class StrutsActionLogicImpl
 
     protected String handleGetOnlineHelpKey()
     {
-        StrutsTrigger trigger = getActionTrigger();
-        return ((trigger == null) ?
-                getMessageKey() + ".is.an.action.without.trigger" : getActionTrigger().getTriggerKey()) +
-                ".online.help";
+        final StrutsTrigger trigger = getActionTrigger();
+        return ((trigger == null)
+                ? getMessageKey() + ".is.an.action.without.trigger"
+                : trigger.getTriggerKey()) + ".online.help";
     }
 
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
 
-        String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         buffer.append((value == null) ? "No action documentation has been specified" : value);
         buffer.append(crlf);
 
@@ -605,10 +613,10 @@ public class StrutsActionLogicImpl
     protected java.lang.Object handleGetInput()
     {
         Object input = null;
-        ModelElementFacade source = getSource();
+        final ModelElementFacade source = getSource();
         if (source instanceof PseudostateFacade)
         {
-            PseudostateFacade pseudostate = (PseudostateFacade)source;
+            final PseudostateFacade pseudostate = (PseudostateFacade)source;
             if (pseudostate.isInitialState())
             {
                 input = source;
