@@ -42,4 +42,19 @@ public class Bpm4StrutsGlobals
      * Stores the scope of the "form" attribute when executing an action.
      */
     public static final String PROPERTY_ACTION_FORM_SCOPE = "actionFormScope";
+
+    /**
+     * Denotes the way application resource message ought to be generated.
+     * When messages are normalized it means that elements with the same name
+     * will reuse the same label, even if they are located in entirely different
+     * use-cases or pages.
+     * <p/>
+     * This results in resource bundles that are not only smaller in size but
+     * also more straightforward to translate. The downside is that it will be
+     * less evident to customize labels for certain fields (which is rarely the
+     * case anyway).
+     * <p/>
+     * For backward compatibility reasons this flag is disabled by default.
+     */
+    public static final String PROPERTY_NORMALIZE_MESSAGES = "normalizeMessages";
 }
