@@ -19,6 +19,15 @@
                 which should normally point to <code>/WEB-INF/classes</code>
             </p>
             <p>
+                A very interesting feature exists that might make it considerably easier for you if you have lots
+                of similar messages in the resource bundle. Set the
+                <a href="namespace.html"><code>normalizeMessages</code></a> namespace property
+                to <code>true</code>. This will make sure elements with the same name will use the same message, when
+                translating such a resource bundle you will never need to do the same work twice. This feature is
+                disabled by default, enabling you to customize each possible message. In most cases it's better
+                to enable it though.
+            </p>
+            <p>
                 The proper way to create resource bundles for additional languages is to create
                 a file with the same name but suffix it with locale specific codes, this is explained
                 in more detail here:
