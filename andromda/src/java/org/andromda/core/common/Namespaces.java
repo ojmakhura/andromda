@@ -49,8 +49,6 @@ public class Namespaces
      */
     public void addNamespace(final Namespace namespace)
     {
-        if (logger.isDebugEnabled())
-            logger.debug("adding namespace --> '" + namespace + "'");
         namespaces.put(namespace.getName(), namespace);
     }
 
