@@ -18,7 +18,7 @@
                 These resource bundles are listed below, they are output in the <code>messages</code> outlet,
                 which should normally point to <code>/WEB-INF/classes</code>
             </p>
-            <p>
+            <p class="highlight">
                 A very interesting feature exists that might make it considerably easier for you if you have lots
                 of similar messages in the resource bundle. Set the
                 <a href="namespace.html"><code>normalizeMessages</code></a> namespace property
