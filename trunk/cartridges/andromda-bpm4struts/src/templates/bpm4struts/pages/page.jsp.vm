@@ -84,7 +84,7 @@ ${indent}</html:link>
 #end
 ${indent}<c:set var="link">'<html:rewrite action="${action.actionPath}"/>${linkParameters}</c:set>
 #if ($action.imageLink)
-${indent}<html:link href="${indent}<c:set var="link">'<html:rewrite action="${action.actionPath}"/>${linkParameters}</c:set>" styleClass="imageLink"><html:img pageKey="${action.actionTrigger.triggerKey}.image"/></html:link>
+${indent}<html:link href="${indent}<c:set var="link">'<html:rewrite action="${action.actionPath}"/>${linkParameters}</c:set>" styleClass="imageLink"><html:img pageKey="$action.imageMessageKey"/></html:link>
 #else
 ${indent}<html:link href="javascript:document.location=${link}" styleClass="buttonLink"><bean:message key="$action.actionTrigger.triggerKey"/></html:link>
 #end
