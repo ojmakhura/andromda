@@ -180,7 +180,7 @@
 #end
 #foreach ($tableAction in $variable.tableFormActions)
                     <display:column media="html">
-#renderTableButton( $tableAction "                        " )
+#renderTableButton($tableAction "                        " '${row_rowNum}')
                     </display:column>
 #end
                 </display:table>
