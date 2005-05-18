@@ -1,5 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
@@ -16,6 +17,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 
 /**
@@ -26,17 +29,14 @@ import java.util.Map;
 public class StrutsUseCaseLogicImpl
         extends StrutsUseCaseLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsUseCaseLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
     protected String handleGetTitleKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getName()) + ".title";
+        return StringUtilsHelper.toResourceMessageKey(normalizeMessages() ? getTitleValue() : getName()) + ".title";
     }
 
     protected String handleGetTitleValue()
@@ -140,7 +140,6 @@ public class StrutsUseCaseLogicImpl
         return rolesBuffer.toString();
     }
 
-    // ------------- relations ------------------
     public Collection getOperations()
     {
         return Collections.EMPTY_LIST;
@@ -255,7 +254,8 @@ public class StrutsUseCaseLogicImpl
         }
         else
         {
-            pagesList = new ArrayList(getModel().getAllActionStatesWithStereotype(graph, Bpm4StrutsProfile.STEREOTYPE_VIEW));
+            pagesList = new ArrayList(
+                    getModel().getAllActionStatesWithStereotype(graph, Bpm4StrutsProfile.STEREOTYPE_VIEW));
         }
         return pagesList;
     }
@@ -405,7 +405,8 @@ public class StrutsUseCaseLogicImpl
         if (graph != null)
         {
             final Collection finalStates = graph.getFinalStates();
-            for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext() && !selfTargetting;)
+            for (Iterator finalStateIterator = finalStates.iterator();
+                 finalStateIterator.hasNext() && !selfTargetting;)
             {
                 final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
                 if (this.equals(finalState.getTargetUseCase()))
@@ -467,7 +468,7 @@ public class StrutsUseCaseLogicImpl
             Collection finalStates = graph.getFinalStates();
             for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
             {
-                 StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
+                StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
                 StrutsUseCase targetUseCase = finalState.getTargetUseCase();
                 if (targetUseCase != null)
                 {
@@ -508,7 +509,7 @@ public class StrutsUseCaseLogicImpl
 
     /**
      * Given a root use-case, finds the node in the hierarchy that represent the argument StrutsUseCase node.
-     */ 
+     */
     private UseCaseNode findNode(UseCaseNode root, StrutsUseCase useCase)
     {
         UseCaseNode useCaseNode = null;
@@ -537,5 +538,195 @@ public class StrutsUseCaseLogicImpl
         {
             return (StrutsUseCase)getUserObject();
         }
+    }
+
+    private boolean normalizeMessages()
+    {
+        final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
+    }
+
+    protected Map handleGetAllMessages()
+    {
+        final boolean normalize = normalizeMessages();
+        final Map messages = (normalize) ? (Map)new TreeMap() : (Map)new LinkedHashMap();
+
+        if (isApplicationUseCase())
+        {
+            final List useCases = getAllUseCases();
+            for (int i = 0; i < useCases.size(); i++)
+            {
+                // USECASE
+                final StrutsUseCase useCase = (StrutsUseCase)useCases.get(i);
+                messages.put(useCase.getTitleKey(), useCase.getTitleValue());
+                messages.put(useCase.getOnlineHelpKey(), useCase.getOnlineHelpValue());
+
+                final List pages = useCase.getPages();
+                for (int j = 0; j < pages.size(); j++)
+                {
+                    // PAGE
+                    final StrutsJsp page = (StrutsJsp)pages.get(j);
+                    messages.put(page.getTitleKey(), page.getTitleValue());
+                    messages.put(page.getMessageKey(), page.getMessageValue());
+                    messages.put(page.getOnlineHelpKey(), page.getOnlineHelpValue());
+                    messages.put(page.getDocumentationKey(), page.getDocumentationValue());
+
+                    final List pageVariables = page.getPageVariables();
+                    for (int k = 0; k < pageVariables.size(); k++)
+                    {
+                        // PAGE-VARIABLE
+                        final StrutsParameter parameter = (StrutsParameter)pageVariables.get(k);
+
+                        messages.put(parameter.getMessageKey(), parameter.getMessageValue());
+/*
+                        if (normalize)
+                        {
+                            // the next line is in comment because it's not actually being used
+                            //messages.put(parameter.getTitleKey(), parameter.getTitleValue());
+                            messages.put(parameter.getMessageKey(), parameter.getMessageValue());
+                        }
+                        else
+                        {
+                            // the next line is in comment because it's not actually being used
+                            //messages.put(page.getTitleKey() + '.' + parameter.getTitleKey(), parameter.getTitleValue());
+                            messages.put(page.getTitleKey() + '.' + parameter.getMessageKey(),
+                                    parameter.getMessageValue());
+                        }
+*/
+
+                        // TABLE
+                        if (parameter.isTable())
+                        {
+                            final Collection columnNames = parameter.getTableColumnNames();
+                            for (Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+                            {
+                                final String columnName = (String)columnNameIterator.next();
+                                messages.put(parameter.getTableColumnMessageKey(columnName),
+                                        parameter.getTableColumnMessageValue(columnName));
+                            }
+                        }
+                    }
+
+                    final List actions = useCase.getActions();
+                    for (int k = 0; k < actions.size(); k++)
+                    {
+                        // ACTION
+                        final StrutsAction action = (StrutsAction)actions.get(k);
+
+                        // TRIGGER
+                        final StrutsTrigger trigger = action.getActionTrigger();
+                        if (trigger != null)
+                        {
+                            // only add these when a trigger is present, otherwise it's no use having them
+                            messages.put(action.getOnlineHelpKey(), action.getOnlineHelpValue());
+                            messages.put(action.getDocumentationKey(), action.getDocumentationValue());
+
+                            // the regular trigger messages
+                            messages.put(trigger.getTitleKey(), trigger.getTitleValue());
+                            messages.put(trigger.getNotAllowedTitleKey(), trigger.getNotAllowedTitleValue());
+                            messages.put(trigger.getResetMessageKey(), trigger.getResetMessageValue());
+                            messages.put(trigger.getResetNotAllowedTitleKey(), trigger.getResetNotAllowedTitleValue());
+                            messages.put(trigger.getResetTitleKey(), trigger.getResetTitleValue());
+                            // this one is the same as doing: action.getMessageKey()
+                            messages.put(trigger.getTriggerKey(), trigger.getTriggerValue());
+
+                            // IMAGE LINK
+                            if (action.isImageLink())
+                            {
+                                messages.put(action.getImageMessageKey(), action.getImagePath());
+                            }
+                        }
+
+                        // FORWARDS
+                        final List transitions = action.getTransitions();
+                        for (int l = 0; l < transitions.size(); l++)
+                        {
+                            final StrutsForward forward = (StrutsForward)transitions.get(l);
+                            messages.putAll(forward.getSuccessMessages());
+                            messages.putAll(forward.getWarningMessages());
+                        }
+
+                        // ACTION PARAMETERS
+                        final List parameters = action.getActionParameters();
+                        for (int l = 0; l < parameters.size(); l++)
+                        {
+                            final StrutsParameter parameter = (StrutsParameter)parameters.get(l);
+                            messages.put(parameter.getMessageKey(), parameter.getMessageValue());
+                            messages.put(parameter.getOnlineHelpKey(), parameter.getOnlineHelpValue());
+                            messages.put(parameter.getDocumentationKey(), parameter.getDocumentationValue());
+                            messages.put(parameter.getTitleKey(), parameter.getTitleValue());
+
+                            if (parameter.getValidWhen() != null)
+                            {
+                                // this key needs to be fully qualified since the valid when value can be different
+                                final String completeKeyPrefix = (normalize)
+                                        ? useCase.getTitleKey() + '.' +
+                                            page.getMessageKey() + '.' +
+                                            action.getMessageKey() + '.' +
+                                            parameter.getMessageKey()
+                                        : parameter.getMessageKey();
+                                messages.put(completeKeyPrefix + "_validwhen",
+                                        "{0} is only valid when " + parameter.getValidWhen());
+                            }
+
+                            if (parameter.getOptionCount() > 0)
+                            {
+                                final List optionKeys = parameter.getOptionKeys();
+                                final List optionValues = parameter.getOptionValues();
+
+                                for (int m = 0; m < optionKeys.size(); m++)
+                                {
+                                    messages.put(optionKeys.get(m), optionValues.get(m));
+                                    messages.put(optionKeys.get(m) + ".title", optionValues.get(m));
+                                }
+                            }
+                        }
+
+                        // EXCEPTION FORWARDS
+                        final List exceptions = action.getActionExceptions();
+
+                        if (normalize)
+                        {
+                            if (exceptions.isEmpty())
+                            {
+                                messages.put("exception.occurred", "{0}");
+                            }
+                            else
+                            {
+                                for (int l = 0; l < exceptions.size(); l++)
+                                {
+                                    final StrutsExceptionHandler exception = (StrutsExceptionHandler)exceptions.get(l);
+                                    messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(), "{0}");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (exceptions.isEmpty())
+                            {
+                                if (!action.isUseCaseStart())
+                                {
+                                    messages.put(action.getMessageKey() + ".exception", "{0} (java.lang.Exception)");
+                                }
+                            }
+                            else
+                            {
+                                for (int l = 0; l < exceptions.size(); l++)
+                                {
+                                    final StrutsExceptionHandler exception = (StrutsExceptionHandler)exceptions.get(l);
+                                    // we construct the key using the action message too because the exception can
+                                    // belong to more than one action (therefore it cannot return the correct value
+                                    // in .getExceptionKey())
+                                    messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(),
+                                            "{0} (" + exception.getExceptionType() + ")");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return messages;
     }
 }
