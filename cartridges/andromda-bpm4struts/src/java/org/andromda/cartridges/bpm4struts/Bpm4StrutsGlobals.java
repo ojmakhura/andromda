@@ -44,7 +44,7 @@ public class Bpm4StrutsGlobals
     public static final String PROPERTY_ACTION_FORM_SCOPE = "actionFormScope";
 
     /**
-     * Denotes the way application resource message ought to be generated.
+     * Denotes the way application resource messages ought to be generated.
      * When messages are normalized it means that elements with the same name
      * will reuse the same label, even if they are located in entirely different
      * use-cases or pages.
