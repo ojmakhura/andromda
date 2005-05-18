@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 
 import java.lang.reflect.Method;
 
@@ -14,17 +15,10 @@ import java.lang.reflect.Method;
 public class StrutsTriggerLogicImpl
         extends StrutsTriggerLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsTriggerLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsTrigger ...
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getNotAllowedTitleKey()()
@@ -68,12 +62,19 @@ public class StrutsTriggerLogicImpl
      */
     protected java.lang.String handleGetTriggerKey()
     {
-        String triggerKey = null;
+        String triggerKey = StringUtilsHelper.toResourceMessageKey(getName());
 
-        StrutsAction action = getAction();
-        if (action != null)
+        if (!normalizeMessages())
         {
-            triggerKey = action.getMessageKey() + '.' + StringUtilsHelper.toResourceMessageKey(getName());
+            final StrutsAction action = getAction();
+            if (action != null)
+            {
+                final StrutsJsp page = action.getInput();
+                if (page != null)
+                {
+                    triggerKey = page.getMessageKey() + '.' + triggerKey;
+                }
+            }
         }
 
         return triggerKey;
@@ -114,8 +115,6 @@ public class StrutsTriggerLogicImpl
         return getAction() != null;
     }
 
-    // ------------- relations ------------------
-
     protected Object handleGetControllerCall()
     {
         /*
@@ -143,5 +142,11 @@ public class StrutsTriggerLogicImpl
             triggerAction = (StrutsAction)transition;
         }
         return triggerAction;
+    }
+
+    private boolean normalizeMessages()
+    {
+        final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 }

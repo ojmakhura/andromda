@@ -33,14 +33,10 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsParameterLogicImpl
         extends StrutsParameterLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsParameterLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
-
-    // -------------------- relations ----------------------
 
     protected Object handleGetAction()
     {
@@ -144,8 +140,6 @@ public class StrutsParameterLogicImpl
         return formFields;
     }
 
-    // -------------------- business methods ----------------------
-
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getGetterName()()
      */
@@ -217,19 +211,33 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetMessageKey()
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuffer messageKey = new StringBuffer();
 
-        final StrutsAction action = getAction();
-        if (action != null)
+        if (!normalizeMessages())
         {
-            buffer.append(action.getMessageKey());
-            buffer.append('.');
+            if (isActionParameter())
+            {
+                final StrutsAction action = getAction();
+                if (action != null)
+                {
+                    messageKey.append(action.getMessageKey());
+                    messageKey.append('.');
+                }
+            }
+            else
+            {
+                final StrutsJsp page = getJsp();
+                if (page != null)
+                {
+                    messageKey.append(page.getMessageKey());
+                    messageKey.append('.');
+                }
+            }
+            messageKey.append("param.");
         }
 
-        buffer.append("param.");
-        buffer.append(StringUtilsHelper.toResourceMessageKey(getName()));
-
-        return buffer.toString();
+        messageKey.append(StringUtilsHelper.toResourceMessageKey(super.getName()));
+        return messageKey.toString();
     }
 
     /**
@@ -637,7 +645,7 @@ public class StrutsParameterLogicImpl
                 }
             }
         }
-        return  new ArrayList(tableActions);
+        return new ArrayList(tableActions);
     }
 
     protected String handleGetTableDecoratorFullyQualifiedName()
@@ -882,7 +890,26 @@ public class StrutsParameterLogicImpl
 */
     protected String handleGetTableColumnMessageKey(String columnName)
     {
-        return (isTable()) ? getMessageKey() + '.' + columnName.toLowerCase() : null;
+        StringBuffer messageKey = null;
+
+        if (isTable())
+        {
+            messageKey = new StringBuffer();
+
+            if (!normalizeMessages())
+            {
+                final StrutsJsp page = getJsp();
+                if (page != null)
+                {
+                    messageKey.append(getMessageKey());
+                    messageKey.append('.');
+                }
+            }
+
+            messageKey.append(StringUtilsHelper.toResourceMessageKey(columnName));
+        }
+
+        return (messageKey == null) ? null : messageKey.toString();
     }
 
     protected String handleGetTableColumnMessageValue(String columnName)
@@ -1481,10 +1508,10 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getOptionKeys()
      */
-    protected Collection handleGetOptionKeys()
+    protected List handleGetOptionKeys()
     {
         final String key = getMessageKey() + '.';
-        final Collection optionKeys = new ArrayList();
+        final List optionKeys = new ArrayList();
         final int optionCount = getOptionCount() + 1;
         for (int i = 1; i < optionCount; i++) optionKeys.add(key + i);
         return optionKeys;
@@ -1493,9 +1520,9 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getOptionValues()
      */
-    protected Collection handleGetOptionValues()
+    protected List handleGetOptionValues()
     {
-        Collection optionValues = new ArrayList();
+        final List optionValues = new ArrayList();
         Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RADIO);
 
         if (taggedValueObject != null)
@@ -1786,5 +1813,11 @@ public class StrutsParameterLogicImpl
         }
 
         return sortableBy;
+    }
+
+    private boolean normalizeMessages()
+    {
+        final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 }
