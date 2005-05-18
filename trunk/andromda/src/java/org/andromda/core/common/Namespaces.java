@@ -43,7 +43,7 @@ public class Namespaces
     }
 
     /**
-     * Adds a mapping for a namespaces name to a physical directory.
+     * Adds a namespace to this collection of namespaces.
      *
      * @param namespace the Namespace to add to this instance.
      */

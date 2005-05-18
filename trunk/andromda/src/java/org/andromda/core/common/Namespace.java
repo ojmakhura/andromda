@@ -67,7 +67,7 @@ public class Namespace
      * Adds a property to this Namespace object. A property must correspond to a java bean property name on a Plugin in
      * order for it to be set during processing. Otherwise the property will just be ignored.
      *
-     * @param property
+     * @param property the property to add to this namespace.
      */
     public void addProperty(final Property property)
     {
