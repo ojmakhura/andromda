@@ -522,14 +522,6 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getNameSpace()
-     */
-    protected Object handleGetNameSpace()
-    {
-        return metaObject.getNamespace();
-    }
-
-    /**
      * @see org.andromda.metafacades.uml.ModelElementFacadeLogic#getModel()
      */
     protected Object handleGetModel()
