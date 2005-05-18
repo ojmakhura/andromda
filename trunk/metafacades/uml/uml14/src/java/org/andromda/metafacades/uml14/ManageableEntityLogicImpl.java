@@ -43,7 +43,7 @@ public class ManageableEntityLogicImpl
     /**
      * @return the configured property denoting the character sequence to use for the separation of namespaces
      */
-    private String getNamespaceProperty()
+    private String getNamespaceSeparator()
     {
         return (String)getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
     }
@@ -64,7 +64,7 @@ public class ManageableEntityLogicImpl
         final Object suffix = getConfiguredProperty(UMLMetafacadeProperties.MANAGEABLE_PACKAGE_NAME_SUFFIX);
         if (suffix != null && StringUtils.isNotBlank(suffix.toString()))
         {
-            manageablePackageName += this.getNamespaceProperty() + suffix;
+            manageablePackageName += this.getNamespaceSeparator() + suffix;
         }
 
         return manageablePackageName;
@@ -72,7 +72,7 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageablePackagePath()
     {
-        return StringUtils.replace(this.getManageablePackageName(), this.getNamespaceProperty(), "/");
+        return StringUtils.replace(this.getManageablePackageName(), this.getNamespaceSeparator(), "/");
     }
 
     protected java.util.List handleGetManageableAssociationEnds()
@@ -115,12 +115,12 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageableServiceFullPath()
     {
-        return '/' + StringUtils.replace(this.getFullyQualifiedManageableServiceName(), this.getNamespaceProperty(), "/");
+        return '/' + StringUtils.replace(this.getFullyQualifiedManageableServiceName(), this.getNamespaceSeparator(), "/");
     }
 
     protected String handleGetFullyQualifiedManageableServiceName()
     {
-        return this.getManageablePackageName() + this.getNamespaceProperty() + getManageableServiceName();
+        return this.getManageablePackageName() + this.getNamespaceSeparator() + getManageableServiceName();
     }
 
     protected String handleGetManageableServiceAccessorCall()
