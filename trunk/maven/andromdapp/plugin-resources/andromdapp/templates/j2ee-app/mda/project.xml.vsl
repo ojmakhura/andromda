@@ -192,6 +192,7 @@
                  <decorators>${maven.andromda.web.manual.java.dir}</decorators>
                  <messages>${maven.andromda.web.generated.dir}/WEB-INF/classes</messages>
                  <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
+                 <normalizeMessages>false</normalizeMessages>
                  <security>false</security>
                  <securityRealm>other</securityRealm>
 #if ($ejb)
