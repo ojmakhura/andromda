@@ -186,6 +186,23 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>normalizeMessages</td>
+                    <td>
+                        Denotes the way application resource messages ought to be generated.
+                        When messages are normalized it means that elements with the same name
+                        will reuse the same label, even if they are located in entirely different
+                        use-cases or pages.
+                        This results in resource bundles that are not only smaller in size but
+                        also more straightforward to translate. The downside is that it will be
+                        less evident to customize labels for certain fields (which is rarely the
+                        case anyway).
+                        For backward compatibility reasons this flag is disabled by default.
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                </tr>
+                <tr>
                     <td>errorMessagesKey</td>
                     <td>
                         The property used to identify error messages, all messages are stored in the default
