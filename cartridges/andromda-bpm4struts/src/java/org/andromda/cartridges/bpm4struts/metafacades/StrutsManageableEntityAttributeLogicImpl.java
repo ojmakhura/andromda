@@ -70,4 +70,15 @@ public class StrutsManageableEntityAttributeLogicImpl
         // @todo: this implementation must be improved to handle Blob & Clob in a better way
         return getType().getFullyQualifiedName().equals("byte[]");
     }
+
+    protected boolean handleIsHidden()
+    {
+        return !isDisplay() || Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equals(getWidgetType());
+    }
+
+    protected String handleGetWidgetType()
+    {
+        final Object widgetTag = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
+        return (widgetTag == null) ? Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT : widgetTag.toString();
+    }
 }

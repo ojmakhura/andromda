@@ -70,9 +70,9 @@
                     <table>
 #set ($displayId = true)
 #foreach ($member in $manageable.attributes)
-#if (!$member.display)
+#if ($member.hidden)
 #renderHiddenAttribute($member "                    ")
-#if ($member.identifier)#set ($displayId = false)#end
+#if ($member.identifier)#set($displayId = false)#end
 #else
                         <tr>
                             <td>#if ($member.required)<nobr><bean:message key="$member.messageKey"/> <div class="important">*</div></nobr>#else<bean:message key="$member.messageKey"/>#end</td>
@@ -159,7 +159,7 @@
                             </nobr>
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
-#if ($member.display)
+#if (!$member.hidden)
 #if ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
                         <display:column media="html" headerClass="$member.name" titleKey="$member.messageKey">
 ## We're not using <html:checkbox> here because this renders a 'name' attribute which possibly interferes with the

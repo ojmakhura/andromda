@@ -45,7 +45,7 @@ ${indent}</script>
 #elseif ($field.needsFileUpload)
 ${indent}<html:file name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
 #else
-${indent}<html:text name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
+${indent}<html:$field.widgetType name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
 #end
 #end
 ##
