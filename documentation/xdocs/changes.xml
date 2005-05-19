@@ -9,13 +9,17 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-M1-SNAPSHOT" date="2005-05-18" description="Continuous build for the first milestone release of version 3.1">
+        <release version="3.1-M1-SNAPSHOT" date="2005-05-19" description="Continuous build for the first milestone release of version 3.1">
+            <action dev="draftdog" type="add" issue="BPM-186">
+                Manageable entities can now have non-required fields hidden if desired,
+                it is also possible to use textareas instead of plain textfields.
+            </action>
             <action dev="draftdog" type="update" issue="BPM-181">
                 Implemented an improvement in the bpm4struts cartridge related to the i18n of messages. It is now
                 possible to have all messages normalized before they are being rendered into the resource bundle. This
                 means that elements with the same name will use the same message key, previouly each element had its
                 own message key which could easily lead to very large resource bundles. This feature is disabled by
-                default but can be enabled by using the <code>normalizeMessage</code> namespace property and setting
+                default but can be enabled by using the <code>normalizeMessages</code> namespace property and setting
                 it to <code>true</code>.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-55">
