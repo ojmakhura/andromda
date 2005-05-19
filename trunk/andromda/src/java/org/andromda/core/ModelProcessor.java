@@ -1,7 +1,6 @@
 package org.andromda.core;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +18,7 @@ import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceWriter;
+import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.ModelPackages;
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
@@ -156,8 +156,8 @@ public class ModelProcessor
             for (int ctr = 0; ctr < models.length; ctr++)
             {
                 final Model model = models[ctr];
-                ResourceWriter.instance().resetHistory(model.getUrl());
-                AndroMDALogger.info("Input model --> '" + model.getUrl() + "'");
+                ResourceWriter.instance().resetHistory(model.getUri());
+                AndroMDALogger.info("Input model --> '" + model.getUri() + "'");
                 lastModifiedCheck = model.isLastModifiedCheck() && lastModifiedCheck;
                 // we go off the model that was most recently modified.
                 if (model.getLastModified() > lastModified)
@@ -189,8 +189,8 @@ public class ModelProcessor
                 {
                     final Model model = models[ctr];
                     final Transformer transformer = XslTransformer.instance();
-                    final InputStream stream = transformer.transform(model.getUrl(), this.getTransformations());
-                    repository.readModel(stream, model.getUrl().toString(), model.getModuleSearchPath());
+                    final InputStream stream = transformer.transform(model.getUri(), this.getTransformations());
+                    repository.readModel(stream, model.getUri().toString(), model.getModuleSearchLocations());
                     modelPackages.addPackages(model.getPackages());
                 }
 
@@ -357,18 +357,6 @@ public class ModelProcessor
     }
     
     /**
-     * Adds a mappings URI to the store of logical
-     * mappings.  This allows {@link Mappings} instances
-     * to be retrieved from their logial name.
-     *  
-     * @param mappingsUri the URI of the mappings file.
-     */
-    public void addLogicalMappings(final URL mappingsUri)
-    {
-        Mappings.addLogicalMappings(mappingsUri);
-    }
-    
-    /**
      * Stores any transformations that should be applied
      * to the model(s) before processing occurs.
      */
@@ -436,7 +424,7 @@ public class ModelProcessor
         {
             public boolean evaluate(Object object)
             {
-                return object != null && ((Model)object).getUrl() != null;
+                return object != null && ((Model)object).getUri() != null;
             }
         });
         return (Model[])validModels.toArray(new Model[0]);

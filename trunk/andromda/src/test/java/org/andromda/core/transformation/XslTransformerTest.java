@@ -27,9 +27,9 @@ public class XslTransformerTest
         URL transformation2Uri = XslTransformerTest.class.getResource("transformation2.xsl");
         assertNotNull(transformation2Uri);
         Transformation transformation1 = new Transformation();
-        transformation1.setUrl(transformation1Uri);
+        transformation1.setUri(transformation1Uri);
         Transformation transformation2 = new Transformation();
-        transformation2.setUrl(transformation2Uri);
+        transformation2.setUri(transformation2Uri);
         Transformation[] transformations = 
             new Transformation[]
             {

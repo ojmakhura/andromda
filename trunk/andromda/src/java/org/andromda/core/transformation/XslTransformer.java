@@ -68,7 +68,7 @@ public class XslTransformer
                 for (final Iterator xsltIterator = xslts.iterator(); xsltIterator.hasNext();)
                 {
                     final Transformation transformation = (Transformation)xsltIterator.next();
-                    final URL xslt = transformation.getUrl();
+                    final URL xslt = transformation.getUri();
                     resolver.setLocation(xslt);
                     if (xslt != null)
                     {

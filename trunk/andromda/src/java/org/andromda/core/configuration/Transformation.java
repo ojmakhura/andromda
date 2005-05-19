@@ -13,26 +13,26 @@ public class Transformation
     /**
      * The URL location of the transformation.
      */
-    private URL url;
+    private URL uri;
     
     /**
      * Sets the URL of the transformation.
      * 
-     * @param url the URL to the transformation.
+     * @param uri the URL to the transformation.
      */
-    public void setUrl(final URL url)
+    public void setUri(final URL uri)
     {
-        this.url = url;
+        this.uri = uri;
     }
 
     /**
      * The URL of the model.
      * 
-     * @return Returns the url.
+     * @return Returns the uri.
      */
-    public URL getUrl()
+    public URL getUri()
     {
-        return url;
+        return uri;
     }
 
     /**
