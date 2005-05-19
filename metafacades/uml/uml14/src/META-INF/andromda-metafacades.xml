@@ -93,6 +93,9 @@
     <metafacade class="org.andromda.metafacades.uml14.LinkFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.commonbehavior.Link$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.AttributeLinkFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.commonbehavior.AttributeLink$Impl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.LinkEndFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.commonbehavior.LinkEnd$Impl"/>
     </metafacade>
