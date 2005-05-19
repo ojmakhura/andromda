@@ -117,7 +117,7 @@ ${indent}</logic:notPresent>
 #if ($member.type.enumeration)
 setSelect('$member.name','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
 #elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
-setInput('$member.name',${${property}});## no newline
+setCheckbox('$member.name',${${property}});## no newline
 #elseif ($member.type.dateType)
 #set($property = "${member.name}Formatted")## by default we take the property straight for the row value object
 setInput('${member.name}AsString','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
@@ -140,7 +140,7 @@ setSelect('$member.name','<formatting:escape language="javascript">${${property}
 #if ($member.type.enumeration)
 setSelect('$member.name','');## no newline
 #elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
-setInput('$member.name',false);## no newline
+setCheckbox('$member.name',false);## no newline
 #elseif ($member.type.dateType)
 setInput('${member.name}AsString','');## no newline
 #else
