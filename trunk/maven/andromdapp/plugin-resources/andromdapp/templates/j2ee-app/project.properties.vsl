@@ -1,4 +1,5 @@
 application.id=${pom.groupId}
+application.package=${pom.package}
 
 maven.multiproject.includes=**/*project.xml
 maven.multiproject.excludes=project.xml
