@@ -5,25 +5,27 @@
         <property name="processAllModelPackages">true</property>
     </properties>
     <models>
-        <model>file:model1.xmi</model>
-        <model>file:model2.xmi</model>
+        <model lastModifiedCheck="true">
+            <uri>file:model1.xmi</uri>
+            <moduleSearchLocations>
+                <location>/path/to/model/modules1</location>
+                <location>/path/to/model/modules2</location>
+            </moduleSearchLocations>
+            <modelPackages>
+                <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                <modelPackage>org::andromda::cartridges::test</modelPackage>
+            </modelPackages>
+        </model>
+        <model><uri>file:model2.xmi</uri></model>
     </models>
     <transformations>
-        <transformation output="path/to/some/directory/transformed-model.xmi">file:transformation1.xsl</transformation>
-        <transformation>file:transformation2.xsl</transformation>
+        <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
+        <transformation><uri>file:transformation2.xsl</uri></transformation>
     </transformations>
-    <moduleSearchLocations>
-        <location>/path/to/model/modules1</location>
-        <location>/path/to/model/modules2</location>
-    </moduleSearchLocations>
     <mappingsSearchLocations>
         <location>/path/to/mappings/location1</location>
         <location>/path/to/mappings/location2</location>
     </mappingsSearchLocations>
-    <modelPackages>
-        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
-        <modelPackage>org::andromda::cartridges::test</modelPackage>
-    </modelPackages>
     <namespaces>
         <namespace name="default">
             <properties>

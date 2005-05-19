@@ -7,15 +7,16 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;
 import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.ModelPackage;
 import org.andromda.core.configuration.ModelPackages;
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.mapping.Mappings;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.tools.ant.BuildException;
@@ -169,8 +170,15 @@ public class AndroMDAGenTask
                     ModelConfiguration modelConfig = (ModelConfiguration)modelIt.next();
                     if (modelConfig.getUrl() != null)
                     {
-                        models[ctr] = new Model(modelConfig.getUrl(), this.packages, this.lastModifiedCheck,
-                                moduleSearchPath);
+                        final Model model = new Model();
+                        model.setUri(modelConfig.getUrl());
+                        model.setPackages(this.packages);
+                        model.setLastModifiedCheck(this.lastModifiedCheck);
+                        for (int ctr2 = 0; ctr2 < moduleSearchPath.length; ctr2++)
+                        {
+                            model.addModuleSearchLocation(moduleSearchPath[ctr2]);                            
+                        }
+                        models[ctr] = model;
                     }
                 }
             }
@@ -190,8 +198,15 @@ public class AndroMDAGenTask
                         File inFile = new File(baseDir, list[ctr]);
                         try
                         {
-                            models[ctr] = new Model(inFile.toURL(), this.packages, this.lastModifiedCheck,
-                                    moduleSearchPath);
+                            final Model model = new Model();
+                            model.setUri(inFile.toURL());
+                            model.setPackages(this.packages);
+                            model.setLastModifiedCheck(this.lastModifiedCheck);
+                            for (int ctr2 = 0; ctr2 < moduleSearchPath.length; ctr2++)
+                            {
+                                model.addModuleSearchLocation(moduleSearchPath[ctr2]);                            
+                            }
+                            models[ctr] = model;
                         }
                         catch (MalformedURLException mfe)
                         {
@@ -444,7 +459,7 @@ public class AndroMDAGenTask
             {
                 try
                 {
-                    ModelProcessor.instance().addLogicalMappings(((File)mappingsLocationIt.next()).toURL());
+                    Mappings.addLogicalMappings(((File)mappingsLocationIt.next()).toURL());
                 }
                 catch (Throwable th)
                 {
