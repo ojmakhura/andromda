@@ -44,8 +44,7 @@ public class ManageableEntityAttributeLogicImpl
             // only display identifiers when explicitely modeled
             else // if ("auto".equalsIgnoreCase(displayStrategy))
             {
-                // if the owning entity has its identifiers generated then we assume this must be (one of them)/(it)
-                display = !((Entity)getOwner()).isDynamicIdentifiersPresent();
+                display = ((Entity)getOwner()).isUsingAssignedIdentifier();
             }
         }
 
