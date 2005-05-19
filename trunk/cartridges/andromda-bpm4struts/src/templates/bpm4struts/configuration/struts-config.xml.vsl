@@ -15,7 +15,16 @@
 
 <struts-config>
 
+    <!-- display-name merge point -->
+
+    <!-- description merge point -->
+
+    <data-sources>
+        <!-- data-sources merge point -->
+    </data-sources>
+
     <form-beans>
+        <!-- form-beans merge-point -->
 #foreach ($useCase in $useCases)
 #foreach ($action in $useCase.actions)
         <form-bean
@@ -28,6 +37,10 @@
 #end
     </form-beans>
 
+    <global-exceptions>
+        <!-- global-exceptions merge point -->
+    </global-exceptions>
+
     <global-forwards>
         <!-- global-forwards merge-point -->
 #foreach ($useCase in $useCases)
@@ -38,7 +51,8 @@
 #end
     </global-forwards>
 
-   <action-mappings>
+    <action-mappings>
+        <!-- action-mappings merge-point -->
 #foreach ($useCase in $useCases)
 #foreach ($action in $useCase.actions)
         <action
@@ -86,27 +100,31 @@
             <exception type="java.lang.Throwable" key="$manageable.exceptionKey" path="$manageable.exceptionPath" scope="request" />
         </action>
 #end
-   </action-mappings>
+    </action-mappings>
 
-  <message-resources parameter="application-resources" null="false"/>
+    <!-- controller merge point -->
 
+    <!-- message-resources merge-point -->
+    <message-resources parameter="application-resources" null="false"/>
+
+    <!-- plug-in merge-point -->
 #if ($applicationUseCase.applicationValidationRequired && $validationDesired)
-  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-    <set-property property="pathnames" value="/WEB-INF/validation.xml,/WEB-INF/validator-rules.xml"/>
-    <set-property property="stopOnFirstError" value="false"/>
-  </plug-in>
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" value="/WEB-INF/validation.xml,/WEB-INF/validator-rules.xml"/>
+        <set-property property="stopOnFirstError" value="false"/>
+    </plug-in>
 #end
 
-  <plug-in className="org.apache.struts.tiles.TilesPlugin">
-    <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
-    <set-property property="definitions-parser-validate" value="true"/>
-    <set-property property="moduleAware" value="true"/>
-  </plug-in>
+    <plug-in className="org.apache.struts.tiles.TilesPlugin">
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
+        <set-property property="definitions-parser-validate" value="true"/>
+        <set-property property="moduleAware" value="true"/>
+    </plug-in>
 
   <!--
-  <plug-in className="net.sf.navigator.menu.MenuPlugIn">
-    <set-property property="menuConfig" value="/WEB-INF/menu-config.xml"/>
-  </plug-in>
+    <plug-in className="net.sf.navigator.menu.MenuPlugIn">
+        <set-property property="menuConfig" value="/WEB-INF/menu-config.xml"/>
+    </plug-in>
   -->
   
 </struts-config>
