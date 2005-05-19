@@ -43,7 +43,8 @@ ${indent}</logic:notPresent>
 #set($uriQuery='')#set($delim='?')#set($beanName="row")
 #foreach ($parameter in $action.actionParameters)
 ## temporarily commented out, we're taking all parameters from the row since we can't easily check if the row property
-## in missing the property (reflection is not supported in taglibs nor JSTL EL)
+## is missing the property (reflection is not supported in taglibs nor JSTL EL)
+## the idea was to take a property from the action form when it is not defined on the row class
 ##if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#end
 #set($paramValue="${beanName}.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
 #end
@@ -69,24 +70,25 @@ ${indent}</html:link>
 #set ($parameterCount = $action.actionParameters.size())
 #foreach ($parameter in $action.actionParameters)
 ## temporarily commented out, we're taking all parameters from the row since we can't easily check if the row property
-## in missing the property (reflection is not supported in taglibs nor JSTL EL)
+## is missing the property (reflection is not supported in taglibs nor JSTL EL)
+## the idea was to take a property from the action form when it is not defined on the row class
 ##if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#else#set($beanName="row")#end
+#set($linkParameters="${linkParameters}${delim}${parameter.name}=")
 #if ($parameter.widgetType == 'plaintext')
-#set ($requiresQuote = $velocityCount == $parameterCount)
-#set($linkParameters="${linkParameters}${delim}${parameter.name}=${${beanName}.${parameter.name}}")
+#set($linkParameters="${linkParameters}${${beanName}.${parameter.name}}")
+#set ($delim = '&')
 #else
-#set($linkParameters="${linkParameters}${delim}${parameter.name}=' + getElementValueById('$parameter.styleId$rowIndex')")
-#end
-#set($delim='&')
-#if ($requiresQuote)
-#set ($linkParameters = "${linkParameters}'")
+#set($linkParameters="${linkParameters}'+getDiv('$parameter.styleId$rowIndex').value")
+#set ($delim = "+'&")
 #end
 #end
-${indent}<c:set var="link">'<html:rewrite action="${action.actionPath}"/>${linkParameters}</c:set>
+## properly add a suffix when that last entry was an updateable field so the javascript does not have
+## an unclosed literal
+${indent}<c:set var="link">'<html:rewrite action="${action.actionPath}"/>${linkParameters}#if($delim!="+'&")'#end</c:set>
 #if ($action.imageLink)
-${indent}<html:link href="${indent}<c:set var="link">'<html:rewrite action="${action.actionPath}"/>${linkParameters}</c:set>" styleClass="imageLink"><html:img pageKey="$action.imageMessageKey"/></html:link>
+${indent}<html:link href="javascript:document.location=${link};" styleClass="imageLink"><html:img pageKey="$action.imageMessageKey"/></html:link>
 #else
-${indent}<html:link href="javascript:document.location=${link}" styleClass="buttonLink"><bean:message key="$action.messageKey"/></html:link>
+${indent}<html:link href="javascript:document.location=${link};" styleClass="buttonLink"><bean:message key="$action.messageKey"/></html:link>
 #end
 #end
 ##
