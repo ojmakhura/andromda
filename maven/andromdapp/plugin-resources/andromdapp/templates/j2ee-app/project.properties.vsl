@@ -1,12 +1,3 @@
-application.id=${pom.groupId}
-application.package=${pom.package}
-
-maven.multiproject.includes=**/*project.xml
-maven.multiproject.excludes=project.xml
-
-maven.idea.project.version=4
-maven.idea.project.multiproject.basedir=.
-
 #if ($webservice)
 # Change this to the host on which your webservice will be deploy
 service.host=localhost
