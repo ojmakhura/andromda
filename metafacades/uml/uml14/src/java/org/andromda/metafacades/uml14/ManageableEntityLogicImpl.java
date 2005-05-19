@@ -83,10 +83,11 @@ public class ManageableEntityLogicImpl
         for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
             final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
-            if (associationEnd.isMany2One())
+            final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
+
+            if (otherEnd.isNavigable())
             {
-                final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
-                if (otherEnd.isNavigable())
+                if (associationEnd.isMany2One() || (associationEnd.isOne2One() && otherEnd.isChild()))
                 {
                     final Object otherEndType = otherEnd.getType();
                     if (otherEndType instanceof Entity)
@@ -115,7 +116,7 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageableServiceFullPath()
     {
-        return '/' + StringUtils.replace(this.getFullyQualifiedManageableServiceName(), this.getNamespaceSeparator(), "/");
+        return '/' + StringUtils.replace(getFullyQualifiedManageableServiceName(), getNamespaceSeparator(), "/");
     }
 
     protected String handleGetFullyQualifiedManageableServiceName()
@@ -225,10 +226,17 @@ public class ManageableEntityLogicImpl
         for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
             final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
-            final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
-            if (associationEnd.isNavigable() && otherEnd.isMany() && otherEnd.getType() instanceof ManageableEntity)
+
+            if (associationEnd.isNavigable())
             {
-                referencingManageables.add(otherEnd.getType());
+                if (associationEnd.isOne2Many() || (associationEnd.isOne2One() && associationEnd.isChild()))
+                {
+                    final Object otherEndType = associationEnd.getOtherEnd().getType();
+                    if (otherEndType instanceof Entity)
+                    {
+                        referencingManageables.add(otherEndType);
+                    }
+                }
             }
         }
         return new ArrayList(referencingManageables);
@@ -444,7 +452,8 @@ public class ManageableEntityLogicImpl
         return new ArrayList(allManageableEntities);
     }
 
-    private final class ManageableComparator implements Comparator
+    private final class ManageableComparator
+            implements Comparator
     {
         public int compare(Object left, Object right)
         {
