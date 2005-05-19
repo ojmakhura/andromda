@@ -1,5 +1,6 @@
 package org.andromda.core.common;
 
+import org.andromda.core.configuration.Namespaces;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;

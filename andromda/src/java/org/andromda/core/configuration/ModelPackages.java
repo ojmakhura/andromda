@@ -1,4 +1,4 @@
-package org.andromda.core.common;
+package org.andromda.core.configuration;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,7 +11,7 @@ import java.util.Map;
  * need to reference stereotyped model elements from other packages but you don't want to generate elements from them.
  *
  * @author Chad Brandon
- * @see org.andromda.core.common.ModelPackage
+ * @see org.andromda.core.configuration.ModelPackage
  */
 public class ModelPackages
 {

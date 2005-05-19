@@ -1,5 +1,6 @@
-package org.andromda.core.common;
+package org.andromda.core.configuration;
 
+import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.ArrayList;

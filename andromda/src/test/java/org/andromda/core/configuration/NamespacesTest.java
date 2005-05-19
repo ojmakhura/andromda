@@ -1,13 +1,13 @@
-package org.andromda.core.common;
+package org.andromda.core.configuration;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.common.Namespace;
-import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.Property;
+import org.andromda.core.configuration.Namespace;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 
 /**
- * JUnit test for {@link org.andromda.core.common.Namespaces}
+ * JUnit test for {@link org.andromda.core.configuration.Namespaces}
  * 
  * @author Chad Brandon
  */

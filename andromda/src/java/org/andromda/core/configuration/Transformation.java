@@ -1,4 +1,4 @@
-package org.andromda.core.transformation;
+package org.andromda.core.configuration;
 
 import java.net.URL;
 
@@ -11,19 +11,19 @@ import java.net.URL;
 public class Transformation
 {
     /**
-     * Constructs a new instance of this Transformation.
-     * 
-     * @param url the URL to the transformation to apply.
-     */
-    public Transformation(final URL url)
-    {
-        this.url = url;
-    }
-
-    /**
      * The URL location of the transformation.
      */
     private URL url;
+    
+    /**
+     * Sets the URL of the transformation.
+     * 
+     * @param url the URL to the transformation.
+     */
+    public void setUrl(final URL url)
+    {
+        this.url = url;
+    }
 
     /**
      * The URL of the model.
@@ -47,7 +47,7 @@ public class Transformation
      * 
      * @param outputLocation the location of the output to be written.
      */
-    public void setOuputLocation(final String outputLocation)
+    public void setOutputLocation(final String outputLocation)
     {
         this.outputLocation = outputLocation;
     }

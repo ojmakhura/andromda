@@ -1,5 +1,7 @@
 package org.andromda.core.common;
 
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;

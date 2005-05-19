@@ -1,4 +1,4 @@
-package org.andromda.core.common;
+package org.andromda.core.configuration;
 
 /**
  * Contains namespace properties used witin the AndroMDA core. 

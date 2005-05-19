@@ -2,7 +2,7 @@ package org.andromda.ant.task;
 
 import java.net.URL;
 
-import org.andromda.core.transformation.Transformation;
+import org.andromda.core.configuration.Transformation;
 
 /**
  * This class implements the <code>&lt;transformation&gt;</code> element which
@@ -20,8 +20,9 @@ public class TransformationConfiguration
      */
     public Transformation getTransformation()
     {
-        final Transformation transformation = new Transformation(this.url);
-        transformation.setOuputLocation(this.outputLocation);
+        final Transformation transformation = new Transformation();
+        transformation.setUrl(this.url);
+        transformation.setOutputLocation(this.outputLocation);
         return transformation;
     }
 

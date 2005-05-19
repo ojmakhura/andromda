@@ -1,5 +1,6 @@
 package org.andromda.core.common;
 
+import org.andromda.core.configuration.ModelPackages;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacade;
 

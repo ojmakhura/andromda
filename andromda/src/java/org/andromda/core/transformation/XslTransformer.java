@@ -19,6 +19,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.configuration.Transformation;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -50,7 +51,7 @@ public class XslTransformer
     /**
      * Applies the given XSLT files to the model in the order which they are found.
      * 
-     * @see org.andromda.core.transformation.Transformer#transform(java.net.URL, org.andromda.core.transformation.Transformation[])
+     * @see org.andromda.core.transformation.Transformer#transform(java.net.URL, org.andromda.core.configuration.Transformation[])
      */
     public InputStream transform(final URL model, final Transformation[] xsltTransformations)
     {

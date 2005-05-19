@@ -1,5 +1,6 @@
-package org.andromda.core.common;
+package org.andromda.core.configuration;
 
+import org.andromda.core.common.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.Map;
  * Dictionary of configurable Namespace objects. Namespace objects are used for configuring Plugin instances.
  *
  * @author Chad Brandon
- * @see org.andromda.core.common.Namespace
+ * @see org.andromda.core.configuration.Namespace
  */
 public class Namespaces
 {

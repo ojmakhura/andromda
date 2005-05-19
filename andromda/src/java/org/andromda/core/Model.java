@@ -1,7 +1,7 @@
 package org.andromda.core;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.ModelPackages;
+import org.andromda.core.configuration.ModelPackages;
 
 import java.io.IOException;
 import java.net.URL;

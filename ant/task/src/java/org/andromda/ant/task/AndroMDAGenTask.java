@@ -11,11 +11,11 @@ import org.andromda.core.Model;
 import org.andromda.core.ModelProcessor;
 import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.ExceptionRecorder;
-import org.andromda.core.common.ModelPackage;
-import org.andromda.core.common.ModelPackages;
-import org.andromda.core.common.Namespace;
-import org.andromda.core.common.Namespaces;
 import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.configuration.ModelPackage;
+import org.andromda.core.configuration.ModelPackages;
+import org.andromda.core.configuration.Namespace;
+import org.andromda.core.configuration.Namespaces;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.tools.ant.BuildException;
@@ -300,7 +300,7 @@ public class AndroMDAGenTask
      * Specifies whether or not AndroMDA should process all packages.
      *
      * @param processAllModelPackages true/false on whether or not to process all packages.
-     * @see #addModelPackage(org.andromda.core.common.ModelPackage)
+     * @see #addModelPackage(org.andromda.core.configuration.ModelPackage)
      * @see org.andromda.core.ModelProcessor#setProcessAllModelPackages(boolean)
      */
     public void setProcessAllModelPackages(final boolean processAllModelPackages)

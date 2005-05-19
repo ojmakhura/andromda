@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+
+<!-- these are the digester rules used to instantiate and configure
+     an org.andromda.core.mapping.Mappings instance using Apache's Digester -->
+<digester-rules>
+
+    <pattern value="andromda">
+
+        <object-create-rule
+              classname="org.andromda.core.configuration.Configuration" />
+
+        <pattern value="properties/property">
+
+            <object-create-rule
+                classname="org.andromda.core.configuration.Property" />
+
+            <set-properties-rule>
+                 <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>
+
+            <call-method-rule
+                methodname="setValue"
+                paramcount="1" />
+
+            <call-param-rule
+                paramnumber="0"/>
+
+            <set-next-rule methodname="addProperty" />
+
+        </pattern>
+
+        <pattern value="models/model">
+
+            <call-method-rule
+                methodname="addModel"
+                paramcount="1"
+                paramtypes="java.net.URL"/>
+
+            <call-param-rule
+                paramnumber="0"/>
+
+        </pattern>
+
+        <pattern value="transformations/transformation">
+
+            <object-create-rule
+                classname="org.andromda.core.configuration.Transformation" />
+
+            <call-method-rule
+                methodname="setUrl"
+                paramcount="1"
+                paramtypes="java.net.URL"/>
+
+            <call-param-rule
+                paramnumber="0"/>
+
+            <set-properties-rule>
+                 <alias attr-name="output" prop-name="outputLocation" />
+            </set-properties-rule>
+
+            <set-next-rule methodname="addTransformation" />
+
+        </pattern>
+        
+        <pattern value="moduleSearchLocations/location">
+
+            <call-method-rule
+                methodname="addModuleSearchLocation"
+                paramcount="1"/>
+
+            <call-param-rule
+                paramnumber="0"/>
+
+        </pattern>
+        
+        <pattern value="mappingsSearchLocations/location">
+
+            <call-method-rule
+                methodname="addMappingsSearchLocation"
+                paramcount="1"/>
+
+            <call-param-rule
+                paramnumber="0"/>
+
+        </pattern>
+
+        <pattern value="modelPackages/modelPackage">
+
+            <object-create-rule
+                classname="org.andromda.core.configuration.ModelPackage" />
+
+            <call-method-rule
+                methodname="setName"
+                paramcount="1"/>
+
+            <call-param-rule
+                paramnumber="0"/>
+
+            <set-properties-rule>
+                 <alias attr-name="process" prop-name="shouldProcess" />
+            </set-properties-rule>
+
+            <set-next-rule methodname="addModelPackage" />
+
+        </pattern>
+        
+        <pattern value="namespaces/namespace">
+
+            <object-create-rule
+                classname="org.andromda.core.configuration.Namespace" />
+
+            <set-properties-rule>
+                 <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>
+            
+            <pattern value="properties/property">
+                <object-create-rule
+                    classname="org.andromda.core.configuration.Property" />
+    
+                <set-properties-rule>
+                     <alias attr-name="name" prop-name="name" />
+                </set-properties-rule>
+    
+                <call-method-rule
+                    methodname="setValue"
+                    paramcount="1" />
+    
+                <call-param-rule
+                    paramnumber="0"/>
+    
+                <set-next-rule methodname="addProperty" />                
+            </pattern>
+
+            <set-next-rule methodname="addNamespace" />
+
+        </pattern>
+
+    </pattern>
+
+</digester-rules>

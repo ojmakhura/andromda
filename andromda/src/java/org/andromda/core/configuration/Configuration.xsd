@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+     This schema defines the AndroMDA configuration xml file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES
+     ========================================================================= -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="andromda">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="properties" minOccurs="0"/>
+                <xs:element ref="models"/>
+                <xs:element ref="transformations" minOccurs="0"/>
+                <xs:element ref="moduleSearchLocations"/>
+				<xs:element ref="mappingsSearchLocations"/>
+                <xs:element ref="modelPackages" minOccurs="0"/>
+                <xs:element ref="namespaces"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	<xs:element name="location" type="xs:string"/>
+	<xs:element name="moduleSearchLocations">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="location" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mappingsSearchLocations">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="location" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+    <xs:element name="model" type="xs:string"/>
+    <xs:element name="modelPackage">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="process" type="xs:boolean" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="modelPackages">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="modelPackage" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="models">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="model" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="namespace">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="properties"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="namespaces">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="namespace" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="properties">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="property" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="property">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="name" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+    </xs:element>
+    <xs:element name="transformation">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="output" type="xs:string" use="optional"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+    </xs:element>
+    <xs:element name="transformations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="transformation" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
