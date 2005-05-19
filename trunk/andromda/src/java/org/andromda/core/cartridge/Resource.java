@@ -1,8 +1,8 @@
 package org.andromda.core.cartridge;
 
-import org.andromda.core.common.NamespaceProperties;
-import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.Property;
+import org.andromda.core.configuration.NamespaceProperties;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;

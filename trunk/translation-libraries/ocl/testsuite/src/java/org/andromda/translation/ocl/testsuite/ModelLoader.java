@@ -1,10 +1,10 @@
 package org.andromda.translation.ocl.testsuite;
 
 import org.andromda.core.common.ComponentContainer;
-import org.andromda.core.common.Namespace;
-import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.Property;
 import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.configuration.Namespace;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacade;

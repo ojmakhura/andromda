@@ -2,6 +2,11 @@ package org.andromda.core.common;
 
 import java.net.URL;
 
+import org.andromda.core.configuration.Namespace;
+import org.andromda.core.configuration.NamespaceProperties;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
+
 import junit.framework.TestCase;
 
 /**

@@ -2,10 +2,10 @@ package org.andromda.templateengines.velocity;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.common.Namespace;
-import org.andromda.core.common.NamespaceProperties;
-import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.Property;
+import org.andromda.core.configuration.Namespace;
+import org.andromda.core.configuration.NamespaceProperties;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 

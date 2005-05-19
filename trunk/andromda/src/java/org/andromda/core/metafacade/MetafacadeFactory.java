@@ -2,8 +2,8 @@ package org.andromda.core.metafacade;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.Namespaces;
-import org.andromda.core.common.Property;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

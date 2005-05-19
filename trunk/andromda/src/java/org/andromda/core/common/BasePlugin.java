@@ -1,5 +1,8 @@
 package org.andromda.core.common;
 
+import org.andromda.core.configuration.NamespaceProperties;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 import org.andromda.core.templateengine.TemplateEngine;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;

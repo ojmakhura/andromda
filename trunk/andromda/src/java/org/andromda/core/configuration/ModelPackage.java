@@ -1,16 +1,15 @@
-package org.andromda.core.common;
+package org.andromda.core.configuration;
 
 /**
  * Used to specify which packages should or should not be processed within the model. This is useful if you need to
  * reference stereotyped model elements from other packages but you don't want to generate elements from them.
  *
  * @author Chad Brandon
- * @see org.andromda.core.common.ModelPackages
+ * @see org.andromda.core.configuration.ModelPackages
  */
 public class ModelPackage
 {
     private String name;
-    private boolean shouldProcess;
 
     /**
      * Gets the name of this ModelPackage.
@@ -31,6 +30,12 @@ public class ModelPackage
     {
         this.name = name;
     }
+    
+    /**
+     * The flag indicating whether or not this model package
+     * should be processed.
+     */
+    private boolean shouldProcess = true;
 
     /**
      * Whether or not this ModelPackage should be processed.
@@ -47,8 +52,8 @@ public class ModelPackage
      *
      * @param shouldProcess The shouldProcess to set.
      */
-    public void setShouldProcess(final boolean shouldProcess)
+    public void setShouldProcess(final boolean process)
     {
-        this.shouldProcess = shouldProcess;
+        this.shouldProcess = process;
     }
 }

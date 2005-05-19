@@ -1,4 +1,4 @@
-package org.andromda.core.common;
+package org.andromda.core.configuration;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -8,8 +8,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * Plugin instances.
  *
  * @author Chad Brandon
- * @see org.andromda.core.common.Namespace
- * @see org.andromda.core.common.Namespaces
+ * @see org.andromda.core.configuration.Namespace
+ * @see org.andromda.core.configuration.Namespaces
  */
 public class Property
 {    
