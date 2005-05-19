@@ -27,6 +27,11 @@
 #else
         //<!--
 #end
+            function setCheckbox(name, value)
+            {
+                document.forms['$manageable.formBeanName'].elements[name].checked = value;
+            }
+
             function setInput(name, value)
             {
                 document.forms['$manageable.formBeanName'].elements[name].value = value;
@@ -75,7 +80,7 @@
 #if ($member.identifier)#set($displayId = false)#end
 #else
                         <tr>
-                            <td>#if ($member.required)<nobr><bean:message key="$member.messageKey"/> <div class="important">*</div></nobr>#else<bean:message key="$member.messageKey"/>#end</td>
+                            <td>#if ($member.required && !($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean'))<nobr><bean:message key="$member.messageKey"/> <div class="important">*</div></nobr>#else<bean:message key="$member.messageKey"/>#end</td>
                             <td>
 #renderAttribute($member "                                ")
                             </td>
