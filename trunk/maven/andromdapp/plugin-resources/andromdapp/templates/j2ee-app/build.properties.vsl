@@ -1,3 +1,13 @@
+application.id=${projectId}
+application.package=${projectPackage}
+
+maven.multiproject.includes=**/*project.xml
+maven.multiproject.excludes=project.xml
+
+maven.idea.project.version=4
+maven.idea.project.multiproject.basedir=.
+
+
 # AndroMDA dependencies version
 andromda.version=current.version
 #if ($webservice)
