@@ -2,13 +2,13 @@
 
 <project>
     <extend>../project.xml</extend>
-    <artifactId>crud</artifactId>
+    <artifactId>${application.id}</artifactId>
     <name>The CRUD Sample</name>
     <shortDescription>The CRUD Sample</shortDescription>
     <description>
         Contains the CRUD Sample Project.
     </description>
-  	<package>org.andromda.samples.crud</package>
+  	<package>${application.package}</package>
     <build>
         <sourceDirectory>target/src</sourceDirectory>
     </build>
