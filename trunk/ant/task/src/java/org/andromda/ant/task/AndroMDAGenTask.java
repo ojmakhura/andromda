@@ -1,17 +1,11 @@
 package org.andromda.ant.task;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import org.andromda.core.AndroMDA;
 import org.andromda.core.ModelProcessor;
 import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.ExceptionRecorder;
+import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.ModelPackage;
 import org.andromda.core.configuration.ModelPackages;
@@ -21,17 +15,30 @@ import org.andromda.core.configuration.Transformation;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.apache.tools.ant.types.Path;
+
+import java.io.File;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * <p/> This class wraps the AndroMDA model processor so that AndroMDA can be
  * used as an Ant task. Represents the <code>&lt;andromda&gt;</code> custom
  * task which can be called from an Ant build script.
  * </p>
- * 
+ *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
@@ -62,7 +69,6 @@ public class AndroMDAGenTask
      * A ModelPackages object which specify whether or not packages should be processed.
      */
     private ModelPackages packages = new ModelPackages();
-
     private RepositoryConfiguration repositoryConfiguration = null;
 
     /**
@@ -85,15 +91,15 @@ public class AndroMDAGenTask
     {
         namespaces.add(namespace);
     }
-    
+
     /**
-     * 
+     *
      */
     private URL configurationUri;
-    
+
     /**
      * Sets the URI to the configuration file.
-     * 
+     *
      * @param configurationUri
      */
     public void setConfigurationUri(final URL configurationUri)
@@ -152,7 +158,8 @@ public class AndroMDAGenTask
      *
      * @throws BuildException if something goes wrong
      */
-    public void execute() throws BuildException
+    public void execute()
+        throws BuildException
     {
         // initialize before the execute as well in case we
         // want to execute more than once
@@ -163,20 +170,21 @@ public class AndroMDAGenTask
             {
                 this.initializeMappings();
                 this.initializeNamespaces();
-    
+
                 DirectoryScanner scanner;
                 String[] list;
-    
+
                 if (baseDir == null)
                 {
                     // We directly change the user variable, because it
                     // shouldn't lead to problems
                     baseDir = this.getProject().resolveFile(".");
                 }
-    
+
                 String[] moduleSearchPath = this.createRepository().createModuleSearchPath().list();
-    
+
                 Model[] models;
+
                 // if the model is specified explicitly
                 // then we create the Model instances from the
                 // ModelConfiguration instances.
@@ -195,7 +203,7 @@ public class AndroMDAGenTask
                             model.setLastModifiedCheck(this.lastModifiedCheck);
                             for (int ctr2 = 0; ctr2 < moduleSearchPath.length; ctr2++)
                             {
-                                model.addModuleSearchLocation(moduleSearchPath[ctr2]);                            
+                                model.addModuleSearchLocation(moduleSearchPath[ctr2]);
                             }
                             models[ctr] = model;
                         }
@@ -205,10 +213,10 @@ public class AndroMDAGenTask
                 {
                     // find the files/directories
                     scanner = getDirectoryScanner(baseDir);
-    
+
                     // get a list of files to work on
                     list = scanner.getIncludedFiles();
-    
+
                     if (list.length > 0)
                     {
                         models = new Model[list.length];
@@ -223,7 +231,7 @@ public class AndroMDAGenTask
                                 model.setLastModifiedCheck(this.lastModifiedCheck);
                                 for (int ctr2 = 0; ctr2 < moduleSearchPath.length; ctr2++)
                                 {
-                                    model.addModuleSearchLocation(moduleSearchPath[ctr2]);                            
+                                    model.addModuleSearchLocation(moduleSearchPath[ctr2]);
                                 }
                                 models[ctr] = model;
                             }
@@ -238,27 +246,36 @@ public class AndroMDAGenTask
                         throw new BuildException("Could not find any model input!");
                     }
                 }
-                
+
                 final ModelProcessor processor = ModelProcessor.instance();
-    
+
                 final Collection transformations = new ArrayList();
+
                 // Add any transformations to the model processor
-                for (final Iterator transformationIterator = transformations.iterator(); transformationIterator.hasNext();)
+                for (final Iterator transformationIterator = transformations.iterator();
+                    transformationIterator.hasNext();)
                 {
-                    transformations.add(((TransformationConfiguration)transformationIterator.next()).getTransformation());
+                    transformations.add(
+                        ((TransformationConfiguration)transformationIterator.next()).getTransformation());
                 }
                 processor.addTransformations((Transformation[])transformations.toArray(new Transformation[0]));
-                
+
                 // set the cartridge filter
                 processor.setCartridgeFilter(this.cartridgeFilter);
-    
+
                 // pass the loaded model(s) to the ModelProcessor
                 processor.process(models);
             }
             else
             {
-                final AndroMDA andromda = AndroMDA.getInstance(this.configurationUri);
-                andromda.run();
+                final Configuration configuration =
+                    Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(configurationUri)));
+                final AndroMDA andromda = AndroMDA.getInstance(configuration);
+                if (andromda != null)
+                {
+                    andromda.run();
+                    andromda.shutdown();
+                }
             }
         }
         catch (ModelProcessorException th)
@@ -282,6 +299,29 @@ public class AndroMDAGenTask
     }
 
     /**
+     * Replaces all properties having the style
+     * <code>${some.property}</code> with the value
+     * of the specified property if there is one.
+     *
+     * @param fileContents the fileContents to perform replacement on.
+     */
+    protected String replaceProperties(String string)
+    {
+        final Map properties = this.getProject().getProperties();
+        if (properties != null && !properties.isEmpty())
+        {
+            for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
+            {
+                final String name = (String)iterator.next();
+                final String property = "${" + name + "}";
+                final String value = (String)properties.get(name);
+                string = StringUtils.replace(string, property, value);
+            }
+        }
+        return string;
+    }
+
+    /**
      * Set the context class loader so that any classes using it (the contextContextClassLoader) have access to the
      * correct loader.
      */
@@ -297,14 +337,16 @@ public class AndroMDAGenTask
      */
     private final void initializeNamespaces()
     {
-        CollectionUtils.forAllDo(this.namespaces, new Closure()
-        {
-            public void execute(Object object)
+        CollectionUtils.forAllDo(
+            this.namespaces,
+            new Closure()
             {
-                Namespace namespace = (Namespace)object;
-                Namespaces.instance().addNamespace(namespace);
-            }
-        });
+                public void execute(Object object)
+                {
+                    Namespace namespace = (Namespace)object;
+                    Namespaces.instance().addNamespace(namespace);
+                }
+            });
     }
 
     /**
@@ -321,12 +363,12 @@ public class AndroMDAGenTask
         }
         return repositoryConfiguration;
     }
-    
+
     /**
      * Stores any models to be processed.
      */
     private final Collection models = new ArrayList();
-    
+
     /**
      * Adds a new model configuration object. This enables an Ant build script to use the <code>&lt;model&gt;</code>
      * within the <code>&lt;andromda&gt;</code> task, which allows multiple models to be processed.
@@ -397,7 +439,7 @@ public class AndroMDAGenTask
     {
         ModelProcessor.instance().setFailOnValidationErrors(failOnModelValidationErrors);
     }
-    
+
     /**
      * Sets <code>encoding</code> to use for all generated output.
      *
@@ -422,12 +464,12 @@ public class AndroMDAGenTask
     {
         ModelProcessor.instance().setModelValidation(modelValidation);
     }
-    
+
     /**
      * Stores any transformations to be applied.
      */
     private final List transformations = new ArrayList();
-    
+
     /**
      * Adds an XSL transformation to the model processor.  Each transformation
      * added will be applied to the model before processing occurs.
