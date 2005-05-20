@@ -1,7 +1,6 @@
 <andromda>
     <properties>
         <property name="failOnValidationErrors">false</property>
-        <property name="overwrite">true</property>
     </properties>
     <models>
         <model>
@@ -14,6 +13,7 @@
     <namespaces>
         <namespace name="default">
             <properties>
+                <property name="overwrite">true</property>
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="jdbcMappingsUri">JDBC</property>
