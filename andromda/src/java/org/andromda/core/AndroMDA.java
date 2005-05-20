@@ -15,6 +15,7 @@ import java.net.URL;
  * loading/processing of models by plugins. Basically a wrapper around the {@link ModelProcessor}
  * that takes a configuration file in order to configuration AndroMDA.
  *
+ * @see ModelProcessor 
  * @author Chad Brandon
  */
 public class AndroMDA
@@ -90,7 +91,7 @@ public class AndroMDA
     }
 
     /**
-     * Runs AndroMDA.
+     * Runs AndroMDA's model processor.
      */
     public void run()
     {
