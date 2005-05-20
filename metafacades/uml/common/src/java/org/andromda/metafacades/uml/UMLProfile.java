@@ -245,11 +245,16 @@ public class UMLProfile
     public static final String BOOLEAN_TYPE_NAME = profile.get("BOOLEAN_TYPE");
 
     /**
-    /**
      * Used to identify a file type in the model, any other type that will be identified as a file type must specialize
      * this type.
      */
     public static final String FILE_TYPE_NAME = profile.get("FILE_TYPE");
+
+    /**
+     * Used to identify a Blob type in the model, any other type that will be identified as a Blob type must specialize
+     * this type.
+     */
+    public static final String BLOB_TYPE_NAME = profile.get("BLOB_TYPE");
 
     /**
      * Used to identify a map type in the model, any other type that will be identified as a map type must specialize
