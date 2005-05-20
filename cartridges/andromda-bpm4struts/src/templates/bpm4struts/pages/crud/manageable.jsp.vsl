@@ -79,7 +79,9 @@ form);
 
             function setFields(## no newline
 #foreach($member in $manageable.attributes)
+#if (!$member.needsFileUpload)## file upload fields apparently cannot have DHTML set their values (probably because the path could be invalid)
 $member.name,## no newline
+#end
 #end
 #foreach($member in $manageable.manageableAssociationEnds)
 $member.name,## no newline
