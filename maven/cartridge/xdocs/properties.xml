@@ -17,17 +17,14 @@
                         <td>andromda.cartridge.test.configuration.uri</td>
                         <td>Yes</td>
                         <td>
-                            The URI to the AndroMDA configuration file (this configures AndroMDA for the tests).
+                            The URI to the AndroMDA configuration file (this configures AndroMDA for the test model generation).
                         </td>
                     </tr>
                     <tr>
-                        <td>andromda.cartridge.lastModifiedCheck</td>
-                        <td>No</td>
+                        <td>andromda.cartridge.howto.configuration.uri</td>
+                        <td>Yes</td>
                         <td>
-                            Whether or not to perform a last modified check
-                            when deciding whether or not to generate the 
-                            test output. 
-                            Default is <code>true</code>
+                            The URI to the AndroMDA configuration file (this configures AndroMDA for the how-to model generation).
                         </td>
                     </tr>
                     <tr>
