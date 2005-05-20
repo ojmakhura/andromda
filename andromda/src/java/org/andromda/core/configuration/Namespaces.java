@@ -126,7 +126,7 @@ public class Namespaces
             }
         }
 
-        if (namespace == null && showWarning)
+        if (namespace == null && defaultNamespace == null && showWarning)
         {
             logger.warn(
                 "WARNING! No '" + DEFAULT + "' or '" + namespaceName + "' namespace found, " +
