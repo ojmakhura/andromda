@@ -55,6 +55,11 @@
         <property reference="serviceAccessorPattern" default=""/>
         <property reference="servicePackageNamePattern" default="{0}"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+            <property name="owner.manageable"/>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringManageableEntity</context>
