@@ -131,10 +131,10 @@ public class ModelProcessor
                     totalMessagesMessage.append(" VALIDATION ERROR(S)");
                     messages = this.sortValidationMessages(messages);
                     AndroMDALogger.setSuffix("VALIDATION:ERROR");
-                    Iterator messageIt = messages.iterator();
+                    final Iterator messageIt = messages.iterator();
                     for (int ctr = 1; messageIt.hasNext(); ctr++)
                     {
-                        ModelValidationMessage message = (ModelValidationMessage)messageIt.next();
+                        final ModelValidationMessage message = (ModelValidationMessage)messageIt.next();
                         AndroMDALogger.error(ctr + ") " + message);
                     }
                     AndroMDALogger.reset();
@@ -143,7 +143,7 @@ public class ModelProcessor
                     + ((System.currentTimeMillis() - startTime) / 1000.0)
                     + "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount()
                     + totalMessagesMessage);
-                if (failOnValidationErrors && !messages.isEmpty())
+                if (this.failOnValidationErrors && !messages.isEmpty())
                 {
                     throw new ModelProcessorException("Model validation failed!");
                 }

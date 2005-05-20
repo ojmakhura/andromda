@@ -1,0 +1,56 @@
+<andromda>
+    <properties>
+        <property name="cartridgeFilter">bpm4struts</property>
+        <property name="failOnValidationErrors">false</property>
+    </properties>
+    <models>
+        <model>
+            <uri>${andromda.cartridge.test.model.uri}</uri>
+            <moduleSearchLocations>
+                <location>${basedir}/../../etc/profile/src/uml</location>
+            </moduleSearchLocations>
+        </model>
+    </models>
+    <namespaces>
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="overwrite">true</property>
+                <property name="xhtml">false</property>
+                <property name="dummyData">true</property>
+                <property name="breadCrumbs">true</property>
+                <property name="onlineHelp">true</property>
+                <property name="welcomeFileName">index.jsp</property>
+                <property name="clientValidation">true</property>
+                <property name="serverValidation">true</property>
+                <property name="security">true</property>
+                <property name="securityRealm">other</property>
+                <property name="server">${test.output.dir}</property>
+                <property name="forms">${test.output.dir}</property>
+                <property name="pages">${test.output.dir}</property>
+                <property name="actions">${test.output.dir}</property>
+                <property name="controllers">${test.output.dir}</property>
+                <property name="controller-impls">${test.output.dir}</property>
+                <property name="messages">${test.output.dir}</property>
+                <property name="configuration">${test.output.dir}</property>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="serviceAccessorPattern">{0}.ServiceLocator.instance().get{1}()</property>
+                <property name="servicePackageNamePattern">{0}.ws</property>
+                <property name="roleNameMask">uppercamelcase</property>
+                <property name="generateWebXmlIds">true</property>
+                <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
+                <property name="actionPathPrefix">/testPrefix/{0}</property>
+                <property name="decorators">${test.output.dir}</property>
+                <!--
+                <property name=""></property>
+                <property name=""></property>
+                <property name=""></property>
+                <property name=""></property>
+                <property name=""></property>
+                <property name=""></property>
+                <property name=""></property>
+                -->
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>
