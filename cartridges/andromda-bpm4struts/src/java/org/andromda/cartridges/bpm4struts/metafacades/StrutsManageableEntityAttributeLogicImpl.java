@@ -67,8 +67,7 @@ public class StrutsManageableEntityAttributeLogicImpl
 
     protected boolean handleIsNeedsFileUpload()
     {
-        // @todo: this implementation must be improved to handle Blob & Clob in a better way
-        return getType().getFullyQualifiedName().equals("byte[]");
+        return getType().isBlobType();
     }
 
     protected boolean handleIsHidden()
