@@ -1,13 +1,16 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -18,7 +21,6 @@ import java.util.Properties;
  */
 public class PluginDiscoverer
 {
-
     private static final Logger logger = Logger.getLogger(PluginDiscoverer.class);
 
     /**
@@ -80,7 +82,7 @@ public class PluginDiscoverer
      *
      * @param showPlugins if true then the plugin found will be logged, otherwise nothing will be shown.
      */
-    public void discoverPlugins(final boolean showPlugins)
+    private void discoverPlugins(final boolean showPlugins)
     {
         final String methodName = "PluginDiscoverer.discoverPlugins";
         if (showPlugins)
@@ -96,33 +98,48 @@ public class PluginDiscoverer
                 final Class pluginClass = ClassUtils.loadClass(pluginClassName);
                 if (!Plugin.class.isAssignableFrom(pluginClass))
                 {
-                    throw new PluginDiscovererException(methodName + " plugin class '"
-                        + pluginClassName + "' must implement --> '" + Plugin.class + "'");
+                    throw new PluginDiscovererException(
+                        methodName + " plugin class '" + pluginClassName + "' must implement --> '" + Plugin.class +
+                        "'");
                 }
 
                 final URL[] pluginResources = ResourceFinder.findResources(pluginXmlUri);
                 if (pluginResources != null && pluginResources.length > 0)
                 {
+                    final Set discoveredPlugins = new HashSet();
                     for (int ctr = 0; ctr < pluginResources.length; ctr++)
                     {
-
                         final URL pluginUri = pluginResources[ctr];
                         final XmlObjectFactory factory = XmlObjectFactory.getInstance(pluginClass);
                         Plugin plugin = (Plugin)factory.getObject(pluginUri);
-                        // perform the merge of the configuration file since
-                        // we now know the namespace
-                        final String pluginUriContents = Merger.instance().getMergedString(
-                            ResourceUtils.getContents(pluginUri),
-                            plugin.getName());
-                        plugin = (Plugin)factory.getObject(pluginUriContents);
-                        plugin.setResource(pluginUri);
+                        final String pluginName = plugin.getName();
 
-                        if (!ComponentContainer.instance().isRegistered(plugin.getName()))
+                        final ComponentContainer container = ComponentContainer.instance();
+                        if (container.isRegistered(plugin.getName()))
                         {
-                            if (showPlugins && logger.isInfoEnabled())
-                                AndroMDALogger.info("found " + plugin.getType() + " --> '" + plugin.getName() + "'");
-
-                            ComponentContainer.instance().registerComponent(plugin.getName(), plugin);
+                            plugin = (Plugin)container.findComponent(pluginName);
+                        }
+                        else
+                        {
+                            // perform the merge of the configuration file since
+                            // we now know the namespace
+                            final String pluginUriContents =
+                                Merger.instance().getMergedString(
+                                    ResourceUtils.getContents(pluginUri),
+                                    plugin.getName());
+                            plugin = (Plugin)factory.getObject(pluginUriContents);
+                            plugin.setResource(pluginUri);
+                            container.registerComponent(pluginName, plugin);
+                        }
+                        discoveredPlugins.add(plugin);
+                    }
+                    // list out the discovered plugins
+                    for (final Iterator iterator = discoveredPlugins.iterator(); iterator.hasNext();)
+                    {
+                        final Plugin plugin = (Plugin)iterator.next();
+                        if (showPlugins && logger.isInfoEnabled())
+                        {
+                            AndroMDALogger.info("found " + plugin.getType() + " --> '" + plugin.getName() + "'");
                         }
                     }
                 }
