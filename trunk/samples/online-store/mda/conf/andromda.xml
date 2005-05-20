@@ -1,0 +1,42 @@
+<andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <models>
+        <model>
+            <uri>${maven.andromda.model.uri}</uri>
+            <moduleSearchLocations>
+                <location>${maven.repo.local}/andromda/xml.zips</location>
+            </moduleSearchLocations>
+        </model>
+    </models>
+    <namespaces>
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="xhtml">false</property>
+                <property name="xhtml">false</property>
+                <property name="breadCrumbs">true</property>
+                <property name="maxBreadCrumbs">true</property>
+                <property name="normalizeMessages">true</property>
+                <property name="onlineHelp">true</property>
+                <property name="defaultDateFormat">dd-MM-yyyy</property>
+                <property name="welcomeFileName">index.jsp</property>
+                <property name="clientValidation">true</property>              
+                <property name="serverValidation">true</property>
+                <property name="security">false</property>
+                <property name="securityRealm">other</property>
+                <property name="server">${maven.andromda.bpm4struts.generated.dir}</property>
+                <property name="forms">${maven.andromda.bpm4struts.generated.dir}</property>
+                <property name="pages">${maven.andromda.bpm4struts.generated.dir}</property>
+                <property name="actions">${maven.andromda.bpm4struts.generated.dir}</property>
+                <property name="controllers">${maven.andromda.bpm4struts.generated.dir}</property>
+                <property name="controller-impls">${maven.andromda.bpm4struts.generated.dir}</property>
+                <property name="messages">${maven.andromda.bpm4struts.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${maven.andromda.bpm4struts.generated.dir}/WEB-INF</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>
