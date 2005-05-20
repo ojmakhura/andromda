@@ -155,6 +155,10 @@
         <to>datatype::File</to>
     </mapping>
     <mapping>
+        <from>BLOB_TYPE</from>
+        <to>datatype::Blob</to>
+    </mapping>
+    <mapping>
         <from>MAP_TYPE</from>
         <to>datatype::Map</to>
     </mapping>
