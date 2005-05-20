@@ -19,6 +19,12 @@ public interface $manageable.manageableDaoName
 
     public java.util.List readAll();
 
+#foreach ($member in $manageable.attributes)
+#if ($member.manageableGetterAvailable)
+    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name);
+
+#end
+#end
 #if (!$manageable.manageableAssociationEnds.empty)
     public java.util.Map readBackingLists();
 

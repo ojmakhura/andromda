@@ -22,6 +22,13 @@ public interface $manageable.manageableServiceName
     public java.util.List readAll()
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
+#foreach ($member in $manageable.attributes)
+#if ($member.manageableGetterAvailable)
+    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+#end
+#end
 #if (!$manageable.manageableAssociationEnds.empty)
     public java.util.Map readBackingLists()
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;

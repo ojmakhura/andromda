@@ -64,6 +64,27 @@ public final class $manageable.manageableServiceBaseName
         return toValueObjects(dao.readAll());
     }
 
+#foreach ($member in $manageable.attributes)
+#if ($member.manageableGetterAvailable)
+    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+#if (!$member.type.primitive)
+        if ($identifier.name == null)
+        {
+            throw new IllegalArgumentException(
+                "${manageable.fullyQualifiedManageableServiceName}.${member.getterName}($identifier.type.fullyQualifiedName $identifier.name) - '${identifier.name}' can not be null");
+        }
+
+#end
+        return dao.${member.getterName}($identifier.name);
+    }
+
+#end
+#end
 #if (!$manageable.manageableAssociationEnds.empty)
     public java.util.Map readBackingLists()
         throws Exception
