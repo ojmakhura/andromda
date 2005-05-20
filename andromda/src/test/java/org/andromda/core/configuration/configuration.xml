@@ -33,7 +33,7 @@
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="sqlMappingsUri">${sql.mappings}</property>
                 <property name="jdbcMappingsUri">JDBC</property>
-                <property name="maxSqlNameLength">30</property>
+                <property name="maxSqlNameLength" ignore="true"/>
                 <property name="foreignKeySuffix">_FK</property>
                 <property name="ejbJndiNamePrefix">${pom.groupId}</property>
                  <!-- these masking properties allow you to configure the way
