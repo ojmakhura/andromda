@@ -247,7 +247,7 @@ public final class $manageable.actionClassName extends DispatchAction
         {
             response.setContentType("application/octet-stream");
             response.setContentLength(${member.name}.length);
-            response.setHeader("Content-disposition", "inline; filename=${manageable.name}-${member.name}.bin");
+            response.setHeader("Content-disposition", "attachment; filename=${manageable.name.toLowerCase()}-${member.name}.bin");
             response.getOutputStream().write($member.name);
         }
 
