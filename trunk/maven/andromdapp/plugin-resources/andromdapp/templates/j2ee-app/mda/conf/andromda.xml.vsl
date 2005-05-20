@@ -5,7 +5,7 @@
     </properties>
     <models>
         <model>
-            <uri>file:${maven.src.dir}/uml/PatientTrackerModel.xmi</uri>
+            <uri>${maven.andromda.model.uri}</uri>
             <moduleSearchLocations>
                 <location>${maven.repo.local}/andromda/xml.zips</location>
             </moduleSearchLocations>
