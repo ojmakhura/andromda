@@ -1,15 +1,15 @@
 package org.andromda.core.configuration;
 
-import org.andromda.core.common.XmlObjectFactory;
-import org.andromda.core.mapping.Mappings;
-
 import java.io.File;
-
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.mapping.Mappings;
 
 
 /**
@@ -22,17 +22,43 @@ import java.util.Iterator;
 public class Configuration
 {
     /**
+     * The configuration instance factory.
+     */
+    private static final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
+    
+    /**
      * Gets a Configuration instance from the given <code>uri</code>.
      *
      * @param uri the URI to the configuration file.
      * @return the configured instance.
      */
-    public final static Configuration getInstance(URL uri)
+    public final static Configuration getInstance(final URL uri)
     {
-        final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
         return (Configuration)factory.getObject(uri);
     }
+    
+    /**
+     * Gets a Configuration instance from the given <code>stream</code>.
+     *
+     * @param stream the InputStream containing the configuration file.
+     * @return the configured instance.
+     */
+    public final static Configuration getInstance(final InputStream stream)
+    {
+        return (Configuration)factory.getObject(new InputStreamReader(stream));
+    }
 
+    /**
+     * Gets a Configuration instance from the given <code>string</code>.
+     *
+     * @param stream the String containing the configuration.
+     * @return the configured instance.
+     */
+    public final static Configuration getInstance(final String string)
+    {
+        return (Configuration)factory.getObject(string);
+    }
+    
     /**
      * Initializes this configuration instance.
      */
@@ -86,9 +112,9 @@ public class Configuration
      *
      * @return the collection of {@link Transformation} instances.
      */
-    public Collection getTransformations()
+    public Transformation[] getTransformations()
     {
-        return this.transformations;
+        return (Transformation[])this.transformations.toArray(new Transformation[0]);
     }
 
     /**
@@ -122,9 +148,9 @@ public class Configuration
      *
      * @return the collection of {@link Property} instances.
      */
-    public Collection getProperties()
+    public Property[] getProperties()
     {
-        return this.properties;
+        return (Property[])this.properties.toArray(new Property[0]);
     }
 
     /**

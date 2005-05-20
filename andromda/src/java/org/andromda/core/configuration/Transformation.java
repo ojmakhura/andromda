@@ -20,9 +20,16 @@ public class Transformation
      * 
      * @param uri the URL to the transformation.
      */
-    public void setUri(final URL uri)
+    public void setUri(final String uri)
     {
-        this.uri = uri;
+        try
+        {
+            this.uri = new URL(uri);
+        }
+        catch (final Throwable throwable)
+        {
+            throw new ConfigurationException(throwable);
+        }
     }
 
     /**

@@ -96,16 +96,23 @@ public class Model
      * Sets the URL to the actual model file.
      * @param uri the model URL.
      */
-    public void setUri(final URL uri)
+    public void setUri(final String uri) throws Exception
     {
-        this.uri = uri;
+        try
+        {
+            this.uri = new URL(uri);
+        }
+        catch (final Throwable throwable)
+        {
+            throw new ConfigurationException(throwable);
+        }
         try
         {
             // Get around the fact the URL won't be released until the JVM
             // has been terminated, when using the 'jar' uri protocol.
-            uri.openConnection().setDefaultUseCaches(false);
+            this.uri.openConnection().setDefaultUseCaches(false);
         }
-        catch (IOException ex)
+        catch (final IOException exception)
         {
             // ignore the exception
         }

@@ -2,20 +2,22 @@ package org.andromda.ant.task;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.andromda.core.AndroMDA;
 import org.andromda.core.ModelProcessor;
 import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.ExceptionRecorder;
-import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.ModelPackage;
 import org.andromda.core.configuration.ModelPackages;
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Transformation;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
@@ -83,6 +85,21 @@ public class AndroMDAGenTask
     {
         namespaces.add(namespace);
     }
+    
+    /**
+     * 
+     */
+    private URL configurationUri;
+    
+    /**
+     * Sets the URI to the configuration file.
+     * 
+     * @param configurationUri
+     */
+    public void setConfigurationUri(final URL configurationUri)
+    {
+        this.configurationUri = configurationUri;
+    }
 
     /**
      * <p/>
@@ -142,64 +159,38 @@ public class AndroMDAGenTask
         initializeContextClassLoader();
         try
         {
-            this.initializeMappings();
-            this.initializeNamespaces();
-
-            DirectoryScanner scanner;
-            String[] list;
-
-            if (baseDir == null)
+            if (this.configurationUri == null)
             {
-                // We directly change the user variable, because it
-                // shouldn't lead to problems
-                baseDir = this.getProject().resolveFile(".");
-            }
-
-            String[] moduleSearchPath = this.createRepository().createModuleSearchPath().list();
-
-            Model[] models;
-            // if the model is specified explicitly
-            // then we create the Model instances from the
-            // ModelConfiguration instances.
-            if (!this.models.isEmpty())
-            {
-                models = new Model[this.models.size()];
-                Iterator modelIt = this.models.iterator();
-                for (int ctr = 0; modelIt.hasNext(); ctr++)
+                this.initializeMappings();
+                this.initializeNamespaces();
+    
+                DirectoryScanner scanner;
+                String[] list;
+    
+                if (baseDir == null)
                 {
-                    ModelConfiguration modelConfig = (ModelConfiguration)modelIt.next();
-                    if (modelConfig.getUrl() != null)
-                    {
-                        final Model model = new Model();
-                        model.setUri(modelConfig.getUrl());
-                        model.setPackages(this.packages);
-                        model.setLastModifiedCheck(this.lastModifiedCheck);
-                        for (int ctr2 = 0; ctr2 < moduleSearchPath.length; ctr2++)
-                        {
-                            model.addModuleSearchLocation(moduleSearchPath[ctr2]);                            
-                        }
-                        models[ctr] = model;
-                    }
+                    // We directly change the user variable, because it
+                    // shouldn't lead to problems
+                    baseDir = this.getProject().resolveFile(".");
                 }
-            }
-            else
-            {
-                // find the files/directories
-                scanner = getDirectoryScanner(baseDir);
-
-                // get a list of files to work on
-                list = scanner.getIncludedFiles();
-
-                if (list.length > 0)
+    
+                String[] moduleSearchPath = this.createRepository().createModuleSearchPath().list();
+    
+                Model[] models;
+                // if the model is specified explicitly
+                // then we create the Model instances from the
+                // ModelConfiguration instances.
+                if (!this.models.isEmpty())
                 {
-                    models = new Model[list.length];
-                    for (int ctr = 0; ctr < list.length; ++ctr)
+                    models = new Model[this.models.size()];
+                    Iterator modelIt = this.models.iterator();
+                    for (int ctr = 0; modelIt.hasNext(); ctr++)
                     {
-                        File inFile = new File(baseDir, list[ctr]);
-                        try
+                        ModelConfiguration modelConfig = (ModelConfiguration)modelIt.next();
+                        if (modelConfig.getUrl() != null)
                         {
                             final Model model = new Model();
-                            model.setUri(inFile.toURL());
+                            model.setUri(modelConfig.getUrl() != null ? modelConfig.getUrl().toString() : null);
                             model.setPackages(this.packages);
                             model.setLastModifiedCheck(this.lastModifiedCheck);
                             for (int ctr2 = 0; ctr2 < moduleSearchPath.length; ctr2++)
@@ -208,31 +199,67 @@ public class AndroMDAGenTask
                             }
                             models[ctr] = model;
                         }
-                        catch (MalformedURLException mfe)
-                        {
-                            throw new BuildException("Malformed model URI --> '" + inFile + "'");
-                        }
                     }
                 }
                 else
                 {
-                    throw new BuildException("Could not find any model input!");
+                    // find the files/directories
+                    scanner = getDirectoryScanner(baseDir);
+    
+                    // get a list of files to work on
+                    list = scanner.getIncludedFiles();
+    
+                    if (list.length > 0)
+                    {
+                        models = new Model[list.length];
+                        for (int ctr = 0; ctr < list.length; ++ctr)
+                        {
+                            File inFile = new File(baseDir, list[ctr]);
+                            try
+                            {
+                                final Model model = new Model();
+                                model.setUri(inFile.toURL() != null ? inFile.toURL().toString() : null);
+                                model.setPackages(this.packages);
+                                model.setLastModifiedCheck(this.lastModifiedCheck);
+                                for (int ctr2 = 0; ctr2 < moduleSearchPath.length; ctr2++)
+                                {
+                                    model.addModuleSearchLocation(moduleSearchPath[ctr2]);                            
+                                }
+                                models[ctr] = model;
+                            }
+                            catch (MalformedURLException mfe)
+                            {
+                                throw new BuildException("Malformed model URI --> '" + inFile + "'");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new BuildException("Could not find any model input!");
+                    }
                 }
+                
+                final ModelProcessor processor = ModelProcessor.instance();
+    
+                final Collection transformations = new ArrayList();
+                // Add any transformations to the model processor
+                for (final Iterator transformationIterator = transformations.iterator(); transformationIterator.hasNext();)
+                {
+                    transformations.add(((TransformationConfiguration)transformationIterator.next()).getTransformation());
+                }
+                processor.addTransformations((Transformation[])transformations.toArray(new Transformation[0]));
+                
+                // set the cartridge filter
+                processor.setCartridgeFilter(this.cartridgeFilter);
+    
+                // pass the loaded model(s) to the ModelProcessor
+                processor.process(models);
             }
-            
-            final ModelProcessor processor = ModelProcessor.instance();
-
-            // Add any transformations to the model processor
-            for (Iterator transformationIterator = transformations.iterator(); transformationIterator.hasNext();)
+            else
             {
-                processor.addTransformation(((TransformationConfiguration)transformationIterator.next()).getTransformation());
+                final AndroMDA andromda = AndroMDA.getInstance(this.configurationUri);
+                andromda.run();
             }
-            
-            // set the cartridge filter
-            processor.setCartridgeFilter(this.cartridgeFilter);
-
-            // pass the loaded model(s) to the ModelProcessor
-            processor.process(models);
         }
         catch (ModelProcessorException th)
         {
@@ -345,7 +372,7 @@ public class AndroMDAGenTask
      */
     public void setXmlValidation(final boolean xmlValidation)
     {
-        XmlObjectFactory.setDefaultValidating(xmlValidation);
+        ModelProcessor.instance().setXmlValidation(xmlValidation);
     }
 
     /**

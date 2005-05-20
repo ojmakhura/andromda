@@ -51,7 +51,7 @@ public class ClassUtils
         // get rid of any array notation
         className = StringUtils.replace(className, "[]", "");
 
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        final ClassLoader loader = getClassLoader();
         Class loadedClass = null;
         try
         {
@@ -64,18 +64,23 @@ public class ClassUtils
             {
                 loadedClass = loader.loadClass(className);
             }
-
-            if (loader == null)
-            {
-                loader = ClassUtils.class.getClassLoader();
-                Thread.currentThread().setContextClassLoader(loader);
-            }
         }
         catch (Throwable th)
         {
             throw new ClassUtilsException(th);
         }
         return loadedClass;
+    }
+    
+    public static final ClassLoader getClassLoader()
+    {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        if (loader == null)
+        {
+            loader = ClassUtils.class.getClassLoader();
+            Thread.currentThread().setContextClassLoader(loader);
+        }
+        return loader;
     }
 
     /**

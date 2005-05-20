@@ -1,12 +1,12 @@
 package org.andromda.core.common;
 
+
 /**
  * Any unchecked exception that will be thrown during the execution of ClassUtils.
  */
 public class ClassUtilsException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of ClassUtilsException.
      *
@@ -33,9 +33,10 @@ public class ClassUtilsException
      * @param message
      * @param parent
      */
-    public ClassUtilsException(String message, Throwable parent)
+    public ClassUtilsException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }
