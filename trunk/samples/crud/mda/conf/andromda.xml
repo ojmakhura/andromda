@@ -44,8 +44,7 @@
                 <!-- uncomment to enable EJB security -->
                 <!-- <securityRealm>${application.id}</securityRealm> -->
             </properties>
-        </namespace>   
-        
+        </namespace>
         <namespace name="hibernate">
             <properties>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
@@ -57,7 +56,7 @@
                 <property name="customTypesPackage">${application.package}</property>
                 <property name="compositionDefinesEagerLoading">true</property>
             </properties>
-        </namespace>        
+        </namespace>
         <namespace name="java">
             <properties>
                 <property name="enumerations">${maven.andromda.common.generated.dir}</property>
