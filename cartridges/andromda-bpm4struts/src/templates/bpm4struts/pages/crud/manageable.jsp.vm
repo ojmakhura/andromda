@@ -108,50 +108,30 @@ ${indent}</logic:notPresent>
 #end
 #end
 ##
-## This stuff *must* be rendered on a single line, it assumes date fields have been properly formatted
-## into a xxxFormatted variables
+## renders Javascript code executed when copying a row into the criteria field
 ##
 #macro ( renderJavascriptCopyRow $manageable )
 enableUpdate(true);## no newline
+setFields(## no newline
 #foreach($member in $manageable.attributes)
 #set($property = "row.${member.name}")## by default we take the property straight for the row value object
 #if ($member.type.enumeration)
-setSelect('$member.name','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
+'<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline
 #elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
-setCheckbox('$member.name',${${property}});## no newline
+${${property}},## no newline
 #elseif ($member.type.dateType)
 #set($property = "${member.name}Formatted")## by default we take the property straight for the row value object
-setInput('${member.name}AsString','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
+'<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline
 #elseif ($member.needsFileUpload)## we can't fill a file-upload widget with the value from the row, so we do nothing here
 #else
-setInput('$member.name','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
+'<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline
 #end
 #end
 #foreach($member in $manageable.manageableAssociationEnds)
 #set($property = "row.${member.name}")## by default we take the property straight for the row value object
-setSelect('$member.name','<formatting:escape language="javascript">${${property}}</formatting:escape>');## no newline
+'<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline
 #end
-#end
-##
-## This stuff *must* be rendered on a single line, it will clear all fields, except the ones that
-## are not displayed. Checkboxes are set to false.
-##
-#macro ( renderJavascriptClearFields $manageable )
-enableUpdate(false);##no newline
-#foreach($member in $manageable.attributes)
-#if ($member.type.enumeration)
-setSelect('$member.name','');## no newline
-#elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
-setCheckbox('$member.name',false);## no newline
-#elseif ($member.type.dateType)
-setInput('${member.name}AsString','');## no newline
-#elseif (!$member.needsFileUpload)
-setInput('$member.name','');## no newline
-#end
-#end
-#foreach($member in $manageable.manageableAssociationEnds)
-setSelect('$member.name','');## no newline
-#end
+this.form);## no newline
 #end
 ##
 ## convenient helper for converting collections into strings
