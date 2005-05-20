@@ -166,7 +166,10 @@ public class Configuration
      */
     public void addMappingsSearchLocation(final String location)
     {
-        this.mappingsSearchLocations.add(location);
+        if (location != null)
+        {
+            this.mappingsSearchLocations.add(location);
+        }
     }
 
     /**

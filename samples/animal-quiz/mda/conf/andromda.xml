@@ -5,7 +5,7 @@
     </properties>
     <models>
         <model>
-            <uri>file:${maven.src.dir}/uml/PatientTrackerModel.xmi</uri>
+            <uri>${maven.andromda.model.uri}</uri>
             <moduleSearchLocations>
                 <location>${maven.repo.local}/andromda/xml.zips</location>
             </moduleSearchLocations>
@@ -21,16 +21,6 @@
                 <property name="maxSqlNameLength">30</property>
                 <property name="foreignKeySuffix">_FK</property>
                 <property name="ejbJndiNamePrefix">${application.id}</property>
-                 <!-- these masking properties allow you to configure the way
-                      your model element names are generated -->
-                <property name="classifierNameMask">none</property>
-                <property name="operationNameMask">none</property>
-                <property name="roleNameMask">none</property>
-                <property name="enumerationNameMask">none</property>
-                <property name="enumerationLiteralNameMask">upperunderscore</property>
-                <property name="entityNameMask">none</property>
-                <property name="entityPropertyNameMask">none</property>
-                <property name="parameterNameMask">none</property>
             </properties>
         </namespace>
         <namespace name="spring">
@@ -54,7 +44,7 @@
                 <!-- uncomment to enable EJB security -->
                 <!-- <securityRealm>${application.id}</securityRealm> -->
             </properties>
-        </namespace>
+        </namespace>   
         <namespace name="hibernate">
             <properties>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
@@ -65,21 +55,23 @@
                 <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="customTypesPackage">${application.package}</property>
                 <property name="compositionDefinesEagerLoading">true</property>
-                <property name="versionProperty">version</property>
             </properties>
         </namespace>
         <namespace name="webservice">
             <properties>
-                <property name="schemaTypeMappingsUri">XmlSchema</property>
+                <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
+                <property name="languageMappingsUri">AxisJavaMappings</property>
                 <property name="defaultProvider">RPC</property>
                 <property name="applicationName">${application.id}</property>
                 <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
                 <property name="wsdls">${maven.andromda.webservice.generated.dir}/wsdl</property>
+                <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
                 <property name="axis-configuration">${maven.andromda.webservice.generated.dir}/axis</property>
             </properties>
         </namespace>
         <namespace name="java">
             <properties>
+                <property name="languageMappingsUri">AxisJavaMappings</property>
                 <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
                 <property name="enumerations">${maven.andromda.common.generated.dir}</property>
                 <property name="exceptions">${maven.andromda.common.generated.dir}</property>
@@ -99,7 +91,6 @@
                 <property name="security">false</property>
                 <property name="securityRealm">other</property>
                 <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
-                <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</property>
                 <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
             </properties>
         </namespace>

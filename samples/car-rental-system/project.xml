@@ -2,13 +2,13 @@
 
 <project>
   	<extend>../project.xml</extend>
-  	<artifactId>car-rental-system</artifactId>
+  	<artifactId>${application.id}</artifactId>
   	<name>The Car Rental System</name>
   	<shortDescription>The Car Rental Application</shortDescription>
   	<description>
   		Contains the Car Rental System Project.
   	</description>
-  	<package>org.andromda.samples.carrental</package>
+  	<package>${application.package}</package>
   	<build>
     	<sourceDirectory>src/java</sourceDirectory>
 		<resources>

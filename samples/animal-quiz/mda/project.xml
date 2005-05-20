@@ -18,114 +18,34 @@
              <artifactId>maven-andromda-plugin</artifactId>
             <version>${pom.currentVersion}</version>
              <type>plugin</type>
-             <properties>
-                 <languageMappingsUri>Java</languageMappingsUri>
-                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-                 <sqlMappingsUri>${sql.mappings}</sqlMappingsUri>
-                 <jdbcMappingsUri>JDBC</jdbcMappingsUri>
-                 <maxSqlNameLength>30</maxSqlNameLength>
-                 <foreignKeySuffix>_FK</foreignKeySuffix>
-                 <ejbJndiNamePrefix>${pom.groupId}</ejbJndiNamePrefix>
-                 <!-- these masking properties allow you to configure the way
-                      your model element names are generated -->
-                 <classifierNameMask>none</classifierNameMask>
-                 <classifierPropertyNameMask>none</classifierPropertyNameMask>
-                 <operationNameMask>none</operationNameMask>
-                 <roleNameMask>none</roleNameMask>
-                 <enumerationNameMask>none</enumerationNameMask>
-                 <enumerationLiteralNameMask>none</enumerationLiteralNameMask>
-                 <entityNameMask>none</entityNameMask>
-                 <entityPropertyNameMask>none</entityPropertyNameMask>
-                 <parameterNameMask>none</parameterNameMask>
-             </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-spring-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <type>jar</type>
-            <properties>
-                <dataSource>${dataSource}</dataSource>
-                <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
-                <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
-                <hibernateUseQueryCache>false</hibernateUseQueryCache>
-                <hibernateQueryUseNamedParameters>true</hibernateQueryUseNamedParameters>
-                <hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
-                <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
-                <hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
-                <springTypesPackage>${pom.package}</springTypesPackage>
-                <daos>${maven.andromda.core.generated.dir}</daos>
-                <dao-impls>${maven.andromda.core.manual.dir}</dao-impls>
-                <spring-configuration>${maven.andromda.core.generated.dir}</spring-configuration>
-                <services>${maven.andromda.core.generated.dir}</services>
-                <service-impls>${maven.andromda.core.manual.dir}</service-impls>
-                <!-- to remove any dependency on EJB, comment the following property -->
-                <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
-                <!-- uncomment to enable EJB security -->
-                <!-- <securityRealm>${pom.groupId}</securityRealm> -->
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <type>jar</type>
-            <properties>
-                <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
-                <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
-                <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
-                <hibernateDefaultCascade>none</hibernateDefaultCascade>
-                <entities>${maven.andromda.core.generated.dir}</entities>
-                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
-                <customTypesPackage>${pom.package}</customTypesPackage>
-                <compositionDefinesEagerLoading>true</compositionDefinesEagerLoading>
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-webservice-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <type>jar</type>
-            <properties>
-                <schemaTypeMappingsUri>AxisWSDLMappings</schemaTypeMappingsUri>
-                <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
-                <defaultProvider>${default.provider}</defaultProvider>
-                <applicationName>${pom.groupId}</applicationName>
-                <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
-                <rpcClassNamePattern>{0}.{1}WSDelegator</rpcClassNamePattern>
-                <wsdls>${maven.andromda.webservice.generated.dir}/WEB-INF/classes</wsdls>
-                <axis-configuration>${maven.andromda.webservice.generated.dir}</axis-configuration>
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties>
-                <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
-                <useArraysForMultiplicitiesOfTypeMany>true</useArraysForMultiplicitiesOfTypeMany>
-                <enumerations>${maven.andromda.common.generated.dir}</enumerations>
-                <exceptions>${maven.andromda.common.generated.dir}</exceptions>
-                <value-objects>${maven.andromda.common.generated.dir}</value-objects>
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties>
-                 <forms>${maven.andromda.web.generated.dir}</forms>
-                 <pages>${maven.andromda.web.generated.dir}</pages>
-                 <actions>${maven.andromda.web.generated.dir}</actions>
-                 <controllers>${maven.andromda.web.generated.dir}</controllers>
-                 <controller-impls>${maven.andromda.web.manual.java.dir}</controller-impls>
-                 <decorators>${maven.andromda.web.manual.java.dir}</decorators>
-                 <messages>${maven.andromda.web.generated.dir}/WEB-INF/classes</messages>
-                 <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
-                 <security>false</security>
-                 <securityRealm>other</securityRealm>
-                 <serviceAccessorPattern>${pom.package}.ServiceLocator.instance().get{1}()</serviceAccessorPattern>
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
