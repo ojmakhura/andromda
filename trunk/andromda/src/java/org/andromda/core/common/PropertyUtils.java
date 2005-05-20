@@ -1,8 +1,8 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.Collection;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Contains utilities for dealing with properties on object's with the AndroMDA core.
@@ -77,7 +77,7 @@ public class PropertyUtils
     public static void setProperty(final Object object, final String name, final Object value)
         throws Exception
     {
-        if (org.apache.commons.beanutils.PropertyUtils.isReadable(object, name))
+        if (org.apache.commons.beanutils.PropertyUtils.isWriteable(object, name))
         {
             org.apache.commons.beanutils.BeanUtils.setProperty(object, name, value);
         }
