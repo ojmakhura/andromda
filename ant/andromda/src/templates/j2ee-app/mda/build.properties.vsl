@@ -7,3 +7,5 @@ hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransacti
 # bpm4struts and hibernate for example, you'd make the value of this property 
 # 'bpm4struts,hibernate' (i.e. filter=bpm4struts,hibernate)
 filter=
+
+andromda.configuration.uri=file:${basedir}/conf/andromda.xml
