@@ -27,19 +27,9 @@
 #else
         //<!--
 #end
-            function setCheckbox(name, value)
+            function setSelect(form, name, value)
             {
-                document.forms['$manageable.formBeanName'].elements[name].checked = value;
-            }
-
-            function setInput(name, value)
-            {
-                document.forms['$manageable.formBeanName'].elements[name].value = value;
-            }
-
-            function setSelect(name, value)
-            {
-                var select = document.forms['$manageable.formBeanName'].elements[name];
+                var select = form.elements[name];
                 var options = select.options;
 
                 // for browser compatibility's sake we go through the options ourselves
@@ -63,6 +53,53 @@
             {
                 if (checkbox.checked) selectionCount++; else selectionCount--;
                 document.getElementById("deleteButton").disabled = (selectionCount < 1);
+            }
+
+            function clearFields(form)
+            {
+                form.reset();
+                enableUpdate(false);
+                setFields(## no newline
+#foreach($member in $manageable.attributes)
+#if ($member.type.enumeration)
+"",## no newline
+#elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+false,## no newline
+#elseif ($member.type.dateType)
+"",## no newline
+#elseif (!$member.needsFileUpload)## file upload fields apparently cannot have DHTML set their values (probably because the path could be invalid)
+"",## no newline
+#end
+#end
+#foreach($member in $manageable.manageableAssociationEnds)
+"",## no newline
+#end
+form);
+            }
+
+            function setFields(## no newline
+#foreach($member in $manageable.attributes)
+$member.name,## no newline
+#end
+#foreach($member in $manageable.manageableAssociationEnds)
+$member.name,## no newline
+#end
+form)
+            {
+#foreach($member in $manageable.attributes)
+#if ($member.type.enumeration)
+                setSelect(form,"$member.name",$member.name);
+#elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+                form.elements["$member.name"].checked = $member.name;
+#elseif ($member.type.dateType)
+                form.elements["${member.name}AsString"].value = $member.name;
+#elseif (!$member.needsFileUpload)## file upload fields apparently cannot have DHTML set their values (probably because the path could be invalid)
+                form.elements["$member.name"].value = $member.name;
+#end
+#end
+#foreach($member in $manageable.manageableAssociationEnds)
+                setSelect(form,"$member.name",$member.name);
+#end
             }
 #if ($xhtml == "true")
         //]]>
@@ -125,7 +162,7 @@
                     <input type="submit" id="updateButton" class="button" value="<bean:message key="button.update"/>" disabled="disabled" onclick="setAction('update');return validateUpdate();"/>
 #end
 #if ($manageable.preload)
-                    <input type="button" id="clearButton" class="button" value="<bean:message key="button.clear"/>" onclick="#renderJavascriptClearFields($manageable)"/>
+                    <input type="button" id="clearButton" class="button" value="<bean:message key="button.clear"/>" onclick="clearFields(this.form);"/>
 #end
                 </c:if>
 
@@ -165,7 +202,7 @@
 #end
 #end
                             <nobr>
-                                <a href="#" onclick="#renderJavascriptCopyRow($manageable)return false;"><bean:message key="copy.row.values"/></a>
+                                <input type="radio" name="_copy" onclick="#renderJavascriptCopyRow($manageable)"/>
                                 <input type="checkbox" name="selectedRows" value="${${identifierValue}}" onclick="verifyEnableDelete(this);"/>
                             </nobr>
                         </display:column>
