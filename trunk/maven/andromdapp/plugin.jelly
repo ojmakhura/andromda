@@ -87,16 +87,25 @@
         <ant:copy
             file="${mdaTemplatesDir}/src/uml/empty-model.xmi"
             tofile="${mdaModelDir}/${projectNameNoWhitespace}Model.xmi"/>
+            
+        <j:set var="mdaConfDir" value="${mdaDir}/conf"/>
+        
+        <ant:mkdir dir="${mdaConfDir}"/>
+        
+        <velocity:merge
+            name="${mdaConfDir}/andromda.xml"
+            basedir="${mdaTemplatesDir}/conf"
+            template="andromda.xml.vsl"/>
 
         <velocity:merge
-          name="${mdaDir}/project.xml"
-          basedir="${mdaTemplatesDir}"
-          template="project.xml.vsl"/>
+            name="${mdaDir}/project.xml"
+            basedir="${mdaTemplatesDir}"
+            template="project.xml.vsl"/>
 
         <velocity:merge
-          name="${mdaDir}/project.properties"
-          basedir="${mdaTemplatesDir}"
-          template="project.properties.vsl"/>
+            name="${mdaDir}/project.properties"
+            basedir="${mdaTemplatesDir}"
+            template="project.properties.vsl"/>
 
         <ant:copy todir="${mdaDir}">
             <ant:fileset dir="${mdaTemplatesDir}">

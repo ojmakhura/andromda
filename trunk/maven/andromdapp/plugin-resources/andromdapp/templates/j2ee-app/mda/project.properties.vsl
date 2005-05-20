@@ -1,11 +1,13 @@
 maven.multiproject.type=pom
 
 maven.andromda.model.uri=file:${maven.src.dir}/uml/${projectNameNoWhitespace}Model.xmi
-maven.andromda.modelValidation=true
 
 # Defines the cartridge filter which allows you to specify only the cartridges,
 # that should be processed.
-maven.andromda.cartridgeFilter=${filter}
+filter=
+
+# Configures AndroMDA
+maven.andromda.configuration.uri=file:${maven.conf.dir}/andromda.xml
 
 # Define the output locations for the cartridge dependencies in the project.xml
 maven.andromda.core.generated.dir=${maven.src.dir}/../../core/target/src
@@ -13,10 +15,13 @@ maven.andromda.core.manual.dir=${maven.src.dir}/../../core/src/java
 
 maven.andromda.web.generated.dir=${maven.src.dir}/../../web/target/src
 maven.andromda.web.manual.java.dir=${maven.src.dir}/../../web/src/java
-maven.andromda.web.manual.webapp.dir=${maven.src.dir}/../../web/src/webapp
 
 #if ($webservice)
+#if ($war)
+maven.andromda.webservice.generated.dir=${maven.andromda.web.generated.dir}
+#else
 maven.andromda.webservice.generated.dir=${maven.src.dir}/../../webservice/target/src
+#end
 #end
 
 maven.andromda.common.generated.dir=${maven.src.dir}/../../common/target/src
