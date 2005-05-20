@@ -51,4 +51,8 @@ public class ManageableEntityAttributeLogicImpl
         return display;
     }
 
+    protected boolean handleIsManageableGetterAvailable()
+    {
+        return getType().isBlobType();
+    }
 }
