@@ -1,0 +1,26 @@
+<andromda>
+    <properties>
+        <property name="cartridgeFilter">meta</property>
+    </properties>
+    <models>
+        <model>
+            <uri>${maven.andromda.model.uri}</uri>
+            <moduleSearchLocations>
+                <location>${maven.repo.local}/andromda/xml.zips</location>
+            </moduleSearchLocations>
+        </model>
+    </models>
+    <namespaces>
+        <namespace name="meta">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="facades" ignore="true"/>
+                <property name="facade-logics">${maven.build.src}</property>
+                <property name="facades-to-impls">${maven.build.src}</property>
+                <property name="facade-logic-impls">${maven.src.dir}/java</property>
+                <property name="metamodelVersionPackage">org.andromda.metafacades.uml14</property>            
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>

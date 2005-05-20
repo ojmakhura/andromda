@@ -135,6 +135,10 @@
                 <set-properties-rule>
                      <alias attr-name="name" prop-name="name" />
                 </set-properties-rule>
+                
+                <set-properties-rule>
+                     <alias attr-name="ignore" prop-name="ignore" />
+                </set-properties-rule>
     
                 <call-method-rule
                     methodname="setValue"

@@ -19,14 +19,6 @@
 	      	<artifactId>maven-andromda-bootstrap-plugin</artifactId>
 	      	<version>${pom.currentVersion}</version>
 	      	<type>plugin</type>
-	      	<properties>
-	      		<languageMappingsUri>Java</languageMappingsUri>
-                <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-	      		<facades>${basedir}/target/src</facades>
-	      		<facade-logics.ignore/>
-	      		<facades-to-impls.ignore/>
-	      		<facade-logic-impls.ignore/>
-	      	</properties>
 	    </dependency>
     </dependencies>
 </project>
