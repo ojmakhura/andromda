@@ -1,16 +1,18 @@
 package org.andromda.maven;
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
-
-import java.net.URL;
-
-import java.util.Iterator;
-import java.util.Map;
 
 
 /**
@@ -28,9 +30,9 @@ public class AndroMDAMavenRunner
     }
 
     /**
-     * The configuration instance (configures AndroMDA).
+     * The URI to the configuration;
      */
-    private Configuration configuration;
+    private String configurationUri;
 
     /**
      * Sets the URI to the configuration file.
@@ -38,10 +40,8 @@ public class AndroMDAMavenRunner
      * @param configurationUri
      */
     public void setConfigurationUri(final String configurationUri)
-        throws Exception
     {
-        this.configuration =
-            Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(new URL(configurationUri))));
+        this.configurationUri = configurationUri;
     }
 
     /**
@@ -67,13 +67,32 @@ public class AndroMDAMavenRunner
     {
         try
         {
-            this.configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
+            final Configuration configuration =
+                Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(new URL(configurationUri))));
+            configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
             final AndroMDA andromda = AndroMDA.getInstance(configuration);
             if (andromda != null)
             {
                 andromda.run();
                 andromda.shutdown();
             }
+        }
+        catch (Throwable throwable)
+        {
+            final Throwable cause = ExceptionUtils.getCause(throwable);
+            if (cause != null)
+            {
+                throwable = cause;
+            }
+            if (throwable instanceof FileNotFoundException)
+            {
+                throw new BuildException("No configuration could be loaded from --> '" + configurationUri + "'");
+            }
+            else if (throwable instanceof MalformedURLException)
+            {
+                throw new BuildException("Configuration is not a valid URI --> '" + configurationUri + "'");                
+            }
+            throw new BuildException(throwable);
         }
         finally
         {
@@ -92,7 +111,6 @@ public class AndroMDAMavenRunner
      * @param fileContents the fileContents to perform replacement on.
      */
     protected String replaceProperties(String string)
-        throws Exception
     {
         final Map properties = this.getProject().getProperties();
         if (properties != null && !properties.isEmpty())

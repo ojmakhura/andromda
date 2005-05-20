@@ -1,0 +1,55 @@
+<andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <models>
+        <model>
+            <uri>${maven.andromda.model.uri}</uri>
+            <moduleSearchLocations>
+                <location>${maven.repo.local}/andromda/xml.zips</location>
+            </moduleSearchLocations>
+        </model>
+    </models>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="sqlMappingsUri">${sql.mappings}</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">${application.id}</property>
+            </properties>
+        </namespace>
+        <namespace name="ejb">
+            <properties>
+                <property name="entity-beans">${maven.andromda.core.generated.dir}</property>
+                <property name="session-beans">${maven.andromda.core.generated.dir}</property>
+                <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="session-impls">${maven.andromda.core.manual.dir}</property>
+            </properties>
+        </namespace>   
+        <namespace name="java">
+            <properties>
+                <property name="enumerations">${maven.andromda.common.generated.dir}</property>
+                <property name="exceptions">${maven.andromda.common.generated.dir}</property>
+                <property name="value-objects">${maven.andromda.common.generated.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="forms">${maven.andromda.web.generated.dir}</property>
+                <property name="pages">${maven.andromda.web.generated.dir}</property>
+                <property name="actions">${maven.andromda.web.generated.dir}</property>
+                <property name="controllers">${maven.andromda.web.generated.dir}</property>
+                <property name="controller-impls">${maven.andromda.web.manual.java.dir}</property>
+                <property name="messages">${maven.andromda.web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
+                <property name="security">false</property>
+                <property name="securityRealm">other</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>

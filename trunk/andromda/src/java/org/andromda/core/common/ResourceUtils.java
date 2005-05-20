@@ -45,8 +45,7 @@ public class ResourceUtils
         final String methodName = "ResourceUtils.getResource";
         if (logger.isDebugEnabled())
         {
-            logger.debug(
-                "performing '" + methodName + "' with resourceName '" + resourceName + "'");
+            logger.debug("performing '" + methodName + "' with resourceName '" + resourceName + "'");
         }
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
         final ClassLoader loader = ClassUtils.getClassLoader();
@@ -61,16 +60,13 @@ public class ResourceUtils
      */
     public static String getContents(final URL resource)
     {
-        final String methodName = "ResourceUtils.getContents";
         try
         {
-            return getContents(
-                (resource != null) ? new InputStreamReader(resource.openStream()) : null);
+            return getContents((resource != null) ? new InputStreamReader(resource.openStream()) : null);
         }
         catch (Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new RuntimeException(errMsg, throwable);
+            throw new RuntimeException(throwable);
         }
     }
 
@@ -308,8 +304,8 @@ public class ResourceUtils
         if (logger.isDebugEnabled())
         {
             logger.debug(
-                "performing '" + methodName + "' with resourceName '" + resourceName +
-                "' and directory '" + directory + "'");
+                "performing '" + methodName + "' with resourceName '" + resourceName + "' and directory '" + directory +
+                "'");
         }
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
 
@@ -325,8 +321,8 @@ public class ResourceUtils
                 catch (MalformedURLException ex)
                 {
                     logger.warn(
-                        "'" + file + "' is an invalid resource," +
-                        " attempting to find resource '" + resourceName + "' on classpath");
+                        "'" + file + "' is an invalid resource," + " attempting to find resource '" + resourceName +
+                        "' on classpath");
                 }
             }
         }
@@ -356,10 +352,10 @@ public class ResourceUtils
         }
         return getResource(resourceName, directoryLocation);
     }
-    
+
     /**
      * Recursively deletes a directory and its contents.
-     * 
+     *
      * @param directory the directory to delete.
      */
     public static void deleteDirectory(final File directory)
@@ -383,7 +379,7 @@ public class ResourceUtils
                         file.delete();
                     }
                 }
-            }    
+            }
         }
     }
 }
