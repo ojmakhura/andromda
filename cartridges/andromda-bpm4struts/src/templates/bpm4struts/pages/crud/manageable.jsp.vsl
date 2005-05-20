@@ -147,6 +147,8 @@
                     <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
                             export="true" pagesize="$manageable.pageSize" sort="list">
                         <display:column media="html" sortable="false">
+#set ($identifier = $manageable.identifiers.iterator().next())
+#set ($identifierValue = "row.${identifier.name}")
 #foreach ($member in $manageable.attributes)
 #if ($member.type.dateType)
 #set ($rowValue = "row.${member.name}")
@@ -157,10 +159,7 @@
 #end
                             <nobr>
                                 <a href="#" onclick="#renderJavascriptCopyRow($manageable)return false;"><bean:message key="copy.row.values"/></a>
-#if ($manageable.delete)
-#set ($identifierValue = "row.${manageable.identifiers.iterator().next().name}")
                                 <input type="checkbox" name="selectedRows" value="${${identifierValue}}"/>
-#end
                             </nobr>
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
@@ -187,9 +186,10 @@
                             ${${dateValue}}
                         </display:column>
 #elseif ($member.needsFileUpload)
-                        <display:column media="all" headerClass="$member.name" paramId="$member.name" titleKey="$member.messageKey">
+                        <display:column media="html" headerClass="$member.name" paramId="$member.name" titleKey="$member.messageKey">
 #set ($test = "!empty row.${member.name}")
-                            <c:if test="${${test}}"><div class="binaryData"><bean:message key="binary.data"/></div></c:if>
+#set ($linkQuery = "?${manageable.actionParameter}=${member.getterName}&${identifier.name}=${${identifierValue}}")
+                            <c:if test="${${test}}"><html:link action="$manageable.actionPath$linkQuery"><div class="binaryData"><bean:message key="binary.data"/></div></html:link></c:if>
                         </display:column>
 #else
 #if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)#set($propertySuffix='Label')#else#set($propertySuffix='')#end
