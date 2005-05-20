@@ -16,6 +16,11 @@
 #if ($manageable.read)
                 ${manageable.fullyQualifiedManageableServiceName}.read=PROPAGATION_REQUIRED
                 ${manageable.fullyQualifiedManageableServiceName}.readAll=PROPAGATION_REQUIRED
+#foreach ($member in $manageable.attributes)
+#if ($member.manageableGetterAvailable)
+                ${manageable.fullyQualifiedManageableServiceName}.${member.getterName}=PROPAGATION_REQUIRED
+#end
+#end
 #if (!$manageable.manageableAssociationEnds.empty)
                 ${manageable.fullyQualifiedManageableServiceName}.readBackingLists=PROPAGATION_REQUIRED
 #end

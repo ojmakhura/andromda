@@ -167,6 +167,36 @@ public final class $manageable.manageableDaoBaseName
         }
     }
 
+#foreach ($member in $manageable.attributes)
+#if ($member.manageableGetterAvailable)
+    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
+    {
+        try
+        {
+            $member.type.fullyQualifiedName value = $member.type.javaNullString;
+
+            final net.sf.hibernate.Query queryObject = super.getSession(false).createQuery("select entity.${member.name} from $manageable.fullyQualifiedEntityName as entity where entity.${identifier.name} = :$identifier.name");
+#if ($identifier.type.primitive)
+            queryObject.setParameter("$identifier.name", new ${identifier.type.wrapperName}($identifier.name));
+#else
+            queryObject.setParameter("$identifier.name", $identifier.name);
+#end
+            final java.util.Iterator iterator = queryObject.iterate();
+            if (iterator.hasNext())
+            {
+                value = ($member.type.fullyQualifiedName)iterator.next();
+            }
+
+            return value;
+        }
+        catch (net.sf.hibernate.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+    }
+
+#end
+#end
 #if (!$manageable.manageableAssociationEnds.empty)
     public java.util.Map readBackingLists()
     {
