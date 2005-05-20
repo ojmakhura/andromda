@@ -208,6 +208,14 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isBlobType()
+     */
+    protected boolean handleIsBlobType()
+    {
+        return UMLMetafacadeUtils.isType(this, UMLProfile.BLOB_TYPE_NAME);
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isMapType()
      */
     public boolean handleIsMapType()
