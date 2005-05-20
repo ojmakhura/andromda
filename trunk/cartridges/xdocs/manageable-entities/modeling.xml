@@ -30,7 +30,6 @@
                 </table>
             </subsection>
 
-<!--
             <subsection name="Supported Tagged Values">
                 <p>
                     <table cellpadding="5" rules="all">
@@ -41,18 +40,19 @@
                             <th>Description</th>
                         </tr>
                         <tr>
-                            <td>@andromda.</td>
-                            <td>A user (indirectly) associated with a <![CDATA[<<FrontEndUseCase>>]]></td>
-                            <td>N/A</td>
+                            <td>@andromda.struts.view.field.type</td>
+                            <td>An attribute of a <![CDATA[<<Manageable>>]]> entity</td>
+                            <td>text</td>
                             <td>
-                                Optionally allows you to define the name of the role (if it needs
-                                to be different than the name of the actor that defines the role).
+                                Denotes the widget to use when rendering the column and input field for the
+                                corresponding attribute. Takes <code>hidden</code>, <code>text</code> or
+                                <code>textarea</code>.
                             </td>
                         </tr>
                     </table>
                 </p>
             </subsection>
--->
+
         </section>
     </body>
 </document>
