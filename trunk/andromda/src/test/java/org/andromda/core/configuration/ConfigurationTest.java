@@ -64,13 +64,17 @@ public class ConfigurationTest
         final Namespace namespace1 = Namespaces.instance().findNamespace("default");
         final Property namespace1Property1 = namespace1.getProperty("languageMappingsUri");
         assertNotNull(namespace1Property1);
-        assertEquals("Java", namespace1Property1.getValue());   
+        assertEquals("Java", namespace1Property1.getValue());
+        assertFalse(namespace1Property1.isIgnore());
         final Property namespace1Property2 = namespace1.getProperty("wrapperMappingsUri");
         assertEquals("JavaWrapper", namespace1Property2.getValue());
         assertNotNull(namespace1Property2);
         final Property namespace1Property3 = namespace1.getProperty("enumerationLiteralNameMask");
         assertNotNull(namespace1Property3);
         assertEquals("upperunderscore", namespace1Property3.getValue());
+        final Property namespace1Property4 = namespace1.getProperty("maxSqlNameLength");
+        assertNotNull(namespace1Property4);
+        assertTrue(namespace1Property4.isIgnore());
         final Namespace namespace2 = Namespaces.instance().findNamespace("spring");
         assertNotNull(namespace2);
         final Property namespace2Property1 = namespace2.getProperty("hibernateQueryUseNamedParameters");
