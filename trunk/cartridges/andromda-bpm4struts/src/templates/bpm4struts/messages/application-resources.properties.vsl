@@ -146,7 +146,7 @@ $manageable.messageKey=$manageable.messageValue
 $manageable.pageTitleKey=$manageable.pageTitleValue
 $manageable.exceptionKey=Problem managing $manageable.name: {0}
 #foreach ($member in $manageable.manageableMembers)
-$member.messageKey=$member.messageValue
+$member.messageKey=<nobr>$member.messageValue</nobr>
 #end
 
 #end
