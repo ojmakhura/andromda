@@ -143,7 +143,7 @@ setSelect('$member.name','');## no newline
 setCheckbox('$member.name',false);## no newline
 #elseif ($member.type.dateType)
 setInput('${member.name}AsString','');## no newline
-#else
+#elseif (!$member.needsFileUpload)
 setInput('$member.name','');## no newline
 #end
 #end
