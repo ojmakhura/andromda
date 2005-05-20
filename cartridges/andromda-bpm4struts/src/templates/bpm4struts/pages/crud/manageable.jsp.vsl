@@ -53,9 +53,16 @@
                 }
             }
 
-            function setAction(crud)
+            function setAction(crud) { document.forms['${manageable.formBeanName}'].elements['$manageable.actionParameter'].value = crud; }
+
+            function enableUpdate(enabled) { document.getElementById("updateButton").disabled = !enabled; }
+
+            var selectionCount = 0;
+
+            function verifyEnableDelete(checkbox)
             {
-                document.forms['${manageable.formBeanName}'].elements['$manageable.actionParameter'].value = crud;
+                if (checkbox.checked) selectionCount++; else selectionCount--;
+                document.getElementById("deleteButton").disabled = (selectionCount < 1);
             }
 #if ($xhtml == "true")
         //]]>
@@ -112,10 +119,10 @@
                     <input type="submit" id="createButton" class="button" value="<bean:message key="button.create"/>" onclick="setAction('create');"/>
 #end
 #if ($manageable.delete)
-                    <input type="submit" id="deleteButton" class="button" value="<bean:message key="button.delete"/>" onclick="setAction('delete');"/>
+                    <input type="submit" id="deleteButton" class="button" value="<bean:message key="button.delete"/>" disabled="disabled" onclick="setAction('delete');"/>
 #end
 #if ($manageable.update)
-                    <input type="submit" id="updateButton" class="button" value="<bean:message key="button.update"/>" onclick="setAction('update');"/>
+                    <input type="submit" id="updateButton" class="button" value="<bean:message key="button.update"/>" disabled="disabled" onclick="setAction('update');return validateUpdate();"/>
 #end
 #if ($manageable.preload)
                     <input type="button" id="clearButton" class="button" value="<bean:message key="button.clear"/>" onclick="#renderJavascriptClearFields($manageable)"/>
@@ -159,7 +166,7 @@
 #end
                             <nobr>
                                 <a href="#" onclick="#renderJavascriptCopyRow($manageable)return false;"><bean:message key="copy.row.values"/></a>
-                                <input type="checkbox" name="selectedRows" value="${${identifierValue}}"/>
+                                <input type="checkbox" name="selectedRows" value="${${identifierValue}}" onclick="verifyEnableDelete(this);"/>
                             </nobr>
                         </display:column>
 #foreach ($member in $manageable.manageableMembers)
@@ -189,7 +196,7 @@
                         <display:column media="html" headerClass="$member.name" paramId="$member.name" titleKey="$member.messageKey">
 #set ($test = "!empty row.${member.name}")
 #set ($linkQuery = "?${manageable.actionParameter}=${member.getterName}&${identifier.name}=${${identifierValue}}")
-                            <c:if test="${${test}}"><html:link action="$manageable.actionPath$linkQuery"><div class="binaryData"><bean:message key="binary.data"/></div></html:link></c:if>
+                            <c:if test="${${test}}"><html:link action="$manageable.actionPath$linkQuery"><div class="binaryData"><nobr><bean:message key="binary.data"/></nobr></div></html:link></c:if>
                         </display:column>
 #else
 #if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)#set($propertySuffix='Label')#else#set($propertySuffix='')#end

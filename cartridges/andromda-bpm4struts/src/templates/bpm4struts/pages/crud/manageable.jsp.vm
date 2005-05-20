@@ -112,6 +112,7 @@ ${indent}</logic:notPresent>
 ## into a xxxFormatted variables
 ##
 #macro ( renderJavascriptCopyRow $manageable )
+enableUpdate(true);## no newline
 #foreach($member in $manageable.attributes)
 #set($property = "row.${member.name}")## by default we take the property straight for the row value object
 #if ($member.type.enumeration)
@@ -136,6 +137,7 @@ setSelect('$member.name','<formatting:escape language="javascript">${${property}
 ## are not displayed. Checkboxes are set to false.
 ##
 #macro ( renderJavascriptClearFields $manageable )
+enableUpdate(false);##no newline
 #foreach($member in $manageable.attributes)
 #if ($member.type.enumeration)
 setSelect('$member.name','');## no newline
