@@ -121,4 +121,12 @@ public class AndroMDA
             processor.process(configuration.getModels());
         }
     }
+    
+    /**
+     * Shuts down AndroMDA.
+     */
+    public void shutdown()
+    {
+        ModelProcessor.instance().shutdown();
+    }
 }

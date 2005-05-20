@@ -1,5 +1,9 @@
 package org.andromda.maven;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
@@ -9,11 +13,6 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.jelly.MavenJellyContext;
 
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 
 public class AndroMDARunner
 {
@@ -21,6 +20,15 @@ public class AndroMDARunner
      * The AndroMDA instance (which runs AndroMDA).
      */
     private AndroMDA andromda;
+    
+    /**
+     * Constructs an instance of this class.
+     */
+    public AndroMDARunner()
+    {
+        // we need to set the correct context class loader
+        Thread.currentThread().setContextClassLoader(AndroMDARunner.class.getClassLoader());
+    }
 
     /**
      * Sets the URI of the configuration.

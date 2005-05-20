@@ -68,6 +68,20 @@ public class ModelProcessor
         return instance;
     }
     
+    private RepositoryFacade repository;
+    
+    /**
+     * Shuts down the model processor.
+     */
+    public void shutdown()
+    {
+        if (this.repository != null)
+        {
+            this.repository.close();
+            this.repository = null;
+        }
+    }
+    
     /**
      * Processes all <code>models</code> with the discovered plugins.
      *
@@ -83,18 +97,27 @@ public class ModelProcessor
         {
             try
             {
-                RepositoryFacade repository = (RepositoryFacade)ComponentContainer.instance().findComponent(
-                        RepositoryFacade.class);
-                if (repository == null)
+                if (this.repository == null)
                 {
-                    throw new ModelProcessorException("No Repository could be found, "
-                        + "please make sure you have a " + RepositoryFacade.class.getName()
-                        + " instance on your classpath");
+                    this.repository = (RepositoryFacade)ComponentContainer.instance().findComponent(
+                        RepositoryFacade.class);
+                    if (this.repository == null)
+                    {
+                        throw new ModelProcessorException("No Repository could be found, "
+                            + "please make sure you have a " + RepositoryFacade.class.getName()
+                            + " instance on your classpath");
+                    }
+                    this.repository.open();
                 }
-                repository.open();
+                else
+                {
+                    repository.clear();
+                }
+                process(this.repository, models);
+                /*repository.open();
                 process(repository, models);
                 repository.close();
-                repository = null;
+                repository = null;*/
             }
             finally
             {
@@ -138,7 +161,7 @@ public class ModelProcessor
      * Processes multiple <code>models</code>.
      *
      * @param repository the RepositoryFacade that will be used to read/load the model
-     * @param models     the Model(s) to process.
+     * @param models the Model(s) to process.
      * @param cartridges the collection of cartridge used to process the models.
      */
     private void process(final RepositoryFacade repository, final Model[] models)
@@ -204,25 +227,14 @@ public class ModelProcessor
                     if (this.shouldProcess(cartridgeName))
                     {
                         final Namespace namespace = Namespaces.instance().findNamespace(cartridgeName);
-                        boolean ignoreNamespace = false;
-                        if (namespace != null)
-                        {
-                            ignoreNamespace = namespace.isIgnore();
-                        }
 
                         // make sure we ignore the cartridge if the
                         // namespace is set to 'ignore'
-                        if ((namespace != null || defaultNamespace != null) && !ignoreNamespace)
+                        if (namespace != null || defaultNamespace != null)
                         {
                             cartridge.init();
                             cartridge.processModelElements(context);
                             cartridge.shutdown();
-                        }
-                        else
-                        {
-                            AndroMDALogger.info("namespace for '" + cartridgeName +
-                                    "' cartridge is either not defined, or has the ignore " +
-                                    "attribute set to 'true' --> skipping processing");
                         }
                     }
                 }
