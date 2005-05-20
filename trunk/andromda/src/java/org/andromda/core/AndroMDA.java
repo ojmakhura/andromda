@@ -67,7 +67,6 @@ public class AndroMDA
     {
         final AndroMDA andromda = new AndroMDA();
         andromda.configuration = Configuration.getInstance(configuration);
-        andromda.configuration.initialize();
         return andromda;
     }
     
@@ -97,6 +96,7 @@ public class AndroMDA
     {
         if (this.configuration != null)
         {
+            configuration.initialize();
             final ModelProcessor processor = ModelProcessor.instance();
             processor.addTransformations(configuration.getTransformations());
             final Property[] properties = configuration.getProperties();

@@ -14,8 +14,8 @@
 
         <j:if test="${!context.getVariable('maven.test.skip')}">
 
-            <maven:param-check value="${context.getVariable('andromda.cartridge.test.model.uri')}" fail="true">
-    Please define the location of your test model by setting a value for property "andromda.cartridge.test.model.uri".
+            <maven:param-check value="${context.getVariable('andromda.cartridge.test.configuration.uri')}" fail="true">
+    Please define the location of your AndroMDA test configuration by setting a value for property "andromda.cartridge.test.configuration.uri".
             </maven:param-check>
 
             <ant:available
@@ -30,107 +30,24 @@
             <ant:echo>+-------------------------------------------+</ant:echo>
             
             <j:set var="configurationUri" value="${andromda.cartridge.test.configuration.uri}"/>
-
-            <j:choose>
-                <j:when test="${configurationUri == null}">
-
-                    <ant:taskdef
-                        name="andromda-test"
-                        classname="org.andromda.ant.task.AndroMDAGenTask">
-                        <ant:classpath>
-                            <ant:path refid="andromda.cartridge.classpath"/>
-                            <ant:pathelement location="${maven.build.dest}"/>
-                        </ant:classpath>
-                    </ant:taskdef>
-        
-                    <ant:andromda-test
-                        lastModifiedCheck="${andromda.cartridge.lastModifiedCheck}"
-                        processAllModelPackages="${andromda.cartridge.test.processAllModelPackages}"
-                        failOnModelValidationErrors="false"
-                        loggingConfigurationUri="${andromda.cartridge.loggingConfigurationUri}">
-        
-                        <!-- point the mappings search path to the location of the mappings in this plugin -->
-                        <ant:mappingsSearchPath>
-                            <ant:pathelement location="${plugin.resources}/mappings"/>
-                        </ant:mappingsSearchPath>
-        
-                        <ant:model url="${andromda.cartridge.test.model.uri}"/>
-        
-                        <!-- set the maximum number of packages that may be set,
-                             this can always be increased later, but not sure we would ever need to -->
-                        <j:set var="maximum" value="50"/>
-        
-                        <ant:namespace name="default">
-                            <j:set var="index" value="0"/>
-                            <j:forEach begin="0" end="${maximum}" indexVar="index">
-                                <!-- we always want the files overwritten -->
-                                <ant:property name="overwrite" value="true"/>
-                                <j:set var="propertyVarName" value="andromda.cartridge.test.property.${index}"/>
-                                <j:set var="propertyName" value="${context.getVariable(propertyVarName)}"/>
-                                <j:set var="valueVarName" value="andromda.cartridge.test.property.${propertyName}"/>
-                                <j:set var="propertyValue" value="${context.getVariable(valueVarName)}"/>
-                                <j:if test="${propertyValue != null}">
-                                    <ant:property name="${propertyName}" value="${propertyValue}"/>
-                                </j:if>
-                            </j:forEach>
-                        </ant:namespace>
-        
-                        <!-- set the modelPackages -->
-                        <j:set var="index" value="0"/>
-                        <j:forEach begin="0" end="${maximum}" indexVar="index">
-                        <j:set var="indexVarName" value="andromda.cartridge.test.modelPackage.${index}.name"/>
-                        <j:if test="${context.getVariable(indexVarName) != null}">
-                            <ant:modelPackage>
-        
-                                <!-- set the name -->
-                                <ant:setProperty
-                                    name="name"
-                                    value="${context.getVariable(indexVarName)}"/>
-                                <!-- set shouldProcess -->
-                                <j:set
-                                    var="indexVarName"
-                                    value="andromda.cartridge.test.modelPackage.${index}.shouldProcess"/>
-                                <ant:setProperty
-                                    name="shouldProcess"
-                                    value="${context.getVariable(indexVarName)}"/>
-        
-                            </ant:modelPackage>
-        
-                        </j:if>
-                    </j:forEach>
-        
-                        <!-- set the repository module search path -->
-                        <ant:repository>
-                            <ant:moduleSearchPath>
-                                <j:set var="index" value="0"/>
-                                <j:forEach begin="0" end="${maximum}" indexVar="index">
-                                    <j:set var="indexVarName" value="andromda.cartridge.repository.moduleSearchPath.location.${index}"/>
-                                    <j:set var="location" value="${context.getVariable(indexVarName)}"/>
-                                    <j:if test="${location != null}">
-        
-                                        <ant:pathelement>
-                                            <ant:setProperty
-                                                name="location"
-                                                value="${location}"/>
-                                        </ant:pathelement>
-        
-                                    </j:if>
-                                </j:forEach>
-                            </ant:moduleSearchPath>
-                        </ant:repository>
-        
-                    </ant:andromda-test>
-                </j:when>
-                <j:otherwise>
-                    <j:new var="runner" className="org.andromda.maven.AndroMDARunner"/>
-                    <attainGoal name="andromda:init${bootstrap}"/>
-                    <j:set var="dummy" value="${runner.setContext(context)}"/>
-                    <j:set var="mappingsSearchLocation" value="${plugin.resources}/andromda/mappings"/>
-                    <j:set var="dummy" value="${runner.setMappingsSearchLocation(mappingsSearchLocation)}"/>
-                    <j:set var="dummy" value="${runner.setConfigurationUri(configurationUri)}"/>
-                    <j:set var="dummy" value="${runner.run()}"/>                    
-                </j:otherwise>
-            </j:choose>
+                        
+            <j:new var="utils" className="org.andromda.maven.AndroMDAMavenUtils"/>
+            <j:set var="dummy" value="${utils.setContext(context)}"/>
+            
+            <ant:taskdef
+                name="andromda-test"
+                classname="org.andromda.maven.AndroMDAMavenRunner">
+                <ant:classpath>
+                    <ant:path refid="andromda.cartridge.classpath"/>
+                    <ant:pathelement location="${maven.build.dest}"/>
+                </ant:classpath>
+            </ant:taskdef>
+            
+            <ant:andromda-test configurationUri="${configurationUri}" mappingsSearchLocation="${plugin.resources}/andromda/mappings">
+                <j:forEach var="propertyName" items="${utils.propertyNames}">
+                    <ant:property name="${propertyName}" value="${context.getVariable(propertyName)}"/>
+                </j:forEach>                        
+            </ant:andromda-test>
 
             <!-- set the testcase to run -->
             <j:set
@@ -326,7 +243,7 @@ Please define the location of your how-to model by setting a value for property 
 
         <path id="andromda.cartridge.classpath">
             <ant:pathelement path="${plugin.dependencyClasspath}"/>
-         </path>
+         </path>                       
 
         <!-- add any model dependencies -->
         <attainGoal name="cartridge:add-model-dependencies${bootstrap}"/>

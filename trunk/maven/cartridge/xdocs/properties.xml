@@ -14,11 +14,10 @@
                         <th>Description</th>
                     </tr>
                     <tr>
-                        <td>andromda.cartridge.test.model.uri</td>
+                        <td>andromda.cartridge.test.configuration.uri</td>
                         <td>Yes</td>
                         <td>
-                            The URI to the model used to run tests.
-                            (i.e.<code>andromda.cartridge.test.model.uri=jar:file:${maven.src.dir}/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml</code>).
+                            The URI to the AndroMDA configuration file (this configures AndroMDA for the tests).
                         </td>
                     </tr>
                     <tr>
@@ -72,47 +71,6 @@
                         </td>
                     </tr> 
                     <tr>
-                        <td>
-                            andromda.cartridge.test.processAllModelPackages
-                        </td>
-                        <td>
-                            No
-                        </td>
-                        <td>
-                            <p>
-                                Whether or not to process all packages of the model.
-                                Default is <code>true</code>.
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            andromda.cartridge.test.modelPackage.<em>n</em>.name
-                        </td>
-                        <td>
-                            No
-                        </td>
-                        <td>
-                            The name of the model package to either process
-                            or ignore, where <em>n</em> can be any number of
-                            packages to process. <em>n</em> begins with
-                            0. (i.e. andromda.cartridge.test.modelPackage.0.name=org::andromda::metafacades::uml)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            andromda.cartridge.test.modelPackage.<em>n</em>.shouldProcess
-                        </td>
-                        <td>
-                            No
-                        </td>
-                        <td>
-                            True/false on whether or not the package specified
-                            from the <code>andromda.cartridge.test.modelPackage.n.name</code>
-                            property should be processed (i.e. andromda.cartridge.test.modelPackage.0.shouldProcess=false).
-                        </td>
-                    </tr>
-                    <tr>
                         <td>andromda.cartridge.extra.binary.file.suffixes</td>
                         <td>
                             No, default is <code>jpg,jpeg,gif,png,jar,zip</code>
@@ -124,33 +82,6 @@
                             the files will be compared as Strings.
                         </td>
                     </tr> 
-					<tr>
-						<td>
-							andromda.cartridge.repository.moduleSearchPath.location.<em>n</em>
-						</td>
-						<td>
-							No
-						</td>
-						<td>
-							Specifies a path to search when looking for modules used
-							from your test model specified by 
-							<code>andromda.cartridge.test.model.uri</code>, where <em>n</em>
-							can be any number of paths to search, <em>n</em> starts
-							with 0. (i.e. andromda.cartridge.repository.moduleSearchPath.location.0=${basedir}/../../etc/profile/src/uml)
-						</td>
-					</tr> 
-                    <tr>
-                        <td>
-                            <a name="andromda.cartridge.loggingConfigurationUri">andromda.cartridge.loggingConfigurationUri</a>
-                        </td>
-                        <td>
-                            Specifies the location of an external logging configuration file.  This is useful if you want
-                            to override the default logging behavior of AndroMDA.
-                        </td>
-                        <td>
-                            No
-                        </td>
-                    </tr>
                 </table>
             </subsection>
 			<subsection name="Including additional test dependencies">

@@ -37,7 +37,7 @@
             basedir="${basedir}"
             template="/project.xml"/>
         <!-- copy over the mappings -->
-        <ant:copy todir="${maven.build.dest}/plugin-resources/mappings">
+        <ant:copy todir="${maven.build.dest}/plugin-resources/andromda/mappings">
             <ant:fileset dir="${mappings.location}"/>
         </ant:copy>
     </preGoal>
