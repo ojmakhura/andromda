@@ -21,7 +21,7 @@ public class TransformationConfiguration
     public Transformation getTransformation()
     {
         final Transformation transformation = new Transformation();
-        transformation.setUri(this.url);
+        transformation.setUri(this.url != null ? this.url.toString() : null);
         transformation.setOutputLocation(this.outputLocation);
         return transformation;
     }

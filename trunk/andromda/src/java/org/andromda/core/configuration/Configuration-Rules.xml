@@ -38,8 +38,7 @@
                 
                 <call-method-rule
                     methodname="setUri"
-                    paramcount="1"
-                    paramtypes="java.net.URL"/>
+                    paramcount="1"/>
     
                 <call-param-rule
                     paramnumber="0"/>     
@@ -94,8 +93,7 @@
                 
                 <call-method-rule
                     methodname="setUri"
-                    paramcount="1"
-                    paramtypes="java.net.URL"/>
+                    paramcount="1" />
     
                 <call-param-rule
                     paramnumber="0"/>

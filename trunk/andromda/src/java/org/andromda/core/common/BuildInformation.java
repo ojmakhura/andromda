@@ -1,8 +1,11 @@
 package org.andromda.core.common;
 
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.util.Properties;
+
 
 /**
  * This class provides statistics on how the build was performed.
@@ -68,13 +71,13 @@ public class BuildInformation
         final String systemPropertyName = "andromda.build.system";
         final String jdkPropertyName = "andromda.build.jdk";
         final String builderPropertyName = "andromda.build.builder";
+        final URL versionUri = ResourceUtils.getResource(buildPropertiesUri);
         try
         {
-            URL versionUri = ResourceUtils.getResource(buildPropertiesUri);
             if (versionUri == null)
             {
-                throw new IllegalStateException("BuildInformation: could not load file --> '"
-                    + buildPropertiesUri + "'");
+                throw new IllegalStateException(
+                    "BuildInformation: could not load file --> '" + buildPropertiesUri + "'");
             }
             final Properties properties = new Properties();
             InputStream stream = versionUri.openStream();
@@ -86,11 +89,6 @@ public class BuildInformation
             this.buildJdk = properties.getProperty(jdkPropertyName);
             this.buildBuilder = properties.getProperty(builderPropertyName);
             this.buildVersion = properties.getProperty(versionPropertyName);
-
-        }
-        catch (IllegalStateException ex)
-        {
-            throw ex;
         }
         catch (Throwable th)
         {

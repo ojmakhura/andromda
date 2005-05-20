@@ -8,9 +8,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.Random;
+
 
 /**
  * <p/>
@@ -51,9 +54,7 @@ public class ExceptionRecorder
      * The exceptions directory, initialized to exceptions.
      */
     private static File exceptionDirectory = null;
-
     private static final SimpleDateFormat cvDateFormat = new SimpleDateFormat("yyMMddHHmmss");
-
     private static final Random random = new Random();
 
     /**
@@ -101,7 +102,9 @@ public class ExceptionRecorder
      * @param errorMessage to log with the exception report.
      * @param throwable    to record.
      */
-    public String record(String errorMessage, Throwable throwable)
+    public String record(
+        String errorMessage,
+        Throwable throwable)
     {
         return record(errorMessage, throwable, "S");
     }
@@ -121,23 +124,23 @@ public class ExceptionRecorder
      * @param throwable exception to record.
      * @param prefix    for the file name.
      */
-    public String record(String message, Throwable throwable, String prefix)
+    public String record(
+        String message,
+        Throwable throwable,
+        String prefix)
     {
-        PrintWriter writer;
-        String uniqueName = null;
         String result = null;
-        File exceptionFile;
         if (StringUtils.isEmpty(prefix))
         {
             prefix = DEFAULT_PREFIX;
         }
         try
         {
-            BuildInformation buildInformation = BuildInformation.instance();
-            uniqueName = getUniqueName(prefix);
-            exceptionFile = new File(exceptionDirectory, uniqueName);
+            final BuildInformation buildInformation = BuildInformation.instance();
+            final String uniqueName = getUniqueName(prefix);
+            final File exceptionFile = new File(exceptionDirectory, uniqueName);
             result = exceptionFile.getCanonicalPath();
-            writer = new PrintWriter(new FileWriter(exceptionFile));
+            final PrintWriter writer = new PrintWriter(new FileWriter(exceptionFile));
             writer.println(FILE_HEADER);
             writer.println("Version ........: " + buildInformation.getBuildVersion());
             writer.println("Error ..........: " + message);
@@ -145,6 +148,7 @@ public class ExceptionRecorder
             writer.println("Build System ...: " + buildInformation.getBuildSystem());
             writer.println("Build JDK ......: " + buildInformation.getBuildJdk());
             writer.println("Build Builder ..: " + buildInformation.getBuildBuilder());
+
             // Place in try/catch in case system is protected.
             try
             {
@@ -193,6 +197,7 @@ public class ExceptionRecorder
         {
             uniqueName = prefix + cvDateFormat.format(new Date()) + "_" + suffix++ + SUFFIX;
             exceptionFile = new File(exceptionDirectory, uniqueName);
+
             // Give another user an opportunity to
             // grab a file name. Use a random delay to
             // introduce variability

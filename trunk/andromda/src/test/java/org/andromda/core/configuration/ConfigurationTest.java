@@ -1,7 +1,6 @@
 package org.andromda.core.configuration;
 
 import java.net.URL;
-import java.util.Iterator;
 
 import junit.framework.TestCase;
 
@@ -21,13 +20,11 @@ public class ConfigurationTest
         assertNotNull(configuration);
         
         // properties
-        assertFalse(configuration.getProperties().isEmpty());
-        assertEquals(3, configuration.getProperties().size());
-        final Iterator globalPropertyIterator = configuration.getProperties().iterator();
-        final Property property1 = (Property)globalPropertyIterator.next();
+        assertEquals(3, configuration.getProperties().length);
+        final Property property1 = configuration.getProperties()[0];
         assertEquals("modelValidation",  property1.getName());
         assertEquals("true", property1.getValue());
-        final Property property2 = (Property)globalPropertyIterator.next();
+        final Property property2 =  configuration.getProperties()[1];
         assertEquals("cartridgeFilter",  property2.getName());
         assertEquals("${filter}", property2.getValue());
         
@@ -54,14 +51,12 @@ public class ConfigurationTest
         assertFalse(model2.isLastModifiedCheck());
         
         // transformations
-        assertFalse(configuration.getTransformations().isEmpty());
-        assertEquals(2, configuration.getTransformations().size());
-        final Iterator transformationIterator = configuration.getTransformations().iterator();
-        final Transformation transformation1 = (Transformation)transformationIterator.next();
+        assertEquals(2, configuration.getTransformations().length);
+        final Transformation transformation1 = configuration.getTransformations()[0];
         assertNotNull(transformation1);
         assertEquals("file:transformation1.xsl", transformation1.getUri().toString());
         assertEquals("path/to/some/directory/transformed-model.xmi", transformation1.getOutputLocation());
-        final Transformation transformation2 = (Transformation)transformationIterator.next();
+        final Transformation transformation2 = configuration.getTransformations()[1];
         assertNotNull(transformation2);
         assertEquals("file:transformation2.xsl", transformation2.getUri().toString());
         

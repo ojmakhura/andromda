@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * Dictionary of configurable Namespace objects. Namespace objects are used for configuring Plugin instances.
  *
@@ -32,7 +33,7 @@ public class Namespaces
      * Stores all namespaces.
      */
     private final Map namespaces = new HashMap();
-    
+
     /**
      * Returns the singleton instance of this Namespaces
      *
@@ -50,7 +51,9 @@ public class Namespaces
      */
     public void addNamespace(final Namespace namespace)
     {
-        namespaces.put(namespace.getName(), namespace);
+        namespaces.put(
+            namespace.getName(),
+            namespace);
     }
 
     /**
@@ -74,7 +77,9 @@ public class Namespaces
      * @param propertyName  name of the namespace property to find.
      * @return String the namespace property value.
      */
-    public Property findNamespaceProperty(final String namespaceName, final String propertyName)
+    public Property findNamespaceProperty(
+        final String namespaceName,
+        final String propertyName)
     {
         return this.findNamespaceProperty(namespaceName, propertyName, true);
     }
@@ -89,14 +94,17 @@ public class Namespaces
      * @param showWarning   true/false if we'd like to display a warning if the property/namespace can not be found.
      * @return String the namespace property value.
      */
-    public Property findNamespaceProperty(final String namespaceName, final String propertyName, final boolean showWarning)
+    public Property findNamespaceProperty(
+        final String namespaceName,
+        final String propertyName,
+        final boolean showWarning)
     {
         final String methodName = "Namespaces.findNamespaceProperty";
         ExceptionUtils.checkEmpty(methodName, "namespaceName", namespaceName);
         ExceptionUtils.checkEmpty(methodName, "propertyName", propertyName);
 
         Property property = null;
-        Namespace namespace = (Namespace)namespaces.get(namespaceName);
+        final Namespace namespace = (Namespace)namespaces.get(namespaceName);
         if (namespace != null)
         {
             property = namespace.getProperty(propertyName);
@@ -104,35 +112,34 @@ public class Namespaces
 
         // since we couldn't find a Namespace for the specified cartridge,
         // try to lookup the default
+        Namespace defaultNamespace = null;
         if (property == null)
         {
             if (logger.isDebugEnabled())
-                logger.debug("no namespace with name '" + namespaceName + "' found, looking for '" + DEFAULT + "'");
-            namespace = (Namespace)namespaces.get(DEFAULT);
-
-            if (namespace != null)
             {
-                property = namespace.getProperty(propertyName);
+                logger.debug("no namespace with name '" + namespaceName + "' found, looking for '" + DEFAULT + "'");
+            }
+            defaultNamespace = (Namespace)namespaces.get(DEFAULT);
+            if (defaultNamespace != null)
+            {
+                property = defaultNamespace.getProperty(propertyName);
             }
         }
 
         if (namespace == null && showWarning)
         {
-            logger.warn("WARNING! No '" + DEFAULT + "' or '" + namespaceName + "' namespace found, " +
-                    "--> please define a namespace with" +
-                    " at least one of these names, if you would like " +
-                    "to ignore this message, define the namespace with " + "ignore set to 'true'");
-
+            logger.warn(
+                "WARNING! No '" + DEFAULT + "' or '" + namespaceName + "' namespace found, " +
+                "--> please define a namespace with" + " at least one of these names, if you would like " +
+                "to ignore this message, define the namespace with " + "ignore set to 'true'");
         }
         else if (property == null && showWarning)
         {
-            logger.warn("WARNING! Namespaces '" + DEFAULT + "' and '" + namespaceName + "' have no property '" +
-                    propertyName +
-                    "' defined --> please define this " +
-                    "property in AT LEAST ONE of these two namespaces. " +
-                    " If you want to 'ignore' this message, add the " +
-                    "property to the namespace with ignore set to 'true'");
-
+            logger.warn(
+                "WARNING! Namespaces '" + DEFAULT + "' and '" + namespaceName + "' have no property '" + propertyName +
+                "' defined --> please define this " + "property in AT LEAST ONE of these two namespaces. " +
+                " If you want to 'ignore' this message, add the " +
+                "property to the namespace with ignore set to 'true'");
         }
         return property;
     }

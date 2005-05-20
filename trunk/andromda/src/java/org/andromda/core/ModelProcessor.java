@@ -18,6 +18,7 @@ import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.ResourceWriter;
+import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.ModelPackages;
 import org.andromda.core.configuration.Namespace;
@@ -37,9 +38,9 @@ import org.apache.log4j.Logger;
 
 /**
  * <p>
- * The main entry point to the framework, handles the loading/processing of models by plugins. Facilitates Model Driven
+ * Handles the processing of models. Facilitates Model Driven
  * Architecture by enabling the generation of source code, configuration files, and other such artifacts from a single
- * or multiple <code>MOF</code> models. </p>
+ * or multiple models. </p>
  *
  * @author Chad Brandon
  */
@@ -66,7 +67,7 @@ public class ModelProcessor
     {
         return instance;
     }
-
+    
     /**
      * Processes all <code>models</code> with the discovered plugins.
      *
@@ -363,14 +364,14 @@ public class ModelProcessor
     private final List transformations = new ArrayList();
     
     /**
-     * Adds a transformation to be applied to the model(s)
+     * Adds transformation to be applied to the model(s)
      * before processing occurrs.
      * 
      * @param transformation a transformation document.
      */
-    public void addTransformation(Transformation transformation)
+    public void addTransformations(final Transformation[] transformations)
     {
-        this.transformations.add(transformation);
+        this.transformations.addAll(Arrays.asList(transformations));
     }
     
     /**
@@ -393,6 +394,18 @@ public class ModelProcessor
     public void setOuputEncoding(final String outputEncoding)
     {
         ResourceWriter.instance().setEncoding(outputEncoding);
+    }
+    
+    /**
+     * Sets <code>xmlValidation</code> to be true/false. This defines whether XML resources loaded by AndroMDA (such as
+     * plugin descriptors) should be validated. Sometimes underlying parsers don't support XML Schema validation and in
+     * that case, we want to be able to turn it off.
+     *
+     * @param xmlValidation true/false on whether we should validate XML resources used by AndroMDA
+     */
+    public void setXmlValidation(final boolean xmlValidation)
+    {
+        XmlObjectFactory.setDefaultValidating(xmlValidation);
     }
 
     /**

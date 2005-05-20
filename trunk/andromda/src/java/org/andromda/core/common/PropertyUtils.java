@@ -59,10 +59,27 @@ public class PropertyUtils
                 }
             }
         }
-        catch (Throwable throwable)
+        catch (final Throwable throwable)
         {
             valid = false;
         }
         return valid;
+    }
+    
+    /**
+     * Sets the property having the given <code>name</code> on the <code>object</code>
+     * with the given <code>value</code>.
+     * 
+     * @param object the object on which to set the property.
+     * @param name the name of the property to populate.
+     * @param value the value to give the property.
+     */
+    public static void setProperty(final Object object, final String name, final Object value)
+        throws Exception
+    {
+        if (org.apache.commons.beanutils.PropertyUtils.isReadable(object, name))
+        {
+            org.apache.commons.beanutils.BeanUtils.setProperty(object, name, value);
+        }
     }
 }

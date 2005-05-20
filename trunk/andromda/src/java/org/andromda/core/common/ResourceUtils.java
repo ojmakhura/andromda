@@ -49,8 +49,8 @@ public class ResourceUtils
                 "performing '" + methodName + "' with resourceName '" + resourceName + "'");
         }
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
-        final ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        return loader.getResource(resourceName);
+        final ClassLoader loader = ClassUtils.getClassLoader();
+        return loader != null ? loader.getResource(resourceName) : null;
     }
 
     /**

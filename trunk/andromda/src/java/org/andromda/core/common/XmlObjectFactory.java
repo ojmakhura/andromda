@@ -10,9 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+
 import java.net.URL;
+
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * <p/>
@@ -41,17 +44,13 @@ import java.util.Map;
  */
 public class XmlObjectFactory
 {
-
     /**
      * The class logger. Note: visibility is protected to improve access within {@link XmlObjectValidator}
      */
     protected static final Logger logger = Logger.getLogger(XmlObjectFactory.class);
-
     private static final String RULES_SUFFIX = "-Rules.xml";
     private static final String SCHEMA_SUFFIX = ".xsd";
-
     private Digester digester = null;
-
     private Class objectClass = null;
     private URL objectRulesXml = null;
     private URL schemaUri = null;
@@ -76,7 +75,9 @@ public class XmlObjectFactory
     {
         final String methodName = "XmlObjectFactory.XmlObjectFactory";
         if (logger.isDebugEnabled())
+        {
             logger.debug("performing " + methodName + " with objectRulesXml '" + objectRulesXml + "'");
+        }
         ExceptionUtils.checkNull(methodName, "objectRulesXml", objectRulesXml);
         this.digester = DigesterLoader.createDigester(objectRulesXml);
     }
@@ -95,8 +96,8 @@ public class XmlObjectFactory
         XmlObjectFactory factory = (XmlObjectFactory)factoryCache.get(objectClass);
         if (factory == null)
         {
-            final URL objectRulesXml = XmlObjectFactory.class.getResource(
-                    '/' + objectClass.getName().replace('.', '/') + RULES_SUFFIX);
+            final URL objectRulesXml =
+                XmlObjectFactory.class.getResource('/' + objectClass.getName().replace('.', '/') + RULES_SUFFIX);
             if (objectRulesXml == null)
             {
                 throw new XmlObjectFactoryException("No configuration rules found for class --> '" + objectClass + "'");
@@ -155,8 +156,8 @@ public class XmlObjectFactory
                 if (this.schemaUri == null)
                 {
                     logger.warn(
-                            "WARNING! Was not able to find schemaUri --> '" + schemaLocation +
-                            "' continuing in non validating mode");
+                        "WARNING! Was not able to find schemaUri --> '" + schemaLocation +
+                        "' continuing in non validating mode");
                 }
             }
             if (this.schemaUri != null)
@@ -164,16 +165,21 @@ public class XmlObjectFactory
                 try
                 {
                     this.digester.setSchema(this.schemaUri.toString());
-                    this.digester.setErrorHandler(new XmlObjectValidator());                    
-                    
+                    this.digester.setErrorHandler(new XmlObjectValidator());
+
                     // also set the JAXP properties in case we're using a parser that needs those
-                    this.digester.setProperty(JAXP_SCHEMA_LANGUAGE, this.digester.getSchemaLanguage());
-                    this.digester.setProperty(JAXP_SCHEMA_SOURCE, this.digester.getSchema());
+                    this.digester.setProperty(
+                        JAXP_SCHEMA_LANGUAGE,
+                        this.digester.getSchemaLanguage());
+                    this.digester.setProperty(
+                        JAXP_SCHEMA_SOURCE,
+                        this.digester.getSchema());
                 }
                 catch (Exception ex)
                 {
-                    logger.warn("WARNING! Your parser does NOT support the " +
-                            " schema validation continuing in non validation mode", ex);
+                    logger.warn(
+                        "WARNING! Your parser does NOT support the " +
+                        " schema validation continuing in non validation mode", ex);
                 }
             }
         }
@@ -221,7 +227,9 @@ public class XmlObjectFactory
     {
         final String methodName = "XmlObjectFactoryException.getObject";
         if (logger.isDebugEnabled())
+        {
             logger.debug("performing " + methodName + " with objectXml '" + objectXml + "'");
+        }
 
         ExceptionUtils.checkNull(methodName, "objectXml", objectXml);
 
@@ -232,27 +240,24 @@ public class XmlObjectFactory
             objectXml = null;
             if (object == null)
             {
-                String errMsg = "Was not able to instantiate an object using objectRulesXml '" + this.objectRulesXml +
-                        "' with objectXml '" +
-                        objectXml +
-                        "', please check either the objectXml " +
-                        "or objectRulesXml file for inconsistencies";
+                final String errMsg =
+                    "Was not able to instantiate an object using objectRulesXml '" + this.objectRulesXml +
+                    "' with objectXml '" + objectXml + "', please check either the objectXml " +
+                    "or objectRulesXml file for inconsistencies";
                 throw new XmlObjectFactoryException(errMsg);
             }
         }
-        catch (SAXException ex)
+        catch (final SAXException ex)
         {
-            String validationErrorMsg = "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" +
-                    this.schemaUri +
-                    "' --> message: '" +
-                    ex.getMessage() +
-                    "'";
+            String validationErrorMsg =
+                "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" + this.schemaUri +
+                "' --> message: '" + ex.getMessage() + "'";
             throw new XmlObjectFactoryException(validationErrorMsg);
         }
-        catch (Throwable th)
+        catch (final Throwable th)
         {
-            String errMsg = "Error performing " + methodName + ", XML resource could not be loaded --> '" + objectXml +
-                    "'";
+            String errMsg =
+                "Error performing " + methodName + ", XML resource could not be loaded --> '" + objectXml + "'";
             throw new XmlObjectFactoryException(errMsg, th);
         }
         return object;
@@ -267,7 +272,8 @@ public class XmlObjectFactory
         /**
          * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
          */
-        public final void error(SAXParseException exception) throws SAXException
+        public final void error(SAXParseException exception)
+            throws SAXException
         {
             throw new SAXException(this.getMessage(exception));
         }
@@ -275,7 +281,8 @@ public class XmlObjectFactory
         /**
          * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
          */
-        public final void fatalError(SAXParseException exception) throws SAXException
+        public final void fatalError(SAXParseException exception)
+            throws SAXException
         {
             throw new SAXException(this.getMessage(exception));
         }
