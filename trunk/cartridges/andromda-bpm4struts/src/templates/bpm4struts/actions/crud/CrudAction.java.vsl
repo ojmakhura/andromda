@@ -233,6 +233,30 @@ public final class $manageable.actionClassName extends DispatchAction
     }
 
 #end
+#foreach ($member in $manageable.attributes)
+#if ($member.needsFileUpload)
+    public ActionForward ${member.getterName}(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+#if (!$manageable.identifiers.empty)
+#set ($identifier = $manageable.identifiers.iterator().next())
+#end
+        final $manageable.formBeanType form = ($manageable.formBeanType) actionForm;
+        final $member.type.fullyQualifiedName $member.name = ${manageable.manageableServiceAccessorCall}.${member.getterName}(form.${identifier.getterName}());
+
+        if ($member.name != null)
+        {
+            response.setContentType("application/octet-stream");
+            response.setContentLength(${member.name}.length);
+            response.setHeader("Content-disposition", "inline; filename=${manageable.name}-${member.name}.bin");
+            response.getOutputStream().write($member.name);
+        }
+
+        // let the browser simply download the field, do not forward
+        return null;
+    }
+
+#end
+#end
 #if ($manageable.maximumListSize > 0)
     private void saveMaxResultsWarning(HttpServletRequest request)
     {
