@@ -66,6 +66,17 @@ public class Namespaces
     {
         return (Namespace)namespaces.get(namespaceName);
     }
+    
+    /**
+     * Indicates if the namespace is present within this instance.
+     * 
+     * @param namespaceName the name of the namespace.
+     * @return true/false
+     */
+    public boolean namespacePresent(final String namespaceName)
+    {
+        return this.findNamespace(namespaceName) != null;
+    }
 
     /**
      * Retrieves a property from the Namespace with the namespaceName. If the <code>ignore</code> attribute of the

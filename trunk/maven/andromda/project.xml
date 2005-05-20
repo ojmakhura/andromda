@@ -62,6 +62,11 @@
             <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-maven-core</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
         ${bootstrapMetaCartridge}
         <dependency>
             <groupId>picocontainer</groupId>

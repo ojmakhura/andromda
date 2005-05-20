@@ -82,4 +82,10 @@ public interface RepositoryFacade
      * @return the model value (or <code>null</code> if no models exist in the repository).
      */
     public ModelAccessFacade getModel();
+    
+    /**
+     * Clears the repository of any model(s)
+     * (without shutting it down).
+     */
+    public void clear();
 }

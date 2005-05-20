@@ -133,12 +133,12 @@ public class PluginDiscoverer
                         }
                         discoveredPlugins.add(plugin);
                     }
-                    // list out the discovered plugins
-                    for (final Iterator iterator = discoveredPlugins.iterator(); iterator.hasNext();)
+                    if (showPlugins && logger.isInfoEnabled())
                     {
-                        final Plugin plugin = (Plugin)iterator.next();
-                        if (showPlugins && logger.isInfoEnabled())
+                        // list out the discovered plugins
+                        for (final Iterator iterator = discoveredPlugins.iterator(); iterator.hasNext();)
                         {
+                            final Plugin plugin = (Plugin)iterator.next();
                             AndroMDALogger.info("found " + plugin.getType() + " --> '" + plugin.getName() + "'");
                         }
                     }

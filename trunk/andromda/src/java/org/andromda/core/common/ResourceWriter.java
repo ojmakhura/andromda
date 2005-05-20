@@ -226,6 +226,7 @@ public class ResourceWriter
         }
         this.modelFile = modelFile;
         this.history = new StringBuffer();
+        this.writtenCount = 0;
     }
 
     private String modelFile = null;
