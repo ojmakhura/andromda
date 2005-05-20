@@ -114,10 +114,6 @@ public class ModelProcessor
                     repository.clear();
                 }
                 process(this.repository, models);
-                /*repository.open();
-                process(repository, models);
-                repository.close();
-                repository = null;*/
             }
             finally
             {
@@ -219,7 +215,6 @@ public class ModelProcessor
                 }
 
                 final CodeGenerationContext context = new CodeGenerationContext(repository, modelPackages);
-                final Namespace defaultNamespace = Namespaces.instance().findNamespace(Namespaces.DEFAULT);
                 for (final Iterator cartridgeIterator = cartridges.iterator(); cartridgeIterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)cartridgeIterator.next();
@@ -230,7 +225,7 @@ public class ModelProcessor
 
                         // make sure we ignore the cartridge if the
                         // namespace is set to 'ignore'
-                        if (namespace != null || defaultNamespace != null)
+                        if (namespace != null)
                         {
                             cartridge.init();
                             cartridge.processModelElements(context);
