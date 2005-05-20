@@ -18,26 +18,6 @@
              <artifactId>maven-andromda-plugin</artifactId>
              <version>${andromda.version}</version>
              <type>plugin</type>
-             <properties>
-                 <languageMappingsUri>Java</languageMappingsUri>
-                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-                 <sqlMappingsUri>${sql.mappings}</sqlMappingsUri>
-                 <jdbcMappingsUri>JDBC</jdbcMappingsUri>
-                 <maxSqlNameLength>30</maxSqlNameLength>
-                 <foreignKeySuffix>_FK</foreignKeySuffix>
-                 <ejbJndiNamePrefix>${pom.groupId}</ejbJndiNamePrefix>
-                 <!-- these masking properties allow you to configure the way
-                      your model element names are generated -->
-                 <classifierNameMask>none</classifierNameMask>
-                 <classifierPropertyNameMask>none</classifierPropertyNameMask>
-                 <operationNameMask>none</operationNameMask>
-                 <roleNameMask>none</roleNameMask>
-                 <enumerationNameMask>none</enumerationNameMask>
-                 <enumerationLiteralNameMask>none</enumerationLiteralNameMask>
-                 <entityNameMask>none</entityNameMask>
-                 <entityPropertyNameMask>none</entityPropertyNameMask>
-                 <parameterNameMask>none</parameterNameMask>
-             </properties>
         </dependency>
 #if ($ejb)
         <!-- Specify and configure our cartridges -->
@@ -45,97 +25,21 @@
             <groupId>andromda</groupId>
             <artifactId>andromda-ejb-cartridge</artifactId>
             <version>${andromda.version}</version>
-            <properties>
-                <entity-beans>${maven.andromda.core.generated.dir}</entity-beans>
-                <session-beans>${maven.andromda.core.generated.dir}</session-beans>
-                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
-                <session-impls>${maven.andromda.core.manual.dir}</session-impls>
-            </properties>
         </dependency>
-#elseif ($hibernate)
-        <!-- specify and configure our cartridges -->
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-hibernate-cartridge</artifactId>
-            <version>${andromda.version}</version>
-            <properties>
-                <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
-                <dataSource>${dataSource}</dataSource>
-                <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
-                <hibernateTransactionManagerLookup>${hibernate.transaction.manager.lookup}</hibernateTransactionManagerLookup>
-                <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
-                <hibernateInheritanceStrategy>subclass</hibernateInheritanceStrategy>
-                <customTypesPackage>${pom.package}</customTypesPackage>
-                <hibernateJdbcBatchSize>0</hibernateJdbcBatchSize>
-                <hibernateUseQueryCache>false</hibernateUseQueryCache>
-                <hibernateQueryUseNamedParameters>true</hibernateQueryUseNamedParameters>
-                <compositionDefinesEagerLoading>true</compositionDefinesEagerLoading>
-                <hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
-                <hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
-                <entities>${maven.andromda.core.generated.dir}</entities>
-                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
-                <session-beans>${maven.andromda.core.generated.dir}</session-beans>
-                <session-impls>${maven.andromda.core.manual.dir}</session-impls>
-                <configuration>${maven.andromda.core.generated.dir}</configuration>
-                <!-- uncomment to enable EJB security -->
-                <!-- <securityRealm>${pom.groupId}</securityRealm> -->
-            </properties>
-        </dependency>
-#else
+#elseif ($spring)
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-spring-cartridge</artifactId>
             <version>${andromda.version}</version>
             <type>jar</type>
-            <properties>
-#if ($ear)
-                <dataSource>${dataSource}</dataSource>
-#else
-                <username>${dataSource.user}</username>
-                <password>${dataSource.password}</password>
-                <driver>${dataSource.driver.class}</driver>
-                <connectionUrl>${dataSource.url}</connectionUrl>
-#end
-                <hibernateDialect>${hibernate.db.dialect}</hibernateDialect>
-                <hibernateShowSql>${hibernate.db.showSql}</hibernateShowSql>
-                <hibernateUseQueryCache>false</hibernateUseQueryCache>
-                <hibernateQueryUseNamedParameters>true</hibernateQueryUseNamedParameters>
-                <hibernateCacheProvider>net.sf.hibernate.cache.EhCacheProvider</hibernateCacheProvider>
-                <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
-                <hibernateQueryCacheFactory>net.sf.hibernate.cache.StandardQueryCacheFactory</hibernateQueryCacheFactory>
-                <springTypesPackage>${pom.package}</springTypesPackage>
-                <daos>${maven.andromda.core.generated.dir}</daos>
-                <dao-impls>${maven.andromda.core.manual.dir}</dao-impls>
-                <spring-configuration>${maven.andromda.core.generated.dir}</spring-configuration>
-                <services>${maven.andromda.core.generated.dir}</services>
-                <service-impls>${maven.andromda.core.manual.dir}</service-impls>
-                <!-- uncomment to generate the OpenSessionInViewFilter that allows the 
-                     open-session-in-view pattern (when you expose your entities 
-                     directly want lazy-loading to be allowed at the presentation tier)
-                <open-session-in-view>${maven.andromda.web.generated.dir}</open-session-in-view> -->
-#if ($ear)
-                <!-- to remove any dependency on EJB, comment the following property -->
-                <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
-                <!-- uncomment to enable EJB security -->
-                <!-- <securityRealm>${pom.groupId}</securityRealm> -->
-#end
-            </properties>
         </dependency>
+#end
+#if ($hibernate || $spring)
+        <!-- specify and configure our cartridges -->
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
             <version>${andromda.version}</version>
-            <type>jar</type>
-            <properties>
-                <hibernateTypeMappingsUri>Hibernate</hibernateTypeMappingsUri>
-                <hibernateInheritanceStrategy>${hibernate.inheritance.strategy}</hibernateInheritanceStrategy>
-                <defaultHibernateGeneratorClass>${hibernate.generatorClass}</defaultHibernateGeneratorClass>
-                <hibernateDefaultCascade>none</hibernateDefaultCascade>
-                <entities>${maven.andromda.core.generated.dir}</entities>
-                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
-                <customTypesPackage>${pom.package}</customTypesPackage>
-                <compositionDefinesEagerLoading>true</compositionDefinesEagerLoading>
-            </properties>
         </dependency>
 #end
 #if ($webservice)
@@ -144,65 +48,18 @@
             <artifactId>andromda-webservice-cartridge</artifactId>
             <version>${andromda.version}</version>
             <type>jar</type>
-            <properties>
-                <schemaTypeMappingsUri>AxisWSDLMappings</schemaTypeMappingsUri>
-                <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
-                <defaultProvider>${default.provider}</defaultProvider>
-                <applicationName>${pom.groupId}</applicationName>
-                <wsdlSoapAddress>${wsdl.soap.address}</wsdlSoapAddress>
-#if ($hibernate)
-                <ejbInterfacePattern>{0}.ejb.{1}</ejbInterfacePattern>
-                <ejbHomeInterfacePattern>{0}.ejb.{1}Home</ejbHomeInterfacePattern>
-#elseif ($ejb)
-                <ejbInterfacePattern>{0}.ejb.{1}</ejbInterfacePattern>
-                <ejbHomeInterfacePattern>{0}.ejb.{1}LocalHome</ejbHomeInterfacePattern>
-#else
-                <rpcClassNamePattern>{0}.{1}WSDelegator</rpcClassNamePattern>
-#end
-                <wsdls>${maven.andromda.webservice.generated.dir}/WEB-INF/classes</wsdls>
-                <axis-configuration>${maven.andromda.webservice.generated.dir}</axis-configuration>
-            </properties>
         </dependency>
 #end
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${andromda.version}</version>
-            <properties>
-#if ($webservice)
-                <languageMappingsUri>AxisJavaMappings</languageMappingsUri>
-                <useArraysForMultiplicitiesOfTypeMany>true</useArraysForMultiplicitiesOfTypeMany>
-#end
-                <enumerations>${maven.andromda.common.generated.dir}</enumerations>
-                <exceptions>${maven.andromda.common.generated.dir}</exceptions>
-                <value-objects>${maven.andromda.common.generated.dir}</value-objects>
-            </properties>
         </dependency>
 #if ($web)
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${andromda.version}</version>
-            <properties>
-                 <forms>${maven.andromda.web.generated.dir}</forms>
-                 <pages>${maven.andromda.web.generated.dir}</pages>
-                 <actions>${maven.andromda.web.generated.dir}</actions>
-                 <controllers>${maven.andromda.web.generated.dir}</controllers>
-                 <controller-impls>${maven.andromda.web.manual.java.dir}</controller-impls>
-                 <decorators>${maven.andromda.web.manual.java.dir}</decorators>
-                 <messages>${maven.andromda.web.generated.dir}/WEB-INF/classes</messages>
-                 <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
-                 <normalizeMessages>false</normalizeMessages>
-                 <security>false</security>
-                 <securityRealm>other</securityRealm>
-#if ($ejb)
-                 <serviceAccessorPattern>{0}.{1}Util.getHome().create()</serviceAccessorPattern>
-#else
-                 <serviceAccessorPattern>${pom.package}.ServiceLocator.instance().get{1}()</serviceAccessorPattern>
-                 <manageableServiceAccessorPattern>${pom.package}.ManageableServiceLocator.instance().get{1}()</manageableServiceAccessorPattern>
-#end
-                 <mergeMappingsUri>file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</mergeMappingsUri>
-            </properties>
         </dependency>
 #end
         <dependency>
