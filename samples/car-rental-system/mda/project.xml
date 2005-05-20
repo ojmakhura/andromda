@@ -18,53 +18,22 @@
              <artifactId>maven-andromda-plugin</artifactId>
              <version>${pom.currentVersion}</version>
              <type>plugin</type>
-             <properties>
-                 <languageMappingsUri>Java</languageMappingsUri>
-                 <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-                 <sqlMappingsUri>${sql.mappings}</sqlMappingsUri>
-                 <jdbcMappingsUri>JDBC</jdbcMappingsUri>
-                 <maxSqlNameLength>30</maxSqlNameLength>
-                 <foreignKeySuffix>_FK</foreignKeySuffix>
-                 <ejbJndiNamePrefix>${application.id}</ejbJndiNamePrefix>
-             </properties>
         </dependency>
         <!-- Specify and configure our cartridges -->
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ejb-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties>
-                <entity-beans>${maven.andromda.core.generated.dir}</entity-beans>
-                <session-beans>${maven.andromda.core.generated.dir}</session-beans>
-                <entity-impls>${maven.andromda.core.manual.dir}</entity-impls>
-                <session-impls>${maven.andromda.core.manual.dir}</session-impls>
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties>
-                <enumerations>${maven.andromda.common.generated.dir}</enumerations>
-                <exceptions>${maven.andromda.common.generated.dir}</exceptions>
-                <value-objects>${maven.andromda.common.generated.dir}</value-objects>
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
-            <properties>
-                 <forms>${maven.andromda.web.generated.dir}</forms>
-                 <pages>${maven.andromda.web.generated.dir}</pages>
-                 <actions>${maven.andromda.web.generated.dir}</actions>
-                 <controllers>${maven.andromda.web.generated.dir}</controllers>
-                 <controller-impls>${maven.andromda.web.manual.java.dir}</controller-impls>
-                 <messages>${maven.andromda.web.generated.dir}</messages>
-                 <configuration>${maven.andromda.web.generated.dir}/WEB-INF</configuration>
-                 <securityEnabled>false</securityEnabled>
-                 <securityRealm>other</securityRealm>
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
