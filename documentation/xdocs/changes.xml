@@ -10,6 +10,11 @@
     </properties>
     <body>
         <release version="3.1-M1-SNAPSHOT" date="2005-05-19" description="Continuous build for the first milestone release of version 3.1">
+            <action dev="cwbrandon" type="add" issue="CORE-67">
+                AndroMDA is now configured through a single XML configuration file.  This means both the Ant task and Maven
+                plugin just point to this file.  Please see the <a href="configuration.html">configuration</a> documentation 
+                for more information.
+            </action>
             <action dev="draftdog" type="add" issue="BPM-186">
                 Manageable entities can now have non-required fields hidden if desired,
                 it is also possible to use textareas instead of plain textfields.
