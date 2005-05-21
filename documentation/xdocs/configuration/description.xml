@@ -580,6 +580,77 @@
                 </source>
             </p>
         </subsection>
+        <subsection name="">
+            <h2>
+                <a name="properties"><![CDATA[<properties>]]></a>
+            </h2>      
+            <p>
+                The properties is used to group the properties that 
+                configure the options within a namespace/plugin.
+                <source language="xml">
+<![CDATA[<namespace name="webservice">
+    <properties>
+        ...
+    </properties>
+</namespace>]]>                  
+                </source>
+            </p>        
+        </subsection>
+        <subsection name="">
+            <h2>
+                <a name="property"><![CDATA[<property>]]></a>
+            </h2>      
+            <p>
+                The <em>optional</em> propertiy is used to configure an option within a namespace/plugin.
+                For example this property here sets the <em>schemaTypeMappingsUri</em>
+                with a value of 'AxisWSDLMappings'.
+                <source language="xml">
+<![CDATA[<properties>
+    ....
+    <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
+        ...
+</properties>]]>                  
+                </source>
+                <h3>Attributes</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <strong>Attribute</strong>
+                        </td>
+                        <td>
+                            <strong>Description</strong>
+                        </td>
+                        <td>
+                            <strong>Required</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            name
+                        </td>
+                        <td>
+                            The name of the property to configure
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ignore
+                        </td>
+                        <td>
+                            A flag indicating whether or not the property should be ignored.
+                        </td>
+                        <td>
+                            No, unless for some reason you want AndroMDA to ignore the fact
+                            that the property isn't defined.  This is useful in cases where a property
+                            might be required for a plugin, however in your case, you don't need it.
+                        </td>
+                    </tr>                    
+                </table>
+            </p>                 
+        </subsection>
             <!--
             <h2>
                 <a name="namespace"><![CDATA[<namespace>]]></a>
@@ -596,51 +667,6 @@
                 to use (i.e. JavaMappings.xml, DotNetMappings.xml, etc.) and any other
                 properties that a cartridge and its metafacades might support.
             </p>
-            <h3>Attributes</h3>
-            <table>
-                <tr>
-                    <td>
-                        <strong>Attribute</strong>
-                    </td>
-                    <td>
-                        <strong>Description</strong>
-                    </td>
-                    <td>
-                        <strong>Required</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        name
-                    </td>
-                    <td>
-                        The name of the cartridge you want to use. It must match the name 
-                        in a cartridge descriptor (i.e.
-                        <em>/META-INF/andromda-cartridge.xml</em>).
-                    </td>
-                    <td>
-                        Yes.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        ignore
-                    </td>
-                    <td>
-                        This is useful if you have a cartridge on your classpath 
-                        (since cartridge's are loaded when on your classpath) and you do
-                        not want to generate any output from this cartridge, in other
-                        words, you want it to be ignored.  If you want to ignore
-                        a cartridge, then set this attribute with value of
-                        <code>true</code>,
-                        otherwise don't set it at all.
-                    </td>
-                    <td>
-                        No. Defaults to
-                        <code>false</code>.
-                    </td>
-                </tr>
-            </table>
             <p>
                 See the
                 <a href="#andromda-example">example</a> above for the correct use of
