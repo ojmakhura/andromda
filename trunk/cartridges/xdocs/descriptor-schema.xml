@@ -33,6 +33,10 @@
     </xs:element>
     <xs:element name="property">
         <xs:complexType>
+            <xs:sequence>
+                <!-- provides any information about this property reference -->
+                <xs:element name="documentation" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
             <!-- defines a reference to a <property/> element defined within
                  a namespace element in your build file -->
             <xs:attribute name="reference" use="required"/>
@@ -117,7 +121,12 @@
                          processed by the template will be output to one template as
                          collection of model elements (instead of on a per model
                          element per file basis) -->
-                    <xs:attribute name="outputToSingleFile" type="xs:string" use="optional"/>
+                    <xs:attribute name="outputToSingleFile" type="xs:boolean" use="optional"/>
+                    <!-- This only makes sense when outputToSingleFile is true.
+                         If this flag is set to true, then the file will be output regardless
+                         of whether or not there are no elements found in the collected
+                         model elements, if false then the file will not be output -->
+                    <xs:attribute name="outputOnEmptyElements" type="xs:boolean" use="optional"/>
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>
