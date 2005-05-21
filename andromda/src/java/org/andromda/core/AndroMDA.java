@@ -96,7 +96,7 @@ public class AndroMDA
     {
         if (this.configuration != null)
         {
-            configuration.initialize();
+            this.configuration.initialize();
             final ModelProcessor processor = ModelProcessor.instance();
             processor.addTransformations(configuration.getTransformations());
             final Property[] properties = configuration.getProperties();
@@ -118,7 +118,7 @@ public class AndroMDA
                         property.getValue() + "'");
                 }
             }
-            processor.process(configuration.getModels());
+            processor.process(this.configuration.getModels());
         }
     }
     
