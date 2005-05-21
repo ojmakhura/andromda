@@ -17,7 +17,7 @@
                         <td>maven.andromda.configuration.uri</td>
                         <td>Yes</td>
                         <td>
-                            The URI to the <a href="/configuration.html">AndroMDA configuration file</a>(this configures AndroMDA).
+                            The URI to the <a href="../configuration.html">AndroMDA configuration file</a>(this configures AndroMDA).
                             For exmaple: <em>>maven.andromda.configuration.uri=file:${maven.conf.dir}/andromda.xml</em>
                         </td>
                     </tr>
@@ -34,6 +34,23 @@
                             properties when calling this plugin from within another plugin. (i.e. you'd
                             specify this within the containing plugin:
                             <em><![CDATA[<j:set var="maven.andromda.currentPlugin" value="${plugin}"/>]]>)</em>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.run.without.ant
+                        </td>
+                        <td>
+                            No, default is <code>false</code>.
+                        </td>
+                        <td>
+                            Whether or not AndroMDA should be run without Ant, this is sometimes not desirable
+                            as it isn't possible to run forked without running inside of Ant.  However setting
+                            this value to true renders much greater times in model loading speed therefore
+                            increasing the speed in which a model is processed.  Please note that when 
+                            running within this flag to true, you'll need to explicitly specify any modules within the
+                            moduleSearchLocations element of your <a href="../configuration.html">AndroMDA configuration</a>
+                            (because modules will NOT be able to be found on the classpath).
                         </td>
                     </tr>
                 </table>

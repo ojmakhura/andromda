@@ -25,26 +25,39 @@
         <maven:param-check value="${context.getVariable('maven.andromda.configuration.uri')}" fail="true">
 Please define the location of your AndroMDA configuration by setting a value for property "maven.andromda.configuration.uri".
         </maven:param-check>
-             
-        <j:new var="utils" className="org.andromda.maven.AndroMDAMavenUtils"/>
-        <attainGoal name="andromda:init${bootstrap}"/>
-        <!-- add any model dependencies -->
-        <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
-        <j:set var="dummy" value="${utils.setContext(context)}"/>
-        
-        <ant:taskdef
-            name="andromda"
-            classname="org.andromda.maven.AndroMDAMavenRunner">
-            <ant:classpath>
-                <ant:path refid="maven.andromda.classpath"/>
-            </ant:classpath>
-        </ant:taskdef>
-        
-        <ant:andromda configurationUri="${maven.andromda.configuration.uri}" mappingsSearchLocation="${plugin.resources}/andromda/mappings">
-            <j:forEach var="propertyName" items="${utils.propertyNames}">
-                <ant:property name="${propertyName}" value="${context.getVariable(propertyName)}"/>
-            </j:forEach>                        
-        </ant:andromda>
+                     
+        <j:set var="runWithoutAnt" value="${maven.andromda.run.without.ant}"/>
+        <j:choose>
+            <j:when test="${runWithoutAnt}">            
+                <j:set var="configurationUri" value="${maven.andromda.configuration.uri}"/>
+                <j:new var="runner" className="org.andromda.maven.AndroMDARunner"/>
+                <j:set var="dummy" value="${runner.setContext(context)}"/>
+                <j:set var="mappingsSearchLocation" value="${plugin.resources}/andromda/mappings"/>
+                <j:set var="dummy" value="${runner.setMappingsSearchLocation(mappingsSearchLocation)}"/>
+                <j:set var="dummy" value="${runner.setConfigurationUri(configurationUri)}"/>
+                <j:set var="dummy" value="${runner.run()}"/>               
+            </j:when>
+            <j:otherwise>               
+                <j:new var="utils" className="org.andromda.maven.AndroMDAMavenUtils"/>
+                <attainGoal name="andromda:init${bootstrap}"/>
+                <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
+                <j:set var="dummy" value="${utils.setContext(context)}"/>
+                    
+                <ant:taskdef
+                    name="andromda"
+                    classname="org.andromda.maven.AndroMDAMavenRunner">
+                    <ant:classpath>
+                        <ant:path refid="maven.andromda.classpath"/>
+                    </ant:classpath>
+                </ant:taskdef>
+                
+                <ant:andromda configurationUri="${maven.andromda.configuration.uri}" mappingsSearchLocation="${plugin.resources}/andromda/mappings">
+                    <j:forEach var="propertyName" items="${utils.propertyNames}">
+                        <ant:property name="${propertyName}" value="${context.getVariable(propertyName)}"/>
+                    </j:forEach>                        
+                </ant:andromda>                      
+            </j:otherwise>
+        </j:choose>
 
     </goal>
 
