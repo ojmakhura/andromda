@@ -22,8 +22,8 @@
                     how we configure each cartridge through the
                     <a href="#namespace"><code><![CDATA[<namespace>]]></code></a> elements.
                 </p>
-                <source language="xml"><![CDATA[
-<andromda>
+                <source language="xml">
+<![CDATA[<andromda>
     <properties>
         <property name="modelValidation">true</property>
         <property name="cartridgeFilter">${filter}</property>
@@ -121,8 +121,8 @@
             </properties>
         </namespace>
     </namespaces>
-</andromda>
-                ]]></source>
+</andromda>]]>
+                </source>
             </subsection>
             <subusection name="">
                 <h2>
@@ -141,15 +141,13 @@
                     AndroMDA.  Here's an example of how the <em><![CDATA[<properties>]]></em>
                     element is structured.
                     <source language="xml">
-<![CDATA[
-<andromda>
+<![CDATA[<andromda>
     <properties>
         <property name="modelValidation">true</property>
         <property name="cartridgeFilter">${filter}</property>
     </properties>
     ...
-</andromda>
-]]>
+</andromda>]]>
                     </source>
                 </p>
                 <p>
@@ -279,8 +277,7 @@
                     for AndroMDA to process one or more model(s).  Here's an example of what the
                     <em><![CDATA[<models>]]></em> element might contain.
                     <source language="xml">
-<![CDATA[
-<andromda>
+<![CDATA[<andromda>
     ...
     <models>
         <model lastModifiedCheck="true">
@@ -297,8 +294,7 @@
         <model><uri>file:/path/to/models/model2.xmi</uri></model>
     </models>
     ...
-</andromda>
-]]>        
+</andromda>]]>        
                     </source>     
                 </p>   
             </subsection>
@@ -310,13 +306,11 @@
                     The <strong>required</strong> <code><![CDATA[<model/>]]></code>
                     element is used to tell AndroMDA what model it needs to process
                             <source language="xml">
-                                <![CDATA[
-<models>
+<![CDATA[<models>
     <model>
         ...
     </model>
-</models>
-                                ]]>
+</models>]]>
                             </source>
                 </p>
                 <table>
@@ -357,12 +351,10 @@
                             The contents of the required <em>uri</em> element is used to 
                             define the location of the model. 
                             <source language="xml">
-                                <![CDATA[
-<model>
+<![CDATA[<model>
     <uri>file:/path/to/models/model1.xmi</uri>
     ...
-</model>
-                                ]]>
+</model>]]>
                             </source>
                         </p>                    
                     </section>
@@ -374,15 +366,13 @@
                             The moduleSearchLocations element defines the locations of one or more 
                             external modules or profiles (i.e. HREFs) that a model may reference.
                             <source language="xml">
-                                <![CDATA[
-<model>
+<![CDATA[<model>
     ...
     <moduleSearchLocations>
         <location>/path/to/modules</location>
         <location>/other/path/to/modules</location>
     </moduleSearchLocations>
-</model>
-                                 ]]>
+</model>]]>
                             </source>
                         </p>               
                     </section>
@@ -441,24 +431,22 @@
                                     The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
                                     element:
                                 </p>
-                                <source language="xml"><![CDATA[
-<andromda>
+                                <source language="xml">
+<![CDATA[<andromda>
   ...
     <modelPackage name="my::package::foo" shouldProcess="true"/>
     <modelPackage name="my::package::bar" shouldProcess="false"/>
   ...
-</andromda>
-                                    ]]></source>
+</andromda>]]></source>
                                     <p>
                                         The above is equivalent to:
                                     </p>
-                                    <source language="xml"><![CDATA[
-<andromda>
+                                    <source language="xml">
+<![CDATA[<andromda>
   ...
     <modelPackage name="my::package::bar" shouldProcess="false"/>
   ...
-</andromda>
-                                    ]]>
+</andromda>]]>
                                 </source>
                             </subsection>
                         </table>
@@ -474,16 +462,14 @@
                     applied before model processing begins (they are applied in the order in which they are listed).  
                     Here's an example of what the <em><![CDATA[<transformations>]]></em> element might contain.
                     <source language="xml">
-<![CDATA[
-<andromda>
+<![CDATA[<andromda>
     ...
     <transformations>
         <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
         <transformation><uri>file:transformation2.xsl</uri></transformation>
     </transformations>
     ...
-</andromda>
-]]>        
+</andromda>]]>        
                     </source>     
                 </p>   
             </subsection>
@@ -533,11 +519,9 @@
                         The contents of the required <em>uri</em> element is used to 
                         define the location of the transformation. 
                         <source language="xml">
-                            <![CDATA[
-<transformation>
+<![CDATA[<transformation>
     <uri>file:/path/to/transformations/transformation2.xsl</uri>
-</transformation>
-                            ]]>
+</transformation>]]>
                         </source>
                     </p>                    
                 </section>               
@@ -551,16 +535,49 @@
                 </a> element takes a nested <code><![CDATA[<namespaces>]]></code> element in order to customize
                 the properties of one or more namespaces (i.e. plugins).
                         <source language="xml">
-                            <![CDATA[
-<andromda>
+<![CDATA[<andromda>
    ...
     <namespaces>
        ...
     </namespaces>
     ...
-</andromda>
-                            ]]>
+</andromda>]]>
                         </source>
+            </p>
+        </subsection>
+        <subsection name="">
+            <h2>
+                <a name="namespace"><![CDATA[<namespace>]]></a>
+            </h2>    
+            <p>
+                The <code><![CDATA[<namespace>]]></code> element is used to do two things:
+                <ol>
+                    <li>Activate a cartridge</li>
+                    <li>
+                        Customize the properties of a plugin (cartridge, translation-library, etc).  
+                        These properties can be used to define the location to which generated files are written, 
+                        what mapping files to use for different language typee (i.e. JavaMappings.xml, DotNetMappings.xml, etc.), 
+                        and any other aspect that a property might be used to configure.
+                     </li>
+                </ol>
+                This example here activates the webservice cartridge, and configures it:
+                <source language="xml">
+<![CDATA[<namespaces>
+    <namespace name="webservice">
+        <properties>
+            <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
+            <property name="languageMappingsUri">AxisJavaMappings</property>
+            <property name="defaultProvider">RPC</property>
+            <property name="applicationName">${application.id}</property>
+            <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
+            <property name="wsdls">${maven.andromda.webservice.generated.dir}/wsdl</property>
+            <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
+            <property name="axis-configuration">${maven.andromda.webservice.generated.dir}/axis</property>
+        </properties>
+    </namespace>
+    ...
+</namespace>]]>
+                </source>
             </p>
         </subsection>
             <!--
