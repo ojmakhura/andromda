@@ -550,6 +550,17 @@
                 The <a href="#andromda"> <code><![CDATA[<andromda>]]></code>
                 </a> element takes a nested <code><![CDATA[<namespaces>]]></code> element in order to customize
                 the properties of one or more namespaces (i.e. plugins).
+                        <source language="xml">
+                            <![CDATA[
+<andromda>
+   ...
+    <namespaces>
+       ...
+    </namespaces>
+    ...
+</andromda>
+                            ]]>
+                        </source>
             </p>
         </subsection>
             <!--
