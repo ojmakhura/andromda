@@ -542,6 +542,16 @@
                     </p>                    
                 </section>               
         </subsection>
+        <subsection name="">
+            <h2>
+                <a name="namespaces"><![CDATA[<namespaces>]]></a>
+            </h2>
+            <p>
+                The <a href="#andromda"> <code><![CDATA[<andromda>]]></code>
+                </a> element takes a nested <code><![CDATA[<namespaces>]]></code> element in order to customize
+                the properties of one or more namespaces (i.e. plugins).
+            </p>
+        </subsection>
             <!--
             <h2>
                 <a name="namespace"><![CDATA[<namespace>]]></a>
