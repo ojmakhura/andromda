@@ -90,7 +90,7 @@ public class AndroMDA
     }
 
     /**
-     * Runs AndroMDA's model processor.
+     * Runs AndroMDA's with the given configuration.
      */
     public void run()
     {
