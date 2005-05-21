@@ -81,11 +81,7 @@ public class AndroMDA
     public static final AndroMDA getInstance(final Configuration configuration)
     {
         final AndroMDA andromda = new AndroMDA();
-        if (configuration != null)
-        {
-            andromda.configuration = configuration;
-            andromda.configuration.initialize();  
-        }
+        andromda.configuration = configuration;
         return andromda;
     }
 
@@ -98,8 +94,8 @@ public class AndroMDA
         {
             this.configuration.initialize();
             final ModelProcessor processor = ModelProcessor.instance();
-            processor.addTransformations(configuration.getTransformations());
-            final Property[] properties = configuration.getProperties();
+            processor.addTransformations(this.configuration.getTransformations());
+            final Property[] properties = this.configuration.getProperties();
             final int propertyNumber = properties.length;
             for (int ctr = 0; ctr < propertyNumber; ctr++)
             {
