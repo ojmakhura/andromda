@@ -203,9 +203,15 @@
         <j:set var="moduleDir" value="${projectId}/core"/>
         <ant:mkdir dir="${moduleDir}"/>
         <velocity:merge
-          name="${moduleDir}/project.properties"
+            name="${moduleDir}/project.properties"
+            basedir="${moduleTemplatesDir}"
+            template="project.properties.vsl"/>
+
+        <velocity:merge
+          name="${moduleDir}/maven.xml"
           basedir="${moduleTemplatesDir}"
-          template="project.properties.vsl"/>
+          template="maven.xml.vsl"/>      
+
         <attainGoal name="andromdapp:generate-core-subproject"/>
     </goal>
 

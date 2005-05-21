@@ -2,7 +2,11 @@
          xmlns:ant="jelly:ant"
          xmlns:maven="jelly:maven">
 
-    <postGoal name="ejb:ejb">
+#set ($postGoal = "jar:jar")
+#if ($ear)
+#set ($postGoal = "ejb:ejb")
+#end
+    <postGoal name="$postGoal">
 
         <ant:path id="schema.classpath">
             <ant:path refid="maven.dependency.classpath"/>
