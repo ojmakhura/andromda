@@ -241,16 +241,19 @@ public class AssociationEndFacadeLogicImpl
      */
     protected String handleGetGetterSetterTypeName()
     {
-        // if many, then list or collection
+        String name = null;
         if (this.isMany())
         {
-            TypeMappings mappings = this.getLanguageMappings();
-            return isOrdered() ?
-                    mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            final TypeMappings mappings = this.getLanguageMappings();
+            name =
+                isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
+                    UMLProfile.COLLECTION_TYPE_NAME);
         }
-
-        // if single element, then return the type
-        return this.getType().getFullyQualifiedName();
+        if (this.getType() != null)
+        {
+            name = this.getType().getFullyQualifiedName();
+        }
+        return name;
     }
 
     /**
