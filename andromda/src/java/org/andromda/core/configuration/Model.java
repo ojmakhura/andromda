@@ -68,16 +68,6 @@ public class Model
     }
     
     /**
-     * Sets the model packages to be processed.
-     * 
-     * @param packages the model packages to be processed.
-     */
-    public void setPackages(final ModelPackages packages)
-    {
-        this.packages = packages;
-    }
-    
-    /**
      * The URL to the model.
      */
     private URL uri;

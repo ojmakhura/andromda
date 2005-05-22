@@ -145,6 +145,8 @@ public class ModelProcessor
                 }
                 // cleanup any resources used by the factory
                 MetafacadeFactory.getInstance().shutdown();
+                // cleanup the namespaces
+                Namespaces.instance().shutdown();
             }
         }
         else

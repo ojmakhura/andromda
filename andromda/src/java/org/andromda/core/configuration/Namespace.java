@@ -1,13 +1,10 @@
 package org.andromda.core.configuration;
 
-import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * A configurable namespace object. These are passed to Plugin instances (Cartridges, etc.).
@@ -15,28 +12,7 @@ import java.util.Map;
  * @author Chad Brandon
  */
 public class Namespace
-{
-    private Map properties;
-    private final Collection initCollection = new ArrayList();
-
-    /**
-     * This method normally would be unnecessary. It is here because of the way Ant behaves. Ant calls addProperty()
-     * before the PropertyReference javabean is fully initialized (therefore the 'name' isn't set). So we kept the
-     * javabeans in an ArrayList that we have to copy into the properties Map.
-     */
-    public void init()
-    {
-        if (this.properties == null)
-        {
-            this.properties = new HashMap();
-            for (Iterator iter = initCollection.iterator(); iter.hasNext();)
-            {
-                Property property = (Property)iter.next();
-                this.properties.put(property.getName(), property);
-            }
-        }
-    }
-    
+{    
     /**
      * The namespace name.
      */
@@ -50,8 +26,7 @@ public class Namespace
      */
     public String getName()
     {
-        this.init();
-        return name;
+        return this.name;
     }
 
     /**
@@ -63,6 +38,11 @@ public class Namespace
     {
         this.name = name;
     }
+    
+    /**
+     * Stores the collected properties
+     */
+    private final Map properties = new LinkedHashMap();
 
     /**
      * Adds a property to this Namespace object. A property must correspond to a java bean property name on a Plugin in
@@ -72,21 +52,32 @@ public class Namespace
      */
     public void addProperty(final Property property)
     {
-        final String methodName = "Namespace.addProperty";
-        ExceptionUtils.checkNull(methodName, "property", property);
-        this.initCollection.add(property);
+        if (property != null)
+        {
+            this.properties.put(property.getName(), property);
+        }
     }
 
     /**
      * Retrieves the property with the specified name.
      *
-     * @param name
-     * @return PropertyReference.
+     * @param name the name of the property.
+     * 
+     * @return the property
      */
     public Property getProperty(final String name)
     {
-        this.init();
         return (Property)this.properties.get(name);
+    }
+    
+    /**
+     * Gets all namespaces belonging to this namespaces instance.
+     * 
+     * @return all namespaces.
+     */
+    public Collection getProperties()
+    {
+        return this.properties.values();
     }
 
     /**
