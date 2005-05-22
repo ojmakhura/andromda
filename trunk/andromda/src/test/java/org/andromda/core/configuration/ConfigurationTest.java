@@ -41,8 +41,8 @@ public class ConfigurationTest
         assertEquals("/path/to/model/modules2", model1.getModuleSearchLocations()[1]);
         
         // modelPackages
-        assertFalse(model1.getPackages().isProcess("org::andromda::metafacades::uml"));
-        assertTrue(model1.getPackages().isProcess("org::andromda::cartridges::test"));;
+        assertFalse(model1.getPackages().shouldProcess("org::andromda::metafacades::uml"));
+        assertTrue(model1.getPackages().shouldProcess("org::andromda::cartridges::test"));;
         
         final Model model2 = configuration.getModels()[1];
         assertNotNull(model2);
