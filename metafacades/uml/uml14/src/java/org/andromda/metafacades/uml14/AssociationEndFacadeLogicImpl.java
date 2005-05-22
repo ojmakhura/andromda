@@ -249,7 +249,7 @@ public class AssociationEndFacadeLogicImpl
                 isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
                     UMLProfile.COLLECTION_TYPE_NAME);
         }
-        if (this.getType() != null)
+        if (name == null && this.getType() != null)
         {
             name = this.getType().getFullyQualifiedName();
         }
