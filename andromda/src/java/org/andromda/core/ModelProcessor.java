@@ -147,6 +147,8 @@ public class ModelProcessor
                 MetafacadeFactory.getInstance().shutdown();
                 // cleanup the namespaces
                 Namespaces.instance().shutdown();
+                // shutdown the container
+                ComponentContainer.instance().shutdown();
             }
         }
         else

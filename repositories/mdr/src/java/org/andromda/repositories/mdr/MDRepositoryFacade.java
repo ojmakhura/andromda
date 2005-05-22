@@ -321,6 +321,7 @@ public class MDRepositoryFacade
             model.refDelete();
         }
         this.model = null;
+        this.modelFacade = null;
     }
 
     /**

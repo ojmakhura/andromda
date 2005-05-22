@@ -64,7 +64,7 @@ public class AndroMDARunner
         try
         {
             final Configuration configuration =
-                Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(new URL(configurationUri))));
+                Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(new URL(this.configurationUri))));
             configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
             final AndroMDA andromda = AndroMDA.getInstance(configuration);
             if (andromda != null)

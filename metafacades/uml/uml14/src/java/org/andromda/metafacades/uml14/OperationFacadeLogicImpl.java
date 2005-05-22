@@ -171,17 +171,16 @@ public class OperationFacadeLogicImpl
     protected Object handleGetReturnType()
     {
         Object type = null;
-        Collection parms = metaObject.getParameter();
-        for (Iterator iterator = parms.iterator(); iterator.hasNext();)
+        final Collection parms = metaObject.getParameter();
+        for (final Iterator iterator = parms.iterator(); iterator.hasNext();)
         {
-            Parameter parameter = (Parameter)iterator.next();
+            final Parameter parameter = (Parameter)iterator.next();
             if (ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
                 type = parameter.getType();
                 break;
             }
         }
-
         return type;
     }
 
@@ -191,7 +190,6 @@ public class OperationFacadeLogicImpl
     protected Collection handleGetArguments()
     {
         Collection arguments = new ArrayList(metaObject.getParameter());
-
         CollectionUtils.filter(arguments, new Predicate()
         {
             public boolean evaluate(Object object)
@@ -207,6 +205,10 @@ public class OperationFacadeLogicImpl
      */
     protected Object handleGetOwner()
     {
+        if (this.metaObject.getOwner() == null)
+        {
+            System.out.println("the owner!!!!!!: " + this.metaObject.getOwner() + "for operation: " + this.getName());
+        }
         return this.metaObject.getOwner();
     }
 
