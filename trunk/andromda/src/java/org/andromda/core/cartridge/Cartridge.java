@@ -19,7 +19,9 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.io.StringWriter;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,6 +29,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * The AndroMDA Cartridge implementation of the Plugin. Cartridge instances are configured from
@@ -45,11 +48,6 @@ public class Cartridge
     {
         super();
     }
-
-    /**
-     * Cache for saving previously found model elements.
-     */
-    private final Map elementCache = new HashMap();
 
     /**
      * Stores the code generation context. Protected access to improve performance within inner class access.
@@ -80,10 +78,10 @@ public class Cartridge
             factory.setModel(context.getModelFacade());
             final String previousNamespace = factory.getActiveNamespace();
             factory.setActiveNamespace(this.getName());
-            for (Iterator resourceIterator = resources.iterator(); resourceIterator.hasNext();)
+            for (final Iterator iterator = resources.iterator(); iterator.hasNext();)
             {
-                Resource resource = (Resource)resourceIterator.next();
-                if (Template.class.isAssignableFrom(resource.getClass()))
+                final Resource resource = (Resource)iterator.next();
+                if (resource instanceof Template)
                 {
                     this.processTemplate((Template)resource);
                 }
@@ -107,14 +105,15 @@ public class Cartridge
         final String methodName = "Cartridge.processTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
         final ModelElements templateModelElements = template.getSupportedModeElements();
+
         // handle the templates WITH model elements
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            for (Iterator templateModelElementIterator = templateModelElements.getModelElements().iterator();
-                 templateModelElementIterator.hasNext();)
+            for (final Iterator iterator = templateModelElements.getModelElements().iterator(); iterator.hasNext();)
             {
-                ModelElement templateModelElement = (ModelElement)templateModelElementIterator.next();
+                final ModelElement templateModelElement = (ModelElement)iterator.next();
                 Collection modelElements = null;
+
                 // if the template model element has a stereotype
                 // defined, then we filter the model elements based
                 // on that stereotype, otherwise we get all model elements
@@ -122,8 +121,8 @@ public class Cartridge
                 // metafacades by type and properties
                 if (templateModelElement.hasStereotype())
                 {
-                    modelElements = this.context.getModelFacade().findByStereotype(
-                            templateModelElement.getStereotype());
+                    modelElements =
+                        this.context.getModelFacade().findByStereotype(templateModelElement.getStereotype());
                 }
                 else if (templateModelElement.hasTypes())
                 {
@@ -133,7 +132,7 @@ public class Cartridge
                 {
                     continue;
                 }
-                Collection metafacades = MetafacadeFactory.getInstance().createMetafacades(modelElements);
+                final Collection metafacades = MetafacadeFactory.getInstance().createMetafacades(modelElements);
                 this.filterModelPackages(metafacades);
                 templateModelElement.setMetafacades(metafacades);
             }
@@ -157,14 +156,19 @@ public class Cartridge
         final String methodName = "Cartridge.processTemplateWithModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
         if (getLogger().isDebugEnabled())
+        {
             getLogger().debug(
-                    "performing " + methodName + " with template '" + template + "' and context ' " + context + "'");
+                "performing " + methodName + " with template '" + template + "' and context ' " + context + "'");
+        }
 
         final ModelElements modelElements = template.getSupportedModeElements();
         if (modelElements != null && !modelElements.isEmpty())
         {
-            final Property outletProperty = Namespaces.instance().findNamespaceProperty(this.getName(),
-                    template.getOutlet(), template.isRequired());
+            final Property outletProperty =
+                Namespaces.instance().findNamespaceProperty(
+                    this.getName(),
+                    template.getOutlet(),
+                    template.isRequired());
 
             if (outletProperty != null && !outletProperty.isIgnore())
             {
@@ -177,8 +181,9 @@ public class Cartridge
                     // allMetafacades collection, then we collect the template
                     // model elements and place them into the template context
                     // by their variable names.
-                    if (template.isOutputToSingleFile() &&
-                            (template.isOutputOnEmptyElements() || !allMetafacades.isEmpty()))
+                    if (
+                        template.isOutputToSingleFile() &&
+                        (template.isOutputOnEmptyElements() || !allMetafacades.isEmpty()))
                     {
                         final Map templateContext = new HashMap();
 
@@ -187,7 +192,9 @@ public class Cartridge
                         // isn't defined (which is possible), ignore.
                         if (StringUtils.isNotBlank(modelElements.getVariable()))
                         {
-                            templateContext.put(modelElements.getVariable(), allMetafacades);
+                            templateContext.put(
+                                modelElements.getVariable(),
+                                allMetafacades);
                         }
 
                         // now place the collections of elements
@@ -197,7 +204,7 @@ public class Cartridge
                         while (modelElementIt.hasNext())
                         {
                             final ModelElement modelElement = (ModelElement)modelElementIt.next();
-                            String variable = modelElement.getVariable();
+                            final String variable = modelElement.getVariable();
                             if (StringUtils.isNotEmpty(variable))
                             {
                                 // if a stereotype has the same variable defined
@@ -213,7 +220,9 @@ public class Cartridge
                                 {
                                     metafacades = modelElement.getMetafacades();
                                 }
-                                templateContext.put(variable, new HashSet(metafacades));
+                                templateContext.put(
+                                    variable,
+                                    new HashSet(metafacades));
                             }
                         }
                         this.processWithTemplate(template, templateContext, outletProperty, null, null);
@@ -224,24 +233,28 @@ public class Cartridge
                         // we just place the model element with the default
                         // variable defined on the <modelElements/> into the
                         // template.
-                        final Iterator metafacadeIt = allMetafacades.iterator();
-                        while (metafacadeIt.hasNext())
+                        for (final Iterator iterator = allMetafacades.iterator(); iterator.hasNext();)
                         {
                             final Map templateContext = new HashMap();
 
-                            final Object metafacade = metafacadeIt.next();
+                            final Object metafacade = iterator.next();
 
-                            templateContext.put(modelElements.getVariable(), metafacade);
+                            templateContext.put(
+                                modelElements.getVariable(),
+                                metafacade);
 
-                            this.processWithTemplate(template, templateContext, outletProperty, context.getModelFacade()
-                                    .getName(metafacade), context.getModelFacade().getPackageName(metafacade));
+                            this.processWithTemplate(
+                                template,
+                                templateContext,
+                                outletProperty,
+                                context.getModelFacade().getName(metafacade),
+                                context.getModelFacade().getPackageName(metafacade));
                         }
                     }
                 }
-                catch (Throwable th)
+                catch (final Throwable throwable)
                 {
-                    String errMsg = "Error performing " + methodName;
-                    throw new CartridgeException(errMsg, th);
+                    throw new CartridgeException(throwable);
                 }
             }
         }
@@ -258,7 +271,10 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processTemplateWithoutModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
-        Property outletProperty = Namespaces.instance().findNamespaceProperty(this.getName(), template.getOutlet(),
+        Property outletProperty =
+            Namespaces.instance().findNamespaceProperty(
+                this.getName(),
+                template.getOutlet(),
                 template.isRequired());
         if (outletProperty != null && !outletProperty.isIgnore())
         {
@@ -270,7 +286,7 @@ public class Cartridge
     /**
      * <p/> Perform processing with the <code>template</code>.
      * </p>
-     * 
+     *
      * @param template the Template containing the template path to process.
      * @param templateContext the context to which variables are added and made
      *        available to the template engine for processing. This will contain
@@ -306,15 +322,24 @@ public class Cartridge
             final StringWriter output = new StringWriter();
 
             // process the template with the set TemplateEngine
-            this.getTemplateEngine().processTemplate(template.getPath(), templateContext, output);
+            this.getTemplateEngine().processTemplate(
+                template.getPath(),
+                templateContext,
+                output);
 
             if (template.getOutputPattern().startsWith(TEMPLATE_ENGINE_OUTPUT_PREFIX))
             {
-                outFile = this.outputFileFromTemplateEngineContext(template, outletProperty.getValue());
+                outFile = this.outputFileFromTemplateEngineContext(
+                        template,
+                        outletProperty.getValue());
             }
             else
             {
-                outFile = this.outputFileFromTemplate(modelElementName, modelElementPackage, template,
+                outFile =
+                    this.outputFileFromTemplate(
+                        modelElementName,
+                        modelElementPackage,
+                        template,
                         outletProperty.getValue());
             }
             if (outFile != null)
@@ -325,17 +350,23 @@ public class Cartridge
                 {
                     final String outputString = output.toString();
                     AndroMDALogger.setSuffix(this.getName());
+
                     // check to see if generateEmptyFiles is true and if
                     // outString is not blank
                     if (StringUtils.isNotBlank(outputString) || template.isGenerateEmptyFiles())
                     {
-                        ResourceWriter.instance().writeStringToFile(outputString, outFile, this.getName());
+                        ResourceWriter.instance().writeStringToFile(
+                            outputString,
+                            outFile,
+                            this.getName());
                         AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
                     }
                     else
                     {
                         if (this.getLogger().isDebugEnabled())
+                        {
                             this.getLogger().debug("Empty Output: '" + outFile.toURI() + "' --> not writing");
+                        }
                     }
                     AndroMDALogger.reset();
                 }
@@ -348,12 +379,9 @@ public class Cartridge
                 outFile.delete();
                 this.getLogger().info("Removed: '" + outFile + "'");
             }
-            String errMsg = "Error performing " + methodName + " with template '" + template.getPath() +
-                    "', template context '" +
-                    templateContext +
-                    "' and cartridge '" +
-                    this.getName() +
-                    "'";
+            String errMsg =
+                "Error performing " + methodName + " with template '" + template.getPath() + "', template context '" +
+                templateContext + "' and cartridge '" + this.getName() + "'";
             throw new CartridgeException(errMsg, th);
         }
     }
@@ -368,7 +396,9 @@ public class Cartridge
         final String methodName = "Cartridge.processResource";
         ExceptionUtils.checkNull(methodName, "resource", resource);
 
-        URL resourceUrl = ResourceUtils.getResource(resource.getPath(), this.getMergeLocation());
+        URL resourceUrl = ResourceUtils.getResource(
+                resource.getPath(),
+                this.getMergeLocation());
         if (resourceUrl == null)
         {
             // if the resourceUrl is null, the path is probably a regular
@@ -384,9 +414,13 @@ public class Cartridge
                     String content = (String)contentIt.next();
                     if (StringUtils.isNotEmpty(content))
                     {
-                        if (PathMatcher.wildcardMatch(content, resource.getPath()))
+                        if (PathMatcher.wildcardMatch(
+                                content,
+                                resource.getPath()))
                         {
-                            resourceUrl = ResourceUtils.getResource(content, this.getMergeLocation());
+                            resourceUrl = ResourceUtils.getResource(
+                                    content,
+                                    this.getMergeLocation());
                             this.writeResource(resource, resourceUrl);
                         }
                     }
@@ -406,33 +440,44 @@ public class Cartridge
      * @param resource    contains the outlet where the resource is written.
      * @param resourceUrl the URL contents to write.
      */
-    private final void writeResource(final Resource resource, final URL resourceUrl)
+    private final void writeResource(
+        final Resource resource,
+        final URL resourceUrl)
     {
         final String methodName = "Cartridge.writeResource";
         File outFile = null;
         try
         {
-            Property outletProperty = Namespaces.instance().findNamespaceProperty(this.getName(), resource.getOutlet(),
+            Property outletProperty =
+                Namespaces.instance().findNamespaceProperty(
+                    this.getName(),
+                    resource.getOutlet(),
                     resource.isRequired());
             String slash = "/";
             if (outletProperty != null && !outletProperty.isIgnore())
             {
                 // make sure we don't have any back slashes
                 String resourceUri = resourceUrl.toString().replaceAll("\\\\", slash);
-                String uriSuffix = resourceUri.substring(resourceUri.lastIndexOf(slash), resourceUri.length());
+                String uriSuffix = resourceUri.substring(
+                        resourceUri.lastIndexOf(slash),
+                        resourceUri.length());
                 String outletLocation = outletProperty.getValue();
                 if (outletLocation.endsWith(slash))
                 {
                     // remove the extra slash
                     outletLocation = outletLocation.replaceFirst(slash, "");
                 }
-                outFile = resource.getOutputLocation(new String[]{uriSuffix}, new File(outletLocation));
+                outFile = resource.getOutputLocation(
+                        new String[] {uriSuffix},
+                        new File(outletLocation));
 
                 // only write files that do NOT exist, and
                 // those that have overwrite set to 'true'
                 if (!outFile.exists() || resource.isOverwrite())
                 {
-                    ResourceWriter.instance().writeUrlToFile(resourceUrl, outFile.toString());
+                    ResourceWriter.instance().writeUrlToFile(
+                        resourceUrl,
+                        outFile.toString());
                     AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
                 }
             }
@@ -452,7 +497,7 @@ public class Cartridge
     /**
      * Creates a File object from an output pattern in the template
      * configuration.
-     * 
+     *
      * @param modelElementName the name of the model element
      * @param packageName the name of the package
      * @param template the template.
@@ -464,7 +509,10 @@ public class Cartridge
         final Template template,
         final String outputLocation)
     {
-        return template.getOutputLocation(modelElementName, packageName, new File(outputLocation));
+        return template.getOutputLocation(
+            modelElementName,
+            packageName,
+            new File(outputLocation));
     }
 
     /**
@@ -473,7 +521,9 @@ public class Cartridge
      * @param resource the Cartridge resource.
      * @return outputLocation the location to which the file will be output.
      */
-    private final File outputFileFromTemplateEngineContext(final Resource resource, final String outputLocation)
+    private final File outputFileFromTemplateEngineContext(
+        final Resource resource,
+        final String outputLocation)
     {
         String fileName = this.getTemplateEngine().getEvaluatedExpression(resource.getOutputPattern());
         return new File(outputLocation, fileName);
@@ -486,13 +536,15 @@ public class Cartridge
      */
     protected void filterModelPackages(final Collection modelElements)
     {
-        CollectionUtils.filter(modelElements, new Predicate()
-        {
-            public boolean evaluate(Object modelElement)
+        CollectionUtils.filter(
+            modelElements,
+            new Predicate()
             {
-                return context.getModelPackages().isProcess(context.getModelFacade().getPackageName(modelElement));
-            }
-        });
+                public boolean evaluate(Object modelElement)
+                {
+                    return context.getModelPackages().isProcess(context.getModelFacade().getPackageName(modelElement));
+                }
+            });
     }
 
     /**
@@ -539,6 +591,5 @@ public class Cartridge
     public void shutdown()
     {
         super.shutdown();
-        this.elementCache.clear();
     }
 }
