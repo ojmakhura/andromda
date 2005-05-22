@@ -1,8 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.NameMasker;
@@ -19,15 +16,20 @@ import org.omg.uml.foundation.datatypes.OrderingKind;
 import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+
 /**
  * Metaclass facade implementation.
  */
 public class AttributeFacadeLogicImpl
-        extends AttributeFacadeLogic
+    extends AttributeFacadeLogic
 {
     // ---------------- constructor -------------------------------
-
-    public AttributeFacadeLogicImpl(org.omg.uml.foundation.core.Attribute metaObject, String context)
+    public AttributeFacadeLogicImpl(
+        org.omg.uml.foundation.core.Attribute metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -48,7 +50,9 @@ public class AttributeFacadeLogicImpl
         String prefix = null;
         if (getType() != null)
         {
-            prefix = UMLMetafacadeUtils.isType(getType(), UMLProfile.BOOLEAN_TYPE_NAME) ? "is" : "get";
+            prefix = UMLMetafacadeUtils.isType(
+                    getType(),
+                    UMLProfile.BOOLEAN_TYPE_NAME) ? "is" : "get";
         }
 
         return StringUtils.trimToEmpty(prefix) + StringUtils.capitalize(this.getName());
@@ -126,7 +130,9 @@ public class AttributeFacadeLogicImpl
     /**
      * @see org.andromda.core.metadecorators.uml.AttributeFacade#findTaggedValue(java.lang.String, boolean)
      */
-    public Object handleFindTaggedValue(String name, boolean follow)
+    public Object handleFindTaggedValue(
+        String name,
+        boolean follow)
     {
         name = StringUtils.trimToEmpty(name);
         Object value = findTaggedValue(name);
@@ -158,6 +164,7 @@ public class AttributeFacadeLogicImpl
     {
         boolean isMany = false;
         Multiplicity multiplicity = this.metaObject.getMultiplicity();
+
         // assume no multiplicity is 1
         if (multiplicity != null)
         {
@@ -215,11 +222,11 @@ public class AttributeFacadeLogicImpl
         }
         return lower.intValue();
     }
-    
+
     /**
      * Gets the default multiplicity for this attribute (the
      * multiplicity if none is defined).
-     * 
+     *
      * @return the defautl multiplicity as a String.
      */
     private String getDefaultMultiplicity()
@@ -269,14 +276,18 @@ public class AttributeFacadeLogicImpl
      */
     protected String handleGetName()
     {
-        final String nameMask = String.valueOf(
-                this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
-        String name = NameMasker.mask(super.handleGetName(), nameMask);
+        final String nameMask =
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
+        String name = NameMasker.mask(
+                super.handleGetName(),
+                nameMask);
         if (this.getOwner() instanceof EnumerationFacade)
         {
-            final String mask = String.valueOf(this.getConfiguredProperty(
-                    UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
-            name = NameMasker.mask(super.handleGetName(), mask);
+            final String mask =
+                String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENUMERATION_LITERAL_NAME_MASK));
+            name = NameMasker.mask(
+                    super.handleGetName(),
+                    mask);
         }
         return name;
     }
@@ -289,6 +300,7 @@ public class AttributeFacadeLogicImpl
         boolean ordered = false;
 
         OrderingKind ordering = metaObject.getOrdering();
+
         // no ordering is 'unordered'
         if (ordering != null)
         {
@@ -303,15 +315,18 @@ public class AttributeFacadeLogicImpl
      */
     public String handleGetGetterSetterTypeName()
     {
-        // if many, then list or collection
+        String name = null;
         if (this.isMany())
         {
-            TypeMappings mappings = this.getLanguageMappings();
-            return isOrdered() ?
-                    mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            final TypeMappings mappings = this.getLanguageMappings();
+            name =
+                isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
+                    UMLProfile.COLLECTION_TYPE_NAME);
         }
-
-        // if single element, then return the type
-        return this.getType().getFullyQualifiedName();
+        if (this.getType() != null)
+        {
+            name = this.getType().getFullyQualifiedName();
+        }
+        return name;
     }
 }
