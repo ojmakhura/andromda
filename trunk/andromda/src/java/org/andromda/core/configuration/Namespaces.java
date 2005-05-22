@@ -1,10 +1,11 @@
 package org.andromda.core.configuration;
 
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -15,6 +16,9 @@ import java.util.Map;
  */
 public class Namespaces
 {
+    /**
+     * The logger instance.
+     */
     private static final Logger logger = Logger.getLogger(Namespaces.class);
 
     /**
@@ -32,7 +36,7 @@ public class Namespaces
     /**
      * Stores all namespaces.
      */
-    private final Map namespaces = new HashMap();
+    private final Map namespaces = new LinkedHashMap();
 
     /**
      * Returns the singleton instance of this Namespaces
@@ -42,6 +46,16 @@ public class Namespaces
     public static final Namespaces instance()
     {
         return instance;
+    }
+    
+    /**
+     * Gets all namespaces belonging to this namespaces instance.
+     * 
+     * @return all namespaces.
+     */
+    public Collection getNamespaces()
+    {
+        return this.namespaces.values();
     }
 
     /**
@@ -153,5 +167,13 @@ public class Namespaces
                 "property to the namespace with ignore set to 'true'");
         }
         return property;
+    }
+    
+    /**
+     * Shuts down this namespaces instance.
+     */
+    public void shutdown()
+    {
+        this.namespaces.clear();
     }
 }

@@ -490,7 +490,7 @@ public class Cartridge
         {
             public boolean evaluate(Object modelElement)
             {
-                return context.getModelPackages().shouldProcess(context.getModelFacade().getPackageName(modelElement));
+                return context.getModelPackages().isProcess(context.getModelFacade().getPackageName(modelElement));
             }
         });
     }

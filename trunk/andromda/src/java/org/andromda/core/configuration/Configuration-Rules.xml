@@ -30,56 +30,56 @@
         </pattern>
 
         <pattern value="models/model">
-            
+
             <object-create-rule
                 classname="org.andromda.core.configuration.Model" />
-                
+
             <pattern value="uri">
-                
+
                 <call-method-rule
                     methodname="setUri"
                     paramcount="1"/>
-    
+
                 <call-param-rule
-                    paramnumber="0"/>     
-                               
+                    paramnumber="0"/>
+
             </pattern>
-            
+
             <pattern value="moduleSearchLocations/location">
-    
+
                 <call-method-rule
                     methodname="addModuleSearchLocation"
                     paramcount="1"/>
-    
+
                 <call-param-rule
                     paramnumber="0"/>
-    
+
             </pattern>
 
             <pattern value="modelPackages/modelPackage">
-    
+
                 <object-create-rule
                     classname="org.andromda.core.configuration.ModelPackage" />
-    
+
+                <set-properties-rule>
+                     <alias attr-name="process" prop-name="process" />
+                </set-properties-rule>
+
                 <call-method-rule
                     methodname="setName"
                     paramcount="1"/>
-    
+
                 <call-param-rule
                     paramnumber="0"/>
-    
-                <set-properties-rule>
-                     <alias attr-name="process" prop-name="shouldProcess" />
-                </set-properties-rule>
-    
+
                 <set-next-rule methodname="addPackage" />
-    
+
             </pattern>
-                
+
             <set-properties-rule>
                  <alias attr-name="lastModifiedCheck" prop-name="lastModifiedCheck" />
             </set-properties-rule>
-            
+
             <set-next-rule methodname="addModel" />
 
         </pattern>
@@ -88,16 +88,16 @@
 
             <object-create-rule
                 classname="org.andromda.core.configuration.Transformation" />
-            
+
             <pattern value="uri">
-                
+
                 <call-method-rule
                     methodname="setUri"
                     paramcount="1" />
-    
+
                 <call-param-rule
                     paramnumber="0"/>
-                    
+
             </pattern>
 
             <set-properties-rule>
@@ -107,7 +107,7 @@
             <set-next-rule methodname="addTransformation" />
 
         </pattern>
-        
+
         <pattern value="mappingsSearchLocations/location">
 
             <call-method-rule
@@ -118,7 +118,7 @@
                 paramnumber="0"/>
 
         </pattern>
-        
+
         <pattern value="namespaces/namespace">
 
             <object-create-rule
@@ -127,27 +127,29 @@
             <set-properties-rule>
                  <alias attr-name="name" prop-name="name" />
             </set-properties-rule>
-            
+
             <pattern value="properties/property">
+
                 <object-create-rule
                     classname="org.andromda.core.configuration.Property" />
-    
+
                 <set-properties-rule>
                      <alias attr-name="name" prop-name="name" />
                 </set-properties-rule>
-                
+
                 <set-properties-rule>
                      <alias attr-name="ignore" prop-name="ignore" />
                 </set-properties-rule>
-    
+
                 <call-method-rule
                     methodname="setValue"
                     paramcount="1" />
-    
+
                 <call-param-rule
                     paramnumber="0"/>
-    
-                <set-next-rule methodname="addProperty" />                
+
+                <set-next-rule methodname="addProperty" />
+
             </pattern>
 
             <set-next-rule methodname="addNamespace" />
