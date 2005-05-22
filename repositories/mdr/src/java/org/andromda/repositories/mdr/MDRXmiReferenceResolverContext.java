@@ -7,12 +7,16 @@ import org.apache.log4j.Logger;
 import org.netbeans.api.xmi.XMIInputConfig;
 import org.netbeans.lib.jmi.xmi.XmiContext;
 
-import javax.jmi.reflect.RefPackage;
 import java.io.File;
 import java.io.InputStream;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.HashMap;
+
+import javax.jmi.reflect.RefPackage;
+
 
 /**
  * This class supports the expansion of XML HREF references to other modules within a model. The result of the resolver
@@ -23,13 +27,11 @@ import java.util.HashMap;
  * @author Chad Brandon
  */
 public class MDRXmiReferenceResolverContext
-        extends XmiContext
+    extends XmiContext
 {
     private String[] moduleSearchPath;
-
     private static Logger logger = Logger.getLogger(MDRXmiReferenceResolverContext.class);
-
-    private static final HashMap urlMap = new HashMap();
+    private final HashMap urlMap = new HashMap();
 
     /**
      * Constructs an instance of this class.
@@ -37,7 +39,10 @@ public class MDRXmiReferenceResolverContext
      * @param extents
      * @param config
      */
-    public MDRXmiReferenceResolverContext(RefPackage[] extents, XMIInputConfig config, String[] moduleSearchPath)
+    public MDRXmiReferenceResolverContext(
+        RefPackage[] extents,
+        XMIInputConfig config,
+        String[] moduleSearchPath)
     {
         super(extents, config);
         this.moduleSearchPath = moduleSearchPath;
@@ -49,7 +54,9 @@ public class MDRXmiReferenceResolverContext
     public URL toURL(String systemId)
     {
         if (logger.isDebugEnabled())
+        {
             logger.debug("attempting to resolve Xmi Href --> '" + systemId + "'");
+        }
 
         final String suffix = getSuffix(systemId);
 
@@ -70,7 +77,7 @@ public class MDRXmiReferenceResolverContext
                 String modelUrlAsString = findModuleURL(suffix);
                 if (StringUtils.isNotBlank(modelUrlAsString))
                 {
-                    modelUrl = getValidURL(modelUrlAsString);
+                    modelUrl = this.getValidURL(modelUrlAsString);
                 }
                 if (modelUrl == null)
                 {
@@ -83,6 +90,7 @@ public class MDRXmiReferenceResolverContext
                     modelUrl = super.toURL(systemId);
                 }
             }
+
             // if we've found the module model, log it
             // and place it in the map so we don't have to
             // find it if we need it again.
@@ -101,18 +109,24 @@ public class MDRXmiReferenceResolverContext
      * @param moduleName the name of the module without any path
      * @return the complete URL string of the module if found (null if not found)
      */
-    private String findModuleURL(String moduleName)
+    private final String findModuleURL(final String moduleName)
     {
         if (moduleSearchPath == null)
+        {
             return null;
+        }
 
         if (logger.isDebugEnabled())
+        {
             logger.debug("findModuleURL: moduleSearchPath.length=" + moduleSearchPath.length);
+        }
         for (int i = 0; i < moduleSearchPath.length; i++)
         {
-            File candidate = new File(moduleSearchPath[i], moduleName);
+            final File candidate = new File(moduleSearchPath[i], moduleName);
             if (logger.isDebugEnabled())
+            {
                 logger.debug("candidate '" + candidate.toString() + "' exists=" + candidate.exists());
+            }
             if (candidate.exists())
             {
                 String urlString;
@@ -142,7 +156,7 @@ public class MDRXmiReferenceResolverContext
      * @param systemId the system identifier.
      * @return the suffix as a String.
      */
-    private String getSuffix(String systemId)
+    private final String getSuffix(String systemId)
     {
         int lastSlash = systemId.lastIndexOf("/");
         if (lastSlash > 0)
@@ -156,7 +170,7 @@ public class MDRXmiReferenceResolverContext
     /**
      * The suffixes to use when searching for referenced models on the classpath.
      */
-    protected final static String[] CLASSPATH_MODEL_SUFFIXES = new String[]{"xml", "xmi"};
+    protected final static String[] CLASSPATH_MODEL_SUFFIXES = new String[] {"xml", "xmi"};
 
     /**
      * Searches for the model URL on the classpath.
@@ -164,10 +178,11 @@ public class MDRXmiReferenceResolverContext
      * @param systemId the system identifier.
      * @return the suffix as a String.
      */
-    private URL findModelUrlOnClasspath(String systemId)
+    private final URL findModelUrlOnClasspath(final String systemId)
     {
         String modelName = StringUtils.substringAfterLast(systemId, "/");
         String dot = ".";
+
         // remove the first prefix because it may be an archive
         // (like magicdraw)
         modelName = StringUtils.substringBeforeLast(modelName, dot);
@@ -181,7 +196,9 @@ public class MDRXmiReferenceResolverContext
                 for (int ctr = 0; ctr < suffixNum; ctr++)
                 {
                     if (logger.isDebugEnabled())
+                    {
                         logger.debug("searching for model reference --> '" + modelUrl + "'");
+                    }
                     String suffix = CLASSPATH_MODEL_SUFFIXES[ctr];
                     modelUrl = ResourceUtils.getResource(modelName + dot + suffix);
                     if (modelUrl != null)
@@ -200,7 +217,7 @@ public class MDRXmiReferenceResolverContext
      * @param systemId the system id
      * @return the URL (if valid)
      */
-    private URL getValidURL(String systemId)
+    private final URL getValidURL(String systemId)
     {
         InputStream stream = null;
         URL url = null;
