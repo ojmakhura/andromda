@@ -43,7 +43,7 @@ public class MDRepositoryFacade
     private static Logger logger = Logger.getLogger(MDRepositoryFacade.class);
     protected final static String META_PACKAGE = "UML";
     private ModelAccessFacade modelFacade = null;
-    private static MDRepository repository = null;
+    private MDRepository repository = null;
     protected URL metaModelURL;
     protected RefPackage model = null;
 
@@ -64,13 +64,18 @@ public class MDRepositoryFacade
         final String metamodelUri = "/M2_DiagramInterchangeModel.xml";
 
         // the default metamodel is now UML 1.4 plus UML 2.0 diagram extensions
-        metaModelURL = MDRepositoryFacade.class.getResource(metamodelUri);
+        this.metaModelURL = MDRepositoryFacade.class.getResource(metamodelUri);
 
-        if (metaModelURL == null)
+        if (this.metaModelURL == null)
         {
             throw new RepositoryFacadeException("Could not find meta model --> ' " + metamodelUri + "'");
         }
     }
+
+    /**
+     * Keeps track of whether or not the repository is open.
+     */
+    private boolean open = false;
 
     /**
      * Opens the repository and prepares it to read in models.
@@ -81,21 +86,11 @@ public class MDRepositoryFacade
      */
     public void open()
     {
-        repository.beginTrans(true);
-    }
-
-    /**
-     * @see org.andromda.core.repository.RepositoryFacade#clear()
-     */
-    public void clear()
-    {
-        // remove the model from the repository (if there is one)
-        RefPackage model = repository.getExtent(EXTENT_NAME);
-        if (model != null)
+        if (!this.open)
         {
-            model.refDelete();
+            repository.beginTrans(true);
+            this.open = true;
         }
-        this.model = null;
     }
 
     /**
@@ -107,9 +102,13 @@ public class MDRepositoryFacade
      */
     public void close()
     {
-        repository.endTrans(false);
-        this.clear();
-        MDRManager.getDefault().shutdownAll();
+        if (this.open)
+        {
+            repository.endTrans(false);
+            this.clear();
+            MDRManager.getDefault().shutdownAll();
+            this.open = false;
+        }
     }
 
     /**
@@ -121,14 +120,13 @@ public class MDRepositoryFacade
     {
         try
         {
-            final MofPackage metaModel = loadMetaModel(metaModelURL);
-            this.model = loadModel(modelURL, moduleSearchPath, metaModel);
+            final MofPackage metaModel = this.loadMetaModel(this.metaModelURL);
+            this.model = this.loadModel(modelURL, moduleSearchPath, metaModel);
         }
         catch (final Throwable throwable)
         {
             throw new RepositoryFacadeException(throwable);
         }
-
         if (logger.isDebugEnabled())
         {
             logger.debug("created repository");
@@ -145,7 +143,7 @@ public class MDRepositoryFacade
     {
         try
         {
-            final MofPackage metaModel = loadMetaModel(metaModelURL);
+            final MofPackage metaModel = this.loadMetaModel(metaModelURL);
             this.model = loadModel(stream, uri, moduleSearchPath, metaModel);
         }
         catch (final Throwable throwable)
@@ -270,7 +268,7 @@ public class MDRepositoryFacade
      * @throws IOException
      * @throws MalformedXMIException
      */
-    private static MofPackage loadMetaModel(final URL metaModelURL)
+    private final MofPackage loadMetaModel(final URL metaModelURL)
         throws CreationFailedException, IOException, MalformedXMIException
     {
         if (logger.isDebugEnabled())
@@ -288,7 +286,6 @@ public class MDRepositoryFacade
         }
 
         MofPackage metaModelPackage = findPackage(META_PACKAGE, metaModelExtent);
-
         if (metaModelPackage == null)
         {
             XMIReader xmiReader = XMIReaderFactory.getDefault().createXMIReader();
@@ -313,6 +310,20 @@ public class MDRepositoryFacade
     private static final String EXTENT_NAME = "MODEL";
 
     /**
+     * @see org.andromda.core.repository.RepositoryFacade#clear()
+     */
+    public void clear()
+    {
+        // remove the model from the repository (if there is one)
+        RefPackage model = repository.getExtent(EXTENT_NAME);
+        if (model != null)
+        {
+            model.refDelete();
+        }
+        this.model = null;
+    }
+
+    /**
      * Loads a model into the repository and validates the model against the given metaModel.
      *
      * @param modelURL  url of model
@@ -327,7 +338,7 @@ public class MDRepositoryFacade
         final MofPackage metaModel)
         throws CreationFailedException
     {
-        final RefPackage model = this.getModel(metaModel);
+        final RefPackage model = this.createModel(metaModel);
         if (modelURL != null)
         {
             final XMIReader xmiReader =
@@ -374,7 +385,7 @@ public class MDRepositoryFacade
         final MofPackage metaModel)
         throws CreationFailedException
     {
-        final RefPackage model = this.getModel(metaModel);
+        final RefPackage model = this.createModel(metaModel);
         if (modelStream != null)
         {
             final XMIReader xmiReader =
@@ -405,17 +416,18 @@ public class MDRepositoryFacade
      * @return the package.
      * @throws CreationFailedException
      */
-    private RefPackage getModel(final MofPackage metaModel)
+    private RefPackage createModel(final MofPackage metaModel)
         throws CreationFailedException
     {
-        RefPackage model = repository.getExtent(EXTENT_NAME);
+        final String name = EXTENT_NAME;
+        RefPackage model = repository.getExtent(name);
         if (model == null)
         {
             if (logger.isDebugEnabled())
             {
                 logger.debug("creating the new meta model");
             }
-            model = repository.createExtent(EXTENT_NAME, metaModel);
+            model = repository.createExtent(name, metaModel);
             if (logger.isDebugEnabled())
             {
                 logger.debug("created model extent");
@@ -431,9 +443,9 @@ public class MDRepositoryFacade
      * @param metaModel   meta model to search
      * @return MofPackage
      */
-    private final static MofPackage findPackage(
-        String packageName,
-        ModelPackage metaModel)
+    private final MofPackage findPackage(
+        final String packageName,
+        final ModelPackage metaModel)
     {
         MofPackage mofPackage = null;
         for (final Iterator iterator = metaModel.getMofPackage().refAllOfClass().iterator(); iterator.hasNext();)
