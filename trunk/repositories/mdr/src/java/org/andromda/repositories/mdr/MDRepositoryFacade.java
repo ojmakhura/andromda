@@ -44,7 +44,6 @@ public class MDRepositoryFacade
     protected final static String META_PACKAGE = "UML";
     private ModelAccessFacade modelFacade = null;
     private static MDRepository repository = null;
-
     protected URL metaModelURL;
     protected RefPackage model = null;
 
@@ -59,9 +58,9 @@ public class MDRepositoryFacade
             "org.netbeans.mdr.persistence.memoryimpl.StorageFactoryImpl");
 
         // set the logging so output does not go to standard out
-        System.setProperty("org.netbeans.lib.jmi.Logger.fileName", "mdr.log");      
+        System.setProperty("org.netbeans.lib.jmi.Logger.fileName", "mdr.log");
         repository = MDRManager.getDefault().getDefaultRepository();
-        
+
         final String metamodelUri = "/M2_DiagramInterchangeModel.xml";
 
         // the default metamodel is now UML 1.4 plus UML 2.0 diagram extensions
@@ -84,7 +83,7 @@ public class MDRepositoryFacade
     {
         repository.beginTrans(true);
     }
-    
+
     /**
      * @see org.andromda.core.repository.RepositoryFacade#clear()
      */
@@ -95,7 +94,7 @@ public class MDRepositoryFacade
         if (model != null)
         {
             model.refDelete();
-        }        
+        }
         this.model = null;
     }
 
@@ -117,19 +116,17 @@ public class MDRepositoryFacade
      * @see org.andromda.core.common.RepositoryFacade#readModel(java.net.URL, java.lang.String[])
      */
     public void readModel(
-        URL modelURL,
-        String[] moduleSearchPath)
+        final URL modelURL,
+        final String[] moduleSearchPath)
     {
-        final String methodName = "MDRepositoryFacade.readModel";
         try
         {
-            MofPackage metaModel = loadMetaModel(metaModelURL);
+            final MofPackage metaModel = loadMetaModel(metaModelURL);
             this.model = loadModel(modelURL, moduleSearchPath, metaModel);
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new RepositoryFacadeException(errMsg, th);
+            throw new RepositoryFacadeException(throwable);
         }
 
         if (logger.isDebugEnabled())
@@ -142,22 +139,19 @@ public class MDRepositoryFacade
      * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream, java.lang.String, java.lang.String[])
      */
     public void readModel(
-        InputStream stream,
-        String uri,
-        String[] moduleSearchPath)
+        final InputStream stream,
+        final String uri,
+        final String[] moduleSearchPath)
     {
-        final String methodName = "MDRepositoryFacade.readModel";
         try
         {
-            MofPackage metaModel = loadMetaModel(metaModelURL);
+            final MofPackage metaModel = loadMetaModel(metaModelURL);
             this.model = loadModel(stream, uri, moduleSearchPath, metaModel);
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new RepositoryFacadeException(errMsg, th);
+            throw new RepositoryFacadeException(throwable);
         }
-
         if (logger.isDebugEnabled())
         {
             logger.debug("created repository");
@@ -215,24 +209,22 @@ public class MDRepositoryFacade
         try
         {
             // ensure the directory we're writing to exists
-            File file = new File(outputLocation);
-            File parent = file.getParentFile();
+            final File file = new File(outputLocation);
+            final File parent = file.getParentFile();
             if (parent != null)
             {
                 parent.mkdirs();
             }
             FileOutputStream outputStream = new FileOutputStream(file);
-            XMIWriter xmiWriter = XMIWriterFactory.getDefault().createXMIWriter();
+            final XMIWriter xmiWriter = XMIWriterFactory.getDefault().createXMIWriter();
             xmiWriter.getConfiguration().setEncoding(encoding);
             xmiWriter.write(outputStream, outputLocation, (RefPackage)model, xmiVersion);
             outputStream.close();
             outputStream = null;
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing MDRepositoryFacade.writeModel";
-            logger.error(errMsg, th);
-            throw new RepositoryFacadeException(errMsg, th);
+            throw new RepositoryFacadeException(throwable);
         }
     }
 
@@ -253,16 +245,9 @@ public class MDRepositoryFacade
                         "Could not find implementation for the component --> '" + ModelAccessFacade.class + "'");
                 }
             }
-            catch (RepositoryFacadeException ex)
+            catch (final Throwable throwable)
             {
-                // Dont do anything with our own exceptions.
-                throw ex;
-            }
-            catch (Throwable th)
-            {
-                String errMsg = "Error performing MDRepositoryFacade.getModel";
-                logger.error(errMsg);
-                throw new RepositoryFacadeException(errMsg, th);
+                throw new RepositoryFacadeException(throwable);
             }
         }
         if (this.model != null)
@@ -285,7 +270,7 @@ public class MDRepositoryFacade
      * @throws IOException
      * @throws MalformedXMIException
      */
-    private static MofPackage loadMetaModel(URL metaModelURL)
+    private static MofPackage loadMetaModel(final URL metaModelURL)
         throws CreationFailedException, IOException, MalformedXMIException
     {
         if (logger.isDebugEnabled())
@@ -336,10 +321,10 @@ public class MDRepositoryFacade
      * @return populated model
      * @throws CreationFailedException unable to create model in repository
      */
-    private RefPackage loadModel(
-        URL modelURL,
-        String[] moduleSearchPath,
-        MofPackage metaModel)
+    private final RefPackage loadModel(
+        final URL modelURL,
+        final String[] moduleSearchPath,
+        final MofPackage metaModel)
         throws CreationFailedException
     {
         final RefPackage model = this.getModel(metaModel);
@@ -360,11 +345,9 @@ public class MDRepositoryFacade
                     modelURL.toString(),
                     model);
             }
-            catch (Throwable th)
+            catch (final Throwable throwable)
             {
-                String errMsg = "Error performing MDRepository.loadModel";
-                logger.error(errMsg);
-                throw new RepositoryFacadeException(errMsg, th);
+                throw new RepositoryFacadeException(throwable);
             }
             if (logger.isDebugEnabled())
             {
@@ -384,11 +367,11 @@ public class MDRepositoryFacade
      * @return populated model
      * @throws CreationFailedException unable to create model in repository
      */
-    private RefPackage loadModel(
-        InputStream modelStream,
-        String uri,
-        String[] moduleSearchPath,
-        MofPackage metaModel)
+    private final RefPackage loadModel(
+        final InputStream modelStream,
+        final String uri,
+        final String[] moduleSearchPath,
+        final MofPackage metaModel)
         throws CreationFailedException
     {
         final RefPackage model = this.getModel(metaModel);
@@ -403,11 +386,9 @@ public class MDRepositoryFacade
             {
                 xmiReader.read(modelStream, uri, model);
             }
-            catch (Throwable th)
+            catch (Throwable throwable)
             {
-                String errMsg = "Error performing MDRepository.loadModel";
-                logger.error(errMsg);
-                throw new RepositoryFacadeException(errMsg, th);
+                throw new RepositoryFacadeException(throwable);
             }
             if (logger.isDebugEnabled())
             {
@@ -424,7 +405,7 @@ public class MDRepositoryFacade
      * @return the package.
      * @throws CreationFailedException
      */
-    private RefPackage getModel(MofPackage metaModel)
+    private RefPackage getModel(final MofPackage metaModel)
         throws CreationFailedException
     {
         RefPackage model = repository.getExtent(EXTENT_NAME);
@@ -450,14 +431,14 @@ public class MDRepositoryFacade
      * @param metaModel   meta model to search
      * @return MofPackage
      */
-    private static MofPackage findPackage(
+    private final static MofPackage findPackage(
         String packageName,
         ModelPackage metaModel)
     {
         MofPackage mofPackage = null;
-        for (Iterator iterator = metaModel.getMofPackage().refAllOfClass().iterator(); iterator.hasNext();)
+        for (final Iterator iterator = metaModel.getMofPackage().refAllOfClass().iterator(); iterator.hasNext();)
         {
-            javax.jmi.model.ModelElement element = (javax.jmi.model.ModelElement)iterator.next();
+            final javax.jmi.model.ModelElement element = (javax.jmi.model.ModelElement)iterator.next();
             if (element.getName().equals(packageName))
             {
                 mofPackage = (MofPackage)element;
