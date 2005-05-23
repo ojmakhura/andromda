@@ -26,7 +26,11 @@ public class Template
         this.supportedModelElements = new ModelElements();
     }
 
-    private boolean generateEmptyFiles;
+    /**
+     * A flag indicating whether or not empty files should
+     * be generated.
+     */
+    private boolean generateEmptyFiles = false;
 
     /**
      * Tells us whether output files should be generated if this template does not produce any output.
@@ -170,5 +174,8 @@ public class Template
         return ToStringBuilder.reflectionToString(this);
     }
 
+    /**
+     * The model elements (i.e. metafacades) supported by this template.
+     */
     private ModelElements supportedModelElements = null;
 }
