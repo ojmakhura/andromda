@@ -1,5 +1,15 @@
 package org.andromda.core;
 
+import java.io.InputStream;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BuildInformation;
@@ -11,7 +21,6 @@ import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.ModelPackages;
-import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Transformation;
 import org.andromda.core.mapping.Mappings;
@@ -26,18 +35,6 @@ import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import java.io.InputStream;
-
-import java.text.Collator;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
 
 /**
  * <p>
@@ -49,17 +46,15 @@ import java.util.List;
  */
 public class ModelProcessor
 {
+    /**
+     * The logger instance.
+     */
     private static final Logger logger = Logger.getLogger(ModelProcessor.class);
 
     /**
      * The shared instance.
      */
     private static ModelProcessor instance = null;
-
-    /**
-     * Stores whether or not to process all model packages
-     */
-    private boolean processAllModelPackages = true;
 
     /**
      * Gets the shared instance of the ModelProcessor.
@@ -84,7 +79,7 @@ public class ModelProcessor
     {
         AndroMDALogger.configure();
         this.printConsoleHeader();
-        long startTime = System.currentTimeMillis();
+        final long startTime = System.currentTimeMillis();
         models = this.filterInvalidModels(models);
         if (models.length > 0)
         {
@@ -104,9 +99,9 @@ public class ModelProcessor
                 }
                 else
                 {
-                    repository.clear();
+                    this.repository.clear();
                 }
-                process(this.repository, models);
+                this.processModels(models);
             }
             finally
             {
@@ -135,6 +130,9 @@ public class ModelProcessor
                 {
                     throw new ModelProcessorException("Model validation failed!");
                 }
+                
+                // reset any resources internally
+                this.reset();
 
                 // cleanup any resources used by the factory
                 MetafacadeFactory.getInstance().shutdown();
@@ -162,8 +160,7 @@ public class ModelProcessor
      * @param models the Model(s) to process.
      * @param cartridges the collection of cartridge used to process the models.
      */
-    private void process(
-        final RepositoryFacade repository,
+    private void processModels(
         final Model[] models)
     {
         final String methodName = "ModelProcessor.process";
@@ -192,12 +189,7 @@ public class ModelProcessor
                 }
             }
 
-            boolean shouldProcess = true;
-            if (lastModifiedCheck)
-            {
-                shouldProcess = ResourceWriter.instance().isHistoryBefore(lastModified);
-            }
-            if (shouldProcess)
+            if (lastModifiedCheck ? ResourceWriter.instance().isHistoryBefore(lastModified) : true)
             {
                 // discover all plugins
                 PluginDiscoverer.instance().discoverPlugins();
@@ -218,30 +210,23 @@ public class ModelProcessor
                     final InputStream stream = transformer.transform(
                             model.getUri(),
                             this.getTransformations());
-                    repository.readModel(
+                    this.repository.readModel(
                         stream,
                         model.getUri().toString(),
                         model.getModuleSearchLocations());
                     modelPackages.addPackages(model.getPackages());
                 }
 
-                final CodeGenerationContext context = new CodeGenerationContext(repository, modelPackages);
+                final CodeGenerationContext context = new CodeGenerationContext(this.repository, modelPackages);
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
                     cartridgeName = cartridge.getName();
                     if (this.shouldProcess(cartridgeName))
                     {
-                        final Namespace namespace = Namespaces.instance().findNamespace(cartridgeName);
-
-                        // make sure we ignore the cartridge if the
-                        // namespace is set to 'ignore'
-                        if (namespace != null)
-                        {
-                            cartridge.init();
+                            cartridge.initialize();
                             cartridge.processModelElements(context);
                             cartridge.shutdown();
-                        }
                     }
                 }
                 ResourceWriter.instance().writeHistory();
@@ -271,6 +256,11 @@ public class ModelProcessor
         AndroMDALogger.info("A n d r o M D A  -  " + VERSION);
         AndroMDALogger.info("");
     }
+    
+    /**
+     * Stores whether or not to process all model packages
+     */
+    private boolean processAllModelPackages = true;
 
     /**
      * Sets whether or not AndroMDA should process all packages. If this is set to true, then package elements should be
@@ -298,6 +288,10 @@ public class ModelProcessor
         MetafacadeFactory.getInstance().setModelValidation(modelValidation);
     }
 
+    /**
+     * A flag indicating whether or not failure should occur
+     * when model validation errors are present.
+     */
     private boolean failOnValidationErrors = true;
 
     /**
@@ -309,12 +303,12 @@ public class ModelProcessor
     {
         this.failOnValidationErrors = failOnValidationErrors;
     }
-
+    
     /**
      * Stores the cartridge filter.
      */
     private List cartridgeFilter = null;
-
+  
     /**
      * Denotes whether or not the complement of filtered cartridges should be processed
      */
@@ -325,16 +319,20 @@ public class ModelProcessor
      * {@link #setCartridgeFilter(String)}. If the <code>cartridgeFilter</code> is not defined, then this method will
      * <strong>ALWAYS </strong> return true.
      *
-     * @param namespace the namespace to check whether or not it should be processed.
+     * @param namespace the name of the namespace to check whether or not it should be processed.
      * @return true/false on whether or not it should be processed.
      */
     protected boolean shouldProcess(final String namespace)
     {
-        boolean shouldProcess = this.cartridgeFilter == null || this.cartridgeFilter.isEmpty();
-        if (!shouldProcess)
+        boolean shouldProcess = Namespaces.instance().namespacePresent(namespace);
+        if (shouldProcess)
         {
-            shouldProcess =
-                this.negateCartridgeFilter ^ this.cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
+            shouldProcess = this.cartridgeFilter == null || this.cartridgeFilter.isEmpty();
+            if (!shouldProcess)
+            {
+                shouldProcess =
+                    this.negateCartridgeFilter ^ this.cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
+            }
         }
         return shouldProcess;
     }
@@ -481,6 +479,21 @@ public class ModelProcessor
             this.repository = null;
         }
         instance = null;
+    }
+    
+    /**
+     * Reinitializes the model processor's resources.
+     */
+    private void reset()
+    {
+        this.cartridgeFilter = null;
+        this.transformations.clear();
+        this.setXmlValidation(true);
+        this.setOuputEncoding(null);
+        this.setModelValidation(true);
+        this.setLoggingConfigurationUri(null);
+        this.setFailOnValidationErrors(true);
+        this.setProcessAllModelPackages(true);
     }
 
     /**

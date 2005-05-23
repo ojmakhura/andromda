@@ -55,9 +55,9 @@ public abstract class BasePlugin
     }
 
     /**
-     * @see org.andromda.core.common.Plugin#init()
+     * @see org.andromda.core.common.Plugin#initialize()
      */
-    public void init() throws Exception
+    public void initialize() throws Exception
     {
         // set the template engine merge location (this needs to be
         // set before the template engine is initialized) so that the
@@ -69,7 +69,7 @@ public abstract class BasePlugin
         {
             this.getTemplateEngine().setMergeLocation(this.getMergeLocation().getFile());
         }
-        this.getTemplateEngine().init(this.getName());
+        this.getTemplateEngine().initialize(this.getName());
     }
 
     /**

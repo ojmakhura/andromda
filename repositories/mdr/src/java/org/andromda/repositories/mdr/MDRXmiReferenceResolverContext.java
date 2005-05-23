@@ -31,7 +31,7 @@ public class MDRXmiReferenceResolverContext
 {
     private String[] moduleSearchPath;
     private static Logger logger = Logger.getLogger(MDRXmiReferenceResolverContext.class);
-    private final HashMap urlMap = new HashMap();
+    private static final HashMap urlMap = new HashMap();
 
     /**
      * Constructs an instance of this class.
@@ -96,12 +96,22 @@ public class MDRXmiReferenceResolverContext
             // find it if we need it again.
             if (modelUrl != null)
             {
-                AndroMDALogger.info("Referenced model --> '" + modelUrl + "'");
                 urlMap.put(suffixWithExt, modelUrl);
             }
         }
+        if (!loggedReferedModel && modelUrl != null)
+        {
+            AndroMDALogger.info("Referenced model --> '" + modelUrl + "'");
+            this.loggedReferedModel = true;
+        }
         return modelUrl;
     }
+    
+    /**
+     * Keeps track of whether or mot the fact the 
+     * referenced model was found, was logged or not.
+     */
+    private boolean loggedReferedModel = false;
 
     /**
      * Finds a module in the module search path.

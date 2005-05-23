@@ -22,7 +22,7 @@ public interface TemplateEngine
      *        template engine implementation likes. For example, it can help
      *        determine the name of the log file to which output is logged.
      */
-    public void init(String namespace)
+    public void initialize(String namespace)
         throws Exception;
 
     /**

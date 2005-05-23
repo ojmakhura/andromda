@@ -20,7 +20,7 @@ public interface Plugin
     /**
      * Initializes the plugin.
      */
-    public void init() throws Exception;
+    public void initialize() throws Exception;
 
     /**
      * Shuts down the plugin. The meaning of this is defined by the plugin itself. At least, it should close any
