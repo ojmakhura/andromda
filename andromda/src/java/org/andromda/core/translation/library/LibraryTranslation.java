@@ -13,9 +13,12 @@ import java.io.BufferedReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+
 import java.lang.reflect.Method;
+
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * The LibraryTranslation object which is the intermediary object between the Library and the child Translation
@@ -145,8 +148,9 @@ public class LibraryTranslation
     public void setTranslator(final String translatorClass)
     {
         this.translatorClass = translatorClass;
-        ComponentContainer.instance().unregisterComponent(translatorClass);
-        ComponentContainer.instance().registerComponentType(translatorClass);
+        final ComponentContainer container = ComponentContainer.instance();
+        container.unregisterComponent(translatorClass);
+        container.registerComponentType(translatorClass);
     }
 
     /**
@@ -157,15 +161,13 @@ public class LibraryTranslation
     public Translator getTranslator()
     {
         final String methodName = "LibraryTranslation.getTranslator";
-        Translator translator = (Translator)ComponentContainer.instance().findComponent(this.translatorClass,
-                Translator.class);
+        final Translator translator =
+            (Translator)ComponentContainer.instance().findComponent(this.translatorClass, Translator.class);
         if (translator == null)
         {
             throw new LibraryException(
-                    methodName + " - a translator implementation must be defined, " +
-                    " please check your translator library --> '" +
-                    this.library.getResource() +
-                    "'");
+                methodName + " - a translator implementation must be defined, " +
+                " please check your translator library --> '" + this.library.getResource() + "'");
         }
         return translator;
     }
@@ -179,44 +181,46 @@ public class LibraryTranslation
      * @param node the node Object which from the parsed expression.
      * @param kind the kind of the translation fragment to handle.
      */
-    public void handleTranslationFragment(final String name, final String kind, final Object node)
+    public void handleTranslationFragment(
+        final String name,
+        final String kind,
+        final Object node)
     {
         final String methodName = "LibraryTranslation.handleTranslationFragment";
         ExceptionUtils.checkNull(methodName, "node", node);
         if (this.translation != null && this.getTranslator() != null)
         {
-            String translation = this.getTranslationFragment(name, kind);
-            Fragment fragment = this.translation.getFragment(name);
+            final String translation = this.getTranslationFragment(name, kind);
+            final Fragment fragment = this.translation.getFragment(name);
             if (fragment != null)
             {
                 String handlerMethod = fragment.getHandlerMethod();
                 if (StringUtils.isNotEmpty(handlerMethod))
                 {
-                    Class[] argTypes = new Class[]{java.lang.String.class, java.lang.Object.class};
+                    Class[] argTypes = new Class[] {java.lang.String.class, java.lang.Object.class};
 
                     try
                     {
-
-                        Method method = this.getTranslator().getClass().getMethod(handlerMethod, argTypes);
+                        final Method method = this.getTranslator().getClass().getMethod(handlerMethod, argTypes);
 
                         // add the translation as the first arg
-                        Object[] args = new Object[]{translation, node};
+                        final Object[] args = new Object[] {translation, node};
 
-                        method.invoke(this.getTranslator(), args);
+                        method.invoke(
+                            this.getTranslator(),
+                            args);
                     }
-                    catch (NoSuchMethodException ex)
+                    catch (final NoSuchMethodException exception)
                     {
-                        String errMsg = "the translator '" + this.getTranslator().getClass() +
-                                "' must implement the method '" +
-                                handlerMethod +
-                                "'" + StringUtils.join(argTypes, ",") + "'" + " in order to handle processing of the fragment --> '" + name +
-                                "'";
+                        String errMsg =
+                            "the translator '" + this.getTranslator().getClass() + "' must implement the method '" +
+                            handlerMethod + "'" + StringUtils.join(argTypes, ",") + "'" +
+                            " in order to handle processing of the fragment --> '" + name + "'";
                         logger.error(errMsg);
                     }
-                    catch (Exception ex)
+                    catch (final Throwable throwable)
                     {
-                        String errMsg = "Error performing " + methodName;
-                        throw new LibraryException(errMsg, ex);
+                        throw new LibraryException(throwable);
                     }
                 }
             }
@@ -231,7 +235,9 @@ public class LibraryTranslation
      *             pre, etc).
      * @return String the value of the translated fragment or null of one wasn't found with the specified name.
      */
-    public String getTranslationFragment(final String name, final String kind)
+    public String getTranslationFragment(
+        final String name,
+        final String kind)
     {
         String fragment = null;
         if (this.translation != null)
@@ -255,11 +261,9 @@ public class LibraryTranslation
             this.translation = (Translation)XmlObjectFactory.getInstance(Translation.class).getObject(translationInput);
             this.translation.setLibraryTranslation(this);
         }
-        catch (Exception ex)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, ex);
-            throw new LibraryException(errMsg, ex);
+            throw new LibraryException(throwable);
         }
     }
 
@@ -274,11 +278,9 @@ public class LibraryTranslation
      */
     public Translation processTranslation(Map templateContext)
     {
-        final String methodName = "LibraryTranslation.processTranslation";
         logger.debug(
-                "processing translation template --> '" + this.getTemplate() + "'" + "' with templateContext --> '" +
-                templateContext +
-                "'");
+            "processing translation template --> '" + this.getTemplate() + "'" + "' with templateContext --> '" +
+            templateContext + "'");
         if (this.getTemplate() != null)
         {
             if (templateContext == null)
@@ -289,24 +291,26 @@ public class LibraryTranslation
 
             try
             {
-                TemplateEngine engine = this.getLibrary().getTemplateEngine();
+                final TemplateEngine engine = this.getLibrary().getTemplateEngine();
 
-                StringWriter output = new StringWriter();
-                engine.processTemplate(this.getTemplate(), templateContext, output);
-                String outputString = output.toString();
-                BufferedReader input = new BufferedReader(new StringReader(outputString));
+                final StringWriter output = new StringWriter();
+                engine.processTemplate(
+                    this.getTemplate(),
+                    templateContext,
+                    output);
+                final String outputString = output.toString();
+                final BufferedReader input = new BufferedReader(new StringReader(outputString));
                 if (logger.isDebugEnabled())
                 {
                     logger.debug("processed output --> '" + outputString + "'");
                 }
+
                 // load Reader into the translation
                 this.setTranslation(input);
             }
-            catch (Exception ex)
+            catch (final Throwable throwable)
             {
-                String errMsg = "Error performing " + methodName;
-                logger.error(errMsg, ex);
-                throw new LibraryException(errMsg, ex);
+                throw new LibraryException(throwable);
             }
         }
         return this.translation;

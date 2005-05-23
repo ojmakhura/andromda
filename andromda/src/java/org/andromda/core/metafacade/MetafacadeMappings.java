@@ -1,5 +1,13 @@
 package org.andromda.core.metafacade;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
@@ -15,15 +23,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
-
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -68,7 +67,7 @@ public class MetafacadeMappings
     /**
      * The shared static instance.
      */
-    private static final MetafacadeMappings instance = new MetafacadeMappings();
+    private static MetafacadeMappings instance = null;
 
     /**
      * The default meta facade to use when there isn't a mapping found.
@@ -82,9 +81,13 @@ public class MetafacadeMappings
      */
     public static MetafacadeMappings instance()
     {
+        if (instance == null)
+        {
+            instance = new MetafacadeMappings();
+        }
         return instance;
     }
-
+    
     /**
      * Returns a new configured instance of this MetafacadeMappings configured from the mappings configuration URI.
      *
@@ -1058,6 +1061,7 @@ public class MetafacadeMappings
         {
             this.propertyValues.clear();
         }
+        instance = null;
     }
 
     /**

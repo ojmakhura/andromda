@@ -1,15 +1,5 @@
 package org.andromda.core;
 
-import java.io.InputStream;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BuildInformation;
@@ -36,6 +26,19 @@ import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.io.InputStream;
+
+import java.text.Collator;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+
 /**
  * <p>
  * Handles the processing of models. Facilitates Model Driven
@@ -51,7 +54,7 @@ public class ModelProcessor
     /**
      * The shared instance.
      */
-    private static final ModelProcessor instance = new ModelProcessor();
+    private static ModelProcessor instance = null;
 
     /**
      * Stores whether or not to process all model packages
@@ -65,23 +68,13 @@ public class ModelProcessor
      */
     public static final ModelProcessor instance()
     {
+        if (instance == null)
+        {
+            instance = new ModelProcessor();
+        }
         return instance;
     }
-    
-    private RepositoryFacade repository;
-    
-    /**
-     * Shuts down the model processor.
-     */
-    public void shutdown()
-    {
-        if (this.repository != null)
-        {
-            this.repository.close();
-            this.repository = null;
-        }
-    }
-    
+
     /**
      * Processes all <code>models</code> with the discovered plugins.
      *
@@ -99,13 +92,13 @@ public class ModelProcessor
             {
                 if (this.repository == null)
                 {
-                    this.repository = (RepositoryFacade)ComponentContainer.instance().findComponent(
-                        RepositoryFacade.class);
+                    this.repository =
+                        (RepositoryFacade)ComponentContainer.instance().findComponent(RepositoryFacade.class);
                     if (this.repository == null)
                     {
-                        throw new ModelProcessorException("No Repository could be found, "
-                            + "please make sure you have a " + RepositoryFacade.class.getName()
-                            + " instance on your classpath");
+                        throw new ModelProcessorException(
+                            "No Repository could be found, " + "please make sure you have a " +
+                            RepositoryFacade.class.getName() + " instance on your classpath");
                     }
                     this.repository.open();
                 }
@@ -135,20 +128,25 @@ public class ModelProcessor
                     }
                     AndroMDALogger.reset();
                 }
-                AndroMDALogger.info("completed model processing --> TIME: "
-                    + ((System.currentTimeMillis() - startTime) / 1000.0)
-                    + "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount()
-                    + totalMessagesMessage);
+                AndroMDALogger.info(
+                    "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
+                    "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount() + totalMessagesMessage);
                 if (this.failOnValidationErrors && !messages.isEmpty())
                 {
                     throw new ModelProcessorException("Model validation failed!");
                 }
+
                 // cleanup any resources used by the factory
                 MetafacadeFactory.getInstance().shutdown();
+
                 // cleanup the namespaces
                 Namespaces.instance().shutdown();
+
                 // shutdown the container
                 ComponentContainer.instance().shutdown();
+                
+                // shutdown the plugin discoverer
+                PluginDiscoverer.instance().shutdown();
             }
         }
         else
@@ -164,9 +162,12 @@ public class ModelProcessor
      * @param models the Model(s) to process.
      * @param cartridges the collection of cartridge used to process the models.
      */
-    private void process(final RepositoryFacade repository, final Model[] models)
+    private void process(
+        final RepositoryFacade repository,
+        final Model[] models)
     {
         final String methodName = "ModelProcessor.process";
+
         // filter out any models that are null or have null URLs
         String cartridgeName = null;
         try
@@ -183,6 +184,7 @@ public class ModelProcessor
                 ResourceWriter.instance().resetHistory(model.getUri());
                 AndroMDALogger.info("Input model --> '" + model.getUri() + "'");
                 lastModifiedCheck = model.isLastModifiedCheck() && lastModifiedCheck;
+
                 // we go off the model that was most recently modified.
                 if (model.getLastModified() > lastModified)
                 {
@@ -213,15 +215,20 @@ public class ModelProcessor
                 {
                     final Model model = models[ctr];
                     final Transformer transformer = XslTransformer.instance();
-                    final InputStream stream = transformer.transform(model.getUri(), this.getTransformations());
-                    repository.readModel(stream, model.getUri().toString(), model.getModuleSearchLocations());
+                    final InputStream stream = transformer.transform(
+                            model.getUri(),
+                            this.getTransformations());
+                    repository.readModel(
+                        stream,
+                        model.getUri().toString(),
+                        model.getModuleSearchLocations());
                     modelPackages.addPackages(model.getPackages());
                 }
 
                 final CodeGenerationContext context = new CodeGenerationContext(repository, modelPackages);
-                for (final Iterator cartridgeIterator = cartridges.iterator(); cartridgeIterator.hasNext();)
+                for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
-                    final Cartridge cartridge = (Cartridge)cartridgeIterator.next();
+                    final Cartridge cartridge = (Cartridge)iterator.next();
                     cartridgeName = cartridge.getName();
                     if (this.shouldProcess(cartridgeName))
                     {
@@ -240,10 +247,10 @@ public class ModelProcessor
                 ResourceWriter.instance().writeHistory();
             }
         }
-        catch (Throwable throwable)
+        catch (final Throwable throwable)
         {
-            final String errorMesssage = "Error performing " + methodName + " with model(s) --> '" + StringUtils.join(models,
-                    ",") + "'";
+            final String errorMesssage =
+                "Error performing " + methodName + " with model(s) --> '" + StringUtils.join(models, ",") + "'";
             logger.error(errorMesssage);
             ExceptionRecorder.instance().record(errorMesssage, throwable, cartridgeName);
             throw new ModelProcessorException(errorMesssage, throwable);
@@ -326,8 +333,8 @@ public class ModelProcessor
         boolean shouldProcess = this.cartridgeFilter == null || this.cartridgeFilter.isEmpty();
         if (!shouldProcess)
         {
-            shouldProcess = this.negateCartridgeFilter ^
-                    this.cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
+            shouldProcess =
+                this.negateCartridgeFilter ^ this.cartridgeFilter.contains(StringUtils.trimToEmpty(namespace));
         }
         return shouldProcess;
     }
@@ -367,46 +374,46 @@ public class ModelProcessor
             }
         }
     }
-    
+
     /**
      * Stores any transformations that should be applied
      * to the model(s) before processing occurs.
      */
     private final List transformations = new ArrayList();
-    
+
     /**
      * Adds transformation to be applied to the model(s)
      * before processing occurrs.
-     * 
+     *
      * @param transformation a transformation document.
      */
     public void addTransformations(final Transformation[] transformations)
     {
         this.transformations.addAll(Arrays.asList(transformations));
     }
-    
+
     /**
      * Gets the current transformations that will be applied
      * to the model before processing beings.
-     * 
+     *
      * @return the transformations.
      */
     private Transformation[] getTransformations()
     {
         return (Transformation[])this.transformations.toArray(new Transformation[0]);
     }
-    
+
     /**
-     * Sets the encoding (UTF-8, ISO-8859-1, etc) for all output 
+     * Sets the encoding (UTF-8, ISO-8859-1, etc) for all output
      * produced during model processing.
-     * 
+     *
      * @param outputEncoding the encoding.
      */
     public void setOuputEncoding(final String outputEncoding)
     {
         ResourceWriter.instance().setEncoding(outputEncoding);
     }
-    
+
     /**
      * Sets <code>xmlValidation</code> to be true/false. This defines whether XML resources loaded by AndroMDA (such as
      * plugin descriptors) should be validated. Sometimes underlying parsers don't support XML Schema validation and in
@@ -441,17 +448,39 @@ public class ModelProcessor
      * @param models the models to filter.
      * @return the array of valid models
      */
-    public Model[] filterInvalidModels(final Model[] models)
+    private final Model[] filterInvalidModels(final Model[] models)
     {
         Collection validModels = new ArrayList(Arrays.asList(models));
-        CollectionUtils.filter(validModels, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            validModels,
+            new Predicate()
             {
-                return object != null && ((Model)object).getUri() != null;
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    return object != null && ((Model)object).getUri() != null;
+                }
+            });
         return (Model[])validModels.toArray(new Model[0]);
+    }
+    
+    /**
+     * The repository instance which loads the models to 
+     * be processed.
+     */
+    private RepositoryFacade repository;
+    
+    /**
+     * Shuts down the model processor (reclaims any
+     * resources).
+     */
+    public void shutdown()
+    {
+        if (this.repository != null)
+        {
+            this.repository.close();
+            this.repository = null;
+        }
+        instance = null;
     }
 
     /**
@@ -475,7 +504,7 @@ public class ModelProcessor
      * Used to sort validation messages by <code>metafacadeClass</code>.
      */
     private final static class ValidationMessageTypeComparator
-            implements Comparator
+        implements Comparator
     {
         private final Collator collator = Collator.getInstance();
 
@@ -484,11 +513,15 @@ public class ModelProcessor
             collator.setStrength(Collator.PRIMARY);
         }
 
-        public int compare(Object objectA, Object objectB)
+        public int compare(
+            Object objectA,
+            Object objectB)
         {
             ModelValidationMessage a = (ModelValidationMessage)objectA;
             ModelValidationMessage b = (ModelValidationMessage)objectB;
-            return collator.compare(a.getMetafacadeClass().getName(), b.getMetafacadeClass().getName());
+            return collator.compare(
+                a.getMetafacadeClass().getName(),
+                b.getMetafacadeClass().getName());
         }
     }
 
@@ -496,7 +529,7 @@ public class ModelProcessor
      * Used to sort validation messages by <code>modelElementName</code>.
      */
     private final static class ValidationMessageNameComparator
-            implements Comparator
+        implements Comparator
     {
         private final Collator collator = Collator.getInstance();
 
@@ -505,12 +538,15 @@ public class ModelProcessor
             collator.setStrength(Collator.PRIMARY);
         }
 
-        public int compare(Object objectA, Object objectB)
+        public int compare(
+            Object objectA,
+            Object objectB)
         {
             ModelValidationMessage a = (ModelValidationMessage)objectA;
             ModelValidationMessage b = (ModelValidationMessage)objectB;
-            return collator.compare(StringUtils.trimToEmpty(a.getMetafacadeName()),
-                    StringUtils.trimToEmpty(b.getMetafacadeName()));
+            return collator.compare(
+                StringUtils.trimToEmpty(a.getMetafacadeName()),
+                StringUtils.trimToEmpty(b.getMetafacadeName()));
         }
     }
 }

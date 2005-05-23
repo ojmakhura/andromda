@@ -55,7 +55,7 @@ public class PluginDiscoverer
     /**
      * The shared instance.
      */
-    private static final PluginDiscoverer instance = new PluginDiscoverer();
+    private static PluginDiscoverer instance = null;
 
     /**
      * Gets the default static instance of the PluginDicoverer.
@@ -64,6 +64,10 @@ public class PluginDiscoverer
      */
     public final static PluginDiscoverer instance()
     {
+        if (instance == null)
+        {
+            instance = new PluginDiscoverer();
+        }
         return instance;
     }
 
@@ -145,11 +149,9 @@ public class PluginDiscoverer
                 }
             }
         }
-        catch (Exception ex)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, ex);
-            throw new PluginDiscovererException(errMsg, ex);
+            throw new PluginDiscovererException(throwable);
         }
     }
 
@@ -167,5 +169,13 @@ public class PluginDiscoverer
             logger.error("ERROR! No plugins with type '" + type + "' found");
         }
         return plugins;
+    }
+    
+    /**
+     * Shuts down this plugin discoverer instance.
+     */
+    public void shutdown()
+    {
+        instance = null;
     }
 }
