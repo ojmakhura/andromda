@@ -70,7 +70,7 @@ public class VelocityTemplateEngineTest
         namespace.addProperty(mergeMappings);
         Namespaces.instance().addNamespace(namespace);
         final VelocityTemplateEngine engine = new VelocityTemplateEngine();
-        engine.init(namespaceName);
+        engine.initialize(namespaceName);
         StringWriter writer = new StringWriter();
         String path = packagePath + "/merge-test.vsl";
         

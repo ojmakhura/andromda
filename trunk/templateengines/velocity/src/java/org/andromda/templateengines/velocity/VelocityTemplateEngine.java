@@ -105,7 +105,7 @@ public class VelocityTemplateEngine
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#init(java.lang.String)
      */
-    public void init(final String namespace)
+    public void initialize(final String namespace)
         throws Exception
     {
         this.namespace = namespace;

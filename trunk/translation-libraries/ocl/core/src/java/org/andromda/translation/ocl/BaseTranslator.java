@@ -238,7 +238,7 @@ public abstract class BaseTranslator
             }
             if (this.libraryTranslation != null)
             {
-                libraryTranslation.getLibrary().init();
+                libraryTranslation.getLibrary().initialize();
                 libraryTranslation.processTranslation(templateObjects);
                 this.process(expression);
                 libraryTranslation.getLibrary().shutdown();
