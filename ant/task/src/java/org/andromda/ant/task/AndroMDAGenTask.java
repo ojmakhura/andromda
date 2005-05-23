@@ -123,6 +123,30 @@ public class AndroMDAGenTask
                 string = StringUtils.replace(string, property, value);
             }
         }
+        // remove any left over property references
+        string = this.removePropertyReferences(string);
+        return string;
+    }
+    
+    /**
+     * The property reference pattern.
+     */
+    private static final String PROPERTY_REFERENCE = "\\$\\{.*\\}";
+    
+    /**
+     * Removes any ${some.property} type references from the string
+     * and returns the modifed string.
+     * @param string the string from which to remove the property 
+     *        references
+     *        
+     * @return the modified string.
+     */
+    public String removePropertyReferences(String string)
+    {
+        if (string != null)
+        {
+            string = string.replaceAll(PROPERTY_REFERENCE, "");
+        }
         return string;
     }
 

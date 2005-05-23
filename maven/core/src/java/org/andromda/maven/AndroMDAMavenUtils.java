@@ -44,4 +44,26 @@ public class AndroMDAMavenUtils
         }
         return (String[])properties.toArray(new String[0]);
     }
+    
+    /**
+     * The property reference pattern.
+     */
+    private static final String PROPERTY_REFERENCE = "\\$\\{.*\\}";
+    
+    /**
+     * Removes any ${some.property} type references from the string
+     * and returns the modifed string.
+     * @param string the string from which to remove the property 
+     *        references
+     *        
+     * @return the modified string.
+     */
+    public static String removePropertyReferences(String string)
+    {
+        if (string != null)
+        {
+            string = string.replaceAll(PROPERTY_REFERENCE, "");
+        }
+        return string;
+    }
 }

@@ -160,6 +160,8 @@ public class AndroMDARunner
                 }
             }
         }
+        // remove any left over property references
+        string = AndroMDAMavenUtils.removePropertyReferences(string);
         return string;
     }
 }

@@ -123,6 +123,8 @@ public class AndroMDAMavenRunner
                 string = StringUtils.replace(string, property, value);
             }
         }
+        // remove any left over property references
+        string = AndroMDAMavenUtils.removePropertyReferences(string);
         return string;
     }
 }
