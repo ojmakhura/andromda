@@ -538,7 +538,7 @@
                 </h2>
                 <p>
                     The <a href="#andromda"> <code><![CDATA[<andromda>]]></code>
-                    </a> element takes an optional <code><![CDATA[<mappingsSearchPath>]]></code> element in order
+                    </a> element takes an optional <code><![CDATA[<mappingsSearchLocations>]]></code> element in order
                     to define the location of AndroMDA mapping files.  This allows us to use the <code>logical</code> names for the
                     location of mapping files (instead of the complete path).
                 </p>
@@ -579,7 +579,7 @@
     <mappingsSearchLocations>
         <location>/path/to/mappings</location>
         <location>/path/to/more/mappings</location>
-    </mappingsSearchPath>
+    </mappingsSearchLocations>
     ...
     <namespace name="hibernate">
         <property name="jdbcMappingsUri">JDBC</property>
