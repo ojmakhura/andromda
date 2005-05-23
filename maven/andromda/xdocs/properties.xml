@@ -46,9 +46,9 @@
                         <td>
                             Whether or not AndroMDA should be run without Ant, this is sometimes not desirable
                             as it isn't possible to run forked without running inside of Ant.  However setting
-                            this value to true renders much greater times in model loading speed therefore
+                            this value to true renders much greater times in initialization speed therefore
                             increasing the speed in which a model is processed.  Please note that when 
-                            running within this flag to true, you'll need to explicitly specify any modules within the
+                            running with this flag to true, you'll need to explicitly specify any modules within the
                             moduleSearchLocations element of your <a href="../configuration.html">AndroMDA configuration</a>
                             (because modules will NOT be able to be found on the classpath).
                         </td>
