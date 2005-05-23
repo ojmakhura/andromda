@@ -47,7 +47,7 @@ public class MetafacadeFactory
     /**
      * The shared instance of this factory.
      */
-    private static final MetafacadeFactory instance = new MetafacadeFactory();
+    private static MetafacadeFactory instance = null;
 
     private MetafacadeFactory()
     {
@@ -66,6 +66,10 @@ public class MetafacadeFactory
      */
     public static MetafacadeFactory getInstance()
     {
+        if (instance == null)
+        {
+            instance = new MetafacadeFactory();
+        }
         return instance;
     }
 
@@ -384,13 +388,13 @@ public class MetafacadeFactory
             metafacadeClass = MetafacadeImpls.instance().getMetafacadeImplClass(interfaceName);
             return this.createMetafacade(mappingObject, context, metafacadeClass);
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
             final String message =
                 "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" +
                 mappingObject.getClass().getName() + "'";
             this.getLogger().error(message);
-            throw new MetafacadeFactoryException(message, th);
+            throw new MetafacadeFactoryException(message, throwable);
         }
     }
 
@@ -632,6 +636,7 @@ public class MetafacadeFactory
         MetafacadeCache.instance().shutdown();
         MetafacadeMappings.instance().shutdown();
         this.model = null;
+        instance = null;
     }
 
     /**

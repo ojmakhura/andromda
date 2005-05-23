@@ -14,7 +14,7 @@ public final class MetafacadeCache
     /**
      * The shared metafacade cache instance.
      */
-    private static final MetafacadeCache instance = new MetafacadeCache();
+    private static MetafacadeCache instance = null;
 
     /**
      * Gets the shared MetafacadeCache instance.
@@ -23,6 +23,10 @@ public final class MetafacadeCache
      */
     public static final MetafacadeCache instance()
     {
+        if (instance == null)
+        {
+            instance = new MetafacadeCache();
+        }
         return instance;
     }
 
@@ -106,6 +110,7 @@ public final class MetafacadeCache
     public final void shutdown()
     {
         this.metafacadeCache.clear();
+        instance = null;
     }
 
     /**

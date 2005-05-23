@@ -1,15 +1,17 @@
 package org.andromda.core.configuration;
 
+import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.mapping.Mappings;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
-import org.andromda.core.common.XmlObjectFactory;
-import org.andromda.core.mapping.Mappings;
 
 
 /**
@@ -22,11 +24,6 @@ import org.andromda.core.mapping.Mappings;
 public class Configuration
 {
     /**
-     * The configuration instance factory.
-     */
-    private static final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
-    
-    /**
      * Gets a Configuration instance from the given <code>uri</code>.
      *
      * @param uri the URI to the configuration file.
@@ -34,9 +31,9 @@ public class Configuration
      */
     public final static Configuration getInstance(final URL uri)
     {
-        return (Configuration)factory.getObject(uri);
+        return (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(uri);
     }
-    
+
     /**
      * Gets a Configuration instance from the given <code>stream</code>.
      *
@@ -45,7 +42,8 @@ public class Configuration
      */
     public final static Configuration getInstance(final InputStream stream)
     {
-        return (Configuration)factory.getObject(new InputStreamReader(stream));
+        return (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(
+            new InputStreamReader(stream));
     }
 
     /**
@@ -56,9 +54,9 @@ public class Configuration
      */
     public final static Configuration getInstance(final String string)
     {
-        return (Configuration)factory.getObject(string);
+        return (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(string);
     }
-    
+
     /**
      * Initializes this configuration instance.
      */
@@ -66,7 +64,7 @@ public class Configuration
     {
         this.initializeMappings();
     }
-    
+
     /**
      * Stores the models for this Configuration instance.
      */
@@ -91,7 +89,7 @@ public class Configuration
     {
         return (Model[])this.models.toArray(new Model[0]);
     }
-    
+
     /**
      * Stores the transformations for this Configuration instance.
      */
@@ -157,7 +155,7 @@ public class Configuration
      * The locations in which to search for mappings.
      */
     private final Collection mappingsSearchLocations = new ArrayList();
-    
+
     /**
      * Adds a mappings search location (these are the locations
      * in which a search for mappings is performed).
@@ -218,7 +216,7 @@ public class Configuration
                 {
                     Mappings.addLogicalMappings(((File)iterator.next()).toURL());
                 }
-                catch (Throwable th)
+                catch (final Throwable throwable)
                 {
                     // ignore the exception (probably means its a file
                     // other than a mapping and in that case we don't care

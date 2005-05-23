@@ -54,11 +54,11 @@ public class LibraryTranslationFinder
                         "' in order to seperate the library name from the translation" +
                         " name (must be in the form: <library name>.<translation name>)");
             }
-            String libraryName = translation.substring(0, index);
-            Library library = findLibrary(libraryName);
-            int translationLength = translation.length();
+            final String libraryName = translation.substring(0, index);
+            final Library library = findLibrary(libraryName);
+            final int translationLength = translation.length();
 
-            String translationName = translation.substring(index + 1, translationLength);
+            final String translationName = translation.substring(index + 1, translationLength);
 
             if (library != null)
             {

@@ -24,7 +24,7 @@ public class Namespaces
     /**
      * The shared instance.
      */
-    private final static Namespaces instance = new Namespaces();
+    private static Namespaces instance = null;
 
     /**
      * This is passed as the cartridge name for the findNamespaceProperty method if we wish to use a 'default' Namespace
@@ -45,6 +45,10 @@ public class Namespaces
      */
     public static final Namespaces instance()
     {
+        if (instance == null)
+        {
+            instance = new Namespaces();
+        }
         return instance;
     }
     
@@ -175,5 +179,6 @@ public class Namespaces
     public void shutdown()
     {
         this.namespaces.clear();
+        instance = null;
     }
 }

@@ -19,7 +19,7 @@ public class Template
     extends Resource
 {
     /**
-     * The default constructor used by the XmlObjectFactory to instantiate the template configuration.
+     * The default constructor used by the {@link XmlObjectFactory} to instantiate the template configuration.
      */
     public Template()
     {
