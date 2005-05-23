@@ -2,10 +2,6 @@ maven.multiproject.type=pom
 
 maven.andromda.model.uri=file:${maven.src.dir}/uml/${projectNameNoWhitespace}Model.xmi
 
-# Defines the cartridge filter which allows you to specify only the cartridges,
-# that should be processed.
-filter=
-
 # Configures AndroMDA
 maven.andromda.configuration.uri=file:${maven.conf.dir}/andromda.xml
 
