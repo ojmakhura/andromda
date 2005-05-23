@@ -372,17 +372,17 @@ public class Cartridge
                 }
             }
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
             if (outFile != null)
             {
                 outFile.delete();
                 this.getLogger().info("Removed: '" + outFile + "'");
             }
-            String errMsg =
+            final String message =
                 "Error performing " + methodName + " with template '" + template.getPath() + "', template context '" +
                 templateContext + "' and cartridge '" + this.getName() + "'";
-            throw new CartridgeException(errMsg, th);
+            throw new CartridgeException(message, throwable);
         }
     }
 
@@ -404,14 +404,13 @@ public class Cartridge
             // if the resourceUrl is null, the path is probably a regular
             // expression pattern so we'll see if we can match it against
             // the contents of the plugin and write any contents that do match
-            List contents = this.getContents();
+            final List contents = this.getContents();
             if (contents != null)
             {
                 AndroMDALogger.setSuffix(this.getName());
-                Iterator contentIt = contents.iterator();
-                while (contentIt.hasNext())
+                for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
                 {
-                    String content = (String)contentIt.next();
+                    final String content = (String)iterator.next();
                     if (StringUtils.isNotEmpty(content))
                     {
                         if (PathMatcher.wildcardMatch(
@@ -444,21 +443,20 @@ public class Cartridge
         final Resource resource,
         final URL resourceUrl)
     {
-        final String methodName = "Cartridge.writeResource";
         File outFile = null;
         try
         {
-            Property outletProperty =
+            final Property outletProperty =
                 Namespaces.instance().findNamespaceProperty(
                     this.getName(),
                     resource.getOutlet(),
                     resource.isRequired());
-            String slash = "/";
+            final String slash = "/";
             if (outletProperty != null && !outletProperty.isIgnore())
             {
                 // make sure we don't have any back slashes
-                String resourceUri = resourceUrl.toString().replaceAll("\\\\", slash);
-                String uriSuffix = resourceUri.substring(
+                final String resourceUri = resourceUrl.toString().replaceAll("\\\\", slash);
+                final String uriSuffix = resourceUri.substring(
                         resourceUri.lastIndexOf(slash),
                         resourceUri.length());
                 String outletLocation = outletProperty.getValue();
@@ -482,15 +480,14 @@ public class Cartridge
                 }
             }
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
             if (outFile != null)
             {
                 outFile.delete();
                 this.getLogger().info("Removed: '" + outFile + "'");
             }
-            String errMsg = "Error performing " + methodName;
-            throw new CartridgeException(errMsg, th);
+            throw new CartridgeException(throwable);
         }
     }
 
@@ -525,7 +522,7 @@ public class Cartridge
         final Resource resource,
         final String outputLocation)
     {
-        String fileName = this.getTemplateEngine().getEvaluatedExpression(resource.getOutputPattern());
+        final String fileName = this.getTemplateEngine().getEvaluatedExpression(resource.getOutputPattern());
         return new File(outputLocation, fileName);
     }
 
@@ -540,7 +537,7 @@ public class Cartridge
             modelElements,
             new Predicate()
             {
-                public boolean evaluate(Object modelElement)
+                public boolean evaluate(final Object modelElement)
                 {
                     return context.getModelPackages().isProcess(context.getModelFacade().getPackageName(modelElement));
                 }

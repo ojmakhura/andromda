@@ -8,7 +8,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,13 +18,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * Represents the base plugin of AndroMDA. All Plugin instances inherit from this class.
  *
  * @author Chad Brandon
  */
 public abstract class BasePlugin
-        implements Plugin
+    implements Plugin
 {
     /**
      * Property references made available to the plugin
@@ -57,13 +60,17 @@ public abstract class BasePlugin
     /**
      * @see org.andromda.core.common.Plugin#initialize()
      */
-    public void initialize() throws Exception
+    public void initialize()
+        throws Exception
     {
         // set the template engine merge location (this needs to be
         // set before the template engine is initialized) so that the
         // merge property can be set once on the template engine.
-        Property mergeProperty = Namespaces.instance().findNamespaceProperty(this.getName(),
-                NamespaceProperties.MERGE_LOCATION, false);
+        final Property mergeProperty =
+            Namespaces.instance().findNamespaceProperty(
+                this.getName(),
+                NamespaceProperties.MERGE_LOCATION,
+                false);
         this.mergeLocation = mergeProperty != null ? new File(mergeProperty.getValue()).toURL() : null;
         if (this.mergeLocation != null)
         {
@@ -175,8 +182,8 @@ public abstract class BasePlugin
     {
         if (templateEngine == null)
         {
-            templateEngine = (TemplateEngine)ComponentContainer.instance().newComponent(templateEngineClass,
-                    TemplateEngine.class);
+            templateEngine =
+                (TemplateEngine)ComponentContainer.instance().newComponent(templateEngineClass, TemplateEngine.class);
         }
         return templateEngine;
     }
@@ -196,7 +203,9 @@ public abstract class BasePlugin
      * @param reference    the name of the reference.
      * @param defaultValue the default value of the property reference.
      */
-    public void addPropertyReference(final String reference, final String defaultValue)
+    public void addPropertyReference(
+        final String reference,
+        final String defaultValue)
     {
         this.propertyReferences.put(reference, defaultValue);
     }
@@ -231,10 +240,12 @@ public abstract class BasePlugin
         final Collection templateObjects = this.getTemplateObjects();
         if (templateObjects != null && !templateObjects.isEmpty())
         {
-            for (final Iterator templateObjectIterator = templateObjects.iterator(); templateObjectIterator.hasNext();)
+            for (final Iterator iterator = templateObjects.iterator(); iterator.hasNext();)
             {
-                final TemplateObject templateObject = (TemplateObject)templateObjectIterator.next();
-                templateContext.put(templateObject.getName(), templateObject.getTemplateObject());
+                final TemplateObject templateObject = (TemplateObject)iterator.next();
+                templateContext.put(
+                    templateObject.getName(),
+                    templateObject.getTemplateObject());
             }
         }
     }
@@ -251,9 +262,9 @@ public abstract class BasePlugin
         final Map propertyReferences = this.getPropertyReferences();
         if (propertyReferences != null && !propertyReferences.isEmpty())
         {
-            for (final Iterator referenceIterator = propertyReferences.keySet().iterator(); referenceIterator.hasNext();)
+            for (final Iterator iterator = propertyReferences.keySet().iterator(); iterator.hasNext();)
             {
-                final String reference = (String)referenceIterator.next();
+                final String reference = (String)iterator.next();
                 final String defaultValue = (String)propertyReferences.get(reference);
 
                 // if we have a default value, then don't warn
@@ -264,13 +275,21 @@ public abstract class BasePlugin
                 {
                     showWarning = true;
                 }
+
                 // find the property from the namespace
-                final Property property = Namespaces.instance().findNamespaceProperty(this.getName(), reference, showWarning);
+                final Property property =
+                    Namespaces.instance().findNamespaceProperty(
+                        this.getName(),
+                        reference,
+                        showWarning);
+
                 // if property isn't ignore, then add it to
                 // the context
                 if (property != null && !property.isIgnore())
                 {
-                    templateContext.put(property.getName(), property.getValue());
+                    templateContext.put(
+                        property.getName(),
+                        property.getValue());
                 }
                 else if (defaultValue != null)
                 {
@@ -297,7 +316,9 @@ public abstract class BasePlugin
                 this.contents = ResourceUtils.getClassPathArchiveContents(this.getResource());
                 if (this.getMergeLocation() != null)
                 {
-                    Collection mergeContents = ResourceUtils.getDirectoryContents(this.getMergeLocation(), 0);
+                    final Collection mergeContents = ResourceUtils.getDirectoryContents(
+                        this.getMergeLocation(),
+                        0);
                     if (mergeContents != null && !mergeContents.isEmpty())
                     {
                         this.contents.addAll(mergeContents);
@@ -309,9 +330,10 @@ public abstract class BasePlugin
                 // we step down 1 level if its a directory (instead of an
                 // archive since we get the contents relative to the plugin
                 // resource which is in the META-INF directory
-                this.contents = ResourceUtils.getDirectoryContents(this.getResource(), 2);
+                this.contents = ResourceUtils.getDirectoryContents(
+                        this.getResource(),
+                        2);
             }
-
         }
         return contents;
     }
