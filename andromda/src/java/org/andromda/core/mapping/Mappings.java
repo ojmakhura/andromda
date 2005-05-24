@@ -74,10 +74,9 @@ public class Mappings
             }
             return getInheritedMappings(mappings);
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new MappingsException(errMsg, th);
+            throw new MappingsException(throwable);
         }
     }
 
@@ -181,10 +180,9 @@ public class Mappings
             mappings.resource = mappingsUri;
             return getInheritedMappings(mappings, ignoreInheritanceFailure);
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new MappingsException(errMsg, th);
+            throw new MappingsException(throwable);
         }
     }
 
