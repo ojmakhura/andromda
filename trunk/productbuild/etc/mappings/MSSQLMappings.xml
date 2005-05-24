@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!--
-  This is used to map the model types to 
+  This is used to map the model types to
   MsSQL types for generated code.
 -->
 <mappings name="MSSQL">
@@ -54,7 +54,7 @@
     <mapping>
         <from>datatype::double</from>
         <from>datatype::Double</from>
-        <from>datatype::Money</from> 
+        <from>datatype::Money</from>
         <to>FLOAT</to>
     </mapping>
     <mapping>
@@ -66,5 +66,13 @@
         <from>datatype::Decimal</from>
         <from>datatype::decimal</from>
         <to>DECIMAL(20)</to>
+    </mapping>
+    <mapping>
+        <from>datatype::Clob</from>
+        <to>TEXT</to>
+    </mapping>
+    <mapping>
+        <from>datatype::Blob</from>
+        <to>LONGBLOB</to>
     </mapping>
 </mappings>
