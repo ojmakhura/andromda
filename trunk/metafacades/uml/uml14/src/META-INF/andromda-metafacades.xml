@@ -4,8 +4,8 @@
     <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <property reference="languageMappingsUri">
         <documentation>
-            URI specifying the specific mappings from model types to language types. 
-            (i.e. file:${basedir}/JavaMappings.xml)            
+            URI specifying the specific mappings from model types to language types.
+            (i.e. file:${basedir}/JavaMappings.xml)
         </documentation>
     </property>
     <property reference="wrapperMappingsUri">
@@ -20,11 +20,11 @@
     <property reference="pluralizeAssociationEndNames" default="true">
         <documentation>
             <![CDATA[
-            Turns on/off the pluralization of association ends with multiplicities 
-            greater than one.  You'll want to turn off this feature if your model 
+            Turns on/off the pluralization of association ends with multiplicities
+            greater than one.  You'll want to turn off this feature if your model
             is in a language other than english.
             ]]>
-        </documentation>       
+        </documentation>
     </property>
     <property reference="namespaceSeparator" default=".">
         <documentation>
@@ -54,17 +54,17 @@
         <documentation>
             <![CDATA[
             Whether or not array types should denote multiplicities
-            greater than one for associations between objects where appropriate 
-            (i.e. value objects when exposed as webservices).  
-            ]]>          
+            greater than one for associations between objects where appropriate
+            (i.e. value objects when exposed as webservices).
+            ]]>
         </documentation>
     </property>
     <property reference="maxSqlNameLength" default="30">
         <documentation>
             <![CDATA[
-            The maximum length that a SQL name (such as a column name or 
+            The maximum length that a SQL name (such as a column name or
             table name) may be.  This is useful for databases that have a limit
-            on the lengh that a name used in DDL may be (like Oracle).  If you set 
+            on the lengh that a name used in DDL may be (like Oracle).  If you set
             this to 30 for example, then all names will be truncated
             after 30 characters when retrieveing the column name or table name.
             ]]>
@@ -78,13 +78,13 @@
             as 'My_', then the table name for the 'Car' entity would be
             'My_Car'.
             ]]>
-        </documentation>        
+        </documentation>
     </property>
     <property reference="foreignKeySuffix" default="_FK">
         <documentation>
             <![CDATA[
-            The suffix to use when creating foreign keys for entity associations.           
-            ]]> 
+            The suffix to use when creating foreign keys for entity associations.
+            ]]>
         </documentation>
     </property>
     <property reference="constraintSuffix" default="C">
@@ -92,9 +92,9 @@
             <![CDATA[
             The suffix to use when creating constraints such as for entity associations.
             This is appended to the <code>foreignKeySuffix</code> suffix for foreign
-            key constraint names.    
-            ]]> 
-        </documentation>    
+            key constraint names.
+            ]]>
+        </documentation>
     </property>
     <property reference="manageablePackageSuffix" default="crud">
         <documentation>
@@ -117,14 +117,14 @@
     <property reference="classifierNameMask" default="none">
         <documentation>
            <![CDATA[
-           Provides the ability to apply a mask to all classifier names.  
+           Provides the ability to apply a mask to all classifier names.
            ]]>
-        </documentation>        
+        </documentation>
     </property>
     <property reference="operationNameMask" default="none">
         <documentation>
             <![CDATA[
-            Provides the ability to apply a mask to all operation names.        
+            Provides the ability to apply a mask to all operation names.
             ]]>
         </documentation>
     </property>
@@ -140,7 +140,7 @@
            <![CDATA[
             Provides the ability to apply a mask to role names (roles are actors
             marked with the role stereotype).
-           ]]> 
+           ]]>
         </documentation>
     </property>
     <property reference="enumerationNameMask" default="none">
@@ -322,7 +322,7 @@
             <property name="valueObjectType"/>
         </mapping>
     </metafacade>
-    <!-- 
+    <!--
         Manageable metafacades:
         these mappings need to be listed *before* the regular entities because
         of the fact that we are using both ENTITY and MANAGEABLE stereotypes,
