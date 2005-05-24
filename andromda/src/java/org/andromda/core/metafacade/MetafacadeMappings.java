@@ -525,7 +525,7 @@ public class MetafacadeMappings
                             public boolean evaluate(final Object object)
                             {
                                 boolean valid = false;
-                                MetafacadeMapping mapping = (MetafacadeMapping)object;
+                                final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
                                     !mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
@@ -673,7 +673,7 @@ public class MetafacadeMappings
                     contexts,
                     new Transformer()
                     {
-                        public Object transform(Object object)
+                        public Object transform(final Object object)
                         {
                             return ((Class)object).getName();
                         }

@@ -67,10 +67,10 @@ public final class MetafacadeCache
     public final MetafacadeBase get(final Object mappingObject, final Class metafacadeClass)
     {
         MetafacadeBase metafacade = null;
-        Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
+        final Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache != null)
         {
-            Map metafacadeCache = (Map)namespaceMetafacadeCache.get(metafacadeClass);
+            final Map metafacadeCache = (Map)namespaceMetafacadeCache.get(metafacadeClass);
             if (metafacadeCache != null)
             {
                 metafacade = (MetafacadeBase)metafacadeCache.get(this.namespace);
