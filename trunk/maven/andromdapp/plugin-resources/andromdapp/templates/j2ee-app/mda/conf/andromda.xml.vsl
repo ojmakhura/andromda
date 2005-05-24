@@ -95,7 +95,7 @@
                 <!-- to remove any dependency on EJB, comment the following property -->
                 <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
                 <!-- uncomment to enable EJB security -->
-                <!-- <securityRealm>${application.id}</securityRealm> -->
+                <property name="securityRealm">${application.id}</property>
 #end
             </properties>
         </namespace>
