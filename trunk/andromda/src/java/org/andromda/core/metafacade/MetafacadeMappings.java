@@ -231,7 +231,7 @@ public class MetafacadeMappings
         if (metafacadeClass != null)
         {
             metafacadeInterface = metafacadeClass;
-            List interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
+            final List interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
             if (interfaces != null && !interfaces.isEmpty())
             {
                 metafacadeInterface = (Class)interfaces.iterator().next();
@@ -257,15 +257,15 @@ public class MetafacadeMappings
 
         // the namespace is always the default namespace
         this.setNamespace(Namespaces.DEFAULT);
-        Iterator mappingIterator = mappings.mappings.iterator();
-        while (mappingIterator.hasNext())
+        
+        for (final Iterator iterator = mappings.mappings.iterator(); iterator.hasNext();)
         {
-            this.addMapping((MetafacadeMapping)mappingIterator.next());
+            this.addMapping((MetafacadeMapping)iterator.next());
         }
-        Map propertyRefs = mappings.propertyReferences;
-        if (propertyRefs != null && !propertyRefs.isEmpty())
+        final Map propertyReferences = mappings.propertyReferences;
+        if (propertyReferences != null && !propertyReferences.isEmpty())
         {
-            this.propertyReferences.putAll(propertyRefs);
+            this.propertyReferences.putAll(propertyReferences);
         }
         this.defaultMetafacadeClass = mappings.defaultMetafacadeClass;
     }
@@ -447,7 +447,7 @@ public class MetafacadeMappings
                 this.mappings,
                 new Predicate()
                 {
-                    public boolean evaluate(Object object)
+                    public boolean evaluate(final Object object)
                     {
                         return ((MetafacadeMapping)object).getMappingClassName().equals(metaclassName);
                     }
@@ -465,7 +465,7 @@ public class MetafacadeMappings
                         this.mappings,
                         new Predicate()
                         {
-                            public boolean evaluate(Object object)
+                            public boolean evaluate(final Object object)
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
@@ -489,7 +489,7 @@ public class MetafacadeMappings
                         this.mappings,
                         new Predicate()
                         {
-                            public boolean evaluate(Object object)
+                            public boolean evaluate(final Object object)
                             {
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 boolean valid = false;
@@ -522,7 +522,7 @@ public class MetafacadeMappings
                         this.mappings,
                         new Predicate()
                         {
-                            public boolean evaluate(Object object)
+                            public boolean evaluate(final Object object)
                             {
                                 boolean valid = false;
                                 MetafacadeMapping mapping = (MetafacadeMapping)object;
@@ -544,7 +544,7 @@ public class MetafacadeMappings
                         this.mappings,
                         new Predicate()
                         {
-                            public boolean evaluate(Object object)
+                            public boolean evaluate(final Object object)
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
@@ -566,7 +566,7 @@ public class MetafacadeMappings
                         this.mappings,
                         new Predicate()
                         {
-                            public boolean evaluate(Object object)
+                            public boolean evaluate(final Object object)
                             {
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 boolean valid = false;
@@ -596,7 +596,7 @@ public class MetafacadeMappings
                         this.mappings,
                         new Predicate()
                         {
-                            public boolean evaluate(Object object)
+                            public boolean evaluate(final Object object)
                             {
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 return metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasContext() &&
@@ -1051,8 +1051,11 @@ public class MetafacadeMappings
     final void shutdown()
     {
         this.mappings.clear();
+        this.inProcessMappings.clear();
+        this.inProcessMetafacades.clear();
         this.namespaceMetafacadeMappings.clear();
         this.propertyReferences.clear();
+        this.mappingObjectHierachyCache.clear();
         this.namespacePropertyReferences.clear();
         this.mappingsByMetafacadeClass.clear();
         this.contextHierachyCache.clear();
