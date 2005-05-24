@@ -1,20 +1,19 @@
 package org.andromda.core.mapping;
 
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.XmlObjectFactory;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import java.io.File;
 import java.io.FileReader;
-
+import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.XmlObjectFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 
 /**
@@ -64,7 +63,14 @@ public class Mappings
             Mappings mappings = (Mappings)logicalMappings.get(mappingsUri);
             if (mappings == null)
             {
-                mappings = getInstance(new URL(mappingsUri));
+                try
+                {
+                    mappings = getInstance(new URL(mappingsUri));
+                } 
+                catch (final MalformedURLException exception)
+                {
+                    throw new MappingsException("The given URI --> '" + mappingsUri + "' is invalid", exception);
+                }
             }
             return getInheritedMappings(mappings);
         }
@@ -124,11 +130,11 @@ public class Mappings
                     // mappings, try a relative path
                     parentMappings = getInstance(new File(mappings.getCompletePath(mappings.extendsUri)));
                 }
-                catch (Exception ex)
+                catch (final Exception exception)
                 {
                     if (!ignoreInheritanceFailure)
                     {
-                        throw ex;
+                        throw exception;
                     }
                 }
             }
