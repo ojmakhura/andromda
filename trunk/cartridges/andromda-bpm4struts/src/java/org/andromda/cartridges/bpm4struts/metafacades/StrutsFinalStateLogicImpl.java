@@ -46,7 +46,6 @@ public class StrutsFinalStateLogicImpl
         String fullPath = null;
 
         StrutsUseCase useCase = getTargetUseCase();
-        System.out.println("the target UC>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + this.getTargetUseCase());
         if (useCase == null)
         {
             // perhaps this final state links outside of the UML model
@@ -79,10 +78,8 @@ public class StrutsFinalStateLogicImpl
         // first check if there is a hyperlink from this final state to a use-case
         // this works at least in MagicDraw
         final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_HYPERLINK);
-        System.out.println("the tagged value: " + taggedValue);
         if (taggedValue != null)
         {
-            System.out.println("the tagged value: " + taggedValue);
             if (taggedValue instanceof StrutsActivityGraph)
             {
                 targetUseCase = ((StrutsActivityGraph)taggedValue).getUseCase();
@@ -95,15 +92,9 @@ public class StrutsFinalStateLogicImpl
         else // maybe the name points to a use-case ?
         {
             final String name = super.getName();
-            System.out.println("the super name: " +super.getName());
             if (StringUtils.isNotBlank(name))
             {
                 UseCaseFacade useCase = getModel().findUseCaseByName(name);
-                System.out.println("just found findUseCaseByName with '" + name + "' : " + useCase);
-                if (useCase != null)
-                {
-                    System.out.println("the stereotypes: " + useCase.getStereotypeNames());
-                }
                 if (useCase instanceof StrutsUseCase)
                 {
                     targetUseCase = useCase;
