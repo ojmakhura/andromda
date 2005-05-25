@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.net.URL;
 
+
 /**
  * <p/>
  * This class provides the ability to load profile mapping files from default locations as well as easily load profile
@@ -19,11 +20,10 @@ import java.net.URL;
  */
 public class Profile
 {
-
     /**
      * The shared instance of this class.
      */
-    private static final Profile instance = new Profile();
+    private static Profile instance;
 
     /**
      * Gets the shared instance of this class.
@@ -32,6 +32,10 @@ public class Profile
      */
     public static final Profile instance()
     {
+        if (instance == null)
+        {
+            instance = new Profile();
+        }
         return instance;
     }
 
@@ -100,10 +104,9 @@ public class Profile
                 }
             }
         }
-        final Property mappingsUri = Namespaces.instance().findNamespaceProperty(
-            Namespaces.DEFAULT,
-            NamespaceProperties.PROFILE_MAPPINGS_URI,
-            false);
+        final Property mappingsUri =
+            Namespaces.instance().findNamespaceProperty(
+                Namespaces.DEFAULT, NamespaceProperties.PROFILE_MAPPINGS_URI, false);
         final String mappingsUriValue = StringUtils.trimToEmpty(mappingsUri != null ? mappingsUri.getValue() : null);
         if (StringUtils.isNotEmpty(mappingsUriValue))
         {
@@ -121,5 +124,13 @@ public class Profile
             AndroMDALogger.warn("Profile resources could not be found --> '" + defaultLocation + "'");
         }
         return mappings;
+    }
+
+    /**
+     * Shuts down the shared instance and releases any used resources.
+     */
+    public void shutdown()
+    {
+        instance = null;
     }
 }
