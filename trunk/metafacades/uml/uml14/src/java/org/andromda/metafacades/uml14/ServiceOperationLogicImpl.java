@@ -31,7 +31,7 @@ public class ServiceOperationLogicImpl
      */
     public java.util.Collection handleGetRoles()
     {
-        Collection roles = new HashSet();
+        final Collection roles = new HashSet();
         if (this.getOwner() instanceof Service)
         {
             roles.addAll(((Service)this.getOwner()).getRoles());
@@ -62,7 +62,7 @@ public class ServiceOperationLogicImpl
             {
                 if (object instanceof Role)
                 {
-                    allRoles.addAll(((Role)object).getSpecializations());
+                    allRoles.addAll(((Role)object).getAllSpecializations());
                 }
             }
         });

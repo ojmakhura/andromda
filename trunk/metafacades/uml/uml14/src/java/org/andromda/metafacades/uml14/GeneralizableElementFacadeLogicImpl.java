@@ -1,15 +1,16 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.omg.uml.foundation.core.Generalization;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * MetafacadeLogic implementation.
@@ -111,9 +112,9 @@ public class GeneralizableElementFacadeLogicImpl
         final StringBuffer list = new StringBuffer();
         if (this.getGeneralizations() != null)
         {
-            for (Iterator iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
+            for (final Iterator iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
             {
-                ModelElementFacade element = (ModelElementFacade)iterator.next();
+                final ModelElementFacade element = (ModelElementFacade)iterator.next();
                 list.append(element.getFullyQualifiedName());
                 if (iterator.hasNext())
                 {
@@ -122,5 +123,23 @@ public class GeneralizableElementFacadeLogicImpl
             }
         }
         return list.toString();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacadeLogic#getAllSpecializations()
+     */
+    protected Collection handleGetAllSpecializations()
+    {
+        final Set allSpecializations = new HashSet();
+        if (this.getSpecializations() != null)
+        {
+            allSpecializations.addAll(this.getSpecializations());
+            for (final Iterator iterator = this.getSpecializations().iterator(); iterator.hasNext();)
+            {
+                final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
+                allSpecializations.addAll(element.getAllSpecializations());
+            }
+        }
+        return allSpecializations;
     }
 }
