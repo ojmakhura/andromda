@@ -3,9 +3,11 @@ package org.andromda.core.common;
 import org.andromda.core.templateengine.TemplateEngine;
 
 import java.net.URL;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * Interface between an AndroMDA code generator plugin and the core. All plug-ins (such as cartridges and
@@ -16,11 +18,11 @@ import java.util.Map;
  */
 public interface Plugin
 {
-
     /**
      * Initializes the plugin.
      */
-    public void initialize() throws Exception;
+    public void initialize()
+        throws Exception;
 
     /**
      * Shuts down the plugin. The meaning of this is defined by the plugin itself. At least, it should close any
@@ -83,5 +85,4 @@ public interface Plugin
      * Returns a list containing the name of each resource contained within the plugin.
      */
     public List getContents();
-
 }
