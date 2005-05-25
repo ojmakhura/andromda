@@ -67,12 +67,9 @@ public class AndroMDARunner
                 Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(new URL(this.configurationUri))));
             configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
             final AndroMDA andromda = AndroMDA.getInstance(configuration);
-            System.out.println("constructed new isntance of andromda>>>>>>>>>>>>>>>>>>>>>>" + andromda);
             if (andromda != null)
             {
                 andromda.run();
-                System.out.println("run andromda--------------------------------------");
-                //andromda.shutdown();
             }
         }
         catch (Throwable throwable)
