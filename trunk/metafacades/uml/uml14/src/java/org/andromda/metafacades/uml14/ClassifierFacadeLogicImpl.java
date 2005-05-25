@@ -27,15 +27,17 @@ import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Interface;
 import org.omg.uml.foundation.core.Operation;
 
+
 /**
  * Metaclass facade implementation.
  */
 public class ClassifierFacadeLogicImpl
-        extends ClassifierFacadeLogic
+    extends ClassifierFacadeLogic
 {
     // ---------------- constructor -------------------------------
-
-    public ClassifierFacadeLogicImpl(org.omg.uml.foundation.core.Classifier metaObject, String context)
+    public ClassifierFacadeLogicImpl(
+        org.omg.uml.foundation.core.Classifier metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -47,9 +49,11 @@ public class ClassifierFacadeLogicImpl
      */
     protected String handleGetName()
     {
-        final String nameMask = String.valueOf(
-                this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
-        return NameMasker.mask(super.handleGetName(), nameMask);
+        final String nameMask =
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
+        return NameMasker.mask(
+            super.handleGetName(),
+            nameMask);
     }
 
     /**
@@ -58,12 +62,12 @@ public class ClassifierFacadeLogicImpl
     protected java.util.Collection handleGetOperations()
     {
         return new FilteredCollection(metaObject.getFeature())
-        {
-            public boolean evaluate(Object object)
             {
-                return object instanceof Operation;
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof Operation;
+                }
+            };
     }
 
     /**
@@ -72,12 +76,12 @@ public class ClassifierFacadeLogicImpl
     protected java.util.Collection handleGetAttributes()
     {
         return new FilteredCollection(metaObject.getFeature())
-        {
-            public boolean evaluate(Object object)
             {
-                return object instanceof Attribute;
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof Attribute;
+                }
+            };
     }
 
     /**
@@ -95,8 +99,8 @@ public class ClassifierFacadeLogicImpl
     {
         // If this type has a wrapper then its a primitive,
         // otherwise it isn't
-        return this.getWrapperMappings() != null && this.getWrapperMappings().getMappings().containsFrom(
-                this.getFullyQualifiedName());
+        return this.getWrapperMappings() != null &&
+        this.getWrapperMappings().getMappings().containsFrom(this.getFullyQualifiedName());
     }
 
     /**
@@ -157,6 +161,7 @@ public class ClassifierFacadeLogicImpl
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg, th);
+
                 // don't throw the exception
             }
         }
@@ -237,8 +242,9 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetAttributes(boolean follow)
     {
         Collection attributes = this.getAttributes();
-        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization();
-             superClass != null && follow; superClass = (ClassifierFacade)superClass.getGeneralization())
+        for (
+            ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+            superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             attributes.addAll(superClass.getAttributes());
         }
@@ -283,12 +289,12 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetStaticAttributes()
     {
         return new FilteredCollection(this.getAttributes())
-        {
-            public boolean evaluate(Object object)
             {
-                return ((AttributeFacade)object).isStatic();
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return ((AttributeFacade)object).isStatic();
+                }
+            };
     }
 
     /**
@@ -297,12 +303,12 @@ public class ClassifierFacadeLogicImpl
     protected java.util.Collection handleGetInstanceAttributes()
     {
         return new FilteredCollection(this.getAttributes())
-        {
-            public boolean evaluate(Object object)
             {
-                return !((AttributeFacade)object).isStatic();
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return !((AttributeFacade)object).isStatic();
+                }
+            };
     }
 
     /**
@@ -311,26 +317,7 @@ public class ClassifierFacadeLogicImpl
     protected java.util.Collection handleGetProperties()
     {
         Collection properties = this.getAttributes();
-        class ConnectingEndTransformer
-                implements Transformer
-        {
-            public Object transform(Object object)
-            {
-                return ((AssociationEndFacade)object).getOtherEnd();
-            }
-        }
-        Collection connectingEnds = this.getAssociationEnds();
-        CollectionUtils.transform(connectingEnds, new ConnectingEndTransformer());
-        class NavigableFilter
-                implements Predicate
-        {
-            public boolean evaluate(Object object)
-            {
-                return ((AssociationEndFacade)object).isNavigable();
-            }
-        }
-        CollectionUtils.filter(connectingEnds, new NavigableFilter());
-        properties.addAll(connectingEnds);
+        properties.addAll(this.getNavigableConnectingEnds());
         return properties;
     }
 
@@ -340,12 +327,12 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetAbstractions()
     {
         return new FilteredCollection(this.metaObject.getClientDependency())
-        {
-            public boolean evaluate(Object object)
             {
-                return object instanceof Abstraction;
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof Abstraction;
+                }
+            };
     }
 
     /**
@@ -372,8 +359,12 @@ public class ClassifierFacadeLogicImpl
         ClassifierFacade nonArrayType = this;
         if (this.getFullyQualifiedName().indexOf(this.getArraySuffix()) != -1)
         {
-            nonArrayType = (ClassifierFacade)this.getRootPackage().findModelElement(StringUtils.replace(
-                    this.getFullyQualifiedName(true), this.getArraySuffix(), ""));
+            nonArrayType =
+                (ClassifierFacade)this.getRootPackage().findModelElement(
+                    StringUtils.replace(
+                        this.getFullyQualifiedName(true),
+                        this.getArraySuffix(),
+                        ""));
         }
         return nonArrayType;
     }
@@ -397,7 +388,10 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#addAttribute(java.lang.String, java.lang.String,
             *      java.lang.String)
      */
-    protected void handleAddAttribute(String name, String fullyQualifiedType, String visibility)
+    protected void handleAddAttribute(
+        String name,
+        String fullyQualifiedType,
+        String visibility)
     {
         CorePackage corePackage = UML14MetafacadeUtils.getCorePackage();
         Attribute attribute = corePackage.getAttribute().createAttribute();
@@ -444,12 +438,12 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetStaticOperations()
     {
         return new FilteredCollection(this.getOperations())
-        {
-            public boolean evaluate(Object object)
             {
-                return ((OperationFacade)object).isStatic();
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return ((OperationFacade)object).isStatic();
+                }
+            };
     }
 
     /**
@@ -458,12 +452,12 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetInstanceOperations()
     {
         return new FilteredCollection(this.getOperations())
-        {
-            public boolean evaluate(Object object)
             {
-                return !((OperationFacade)object).isStatic();
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return !((OperationFacade)object).isStatic();
+                }
+            };
     }
 
     /**
@@ -471,14 +465,16 @@ public class ClassifierFacadeLogicImpl
      */
     protected AttributeFacade handleFindAttribute(final String name)
     {
-        return (AttributeFacade)CollectionUtils.find(this.getAttributes(), new Predicate()
-        {
-            public boolean evaluate(Object object)
+        return (AttributeFacade)CollectionUtils.find(
+            this.getAttributes(),
+            new Predicate()
             {
-                final AttributeFacade attribute = (AttributeFacade)object;
-                return StringUtils.trimToEmpty(attribute.getName()).equals(name);
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    final AttributeFacade attribute = (AttributeFacade)object;
+                    return StringUtils.trimToEmpty(attribute.getName()).equals(name);
+                }
+            });
     }
 
     /**
@@ -515,6 +511,7 @@ public class ClassifierFacadeLogicImpl
 
         // class name
         sb.append(this.getName());
+
         // class modifiers (visibility)
         sb.append(this.getVisibility());
 
@@ -574,17 +571,15 @@ public class ClassifierFacadeLogicImpl
             logger.error(errMsg, e);
         }
         return serialVersionUID;
-
     }
 
     /**
      * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetSerialVersionUID()
      */
-    public Long handleGetSerialVersionUID()
+    protected Long handleGetSerialVersionUID()
     {
         Long serialVersionUID = null;
-        String serialVersionString = UML14MetafacadeUtils
-                .getSerialVersionUID(this);
+        String serialVersionString = UML14MetafacadeUtils.getSerialVersionUID(this);
         if (serialVersionString != null)
         {
             serialVersionUID = Long.valueOf(serialVersionString);
@@ -596,4 +591,30 @@ public class ClassifierFacadeLogicImpl
         return serialVersionUID;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getNavigableConnectingEnds()
+     */
+    protected Collection handleGetNavigableConnectingEnds()
+    {
+        final Collection connectingEnds = this.getAssociationEnds();
+        CollectionUtils.transform(
+            connectingEnds,
+            new Transformer()
+            {
+                public Object transform(final Object object)
+                {
+                    return ((AssociationEndFacade)object).getOtherEnd();
+                }
+            });
+        CollectionUtils.filter(
+            connectingEnds,
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    return ((AssociationEndFacade)object).isNavigable();
+                }
+            });
+        return connectingEnds;
+    }
 }
