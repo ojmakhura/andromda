@@ -17,6 +17,7 @@ import org.andromda.core.common.CodeGenerationContext;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.PluginDiscoverer;
+import org.andromda.core.common.Profile;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Model;
@@ -134,17 +135,20 @@ public class ModelProcessor
                 // reset any resources internally
                 this.reset();
 
-                // cleanup any resources used by the factory
+                // shutdown the metafacade factory instance
                 MetafacadeFactory.getInstance().shutdown();
 
-                // cleanup the namespaces
+                // shutdown the namespaces instance
                 Namespaces.instance().shutdown();
 
-                // shutdown the container
+                // shutdown the container instance
                 ComponentContainer.instance().shutdown();
                 
-                // shutdown the plugin discoverer
+                // shutdown the plugin discoverer instance
                 PluginDiscoverer.instance().shutdown();
+                
+                // shutdown the profile instance
+                Profile.instance().shutdown();
             }
         }
         else
