@@ -129,7 +129,7 @@ public class ModelProcessor
                     "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount() + totalMessagesMessage);
                 if (this.failOnValidationErrors && !messages.isEmpty())
                 {
-                    throw new ModelProcessorException("Model validation failed!");
+                    throw new ModelValidationException("Model validation failed!");
                 }
                 
                 // reset any resources internally

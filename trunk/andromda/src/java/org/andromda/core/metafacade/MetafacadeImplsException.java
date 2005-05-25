@@ -1,12 +1,12 @@
 package org.andromda.core.metafacade;
 
+
 /**
  * Any unchecked exception that will be thrown when a MetafacadeImpls processing error occurs.
  */
 public class MetafacadeImplsException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of MetafacadeImplsException.
      *
@@ -33,9 +33,10 @@ public class MetafacadeImplsException
      * @param message
      * @param parent
      */
-    public MetafacadeImplsException(String message, Throwable parent)
+    public MetafacadeImplsException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }
