@@ -4,7 +4,6 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -160,14 +159,14 @@ public class MetafacadeFactory
         ExceptionUtils.checkNull(methodName, "mappingObject", mappingObject);
 
         // if the mappingObject is REALLY a metafacade, just return it
-        if (mappingObject instanceof MetafacadeBase)
+        if (MetafacadeBase.class.isAssignableFrom(mappingObject.getClass()))
         {
             return (MetafacadeBase)mappingObject;
         }
         try
         {
             final MetafacadeMappings mappings = MetafacadeMappings.instance();
-            final Collection stereotypes = this.getModel().getStereotypeNames(mappingObject);         
+            final Collection stereotypes = this.getModel().getStereotypeNames(mappingObject);
             if (this.getLogger().isDebugEnabled())
             {
                 this.getLogger().debug("mappingObject stereotypes --> '" + stereotypes + "'");
@@ -179,20 +178,6 @@ public class MetafacadeFactory
                     this.getActiveNamespace(),
                     context,
                     stereotypes);
-            /*if (mappingObject.getClass().getName().equals("org.omg.uml.behavioralelements.usecases.UseCase$Impl"))
-            {
-                try
-                {
-                    System.out.println("stereotypes>>>>>>>>>>" 
-                        + stereotypes);
-                    System.out.println("mapping>>>>>>>>>>>>>>>" + mapping.getMetafacadeClass() 
-                        +  ", stereotypes " + mapping.getStereotypes());
-                }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                }
-            }   */
             if (metafacadeClass == null)
             {
                 if (mapping != null)
