@@ -66,7 +66,7 @@ public class ServiceLogicImpl
         Collection roles = this.getTargetDependencies();
         CollectionUtils.filter(roles, new Predicate()
         {
-            public boolean evaluate(Object object)
+            public boolean evaluate(final Object object)
             {
                 DependencyFacade dependency = (DependencyFacade)object;
                 return dependency != null && dependency.getSourceElement() instanceof Role;
@@ -74,18 +74,18 @@ public class ServiceLogicImpl
         });
         CollectionUtils.transform(roles, new Transformer()
         {
-            public Object transform(Object object)
+            public Object transform(final Object object)
             {
                 return ((DependencyFacade)object).getSourceElement();
             }
         });
         final Collection allRoles = new HashSet(roles);
-        // add all roles which are specializations of this one
+        // add all roles which are generalizations of this one
         CollectionUtils.forAllDo(roles, new Closure()
         {
-            public void execute(Object object)
+            public void execute(final Object object)
             {
-                allRoles.addAll(((Role)object).getSpecializations());
+                allRoles.addAll(((Role)object).getAllSpecializations());
             }
         });
         return allRoles;

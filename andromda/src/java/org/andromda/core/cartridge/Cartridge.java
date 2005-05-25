@@ -580,13 +580,13 @@ public class Cartridge
     }
 
     /**
-     * Override to provide cartridge specific shutdown (i.e. clean out the element cache so that another model won't
-     * have the same elements).
+     * Override to provide cartridge specific shutdown (
      *
      * @see org.andromda.core.common.Plugin#shutdown()
      */
     public void shutdown()
     {
+        this.context = null;
         super.shutdown();
     }
 }

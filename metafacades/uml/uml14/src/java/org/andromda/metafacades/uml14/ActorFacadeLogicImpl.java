@@ -56,8 +56,8 @@ public class ActorFacadeLogicImpl
     {
         final List generalizedByActors = new ArrayList();
 
-        final Collection parentActors = this.getSpecializations();
-        for (Iterator iterator = parentActors.iterator(); iterator.hasNext();)
+        final Collection specializedActors = this.getSpecializations();
+        for (Iterator iterator = specializedActors.iterator(); iterator.hasNext();)
         {
             final Object object = iterator.next();
             if (object instanceof ActorFacade)

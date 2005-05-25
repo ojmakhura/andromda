@@ -281,10 +281,13 @@ public class ModelElementFacadeLogicImpl
         Collection stereotypeNames = new ArrayList();
 
         Collection stereotypes = metaObject.getStereotype();
-        for (Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
+        for (final Iterator stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
         {
             ModelElement stereotype = (ModelElement)stereotypeIt.next();
-            stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));
+            if (stereotype != null)
+            {
+                stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));                
+            }
         }
         return stereotypeNames;
     }

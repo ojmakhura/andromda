@@ -40,15 +40,15 @@ public class MetafacadeMapping
      *
      * @param metafacadeClassName The name of the metafaacde class to set.
      */
-    public void setMetafacadeClassName(String metafacadeClassName)
+    public void setMetafacadeClassName(final String metafacadeClassName)
     {
         try
         {
             this.metafacadeClass = ClassUtils.loadClass(StringUtils.trimToEmpty(metafacadeClassName));
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            throw new MetafacadeMappingsException(th);
+            throw new MetafacadeMappingsException(throwable);
         }
     }
 
@@ -73,7 +73,7 @@ public class MetafacadeMapping
      *
      * @param mappingClassName The mappingClassName to set.
      */
-    public void setMappingClassName(String mappingClassName)
+    public void setMappingClassName(final String mappingClassName)
     {
         this.mappingClassName = StringUtils.trimToEmpty(mappingClassName);
     }
@@ -102,7 +102,7 @@ public class MetafacadeMapping
      * @param contextRoot The contextRoot to set.
      * @see #isContextRoot()
      */
-    public void setContextRoot(boolean contextRoot)
+    public void setContextRoot(final boolean contextRoot)
     {
         this.contextRoot = contextRoot;
     }
@@ -117,7 +117,7 @@ public class MetafacadeMapping
      *
      * @param stereotype
      */
-    public void addStereotype(String stereotype)
+    public void addStereotype(final String stereotype)
     {
         this.stereotypes.add(Profile.instance().get(stereotype));
     }
@@ -155,7 +155,7 @@ public class MetafacadeMapping
      * @param defaultValue the default value of the property reference.
      * @see MetafacadeMappings#addPropertyReference(String, String)
      */
-    public void addPropertyReference(String reference, String defaultValue)
+    public void addPropertyReference(final String reference, final String defaultValue)
     {
         this.propertyReferences.put(reference, defaultValue);
     }
@@ -180,7 +180,7 @@ public class MetafacadeMapping
      * @param reference    the name of the reference.
      * @param defaultValue the default value of the property reference.
      */
-    public void addMappingProperty(String name, String value)
+    public void addMappingProperty(final String name, final String value)
     {
         if (value != null)
         {
@@ -207,7 +207,7 @@ public class MetafacadeMapping
      * @param mappingProperties the collection of mapping properties to add to the mapping properties within this
      *                          mappings instance.
      */
-    final void addMappingPropertyGroup(PropertyGroup propertyGroup)
+    final void addMappingPropertyGroup(final PropertyGroup propertyGroup)
     {
         this.mappingPropertyGroups.add(propertyGroup);
     }
@@ -247,7 +247,7 @@ public class MetafacadeMapping
      *
      * @param propertyReferences the property references to add.
      */
-    public void addPropertyReferences(Map propertyReferences)
+    public void addPropertyReferences(final Map propertyReferences)
     {
         if (propertyReferences != null)
         {
@@ -265,7 +265,7 @@ public class MetafacadeMapping
      *
      * @param context The metafacade context name to set.
      */
-    public void setContext(String context)
+    public void setContext(final String context)
     {
         this.context = StringUtils.trimToEmpty(context);
     }
@@ -301,7 +301,7 @@ public class MetafacadeMapping
      *
      * @param mappings the MetacadeMappings instance to which this mapping belongs.
      */
-    final void setMetafacadeMappings(MetafacadeMappings mappings)
+    final void setMetafacadeMappings(final MetafacadeMappings mappings)
     {
         this.mappings = mappings;
     }
@@ -320,7 +320,7 @@ public class MetafacadeMapping
      * Indicates whether or not the <code>mapping</code> matches this mapping. It matches on the following: <ul>
      * <li>metafacadeClass</li> <li>mappingClassName</li> <li>stereotypes</li> </ul>
      */
-    final boolean match(MetafacadeMapping mapping)
+    final boolean match(final MetafacadeMapping mapping)
     {
         return mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass())
             && this.getStereotypes().equals(mapping.getStereotypes())
@@ -352,7 +352,7 @@ public class MetafacadeMapping
          *
          * @param property the property to add to this group.
          */
-        final void addProperty(Property property)
+        final void addProperty(final Property property)
         {
             final String name = property.getName();
             if (!this.properties.containsKey(name))
@@ -377,18 +377,17 @@ public class MetafacadeMapping
         public String toString()
         {
             final StringBuffer toString = new StringBuffer();
-            Iterator propertyIterator = this.getProperties().iterator();
             char seperator = ':';
-            while (propertyIterator.hasNext())
+            for (final Iterator iterator = this.getProperties().iterator(); iterator.hasNext();)
             {
-                final Property property = (Property)propertyIterator.next();
+                final Property property = (Property)iterator.next();
                 toString.append(property.getName());
                 if (StringUtils.isNotEmpty(property.getValue()))
                 {
                     toString.append(seperator);
                     toString.append(property.getValue());
                 }
-                if (propertyIterator.hasNext())
+                if (iterator.hasNext())
                 {
                     toString.append(seperator);
                 }
@@ -405,7 +404,7 @@ public class MetafacadeMapping
         private String name;
         private String value;
 
-        Property(String name, String value)
+        Property(final String name, final String value)
         {
             this.name = StringUtils.trimToEmpty(name);
             this.value = value;

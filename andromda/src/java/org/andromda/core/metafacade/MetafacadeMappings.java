@@ -306,13 +306,13 @@ public class MetafacadeMappings
     {
         MetafacadeMapping mapping = this.getMapping(null, mappingObject, context, stereotypes);
         if (mapping == null)
-        {
+        { 
             final Collection hierarchy = this.getMappingObjectHierarchy(mappingObject);
             if (hierarchy != null && !hierarchy.isEmpty())
             {
-                for (Iterator hierarchyIterator = hierarchy.iterator(); hierarchyIterator.hasNext() && mapping == null;)
+                for (final Iterator iterator = hierarchy.iterator(); iterator.hasNext() && mapping == null;)
                 {
-                    mapping = this.getMapping((String)hierarchyIterator.next(), mappingObject, context, stereotypes);
+                    mapping = this.getMapping((String)iterator.next(), mappingObject, context, stereotypes);
                 }
             }
         }
@@ -456,7 +456,13 @@ public class MetafacadeMappings
         if (validMetaclass)
         {
             final boolean emptyStereotypes = stereotypes == null || stereotypes.isEmpty();
-
+            if (emptyStereotypes)
+            {
+                if (mappingObject.getClass().getName().equals("org.omg.uml.behavioralelements.usecases.UseCase$Impl"))
+                {
+                    System.out.println("empty *STEREOTYPES* ");
+                }   
+            }
             // first try to find the mapping by context and stereotypes
             if (context != null && !emptyStereotypes)
             {
@@ -556,6 +562,24 @@ public class MetafacadeMappings
                                 return valid;
                             }
                         });
+                if (mapping != null)
+                {
+                    if (mappingObject.getClass().getName().equals("org.omg.uml.behavioralelements.usecases.UseCase$Impl"))
+                    {
+                        System.out.println("attempting at *STEREOTYPES* mapping");
+                        if (mapping != null)
+                        {
+                            try
+                            {
+                                System.out.println("metafacade class: " + mapping.getMetafacadeClass() + "stereotypes: " + stereotypes);
+                            }
+                            catch (Exception ex)
+                            {
+                                ex.printStackTrace();
+                            }
+                        }
+                    }   
+                }
             }
 
             // now check for metafacade properties
@@ -816,6 +840,36 @@ public class MetafacadeMappings
         if (mappings != null)
         {
             mapping = mappings.getMapping(mappingObject, context, stereotypes);
+            if (mappingObject.getClass().getName().equals("org.omg.uml.behavioralelements.usecases.UseCase$Impl"))
+            {
+                System.out.println("namespace mappings is *NOT* null");
+                if (mapping != null)
+                {
+                    try
+                    {
+                        System.out.println("metafacade class: " + mapping.getMetafacadeClass() + "stereotypes: " + stereotypes);
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                }
+            }   
+        }
+        else
+        {
+            if (mappingObject.getClass().getName().equals("org.omg.uml.behavioralelements.usecases.UseCase$Impl"))
+            {
+                System.out.println("namespace mappings is null");
+                try
+                {
+                    System.out.println("stereotypes " + stereotypes);
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }   
         }
 
         // if we've found a namespace mapping, try to get any shared mappings
@@ -1082,6 +1136,6 @@ public class MetafacadeMappings
      */
     public String toString()
     {
-        return ToStringBuilder.reflectionToString(this);
+        return this.namespace + ":" + this.mappings;
     }
 }
