@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Android - AndroMDA Eclipse IDE Plug-in
+Bundle-SymbolicName: org.andromda.android; singleton:=true
+Bundle-Version: 0.0.1
+Bundle-ClassPath: android.jar
+Bundle-Activator: org.andromda.android.AndroidPlugin
+Bundle-Vendor: AndroMDA Team
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.eclipse.jdt.ui,
+ org.eclipse.debug.core,
+ org.eclipse.debug.ui,
+ org.eclipse.jdt.launching,
+ org.apache.maven,
+ org.eclipse.jdt.core,
+ org.eclipse.ui.forms
+Eclipse-AutoStart: true
