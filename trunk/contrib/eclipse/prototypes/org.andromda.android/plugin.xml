@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.andromda.android"
+            name="AndroMDA"/>
+      <wizard
+            category="org.andromda.android"
+            class="org.andromda.android.internal.ui.wizards.NewAndroMDAProjectWizard"
+            icon="icons/sample.gif"
+            id="org.andromda.android.internal.ui.wizards.NewAndroMDAProjectWizard"
+            name="AndroMDA Project"
+            project="true"/>
+   </extension>
+
+</plugin>
