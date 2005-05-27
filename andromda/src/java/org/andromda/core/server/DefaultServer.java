@@ -40,23 +40,22 @@ public class DefaultServer
     private Engine engine = Engine.newInstance();
 
     /**
-     * @see org.andromda.core.server.Server#start(org.andromda.core.configuration.Configuration)
+     * @see org.andromda.core.server.Server#start(org.andromda.core.configuration.Server)
      */
-    public void start(final Configuration configuration)
+    public void start(final org.andromda.core.configuration.Server configuration)
     {
         engine.initialize();
-        final org.andromda.core.configuration.Server server = configuration.getServer();
-        if (server != null)
+        if (configuration != null)
         {
             try
             {
                 try
                 {
-                    this.listener = new ServerSocket(server.getPort());
+                    this.listener = new ServerSocket(configuration.getPort());
                 }
                 catch (final IOException exception)
                 {
-                    throw new ServerException("Could not listen on port '" + server.getPort()
+                    throw new ServerException("Could not listen on port '" + configuration.getPort()
                         + "', change the port in your configuration");
                 }
                 while (true)

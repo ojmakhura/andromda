@@ -17,7 +17,7 @@ public interface Server
      *
      * @throws Exception
      */
-    public void start(final Configuration configuration);
+    public void start(final org.andromda.core.configuration.Server configuration);
 
     /**
      * Shuts down this server and releases
