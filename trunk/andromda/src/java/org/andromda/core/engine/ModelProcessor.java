@@ -1,5 +1,17 @@
 package org.andromda.core.engine;
 
+import java.io.InputStream;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
@@ -26,20 +38,6 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.io.InputStream;
-
-import java.text.Collator;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -226,12 +224,13 @@ public class ModelProcessor
         Mappings.initializeLogicalMappings();
         if (this.repository == null)
         {
-            this.repository = (RepositoryFacade)ComponentContainer.instance().findComponent(RepositoryFacade.class);
+            final ComponentContainer container = ComponentContainer.instance();
+            this.repository = (RepositoryFacade)container.findComponent(RepositoryFacade.class);
             if (this.repository == null)
             {
                 throw new ModelProcessorException(
-                    "No Repository could be found, " + "please make sure you have a " +
-                    RepositoryFacade.class.getName() + " instance on your classpath");
+                    "No repository implementation could be found, please make sure you have a '" +
+                    container.getComponentDefaultConfigurationPath(RepositoryFacade.class) + "' file on your classpath");
             }
             this.repository.open();
         }

@@ -1,23 +1,21 @@
 package org.andromda.maven;
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.core.AndroMDA;
+import org.andromda.core.AndroMDAServer;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
-import org.andromda.core.server.Server;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.jelly.MavenJellyContext;
-
-import java.io.FileNotFoundException;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 
 /**
@@ -111,7 +109,10 @@ public class AndroMDARunner
         return configuration;
     }
     
-    private Server server = Server.newInstance();
+    /**
+     * The server instance.
+     */
+    private AndroMDAServer server;
 
     /**
      * Starts the AndroMDA server instance listening
@@ -122,7 +123,19 @@ public class AndroMDARunner
     public void startServer()
         throws MalformedURLException
     {
-        this.server.start(this.getConfiguration());
+        Thread.currentThread().setContextClassLoader(AndroMDARunner.class.getClassLoader());
+        try
+        {
+            this.server = AndroMDAServer.newInstance();
+            this.server.start(this.getConfiguration());
+        }
+        finally
+        {
+            // Set the context class loader back ot its system class loaders
+            // so that any processes running after won't be trying to use
+            // the ContextClassLoader for this class.
+            Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
+        }
     }
     
     /**
@@ -130,7 +143,10 @@ public class AndroMDARunner
      */
     public void stopServer()
     {
-        this.server.shutdown();
+        if (this.server != null)
+        {
+            this.server.stop();
+        }
     }
 
     /**

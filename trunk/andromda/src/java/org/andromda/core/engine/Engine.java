@@ -40,6 +40,7 @@ public class Engine
     public void initialize()
     {
         ModelProcessor.instance().initialize();
+        AndroMDALogger.info("- core initialization complete -");
     }
 
     /**
