@@ -2,9 +2,7 @@ package org.andromda.core.server;
 
 import org.andromda.core.configuration.Configuration;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -36,7 +34,7 @@ public class DefaultClient
                 {
                     Socket server = null;
                     ObjectOutputStream out = null;
-                    BufferedReader serverInput = null;
+                    ObjectInputStream objectInput = null;
                     final String host = serverConfiguration.getHost();
                     try
                     {
@@ -44,17 +42,14 @@ public class DefaultClient
                                 host,
                                 serverConfiguration.getPort());
                         out = new ObjectOutputStream(server.getOutputStream());
-                        serverInput = new BufferedReader(new InputStreamReader(server.getInputStream()));
+                        objectInput = new ObjectInputStream(new DataInputStream(server.getInputStream()));
                     }
                     catch (final UnknownHostException exception)
                     {
                         throw new RuntimeException("Can't connect to host '" + host + "'");
                     }
                     out.writeObject(configuration);
-                    final ObjectInputStream objectInput = new ObjectInputStream(new DataInputStream(
-                        server.getInputStream()));
                     final Object input = objectInput.readObject();
-                    //Object input = serverInput.readLine();
                     while (input == null);
                     if (input instanceof Throwable)
                     {
@@ -63,7 +58,6 @@ public class DefaultClient
                     objectInput.close();
                     out.flush();
                     out.close();
-                    serverInput.close();
                     server.close();
                 }
                 catch (final ConnectException exception)
