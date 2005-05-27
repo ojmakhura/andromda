@@ -631,12 +631,21 @@ public class MetafacadeFactory
      */
     public void shutdown()
     {
+        this.reset();
         this.registeredProperties.clear();
-        this.validationMessages.clear();
         MetafacadeCache.instance().shutdown();
         MetafacadeMappings.instance().shutdown();
         this.model = null;
         instance = null;
+    }
+    
+    /**
+     * Resets the required internal resources
+     * without shutting down the factory.
+     */
+    public void reset()
+    {
+        this.validationMessages.clear();
     }
 
     /**
