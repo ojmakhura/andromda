@@ -1,128 +1,145 @@
 package org.andromda.core;
 
-import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.PropertyUtils;
 import org.andromda.core.configuration.Configuration;
-import org.andromda.core.configuration.Property;
+import org.andromda.core.engine.Engine;
+import org.andromda.core.server.Client;
+import org.apache.log4j.Logger;
 
 import java.io.InputStream;
 
+import java.net.ConnectException;
 import java.net.URL;
 
 
 /**
- * The main entry point to the framework, handles the configuration of AndroMDA and
- * loading/processing of models by plugins. Basically a wrapper around the {@link ModelProcessor}
- * that takes a configuration file in order to configuration AndroMDA.
+ * The main entry point to the framework.  Handles the processing of models. Facilitates Model Driven
+ * Architecture by enabling the generation of source code, configuration files, and other such artifacts from a single
+ * or multiple models.
  *
- * @see ModelProcessor 
+ * @see Engine
  * @author Chad Brandon
  */
 public class AndroMDA
 {
     /**
-     * The configuration instance that configures AndroMDA.
+     * The logger instance.
      */
-    private Configuration configuration;
+    private static final Logger logger = Logger.getLogger(AndroMDA.class);
 
     /**
-     * Gets an instance of AndroMDA.
+     * The AndroMDA engine instance.
+     */
+    private Engine engine;
+
+    /**
+     * Gets a new instance of AndroMDA.
      *
      * @param configurationUri the URI to the configuration file
      *        that configures AndroMDA.
      *
      * @return the new instance of AndroMDA.
      */
-    public static final AndroMDA getInstance(final URL configurationUri)
+    public static final AndroMDA newInstance()
     {
-        final AndroMDA andromda = new AndroMDA();
-        andromda.configuration = Configuration.getInstance(configurationUri);
-        return andromda;
+        return new AndroMDA();
+    }
+
+    private AndroMDA()
+    {
+        engine = Engine.newInstance();
     }
 
     /**
-     * Gets an instance of AndroMDA.
+     * Runs AndroMDA with the given configuration.
+     *
+     * @param configurationUri the URI to the configuration file
+     *        that configures AndroMDA.
+     *
+     * @return the new instance of AndroMDA.
+     */
+    public void run(final URL configurationUri)
+    {
+        this.run(Configuration.getInstance(configurationUri));
+    }
+
+    /**
+     * Runs AndroMDA with the given configuration.
      *
      * @param configurationStream the InputStream that contains the configuration
      *        contents for configuring AndroMDA.
      *
      * @return the new instance of AndroMDA.
      */
-    public static final AndroMDA getInstance(final InputStream configurationStream)
+    public void run(final InputStream configurationStream)
     {
-        final AndroMDA andromda = new AndroMDA();
-        andromda.configuration = Configuration.getInstance(configurationStream);
-        return andromda;
+        this.run(Configuration.getInstance(configurationStream));
     }
 
     /**
-     * Gets an instance of AndroMDA.
+     * Runs AndroMDA with the given configuration.
      *
      * @param configuration the String that contains the configuration
      *        contents for configuring AndroMDA.
      *
      * @return the new instance of AndroMDA.
      */
-    public static final AndroMDA getInstance(final String configuration)
+    public void run(final String configuration)
     {
-        final AndroMDA andromda = new AndroMDA();
-        andromda.configuration = Configuration.getInstance(configuration);
-        return andromda;
-    }
-    
-    /**
-     * Gets an instance of AndroMDA.
-     *
-     * @param configuration the Configuration instance that configures
-     *        AndroMDA.
-     *
-     * @return the new instance of AndroMDA.
-     */
-    public static final AndroMDA getInstance(final Configuration configuration)
-    {
-        final AndroMDA andromda = new AndroMDA();
-        andromda.configuration = configuration;
-        return andromda;
+        this.run(Configuration.getInstance(configuration));
     }
 
     /**
-     * Runs AndroMDA's with the given configuration.
+     * Runs AndroMDA with the given configuration.  Determines whether or
+     * not AndroMDA should be run in client/server mode (if the client
+     * can contact the AndroMDA server), or just stand-alone mode if the
+     * server can NOT be contacted.
+     *
+     * @param configuration the String that contains the configuration
+     *        contents for configuring AndroMDA.
+     *
+     * @return the new instance of AndroMDA.
      */
-    public void run()
+    public void run(final Configuration configuration)
     {
-        if (this.configuration != null)
+        if (configuration != null)
         {
-            this.configuration.initialize();
-            final ModelProcessor processor = ModelProcessor.instance();
-            processor.addTransformations(this.configuration.getTransformations());
-            final Property[] properties = this.configuration.getProperties();
-            final int propertyNumber = properties.length;
-            for (int ctr = 0; ctr < propertyNumber; ctr++)
+            final Client serverClient = Client.newInstance();
+            boolean client = true;
+
+            // only attempt to run with the client, if they
+            // have a server defined in their configuration
+            if (configuration.getServer() != null)
             {
-                final Property property = properties[ctr];
                 try
                 {
-                    PropertyUtils.setProperty(
-                        processor,
-                        property.getName(),
-                        property.getValue());
+                    serverClient.run(configuration);
                 }
-                catch (final Throwable throwable)
+                catch (final ConnectException exception)
                 {
-                    AndroMDALogger.warn(
-                        "Could not set model processor property '" + property.getName() + "' with a value of '" +
-                        property.getValue() + "'");
+                    client = false;
                 }
             }
-            processor.process(this.configuration.getModels());
+            else
+            {
+                client = false;
+            }
+            if (!client)
+            {
+                this.engine.initialize();
+                this.engine.run(configuration);
+            }
+        }
+        else
+        {
+            logger.warn("AndroMDA could not run because no configuration was defined");
         }
     }
-    
+
     /**
      * Shuts down AndroMDA.
      */
     public void shutdown()
     {
-        ModelProcessor.instance().shutdown();
+        this.engine.shutdown();
     }
 }

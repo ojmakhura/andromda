@@ -524,7 +524,7 @@ public class TraceTranslator
     {
         try
         {
-            AndroMDALogger.configure();
+            AndroMDALogger.initialize();
             TraceTranslator.adaptClass();
         }
         catch (Throwable th)

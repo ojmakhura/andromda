@@ -1,5 +1,7 @@
 package org.andromda.core.configuration;
 
+import java.io.Serializable;
+
 
 /**
  * Used to specify which packages should or should not be processed within the model. This is useful if you need to
@@ -9,6 +11,7 @@ package org.andromda.core.configuration;
  * @see org.andromda.core.configuration.ModelPackages
  */
 public class ModelPackage
+    implements Serializable
 {
     private String name;
 

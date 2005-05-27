@@ -1,6 +1,6 @@
 package org.andromda.translation.ocl.validation;
 
-import org.andromda.core.ModelProcessorException;
+import org.andromda.core.engine.ModelProcessorException;
 import org.andromda.core.translation.TranslationUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.translation.ocl.BaseTranslator;

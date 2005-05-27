@@ -4,6 +4,10 @@
         <property name="cartridgeFilter">${filter}</property>
         <property name="processAllModelPackages">true</property>
     </properties>
+    <server>
+        <host>localhost</host>
+        <port>4444</port>
+    </server>
     <models>
         <model lastModifiedCheck="true">
             <uri>file:model1.xmi</uri>

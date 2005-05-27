@@ -1,13 +1,15 @@
 package org.andromda.core.common;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import org.andromda.core.configuration.Namespaces;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
-import java.io.InputStream;
-import java.net.URL;
 
 /**
  * This is the logger used to write <em>AndroMDA</em> prefixed messages so that our informational logging is nice
@@ -23,14 +25,13 @@ public class AndroMDALogger
      * The default name to give the logger (if one isn't set)
      */
     private static final String DEFAULT_LOGGER_NAME = "AndroMDA";
-
     private static Logger logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
 
     /**
      * Configures logging for the AndroMDA application from the the xml resource "log4j.xml" found within the same
      * package as this class.
      */
-    public static void configure()
+    public static void initialize()
     {
         String defaultConfiguration = "log4j.xml";
         URL url = null;
@@ -61,7 +62,7 @@ public class AndroMDALogger
         if (url == null)
         {
             throw new RuntimeException(
-                    "Could not find default logging configuration file '" + defaultConfiguration + "'");
+                "Could not find default logging configuration file '" + defaultConfiguration + "'");
         }
     }
 
@@ -94,8 +95,8 @@ public class AndroMDALogger
         catch (Exception ex)
         {
             System.err.println(
-                    "Unable to initialize logging system " + "with configuration file '" + logConfigurationXml +
-                    "' --> using basic configuration.");
+                "Unable to initialize logging system " + "with configuration file '" + logConfigurationXml +
+                "' --> using basic configuration.");
             BasicConfigurator.configure();
         }
     }
@@ -145,7 +146,7 @@ public class AndroMDALogger
     /**
      * Allows us to add a suffix to the logger name.
      *
-     * @param name
+     * @param suffix the suffix to append to the logger name.
      */
     public static void setSuffix(final String suffix)
     {
@@ -158,6 +159,14 @@ public class AndroMDALogger
     public static void reset()
     {
         logger = Logger.getLogger(DEFAULT_LOGGER_NAME);
+    }
+
+    /**
+     * Shuts down the logger and releases any resources.
+     */
+    public static void shutdown()
+    {
+        LogManager.shutdown();
     }
 
     public static void debug(Object object)

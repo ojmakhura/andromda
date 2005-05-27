@@ -45,7 +45,7 @@ public class OclParserTest
     public void setUp() throws Exception
     {
         super.setUp();
-        AndroMDALogger.configure();
+        AndroMDALogger.initialize();
     }
 
     /**

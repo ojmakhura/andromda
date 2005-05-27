@@ -1,5 +1,6 @@
 package org.andromda.core.configuration;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,7 +13,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Chad Brandon
  */
 public class Namespace
-{    
+    implements Serializable
+{
     /**
      * The namespace name.
      */

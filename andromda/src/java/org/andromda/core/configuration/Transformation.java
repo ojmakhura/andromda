@@ -1,5 +1,6 @@
 package org.andromda.core.configuration;
 
+import java.io.Serializable;
 import java.net.URL;
 
 /**
@@ -9,6 +10,7 @@ import java.net.URL;
  * @author Chad Brandon
  */
 public class Transformation
+    implements Serializable
 {
     /**
      * The URL location of the transformation.

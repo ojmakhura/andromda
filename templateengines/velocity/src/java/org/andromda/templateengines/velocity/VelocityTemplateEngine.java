@@ -1,5 +1,19 @@
 package org.andromda.templateengines.velocity;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.Constants;
 import org.andromda.core.common.ExceptionUtils;
@@ -10,7 +24,6 @@ import org.andromda.core.templateengine.TemplateEngine;
 import org.andromda.core.templateengine.TemplateEngineException;
 import org.apache.commons.collections.ExtendedProperties;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
@@ -21,23 +34,6 @@ import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.log.LogSystem;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.io.Writer;
-
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 
 /**
@@ -340,7 +336,6 @@ public class VelocityTemplateEngine
     {
         this.deleteMergedTemplatesLocation();
         this.discoveredTemplates.clear();
-        this.shutdownLogger();
         this.velocityEngine = null;
     }
 
@@ -366,7 +361,7 @@ public class VelocityTemplateEngine
      *
      * @throws IOException if the file cannot be opened
      */
-    private final void initLogger(String pluginName)
+    private final void initLogger(final String pluginName)
         throws IOException
     {
         logger = AndroMDALogger.getNamespaceLogger(pluginName);
@@ -379,22 +374,7 @@ public class VelocityTemplateEngine
                 true);
         logger.addAppender(appender);
     }
-
-    /**
-     * Shutdown the associated logger.
-     */
-    private final void shutdownLogger()
-    {
-        for (final Enumeration appenders = logger.getAllAppenders(); appenders.hasMoreElements();)
-        {
-            final Appender appender = (Appender)appenders.nextElement();
-            if (appender.getName() != null)
-            {
-                appender.close();
-            }
-        }
-    }
-
+    
     /**
      * <p/>
      * This class receives log messages from VelocityTemplateEngine and forwards them to the concrete logger that is

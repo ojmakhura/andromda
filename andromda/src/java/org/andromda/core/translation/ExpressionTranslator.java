@@ -36,7 +36,7 @@ public class ExpressionTranslator
     public void initialize()
     {
         // configure the logger
-        AndroMDALogger.configure();
+        AndroMDALogger.initialize();
 
         // discover plugins
         PluginDiscoverer.instance().discoverPlugins();

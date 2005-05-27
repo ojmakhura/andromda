@@ -21,10 +21,7 @@
                 <ant:echo>+--------------------------------------------+</ant:echo>
             </j:otherwise>
         </j:choose>
-        
-        <maven:param-check value="${context.getVariable('maven.andromda.configuration.uri')}" fail="true">
-Please define the location of your AndroMDA configuration by setting a value for property "maven.andromda.configuration.uri".
-        </maven:param-check>
+        <attainGoal name="andromda:parameter-check${bootstrap}"/>
                      
         <j:set var="runWithoutAnt" value="${maven.andromda.run.without.ant}"/>
         <j:choose>
@@ -35,7 +32,7 @@ Please define the location of your AndroMDA configuration by setting a value for
                 <j:set var="mappingsSearchLocation" value="${plugin.resources}/andromda/mappings"/>
                 <j:set var="dummy" value="${runner.setMappingsSearchLocation(mappingsSearchLocation)}"/>
                 <j:set var="dummy" value="${runner.setConfigurationUri(configurationUri)}"/>
-                <j:set var="dummy" value="${runner.run()}"/>               
+                <j:set var="dummy" value="${runner.run()}"/>              
             </j:when>
             <j:otherwise>               
                 <j:new var="utils" className="org.andromda.maven.AndroMDAMavenUtils"/>
@@ -59,6 +56,36 @@ Please define the location of your AndroMDA configuration by setting a value for
             </j:otherwise>
         </j:choose>
 
+    </goal>
+    
+    <goal name="andromda:parameter-check${bootstrap}">
+        <maven:param-check value="${context.getVariable('maven.andromda.configuration.uri')}" fail="true">
+Please define the location of your AndroMDA configuration by setting a value for property "maven.andromda.configuration.uri".
+        </maven:param-check>
+    </goal>
+    
+    <goal name="andromda:server${bootstrap}"
+          description="Starts the AndroMDA server instance">       
+        <j:choose>
+            <j:when test="${bootstrapMode}">
+                <ant:echo>+---------------------------------------------------------------------------+</ant:echo>
+                <ant:echo>|    S t a r t i n g   A n d r o M D A   B o o t s t r a p   S e r v e r    |</ant:echo>
+                <ant:echo>+---------------------------------------------------------------------------+</ant:echo>
+            </j:when>
+            <j:otherwise>
+                <ant:echo>+--------------------------------------------------------+</ant:echo>
+                <ant:echo>|    S t a r t i n g    A n d r o M D A   S e r v e r    |</ant:echo>
+                <ant:echo>+--------------------------------------------------------+</ant:echo>
+            </j:otherwise>
+        </j:choose>   
+        <attainGoal name="andromda:parameter-check${bootstrap}"/>    
+        <j:set var="configurationUri" value="${maven.andromda.configuration.uri}"/>
+        <j:new var="runner" className="org.andromda.maven.AndroMDARunner"/>
+        <j:set var="dummy" value="${runner.setContext(context)}"/>
+        <j:set var="mappingsSearchLocation" value="${plugin.resources}/andromda/mappings"/>
+        <j:set var="dummy" value="${runner.setMappingsSearchLocation(mappingsSearchLocation)}"/>
+        <j:set var="dummy" value="${runner.setConfigurationUri(configurationUri)}"/>
+        <j:set var="dummy" value="${runner.startServer()}"/>                   
     </goal>
 
     <!-- ================================================================

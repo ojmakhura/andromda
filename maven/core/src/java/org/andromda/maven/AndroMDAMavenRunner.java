@@ -19,7 +19,7 @@ import org.apache.tools.ant.taskdefs.MatchingTask;
  * This task is used with the AndroMDA Maven plugin.
  *
  * @author Chad Brandon
- * @see org.andromda.core.ModelProcessor
+ * @see org.andromda.core.engine.ModelProcessor
  */
 public class AndroMDAMavenRunner
     extends MatchingTask
@@ -70,10 +70,10 @@ public class AndroMDAMavenRunner
             final Configuration configuration =
                 Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(new URL(configurationUri))));
             configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
-            final AndroMDA andromda = AndroMDA.getInstance(configuration);
+            final AndroMDA andromda = AndroMDA.newInstance();
             if (andromda != null)
             {
-                andromda.run();
+                andromda.run(configuration);
                 andromda.shutdown();
             }
         }

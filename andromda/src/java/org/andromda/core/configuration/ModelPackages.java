@@ -1,5 +1,6 @@
 package org.andromda.core.configuration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @see org.andromda.core.configuration.ModelPackage
  */
 public class ModelPackages
+    implements Serializable
 {
     /**
      * The flag indicating whether or not all model packages
