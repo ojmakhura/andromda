@@ -3,7 +3,7 @@ package org.andromda.core.server;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.PrintWriter;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -63,8 +63,9 @@ public class DefaultServer
                     final Socket client = this.listener.accept();
                     if (client != null)
                     {
-                        PrintWriter serverOutput = new PrintWriter(client.getOutputStream(), true);
-                        ObjectInputStream objectInput = new ObjectInputStream(new DataInputStream(
+                        //final PrintWriter serverOutput = new PrintWriter(client.getOutputStream(), true);
+                        final ObjectOutputStream serverOutput = new ObjectOutputStream(client.getOutputStream());
+                        final ObjectInputStream objectInput = new ObjectInputStream(new DataInputStream(
                             client.getInputStream()));
                         try
                         {
@@ -73,10 +74,12 @@ public class DefaultServer
                         catch (final Throwable throwable)
                         {
                             logger.error(throwable);
+                            // pass the exception to the client
+                            serverOutput.writeObject(throwable);
                         }
 
                         // signal to the client, it can stop waiting
-                        serverOutput.write(COMPLETE);
+                        serverOutput.writeObject(COMPLETE);
                         serverOutput.flush();
                         serverOutput.close();
                         objectInput.close();
