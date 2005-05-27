@@ -35,7 +35,7 @@ import java.util.Collection;
  * within this class. See each below method for more information on how each
  * performs lookup/retrieval of the components.
  * </p>
- * 
+ *
  * @author Chad Brandon
  */
 public class ComponentContainer
@@ -51,7 +51,7 @@ public class ComponentContainer
      * The container instance
      */
     private MutablePicoContainer container;
-    
+
     /**
      * The shared instance.
      */
@@ -127,12 +127,12 @@ public class ComponentContainer
         Object component = null;
         try
         {
-            final String implementation = this.getDefaultImplementation(type.getName());
+            final String implementation = this.getDefaultImplementation(type);
             if (StringUtils.isBlank(implementation))
             {
                 throw new ComponentContainerException(
-                    "No default implementation found for type '" + type.getName() + "', please check your '" +
-                    SERVICES + "' directory");
+                    "Default configuration file '" + this.getComponentDefaultConfigurationPath(type) +
+                    "' could not be found");
             }
             component = ClassUtils.loadClass(implementation).newInstance();
         }
@@ -141,6 +141,19 @@ public class ComponentContainer
             throw new ComponentContainerException(throwable);
         }
         return component;
+    }
+
+    /**
+     * Returns the expected path to the component's default configuration file.
+     *
+     * @param type the component type.
+     * @return the path to the component configuration file.
+     */
+    public String getComponentDefaultConfigurationPath(final Class type)
+    {
+        final String methodName = "ComponentContainer.getComponentConfigurationPath";
+        ExceptionUtils.checkNull(methodName, "type", type);
+        return SERVICES + type.getName();
     }
 
     /**
@@ -182,11 +195,11 @@ public class ComponentContainer
                 component = this.container.getComponentInstance(typeName);
 
                 // if the component doesn't have a default already
-                // (i.e. componet == null), then see if we can find the default
+                // (i.e. component == null), then see if we can find the default
                 // configuration file.
                 if (component == null)
                 {
-                    final String defaultImplementation = this.getDefaultImplementation(type.getName());
+                    final String defaultImplementation = this.getDefaultImplementation(type);
                     if (StringUtils.isNotEmpty(defaultImplementation))
                     {
                         component =
@@ -197,8 +210,8 @@ public class ComponentContainer
                     else
                     {
                         logger.warn(
-                            "WARNING! No default implementation for '" + type +
-                            "' found, check services directory --> '" + SERVICES + "'");
+                            "WARNING! Component's default configuration file '" +
+                            getComponentDefaultConfigurationPath(type) + "' could not be found");
                     }
                 }
             }
@@ -211,15 +224,15 @@ public class ComponentContainer
     }
 
     /**
-     * Attempts to find the default implementation from the <code>META-INF/services</code> directory. Returns an empty
+     * Attempts to find the default configuration file from the <code>META-INF/services</code> directory. Returns an empty
      * String if none is found.
      *
      * @param typeName the name of the type (i.e. org.andromda.core.templateengine.TemplateEngine)
      * @return
      */
-    private final String getDefaultImplementation(final String typeName)
+    private final String getDefaultImplementation(final Class type)
     {
-        return StringUtils.trimToEmpty(ResourceUtils.getContents(SERVICES + typeName));
+        return StringUtils.trimToEmpty(ResourceUtils.getContents(this.getComponentDefaultConfigurationPath(type)));
     }
 
     /**
@@ -471,7 +484,7 @@ public class ComponentContainer
             throw new ComponentContainerException(throwable);
         }
     }
-    
+
     public void shutdown()
     {
         this.container.dispose();

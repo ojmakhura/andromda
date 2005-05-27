@@ -1,14 +1,15 @@
 package org.andromda.core;
 
+import java.io.InputStream;
+import java.net.ConnectException;
+import java.net.URL;
+
+import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.engine.Engine;
 import org.andromda.core.server.Client;
+import org.andromda.core.server.ServerException;
 import org.apache.log4j.Logger;
-
-import java.io.InputStream;
-
-import java.net.ConnectException;
-import java.net.URL;
 
 
 /**
@@ -103,7 +104,14 @@ public class AndroMDA
     {
         if (configuration != null)
         {
-            final Client serverClient = Client.newInstance();
+            final ComponentContainer container = ComponentContainer.instance();
+            final Client serverClient = (Client)container.findComponent(Client.class);
+            if (serverClient == null)
+            {
+                throw new ServerException(
+                    "No Client implementation could be found, please make sure you have a '" +
+                    container.getComponentDefaultConfigurationPath(Client.class) + "' file on your classpath");
+            }
             boolean client = true;
 
             // only attempt to run with the client, if they
