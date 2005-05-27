@@ -67,7 +67,7 @@ public class StrutsManageableEntityAttributeLogicImpl
 
     protected boolean handleIsNeedsFileUpload()
     {
-        return getType().isBlobType();
+        return this.getType() != null ? this.getType().isBlobType() : false;
     }
 
     protected boolean handleIsHidden()
