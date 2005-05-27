@@ -109,17 +109,18 @@ public class ModelProcessor
                         AndroMDALogger.error(ctr + ") " + message);
                     }
                     AndroMDALogger.reset();
-                }
+                }                
                 AndroMDALogger.info(
                     "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
-                    "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount() + totalMessagesMessage);
+                    "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount() + totalMessagesMessage);            
+                
+                // reset any internal resources
+                this.reset();
+                
                 if (this.failOnValidationErrors && !messages.isEmpty())
                 {
                     throw new ModelValidationException("Model validation failed!");
                 }
-
-                // reset any internal resources
-                this.reset();
             }
         }
         else
@@ -526,6 +527,7 @@ public class ModelProcessor
      */
     private void reset()
     {
+        MetafacadeFactory.getInstance().reset();
         this.cartridgeFilter = null;
         this.transformations.clear();
         this.setXmlValidation(true);
