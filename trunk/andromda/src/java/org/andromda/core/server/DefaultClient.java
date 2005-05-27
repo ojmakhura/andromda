@@ -3,7 +3,9 @@ package org.andromda.core.server;
 import org.andromda.core.configuration.Configuration;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import java.net.ConnectException;
@@ -49,11 +51,16 @@ public class DefaultClient
                         throw new RuntimeException("Can't connect to host '" + host + "'");
                     }
                     out.writeObject(configuration);
-                    String inputString = serverInput.readLine();
-                    while (inputString == null)
+                    final ObjectInputStream objectInput = new ObjectInputStream(new DataInputStream(
+                        server.getInputStream()));
+                    final Object input = objectInput.readObject();
+                    //Object input = serverInput.readLine();
+                    while (input == null);
+                    if (input instanceof Throwable)
                     {
-                        inputString = serverInput.readLine();
+                        throw new ClientException((Throwable)input);
                     }
+                    objectInput.close();
                     out.flush();
                     out.close();
                     serverInput.close();
