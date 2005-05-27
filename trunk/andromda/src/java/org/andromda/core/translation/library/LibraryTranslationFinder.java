@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * Finds LibraryTranslations by code>translation</code> (i.e. library and name).
  *
@@ -14,15 +15,21 @@ import java.util.Map;
  */
 public class LibraryTranslationFinder
 {
+    /**
+     * The logger instance.
+     */
     private static final Logger logger = Logger.getLogger(LibraryTranslationFinder.class);
 
+    /**
+     * Stores the found library translations.
+     */
     protected static final Map libraryTranslations = new HashMap();
 
     /**
      * Finds the library with the specified libraryName.
      *
      * @param libraryName
-     * @return Library - returns the Library found or null if none is found.
+     * @return the Library found or null if none is found.
      */
     protected static final Library findLibrary(final String libraryName)
     {
@@ -33,7 +40,7 @@ public class LibraryTranslationFinder
      * Finds the LibraryTranslation with the specified translationName.
      *
      * @param translation the name of the translation to find.
-     * @return LibraryTranslation returns the LibraryTranslation found or null if none is found.
+     * @return the LibraryTranslation found or null if none is found.
      */
     public static LibraryTranslation findLibraryTranslation(final String translation)
     {
@@ -48,11 +55,10 @@ public class LibraryTranslationFinder
             int index = translation.indexOf(libSeparator);
             if (index == -1)
             {
-                throw new IllegalArgumentException(methodName + " -  libraryTranslation '" + translation +
-                        "' must contain the character '" +
-                        libSeparator +
-                        "' in order to seperate the library name from the translation" +
-                        " name (must be in the form: <library name>.<translation name>)");
+                throw new IllegalArgumentException(
+                    methodName + " -  libraryTranslation '" + translation + "' must contain the character '" +
+                    libSeparator + "' in order to seperate the library name from the translation" +
+                    " name (must be in the form: <library name>.<translation name>)");
             }
             final String libraryName = translation.substring(0, index);
             final Library library = findLibrary(libraryName);
@@ -66,8 +72,8 @@ public class LibraryTranslationFinder
                 if (libraryTranslation == null)
                 {
                     logger.error(
-                            "ERROR! no translation '" + translationName + "' found within library --> '" + libraryName +
-                            "'");
+                        "ERROR! no translation '" + translationName + "' found within library --> '" + libraryName +
+                        "'");
                 }
             }
         }

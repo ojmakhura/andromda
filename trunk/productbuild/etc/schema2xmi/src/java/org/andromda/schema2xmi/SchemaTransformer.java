@@ -13,9 +13,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.andromda.core.ModelProcessorException;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.engine.ModelProcessorException;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.repository.RepositoryFacade;
 import org.apache.commons.dbutils.DbUtils;

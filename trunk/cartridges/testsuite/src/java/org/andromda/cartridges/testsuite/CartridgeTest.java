@@ -42,7 +42,7 @@ public class CartridgeTest
 
     static
     {
-        AndroMDALogger.configure();
+        AndroMDALogger.initialize();
     }
 
     private static File expectedDir = getDirectory(EXPECTED_DIRECTORY);

@@ -111,7 +111,7 @@ public class Schema2XMI
     {
         try
         {
-            AndroMDALogger.configure();
+            AndroMDALogger.initialize();
             // turn off validation because of the incorrect parsers
             // in the JDK
             XmlObjectFactory.setDefaultValidating(false);

@@ -1,17 +1,16 @@
 package org.andromda.core.configuration;
 
-import org.andromda.core.common.XmlObjectFactory;
-import org.andromda.core.mapping.Mappings;
-
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+import java.io.Serializable;
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.mapping.Mappings;
 
 
 /**
@@ -22,6 +21,7 @@ import java.util.Iterator;
  * @author Chad Brandon
  */
 public class Configuration
+    implements Serializable
 {
     /**
      * Gets a Configuration instance from the given <code>uri</code>.
@@ -149,6 +149,33 @@ public class Configuration
     public Property[] getProperties()
     {
         return (Property[])this.properties.toArray(new Property[0]);
+    }
+
+    /**
+     * Stores the AndroMDA server configuration information.
+     */
+    private Server server;
+
+    /**
+     * Sets the server instance for this configuration.
+     *
+     * @param server the information which configures the AndroMDA server.
+     */
+    public void setServer(final Server server)
+    {
+        this.server = server;
+    }
+
+    /**
+     * Gets the server instance for this configuration.
+     * The {@link Server} holds the information to configure
+     * the AndroMDA server.
+     *
+     * @return the andromda server.
+     */
+    public Server getServer()
+    {
+        return this.server;
     }
 
     /**

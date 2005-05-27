@@ -28,6 +28,37 @@
             <set-next-rule methodname="addProperty" />
 
         </pattern>
+        
+        <pattern value="server">
+            
+            <object-create-rule
+                classname="org.andromda.core.configuration.Server" />
+
+            <pattern value="host">
+
+                <call-method-rule
+                    methodname="setHost"
+                    paramcount="1"/>
+
+                <call-param-rule
+                    paramnumber="0"/>
+
+            </pattern>
+
+            <pattern value="port">
+
+                <call-method-rule
+                    methodname="setPort"
+                    paramcount="1"/>
+
+                <call-param-rule
+                    paramnumber="0"/>
+
+            </pattern>
+
+            <set-next-rule methodname="setServer" />
+            
+        </pattern>
 
         <pattern value="models/model">
 

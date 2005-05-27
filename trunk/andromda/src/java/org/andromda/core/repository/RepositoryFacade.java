@@ -47,7 +47,7 @@ public interface RepositoryFacade
      * <p/>
      *
      * @param stream an InputStream containing a model.
-     * @param uri URI of the model to be read from. If set to null, then the repository won't be able to resolve HREFs.
+     * @param uri URI of the model that was read into the stream.
      * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be used from
      *                         within other models).
      */

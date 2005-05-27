@@ -1,5 +1,19 @@
 package org.andromda.repositories.mdr;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import javax.jmi.model.ModelPackage;
+import javax.jmi.model.MofPackage;
+import javax.jmi.reflect.RefPackage;
+import javax.jmi.xmi.MalformedXMIException;
+
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.ModelAccessFacade;
@@ -14,20 +28,6 @@ import org.netbeans.api.xmi.XMIReader;
 import org.netbeans.api.xmi.XMIReaderFactory;
 import org.netbeans.api.xmi.XMIWriter;
 import org.netbeans.api.xmi.XMIWriterFactory;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.net.URL;
-
-import java.util.Iterator;
-
-import javax.jmi.model.ModelPackage;
-import javax.jmi.model.MofPackage;
-import javax.jmi.reflect.RefPackage;
-import javax.jmi.xmi.MalformedXMIException;
 
 
 /**
@@ -56,9 +56,7 @@ public class MDRepositoryFacade
         System.setProperty(
             "org.netbeans.mdr.storagemodel.StorageFactoryClassName",
             "org.netbeans.mdr.persistence.memoryimpl.StorageFactoryImpl");
-
-        // set the logging so output does not go to standard out
-        System.setProperty("org.netbeans.lib.jmi.Logger.fileName", "mdr.log");
+        
         repository = MDRManager.getDefault().getDefaultRepository();
 
         final String metamodelUri = "/M2_DiagramInterchangeModel.xml";
@@ -305,43 +303,57 @@ public class MDRepositoryFacade
     }
 
     /**
-     * The name (unique within the repository) for the new package extent
+     * Stores the names of the extents that were loaded so that
+     * they can be cleared out when {@link #clear()} is called.
      */
-    private static final String EXTENT_NAME = "MODEL";
+    private final Collection extentNames = new HashSet();
 
     /**
      * @see org.andromda.core.repository.RepositoryFacade#clear()
      */
     public void clear()
     {
-        // remove the model from the repository (if there is one)
-        RefPackage model = repository.getExtent(EXTENT_NAME);
-        if (model != null)
+        for (final Iterator iterator = this.extentNames.iterator(); iterator.hasNext();)
         {
-            model.refDelete();
+            this.removeModel((String)iterator.next());         
         }
         this.model = null;
         this.modelFacade = null;
+    }
+    
+    /**
+     * @see org.andromda.core.repository.RepositoryFacade#removeModel(java.lang.String)
+     */
+    private final void removeModel(final String modelUri)
+    {
+        // remove the model from the repository (if there is one)
+        RefPackage model = repository.getExtent(modelUri);
+        if (model != null)
+        {
+            model.refDelete();
+        }     
     }
 
     /**
      * Loads a model into the repository and validates the model against the given metaModel.
      *
-     * @param modelURL  url of model
+     * @param modelUri  uri of model
      * @param moduleSearchPath the paths to search for shared modules.
      * @param metaModel meta model of model
      * @return populated model
      * @throws CreationFailedException unable to create model in repository
      */
     private final RefPackage loadModel(
-        final URL modelURL,
+        final URL modelUrl,
         final String[] moduleSearchPath,
         final MofPackage metaModel)
         throws CreationFailedException
     {
-        final RefPackage model = this.createModel(metaModel);
-        if (modelURL != null)
+        RefPackage model = null;
+        if (modelUrl != null)
         {
+            final String modelUri = modelUrl.toString();
+            model = this.createModel(modelUri, metaModel);
             final XMIReader xmiReader =
                 XMIReaderFactory.getDefault().createXMIReader(
                     new MDRXmiReferenceResolver(
@@ -349,12 +361,12 @@ public class MDRepositoryFacade
                         moduleSearchPath));
             if (logger.isDebugEnabled())
             {
-                logger.debug("reading model XMI --> '" + modelURL + "'");
+                logger.debug("reading model XMI --> '" + modelUri + "'");
             }
             try
             {
                 xmiReader.read(
-                    modelURL.toString(),
+                    modelUri,
                     model);
             }
             catch (final Throwable throwable)
@@ -386,7 +398,7 @@ public class MDRepositoryFacade
         final MofPackage metaModel)
         throws CreationFailedException
     {
-        final RefPackage model = this.createModel(metaModel);
+        final RefPackage model = this.createModel(uri, metaModel);
         if (modelStream != null)
         {
             final XMIReader xmiReader =
@@ -413,26 +425,28 @@ public class MDRepositoryFacade
     /**
      * Constructs the model from the given <code>metaModel</code>.
      *
+     * @param modelUri the URI to the model (used as the extent name).
      * @param metaModel the meta model.
      * @return the package.
      * @throws CreationFailedException
      */
-    private RefPackage createModel(final MofPackage metaModel)
+    private RefPackage createModel(final String modelUri, final MofPackage metaModel)
         throws CreationFailedException
     {
-        final String name = EXTENT_NAME;
-        RefPackage model = repository.getExtent(name);
-        if (model == null)
+        RefPackage model = this.repository.getExtent(modelUri);
+        if (model != null)
         {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("creating the new meta model");
-            }
-            model = repository.createExtent(name, metaModel);
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("created model extent");
-            }
+            this.removeModel(modelUri);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("creating the new meta model");
+        }
+        model = repository.createExtent(modelUri, metaModel);
+        this.extentNames.add(modelUri);
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("created model extent");
         }
         return model;
     }

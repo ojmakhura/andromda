@@ -1,15 +1,6 @@
-package org.andromda.core;
+package org.andromda.core.engine;
 
-import java.io.InputStream;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
+import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BuildInformation;
@@ -35,6 +26,20 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.io.InputStream;
+
+import java.text.Collator;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -78,30 +83,13 @@ public class ModelProcessor
      */
     public void process(Model[] models)
     {
-        AndroMDALogger.configure();
-        this.printConsoleHeader();
+        AndroMDALogger.initialize();
         final long startTime = System.currentTimeMillis();
         models = this.filterInvalidModels(models);
         if (models.length > 0)
         {
             try
             {
-                if (this.repository == null)
-                {
-                    this.repository =
-                        (RepositoryFacade)ComponentContainer.instance().findComponent(RepositoryFacade.class);
-                    if (this.repository == null)
-                    {
-                        throw new ModelProcessorException(
-                            "No Repository could be found, " + "please make sure you have a " +
-                            RepositoryFacade.class.getName() + " instance on your classpath");
-                    }
-                    this.repository.open();
-                }
-                else
-                {
-                    this.repository.clear();
-                }
                 this.processModels(models);
             }
             finally
@@ -131,30 +119,16 @@ public class ModelProcessor
                 {
                     throw new ModelValidationException("Model validation failed!");
                 }
-                
-                // reset any resources internally
+
+                // reset any internal resources
                 this.reset();
-
-                // shutdown the metafacade factory instance
-                MetafacadeFactory.getInstance().shutdown();
-
-                // shutdown the namespaces instance
-                Namespaces.instance().shutdown();
-
-                // shutdown the container instance
-                ComponentContainer.instance().shutdown();
-                
-                // shutdown the plugin discoverer instance
-                PluginDiscoverer.instance().shutdown();
-                
-                // shutdown the profile instance
-                Profile.instance().shutdown();
             }
         }
         else
         {
             AndroMDALogger.warn("No model(s) found to process");
         }
+        AndroMDALogger.shutdown();
     }
 
     /**
@@ -164,8 +138,7 @@ public class ModelProcessor
      * @param models the Model(s) to process.
      * @param cartridges the collection of cartridge used to process the models.
      */
-    private void processModels(
-        final Model[] models)
+    private void processModels(final Model[] models)
     {
         final String methodName = "ModelProcessor.process";
 
@@ -195,45 +168,40 @@ public class ModelProcessor
 
             if (lastModifiedCheck ? ResourceWriter.instance().isHistoryBefore(lastModified) : true)
             {
-                // discover all plugins
-                PluginDiscoverer.instance().discoverPlugins();
-                MetafacadeFactory.getInstance().initialize();
-                Mappings.initializeLogicalMappings();
-
                 final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
                 if (cartridges.isEmpty())
                 {
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
                 }
-
-                // read all models into the repository
-                for (int ctr = 0; ctr < models.length; ctr++)
-                {
-                    final Model model = models[ctr];
-                    final Transformer transformer = XslTransformer.instance();
-                    final InputStream stream = transformer.transform(
-                            model.getUri(),
-                            this.getTransformations());
-                    this.repository.readModel(
-                        stream,
-                        model.getUri().toString(),
-                        model.getModuleSearchLocations());
-                    modelPackages.addPackages(model.getPackages());
-                }
-
-                final CodeGenerationContext context = new CodeGenerationContext(this.repository, modelPackages);
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
                     cartridgeName = cartridge.getName();
                     if (this.shouldProcess(cartridgeName))
                     {
-                            cartridge.initialize();
+                        cartridge.initialize();
+
+                        // process each model
+                        for (int ctr = 0; ctr < models.length; ctr++)
+                        {
+                            final Model model = models[ctr];
+                            final Transformer transformer = XslTransformer.instance();
+                            InputStream stream = transformer.transform(
+                                    model.getUri(),
+                                    this.getTransformations());
+                            this.loadModelIfNecessary(stream, model);
+                            stream.close();
+                            stream = null;
+                            modelPackages.addPackages(model.getPackages());
+                            final CodeGenerationContext context =
+                                new CodeGenerationContext(this.repository, modelPackages);
                             cartridge.processModelElements(context);
-                            cartridge.shutdown();
+                            ResourceWriter.instance().writeHistory();
+                        }
+
+                        cartridge.shutdown();
                     }
                 }
-                ResourceWriter.instance().writeHistory();
             }
         }
         catch (final Throwable throwable)
@@ -243,6 +211,60 @@ public class ModelProcessor
             logger.error(errorMesssage);
             ExceptionRecorder.instance().record(errorMesssage, throwable, cartridgeName);
             throw new ModelProcessorException(errorMesssage, throwable);
+        }
+    }
+
+    /**
+     * Initializes this model processor instance.
+     */
+    public void initialize()
+    {
+        AndroMDALogger.initialize();
+        this.printConsoleHeader();
+        PluginDiscoverer.instance().discoverPlugins();
+        MetafacadeFactory.getInstance().initialize();
+        Mappings.initializeLogicalMappings();
+        if (this.repository == null)
+        {
+            this.repository = (RepositoryFacade)ComponentContainer.instance().findComponent(RepositoryFacade.class);
+            if (this.repository == null)
+            {
+                throw new ModelProcessorException(
+                    "No Repository could be found, " + "please make sure you have a " +
+                    RepositoryFacade.class.getName() + " instance on your classpath");
+            }
+            this.repository.open();
+        }
+    }
+
+    /**
+     * Stores the last modified times for each model that has been
+     * loaded into the repository.
+     */
+    private final Map modelModifiedTimes = new HashMap();
+
+    /**
+     * Loads the model into the repository only when necessary (the model has a timestamp
+     * later than the last timestamp of the loaded model).
+     *
+     * @param stream the InputStream that contains the actual model
+     * @param model the model to be loaded.
+     */
+    private final void loadModelIfNecessary(
+        final InputStream stream,
+        final Model model)
+    {
+        final String uri = model.getUri().toString();
+        final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(uri);
+        if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
+        {
+            this.repository.readModel(
+                stream,
+                uri,
+                model.getModuleSearchLocations());
+            this.modelModifiedTimes.put(
+                uri,
+                new Long(model.getLastModified()));
         }
     }
 
@@ -260,7 +282,7 @@ public class ModelProcessor
         AndroMDALogger.info("A n d r o M D A  -  " + VERSION);
         AndroMDALogger.info("");
     }
-    
+
     /**
      * Stores whether or not to process all model packages
      */
@@ -307,12 +329,12 @@ public class ModelProcessor
     {
         this.failOnValidationErrors = failOnValidationErrors;
     }
-    
+
     /**
      * Stores the cartridge filter.
      */
     private List cartridgeFilter = null;
-  
+
     /**
      * Denotes whether or not the complement of filtered cartridges should be processed
      */
@@ -464,27 +486,42 @@ public class ModelProcessor
             });
         return (Model[])validModels.toArray(new Model[0]);
     }
-    
+
     /**
-     * The repository instance which loads the models to 
+     * The repository instance which loads the models to
      * be processed.
      */
     private RepositoryFacade repository;
-    
+
     /**
      * Shuts down the model processor (reclaims any
      * resources).
      */
     public void shutdown()
     {
+        // shutdown the metafacade factory instance
+        MetafacadeFactory.getInstance().shutdown();
+
+        // shutdown the namespaces instance
+        Namespaces.instance().shutdown();
+
+        // shutdown the container instance
+        ComponentContainer.instance().shutdown();
+
+        // shutdown the plugin discoverer instance
+        PluginDiscoverer.instance().shutdown();
+
+        // shutdown the profile instance
+        Profile.instance().shutdown();
+
         if (this.repository != null)
         {
-            this.repository.close();
-            this.repository = null;
+            this.repository.clear();
         }
+
         instance = null;
     }
-    
+
     /**
      * Reinitializes the model processor's resources.
      */

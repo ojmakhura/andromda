@@ -28,6 +28,12 @@ public class ConfigurationTest
         assertEquals("cartridgeFilter",  property2.getName());
         assertEquals("${filter}", property2.getValue());
         
+        // server
+        final Server server = configuration.getServer();
+        assertNotNull(server);
+        assertEquals("localhost", server.getHost());
+        assertEquals(4444, server.getPort());
+        
         // models
         assertEquals(2, configuration.getModels().length);
         final Model model1 = configuration.getModels()[0];

@@ -1,14 +1,9 @@
 package org.andromda.maven;
 
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
+import org.andromda.core.server.Server;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
@@ -16,12 +11,20 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.jelly.MavenJellyContext;
 
+import java.io.FileNotFoundException;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 /**
  * This task is used with the AndroMDA Maven plugin.
  *
  * @author Chad Brandon
- * @see org.andromda.core.ModelProcessor
+ * @see org.andromda.core.engine.ModelProcessor
  */
 public class AndroMDARunner
 {
@@ -63,14 +66,9 @@ public class AndroMDARunner
         Thread.currentThread().setContextClassLoader(AndroMDARunner.class.getClassLoader());
         try
         {
-            final Configuration configuration =
-                Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(new URL(this.configurationUri))));
-            configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
-            final AndroMDA andromda = AndroMDA.getInstance(configuration);
-            if (andromda != null)
-            {
-                andromda.run();
-            }
+            final AndroMDA andromda = AndroMDA.newInstance();
+            andromda.run(this.getConfiguration());
+            andromda.shutdown();
         }
         catch (Throwable throwable)
         {
@@ -85,7 +83,7 @@ public class AndroMDARunner
             }
             else if (throwable instanceof MalformedURLException)
             {
-                throw new RuntimeException("Configuration is not a valid URI --> '" + configurationUri + "'");                
+                throw new RuntimeException("Configuration is not a valid URI --> '" + configurationUri + "'");
             }
             throw new RuntimeException(throwable);
         }
@@ -97,7 +95,44 @@ public class AndroMDARunner
             Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
         }
     }
+
+    /**
+     * Creates the Configuration instance from the {@link #configurationUri}
+     * @return the configuration instance
+     * @throws MalformedURLException if the URL is invalid.
+     */
+    private Configuration getConfiguration()
+        throws MalformedURLException
+    {
+        final Configuration configuration =
+            Configuration.getInstance(
+                this.replaceProperties(ResourceUtils.getContents(new URL(this.configurationUri))));
+        configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
+        return configuration;
+    }
     
+    private Server server = Server.newInstance();
+
+    /**
+     * Starts the AndroMDA server instance listening
+     * for requests.
+     *
+     * @throws MalformedURLException
+     */
+    public void startServer()
+        throws MalformedURLException
+    {
+        this.server.start(this.getConfiguration());
+    }
+    
+    /**
+     * Stops the AndroMDA server instance.
+     */
+    public void stopServer()
+    {
+        this.server.shutdown();
+    }
+
     /**
      * The maven jelly context.
      */
@@ -160,6 +195,7 @@ public class AndroMDARunner
                 }
             }
         }
+
         // remove any left over property references
         string = AndroMDAMavenUtils.removePropertyReferences(string);
         return string;

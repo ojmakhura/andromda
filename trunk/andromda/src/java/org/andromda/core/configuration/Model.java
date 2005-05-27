@@ -1,6 +1,7 @@
 package org.andromda.core.configuration;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Collection;
  * @author Chad Brandon
  */
 public class Model
+    implements Serializable
 {
     /**
      * Stores whether or not a last modified check

@@ -23,7 +23,7 @@ import org.apache.tools.ant.taskdefs.MatchingTask;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
- * @see org.andromda.core.ModelProcessor
+ * @see org.andromda.core.engine.ModelProcessor
  */
 public class AndroMDAGenTask
     extends MatchingTask
@@ -74,10 +74,10 @@ public class AndroMDAGenTask
             }
             final Configuration configuration =
                 Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(configurationUri)));
-            final AndroMDA andromda = AndroMDA.getInstance(configuration);
+            final AndroMDA andromda = AndroMDA.newInstance();
             if (andromda != null)
             {
-                andromda.run();
+                andromda.run(configuration);
                 andromda.shutdown();
             }
         }
