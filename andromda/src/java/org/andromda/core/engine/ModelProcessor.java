@@ -1,17 +1,5 @@
 package org.andromda.core.engine;
 
-import java.io.InputStream;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
@@ -38,6 +26,20 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.io.InputStream;
+
+import java.text.Collator;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -92,34 +94,39 @@ public class ModelProcessor
             }
             finally
             {
-                // log all the error messages
-                Collection messages = MetafacadeFactory.getInstance().getValidationMessages();
-                final StringBuffer totalMessagesMessage = new StringBuffer();
-                if (messages != null && !messages.isEmpty())
+                try
                 {
-                    totalMessagesMessage.append(" - ");
-                    totalMessagesMessage.append(messages.size());
-                    totalMessagesMessage.append(" VALIDATION ERROR(S)");
-                    messages = this.sortValidationMessages(messages);
-                    AndroMDALogger.setSuffix("VALIDATION:ERROR");
-                    final Iterator messageIt = messages.iterator();
-                    for (int ctr = 1; messageIt.hasNext(); ctr++)
+                    // log all the error messages
+                    Collection messages = MetafacadeFactory.getInstance().getValidationMessages();
+                    final StringBuffer totalMessagesMessage = new StringBuffer();
+                    if (messages != null && !messages.isEmpty())
                     {
-                        final ModelValidationMessage message = (ModelValidationMessage)messageIt.next();
-                        AndroMDALogger.error(ctr + ") " + message);
+                        totalMessagesMessage.append(" - ");
+                        totalMessagesMessage.append(messages.size());
+                        totalMessagesMessage.append(" VALIDATION ERROR(S)");
+                        messages = this.sortValidationMessages(messages);
+                        AndroMDALogger.setSuffix("VALIDATION:ERROR");
+                        final Iterator messageIt = messages.iterator();
+                        for (int ctr = 1; messageIt.hasNext(); ctr++)
+                        {
+                            final ModelValidationMessage message = (ModelValidationMessage)messageIt.next();
+                            AndroMDALogger.error(ctr + ") " + message);
+                        }
+                        AndroMDALogger.reset();
                     }
-                    AndroMDALogger.reset();
-                }                
-                AndroMDALogger.info(
-                    "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
-                    "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount() + totalMessagesMessage);            
-                
-                // reset any internal resources
-                this.reset();
-                
-                if (this.failOnValidationErrors && !messages.isEmpty())
+                    AndroMDALogger.info(
+                        "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
+                        "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount() +
+                        totalMessagesMessage);
+                    if (this.failOnValidationErrors && !messages.isEmpty())
+                    {
+                        throw new ModelValidationException("Model validation failed!");
+                    }
+                }
+                finally
                 {
-                    throw new ModelValidationException("Model validation failed!");
+                    // reset any internal resources
+                    this.reset();
                 }
             }
         }
@@ -231,7 +238,8 @@ public class ModelProcessor
             {
                 throw new ModelProcessorException(
                     "No repository implementation could be found, please make sure you have a '" +
-                    container.getComponentDefaultConfigurationPath(RepositoryFacade.class) + "' file on your classpath");
+                    container.getComponentDefaultConfigurationPath(RepositoryFacade.class) +
+                    "' file on your classpath");
             }
             this.repository.open();
         }
