@@ -11,10 +11,11 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.metafacades.uml.ManageableEntityAttribute
  */
 public class ManageableEntityAttributeLogicImpl
-        extends ManageableEntityAttributeLogic
+    extends ManageableEntityAttributeLogic
 {
-
-    public ManageableEntityAttributeLogicImpl(Object metaObject, String context)
+    public ManageableEntityAttributeLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -27,32 +28,39 @@ public class ManageableEntityAttributeLogicImpl
         boolean display = true;
 
         // only identifiers might be hidden
-        if (isIdentifier())
+        if (this.isIdentifier())
         {
-            final String displayStrategy = StringUtils.trimToNull((String)getConfiguredProperty(
-                    UMLMetafacadeProperties.MANAGEABLE_ID_DISPLAY_STRATEGY));
+            final String displayStrategy =
+                StringUtils.trimToNull(
+                    (String)this.getConfiguredProperty(UMLMetafacadeProperties.MANAGEABLE_ID_DISPLAY_STRATEGY));
+
             // never display identifiers
             if ("never".equalsIgnoreCase(displayStrategy))
             {
                 display = false;
             }
+
             // always display identifiers
             else if ("always".equalsIgnoreCase(displayStrategy))
             {
                 display = true;
             }
+
             // only display identifiers when explicitely modeled
             else // if ("auto".equalsIgnoreCase(displayStrategy))
             {
-                display = ((Entity)getOwner()).isUsingAssignedIdentifier();
+                display = ((Entity)this.getOwner()).isUsingAssignedIdentifier();
             }
         }
 
         return display;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ManageableEntityAttribute#isManageableGetterAvailable()
+     */
     protected boolean handleIsManageableGetterAvailable()
     {
-        return getType().isBlobType();
+        return this.getType() != null ? this.getType().isBlobType() : false;
     }
 }
