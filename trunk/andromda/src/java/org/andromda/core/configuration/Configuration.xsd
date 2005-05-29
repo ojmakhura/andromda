@@ -43,6 +43,7 @@
             <xs:attribute name="lastModifiedCheck" type="xs:boolean" use="optional"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="modelLoadInterval" type="xs:integer"/>
     <xs:element name="modelPackage">
         <xs:complexType>
             <xs:simpleContent>
@@ -104,6 +105,7 @@
 			<xs:sequence>
 				<xs:element ref="host"/>
 				<xs:element ref="port"/>
+                <xs:element ref="modelLoadInterval" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

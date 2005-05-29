@@ -1,11 +1,15 @@
 package org.andromda.core.configuration;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+
 import java.net.URL;
 import java.net.URLConnection;
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 /**
  * Stores the processing information for each model that AndroMDA will process.
@@ -30,11 +34,11 @@ public class Model
     {
         return lastModifiedCheck;
     }
-    
+
     /**
      * Sets whether or not to perform a last modified check when processing the model. If
      * <code>true</code> the model will be checked for a timestamp before processing occurs.
-     * 
+     *
      * @param lastModifiedCheck true/false
      */
     public void setLastModifiedCheck(final boolean lastModifiedCheck)
@@ -61,14 +65,14 @@ public class Model
     /**
      * Adds a model package that indicates what should/shouldn't
      * be processed.
-     * 
+     *
      * @param packages the packages to process.
      */
     public void addPackage(final ModelPackage modelPackage)
     {
         this.packages.addPackage(modelPackage);
     }
-    
+
     /**
      * The URL to the model.
      */
@@ -83,16 +87,17 @@ public class Model
     {
         return uri;
     }
-    
+
     /**
      * Sets the URL to the actual model file.
      * @param uri the model URL.
      */
-    public void setUri(final String uri) throws Exception
+    public void setUri(final String uri)
+        throws Exception
     {
         try
         {
-            this.uri = new URL(uri);
+            this.uri = new URL(uri.replace('\\', '/'));
         }
         catch (final Throwable throwable)
         {
@@ -147,9 +152,17 @@ public class Model
         long lastModified;
         try
         {
-            URLConnection uriConnection = uri.openConnection();
-            lastModified = uriConnection.getLastModified();
-            uriConnection = null;
+            final File file = new File(uri.getFile());
+            if (file.exists())
+            {
+                lastModified = file.lastModified();
+            }
+            else
+            {
+                URLConnection uriConnection = uri.openConnection();
+                lastModified = uriConnection.getLastModified();
+                uriConnection = null;
+            }
         }
         catch (Exception ex)
         {
