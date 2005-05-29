@@ -58,7 +58,11 @@ public class DefaultServer
                     try
                     {
                         this.listener = new ServerSocket(serverConfiguration.getPort());
-                        this.listener.setSoTimeout(serverConfiguration.getModelLoadInterval());
+                        final int modelLoadInterval = serverConfiguration.getModelLoadInterval();
+                        if (modelLoadInterval > 0)
+                        {
+                            this.listener.setSoTimeout(serverConfiguration.getModelLoadInterval());
+                        }
                     }
                     catch (final IOException exception)
                     {
