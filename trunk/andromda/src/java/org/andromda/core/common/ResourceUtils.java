@@ -271,10 +271,10 @@ public class ResourceUtils
     }
 
     /**
-     * Private helper method.
+     * Gets the class name as a resource.
      *
-     * @param className
-     * @return String
+     * @param className the name of the class.
+     * @return the class name as a resource path.
      */
     private static String getClassNameAsResource(final String className)
     {
