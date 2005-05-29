@@ -1,17 +1,16 @@
 package org.andromda.core.server;
 
-import org.andromda.core.configuration.Configuration;
-import org.andromda.core.engine.Engine;
-import org.apache.log4j.Logger;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+
+import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.configuration.Configuration;
+import org.andromda.core.engine.Engine;
 
 
 /**
@@ -22,11 +21,6 @@ import java.net.SocketTimeoutException;
 public class DefaultServer
     implements Server
 {
-    /**
-     * The logger instance.
-     */
-    private static final Logger logger = Logger.getLogger(DefaultServer.class);
-
     /**
      * The message sent to the client when AndroMDA processing has completed.
      */
@@ -77,7 +71,6 @@ public class DefaultServer
                             final Socket client = this.listener.accept();
                             if (client != null)
                             {
-                                //final PrintWriter serverOutput = new PrintWriter(client.getOutputStream(), true);
                                 final ObjectOutputStream serverOutput =
                                     new ObjectOutputStream(client.getOutputStream());
                                 final ObjectInputStream objectInput =
@@ -88,7 +81,7 @@ public class DefaultServer
                                 }
                                 catch (final Throwable throwable)
                                 {
-                                    logger.error(throwable);
+                                    AndroMDALogger.error(throwable);
 
                                     // pass the exception to the client
                                     serverOutput.writeObject(throwable);
