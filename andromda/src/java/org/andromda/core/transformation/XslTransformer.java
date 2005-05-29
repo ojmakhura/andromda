@@ -110,9 +110,9 @@ public class XslTransformer
             }
             return stream;
         } 
-        catch (Exception ex)
+        catch (final Exception exception)
         {
-            throw new XslTransformerException(ex);
+            throw new XslTransformerException(exception);
         }
     }
     

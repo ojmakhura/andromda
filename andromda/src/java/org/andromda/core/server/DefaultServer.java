@@ -58,10 +58,10 @@ public class DefaultServer
                     try
                     {
                         this.listener = new ServerSocket(serverConfiguration.getPort());
-                        final int modelLoadInterval = serverConfiguration.getModelLoadInterval();
+                        final int modelLoadInterval = serverConfiguration.getLoadInterval();
                         if (modelLoadInterval > 0)
                         {
-                            this.listener.setSoTimeout(serverConfiguration.getModelLoadInterval());
+                            this.listener.setSoTimeout(serverConfiguration.getLoadInterval());
                         }
                     }
                     catch (final IOException exception)
@@ -104,7 +104,21 @@ public class DefaultServer
                         }
                         catch (final SocketTimeoutException exception)
                         {
-                            this.engine.loadModelsIfNecessary(configuration);
+                            try
+                            {
+                                this.engine.loadModelsIfNecessary(configuration);
+                                this.resetFailedLoadAttempts();
+                            }
+                            catch (final Throwable throwable)
+                            {
+                                this.incrementFailedLoadAttempts();
+
+                                // only fail if the failed load attempts is greater than the maximum
+                                if (this.failedLoadAttempts > serverConfiguration.getMaximumFailedLoadAttempts())
+                                {
+                                    throw throwable;
+                                }
+                            }
                         }
                     }
                 }
@@ -114,6 +128,27 @@ public class DefaultServer
                 }
             }
         }
+    }
+
+    /**
+     * Stores the failed load attempts.
+     */
+    private int failedLoadAttempts;
+
+    /**
+     * Resets the failed load attempt counter.
+     */
+    private void resetFailedLoadAttempts()
+    {
+        this.failedLoadAttempts = 0;
+    }
+
+    /**
+     * Increments the failed load attempt counter.
+     */
+    private void incrementFailedLoadAttempts()
+    {
+        this.failedLoadAttempts++;
     }
 
     /**

@@ -71,30 +71,61 @@ public class Server
      * The interval at which the server loads
      * model(s) (if a load is required).
      */
-    private int modelLoadInterval = 1000;
+    private int loadInterval = 1000;
 
     /**
      * Gets the interval at which model(s) are
-     * Loaded (if required).
+     * loaded (if required).
      *
      * @return Returns the model Load interval
      */
-    public int getModelLoadInterval()
+    public int getLoadInterval()
     {
-        return modelLoadInterval;
+        return loadInterval;
     }
 
     /**
      * Sets the interval at which model(s) should be
      * loaded (if an initial load or Load is required).
      *
-     * @param modelLoadInterval The loadInterval to set.
+     * @param loadInterval The loadInterval to set.
      */
-    public void setModelLoadInterval(final String modelLoadInterval)
+    public void setLoadInterval(final String loadInterval)
     {
-        if (StringUtils.isNotBlank(modelLoadInterval))
+        if (StringUtils.isNotBlank(loadInterval))
         {
-            this.modelLoadInterval = new Integer(modelLoadInterval).intValue();
+            this.loadInterval = new Integer(loadInterval).intValue();
+        }
+    }
+
+    /**
+     * The maximum number of failed model load attempts
+     * that can occur before we fail.
+     */
+    private int maximumFailedLoadAttempts = 10;
+
+    /**
+     * Gets the maximum number of failed model load attempts
+     * that can occur before we fail.
+     *
+     * @return Returns the maximumFailedLoadAttempts.
+     */
+    public int getMaximumFailedLoadAttempts()
+    {
+        return this.maximumFailedLoadAttempts;
+    }
+
+    /**
+     * Sets the maximum number of failed model load attempts
+     * that can occur before we fail.
+     *
+     * @param maximumFailedLoadAttempts The maximumFailedLoadAttempts to set.
+     */
+    public void setMaximumFailedLoadAttempts(final String maximumFailedLoadAttempts)
+    {
+        if (StringUtils.isNotBlank(maximumFailedLoadAttempts))
+        {
+            this.maximumFailedLoadAttempts = Integer.parseInt(maximumFailedLoadAttempts);
         }
     }
 }

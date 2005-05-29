@@ -123,7 +123,7 @@ public class ResourceUtils
             final ZipFile archive = getArchive(resource);
             if (archive != null)
             {
-                for (Enumeration entries = archive.entries(); entries.hasMoreElements();)
+                for (final Enumeration entries = archive.entries(); entries.hasMoreElements();)
                 {
                     final ZipEntry entry = (ZipEntry)entries.nextElement();
                     contents.add(entry.getName());
@@ -214,17 +214,16 @@ public class ResourceUtils
      */
     public static boolean isArchive(final URL resource)
     {
-        return (resource != null) && resource.toString().startsWith(ARCHIVE_PREFIX);
+        return resource != null && resource.toString().startsWith(ARCHIVE_PREFIX);
     }
 
     /**
-     * If this <code>resource</code> is an archive file, it will return the resource as archive.
+     * If this <code>resource</code> is an archive file, it will return the resource as an archive.
      *
      * @return the archive as a ZipFile
      */
     public static ZipFile getArchive(final URL resource)
     {
-        final String methodName = "ResourceUtils.getArchive";
         try
         {
             ZipFile archive = null;
@@ -232,7 +231,7 @@ public class ResourceUtils
             {
                 String resourceUrl = resource.toString();
                 resourceUrl = resourceUrl.replaceFirst(ARCHIVE_PREFIX, "");
-                int entryPrefixIndex = resourceUrl.indexOf('!');
+                final int entryPrefixIndex = resourceUrl.indexOf('!');
                 if (entryPrefixIndex != -1)
                 {
                     resourceUrl = resourceUrl.substring(0, entryPrefixIndex);
@@ -241,11 +240,9 @@ public class ResourceUtils
             }
             return archive;
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
-            throw new PluginException(errMsg, th);
+            throw new RuntimeException(throwable);
         }
     }
 
@@ -318,7 +315,7 @@ public class ResourceUtils
                 {
                     return file.toURL();
                 }
-                catch (MalformedURLException ex)
+                catch (final MalformedURLException exception)
                 {
                     logger.warn(
                         "'" + file + "' is an invalid resource," + " attempting to find resource '" + resourceName +
@@ -330,9 +327,9 @@ public class ResourceUtils
     }
 
     /**
-     * <p/>
-     * Retrieves a resource from an optionally given <code>directory</code> or from the package on the classpath. </p>
-     * <p/>
+     * <p>
+     * Retrieves a resource from an optionally given <code>directory</code> or from the package on the classpath.
+     * </p>
      * If the directory is specified and is a valid directory then an attempt at finding the resource by appending the
      * <code>resourceName</code> to the given <code>directory</code> will be made, otherwise an attempt to find the
      * <code>resourceName</code> directly on the classpath will be initiated. </p>
