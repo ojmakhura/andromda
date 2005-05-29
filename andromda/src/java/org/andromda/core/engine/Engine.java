@@ -51,7 +51,8 @@ public class Engine
 
     /**
      * Checks to see if any of the models in the given configuration
-     * should be loaded, and if so, performs the load.  This way the
+     * should be loaded (based on whether or not they've been modified),
+     * and if so, performs the load.  This way the
      * models are loaded for the next run of the model processor.
      */
     public void loadModelsIfNecessary(final Configuration configuration)
