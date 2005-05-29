@@ -64,7 +64,7 @@ Please define the location of your AndroMDA configuration by setting a value for
         </maven:param-check>
     </goal>
     
-    <goal name="andromda:server${bootstrap}"
+    <goal name="andromda:start-server${bootstrap}"
           description="Starts the AndroMDA server instance">       
         <j:choose>
             <j:when test="${bootstrapMode}">
