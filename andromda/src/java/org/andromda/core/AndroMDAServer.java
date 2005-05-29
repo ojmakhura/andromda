@@ -58,15 +58,14 @@ public class AndroMDAServer
             throw new ServerException("You must specify a valid 'configuration' in order to start the server");
         }
         final org.andromda.core.configuration.Server serverConfiguration = configuration.getServer();
-        if (serverConfiguration  == null)
+        if (serverConfiguration == null)
         {
             AndroMDALogger.warn(
-                "Can not start the server, you must define the " +
-                "server element within your AndroMDA configuration");
+                "Can not start the server, you must define the " + "server element within your AndroMDA configuration");
         }
         else
         {
-            this.server.start(serverConfiguration);
+            this.server.start(configuration);
         }
     }
 

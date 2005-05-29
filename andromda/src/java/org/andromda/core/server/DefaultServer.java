@@ -1,19 +1,22 @@
 package org.andromda.core.server;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.engine.Engine;
 import org.apache.log4j.Logger;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+
+
 /**
  * The default AndroMDA {@link Server instance}.
- * 
+ *
  * @author Chad Brandon
  */
 public class DefaultServer
@@ -42,54 +45,69 @@ public class DefaultServer
     /**
      * @see org.andromda.core.server.Server#start(org.andromda.core.configuration.Server)
      */
-    public void start(final org.andromda.core.configuration.Server configuration)
+    public void start(final Configuration configuration)
     {
         engine.initialize();
         if (configuration != null)
         {
-            try
+            final org.andromda.core.configuration.Server serverConfiguration = configuration.getServer();
+            if (serverConfiguration != null)
             {
                 try
                 {
-                    this.listener = new ServerSocket(configuration.getPort());
-                }
-                catch (final IOException exception)
-                {
-                    throw new ServerException("Could not listen on port '" + configuration.getPort()
-                        + "', change the port in your configuration");
-                }
-                while (true)
-                {
-                    final Socket client = this.listener.accept();
-                    if (client != null)
+                    try
                     {
-                        //final PrintWriter serverOutput = new PrintWriter(client.getOutputStream(), true);
-                        final ObjectOutputStream serverOutput = new ObjectOutputStream(client.getOutputStream());
-                        final ObjectInputStream objectInput = new ObjectInputStream(new DataInputStream(
-                            client.getInputStream()));
+                        this.listener = new ServerSocket(serverConfiguration.getPort());
+                        this.listener.setSoTimeout(serverConfiguration.getModelLoadInterval());
+                    }
+                    catch (final IOException exception)
+                    {
+                        throw new ServerException(
+                            "Could not listen on port '" + serverConfiguration.getPort() +
+                            "', change the port in your configuration");
+                    }
+                    while (true)
+                    {
                         try
                         {
-                            this.engine.run((Configuration)objectInput.readObject());
-                        }
-                        catch (final Throwable throwable)
-                        {
-                            logger.error(throwable);
-                            // pass the exception to the client
-                            serverOutput.writeObject(throwable);
-                        }
+                            final Socket client = this.listener.accept();
+                            if (client != null)
+                            {
+                                //final PrintWriter serverOutput = new PrintWriter(client.getOutputStream(), true);
+                                final ObjectOutputStream serverOutput =
+                                    new ObjectOutputStream(client.getOutputStream());
+                                final ObjectInputStream objectInput =
+                                    new ObjectInputStream(new DataInputStream(client.getInputStream()));
+                                try
+                                {
+                                    this.engine.run((Configuration)objectInput.readObject());
+                                }
+                                catch (final Throwable throwable)
+                                {
+                                    logger.error(throwable);
 
-                        // signal to the client, it can stop waiting
-                        serverOutput.writeObject(COMPLETE);
-                        serverOutput.flush();
-                        serverOutput.close();
-                        objectInput.close();
-                        client.close();
+                                    // pass the exception to the client
+                                    serverOutput.writeObject(throwable);
+                                }
+
+                                // signal to the client, it can stop waiting
+                                serverOutput.writeObject(COMPLETE);
+                                serverOutput.flush();
+                                serverOutput.close();
+                                objectInput.close();
+                                client.close();
+                            }
+                        }
+                        catch (final SocketTimeoutException exception)
+                        {
+                            this.engine.loadModelsIfNecessary(configuration);
+                        }
                     }
                 }
-            }
-            catch (final Throwable throwable)
-            {
-                throw new ServerException(throwable);
+                catch (final Throwable throwable)
+                {
+                    throw new ServerException(throwable);
+                }
             }
         }
     }

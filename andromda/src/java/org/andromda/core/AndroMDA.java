@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.URL;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.engine.Engine;
@@ -47,7 +48,8 @@ public class AndroMDA
 
     private AndroMDA()
     {
-        engine = Engine.newInstance();
+        AndroMDALogger.initialize();
+        this.engine = Engine.newInstance();
     }
 
     /**

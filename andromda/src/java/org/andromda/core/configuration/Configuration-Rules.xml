@@ -55,6 +55,17 @@
                     paramnumber="0"/>
 
             </pattern>
+            
+            <pattern value="modelLoadInterval">
+
+                <call-method-rule
+                    methodname="setModelLoadInterval"
+                    paramcount="1"/>
+
+                <call-param-rule
+                    paramnumber="0"/>
+
+            </pattern>
 
             <set-next-rule methodname="setServer" />
             

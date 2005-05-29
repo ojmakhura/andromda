@@ -7,7 +7,7 @@ import org.andromda.core.configuration.Property;
 
 
 /**
- * The <em>engine</em> of AndroMDA. Handles the configuration of AndroMDA and 
+ * The <em>engine</em> of AndroMDA. Handles the configuration of AndroMDA and
  * loading/processing of models by plugins. Basically a wrapper around the {@link ModelProcessor}
  * that takes a configuration file in order to configure AndroMDA.
  *
@@ -28,10 +28,16 @@ public class Engine
     {
         return new Engine();
     }
-    
+
+    /**
+     * The model processor for this engine.
+     */
+    private ModelProcessor modelProcessor;
+
     private Engine()
     {
         // do not allow instantiation
+        this.modelProcessor = ModelProcessor.newInstance();
     }
 
     /**
@@ -39,8 +45,21 @@ public class Engine
      */
     public void initialize()
     {
-        ModelProcessor.instance().initialize();
+        this.modelProcessor.initialize();
         AndroMDALogger.info("- core initialization complete -");
+    }
+
+    /**
+     * Checks to see if any of the models in the given configuration
+     * should be loaded, and if so, performs the load.  This way the
+     * models are loaded for the next run of the model processor.
+     */
+    public void loadModelsIfNecessary(final Configuration configuration)
+    {
+        if (configuration != null)
+        {
+            this.modelProcessor.loadIfNecessary(configuration.getModels());
+        }
     }
 
     /**
@@ -56,8 +75,7 @@ public class Engine
         if (configuration != null)
         {
             configuration.initialize();
-            final ModelProcessor processor = ModelProcessor.instance();
-            processor.addTransformations(configuration.getTransformations());
+            this.modelProcessor.addTransformations(configuration.getTransformations());
             final Property[] properties = configuration.getProperties();
             final int propertyNumber = properties.length;
             for (int ctr = 0; ctr < propertyNumber; ctr++)
@@ -66,7 +84,7 @@ public class Engine
                 try
                 {
                     PropertyUtils.setProperty(
-                        processor,
+                        this.modelProcessor,
                         property.getName(),
                         property.getValue());
                 }
@@ -77,7 +95,7 @@ public class Engine
                         property.getValue() + "'");
                 }
             }
-            processor.process(configuration.getModels());
+            this.modelProcessor.process(configuration.getModels());
         }
     }
 
@@ -86,6 +104,6 @@ public class Engine
      */
     public void shutdown()
     {
-        ModelProcessor.instance().shutdown();
+        this.modelProcessor.shutdown();
     }
 }

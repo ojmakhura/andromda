@@ -27,7 +27,11 @@ import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+
+import java.net.URL;
 
 import java.text.Collator;
 
@@ -58,22 +62,18 @@ public class ModelProcessor
     private static final Logger logger = Logger.getLogger(ModelProcessor.class);
 
     /**
-     * The shared instance.
-     */
-    private static ModelProcessor instance = null;
-
-    /**
-     * Gets the shared instance of the ModelProcessor.
+     * Creates a new instance the ModelProcessor.
      *
      * @return the shared ModelProcessor instance.
      */
-    public static final ModelProcessor instance()
+    public static final ModelProcessor newInstance()
     {
-        if (instance == null)
-        {
-            instance = new ModelProcessor();
-        }
-        return instance;
+        return new ModelProcessor();
+    }
+
+    private ModelProcessor()
+    {
+        // don't allow instantiation
     }
 
     /**
@@ -83,14 +83,15 @@ public class ModelProcessor
      */
     public void process(Model[] models)
     {
-        AndroMDALogger.initialize();
         final long startTime = System.currentTimeMillis();
         models = this.filterInvalidModels(models);
         if (models.length > 0)
         {
             try
             {
+                this.processing = true;
                 this.processModels(models);
+                this.processing = false;
             }
             finally
             {
@@ -134,7 +135,6 @@ public class ModelProcessor
         {
             AndroMDALogger.warn("No model(s) found to process");
         }
-        AndroMDALogger.shutdown();
     }
 
     /**
@@ -157,12 +157,13 @@ public class ModelProcessor
             final ModelPackages modelPackages = new ModelPackages();
             modelPackages.setProcessAllPackages(this.processAllModelPackages);
 
+            final ResourceWriter writer = ResourceWriter.instance();
+
             // get the time from the model that has the latest modified time
             for (int ctr = 0; ctr < models.length; ctr++)
             {
                 final Model model = models[ctr];
-                ResourceWriter.instance().resetHistory(model.getUri());
-                AndroMDALogger.info("Input model --> '" + model.getUri() + "'");
+                writer.resetHistory(model.getUri());
                 lastModifiedCheck = model.isLastModifiedCheck() && lastModifiedCheck;
 
                 // we go off the model that was most recently modified.
@@ -172,7 +173,7 @@ public class ModelProcessor
                 }
             }
 
-            if (lastModifiedCheck ? ResourceWriter.instance().isHistoryBefore(lastModified) : true)
+            if (lastModifiedCheck ? writer.isHistoryBefore(lastModified) : true)
             {
                 final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
                 if (cartridges.isEmpty())
@@ -191,18 +192,10 @@ public class ModelProcessor
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
                             final Model model = models[ctr];
-                            final Transformer transformer = XslTransformer.instance();
-                            InputStream stream = transformer.transform(
-                                    model.getUri(),
-                                    this.getTransformations());
-                            this.loadModelIfNecessary(stream, model);
-                            stream.close();
-                            stream = null;
+                            this.loadModelIfNecessary(model);
                             modelPackages.addPackages(model.getPackages());
-                            final CodeGenerationContext context =
-                                new CodeGenerationContext(this.repository, modelPackages);
-                            cartridge.processModelElements(context);
-                            ResourceWriter.instance().writeHistory();
+                            cartridge.processModelElements(new CodeGenerationContext(this.repository, modelPackages));
+                            writer.writeHistory();
                         }
 
                         cartridge.shutdown();
@@ -225,7 +218,6 @@ public class ModelProcessor
      */
     public void initialize()
     {
-        AndroMDALogger.initialize();
         this.printConsoleHeader();
         PluginDiscoverer.instance().discoverPlugins();
         MetafacadeFactory.getInstance().initialize();
@@ -252,27 +244,85 @@ public class ModelProcessor
     private final Map modelModifiedTimes = new HashMap();
 
     /**
+     * A flag indicating if model processing is currently occuring.
+     */
+    private boolean processing = false;
+
+    /**
      * Loads the model into the repository only when necessary (the model has a timestamp
      * later than the last timestamp of the loaded model).
      *
-     * @param stream the InputStream that contains the actual model
      * @param model the model to be loaded.
      */
-    private final void loadModelIfNecessary(
-        final InputStream stream,
-        final Model model)
+    protected final void loadModelIfNecessary(final Model model)
     {
-        final String uri = model.getUri().toString();
-        final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(uri);
-        if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
+        try
         {
-            this.repository.readModel(
-                stream,
-                uri,
-                model.getModuleSearchLocations());
-            this.modelModifiedTimes.put(
-                uri,
-                new Long(model.getLastModified()));
+            final Object key = this.getModelModifiedKey(model.getUri());
+            final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(key);
+            if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
+            {
+                AndroMDALogger.info("Loading model --> '" + model.getUri() + "'");
+                final Transformer transformer = XslTransformer.instance();
+                final InputStream stream = transformer.transform(
+                        model.getUri(),
+                        this.getTransformations());
+                this.repository.readModel(
+                    stream,
+                    model.getUri().toString(),
+                    model.getModuleSearchLocations());
+                this.modelModifiedTimes.put(
+                    key,
+                    new Long(model.getLastModified()));
+                try
+                {
+                    stream.close();
+                }
+                catch (final IOException exception)
+                {
+                    // ignore
+                }
+            }
+        }
+        catch (final Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates the key used to retrieve the nodel last modified
+     * time.
+     *
+     * @param uri the model uri.
+     * @return the key
+     */
+    private Object getModelModifiedKey(URL uri)
+    {
+        final File uriFile = new File(uri.getFile());
+        Object key = uriFile;
+        if (!uriFile.isFile())
+        {
+            key = uri.toString();
+        }
+        return key;
+    }
+
+    /**
+     * Checks to see if <em>any</em> of the
+     * current <code>models</code> need to be
+     * reloaded, and if so reloads them.
+     */
+    void loadIfNecessary(final Model[] models)
+    {
+        // only allow loading when processing is not occurring.
+        if (!this.processing && (models != null && models.length > 0))
+        {
+            final int modelNumber = models.length;
+            for (int ctr = 0; ctr < modelNumber; ctr++)
+            {
+                this.loadModelIfNecessary(models[ctr]);
+            }
         }
     }
 
@@ -526,8 +576,6 @@ public class ModelProcessor
         {
             this.repository.clear();
         }
-
-        instance = null;
     }
 
     /**
