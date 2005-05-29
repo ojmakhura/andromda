@@ -256,37 +256,31 @@ public class ModelProcessor
      */
     protected final void loadModelIfNecessary(final Model model)
     {
-        try
+        final Object key = this.getModelModifiedKey(model.getUri());
+        final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(key);
+        if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
         {
-            final Object key = this.getModelModifiedKey(model.getUri());
-            final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(key);
-            if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
+            AndroMDALogger.info("Loading model --> '" + model.getUri() + "'");
+            final Transformer transformer = XslTransformer.instance();
+            InputStream stream = transformer.transform(
+                    model.getUri(),
+                    this.getTransformations());
+            this.repository.readModel(
+                stream,
+                model.getUri().toString(),
+                model.getModuleSearchLocations());
+            this.modelModifiedTimes.put(
+                key,
+                new Long(model.getLastModified()));
+            try
             {
-                AndroMDALogger.info("Loading model --> '" + model.getUri() + "'");
-                final Transformer transformer = XslTransformer.instance();
-                final InputStream stream = transformer.transform(
-                        model.getUri(),
-                        this.getTransformations());
-                this.repository.readModel(
-                    stream,
-                    model.getUri().toString(),
-                    model.getModuleSearchLocations());
-                this.modelModifiedTimes.put(
-                    key,
-                    new Long(model.getLastModified()));
-                try
-                {
-                    stream.close();
-                }
-                catch (final IOException exception)
-                {
-                    // ignore
-                }
+                stream.close();
+                stream = null;
             }
-        }
-        catch (final Exception exception)
-        {
-            exception.printStackTrace();
+            catch (final IOException exception)
+            {
+                // ignore
+            }
         }
     }
 
