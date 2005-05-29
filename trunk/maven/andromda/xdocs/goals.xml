@@ -23,6 +23,17 @@
 					information on how to configure this goal. 
 				</description>
 			</goal>
+			<goal>
+				<name>andromda:start-server</name>
+				<description> 
+					Starts the AndroMDA server instance.  When this is 
+                    running, modeling processing will occur on the server.  
+                    This dramatically helps to improve initialization
+                    and loading time when running AndroMDA because thoese things
+                    are taken care of in advance (before the model is actually
+                    processed).
+				</description>
+			</goal>
 		</goals>
   	</body>
 </document>
