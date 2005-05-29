@@ -20,28 +20,6 @@
             </answer>
         </faq>
 
-        <faq id="other-struts">
-            <question>There is another Struts cartridge shipping with AndroMDA, why is that ?</question>
-            <answer>
-                <p>
-                    The original Struts cartridge is legacy and only uses UML classes to model the application.
-                    While it is possible to work this way it makes more sense to use the dynamic modeling model
-                    elements available in modeling languages such as UML.
-                    Bpm4Struts is now the preferred cartridge to use. The other one
-                    should be considered deprecated.
-                </p>
-                <p>
-                    Bpm4struts is able to generate MUCH more for you and it uses activity
-                    graphs, which are more intuitive
-                </p>
-                <p>
-                    The previous struts cartridge simply used classes and would generate only
-                    skeleton code: you would not be able to deploy the webapp directly
-                    without adding code yourself, but with bpm4struts you can.
-                </p>
-            </answer>
-        </faq>
-
         <faq id="model-validation">
             <question>Is there a way to validate the correctness of my model ?</question>
             <answer>
@@ -75,7 +53,7 @@
                     There is the general documentation Bpm4Struts, there is a user-guide
                     and there is the how-to which serves as a small tutorial describing an example application.
                     All of this is hosted
-                    <a href="http://team.andromda.org/docs/andromda-bpm4struts-cartridge/index.html">here</a>.
+                    <a href="http://docs.andromda.org/andromda-bpm4struts-cartridge/index.html">here</a>.
                 </p>
             </answer>
         </faq>
@@ -105,8 +83,6 @@
                     in the user guide. Failing to do so will
                     confuse the cartridge and might have unpredicatable behavior such as exceptions or
                     undeployable Struts code.
-                    A typical example would to forget to tag the first transition in an activity
-                    graph with the FrontEndEvent stereotype.
                 </p>
                 <p>
                     Here are some common exceptions with a description and their resolution
@@ -126,7 +102,6 @@
                         <tr>
                             <td>ClassCastException at StrutsActivityGraphLogic.getController(StrutsActivityGraphLogic.java)</td>
                             <td>A controller was found but does not seem suited for bpm4struts.</td>
-                            <td>Make sure all your controller classes have the &lt;&lt;FrontEndController&gt;&gt; stereotype.</td>
                         </tr>
                         <tr>
                             <td>MethodInvocationException at class StrutsTriggerLogicImpl</td>
@@ -189,37 +164,24 @@
                         <li>create an activity graph in this use-case</li>
                         <li>add an initial state</li>
                         <li>add an action state "Action1"</li>
-                        <li>add a transition from the initial state into this action state,
-                            this transition needs the FrontEndEvent stereotype</li>
+                        <li>add a transition from the initial state into this action state</li>
                         <li>add another action state "Action2"</li>
                         <li>add a transition from "Action1" into "Action2"</li>
                         <li>add the FrontEndView stereotype to "Action2" (doing this will make
                             it a JSP page)</li>
                         <li>add a final state and give it the name of the use-case to forward
                             to (case-insensitive)</li>
-                        <li>add a transition from "Action2" into this final state, this
-                            transition needs the FrontEndEvent stereotype</li>
+                        <li>add a transition from "Action2" into this final state</li>
                         <li>because this transition is going out of an action state with the
                             FrontEndView stereotype it needs a trigger with a name and
                             optionally with some parameters (this will be rendered as a
                             submittable form)</li>
                         <li>Create a controller class, "ActionController"</li>
-                        <li>Give this class the FrontEndController stereotype</li>
                         <li>"assign" this controller class to the activity graph created in
                             step 3. (using MagicDraw you can do that easily)</li>
                         <li>optionally you can add operations to this controller and have an
                             action state defer to any of these operations</li>
                     </ol>
-                    That should be it, I always keep in mind these points:
-                    <ul>
-                        <li>the first transition (going out of the initial state) needs the
-                            FrontEndEvent stereotype</li>
-                        <li>transitions going out of action states with the FrontEndView
-                            stereotype need the FrontEndEvent stereotype and they need a
-                            trigger with a non-empty name</li>
-                        <li>do not forget to assign the controller class, and make sure it has
-                            the FrontEndController stereotype</li>
-                    </ul>
                 </p>
             </answer>
         </faq>
@@ -318,10 +280,9 @@
                     disabled by default too .. so you need to enable it.
                 </p>
                 <p>
-                    Using maven you will need to open up /your-project/mda/project.xml and in the bpm4struts
+                    Using maven you will need to open up <code>andromda.xml</code> and in the bpm4struts
                     namespace set 'security' to true.
                     <source>
-                        &lt;properties&gt;
                         &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
                         &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
                         &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
@@ -331,7 +292,6 @@
                         &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
                         &lt;security&gt;false&lt;/security&gt;    &lt;---- set to true to enable security
                         &lt;securityRealm&gt;other&lt;/securityRealm&gt;
-                        &lt;/properties&gt;
                     </source>
                 </p>
                 <p>
