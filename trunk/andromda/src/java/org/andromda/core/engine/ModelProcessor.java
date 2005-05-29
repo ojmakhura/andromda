@@ -260,11 +260,11 @@ public class ModelProcessor
         final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(key);
         if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
         {
-            AndroMDALogger.info("Loading model --> '" + model.getUri() + "'");
             final Transformer transformer = XslTransformer.instance();
             InputStream stream = transformer.transform(
                     model.getUri(),
                     this.getTransformations());
+            AndroMDALogger.info("Loading model --> '" + model.getUri() + "'");
             this.repository.readModel(
                 stream,
                 model.getUri().toString(),
@@ -279,6 +279,7 @@ public class ModelProcessor
             }
             catch (final IOException exception)
             {
+                exception.printStackTrace();
                 // ignore
             }
         }

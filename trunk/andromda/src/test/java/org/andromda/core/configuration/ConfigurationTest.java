@@ -33,7 +33,8 @@ public class ConfigurationTest
         assertNotNull(server);
         assertEquals("localhost", server.getHost());
         assertEquals(4444, server.getPort());
-        assertEquals(5000, server.getModelLoadInterval());
+        assertEquals(5000, server.getLoadInterval());
+        assertEquals(50, server.getMaximumFailedLoadAttempts());
         
         // models
         assertEquals(2, configuration.getModels().length);

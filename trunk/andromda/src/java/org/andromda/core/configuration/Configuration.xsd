@@ -17,6 +17,7 @@
         </xs:complexType>
     </xs:element>
 	<xs:element name="host" type="xs:string"/>
+    <xs:element name="loadInterval" type="xs:integer"/>
     <xs:element name="location" type="xs:string"/>
     <xs:element name="moduleSearchLocations">
         <xs:complexType>
@@ -32,7 +33,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="uri" type="xs:string"/>
+    <xs:element name="maximumFailedLoadAttempts" type="xs:integer"/>
     <xs:element name="model">
         <xs:complexType>
             <xs:sequence>
@@ -43,7 +44,6 @@
             <xs:attribute name="lastModifiedCheck" type="xs:boolean" use="optional"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="modelLoadInterval" type="xs:integer"/>
     <xs:element name="modelPackage">
         <xs:complexType>
             <xs:simpleContent>
@@ -105,7 +105,8 @@
 			<xs:sequence>
 				<xs:element ref="host"/>
 				<xs:element ref="port"/>
-                <xs:element ref="modelLoadInterval" minOccurs="0"/>
+                <xs:element ref="loadInterval" minOccurs="0"/>
+                <xs:element ref="maximumFailedLoadAttempts" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -126,4 +127,5 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="uri" type="xs:string"/>
 </xs:schema>
