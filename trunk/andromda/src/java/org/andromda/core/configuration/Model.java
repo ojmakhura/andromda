@@ -160,8 +160,13 @@ public class Model
             else
             {
                 URLConnection uriConnection = uri.openConnection();
+                uriConnection.setUseCaches(false);
                 lastModified = uriConnection.getLastModified();
+                // we need to set the urlConnection to null and explicity
+                // call garbage collection, otherwise the JVM won't let go
+                // of the URL resource
                 uriConnection = null;
+                System.gc();
             }
         }
         catch (Exception ex)
