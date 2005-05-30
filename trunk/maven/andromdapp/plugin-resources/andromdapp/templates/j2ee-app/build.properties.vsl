@@ -1,5 +1,6 @@
 application.id=${projectId}
 application.package=${projectPackage}
+application.version=${projectVersion}
 
 maven.multiproject.includes=**/*project.xml
 maven.multiproject.excludes=project.xml
