@@ -7,7 +7,8 @@ import org.andromda.core.configuration.Configuration;
  * The AndroMDA server instance.  The server
  * is configured from an AndroMDA {@link Configuration}
  * instance.
- *
+ * 
+ * @see Client
  * @author Chad Brandon
  */
 public interface Server
