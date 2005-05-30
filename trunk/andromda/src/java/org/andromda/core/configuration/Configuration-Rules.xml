@@ -28,9 +28,9 @@
             <set-next-rule methodname="addProperty" />
 
         </pattern>
-        
+
         <pattern value="server">
-            
+
             <object-create-rule
                 classname="org.andromda.core.configuration.Server" />
 
@@ -55,7 +55,7 @@
                     paramnumber="0"/>
 
             </pattern>
-            
+
             <pattern value="loadInterval">
 
                 <call-method-rule
@@ -66,7 +66,7 @@
                     paramnumber="0"/>
 
             </pattern>
-            
+
             <pattern value="maximumFailedLoadAttempts">
 
                 <call-method-rule
@@ -76,10 +76,10 @@
                 <call-param-rule
                     paramnumber="0"/>
 
-            </pattern>            
+            </pattern>
 
             <set-next-rule methodname="setServer" />
-            
+
         </pattern>
 
         <pattern value="models/model">

@@ -16,7 +16,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-	<xs:element name="host" type="xs:string"/>
+    <xs:element name="host" type="xs:string"/>
     <xs:element name="loadInterval" type="xs:integer"/>
     <xs:element name="location" type="xs:string"/>
     <xs:element name="moduleSearchLocations">
@@ -82,7 +82,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-	<xs:element name="port" type="xs:integer"/>
+    <xs:element name="port" type="xs:integer"/>
     <xs:element name="properties">
         <xs:complexType>
             <xs:sequence>
@@ -100,16 +100,16 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-	<xs:element name="server">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="host"/>
-				<xs:element ref="port"/>
+    <xs:element name="server">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="host"/>
+                <xs:element ref="port"/>
                 <xs:element ref="loadInterval" minOccurs="0"/>
                 <xs:element ref="maximumFailedLoadAttempts" minOccurs="0"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="transformation">
         <xs:complexType>
             <xs:sequence>
