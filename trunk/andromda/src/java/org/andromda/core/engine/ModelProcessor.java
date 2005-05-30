@@ -180,6 +180,11 @@ public class ModelProcessor
                 {
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
                 }
+                // pre-load the models
+                for (int ctr = 0; ctr < models.length; ctr++)
+                {
+                    this.loadModelIfNecessary(models[ctr]);
+                }
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
@@ -192,7 +197,6 @@ public class ModelProcessor
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
                             final Model model = models[ctr];
-                            this.loadModelIfNecessary(model);
                             modelPackages.addPackages(model.getPackages());
                             cartridge.processModelElements(new CodeGenerationContext(this.repository, modelPackages));
                             writer.writeHistory();
