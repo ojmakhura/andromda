@@ -3,6 +3,8 @@ package org.andromda.core;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.configuration.Configuration;
+import org.andromda.core.server.Client;
+import org.andromda.core.server.ClientException;
 import org.andromda.core.server.Server;
 import org.andromda.core.server.ServerException;
 
@@ -72,8 +74,20 @@ public class AndroMDAServer
     /**
      * Stops the AndroMDA server instance.
      */
-    public void stop()
+    public void stop(final Configuration configuration)
     {
-        this.server.shutdown();
+        final ComponentContainer container = ComponentContainer.instance();
+        final Client serverClient = (Client)container.findComponent(Client.class);
+        if (serverClient != null)
+        {
+            try
+            {
+                serverClient.stop(configuration);
+            }
+            catch (final Throwable throwable)
+            {
+                throw new ClientException(throwable);
+            }
+        }
     }
 }

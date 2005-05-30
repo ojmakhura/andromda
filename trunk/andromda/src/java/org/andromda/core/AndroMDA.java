@@ -122,7 +122,7 @@ public class AndroMDA
             {
                 try
                 {
-                    serverClient.run(configuration);
+                    serverClient.start(configuration);
                 }
                 catch (final ConnectException exception)
                 {
