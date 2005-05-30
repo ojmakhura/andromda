@@ -31,6 +31,10 @@
         <property name="modelValidation">true</property>
         <property name="cartridgeFilter">${filter}</property>
     </properties>
+    <server>
+        <host>localhost</host>
+        <port>4444</port>
+    </server>
     <models>
         <model>
             <uri>jar:file:/path/to/my/model.zuml!/model1.xmi</uri>
