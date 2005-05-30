@@ -268,7 +268,7 @@ public class ModelProcessor
             InputStream stream = transformer.transform(
                     model.getUri(),
                     this.getTransformations());
-            AndroMDALogger.info("Loading model --> '" + model.getUri() + "'");
+            AndroMDALogger.info("Input model --> '" + model.getUri() + "'");
             this.repository.readModel(
                 stream,
                 model.getUri().toString(),
