@@ -279,17 +279,100 @@
                 </table>
             </subsection>
             <subsection name="">
-                <a name="server"><![CDATA[<server>]]></a>
                 <h2>
                     <a name="server"><![CDATA[<server>]]></a>
                 </h2>
                 <p>
                     The <em>optional</em> <![CDATA[<server>]]> element provides information
-                    about the AndroMDA server.  This server can be used to initialize
+                    about the AndroMDA server.  The AndroMDA server can be used to initialize
                     AndroMDA and to provide the pre-loading of models.  What this means is 
                     that initialization and model loading does not need to occur each time before you run AndroMDA
                     (which helps to significanlty lower total model processing time).
+                    <source language="xml">
+
+<![CDATA[<andromda>
+    ...
+    <server>
+        <host>localhost</host>
+        <port>4444</port>
+        <loadInterval>1000</loadInterval>
+        <maximumFailedLoadAttempts>10</maximumFailedLoadAttempts>
+    </server>
+    ...
+</andromda>]]>
+                    </source>
                 </p>
+                <subsection name="">
+                    <h2>
+                        <a name="host"><![CDATA[<host>]]></a>
+                    </h2>
+                    <p>
+                        The contents of <em>required</em> <![CDATA[<host>]]> element defines the 
+                        host of the AndroMDA <a href="#andromda">server</a> instance.  This is used by the
+                        server's client to connect to the host on which the server instance is running.
+                        <source language="xml">
+
+<![CDATA[<server>
+    <host>localhost</host>
+    ...
+</server>]]>
+                        </source>
+                    </p>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="port"><![CDATA[<port>]]></a>
+                    </h2>
+                    <p>
+                        The contents of <em>required</em> <![CDATA[<port>]]> element defines the 
+                        port of the AndroMDA <a href="#andromda">server</a> instance.  This is used by the
+                        server to indicate what port the server will run on and and the server's client
+                        to know on what port it needs to connect.
+                        <source language="xml">
+
+<![CDATA[<server>
+    <host>localhost</host>
+    <port>4444</port>
+</server>]]>
+                        </source>
+                    </p>                    
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="loadInterval"><![CDATA[<loadInterval>]]></a>
+                    </h2>            
+                    <p>
+                        The contents of this <em>optional</em> element defines the interval (in milliseconds)
+                        at which the model should be re-loaded into AndroMDA's repository (loading only 
+                        occurs if model is out-of-date). By default this value is set to <em>1000</em> (or 1 second).
+                        <source language="xml">
+
+<![CDATA[<server>
+    ...
+    <port>4444</port>
+    <loadInterval>1000</loadInterval>
+</server>]]>
+                        </source>
+                    </p>        
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="maximumFailedLoadAttempts"><![CDATA[<maximumFailedLoadAttempts>]]></a>
+                    </h2>            
+                    <p>
+                        The contents of this <em>optional</em> element defines the maximum number of 
+                        failed model loading attempts that may occur before a failure is reported by AndroMDA.
+                        By default this value is set to <em>10</em>.
+                        <source language="xml">
+
+<![CDATA[<maximumFailedLoadAttempts>
+    ...
+    <loadInterval>1000</loadInterval>
+    <maximumFailedLoadAttempts>10</maximumFailedLoadAttempts>
+</server>]]>
+                        </source>
+                    </p>        
+                </subsection>
             </subsection>
             <subsection name="">
                 <h2>
@@ -321,7 +404,7 @@
                     </source>
                 </p>
             </subsection>
-           <subsection name="">
+            <subsection name="">
                 <h2>
                     <a name="model"><![CDATA[<model>]]></a>
                 </h2>
