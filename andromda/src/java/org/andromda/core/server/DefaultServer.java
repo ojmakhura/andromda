@@ -1,16 +1,17 @@
 package org.andromda.core.server;
 
+import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.configuration.Configuration;
+import org.andromda.core.engine.Engine;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-
-import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.configuration.Configuration;
-import org.andromda.core.engine.Engine;
 
 
 /**
@@ -25,6 +26,12 @@ public class DefaultServer
      * The message sent to the client when AndroMDA processing has completed.
      */
     private static final String COMPLETE = "complete";
+
+    /**
+     * The command sent to the server that indicates it
+     * should stop.
+     */
+    static final String STOP = "stop";
 
     /**
      * The server listener.
@@ -77,7 +84,19 @@ public class DefaultServer
                                     new ObjectInputStream(new DataInputStream(client.getInputStream()));
                                 try
                                 {
-                                    this.engine.run((Configuration)objectInput.readObject());
+                                    final Object object = objectInput.readObject();
+                                    if (object instanceof Configuration)
+                                    {
+                                        this.engine.run((Configuration)object);                                        
+                                    }
+                                    else if (object instanceof String)
+                                    {
+                                        final String string = (String)object;
+                                        if (string.equals(STOP))
+                                        {
+                                            break;
+                                        }
+                                    }
                                 }
                                 catch (final Throwable throwable)
                                 {
@@ -114,6 +133,7 @@ public class DefaultServer
                             }
                         }
                     }
+                    this.shutdown();
                 }
                 catch (final Throwable throwable)
                 {
@@ -145,19 +165,20 @@ public class DefaultServer
     }
 
     /**
-     * @see org.andromda.core.server.Server#shutdown()
+     * Shuts the server down.
      */
     public void shutdown()
     {
         try
         {
             this.listener.close();
+            this.listener = null;
+            this.engine.shutdown();
         }
         catch (final IOException exception)
         {
             // ignore exception
         }
-        this.listener = null;
-        this.engine.shutdown();
+
     }
 }

@@ -22,7 +22,32 @@ public class DefaultClient
     /**
      * @see org.andromda.core.server.Client#run(org.andromda.core.configuration.Configuration)
      */
-    public void run(final Configuration configuration)
+    public void start(final Configuration configuration)
+        throws ConnectException
+    {
+        this.performServerOperation(configuration, configuration);
+    }
+
+    /**
+     * @see org.andromda.core.server.Client#stop()
+     */
+    public void stop(final Configuration configuration)
+        throws ConnectException
+    {
+        this.performServerOperation(configuration, DefaultServer.STOP);
+    }
+
+    /**
+     * Connects to the server and passes the <code>object</code>
+     * to the server.  The server will take the appropriate action based
+     * on the value of the <code>object</code>
+     * @param configuration the AndroMDA configuration (contains the server information).
+     * @param object the object to pass to the server.
+     * @throws ConnectException if an error occurs while attempting to connect to the server.
+     */
+    private void performServerOperation(
+        final Configuration configuration,
+        final Object object)
         throws ConnectException
     {
         if (configuration != null && configuration.getServer() != null)
@@ -33,32 +58,36 @@ public class DefaultClient
                 try
                 {
                     Socket server = null;
-                    ObjectOutputStream out = null;
                     ObjectInputStream objectInput = null;
+                    ObjectOutputStream out = null;
                     final String host = serverConfiguration.getHost();
                     try
                     {
                         server = new Socket(
                                 host,
                                 serverConfiguration.getPort());
-                        out = new ObjectOutputStream(server.getOutputStream());
                         objectInput = new ObjectInputStream(new DataInputStream(server.getInputStream()));
+                        out = new ObjectOutputStream(server.getOutputStream());
                     }
                     catch (final UnknownHostException exception)
                     {
                         throw new RuntimeException("Can't connect to host '" + host + "'");
                     }
-                    out.writeObject(configuration);
-                    final Object input = objectInput.readObject();
-                    while (input == null);
-                    if (input instanceof Throwable)
+                    out.writeObject(object);
+                    if (object instanceof Configuration)
                     {
-                        throw new ClientException((Throwable)input);
+                        final Object input = objectInput.readObject();
+                        while (input == null)
+                            ;
+                        if (input instanceof Throwable)
+                        {
+                            throw new ClientException((Throwable)input);
+                        }
                     }
                     objectInput.close();
+                    server.close();
                     out.flush();
                     out.close();
-                    server.close();
                 }
                 catch (final ConnectException exception)
                 {
@@ -66,7 +95,7 @@ public class DefaultClient
                     // we can't communicate with the server
                     throw exception;
                 }
-                catch (Throwable throwable)
+                catch (final Throwable throwable)
                 {
                     throw new ClientException(throwable);
                 }

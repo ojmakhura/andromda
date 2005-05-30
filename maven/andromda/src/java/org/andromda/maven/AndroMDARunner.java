@@ -1,11 +1,5 @@
 package org.andromda.maven;
 
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.andromda.core.AndroMDA;
 import org.andromda.core.AndroMDAServer;
 import org.andromda.core.common.ResourceUtils;
@@ -16,6 +10,14 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.jelly.MavenJellyContext;
+
+import java.io.FileNotFoundException;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 /**
@@ -108,11 +110,11 @@ public class AndroMDARunner
         configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
         return configuration;
     }
-    
+
     /**
      * The server instance.
      */
-    private AndroMDAServer server;
+    private AndroMDAServer server = AndroMDAServer.newInstance();
 
     /**
      * Starts the AndroMDA server instance listening
@@ -123,30 +125,16 @@ public class AndroMDARunner
     public void startServer()
         throws MalformedURLException
     {
-        Thread.currentThread().setContextClassLoader(AndroMDARunner.class.getClassLoader());
-        try
-        {
-            this.server = AndroMDAServer.newInstance();
-            this.server.start(this.getConfiguration());
-        }
-        finally
-        {
-            // Set the context class loader back ot its system class loaders
-            // so that any processes running after won't be trying to use
-            // the ContextClassLoader for this class.
-            Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
-        }
+        this.server.start(this.getConfiguration());
     }
-    
+
     /**
      * Stops the AndroMDA server instance.
      */
     public void stopServer()
+        throws MalformedURLException
     {
-        if (this.server != null)
-        {
-            this.server.stop();
-        }
+        this.server.stop(this.getConfiguration());
     }
 
     /**

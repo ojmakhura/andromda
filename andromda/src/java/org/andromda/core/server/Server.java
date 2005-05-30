@@ -2,10 +2,11 @@ package org.andromda.core.server;
 
 import org.andromda.core.configuration.Configuration;
 
+
 /**
  * The AndroMDA server instance.  The server
  * is configured from an AndroMDA {@link Configuration}
- * instance. 
+ * instance.
  *
  * @author Chad Brandon
  */
@@ -18,10 +19,4 @@ public interface Server
      * @throws Exception
      */
     public void start(final Configuration configuration);
-
-    /**
-     * Shuts down this server and releases
-     * any resources.
-     */
-    public void shutdown();
 }

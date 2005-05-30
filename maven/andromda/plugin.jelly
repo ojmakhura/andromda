@@ -25,13 +25,8 @@
                      
         <j:set var="runWithoutAnt" value="${maven.andromda.run.without.ant}"/>
         <j:choose>
-            <j:when test="${runWithoutAnt}">            
-                <j:set var="configurationUri" value="${maven.andromda.configuration.uri}"/>
-                <j:new var="runner" className="org.andromda.maven.AndroMDARunner"/>
-                <j:set var="dummy" value="${runner.setContext(context)}"/>
-                <j:set var="mappingsSearchLocation" value="${plugin.resources}/andromda/mappings"/>
-                <j:set var="dummy" value="${runner.setMappingsSearchLocation(mappingsSearchLocation)}"/>
-                <j:set var="dummy" value="${runner.setConfigurationUri(configurationUri)}"/>
+            <j:when test="${runWithoutAnt}">         
+                <attainGoal name="andromda:prepare-runner${bootstrap}"/>   
                 <j:set var="dummy" value="${runner.run()}"/>              
             </j:when>
             <j:otherwise>               
@@ -78,15 +73,25 @@ Please define the location of your AndroMDA configuration by setting a value for
                 <ant:echo>+--------------------------------------------------------+</ant:echo>
             </j:otherwise>
         </j:choose>   
+        <attainGoal name="andromda:prepare-runner${bootstrap}"/>   
+        <j:set var="dummy" value="${runner.startServer()}"/>                   
+    </goal>
+    
+    <goal name="andromda:stop-server${bootstrap}"
+          description="Stops the AndroMDA server instance">
+        <attainGoal name="andromda:prepare-runner${bootstrap}"/>   
+        <j:set var="dummy" value="${runner.stopServer()}"/>       
+    </goal>
+     
+     <goal name="andromda:prepare-runner${bootstrap}">
         <attainGoal name="andromda:parameter-check${bootstrap}"/>    
         <j:set var="configurationUri" value="${maven.andromda.configuration.uri}"/>
         <j:new var="runner" className="org.andromda.maven.AndroMDARunner"/>
         <j:set var="dummy" value="${runner.setContext(context)}"/>
         <j:set var="mappingsSearchLocation" value="${plugin.resources}/andromda/mappings"/>
         <j:set var="dummy" value="${runner.setMappingsSearchLocation(mappingsSearchLocation)}"/>
-        <j:set var="dummy" value="${runner.setConfigurationUri(configurationUri)}"/>
-        <j:set var="dummy" value="${runner.startServer()}"/>                   
-    </goal>
+        <j:set var="dummy" value="${runner.setConfigurationUri(configurationUri)}"/>        
+     </goal>
 
     <!-- ================================================================
            Adds model dependencies (since they aren't added by Maven)

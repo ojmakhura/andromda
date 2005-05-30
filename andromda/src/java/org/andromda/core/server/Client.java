@@ -1,8 +1,9 @@
 package org.andromda.core.server;
 
+import org.andromda.core.configuration.Configuration;
+
 import java.net.ConnectException;
 
-import org.andromda.core.configuration.Configuration;
 
 /**
  * A client used to communicate to the the AndroMDA
@@ -12,14 +13,23 @@ import org.andromda.core.configuration.Configuration;
  */
 public interface Client
 {
-
     /**
-     * Runs the client with the given <code>configuration</code>.
+     * Starts the AndroMDA server with the given <code>configuration</code>.
      *
      * @param configuration the AndroMDA configuration instance.
      * @throws ConnectException if the client can not connect to an
      *         AndroMDA server instance.
      */
-    public void run(final Configuration configuration) throws ConnectException;
+    public void start(final Configuration configuration)
+        throws ConnectException;
 
+    /**
+     * Stops the AndroMDA server with the given <code>configuration</code>.
+     *
+     * @param configuration the AndroMDA configuration instance.
+     * @throws ConnectException if the client can not connect to an
+     *         AndroMDA server instance.
+     */
+    public void stop(final Configuration configuration)
+        throws ConnectException;
 }
