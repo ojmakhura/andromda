@@ -15,7 +15,7 @@ import java.net.ConnectException;
 public interface Client
 {
     /**
-     * Starts the AndroMDA server with the given <code>configuration</code>.
+     * Connects to and starts an AndroMDA server with the given <code>configuration</code>.
      *
      * @param configuration the AndroMDA configuration instance.
      * @throws ConnectException if the client can not connect to an
@@ -25,7 +25,7 @@ public interface Client
         throws ConnectException;
 
     /**
-     * Stops the AndroMDA server with the given <code>configuration</code>.
+     * Connects to and stops an AndroMDA server with the given <code>configuration</code>.
      *
      * @param configuration the AndroMDA configuration instance.
      * @throws ConnectException if the client can not connect to an
