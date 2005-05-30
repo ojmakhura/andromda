@@ -87,6 +87,24 @@
             goals="pom:install"/>
     </goal>
 
+    <!-- ==================================================================
+            Starts the AndroMDA server
+         ================================================================== -->
+    <goal name="start-andromda-server">
+        <maven:maven
+            descriptor="mda/project.xml"
+            goals="andromda:start-server"/>
+    </goal>
+
+    <!-- ==================================================================
+            Stops the AndroMDA server
+         ================================================================== -->
+    <goal name="stop-andromda-server">
+        <maven:maven
+            descriptor="mda/project.xml"
+            goals="andromda:stop-server"/>
+    </goal>
+
 #if ($webservice)
     <!-- ==================================================================
             Builds the WebService component
@@ -148,7 +166,7 @@
                             location="${generatedSourceDir}"/>
                         <maven:addPath
                             id="maven.compile.src.set"
-                            refid="andromda.java.gen.src"/>                    
+                            refid="andromda.java.gen.src"/>
                     </j:when>
                     <j:otherwise>
                         <ant:path id="maven.compile.src.set">
@@ -157,7 +175,7 @@
                                  specified by pom.build.sourceDirectory doesn't exist -->
                             <j:set var="sourcesPresent" value="true"/>
                             <ant:pathelement location="${generatedSourceDir}"/>
-                        </ant:path>                        
+                        </ant:path>
                     </j:otherwise>
                 </j:choose>
             </j:if>
@@ -172,11 +190,11 @@
         <j:if test="$condition">
             <util:file var="scriptFile" name="${script}"/>
             <j:if test="${scriptFile.exists()}">
-                <ant:sql driver="${dataSource.driver.class}" 
+                <ant:sql driver="${dataSource.driver.class}"
                          src="${scriptFile}"
-                         url="${dataSource.url}" 
-                         userid="${dataSource.user}" 
-                         password="${dataSource.password}" 
+                         url="${dataSource.url}"
+                         userid="${dataSource.user}"
+                         password="${dataSource.password}"
                          onerror="${dataSource.sql.onError}">
                     <ant:classpath>
                         <ant:pathelement location="${dataSource.driver.jar}"/>
