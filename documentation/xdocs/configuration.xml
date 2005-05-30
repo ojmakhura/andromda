@@ -279,6 +279,19 @@
                 </table>
             </subsection>
             <subsection name="">
+                <a name="server"><![CDATA[<server>]]></a>
+                <h2>
+                    <a name="server"><![CDATA[<server>]]></a>
+                </h2>
+                <p>
+                    The <em>optional</em> <![CDATA[<server>]]> element provides information
+                    about the AndroMDA server.  This server can be used to initialize
+                    AndroMDA and to provide the pre-loading of models.  What this means is 
+                    that initialization and model loading does not need to occur each time before you run AndroMDA
+                    (which helps to significanlty lower total model processing time).
+                </p>
+            </subsection>
+            <subsection name="">
                 <h2>
                     <a name="models"><![CDATA[<models>]]></a>
                 </h2>
