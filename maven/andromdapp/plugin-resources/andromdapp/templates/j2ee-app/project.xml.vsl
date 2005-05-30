@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-    <artifactId>${projectId}</artifactId>
-    <groupId>${projectId}</groupId>
+    <artifactId>${application.id}</artifactId>
+    <groupId>${application.id}</groupId>
     <name>The ${projectName}</name>
-    <currentVersion>${projectVersion}</currentVersion>
+    <currentVersion>${application.version}</currentVersion>
     <shortDescription>The ${projectName}</shortDescription>
     <description>
         Contains the ${projectName} Project.
     </description>
-    <package>${projectPackage}</package>
+    <package>${application.package}</package>
     <developers>
         <developer>
               <name>${projectCreator}</name>
