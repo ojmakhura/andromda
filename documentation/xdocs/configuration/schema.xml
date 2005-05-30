@@ -14,6 +14,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="properties" minOccurs="0"/>
+                <xs:element ref="server" minOccurs="0"/>
                 <xs:element ref="models"/>
                 <xs:element ref="transformations" minOccurs="0"/>
                 <xs:element ref="mappingsSearchLocations" minOccurs="0"/>
@@ -21,6 +22,8 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="host" type="xs:string"/>
+    <xs:element name="loadInterval" type="xs:integer"/>
     <xs:element name="location" type="xs:string"/>
     <xs:element name="moduleSearchLocations">
         <xs:complexType>
@@ -36,7 +39,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="uri" type="xs:string"/>
+    <xs:element name="maximumFailedLoadAttempts" type="xs:integer"/>
     <xs:element name="model">
         <xs:complexType>
             <xs:sequence>
@@ -85,6 +88,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="port" type="xs:integer"/>
     <xs:element name="properties">
         <xs:complexType>
             <xs:sequence>
@@ -100,6 +104,16 @@
                     <xs:attribute name="ignore" type="xs:boolean" use="optional"/>
                 </xs:extension>
             </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="server">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="host"/>
+                <xs:element ref="port"/>
+                <xs:element ref="loadInterval" minOccurs="0"/>
+                <xs:element ref="maximumFailedLoadAttempts" minOccurs="0"/>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="transformation">
@@ -119,6 +133,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="uri" type="xs:string"/>
 </xs:schema>
 ]]>
 	  		</source>
