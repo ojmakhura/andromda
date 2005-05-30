@@ -34,6 +34,12 @@
                     processed).
 				</description>
 			</goal>
+			<goal>
+				<name>andromda:stop-server</name>
+				<description> 
+					Stops the AndroMDA server instance (if it's currently running).
+				</description>
+			</goal>
 		</goals>
   	</body>
 </document>
