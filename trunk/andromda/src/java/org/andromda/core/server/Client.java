@@ -6,7 +6,7 @@ import java.net.ConnectException;
 
 
 /**
- * A client used to communicate to an AndroMDA
+ * A client used to connect to an AndroMDA
  * {@link Server} instance.
  *
  * @see Server
