@@ -307,7 +307,7 @@
                         <a name="host"><![CDATA[<host>]]></a>
                     </h2>
                     <p>
-                        The contents of <em>required</em> <![CDATA[<host>]]> element defines the 
+                        The contents of the <em>required</em> <![CDATA[<host>]]> element defines the 
                         host of the AndroMDA <a href="#andromda">server</a> instance.  This is used by the
                         server's client to connect to the host on which the server instance is running.
                         <source language="xml">
@@ -324,7 +324,7 @@
                         <a name="port"><![CDATA[<port>]]></a>
                     </h2>
                     <p>
-                        The contents of <em>required</em> <![CDATA[<port>]]> element defines the 
+                        The contents of the <em>required</em> <![CDATA[<port>]]> element defines the 
                         port of the AndroMDA <a href="#andromda">server</a> instance.  This is used by the
                         server to indicate what port the server will run on and and the server's client
                         to know on what port it needs to connect.
