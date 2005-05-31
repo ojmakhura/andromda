@@ -681,7 +681,7 @@ public class MetafacadeMappings
     private final Map reversedInterfaceArrayCache = new HashMap();
 
     /**
-     * Gets the interfaces for the given <code>className</code> in reveresed order.
+     * Gets the interfaces for the given <code>className</code> in reverse order.
      *
      * @param className the name of the class for which to retrieve the interfaces
      * @return the array containing the reversed interfaces.
