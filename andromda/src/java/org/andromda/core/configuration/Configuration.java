@@ -64,6 +64,7 @@ public class Configuration
      */
     public void initialize()
     {
+        this.initializeNamespaces();
         this.initializeMappings();
     }
 
@@ -110,12 +111,17 @@ public class Configuration
     /**
      * Gets the transformations belonging to this configuration.
      *
-     * @return the collection of {@link Transformation} instances.
+     * @return the array of {@link Transformation} instances.
      */
     public Transformation[] getTransformations()
     {
         return (Transformation[])this.transformations.toArray(new Transformation[0]);
     }
+
+    /**
+     * Stores the configuration namespaces.
+     */
+    private final Collection namespaces = new ArrayList();
 
     /**
      * Adds a namespace to this configuration.
@@ -124,7 +130,17 @@ public class Configuration
      */
     public void addNamespace(final Namespace namespace)
     {
-        Namespaces.instance().addNamespace(namespace);
+        this.namespaces.add(namespace);
+    }
+
+    /**
+     * Gets the configuration namespaces.
+     *
+     * @return the array of {@link Namespace} instances.
+     */
+    private Namespace[] getNamespaces()
+    {
+        return (Namespace[])this.namespaces.toArray(new Namespace[0]);
     }
 
     /**
@@ -207,6 +223,15 @@ public class Configuration
     String[] getMappingsSearchLocations()
     {
         return (String[])this.mappingsSearchLocations.toArray(new String[0]);
+    }
+
+    /**
+     * Initializes the namespaces with the namespaces from
+     * this configuration.
+     */
+    private final void initializeNamespaces()
+    {
+        Namespaces.instance().addNamespaces(this.getNamespaces());
     }
 
     /**
