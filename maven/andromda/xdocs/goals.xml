@@ -10,7 +10,10 @@
 				<name>andromda:run</name>
 				<description> 
 					Runs the AndroMDA processor with AndroMDA plugins (i.e. cartridges
-					and translation-libraries) found on your CLASSPATH. 
+					and translation-libraries) found on your CLASSPATH.  AndroMDA is
+                    configured through the value of the the
+                    <a href="properties.html#maven_andromda_configuration_uri">maven.andromda.configuration.uri</a>
+                    property.
 				</description>
 			</goal>
 			<goal>
@@ -31,13 +34,16 @@
                     This dramatically helps to improve initialization
                     and loading time when running AndroMDA because thoese things
                     are taken care of in advance (before the model is actually
-                    processed).
+                    processed).  The server is configured through
+                    <a href="../configuration.html">AndroMDA configuration file</a>.
 				</description>
 			</goal>
 			<goal>
 				<name>andromda:stop-server</name>
 				<description> 
-					Stops the AndroMDA server instance (if it's currently running).
+					Stops the AndroMDA server instance (if it's currently running).  The server 
+                    information is configured through 
+                    <a href="../configuration.html">AndroMDA configuration file</a>.
 				</description>
 			</goal>
 		</goals>
