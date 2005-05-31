@@ -20,10 +20,11 @@
         <attainGoal name="multiproject:clean"/>
         <!-- get rid of all the log files -->
         <ant:delete>
-          <ant:fileset dir=".">
-            <ant:include name="**/*.log*"/>
-            <ant:exclude name="maven.log"/>
-          </ant:fileset>
+            <ant:fileset dir=".">
+                <ant:include name="**/*.log*"/>
+                <ant:exclude name="maven.log"/>
+                <ant:exclude name="**/*andromda*.log"/>
+            </ant:fileset>
         </ant:delete>
     </goal>
 
