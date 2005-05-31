@@ -19,6 +19,9 @@ public class ConfigurationTest
         Configuration configuration = Configuration.getInstance(uri);
         assertNotNull(configuration);
         
+        // initialize the configuration
+        configuration.initialize();
+        
         // properties
         assertEquals(3, configuration.getProperties().length);
         final Property property1 = configuration.getProperties()[0];
@@ -71,6 +74,7 @@ public class ConfigurationTest
         // namespaces
         final Namespace namespace1 = Namespaces.instance().findNamespace("default");
         final Property namespace1Property1 = namespace1.getProperty("languageMappingsUri");
+        
         assertNotNull(namespace1Property1);
         assertEquals("Java", namespace1Property1.getValue());
         assertFalse(namespace1Property1.isIgnore());
