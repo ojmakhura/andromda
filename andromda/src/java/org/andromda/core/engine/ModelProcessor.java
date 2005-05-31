@@ -73,7 +73,7 @@ public class ModelProcessor
 
     private ModelProcessor()
     {
-        // don't allow instantiation
+        // do not allow instantiation
     }
 
     /**
@@ -294,17 +294,11 @@ public class ModelProcessor
      * time.
      *
      * @param uri the model uri.
-     * @return the key
+     * @return the unique key
      */
     private Object getModelModifiedKey(URL uri)
     {
-        final File uriFile = new File(uri.getFile());
-        Object key = uriFile;
-        if (!uriFile.isFile())
-        {
-            key = uri.toString();
-        }
-        return key;
+        return new File(uri.getFile());
     }
 
     /**

@@ -97,7 +97,7 @@ public class MetafacadeMappingsTest
     public void testGetMetafacadeMapping()
     {
 
-        MetafacadeMappings mappings = MetafacadeMappings.instance();
+        MetafacadeMappings mappings = MetafacadeMappings.newInstance();
         final String namespace = "andromda-test-metafacades";
         final MetafacadeFactory factory = MetafacadeFactory.getInstance();
         factory.setModel(new Model());

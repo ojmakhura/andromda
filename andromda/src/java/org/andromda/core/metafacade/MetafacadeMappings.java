@@ -65,27 +65,18 @@ public class MetafacadeMappings
     private final Map namespacePropertyReferences = new HashMap();
 
     /**
-     * The shared static instance.
-     */
-    private static MetafacadeMappings instance = null;
-
-    /**
      * The default meta facade to use when there isn't a mapping found.
      */
     private Class defaultMetafacadeClass = null;
 
     /**
-     * Gets the shared instance.
+     * Constructs a new instance of this class.
      *
      * @return MetafacadeMappings
      */
-    public static MetafacadeMappings instance()
+    public static MetafacadeMappings newInstance()
     {
-        if (instance == null)
-        {
-            instance = new MetafacadeMappings();
-        }
-        return instance;
+        return new MetafacadeMappings();
     }
     
     /**
@@ -1064,7 +1055,6 @@ public class MetafacadeMappings
         {
             this.propertyValues.clear();
         }
-        instance = null;
     }
 
     /**
