@@ -7,11 +7,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+
 
 /**
  * Finds and loads metafacade-impl.properties files on the classpath. These files are used to map metafacades and their
@@ -21,7 +24,6 @@ import java.util.Properties;
  */
 public class MetafacadeImpls
 {
-
     private static final Logger logger = Logger.getLogger(MetafacadeImpls.class);
 
     /**
@@ -72,7 +74,7 @@ public class MetafacadeImpls
             this.metafacadesByImpls = new HashMap();
 
             final Properties properties = new Properties();
-            final URL resources[] = ResourceFinder.findResources(METAFACADE_IMPLS);
+            final URL[] resources = ResourceFinder.findResources(METAFACADE_IMPLS);
             if (resources != null && resources.length > 0)
             {
                 for (int ctr = 0; ctr < resources.length; ctr++)
@@ -87,19 +89,18 @@ public class MetafacadeImpls
                     stream.close();
                     stream = null;
                 }
-                for (final Iterator propertyIterator = properties.keySet().iterator(); propertyIterator.hasNext();)
+                for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
                 {
-                    final String metafacade = (String)propertyIterator.next();
+                    final String metafacade = (String)iterator.next();
                     final String metafacadeImplementation = properties.getProperty(metafacade);
                     this.metafacadesByImpls.put(metafacadeImplementation, metafacade);
                     this.implsByMetafacades.put(metafacade, metafacadeImplementation);
                 }
             }
         }
-        catch (Throwable throwable)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new MetafacadeImplsException(errMsg, throwable);
+            throw new MetafacadeImplsException(throwable);
         }
     }
 
@@ -124,18 +125,15 @@ public class MetafacadeImpls
                 if (StringUtils.isEmpty(metafacadeImplementationClassName))
                 {
                     throw new MetafacadeImplsException(
-                            "Can not find a metafacade implementation class for --> '" + metafacadeClass +
-                            "', please check your classpath and verify you have a '" +
-                            METAFACADE_IMPLS +
-                            "' file available with this mapping");
+                        "Can not find a metafacade implementation class for --> '" + metafacadeClass +
+                        "', please check your classpath and verify you have a '" + METAFACADE_IMPLS +
+                        "' file available with this mapping");
                 }
                 metafacadeImplementationClass = ClassUtils.loadClass(metafacadeImplementationClassName);
             }
-            catch (Throwable throwable)
+            catch (final Throwable throwable)
             {
-                String errMsg = "Error performing " + methodName;
-                logger.error(errMsg, throwable);
-                throw new MetafacadeImplsException(errMsg, throwable);
+                throw new MetafacadeImplsException(throwable);
             }
         }
         return metafacadeImplementationClass;
@@ -161,20 +159,17 @@ public class MetafacadeImpls
                 if (StringUtils.isEmpty(metafacadeClassName))
                 {
                     throw new MetafacadeImplsException(
-                            "Can not find a metafacade interface for --> '" + metafacadeImplClass +
-                            "', please check your classpath and verify you have a '" +
-                            METAFACADE_IMPLS +
-                            "' file available with this mapping");
+                        "Can not find a metafacade interface for --> '" + metafacadeImplClass +
+                        "', please check your classpath and verify you have a '" + METAFACADE_IMPLS +
+                        "' file available with this mapping");
                 }
                 metafacadeClass = ClassUtils.loadClass(metafacadeClassName);
             }
-            catch (Throwable throwable)
+            catch (final Throwable throwable)
             {
-                String errMsg = "Error performing " + methodName;
-                throw new MetafacadeImplsException(errMsg, throwable);
+                throw new MetafacadeImplsException(throwable);
             }
         }
         return metafacadeClass;
     }
-
 }

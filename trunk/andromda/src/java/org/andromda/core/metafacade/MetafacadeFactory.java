@@ -72,6 +72,16 @@ public class MetafacadeFactory
         }
         return instance;
     }
+    
+    /**
+     * The metafacade cache for this factory.
+     */
+    private final MetafacadeCache cache = MetafacadeCache.newInstance();
+    
+    /**
+     * The metafacade mappings instance for this factory.
+     */
+    private final MetafacadeMappings mappings = MetafacadeMappings.newInstance();
 
     /**
      * Performs any initialization required by the factory (i.e. discovering all <code>metafacade</code> mappings,
@@ -79,7 +89,7 @@ public class MetafacadeFactory
      */
     public void initialize()
     {
-        MetafacadeMappings.instance().discoverMetafacades();
+        this.mappings.discoverMetafacades();
         MetafacadeImpls.instance().discoverMetafacadeImpls();
     }
 
@@ -92,7 +102,7 @@ public class MetafacadeFactory
     public void setActiveNamespace(final String activeNamespace)
     {
         this.activeNamespace = activeNamespace;
-        MetafacadeCache.instance().setNamespace(this.activeNamespace);
+        this.cache.setNamespace(this.activeNamespace);
     }
 
     /**
@@ -165,7 +175,6 @@ public class MetafacadeFactory
         }
         try
         {
-            final MetafacadeMappings mappings = MetafacadeMappings.instance();
             final Collection stereotypes = this.getModel().getStereotypeNames(mappingObject);
             if (this.getLogger().isDebugEnabled())
             {
@@ -173,7 +182,7 @@ public class MetafacadeFactory
             }
 
             final MetafacadeMapping mapping =
-                mappings.getMetafacadeMapping(
+                this.mappings.getMetafacadeMapping(
                     mappingObject,
                     this.getActiveNamespace(),
                     context,
@@ -187,7 +196,7 @@ public class MetafacadeFactory
                 else
                 {
                     // get the default since no mapping was found.
-                    metafacadeClass = mappings.getDefaultMetafacadeClass(this.activeNamespace);
+                    metafacadeClass = this.mappings.getDefaultMetafacadeClass(this.activeNamespace);
                     if (this.getLogger().isDebugEnabled())
                     {
                         this.getLogger().debug(
@@ -205,7 +214,7 @@ public class MetafacadeFactory
                     " or specified as an argument in this method for mappingObject --> '" + mappingObject + "'");
             }
             final MetafacadeBase metafacade =
-                this.getMetafacade(metafacadeClass, mappingObject, context, mappings, mapping);
+                this.getMetafacade(metafacadeClass, mappingObject, context, mapping);
 
             // IMPORTANT: initialize each metafacade ONLY once (otherwise we
             // get stack overflow errors)
@@ -256,7 +265,6 @@ public class MetafacadeFactory
                 mapping.getMetafacadeClass(),
                 mappingObject,
                 mapping.getContext(),
-                mapping.getMetafacadeMappings(),
                 mapping);
         }
         catch (Throwable th)
@@ -288,12 +296,10 @@ public class MetafacadeFactory
         final Class metafacadeClass,
         final Object mappingObject,
         final String context,
-        final MetafacadeMappings mappings,
         final MetafacadeMapping mapping)
         throws Exception
     {
-        final MetafacadeCache cache = MetafacadeCache.instance();
-        MetafacadeBase metafacade = cache.get(mappingObject, metafacadeClass);
+        MetafacadeBase metafacade = this.cache.get(mappingObject, metafacadeClass);
         if (metafacade == null)
         {
             metafacade = MetafacadeUtils.constructMetafacade(metafacadeClass, mappingObject, context);
@@ -302,7 +308,7 @@ public class MetafacadeFactory
                 // set whether or not this metafacade is a context root
                 metafacade.setContextRoot(mapping.isContextRoot());
             }
-            cache.add(mappingObject, metafacade);
+            this.cache.add(mappingObject, metafacade);
         }
 
         // we need to set some things each time
@@ -313,7 +319,7 @@ public class MetafacadeFactory
             // assign the logger and active namespace
             metafacade.setLogger(this.getLogger());
             metafacade.setNamespace(this.getActiveNamespace());
-            this.populateMetafacadeProperties(metafacade, mappings, mapping);
+            this.populateMetafacadeProperties(metafacade, mapping);
         }
         return metafacade;
     }
@@ -325,12 +331,10 @@ public class MetafacadeFactory
      * belongs.
      *
      * @param metafacade the metafacade instance to populate.
-     * @param mappings the mappings from which to populate the properties.
      * @param mapping the mapping from which to populate the properties.
      */
     private final void populateMetafacadeProperties(
         final MetafacadeBase metafacade,
-        final MetafacadeMappings mappings,
         final MetafacadeMapping mapping)
     {
         // Populate the global metafacade properties
@@ -340,7 +344,7 @@ public class MetafacadeFactory
         // exist)
         this.populatePropertyReferences(
             metafacade,
-            mappings.getPropertyReferences(this.getActiveNamespace()));
+            this.mappings.getPropertyReferences(this.getActiveNamespace()));
         if (mapping != null)
         {
             // Populate any context property references (if any)
@@ -632,9 +636,7 @@ public class MetafacadeFactory
     public void shutdown()
     {
         this.reset();
-        this.registeredProperties.clear();
-        MetafacadeCache.instance().shutdown();
-        MetafacadeMappings.instance().shutdown();
+        this.mappings.shutdown();
         this.model = null;
         instance = null;
     }
@@ -646,6 +648,8 @@ public class MetafacadeFactory
     public void reset()
     {
         this.validationMessages.clear();
+        this.registeredProperties.clear();
+        this.cache.clear();
     }
 
     /**

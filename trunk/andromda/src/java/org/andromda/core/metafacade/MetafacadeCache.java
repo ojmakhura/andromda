@@ -12,22 +12,18 @@ import java.util.Map;
 public final class MetafacadeCache
 {
     /**
-     * The shared metafacade cache instance.
-     */
-    private static MetafacadeCache instance = null;
-
-    /**
-     * Gets the shared MetafacadeCache instance.
+     * Constructs a new instance of this class.
      *
-     * @return the shared instance.
+     * @return the new instance
      */
-    public static final MetafacadeCache instance()
+    public static final MetafacadeCache newInstance()
     {
-        if (instance == null)
-        {
-            instance = new MetafacadeCache();
-        }
-        return instance;
+        return new MetafacadeCache();
+    }
+    
+    private MetafacadeCache()
+    {
+        // don't allow instantiation
     }
 
     /**
@@ -104,13 +100,11 @@ public final class MetafacadeCache
     }
 
     /**
-     * Performs shutdown procedures for the cache. This should be called <strong>ONLY</code> when model processing has
-     * completed.
+     * Clears the cache of any metafacades
      */
-    public final void shutdown()
+    public final void clear()
     {
         this.metafacadeCache.clear();
-        instance = null;
     }
 
     /**
