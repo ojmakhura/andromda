@@ -365,7 +365,7 @@
                         By default this value is set to <em>10</em>.
                         <source language="xml">
 
-<![CDATA[<maximumFailedLoadAttempts>
+<![CDATA[<server>
     ...
     <loadInterval>1000</loadInterval>
     <maximumFailedLoadAttempts>10</maximumFailedLoadAttempts>
