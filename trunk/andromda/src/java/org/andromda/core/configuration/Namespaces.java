@@ -75,6 +75,23 @@ public class Namespaces
             namespace.getName(),
             namespace);
     }
+    
+    /**
+     * Adds all <code>namespaces</code> to this instance.
+     * 
+     * @param namespaces the array of namespaces to add.
+     */
+    public void addNamespaces(final Namespace[] namespaces)
+    {
+        if (namespaces != null && namespaces.length > 0)
+        {
+            final int namespaceNumber = namespaces.length;
+            for (int ctr = 0; ctr < namespaceNumber; ctr++)
+            {
+                addNamespace(namespaces[ctr]);
+            }
+        }
+    }
 
     /**
      * Finds the Namespace with the corresponding <code>namespaceName</code>.
