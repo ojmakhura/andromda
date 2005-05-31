@@ -24,11 +24,6 @@ public class Namespaces
     private static final Logger logger = Logger.getLogger(Namespaces.class);
 
     /**
-     * The shared instance.
-     */
-    private static Namespaces instance = null;
-
-    /**
      * This is passed as the cartridge name for the findNamespaceProperty method if we wish to use a 'default' Namespace
      * for Plugins. This is so we don't need to define a specific mapping for each Plugin if we don't want. If a
      * namespaceName exists with a specific Plugin name, then that will be used instead of the 'default'
@@ -39,6 +34,11 @@ public class Namespaces
      * Stores all namespaces.
      */
     private final Map namespaces = new LinkedHashMap();
+    
+    /**
+     * The shared instance.
+     */
+    private static Namespaces instance = null;
 
     /**
      * Returns the singleton instance of this Namespaces
@@ -88,7 +88,7 @@ public class Namespaces
             final int namespaceNumber = namespaces.length;
             for (int ctr = 0; ctr < namespaceNumber; ctr++)
             {
-                addNamespace(namespaces[ctr]);
+                this.addNamespace(namespaces[ctr]);
             }
         }
     }
