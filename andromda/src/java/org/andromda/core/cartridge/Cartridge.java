@@ -5,7 +5,7 @@ import org.andromda.core.cartridge.template.ModelElements;
 import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BasePlugin;
-import org.andromda.core.common.CodeGenerationContext;
+import org.andromda.core.common.GenerationContext;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.PathMatcher;
 import org.andromda.core.common.ResourceUtils;
@@ -52,7 +52,7 @@ public class Cartridge
     /**
      * Stores the code generation context. Protected access to improve performance within inner class access.
      */
-    protected CodeGenerationContext context;
+    protected GenerationContext context;
 
     /**
      * The prefix to look for when determining whether or not to retrieve the output location from the template engine.
@@ -63,9 +63,9 @@ public class Cartridge
      * Processes all model elements with relevant stereotypes by retrieving the model elements from the model facade
      * contained within the context.
      *
-     * @param context the context containing the ModelAccessFacade (among other things).
+     * @param context the context containing the ModelAccessFacade (amoung other things).
      */
-    public void processModelElements(final CodeGenerationContext context)
+    public void processModelElements(final GenerationContext context)
     {
         final String methodName = "Cartridge.processModelElements";
         ExceptionUtils.checkNull(methodName, "context", context);
