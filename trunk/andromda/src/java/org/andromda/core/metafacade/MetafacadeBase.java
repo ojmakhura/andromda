@@ -24,36 +24,6 @@ public class MetafacadeBase
     private Object metaObject;
 
     /**
-     * Stores the context for this metafacade
-     */
-    private String context = null;
-
-    /**
-     * Stores the property context for this metafacade.
-     */
-    private String propertyNamespace = null;
-
-    /**
-     * Stores the namespace for this metafacade
-     */
-    private String namespace = null;
-
-    /**
-     * The metafacade logger instance.
-     */
-    protected Logger logger;
-
-    /**
-     * The flag indicating whether or not this metafacade is a context root.
-     */
-    private boolean contextRoot = false;
-
-    /**
-     * In order to speed up the check for this property (which will happen many times), we cache it :-)
-     */
-    private Boolean metafacadePropertyCachingEnabled = null;
-
-    /**
      * Construts a new instance of this class with the given <code>metaObject</code>
      * and <code>context</code>.  The metaObject is the meta model element which
      * this metafacade insulates. The <code>context</code> is the name of the
@@ -97,7 +67,7 @@ public class MetafacadeBase
     {
         return null;
     }
-    
+
     /**
      * Stores whether or not this metafacade has
      * been initialized.
@@ -171,8 +141,7 @@ public class MetafacadeBase
         MetafacadeBase metafacade = null;
         if (metaObject != null)
         {
-            metafacade =
-                MetafacadeFactory.getInstance().createMetafacade(
+            metafacade = MetafacadeFactory.getInstance().createMetafacade(
                     metaObject,
                     this.getContext());
         }
@@ -207,6 +176,11 @@ public class MetafacadeBase
     }
 
     /**
+     * Stores the context for this metafacade
+     */
+    private String context = null;
+
+    /**
      * Gets the context for this metafacade.
      *
      * @return the context name.
@@ -231,31 +205,9 @@ public class MetafacadeBase
     }
 
     /**
-     * Gets the current property context for this metafacade. This is the context in which properties for this
-     * metafacade are stored.
-     *
-     * @return the property namespace name
+     * Stores the namespace for this metafacade
      */
-    final String getPropertyNamespace()
-    {
-        if (StringUtils.isEmpty(this.propertyNamespace))
-        {
-            this.propertyNamespace = this.constructPropertyNamespace(this.getContext());
-        }
-        return this.propertyNamespace;
-    }
-
-    /**
-     * Constructs a property namespace name with the <code>context</code> argument and the current
-     * <code>namespace</code> of this metafacade.
-     *
-     * @param context the context name with which to construct the name.
-     * @return the new property namespace name
-     */
-    private final String constructPropertyNamespace(final String context)
-    {
-        return this.getNamespace() + ":" + context;
-    }
+    private String namespace = null;
 
     /**
      * Gets the current namespace for this metafacade
@@ -286,7 +238,7 @@ public class MetafacadeBase
     protected boolean isConfiguredProperty(final String property)
     {
         return MetafacadeFactory.getInstance().isPropertyRegistered(
-            this.getPropertyNamespace(),
+            this,
             property);
     }
 
@@ -299,7 +251,7 @@ public class MetafacadeBase
     protected Object getConfiguredProperty(final String property)
     {
         return MetafacadeFactory.getInstance().getRegisteredProperty(
-            this.getPropertyNamespace(),
+            this,
             property);
     }
 
@@ -311,13 +263,13 @@ public class MetafacadeBase
         final Object value)
     {
         MetafacadeFactory.getInstance().registerProperty(
-            this.getPropertyNamespace(),
+            this,
             name,
             value);
     }
 
     /**
-     * Gets the current meta model object for this metafacade. This is used from {@link MetafacadeFactory}when
+     * Gets the current meta model object for this metafacade. This is used from {@link MetafacadeFactory} when
      * attempting to construct a metafacade from a metafacade. This allows us to get the meta object for this metafacade
      * so that the meta object can be used instead.
      *
@@ -329,6 +281,11 @@ public class MetafacadeBase
     }
 
     /**
+     * The metafacade logger instance.
+     */
+    protected Logger logger;
+
+    /**
      * Package-local setter, called by facade factory. Sets the logger to use inside the facade's code.
      *
      * @param logger the logger to set
@@ -337,6 +294,11 @@ public class MetafacadeBase
     {
         this.logger = logger;
     }
+
+    /**
+     * The flag indicating whether or not this metafacade is a context root.
+     */
+    private boolean contextRoot = false;
 
     /**
      * Sets whether or not this metafacade represents a contextRoot. If it does represent a context root, then {@link
@@ -362,10 +324,28 @@ public class MetafacadeBase
         String metafacadeContext = this.context;
         if (this.contextRoot)
         {
-            metafacadeContext =
-                MetafacadeImpls.instance().getMetafacadeClass(this.getClass().getName()).getName();
+            metafacadeContext = this.getName();
         }
         return metafacadeContext;
+    }
+
+    /**
+     * Stores the name of the interface for this metafacade
+     */
+    private String name = null;
+
+    /**
+     * Gets the name for this metafacade.
+     *
+     * @return the metafacade's name.
+     */
+    final String getName()
+    {
+        if (this.name == null)
+        {
+            this.name = MetafacadeImpls.instance().getMetafacadeClass(this.getClass().getName()).getName();
+        }
+        return this.name;
     }
 
     /**
@@ -390,6 +370,11 @@ public class MetafacadeBase
     }
 
     /**
+     * In order to speed up the check for this property (which will happen many times), we cache it :-)
+     */
+    private Boolean metafacadePropertyCachingEnabled = null;
+
+    /**
      * A check to verify whether or not to make use of metafacade property caching. This method check if the {@link
      * MetafacadeProperties#ENABLE_METAFACADE_PROPERTY_CACHING} namespace property has been set, if this is not the case
      * then the caching will be enabled by default.
@@ -399,8 +384,7 @@ public class MetafacadeBase
         if (metafacadePropertyCachingEnabled == null)
         {
             final String enableCache =
-                (String)this.getConfiguredProperty(
-                    MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
+                (String)this.getConfiguredProperty(MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
             metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache);
         }
         return metafacadePropertyCachingEnabled.booleanValue();

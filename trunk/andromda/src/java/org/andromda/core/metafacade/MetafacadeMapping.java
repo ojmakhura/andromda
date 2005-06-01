@@ -151,7 +151,7 @@ public class MetafacadeMapping
      * Adds a mapping property reference. These are used to populate metafacade impl classes with mapping files, etc.
      * The property reference applies to the given mapping.
      *
-     * @param reference    the name of the reference.
+     * @param reference the name of the reference.
      * @param defaultValue the default value of the property reference.
      * @see MetafacadeMappings#addPropertyReference(String, String)
      */

@@ -101,7 +101,7 @@ public class MetafacadeMappingsTest
         final String namespace = "andromda-test-metafacades";
         final MetafacadeFactory factory = MetafacadeFactory.getInstance();
         factory.setModel(new Model());
-        factory.setActiveNamespace(namespace);
+        factory.setNamespace(namespace);
         mappings.discoverMetafacades();
 
         // verify the property references

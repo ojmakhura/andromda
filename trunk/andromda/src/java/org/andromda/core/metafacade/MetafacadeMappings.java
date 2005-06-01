@@ -657,7 +657,7 @@ public class MetafacadeMappings
         List contexts = (List)this.contextHierachyCache.get(context);
         if (contexts == null)
         {
-            contexts = this.getInterfaces(context);
+            contexts = ClassUtils.getInterfaces(context);
             if (contexts != null)
             {
                 CollectionUtils.transform(
@@ -691,31 +691,8 @@ public class MetafacadeMappings
         Class[] interfaces = (Class[])this.reversedInterfaceArrayCache.get(className);
         if (interfaces == null)
         {
-            interfaces = (Class[])this.getInterfaces(className).toArray(new Class[0]);
-            if (interfaces != null && interfaces.length > 0)
-            {
-                CollectionUtils.reverseArray(interfaces);
-            }
+            interfaces = ClassUtils.getInterfacesReversed(className);
             this.reversedInterfaceArrayCache.put(className, interfaces);
-        }
-        return interfaces;
-    }
-
-    /**
-     * Retrieves all interfaces for the given <code>className</code> (including the interface for <code>className</code>
-     * itself).
-     *
-     * @param context the root context
-     * @return a list containing all context interfaces ordered from the root down.
-     */
-    private final List getInterfaces(final String className)
-    {
-        final List interfaces = new ArrayList();
-        if (StringUtils.isNotEmpty(className))
-        {
-            final Class contextClass = ClassUtils.loadClass(className);
-            interfaces.addAll(ClassUtils.getAllInterfaces(contextClass));
-            interfaces.add(0, contextClass);
         }
         return interfaces;
     }
@@ -725,7 +702,7 @@ public class MetafacadeMappings
      *
      * @return URL to the resource.
      */
-    protected URL getResource()
+    protected final URL getResource()
     {
         return this.resource;
     }

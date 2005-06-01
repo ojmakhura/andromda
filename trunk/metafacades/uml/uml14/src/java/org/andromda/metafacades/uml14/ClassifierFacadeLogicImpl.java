@@ -505,52 +505,48 @@ public class ClassifierFacadeLogicImpl
      *
      * @return the serial version UID of this classifier.
      */
-    private Long calculateDefaultSUID()
+    private final Long calculateDefaultSUID()
     {
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
 
         // class name
-        sb.append(this.getName());
+        buffer.append(this.getName());
 
         // class modifiers (visibility)
-        sb.append(this.getVisibility());
+        buffer.append(this.getVisibility());
 
         // generalizations
-        Collection allGeneralizations = this.getAllGeneralizations();
-        for (Iterator iter = allGeneralizations.iterator(); iter.hasNext();)
+        for (final Iterator iterator = this.getAllGeneralizations().iterator(); iterator.hasNext();)
         {
-            ClassifierFacade classifier = (ClassifierFacade)iter.next();
-            sb.append(classifier.getName());
+            ClassifierFacade classifier = (ClassifierFacade)iterator.next();
+            buffer.append(classifier.getName());
         }
 
         // declared fields
-        Collection attributes = this.getAttributes();
-        for (Iterator iter = attributes.iterator(); iter.hasNext();)
+        for (final Iterator iterator =  this.getAttributes().iterator(); iterator.hasNext();)
         {
-            AttributeFacade attribute = (AttributeFacade)iter.next();
-            sb.append(attribute.getName());
-            sb.append(attribute.getVisibility());
-            sb.append(attribute.getType());
+            AttributeFacade attribute = (AttributeFacade)iterator.next();
+            buffer.append(attribute.getName());
+            buffer.append(attribute.getVisibility());
+            buffer.append(attribute.getType());
         }
 
         // operations
-        Collection operations = this.getOperations();
-        for (Iterator iter = operations.iterator(); iter.hasNext();)
+        for (final Iterator iter = this.getOperations().iterator(); iter.hasNext();)
         {
             OperationFacade operation = (OperationFacade)iter.next();
-            sb.append(operation.getName());
-            sb.append(operation.getVisibility());
-            sb.append(operation.getReturnType());
-            Collection parameters = operation.getParameters();
-            for (Iterator iterator = parameters.iterator(); iterator.hasNext();)
+            buffer.append(operation.getName());
+            buffer.append(operation.getVisibility());
+            buffer.append(operation.getReturnType());
+            for (final Iterator iterator = operation.getParameters().iterator(); iterator.hasNext();)
             {
-                ParameterFacade parameter = (ParameterFacade)iterator.next();
-                sb.append(parameter.getName());
-                sb.append(parameter.getVisibility());
-                sb.append(parameter.getType());
+                final ParameterFacade parameter = (ParameterFacade)iterator.next();
+                buffer.append(parameter.getName());
+                buffer.append(parameter.getVisibility());
+                buffer.append(parameter.getType());
             }
         }
-        String signature = sb.toString();
+        final String signature = buffer.toString();
 
         Long serialVersionUID = new Long(0L);
         try
@@ -559,22 +555,22 @@ public class ClassifierFacadeLogicImpl
             byte[] hashBytes = md.digest(signature.getBytes());
 
             long hash = 0;
-            for (int i = Math.min(hashBytes.length, 8) - 1; i >= 0; i--)
+            for (int ctr = Math.min(hashBytes.length, 8) - 1; ctr >= 0; ctr--)
             {
-                hash = (hash << 8) | (hashBytes[i] & 0xFF);
+                hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
             }
             serialVersionUID = new Long(hash);
         }
-        catch (NoSuchAlgorithmException e)
+        catch (final NoSuchAlgorithmException exception)
         {
             final String errMsg = "Error performing ModelElementFacadeImpl.getSerialVersionUID";
-            logger.error(errMsg, e);
+            logger.error(errMsg, exception);
         }
         return serialVersionUID;
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleGetSerialVersionUID()
+     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getSerialVersionUID()
      */
     protected Long handleGetSerialVersionUID()
     {
