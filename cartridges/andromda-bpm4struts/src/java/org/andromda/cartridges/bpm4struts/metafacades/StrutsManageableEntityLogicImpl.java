@@ -1,5 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
@@ -35,7 +36,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetFormBeanClassName()
     {
-        return getName() + "Form";
+        return getName() + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
     protected String handleGetFormBeanFullPath()
@@ -100,7 +101,7 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetFormBeanName()
     {
-        return "manage" + getName() + "Form";
+        return "manage" + getName() + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
     protected java.lang.String handleGetActionType()

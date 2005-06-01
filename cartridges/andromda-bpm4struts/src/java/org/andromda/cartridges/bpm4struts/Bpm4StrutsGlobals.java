@@ -57,4 +57,14 @@ public class Bpm4StrutsGlobals
      * For backward compatibility reasons this flag is disabled by default.
      */
     public static final String PROPERTY_NORMALIZE_MESSAGES = "normalizeMessages";
+    
+    /**
+     * The suffix uses for form names.
+     */
+    public static final String FORM_SUFFIX = "Form";
+    
+    /**
+     * The suffix for form implementation names.
+     */
+    public static final String FORM_IMPLEMENTATION_SUFFIX = "FormImpl";
 }
