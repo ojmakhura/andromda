@@ -350,7 +350,7 @@ public class EJBEntityFacadeLogicImpl
         Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
         String uri = null;
-        if (String.class.isAssignableFrom(property.getClass()))
+        if (property instanceof String)
         {
             uri = (String)property;
             try

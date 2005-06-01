@@ -40,6 +40,7 @@
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
+        <property reference="sqlMappingsUri"/>
         <property reference="jndiNamePrefix" default=""/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogicImpl">

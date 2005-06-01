@@ -76,8 +76,8 @@ public class Cartridge
         {
             final MetafacadeFactory factory = MetafacadeFactory.getInstance();
             factory.setModel(context.getModelFacade());
-            final String previousNamespace = factory.getActiveNamespace();
-            factory.setActiveNamespace(this.getName());
+            final String previousNamespace = factory.getNamespace();
+            factory.setNamespace(this.getName());
             for (final Iterator iterator = resources.iterator(); iterator.hasNext();)
             {
                 final Resource resource = (Resource)iterator.next();
@@ -91,7 +91,7 @@ public class Cartridge
                 }
             }
             // set the namespace back
-            factory.setActiveNamespace(previousNamespace);
+            factory.setNamespace(previousNamespace);
         }
     }
 

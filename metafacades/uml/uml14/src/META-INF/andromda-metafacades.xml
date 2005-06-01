@@ -180,8 +180,23 @@
             ]]>
         </documentation>
     </property>
-    <property reference="metaclassImplementationNamePattern" default="{0}$Impl"/>
-    <property reference="defaultMultiplicity" default="1"/>
+    <property reference="metaclassImplementationNamePattern" default="{0}$Impl">
+        <documentation>
+            <![CDATA[
+            The pattern for constructing the metaclass implementation name (this should not
+            be changed unless you're changing the meta model repository (and the metaclass implementation
+            names a different) thant the default
+            ]]>
+        </documentation>
+    </property>
+    <property reference="defaultMultiplicity" default="1">
+        <documentation>
+            <![CDATA[
+            The default multiplicity to use when nothing is defined, the possible values
+            are 0 or 1.
+            ]]>
+        </documentation>
+    </property>
     <property reference="defaultResolveable" default="true"/>
     <property reference="defaultPageSize" default="20"/>
     <property reference="defaultMaximumListSize" default="250"/>
@@ -220,8 +235,20 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.OperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl"/>
-        <property reference="preconditionNamePattern" default="{0}Precondition"/>
-        <property reference="postconditionNamePattern" default="{0}Postcondition"/>
+        <property reference="preconditionNamePattern" default="{0}Precondition">
+            <documentation>
+                <![CDATA[
+                The pattern used for constructing an operation's precondition name.
+                ]]>
+            </documentation>
+        </property>
+        <property reference="postconditionNamePattern" default="{0}Postcondition">
+            <documentation>
+                <![CDATA[
+                The pattern used to constructing an operation's postcondition name.
+                ]]>
+            </documentation>
+        </property>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AttributeFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
@@ -361,13 +388,39 @@
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
             <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
-        <property reference="sqlMappingsUri"/>
-        <property reference="jdbcMappingsUri"/>
+        <property reference="sqlMappingsUri">
+            <documentation>
+                <![CDATA[
+                The URI to the the SQL mappings file.
+                ]]>
+            </documentation>
+        </property>
+        <property reference="jdbcMappingsUri">
+            <documentation>
+                <![CDATA[
+                The URI to the the JDBC mappings file.
+                ]]>
+            </documentation>
+        </property>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
+        <property reference="sqlMappingsUri">
+            <documentation>
+                <![CDATA[
+                The URI to the the SQL mappings file.
+                ]]>
+            </documentation>
+        </property>
+        <property reference="jdbcMappingsUri">
+            <documentation>
+                <![CDATA[
+                The URI to the the JDBC mappings file.
+                ]]>
+            </documentation>
+        </property>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">

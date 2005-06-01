@@ -144,7 +144,7 @@ public class ModelLoader
                 MetafacadeFactory factory = MetafacadeFactory.getInstance();
                 factory.setModel(loader.repository.getModel());
                 this.intializeDefaultNamespace();
-                factory.setActiveNamespace(Namespaces.DEFAULT);
+                factory.setNamespace(Namespaces.DEFAULT);
             }
             catch (RepositoryFacadeException ex)
             {

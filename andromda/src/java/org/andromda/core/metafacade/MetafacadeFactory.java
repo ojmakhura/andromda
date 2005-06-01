@@ -27,7 +27,7 @@ public class MetafacadeFactory
     /**
      * The namespace that is currently active (i.e. being used) within the factory
      */
-    private String activeNamespace;
+    private String namespace;
 
     /**
      * The model facade which provides access to the underlying meta model.
@@ -42,7 +42,7 @@ public class MetafacadeFactory
     /**
      * Caches the registered properties used within metafacades.
      */
-    private final Map registeredProperties = new HashMap();
+    private final Map metafacadeNamespaces = new HashMap();
 
     /**
      * The shared instance of this factory.
@@ -53,11 +53,6 @@ public class MetafacadeFactory
     {
         // make sure that nobody instantiates it
     }
-
-    /**
-     * Whether or not model validation should be performed during metafacade creation
-     */
-    private boolean modelValidation = true;
 
     /**
      * Returns the facade factory singleton.
@@ -72,12 +67,12 @@ public class MetafacadeFactory
         }
         return instance;
     }
-    
+
     /**
      * The metafacade cache for this factory.
      */
     private final MetafacadeCache cache = MetafacadeCache.newInstance();
-    
+
     /**
      * The metafacade mappings instance for this factory.
      */
@@ -97,12 +92,12 @@ public class MetafacadeFactory
      * Sets the active namespace. The AndroMDA core and each cartridge have their own namespace for metafacade
      * registration.
      *
-     * @param activeNamespace the name of the active namespace.
+     * @param namespace the name of the active namespace.
      */
-    public void setActiveNamespace(final String activeNamespace)
+    public void setNamespace(final String namespace)
     {
-        this.activeNamespace = activeNamespace;
-        this.cache.setNamespace(this.activeNamespace);
+        this.namespace = namespace;
+        this.cache.setNamespace(this.namespace);
     }
 
     /**
@@ -110,10 +105,15 @@ public class MetafacadeFactory
      *
      * @return String the namespace name
      */
-    public String getActiveNamespace()
+    public String getNamespace()
     {
-        return this.activeNamespace;
+        return this.namespace;
     }
+
+    /**
+     * Whether or not model validation should be performed during metafacade creation
+     */
+    private boolean modelValidation = true;
 
     /**
      * Sets whether or not model validation should occur during <code>metafacade</code> creation. This is useful for
@@ -169,7 +169,7 @@ public class MetafacadeFactory
         ExceptionUtils.checkNull(methodName, "mappingObject", mappingObject);
 
         // if the mappingObject is REALLY a metafacade, just return it
-        if (MetafacadeBase.class.isAssignableFrom(mappingObject.getClass()))
+        if (mappingObject instanceof MetafacadeBase)
         {
             return (MetafacadeBase)mappingObject;
         }
@@ -184,7 +184,7 @@ public class MetafacadeFactory
             final MetafacadeMapping mapping =
                 this.mappings.getMetafacadeMapping(
                     mappingObject,
-                    this.getActiveNamespace(),
+                    this.getNamespace(),
                     context,
                     stereotypes);
             if (metafacadeClass == null)
@@ -196,7 +196,7 @@ public class MetafacadeFactory
                 else
                 {
                     // get the default since no mapping was found.
-                    metafacadeClass = this.mappings.getDefaultMetafacadeClass(this.activeNamespace);
+                    metafacadeClass = this.mappings.getDefaultMetafacadeClass(this.getNamespace());
                     if (this.getLogger().isDebugEnabled())
                     {
                         this.getLogger().debug(
@@ -213,8 +213,7 @@ public class MetafacadeFactory
                     methodName + " metafacadeClass was not retrieved from mappings" +
                     " or specified as an argument in this method for mappingObject --> '" + mappingObject + "'");
             }
-            final MetafacadeBase metafacade =
-                this.getMetafacade(metafacadeClass, mappingObject, context, mapping);
+            final MetafacadeBase metafacade = this.getMetafacade(metafacadeClass, mappingObject, context, mapping);
 
             // IMPORTANT: initialize each metafacade ONLY once (otherwise we
             // get stack overflow errors)
@@ -236,13 +235,13 @@ public class MetafacadeFactory
             }
             return metafacade;
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
             final String message =
                 "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" +
                 mappingObject.getClass() + "'";
             this.getLogger().error(message);
-            throw new MetafacadeFactoryException(message, th);
+            throw new MetafacadeFactoryException(message, throwable);
         }
     }
 
@@ -267,13 +266,13 @@ public class MetafacadeFactory
                 mapping.getContext(),
                 mapping);
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
             final String message =
                 "Failed to construct a meta facade of type '" + mapping.getMetafacadeClass() +
                 "' with mappingObject of type --> '" + mapping.getMappingClassName() + "'";
             this.getLogger().error(message);
-            throw new MetafacadeFactoryException(message, th);
+            throw new MetafacadeFactoryException(message, throwable);
         }
     }
 
@@ -314,13 +313,13 @@ public class MetafacadeFactory
         // we need to set some things each time
         // we change a metafacade's namespace
         final String metafacadeNamespace = metafacade.getNamespace();
-        if (metafacadeNamespace == null || !metafacadeNamespace.equals(this.getActiveNamespace()))
+        if (metafacadeNamespace == null || !metafacadeNamespace.equals(this.getNamespace()))
         {
             // assign the logger and active namespace
+            metafacade.setNamespace(this.getNamespace());
             metafacade.setLogger(this.getLogger());
-            metafacade.setNamespace(this.getActiveNamespace());
-            this.populateMetafacadeProperties(metafacade, mapping);
         }
+        this.populateMetafacadeProperties(metafacade, mapping);
         return metafacade;
     }
 
@@ -344,10 +343,10 @@ public class MetafacadeFactory
         // exist)
         this.populatePropertyReferences(
             metafacade,
-            this.mappings.getPropertyReferences(this.getActiveNamespace()));
+            this.mappings.getPropertyReferences(this.getNamespace()));
         if (mapping != null)
         {
-            // Populate any context property references (if any)
+            // Populate any metafacade namespace references (if any)
             this.populatePropertyReferences(
                 metafacade,
                 mapping.getPropertyReferences());
@@ -415,14 +414,14 @@ public class MetafacadeFactory
         final String methodName = "MetafacadeFactory.populatePropertyReferences";
         ExceptionUtils.checkNull(methodName, "metafacade", metafacade);
         ExceptionUtils.checkNull(methodName, "propertyReferences", propertyReferences);
-        for (final Iterator referenceIterator = propertyReferences.keySet().iterator(); referenceIterator.hasNext();)
+        for (final Iterator iterator = propertyReferences.keySet().iterator(); iterator.hasNext();)
         {
-            final String reference = (String)referenceIterator.next();
+            final String reference = (String)iterator.next();
 
             // ensure that each property is only set once per context
             // for performance reasons
             if (!this.isPropertyRegistered(
-                    metafacade.getPropertyNamespace(),
+                    metafacade,
                     reference))
             {
                 final String defaultValue = (String)propertyReferences.get(reference);
@@ -435,10 +434,9 @@ public class MetafacadeFactory
                 {
                     showWarning = true;
                 }
-
                 final Property property =
                     Namespaces.instance().findNamespaceProperty(
-                        this.getActiveNamespace(),
+                        this.getNamespace(),
                         reference,
                         showWarning);
 
@@ -446,12 +444,12 @@ public class MetafacadeFactory
                 // ignore.
                 if (property != null && !property.isIgnore())
                 {
-                    String value = property.getValue();
+                    final String value = property.getValue();
                     if (this.getLogger().isDebugEnabled())
                     {
                         this.getLogger().debug(
                             "setting context property '" + reference + "' with value '" + value + "' for namespace '" +
-                            this.getActiveNamespace() + "'");
+                            this.getNamespace() + "'");
                     }
 
                     if (value != null)
@@ -485,10 +483,10 @@ public class MetafacadeFactory
         final Collection metafacades = new ArrayList();
         if (mappingObjects != null && !mappingObjects.isEmpty())
         {
-            for (final Iterator mappingObjectIterator = mappingObjects.iterator(); mappingObjectIterator.hasNext();)
+            for (final Iterator iterator = mappingObjects.iterator(); iterator.hasNext();)
             {
-                metafacades.add(createMetafacade(
-                        mappingObjectIterator.next(),
+                metafacades.add(this.createMetafacade(
+                        iterator.next(),
                         contextName,
                         null));
             }
@@ -538,7 +536,7 @@ public class MetafacadeFactory
      */
     final Logger getLogger()
     {
-        return AndroMDALogger.getNamespaceLogger(this.getActiveNamespace());
+        return AndroMDALogger.getNamespaceLogger(this.getNamespace());
     }
 
     /**
@@ -546,65 +544,86 @@ public class MetafacadeFactory
      * <code>namespace</code>.
      *
      * @param namespace the namespace in which the property is stored.
+     * @param metafacade the metafacade under which to register the property.
      * @param name the name of the property
+     * @param the value to give the property
      */
-    protected void registerProperty(
-        final String namespace,
+    final void registerProperty(
+        final MetafacadeBase metafacade,
         final String name,
         final Object value)
     {
         final String methodName = "MetafacadeFactory.registerProperty";
-        ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
         ExceptionUtils.checkEmpty(methodName, "name", name);
         ExceptionUtils.checkNull(methodName, "value", value);
 
-        Map propertyNamespace = (Map)this.registeredProperties.get(namespace);
-        if (propertyNamespace != null)
+        final String namespace = this.getNamespace();
+        Map metafacadeNamespace = (Map)this.metafacadeNamespaces.get(namespace);
+        if (metafacadeNamespace == null)
         {
-            propertyNamespace.put(name, value);
+            metafacadeNamespace = new HashMap();
         }
-        else
+        final String metafacadeName = metafacade.getName();
+        Map propertyNamespace = (Map)metafacadeNamespace.get(metafacadeName);
+        if (propertyNamespace == null)
         {
             propertyNamespace = new HashMap();
-            propertyNamespace.put(name, value);
-            this.registeredProperties.put(namespace, propertyNamespace);
         }
+        propertyNamespace.put(name, value);
+        metafacadeNamespace.put(metafacadeName, propertyNamespace);
+        this.metafacadeNamespaces.put(namespace, metafacadeNamespace);
+    }
+    
+    /**
+     * Gets the metafacade's property namespace (or returns null if hasn't be registered).
+     * 
+     * @param metafacade the metafacade
+     * @return the metafacade's namespace
+     */
+    private Map getMetafacadePropertyNamespace(final MetafacadeBase metafacade)
+    {
+        Map metafacadeNamespace = null;
+        if (metafacade != null)
+        {
+            Map namespace = (Map)this.metafacadeNamespaces.get(this.getNamespace());
+            if (namespace != null)
+            {
+                metafacadeNamespace = (Map)namespace.get(metafacade.getName());
+            }
+        }
+        return metafacadeNamespace;
     }
 
     /**
      * Returns true if this property is registered under the given
      * <code>namespace</code>, false otherwise.
      *
-     * @param namespace the namespace to check.
+     * @param metafacade the metafacade to search.
      * @param name the name of the property.
      * @return true if the property is registered, false otherwise.
      */
     final boolean isPropertyRegistered(
-        final String namespace,
+        final MetafacadeBase metafacade,
         final String name)
     {
-        return this.findProperty(namespace, name) != null;
+        return this.findProperty(metafacade, name) != null;
     }
 
     /**
      * Finds the first property having the given <code>namespaces</code>, or
      * <code>null</code> if the property can <strong>NOT </strong> be found.
      *
-     * @param namespace the namespace to search.
+     * @param namespace the property namespace to search.
+     * @param metafacade the metafacade to search.
      * @param name the name of the property to find.
      * @return the property or null if it can't be found.
      */
     private final Object findProperty(
-        final String namespace,
+        final MetafacadeBase metafacade,
         final String name)
     {
-        Object property = null;
-        Map propertyNamespace = (Map)registeredProperties.get(namespace);
-        if (propertyNamespace != null)
-        {
-            property = propertyNamespace.get(name);
-        }
-        return property;
+        final Map propertyNamespace = this.getMetafacadePropertyNamespace(metafacade);
+        return propertyNamespace != null ? propertyNamespace.get(name) : null;
     }
 
     /**
@@ -612,19 +631,21 @@ public class MetafacadeFactory
      * with the <code>name</code>
      *
      * @param namespace the namespace of the property to check.
+     * @param metafacade the metafacade to search
      * @param name the name of the property to check.
      * @return the registered property
      */
     final Object getRegisteredProperty(
-        final String namespace,
+        final MetafacadeBase metafacade,
         final String name)
     {
         final String methodName = "MetafacadeFactory.getRegisteredProperty";
-        final Object registeredProperty = this.findProperty(namespace, name);
+        final Object registeredProperty = this.findProperty(metafacade, name);
         if (registeredProperty == null)
         {
             throw new MetafacadeFactoryException(
-                methodName + " - no property '" + name + "' registered under namespace --> '" + namespace + "'");
+                methodName + " - no property '" + name + "' registered under metafacade '" + metafacade.getName() +
+                "' for namespace '" + this.getNamespace() + "'");
         }
         return registeredProperty;
     }
@@ -640,7 +661,7 @@ public class MetafacadeFactory
         this.model = null;
         instance = null;
     }
-    
+
     /**
      * Resets the required internal resources
      * without shutting down the factory.
@@ -648,7 +669,7 @@ public class MetafacadeFactory
     public void reset()
     {
         this.validationMessages.clear();
-        this.registeredProperties.clear();
+        this.metafacadeNamespaces.clear();
         this.cache.clear();
     }
 

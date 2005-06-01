@@ -1,11 +1,11 @@
 package org.andromda.core.metafacade;
 
-import org.andromda.core.common.PropertyUtils;
-import org.apache.log4j.Logger;
-
 import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.common.PropertyUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Contains static utility methods for dealing with metafacade instances.
@@ -100,6 +100,23 @@ final class MetafacadeUtils
                     + mappingObject + "', and context '" + context + "'");
         final Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
         return (MetafacadeBase)constructor.newInstance(new Object[]{mappingObject, context});
+    }
+    
+    /**
+     * The property namespace separator.
+     */
+    private static final String PROPERTY_NAMESPACE_SEPARATOR = ":";
+    
+    /**
+     * Constructs the property namespace from the given <code>namespace</code> and
+     * <code>interfaceName</code>.
+     * @param namespace the name of the namespace.
+     * @param interfaceName the metafacade interface name.
+     * @return the property namespace.
+     */
+    static final String constructPropertyNamespace(final String namespace, final String interfaceName)
+    {
+        return namespace + PROPERTY_NAMESPACE_SEPARATOR + interfaceName;
     }
 
     /**
