@@ -379,7 +379,7 @@ public class StrutsActionLogicImpl
 
     protected String handleGetFormBeanClassName()
     {
-        return getActionClassName() + "FormImpl";
+        return getActionClassName() + Bpm4StrutsGlobals.FORM_IMPLEMENTATION_SUFFIX;
     }
 
     protected String handleGetFormBeanName()
@@ -390,14 +390,14 @@ public class StrutsActionLogicImpl
         if (useCase != null)
         {
             final String useCaseName = useCase.getName();
-            formBeanName = StringUtilsHelper.lowerCamelCaseName(useCaseName) + getActionClassName() + "Form";
+            formBeanName = StringUtilsHelper.lowerCamelCaseName(useCaseName) + getActionClassName() + Bpm4StrutsGlobals.FORM_SUFFIX;
         }
         return formBeanName;
     }
 
     protected String handleGetFormValidationMethodName()
     {
-        return "validate" + getFormBeanClassName();
+        return "validate" + this.getActionClassName() + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
     protected String handleGetMessageKey()

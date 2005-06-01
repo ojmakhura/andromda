@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -35,7 +36,7 @@ public class StrutsControllerOperationLogicImpl
 
     protected String handleGetInterfaceName()
     {
-        return StringUtilsHelper.upperCamelCaseName(getName()) + "Form";
+        return StringUtilsHelper.upperCamelCaseName(getName()) + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
     protected String handleGetInterfacePackageName()
