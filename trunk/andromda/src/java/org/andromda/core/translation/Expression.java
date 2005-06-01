@@ -4,6 +4,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+
 /**
  * Contains the translated expression,
  *
@@ -15,26 +16,6 @@ public class Expression
      * The resulting translated expression.
      */
     private StringBuffer translatedExpression;
-
-    /**
-     * The original expression before translation
-     */
-    private String originalExpression;
-
-    /**
-     * The element to which the expression applies.
-     */
-    private String contextElement;
-
-    /**
-     * The kind of the expression that was translated.
-     */
-    private String kind;
-
-    /**
-     * The name of the constraint.
-     */
-    private String name;
 
     /**
      * Creates a new instance of this Expression object
@@ -75,10 +56,12 @@ public class Expression
      * @param pattern     the regular expression pattern to replace
      * @param replacement the replacement string.
      */
-    public void replaceInTranslatedExpression(final String pattern, final String replacement)
+    public void replaceInTranslatedExpression(
+        final String pattern,
+        final String replacement)
     {
-        this.translatedExpression = new StringBuffer(this.getTranslatedExpression().toString().replaceAll(pattern,
-                replacement));
+        this.translatedExpression =
+            new StringBuffer(this.getTranslatedExpression().toString().replaceAll(pattern, replacement));
     }
 
     /**
@@ -89,7 +72,9 @@ public class Expression
      * @param object   the
      * @see java.lang.StringBuffer#insert(int,java.lang.String)
      */
-    public void insertInTranslatedExpression(final int position, final Object object)
+    public void insertInTranslatedExpression(
+        final int position,
+        final Object object)
     {
         this.translatedExpression.insert(position, object);
     }
@@ -105,6 +90,11 @@ public class Expression
     }
 
     /**
+     * The original expression before translation
+     */
+    private String originalExpression;
+
+    /**
      * Returns the expression before translation.
      *
      * @return String
@@ -113,6 +103,11 @@ public class Expression
     {
         return TranslationUtils.removeExtraWhitespace(this.originalExpression);
     }
+
+    /**
+     * The element to which the expression applies.
+     */
+    private String contextElement;
 
     /**
      * Returns the element which is the context of this expression.
@@ -130,6 +125,11 @@ public class Expression
     }
 
     /**
+     * The kind of the expression that was translated.
+     */
+    private String kind;
+
+    /**
      * Returns the Kind of this Expression (inv, post, or pre)
      *
      * @return String returns the Kind of this translation
@@ -145,6 +145,13 @@ public class Expression
     }
 
     /**
+     * The name of the expression.
+     */
+    private String name;
+
+    /**
+     * Gets the name of the expression.
+     *
      * @return String
      */
     public String getName()
