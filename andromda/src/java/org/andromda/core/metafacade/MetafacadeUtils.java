@@ -1,11 +1,13 @@
 package org.andromda.core.metafacade;
 
+import org.andromda.core.common.PropertyUtils;
+import org.apache.log4j.Logger;
+
 import java.lang.reflect.Constructor;
+
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.common.PropertyUtils;
-import org.apache.log4j.Logger;
 
 /**
  * Contains static utility methods for dealing with metafacade instances.
@@ -22,7 +24,9 @@ final class MetafacadeUtils
      * @param mapping    the MetafacadeMapping instance that contains the properties.
      * @return true/false
      */
-    static final boolean propertiesValid(final MetafacadeBase metafacade, final MetafacadeMapping mapping)
+    static final boolean propertiesValid(
+        final MetafacadeBase metafacade,
+        final MetafacadeMapping mapping)
     {
         boolean valid = false;
         final Collection propertyGroups = mapping.getMappingPropertyGroups();
@@ -31,23 +35,31 @@ final class MetafacadeUtils
             try
             {
                 if (getLogger().isDebugEnabled())
+                {
                     getLogger().debug(
-                        "evaluating " + propertyGroups.size()
-                            + " property groups(s) on metafacade '" + metafacade + "'");
+                        "evaluating " + propertyGroups.size() + " property groups(s) on metafacade '" + metafacade +
+                        "'");
+                }
                 for (Iterator propertyGroupIterator = propertyGroups.iterator(); propertyGroupIterator.hasNext();)
                 {
-                    final MetafacadeMapping.PropertyGroup propertyGroup = (MetafacadeMapping.PropertyGroup)propertyGroupIterator.next();
+                    final MetafacadeMapping.PropertyGroup propertyGroup =
+                        (MetafacadeMapping.PropertyGroup)propertyGroupIterator.next();
                     for (Iterator propertyIterator = propertyGroup.getProperties().iterator();
-                         propertyIterator.hasNext();)
+                        propertyIterator.hasNext();)
                     {
                         final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator.next();
-                        valid = PropertyUtils.containsValidProperty(metafacade, property.getName(),
+                        valid =
+                            PropertyUtils.containsValidProperty(
+                                metafacade,
+                                property.getName(),
                                 property.getValue());
                         if (getLogger().isDebugEnabled())
+                        {
                             getLogger().debug(
-                                "property '" + property.getName() + "', with value '"
-                                    + property.getValue() + "' on metafacade '" + metafacade
-                                    + "', evaluated to --> '" + valid + "'");
+                                "property '" + property.getName() + "', with value '" + property.getValue() +
+                                "' on metafacade '" + metafacade + "', evaluated to --> '" + valid + "'");
+                        }
+
                         // if the property is invalid, we break out
                         // of the loop (since we're evaluating with 'AND')
                         if (!valid)
@@ -55,6 +67,7 @@ final class MetafacadeUtils
                             break;
                         }
                     }
+
                     // we break on the first true value since
                     // property groups are evaluated as 'OR'
                     if (valid)
@@ -66,16 +79,19 @@ final class MetafacadeUtils
             catch (Throwable throwable)
             {
                 if (getLogger().isDebugEnabled())
+                {
                     getLogger().debug(
-                        "An error occured while " + "evaluating properties on metafacade '"
-                            + metafacade + "', setting valid to 'false'",
-                        throwable);
+                        "An error occured while " + "evaluating properties on metafacade '" + metafacade +
+                        "', setting valid to 'false'", throwable);
+                }
                 valid = false;
             }
             if (getLogger().isDebugEnabled())
+            {
                 getLogger().debug(
-                    "completed evaluating " + propertyGroups.size() + " properties on metafacade '"
-                        + metafacade + "' with a result of --> '" + valid + "'");
+                    "completed evaluating " + propertyGroups.size() + " properties on metafacade '" + metafacade +
+                    "' with a result of --> '" + valid + "'");
+            }
         }
         return valid;
     }
@@ -83,7 +99,7 @@ final class MetafacadeUtils
     /**
      * Constructs a new <code>metafacade</code> from the given
      * <code>metafacadeClass</code> and <code>mappingObject</code>.
-     * 
+     *
      * @param metafacadeClass the metafacade class.
      * @param mappingObject the object to which the metafacade is mapped.
      * @return the new metafacade.
@@ -92,31 +108,17 @@ final class MetafacadeUtils
     static final MetafacadeBase constructMetafacade(
         final Class metafacadeClass,
         final Object mappingObject,
-        final String context) throws Exception
+        final String context)
+        throws Exception
     {
         if (getLogger().isDebugEnabled())
+        {
             getLogger().debug(
-                "constructing metafacade from class '" + metafacadeClass + "' mapping object '"
-                    + mappingObject + "', and context '" + context + "'");
+                "constructing metafacade from class '" + metafacadeClass + "' mapping object '" + mappingObject +
+                "', and context '" + context + "'");
+        }
         final Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
-        return (MetafacadeBase)constructor.newInstance(new Object[]{mappingObject, context});
-    }
-    
-    /**
-     * The property namespace separator.
-     */
-    private static final String PROPERTY_NAMESPACE_SEPARATOR = ":";
-    
-    /**
-     * Constructs the property namespace from the given <code>namespace</code> and
-     * <code>interfaceName</code>.
-     * @param namespace the name of the namespace.
-     * @param interfaceName the metafacade interface name.
-     * @return the property namespace.
-     */
-    static final String constructPropertyNamespace(final String namespace, final String interfaceName)
-    {
-        return namespace + PROPERTY_NAMESPACE_SEPARATOR + interfaceName;
+        return (MetafacadeBase)constructor.newInstance(new Object[] {mappingObject, context});
     }
 
     /**
