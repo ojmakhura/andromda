@@ -199,6 +199,18 @@
             </modelElement>
         </modelElements>
     </template>
+    
+    <template
+        path="templates/bpm4struts/pages/page-javascript.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="jsp">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <template
         path="templates/bpm4struts/pages/page-variables.jspf.vsl"
