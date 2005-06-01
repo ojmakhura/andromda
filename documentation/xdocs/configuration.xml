@@ -33,7 +33,7 @@
     </properties>
     <server>
         <host>localhost</host>
-        <port>4444</port>
+        <port>4446</port>
     </server>
     <models>
         <model>
@@ -294,7 +294,7 @@
     ...
     <server>
         <host>localhost</host>
-        <port>4444</port>
+        <port>4446</port>
         <loadInterval>1000</loadInterval>
         <maximumFailedLoadAttempts>10</maximumFailedLoadAttempts>
     </server>
@@ -332,7 +332,7 @@
 
 <![CDATA[<server>
     <host>localhost</host>
-    <port>4444</port>
+    <port>4446</port>
 </server>]]>
                         </source>
                     </p>                    
@@ -349,7 +349,7 @@
 
 <![CDATA[<server>
     ...
-    <port>4444</port>
+    <port>4446</port>
     <loadInterval>1000</loadInterval>
 </server>]]>
                         </source>
