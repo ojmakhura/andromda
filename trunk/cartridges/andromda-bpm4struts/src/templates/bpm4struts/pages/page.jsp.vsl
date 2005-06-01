@@ -1,10 +1,6 @@
 #parse("templates/bpm4struts/pages/page.jsp.vm")
 #set ($generatedFile = "${jsp.fullPath}.jsp")
 ##
-##  CONSTANTS
-##
-#set ($hints = $hints == "true")
-##
 ##  START TEMPLATE
 ##
 #set ($hasTable = false)
@@ -46,55 +42,7 @@
 #end
     </tiles:put>
 
-##
-##  SETS THE JAVASCRIPT CONTENT
-##
-    <tiles:put name="javascript" type="string">
-## only load the calendar javascript when actually needed
-#if ($jsp.calendarRequired)
-        <script type="text/javascript" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
-#end
-## only load the static javascript when it will actually be used
-#set ($validationDesired = ($clientValidation=='true'))
-#if ($jsp.validationRequired && $validationDesired)
-        <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/form-validation.jsp"/>"></script>
-#foreach ($action in $jsp.actions)
-#if ($action.validationRequired)
-        <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false"#if($xhtml=="true") cdata="true"#else htmlComment="true" cdata="false"#end/>
-#end
-#end
-#end
-#if ($hints)
-    	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/hints.js"/>"></script>
-    	<script type="text/javascript" language="Javascript1.1">
-#if ($xhtml == "true")
-        //<![CDATA[
-#else
-        //<!--
-#end
-            var HINTS_ITEMS = {
-#foreach ($parameter in $jsp.allActionParameters)
-                '$parameter.titleKey':'<formatting:escape language="javascript"><bean:message key="$parameter.titleKey"/></formatting:escape>',
-#end
-#foreach ($action in $jsp.actions)
-#set ($trigger = $action.actionTrigger)
-                '${trigger.name}':'<formatting:escape language="javascript"><bean:message key="$trigger.titleKey"/></formatting:escape>',
-                '${trigger.name}_no':'<formatting:escape language="javascript"><bean:message key="$trigger.notAllowedTitleKey"/></formatting:escape>',
-                '${trigger.name}_reset':'<formatting:escape language="javascript"><bean:message key="$trigger.resetTitleKey"/></formatting:escape>',
-                '${trigger.name}_noreset':'<formatting:escape language="javascript"><bean:message key="$trigger.resetNotAllowedTitleKey"/></formatting:escape>',
-#end
-                'calendar.popup':'<formatting:escape language="javascript"><bean:message key="calendar.popup"/></formatting:escape>'
-            };
-
-            var hints = new THints (HINTS_CFG, HINTS_ITEMS);
-#if ($xhtml == "true")
-        //]]>
-#else
-        //-->
-#end
-    	</script>
-#end
-    </tiles:put>
+    <%@ include file="${jsp.fullPath}-javascript.jspf" %>
 
 ##
 ##  SETS THE BODY OF THIS PAGE
