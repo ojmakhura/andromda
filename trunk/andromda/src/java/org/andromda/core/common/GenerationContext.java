@@ -11,12 +11,12 @@ import org.andromda.core.repository.RepositoryFacade;
  * @author Chad Brandon
  * @since 28.07.2003
  */
-public class CodeGenerationContext
+public class GenerationContext
 {
     private RepositoryFacade repository = null;
     private ModelPackages modelPackages;
 
-    public CodeGenerationContext(final RepositoryFacade repository, final ModelPackages modelPackages)
+    public GenerationContext(final RepositoryFacade repository, final ModelPackages modelPackages)
     {
         this.repository = repository;
         this.modelPackages = modelPackages;

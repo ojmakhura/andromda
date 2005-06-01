@@ -4,7 +4,7 @@ import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BuildInformation;
-import org.andromda.core.common.CodeGenerationContext;
+import org.andromda.core.common.GenerationContext;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.PluginDiscoverer;
@@ -198,7 +198,7 @@ public class ModelProcessor
                         {
                             final Model model = models[ctr];
                             modelPackages.addPackages(model.getPackages());
-                            cartridge.processModelElements(new CodeGenerationContext(this.repository, modelPackages));
+                            cartridge.processModelElements(new GenerationContext(this.repository, modelPackages));
                             writer.writeHistory();
                         }
 
