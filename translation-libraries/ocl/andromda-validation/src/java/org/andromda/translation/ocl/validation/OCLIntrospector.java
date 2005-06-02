@@ -37,11 +37,11 @@ public final class OCLIntrospector
                 result = getNestedProperty(element, feature);
             }
         }
-        catch (NullPointerException ex)
+        catch (final NullPointerException exception)
         {
             // ignore (the result will just be null)
         }
-        catch (OCLIntrospectorException throwable)
+        catch (final OCLIntrospectorException throwable)
         {
             // Dont catch our own exceptions.
             // Otherwise get Exception/Cause chain which
