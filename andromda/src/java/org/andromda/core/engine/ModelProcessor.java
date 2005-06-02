@@ -296,7 +296,7 @@ public class ModelProcessor
      * @param uri the model uri.
      * @return the unique key
      */
-    private Object getModelModifiedKey(URL uri)
+    private final Object getModelModifiedKey(final URL uri)
     {
         return new File(uri.getFile());
     }
@@ -306,7 +306,7 @@ public class ModelProcessor
      * current <code>models</code> need to be
      * reloaded, and if so reloads them.
      */
-    void loadIfNecessary(final Model[] models)
+    final void loadIfNecessary(final Model[] models)
     {
         // only allow loading when processing is not occurring.
         if (!this.processing && (models != null && models.length > 0))
