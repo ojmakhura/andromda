@@ -72,7 +72,7 @@ public final class OCLCollections
     /**
      * Returns true if the collection contains no elements, false otherwise.
      */
-    public static boolean isEmpty(Collection collection)
+    public static boolean isEmpty(final Collection collection)
     {
         return (collection == null) || (collection.isEmpty());
     }
@@ -80,14 +80,18 @@ public final class OCLCollections
     /**
      * Returns true if the argument is <code>null</code>, false otherwise.
      */
-    public static boolean isEmpty(Object object)
+    public static boolean isEmpty(final Object object)
     {
         boolean isEmpty = object == null;
         if (!isEmpty)
         {
-            if (Collection.class.isAssignableFrom(object.getClass()))
+            if (object instanceof Collection)
             {
                 isEmpty = ((Collection)object).isEmpty();
+            } 
+            else if (object instanceof String)
+            {
+                isEmpty = isEmpty((String)object);    
             }
         }
         return isEmpty;
@@ -97,9 +101,9 @@ public final class OCLCollections
      * Returns true if the argument is either <code>null</code> or only contains whitespace characters, false
      * otherwise.
      */
-    public static boolean isEmpty(String string)
+    public static boolean isEmpty(final String string)
     {
-        return StringUtils.isEmpty(string);
+        return StringUtils.isBlank(string);
     }
 
     /**
