@@ -23,7 +23,7 @@ public class ConfigurationTest
         configuration.initialize();
         
         // properties
-        assertEquals(3, configuration.getProperties().length);
+        assertEquals(2, configuration.getProperties().length);
         final Property property1 = configuration.getProperties()[0];
         assertEquals("modelValidation",  property1.getName());
         assertEquals("true", property1.getValue());
@@ -40,7 +40,7 @@ public class ConfigurationTest
         assertEquals(50, server.getMaximumFailedLoadAttempts());
         
         // models
-        assertEquals(2, configuration.getModels().length);
+        assertEquals(3, configuration.getModels().length);
         final Model model1 = configuration.getModels()[0];
         assertNotNull(model1);
         assertEquals("file:model1.xmi", model1.getUri().toString());
@@ -52,6 +52,8 @@ public class ConfigurationTest
         assertEquals("/path/to/model/modules2", model1.getModuleSearchLocations()[1]);
         
         // modelPackages
+        assertNotNull(model1.getPackages());
+        assertFalse(model1.getPackages().isProcess("some::package"));
         assertFalse(model1.getPackages().isProcess("org::andromda::metafacades::uml"));
         assertTrue(model1.getPackages().isProcess("org::andromda::cartridges::test"));;
         
@@ -60,6 +62,13 @@ public class ConfigurationTest
         assertEquals("file:model2.xmi", model2.getUri().toString());
         assertEquals(0, model2.getModuleSearchLocations().length);
         assertFalse(model2.isLastModifiedCheck());
+        
+        final Model model3 = configuration.getModels()[2];
+        assertNotNull(model3);
+        assertEquals("file:model3.xmi", model3.getUri().toString());
+        assertNotNull(model3.getPackages());
+        assertTrue(model3.getPackages().isProcess("some::package"));
+        assertFalse(model3.getPackages().isProcess("org::andromda::metafacades::uml"));
         
         // transformations
         assertEquals(2, configuration.getTransformations().length);

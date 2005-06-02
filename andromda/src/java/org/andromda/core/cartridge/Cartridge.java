@@ -5,7 +5,6 @@ import org.andromda.core.cartridge.template.ModelElements;
 import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BasePlugin;
-import org.andromda.core.common.GenerationContext;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.PathMatcher;
 import org.andromda.core.common.ResourceUtils;
@@ -13,8 +12,6 @@ import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.andromda.core.metafacade.MetafacadeFactory;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
@@ -50,11 +47,6 @@ public class Cartridge
     }
 
     /**
-     * Stores the code generation context. Protected access to improve performance within inner class access.
-     */
-    protected GenerationContext context;
-
-    /**
      * The prefix to look for when determining whether or not to retrieve the output location from the template engine.
      */
     private static final String TEMPLATE_ENGINE_OUTPUT_PREFIX = "$";
@@ -63,44 +55,39 @@ public class Cartridge
      * Processes all model elements with relevant stereotypes by retrieving the model elements from the model facade
      * contained within the context.
      *
-     * @param context the context containing the ModelAccessFacade (amoung other things).
+     * @param factory the metafacade factory (which is used to manage the lifecycle of metafacades).
      */
-    public void processModelElements(final GenerationContext context)
+    public void processModelElements(final MetafacadeFactory factory)
     {
         final String methodName = "Cartridge.processModelElements";
-        ExceptionUtils.checkNull(methodName, "context", context);
-        this.context = context;
+        ExceptionUtils.checkNull(methodName, "factory", factory);
         final Collection resources = this.getResources();
-
         if (resources != null && !resources.isEmpty())
         {
-            final MetafacadeFactory factory = MetafacadeFactory.getInstance();
-            factory.setModel(context.getModelFacade());
-            final String previousNamespace = factory.getNamespace();
-            factory.setNamespace(this.getName());
             for (final Iterator iterator = resources.iterator(); iterator.hasNext();)
             {
                 final Resource resource = (Resource)iterator.next();
                 if (resource instanceof Template)
                 {
-                    this.processTemplate((Template)resource);
+                    this.processTemplate(factory, (Template)resource);
                 }
                 else
                 {
                     this.processResource(resource);
                 }
             }
-            // set the namespace back
-            factory.setNamespace(previousNamespace);
         }
     }
 
     /**
      * Processes the given <code>template</code>.
      *
+     * @param factory the metafacade factory instance.
      * @param template the Template instance to process.
      */
-    protected void processTemplate(final Template template)
+    protected void processTemplate(
+        final MetafacadeFactory factory,
+        final Template template)
     {
         final String methodName = "Cartridge.processTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
@@ -121,22 +108,21 @@ public class Cartridge
                 // metafacades by type and properties
                 if (templateModelElement.hasStereotype())
                 {
-                    modelElements =
-                        this.context.getModelFacade().findByStereotype(templateModelElement.getStereotype());
+                    modelElements = factory.getModel().findByStereotype(templateModelElement.getStereotype());
                 }
                 else if (templateModelElement.hasTypes())
                 {
-                    modelElements = this.context.getModelFacade().getModelElements();
+                    modelElements = factory.getModel().getModelElements();
                 }
                 else
                 {
                     continue;
                 }
-                final Collection metafacades = MetafacadeFactory.getInstance().createMetafacades(modelElements);
-                this.filterModelPackages(metafacades);
+                final Collection metafacades = factory.createMetafacades(modelElements);
+                factory.filterMetafacades(metafacades);
                 templateModelElement.setMetafacades(metafacades);
             }
-            this.processTemplateWithModelElements(template);
+            this.processTemplateWithModelElements(factory, template);
         }
         else
         {
@@ -148,19 +134,15 @@ public class Cartridge
     /**
      * Processes all <code>modelElements</code> for this template.
      *
-     * @param template the Template object from which we process.
+     * @param factory the metafacade factory
      * @param context  the context for the cartridge
      */
-    protected void processTemplateWithModelElements(final Template template)
+    protected void processTemplateWithModelElements(
+        final MetafacadeFactory factory,
+        final Template template)
     {
         final String methodName = "Cartridge.processTemplateWithModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
-        if (getLogger().isDebugEnabled())
-        {
-            getLogger().debug(
-                "performing " + methodName + " with template '" + template + "' and context ' " + context + "'");
-        }
-
         final ModelElements modelElements = template.getSupportedModeElements();
         if (modelElements != null && !modelElements.isEmpty())
         {
@@ -247,8 +229,8 @@ public class Cartridge
                                 template,
                                 templateContext,
                                 outletProperty,
-                                context.getModelFacade().getName(metafacade),
-                                context.getModelFacade().getPackageName(metafacade));
+                                factory.getModel().getName(metafacade),
+                                factory.getModel().getPackageName(metafacade));
                         }
                     }
                 }
@@ -527,24 +509,6 @@ public class Cartridge
     }
 
     /**
-     * Filters out those model elements which <strong>should </strong> be processed and returns the filtered collection
-     *
-     * @param modelElements the Collection of modelElements.
-     */
-    protected void filterModelPackages(final Collection modelElements)
-    {
-        CollectionUtils.filter(
-            modelElements,
-            new Predicate()
-            {
-                public boolean evaluate(final Object modelElement)
-                {
-                    return context.getModelPackages().isProcess(context.getModelFacade().getPackageName(modelElement));
-                }
-            });
-    }
-
-    /**
      * Stores the loaded resources to be processed by this cartridge intance.
      */
     private final List resources = new ArrayList();
@@ -586,7 +550,6 @@ public class Cartridge
      */
     public void shutdown()
     {
-        this.context = null;
         super.shutdown();
     }
 }

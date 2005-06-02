@@ -1,6 +1,7 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,17 +23,25 @@ public class ModelPackages
      * The flag indicating whether or not all model packages
      * should be processed.
      */
-    private boolean processAllModelPackages = true;
+    private boolean processAll = true;
+    
+    /**
+     * Stores the model packages.
+     */
     private Map modelPackages;
 
     /**
-     * Set true/false whether all modelPackages should be processed.
+     * Sets whether or not AndroMDA should process all packages on a model. If this is set to true, then package elements should be
+     * specified if you want to keep certain packages from being processed. If this is set to false, then you would want
+     * to define package elements to specify which packages <strong>SHOULD BE </strong> processed. This is useful if you
+     * need to reference model elements from other packages but you don't want to perform any generation from them. The
+     * default is <strong>true </strong>.
      *
-     * @param processAllModelPackages
+     * @param processAll whether or not we should process all packages true/false
      */
-    public void setProcessAllPackages(final boolean processAllModelPackages)
+    public void setProcessAll(final boolean processAll)
     {
-        this.processAllModelPackages = processAllModelPackages;
+        this.processAll = processAll;
     }
 
     /**
@@ -49,7 +58,7 @@ public class ModelPackages
     {
         this.packages.add(modelPackage);
     }
-   
+
     /**
      * Adds all ModelPackages in the given <code>modelPackages</code> to this ModelPackages instance.
      *
@@ -75,7 +84,7 @@ public class ModelPackages
      */
     public boolean isProcess(final String packageName)
     {
-        boolean shouldProcess = this.processAllModelPackages;
+        boolean shouldProcess = this.processAll;
         this.initialize();
         Boolean process = (Boolean)modelPackages.get(packageName);
         if (process != null)

@@ -109,23 +109,36 @@
 
             </pattern>
 
-            <pattern value="modelPackages/modelPackage">
+            <pattern value="modelPackages">
 
                 <object-create-rule
-                    classname="org.andromda.core.configuration.ModelPackage" />
+                    classname="org.andromda.core.configuration.ModelPackages" />
 
                 <set-properties-rule>
-                     <alias attr-name="process" prop-name="process" />
+                     <alias attr-name="processAll" prop-name="processAll" />
                 </set-properties-rule>
 
-                <call-method-rule
-                    methodname="setName"
-                    paramcount="1"/>
+                <pattern value="modelPackage">
 
-                <call-param-rule
-                    paramnumber="0"/>
+                    <object-create-rule
+                        classname="org.andromda.core.configuration.ModelPackage" />
 
-                <set-next-rule methodname="addPackage" />
+                    <set-properties-rule>
+                         <alias attr-name="process" prop-name="process" />
+                    </set-properties-rule>
+
+                    <call-method-rule
+                        methodname="setName"
+                        paramcount="1"/>
+
+                    <call-param-rule
+                        paramnumber="0"/>
+
+                    <set-next-rule methodname="addPackage" />
+
+                </pattern>
+
+                <set-next-rule methodname="setPackages" />
 
             </pattern>
 

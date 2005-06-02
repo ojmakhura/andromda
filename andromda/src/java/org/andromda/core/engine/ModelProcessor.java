@@ -1,18 +1,31 @@
 package org.andromda.core.engine;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BuildInformation;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
-import org.andromda.core.common.GenerationContext;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.Profile;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Model;
-import org.andromda.core.configuration.ModelPackages;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Transformation;
 import org.andromda.core.mapping.Mappings;
@@ -26,24 +39,6 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.net.URL;
-
-import java.text.Collator;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -99,22 +94,7 @@ public class ModelProcessor
                 {
                     // log all the error messages
                     Collection messages = MetafacadeFactory.getInstance().getValidationMessages();
-                    final StringBuffer totalMessagesMessage = new StringBuffer();
-                    if (messages != null && !messages.isEmpty())
-                    {
-                        totalMessagesMessage.append(" - ");
-                        totalMessagesMessage.append(messages.size());
-                        totalMessagesMessage.append(" VALIDATION ERROR(S)");
-                        messages = this.sortValidationMessages(messages);
-                        AndroMDALogger.setSuffix("VALIDATION:ERROR");
-                        final Iterator messageIt = messages.iterator();
-                        for (int ctr = 1; messageIt.hasNext(); ctr++)
-                        {
-                            final ModelValidationMessage message = (ModelValidationMessage)messageIt.next();
-                            AndroMDALogger.error(ctr + ") " + message);
-                        }
-                        AndroMDALogger.reset();
-                    }
+                    final String totalMessagesMessage = this.printValidationMessages(messages);
                     AndroMDALogger.info(
                         "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
                         "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount() +
@@ -154,9 +134,6 @@ public class ModelProcessor
         {
             boolean lastModifiedCheck = true;
             long lastModified = 0;
-            final ModelPackages modelPackages = new ModelPackages();
-            modelPackages.setProcessAllPackages(this.processAllModelPackages);
-
             final ResourceWriter writer = ResourceWriter.instance();
 
             // get the time from the model that has the latest modified time
@@ -186,23 +163,24 @@ public class ModelProcessor
                 {
                     this.loadModelIfNecessary(models[ctr]);
                 }
+                final MetafacadeFactory factory = MetafacadeFactory.getInstance();
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
                     cartridgeName = cartridge.getName();
                     if (this.shouldProcess(cartridgeName))
                     {
+                        factory.setNamespace(cartridgeName);
                         cartridge.initialize();
 
                         // process each model
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
-                            final Model model = models[ctr];
-                            modelPackages.addPackages(model.getPackages());
-                            cartridge.processModelElements(new GenerationContext(this.repository, modelPackages));
+                            factory.setModel(this.repository.getModel());
+                            factory.setModelPackages(models[ctr].getPackages());
+                            cartridge.processModelElements(factory);
                             writer.writeHistory();
                         }
-
                         cartridge.shutdown();
                     }
                 }
@@ -225,7 +203,6 @@ public class ModelProcessor
     {
         this.printConsoleHeader();
         PluginDiscoverer.instance().discoverPlugins();
-        MetafacadeFactory.getInstance().initialize();
         Mappings.initializeLogicalMappings();
         if (this.repository == null)
         {
@@ -240,6 +217,7 @@ public class ModelProcessor
             }
             this.repository.open();
         }
+        MetafacadeFactory.getInstance().initialize();
     }
 
     /**
@@ -335,25 +313,6 @@ public class ModelProcessor
     }
 
     /**
-     * Stores whether or not to process all model packages
-     */
-    private boolean processAllModelPackages = true;
-
-    /**
-     * Sets whether or not AndroMDA should process all packages. If this is set to true, then package elements should be
-     * specified if you want to keep certain packages from being processed. If this is set to false, then you would want
-     * to define package elements to specify which packages <strong>SHOULD BE </strong> processed. This is useful if you
-     * need to reference model elements from other packages but you don't want to perform any generation from them. The
-     * default is <strong>true </strong>.
-     *
-     * @param processAllModelPackages The processAllModelPackages to set.
-     */
-    public void setProcessAllModelPackages(boolean processAllModelPackages)
-    {
-        this.processAllModelPackages = processAllModelPackages;
-    }
-
-    /**
      * Sets <code>modelValidation</code> to be true/false. This defines whether model validation should occur when
      * AndroMDA processes model(s).
      *
@@ -363,6 +322,35 @@ public class ModelProcessor
     public void setModelValidation(final boolean modelValidation)
     {
         MetafacadeFactory.getInstance().setModelValidation(modelValidation);
+    }
+    
+    /**
+     * Prints the validation errors stored within the <code>factory</code>
+     * and returns the toal messages fragment to be used with the completed
+     * processing message.
+     * 
+     * @param factory the metafacade factory (used to manage the metafacades).
+     */
+    private String printValidationMessages(Collection messages)
+    {
+        // log all the error messages
+        final StringBuffer totalMessagesMessage = new StringBuffer();
+        if (messages != null && !messages.isEmpty())
+        {
+            totalMessagesMessage.append(" - ");
+            totalMessagesMessage.append(messages.size());
+            totalMessagesMessage.append(" VALIDATION ERROR(S)");
+            messages = this.sortValidationMessages(messages);
+            AndroMDALogger.setSuffix("VALIDATION:ERROR");
+            final Iterator iterator = messages.iterator();
+            for (int ctr = 1; iterator.hasNext(); ctr++)
+            {
+                final ModelValidationMessage message = (ModelValidationMessage)iterator.next();
+                AndroMDALogger.error(ctr + ") " + message);
+            }
+            AndroMDALogger.reset();
+        }
+        return totalMessagesMessage.toString();
     }
 
     /**
@@ -584,7 +572,6 @@ public class ModelProcessor
         this.setModelValidation(true);
         this.setLoggingConfigurationUri(null);
         this.setFailOnValidationErrors(true);
-        this.setProcessAllModelPackages(true);
     }
 
     /**

@@ -51,6 +51,17 @@ public class Model
      * be processed.
      */
     private ModelPackages packages = new ModelPackages();
+    
+    /**
+     * Sets the processAll flag on the interal model packages instance
+     * of this model.
+     * 
+     * @param processAllPackages
+     */
+    public void setProcessAllPackages(final boolean processAllPackages)
+    {
+        packages.setProcessAll(processAllPackages);
+    }
 
     /**
      * Stores the information about what packages should/shouldn't be processed.
@@ -63,14 +74,14 @@ public class Model
     }
 
     /**
-     * Adds a model package that indicates what should/shouldn't
-     * be processed.
+     * Sets the model packages for this model.  This indicates what
+     * packages should and should not be processed from this model.
      *
      * @param packages the packages to process.
      */
-    public void addPackage(final ModelPackage modelPackage)
+    public void setPackages(final ModelPackages packages)
     {
-        this.packages.addPackage(modelPackage);
+        this.packages = packages;
     }
 
     /**
