@@ -28,7 +28,7 @@ public interface ModelAccessFacade
     /**
      * Returns an object that represents the entire model. Data type is defined by the implementor of this interface.
      *
-     * @return Object
+     * @return the metaclass model.
      */
     public Object getModel();
 
@@ -60,12 +60,12 @@ public interface ModelAccessFacade
      * Finds all the model elements that have the specified <code>stereotype</code>.
      *
      * @param stereotype the name of the stereotype, they are matched without regard to case.
-     * @return Collection
+     * @return Collection of model elements having the given stereotype
      */
     public Collection findByStereotype(String stereotype);
 
     /**
-     * Returns all model elements from the model.
+     * Returns all meta class model elements from the model.
      *
      * @return Collection
      */

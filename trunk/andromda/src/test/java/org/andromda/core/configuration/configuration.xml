@@ -2,7 +2,6 @@
     <properties>
         <property name="modelValidation">true</property>
         <property name="cartridgeFilter">${filter}</property>
-        <property name="processAllModelPackages">true</property>
     </properties>
     <server>
         <host>localhost</host>
@@ -17,12 +16,18 @@
                 <location>/path/to/model/modules1</location>
                 <location>/path/to/model/modules2</location>
             </moduleSearchLocations>
-            <modelPackages>
+            <modelPackages processAll="false">
                 <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
                 <modelPackage>org::andromda::cartridges::test</modelPackage>
             </modelPackages>
         </model>
         <model><uri>file:model2.xmi</uri></model>
+        <model>
+            <uri>file:model3.xmi</uri>
+            <modelPackages processAll="true">
+                <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+            </modelPackages>
+        </model>
     </models>
     <transformations>
         <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>

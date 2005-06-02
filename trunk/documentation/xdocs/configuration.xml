@@ -449,29 +449,30 @@
                             No, defaults to <code>false</code>.
                         </td>
                     </tr>
-                    <section name="">
-                        <h2>
-                            <a name="uri"><![CDATA[<uri>]]></a>
-                        </h2>
-                        <p>
-                            The contents of the required <em>uri</em> element is used to
-                            define the location of the model.
-                            <source language="xml">
+                </table>
+                <subsection name="">
+                    <h2>
+                        <a name="uri"><![CDATA[<uri>]]></a>
+                    </h2>
+                    <p>
+                        The contents of the required <em>uri</em> element is used to
+                        define the location of the model.
+                        <source language="xml">
 <![CDATA[<model>
     <uri>file:/path/to/models/model1.xmi</uri>
     ...
 </model>]]>
-                            </source>
-                        </p>
-                    </section>
-                    <section name="">
-                        <h2>
-                            <a name="moduleSearchLocations"><![CDATA[<moduleSearchLocations>]]></a>
-                        </h2>
-                        <p>
-                            The moduleSearchLocations element defines the locations of one or more
-                            external modules or profiles (i.e. HREFs) that a model may reference.
-                            <source language="xml">
+                        </source>
+                    </p>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="moduleSearchLocations"><![CDATA[<moduleSearchLocations>]]></a>
+                    </h2>
+                    <p>
+                        The moduleSearchLocations element defines the locations of one or more
+                        external modules or profiles (i.e. HREFs) that a model may reference.
+                        <source language="xml">
 <![CDATA[<model>
     ...
     <moduleSearchLocations>
@@ -479,85 +480,120 @@
         <location>/other/path/to/modules</location>
     </moduleSearchLocations>
 </model>]]>
-                            </source>
+                        </source>
+                    </p>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="modelPackages"><![CDATA[<modelPackages>]]></a>
+                    </h2>
+                    <p>
+                            Groups the nested modelPackage elements that define which packages
+                            should and should not be processed by AndroMDA within the given model.
+                            <source language="xml">
+<![CDATA[<model>
+    ...
+    <modelPackages processAll="false">
+        <modelPackage process="true">some::package::to::process</location>
+    </moduleSearchLocations>
+    ...
+</model>]]>
+                        </source>
+                    </p>
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Attribute</strong>
+                            </td>
+                            <td>
+                                <strong>Description</strong>
+                            </td>
+                            <td>
+                                <strong>Required</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a name="processAll">processAll</a>
+                            </td>
+                            <td>
+                                Specifies whether or not to process/generate from all packages
+                                in the model, used in combination with the
+                                <a href="#modelPackage">
+                                    <code><![CDATA[<modelPackage>]]></code>
+                                </a> element.
+                            </td>
+                            <td>
+                                No, defaults to
+                                <code>true</code>.
+                            </td>
+                        </tr>
+                    </table>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="modelPackage"><![CDATA[<modelPackage>]]></a>
+                    </h2>
+                    <table>
+                        <p>
+                            The <em>optional</em> <code><![CDATA[<modelPackage>]]></code> is used in
+                            conjunction with the <code><a href="#processAll">processAll</a></code>
+                            attribute of the <code><a href="#modelPackages"><![CDATA[<modelPackages>]]></a></code>
+                            element.  By default all packages are processed. Therefore it is recommended to
+                            turn off the packages which should be not processed.  In other words,
+                            if you don't want to generate code from a certain package of a model,
+                            then you can create a modelPackage for that package, set the <em>process</em> attribute
+                            to <code>false</code>, and any model elements in that package will not be processed.
                         </p>
-                    </section>
-                    <subsection name="">
-                        <h2>
-                            <a name="modelPackage"><![CDATA[<modelPackage>]]></a>
-                        </h2>
-                        <table>
+                        <tr>
+                            <td>
+                                <strong>Attribute</strong>
+                            </td>
+                            <td>
+                                <strong>Description</strong>
+                            </td>
+                            <td>
+                                <strong>Required</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                process
+                            </td>
+                            <td>
+                                True or false depending on whether or not the package
+                                should be processed.
+                            </td>
+                            <td>
+                                No. Defaults to
+                                <code>true</code>.
+                            </td>
+                        </tr>
+                        <subsection name="Example">
                             <p>
-                                The <em>optional</em> <code><![CDATA[<modelPackage>]]></code> is used in
-                                conjunction with the <code><a href="#processAllModelPackages">processAllModelPackages</a></code>
-                                property of the <code><a href="#andromda"><![CDATA[<andromda>]]></a></code>
-                                element.  By default all packages are processed. Therefore it is recommended to
-                                turn off the packages which should be not processed.  In other words,
-                                if you don't want to generate code from a certain package of a model,
-                                then you can create a modelPackage for that package, set the <em>process</em> attribute
-                                to <code>false</code>, and any model elements in that package will not be processed.
+                                The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
+                                element:
                             </p>
-                            <tr>
-                                <td>
-                                    <strong>Attribute</strong>
-                                </td>
-                                <td>
-                                    <strong>Description</strong>
-                                </td>
-                                <td>
-                                    <strong>Required</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    name
-                                </td>
-                                <td>
-                                    The fully qualified name of the UML namespace/package.
-                                </td>
-                                <td>
-                                    Yes.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    shouldProcess
-                                </td>
-                                <td>
-                                    True or false depending on whether or not the package
-                                    should be processed.
-                                </td>
-                                <td>
-                                    No. Defaults to
-                                    <code>true</code>.
-                                </td>
-                            </tr>
-                            <subsection name="Example">
+                            <source language="xml">
+<![CDATA[<modelPackages>
+  ...
+    <modelPackage>my::package::foo</modelPackage>
+    <modelPackage process="false">name="my::package::bar</modelPackage>
+  ...
+</modelPackages>]]></source>
                                 <p>
-                                    The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
-                                    element:
+                                    The above is equivalent to:
                                 </p>
                                 <source language="xml">
-<![CDATA[<andromda>
-  ...
-    <modelPackage name="my::package::foo" shouldProcess="true"/>
-    <modelPackage name="my::package::bar" shouldProcess="false"/>
-  ...
-</andromda>]]></source>
-                                    <p>
-                                        The above is equivalent to:
-                                    </p>
-                                    <source language="xml">
 <![CDATA[<andromda>
   ...
     <modelPackage name="my::package::bar" shouldProcess="false"/>
   ...
 </andromda>]]>
-                                </source>
-                            </subsection>
-                        </table>
-                    </subsection>
-                </table>
+                            </source>
+                        </subsection>
+                    </table>
+                </subsection>
             </subsection>
             <subsection name="">
                 <h2>

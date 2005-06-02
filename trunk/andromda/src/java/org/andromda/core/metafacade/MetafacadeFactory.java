@@ -1,17 +1,20 @@
 package org.andromda.core.metafacade;
 
-import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.configuration.Namespaces;
-import org.andromda.core.configuration.Property;
-import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.configuration.ModelPackages;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -240,6 +243,7 @@ public class MetafacadeFactory
             final String message =
                 "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" +
                 mappingObject.getClass() + "'";
+
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }
@@ -469,7 +473,9 @@ public class MetafacadeFactory
      * Returns a metafacade for each mappingObject, contained within the
      * <code>mappingObjects</code> collection depending on its
      * <code>mappingClass</code> and (optionally) its <code>sterotypes</code>,
-     * and <code>contextName</code>.
+     * and <code>contextName</code>.  Note that if model package information was given 
+     * in the {@link MetafacadeFactoryContext#getModelPackages()} then the model
+     * packages which do not apply will be filtered out.
      *
      * @param mappingObjects the meta model element.
      * @param contextName the name of the context the meta model element is
@@ -485,10 +491,11 @@ public class MetafacadeFactory
         {
             for (final Iterator iterator = mappingObjects.iterator(); iterator.hasNext();)
             {
-                metafacades.add(this.createMetafacade(
-                        iterator.next(),
-                        contextName,
-                        null));
+                Object test = this.createMetafacade(
+                    iterator.next(),
+                    contextName,
+                    null);
+                metafacades.add(test);
             }
         }
         return metafacades;
@@ -524,7 +531,7 @@ public class MetafacadeFactory
     /**
      * @param model the model
      */
-    public void setModel(ModelAccessFacade model)
+    public void setModel(final ModelAccessFacade model)
     {
         this.model = model;
     }
@@ -681,5 +688,43 @@ public class MetafacadeFactory
     public Collection getValidationMessages()
     {
         return validationMessages;
+    }
+    
+    /**
+     * The model packages that are used to determine whether or not
+     * some packages should be filtered out. Set as protected
+     * visibility to improve innerclass access performance.
+     */
+    protected ModelPackages modelPackages = null;
+    
+    /**
+     * Sets the model packages; these indicate which packages
+     * should and should not be processed (if defined).
+     * @param packages
+     */
+    public void setModelPackages(final ModelPackages modelPackages)
+    {
+        this.modelPackages = modelPackages;
+    }
+    
+    /**
+     * Filters out those metafacades which <strong>should </strong> be processed.
+     *
+     * @param modelElements the Collection of modelElements.
+     */
+    public void filterMetafacades(final Collection metafacades)
+    {
+        if (this.modelPackages != null)
+        {
+            CollectionUtils.filter(
+               metafacades,
+                new Predicate()
+                {
+                    public boolean evaluate(final Object modelElement)
+                    {
+                        return modelPackages.isProcess(getModel().getPackageName(modelElement));
+                    }
+                });
+        }
     }
 }

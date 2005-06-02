@@ -23,9 +23,6 @@ import java.util.Iterator;
 public class ModelElement
 {
     private String stereotype;
-    private String variable;
-    private final Collection types = new ArrayList();
-    private Collection metafacades = new ArrayList();
 
     /**
      * Gets the stereotype of this modelElement.
@@ -47,6 +44,11 @@ public class ModelElement
     {
         return StringUtils.isNotBlank(this.getStereotype());
     }
+    
+    /**
+     * Stores the types defined for this model element.
+     */
+    private final Collection types = new ArrayList();
 
     /**
      * Returns <code>true</code> or <code>false</code> depending on whether or not this model element has any type
@@ -82,6 +84,11 @@ public class ModelElement
         ExceptionUtils.checkNull(methodName, "type", type);
         this.types.add(type);
     }
+    
+    /**
+     * Stores the name of the variable for this model element.
+     */
+    private String variable;
 
     /**
      * Gets the variable stereotype of this modelElement (this is what is made available to a template during
@@ -103,6 +110,11 @@ public class ModelElement
     {
         this.variable = StringUtils.trimToEmpty(variable);
     }
+    
+    /**
+     * The metafacades for this model element.
+     */
+    private Collection metafacades = new ArrayList();
 
     /**
      * Sets the current metafacades that belong to this ModelElement instance.
