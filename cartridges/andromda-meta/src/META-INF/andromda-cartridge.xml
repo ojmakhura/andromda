@@ -17,7 +17,9 @@
         outlet="facade-logics"
         overwrite="true">
         <modelElements variable="metafacade">
-            <modelElement stereotype="metafacade"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
         </modelElements>
     </template>
 
@@ -27,7 +29,9 @@
         outlet="facade-logic-impls"
         overwrite="false">
         <modelElements variable="metafacade">
-            <modelElement stereotype="metafacade"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
         </modelElements>
     </template>
 
@@ -37,7 +41,9 @@
         outlet="facades"
         overwrite="true">
         <modelElements variable="metafacade">
-            <modelElement stereotype="metafacade"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
         </modelElements>
     </template>
 
@@ -48,7 +54,9 @@
         overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="metafacades">
-            <modelElement stereotype="metafacade"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
         </modelElements>
     </template>
 

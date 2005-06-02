@@ -243,7 +243,6 @@ public class MetafacadeFactory
             final String message =
                 "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" +
                 mappingObject.getClass() + "'";
-
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }
@@ -658,29 +657,6 @@ public class MetafacadeFactory
     }
 
     /**
-     * Performs shutdown procedures for the factory. This should be called <strong>ONLY</code> when model processing has
-     * completed.
-     */
-    public void shutdown()
-    {
-        this.reset();
-        this.mappings.shutdown();
-        this.model = null;
-        instance = null;
-    }
-
-    /**
-     * Resets the required internal resources
-     * without shutting down the factory.
-     */
-    public void reset()
-    {
-        this.validationMessages.clear();
-        this.metafacadeNamespaces.clear();
-        this.cache.clear();
-    }
-
-    /**
      * Gets the validation messages collection during model processing.
      *
      * @return Returns the validationMessages.
@@ -708,11 +684,95 @@ public class MetafacadeFactory
     }
     
     /**
+     * Stores the collection of all metafacades for
+     * each namespace.
+     */
+    private final Map allMetafacades = new HashMap();
+    
+    /**
+     * <p>
+     * Gets all metafacades for the entire model for the 
+     * current namespace set within the factory.
+     * </p>
+     * <p>
+     * <strong>NOTE:</strong> The model package filter is applied
+     * before returning the results (if defined within the factory).
+     * </p>
+     * 
+     * @return all metafacades
+     */
+    public Collection getAllMetafacades()
+    {
+        final String namespace = this.getNamespace();
+        Collection metafacades = null;
+        if (this.getModel() != null)
+        {
+            metafacades = (Collection)allMetafacades.get(namespace);
+            if (metafacades == null)
+            {
+                metafacades = this.createMetafacades(this.getModel().getModelElements());
+                allMetafacades.put(namespace, metafacades);
+            }
+            if (metafacades != null)
+            {
+                metafacades = new ArrayList(metafacades);
+            }
+            this.filterMetafacades(metafacades);
+        }
+        return metafacades;
+    }
+    
+    /**
+     * Caches the metafacdaes by stereotype.
+     */
+    private final Map metafacadesByStereotype = new HashMap();
+    
+    /**
+     * <p>
+     * Gets all metafacades for the entire model having the given 
+     * stereotype.
+     * </p>
+     * <p>
+     * <strong>NOTE:</strong> The model package filter is applied
+     * before returning the results (if defined within the factory).
+     * </p>
+     * 
+     * @param stereotype the stereotype by which to perform the search.
+     * @return the metafacades having the given <code>stereotype</code>.
+     */
+    public Collection getMetafacadesByStereotype(final String stereotype)
+    {
+        final String namespace = this.getNamespace();
+        Collection metafacades = null;
+        if (this.getModel() != null)
+        {
+            Map stereotypeMetafacades = (Map)this.metafacadesByStereotype.get(namespace);
+            if (stereotypeMetafacades == null)
+            {
+                stereotypeMetafacades = new HashMap();
+            }
+            metafacades = (Collection)stereotypeMetafacades.get(stereotype);
+            if (metafacades == null)
+            {
+                metafacades = this.createMetafacades(this.getModel().findByStereotype(stereotype));
+                stereotypeMetafacades.put(stereotype, metafacades);
+                this.metafacadesByStereotype.put(namespace, stereotypeMetafacades);
+            }
+            if (metafacades != null)
+            {
+                metafacades = new ArrayList(metafacades);
+            }
+            this.filterMetafacades(metafacades);
+        }
+        return metafacades;        
+    }
+    
+    /**
      * Filters out those metafacades which <strong>should </strong> be processed.
      *
      * @param modelElements the Collection of modelElements.
      */
-    public void filterMetafacades(final Collection metafacades)
+    private final void filterMetafacades(final Collection metafacades)
     {
         if (this.modelPackages != null)
         {
@@ -726,5 +786,30 @@ public class MetafacadeFactory
                     }
                 });
         }
+    }
+    
+    /**
+     * Performs shutdown procedures for the factory. This should be called <strong>ONLY</code> when model processing has
+     * completed.
+     */
+    public void shutdown()
+    {
+        this.reset();
+        this.mappings.shutdown();
+        this.model = null;
+        instance = null;
+    }
+
+    /**
+     * Resets the required internal resources
+     * without shutting down the factory.
+     */
+    public void reset()
+    {
+        this.validationMessages.clear();
+        this.metafacadeNamespaces.clear();
+        this.allMetafacades.clear();
+        this.metafacadesByStereotype.clear();
+        this.cache.clear();
     }
 }
