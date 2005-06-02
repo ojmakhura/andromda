@@ -55,8 +55,6 @@ public final class OCLIntrospector
             // rather than creating a new one.
             if (throwable instanceof OCLIntrospectorException)
             {
-                // Wrap exception again to prevent redundant
-                // error messages as the stack unwinds.
                 throw (OCLIntrospectorException)throwable;
             }
             throw new OCLIntrospectorException(throwable);
