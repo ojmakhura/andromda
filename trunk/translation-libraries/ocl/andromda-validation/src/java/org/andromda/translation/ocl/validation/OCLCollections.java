@@ -105,7 +105,7 @@ public final class OCLCollections
     /**
      * Returns true if the collection contains one or more elements, false otherwise.
      */
-    public static boolean notEmpty(Collection collection)
+    public static boolean notEmpty(final Collection collection)
     {
         return (collection != null) && !isEmpty(collection);
     }
@@ -113,14 +113,18 @@ public final class OCLCollections
     /**
      * Returns true if the argument is not <code>null</code>, false otherwise.
      */
-    public static boolean notEmpty(Object object)
+    public static boolean notEmpty(final Object object)
     {
         boolean notEmpty = object != null;
         if (notEmpty)
         {
-            if (Collection.class.isInstance(object))
+            if (object instanceof Collection)
             {
                 notEmpty = !((Collection)object).isEmpty();
+            }
+            else if (object instanceof String)
+            {
+                notEmpty = notEmpty((String)object);
             }
         }
         return notEmpty;
@@ -130,9 +134,9 @@ public final class OCLCollections
      * Returns true if the argument is neither <code>null</code> nor only contains whitespace characters, false
      * otherwise.
      */
-    public static boolean notEmpty(String string)
+    public static boolean notEmpty(final String string)
     {
-        return StringUtils.isNotEmpty(string);
+        return StringUtils.isNotBlank(string);
     }
 
     /**
