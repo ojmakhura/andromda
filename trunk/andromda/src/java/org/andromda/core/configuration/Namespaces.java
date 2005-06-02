@@ -193,11 +193,19 @@ public class Namespaces
     }
     
     /**
+     * Clears out the current namespaces.
+     */
+    public void clear()
+    {
+        this.namespaces.clear();
+    }
+    
+    /**
      * Shuts down this namespaces instance.
      */
     public void shutdown()
     {
-        this.namespaces.clear();
+        this.clear();
         instance = null;
     }
 }

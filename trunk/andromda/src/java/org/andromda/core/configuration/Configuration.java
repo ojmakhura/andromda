@@ -231,7 +231,9 @@ public class Configuration
      */
     private final void initializeNamespaces()
     {
-        Namespaces.instance().addNamespaces(this.getNamespaces());
+        final Namespaces namespaces = Namespaces.instance();
+        namespaces.clear();
+        namespaces.addNamespaces(this.getNamespaces());
     }
 
     /**

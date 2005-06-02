@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 /**
  * A configurable namespace object. These are passed to Plugin instances (Cartridges, etc.).
  *
@@ -87,6 +85,6 @@ public class Namespace
      */
     public String toString()
     {
-        return ToStringBuilder.reflectionToString(this);
+        return super.toString() + "[" + this.name + "]";
     }
 }
