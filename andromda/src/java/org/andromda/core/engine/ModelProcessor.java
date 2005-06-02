@@ -4,9 +4,9 @@ import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BuildInformation;
-import org.andromda.core.common.GenerationContext;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
+import org.andromda.core.common.GenerationContext;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.Profile;
 import org.andromda.core.common.ResourceWriter;
@@ -180,6 +180,7 @@ public class ModelProcessor
                 {
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
                 }
+
                 // pre-load the models
                 for (int ctr = 0; ctr < models.length; ctr++)
                 {
@@ -283,7 +284,6 @@ public class ModelProcessor
             }
             catch (final IOException exception)
             {
-                exception.printStackTrace();
                 // ignore
             }
         }
