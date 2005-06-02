@@ -1,5 +1,18 @@
 package org.andromda.core.cartridge;
 
+import java.io.File;
+import java.io.StringWriter;
+
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.ModelElements;
 import org.andromda.core.cartridge.template.Template;
@@ -13,19 +26,6 @@ import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.apache.commons.lang.StringUtils;
-
-import java.io.File;
-import java.io.StringWriter;
-
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -99,28 +99,21 @@ public class Cartridge
             for (final Iterator iterator = templateModelElements.getModelElements().iterator(); iterator.hasNext();)
             {
                 final ModelElement templateModelElement = (ModelElement)iterator.next();
-                Collection modelElements = null;
 
                 // if the template model element has a stereotype
                 // defined, then we filter the model elements based
                 // on that stereotype, otherwise we get all model elements
-                // and let the modelElement perform filtering on the
+                // and let the templateModelElement perform filtering on the
                 // metafacades by type and properties
                 if (templateModelElement.hasStereotype())
                 {
-                    modelElements = factory.getModel().findByStereotype(templateModelElement.getStereotype());
+                    templateModelElement.setMetafacades(
+                        factory.getMetafacadesByStereotype(templateModelElement.getStereotype()));
                 }
                 else if (templateModelElement.hasTypes())
                 {
-                    modelElements = factory.getModel().getModelElements();
+                    templateModelElement.setMetafacades(factory.getAllMetafacades());
                 }
-                else
-                {
-                    continue;
-                }
-                final Collection metafacades = factory.createMetafacades(modelElements);
-                factory.filterMetafacades(metafacades);
-                templateModelElement.setMetafacades(metafacades);
             }
             this.processTemplateWithModelElements(factory, template);
         }
