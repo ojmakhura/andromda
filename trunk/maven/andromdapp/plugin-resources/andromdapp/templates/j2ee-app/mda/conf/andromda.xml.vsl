@@ -3,6 +3,10 @@
         <property name="modelValidation">true</property>
         <property name="cartridgeFilter">${filter}</property>
     </properties>
+    <server>
+        <host>localhost</host>
+        <port>4446</port>
+    </server>
     <models>
         <model>
             <uri>${maven.andromda.model.uri}</uri>
