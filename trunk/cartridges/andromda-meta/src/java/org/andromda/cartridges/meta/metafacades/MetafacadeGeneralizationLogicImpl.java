@@ -22,11 +22,6 @@ public class MetafacadeGeneralizationLogicImpl
     {
         super(metaObject, context);
     }
-    
-    public Object getMetaObject()
-    {
-        return this.metaObject;
-    }
 
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization#getPrecedence()
