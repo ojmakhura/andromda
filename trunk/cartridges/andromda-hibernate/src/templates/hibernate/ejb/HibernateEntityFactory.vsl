@@ -47,8 +47,10 @@ public abstract class ${entity.name}Factory {
 #end
     // ---------------- finder methods  ----------------------
 
+#if (!$entity.getIdentifiers(true).empty)
 #set ($primaryKey = $entity.getIdentifiers(true).iterator().next())
 #set ($primaryKeyTypeName = $primaryKey.type.fullyQualifiedName)
+#end
     /**
      *
      * Finds ${entity.name} object by its primary key.
@@ -62,7 +64,7 @@ public abstract class ${entity.name}Factory {
         return object;
     }
 
-#foreach ( $finder in $entity.getQueryOperations(true))
+#foreach ($finder in $entity.getQueryOperations(true))
 #set ($returnType = $finder.returnType.fullyQualifiedName)
 ##
 #set ($parameterList = $finder.typedArgumentList)

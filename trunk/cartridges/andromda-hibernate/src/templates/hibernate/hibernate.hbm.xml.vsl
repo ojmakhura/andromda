@@ -12,7 +12,9 @@
 #if($hibernateEnableCache.equalsIgnoreCase("true"))
         <cache usage="$entity.hibernateCacheType" />
 #end
+#if (!$entity.identifiers.empty)
 #set ($identifier = $entity.identifiers.iterator().next())
+#end
         <id name="$identifier.name" type="$identifier.type.fullyQualifiedName" unsaved-value="null">
             <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
             <generator class="$entity.hibernateGeneratorClass">
