@@ -153,6 +153,9 @@ public final class $manageable.manageableServiceBaseName
         final $manageable.fullyQualifiedManageableValueObjectName valueObject = new ${manageable.fullyQualifiedManageableValueObjectName}();
 
 #foreach ($member in $manageable.attributes)
+#if ($member.needsFileUpload)
+// (binary fields are not returned because of reasons of performance) ## no newline
+#end
         valueObject.${member.setterName}(entity.${member.getterName}());
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
