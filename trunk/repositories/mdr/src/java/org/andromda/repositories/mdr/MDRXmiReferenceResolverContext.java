@@ -101,7 +101,7 @@ public class MDRXmiReferenceResolverContext
         }
         if (!loggedReferedModel && modelUrl != null)
         {
-            AndroMDALogger.info("Referenced model --> '" + modelUrl + "'");
+            AndroMDALogger.info("referenced model --> '" + modelUrl + "'");
             this.loggedReferedModel = true;
         }
         return modelUrl;
