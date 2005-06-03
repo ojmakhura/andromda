@@ -197,6 +197,7 @@
             ]]>
         </documentation>
     </property>
+    <property reference="manageableIdDisplayStrategy" default="auto"/>
     <property reference="defaultResolveable" default="true"/>
     <property reference="defaultPageSize" default="20"/>
     <property reference="defaultMaximumListSize" default="250"/>
@@ -366,7 +367,6 @@
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
             <context>org.andromda.metafacades.uml.ManageableEntity</context>
         </mapping>
-        <property reference="manageableIdDisplayStrategy" default="auto"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
