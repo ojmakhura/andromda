@@ -238,10 +238,9 @@ public class EntityLogicImpl
 
         if (attributes != null && !attributes.isEmpty())
         {
-            Iterator attributeIt = attributes.iterator();
-            while (attributeIt.hasNext())
+            for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
             {
-                EntityAttribute attribute = (EntityAttribute)attributeIt.next();
+                final EntityAttribute attribute = (EntityAttribute)iterator.next();
                 if (withIdentifiers || !attribute.isIdentifier())
                 {
                     buffer.append(separator);
@@ -645,9 +644,9 @@ public class EntityLogicImpl
         {
             final Entity foreignEntity = (Entity)end.getOtherEnd().getType();
             final Collection identifiers = EntityMetafacadeUtils.getIdentifiers(foreignEntity, true);
-            for (final Iterator identifierIterator = identifiers.iterator(); identifierIterator.hasNext();)
+            for (final Iterator iterator = identifiers.iterator(); iterator.hasNext();)
             {
-                final AttributeFacade identifier = (AttributeFacade)identifierIterator.next();
+                final AttributeFacade identifier = (AttributeFacade)iterator.next();
                 this.createIdentifier(
                     identifier.getName(),
                     identifier.getType().getFullyQualifiedName(true),
