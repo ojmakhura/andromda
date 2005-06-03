@@ -141,9 +141,9 @@ $literal.getDocumentation("     * ")
 #end
     }
 
-    private static final java.util.Map values = new java.util.HashMap();
-    private static java.util.List literals = new java.util.ArrayList();
-    private static java.util.List names = new java.util.ArrayList();
+    private static final java.util.Map values = new java.util.HashMap($enumeration.literals.size(), 1);
+    private static java.util.List literals = new java.util.ArrayList($enumeration.literals.size());
+    private static java.util.List names = new java.util.ArrayList($enumeration.literals.size());
 
     /**
      * Initializes the values.
