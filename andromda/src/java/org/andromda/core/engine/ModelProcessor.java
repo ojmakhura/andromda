@@ -3,8 +3,11 @@ package org.andromda.core.engine;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.text.Collator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,6 +33,7 @@ import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Transformation;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.transformation.Transformer;
@@ -87,28 +91,14 @@ public class ModelProcessor
                 this.processing = true;
                 this.processModels(models);
                 this.processing = false;
+                AndroMDALogger.info(
+                    "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
+                    "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
             }
             finally
             {
-                try
-                {
-                    // log all the error messages
-                    Collection messages = MetafacadeFactory.getInstance().getValidationMessages();
-                    final String totalMessagesMessage = this.printValidationMessages(messages);
-                    AndroMDALogger.info(
-                        "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
-                        "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount() +
-                        totalMessagesMessage);
-                    if (this.failOnValidationErrors && !messages.isEmpty())
-                    {
-                        throw new ModelValidationException("Model validation failed!");
-                    }
-                }
-                finally
-                {
-                    // reset any internal resources
-                    this.reset();
-                }
+                // reset any internal resources
+                this.reset();
             }
         }
         else
@@ -186,6 +176,11 @@ public class ModelProcessor
                 }
             }
         }
+        catch (final ModelValidationException exception)
+        {
+            // we don't want to record model validation exceptions
+            throw exception;
+        }
         catch (final Throwable throwable)
         {
             final String errorMesssage =
@@ -247,11 +242,12 @@ public class ModelProcessor
             InputStream stream = transformer.transform(
                     model.getUri(),
                     this.getTransformations());
-            AndroMDALogger.info("Input model --> '" + model.getUri() + "'");
+            AndroMDALogger.info("loading model --> '" + model.getUri() + "'");
             this.repository.readModel(
                 stream,
                 model.getUri().toString(),
                 model.getModuleSearchLocations());
+            AndroMDALogger.info("- loading complete -");
             this.modelModifiedTimes.put(
                 key,
                 new Long(model.getLastModified()));
@@ -264,6 +260,76 @@ public class ModelProcessor
             {
                 // ignore
             }
+            if (this.modelValidation)
+            {
+                this.validateModel(model);
+                AndroMDALogger.info("- model validation complete -");
+            }
+        }
+    }
+
+    /**
+     * Validates the given <code>model</code> with each cartridge namespace,
+     * and logs the failures if model validation fails.
+     *
+     * @param model the model to validate
+     */
+    private final void validateModel(final Model model)
+    {
+        final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
+        final MetafacadeFactory factory = MetafacadeFactory.getInstance();
+        final ModelAccessFacade modelAccessFacade = this.repository.getModel();
+        factory.setModel(modelAccessFacade);
+        for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
+        {
+            final Cartridge cartridge = (Cartridge)iterator.next();
+            final String cartridgeName = cartridge.getName();
+            if (this.shouldProcess(cartridgeName))
+            {
+                factory.setNamespace(cartridgeName);
+                factory.validateAllMetafacades();
+            }
+        }
+        try
+        {
+            this.printValidationMessages(factory.getValidationMessages());
+        }
+        finally
+        {
+            this.reset();
+        }
+    }
+
+    /**
+     * Prints any model validation errors stored within the <code>factory</code>.
+     *
+     * @param factory the metafacade factory (used to manage the metafacades).
+     */
+    private void printValidationMessages(Collection messages)
+    {
+        // log all the error messages
+        if (messages != null && !messages.isEmpty())
+        {
+            final StringBuffer header =
+                new StringBuffer("Model Validation Failed - " + messages.size() + " VALIDATION ERROR(S)");
+            if (messages.size() > 1)
+            {
+                header.append("S");
+            }
+            AndroMDALogger.info(header);
+            messages = this.sortValidationMessages(messages);
+            AndroMDALogger.setSuffix("VALIDATION:ERROR");
+            final Iterator iterator = messages.iterator();
+            for (int ctr = 1; iterator.hasNext(); ctr++)
+            {
+                final ModelValidationMessage message = (ModelValidationMessage)iterator.next();
+                AndroMDALogger.error(ctr + ") " + message);
+            }
+            AndroMDALogger.reset();
+        }
+        if (this.failOnValidationErrors && !messages.isEmpty())
+        {
+            throw new ModelValidationException("Model validation failed!");
         }
     }
 
@@ -313,44 +379,20 @@ public class ModelProcessor
     }
 
     /**
-     * Sets <code>modelValidation</code> to be true/false. This defines whether model validation should occur when
-     * AndroMDA processes model(s).
+     * Whether or not model validation should be performed.
+     */
+    private boolean modelValidation = true;
+
+    /**
+     * Sets whether or not model validation should occur. This is useful for
+     * performance reasons (i.e. if you have a large model it can significatly descrease the amount of time it takes for
+     * AndroMDA to process a model). By default this is set to <code>true</code>.
      *
      * @param modelValidation true/false on whether model validation should be performed or not.
-     * @see org.andromda.core.metafacade.MetafacadeFactory#setModelValidation(boolean)
      */
     public void setModelValidation(final boolean modelValidation)
     {
-        MetafacadeFactory.getInstance().setModelValidation(modelValidation);
-    }
-    
-    /**
-     * Prints the validation errors stored within the <code>factory</code>
-     * and returns the toal messages fragment to be used with the completed
-     * processing message.
-     * 
-     * @param factory the metafacade factory (used to manage the metafacades).
-     */
-    private String printValidationMessages(Collection messages)
-    {
-        // log all the error messages
-        final StringBuffer totalMessagesMessage = new StringBuffer();
-        if (messages != null && !messages.isEmpty())
-        {
-            totalMessagesMessage.append(" - ");
-            totalMessagesMessage.append(messages.size());
-            totalMessagesMessage.append(" VALIDATION ERROR(S)");
-            messages = this.sortValidationMessages(messages);
-            AndroMDALogger.setSuffix("VALIDATION:ERROR");
-            final Iterator iterator = messages.iterator();
-            for (int ctr = 1; iterator.hasNext(); ctr++)
-            {
-                final ModelValidationMessage message = (ModelValidationMessage)iterator.next();
-                AndroMDALogger.error(ctr + ") " + message);
-            }
-            AndroMDALogger.reset();
-        }
-        return totalMessagesMessage.toString();
+        this.modelValidation = modelValidation;
     }
 
     /**

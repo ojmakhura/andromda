@@ -67,6 +67,7 @@ public class AndroMDAServer
         }
         else
         {
+            configuration.initialize();
             this.server.start(configuration);
         }
     }

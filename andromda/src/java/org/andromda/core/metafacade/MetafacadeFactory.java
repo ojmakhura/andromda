@@ -38,11 +38,6 @@ public class MetafacadeFactory
     private ModelAccessFacade model;
 
     /**
-     * Any validation messages stored during processing.
-     */
-    private final Collection validationMessages = new HashSet();
-
-    /**
      * Caches the registered properties used within metafacades.
      */
     private final Map metafacadeNamespaces = new HashMap();
@@ -111,23 +106,6 @@ public class MetafacadeFactory
     public String getNamespace()
     {
         return this.namespace;
-    }
-
-    /**
-     * Whether or not model validation should be performed during metafacade creation
-     */
-    private boolean modelValidation = true;
-
-    /**
-     * Sets whether or not model validation should occur during <code>metafacade</code> creation. This is useful for
-     * performance reasons (i.e. if you have a large model it can significatly descrease the amount of time it takes for
-     * AndroMDA to process a model). By default this is set to <code>true</code>.
-     *
-     * @param modelValidation The modelValidation to set.
-     */
-    public void setModelValidation(final boolean modelValidation)
-    {
-        this.modelValidation = modelValidation;
     }
 
     /**
@@ -224,13 +202,6 @@ public class MetafacadeFactory
             {
                 metafacade.setInitialized();
                 metafacade.initialize();
-                if (this.modelValidation)
-                {
-                    // validate the meta-facade and collect the messages
-                    final Collection validationMessages = new ArrayList();
-                    metafacade.validate(validationMessages);
-                    this.validationMessages.addAll(validationMessages);
-                }
             }
             if (this.getLogger().isDebugEnabled())
             {
@@ -245,6 +216,23 @@ public class MetafacadeFactory
                 mappingObject.getClass() + "'";
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
+        }
+    }
+
+    /**
+     * Validates all metafacdaes for the current namespace.
+     */
+    public void validateAllMetafacades()
+    {
+        final Collection metafacades = this.getAllMetafacades();
+        for (final Iterator iterator = metafacades.iterator(); iterator.hasNext();)
+        {
+            final MetafacadeBase metafacade = (MetafacadeBase)iterator.next();
+
+            // validate the meta-facade and collect the messages
+            final Collection validationMessages = new ArrayList();
+            metafacade.validate(validationMessages);
+            this.validationMessages.addAll(validationMessages);
         }
     }
 
@@ -423,9 +411,7 @@ public class MetafacadeFactory
 
             // ensure that each property is only set once per context
             // for performance reasons
-            if (!this.isPropertyRegistered(
-                    metafacade,
-                    reference))
+            if (!this.isPropertyRegistered(metafacade, reference))
             {
                 final String defaultValue = (String)propertyReferences.get(reference);
 
@@ -472,7 +458,7 @@ public class MetafacadeFactory
      * Returns a metafacade for each mappingObject, contained within the
      * <code>mappingObjects</code> collection depending on its
      * <code>mappingClass</code> and (optionally) its <code>sterotypes</code>,
-     * and <code>contextName</code>.  Note that if model package information was given 
+     * and <code>contextName</code>.  Note that if model package information was given
      * in the {@link MetafacadeFactoryContext#getModelPackages()} then the model
      * packages which do not apply will be filtered out.
      *
@@ -491,9 +477,9 @@ public class MetafacadeFactory
             for (final Iterator iterator = mappingObjects.iterator(); iterator.hasNext();)
             {
                 Object test = this.createMetafacade(
-                    iterator.next(),
-                    contextName,
-                    null);
+                        iterator.next(),
+                        contextName,
+                        null);
                 metafacades.add(test);
             }
         }
@@ -579,10 +565,10 @@ public class MetafacadeFactory
         metafacadeNamespace.put(metafacadeName, propertyNamespace);
         this.metafacadeNamespaces.put(namespace, metafacadeNamespace);
     }
-    
+
     /**
      * Gets the metafacade's property namespace (or returns null if hasn't be registered).
-     * 
+     *
      * @param metafacade the metafacade
      * @return the metafacade's namespace
      */
@@ -657,22 +643,29 @@ public class MetafacadeFactory
     }
 
     /**
+     * The validation messages that have been collected during the
+     * execution of this factory.
+     */
+    private final Collection validationMessages = new HashSet();
+
+    /**
      * Gets the validation messages collection during model processing.
      *
      * @return Returns the validationMessages.
+     * @see #validateMetafacades()
      */
     public Collection getValidationMessages()
     {
         return validationMessages;
     }
-    
+
     /**
      * The model packages that are used to determine whether or not
      * some packages should be filtered out. Set as protected
      * visibility to improve innerclass access performance.
      */
     protected ModelPackages modelPackages = null;
-    
+
     /**
      * Sets the model packages; these indicate which packages
      * should and should not be processed (if defined).
@@ -682,23 +675,23 @@ public class MetafacadeFactory
     {
         this.modelPackages = modelPackages;
     }
-    
+
     /**
      * Stores the collection of all metafacades for
      * each namespace.
      */
     private final Map allMetafacades = new HashMap();
-    
+
     /**
      * <p>
-     * Gets all metafacades for the entire model for the 
+     * Gets all metafacades for the entire model for the
      * current namespace set within the factory.
      * </p>
      * <p>
      * <strong>NOTE:</strong> The model package filter is applied
      * before returning the results (if defined within the factory).
      * </p>
-     * 
+     *
      * @return all metafacades
      */
     public Collection getAllMetafacades()
@@ -721,22 +714,22 @@ public class MetafacadeFactory
         }
         return metafacades;
     }
-    
+
     /**
      * Caches the metafacdaes by stereotype.
      */
     private final Map metafacadesByStereotype = new HashMap();
-    
+
     /**
      * <p>
-     * Gets all metafacades for the entire model having the given 
+     * Gets all metafacades for the entire model having the given
      * stereotype.
      * </p>
      * <p>
      * <strong>NOTE:</strong> The model package filter is applied
      * before returning the results (if defined within the factory).
      * </p>
-     * 
+     *
      * @param stereotype the stereotype by which to perform the search.
      * @return the metafacades having the given <code>stereotype</code>.
      */
@@ -764,9 +757,9 @@ public class MetafacadeFactory
             }
             this.filterMetafacades(metafacades);
         }
-        return metafacades;        
+        return metafacades;
     }
-    
+
     /**
      * Filters out those metafacades which <strong>should </strong> be processed.
      *
@@ -777,7 +770,7 @@ public class MetafacadeFactory
         if (this.modelPackages != null)
         {
             CollectionUtils.filter(
-               metafacades,
+                metafacades,
                 new Predicate()
                 {
                     public boolean evaluate(final Object modelElement)
@@ -787,7 +780,7 @@ public class MetafacadeFactory
                 });
         }
     }
-    
+
     /**
      * Performs shutdown procedures for the factory. This should be called <strong>ONLY</code> when model processing has
      * completed.
