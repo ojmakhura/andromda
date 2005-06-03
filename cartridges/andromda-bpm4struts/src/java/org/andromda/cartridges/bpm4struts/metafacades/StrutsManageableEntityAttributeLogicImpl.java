@@ -14,8 +14,6 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 public class StrutsManageableEntityAttributeLogicImpl
         extends StrutsManageableEntityAttributeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsManageableEntityAttributeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
