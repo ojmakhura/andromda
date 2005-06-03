@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.AndroMDALogger;
@@ -220,19 +221,17 @@ public class MetafacadeFactory
     }
 
     /**
-     * Validates all metafacdaes for the current namespace.
+     * Validates all metafacdes for the current namespace
+     * and collects the messages in the interal validation messages
+     * collection.
+     *
+     * @see #getValidationMessages()
      */
     public void validateAllMetafacades()
     {
-        final Collection metafacades = this.getAllMetafacades();
-        for (final Iterator iterator = metafacades.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = this.getAllMetafacades().iterator(); iterator.hasNext();)
         {
-            final MetafacadeBase metafacade = (MetafacadeBase)iterator.next();
-
-            // validate the meta-facade and collect the messages
-            final Collection validationMessages = new ArrayList();
-            metafacade.validate(validationMessages);
-            this.validationMessages.addAll(validationMessages);
+            ((MetafacadeBase)iterator.next()).validate(this.validationMessages);
         }
     }
 
@@ -649,14 +648,14 @@ public class MetafacadeFactory
     private final Collection validationMessages = new HashSet();
 
     /**
-     * Gets the validation messages collection during model processing.
+     * Gets the list of all validation messages collection during model processing.
      *
      * @return Returns the validationMessages.
      * @see #validateMetafacades()
      */
-    public Collection getValidationMessages()
+    public List getValidationMessages()
     {
-        return validationMessages;
+        return new ArrayList(this.validationMessages);
     }
 
     /**

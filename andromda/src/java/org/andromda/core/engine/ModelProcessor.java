@@ -305,20 +305,19 @@ public class ModelProcessor
      *
      * @param factory the metafacade factory (used to manage the metafacades).
      */
-    private void printValidationMessages(Collection messages)
+    private void printValidationMessages(final List messages)
     {
         // log all the error messages
         if (messages != null && !messages.isEmpty())
         {
             final StringBuffer header =
-                new StringBuffer("Model Validation Failed - " + messages.size() + " VALIDATION ERROR(S)");
+                new StringBuffer("Model Validation Failed - " + messages.size() + " VALIDATION ERROR");
             if (messages.size() > 1)
             {
                 header.append("S");
             }
-            AndroMDALogger.info(header);
-            messages = this.sortValidationMessages(messages);
-            AndroMDALogger.setSuffix("VALIDATION:ERROR");
+            AndroMDALogger.error(header);
+            this.sortValidationMessages(messages);
             final Iterator iterator = messages.iterator();
             for (int ctr = 1; iterator.hasNext(); ctr++)
             {
@@ -623,14 +622,12 @@ public class ModelProcessor
      * @param messages the collection of messages to sort.
      * @return the sorted <code>messages</code> collection.
      */
-    protected Collection sortValidationMessages(Collection messages)
+    protected void sortValidationMessages(final List messages)
     {
         ComparatorChain chain = new ComparatorChain();
         chain.addComparator(new ValidationMessageTypeComparator());
         chain.addComparator(new ValidationMessageNameComparator());
-        messages = new ArrayList(messages);
-        Collections.sort((List)messages, chain);
-        return messages;
+        Collections.sort(messages, chain);
     }
 
     /**
