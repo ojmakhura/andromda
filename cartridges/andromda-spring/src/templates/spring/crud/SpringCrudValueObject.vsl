@@ -9,7 +9,6 @@ public final class $manageable.manageableValueObjectClassName
     implements java.io.Serializable
 {
 #foreach ($member in $manageable.attributes)
-//$member
     private $member.type.fullyQualifiedName $member.name;
 
     $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
