@@ -41,9 +41,7 @@ public abstract class $metafacade.logicName
 #foreach ($link in $metafacade.generalizationLinks)
         this.${link.name} =
            ($link.parent.fullyQualifiedName)
-            org.andromda.core.metafacade.MetafacadeFactory
-                .getInstance()
-                .createFacadeImpl(
+            org.andromda.core.metafacade.MetafacadeFactory.getInstance().createFacadeImpl(
                     "$link.parent.fullyQualifiedName",
                     metaObject,
                     getContext(context));
