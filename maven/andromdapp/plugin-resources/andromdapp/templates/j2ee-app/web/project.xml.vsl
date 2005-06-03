@@ -5,7 +5,7 @@
 #if ($war)
 #set ($artifactIdSuffix = "")
 #end
-    <artifactId>${projectId}${artifactIdSuffix}</artifactId>
+    <artifactId>${pom.groupId}${artifactIdSuffix}</artifactId>
     <name>${projectName} Web</name>
     <shortDescription>${pom.name} Web Component</shortDescription>
     <description>
