@@ -1,12 +1,12 @@
 package org.andromda.core.common;
 
+
 /**
  * Any unchecked exception that will be thrown during the execution of the PluginDiscoverer
  */
 public class PluginDiscovererException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of PluginDiscovererException.
      *
@@ -33,9 +33,10 @@ public class PluginDiscovererException
      * @param message
      * @param parent
      */
-    public PluginDiscovererException(String message, Throwable parent)
+    public PluginDiscovererException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

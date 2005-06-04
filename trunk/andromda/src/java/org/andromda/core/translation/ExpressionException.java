@@ -1,12 +1,12 @@
 package org.andromda.core.translation;
 
+
 /**
  * Any unchecked exception that will be thrown when an Expression exception occurs.
  */
 public class ExpressionException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of ExpressionException.
      *
@@ -33,9 +33,10 @@ public class ExpressionException
      * @param message
      * @param parent
      */
-    public ExpressionException(String message, Throwable parent)
+    public ExpressionException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

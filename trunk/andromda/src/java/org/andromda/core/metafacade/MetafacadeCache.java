@@ -3,6 +3,7 @@ package org.andromda.core.metafacade;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * A global cache for metafacades. Used by the {@link MetafacadeFactory}when constructing or retrieving metafacade
  * instances. If the cache constains the metafacade it should not be constructed again.
@@ -20,7 +21,7 @@ public final class MetafacadeCache
     {
         return new MetafacadeCache();
     }
-    
+
     private MetafacadeCache()
     {
         // don't allow instantiation
@@ -60,7 +61,9 @@ public final class MetafacadeCache
      * @param metafacadeClass the class of the metafacade.
      * @return MetafacadeBase stored in the cache.
      */
-    public final MetafacadeBase get(final Object mappingObject, final Class metafacadeClass)
+    public final MetafacadeBase get(
+        final Object mappingObject,
+        final Class metafacadeClass)
     {
         MetafacadeBase metafacade = null;
         final Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
@@ -82,7 +85,9 @@ public final class MetafacadeCache
      * @param mappingObject the mappingObject for which to cache the metafacade.
      * @param metafacade    the metafacade to cache.
      */
-    public final void add(final Object mappingObject, final MetafacadeBase metafacade)
+    public final void add(
+        final Object mappingObject,
+        final MetafacadeBase metafacade)
     {
         Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache == null)
@@ -95,7 +100,9 @@ public final class MetafacadeCache
             metafacadeCache = new HashMap();
         }
         metafacadeCache.put(this.namespace, metafacade);
-        namespaceMetafacadeCache.put(metafacade.getClass(), metafacadeCache);
+        namespaceMetafacadeCache.put(
+            metafacade.getClass(),
+            metafacadeCache);
         this.metafacadeCache.put(mappingObject, namespaceMetafacadeCache);
     }
 

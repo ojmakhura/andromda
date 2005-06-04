@@ -11,10 +11,11 @@ import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.XmlObjectFactory;
 
+
 /**
  * Implements the JUnit test suit for
  * {@link org.andromda.core.cartridge.Cartridge}
- * 
+ *
  * @see org.andromda.core.cartridge.Cartridge
  * @since 01.04.2003
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
@@ -27,11 +28,10 @@ public class CartridgeTest
 
     /**
      * Constructor for AndroMDATestCartridgeTest.
-     * 
+     *
      * @param name
      */
-    public CartridgeTest(
-        String name)
+    public CartridgeTest(String name)
     {
         super(name);
     }
@@ -39,14 +39,14 @@ public class CartridgeTest
     /**
      * @see TestCase#setUp()
      */
-    protected void setUp() throws Exception
+    protected void setUp()
+        throws Exception
     {
         // set validation off since the parser used by JUnit
         // doesn't seem to support schema validation
         XmlObjectFactory.setDefaultValidating(false);
         PluginDiscoverer.instance().discoverPlugins();
-        Collection cartridges = PluginDiscoverer.instance().findPlugins(
-            Cartridge.class);
+        Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
         assertNotNull(cartridges);
         this.cartridge = (Cartridge)cartridges.iterator().next();
     }
@@ -54,55 +54,77 @@ public class CartridgeTest
     /**
      * @see TestCase#tearDown()
      */
-    protected void tearDown() throws Exception
+    protected void tearDown()
+        throws Exception
     {
         this.cartridge = null;
     }
 
     public void testGetName()
     {
-        assertEquals("andromda-test-cartridge", this.cartridge.getName());
+        assertEquals(
+            "andromda-test-cartridge",
+            this.cartridge.getName());
     }
 
     public void testGetResources()
     {
         Collection resources = this.cartridge.getResources();
         assertNotNull(resources);
-        assertEquals(2, resources.size());
+        assertEquals(
+            2,
+            resources.size());
 
         // first template
         final Iterator templateIterator = resources.iterator();
         Template template = (Template)templateIterator.next();
-        assertEquals("EntityBean.vsl", template.getPath());
-        assertEquals("{0}/{1}Bean.java", template.getOutputPattern());
-        assertEquals("beans", template.getOutlet());
+        assertEquals(
+            "EntityBean.vsl",
+            template.getPath());
+        assertEquals(
+            "{0}/{1}Bean.java",
+            template.getOutputPattern());
+        assertEquals(
+            "beans",
+            template.getOutlet());
         assertTrue(template.isOverwrite());
         assertNotNull(template.getSupportedModeElements());
-        assertEquals("entity", template.getSupportedModeElements()
-            .getVariable());
-        Collection modelElements = template.getSupportedModeElements()
-            .getModelElements();
+        assertEquals(
+            "entity",
+            template.getSupportedModeElements().getVariable());
+        Collection modelElements = template.getSupportedModeElements().getModelElements();
         assertNotNull(modelElements);
-        assertEquals(1, modelElements.size());
+        assertEquals(
+            1,
+            modelElements.size());
         ModelElement element = (ModelElement)modelElements.iterator().next();
-        assertEquals("Entity", element.getStereotype());
+        assertEquals(
+            "Entity",
+            element.getStereotype());
 
         // second template
         template = (Template)templateIterator.next();
         assertEquals(
             "templates/webservice/axis/server-config.wsdd.vsl",
             template.getPath());
-        assertEquals("WEB-INF/server-config.wsdd", template.getOutputPattern());
-        assertEquals("axis-configuration", template.getOutlet());
+        assertEquals(
+            "WEB-INF/server-config.wsdd",
+            template.getOutputPattern());
+        assertEquals(
+            "axis-configuration",
+            template.getOutlet());
         assertTrue(template.isOverwrite());
         assertTrue(template.isOutputToSingleFile());
         assertFalse(template.isOutputOnEmptyElements());
         assertNotNull(template.getSupportedModeElements());
-        assertEquals("services", template.getSupportedModeElements()
-            .getVariable());
+        assertEquals(
+            "services",
+            template.getSupportedModeElements().getVariable());
         modelElements = template.getSupportedModeElements().getModelElements();
         assertNotNull(modelElements);
-        assertEquals(1, modelElements.size());
+        assertEquals(
+            1,
+            modelElements.size());
         element = (ModelElement)modelElements.iterator().next();
         assertNull(element.getVariable());
         assertNull(element.getStereotype());
@@ -112,7 +134,9 @@ public class CartridgeTest
     {
         Map propertyRefs = this.cartridge.getPropertyReferences();
         assertNotNull(propertyRefs);
-        assertEquals(2, propertyRefs.size());
+        assertEquals(
+            2,
+            propertyRefs.size());
 
         String propertyReferenceOne = "propertyReferenceWithDefault";
         String propertyReferenceTwo = "propertyReferenceNoDefault";
@@ -120,28 +144,38 @@ public class CartridgeTest
         assertTrue(propertyRefs.containsKey(propertyReferenceOne));
         assertTrue(propertyRefs.containsKey(propertyReferenceTwo));
 
-        assertEquals("aDefaultValue", propertyRefs.get(propertyReferenceOne));
-        assertEquals(null, propertyRefs.get(propertyReferenceTwo));
-
+        assertEquals(
+            "aDefaultValue",
+            propertyRefs.get(propertyReferenceOne));
+        assertEquals(
+            null,
+            propertyRefs.get(propertyReferenceTwo));
     }
 
     public void testGetType()
     {
         assertNotNull(this.cartridge.getType());
-        assertEquals("cartridge", this.cartridge.getType());
+        assertEquals(
+            "cartridge",
+            this.cartridge.getType());
     }
 
     public void testGetTemplateObjects()
     {
         assertNotNull(this.cartridge.getTemplateObjects());
-        assertEquals(1, this.cartridge.getTemplateObjects().size());
+        assertEquals(
+            1,
+            this.cartridge.getTemplateObjects().size());
     }
 
     public void testGetContents()
     {
         Collection contents = this.cartridge.getContents();
         assertNotNull(contents);
+
         // make sure there's more than 0 contents listed
-        TestCase.assertNotSame(new Integer(0), new Integer(contents.size()));
+        TestCase.assertNotSame(
+            new Integer(0),
+            new Integer(contents.size()));
     }
 }

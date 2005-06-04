@@ -711,7 +711,7 @@ public class MetafacadeFactory
      */
     public void shutdown()
     {
-        this.reset();
+        this.clearCaches();
         this.mappings.shutdown();
         this.model = null;
         instance = null;
@@ -730,12 +730,20 @@ public class MetafacadeFactory
     }
 
     /**
-     * Resets any required internal resources.
+     * Clears out the namespace properties for the metafacdaes
+     * so that they'll be reloaded next run.
      */
-    public void reset()
+    public void clearNamespaceProperties()
+    {
+        this.metafacadeNamespaces.clear();
+    }
+
+    /**
+     * Clears out any interal caches within this instance.
+     */
+    public void clearCaches()
     {
         this.validationMessages.clear();
-        this.metafacadeNamespaces.clear();
         this.allMetafacades.clear();
         this.metafacadesByStereotype.clear();
         this.cache.clear();

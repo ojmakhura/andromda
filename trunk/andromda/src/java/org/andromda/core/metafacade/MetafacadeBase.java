@@ -1,12 +1,12 @@
 package org.andromda.core.metafacade;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 
 /**
@@ -194,7 +194,7 @@ public class MetafacadeBase
         }
         return context;
     }
-    
+
     /**
      * Sets the context for this metafacade. This is used to pass the context along from a metafacade specializing this
      * metafacade (since we use delegate inheritance between shared and non-shared metafacades), as well as to pass the
@@ -242,9 +242,7 @@ public class MetafacadeBase
      */
     protected boolean isConfiguredProperty(final String property)
     {
-        return MetafacadeFactory.getInstance().isPropertyRegistered(
-            this,
-            property);
+        return MetafacadeFactory.getInstance().isPropertyRegistered(this, property);
     }
 
     /**
@@ -255,9 +253,7 @@ public class MetafacadeBase
      */
     protected Object getConfiguredProperty(final String property)
     {
-        return MetafacadeFactory.getInstance().getRegisteredProperty(
-            this,
-            property);
+        return MetafacadeFactory.getInstance().getRegisteredProperty(this, property);
     }
 
     /**

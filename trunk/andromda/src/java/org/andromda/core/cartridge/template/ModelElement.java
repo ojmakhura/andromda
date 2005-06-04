@@ -1,5 +1,9 @@
 package org.andromda.core.cartridge.template;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Profile;
@@ -8,9 +12,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Represents a single template &lt;modelElement/&gt; nested within the &lt;modelElements/&gt; element. It stores the
@@ -44,7 +45,7 @@ public class ModelElement
     {
         return StringUtils.isNotBlank(this.getStereotype());
     }
-    
+
     /**
      * Stores the types defined for this model element.
      */
@@ -84,7 +85,7 @@ public class ModelElement
         ExceptionUtils.checkNull(methodName, "type", type);
         this.types.add(type);
     }
-    
+
     /**
      * Stores the name of the variable for this model element.
      */
@@ -110,7 +111,7 @@ public class ModelElement
     {
         this.variable = StringUtils.trimToEmpty(variable);
     }
-    
+
     /**
      * The metafacades for this model element.
      */
@@ -148,13 +149,15 @@ public class ModelElement
     {
         if (this.hasTypes())
         {
-            CollectionUtils.filter(this.metafacades, new Predicate()
-            {
-                public boolean evaluate(Object object)
+            CollectionUtils.filter(
+                this.metafacades,
+                new Predicate()
                 {
-                    return accept(object);
-                }
-            });
+                    public boolean evaluate(Object object)
+                    {
+                        return accept(object);
+                    }
+                });
         }
     }
 
@@ -178,6 +181,7 @@ public class ModelElement
                 try
                 {
                     accept = ClassUtils.loadClass(type.getName()).isAssignableFrom(metafacade.getClass());
+
                     // if the type matches the name, continue
                     if (accept)
                     {
@@ -185,7 +189,10 @@ public class ModelElement
                         while (properties.hasNext())
                         {
                             final Type.Property property = (Type.Property)properties.next();
-                            accept = PropertyUtils.containsValidProperty(metafacade, property.getName(),
+                            accept =
+                                PropertyUtils.containsValidProperty(
+                                    metafacade,
+                                    property.getName(),
                                     property.getValue());
                             if (!accept)
                             {

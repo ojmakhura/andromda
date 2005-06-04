@@ -1,14 +1,5 @@
 package org.andromda.core.translation.library;
 
-import org.andromda.core.common.ComponentContainer;
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.XmlObjectFactory;
-import org.andromda.core.templateengine.TemplateEngine;
-import org.andromda.core.translation.Translator;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.Reader;
 import java.io.StringReader;
@@ -18,6 +9,15 @@ import java.lang.reflect.Method;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.andromda.core.common.ComponentContainer;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.templateengine.TemplateEngine;
+import org.andromda.core.translation.Translator;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
 
 
 /**

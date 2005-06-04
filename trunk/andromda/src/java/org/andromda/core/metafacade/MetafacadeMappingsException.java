@@ -1,12 +1,12 @@
 package org.andromda.core.metafacade;
 
+
 /**
  * Any unchecked exception that will be thrown when a MetafacadeMappings processing error occurs.
  */
 public class MetafacadeMappingsException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of MetafacadeMappingsException.
      *
@@ -33,9 +33,10 @@ public class MetafacadeMappingsException
      * @param message
      * @param parent
      */
-    public MetafacadeMappingsException(String message, Throwable parent)
+    public MetafacadeMappingsException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

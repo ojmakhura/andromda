@@ -46,7 +46,7 @@ public class ExpressionTranslator
      * Performs translation of the <code>expression</code> by looking up the
      * <code>translationName</code> from the available Translation-Libraries
      * found on the classpath.
-     * 
+     *
      * @param translationName the name of the translation to use for translating
      *        (i.e. a translationName like 'query.EJB-QL' would mean use the
      *        <code>EJB-QL</code> translation from the <code>query</code>
@@ -70,7 +70,8 @@ public class ExpressionTranslator
         Expression translatedExpression = null;
         try
         {
-            final LibraryTranslation libraryTranslation = LibraryTranslationFinder.findLibraryTranslation(translationName);
+            final LibraryTranslation libraryTranslation =
+                LibraryTranslationFinder.findLibraryTranslation(translationName);
 
             if (libraryTranslation != null)
             {

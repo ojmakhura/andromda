@@ -2,6 +2,7 @@ package org.andromda.core.mapping;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
+
 
 /**
  * A single child mapping instance belonging to a Mappings instance. It doesn't make sense to instantiate this class by
@@ -61,8 +63,9 @@ public class Mapping
                 final StringBuffer pathsContents = new StringBuffer();
                 for (final Iterator pathIterator = paths.iterator(); pathIterator.hasNext();)
                 {
-                    pathsContents.append(ResourceUtils.getContents(
-                        new FileReader(this.mappings.getCompletePath((String)pathIterator.next()))));
+                    pathsContents.append(
+                        ResourceUtils.getContents(
+                            new FileReader(this.mappings.getCompletePath((String)pathIterator.next()))));
                 }
                 this.to = pathsContents.toString();
             }
@@ -73,12 +76,12 @@ public class Mapping
         }
         return this.to;
     }
-    
+
     /**
      * Stores any paths used by this mapping.
      */
     private final List paths = new ArrayList();
-    
+
     /**
      * Adds the path to the listof paths.
      * @param path
@@ -87,7 +90,7 @@ public class Mapping
     {
         this.paths.add(path);
     }
-    
+
     /**
      * Stores the to mapping.
      */
@@ -103,20 +106,20 @@ public class Mapping
     {
         this.to = to;
     }
-    
+
     /**
      * The parent of this instance.
      */
     private Mappings mappings;
-    
+
     /**
      * Sets the mappings to which this Mapping instance
      * belongs.
-     * 
+     *
      * @param mappings the owning mappings.
      */
     final void setMappings(final Mappings mappings)
     {
-        this.mappings = mappings;    
+        this.mappings = mappings;
     }
 }

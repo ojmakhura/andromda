@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -22,12 +24,13 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.configuration.Transformation;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * An implementation of Transformer that provides
  * XSLT transformations.  The {@link #transform(URL, URL[])}
  * operation will apply the given XSLT files to the model
  * in the order which they are found.
- * 
+ *
  * @author Chad Brandon
  */
 public class XslTransformer
@@ -37,10 +40,10 @@ public class XslTransformer
      * The shared instance.
      */
     private static final Transformer transformer = new XslTransformer();
-    
+
     /**
      * Gets the shared instance of this class.
-     * 
+     *
      * @return the shared transformer instance.
      */
     public static final Transformer instance()
@@ -50,10 +53,12 @@ public class XslTransformer
 
     /**
      * Applies the given XSLT files to the model in the order which they are found.
-     * 
+     *
      * @see org.andromda.core.transformation.Transformer#transform(java.net.URL, org.andromda.core.configuration.Transformation[])
      */
-    public InputStream transform(final URL model, final Transformation[] xsltTransformations)
+    public InputStream transform(
+        final URL model,
+        final Transformation[] xsltTransformations)
     {
         try
         {
@@ -61,7 +66,7 @@ public class XslTransformer
             if (xsltTransformations != null && xsltTransformations.length > 0)
             {
                 Source modelSource = new StreamSource(model.openStream());
-                final List xslts = Arrays.asList(xsltTransformations);     
+                final List xslts = Arrays.asList(xsltTransformations);
                 final TransformerFactory factory = TransformerFactory.newInstance();
                 final TransformerURIResolver resolver = new TransformerURIResolver();
                 factory.setURIResolver(resolver);
@@ -80,6 +85,7 @@ public class XslTransformer
                         transformer.transform(modelSource, result);
                         final byte[] outputResult = output.toByteArray();
                         stream = new ByteArrayInputStream(outputResult);
+
                         // if we have an output location specified, write the result
                         final String outputLocation = transformation.getOutputLocation();
                         if (StringUtils.isNotBlank(outputLocation))
@@ -100,7 +106,7 @@ public class XslTransformer
                         if (xsltIterator.hasNext())
                         {
                             modelSource = new StreamSource(stream);
-                        }     
+                        }
                     }
                 }
             }
@@ -109,15 +115,15 @@ public class XslTransformer
                 stream = model.openStream();
             }
             return stream;
-        } 
+        }
         catch (final Exception exception)
         {
             throw new XslTransformerException(exception);
         }
     }
-    
+
     /**
-     * Provides the URI resolving capabilities for the 
+     * Provides the URI resolving capabilities for the
      * {@ XslTransformer}
      */
     private static final class TransformerURIResolver
@@ -126,7 +132,10 @@ public class XslTransformer
         /**
          * @see javax.xml.transform.URIResolver#resolve(java.lang.String, java.lang.String)
          */
-        public Source resolve(String href, String base) throws TransformerException
+        public Source resolve(
+            String href,
+            String base)
+            throws TransformerException
         {
             Source source = null;
             if (this.location != null)
@@ -137,15 +146,15 @@ public class XslTransformer
             }
             return source;
         }
-        
+
         /**
          * The current transformation location.
          */
         private URL location;
-        
+
         /**
          * Sets the location of the current transformation.
-         * 
+         *
          * @param location the transformation location as a URI.
          */
         public void setLocation(URL location)

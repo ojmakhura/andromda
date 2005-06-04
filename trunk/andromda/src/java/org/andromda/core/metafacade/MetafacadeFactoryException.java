@@ -1,12 +1,12 @@
 package org.andromda.core.metafacade;
 
+
 /**
  * Any unchecked exception that will be thrown when a MetafacadeFactory processing error occurs.
  */
 public class MetafacadeFactoryException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of MetafacadeFactoryException.
      *
@@ -33,9 +33,10 @@ public class MetafacadeFactoryException
      * @param message
      * @param parent
      */
-    public MetafacadeFactoryException(String message, Throwable parent)
+    public MetafacadeFactoryException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

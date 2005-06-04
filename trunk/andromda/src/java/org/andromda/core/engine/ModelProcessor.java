@@ -98,6 +98,7 @@ public class ModelProcessor
             finally
             {
                 this.reset();
+                //this.factory.clearNamespaceProperties();
             }
         }
         else
@@ -607,7 +608,7 @@ public class ModelProcessor
      */
     final void reset()
     {
-        MetafacadeFactory.getInstance().reset();
+        MetafacadeFactory.getInstance().clearCaches();
         this.cartridgeFilter = null;
         this.transformations.clear();
         this.setXmlValidation(true);

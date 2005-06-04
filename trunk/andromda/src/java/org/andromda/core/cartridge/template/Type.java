@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * Represents the &lt;type/&gt; element nested within the &lt;modelElement/&gt; element.
  *
@@ -48,11 +49,15 @@ public class Type
      * @param name  the name of the property
      * @param value the value the property must be
      */
-    public void addProperty(final String name, final String value)
+    public void addProperty(
+        final String name,
+        final String value)
     {
         if (value != null && !this.properties.containsKey(name))
         {
-            this.properties.put(name, new Property(name, value));
+            this.properties.put(
+                name,
+                new Property(name, value));
         }
     }
 
@@ -64,7 +69,9 @@ public class Type
         private String name;
         private String value;
 
-        Property(String name, String value)
+        Property(
+            String name,
+            String value)
         {
             this.name = StringUtils.trimToEmpty(name);
             this.value = value;

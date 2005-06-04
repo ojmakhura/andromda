@@ -51,11 +51,11 @@ public class Model
      * be processed.
      */
     private ModelPackages packages = new ModelPackages();
-    
+
     /**
      * Sets the processAll flag on the interal model packages instance
      * of this model.
-     * 
+     *
      * @param processAllPackages
      */
     public void setProcessAllPackages(final boolean processAllPackages)
@@ -173,6 +173,7 @@ public class Model
                 URLConnection uriConnection = uri.openConnection();
                 uriConnection.setUseCaches(false);
                 lastModified = uriConnection.getLastModified();
+
                 // we need to set the urlConnection to null and explicity
                 // call garbage collection, otherwise the JVM won't let go
                 // of the URL resource

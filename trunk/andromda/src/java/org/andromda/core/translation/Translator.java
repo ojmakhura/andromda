@@ -1,5 +1,6 @@
 package org.andromda.core.translation;
 
+
 /**
  * Provides expression translation capabilities. Every expression translator must implement this interface.
  *
@@ -19,5 +20,8 @@ public interface Translator
      * @return Expression the expression containing the translated result.
      * @see org.andromda.core.translation.Expression
      */
-    public Expression translate(String translationLibrary, String expression, Object contextElement);
+    public Expression translate(
+        String translationLibrary,
+        String expression,
+        Object contextElement);
 }

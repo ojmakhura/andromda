@@ -1,12 +1,12 @@
 package org.andromda.core.metafacade;
 
-import org.andromda.core.common.PropertyUtils;
-import org.apache.log4j.Logger;
-
 import java.lang.reflect.Constructor;
 
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.common.PropertyUtils;
+import org.apache.log4j.Logger;
 
 
 /**

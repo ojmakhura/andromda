@@ -1,9 +1,11 @@
 package org.andromda.core.common;
 
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
+
 
 /**
  * Finds and loads file resources from the current classpath.

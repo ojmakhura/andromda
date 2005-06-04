@@ -1,16 +1,17 @@
 package org.andromda.core.cartridge.template;
 
+import java.io.File;
+
 import org.andromda.core.cartridge.Resource;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import java.io.File;
 
 /**
  * This class implements the <code>&lt;template&gt;</code> tag in a cartridge
  * descriptor file.
- * 
+ *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Anthony Mowers
  * @author Chad Brandon
@@ -58,30 +59,41 @@ public class Template
      * <li>the output pattern has been translated</li>
      * <li>the output dir name has been prepended</li>
      * </ul>
-     * 
+     *
      * @param modelElementName name of the element from the model
      * @param packageName name of the package from the model in which the class
      *        is contained
      * @param directory the directory as a File.
      * @return File absolute directory.
      */
-    public File getOutputLocation(final String modelElementName, final String packageName, final File directory)
-    { 
+    public File getOutputLocation(
+        final String modelElementName,
+        final String packageName,
+        final File directory)
+    {
         File file = null;
+
         // if singleFileOutput is set to true, then
         // just use the output pattern as the file to
         // output to, otherwise we replace using message format.
         if (this.isOutputToSingleFile())
         {
-            file = super.getOutputLocation(new String[]{this.getOutputPattern()}, directory);
+            file = super.getOutputLocation(
+                    new String[] {this.getOutputPattern()},
+                    directory);
         }
         else
         {
-            file = super.getOutputLocation(new String[]{
-                    StringUtils.replace(
-                        StringUtils.trimToEmpty(packageName), 
-                        MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
-                         File.separator), modelElementName}, directory);
+            file =
+                super.getOutputLocation(
+                    new String[]
+                    {
+                        StringUtils.replace(
+                            StringUtils.trimToEmpty(packageName),
+                            MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
+                            File.separator), modelElementName
+                    },
+                    directory);
         }
         return file;
     }

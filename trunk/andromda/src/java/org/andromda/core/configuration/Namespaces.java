@@ -1,6 +1,7 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class Namespaces
      * Stores all namespaces.
      */
     private final Map namespaces = new LinkedHashMap();
-    
+
     /**
      * The shared instance.
      */
@@ -53,10 +54,10 @@ public class Namespaces
         }
         return instance;
     }
-    
+
     /**
      * Gets all namespaces belonging to this namespaces instance.
-     * 
+     *
      * @return all namespaces.
      */
     public Collection getNamespaces()
@@ -75,10 +76,10 @@ public class Namespaces
             namespace.getName(),
             namespace);
     }
-    
+
     /**
      * Adds all <code>namespaces</code> to this instance.
-     * 
+     *
      * @param namespaces the array of namespaces to add.
      */
     public void addNamespaces(final Namespace[] namespaces)
@@ -103,10 +104,10 @@ public class Namespaces
     {
         return (Namespace)namespaces.get(namespaceName);
     }
-    
+
     /**
      * Indicates if the namespace is present within this instance.
-     * 
+     *
      * @param namespaceName the name of the namespace.
      * @return true/false
      */
@@ -191,7 +192,7 @@ public class Namespaces
         }
         return property;
     }
-    
+
     /**
      * Clears out the current namespaces.
      */
@@ -199,7 +200,7 @@ public class Namespaces
     {
         this.namespaces.clear();
     }
-    
+
     /**
      * Shuts down this namespaces instance.
      */

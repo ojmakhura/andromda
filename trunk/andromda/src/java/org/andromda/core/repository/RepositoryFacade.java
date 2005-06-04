@@ -1,9 +1,11 @@
 package org.andromda.core.repository;
 
 import java.io.InputStream;
+
 import java.net.URL;
 
 import org.andromda.core.metafacade.ModelAccessFacade;
+
 
 /**
  * An interface for objects responsible for being a repository into which an object model can be loaded.
@@ -39,8 +41,10 @@ public interface RepositoryFacade
      * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be used from
      *                         within other models).
      */
-    public void readModel(URL modelURL, String[] moduleSearchPath);
-    
+    public void readModel(
+        URL modelURL,
+        String[] moduleSearchPath);
+
     /**
      * Reads the object model into the repository from the given stream. If the stream is <strong>null </strong> then an empty
      * model will be created in the repository and can be retrieved from {@link #getModel()}.
@@ -51,7 +55,10 @@ public interface RepositoryFacade
      * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be used from
      *                         within other models).
      */
-    public void readModel(InputStream stream, String uri, String[] moduleSearchPath);
+    public void readModel(
+        InputStream stream,
+        String uri,
+        String[] moduleSearchPath);
 
     /**
      * Writes the given <code>model</code> to the specified <code>outputLocation</code>.
@@ -62,7 +69,11 @@ public interface RepositoryFacade
      *                repository writes XMI files).
      * @param encoding the encoding of the file to be written.
      */
-    public void writeModel(Object model, String outputLocation, String version, String encoding);
+    public void writeModel(
+        Object model,
+        String outputLocation,
+        String version,
+        String encoding);
 
     /**
      * Writes the given <code>model</code> to the specified <code>outputLocation</code> using the default encoding
@@ -73,7 +84,10 @@ public interface RepositoryFacade
      * @param version the <code>version</code> of the model to be written (i.e. could be XMI version if the
      *                repository writes XMI files).
      */
-    public void writeModel(Object model, String outputLocation, String version);
+    public void writeModel(
+        Object model,
+        String outputLocation,
+        String version);
 
     /**
      * Returns a facade for the top-level model object from the repository. This model object contains all models
@@ -82,7 +96,7 @@ public interface RepositoryFacade
      * @return the model value (or <code>null</code> if no models exist in the repository).
      */
     public ModelAccessFacade getModel();
-    
+
     /**
      * Clears the repository of any model(s)
      * (without shutting it down).

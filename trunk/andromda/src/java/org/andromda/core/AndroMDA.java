@@ -1,6 +1,7 @@
 package org.andromda.core;
 
 import java.io.InputStream;
+
 import java.net.ConnectException;
 import java.net.URL;
 

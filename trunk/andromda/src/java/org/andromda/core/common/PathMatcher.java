@@ -1,8 +1,9 @@
 package org.andromda.core.common;
 
+import java.util.regex.PatternSyntaxException;
+
 import org.apache.commons.lang.StringUtils;
 
-import java.util.regex.PatternSyntaxException;
 
 /**
  * Provides wild card matching on file paths (i.e. Cartridge.java will match <code>*.java</code>, etc).
@@ -18,7 +19,9 @@ public class PathMatcher
      * @param pattern the pattern to check if the path matches.
      * @return true if the <code>path</code> matches the given <code>pattern</code>, false otherwise.
      */
-    public static boolean wildcardMatch(String path, String pattern)
+    public static boolean wildcardMatch(
+        String path,
+        String pattern)
     {
         path = StringUtils.trimToEmpty(path);
         boolean matches = false;

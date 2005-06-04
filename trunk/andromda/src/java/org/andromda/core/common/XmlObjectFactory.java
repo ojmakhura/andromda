@@ -1,11 +1,5 @@
 package org.andromda.core.common;
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.xmlrules.DigesterLoader;
-import org.apache.log4j.Logger;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -16,16 +10,22 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.digester.Digester;
+import org.apache.commons.digester.xmlrules.DigesterLoader;
+import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 
 /**
  * <p>
  * Creates and returns Objects based on a set of Apache Digester rules in a consistent manner, providing validation in
- * the process. 
+ * the process.
  * </p>
  * <p>
  * This XML object factory allows us to define a consistent/clean of configuring java objects from XML configuration
  * files (i.e. it uses the class name of the java object to find what rule file and what XSD file to use). It also
- * allows us to define a consistent way in which schema validation is performed. 
+ * allows us to define a consistent way in which schema validation is performed.
  * <p/>
  * <p>
  * It seperates each concern into one file, for example: to configure and perform validation on the MetafacadeMappings
@@ -40,7 +40,7 @@ import java.util.Map;
  * In order to add/modify an existing element/attribute in your configuration file, first make the modification in your
  * java object, then modify it's rules file to instruct the digester on how to configure your new attribute/method in
  * the java object, and then modify your XSD file to provide correct validation for this new method/attribute. Please
- * see the org.andromda.core.metafacade.MetafacadeMappings* files for an example on how to do this. 
+ * see the org.andromda.core.metafacade.MetafacadeMappings* files for an example on how to do this.
  * </p>
  *
  * @author Chad Brandon

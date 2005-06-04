@@ -1,8 +1,9 @@
 package org.andromda.core.metafacade;
 
+
 /**
  * Fake metafacade number 10 (just used for testing the MetafacadeMappings).
- * 
+ *
  * @author Chad Brandon
  */
 public class Metafacade10Impl

@@ -1,12 +1,12 @@
 package org.andromda.core.translation;
 
+
 /**
  * Any unchecked exception that will be thrown when a translation exception occurs.
  */
 public class TranslatorException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of TranslatorException.
      *
@@ -33,9 +33,10 @@ public class TranslatorException
      * @param message
      * @param parent
      */
-    public TranslatorException(String message, Throwable parent)
+    public TranslatorException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

@@ -1,7 +1,9 @@
 package org.andromda.core.common;
 
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -170,7 +172,7 @@ public class PluginDiscoverer
         }
         return plugins;
     }
-    
+
     /**
      * Shuts down this plugin discoverer instance.
      */

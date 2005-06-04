@@ -1,7 +1,5 @@
 package org.andromda.core.server;
 
-import org.andromda.core.configuration.Configuration;
-
 import java.io.DataInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import org.andromda.core.configuration.Configuration;
 
 
 /**
