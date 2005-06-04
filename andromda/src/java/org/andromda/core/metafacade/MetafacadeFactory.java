@@ -11,8 +11,6 @@ import java.util.Map;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.ModelPackages;
-import org.andromda.core.configuration.Namespaces;
-import org.andromda.core.configuration.Property;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.log4j.Logger;
@@ -83,8 +81,7 @@ public class MetafacadeFactory
      */
     public void initialize()
     {
-        this.mappings.discoverMetafacades();
-        MetafacadeImpls.instance().discoverMetafacadeImpls();
+        this.mappings.initialize();
     }
 
     /**
@@ -149,7 +146,10 @@ public class MetafacadeFactory
     {
         final String methodName = "MetafacadeFactory.createMetafacade";
         ExceptionUtils.checkNull(methodName, "mappingObject", mappingObject);
-
+        
+        // - register the namespace properties
+        this.registerNamespaceProperties();
+        
         // if the mappingObject is REALLY a metafacade, just return it
         if (mappingObject instanceof MetafacadeBase)
         {
@@ -309,38 +309,7 @@ public class MetafacadeFactory
             metafacade.setNamespace(this.getNamespace());
             metafacade.setLogger(this.getLogger());
         }
-        this.populateMetafacadeProperties(metafacade, mapping);
         return metafacade;
-    }
-
-    /**
-     * Populates the given <code>metafacade</code> with the properties from
-     * the given <code>mapping</code> as well as the properties from the
-     * {@link MetafacadeMappings}instance to which the <code>mapping</code>
-     * belongs.
-     *
-     * @param metafacade the metafacade instance to populate.
-     * @param mapping the mapping from which to populate the properties.
-     */
-    private final void populateMetafacadeProperties(
-        final MetafacadeBase metafacade,
-        final MetafacadeMapping mapping)
-    {
-        // Populate the global metafacade properties
-        // NOTE: ordering here matters, we populate the global
-        // properties BEFORE the context properties so that the
-        // context properties can override (if duplicate properties
-        // exist)
-        this.populatePropertyReferences(
-            metafacade,
-            this.mappings.getPropertyReferences(this.getNamespace()));
-        if (mapping != null)
-        {
-            // Populate any metafacade namespace references (if any)
-            this.populatePropertyReferences(
-                metafacade,
-                mapping.getPropertyReferences());
-        }
     }
 
     /**
@@ -388,68 +357,6 @@ public class MetafacadeFactory
                 mappingObject.getClass().getName() + "'";
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
-        }
-    }
-
-    /**
-     * Populates the metafacade with the values retrieved from the property references found in the
-     * <code>propertyReferences</code> Map.
-     *
-     * @param propertyReferences the Map of property references which we'll populate.
-     */
-    protected void populatePropertyReferences(
-        final MetafacadeBase metafacade,
-        final Map propertyReferences)
-    {
-        final String methodName = "MetafacadeFactory.populatePropertyReferences";
-        ExceptionUtils.checkNull(methodName, "metafacade", metafacade);
-        ExceptionUtils.checkNull(methodName, "propertyReferences", propertyReferences);
-        for (final Iterator iterator = propertyReferences.keySet().iterator(); iterator.hasNext();)
-        {
-            final String reference = (String)iterator.next();
-
-            // ensure that each property is only set once per context
-            // for performance reasons
-            if (!this.isPropertyRegistered(metafacade, reference))
-            {
-                final String defaultValue = (String)propertyReferences.get(reference);
-
-                // if we have a default value, then don't warn
-                // that we don't have a property, otherwise we'll
-                // show the warning.
-                boolean showWarning = false;
-                if (defaultValue == null)
-                {
-                    showWarning = true;
-                }
-                final Property property =
-                    Namespaces.instance().findNamespaceProperty(
-                        this.getNamespace(),
-                        reference,
-                        showWarning);
-
-                // don't attempt to set if the property is null, or it's set to
-                // ignore.
-                if (property != null && !property.isIgnore())
-                {
-                    final String value = property.getValue();
-                    if (this.getLogger().isDebugEnabled())
-                    {
-                        this.getLogger().debug(
-                            "setting context property '" + reference + "' with value '" + value + "' for namespace '" +
-                            this.getNamespace() + "'");
-                    }
-
-                    if (value != null)
-                    {
-                        metafacade.setProperty(reference, value);
-                    }
-                }
-                else if (defaultValue != null)
-                {
-                    metafacade.setProperty(reference, defaultValue);
-                }
-            }
         }
     }
 
@@ -535,26 +442,24 @@ public class MetafacadeFactory
      * <code>namespace</code>.
      *
      * @param namespace the namespace in which the property is stored.
-     * @param metafacade the metafacade under which to register the property.
+     * @param metafacadeName the name of the metafacade under which the property is registered
      * @param name the name of the property
      * @param the value to give the property
      */
     final void registerProperty(
-        final MetafacadeBase metafacade,
+        final String namespace,
+        final String metafacadeName,
         final String name,
         final Object value)
     {
         final String methodName = "MetafacadeFactory.registerProperty";
         ExceptionUtils.checkEmpty(methodName, "name", name);
         ExceptionUtils.checkNull(methodName, "value", value);
-
-        final String namespace = this.getNamespace();
         Map metafacadeNamespace = (Map)this.metafacadeNamespaces.get(namespace);
         if (metafacadeNamespace == null)
         {
             metafacadeNamespace = new HashMap();
         }
-        final String metafacadeName = metafacade.getName();
         Map propertyNamespace = (Map)metafacadeNamespace.get(metafacadeName);
         if (propertyNamespace == null)
         {
@@ -563,6 +468,26 @@ public class MetafacadeFactory
         propertyNamespace.put(name, value);
         metafacadeNamespace.put(metafacadeName, propertyNamespace);
         this.metafacadeNamespaces.put(namespace, metafacadeNamespace);
+    }
+
+    /**
+     * Registers a property with the specified <code>name</code> in the namespace
+     * that is currently set within the factory.
+     *
+     * @param metafacadeName the name of the metafacade under which the property is registered
+     * @param name the name of the property
+     * @param the value to give the property
+     */
+    final void registerProperty(
+        final String metafacadeName,
+        final String name,
+        final Object value)
+    {
+        this.registerProperty(
+            this.getNamespace(),
+            metafacadeName,
+            name,
+            value);
     }
 
     /**
@@ -791,10 +716,20 @@ public class MetafacadeFactory
         this.model = null;
         instance = null;
     }
+    
+    /**
+     * Registers all properties (if required).
+     */
+    private void registerNamespaceProperties()
+    {
+        if (this.metafacadeNamespaces.isEmpty())
+        {
+            this.mappings.registerAllProperties();
+        }
+    }
 
     /**
-     * Resets the required internal resources
-     * without shutting down the factory.
+     * Resets any required internal resources.
      */
     public void reset()
     {

@@ -11,7 +11,6 @@ import java.util.Map;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Profile;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * A meta facade mapping class. This class is a child of {@link MetafacadeMappings}.
@@ -333,7 +332,8 @@ public class MetafacadeMapping
      */
     public String toString()
     {
-        return ToStringBuilder.reflectionToString(this);
+        return super.toString() + "[" + this.getMetafacadeClass() + "] " + this.getPropertyReferences();
+        //return ToStringBuilder.reflectionToString(this);
     }
 
     /**

@@ -142,6 +142,7 @@ public class ModelLoader
                 // set the model on the factory so we can start constucting
                 // metafacades
                 MetafacadeFactory factory = MetafacadeFactory.getInstance();
+                factory.initialize();
                 factory.setModel(loader.repository.getModel());
                 this.intializeDefaultNamespace();
                 factory.setNamespace(Namespaces.DEFAULT);
@@ -170,9 +171,6 @@ public class ModelLoader
         property.setName(LANGUAGE_MAPPINGS_URI);
         property.setValue(System.getProperty(LANGUAGE_MAPPINGS_URI));
         namespace.addProperty(property);
-        property = new Property();
-        property.setName("maxSqlNameLength");
-        property.setIgnore(true);
         property = new Property();
         property.setName("wrapperMappingsUri");
         property.setIgnore(true);

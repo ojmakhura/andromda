@@ -1,6 +1,7 @@
 package org.andromda.core.metafacade;
 
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,13 +16,14 @@ import org.andromda.core.common.Merger;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 
@@ -60,11 +62,6 @@ public class MetafacadeMappings
     private final Map propertyReferences = new HashMap();
 
     /**
-     * Property references keyed by namespace, these are populated on the first call to getPropertyReferences below.
-     */
-    private final Map namespacePropertyReferences = new HashMap();
-
-    /**
      * The default meta facade to use when there isn't a mapping found.
      */
     private Class defaultMetafacadeClass = null;
@@ -78,7 +75,7 @@ public class MetafacadeMappings
     {
         return new MetafacadeMappings();
     }
-    
+
     /**
      * Returns a new configured instance of this MetafacadeMappings configured from the mappings configuration URI.
      *
@@ -100,22 +97,7 @@ public class MetafacadeMappings
                 mappings.getNamespace());
         mappings = (MetafacadeMappings)factory.getObject(mappingsContents);
         mappings.resource = mappingsUri;
-
-        // indicate this mappings instance has been fully initialized
-        mappings.initialized = true;
         return mappings;
-    }
-
-    private boolean initialized = false;
-
-    /**
-     * Indicates if this MetafacadeMappings instance has been fully initialized.
-     *
-     * @return true/false
-     */
-    boolean isInitialized()
-    {
-        return initialized;
     }
 
     /**
@@ -248,7 +230,7 @@ public class MetafacadeMappings
 
         // the namespace is always the default namespace
         this.setNamespace(Namespaces.DEFAULT);
-        
+
         for (final Iterator iterator = mappings.mappings.iterator(); iterator.hasNext();)
         {
             this.addMapping((MetafacadeMapping)iterator.next());
@@ -309,7 +291,7 @@ public class MetafacadeMappings
         }
 
         // load the inherited property references
-        this.loadInheritedPropertyReferences(mapping);
+        //this.loadInheritedPropertyReferences(mapping);
         return mapping;
     }
 
@@ -460,7 +442,8 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
+                                if (
+                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
                                     mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
                                     valid =
@@ -484,7 +467,8 @@ public class MetafacadeMappings
                             {
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 boolean valid = false;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
+                                if (
+                                    metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     mapping.hasContext() && mapping.hasMappingProperties() &&
                                     !inProcessMappings.contains(mapping) && inProcessMetafacades.isEmpty())
                                 {
@@ -517,7 +501,8 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
+                                if (
+                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
                                     !mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
                                     valid = getContextHierarchy(context).contains(mapping.getContext());
@@ -539,7 +524,8 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasStereotypes() &&
+                                if (
+                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasStereotypes() &&
                                     !mapping.hasContext() && !mapping.hasMappingProperties())
                                 {
                                     valid = stereotypes.containsAll(mapping.getStereotypes());
@@ -561,7 +547,8 @@ public class MetafacadeMappings
                             {
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 boolean valid = false;
-                                if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
+                                if (
+                                    metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     !mapping.hasContext() && mapping.hasMappingProperties() &&
                                     !inProcessMappings.contains(mapping) && inProcessMetafacades.isEmpty())
                                 {
@@ -723,8 +710,14 @@ public class MetafacadeMappings
     }
 
     /**
-     * Returns all property references for this MetafacadeMappings by <code>namespace</code> (these include all default
-     * mapping references as well).
+     * Property references keyed by namespace, these are populated on the first
+     * call to {@link #getPropertyReferences(String)}.
+     */
+    private final Map namespacePropertyReferences = new HashMap();
+
+    /**
+     * Returns all property references for this a {@link MetafacadeMappings}
+     * instance by <code>namespace</code>..
      *
      * @param namespace the namespace to search
      */
@@ -864,10 +857,74 @@ public class MetafacadeMappings
     }
 
     /**
+     * Initializes this mappings instance, which includes discovery of all metafacade
+     * mappings instances on the classpath.
+     */
+    public void initialize()
+    {
+        MetafacadeImpls.instance().discoverMetafacadeImpls();
+        this.discoverMetafacades();
+    }
+
+    /**
+     * Registers all namespace proeprties in the shared
+     * {@link MetafacadeFactory} instance.
+     */
+    final void registerAllProperties()
+    {
+        // register all namespace property references defined in the descriptors
+        final Namespaces namespaces = Namespaces.instance();
+        for (final Iterator iterator = namespaces.getNamespaces().iterator(); iterator.hasNext();)
+        {
+            final String mappingsNamespace = ((Namespace)iterator.next()).getName();
+
+            // - add the default mappings
+            final Collection mappings = new ArrayList(this.mappings);
+            final MetafacadeMappings metafacadeMappings = this.getNamespaceMappings(mappingsNamespace);
+
+            // - add all the references from the default namespace
+            final Map propertyReferences = new HashMap(this.propertyReferences);
+
+            // - if we have namespace mappings, add them
+            if (metafacadeMappings != null)
+            {
+                mappings.addAll(metafacadeMappings.mappings);
+                propertyReferences.putAll(metafacadeMappings.getPropertyReferences(mappingsNamespace));
+            }
+
+            for (final Iterator mappingIterator = mappings.iterator(); mappingIterator.hasNext();)
+            {
+                final MetafacadeMapping mapping = (MetafacadeMapping)mappingIterator.next();
+                final String metafacadeInterface =
+                    MetafacadeImpls.instance().getMetafacadeClass(mapping.getMetafacadeClass().getName()).getName();
+
+                // - first register the references defined globally in the descriptor for each interface
+                //   in the hierarchy
+                final Class[] interfaces = this.getInterfacesReversed(metafacadeInterface);
+                for (int ctr = 0; ctr < interfaces.length; ctr++)
+                {
+                    this.registerProperties(
+                        mappingsNamespace,
+                        propertyReferences,
+                        interfaces[ctr].getName());
+                }
+
+                // - next register the references defined only within each mapping
+                // - remember to first load the inherited property references into the mapping
+                this.loadInheritedPropertyReferences(mapping);
+                this.registerProperties(
+                    mappingsNamespace,
+                    mapping.getPropertyReferences(),
+                    metafacadeInterface);
+            }
+        }
+    }
+
+    /**
      * Discover all metafacade mapping files on the class path. You need to call this anytime you want to find another
      * metafacade library that may have been made available.
      */
-    public void discoverMetafacades()
+    private void discoverMetafacades()
     {
         final String methodName = "MetafacadeMappings.discoverMetafacadeMappings";
         final URL[] uris = ResourceFinder.findResources(METAFACADES_URI);
@@ -910,12 +967,16 @@ public class MetafacadeMappings
                         namespaces.add(mappings.getNamespace());
                     }
 
-                    discoveredMappings.put(mappings.getNamespace(), mappings);
+                    discoveredMappings.put(
+                        mappings.getNamespace(),
+                        mappings);
                 }
+
                 // list out the discovered mappings
                 for (final Iterator iterator = discoveredMappings.values().iterator(); iterator.hasNext();)
                 {
                     final MetafacadeMappings mappings = (MetafacadeMappings)iterator.next();
+
                     // construct the found informational based
                     // on whether or not the mappings are shared.
                     final StringBuffer foundMessage = new StringBuffer("found");
@@ -928,21 +989,19 @@ public class MetafacadeMappings
                     {
                         foundMessage.append(" - adding to '" + Namespaces.DEFAULT + "' namespace");
                     }
-                    AndroMDALogger.info(foundMessage);                    
+                    AndroMDALogger.info(foundMessage);
                 }
             }
-            catch (Throwable th)
+            catch (final Throwable throwable)
             {
-                String errMsg = "Error performing " + methodName;
-                this.getLogger().error(errMsg, th);
-                throw new MetafacadeMappingsException(errMsg, th);
+                throw new MetafacadeMappingsException(throwable);
             }
             if (StringUtils.isEmpty(this.namespace))
             {
-                String errMsg =
+                final String message =
                     "No shared metafacades " + "found, please check your classpath, at least " +
                     "one set of metafacades must be marked as 'shared'";
-                throw new MetafacadeMappingsException(errMsg);
+                throw new MetafacadeMappingsException(message);
             }
         }
     }
@@ -977,10 +1036,9 @@ public class MetafacadeMappings
         {
             this.defaultMetafacadeClass = ClassUtils.loadClass(StringUtils.trimToEmpty(defaultMetafacadeClass));
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing MetafacadeMappings.setDefaultMetafacadeClass";
-            throw new MetafacadeMappingsException(errMsg, th);
+            throw new MetafacadeMappingsException(throwable);
         }
     }
 
@@ -1049,6 +1107,50 @@ public class MetafacadeMappings
      */
     public String toString()
     {
-        return ToStringBuilder.reflectionToString(this);
+        return super.toString() + "[" + this.namespace + "]";
+    }
+
+    /**
+     * Registers the defined property references properties in the metafacade factory.
+     *
+     * @param propertyReferences the property references to register.
+     * @param metafacadeName the name of the metafacade under which to register the properties.
+     * @param reference the name of the property reference.
+     */
+    void registerProperties(
+        final String namespace,
+        final Map propertyReferences,
+        final String metafacadeName)
+    {
+        for (final Iterator iterator = propertyReferences.keySet().iterator(); iterator.hasNext();)
+        {
+            final String reference = (String)iterator.next();
+            String value = (String)propertyReferences.get(reference);
+
+            // if we have a default value, then don't warn
+            // that we don't have a property, otherwise we'll
+            // show the warning.
+            boolean showWarning = value == null;
+            final Property property = Namespaces.instance().findNamespaceProperty(namespace, reference, showWarning);
+
+            final MetafacadeFactory factory = MetafacadeFactory.getInstance();
+
+            // don't attempt to set if the property is null, or it's set to
+            // ignore.
+            if (property != null && !property.isIgnore())
+            {
+                value = property.getValue();
+            }
+            if (value != null)
+            {
+                if (this.getLogger().isDebugEnabled())
+                {
+                    this.getLogger().debug(
+                        "setting context property '" + reference + "' with value '" + value + "' for namespace '" +
+                        namespace + "' on metafacade '" + metafacadeName + "'");
+                }
+                factory.registerProperty(namespace, metafacadeName, reference, value);
+            }
+        }
     }
 }

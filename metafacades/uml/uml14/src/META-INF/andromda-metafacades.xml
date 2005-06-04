@@ -197,7 +197,6 @@
             ]]>
         </documentation>
     </property>
-    <property reference="manageableIdDisplayStrategy" default="auto"/>
     <property reference="defaultResolveable" default="true"/>
     <property reference="defaultPageSize" default="20"/>
     <property reference="defaultMaximumListSize" default="250"/>
@@ -362,11 +361,13 @@
             <stereotype>MANAGEABLE</stereotype>
             <property name="manageable"/>
         </mapping>
+        <property reference="manageableServiceAccessorPattern" default=""/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
             <context>org.andromda.metafacades.uml.ManageableEntity</context>
         </mapping>
+        <property reference="manageableIdDisplayStrategy" default="auto"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
@@ -388,14 +389,14 @@
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
             <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
-        <property reference="sqlMappingsUri">
+        <property reference="sqlMappingsUri" default="">
             <documentation>
                 <![CDATA[
                 The URI to the the SQL mappings file.
                 ]]>
             </documentation>
         </property>
-        <property reference="jdbcMappingsUri">
+        <property reference="jdbcMappingsUri" default="">
             <documentation>
                 <![CDATA[
                 The URI to the the JDBC mappings file.
@@ -407,14 +408,14 @@
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
-        <property reference="sqlMappingsUri">
+        <property reference="sqlMappingsUri" default="">
             <documentation>
                 <![CDATA[
                 The URI to the the SQL mappings file.
                 ]]>
             </documentation>
         </property>
-        <property reference="jdbcMappingsUri">
+        <property reference="jdbcMappingsUri" default="">
             <documentation>
                 <![CDATA[
                 The URI to the the JDBC mappings file.

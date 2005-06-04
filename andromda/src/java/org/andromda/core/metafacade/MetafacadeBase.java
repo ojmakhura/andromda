@@ -187,9 +187,14 @@ public class MetafacadeBase
      */
     final String getContext()
     {
-        return this.context;
+        String context = this.context;
+        if (StringUtils.isBlank(context))
+        {
+            context = this.getName();
+        }
+        return context;
     }
-
+    
     /**
      * Sets the context for this metafacade. This is used to pass the context along from a metafacade specializing this
      * metafacade (since we use delegate inheritance between shared and non-shared metafacades), as well as to pass the
@@ -201,7 +206,7 @@ public class MetafacadeBase
      */
     public void setMetafacadeContext(final String context)
     {
-        this.context = StringUtils.trimToEmpty(context);
+        this.context = context;
     }
 
     /**
@@ -263,7 +268,7 @@ public class MetafacadeBase
         final Object value)
     {
         MetafacadeFactory.getInstance().registerProperty(
-            this,
+            this.getName(),
             name,
             value);
     }
@@ -321,7 +326,7 @@ public class MetafacadeBase
      */
     public String getMetafacadeContext()
     {
-        String metafacadeContext = this.context;
+        String metafacadeContext = this.getContext();
         if (this.contextRoot)
         {
             metafacadeContext = this.getName();
