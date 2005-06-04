@@ -19,7 +19,8 @@ public class XslTransformerTest
 {
     public void testTransform()
     {
-        assertNull(XslTransformer.instance().transform(
+        Transformer transformer = new XslTransformer();
+        assertNull(transformer.transform(
                 null,
                 new Transformation[0]));
 
@@ -34,7 +35,7 @@ public class XslTransformerTest
         Transformation transformation2 = new Transformation();
         transformation2.setUri(transformation2Uri.toString());
         Transformation[] transformations = new Transformation[] {transformation1, transformation2};
-        InputStream stream = XslTransformer.instance().transform(model, transformations);
+        InputStream stream = transformer.transform(model, transformations);
         assertNotNull(stream);
     }
 }

@@ -37,21 +37,6 @@ public class XslTransformer
     implements Transformer
 {
     /**
-     * The shared instance.
-     */
-    private static final Transformer transformer = new XslTransformer();
-
-    /**
-     * Gets the shared instance of this class.
-     *
-     * @return the shared transformer instance.
-     */
-    public static final Transformer instance()
-    {
-        return transformer;
-    }
-
-    /**
      * Applies the given XSLT files to the model in the order which they are found.
      *
      * @see org.andromda.core.transformation.Transformer#transform(java.net.URL, org.andromda.core.configuration.Transformation[])

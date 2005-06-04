@@ -37,7 +37,6 @@ import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.transformation.Transformer;
-import org.andromda.core.transformation.XslTransformer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
@@ -94,11 +93,11 @@ public class ModelProcessor
                 AndroMDALogger.info(
                     "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
                     "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
-            } 
+            }
             finally
             {
                 this.reset();
-                //this.factory.clearNamespaceProperties();
+                this.factory.clearNamespaceProperties();
             }
         }
         else
@@ -106,7 +105,7 @@ public class ModelProcessor
             AndroMDALogger.warn("No model(s) found to process");
         }
     }
-    
+
     /**
      * The shared metafacade factory instance.
      */
@@ -242,7 +241,14 @@ public class ModelProcessor
         final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(key);
         if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
         {
-            final Transformer transformer = XslTransformer.instance();
+            final ComponentContainer container = ComponentContainer.instance();
+            final Transformer transformer = (Transformer)container.findComponent(Transformer.class);
+            if (transformer == null)
+            {
+                throw new ModelProcessorException(
+                    "No transfomer implementation could be found, please make sure you have a '" +
+                    container.getComponentDefaultConfigurationPath(Transformer.class) + "' file on your classpath");
+            }
             InputStream stream = transformer.transform(
                     model.getUri(),
                     this.getTransformations());
@@ -296,7 +302,7 @@ public class ModelProcessor
         try
         {
             this.printValidationMessages(factory.getValidationMessages());
-        } 
+        }
         finally
         {
             this.reset();
