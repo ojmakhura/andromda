@@ -149,7 +149,7 @@ public class ComponentContainer
      * @param type the component type.
      * @return the path to the component configuration file.
      */
-    public String getComponentDefaultConfigurationPath(final Class type)
+    protected final String getComponentDefaultConfigurationPath(final Class type)
     {
         final String methodName = "ComponentContainer.getComponentConfigurationPath";
         ExceptionUtils.checkNull(methodName, "type", type);
@@ -169,6 +169,26 @@ public class ComponentContainer
         final String methodName = "ComponentContainer.findComponent";
         ExceptionUtils.checkNull(methodName, "key", key);
         return this.findComponent(null, key);
+    }
+
+    /**
+     * Attempts to Find the component with the specified <code>type</code>,
+     * throwing a {@link ComponentContainerException} exception if one can not be found.
+     *
+     * @param key the unique key of the component as an Object.
+     * @return Object the component instance.
+     */
+    public Object findRequiredComponent(final Class key)
+    {
+        final Object component = this.findComponent(key);
+        if (component == null)
+        {
+            throw new ComponentContainerException(
+                "No implementation could be found for component '" + key.getName() +
+                "', please make sure you have a '" + this.getComponentDefaultConfigurationPath(key) +
+                "' file on your classpath");
+        }
+        return component;
     }
 
     /**
