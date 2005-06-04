@@ -43,6 +43,7 @@
                     <th><bean:message key="online.help.description"/></th>
                 </tr>
 #foreach ($parameter in $parameters)
+#if ($parameter.widgetType != 'hidden')
 #if ($velocityCount % 2 == 1)
                 <tr class="odd">
 #else
@@ -51,6 +52,7 @@
                     <td><bean:message key="$parameter.messageKey"/></td>
                     <td><bean:message key="$parameter.onlineHelpKey"/></td>
                 </tr>
+#end
 #end
             </table>
 #end
