@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.configuration.Configuration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.tools.ant.BuildException;
@@ -70,14 +69,14 @@ public class AndroMDAGenTask
         {
             if (this.configurationUri == null)
             {
-                throw new BuildException("Configuration is not a valid URI --> '" + this.configurationUri + "'");  
+                throw new BuildException("Configuration is not a valid URI --> '" + this.configurationUri + "'");
             }
-            final Configuration configuration =
-                Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(configurationUri)));
             final AndroMDA andromda = AndroMDA.newInstance();
             if (andromda != null)
             {
-                andromda.run(configuration);
+                andromda.run(
+                    this.replaceProperties(ResourceUtils.getContents(configurationUri)),
+                    configurationUri);
                 andromda.shutdown();
             }
         }
@@ -123,22 +122,23 @@ public class AndroMDAGenTask
                 string = StringUtils.replace(string, property, value);
             }
         }
+
         // remove any left over property references
         string = this.removePropertyReferences(string);
         return string;
     }
-    
+
     /**
      * The property reference pattern.
      */
     private static final String PROPERTY_REFERENCE = "\\$\\{.*\\}";
-    
+
     /**
      * Removes any ${some.property} type references from the string
      * and returns the modifed string.
-     * @param string the string from which to remove the property 
+     * @param string the string from which to remove the property
      *        references
-     *        
+     *
      * @return the modified string.
      */
     public String removePropertyReferences(String string)

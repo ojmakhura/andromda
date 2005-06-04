@@ -26,10 +26,13 @@ import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.Profile;
+import org.andromda.core.common.PropertyUtils;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
 import org.andromda.core.configuration.Transformation;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -75,11 +78,48 @@ public class ModelProcessor
     }
 
     /**
+     * Configures this model processor from the given <code>configuration</code>
+     * instance and processes the models defined within the configuration instance.
+     *
+     * @param configuration the configuration from which the configure this model
+     *        processor instance.
+     */
+    public void process(final Configuration configuration)
+    {
+        if (this.requiresConfiguration(configuration))
+        {
+            configuration.initialize();
+            this.reset();
+            this.addTransformations(configuration.getTransformations());
+            final Property[] properties = configuration.getProperties();
+            final int propertyNumber = properties.length;
+            for (int ctr = 0; ctr < propertyNumber; ctr++)
+            {
+                final Property property = properties[ctr];
+                try
+                {
+                    PropertyUtils.setProperty(
+                        this,
+                        property.getName(),
+                        property.getValue());
+                }
+                catch (final Throwable throwable)
+                {
+                    AndroMDALogger.warn(
+                        "Could not set model processor property '" + property.getName() + "' with a value of '" +
+                        property.getValue() + "'");
+                }
+            }
+        }
+        this.process(configuration.getModels());
+    }
+
+    /**
      * Processes all <code>models</code> with the discovered plugins.
      *
      * @param models an array of URLs to models.
      */
-    public void process(Model[] models)
+    private final void process(Model[] models)
     {
         final long startTime = System.currentTimeMillis();
         models = this.filterInvalidModels(models);
@@ -88,7 +128,7 @@ public class ModelProcessor
             try
             {
                 // - re-register the namespace properties (if we're running again)
-                this.factory.registerNamespaceProperties();
+                //this.factory.registerNamespaceProperties();
                 this.processing = true;
                 this.processModels(models);
                 this.processing = false;
@@ -98,11 +138,13 @@ public class ModelProcessor
             }
             finally
             {
-                this.reset();
+                /*this.reset();
+
                 // - clear out the namespace properties so we can re-register them next run
                 this.factory.clearNamespaceProperties();
+
                 // - clear out the rest of the factory's caches
-                this.factory.clearCaches();
+                this.factory.clearCaches();*/
             }
         }
         else
@@ -280,6 +322,7 @@ public class ModelProcessor
     {
         final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
         final ModelAccessFacade modelAccessFacade = this.repository.getModel();
+
         // - clear out the factory's caches (such as any previous validation messages, etc.)
         this.factory.clearCaches();
         this.factory.setModel(modelAccessFacade);
@@ -293,15 +336,7 @@ public class ModelProcessor
                 this.factory.validateAllMetafacades();
             }
         }
-        try
-        {
-            this.printValidationMessages(this.factory.getValidationMessages());
-        }
-        finally
-        {
-            // - reset the model processor's internal resources in case we run again
-            this.reset();
-        }
+        this.printValidationMessages(this.factory.getValidationMessages());
     }
 
     /**
@@ -334,6 +369,40 @@ public class ModelProcessor
         {
             throw new ModelValidationException("Model validation failed!");
         }
+    }
+
+    /**
+     * The configuration URI from the last configuration.
+     */
+    private URL lastConfigurationUri = null;
+
+    /**
+     * The last configuration's last modified time.
+     */
+    private long lastConfigurationLastModified = 0;
+
+    /**
+     * Determines whether or not this model processor needs to be reconfigured.
+     * This is based on whether or not the new configuration is different
+     * than the <code>lastConfiguration</code>.  We determine this by verifying
+     * they were indeed configured from the same URI, and if so, comparing the
+     * last modified times of the two configurations,
+     *
+     * @param configuration the configuration to compare to the lastConfiguration.
+     * @return true/false
+     */
+    private final boolean requiresConfiguration(final Configuration configuration)
+    {
+        boolean requiresConfiguration = lastConfigurationUri == null || configuration.getUri() == null;
+        if (!requiresConfiguration)
+        {
+            requiresConfiguration =
+                !this.lastConfigurationUri.equals(configuration.getUri()) ||
+                configuration.getLastModified() > this.lastConfigurationLastModified;
+        }
+        this.lastConfigurationUri = configuration.getUri();
+        this.lastConfigurationLastModified = configuration.getLastModified();
+        return requiresConfiguration;
     }
 
     /**
@@ -609,6 +678,7 @@ public class ModelProcessor
      */
     final void reset()
     {
+        this.factory.reset();
         this.cartridgeFilter = null;
         this.transformations.clear();
         this.setXmlValidation(true);

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.mapping.Mappings;
 
@@ -33,30 +34,45 @@ public class Configuration
      */
     public final static Configuration getInstance(final URL uri)
     {
-        return (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(uri);
+        final Configuration configuration =
+            (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(uri);
+        configuration.uri = uri;
+        return configuration;
     }
 
     /**
      * Gets a Configuration instance from the given <code>stream</code>.
      *
      * @param stream the InputStream containing the configuration file.
+     * @param uri the URL representing the URI to resource from which this configuration
+     *        was configured, this is optional, however the {@link #getLastModified()}
+     *        can not be correct unless this is set (0 will be returned).
      * @return the configured instance.
      */
-    public final static Configuration getInstance(final InputStream stream)
+    public final static Configuration getInstance(
+        final InputStream stream,
+        final URL uri)
     {
-        return (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(
-            new InputStreamReader(stream));
+        final Configuration configuration =
+            (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(new InputStreamReader(stream));
+        configuration.uri = uri;
+        return configuration;
     }
-
+    
     /**
      * Gets a Configuration instance from the given <code>string</code>.
      *
-     * @param stream the String containing the configuration.
+     * @param string the String containing the configuration.
+     * @param uri the URL representing the URI to resource from which this configuration
+     *        was configured, this is optional, however the {@link #getLastModified()}
+     *        can not be correct unless this is set (0 will be returned).
      * @return the configured instance.
      */
-    public final static Configuration getInstance(final String string)
+    public final static Configuration getInstance(final String string, final URL uri)
     {
-        return (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(string);
+        final Configuration configuration =( Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(string);
+        configuration.uri = uri;
+        return configuration;
     }
 
     /**
@@ -223,6 +239,32 @@ public class Configuration
     String[] getMappingsSearchLocations()
     {
         return (String[])this.mappingsSearchLocations.toArray(new String[0]);
+    }
+    
+    /**
+     * The URI from which this instance was configured.
+     */
+    private URL uri = null;
+    
+    /**
+     * Gets the URI from which this instance was 
+     * configured or null (it it was not set).
+     * @return
+     */
+    public URL getUri()
+    {
+        return uri;
+    }
+
+    /**
+     * Gets the time as a <code>long</code> when this model was last modified. If it can not be determined
+     * <code>0</code> is returned.
+     *
+     * @return the time this model was last modified
+     */
+    public long getLastModified()
+    {
+        return ResourceUtils.getLastModifiedTime(this.uri);
     }
 
     /**

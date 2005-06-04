@@ -7,6 +7,7 @@ import java.io.Reader;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -324,6 +325,43 @@ public class ResourceUtils
             }
         }
         return getResource(resourceName);
+    }
+    
+    /**
+     * Gets the time as a <code>long</code> when this <code>resource</code> was last modified.
+     * If it can not be determined <code>0</code> is returned.
+     *
+     * @param resource the resource from which to retrieve
+     *        the last modified time.
+     * @return the last modified time or 0 if it couldn't be retrieved.
+     */
+    public static final long getLastModifiedTime(final URL resource)
+    {
+        long lastModified;
+        try
+        {
+            final File file = new File(resource.getFile());
+            if (file.exists())
+            {
+                lastModified = file.lastModified();
+            }
+            else
+            {
+                URLConnection uriConnection = resource.openConnection();
+                lastModified = uriConnection.getLastModified();
+
+                // we need to set the urlConnection to null and explicity
+                // call garbage collection, otherwise the JVM won't let go
+                // of the URL resource
+                uriConnection = null;
+                System.gc();
+            }
+        }
+        catch (final Exception exception)
+        {
+            lastModified = 0;
+        }
+        return lastModified;
     }
 
     /**

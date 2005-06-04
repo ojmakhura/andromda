@@ -1,14 +1,12 @@
 package org.andromda.core.configuration;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-
 import java.net.URL;
-import java.net.URLConnection;
-
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.andromda.core.common.ResourceUtils;
 
 
 /**
@@ -160,32 +158,7 @@ public class Model
      */
     public long getLastModified()
     {
-        long lastModified;
-        try
-        {
-            final File file = new File(uri.getFile());
-            if (file.exists())
-            {
-                lastModified = file.lastModified();
-            }
-            else
-            {
-                URLConnection uriConnection = uri.openConnection();
-                uriConnection.setUseCaches(false);
-                lastModified = uriConnection.getLastModified();
-
-                // we need to set the urlConnection to null and explicity
-                // call garbage collection, otherwise the JVM won't let go
-                // of the URL resource
-                uriConnection = null;
-                System.gc();
-            }
-        }
-        catch (Exception ex)
-        {
-            lastModified = 0;
-        }
-        return lastModified;
+        return ResourceUtils.getLastModifiedTime(this.uri);
     }
 
     /**
