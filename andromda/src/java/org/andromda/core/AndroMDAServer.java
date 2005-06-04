@@ -35,16 +35,7 @@ public class AndroMDAServer
     private AndroMDAServer()
     {
         AndroMDALogger.initialize();
-        final ComponentContainer container = ComponentContainer.instance();
-
-        // can not be instantiated
-        this.server = (Server)container.findComponent(Server.class);
-        if (this.server == null)
-        {
-            throw new ServerException(
-                "No Server implementation could be found, please make sure you have a '" +
-                container.getComponentDefaultConfigurationPath(Server.class) + "' file on your classpath");
-        }
+        this.server = (Server)ComponentContainer.instance().findRequiredComponent(Server.class);
     }
 
     /**

@@ -204,15 +204,8 @@ public class ModelProcessor
         Mappings.initializeLogicalMappings();
         if (this.repository == null)
         {
-            final ComponentContainer container = ComponentContainer.instance();
-            this.repository = (RepositoryFacade)container.findComponent(RepositoryFacade.class);
-            if (this.repository == null)
-            {
-                throw new ModelProcessorException(
-                    "No repository implementation could be found, please make sure you have a '" +
-                    container.getComponentDefaultConfigurationPath(RepositoryFacade.class) +
-                    "' file on your classpath");
-            }
+            this.repository =
+                (RepositoryFacade)ComponentContainer.instance().findRequiredComponent(RepositoryFacade.class);
             this.repository.open();
         }
         this.factory.initialize();
@@ -241,14 +234,8 @@ public class ModelProcessor
         final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(key);
         if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
         {
-            final ComponentContainer container = ComponentContainer.instance();
-            final Transformer transformer = (Transformer)container.findComponent(Transformer.class);
-            if (transformer == null)
-            {
-                throw new ModelProcessorException(
-                    "No transfomer implementation could be found, please make sure you have a '" +
-                    container.getComponentDefaultConfigurationPath(Transformer.class) + "' file on your classpath");
-            }
+            final Transformer transformer =
+                (Transformer)ComponentContainer.instance().findRequiredComponent(Transformer.class);
             InputStream stream = transformer.transform(
                     model.getUri(),
                     this.getTransformations());
