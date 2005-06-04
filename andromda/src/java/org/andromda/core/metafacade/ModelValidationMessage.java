@@ -1,10 +1,11 @@
 package org.andromda.core.metafacade;
 
+import java.util.List;
+
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.List;
 
 /**
  * Stores the validation messages that are stored up to be output at the end model processing.
@@ -21,7 +22,9 @@ public class ModelValidationMessage
      * @param modelElementName the name of the model element being validated.
      * @param message          the message to to communitate about the validation.
      */
-    public ModelValidationMessage(final MetafacadeBase metafacade, final String message)
+    public ModelValidationMessage(
+        final MetafacadeBase metafacade,
+        final String message)
     {
         final String constructorName = "MetafacadeValidationMessage";
         ExceptionUtils.checkNull(constructorName, "metafacade", metafacade);
@@ -61,8 +64,9 @@ public class ModelValidationMessage
         {
             final String seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
             final StringBuffer name = new StringBuffer();
-            for (MetafacadeBase metafacade = this.metafacade;
-                 metafacade != null; metafacade = (MetafacadeBase)metafacade.getValidationOwner())
+            for (
+                MetafacadeBase metafacade = this.metafacade; metafacade != null;
+                metafacade = (MetafacadeBase)metafacade.getValidationOwner())
             {
                 if (StringUtils.isNotBlank(metafacade.getValidationName()))
                 {

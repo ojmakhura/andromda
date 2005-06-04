@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * Contains utilities for dealing with properties on object's with the AndroMDA core.
  *
@@ -25,7 +26,10 @@ public class PropertyUtils
      * @param value  the value to evaluate against.
      * @return true/false
      */
-    public static boolean containsValidProperty(final Object object, final String name, final String value)
+    public static boolean containsValidProperty(
+        final Object object,
+        final String name,
+        final String value)
     {
         boolean valid = false;
         try
@@ -34,6 +38,7 @@ public class PropertyUtils
             {
                 final Object propertyValue = org.apache.commons.beanutils.PropertyUtils.getProperty(object, name);
                 valid = propertyValue != null;
+
                 // if valid is still true, and the propertyValue
                 // is not null
                 if (valid)
@@ -65,16 +70,19 @@ public class PropertyUtils
         }
         return valid;
     }
-    
+
     /**
      * Sets the property having the given <code>name</code> on the <code>object</code>
      * with the given <code>value</code>.
-     * 
+     *
      * @param object the object on which to set the property.
      * @param name the name of the property to populate.
      * @param value the value to give the property.
      */
-    public static void setProperty(final Object object, final String name, final Object value)
+    public static void setProperty(
+        final Object object,
+        final String name,
+        final Object value)
         throws Exception
     {
         if (org.apache.commons.beanutils.PropertyUtils.isWriteable(object, name))

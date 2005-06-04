@@ -1,12 +1,12 @@
 package org.andromda.core.common;
 
+
 /**
  * Any unchecked exception that will be thrown during the execution of the ResourceFinder
  */
 public class ResourceFinderException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of ResourceFinderException.
      *
@@ -33,9 +33,10 @@ public class ResourceFinderException
      * @param message
      * @param parent
      */
-    public ResourceFinderException(String message, Throwable parent)
+    public ResourceFinderException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

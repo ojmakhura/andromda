@@ -1,14 +1,15 @@
 package org.andromda.core.cartridge.template;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Defines the &lt;modelElements/&gt; element within a &lt;template/&gt; within an XML cartridge descriptor. This allows
@@ -67,13 +68,15 @@ public class ModelElements
     public Set getAllMetafacades()
     {
         final Set allMetafacades = new HashSet();
-        CollectionUtils.forAllDo(this.modelElements, new Closure()
-        {
-            public void execute(Object object)
+        CollectionUtils.forAllDo(
+            this.modelElements,
+            new Closure()
             {
-                allMetafacades.addAll(((ModelElement)object).getMetafacades());
-            }
-        });
+                public void execute(Object object)
+                {
+                    allMetafacades.addAll(((ModelElement)object).getMetafacades());
+                }
+            });
         return allMetafacades;
     }
 

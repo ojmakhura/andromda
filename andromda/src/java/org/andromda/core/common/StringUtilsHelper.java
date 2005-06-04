@@ -1,9 +1,10 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
+
 
 /**
  * A utility object for doing string manipulation operations that are commonly needed by the code generation templates.
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
  * @author Wouter Zoons
  */
 public class StringUtilsHelper
-        extends StringUtils
+    extends StringUtils
 {
     /**
      * <p/>
@@ -26,7 +27,10 @@ public class StringUtilsHelper
      * @param suffixNew a <code>String</code> with the new suffix
      * @return a <code>String</code> with the given suffix replaced or unmodified if the suffix isn't present
      */
-    public static String replaceSuffix(final String src, final String suffixOld, final String suffixNew)
+    public static String replaceSuffix(
+        final String src,
+        final String suffixOld,
+        final String suffixNew)
     {
         if (src.endsWith(suffixOld))
         {
@@ -47,7 +51,9 @@ public class StringUtilsHelper
     public static String upperCamelCaseName(final String string)
     {
         if (StringUtils.isEmpty(string))
+        {
             return string;
+        }
 
         final String[] parts = splitAtNonWordCharacters(string);
         final StringBuffer conversionBuffer = new StringBuffer();
@@ -73,7 +79,9 @@ public class StringUtilsHelper
      * @param value  the value to remove.
      * @return String the resulting string.
      */
-    public static String removeLastOccurrence(String string, final String value)
+    public static String removeLastOccurrence(
+        String string,
+        final String value)
     {
         if (string != null && value != null)
         {
@@ -82,7 +90,9 @@ public class StringUtilsHelper
             if (index != -1)
             {
                 buf.append(string.substring(0, index));
-                buf.append(string.substring(index + value.length(), string.length()));
+                buf.append(string.substring(
+                        index + value.length(),
+                        string.length()));
                 string = buf.toString();
             }
         }
@@ -124,7 +134,9 @@ public class StringUtilsHelper
      */
     public static String toResourceMessageKey(final String string)
     {
-        return separate(StringUtils.trimToEmpty(string), ".").toLowerCase();
+        return separate(
+            StringUtils.trimToEmpty(string),
+            ".").toLowerCase();
     }
 
     /**
@@ -143,10 +155,14 @@ public class StringUtilsHelper
      * Converts the argument to lowercase, removes all non-word characters, and replaces each of those sequences by the
      * separator.
      */
-    public static String separate(final String string, final String separator)
+    public static String separate(
+        final String string,
+        final String separator)
     {
         if (StringUtils.isBlank(string))
+        {
             return string;
+        }
 
         final String[] parts = splitAtNonWordCharacters(string);
         final StringBuffer buffer = new StringBuffer();
@@ -154,7 +170,9 @@ public class StringUtilsHelper
         for (int i = 0; i < parts.length - 1; i++)
         {
             if (parts[i].trim().length() > 0)
+            {
                 buffer.append(parts[i]).append(separator);
+            }
         }
         return buffer.append(parts[parts.length - 1]).toString();
     }
@@ -184,7 +202,9 @@ public class StringUtilsHelper
      * @param suffix     The suffix to append to the end of each line
      * @return String The input String with the suffix appended at the end of each line
      */
-    public static String suffixLines(final String multiLines, final String suffix)
+    public static String suffixLines(
+        final String multiLines,
+        final String suffix)
     {
         final String[] lines = StringUtils.trimToEmpty(multiLines).split("\n");
         final StringBuffer linesBuffer = new StringBuffer();
@@ -216,7 +236,9 @@ public class StringUtilsHelper
             multiLines = suffixLines(multiLines, ' ' + suffix).trim();
             while (multiLines.endsWith(suffix))
             {
-                multiLines = multiLines.substring(0, multiLines.lastIndexOf(suffix)).trim();
+                multiLines = multiLines.substring(
+                        0,
+                        multiLines.lastIndexOf(suffix)).trim();
             }
             resourceMessage = multiLines;
         }
@@ -245,14 +267,13 @@ public class StringUtilsHelper
         char firstChar = word.charAt(0);
         switch (firstChar)
         {
-            case 'a': // fall-through
-            case 'e': // fall-through
-            case 'i': // fall-through
-            case 'o':
-                formattedBuffer.insert(1, 'n');
-                break;
-            default :
-        }
+        case 'a': // fall-through
+        case 'e': // fall-through
+        case 'i': // fall-through
+        case 'o':
+            formattedBuffer.insert(1, 'n');
+            break;
+        default:}
 
         return formattedBuffer.toString();
     }
@@ -303,26 +324,26 @@ public class StringUtilsHelper
             {
                 switch (secondToLastChar)
                 {
-                    case 'a': // fall-through
-                    case 'e': // fall-through
-                    case 'i': // fall-through
-                    case 'o': // fall-through
-                    case 'u':
-                        pluralNoun = pluralNoun + 's';
-                        break;
-                    default :
-                        pluralNoun = pluralNoun.substring(0, nounLength - 1) + "ies";
+                case 'a': // fall-through
+                case 'e': // fall-through
+                case 'i': // fall-through
+                case 'o': // fall-through
+                case 'u':
+                    pluralNoun = pluralNoun + 's';
+                    break;
+                default:
+                    pluralNoun = pluralNoun.substring(0, nounLength - 1) + "ies";
                 }
             }
             else if (pluralNoun.endsWith("s"))
             {
                 switch (secondToLastChar)
                 {
-                    case 's':
-                        pluralNoun = pluralNoun + "es";
-                        break;
-                    default :
-                        pluralNoun = pluralNoun + "ses";
+                case 's':
+                    pluralNoun = pluralNoun + "es";
+                    break;
+                default:
+                    pluralNoun = pluralNoun + "ses";
                 }
             }
             else

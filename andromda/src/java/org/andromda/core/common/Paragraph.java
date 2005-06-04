@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+
 /**
  * A utility object useful for formatting paragraph output.
  * <p/>
@@ -66,7 +67,7 @@ public class Paragraph
             appendWord(tokenizer.nextToken());
         }
     }
-    
+
     private final ArrayList lines = new ArrayList();
 
     /**

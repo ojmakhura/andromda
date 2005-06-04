@@ -1,12 +1,12 @@
 package org.andromda.core.common;
 
-import org.andromda.core.templateengine.TemplateEngine;
-
 import java.net.URL;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import org.andromda.core.templateengine.TemplateEngine;
 
 
 /**

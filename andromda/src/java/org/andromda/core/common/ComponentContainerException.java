@@ -1,12 +1,12 @@
 package org.andromda.core.common;
 
+
 /**
  * Any unchecked exception that will be thrown during the execution of ComponentContainer.
  */
 public class ComponentContainerException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of ComponentContainerException.
      *
@@ -33,9 +33,10 @@ public class ComponentContainerException
      * @param message
      * @param parent
      */
-    public ComponentContainerException(String message, Throwable parent)
+    public ComponentContainerException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

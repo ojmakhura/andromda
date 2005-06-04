@@ -2,10 +2,11 @@ package org.andromda.core.common;
 
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * Stores any constants used throughout the
  * AndroMDA codebase.
- * 
+ *
  * @author Chad Brandon
  */
 public class Constants
@@ -15,7 +16,7 @@ public class Constants
      * temporary resources are placed during AndroMDA execution.
      */
     public static final String TEMPORARY_DIRECTORY;
-    
+
     /**
      * Perform any constant initialization.
      */
@@ -34,6 +35,6 @@ public class Constants
         {
             directory.append(userName + "/");
         }
-        TEMPORARY_DIRECTORY = directory.toString();        
+        TEMPORARY_DIRECTORY = directory.toString();
     }
 }

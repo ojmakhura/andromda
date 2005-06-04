@@ -2,20 +2,19 @@ package org.andromda.core.metafacade;
 
 import java.util.Collection;
 
+
 /**
  * @author Chad Brandon
  */
 public class Model
     implements ModelAccessFacade
 {
-
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(java.lang.Object)
      */
     public void setModel(Object model)
     {
-    // TODO Auto-generated method stub
-
+        // TODO Auto-generated method stub
     }
 
     /**
@@ -71,5 +70,4 @@ public class Model
         // TODO Auto-generated method stub
         return null;
     }
-
 }

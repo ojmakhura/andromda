@@ -12,6 +12,7 @@ import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Profile;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * A meta facade mapping class. This class is a child of {@link MetafacadeMappings}.
  *
@@ -154,7 +155,9 @@ public class MetafacadeMapping
      * @param defaultValue the default value of the property reference.
      * @see MetafacadeMappings#addPropertyReference(String, String)
      */
-    public void addPropertyReference(final String reference, final String defaultValue)
+    public void addPropertyReference(
+        final String reference,
+        final String defaultValue)
     {
         this.propertyReferences.put(reference, defaultValue);
     }
@@ -179,13 +182,16 @@ public class MetafacadeMapping
      * @param reference    the name of the reference.
      * @param defaultValue the default value of the property reference.
      */
-    public void addMappingProperty(final String name, final String value)
+    public void addMappingProperty(
+        final String name,
+        final String value)
     {
         if (value != null)
         {
             if (this.mappingProperties == null)
             {
                 this.mappingProperties = new PropertyGroup();
+
                 // we add the mapping properties to the mappingPropertyGroups
                 // collection only once
                 this.mappingPropertyGroups.add(this.mappingProperties);
@@ -321,10 +327,10 @@ public class MetafacadeMapping
      */
     final boolean match(final MetafacadeMapping mapping)
     {
-        return mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass())
-            && this.getStereotypes().equals(mapping.getStereotypes())
-            && this.getMappingClassName().equals(mapping.getMappingClassName())
-            && this.getContext().equals(mapping.getContext());
+        return mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass()) &&
+        this.getStereotypes().equals(mapping.getStereotypes()) &&
+        this.getMappingClassName().equals(mapping.getMappingClassName()) &&
+        this.getContext().equals(mapping.getContext());
     }
 
     /**
@@ -333,6 +339,7 @@ public class MetafacadeMapping
     public String toString()
     {
         return super.toString() + "[" + this.getMetafacadeClass() + "] " + this.getPropertyReferences();
+
         //return ToStringBuilder.reflectionToString(this);
     }
 
@@ -357,7 +364,7 @@ public class MetafacadeMapping
             final String name = property.getName();
             if (!this.properties.containsKey(name))
             {
-                this.properties.put(name, property);                
+                this.properties.put(name, property);
             }
         }
 
@@ -404,7 +411,9 @@ public class MetafacadeMapping
         private String name;
         private String value;
 
-        Property(final String name, final String value)
+        Property(
+            final String name,
+            final String value)
         {
             this.name = StringUtils.trimToEmpty(name);
             this.value = value;

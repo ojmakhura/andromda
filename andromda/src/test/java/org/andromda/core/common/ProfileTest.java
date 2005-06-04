@@ -2,17 +2,18 @@ package org.andromda.core.common;
 
 import java.net.URL;
 
+import junit.framework.TestCase;
+
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 
-import junit.framework.TestCase;
 
 /**
  * Tests the {@link org.andromda.core.common.Profile}
  * class.
- * 
+ *
  * @author Chad Brandon
  */
 public class ProfileTest
@@ -30,9 +31,17 @@ public class ProfileTest
         namespace.addProperty(property);
         Namespaces.instance().addNamespace(namespace);
         Profile profile = Profile.instance();
-        assertEquals("TestFrom1", profile.get("TEST_FROM_1"));
-        assertEquals("TestFrom2", profile.get("TEST_FROM_2"));
-        assertEquals("TestFrom3", profile.get("TEST_FROM_3"));
-        assertEquals("TestFromOverride", profile.get("TEST_FROM_OVERRIDE"));
+        assertEquals(
+            "TestFrom1",
+            profile.get("TEST_FROM_1"));
+        assertEquals(
+            "TestFrom2",
+            profile.get("TEST_FROM_2"));
+        assertEquals(
+            "TestFrom3",
+            profile.get("TEST_FROM_3"));
+        assertEquals(
+            "TestFromOverride",
+            profile.get("TEST_FROM_OVERRIDE"));
     }
 }

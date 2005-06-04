@@ -1,11 +1,5 @@
 package org.andromda.core.metafacade;
 
-import org.andromda.core.common.ClassUtils;
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.ResourceFinder;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import java.io.InputStream;
 
 import java.net.URL;
@@ -14,6 +8,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+
+import org.andromda.core.common.ClassUtils;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.ResourceFinder;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 /**

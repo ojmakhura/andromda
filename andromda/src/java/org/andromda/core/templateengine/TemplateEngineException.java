@@ -1,12 +1,12 @@
 package org.andromda.core.templateengine;
 
+
 /**
  * Any unchecked exception that will be thrown when any processing by a TemplateEngine occurs..
  */
 public class TemplateEngineException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of TemplateEngineException.
      *
@@ -33,9 +33,10 @@ public class TemplateEngineException
      * @param message
      * @param parent
      */
-    public TemplateEngineException(String message, Throwable parent)
+    public TemplateEngineException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

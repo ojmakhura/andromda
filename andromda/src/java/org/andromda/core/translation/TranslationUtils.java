@@ -6,6 +6,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * Contains translation utilities.
  *
@@ -13,7 +14,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class TranslationUtils
 {
-
     /**
      * <p/>
      * <code>TranslationUtils</code> instances should NOT be constructed in standard programming. Instead, the class
@@ -35,7 +35,10 @@ public class TranslationUtils
      * @param replaceWith the pattern to place the existing one with.
      * @return String the string will all replacements
      */
-    public static String replacePattern(String string, final String pattern, final String replaceWith)
+    public static String replacePattern(
+        String string,
+        final String pattern,
+        final String replaceWith)
     {
         final String methodName = "TranslationUtils.replacePattern";
         if (string != null)
@@ -56,7 +59,10 @@ public class TranslationUtils
      * @param replaceWith the pattern to place the existing one with.
      * @return String the string will all replacements
      */
-    public static String replaceFirstPattern(String string, final String pattern, final String replaceWith)
+    public static String replaceFirstPattern(
+        String string,
+        final String pattern,
+        final String replaceWith)
     {
         final String methodName = "TranslationUtils.replacePattern";
         if (string != null)
@@ -75,7 +81,9 @@ public class TranslationUtils
      * @param pattern the pattern to find
      * @return boolean true if the string contains the pattern, false otherwise
      */
-    public static boolean containsPattern(final String string, final String pattern)
+    public static boolean containsPattern(
+        final String string,
+        final String pattern)
     {
         boolean containsPattern = string != null && pattern != null;
         if (containsPattern)
@@ -146,7 +154,9 @@ public class TranslationUtils
      * @param property the property name
      * @return Object the value of the property
      */
-    public static Object getProperty(final Object bean, final String property)
+    public static Object getProperty(
+        final Object bean,
+        final String property)
     {
         final String methodName = "TranslationUtils.getProperty";
         try
@@ -156,8 +166,8 @@ public class TranslationUtils
         }
         catch (Exception ex)
         {
-            String errMsg = "Error performing " + methodName + " with bean '" + bean + "' and property '" + property +
-                    "'";
+            String errMsg =
+                "Error performing " + methodName + " with bean '" + bean + "' and property '" + property + "'";
             throw new TranslatorException(errMsg, ex);
         }
     }
@@ -169,7 +179,9 @@ public class TranslationUtils
      * @param property the property to check the existence of.
      * @return boolean
      */
-    public static boolean hasProperty(final Object bean, final String property)
+    public static boolean hasProperty(
+        final Object bean,
+        final String property)
     {
         return PropertyUtils.isReadable(bean, property);
     }
@@ -182,9 +194,10 @@ public class TranslationUtils
      * @param property the property name
      * @return Object the value of the property
      */
-    public static String getPropertyAsString(final Object bean, final String property)
+    public static String getPropertyAsString(
+        final Object bean,
+        final String property)
     {
         return TranslationUtils.trimToEmpty(TranslationUtils.getProperty(bean, property));
     }
-
 }

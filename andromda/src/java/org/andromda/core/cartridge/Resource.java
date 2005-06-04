@@ -1,12 +1,14 @@
 package org.andromda.core.cartridge;
 
+import java.io.File;
+
+import java.text.MessageFormat;
+
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.File;
-import java.text.MessageFormat;
 
 /**
  * <p/>
@@ -75,9 +77,12 @@ public class Resource
      * @param directory the directory to which output will be written.
      * @return File absolute directory.
      */
-    public File getOutputLocation(final Object[] arguments, final File directory)
+    public File getOutputLocation(
+        final Object[] arguments,
+        final File directory)
     {
         File file = null;
+
         // clean any whitespace off the arguments
         if (directory != null && arguments != null && arguments.length > 0)
         {
@@ -85,7 +90,9 @@ public class Resource
             {
                 arguments[ctr] = StringUtils.trimToEmpty(String.valueOf(arguments[ctr]));
             }
-            String outputFileName = MessageFormat.format(this.getOutputPattern(), arguments);
+            String outputFileName = MessageFormat.format(
+                    this.getOutputPattern(),
+                    arguments);
 
             file = new File(directory, outputFileName);
         }
@@ -101,10 +108,11 @@ public class Resource
      */
     public boolean isOverwrite()
     {
-        Property property = Namespaces.instance().findNamespaceProperty(
-            this.getCartridge().getName(), 
-            NamespaceProperties.OVERWRITE,
-            false);
+        Property property =
+            Namespaces.instance().findNamespaceProperty(
+                this.getCartridge().getName(),
+                NamespaceProperties.OVERWRITE,
+                false);
         if (property != null)
         {
             this.overwrite = Boolean.valueOf(property.getValue()).booleanValue();

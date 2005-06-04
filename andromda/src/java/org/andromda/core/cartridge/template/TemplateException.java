@@ -1,12 +1,13 @@
 package org.andromda.core.cartridge.template;
 
+
 /**
  * Wraps any unexpected exception when using a Template instance.
  *
  * @see org.andromda.core.cartridge.template.Template
  */
 public class TemplateException
-        extends RuntimeException
+    extends RuntimeException
 {
     /**
      * Constructs an instance of TemplateException.
@@ -34,7 +35,9 @@ public class TemplateException
      * @param message the exception message
      * @param parent      the parent exception
      */
-    public TemplateException(String message, Throwable parent)
+    public TemplateException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }

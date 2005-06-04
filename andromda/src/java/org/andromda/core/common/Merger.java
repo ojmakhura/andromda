@@ -1,12 +1,5 @@
 package org.andromda.core.common;
 
-import org.andromda.core.configuration.NamespaceProperties;
-import org.andromda.core.configuration.Namespaces;
-import org.andromda.core.configuration.Property;
-import org.andromda.core.mapping.Mapping;
-import org.andromda.core.mapping.Mappings;
-import org.apache.commons.lang.StringUtils;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,6 +9,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.andromda.core.configuration.NamespaceProperties;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
+import org.andromda.core.mapping.Mapping;
+import org.andromda.core.mapping.Mappings;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -86,10 +86,9 @@ public class Merger
 
                         if ((froms != null) && !froms.isEmpty())
                         {
-                            for ( final Iterator fromsIterator = froms.iterator(); fromsIterator.hasNext();)
+                            for (final Iterator fromsIterator = froms.iterator(); fromsIterator.hasNext();)
                             {
-                                final String from =
-                                    StringUtils.trimToEmpty((String)fromsIterator.next());
+                                final String from = StringUtils.trimToEmpty((String)fromsIterator.next());
 
                                 if (StringUtils.isNotEmpty(from))
                                 {
@@ -170,10 +169,8 @@ public class Merger
         if (StringUtils.isNotBlank(namespace))
         {
             final Property mergeMappingsUri =
-                Namespaces.instance().findNamespaceProperty(
-                    namespace, NamespaceProperties.MERGE_MAPPINGS_URI, false);
-            String mergeMappingsUriValue =
-                (mergeMappingsUri != null) ? mergeMappingsUri.getValue() : null;
+                Namespaces.instance().findNamespaceProperty(namespace, NamespaceProperties.MERGE_MAPPINGS_URI, false);
+            String mergeMappingsUriValue = (mergeMappingsUri != null) ? mergeMappingsUri.getValue() : null;
             if (StringUtils.isNotBlank(mergeMappingsUriValue))
             {
                 mergeMappings = (Mappings)this.mergeMappingsCache.get(mergeMappingsUriValue);

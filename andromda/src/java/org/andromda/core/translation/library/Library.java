@@ -1,13 +1,14 @@
 package org.andromda.core.translation.library;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.Translator;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * The AndroMDA Translation Library implementation of the Plugin. Library instances are configured from
@@ -16,7 +17,7 @@ import java.util.Map;
  * @author Chad Brandon
  */
 public class Library
-        extends BasePlugin
+    extends BasePlugin
 {
     private final Map libraryTranslations = new LinkedHashMap();
 
@@ -38,7 +39,9 @@ public class Library
         final String methodName = "Library.addLibraryTranslation";
         ExceptionUtils.checkNull(methodName, "libraryTranslation", libraryTranslation);
         libraryTranslation.setLibrary(this);
-        this.libraryTranslations.put(libraryTranslation.getName(), libraryTranslation);
+        this.libraryTranslations.put(
+            libraryTranslation.getName(),
+            libraryTranslation);
     }
 
     /**
@@ -74,8 +77,9 @@ public class Library
         final String methodName = "Library.setTranslator";
         try
         {
-            ComponentContainer.instance().registerDefaultComponent(Translator.class,
-                    ClassUtils.loadClass(translatorClass));
+            ComponentContainer.instance().registerDefaultComponent(
+                Translator.class,
+                ClassUtils.loadClass(translatorClass));
         }
         catch (Throwable th)
         {

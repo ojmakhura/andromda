@@ -1,11 +1,11 @@
 package org.andromda.core.translation.library;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**

@@ -24,7 +24,7 @@ public class ModelPackages
      * should be processed.
      */
     private boolean processAll = true;
-    
+
     /**
      * Stores the model packages.
      */

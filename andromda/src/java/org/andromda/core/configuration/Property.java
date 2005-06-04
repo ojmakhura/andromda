@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+
 /**
  * This class represents properties which are used to configure Namespace objects which are made available to configure
  * Plugin instances.
@@ -15,7 +16,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class Property
     implements Serializable
-{ 
+{
     /**
      * The property name.
      */
@@ -45,7 +46,7 @@ public class Property
      * The property value.
      */
     private String value;
-    
+
     /**
      * Returns the value. This is the value that is stored in this property.
      *
@@ -55,7 +56,7 @@ public class Property
     {
         return value;
     }
-    
+
     /**
      * Sets the value.
      *
@@ -65,7 +66,7 @@ public class Property
     {
         this.value = StringUtils.trimToEmpty(value);
     }
-    
+
     /**
      * Stores whether or not this property should be ignored.
      */

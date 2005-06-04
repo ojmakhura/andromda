@@ -1,6 +1,7 @@
 package org.andromda.core.common;
 
 import java.io.InputStream;
+
 import java.net.URL;
 
 import org.andromda.core.configuration.Namespaces;

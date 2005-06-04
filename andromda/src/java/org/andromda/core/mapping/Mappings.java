@@ -2,8 +2,10 @@ package org.andromda.core.mapping;
 
 import java.io.File;
 import java.io.FileReader;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -66,7 +68,7 @@ public class Mappings
                 try
                 {
                     mappings = getInstance(new URL(mappingsUri));
-                } 
+                }
                 catch (final MalformedURLException exception)
                 {
                     throw new MappingsException("The given URI --> '" + mappingsUri + "' is invalid", exception);

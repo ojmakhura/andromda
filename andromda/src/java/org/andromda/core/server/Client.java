@@ -1,8 +1,8 @@
 package org.andromda.core.server;
 
-import org.andromda.core.configuration.Configuration;
-
 import java.net.ConnectException;
+
+import org.andromda.core.configuration.Configuration;
 
 
 /**

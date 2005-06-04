@@ -105,7 +105,7 @@ public class MetafacadeMappingsTest
         mappings.initialize();
 
         // verify the property references
-        Map propertyReferences = mappings.getPropertyReferences(namespace);
+        Map propertyReferences = mappings.getPropertyReferences();
         // test retrieval of the namespace properties
         assertEquals(2, propertyReferences.size());
         assertNotNull(propertyReferences.get(NAMESPACE_PROPERTY_1));

@@ -1,12 +1,12 @@
 package org.andromda.core.common;
 
+
 /**
  * Any unchecked exception that will be thrown during execution of the XmlObjectFactory.
  */
 public class XmlObjectFactoryException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of XmlObjectFactoryException.
      *
@@ -33,9 +33,10 @@ public class XmlObjectFactoryException
      * @param message
      * @param parent
      */
-    public XmlObjectFactoryException(String message, Throwable parent)
+    public XmlObjectFactoryException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

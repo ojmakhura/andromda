@@ -1,12 +1,12 @@
 package org.andromda.core.translation.library;
 
+
 /**
  * Any unchecked exception that will be thrown when any translation rules exception occurs.
  */
 public class LibraryException
-        extends RuntimeException
+    extends RuntimeException
 {
-
     /**
      * Constructs an instance of LibraryException.
      *
@@ -33,9 +33,10 @@ public class LibraryException
      * @param message
      * @param parent
      */
-    public LibraryException(String message, Throwable parent)
+    public LibraryException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }
-
 }

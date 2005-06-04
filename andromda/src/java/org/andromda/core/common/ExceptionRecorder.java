@@ -1,9 +1,5 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.log4j.Logger;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -13,6 +9,10 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.Random;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.log4j.Logger;
 
 
 /**

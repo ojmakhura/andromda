@@ -1,15 +1,18 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import java.io.IOException;
+import java.io.StringReader;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.html.HTML.Tag;
 import javax.swing.text.html.HTMLEditorKit.ParserCallback;
 import javax.swing.text.html.parser.ParserDelegator;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Collection;
+
+import org.apache.commons.lang.StringEscapeUtils;
+
 
 /**
  * A utility object useful for reading an documentation string (originating from the contents of an XMI documentation
@@ -61,14 +64,20 @@ public class DocumentationAnalyzer
      * @return Collection the list of paragraphs found in the text string
      * @throws IOException if something goes wrong
      */
-    public Collection toParagraphs(String line, final boolean html) throws IOException
+    public Collection toParagraphs(
+        String line,
+        final boolean html)
+        throws IOException
     {
         final ParserDelegator delegator = new ParserDelegator();
         if (html)
         {
             line = StringEscapeUtils.escapeHtml(line);
         }
-        delegator.parse(new StringReader(line), new HTMLParserCallback(), true);
+        delegator.parse(
+            new StringReader(line),
+            new HTMLParserCallback(),
+            true);
         return paragraphs;
     }
 
@@ -89,7 +98,10 @@ public class DocumentationAnalyzer
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleSimpleTag(javax.swing.text.html.HTML.Tag,
          *      javax.swing.text.MutableAttributeSet, int)
          */
-        public void handleSimpleTag(Tag tag, MutableAttributeSet attribs, int pos)
+        public void handleSimpleTag(
+            Tag tag,
+            MutableAttributeSet attribs,
+            int pos)
         {
             appendWord("<" + tag + ">");
         }
@@ -98,7 +110,10 @@ public class DocumentationAnalyzer
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleStartTag(javax.swing.text.html.HTML.Tag,
          *      javax.swing.text.MutableAttributeSet, int)
          */
-        public void handleStartTag(Tag tag, MutableAttributeSet attribs, int pos)
+        public void handleStartTag(
+            Tag tag,
+            MutableAttributeSet attribs,
+            int pos)
         {
             if (tag.equals(Tag.P))
             {
@@ -113,7 +128,9 @@ public class DocumentationAnalyzer
         /**
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleEndTag(javax.swing.text.html.HTML.Tag, int)
          */
-        public void handleEndTag(Tag tag, int pos)
+        public void handleEndTag(
+            Tag tag,
+            int pos)
         {
             if (tag.equals(Tag.P))
             {
@@ -129,7 +146,9 @@ public class DocumentationAnalyzer
         /**
          * @see javax.swing.text.html.HTMLEditorKit.ParserCallback#handleText(char[], int)
          */
-        public void handleText(char[] text, int pos)
+        public void handleText(
+            char[] text,
+            int pos)
         {
             // handle instances where we may not have html in the text.
             if (currentParagraph == null)

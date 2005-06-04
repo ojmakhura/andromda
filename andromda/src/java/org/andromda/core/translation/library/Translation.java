@@ -1,16 +1,17 @@
 package org.andromda.core.translation.library;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Represents a translation XML template found within a translation library.
@@ -20,13 +21,9 @@ import java.util.Map;
 public class Translation
 {
     private static final Logger logger = Logger.getLogger(Translation.class);
-
     private String name;
-
     private final Map fragments = new HashMap();
-
     private final Collection ignorePatterns = new ArrayList();
-
     private Collection validatePatterns;
 
     /**
@@ -42,6 +39,7 @@ public class Translation
     protected LibraryTranslation getLibraryTranslation()
     {
         final String methodName = "Translation.getLibraryTranslation";
+
         // should never happen, but it doesn't hurt to be safe
         if (this.libraryTranslation == null)
         {
@@ -70,6 +68,7 @@ public class Translation
     {
         Fragment fragment = null;
         Iterator names = fragments.keySet().iterator();
+
         // search through the names and the first name that matches
         // one of the names return the value of that name.
         while (names.hasNext())
@@ -80,11 +79,13 @@ public class Translation
                 fragment = (Fragment)fragments.get(nextName);
             }
         }
+
         // if the fragment is null, and the name isn't in an ignorePattern
         // element, then give an error
         if (fragment == null && !this.isIgnorePattern(name))
         {
             // TODO: make this work correctly with unsupported functions.
+
             /*
              * logger.error("ERROR! expression fragment '" + name + "' is not
              * currently supported --> add a <fragment/> with " + " a name that
@@ -105,7 +106,9 @@ public class Translation
         final String methodName = "Translation.addFragment";
         ExceptionUtils.checkNull(methodName, "fragment", fragment);
         fragment.setTranslation(this);
-        this.fragments.put(fragment.getName(), fragment);
+        this.fragments.put(
+            fragment.getName(),
+            fragment);
     }
 
     /**
@@ -159,6 +162,7 @@ public class Translation
         boolean isIgnorePattern = false;
         pattern = StringUtils.trimToEmpty(pattern);
         Iterator ignorePatterns = this.ignorePatterns.iterator();
+
         // search through the ignorePatterns and see if one
         // of them matches the passed in pattern.
         while (ignorePatterns.hasNext())
@@ -181,11 +185,15 @@ public class Translation
      * @param kind the kind of the fragment.
      * @return String the translated body of the fragment kind.
      */
-    protected String getTranslated(String name, String kind)
+    protected String getTranslated(
+        String name,
+        String kind)
     {
         final String methodName = "Translation.getTranslated";
         if (logger.isDebugEnabled())
+        {
             logger.debug("performing " + methodName + " with name '" + name + "' and kind '" + kind + "'");
+        }
 
         // clean the strings first
         name = StringUtils.trimToEmpty(name);
@@ -201,9 +209,12 @@ public class Translation
             String begin = "fragment{";
             int beginLength = begin.length();
             String end = "}";
-            for (int beginIndex = translated.indexOf(begin); beginIndex != -1; beginIndex = translated.indexOf(begin))
+            for (int beginIndex = translated.indexOf(begin); beginIndex != -1;
+                beginIndex = translated.indexOf(begin))
             {
-                String fragmentName = translated.substring(beginIndex + beginLength, translated.length());
+                String fragmentName = translated.substring(
+                        beginIndex + beginLength,
+                        translated.length());
                 int endIndex = fragmentName.indexOf(end);
                 if (endIndex != -1)
                 {
@@ -212,8 +223,11 @@ public class Translation
                 StringBuffer toReplace = new StringBuffer(begin);
                 toReplace.append(fragmentName);
                 toReplace.append(end);
-                translated = StringUtils.replace(translated, toReplace.toString(), this.getTranslated(fragmentName,
-                        kind));
+                translated =
+                    StringUtils.replace(
+                        translated,
+                        toReplace.toString(),
+                        this.getTranslated(fragmentName, kind));
             }
         }
         return TranslationUtils.removeExtraWhitespace(translated);

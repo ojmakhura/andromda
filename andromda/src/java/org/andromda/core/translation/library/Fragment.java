@@ -1,11 +1,12 @@
 package org.andromda.core.translation.library;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A Translation "fragment" of a translation file. This fragment belongs to a Translation object.
@@ -86,10 +87,10 @@ public class Fragment
         String kind = StringUtils.trimToEmpty((String)kinds.get(name));
         if (kind == null)
         {
-            throw new LibraryException(methodName + " - no kind '" + name +
-                    "' could be found for the translation fragment '" + this.getName() + "' check the fragment '" +
-                    this.getName() +
-                    "' in translation template --> '" + getTranslation().getLibraryTranslation().getTemplate() + "'");
+            throw new LibraryException(
+                methodName + " - no kind '" + name + "' could be found for the translation fragment '" +
+                this.getName() + "' check the fragment '" + this.getName() + "' in translation template --> '" +
+                getTranslation().getLibraryTranslation().getTemplate() + "'");
         }
         return kind;
     }
@@ -100,9 +101,13 @@ public class Fragment
      * @param name the name of the kind of expression.
      * @param body the body of the kind of expression.
      */
-    public void addKind(final String name, final String body)
+    public void addKind(
+        final String name,
+        final String body)
     {
-        kinds.put(StringUtils.trimToEmpty(name), body);
+        kinds.put(
+            StringUtils.trimToEmpty(name),
+            body);
     }
 
     /**
@@ -135,6 +140,7 @@ public class Fragment
     public Translation getTranslation()
     {
         final String methodName = "Fragment.getTranslation";
+
         // should never happen, but it doesn't hurt to be safe
         if (this.translation == null)
         {

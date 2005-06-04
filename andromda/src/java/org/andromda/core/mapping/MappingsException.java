@@ -1,10 +1,11 @@
 package org.andromda.core.mapping;
 
+
 /**
  * Any error occurring during processing of Mappings should through this exception.
  */
 public class MappingsException
-        extends RuntimeException
+    extends RuntimeException
 {
     /**
      * Constructs an instance of MappingsException.
@@ -32,7 +33,9 @@ public class MappingsException
      * @param message
      * @param parent
      */
-    public MappingsException(String message, Throwable parent)
+    public MappingsException(
+        String message,
+        Throwable parent)
     {
         super(message, parent);
     }

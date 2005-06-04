@@ -2,9 +2,10 @@ package org.andromda.core.common;
 
 import junit.framework.TestCase;
 
+
 /**
  * JUnit tests for {@link org.andromda.common.PathMatcher}
- * 
+ *
  * @author Chad Brandon
  */
 public class PathMatcherTest

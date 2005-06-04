@@ -1,6 +1,7 @@
 package org.andromda.core.common;
 
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
+
 /**
  * Contains the configuration of a template object which are objects that are made available to the cartridge
  * templates.
@@ -24,7 +26,7 @@ public class TemplateObject
     private static Logger logger = Logger.getLogger(TemplateObject.class);
 
     /**
-     * The name of this template object made available to the 
+     * The name of this template object made available to the
      * template.
      */
     private String name;
@@ -43,7 +45,7 @@ public class TemplateObject
         }
         return name;
     }
-    
+
     /**
      * Caches the template objects.
      */
@@ -90,21 +92,31 @@ public class TemplateObject
         for (final Iterator referenceIterator = this.propertyReferences.iterator(); referenceIterator.hasNext();)
         {
             final String reference = (String)referenceIterator.next();
-            final Property property = Namespaces.instance().findNamespaceProperty(this.getNamespace(), reference);
+            final Property property = Namespaces.instance().findNamespaceProperty(
+                    this.getNamespace(),
+                    reference);
             if (!property.isIgnore())
             {
                 if (logger.isDebugEnabled())
-                    logger.debug("setting property '" + name + "' with value '"
-                        + property.getValue() + "' on templateObject '" + templateObject + "'");
+                {
+                    logger.debug(
+                        "setting property '" + name + "' with value '" + property.getValue() + "' on templateObject '" +
+                        templateObject + "'");
+                }
                 try
                 {
-                    PropertyUtils.setProperty(templateObject, reference, property.getValue());
+                    PropertyUtils.setProperty(
+                        templateObject,
+                        reference,
+                        property.getValue());
                 }
                 catch (Exception ex)
                 {
-                    String errMsg = "Error setting property '" + reference + "' with '"
-                        + property.getValue() + "' on templateObject --> '" + templateObject + "'";
+                    String errMsg =
+                        "Error setting property '" + reference + "' with '" + property.getValue() +
+                        "' on templateObject --> '" + templateObject + "'";
                     logger.warn(errMsg, ex);
+
                     // don't throw the exception
                 }
             }
@@ -120,7 +132,7 @@ public class TemplateObject
     {
         this.name = StringUtils.trimToEmpty(name);
     }
-    
+
     /**
      * The name of the class for this template object.
      */
@@ -142,7 +154,7 @@ public class TemplateObject
      * The property references that configure this template object.
      */
     private final Collection propertyReferences = new ArrayList();
-    
+
     /**
      * Adds a templateObject property reference (used to customize templateObjects). Property references are used to
      * populate bean like properties of template objects.
@@ -153,7 +165,7 @@ public class TemplateObject
     {
         this.propertyReferences.add(reference);
     }
-    
+
     /**
      * The resource in which the template object was found.
      */
@@ -183,7 +195,7 @@ public class TemplateObject
      * The namespace to which this template object belongs.
      */
     private String namespace;
-    
+
     /**
      * @return Returns the namespace.
      */
@@ -207,5 +219,4 @@ public class TemplateObject
     {
         return ToStringBuilder.reflectionToString(this);
     }
-
 }

@@ -55,12 +55,7 @@ public class MetafacadeMappings
      * Holds the resource path from which this MetafacadeMappings object was loaded.
      */
     private URL resource;
-
-    /**
-     * Contains references to properties populated in the Namespaces.
-     */
-    private final Map propertyReferences = new HashMap();
-
+    
     /**
      * The default meta facade to use when there isn't a mapping found.
      */
@@ -235,12 +230,28 @@ public class MetafacadeMappings
         {
             this.addMapping((MetafacadeMapping)iterator.next());
         }
-        final Map propertyReferences = mappings.propertyReferences;
+        final Map propertyReferences = mappings.getPropertyReferences();
         if (propertyReferences != null && !propertyReferences.isEmpty())
         {
             this.propertyReferences.putAll(propertyReferences);
         }
         this.defaultMetafacadeClass = mappings.defaultMetafacadeClass;
+    }
+    
+    /**
+     * Contains references to properties populated in the Namespaces.
+     */
+    private final Map propertyReferences = new HashMap();
+
+    /**
+     * Gets all property references defined in this mappings
+     * instance.
+     * 
+     * @return the map of property references (names and values).
+     */
+    public Map getPropertyReferences()
+    {
+        return this.propertyReferences;
     }
 
     /**
@@ -283,15 +294,12 @@ public class MetafacadeMappings
             final Collection hierarchy = this.getMappingObjectHierarchy(mappingObject);
             if (hierarchy != null && !hierarchy.isEmpty())
             {
-                for (Iterator hierarchyIterator = hierarchy.iterator(); hierarchyIterator.hasNext() && mapping == null;)
+                for (final Iterator iterator = hierarchy.iterator(); iterator.hasNext() && mapping == null;)
                 {
-                    mapping = this.getMapping((String)hierarchyIterator.next(), mappingObject, context, stereotypes);
+                    mapping = this.getMapping((String)iterator.next(), mappingObject, context, stereotypes);
                 }
             }
         }
-
-        // load the inherited property references
-        //this.loadInheritedPropertyReferences(mapping);
         return mapping;
     }
 
@@ -442,8 +450,7 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
                                     mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
                                     valid =
@@ -467,8 +474,7 @@ public class MetafacadeMappings
                             {
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 boolean valid = false;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     mapping.hasContext() && mapping.hasMappingProperties() &&
                                     !inProcessMappings.contains(mapping) && inProcessMetafacades.isEmpty())
                                 {
@@ -501,8 +507,7 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
                                     !mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
                                     valid = getContextHierarchy(context).contains(mapping.getContext());
@@ -524,8 +529,7 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasStereotypes() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasStereotypes() &&
                                     !mapping.hasContext() && !mapping.hasMappingProperties())
                                 {
                                     valid = stereotypes.containsAll(mapping.getStereotypes());
@@ -547,8 +551,7 @@ public class MetafacadeMappings
                             {
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 boolean valid = false;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     !mapping.hasContext() && mapping.hasMappingProperties() &&
                                     !inProcessMappings.contains(mapping) && inProcessMetafacades.isEmpty())
                                 {
@@ -710,38 +713,6 @@ public class MetafacadeMappings
     }
 
     /**
-     * Property references keyed by namespace, these are populated on the first
-     * call to {@link #getPropertyReferences(String)}.
-     */
-    private final Map namespacePropertyReferences = new HashMap();
-
-    /**
-     * Returns all property references for this a {@link MetafacadeMappings}
-     * instance by <code>namespace</code>..
-     *
-     * @param namespace the namespace to search
-     */
-    public Map getPropertyReferences(final String namespace)
-    {
-        Map propertyReferences = (Map)namespacePropertyReferences.get(namespace);
-        if (propertyReferences == null)
-        {
-            // first load the property references from
-            // the mappings
-            propertyReferences = new HashMap();
-            propertyReferences.putAll(this.propertyReferences);
-            MetafacadeMappings metafacades = this.getNamespaceMappings(namespace);
-            if (metafacades != null)
-            {
-                propertyReferences.putAll(metafacades.propertyReferences);
-            }
-            this.namespacePropertyReferences.put(namespace, propertyReferences);
-        }
-
-        return propertyReferences;
-    }
-
-    /**
      * <p/> Attempts to get the MetafacadeMapping identified by the given
      * <code>mappingClass</code>,<code>context</code> and
      * <code>stereotypes<code>, from the mappings for the given <code>namespace</code>. If it can <strong>not</strong>
@@ -867,7 +838,7 @@ public class MetafacadeMappings
     }
 
     /**
-     * Registers all namespace proeprties in the shared
+     * Registers all namespace properties in the shared
      * {@link MetafacadeFactory} instance.
      */
     final void registerAllProperties()
@@ -883,13 +854,13 @@ public class MetafacadeMappings
             final MetafacadeMappings metafacadeMappings = this.getNamespaceMappings(mappingsNamespace);
 
             // - add all the references from the default namespace
-            final Map propertyReferences = new HashMap(this.propertyReferences);
+            final Map propertyReferences = new HashMap(this.getPropertyReferences());
 
             // - if we have namespace mappings, add them
             if (metafacadeMappings != null)
             {
                 mappings.addAll(metafacadeMappings.mappings);
-                propertyReferences.putAll(metafacadeMappings.getPropertyReferences(mappingsNamespace));
+                propertyReferences.putAll(metafacadeMappings.getPropertyReferences());
             }
 
             for (final Iterator mappingIterator = mappings.iterator(); mappingIterator.hasNext();)
@@ -1061,10 +1032,10 @@ public class MetafacadeMappings
     {
         if (this.propertyValues == null)
         {
-            this.propertyValues = this.getPropertyReferences(this.getNamespace());
+            this.propertyValues = this.getPropertyReferences();
             if (parent != null)
             {
-                this.propertyValues.putAll(parent.getPropertyReferences(this.getNamespace()));
+                this.propertyValues.putAll(parent.getPropertyReferences());
             }
         }
         return ObjectUtils.toString(this.propertyValues.get(name));
@@ -1082,7 +1053,6 @@ public class MetafacadeMappings
         this.namespaceMetafacadeMappings.clear();
         this.propertyReferences.clear();
         this.mappingObjectHierachyCache.clear();
-        this.namespacePropertyReferences.clear();
         this.mappingsByMetafacadeClass.clear();
         this.contextHierachyCache.clear();
         this.reversedInterfaceArrayCache.clear();
@@ -1122,6 +1092,7 @@ public class MetafacadeMappings
         final Map propertyReferences,
         final String metafacadeName)
     {
+        final MetafacadeFactory factory = MetafacadeFactory.getInstance();
         for (final Iterator iterator = propertyReferences.keySet().iterator(); iterator.hasNext();)
         {
             final String reference = (String)iterator.next();
@@ -1132,8 +1103,6 @@ public class MetafacadeMappings
             // show the warning.
             boolean showWarning = value == null;
             final Property property = Namespaces.instance().findNamespaceProperty(namespace, reference, showWarning);
-
-            final MetafacadeFactory factory = MetafacadeFactory.getInstance();
 
             // don't attempt to set if the property is null, or it's set to
             // ignore.

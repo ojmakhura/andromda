@@ -1,12 +1,5 @@
 package org.andromda.core.common;
 
-import org.andromda.core.configuration.NamespaceProperties;
-import org.andromda.core.configuration.Namespaces;
-import org.andromda.core.configuration.Property;
-import org.andromda.core.templateengine.TemplateEngine;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
 import java.io.File;
 
 import java.net.URL;
@@ -17,6 +10,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import org.andromda.core.configuration.NamespaceProperties;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Property;
+import org.andromda.core.templateengine.TemplateEngine;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -317,8 +317,8 @@ public abstract class BasePlugin
                 if (this.getMergeLocation() != null)
                 {
                     final Collection mergeContents = ResourceUtils.getDirectoryContents(
-                        this.getMergeLocation(),
-                        0);
+                            this.getMergeLocation(),
+                            0);
                     if (mergeContents != null && !mergeContents.isEmpty())
                     {
                         this.contents.addAll(mergeContents);

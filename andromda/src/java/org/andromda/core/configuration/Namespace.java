@@ -1,9 +1,11 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 
 /**
  * A configurable namespace object. These are passed to Plugin instances (Cartridges, etc.).
@@ -38,7 +40,7 @@ public class Namespace
     {
         this.name = name;
     }
-    
+
     /**
      * Stores the collected properties
      */
@@ -54,7 +56,9 @@ public class Namespace
     {
         if (property != null)
         {
-            this.properties.put(property.getName(), property);
+            this.properties.put(
+                property.getName(),
+                property);
         }
     }
 
@@ -62,17 +66,17 @@ public class Namespace
      * Retrieves the property with the specified name.
      *
      * @param name the name of the property.
-     * 
+     *
      * @return the property
      */
     public Property getProperty(final String name)
     {
         return (Property)this.properties.get(name);
     }
-    
+
     /**
      * Gets all namespaces belonging to this namespaces instance.
-     * 
+     *
      * @return all namespaces.
      */
     public Collection getProperties()
