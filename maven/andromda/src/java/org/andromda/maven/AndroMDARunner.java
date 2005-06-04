@@ -1,5 +1,13 @@
 package org.andromda.maven;
 
+import java.io.FileNotFoundException;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.core.AndroMDA;
 import org.andromda.core.AndroMDAServer;
 import org.andromda.core.common.ResourceUtils;
@@ -10,14 +18,6 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.jelly.MavenJellyContext;
-
-import java.io.FileNotFoundException;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 
 /**
@@ -104,9 +104,11 @@ public class AndroMDARunner
     private Configuration getConfiguration()
         throws MalformedURLException
     {
+        final URL uri = new URL(this.configurationUri);
         final Configuration configuration =
             Configuration.getInstance(
-                this.replaceProperties(ResourceUtils.getContents(new URL(this.configurationUri))));
+                this.replaceProperties(ResourceUtils.getContents(uri)),
+                uri);
         configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
         return configuration;
     }

@@ -1,8 +1,10 @@
 package org.andromda.maven;
 
 import java.io.FileNotFoundException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.Iterator;
 import java.util.Map;
 
@@ -67,8 +69,11 @@ public class AndroMDAMavenRunner
     {
         try
         {
+            final URL uri = new URL(configurationUri);
             final Configuration configuration =
-                Configuration.getInstance(this.replaceProperties(ResourceUtils.getContents(new URL(configurationUri))));
+                Configuration.getInstance(
+                    this.replaceProperties(ResourceUtils.getContents(uri)),
+                    uri);
             configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
             final AndroMDA andromda = AndroMDA.newInstance();
             if (andromda != null)
@@ -90,7 +95,7 @@ public class AndroMDAMavenRunner
             }
             else if (throwable instanceof MalformedURLException)
             {
-                throw new BuildException("Configuration is not a valid URI --> '" + configurationUri + "'");                
+                throw new BuildException("Configuration is not a valid URI --> '" + configurationUri + "'");
             }
             throw new BuildException(throwable);
         }
@@ -123,6 +128,7 @@ public class AndroMDAMavenRunner
                 string = StringUtils.replace(string, property, value);
             }
         }
+
         // remove any left over property references
         string = AndroMDAMavenUtils.removePropertyReferences(string);
         return string;

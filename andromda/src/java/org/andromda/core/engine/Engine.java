@@ -1,9 +1,7 @@
 package org.andromda.core.engine;
 
 import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.PropertyUtils;
 import org.andromda.core.configuration.Configuration;
-import org.andromda.core.configuration.Property;
 
 
 /**
@@ -75,28 +73,7 @@ public class Engine
     {
         if (configuration != null)
         {
-            configuration.initialize();
-            this.modelProcessor.addTransformations(configuration.getTransformations());
-            final Property[] properties = configuration.getProperties();
-            final int propertyNumber = properties.length;
-            for (int ctr = 0; ctr < propertyNumber; ctr++)
-            {
-                final Property property = properties[ctr];
-                try
-                {
-                    PropertyUtils.setProperty(
-                        this.modelProcessor,
-                        property.getName(),
-                        property.getValue());
-                }
-                catch (final Throwable throwable)
-                {
-                    AndroMDALogger.warn(
-                        "Could not set model processor property '" + property.getName() + "' with a value of '" +
-                        property.getValue() + "'");
-                }
-            }
-            this.modelProcessor.process(configuration.getModels());
+            this.modelProcessor.process(configuration);
         }
     }
 

@@ -711,8 +711,7 @@ public class MetafacadeFactory
      */
     public void shutdown()
     {
-        this.clearCaches();
-        this.clearNamespaceProperties();
+        this.reset();
         this.mappings.shutdown();
         this.model = null;
         instance = null;
@@ -721,7 +720,7 @@ public class MetafacadeFactory
     /**
      * Registers all namespace properties (if required).
      */
-    public void registerNamespaceProperties()
+    private void registerNamespaceProperties()
     {
         // only register them if they already aren't registered
         if (this.metafacadeNamespaces.isEmpty())
@@ -729,25 +728,33 @@ public class MetafacadeFactory
             this.mappings.registerAllProperties();
         }
     }
-    
+
     /**
-     * Clears out all namespace properties.
+     * Entirely resets all the internal resources within this factory instance (such
+     * as the caches, etc).
      */
-    public void clearNamespaceProperties()
+    public void reset()
     {
+        // - clear out the namespace properties so we can re-register them next run
         this.metafacadeNamespaces.clear();
+
+        // - re-register the namespace properties (if we're running again)
+        this.registerNamespaceProperties();
+
+        // - clear out the rest of the factory's caches
+        this.clearCaches();
     }
-    
+
     /**
      * Clears out the factory's internal caches (other
-     * than namespace properties, which must be explicity
-     * cleared by calling {@link #clearNamespaceProperties()}.
+     * than namespace properties, which can be cleared by
+     * calling {@link #clearNamespaceProperties()}.
      */
     public void clearCaches()
     {
         this.validationMessages.clear();
         this.allMetafacades.clear();
         this.metafacadesByStereotype.clear();
-        this.cache.clear(); 
+        this.cache.clear();
     }
 }
