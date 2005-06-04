@@ -87,6 +87,8 @@ public class ModelProcessor
         {
             try
             {
+                // - re-register the namespace properties (if we're running again)
+                this.factory.registerNamespaceProperties();
                 this.processing = true;
                 this.processModels(models);
                 this.processing = false;
@@ -97,7 +99,10 @@ public class ModelProcessor
             finally
             {
                 this.reset();
+                // - clear out the namespace properties so we can re-register them next run
                 this.factory.clearNamespaceProperties();
+                // - clear out the rest of the factory's caches
+                this.factory.clearCaches();
             }
         }
         else
@@ -275,6 +280,8 @@ public class ModelProcessor
     {
         final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
         final ModelAccessFacade modelAccessFacade = this.repository.getModel();
+        // - clear out the factory's caches (such as any previous validation messages, etc.)
+        this.factory.clearCaches();
         this.factory.setModel(modelAccessFacade);
         for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
         {
@@ -288,10 +295,11 @@ public class ModelProcessor
         }
         try
         {
-            this.printValidationMessages(factory.getValidationMessages());
+            this.printValidationMessages(this.factory.getValidationMessages());
         }
         finally
         {
+            // - reset the model processor's internal resources in case we run again
             this.reset();
         }
     }
@@ -601,7 +609,6 @@ public class ModelProcessor
      */
     final void reset()
     {
-        MetafacadeFactory.getInstance().clearCaches();
         this.cartridgeFilter = null;
         this.transformations.clear();
         this.setXmlValidation(true);
