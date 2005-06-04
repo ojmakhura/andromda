@@ -102,7 +102,7 @@ public class MetafacadeMappingsTest
         final MetafacadeFactory factory = MetafacadeFactory.getInstance();
         factory.setModel(new Model());
         factory.setNamespace(namespace);
-        mappings.discoverMetafacades();
+        mappings.initialize();
 
         // verify the property references
         Map propertyReferences = mappings.getPropertyReferences(namespace);

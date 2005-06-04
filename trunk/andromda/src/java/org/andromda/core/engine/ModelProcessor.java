@@ -94,10 +94,9 @@ public class ModelProcessor
                 AndroMDALogger.info(
                     "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
                     "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
-            }
+            } 
             finally
             {
-                // reset any internal resources
                 this.reset();
             }
         }
@@ -106,6 +105,11 @@ public class ModelProcessor
             AndroMDALogger.warn("No model(s) found to process");
         }
     }
+    
+    /**
+     * The shared metafacade factory instance.
+     */
+    private final MetafacadeFactory factory = MetafacadeFactory.getInstance();
 
     /**
      * Processes multiple <code>models</code>.
@@ -153,21 +157,20 @@ public class ModelProcessor
                 {
                     this.loadModelIfNecessary(models[ctr]);
                 }
-                final MetafacadeFactory factory = MetafacadeFactory.getInstance();
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
                     cartridgeName = cartridge.getName();
                     if (this.shouldProcess(cartridgeName))
                     {
-                        factory.setNamespace(cartridgeName);
+                        this.factory.setNamespace(cartridgeName);
                         cartridge.initialize();
 
                         // process each model
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
-                            factory.setModel(this.repository.getModel());
-                            factory.setModelPackages(models[ctr].getPackages());
+                            this.factory.setModel(this.repository.getModel());
+                            this.factory.setModelPackages(models[ctr].getPackages());
                             cartridge.processModelElements(factory);
                             writer.writeHistory();
                         }
@@ -212,7 +215,7 @@ public class ModelProcessor
             }
             this.repository.open();
         }
-        MetafacadeFactory.getInstance().initialize();
+        this.factory.initialize();
     }
 
     /**
@@ -277,23 +280,22 @@ public class ModelProcessor
     private final void validateModel(final Model model)
     {
         final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
-        final MetafacadeFactory factory = MetafacadeFactory.getInstance();
         final ModelAccessFacade modelAccessFacade = this.repository.getModel();
-        factory.setModel(modelAccessFacade);
+        this.factory.setModel(modelAccessFacade);
         for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
         {
             final Cartridge cartridge = (Cartridge)iterator.next();
             final String cartridgeName = cartridge.getName();
             if (this.shouldProcess(cartridgeName))
             {
-                factory.setNamespace(cartridgeName);
-                factory.validateAllMetafacades();
+                this.factory.setNamespace(cartridgeName);
+                this.factory.validateAllMetafacades();
             }
         }
         try
         {
             this.printValidationMessages(factory.getValidationMessages());
-        }
+        } 
         finally
         {
             this.reset();
@@ -603,7 +605,7 @@ public class ModelProcessor
     /**
      * Reinitializes the model processor's resources.
      */
-    private void reset()
+    final void reset()
     {
         MetafacadeFactory.getInstance().reset();
         this.cartridgeFilter = null;
