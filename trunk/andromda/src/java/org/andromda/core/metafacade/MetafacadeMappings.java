@@ -999,7 +999,10 @@ public class MetafacadeMappings
     }
 
     /**
-     * @param defaultMetafacadeClass The defaultMetafacadeClass to set.
+     * Sets the default metafacade class to use if no other is found 
+     * for the mapping class.
+     * 
+     * @param defaultMetafacadeClass the default metafacade class.
      */
     public void setDefaultMetafacadeClass(final String defaultMetafacadeClass)
     {
