@@ -18,11 +18,6 @@
                 updating and deleting.
             </p>
             <p class="highlight">
-                This feature is experimental and in an early stage but since it's already working nicely on at least
-                one project in production we decided to make it available nonetheless,
-                please report any issues you encounter. <em>THIS FEATURE IS STILL UNDER DEVELOPMENT</em>
-            </p>
-            <p class="highlight">
                 Please NOTE that this cartridge <strong>MUST</strong> be used in conjunction with the 
                 <a href="../andromda-hibernate-cartridge/index.html">Spring Cartridge</a>
                 in order to take advantage of data access object(DAO) feature of Spring.
@@ -138,6 +133,10 @@
                 get an exception saying the operation could not be performed (obviously).
             </p>
         </section>
-
+        <section name="More to come later...">
+            <p class="highlight">
+                This documentation is a work-in-progress, in time more will be added.
+            </p>
+        </section>
     </body>
 </document>
