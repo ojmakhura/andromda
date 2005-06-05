@@ -102,11 +102,11 @@ public class DefaultServer
                                 {
                                     AndroMDALogger.error(throwable);
 
-                                    // pass the exception to the client
+                                    // - pass the exception to the client
                                     serverOutput.writeObject(throwable);
                                 }
 
-                                // signal to the client, it can stop waiting
+                                // - signal to the client, it can stop waiting
                                 serverOutput.writeObject(COMPLETE);
                                 serverOutput.flush();
                                 serverOutput.close();
@@ -125,7 +125,7 @@ public class DefaultServer
                             {
                                 this.incrementFailedLoadAttempts();
 
-                                // only fail if the failed load attempts is greater than the maximum
+                                // - only fail if the failed load attempts is greater than the maximum
                                 if (this.failedLoadAttempts > serverConfiguration.getMaximumFailedLoadAttempts())
                                 {
                                     throw throwable;
