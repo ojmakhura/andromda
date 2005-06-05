@@ -286,8 +286,9 @@
                     The <em>optional</em> <![CDATA[<server>]]> element provides information
                     about the AndroMDA server.  The AndroMDA server can be used to initialize
                     AndroMDA and to provide the pre-loading of models.  What this means is 
-                    that initialization and model loading does not need to occur each time before you run AndroMDA
-                    (which helps to significanlty lower total model processing time).
+                    that initialization, model loading, and model validation does not occur 
+                    each time you run AndroMDA, but only when your model changes 
+                    (significantly lowering total model processing time).
                     <source language="xml">
 
 <![CDATA[<andromda>
