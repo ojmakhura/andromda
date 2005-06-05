@@ -70,9 +70,6 @@ public class AndroMDA
      *
      * @param configurationStream the InputStream that contains the configuration
      *        contents for configuring AndroMDA.
-     * @param uri the URL representing the URI to resource from which the configurationStream
-     *        was retrieved, this can be null, however {@link Configuration#getLastModified()}
-     *        will not be correct unless this is set.
      *
      * @return the new instance of AndroMDA.
      */
@@ -80,7 +77,7 @@ public class AndroMDA
         final InputStream configurationStream,
         final URL uri)
     {
-        this.run(Configuration.getInstance(configurationStream, uri));
+        this.run(Configuration.getInstance(configurationStream));
     }
 
     /**
@@ -88,9 +85,6 @@ public class AndroMDA
      *
      * @param configuration the String that contains the configuration
      *        contents for configuring AndroMDA.
-     * @param uri the URL representing the URI to the resource from which the configuration
-     *        was retrieved, this can be null, however {@link Configuration#getLastModified()}
-     *        will not be correct unless this is set.
      *
      * @return the new instance of AndroMDA.
      */
@@ -98,7 +92,7 @@ public class AndroMDA
         final String configuration,
         final URL uri)
     {
-        this.run(Configuration.getInstance(configuration, uri));
+        this.run(Configuration.getInstance(configuration));
     }
 
     /**

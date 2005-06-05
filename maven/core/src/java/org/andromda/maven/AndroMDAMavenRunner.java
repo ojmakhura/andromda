@@ -72,8 +72,7 @@ public class AndroMDAMavenRunner
             final URL uri = new URL(configurationUri);
             final Configuration configuration =
                 Configuration.getInstance(
-                    this.replaceProperties(ResourceUtils.getContents(uri)),
-                    uri);
+                    this.replaceProperties(ResourceUtils.getContents(uri)));
             configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
             final AndroMDA andromda = AndroMDA.newInstance();
             if (andromda != null)

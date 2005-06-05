@@ -357,14 +357,9 @@ public class ModelProcessor
     }
 
     /**
-     * The configuration URI from the last configuration.
+     * The contents (as a string) of the last configuration.
      */
-    private URL lastConfigurationUri = null;
-
-    /**
-     * The last configuration's last modified time.
-     */
-    private long lastConfigurationLastModified = 0;
+    private String lastConfigurationContents = null;
 
     /**
      * Sets the values for the last configuration.
@@ -373,8 +368,7 @@ public class ModelProcessor
      */
     private void setLastConfigurationValues(final Configuration configuration)
     {
-        this.lastConfigurationLastModified = configuration.getLastModified();
-        this.lastConfigurationUri = configuration.getUri();
+        this.lastConfigurationContents = configuration.getContents();
         this.lastConfigurationValuesSet = true;
     }
 
@@ -390,12 +384,10 @@ public class ModelProcessor
      */
     private final boolean requiresConfiguration(final Configuration configuration)
     {
-        boolean requiresConfiguration = lastConfigurationUri == null || configuration.getUri() == null;
+        boolean requiresConfiguration = lastConfigurationContents == null || configuration.getContents() == null;
         if (!requiresConfiguration)
         {
-            requiresConfiguration =
-                !this.lastConfigurationUri.equals(configuration.getUri()) ||
-                configuration.getLastModified() > this.lastConfigurationLastModified;
+            requiresConfiguration = !this.lastConfigurationContents.equals(configuration.getContents());
         }
         this.setLastConfigurationValues(configuration);
         return requiresConfiguration;

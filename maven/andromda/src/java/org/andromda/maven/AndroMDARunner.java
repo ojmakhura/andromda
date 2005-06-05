@@ -107,8 +107,7 @@ public class AndroMDARunner
         final URL uri = new URL(this.configurationUri);
         final Configuration configuration =
             Configuration.getInstance(
-                this.replaceProperties(ResourceUtils.getContents(uri)),
-                uri);
+                this.replaceProperties(ResourceUtils.getContents(uri)));
         configuration.addMappingsSearchLocation(this.mappingsSearchLocation);
         return configuration;
     }
