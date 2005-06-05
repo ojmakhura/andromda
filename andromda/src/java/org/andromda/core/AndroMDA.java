@@ -132,7 +132,7 @@ public class AndroMDA
             }
             if (!client)
             {
-                this.engine.initialize();
+                this.engine.initialize(configuration);
                 this.engine.run(configuration);
             }
         }
