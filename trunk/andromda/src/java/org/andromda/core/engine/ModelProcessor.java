@@ -125,27 +125,12 @@ public class ModelProcessor
         models = this.filterInvalidModels(models);
         if (models.length > 0)
         {
-            try
-            {
-                // - re-register the namespace properties (if we're running again)
-                //this.factory.registerNamespaceProperties();
-                this.processing = true;
-                this.processModels(models);
-                this.processing = false;
-                AndroMDALogger.info(
-                    "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
-                    "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
-            }
-            finally
-            {
-                /*this.reset();
-
-                // - clear out the namespace properties so we can re-register them next run
-                this.factory.clearNamespaceProperties();
-
-                // - clear out the rest of the factory's caches
-                this.factory.clearCaches();*/
-            }
+            this.processing = true;
+            this.processModels(models);
+            this.processing = false;
+            AndroMDALogger.info(
+                "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
+                "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
         }
         else
         {
@@ -199,7 +184,7 @@ public class ModelProcessor
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
                 }
 
-                // pre-load the models
+                // - pre-load the models
                 for (int ctr = 0; ctr < models.length; ctr++)
                 {
                     this.loadModelIfNecessary(models[ctr]);
@@ -346,7 +331,7 @@ public class ModelProcessor
      */
     private void printValidationMessages(final List messages)
     {
-        // log all the error messages
+        // - log all error messages
         if (messages != null && !messages.isEmpty())
         {
             final StringBuffer header =
@@ -382,6 +367,18 @@ public class ModelProcessor
     private long lastConfigurationLastModified = 0;
 
     /**
+     * Sets the values for the last configuration.
+     *
+     * @param configuration the configuration values.
+     */
+    private void setLastConfigurationValues(final Configuration configuration)
+    {
+        this.lastConfigurationLastModified = configuration.getLastModified();
+        this.lastConfigurationUri = configuration.getUri();
+        this.lastConfigurationValuesSet = true;
+    }
+
+    /**
      * Determines whether or not this model processor needs to be reconfigured.
      * This is based on whether or not the new configuration is different
      * than the <code>lastConfiguration</code>.  We determine this by verifying
@@ -400,8 +397,7 @@ public class ModelProcessor
                 !this.lastConfigurationUri.equals(configuration.getUri()) ||
                 configuration.getLastModified() > this.lastConfigurationLastModified;
         }
-        this.lastConfigurationUri = configuration.getUri();
-        this.lastConfigurationLastModified = configuration.getLastModified();
+        this.setLastConfigurationValues(configuration);
         return requiresConfiguration;
     }
 
@@ -418,13 +414,27 @@ public class ModelProcessor
     }
 
     /**
-     * Checks to see if <em>any</em> of the
-     * current <code>models</code> need to be
-     * reloaded, and if so reloads them.
+     * A flag keeping track of whether or not the last configuration
+     * values were set (so that they aren't set each time
      */
-    final void loadIfNecessary(final Model[] models)
+    private boolean lastConfigurationValuesSet = false;
+
+    /**
+     * Checks to see if <em>any</em> of the
+     * models within the configuration need to be reloaded,
+     * and if so, re-loads them.
+     */
+    final void loadModelsIfNecessary(final Configuration configuration)
     {
-        // only allow loading when processing is not occurring.
+        // - set the last configuration values only the first time
+        //   (since we'll normally set them 
+        if (!this.lastConfigurationValuesSet)
+        {
+            this.setLastConfigurationValues(configuration);
+        }
+        final Model[] models = configuration.getModels();
+
+        // - only allow loading when processing is not occurring.
         if (!this.processing && (models != null && models.length > 0))
         {
             final int modelNumber = models.length;
@@ -436,7 +446,7 @@ public class ModelProcessor
     }
 
     /**
-     * Stores the current version of AndroMDA
+     * Stores the current version of AndroMDA.
      */
     private static final String VERSION = BuildInformation.instance().getBuildVersion();
 
@@ -652,19 +662,19 @@ public class ModelProcessor
      */
     public void shutdown()
     {
-        // shutdown the metafacade factory instance
+        // - shutdown the metafacade factory instance
         MetafacadeFactory.getInstance().shutdown();
 
-        // shutdown the namespaces instance
+        // - shutdown the namespaces instance
         Namespaces.instance().shutdown();
 
-        // shutdown the container instance
+        // - shutdown the container instance
         ComponentContainer.instance().shutdown();
 
-        // shutdown the plugin discoverer instance
+        // - shutdown the plugin discoverer instance
         PluginDiscoverer.instance().shutdown();
 
-        // shutdown the profile instance
+        // - shutdown the profile instance
         Profile.instance().shutdown();
 
         if (this.repository != null)

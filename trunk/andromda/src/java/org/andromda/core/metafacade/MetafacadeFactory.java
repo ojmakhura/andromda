@@ -722,7 +722,7 @@ public class MetafacadeFactory
      */
     private void registerNamespaceProperties()
     {
-        // only register them if they already aren't registered
+        // - only register them if they already aren't registered
         if (this.metafacadeNamespaces.isEmpty())
         {
             this.mappings.registerAllProperties();
