@@ -357,19 +357,19 @@ public class ModelProcessor
     }
 
     /**
-     * The contents (as a string) of the last configuration.
+     * The previous configuration instance
      */
-    private String lastConfigurationContents = null;
+    private Configuration lastConfiguration = null;
 
     /**
      * Sets the values for the last configuration.
      *
      * @param configuration the configuration values.
      */
-    private void setLastConfigurationValues(final Configuration configuration)
+    private void setLastConfiguration(final Configuration configuration)
     {
-        this.lastConfigurationContents = configuration.getContents();
-        this.lastConfigurationValuesSet = true;
+        this.lastConfiguration = configuration;
+        this.lastConfigurationSet = true;
     }
 
     /**
@@ -384,12 +384,14 @@ public class ModelProcessor
      */
     private final boolean requiresConfiguration(final Configuration configuration)
     {
-        boolean requiresConfiguration = lastConfigurationContents == null || configuration.getContents() == null;
+        boolean requiresConfiguration =
+            lastConfiguration == null || lastConfiguration.getContents() == null ||
+            configuration.getContents() == null;
         if (!requiresConfiguration)
         {
-            requiresConfiguration = !this.lastConfigurationContents.equals(configuration.getContents());
+            requiresConfiguration = !this.lastConfiguration.getContents().equals(configuration.getContents());
         }
-        this.setLastConfigurationValues(configuration);
+        this.setLastConfiguration(configuration);
         return requiresConfiguration;
     }
 
@@ -407,9 +409,9 @@ public class ModelProcessor
 
     /**
      * A flag keeping track of whether or not the last configuration
-     * values were set (so that they aren't set each time
+     * has been set (so that it isn't set each time).
      */
-    private boolean lastConfigurationValuesSet = false;
+    private boolean lastConfigurationSet = false;
 
     /**
      * Checks to see if <em>any</em> of the
@@ -420,9 +422,9 @@ public class ModelProcessor
     {
         // - set the last configuration values only the first time
         //   (since we'll normally set them 
-        if (!this.lastConfigurationValuesSet)
+        if (!this.lastConfigurationSet)
         {
-            this.setLastConfigurationValues(configuration);
+            this.setLastConfiguration(configuration);
         }
         final Model[] models = configuration.getModels();
 
