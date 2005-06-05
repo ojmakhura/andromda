@@ -39,11 +39,13 @@ public class Engine
     }
 
     /**
-     * Initializes Engine (discovers all plugins, etc).
+     * Initializes Engine (discovers all plugins, etc) with the
+     * given configuration.  This configuration is overridden (if changed)
+     * when calling {@link #run(Configuration)}.
      */
-    public void initialize()
+    public void initialize(final Configuration configuration)
     {
-        this.modelProcessor.initialize();
+        this.modelProcessor.initialize(configuration);
         AndroMDALogger.info("- core initialization complete -");
     }
 
@@ -57,7 +59,7 @@ public class Engine
     {
         if (configuration != null)
         {
-            this.modelProcessor.loadModelsIfNecessary(configuration);
+            this.modelProcessor.loadIfNecessary(configuration.getModels());
         }
     }
 

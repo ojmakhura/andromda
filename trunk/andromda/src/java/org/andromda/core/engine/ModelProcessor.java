@@ -78,13 +78,27 @@ public class ModelProcessor
     }
 
     /**
-     * Configures this model processor from the given <code>configuration</code>
-     * instance and processes the models defined within the configuration instance.
+     * Re-configures this model processor from the given <code>configuration</code>
+     * instance (if different from that of the one passed in during the call to
+     * {@link #initialize(Configuration)}, and runs the model processor.
      *
-     * @param configuration the configuration from which the configure this model
+     * @param configuration the configuration from which to configure this model
      *        processor instance.
      */
     public void process(final Configuration configuration)
+    {
+        this.configure(configuration);
+        this.process(configuration.getModels());
+    }
+
+    /**
+     * Configures (or re-configures) the model processor if configuration
+     * is required (the configuration has changed since the previous, or has
+     * yet to be used).
+     *
+     * @param configuration the AndroMDA configuration instance.
+     */
+    private final void configure(final Configuration configuration)
     {
         if (this.requiresConfiguration(configuration))
         {
@@ -110,8 +124,8 @@ public class ModelProcessor
                         property.getValue() + "'");
                 }
             }
+            this.currentConfiguration = configuration;
         }
-        this.process(configuration.getModels());
     }
 
     /**
@@ -227,9 +241,11 @@ public class ModelProcessor
     }
 
     /**
-     * Initializes this model processor instance.
+     * Initializes this model processor instance with the given
+     * configuration.  This configuration is overridden (if changed)
+     * when calling {@link #run(Configuration)}.
      */
-    public void initialize()
+    public void initialize(final Configuration configuration)
     {
         this.printConsoleHeader();
         PluginDiscoverer.instance().discoverPlugins();
@@ -241,6 +257,7 @@ public class ModelProcessor
             this.repository.open();
         }
         this.factory.initialize();
+        this.configure(configuration);
     }
 
     /**
@@ -357,27 +374,16 @@ public class ModelProcessor
     }
 
     /**
-     * The previous configuration instance
+     * The current configuration of this model processor.
      */
-    private Configuration lastConfiguration = null;
-
-    /**
-     * Sets the values for the last configuration.
-     *
-     * @param configuration the configuration values.
-     */
-    private void setLastConfiguration(final Configuration configuration)
-    {
-        this.lastConfiguration = configuration;
-        this.lastConfigurationSet = true;
-    }
+    private Configuration currentConfiguration = null;
 
     /**
      * Determines whether or not this model processor needs to be reconfigured.
      * This is based on whether or not the new configuration is different
-     * than the <code>lastConfiguration</code>.  We determine this by verifying
-     * they were indeed configured from the same URI, and if so, comparing the
-     * last modified times of the two configurations,
+     * than the <code>currentConfiguration</code>.  We determine this checking
+     * if their contents are equal or not, if not equal this method will
+     * return true, otherwise false.
      *
      * @param configuration the configuration to compare to the lastConfiguration.
      * @return true/false
@@ -385,13 +391,12 @@ public class ModelProcessor
     private final boolean requiresConfiguration(final Configuration configuration)
     {
         boolean requiresConfiguration =
-            lastConfiguration == null || lastConfiguration.getContents() == null ||
+            this.currentConfiguration == null || this.currentConfiguration.getContents() == null ||
             configuration.getContents() == null;
         if (!requiresConfiguration)
         {
-            requiresConfiguration = !this.lastConfiguration.getContents().equals(configuration.getContents());
+            requiresConfiguration = !this.currentConfiguration.getContents().equals(configuration.getContents());
         }
-        this.setLastConfiguration(configuration);
         return requiresConfiguration;
     }
 
@@ -408,26 +413,11 @@ public class ModelProcessor
     }
 
     /**
-     * A flag keeping track of whether or not the last configuration
-     * has been set (so that it isn't set each time).
-     */
-    private boolean lastConfigurationSet = false;
-
-    /**
      * Checks to see if <em>any</em> of the
-     * models within the configuration need to be reloaded,
-     * and if so, re-loads them.
+     * models need to be reloaded, and if so, re-loads them.
      */
-    final void loadModelsIfNecessary(final Configuration configuration)
+    final void loadIfNecessary(final Model[] models)
     {
-        // - set the last configuration values only the first time
-        //   (since we'll normally set them 
-        if (!this.lastConfigurationSet)
-        {
-            this.setLastConfiguration(configuration);
-        }
-        final Model[] models = configuration.getModels();
-
         // - only allow loading when processing is not occurring.
         if (!this.processing && (models != null && models.length > 0))
         {
@@ -680,7 +670,7 @@ public class ModelProcessor
     /**
      * Reinitializes the model processor's resources.
      */
-    final void reset()
+    private final void reset()
     {
         this.factory.reset();
         this.cartridgeFilter = null;

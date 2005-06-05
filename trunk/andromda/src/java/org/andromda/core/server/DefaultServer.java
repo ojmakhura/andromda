@@ -48,7 +48,7 @@ public class DefaultServer
      */
     public void start(final Configuration configuration)
     {
-        engine.initialize();
+        engine.initialize(configuration);
         if (configuration != null)
         {
             final org.andromda.core.configuration.Server serverConfiguration = configuration.getServer();

@@ -147,7 +147,7 @@ public class MetafacadeFactory
         final String methodName = "MetafacadeFactory.createMetafacade";
         ExceptionUtils.checkNull(methodName, "mappingObject", mappingObject);
 
-        // - register the namespace properties
+        // - register the namespace properties (if they haven't been)
         this.registerNamespaceProperties();
 
         // if the mappingObject is REALLY a metafacade, just return it
@@ -711,7 +711,8 @@ public class MetafacadeFactory
      */
     public void shutdown()
     {
-        this.reset();
+        this.clearCaches();
+        this.metafacadeNamespaces.clear();
         this.mappings.shutdown();
         this.model = null;
         instance = null;
