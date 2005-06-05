@@ -14,6 +14,7 @@ import java.util.Iterator;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.mapping.Mappings;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -36,7 +37,7 @@ public class Configuration
     {
         final Configuration configuration =
             (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(uri);
-        configuration.uri = uri;
+        configuration.setContents(ResourceUtils.getContents(uri));
         return configuration;
     }
 
@@ -44,18 +45,14 @@ public class Configuration
      * Gets a Configuration instance from the given <code>stream</code>.
      *
      * @param stream the InputStream containing the configuration file.
-     * @param uri the URL representing the URI to resource from which this configuration
-     *        was configured, this is optional, however the {@link #getLastModified()}
-     *        can not be correct unless this is set (0 will be returned).
      * @return the configured instance.
      */
     public final static Configuration getInstance(
-        final InputStream stream,
-        final URL uri)
+        final InputStream stream)
     {
         final Configuration configuration =
             (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(new InputStreamReader(stream));
-        configuration.uri = uri;
+        configuration.setContents(ResourceUtils.getContents(new InputStreamReader(stream)));
         return configuration;
     }
     
@@ -63,15 +60,12 @@ public class Configuration
      * Gets a Configuration instance from the given <code>string</code>.
      *
      * @param string the String containing the configuration.
-     * @param uri the URL representing the URI to resource from which this configuration
-     *        was configured, this is optional, however the {@link #getLastModified()}
-     *        can not be correct unless this is set (0 will be returned).
      * @return the configured instance.
      */
-    public final static Configuration getInstance(final String string, final URL uri)
+    public final static Configuration getInstance(final String string)
     {
         final Configuration configuration =( Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(string);
-        configuration.uri = uri;
+        configuration.setContents(string);
         return configuration;
     }
 
@@ -242,29 +236,28 @@ public class Configuration
     }
     
     /**
-     * The URI from which this instance was configured.
+     * Stores the contents of the configuration as a string.
      */
-    private URL uri = null;
+    private String contents = null;
     
     /**
      * Gets the URI from which this instance was 
      * configured or null (it it was not set).
      * @return
      */
-    public URL getUri()
+    public String getContents()
     {
-        return uri;
+        return this.contents;
     }
-
+    
     /**
-     * Gets the time as a <code>long</code> when this model was last modified. If it can not be determined
-     * <code>0</code> is returned.
-     *
-     * @return the time this model was last modified
+     * Sets the contents of this configuration as a 
+     * string.
+     * @param contents the contents of this configuration as a string.
      */
-    public long getLastModified()
+    private void setContents(final String contents)
     {
-        return ResourceUtils.getLastModifiedTime(this.uri);
+        this.contents = StringUtils.trimToEmpty(contents);
     }
 
     /**
