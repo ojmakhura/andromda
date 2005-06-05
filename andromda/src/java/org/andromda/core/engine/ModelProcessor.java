@@ -247,16 +247,28 @@ public class ModelProcessor
      */
     public void initialize(final Configuration configuration)
     {
+        // - first, print the AndroMDA header
         this.printConsoleHeader();
+
+        // - discover all plugins on the classpath
         PluginDiscoverer.instance().discoverPlugins();
+
+        // - load all the logical mappings
         Mappings.initializeLogicalMappings();
+
+        // - load the model into the repository (if it
+        //   has yet to be loaded)
         if (this.repository == null)
         {
             this.repository =
                 (RepositoryFacade)ComponentContainer.instance().findRequiredComponent(RepositoryFacade.class);
             this.repository.open();
         }
+
+        // - initialize the metafacade factory
         this.factory.initialize();
+
+        // - finally configure the this model processor
         this.configure(configuration);
     }
 
