@@ -50,20 +50,12 @@ public class ComponentContainer
     /**
      * The container instance
      */
-    private MutablePicoContainer container;
+    private final MutablePicoContainer container = new DefaultPicoContainer();
 
     /**
      * The shared instance.
      */
     private static ComponentContainer instance = null;
-
-    /**
-     * Constructs an instance of ComponentContainer.
-     */
-    protected ComponentContainer()
-    {
-        this.container = new DefaultPicoContainer();
-    }
 
     /**
      * Gets the shared instance of this ComponentContainer.
@@ -91,9 +83,11 @@ public class ComponentContainer
     }
 
     /**
-     * Creates a new component of the given <code>implementation</code> (if it isn't null or empty), otherwise attempts
-     * to find the default implementation of the given <code>type</code> by searching the <code>META-INF/services</code>
-     * directory for the default implementation.
+     * Creates a new component of the given <code>implementation</code> (if it
+     * isn't null or empty), otherwise attempts to find the default
+     * implementation of the given <code>type</code> by searching the
+     * <code>META-INF/services</code> directory for the default
+     * implementation.
      *
      * @return a new instance of the given <code>type</code>
      */
@@ -115,8 +109,9 @@ public class ComponentContainer
     }
 
     /**
-     * Creates a new component of the given <code>type</code> by searching the <code>META-INF/services</code> directory
-     * and finding its default implementation.
+     * Creates a new component of the given <code>type</code> by searching the
+     * <code>META-INF/services</code> directory and finding its default
+     * implementation.
      *
      * @return a new instance of the given <code>type</code>
      */
@@ -157,9 +152,10 @@ public class ComponentContainer
     }
 
     /**
-     * Finds the component with the specified Class <code>key</code>. If the component wasn't explicitly registered then
-     * the META-INF/services directory on the classpath will be searched in order to find the default component
-     * implementation.
+     * Finds the component with the specified Class <code>key</code>. If the
+     * component wasn't explicitly registered then the META-INF/services
+     * directory on the classpath will be searched in order to find the default
+     * component implementation.
      *
      * @param key the unique key as a Class.
      * @return Object the component instance.
@@ -173,7 +169,8 @@ public class ComponentContainer
 
     /**
      * Attempts to Find the component with the specified <code>type</code>,
-     * throwing a {@link ComponentContainerException} exception if one can not be found.
+     * throwing a {@link ComponentContainerException} exception if one can not
+     * be found.
      *
      * @param key the unique key of the component as an Object.
      * @return Object the component instance.
@@ -192,12 +189,14 @@ public class ComponentContainer
     }
 
     /**
-     * Attempts to find the component with the specified unique <code>key</code>, if it can't be found, the default of
-     * the specified <code>type</code> is returned, if no default is set, null is returned. The default is the service
-     * found within the META-INF/services directory on your classpath.
+     * Attempts to find the component with the specified unique <code>key</code>,
+     * if it can't be found, the default of the specified <code>type</code> is
+     * returned, if no default is set, null is returned. The default is the
+     * service found within the META-INF/services directory on your classpath.
      *
-     * @param key  the unique key of the component.
-     * @param type the default type to retrieve if the component can not be found.
+     * @param key the unique key of the component.
+     * @param type the default type to retrieve if the component can not be
+     *        found.
      * @return Object the component instance.
      */
     public Object findComponent(
@@ -244,10 +243,12 @@ public class ComponentContainer
     }
 
     /**
-     * Attempts to find the default configuration file from the <code>META-INF/services</code> directory. Returns an empty
-     * String if none is found.
+     * Attempts to find the default configuration file from the
+     * <code>META-INF/services</code> directory. Returns an empty String if
+     * none is found.
      *
-     * @param typeName the name of the type (i.e. org.andromda.core.templateengine.TemplateEngine)
+     * @param typeName the name of the type (i.e.
+     *        org.andromda.core.templateengine.TemplateEngine)
      * @return
      */
     private final String getDefaultImplementation(final Class type)
@@ -282,7 +283,8 @@ public class ComponentContainer
     }
 
     /**
-     * Unregisters the component in this container with a unique (within this container) <code>key</code>.
+     * Unregisters the component in this container with a unique (within this
+     * container) <code>key</code>.
      *
      * @param key the unique key.
      * @return Object the registered component.
@@ -299,11 +301,11 @@ public class ComponentContainer
     }
 
     /**
-     * Finds a component in this container with a unique (within this container) <code>key</code> registered by the
-     * specified <code>namespace</code>.
+     * Finds a component in this container with a unique (within this container)
+     * <code>key</code> registered by the specified <code>namespace</code>.
      *
      * @param namespace the namespace for which to search.
-     * @param key       the unique key.
+     * @param key the unique key.
      * @return the found component, or null.
      */
     public Object findComponentByNamespace(
@@ -324,11 +326,12 @@ public class ComponentContainer
     }
 
     /**
-     * Registers true (false otherwise) if the component in this container with a unique (within this container)
-     * <code>key</code> is registered by the specified <code>namespace</code>.
+     * Registers true (false otherwise) if the component in this container with
+     * a unique (within this container) <code>key</code> is registered by the
+     * specified <code>namespace</code>.
      *
      * @param namespace the namespace for which to register the component.
-     * @param key       the unique key.
+     * @param key the unique key.
      * @return boolean true/false depending on whether or not it is registerd.
      */
     public boolean isRegisteredByNamespace(
@@ -343,8 +346,8 @@ public class ComponentContainer
     }
 
     /**
-     * Registers true (false otherwise) if the component in this container with a unique (within this container)
-     * <code>key</code> is registered.
+     * Registers true (false otherwise) if the component in this container with
+     * a unique (within this container) <code>key</code> is registered.
      *
      * @param key the unique key.
      * @return boolean true/false depending on whether or not it is registerd.
@@ -355,11 +358,11 @@ public class ComponentContainer
     }
 
     /**
-     * Registers the component in this container with a unique (within this container) <code>key</code> by the specified
-     * <code>namespace</code>.
+     * Registers the component in this container with a unique (within this
+     * container) <code>key</code> by the specified <code>namespace</code>.
      *
      * @param namespace the namespace for which to register the component.
-     * @param key       the unique key.
+     * @param key the unique key.
      * @return Object the registered component.
      */
     public Object registerComponentByNamespace(
@@ -385,7 +388,8 @@ public class ComponentContainer
     }
 
     /**
-     * Registers the component in this container with a unique (within this container) <code>key</code>.
+     * Registers the component in this container with a unique (within this
+     * container) <code>key</code>.
      *
      * @param key the unique key.
      * @return Object the registered component.
@@ -435,7 +439,8 @@ public class ComponentContainer
      * Registers the "default" for the specified componentInterface.
      *
      * @param componentInterface the interface for the component.
-     * @param defaultType        the "default" implementation to use for the componentInterface.
+     * @param defaultType the "default" implementation to use for the
+     *        componentInterface.
      * @return Object the registered component.
      */
     public Object registerDefaultComponent(
@@ -486,7 +491,8 @@ public class ComponentContainer
     /**
      * Registers the components of the specified <code>type</code>.
      *
-     * @param type the name of a type (must have be able to be instantiated into a Class instance)
+     * @param type the name of a type (must have be able to be instantiated into
+     *        a Class instance)
      * @return Object an instance of the type registered.
      */
     public Object registerComponentType(final String type)
@@ -505,10 +511,12 @@ public class ComponentContainer
         }
     }
 
+    /**
+     * Shuts down this container instance.
+     */
     public void shutdown()
     {
         this.container.dispose();
-        this.container = null;
         instance = null;
     }
 }
