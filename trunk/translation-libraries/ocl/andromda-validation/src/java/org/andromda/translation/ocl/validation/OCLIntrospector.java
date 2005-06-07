@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
+
 /**
  * Dynamically invokes operation and property calls on specified <strong>elements</code>.
  *
@@ -15,14 +16,15 @@ import org.apache.log4j.Logger;
  */
 public final class OCLIntrospector
 {
-
     private static final Logger logger = Logger.getLogger(OCLIntrospector.class);
 
     /**
      * Invokes the given <code>feature</code> on the <code>element</code>. Its expected that the feature is either an
      * operation or a property.
      */
-    public static final Object invoke(Object element, String feature)
+    public static final Object invoke(
+        Object element,
+        String feature)
     {
         Object result = null;
         try
@@ -51,6 +53,7 @@ public final class OCLIntrospector
         catch (Throwable throwable)
         {
             throwable = getRootCause(throwable);
+
             // If cause is an OCLIntrospector throw that exception
             // rather than creating a new one.
             if (throwable instanceof OCLIntrospectorException)
@@ -66,7 +69,10 @@ public final class OCLIntrospector
      * Invokes the given <code>feature</code> on the specified <code>element</code> taking the given
      * <code>arguments</code>. If <code>arguments</code> is null its expected that the feature is an empty operation.
      */
-    public static Object invoke(final Object element, String feature, final Object[] arguments)
+    public static Object invoke(
+        final Object element,
+        String feature,
+        final Object[] arguments)
     {
         Object result = null;
         try
@@ -79,14 +85,15 @@ public final class OCLIntrospector
             }
             result = invokeMethod(element, feature, arguments);
         }
-        catch (NullPointerException ex)
+        catch (final NullPointerException exception)
         {
             // ignore (the result will just be null)
         }
         catch (Throwable throwable)
         {
-            final String message = "Error invoking feature '" + feature + "' on element '" + element +
-                    "' with arguments '" + StringUtils.join(arguments, ',') + "'";
+            final String message =
+                "Error invoking feature '" + feature + "' on element '" + element + "' with arguments '" +
+                StringUtils.join(arguments, ',') + "'";
             throwable = getRootCause(throwable);
             logger.error(message);
             throw new OCLIntrospectorException(throwable);
@@ -94,7 +101,10 @@ public final class OCLIntrospector
         return result;
     }
 
-    private static final Object getNestedProperty(final Object element, final String propertyName) throws Exception
+    private static final Object getNestedProperty(
+        final Object element,
+        final String propertyName)
+        throws Exception
     {
         Object property = null;
         if (element != null && propertyName != null && propertyName.length() > 0)
@@ -110,17 +120,31 @@ public final class OCLIntrospector
                 {
                     throw new Exception("Malformed property call --> '" + propertyName + "'");
                 }
-                Object nextInstance = getProperty(element, propertyName.substring(0, dotIndex));
-                property = getNestedProperty(nextInstance, propertyName.substring(dotIndex + 1));
+                final Object nextInstance = getProperty(
+                        element,
+                        propertyName.substring(0, dotIndex));
+                property = getNestedProperty(
+                        nextInstance,
+                        propertyName.substring(dotIndex + 1));
             }
         }
         return property;
     }
 
     /**
+     * Prefix for "get" properties.
+     */
+    private static final String GET_PREFIX = "get";
+
+    /**
+     * Prefix for "is" properties.
+     */
+    private static final String IS_PREFIX = "is";
+
+    /**
      * Gets the value of the property with <code>propertyName</code> on the
      * given <code>element</code>.
-     * 
+     *
      * @param element the element from which to retrieve the property.
      * @param propertyName the name of the property
      * @return the resulting property value
@@ -129,21 +153,23 @@ public final class OCLIntrospector
      * @throws IllegalAccessException if an illegal access exception occurs
      *         during invocation.
      */
-    private static final Object getProperty(final Object element, final String propertyName)
+    private static final Object getProperty(
+        final Object element,
+        final String propertyName)
         throws Exception
     {
         Object property = null;
         if (element != null || propertyName != null || propertyName.length() > 0)
         {
-            Method method = getMethod("get", element, propertyName);
+            Method method = getMethod(GET_PREFIX, element, propertyName);
             if (method == null)
             {
-                method = getMethod("is", element, propertyName);
+                method = getMethod(IS_PREFIX, element, propertyName);
             }
             if (method == null)
             {
                 throw new OCLIntrospectorException(
-                        "No property named '" + propertyName + "', found on element '" + element + "'");
+                    "No property named '" + propertyName + "', found on element '" + element + "'");
             }
             property = method.invoke(element, (Object[])null);
         }
@@ -153,13 +179,16 @@ public final class OCLIntrospector
     /**
      * Retrieves the method from the given <code>element</code> and the given
      * <code>propertyName</code> by capitalizing the <code>propertyName</code>
-     * 
+     *
      * @param prefix the prefix (either 'get' or 'is')
      * @param element the element from which to retrieve the moethod
      * @param propertyName the name of the property
      * @return the retrieved Method.
      */
-    private static final Method getMethod(final String prefix, final Object element, final String propertyName)
+    private static final Method getMethod(
+        final String prefix,
+        final Object element,
+        final String propertyName)
     {
         Method method = null;
         try
@@ -176,7 +205,8 @@ public final class OCLIntrospector
     private static final Object invokeMethod(
         final Object element,
         final String methodName,
-        final Object[] arguments) throws Exception
+        final Object[] arguments)
+        throws Exception
     {
         Object property = null;
 
@@ -209,11 +239,11 @@ public final class OCLIntrospector
         }
         return objectTypes;
     }
-    
+
     /**
      * Attempts to retrieve the root cause of the exception, if it can not be
      * found, the <code>throwable</code> itself is returned.
-     * 
+     *
      * @param throwable the exception from which to retrieve the root cause.
      * @return the root cause of the exception
      */
