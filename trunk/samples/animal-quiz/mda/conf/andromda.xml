@@ -44,7 +44,7 @@
                 <!-- uncomment to enable EJB security -->
                 <!-- <securityRealm>${application.id}</securityRealm> -->
             </properties>
-        </namespace>   
+        </namespace>
         <namespace name="hibernate">
             <properties>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
