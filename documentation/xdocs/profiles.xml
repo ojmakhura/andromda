@@ -97,17 +97,13 @@
                     we do here (notice that the path must be a URI):
                     <source language="xml">
 <![CDATA[
-<dependency>
-    <groupId>andromda</groupId>
-    <artifactId>maven-andromda-plugin</artifactId>
-    <version>${andromda.version}</version>
-    <type>plugin</type>
+<namespace name="default">
     <properties>
         ...
-        <profileMappingsUri>file:${basedir}/mda/conf/mappings/CustomizedProfileMappings.xml</profileMappingsUri>
+        <property name="profileMappingsUri">file:${basedir}/mda/conf/mappings/CustomizedProfileMappings.xml</property>
         ...
     </properties>
-</dependency>
+</dnamespace>
 ]]>
                     </source>
                 </p>
