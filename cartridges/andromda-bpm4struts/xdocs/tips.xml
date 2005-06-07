@@ -90,7 +90,7 @@ byte[] exportBytes = getReportingService().getReport(reportId);
 response.setContentType("application/pdf");
 response.setContentLength(exportBytes.length);
 response.setHeader("Content-disposition",
-    "inline; filename=InactiveArticlesReport.pdf");
+    "attachment; filename=InactiveArticlesReport.pdf");
 
 response.getOutputStream().write(exportBytes);
 -->
