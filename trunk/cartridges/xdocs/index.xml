@@ -70,13 +70,10 @@
         </p>
         <source language="xml"><![CDATA[
  ...
- <dependency>
-     <groupId>andromda</groupId>
-     <artifactId>andromda-bpm4struts-cartridge</artifactId>
-     <version>3.0</version>
+ <namespace name="bpm4struts">
      <properties>
          ...
-         <mergeLocation>${maven.src.dir}/cartridge/custom</mergeLocation>
+         <property name="mergeLocation">${maven.src.dir}/cartridge/custom</property>
          ...
      </properties>
  </dependency>
@@ -92,19 +89,6 @@
            and your merge location is <code>${maven.src.dir}/cartridge/custom</code> you will need to copy your new template in
            <code>${maven.src.dir}/cartridge/custom/templates/SomeTemplate.vsl</code>, like this you can override all cartridge resources.
         </p>
-        <p>
-           Please note that if you're an <strong>Ant</strong> user, you will need to specify the
-           <code>mergeLocation</code> as a namespace property:
-        </p>
-        <source language="xml"><![CDATA[
- ...
- <namespace name="hibernate">
-     ...
-     <property name="mergeLocation" value="${maven.src.dir}/cartridge/custom"/>
-     ...
- </namespace>
- ...
-]]></source>
       <a name="mergeMappingsUri"/>
       <h3>Merging cartridge resources</h3>
       <p>
@@ -117,20 +101,14 @@
         This is easy to do: just specify a <strong>mergeMappingsUri</strong> namepace property when declaring the
         cartridge-dependency and create a new mappings file in which to map what you want merged.
       </p>
-      <source language="xml"><![CDATA[
-...
-<dependency>
-    <groupId>andromda</groupId>
-    <artifactId>andromda-bpm4struts-cartridge</artifactId>
-    <version>${andromda.version}</version>
-    <properties>
-        ...
-        <mergeMappingsUri>file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</mergeMappingsUri>
-        ...
-    </properties>
-</dependency>
-...
-]]></source>
+      <source language="xml">
+<![CDATA[...
+ <namespace name="bpm4struts">
+     ...
+     <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</property> value="${maven.src.dir}/cartridge/custom"/>
+     ...
+ </namespace>
+...]]>   </source>
       <p>
         For example, this fragment below (from a mappings file) says we want to replace anything found
         matching <em><![CDATA[<!-- error-page merge-point -->]]></em> (defined in the <![CDATA[<to/>]]>

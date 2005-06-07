@@ -45,19 +45,15 @@ protected PersonDetails handleGet(Long id) throws Exception
                 EJBs, simply put the <![CDATA[<session-ejbs>]]> outlet in comment, like this 
                 (this is done in <code>/mda/project.xml</code>):
 <source language="xml"><![CDATA[
-<dependency>
-    <groupId>andromda</groupId>
-    <artifactId>andromda-spring-cartridge</artifactId>
-    <version>${andromda}</version>
-    <type>jar</type>
+<namespace>
     <properties>
         ...
         <!--
-            <session-ejbs>${maven.andromda.core.generated.dir}</session-ejbs>
+            <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
         -->
         ...
     </properties>
-</dependency>
+</namespace>
 ]]></source>
             </p>
         </section>
