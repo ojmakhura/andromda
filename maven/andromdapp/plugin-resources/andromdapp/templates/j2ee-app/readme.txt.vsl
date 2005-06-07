@@ -28,21 +28,22 @@
          |     |    assemble the application
          |     |
          |     +-- /project.xml
-         |     |        contains the AndroMDA dependencies, each cartridge
-         |     |        listed here has its own namespace in which properties
-         |     |        can be configured to fine-tune the generation process;
-         |     |        global properties are set in the namespace of the
-         |     |        andromda-plugin dependency
+         |     |        contains the AndroMDA dependencies
          |     +-- /project.properties
          |     |        specific AndroMDA properties, can be configured here,
          |     |        such as toggling the validation errors on/off
          |     +-- /maven.xml
          |     |        no need to edit this file
          |     +-- /src
-         |              additional sources such as merge-mappings can be
-         |              placed here, check out the /uml directory, it contains
-         |              the UML model from which AndroMDA will generate code
-         |
+         |     |        additional sources such as merge-mappings can be
+         |     |        placed here, check out the /uml directory, it contains
+         |     |        the UML model from which AndroMDA will generate code
+         |     +-- /conf/andromda.xml
+         |     |        configures AndroMDA and its components, most
+         |     |        importantly the cartridges which are listed in
+         |     |        their own namespace; global settings are done in the
+         |     |        'default' namespace
+         |     |
          +-- /common
          |     |
          |     |    The COMMON module collects those resources and classes
@@ -239,6 +240,16 @@
 
             invokes the generated DDL code and subsequently tells the database
             to drop the schema for the entities
+
+        %> maven start-andromda-server
+
+            starts the AndroMDA server, with this server running you will be able
+            to significantly speedup the generation process although it will require
+            you to use another console while it is running
+
+        %> maven stop-andromda-server
+
+            stops the AndroMDA server
 
         %> maven mda
 
