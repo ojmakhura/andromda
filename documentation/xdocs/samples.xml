@@ -74,12 +74,16 @@
                                     </li>
                                     <li>
                                         The AndroMDA plugins (cartridges, and translation-libraries)
-                                        defined within the mda/project.xml file let AndroMDA know exactly
+                                        declared within the mda/project.xml file let AndroMDA know exactly
                                         what stuff it needs to generate when processing the model.
                                     </li>
                                     <li>
                                         AndroMDA runs and the files/resources are generated to the locations
                                         defined by the namespace properties within the plugin dependencies.
+                                    </li>
+                                    <li>
+                                        Make sure to also check out the <code>conf/andromda.xml</code> file,
+                                        which configures AndroMDA and its components.
                                     </li>
                                 </ol>
                             </p>
