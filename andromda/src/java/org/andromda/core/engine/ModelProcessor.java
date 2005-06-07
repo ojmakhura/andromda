@@ -250,6 +250,13 @@ public class ModelProcessor
         // - first, print the AndroMDA header
         this.printConsoleHeader();
 
+        // - second configure the this model processor 
+        // - the ordering of this step is important: it needs to occur
+        //   before everything else in the framework is initialized so that 
+        //   we have all configuration information available (such as the
+        //   namespace properties)
+        this.configure(configuration);
+
         // - discover all plugins on the classpath
         PluginDiscoverer.instance().discoverPlugins();
 
@@ -265,11 +272,8 @@ public class ModelProcessor
             this.repository.open();
         }
 
-        // - initialize the metafacade factory
+        // - finally the metafacade factory
         this.factory.initialize();
-
-        // - finally configure the this model processor
-        this.configure(configuration);
     }
 
     /**
