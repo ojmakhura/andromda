@@ -127,16 +127,13 @@ response.getOutputStream().write(exportBytes);
                 and then specify the mapping in the bpm4struts namespace, like so:
 <source language="xml">
 <![CDATA[
-<dependency>
-    <groupId>andromda</groupId>
-    <artifactId>andromda-bpm4struts-cartridge</artifactId>
-    <version>${andromda}</version>
+<namespace name="bpm4struts">
     <properties>
          ...
-         <languageMappingsUri>file:${maven.conf.dir}/mappings/JavaMappings.xml</languageMappingsUri>
+         <property name="languageMappingsUri">file:${maven.conf.dir}/mappings/JavaMappings.xml</property>
          ...
     </properties>
-</dependency>
+</namespace>
 ]]>
 </source>
             </p>
