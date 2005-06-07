@@ -54,8 +54,8 @@ public final class OCLIntrospector
         {
             throwable = getRootCause(throwable);
 
-            // If cause is an OCLIntrospector throw that exception
-            // rather than creating a new one.
+            // If cause is an OCLIntrospectorException re-throw 
+            // the exception rather than creating a new one.
             if (throwable instanceof OCLIntrospectorException)
             {
                 throw (OCLIntrospectorException)throwable;
@@ -118,7 +118,7 @@ public final class OCLIntrospector
             {
                 if (dotIndex >= propertyName.length())
                 {
-                    throw new Exception("Malformed property call --> '" + propertyName + "'");
+                    throw new OCLIntrospectorException("Invalid property call --> '" + propertyName + "'");
                 }
                 final Object nextInstance = getProperty(
                         element,
@@ -195,7 +195,7 @@ public final class OCLIntrospector
         {
             method = element.getClass().getMethod(prefix + StringUtils.capitalize(propertyName), (Class[])null);
         }
-        catch (NoSuchMethodException ex)
+        catch (final NoSuchMethodException exception)
         {
             // ignore
         }
@@ -214,7 +214,7 @@ public final class OCLIntrospector
         {
             Class[] argumentTypes = getObjectTypes(arguments);
 
-            Method method = element.getClass().getMethod(methodName, argumentTypes);
+            final Method method = element.getClass().getMethod(methodName, argumentTypes);
             property = method.invoke(element, arguments);
         }
 
@@ -224,13 +224,12 @@ public final class OCLIntrospector
     private static final Class[] getObjectTypes(final Object[] objects)
     {
         Class[] objectTypes = null;
-
         if (objects != null)
         {
             objectTypes = new Class[objects.length];
             for (int ctr = 0; ctr < objects.length; ctr++)
             {
-                Object object = objects[ctr];
+                final Object object = objects[ctr];
                 if (object != null)
                 {
                     objectTypes[ctr] = object.getClass();
