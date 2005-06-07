@@ -43,7 +43,7 @@ protected PersonDetails handleGet(Long id) throws Exception
             <p>
                 With the change of a single line it is possible to enable or disable the usage of stateless session
                 EJBs, simply put the <![CDATA[<session-ejbs>]]> outlet in comment, like this 
-                (this is done in <code>/mda/project.xml</code>):
+                (this is done in <code>mda/conf/andromda.xml</code>):
 <source language="xml"><![CDATA[
 <namespace>
     <properties>
