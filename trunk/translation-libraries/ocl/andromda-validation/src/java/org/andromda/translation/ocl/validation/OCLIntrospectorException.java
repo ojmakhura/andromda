@@ -2,7 +2,7 @@ package org.andromda.translation.ocl.validation;
 
 /**
  * Thrown when any unexpected error occurs during execution of the
- * OCLIntrospector.
+ * Introspector.
  * 
  * @author Chad Brandon
  */
