@@ -38,19 +38,18 @@ public class PluginDiscoverer
             final URL andromdaPluginsUri = ResourceUtils.getResource(pluginsUri);
             if (andromdaPluginsUri == null)
             {
-                String errMsg = "Could not find --> '" + pluginsUri + "'";
-                logger.error(errMsg);
-                throw new PluginDiscovererException(errMsg);
+                final String message = "Could not find --> '" + pluginsUri + "'";
+                logger.error(message);
+                throw new PluginDiscovererException(message);
             }
             InputStream stream = andromdaPluginsUri.openStream();
             pluginResources.load(stream);
             stream.close();
             stream = null;
         }
-        catch (Throwable throwable)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error loading --> '" + pluginsUri + "'";
-            throw new PluginDiscovererException(errMsg, throwable);
+            throw new PluginDiscovererException("Error loading --> '" + pluginsUri + "'", throwable);
         }
     }
 
