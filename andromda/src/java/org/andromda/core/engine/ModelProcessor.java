@@ -250,7 +250,7 @@ public class ModelProcessor
         // - first, print the AndroMDA header
         this.printConsoleHeader();
 
-        // - second configure the this model processor 
+        // - second, configure the this model processor 
         // - the ordering of this step is important: it needs to occur
         //   before everything else in the framework is initialized so that 
         //   we have all configuration information available (such as the
