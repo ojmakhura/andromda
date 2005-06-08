@@ -197,12 +197,10 @@ public final class Introspector
      * @param object the object from which to retrieve the nested property.
      * @param name the name of the property
      * @return the property value or null if one couldn't be retrieved.
-     * @throws Exception
      */
     private final Object getNestedProperty(
         final Object object,
         final String name)
-        throws Exception
     {
         Object property = null;
         if (object != null && name != null && name.length() > 0)
