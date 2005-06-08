@@ -3,11 +3,11 @@
     <name>AndroMDA Core</name>
     <artifactId>andromda-core</artifactId>
     <package>org.andromda.core</package>
-    <description> 
+    <description>
         The Core refers to the "engine" of the framework. The core
         takes care of making all the components of AndroMDA work together. This
         includes plugin discovery (i.e. cartridges, translation-libraries),
-        manufacturing of metafacades, etc. 
+        manufacturing of metafacades, etc.
     </description>
     <shortDescription>The Framework Core</shortDescription>
     <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10003&amp;decorator=none</issueTrackingUrl>
@@ -20,12 +20,6 @@
             <groupId>picocontainer</groupId>
             <artifactId>picocontainer</artifactId>
             <version>1.1</version>
-            <properties/>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.7.0</version>
             <properties/>
         </dependency>
         <dependency>
@@ -53,23 +47,30 @@
             <properties/>
         </dependency>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
-            <type>test</type>
-            <properties/>
-        </dependency>
-        <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>andromda-site-plugin</artifactId>
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
         </dependency>
+        <!-- These dependencies are runtime test dependencies only -->
         <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
             <type>test</type>
+        </dependency>
+        <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
-            <version>2.6.0</version>            
+            <version>2.6.0</version>
+            <type>test</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+            <type>test</type>
+            <properties/>
         </dependency>
     </dependencies>
     <build>

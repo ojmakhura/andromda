@@ -105,7 +105,7 @@ public class TemplateObject
                 }
                 try
                 {
-                    PropertyUtils.setProperty(
+                    Introspector.instance().setProperty(
                         templateObject,
                         reference,
                         property.getValue());

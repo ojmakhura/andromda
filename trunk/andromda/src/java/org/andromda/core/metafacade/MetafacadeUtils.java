@@ -1,11 +1,10 @@
 package org.andromda.core.metafacade;
 
 import java.lang.reflect.Constructor;
-
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.common.PropertyUtils;
+import org.andromda.core.common.Introspector;
 import org.apache.log4j.Logger;
 
 
@@ -49,7 +48,7 @@ final class MetafacadeUtils
                     {
                         final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator.next();
                         valid =
-                            PropertyUtils.containsValidProperty(
+                            Introspector.instance().containsValidProperty(
                                 metafacade,
                                 property.getName(),
                                 property.getValue());

@@ -2,6 +2,7 @@ package org.andromda.translation.ocl.validation;
 
 import java.lang.reflect.Method;
 
+import org.andromda.core.common.Introspector;
 import org.andromda.translation.ocl.syntax.OCLPatterns;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -36,7 +37,7 @@ public final class OCLIntrospector
             }
             else
             {
-                result = getNestedProperty(element, feature);
+                result = Introspector.instance().getProperty(element, feature);
             }
         }
         catch (final NullPointerException exception)
@@ -99,107 +100,6 @@ public final class OCLIntrospector
             throw new OCLIntrospectorException(throwable);
         }
         return result;
-    }
-
-    private static final Object getNestedProperty(
-        final Object element,
-        final String propertyName)
-        throws Exception
-    {
-        Object property = null;
-        if (element != null && propertyName != null && propertyName.length() > 0)
-        {
-            int dotIndex = propertyName.indexOf('.');
-            if (dotIndex == -1)
-            {
-                property = getProperty(element, propertyName);
-            }
-            else
-            {
-                if (dotIndex >= propertyName.length())
-                {
-                    throw new OCLIntrospectorException("Invalid property call --> '" + propertyName + "'");
-                }
-                final Object nextInstance = getProperty(
-                        element,
-                        propertyName.substring(0, dotIndex));
-                property = getNestedProperty(
-                        nextInstance,
-                        propertyName.substring(dotIndex + 1));
-            }
-        }
-        return property;
-    }
-
-    /**
-     * Prefix for "get" properties.
-     */
-    private static final String GET_PREFIX = "get";
-
-    /**
-     * Prefix for "is" properties.
-     */
-    private static final String IS_PREFIX = "is";
-
-    /**
-     * Gets the value of the property with <code>propertyName</code> on the
-     * given <code>element</code>.
-     *
-     * @param element the element from which to retrieve the property.
-     * @param propertyName the name of the property
-     * @return the resulting property value
-     * @throws InvocationTargetException if an exception occurs during
-     *         invocation
-     * @throws IllegalAccessException if an illegal access exception occurs
-     *         during invocation.
-     */
-    private static final Object getProperty(
-        final Object element,
-        final String propertyName)
-        throws Exception
-    {
-        Object property = null;
-        if (element != null || propertyName != null || propertyName.length() > 0)
-        {
-            Method method = getMethod(GET_PREFIX, element, propertyName);
-            if (method == null)
-            {
-                method = getMethod(IS_PREFIX, element, propertyName);
-            }
-            if (method == null)
-            {
-                throw new OCLIntrospectorException(
-                    "No property named '" + propertyName + "', found on element '" + element + "'");
-            }
-            property = method.invoke(element, (Object[])null);
-        }
-        return property;
-    }
-
-    /**
-     * Retrieves the method from the given <code>element</code> and the given
-     * <code>propertyName</code> by capitalizing the <code>propertyName</code>
-     *
-     * @param prefix the prefix (either 'get' or 'is')
-     * @param element the element from which to retrieve the moethod
-     * @param propertyName the name of the property
-     * @return the retrieved Method.
-     */
-    private static final Method getMethod(
-        final String prefix,
-        final Object element,
-        final String propertyName)
-    {
-        Method method = null;
-        try
-        {
-            method = element.getClass().getMethod(prefix + StringUtils.capitalize(propertyName), (Class[])null);
-        }
-        catch (final NoSuchMethodException exception)
-        {
-            // ignore
-        }
-        return method;
     }
 
     private static final Object invokeMethod(
