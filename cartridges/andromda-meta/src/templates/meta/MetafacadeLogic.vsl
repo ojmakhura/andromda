@@ -357,7 +357,7 @@ public abstract class $metafacade.logicName
         toString.append("[");
         try
         {
-            toString.append(org.apache.commons.beanutils.PropertyUtils.getProperty(this, "name"));
+            toString.append(org.andromda.core.common.Introspector.instance().getProperty(this, "name"));
         }
         catch (Throwable th)
         {

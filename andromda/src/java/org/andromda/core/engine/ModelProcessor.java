@@ -3,11 +3,8 @@ package org.andromda.core.engine;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.text.Collator;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,9 +21,9 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BuildInformation;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
+import org.andromda.core.common.Introspector;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.Profile;
-import org.andromda.core.common.PropertyUtils;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Configuration;
@@ -112,7 +109,7 @@ public class ModelProcessor
                 final Property property = properties[ctr];
                 try
                 {
-                    PropertyUtils.setProperty(
+                    Introspector.instance().setProperty(
                         this,
                         property.getName(),
                         property.getValue());
@@ -676,6 +673,9 @@ public class ModelProcessor
 
         // - shutdown the profile instance
         Profile.instance().shutdown();
+        
+        // - shutdown the introspector
+        Introspector.instance().shutdown();
 
         if (this.repository != null)
         {

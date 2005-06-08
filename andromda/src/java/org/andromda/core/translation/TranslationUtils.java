@@ -1,8 +1,8 @@
 package org.andromda.core.translation;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.Introspector;
 import org.andromda.core.common.StringUtilsHelper;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -161,29 +161,14 @@ public class TranslationUtils
         final String methodName = "TranslationUtils.getProperty";
         try
         {
-            Object value = PropertyUtils.getProperty(bean, property);
-            return value;
+            return Introspector.instance().getProperty(bean, property);
         }
-        catch (Exception ex)
+        catch (final Exception exception)
         {
-            String errMsg =
-                "Error performing " + methodName + " with bean '" + bean + "' and property '" + property + "'";
-            throw new TranslatorException(errMsg, ex);
+            throw new TranslatorException(
+                "Error performing " + methodName + " with bean '" + bean + "' and property '" + property + "'",
+                exception);
         }
-    }
-
-    /**
-     * Returns true/false on whether or not the give <code>bean</code> has the specified <code>property</code>.
-     *
-     * @param bean     the bean to check for the property.
-     * @param property the property to check the existence of.
-     * @return boolean
-     */
-    public static boolean hasProperty(
-        final Object bean,
-        final String property)
-    {
-        return PropertyUtils.isReadable(bean, property);
     }
 
     /**

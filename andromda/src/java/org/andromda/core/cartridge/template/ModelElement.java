@@ -6,8 +6,8 @@ import java.util.Iterator;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.Introspector;
 import org.andromda.core.common.Profile;
-import org.andromda.core.common.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -185,12 +185,11 @@ public class ModelElement
                     // if the type matches the name, continue
                     if (accept)
                     {
-                        Iterator properties = type.getProperties().iterator();
-                        while (properties.hasNext())
+                        for (final Iterator properties = type.getProperties().iterator(); properties.hasNext();)
                         {
                             final Type.Property property = (Type.Property)properties.next();
                             accept =
-                                PropertyUtils.containsValidProperty(
+                                Introspector.instance().containsValidProperty(
                                     metafacade,
                                     property.getName(),
                                     property.getValue());
@@ -203,7 +202,7 @@ public class ModelElement
                         }
                     }
                 }
-                catch (Throwable th)
+                catch (final Throwable throwable)
                 {
                     accept = false;
                 }

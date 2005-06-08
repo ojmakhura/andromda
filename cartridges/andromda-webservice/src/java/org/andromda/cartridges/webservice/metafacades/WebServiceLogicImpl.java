@@ -1,22 +1,5 @@
 package org.andromda.cartridges.webservice.metafacades;
 
-import org.andromda.cartridges.webservice.WebServiceUtils;
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.metafacade.MetafacadeException;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.metafacades.uml.ServiceOperation;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.andromda.metafacades.uml.UMLProfile;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.Closure;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.StringUtils;
-
 import java.text.Collator;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -28,6 +11,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.andromda.cartridges.webservice.WebServiceUtils;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.Introspector;
+import org.andromda.core.metafacade.MetafacadeException;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.ServiceOperation;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebService.
@@ -433,26 +433,27 @@ public class WebServiceLogicImpl
     {
         try
         {
+            final Introspector introspector = Introspector.instance();
             ClassifierFacade type = null;
             String typeProperty = "type";
             // only continue if the model element has a type
-            if (PropertyUtils.isReadable(modelElement, typeProperty))
+            if (introspector.isReadable(modelElement, typeProperty))
             {
-                type = (ClassifierFacade)PropertyUtils.getProperty(modelElement, typeProperty);
+                type = (ClassifierFacade)introspector.getProperty(modelElement, typeProperty);
             }
             // try for return type if type wasn't found
             typeProperty = "returnType";
-            if (type == null && PropertyUtils.isReadable(modelElement, typeProperty))
+            if (type == null && introspector.isReadable(modelElement, typeProperty))
             {
-                type = (ClassifierFacade)PropertyUtils.getProperty(modelElement, typeProperty);
+                type = (ClassifierFacade)introspector.getProperty(modelElement, typeProperty);
             }
             return type;
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
             String errMsg = "Error performing WebServiceLogicImpl.getType";
-            logger.error(errMsg, th);
-            throw new MetafacadeException(errMsg, th);
+            logger.error(errMsg, throwable);
+            throw new MetafacadeException(errMsg, throwable);
         }
     }
 
