@@ -52,7 +52,7 @@ public interface RepositoryFacade
      *
      * @param stream an InputStream containing a model.
      * @param uri URI of the model that was read into the stream.
-     * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be used from
+     * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be referenced from
      *                         within other models).
      */
     public void readModel(

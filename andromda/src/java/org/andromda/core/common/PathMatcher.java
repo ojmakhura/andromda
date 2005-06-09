@@ -15,7 +15,7 @@ public class PathMatcher
     /**
      * Provides matching of simple wildcards. (i.e. '*.java' etc.)
      *
-     * @param path    the path to match against.
+     * @param path the path to match against.
      * @param pattern the pattern to check if the path matches.
      * @return true if the <code>path</code> matches the given <code>pattern</code>, false otherwise.
      */

@@ -100,12 +100,21 @@
 
             <pattern value="moduleSearchLocations/location">
 
+                <object-create-rule
+                    classname="org.andromda.core.configuration.Location" />
+
+                <set-properties-rule>
+                     <alias attr-name="patterns" prop-name="patterns" />
+                </set-properties-rule>
+
                 <call-method-rule
-                    methodname="addModuleSearchLocation"
-                    paramcount="1"/>
+                    methodname="setPath"
+                    paramcount="1" />
 
                 <call-param-rule
                     paramnumber="0"/>
+
+                <set-next-rule methodname="addModuleSearchLocation" />
 
             </pattern>
 
@@ -176,12 +185,21 @@
 
         <pattern value="mappingsSearchLocations/location">
 
+            <object-create-rule
+                classname="org.andromda.core.configuration.Location" />
+
+            <set-properties-rule>
+                <alias attr-name="patterns" prop-name="patterns" />
+            </set-properties-rule>
+
             <call-method-rule
-                methodname="addMappingsSearchLocation"
-                paramcount="1"/>
+                methodname="setPath"
+                paramcount="1" />
 
             <call-param-rule
                 paramnumber="0"/>
+
+            <set-next-rule methodname="addMappingsSearchLocation" />
 
         </pattern>
 

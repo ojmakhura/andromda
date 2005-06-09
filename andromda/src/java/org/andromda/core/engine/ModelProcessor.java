@@ -1,19 +1,17 @@
 package org.andromda.core.engine;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+
 import java.text.Collator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
@@ -274,12 +272,6 @@ public class ModelProcessor
     }
 
     /**
-     * Stores the last modified times for each model that has been
-     * loaded into the repository.
-     */
-    private final Map modelModifiedTimes = new HashMap();
-
-    /**
      * A flag indicating if model processing is currently occuring.
      */
     private boolean processing = false;
@@ -292,9 +284,8 @@ public class ModelProcessor
      */
     protected final void loadModelIfNecessary(final Model model)
     {
-        final Object key = this.getModelModifiedKey(model.getUri());
-        final Long previousModifiedTime = (Long)this.modelModifiedTimes.get(key);
-        if (previousModifiedTime == null || (model.getLastModified() > previousModifiedTime.longValue()))
+        // - only load if the model has been changed from last time it was loaded
+        if (model.isChanged())
         {
             final Transformer transformer =
                 (Transformer)ComponentContainer.instance().findRequiredComponent(Transformer.class);
@@ -305,11 +296,8 @@ public class ModelProcessor
             this.repository.readModel(
                 stream,
                 model.getUri().toString(),
-                model.getModuleSearchLocations());
+                model.getModuleSearchLocationPaths());
             AndroMDALogger.info("- loading complete -");
-            this.modelModifiedTimes.put(
-                key,
-                new Long(model.getLastModified()));
             try
             {
                 stream.close();
@@ -411,18 +399,6 @@ public class ModelProcessor
             requiresConfiguration = !this.currentConfiguration.getContents().equals(configuration.getContents());
         }
         return requiresConfiguration;
-    }
-
-    /**
-     * Creates the key used to retrieve the nodel last modified
-     * time.
-     *
-     * @param uri the model uri.
-     * @return the unique key
-     */
-    private final Object getModelModifiedKey(final URL uri)
-    {
-        return new File(uri.getFile());
     }
 
     /**
@@ -673,9 +649,12 @@ public class ModelProcessor
 
         // - shutdown the profile instance
         Profile.instance().shutdown();
-        
+
         // - shutdown the introspector
         Introspector.instance().shutdown();
+
+        // - clear out any caches used by the configuration
+        Configuration.clearCaches();
 
         if (this.repository != null)
         {

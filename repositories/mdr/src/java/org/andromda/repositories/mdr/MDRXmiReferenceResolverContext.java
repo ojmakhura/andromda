@@ -51,14 +51,14 @@ public class MDRXmiReferenceResolverContext
     /**
      * @see org.netbeans.lib.jmi.xmi.XmiContext#toURL(java.lang.String)
      */
-    public URL toURL(String systemId)
+    public URL toURL(final String systemId)
     {
         if (logger.isDebugEnabled())
         {
             logger.debug("attempting to resolve Xmi Href --> '" + systemId + "'");
         }
 
-        final String suffix = getSuffix(systemId);
+        final String suffix = this.getSuffix(systemId);
 
         // if the model URL has a suffix of '.zip' or '.jar', get
         // the suffix without it and store it in the urlMap
@@ -74,7 +74,7 @@ public class MDRXmiReferenceResolverContext
             if (modelUrl == null)
             {
                 // Try to find suffix in module list.
-                String modelUrlAsString = findModuleURL(suffix);
+                final String modelUrlAsString = this.findModuleURL(suffix);
                 if (StringUtils.isNotBlank(modelUrlAsString))
                 {
                     modelUrl = this.getValidURL(modelUrlAsString);
@@ -130,9 +130,9 @@ public class MDRXmiReferenceResolverContext
         {
             logger.debug("findModuleURL: moduleSearchPath.length=" + moduleSearchPath.length);
         }
-        for (int i = 0; i < moduleSearchPath.length; i++)
+        for (int ctr = 0; ctr < moduleSearchPath.length; ctr++)
         {
-            final File candidate = new File(moduleSearchPath[i], moduleName);
+            final File candidate = new File(moduleSearchPath[ctr], moduleName);
             if (logger.isDebugEnabled())
             {
                 logger.debug("candidate '" + candidate.toString() + "' exists=" + candidate.exists());
@@ -144,7 +144,7 @@ public class MDRXmiReferenceResolverContext
                 {
                     urlString = candidate.toURL().toExternalForm();
                 }
-                catch (MalformedURLException e)
+                catch (final MalformedURLException exception)
                 {
                     return null;
                 }
@@ -227,7 +227,7 @@ public class MDRXmiReferenceResolverContext
      * @param systemId the system id
      * @return the URL (if valid)
      */
-    private final URL getValidURL(String systemId)
+    private final URL getValidURL(final String systemId)
     {
         InputStream stream = null;
         URL url = null;
@@ -237,7 +237,7 @@ public class MDRXmiReferenceResolverContext
             stream = url.openStream();
             stream.close();
         }
-        catch (Exception e)
+        catch (final Exception exception)
         {
             url = null;
         }

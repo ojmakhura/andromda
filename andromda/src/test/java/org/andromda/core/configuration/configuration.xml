@@ -13,7 +13,7 @@
         <model lastModifiedCheck="true">
             <uri>file:model1.xmi</uri>
             <moduleSearchLocations>
-                <location>/path/to/model/modules1</location>
+                <location patterns="*.xmi, *.xml.zip">/path/to/model/modules1</location>
                 <location>/path/to/model/modules2</location>
             </moduleSearchLocations>
             <modelPackages processAll="false">
