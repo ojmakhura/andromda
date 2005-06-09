@@ -27,7 +27,9 @@
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
-                    <property name="allowedOperations"/>
+                    <property name="propertyOne"/>
+                    <property name="propertyTwo" value="Attribute"/>
+                    <property name="propertyThree">Contents</property>
                 </type>
             </modelElement>
         </modelElements>

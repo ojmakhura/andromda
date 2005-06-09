@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 
 import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.Template;
+import org.andromda.core.cartridge.template.Type;
 import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.XmlObjectFactory;
 
@@ -128,6 +129,23 @@ public class CartridgeTest
         element = (ModelElement)modelElements.iterator().next();
         assertNull(element.getVariable());
         assertNull(element.getStereotype());
+        
+        final Collection types = element.getTypes();
+        assertNotNull(types);
+        assertEquals(1, types.size());
+        final Type type = (Type)types.iterator().next();
+        final Collection properties = type.getProperties();
+        assertEquals(3, properties.size());
+        final Iterator propertyIterator = properties.iterator();
+        Type.Property property1 = (Type.Property)propertyIterator.next();
+        assertEquals("propertyOne", property1.getName());
+        assertEquals("", property1.getValue());
+        Type.Property property2 = (Type.Property)propertyIterator.next();
+        assertEquals("propertyTwo", property2.getName());
+        assertEquals("Attribute", property2.getValue());
+        Type.Property property3 = (Type.Property)propertyIterator.next();
+        assertEquals("propertyThree", property3.getName());
+        assertEquals("Contents", property3.getValue());
     }
 
     public void testGetPropertyReferences()

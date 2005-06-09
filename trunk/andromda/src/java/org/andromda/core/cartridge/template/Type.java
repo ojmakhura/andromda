@@ -15,8 +15,10 @@ import org.apache.commons.lang.StringUtils;
  */
 public class Type
 {
+    /**
+     * The name of this type.
+     */
     private String name;
-    private final Map properties = new LinkedHashMap();
 
     /**
      * @return Returns the name.
@@ -33,6 +35,11 @@ public class Type
     {
         this.name = name;
     }
+
+    /**
+     * The properties that must be valid for this type.
+     */
+    private final Map properties = new LinkedHashMap();
 
     /**
      * @return Returns the properties.
@@ -64,7 +71,7 @@ public class Type
     /**
      * Stores and provides access to the type's &lt;property/&gt; elements.
      */
-    static final class Property
+    public static final class Property
     {
         private String name;
         private String value;
@@ -82,7 +89,7 @@ public class Type
          *
          * @return the name
          */
-        String getName()
+        public String getName()
         {
             return StringUtils.trimToEmpty(this.name);
         }
@@ -92,7 +99,7 @@ public class Type
          *
          * @return the value
          */
-        String getValue()
+        public String getValue()
         {
             return StringUtils.trimToEmpty(this.value);
         }
