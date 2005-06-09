@@ -39,13 +39,13 @@
         <model>
             <uri>jar:file:/path/to/my/model.zuml!/model1.xmi</uri>
             <moduleSearchLocations>
-                <location>/path/to/modules</location>
+                <location patterns="*.xml.zip,*.xmi">/path/to/modules</location>
             </moduleSearchLocations>
         </model>
         <model><uri>jar:file:/path/to/my/model.zuml!/model2.xmi</uri></model>
     </models>
     <mappingsSearchLoations>
-        <location>/path/to/mappings</location>
+        <location patterns="*.xml">/path/to/mappings</location>
     </mappingsSearchLocations>
     <namespaces>
         <namespace name="default">
@@ -374,7 +374,7 @@
         <model lastModifiedCheck="true">
             <uri>file:/path/to/models/model1.xmi</uri>
             <moduleSearchLocations>
-                <location>/path/to/modules</location>
+                <location patterns="*.xmi, *.xml.zip">/path/to/modules</location>
                 <location>/path/to/more/modules</location>
             </moduleSearchLocations>
             <modelPackages>
@@ -461,7 +461,7 @@
 <![CDATA[<model>
     ...
     <moduleSearchLocations>
-        <location>/path/to/modules</location>
+        <location patterns="*.xmi, *.xml.zip">/path/to/modules</location>
         <location>/other/path/to/modules</location>
     </moduleSearchLocations>
 </model>]]>
@@ -679,7 +679,7 @@
 <![CDATA[<andromda>
     ...
     <mappingsSearchLoations>
-        <location>/path/to/mappings</location>
+        <location patterns="*.xml">/path/to/mappings</location>
     </mappingsSearchLocations>
     ...
 </andromda>]]>
@@ -698,7 +698,7 @@
 <![CDATA[<andromda>
     <model><uri>jar:file:/path/to/my/model.zuml!/model.xmi</uri><model>
     <mappingsSearchLocations>
-        <location>/path/to/mappings</location>
+        <location patterns="*.xml">/path/to/mappings</location>
         <location>/path/to/more/mappings</location>
     </mappingsSearchLocations>
     ...
