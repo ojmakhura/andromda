@@ -66,16 +66,23 @@ public class ConfigurationTest
         assertTrue(model1.isLastModifiedCheck());
         assertEquals(2, model1.getModuleSearchLocations().length);
 
-        // module search locations
-        assertEquals("/path/to/model/modules1", model1.getModuleSearchLocations()[0]);
-        assertEquals("/path/to/model/modules2", model1.getModuleSearchLocations()[1]);
+        // module search locations        
+        final Location[] moduleLocations = model1.getModuleSearchLocations();
+        assertNotNull(moduleLocations);
+        assertEquals(2, moduleLocations.length);
+        assertEquals("/path/to/model/modules1", moduleLocations[0].getPath());
+        assertEquals("*.xmi, *.xml.zip", moduleLocations[0].getPatterns());
+        assertEquals("/path/to/model/modules2", moduleLocations[1].getPath());
+        assertNull(moduleLocations[1].getPatterns());
+        assertEquals(2, model1.getModuleSearchLocationPaths().length);
+        assertEquals("/path/to/model/modules1", model1.getModuleSearchLocationPaths()[0]);
+        assertEquals("/path/to/model/modules2", model1.getModuleSearchLocationPaths()[1]);
 
         // modelPackages
         assertNotNull(model1.getPackages());
         assertFalse(model1.getPackages().isProcess("some::package"));
         assertFalse(model1.getPackages().isProcess("org::andromda::metafacades::uml"));
         assertTrue(model1.getPackages().isProcess("org::andromda::cartridges::test"));
-        ;
 
         final Model model2 = configuration.getModels()[1];
         assertNotNull(model2);
@@ -142,7 +149,7 @@ public class ConfigurationTest
 
         // mappings search locations
         assertEquals(2, configuration.getMappingsSearchLocations().length);
-        assertEquals("/path/to/mappings/location1", configuration.getMappingsSearchLocations()[0]);
-        assertEquals("/path/to/mappings/location2", configuration.getMappingsSearchLocations()[1]);
+        assertEquals("/path/to/mappings/location1", configuration.getMappingsSearchLocations()[0].getPath());
+        assertEquals("/path/to/mappings/location2", configuration.getMappingsSearchLocations()[1].getPath());
     }
 }

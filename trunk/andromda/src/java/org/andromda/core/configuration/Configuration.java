@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -47,15 +48,14 @@ public class Configuration
      * @param stream the InputStream containing the configuration file.
      * @return the configured instance.
      */
-    public final static Configuration getInstance(
-        final InputStream stream)
+    public final static Configuration getInstance(final InputStream stream)
     {
         final Configuration configuration =
             (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(new InputStreamReader(stream));
         configuration.setContents(ResourceUtils.getContents(new InputStreamReader(stream)));
         return configuration;
     }
-    
+
     /**
      * Gets a Configuration instance from the given <code>string</code>.
      *
@@ -64,7 +64,8 @@ public class Configuration
      */
     public final static Configuration getInstance(final String string)
     {
-        final Configuration configuration =( Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(string);
+        final Configuration configuration =
+            (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(string);
         configuration.setContents(string);
         return configuration;
     }
@@ -215,12 +216,30 @@ public class Configuration
      * Adds a mappings search location (these are the locations
      * in which a search for mappings is performed).
      *
-     * @param location a file location.
+     * @param location a location path.
+     * @see #addMappingsSearchLocation(String)
      */
-    public void addMappingsSearchLocation(final String location)
+    public void addMappingsSearchLocation(final Location location)
     {
         if (location != null)
         {
+            this.mappingsSearchLocations.add(location);
+        }
+    }
+
+    /**
+     * Adds a mappings search location path (a location
+     * without a pattern defined).
+     *
+     * @param path a location path.
+     * @see #addMappingsSearchLocation(Location)
+     */
+    public void addMappingsSearchLocation(final String path)
+    {
+        if (path != null)
+        {
+            final Location location = new Location();
+            location.setPath(path);
             this.mappingsSearchLocations.add(location);
         }
     }
@@ -230,18 +249,18 @@ public class Configuration
      *
      * @return the mappings search locations.
      */
-    String[] getMappingsSearchLocations()
+    Location[] getMappingsSearchLocations()
     {
-        return (String[])this.mappingsSearchLocations.toArray(new String[0]);
+        return (Location[])this.mappingsSearchLocations.toArray(new Location[0]);
     }
-    
+
     /**
      * Stores the contents of the configuration as a string.
      */
     private String contents = null;
-    
+
     /**
-     * Gets the URI from which this instance was 
+     * Gets the URI from which this instance was
      * configured or null (it it was not set).
      * @return
      */
@@ -251,7 +270,15 @@ public class Configuration
     }
     
     /**
-     * Sets the contents of this configuration as a 
+     * Clears out any caches used by this configuration.
+     */
+    public static void clearCaches()
+    {
+        Model.clearLastModifiedTimes();
+    }
+
+    /**
+     * Sets the contents of this configuration as a
      * string.
      * @param contents the contents of this configuration as a string.
      */
@@ -280,26 +307,11 @@ public class Configuration
         final Collection mappingsLocations = new ArrayList();
         if (mappingsLocations != null)
         {
-            final String[] locations = this.getMappingsSearchLocations();
+            final Location[] locations = this.getMappingsSearchLocations();
             final int locationNumber = locations.length;
             for (int ctr = 0; ctr < locationNumber; ctr++)
             {
-                final File mappingsPath = new File(locations[ctr]);
-                if (mappingsPath.isDirectory())
-                {
-                    final File[] mappingsFiles = mappingsPath.listFiles();
-                    if (mappingsFiles != null)
-                    {
-                        for (int ctr2 = 0; ctr2 < mappingsFiles.length; ctr2++)
-                        {
-                            mappingsLocations.add(mappingsFiles[ctr2]);
-                        }
-                    }
-                }
-                else
-                {
-                    mappingsLocations.add(mappingsPath);
-                }
+                mappingsLocations.addAll(Arrays.asList(locations[ctr].getFiles()));
             }
             for (final Iterator iterator = mappingsLocations.iterator(); iterator.hasNext();)
             {
