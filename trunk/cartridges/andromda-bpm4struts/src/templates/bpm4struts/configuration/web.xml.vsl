@@ -141,7 +141,7 @@
                 for managing the $manageable.name entity
             </description>
             <url-pattern>${manageable.actionPath}.do</url-pattern>
-            <url-pattern>${manageable.pageFullPath}.jsp</url-pattern>
+            <url-pattern>${manageable.pageFullPath}</url-pattern>
         </web-resource-collection>
         <auth-constraint>
 #foreach ($user in $manageable.users)
