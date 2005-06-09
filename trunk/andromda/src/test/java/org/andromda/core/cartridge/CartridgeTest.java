@@ -135,17 +135,14 @@ public class CartridgeTest
         assertEquals(1, types.size());
         final Type type = (Type)types.iterator().next();
         final Collection properties = type.getProperties();
-        assertEquals(3, properties.size());
+        assertEquals(2, properties.size());
         final Iterator propertyIterator = properties.iterator();
         Type.Property property1 = (Type.Property)propertyIterator.next();
         assertEquals("propertyOne", property1.getName());
         assertEquals("", property1.getValue());
         Type.Property property2 = (Type.Property)propertyIterator.next();
-        assertEquals("propertyTwo", property2.getName());
-        assertEquals("Attribute", property2.getValue());
-        Type.Property property3 = (Type.Property)propertyIterator.next();
-        assertEquals("propertyThree", property3.getName());
-        assertEquals("Contents", property3.getValue());
+        assertEquals("propertyThree", property2.getName());
+        assertEquals("Contents", property2.getValue());
     }
 
     public void testGetPropertyReferences()

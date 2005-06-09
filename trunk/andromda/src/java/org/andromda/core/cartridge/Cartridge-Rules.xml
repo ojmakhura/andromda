@@ -178,37 +178,22 @@
                             <alias attr-name="name" prop-name="name" />
                         </set-properties-rule>
 
-                        <call-method-rule
-                            pattern="property"
-                            methodname="addProperty"
-                            paramcount="2"
-                            paramtypes="java.lang.String,java.lang.String"/>
+                        <pattern value="property">
 
-                        <call-param-rule
-                            pattern="property"
-                            attrname="name"
-                            paramnumber="0" />
+                            <call-method-rule
+                                methodname="addProperty"
+                                paramcount="2"
+                                paramtypes="java.lang.String,java.lang.String"/>
 
-                        <call-param-rule
-                            pattern="property"
-                            paramnumber="1"/>
-                            
-                        <call-method-rule
-                            pattern="property"
-                            methodname="addProperty"
-                            paramcount="2"
-                            paramtypes="java.lang.String,java.lang.String"/>
+                            <call-param-rule
+                                attrname="name"
+                                paramnumber="0" />
 
-                        <call-param-rule
-                            pattern="property"
-                            attrname="name"
-                            paramnumber="0" />
-                            
-                        <call-param-rule
-                            pattern="property"
-                            attrname="value"
-                            paramnumber="1" />
+                            <call-param-rule
+                                paramnumber="1"/>
 
+                        </pattern>
+                        
                         <set-next-rule methodname="addType" />
 
                     </pattern>

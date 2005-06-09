@@ -721,19 +721,6 @@
                     Yes
                 </td>
             </tr>
-            <tr>
-                <td>
-                    value
-                </td>
-                <td>
-                    The value the property must have in order to evaluate to true. Please note that instead of using this 
-                    value attribute you can use the content of the property element as the value, like so:
-                    <em><![CDATA[<property name="enumeration">true</property>]]></em>.
-                </td>
-                <td>
-                    No, if not specified then the property must be considered <em>valid</em>.
-                </td>
-            </tr>
         </table>
         <h3><![CDATA[<resource/>]]></h3>
         <p>
