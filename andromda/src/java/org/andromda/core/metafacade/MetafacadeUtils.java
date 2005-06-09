@@ -1,6 +1,7 @@
 package org.andromda.core.metafacade;
 
 import java.lang.reflect.Constructor;
+
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -20,7 +21,7 @@ final class MetafacadeUtils
      * <code>metafacade</code>.
      *
      * @param metafacade the metafacade instance on which the properties will be validated.
-     * @param mapping    the MetafacadeMapping instance that contains the properties.
+     * @param mapping the MetafacadeMapping instance that contains the properties.
      * @return true/false
      */
     static final boolean propertiesValid(
@@ -39,16 +40,16 @@ final class MetafacadeUtils
                         "evaluating " + propertyGroups.size() + " property groups(s) on metafacade '" + metafacade +
                         "'");
                 }
-                for (Iterator propertyGroupIterator = propertyGroups.iterator(); propertyGroupIterator.hasNext();)
+                final Introspector introspector = Introspector.instance();
+                for (final Iterator tterator = propertyGroups.iterator(); tterator.hasNext();)
                 {
                     final MetafacadeMapping.PropertyGroup propertyGroup =
-                        (MetafacadeMapping.PropertyGroup)propertyGroupIterator.next();
+                        (MetafacadeMapping.PropertyGroup)tterator.next();
                     for (Iterator propertyIterator = propertyGroup.getProperties().iterator();
                         propertyIterator.hasNext();)
                     {
                         final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator.next();
-                        valid =
-                            Introspector.instance().containsValidProperty(
+                        valid = introspector.containsValidProperty(
                                 metafacade,
                                 property.getName(),
                                 property.getValue());
@@ -59,23 +60,23 @@ final class MetafacadeUtils
                                 "' on metafacade '" + metafacade + "', evaluated to --> '" + valid + "'");
                         }
 
-                        // if the property is invalid, we break out
-                        // of the loop (since we're evaluating with 'AND')
+                        // - if the property is invalid, we break out
+                        //   of the loop (since we're evaluating with 'AND')
                         if (!valid)
                         {
                             break;
                         }
                     }
 
-                    // we break on the first true value since
-                    // property groups are evaluated as 'OR'
+                    // - we break on the first true value since
+                    //   property groups are evaluated as 'OR'
                     if (valid)
                     {
                         break;
                     }
                 }
             }
-            catch (Throwable throwable)
+            catch (final Throwable throwable)
             {
                 if (getLogger().isDebugEnabled())
                 {
