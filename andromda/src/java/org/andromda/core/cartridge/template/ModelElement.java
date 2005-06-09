@@ -52,6 +52,16 @@ public class ModelElement
     private final Collection types = new ArrayList();
 
     /**
+     * Gets all types associated with this model element.
+     * 
+     * @return the collection of types.
+     */
+    public Collection getTypes()
+    {
+        return types;
+    }
+
+    /**
      * Returns <code>true</code> or <code>false</code> depending on whether or not this model element has any type
      * elements defined.
      *
@@ -59,7 +69,7 @@ public class ModelElement
      */
     public boolean hasTypes()
     {
-        return !this.types.isEmpty();
+        return !this.getTypes().isEmpty();
     }
 
     /**
@@ -171,11 +181,10 @@ public class ModelElement
      */
     protected boolean accept(final Object metafacade)
     {
-        Iterator typeIt = types.iterator();
         boolean accept = true;
-        while (typeIt.hasNext() && accept)
+        for (final Iterator iterator = types.iterator(); iterator.hasNext() && accept;)
         {
-            Type type = (Type)typeIt.next();
+            final Type type = (Type)iterator.next();
             if (StringUtils.isNotBlank(type.getName()))
             {
                 try
