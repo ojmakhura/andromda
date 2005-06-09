@@ -37,12 +37,6 @@
                 <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType mixed="true">
                         <xs:attribute name="name" type="xs:string" use="required"/>
-                        <!-- the value of the property must evaluate to
-                             to this value in order to be grouped, if no value
-                             is defined, then just the presence of the property is checked
-                             on the type (note that you can also specify the value as the
-                             body of the property element) -->
-                        <xs:attribute name="value" use="optional"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>

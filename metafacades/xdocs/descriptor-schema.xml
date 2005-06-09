@@ -8,8 +8,7 @@
   				Each Metafacades descriptor (andromda-metafacades.xml) must comply with the following XSD Schema: 
   			</p>
 			<source language="xml">
-				<![CDATA[
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- Used for mapping contexts.  An example for a context is: An entity is a
          context for its attributes. So, the metaclass "Attribute" would be mapped to
          the class for "EntityAttributeFacade" if the Attribute belongs to an entity.
@@ -43,12 +42,6 @@
                 <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType mixed="true">
                         <xs:attribute name="name" type="xs:string" use="required"/>
-                        <!-- the value of the property must evaluate to
-                             to this value in order to be grouped, if no value
-                             is defined, then just the presence of the property is checked
-                             on the type (note that you can also specify the value as the
-                             body of the property element) -->
-                        <xs:attribute name="value" use="optional"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
@@ -85,8 +78,7 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="stereotype" type="xs:string"/>
-</xs:schema>
-				]]>
+</xs:schema>]]>
 	  		</source>
   		</section>  	
   	</body> 
