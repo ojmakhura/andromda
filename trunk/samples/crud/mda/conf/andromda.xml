@@ -47,6 +47,7 @@
         </namespace>
         <namespace name="hibernate">
             <properties>
+                <property name="version">2</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>
