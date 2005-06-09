@@ -8,6 +8,11 @@ package org.andromda.cartridges.hibernate.metafacades;
 class HibernateGlobals
 {
     /**
+     * Hibernate version to use.
+     */
+    static final String VERSION = "version";
+    
+    /**
      * EJB implementation class suffix.
      */
     final static String EJB_IMPLEMENTATION_SUFFIX = "Bean";

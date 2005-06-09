@@ -713,4 +713,13 @@ public class HibernateEntityLogicImpl
         }
         return version;
     }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getVersion()
+     */
+    protected int handleGetVersion() {
+        String version = 
+            (String)this.getConfiguredProperty(HibernateGlobals.VERSION);
+        return Integer.parseInt(version);
+    }
 }

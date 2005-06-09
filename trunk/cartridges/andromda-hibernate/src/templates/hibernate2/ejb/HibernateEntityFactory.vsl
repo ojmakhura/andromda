@@ -1,0 +1,109 @@
+// license-header java merge-point
+/**
+ * Attention: Generated source! Do not modify by hand!
+ */
+#if ($entity.packageName)
+package $entity.packageName;
+#end
+
+/**
+ * <p>
+ * Factory class.
+ * Is able to find and create objects of type ${entity.name}.
+ * The Hibernate <em>$entity.hibernateInheritanceStrategy</em> inheritance
+ * strategy is followed.
+ * Those can be described as follows:
+ * </p>
+ * @see $entity.fullyQualifiedName
+ */
+public abstract class ${entity.name}Factory {
+#if (!$entity.abstract && !$entity.hibernateInheritanceInterface)
+   // ---------------- create method --------------------
+
+   /**
+    * Creates a(n) ${entity.name} object.
+    *
+#set ($attributes = $entity.getAttributes(true))
+#foreach ( $attribute in $attributes)
+#if (!$attribute.identifier)
+    * @param ${attribute.name}
+#end
+#end
+    * @return ${entity.name} the created object
+    */
+    public static ${entity.name} create $entity.getOperationCallFromAttributes(false, true)
+    {
+        ${entity.name} object = new ${entity.entityImplementationName}();
+
+#foreach ($attribute in $attributes)
+#if (!$attribute.identifier)
+        object.${attribute.setterName} ($attribute.name);
+#end
+#end
+
+        return object;
+    }
+
+#end
+    // ---------------- finder methods  ----------------------
+
+#if (!$entity.getIdentifiers(true).empty)
+#set ($primaryKey = $entity.getIdentifiers(true).iterator().next())
+#set ($primaryKeyTypeName = $primaryKey.type.fullyQualifiedName)
+#end
+    /**
+     *
+     * Finds ${entity.name} object by its primary key.
+     * In Hibernate, this is just a call to load().
+     *
+     */
+    public static $entity.name findByPrimaryKey (net.sf.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
+        throws net.sf.hibernate.HibernateException
+    {
+        ${entity.name} object = (${entity.name}) session.load(${entity.entityImplementationName}.class, ${primaryKey.name});
+        return object;
+    }
+
+#foreach ($finder in $entity.getQueryOperations(true))
+#set ($returnType = $finder.returnType.fullyQualifiedName)
+##
+#set ($parameterList = $finder.typedArgumentList)
+#if ($finder.arguments.empty)
+#set ($parameters = "net.sf.hibernate.Session session")
+#else
+#set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
+#end
+##
+    /**
+$finder.getDocumentation("     * ")
+     *
+     * Finds ${entity.name} instance(s) using a query.
+     */
+    $finder.visibility static $returnType ${finder.name}($parameters)
+        throws net.sf.hibernate.HibernateException
+    {
+        net.sf.hibernate.Query query = session.createQuery("$finder.query");
+##
+#foreach($argument in $finder.arguments)
+#set ($index = $velocityCount - 1)
+#if ($finder.useNamedParameters)
+        query.${argument.queryArgumentNameSetter}("${argument.name}", ${argument.name});
+#else
+        query.${argument.queryArgumentNameSetter}(${index}, ${argument.name});
+#end
+#end
+#if ($finder.useQueryCache)
+        query.setCacheable(true);
+#end
+##
+#if ($finder.returnType.primitive)
+        return (($finder.returnType.wrapperName)query.uniqueResult()).${returnType}Value();
+#elseif (!$finder.returnType.collectionType)
+        return ($returnType)query.uniqueResult();
+#else
+        return query.list();
+#end
+    }
+
+#end##foreach operation
+}

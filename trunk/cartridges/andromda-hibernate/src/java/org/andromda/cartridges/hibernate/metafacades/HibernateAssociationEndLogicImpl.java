@@ -332,6 +332,20 @@ public class HibernateAssociationEndLogicImpl
 
         return inverse;
     }
+    /**
+     * Hibernate 2 outer join option
+     */
+    private static final String HIBERNATE_OUTER_JOIN_NO = "no";
+
+    /**
+     * Hibernate 2 outer join option
+     */
+    private static final String HIBERNATE_OUTER_JOIN_YES = "yes";
+
+    /**
+     * Hibernate 2 outer join option
+     */
+    private static final String HIBERNATE_OUTER_JOIN_AUTO = "auto";
 
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getOuterJoin()
@@ -344,8 +358,16 @@ public class HibernateAssociationEndLogicImpl
         {
             value = this.getConfiguredProperty(PROPERTY_ASSOCIATION_END_OUTERJOIN);
         }
-
-        return StringUtils.trimToEmpty(String.valueOf(value));
+        String outerValue=StringUtils.trimToEmpty(String.valueOf(value));
+        String version = 
+            (String)this.getConfiguredProperty(HibernateGlobals.VERSION);
+        
+        if (version.equals("3"))
+        {
+            outerValue=(outerValue.equals(HIBERNATE_OUTER_JOIN_AUTO) 
+                    || outerValue.equals(HIBERNATE_OUTER_JOIN_YES)) ? "fetch" : "join";
+        }
+        return outerValue;
     }
 
     /**
