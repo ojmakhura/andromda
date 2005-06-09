@@ -604,7 +604,7 @@ public class StrutsParameterLogicImpl
     private List internalGetTableActions(boolean hyperlink)
     {
         final String name = StringUtils.trimToNull(getName());
-        if (name == null || isActionParameter())
+        if (name == null || !isTable())
         {
             return Collections.EMPTY_LIST;
         }
@@ -631,13 +631,9 @@ public class StrutsParameterLogicImpl
                             final StrutsAction action = (StrutsAction)transition;
                             if (action.isTableLink() && name.equals(action.getTableLinkName()))
                             {
-                                if (hyperlink)
+                                if (hyperlink == action.isHyperlink())
                                 {
-                                    if (action.isHyperlink()) tableActions.add(action);
-                                }
-                                else
-                                {
-                                    if (!action.isHyperlink()) tableActions.add(action);
+                                    tableActions.add(action);
                                 }
                             }
                         }
