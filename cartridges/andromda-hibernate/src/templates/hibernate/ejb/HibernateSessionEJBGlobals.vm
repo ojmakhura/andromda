@@ -5,3 +5,4 @@
 #set ($ejbHomeInterface = "javax.ejb.EJBHome")
 #end
 #set ($ejbSecurityEnabled = $stringUtils.isNotBlank($securityRealm))
+#set ($hibernatePackage=$hibernateUtils.getHibernatePackage($version))

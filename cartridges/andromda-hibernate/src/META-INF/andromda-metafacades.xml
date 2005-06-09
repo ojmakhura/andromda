@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades namespace="hibernate">
+    <property reference="version" default="2"/>
     <property reference="entityNamePattern" default="{0}"/>
     <property reference="entityImplementationNamePattern" default="{0}Impl"/>
     <property reference="defaultHibernateGeneratorClass" default="native"/>

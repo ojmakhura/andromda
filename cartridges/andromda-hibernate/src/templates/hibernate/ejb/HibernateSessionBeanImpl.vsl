@@ -18,9 +18,9 @@ public class ${service.name}BeanImpl
 ##
 #set ($parameterList = $operation.typedArgumentList)
 #if ($stringUtils.isBlank($parameterList))
-#set ($parameters = "net.sf.hibernate.Session session")
+#set ($parameters = "${hibernatePackage}.Session session")
 #else
-#set ($parameters = "net.sf.hibernate.Session session, ${parameterList}")
+#set ($parameters = "${hibernatePackage}.Session session, ${parameterList}")
 #end
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)

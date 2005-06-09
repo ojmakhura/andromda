@@ -35,4 +35,15 @@ public class HibernateUtils
         });
         return allRoles;
     }
+
+    public String getHibernatePackage(String version){
+        if (version.equals("3"))
+        {
+            return "org.hibernate";
+        }
+        else
+        {
+            return "net.sf.hibernate";
+        }
+    }
 }

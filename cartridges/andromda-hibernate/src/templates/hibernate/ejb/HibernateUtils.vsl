@@ -5,14 +5,15 @@
 //
 #set ($className = "HibernateUtils")
 #set ($generatedFile = "$stringUtils.replace($customTypesPackage, '.', '/')/${className}.java")
+#set ($hibernatePackage=$hibernateUtils.getHibernatePackage($version))
 package $customTypesPackage;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.SessionFactory;
-import net.sf.hibernate.cfg.Configuration;
+import ${hibernatePackage}.HibernateException;
+import ${hibernatePackage}.SessionFactory;
+import ${hibernatePackage}.cfg.Configuration;
 
 public class $className
 {
