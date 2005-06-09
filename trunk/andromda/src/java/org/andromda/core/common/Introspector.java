@@ -4,6 +4,7 @@ import java.beans.PropertyDescriptor;
 
 import java.lang.reflect.Method;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,12 @@ public final class Introspector
     }
 
     /**
+     * Prevents stack-over-flows by keeping storing the objects that
+     * are currently being evaluted within {@link #containsValidProperty(Object, String, String)}
+     */
+    private final Collection evaluatingObjects = new ArrayList();
+
+    /**
      * <p> Indicates whether or not the given <code>object</code> contains a
      * valid property with the given <code>name</code> and <code>value</code>.
      * </p>
@@ -64,39 +71,47 @@ public final class Introspector
         final String value)
     {
         boolean valid = false;
-        try
-        {
-            final Object propertyValue = this.getProperty(object, name);
-            valid = propertyValue != null;
 
-            // if valid is still true, and the propertyValue
-            // is not null
-            if (valid)
+        // - prevent stack-over-flows by checking to make sure
+        //   we aren't entering any circular evalutions
+        if (!this.evaluatingObjects.contains(object))
+        {
+            this.evaluatingObjects.add(object);
+            try
             {
-                // if it's a collection then we check to see if the
-                // collection is not empty
-                if (propertyValue instanceof Collection)
+                final Object propertyValue = this.getProperty(object, name);
+                valid = propertyValue != null;
+
+                // if valid is still true, and the propertyValue
+                // is not null
+                if (valid)
                 {
-                    valid = !((Collection)propertyValue).isEmpty();
-                }
-                else
-                {
-                    final String valueAsString = String.valueOf(propertyValue);
-                    if (StringUtils.isNotEmpty(value))
+                    // if it's a collection then we check to see if the
+                    // collection is not empty
+                    if (propertyValue instanceof Collection)
                     {
-                        valid = valueAsString.equals(value);
+                        valid = !((Collection)propertyValue).isEmpty();
                     }
-                    else if (propertyValue instanceof Boolean)
+                    else
                     {
-                        valid = Boolean.valueOf(valueAsString).booleanValue();
+                        final String valueAsString = String.valueOf(propertyValue);
+                        if (StringUtils.isNotEmpty(value))
+                        {
+                            valid = valueAsString.equals(value);
+                        }
+                        else if (propertyValue instanceof Boolean)
+                        {
+                            valid = Boolean.valueOf(valueAsString).booleanValue();
+                        }
                     }
                 }
             }
+            catch (final Throwable throwable)
+            {
+                valid = false;
+            }
         }
-        catch (final Throwable throwable)
-        {
-            valid = false;
-        }
+        this.evaluatingObjects.remove(object);
         return valid;
     }
 
@@ -573,6 +588,7 @@ public final class Introspector
         this.propertyDescriptorsCache.clear();
         this.writeMethodsCache.clear();
         this.readMethodsCache.clear();
+        this.evaluatingObjects.clear();
         instance = null;
     }
 
