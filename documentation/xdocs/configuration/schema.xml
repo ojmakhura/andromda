@@ -1,13 +1,13 @@
-<document> 
-	<properties>
+<document>
+    <properties>
         <author email="chad@andromda.org">Chad Brandon</author>
-    	<title>AndroMDA Configuration Schema</title> 
+        <title>AndroMDA Configuration Schema</title>
     </properties>
-  	<body> 
-  		<section name="AndroMDA Configuration Schema">
-			<p>
-  				The AndroMDA Configuration must comply with the following XSD Schema: 
-  			</p>
+      <body>
+          <section name="AndroMDA Configuration Schema">
+          <p>
+              The AndroMDA Configuration must comply with the following XSD Schema:
+          </p>
 <source language="xml"><![CDATA[
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <xs:element name="andromda">
@@ -24,7 +24,15 @@
     </xs:element>
     <xs:element name="host" type="xs:string"/>
     <xs:element name="loadInterval" type="xs:integer"/>
-    <xs:element name="location" type="xs:string"/>
+    <xs:element name="location">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="patterns" type="xs:string" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="moduleSearchLocations">
         <xs:complexType>
             <xs:sequence>
@@ -137,7 +145,7 @@
     <xs:element name="uri" type="xs:string"/>
 </xs:schema>
 ]]>
-	  		</source>
-  		</section>  	
-  	</body> 
+              </source>
+          </section>
+      </body>
 </document>
