@@ -102,12 +102,13 @@ public class ModelProcessor
             this.addTransformations(configuration.getTransformations());
             final Property[] properties = configuration.getProperties();
             final int propertyNumber = properties.length;
+            final Introspector introspector = Introspector.instance();
             for (int ctr = 0; ctr < propertyNumber; ctr++)
             {
                 final Property property = properties[ctr];
                 try
                 {
-                    Introspector.instance().setProperty(
+                    introspector.setProperty(
                         this,
                         property.getName(),
                         property.getValue());
