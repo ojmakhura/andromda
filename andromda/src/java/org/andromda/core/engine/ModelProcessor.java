@@ -332,6 +332,7 @@ public class ModelProcessor
     {
         if (this.modelValidation)
         {
+            AndroMDALogger.info("- validating model -");
             final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
             final ModelAccessFacade modelAccessFacade = this.repository.getModel();
 
@@ -349,7 +350,7 @@ public class ModelProcessor
                 }
             }
             this.printValidationMessages(this.factory.getValidationMessages());
-            AndroMDALogger.info("- model validation complete -");
+            AndroMDALogger.info("- validation complete -");
         }
     }
 
