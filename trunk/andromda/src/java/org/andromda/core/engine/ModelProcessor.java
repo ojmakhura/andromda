@@ -132,6 +132,8 @@ public class ModelProcessor
     private final void process(Model[] models)
     {
         final long startTime = System.currentTimeMillis();
+
+        // - filter out any invalid models (ones that don't have any uris defined)
         models = this.filterInvalidModels(models);
         if (models.length > 0)
         {
@@ -160,9 +162,6 @@ public class ModelProcessor
      */
     private void processModels(final Model[] models)
     {
-        final String methodName = "ModelProcessor.process";
-
-        // filter out any models that are null or have null URLs
         String cartridgeName = null;
         try
         {
@@ -170,14 +169,14 @@ public class ModelProcessor
             long lastModified = 0;
             final ResourceWriter writer = ResourceWriter.instance();
 
-            // get the time from the model that has the latest modified time
+            // - get the time from the model that has the latest modified time
             for (int ctr = 0; ctr < models.length; ctr++)
             {
                 final Model model = models[ctr];
                 writer.resetHistory(model.getUris()[0]);
                 lastModifiedCheck = model.isLastModifiedCheck() && lastModifiedCheck;
 
-                // we go off the model that was most recently modified.
+                // - we go off the model that was most recently modified.
                 if (model.getLastModified() > lastModified)
                 {
                     lastModified = model.getLastModified();
@@ -203,7 +202,7 @@ public class ModelProcessor
                         this.factory.setNamespace(cartridgeName);
                         cartridge.initialize();
 
-                        // process each model
+                        // - process each model
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
                             this.factory.setModel(this.repository.getModel());
@@ -218,16 +217,16 @@ public class ModelProcessor
         }
         catch (final ModelValidationException exception)
         {
-            // we don't want to record model validation exceptions
+            // - we don't want to record model validation exceptions
             throw exception;
         }
         catch (final Throwable throwable)
         {
-            final String errorMesssage =
-                "Error performing " + methodName + " with model(s) --> '" + StringUtils.join(models, ",") + "'";
-            logger.error(errorMesssage);
-            ExceptionRecorder.instance().record(errorMesssage, throwable, cartridgeName);
-            throw new ModelProcessorException(errorMesssage, throwable);
+            final String messsage =
+                "Error performing ModelProcessor.process with model(s) --> '" + StringUtils.join(models, ",") + "'";
+            logger.error(messsage);
+            ExceptionRecorder.instance().record(messsage, throwable, cartridgeName);
+            throw new ModelProcessorException(messsage, throwable);
         }
     }
 
