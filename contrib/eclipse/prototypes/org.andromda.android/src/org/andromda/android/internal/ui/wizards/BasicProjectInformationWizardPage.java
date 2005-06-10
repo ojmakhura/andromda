@@ -75,10 +75,7 @@ public class BasicProjectInformationWizardPage
             {
                 boolean valid = validatePage();
                 setPageComplete(valid);
-                if (valid)
-                {
-                    setCompleteProjectPath();
-                }
+                setCompleteProjectPath();
             }
         });
         projectIDText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -87,6 +84,15 @@ public class BasicProjectInformationWizardPage
         projectFriendlyNameLabel.setText("Friendl&y project name:");
 
         projectFriendlyNameText = new Text(container, SWT.BORDER);
+        projectFriendlyNameText.addModifyListener(new ModifyListener()
+        {
+            public void modifyText(ModifyEvent e)
+            {
+                boolean valid = validatePage();
+                setPageComplete(valid);
+            }
+
+        });
         projectFriendlyNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         final Group contentsGroup = new Group(container, SWT.NONE);
@@ -262,7 +268,8 @@ public class BasicProjectInformationWizardPage
      *
      * @return the new project resource handle
      */
-    public IProject getProjectHandle() {
+    public IProject getProjectHandle()
+    {
         return ResourcesPlugin.getWorkspace().getRoot().getProject(getProjectID());
     }
 
@@ -275,9 +282,18 @@ public class BasicProjectInformationWizardPage
     private boolean validatePage()
     {
         String projectIDContents = getProjectID();
-        if (projectIDContents.equals("")) { //$NON-NLS-1$
+        if (projectIDContents.equals(""))
+        {
+            setErrorMessage("Enter a project name.");
+            setMessage(null);
+            return false;
+        }
+
+        String projectFriendlyName = getProjectFriendlyName();
+        if (projectFriendlyName.equals(""))
+        {
             setErrorMessage(null);
-            setMessage("Enter a project name.");
+            setMessage("Please enter a friendly name for the project.");
             return false;
         }
 
@@ -288,9 +304,9 @@ public class BasicProjectInformationWizardPage
 
     public void updateData()
     {
-      projectProperties.put("projectName", getProjectFriendlyName());
-      projectProperties.put("projectId", getProjectID());
-      projectProperties.put("projectPath", getCompleteProjectPath());
+        projectProperties.put("projectName", getProjectFriendlyName());
+        projectProperties.put("projectId", getProjectID());
+        projectProperties.put("projectPath", getCompleteProjectPath());
     }
 
 }
