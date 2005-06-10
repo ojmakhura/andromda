@@ -1,16 +1,18 @@
-package org.andromda.android.internal.ui.wizards;
+package org.andromda.android.ui.wizards.newproject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.andromda.android.internal.core.build.maven.MavenRunner;
+import org.andromda.android.internal.ui.wizards.BasicProjectInformationWizardPage;
+import org.andromda.android.internal.ui.wizards.ProjectFeaturesWizardPage;
+import org.andromda.android.internal.ui.wizards.ProjectMetaInformationWizardPage;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.internal.ui.wizards.NewElementWizard;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
