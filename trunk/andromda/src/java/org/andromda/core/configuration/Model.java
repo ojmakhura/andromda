@@ -302,7 +302,7 @@ public class Model
      * @param uri the model uri.
      * @return the unique key
      */
-    public final String getKey()
+    private final String getKey()
     {
         if (this.key == null)
         {
