@@ -55,6 +55,10 @@ public class MavenRunner
 
         try
         {
+            monitor.beginTask("Creating project.", 10);
+
+            monitor.subTask("Preparing to start maven.");
+
             // classpath
             String[] foreheadClasspath = getForeheadClasspath();
 
@@ -90,11 +94,13 @@ public class MavenRunner
                         "Create AndroMDA project.");
                 launchWorkingCopy.setAttribute(IDebugUIConstants.ATTR_PRIVATE, true);
 
+                monitor.worked(2);
+                monitor.subTask("Starting maven.");
+
                 ILaunch newLaunch = new Launch(launchWorkingCopy, ILaunchManager.RUN_MODE, null);
                 DebugPlugin.getDefault().getLaunchManager().addLaunch(newLaunch);
-                monitor.worked(2);
                 vmRunner.run(vmConfig, newLaunch, monitor);
-                monitor.worked(2);
+                monitor.worked(8);
             }
         }
         catch (Exception e)
