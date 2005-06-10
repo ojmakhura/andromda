@@ -90,7 +90,7 @@
             <pattern value="uri">
 
                 <call-method-rule
-                    methodname="setUri"
+                    methodname="addUri"
                     paramcount="1"/>
 
                 <call-param-rule

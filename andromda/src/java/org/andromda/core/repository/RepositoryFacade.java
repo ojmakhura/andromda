@@ -30,19 +30,36 @@ public interface RepositoryFacade
     public void close();
 
     /**
-     * Reads the object model into the repository from the given URL. If the URL is <strong>null </strong> then an empty
+     * <p>
+     * Reads the object model into the repository from a single modelURL. If the URL is <strong>null </strong> then an empty
      * model will be created in the repository and can be retrieved from {@link #getModel()}.
-     * <p/>
+     * <p>
      * URLs can be used to point to files on the filesystem, a file in a jar file, a file from a website, data from a
      * database, etc... </p>
      *
-     * @param modelURL url of model <strong>NOTE: </strong> if the url of the model isn't specified, then an
+     * @param modelUrl url of model <strong>NOTE: </strong> if the url of the model isn't specified, then an
      *                 empty model will be created and can be retrieved from {@link #getModel()}
      * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be used from
      *                         within other models).
+     * @deprecated use {@link #readModel(String[], String[])}
      */
     public void readModel(
-        URL modelURL,
+        URL modelUrl,
+        String[] moduleSearchPath);
+    
+    /**
+     * <p>
+     * Reads the object model into the repository from one or more model URIs. If uris is 
+     * <strong>null </strong> or zero length, then an empty model will be created in the repository 
+     * and can be retrieved from {@link #getModel()}.
+     * </p>
+     *
+     * @param modelUrls a list of modelUrls from which to load each URL of the model.
+     * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be referenced from
+     *                         within other models).
+     */
+    public void readModel(
+        String[] uris,
         String[] moduleSearchPath);
 
     /**
@@ -54,10 +71,27 @@ public interface RepositoryFacade
      * @param uri URI of the model that was read into the stream.
      * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be referenced from
      *                         within other models).
+     * @deprecated use {@link #readModel(InputStream[], String[], String[])}
      */
     public void readModel(
         InputStream stream,
         String uri,
+        String[] moduleSearchPath);
+   
+    /**
+     * Reads the object model into the repository from the given model streams. If the streams is 
+     * <strong>null </strong> then an empty model will be created in the repository and can be retrieved from {@link #getModel()}.
+     * <p/>
+     *
+     * @param streams a list of InputStream instances containing a model.
+     * @param uris a list of URIs from which each stream in the <code>streams</code> parameter was loaded (note that the size
+     *             and order of this list must match the order of the streams list).
+     * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be referenced from
+     *                         within other models).
+     */
+    public void readModel(
+        InputStream[] streams,
+        String[] uris,
         String[] moduleSearchPath);
 
     /**

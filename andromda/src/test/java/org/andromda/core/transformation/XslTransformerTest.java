@@ -24,8 +24,8 @@ public class XslTransformerTest
                 null,
                 new Transformation[0]));
 
-        URL model = XslTransformerTest.class.getResource("model.xml");
-        assertNotNull(model);
+        URL modelUrl = XslTransformerTest.class.getResource("model.xml");
+        assertNotNull(modelUrl);
         URL transformation1Uri = XslTransformerTest.class.getResource("transformation1.xsl");
         assertNotNull(transformation1Uri);
         URL transformation2Uri = XslTransformerTest.class.getResource("transformation2.xsl");
@@ -35,7 +35,7 @@ public class XslTransformerTest
         Transformation transformation2 = new Transformation();
         transformation2.setUri(transformation2Uri.toString());
         Transformation[] transformations = new Transformation[] {transformation1, transformation2};
-        InputStream stream = transformer.transform(model, transformations);
+        InputStream stream = transformer.transform(modelUrl.toString(), transformations);
         assertNotNull(stream);
     }
 }

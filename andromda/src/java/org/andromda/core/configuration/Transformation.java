@@ -2,8 +2,6 @@ package org.andromda.core.configuration;
 
 import java.io.Serializable;
 
-import java.net.URL;
-
 
 /**
  * Stores the information about a transformation. Transformations are applied to
@@ -17,7 +15,7 @@ public class Transformation
     /**
      * The URL location of the transformation.
      */
-    private URL uri;
+    private String uri;
 
     /**
      * Sets the URL of the transformation.
@@ -26,14 +24,7 @@ public class Transformation
      */
     public void setUri(final String uri)
     {
-        try
-        {
-            this.uri = new URL(uri);
-        }
-        catch (final Throwable throwable)
-        {
-            throw new ConfigurationException(throwable);
-        }
+        this.uri = uri;
     }
 
     /**
@@ -41,7 +32,7 @@ public class Transformation
      *
      * @return Returns the uri.
      */
-    public URL getUri()
+    public String getUri()
     {
         return uri;
     }

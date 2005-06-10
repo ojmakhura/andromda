@@ -56,7 +56,7 @@ public class MDRepositoryTransformationTest
      */
     public void testTransformModel() throws Exception
     {
-        repository.readModel(modelURL, null);
+        repository.readModel(new String[]{modelURL.toString()}, null);
         UmlPackage umlPackage = (UmlPackage)repository.getModel().getModel();
         ModelManagementPackage modelManagementPackage = umlPackage.getModelManagement();
 

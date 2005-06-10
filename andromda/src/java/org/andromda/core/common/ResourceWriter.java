@@ -248,10 +248,12 @@ public class ResourceWriter
 
     /**
      * Resets the a history file, to write the history {@link #writeHistory()} must be called.
+     * 
+     * @param used to construct the file name from the modelUri where the history is stored
      */
-    public void resetHistory(final URL modelUrl)
+    public void resetHistory(final String modelUri)
     {
-        String modelFile = modelUrl.toString().replace('\\', '/');
+        String modelFile = modelUri.replace('\\', '/');
         int lastSlash = modelFile.lastIndexOf('/');
         if (lastSlash != -1)
         {
