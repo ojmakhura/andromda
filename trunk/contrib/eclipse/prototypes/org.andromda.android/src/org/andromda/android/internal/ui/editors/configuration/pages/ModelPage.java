@@ -96,7 +96,7 @@ public class ModelPage
         toolkit.paintBordersFor(modelsComposite);
         modelsSection.setClient(modelsComposite);
 
-        final TableViewer tableViewer = new TableViewer(modelsComposite, SWT.BORDER);
+        final TableViewer tableViewer = new TableViewer(modelsComposite, SWT.NONE);
         tableViewer.setLabelProvider(new TableLabelProvider());
         tableViewer.setContentProvider(new ContentProvider());
         table = tableViewer.getTable();
