@@ -40,11 +40,43 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 {
     public org.apache.struts.action.ActionForward execute(org.apache.struts.action.ActionMapping mapping, org.apache.struts.action.ActionForm form, javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws java.lang.Exception
     {
-#if ($action.useCaseStart && !$action.actionFormFields.empty)
+        final $formBeanClassName specificForm = ($formBeanClassName)form;
+
+#if ($action.useCaseStart)
         // copy any parameters from the previous form into this one
         // (only those with the same name and type are considered, and only if they can be set in the target form)
-        org.apache.commons.beanutils.BeanUtils.populate(form, request.getParameterMap());
+//        org.apache.commons.beanutils.BeanUtils.populate(form, request.getParameterMap());
 
+## for each final state targetting this use-case we check the incoming variables that ought to
+## survive the trip to this use-case, those parameters will have been put into session scope
+## and here we move them into the new form
+#if ($action.formScopeRequest)
+        final Object previousFormObject = request.getAttribute("$formName");
+#else
+        final Object previousFormObject = request.getSession().getAttribute("$formName");
+#end
+
+#foreach ($finalState in $action.useCase.referencingFinalStates)
+#foreach ($finalStateAction in $finalState.actions)
+#set ($formBeanType = $finalStateAction.formBeanType)
+#set ($formFields = $finalStateAction.formFields)
+        if (previousFormObject instanceof $formBeanType)
+        {
+            final $formBeanType previousForm = ($formBeanType)previousFormObject;
+#foreach ($parameter in $finalState.interUseCaseParameters)
+#if ($finalStateAction.actionFormFields.contains($parameter))
+            specificForm.${parameter.setterName}(previousForm.${parameter.getterName}());
+#end
+#end
+        }
+        else
+#end
+#end
+#if (!$action.useCase.referencingFinalStates.empty)
+        {
+            // do nothing
+        }
+#end
 #end
         org.apache.struts.action.ActionForward forward = null;
 
@@ -68,7 +100,6 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 #saveMessages($action "        ")
 #if (!$resettableActionParameters.empty)
 
-        $formBeanClassName specificForm = ($formBeanClassName)form;
 #foreach ($field in $resettableActionParameters)
         specificForm.${field.resetName}();
 #end

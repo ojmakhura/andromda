@@ -6,9 +6,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -115,5 +118,37 @@ public class StrutsFinalStateLogicImpl
             actions.addAll(forward.getActions());
         }
         return new ArrayList(actions);
+    }
+
+    protected List handleGetInterUseCaseParameters()
+    {
+        // we don't want to list parameters with the same name to we use a hash map
+        final Map parameterMap = new HashMap();
+
+        final Collection transitions = getIncoming();
+        for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+        {
+            final StrutsForward forward = (StrutsForward)transitionIterator.next();
+            final List forwardParameters = forward.getForwardParameters();
+            for (int i = 0; i < forwardParameters.size(); i++)
+            {
+                final ModelElementFacade parameter = (ModelElementFacade)forwardParameters.get(i);
+                parameterMap.put(parameter.getName(), parameter);
+            }
+        }
+
+        final List actions = getActions();
+        for (int i = 0; i < actions.size(); i++)
+        {
+            final StrutsAction action = (StrutsAction)actions.get(i);
+            final List actionParameters = action.getActionParameters();
+            for (int j = 0; j < actionParameters.size(); j++)
+            {
+                final ModelElementFacade parameter = (ModelElementFacade)actionParameters.get(j);
+                parameterMap.put(parameter.getName(), parameter);
+            }
+        }
+
+        return new ArrayList(parameterMap.values());
     }
 }

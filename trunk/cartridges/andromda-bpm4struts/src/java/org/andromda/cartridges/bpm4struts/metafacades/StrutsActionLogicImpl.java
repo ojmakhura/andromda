@@ -652,23 +652,18 @@ public class StrutsActionLogicImpl
          */
         if (isUseCaseStart())
         {
-            StrutsUseCase useCase = getUseCase();
+            final StrutsUseCase useCase = getUseCase();
             if (useCase != null)
             {
-                Collection finalStates = useCase.getReferencingFinalStates();
+                final Collection finalStates = useCase.getReferencingFinalStates();
                 for (Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
                 {
-                    StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
-                    Collection actions = finalState.getActions();
-                    for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                    final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
+                    final Collection parameters = finalState.getInterUseCaseParameters();
+                    for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
                     {
-                        StrutsAction action = (StrutsAction)actionIterator.next();
-                        Collection parameters = action.getActionParameters();
-                        for (Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
-                        {
-                            StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
-                            formFieldMap.put(parameter.getName(), parameter);
-                        }
+                        final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
+                        formFieldMap.put(parameter.getName(), parameter);
                     }
                 }
             }
