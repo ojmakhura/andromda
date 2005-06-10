@@ -26,8 +26,8 @@
         <j:set var="runWithoutAnt" value="${maven.andromda.run.without.ant}"/>
         <j:choose>
             <j:when test="${runWithoutAnt}">         
-                <attainGoal name="andromda:prepare-runner${bootstrap}"/>   
-                <j:set var="dummy" value="${runner.run()}"/>              
+                <attainGoal name="andromda:prepare-runner${bootstrap}"/>  
+                <j:set var="dummy" value="${runner.run()}"/>    
             </j:when>
             <j:otherwise>               
                 <j:new var="utils" className="org.andromda.maven.AndroMDAMavenUtils"/>
