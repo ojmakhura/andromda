@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AndroMDA Core Plug-in
+Bundle-SymbolicName: org.andromda.core
+Bundle-Version: 3.1.0
+Bundle-ClassPath: andromda-core-3.1-M1-SNAPSHOT.jar,
+ log4j-1.2.8.jar,
+ commons-lang-2.0.jar,
+ commons-digester-1.6.jar,
+ commons-collections-3.1.jar,
+ commons-logging-1.0.4.jar,
+ commons-beanutils-1.7.0.jar,
+ xerces-2.4.0.jar
+Bundle-Vendor: AndroMDA Team
+Bundle-Localization: plugin
+Export-Package: org.andromda.core,
+ org.andromda.core.cartridge,
+ org.andromda.core.cartridge.template,
+ org.andromda.core.common,
+ org.andromda.core.configuration,
+ org.andromda.core.engine,
+ org.andromda.core.mapping,
+ org.andromda.core.metafacade,
+ org.andromda.core.repository,
+ org.andromda.core.server,
+ org.andromda.core.templateengine,
+ org.andromda.core.transformation,
+ org.andromda.core.translation,
+ org.andromda.core.translation.library,
+ org.apache.xerces.jaxp
