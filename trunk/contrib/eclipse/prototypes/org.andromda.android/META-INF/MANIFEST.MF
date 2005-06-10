@@ -17,5 +17,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.launching,
  org.apache.maven,
  org.eclipse.jdt.core,
- org.eclipse.ui.forms
+ org.eclipse.ui.forms,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.workbench.texteditor,
+ org.andromda.core
 Eclipse-AutoStart: true
