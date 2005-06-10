@@ -42,7 +42,10 @@
                 <location patterns="*.xml.zip,*.xmi">/path/to/modules</location>
             </moduleSearchLocations>
         </model>
-        <model><uri>jar:file:/path/to/my/model.zuml!/model2.xmi</uri></model>
+        <model>
+            <uri>file:/path/to/my/model2Uri1.xmi</uri>
+            <uri>file:/path/to/my/model2Uri2.xmi</uri>
+        </model>
     </models>
     <mappingsSearchLoations>
         <location patterns="*.xml">/path/to/mappings</location>
@@ -441,10 +444,11 @@
                     </h2>
                     <p>
                         The contents of the required <em>uri</em> element is used to
-                        define the location of the model.
+                        define the URI of one or more files that make up the model.
                         <source language="xml">
 <![CDATA[<model>
-    <uri>file:/path/to/models/model1.xmi</uri>
+    <uri>file:/path/to/models/model1Uri1.xmi</uri>
+    <uri>file:/path/to/models/model1Uri2.xmi</uri>
     ...
 </model>]]>
                         </source>
