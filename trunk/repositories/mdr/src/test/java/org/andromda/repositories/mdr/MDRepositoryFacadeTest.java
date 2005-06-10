@@ -49,7 +49,7 @@ public class MDRepositoryFacadeTest
 
     public void testGetModel()
     {
-        repository.readModel(modelURL, null);
+        repository.readModel(new String[]{modelURL.toString()}, null);
         assertNotNull(repository.getModel());
         assertNotNull(repository.getModel().getModel());
         assertTrue(repository.getModel().getModel() instanceof UmlPackage);

@@ -135,9 +135,7 @@ public class ModelProcessor
         models = this.filterInvalidModels(models);
         if (models.length > 0)
         {
-            this.processing = true;
             this.processModels(models);
-            this.processing = false;
             AndroMDALogger.info(
                 "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
                 "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
@@ -176,7 +174,7 @@ public class ModelProcessor
             for (int ctr = 0; ctr < models.length; ctr++)
             {
                 final Model model = models[ctr];
-                writer.resetHistory(model.getUri());
+                writer.resetHistory(model.getUris()[0]);
                 lastModifiedCheck = model.isLastModifiedCheck() && lastModifiedCheck;
 
                 // we go off the model that was most recently modified.
@@ -195,10 +193,7 @@ public class ModelProcessor
                 }
 
                 // - pre-load the models
-                for (int ctr = 0; ctr < models.length; ctr++)
-                {
-                    this.loadModelIfNecessary(models[ctr]);
-                }
+                this.loadIfNecessary(models);
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
@@ -273,11 +268,6 @@ public class ModelProcessor
     }
 
     /**
-     * A flag indicating if model processing is currently occuring.
-     */
-    private boolean processing = false;
-
-    /**
      * Loads the model into the repository only when necessary (the model has a timestamp
      * later than the last timestamp of the loaded model).
      *
@@ -288,59 +278,79 @@ public class ModelProcessor
         // - only load if the model has been changed from last time it was loaded
         if (model.isChanged())
         {
+            // - first perform any transformations
             final Transformer transformer =
                 (Transformer)ComponentContainer.instance().findRequiredComponent(Transformer.class);
-            InputStream stream = transformer.transform(
-                    model.getUri(),
-                    this.getTransformations());
-            AndroMDALogger.info("loading model --> '" + model.getUri() + "'");
+            final String[] uris = model.getUris();
+            final int uriNumber = uris.length;
+            InputStream[] streams = new InputStream[uriNumber];
+            for (int ctr = 0; ctr < uriNumber; ctr++)
+            {
+                streams[ctr] = transformer.transform(
+                        uris[ctr],
+                        this.getTransformations());
+            }
+
+            // - now load the models into the repository
+            for (int ctr = 0; ctr < uriNumber; ctr++)
+            {
+                final String uri = uris[ctr];
+                AndroMDALogger.info("loading model --> '" + uri + "'");
+            }
             this.repository.readModel(
-                stream,
-                model.getUri().toString(),
+                streams,
+                uris,
                 model.getModuleSearchLocationPaths());
+
             AndroMDALogger.info("- loading complete -");
             try
             {
-                stream.close();
-                stream = null;
+                for (int ctr = 0; ctr < uriNumber; ctr++)
+                {
+                    InputStream stream = streams[ctr];
+                    stream.close();
+                    stream = null;
+                }
             }
             catch (final IOException exception)
             {
                 // ignore
             }
-            if (this.modelValidation)
-            {
-                this.validateModel(model);
-                AndroMDALogger.info("- model validation complete -");
-            }
+
+            // - validate the model since loading has successfully occurred
+            this.validateModel();
         }
     }
 
     /**
-     * Validates the given <code>model</code> with each cartridge namespace,
+     * Validates the entire model with each cartridge namespace,
      * and logs the failures if model validation fails.
      *
      * @param model the model to validate
      */
-    private final void validateModel(final Model model)
+    private final void validateModel()
     {
-        final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
-        final ModelAccessFacade modelAccessFacade = this.repository.getModel();
-
-        // - clear out the factory's caches (such as any previous validation messages, etc.)
-        this.factory.clearCaches();
-        this.factory.setModel(modelAccessFacade);
-        for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
+        if (this.modelValidation)
         {
-            final Cartridge cartridge = (Cartridge)iterator.next();
-            final String cartridgeName = cartridge.getName();
-            if (this.shouldProcess(cartridgeName))
+            final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
+            final ModelAccessFacade modelAccessFacade = this.repository.getModel();
+
+            // - clear out the factory's caches (such as any previous validation messages, etc.)
+            this.factory.clearCaches();
+            this.factory.setModel(modelAccessFacade);
+            for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
             {
-                this.factory.setNamespace(cartridgeName);
-                this.factory.validateAllMetafacades();
+                final Cartridge cartridge = (Cartridge)iterator.next();
+                final String cartridgeName = cartridge.getName();
+                if (this.shouldProcess(cartridgeName))
+                {
+                    this.factory.setNamespace(cartridgeName);
+                    this.factory.validateAllMetafacades();
+                }
             }
+            this.printValidationMessages(this.factory.getValidationMessages());
+            AndroMDALogger.info("- model validation complete -");
         }
-        this.printValidationMessages(this.factory.getValidationMessages());
     }
 
     /**
@@ -409,7 +419,7 @@ public class ModelProcessor
     final void loadIfNecessary(final Model[] models)
     {
         // - only allow loading when processing is not occurring.
-        if (!this.processing && (models != null && models.length > 0))
+        if (models != null && models.length > 0)
         {
             final int modelNumber = models.length;
             for (int ctr = 0; ctr < modelNumber; ctr++)
@@ -618,7 +628,8 @@ public class ModelProcessor
             {
                 public boolean evaluate(Object object)
                 {
-                    return object != null && ((Model)object).getUri() != null;
+                    final Model model = (Model)object;
+                    return model != null && model.getUris() != null && model.getUris().length > 0;
                 }
             });
         return (Model[])validModels.toArray(new Model[0]);

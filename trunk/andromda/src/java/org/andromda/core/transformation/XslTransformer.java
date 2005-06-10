@@ -42,62 +42,66 @@ public class XslTransformer
      * @see org.andromda.core.transformation.Transformer#transform(java.net.URL, org.andromda.core.configuration.Transformation[])
      */
     public InputStream transform(
-        final URL model,
+        final String modelUri,
         final Transformation[] xsltTransformations)
     {
         try
         {
             InputStream stream = null;
-            if (xsltTransformations != null && xsltTransformations.length > 0)
+            if (StringUtils.isNotBlank(modelUri))
             {
-                Source modelSource = new StreamSource(model.openStream());
-                final List xslts = Arrays.asList(xsltTransformations);
-                final TransformerFactory factory = TransformerFactory.newInstance();
-                final TransformerURIResolver resolver = new TransformerURIResolver();
-                factory.setURIResolver(resolver);
-                for (final Iterator xsltIterator = xslts.iterator(); xsltIterator.hasNext();)
+                final URL modelUrl = new URL(modelUri);
+                if (xsltTransformations != null && xsltTransformations.length > 0)
                 {
-                    final Transformation transformation = (Transformation)xsltIterator.next();
-                    final URL xslt = transformation.getUri();
-                    resolver.setLocation(xslt);
-                    if (xslt != null)
+                    Source modelSource = new StreamSource(modelUrl.openStream());
+                    final List xslts = Arrays.asList(xsltTransformations);
+                    final TransformerFactory factory = TransformerFactory.newInstance();
+                    final TransformerURIResolver resolver = new TransformerURIResolver();
+                    factory.setURIResolver(resolver);
+                    for (final Iterator xsltIterator = xslts.iterator(); xsltIterator.hasNext();)
                     {
-                        AndroMDALogger.info("Applying transformation --> '" + xslt + "'");
-                        final Source xsltSource = new StreamSource(xslt.openStream());
-                        final javax.xml.transform.Transformer transformer = factory.newTransformer(xsltSource);
-                        final ByteArrayOutputStream output = new ByteArrayOutputStream();
-                        final Result result = new StreamResult(output);
-                        transformer.transform(modelSource, result);
-                        final byte[] outputResult = output.toByteArray();
-                        stream = new ByteArrayInputStream(outputResult);
-
-                        // if we have an output location specified, write the result
-                        final String outputLocation = transformation.getOutputLocation();
-                        if (StringUtils.isNotBlank(outputLocation))
+                        final Transformation transformation = (Transformation)xsltIterator.next();
+                        final URL xslt = new URL(transformation.getUri());
+                        resolver.setLocation(xslt);
+                        if (xslt != null)
                         {
-                            final File fileOutput = new File(outputLocation);
-                            final File parent = fileOutput.getParentFile();
-                            if (parent != null)
+                            AndroMDALogger.info("Applying transformation --> '" + xslt + "'");
+                            final Source xsltSource = new StreamSource(xslt.openStream());
+                            final javax.xml.transform.Transformer transformer = factory.newTransformer(xsltSource);
+                            final ByteArrayOutputStream output = new ByteArrayOutputStream();
+                            final Result result = new StreamResult(output);
+                            transformer.transform(modelSource, result);
+                            final byte[] outputResult = output.toByteArray();
+                            stream = new ByteArrayInputStream(outputResult);
+    
+                            // if we have an output location specified, write the result
+                            final String outputLocation = transformation.getOutputLocation();
+                            if (StringUtils.isNotBlank(outputLocation))
                             {
-                                parent.mkdirs();
+                                final File fileOutput = new File(outputLocation);
+                                final File parent = fileOutput.getParentFile();
+                                if (parent != null)
+                                {
+                                    parent.mkdirs();
+                                }
+                                FileOutputStream outputStream = new FileOutputStream(fileOutput);
+                                AndroMDALogger.info("Transformation output: '" + outputLocation + "'");
+                                outputStream.write(outputResult);
+                                outputStream.flush();
+                                outputStream.close();
+                                outputStream = null;
                             }
-                            FileOutputStream outputStream = new FileOutputStream(fileOutput);
-                            AndroMDALogger.info("Transformation output: '" + outputLocation + "'");
-                            outputStream.write(outputResult);
-                            outputStream.flush();
-                            outputStream.close();
-                            outputStream = null;
-                        }
-                        if (xsltIterator.hasNext())
-                        {
-                            modelSource = new StreamSource(stream);
+                            if (xsltIterator.hasNext())
+                            {
+                                modelSource = new StreamSource(stream);
+                            }
                         }
                     }
                 }
-            }
-            else if (model != null)
-            {
-                stream = model.openStream();
+                else if (modelUrl != null)
+                {
+                    stream = modelUrl.openStream();
+                }
             }
             return stream;
         }

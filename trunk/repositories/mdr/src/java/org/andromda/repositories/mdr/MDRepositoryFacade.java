@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 
 import javax.jmi.model.ModelPackage;
@@ -56,7 +54,7 @@ public class MDRepositoryFacade
         System.setProperty(
             "org.netbeans.mdr.storagemodel.StorageFactoryClassName",
             "org.netbeans.mdr.persistence.memoryimpl.StorageFactoryImpl");
-        
+
         repository = MDRManager.getDefault().getDefaultRepository();
 
         final String metamodelUri = "/M2_DiagramInterchangeModel.xml";
@@ -110,24 +108,35 @@ public class MDRepositoryFacade
     }
 
     /**
-     * @see org.andromda.core.common.RepositoryFacade#readModel(java.net.URL, java.lang.String[])
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.net.URL, java.lang.String[])
      */
     public void readModel(
-        final URL modelURL,
+        final URL modelUrl,
         final String[] moduleSearchPath)
+    {
+        String[] uris = null;
+        if (modelUrl != null)
+        {
+            uris = new String[] {modelUrl.toString()};
+        }
+        this.readModel(uris, moduleSearchPath);
+    }
+
+    /**
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.lang.String[], java.lang.String[])
+     */
+    public void readModel(
+        String[] uris,
+        String[] moduleSearchPath)
     {
         try
         {
-            final MofPackage metaModel = this.loadMetaModel(this.metaModelURL);
-            this.model = this.loadModel(modelURL, moduleSearchPath, metaModel);
+            final MofPackage metaModel = this.loadMetaModel(metaModelURL);
+            this.model = this.loadModel(uris, moduleSearchPath, metaModel);
         }
         catch (final Throwable throwable)
         {
             throw new RepositoryFacadeException(throwable);
-        }
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("created repository");
         }
     }
 
@@ -139,18 +148,32 @@ public class MDRepositoryFacade
         final String uri,
         final String[] moduleSearchPath)
     {
+        this.readModel(
+            new InputStream[] {stream},
+            new String[] {uri},
+            moduleSearchPath);
+    }
+
+    /**
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream[], java.lang.String[], java.lang.String[])
+     */
+    public void readModel(
+        final InputStream[] streams,
+        final String[] uris,
+        final String[] moduleSearchPath)
+    {
+        if (streams != null && uris != null && uris.length != streams.length)
+        {
+            throw new IllegalArgumentException("'streams' and 'uris' must be of the same length");
+        }
         try
         {
             final MofPackage metaModel = this.loadMetaModel(metaModelURL);
-            this.model = loadModel(stream, uri, moduleSearchPath, metaModel);
+            this.model = this.loadModel(streams, uris, moduleSearchPath, metaModel);
         }
         catch (final Throwable throwable)
         {
             throw new RepositoryFacadeException(throwable);
-        }
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("created repository");
         }
     }
 
@@ -303,24 +326,15 @@ public class MDRepositoryFacade
     }
 
     /**
-     * Stores the names of the extents that were loaded so that
-     * they can be cleared out when {@link #clear()} is called.
-     */
-    private final Collection extentNames = new HashSet();
-
-    /**
      * @see org.andromda.core.repository.RepositoryFacade#clear()
      */
     public void clear()
     {
-        for (final Iterator iterator = this.extentNames.iterator(); iterator.hasNext();)
-        {
-            this.removeModel((String)iterator.next());         
-        }
+        this.removeModel(EXTENT_NAME);
         this.model = null;
         this.modelFacade = null;
     }
-    
+
     /**
      * @see org.andromda.core.repository.RepositoryFacade#removeModel(java.lang.String)
      */
@@ -331,43 +345,43 @@ public class MDRepositoryFacade
         if (model != null)
         {
             model.refDelete();
-        }     
+        }
     }
 
     /**
      * Loads a model into the repository and validates the model against the given metaModel.
      *
-     * @param modelUri  uri of model
+     * @param modelUri the URIs of the model
      * @param moduleSearchPath the paths to search for shared modules.
      * @param metaModel meta model of model
      * @return populated model
      * @throws CreationFailedException unable to create model in repository
      */
     private final RefPackage loadModel(
-        final URL modelUrl,
+        final String[] modelUris,
         final String[] moduleSearchPath,
         final MofPackage metaModel)
         throws CreationFailedException
     {
         RefPackage model = null;
-        if (modelUrl != null)
+        if (modelUris != null)
         {
-            final String modelUri = modelUrl.toString();
-            model = this.createModel(modelUri, metaModel);
+            model = this.createModel(metaModel);
             final XMIReader xmiReader =
                 XMIReaderFactory.getDefault().createXMIReader(
                     new MDRXmiReferenceResolver(
                         new RefPackage[] {model},
                         moduleSearchPath));
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("reading model XMI --> '" + modelUri + "'");
-            }
             try
             {
-                xmiReader.read(
-                    modelUri,
-                    model);
+                if (modelUris != null)
+                {
+                    final int uriNumber = modelUris.length;
+                    for (int ctr = 0; ctr < uriNumber; ctr++)
+                    {
+                        xmiReader.read(modelUris[ctr], model);
+                    }
+                }
             }
             catch (final Throwable throwable)
             {
@@ -375,7 +389,7 @@ public class MDRepositoryFacade
             }
             if (logger.isDebugEnabled())
             {
-                logger.debug("read XMI and created model");
+                logger.debug("read URIs and created model");
             }
         }
         return model;
@@ -392,14 +406,14 @@ public class MDRepositoryFacade
      * @throws CreationFailedException unable to create model in repository
      */
     private final RefPackage loadModel(
-        final InputStream modelStream,
-        final String uri,
+        final InputStream[] modelStreams,
+        final String[] uris,
         final String[] moduleSearchPath,
         final MofPackage metaModel)
         throws CreationFailedException
     {
-        final RefPackage model = this.createModel(uri, metaModel);
-        if (modelStream != null)
+        final RefPackage model = this.createModel(metaModel);
+        if (modelStreams != null)
         {
             final XMIReader xmiReader =
                 XMIReaderFactory.getDefault().createXMIReader(
@@ -408,19 +422,38 @@ public class MDRepositoryFacade
                         moduleSearchPath));
             try
             {
-                xmiReader.read(modelStream, uri, model);
+                if (modelStreams != null)
+                {
+                    final int streamNumber = modelStreams.length;
+                    for (int ctr = 0; ctr < streamNumber; ctr++)
+                    {
+                        final InputStream stream = modelStreams[ctr];
+                        String uri = null;
+                        if (uris != null)
+                        {
+                            uri = uris[ctr];
+                        }
+                        xmiReader.read(stream, uri, model);
+                    }
+                }
             }
-            catch (Throwable throwable)
+            catch (final Throwable throwable)
             {
                 throw new RepositoryFacadeException(throwable);
             }
             if (logger.isDebugEnabled())
             {
-                logger.debug("read XMI and created model");
+                logger.debug("read URIs and created model");
             }
         }
         return model;
     }
+
+    /**
+     * The name of the extent under which all models loaded into the repository
+     * are stored (makes up one big model).
+     */
+    private static final String EXTENT_NAME = "model";
 
     /**
      * Constructs the model from the given <code>metaModel</code>.
@@ -430,20 +463,19 @@ public class MDRepositoryFacade
      * @return the package.
      * @throws CreationFailedException
      */
-    private RefPackage createModel(final String modelUri, final MofPackage metaModel)
+    private RefPackage createModel(final MofPackage metaModel)
         throws CreationFailedException
     {
-        RefPackage model = this.repository.getExtent(modelUri);
+        RefPackage model = this.repository.getExtent(EXTENT_NAME);
         if (model != null)
         {
-            this.removeModel(modelUri);
+            this.removeModel(EXTENT_NAME);
         }
         if (logger.isDebugEnabled())
         {
             logger.debug("creating the new meta model");
         }
-        model = repository.createExtent(modelUri, metaModel);
-        this.extentNames.add(modelUri);
+        model = repository.createExtent(EXTENT_NAME, metaModel);
         if (logger.isDebugEnabled())
         {
             logger.debug("created model extent");

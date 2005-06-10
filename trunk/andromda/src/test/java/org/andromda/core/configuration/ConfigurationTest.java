@@ -60,9 +60,13 @@ public class ConfigurationTest
         assertEquals(3, configuration.getModels().length);
         final Model model1 = configuration.getModels()[0];
         assertNotNull(model1);
+        assertEquals(2, model1.getUris().length);
         assertEquals(
-            "file:model1.xmi",
-            model1.getUri().toString());
+            "file:model1Uri1.xmi",
+            model1.getUris()[0]);
+        assertEquals(
+            "file:model1Uri2.xmi",
+            model1.getUris()[1]);
         assertTrue(model1.isLastModifiedCheck());
         assertEquals(2, model1.getModuleSearchLocations().length);
 
@@ -86,17 +90,19 @@ public class ConfigurationTest
 
         final Model model2 = configuration.getModels()[1];
         assertNotNull(model2);
+        assertEquals(1, model2.getUris().length);
         assertEquals(
             "file:model2.xmi",
-            model2.getUri().toString());
+            model2.getUris()[0]);
         assertEquals(0, model2.getModuleSearchLocations().length);
         assertFalse(model2.isLastModifiedCheck());
 
         final Model model3 = configuration.getModels()[2];
         assertNotNull(model3);
+        assertEquals(1, model3.getUris().length);
         assertEquals(
             "file:model3.xmi",
-            model3.getUri().toString());
+            model3.getUris()[0]);
         assertNotNull(model3.getPackages());
         assertTrue(model3.getPackages().isProcess("some::package"));
         assertFalse(model3.getPackages().isProcess("org::andromda::metafacades::uml"));
@@ -107,7 +113,7 @@ public class ConfigurationTest
         assertNotNull(transformation1);
         assertEquals(
             "file:transformation1.xsl",
-            transformation1.getUri().toString());
+            transformation1.getUri());
         assertEquals(
             "path/to/some/directory/transformed-model.xmi",
             transformation1.getOutputLocation());
@@ -115,7 +121,7 @@ public class ConfigurationTest
         assertNotNull(transformation2);
         assertEquals(
             "file:transformation2.xsl",
-            transformation2.getUri().toString());
+            transformation2.getUri());
 
         // namespaces
         final Namespace namespace1 = Namespaces.instance().findNamespace("default");

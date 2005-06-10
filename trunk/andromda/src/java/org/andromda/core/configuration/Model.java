@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.ResourceUtils;
@@ -91,42 +92,58 @@ public class Model
     /**
      * The URL to the model.
      */
-    private URL uri;
+    private List uris = new ArrayList();
 
     /**
-     * The URL of the model.
+     * Caches the urisAsStrings value (so we don't need
+     * to do the conversion more than once).
+     */
+    private String[] urisAsStrings = null;
+
+    /**
+     * All URIs that make up the model.
      *
      * @return Returns the uri.
      */
-    public URL getUri()
+    public String[] getUris()
     {
-        return uri;
+        if (this.urisAsStrings == null)
+        {
+            final int uriNumber = uris.size();
+            this.urisAsStrings = new String[uriNumber];
+            for (int ctr = 0; ctr < uriNumber; ctr++)
+            {
+                urisAsStrings[ctr] = ((URL)uris.get(ctr)).toString();
+            }
+        }
+        return this.urisAsStrings;
     }
 
     /**
-     * Sets the URL to the actual model file.
-     * @param uri the model URL.
+     * Adds the location as a URI to one of the model files.
+     *
+     * @param uri the URI to the model.
      */
-    public void setUri(final String uri)
-        throws Exception
+    public void addUri(final String uri)
     {
         try
         {
-            this.uri = new URL(uri.replace('\\', '/'));
+            final URL url = new URL(uri.replace('\\', '/'));
+            try
+            {
+                // - Get around the fact the URL won't be released until the JVM
+                //   has been terminated, when using the 'jar' uri protocol.
+                url.openConnection().setDefaultUseCaches(false);
+            }
+            catch (final IOException exception)
+            {
+                // - ignore the exception
+            }
+            this.uris.add(url);
         }
         catch (final Throwable throwable)
         {
             throw new ConfigurationException(throwable);
-        }
-        try
-        {
-            // Get around the fact the URL won't be released until the JVM
-            // has been terminated, when using the 'jar' uri protocol.
-            this.uri.openConnection().setDefaultUseCaches(false);
-        }
-        catch (final IOException exception)
-        {
-            // ignore the exception
         }
     }
 
@@ -233,14 +250,24 @@ public class Model
     }
 
     /**
-     * Gets the time as a <code>long</code> when this model was last modified. If it can not be determined
-     * <code>0</code> is returned.
+     * Gets the time of the latest modified uri of the model as a <code>long</code>.
+     * If it can not be determined <code>0</code> is returned.
      *
      * @return the time this model was last modified
      */
     public long getLastModified()
     {
-        return ResourceUtils.getLastModifiedTime(this.uri);
+        long lastModifiedTime = 0;
+        for (final Iterator iterator = this.uris.iterator(); iterator.hasNext();)
+        {
+            final URL url = (URL)iterator.next();
+            final long modifiedTime = ResourceUtils.getLastModifiedTime(url);
+            if (modifiedTime > lastModifiedTime)
+            {
+                lastModifiedTime = modifiedTime;
+            }
+        }
+        return lastModifiedTime;
     }
 
     /**
@@ -249,9 +276,9 @@ public class Model
     public String toString()
     {
         String toString = super.toString();
-        if (this.uri != null)
+        if (this.getKey() != null)
         {
-            toString = this.uri.toString();
+            toString = this.getKey();
         }
         return toString;
     }
@@ -263,15 +290,35 @@ public class Model
     private static final Map modelModifiedTimes = new HashMap();
 
     /**
-     * Creates the key used to retrieve the nodel last modified
-     * time.
+     * The unique key that identifies this model.
+     */
+    private String key = null;
+
+    /**
+     * Creates the unique key that identifies this model
+     * (its made up of a list of all the uris for this model
+     * concatinated).
      *
      * @param uri the model uri.
      * @return the unique key
      */
-    private final Object getModifiedKey(final String uri)
+    public final String getKey()
     {
-        return new File(uri);
+        if (this.key == null)
+        {
+            final StringBuffer buffer = new StringBuffer();
+            for (final Iterator iterator = this.uris.iterator(); iterator.hasNext();)
+            {
+                final URL uri = (URL)iterator.next();
+                buffer.append(new File(uri.getFile()));
+                if (iterator.hasNext())
+                {
+                    buffer.append(", ");
+                }
+            }
+            this.key = buffer.toString();
+        }
+        return this.key;
     }
 
     /**
@@ -282,17 +329,17 @@ public class Model
      */
     public boolean isChanged()
     {
-        boolean changed = this.getUri() != null;
+        boolean changed = this.getUris().length > 0;
         if (changed)
         {
-            final Object modelKey = this.getModifiedKey(this.getUri().getFile());
+            final Object modelKey = this.getKey();
             Map lastModifiedTimes = (Map)modelModifiedTimes.get(modelKey);
 
             // - load up the last modified times (from the model and all its modules)
             //   if they haven't been loaded yet
             if (lastModifiedTimes != null)
             {
-                final long modelLastModified = ((Long)lastModifiedTimes.get(modelKey)).longValue();
+                final long modelLastModified = ((Long)lastModifiedTimes.get(modelKey)).longValue();;
                 changed = this.getLastModified() > modelLastModified;
                 if (!changed)
                 {
@@ -330,7 +377,7 @@ public class Model
      */
     private final void loadLastModifiedTimes()
     {
-        final Object modelKey = this.getModifiedKey(this.getUri().getFile());
+        final Object modelKey = this.getKey();
         Map lastModifiedTimes = (Map)modelModifiedTimes.get(modelKey);
         if (lastModifiedTimes == null)
         {
