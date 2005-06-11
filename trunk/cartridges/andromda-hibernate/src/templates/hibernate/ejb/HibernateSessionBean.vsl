@@ -11,9 +11,9 @@ package $service.packageName;
 import javax.ejb.EJBException;
 import javax.naming.NamingException;
 
-import ${hibernatePackage}.HibernateException;
-import ${hibernatePackage}.Session;
-import ${hibernatePackage}.SessionFactory;
+import ${hibernateUtils.hibernatePackage}.HibernateException;
+import ${hibernateUtils.hibernatePackage}.Session;
+import ${hibernateUtils.hibernatePackage}.SessionFactory;
 
 import ${customTypesPackage}.HibernateUtils;
 
@@ -61,9 +61,9 @@ $attribute.getDocumentation("     * ")
 ##
 #set ($parameterList = $operation.typedArgumentList)
 #if ($stringUtils.isBlank($parameterList))
-#set ($parameters = "${hibernatePackage}.Session session")
+#set ($parameters = "${hibernateUtils.hibernatePackage}.Session session")
 #else
-#set ($parameters = "${hibernatePackage}.Session session, ${parameterList}")
+#set ($parameters = "${hibernateUtils.hibernatePackage}.Session session, ${parameterList}")
 #end
 #if ($operation.exceptionsPresent)
     protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})} ($parameters)

@@ -5,7 +5,6 @@
 //
 #set ($className = "HibernateStringClobType")
 #set ($generatedFile = "$stringUtils.replace($userTypesPackage, '.', '/')/${className}.java")
-#set ($hibernatePackage=$hibernateUtils.getHibernatePackage($version))
 package $userTypesPackage;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import ${hibernatePackage}.type.ImmutableType;
+import ${hibernateUtils.hibernatePackage}.type.ImmutableType;
 
 import org.apache.commons.lang.ObjectUtils;
 
@@ -28,7 +27,7 @@ public class $className
     extends ImmutableType
 {
     /**
-     * @see ${hibernatePackage}.type.NullableType#get(java.sql.ResultSet,
+     * @see ${hibernateUtils.hibernatePackage}.type.NullableType#get(java.sql.ResultSet,
      *      java.lang.String)
      */
     public Object get(ResultSet rs, String name)
@@ -57,7 +56,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernatePackage}.type.Type#getReturnedClass()
+     * @see ${hibernateUtils.hibernatePackage}.type.Type#getReturnedClass()
      */
     public Class getReturnedClass()
     {
@@ -65,7 +64,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernatePackage}.type.NullableType\#set(java.sql.PreparedStatement,
+     * @see ${hibernateUtils.hibernatePackage}.type.NullableType\#set(java.sql.PreparedStatement,
      *      java.lang.Object, int)
      */
     public void set(PreparedStatement st, Object value, int index)
@@ -75,7 +74,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernatePackage}.type.NullableType#sqlType()
+     * @see ${hibernateUtils.hibernatePackage}.type.NullableType#sqlType()
      */
     public int sqlType()
     {
@@ -83,7 +82,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernatePackage}.type.Type#getName()
+     * @see ${hibernateUtils.hibernatePackage}.type.Type#getName()
      */
     public String getName()
     {
@@ -91,7 +90,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernatePackage}.type.Type#equals(java.lang.Object,
+     * @see ${hibernateUtils.hibernatePackage}.type.Type#equals(java.lang.Object,
      *      java.lang.Object)
      */
     public boolean equals(Object x, Object y)
@@ -100,7 +99,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernatePackage}.type.NullableType#fromString(java.lang.String)
+     * @see ${hibernateUtils.hibernatePackage}.type.NullableType#fromString(java.lang.String)
      */
     public Object fromStringValue(String xml)
     {
@@ -108,7 +107,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernatePackage}.type.NullableType#toString(java.lang.Object)
+     * @see ${hibernateUtils.hibernatePackage}.type.NullableType#toString(java.lang.Object)
      */
     public String toString(Object val)
     {

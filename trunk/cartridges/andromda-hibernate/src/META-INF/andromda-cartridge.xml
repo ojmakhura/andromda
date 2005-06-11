@@ -9,7 +9,9 @@
 
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
-    <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils"/>
+    <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils">
+        <property reference="version" default="2"/>
+    </templateObject>
     <!-- cartridge-templateObject merge-point-->
 
     <property reference="securityRealm" default=""/>
