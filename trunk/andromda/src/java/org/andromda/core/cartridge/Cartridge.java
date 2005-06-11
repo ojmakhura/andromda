@@ -246,14 +246,14 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processTemplateWithoutModelElements";
         ExceptionUtils.checkNull(methodName, "template", template);
-        Property outletProperty =
+        final Property outletProperty =
             Namespaces.instance().findNamespaceProperty(
                 this.getName(),
                 template.getOutlet(),
                 template.isRequired());
         if (outletProperty != null && !outletProperty.isIgnore())
         {
-            Map templateContext = new HashMap();
+            final Map templateContext = new HashMap();
             this.processWithTemplate(template, templateContext, outletProperty, null, null);
         }
     }
