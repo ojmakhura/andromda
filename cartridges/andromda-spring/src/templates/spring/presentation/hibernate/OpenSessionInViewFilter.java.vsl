@@ -16,12 +16,12 @@ public class $openSessionInViewFilterName
    /**
     * @see org.springframework.orm.hibernate.support.OpenSessionInViewFilter#lookupSessionFactory()
     */
-   protected net.sf.hibernate.SessionFactory lookupSessionFactory() 
+   protected ${hibernateUtils.basePackage}.SessionFactory lookupSessionFactory() 
    {
       final org.springframework.web.context.WebApplicationContext context = 
           org.springframework.web.context.support.WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
       final org.springframework.beans.factory.BeanFactory beanFactory = 
           (org.springframework.beans.factory.BeanFactory)context.getBean("$beanRefFactoryId");
-      return (net.sf.hibernate.SessionFactory)beanFactory.getBean(getSessionFactoryBeanName());
+      return (${hibernateUtils.basePackage}.SessionFactory)beanFactory.getBean(getSessionFactoryBeanName());
    }
 } 

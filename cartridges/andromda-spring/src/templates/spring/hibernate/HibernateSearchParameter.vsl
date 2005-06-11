@@ -66,7 +66,7 @@ public class ${criteriaSearchBaseName}Parameter
     private Object parameterValue;
     private String parameterPattern;
     private boolean searchIfIsNull = false;
-    private net.sf.hibernate.expression.MatchMode matchMode = null;
+    private ${hibernateUtils.criterionPackage}.MatchMode matchMode = null;
     private int comparatorID = ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR;
     private int orderDirection = ORDER_UNSET;
     private int orderRelevance = RELEVANCE_UNSET;
@@ -161,7 +161,7 @@ public class ${criteriaSearchBaseName}Parameter
         Object parameterValue,
         String parameterPattern,
         boolean searchIfNull,
-        net.sf.hibernate.expression.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
          this(parameterValue, parameterPattern, searchIfNull);
          this.matchMode = matchMode;
@@ -180,7 +180,7 @@ public class ${criteriaSearchBaseName}Parameter
         String parameterValue,
         String parameterPattern,
         boolean searchIfNull,
-        net.sf.hibernate.expression.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
         this(parameterValue, parameterPattern, searchIfNull);
         this.matchMode = matchMode;
@@ -201,7 +201,7 @@ public class ${criteriaSearchBaseName}Parameter
         String parameterPattern,
         boolean searchIfNull,
         int comparatorID,
-        net.sf.hibernate.expression.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
         this(parameterValue, parameterPattern, searchIfNull, comparatorID);
         this.matchMode = matchMode;
@@ -219,7 +219,7 @@ public class ${criteriaSearchBaseName}Parameter
         Object parameterValue,
         String parameterPattern,
         int comparatorID,
-        net.sf.hibernate.expression.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
         this(parameterValue, parameterPattern, comparatorID);
         this.matchMode = matchMode;
@@ -235,7 +235,7 @@ public class ${criteriaSearchBaseName}Parameter
     public ${criteriaSearchBaseName}Parameter(
         Object parameterValue,
         String parameterPattern,
-        net.sf.hibernate.expression.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
         this(parameterValue, parameterPattern);
         this.matchMode = matchMode;
@@ -338,7 +338,7 @@ public class ${criteriaSearchBaseName}Parameter
     /**
      * @return The hibernate matchmode of this parameter.
      */
-    public net.sf.hibernate.expression.MatchMode getMatchMode()
+    public ${hibernateUtils.criterionPackage}.MatchMode getMatchMode()
     {
         return matchMode;
     }
@@ -348,7 +348,7 @@ public class ${criteriaSearchBaseName}Parameter
      *
      * @param matchMode The hibernate matchmode.
      */
-    public void setMatchMode(net.sf.hibernate.expression.MatchMode matchMode)
+    public void setMatchMode(${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
         this.matchMode = matchMode;
     }

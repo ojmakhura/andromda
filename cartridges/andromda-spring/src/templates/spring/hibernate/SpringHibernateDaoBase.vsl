@@ -139,8 +139,8 @@ public abstract class $entity.daoBaseName
         this.getHibernateTemplate().execute(
             new org.springframework.orm.hibernate.HibernateCallback()
             {
-                public Object doInHibernate(net.sf.hibernate.Session session)
-                    throws net.sf.hibernate.HibernateException
+                public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
+                    throws ${hibernateUtils.basePackage}.HibernateException
                 {
                     for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
                     {
@@ -244,8 +244,8 @@ public abstract class $entity.daoBaseName
         this.getHibernateTemplate().execute(
             new org.springframework.orm.hibernate.HibernateCallback()
             {
-                public Object doInHibernate(net.sf.hibernate.Session session)
-                    throws net.sf.hibernate.HibernateException
+                public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
+                    throws ${hibernateUtils.basePackage}.HibernateException
                 {
                     for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
                     {
@@ -367,7 +367,7 @@ public abstract class $entity.daoBaseName
     {
         try
         {
-            net.sf.hibernate.Query queryObject = super.getSession(false).createQuery(queryString);
+            ${hibernateUtils.basePackage}.Query queryObject = super.getSession(false).createQuery(queryString);
 #foreach($argument in $finder.arguments)
 #set ($count = $velocityCount - 1)
 #set ($argumentValue = $argument.name)
@@ -415,7 +415,7 @@ public abstract class $entity.daoBaseName
             return $returnValue;
 #end
         }
-        catch (net.sf.hibernate.HibernateException ex)
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }
@@ -438,7 +438,7 @@ public abstract class $entity.daoBaseName
 #set($criteriaClass = $criteriaArgument.type)
 #foreach($criteriaAttribute in $criteriaClass.attributes)
 #if($criteriaAttribute.matchModePresent)
-#set($matchModeArgument = ", net.sf.hibernate.expression.MatchMode.${criteriaAttribute.matchModeConstant}")
+#set($matchModeArgument = ", ${hibernateUtils.criterionPackage}.MatchMode.${criteriaAttribute.matchModeConstant}")
 #else
 #set($matchModeArgument = "")
 #end
@@ -467,7 +467,7 @@ public abstract class $entity.daoBaseName
             transformEntities(transform, results);
             return results;
         }
-        catch (net.sf.hibernate.HibernateException ex)
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }

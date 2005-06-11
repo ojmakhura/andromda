@@ -4,16 +4,19 @@
         <macrolibrary name="templates/spring/RenderPreconditions.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
-
+   
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
+    <templateObject name="hibernateUtils" className="org.andromda.cartridges.spring.SpringHibernateUtils">
+        <property reference="hibernateVersion" default="2"/>
+    </templateObject>
     <!-- cartridge-templateObject merge-point-->
 
     <property reference="driver" default="">
         <documentation>
             <![CDATA[
-            JDBC Driver to make a database connection.            
+            JDBC Driver to make a database connection.
             ]]>
         </documentation>
     </property>
@@ -361,7 +364,7 @@
     <property reference="securityRealm" default="">
         <documentation>
             <![CDATA[
-            The name of the security realm (i.e. animal-quiz, other, etc).  
+            The name of the security realm (i.e. animal-quiz, other, etc).
             <strong>NOTE:</strong>This enables EJB security if specified.
             ]]>
         </documentation>
@@ -821,7 +824,7 @@
             <modelElement stereotype="CRITERIA"/>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/spring/presentation/hibernate/OpenSessionInViewFilter.java.vsl"
         outputPattern="$generatedFile"
@@ -834,7 +837,7 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
-    </template>    
+    </template>
 
     <!--
             C R U D
