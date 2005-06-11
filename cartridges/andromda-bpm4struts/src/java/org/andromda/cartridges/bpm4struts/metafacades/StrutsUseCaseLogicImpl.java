@@ -93,32 +93,6 @@ public class StrutsUseCaseLogicImpl
         return actionPathRoot;
     }
 
-    protected String handleGetFullFormBeanPath()
-    {
-        return '/' + getFormBeanPackageName().replace('.', '/') + '/' +
-                StringUtilsHelper.upperCamelCaseName(getName()) + Bpm4StrutsGlobals.FORM_SUFFIX;
-    }
-
-    protected String handleGetFormBeanName()
-    {
-        return StringUtilsHelper.uncapitalize(getFormBeanClassName());
-    }
-
-    protected String handleGetFormBeanClassName()
-    {
-        return StringUtilsHelper.upperCamelCaseName(getName()) + Bpm4StrutsGlobals.FORM_SUFFIX;
-    }
-
-    protected String handleGetFormBeanType()
-    {
-        return getFormBeanPackageName() + '.' + getFormBeanClassName();
-    }
-
-    protected String handleGetFormBeanPackageName()
-    {
-        return getPackageName();
-    }
-
     protected String handleGetActionRoles()
     {
         final Collection users = getUsers();
