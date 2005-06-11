@@ -92,7 +92,7 @@
     </bean>
 
     <!-- The Hibernate interceptor -->
-    <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate.HibernateInterceptor">
+    <bean id="hibernateInterceptor" class="${hibernateUtils.springHibernatePackage}.HibernateInterceptor">
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
     </bean>
 
