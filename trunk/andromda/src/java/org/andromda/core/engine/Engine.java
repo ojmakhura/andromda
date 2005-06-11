@@ -1,6 +1,5 @@
 package org.andromda.core.engine;
 
-import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.configuration.Configuration;
 
 
@@ -46,7 +45,6 @@ public class Engine
     public void initialize(final Configuration configuration)
     {
         this.modelProcessor.initialize(configuration);
-        AndroMDALogger.info("- core initialization complete -");
     }
 
     /**
