@@ -1,5 +1,10 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import java.text.MessageFormat;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.Entity;
@@ -9,20 +14,18 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 
-import java.text.MessageFormat;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 
 /**
- * <p/>
- * Provides support for the hibernate inheritance strategies of class (table per hierarchy), subclass (table per
- * subclass in hierarchy) and concrete (table per class). With concrete the strategy can be changed lower down. Also
- * provides for the root class being defined as an interface and the attributes remapped to the subclasses. This is
- * useful in the concrete case becuase it has limitations in the associations. </p>
- * <p/>
- * Also provides support for not generating the entity factory which is useful when using subclass mode. </p>
+ * <p/> Provides support for the hibernate inheritance strategies of class
+ * (table per hierarchy), subclass (table per subclass in hierarchy) and
+ * concrete (table per class). With concrete the strategy can be changed lower
+ * down. Also provides for the root class being defined as an interface and the
+ * attributes remapped to the subclasses. This is useful in the concrete case
+ * becuase it has limitations in the associations.
+ * </p>
+ * <p/> Also provides support for not generating the entity factory which is
+ * useful when using subclass mode.
+ * </p>
  *
  * @author Chad Brandon
  * @author Martin West
@@ -31,14 +34,13 @@ import java.util.Collection;
 public class HibernateEntityLogicImpl
     extends HibernateEntityLogic
 {
-    
     public HibernateEntityLogicImpl(
         java.lang.Object metaObject,
         String context)
     {
         super(metaObject, context);
     }
-    
+
     /**
      * Value for one table per root class
      */
@@ -83,15 +85,15 @@ public class HibernateEntityLogicImpl
     private static final String HIBERNATE_ENTITY_CACHE = "hibernateEntityCache";
 
     /**
-     * The namespace property storing the hibernate default-cascade value for an entity.
+     * The namespace property storing the hibernate default-cascade value for an
+     * entity.
      */
     private static final String HIBERNATE_DEFAULT_CASCADE = "hibernateDefaultCascade";
 
     /**
      * Namespace property storing the default hibernate generator class.
      */
-    private static final String DEFAULT_HIBERNATE_GENERATOR_CLASS =
-        "defaultHibernateGeneratorClass";
+    private static final String DEFAULT_HIBERNATE_GENERATOR_CLASS = "defaultHibernateGeneratorClass";
 
     /**
      * Represents a <em>foreign</em> Hibernate generator class.
@@ -125,7 +127,8 @@ public class HibernateEntityLogicImpl
     private static final String SUBCLASS_MAPPING_NAME = "subclass";
 
     /**
-     * Return all the business operations (ones that are inherited as well as directly on the entity).
+     * Return all the business operations (ones that are inherited as well as
+     * directly on the entity).
      *
      * @return all business operations
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getAllBusinessOperations()
@@ -179,7 +182,8 @@ public class HibernateEntityLogicImpl
     /**
      * Return the inheritance tagged value for for given <code>entity</code>.
      *
-     * @param the HibernateEntity from which to retrieve the inheritance tagged value.
+     * @param the HibernateEntity from which to retrieve the inheritance tagged
+     *        value.
      * @return String inheritance tagged value.
      */
     private String getInheritance(HibernateEntity entity)
@@ -188,8 +192,7 @@ public class HibernateEntityLogicImpl
 
         if (entity != null)
         {
-            Object value =
-                entity.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
+            Object value = entity.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_INHERITANCE);
 
             if (value != null)
             {
@@ -223,8 +226,7 @@ public class HibernateEntityLogicImpl
             {
                 AssociationEndFacade end = (AssociationEndFacade)object;
 
-                return end.isNavigable() ||
-                (end.getOtherEnd().isChild() && isForeignHibernateGeneratorClass());
+                return end.isNavigable() || (end.getOtherEnd().isChild() && isForeignHibernateGeneratorClass());
             }
         }
         CollectionUtils.filter(
@@ -248,8 +250,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsHibernateInheritanceInterface()
     {
-        return this.getHibernateInheritanceStrategy().equalsIgnoreCase(
-            INHERITANCE_STRATEGY_INTERFACE);
+        return this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_INTERFACE);
     }
 
     /**
@@ -257,8 +258,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsHibernateInheritanceSubclass()
     {
-        return this.getHibernateInheritanceStrategy().equalsIgnoreCase(
-            INHERITANCE_STRATEGY_SUBCLASS);
+        return this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_SUBCLASS);
     }
 
     /**
@@ -266,8 +266,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsHibernateInheritanceConcrete()
     {
-        return this.getHibernateInheritanceStrategy().equalsIgnoreCase(
-            INHERITANCE_STRATEGY_CONCRETE);
+        return this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_CONCRETE);
     }
 
     /**
@@ -275,8 +274,7 @@ public class HibernateEntityLogicImpl
      */
     protected String handleGetHibernateCacheType()
     {
-        String cacheType =
-            (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
+        String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
 
         if (cacheType == null)
         {
@@ -313,8 +311,7 @@ public class HibernateEntityLogicImpl
      */
     protected String handleGetHibernateDefaultCascade()
     {
-        return StringUtils.trimToEmpty(
-            String.valueOf(this.getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
+        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
     }
 
     /**
@@ -323,6 +320,7 @@ public class HibernateEntityLogicImpl
     protected String handleGetHibernateGeneratorClass()
     {
         String hibernateGeneratorClass;
+
         // if the entity is using a foreign identifier, then
         // we automatically set the identifier generator
         // class to be foreign
@@ -337,13 +335,11 @@ public class HibernateEntityLogicImpl
         else
         {
             hibernateGeneratorClass =
-                (String)this.findTaggedValue(
-                    HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
+                (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
 
             if (StringUtils.isBlank(hibernateGeneratorClass))
             {
-                hibernateGeneratorClass =
-                    (String)this.getConfiguredProperty(DEFAULT_HIBERNATE_GENERATOR_CLASS);
+                hibernateGeneratorClass = (String)this.getConfiguredProperty(DEFAULT_HIBERNATE_GENERATOR_CLASS);
             }
         }
         return StringUtils.trimToEmpty(hibernateGeneratorClass);
@@ -357,7 +353,7 @@ public class HibernateEntityLogicImpl
         // check to see if the entity is using a foreign identifier
         // OR if the actual hibernate generator class is set to foreign
         return this.isUsingForeignIdentifier() ||
-            this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_FOREIGN);
+        this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_FOREIGN);
     }
 
     /**
@@ -365,8 +361,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsSequenceHibernateGeneratorClass()
     {
-        return this.getHibernateGeneratorClass().equalsIgnoreCase(
-            HIBERNATE_GENERATOR_CLASS_SEQUENCE);
+        return this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_SEQUENCE);
     }
 
     /**
@@ -374,8 +369,7 @@ public class HibernateEntityLogicImpl
      */
     protected String handleGetEntityName()
     {
-        String entityNamePattern =
-            (String)this.getConfiguredProperty(HibernateGlobals.ENTITY_NAME_PATTERN);
+        String entityNamePattern = (String)this.getConfiguredProperty(HibernateGlobals.ENTITY_NAME_PATTERN);
 
         return MessageFormat.format(
             entityNamePattern,
@@ -388,8 +382,7 @@ public class HibernateEntityLogicImpl
     protected String handleGetEntityImplementationName()
     {
         String implNamePattern =
-            String.valueOf(
-                this.getConfiguredProperty(HibernateGlobals.ENTITY_IMPLEMENTATION_NAME_PATTERN));
+            String.valueOf(this.getConfiguredProperty(HibernateGlobals.ENTITY_IMPLEMENTATION_NAME_PATTERN));
 
         return MessageFormat.format(
             implNamePattern,
@@ -421,7 +414,8 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * Override so that we retrieve only the operations that are classifier scope (i.e. static).
+     * Override so that we retrieve only the operations that are classifier
+     * scope (i.e. static).
      *
      * @see org.andromda.metafacades.uml.Entity#getBusinessOperations()
      */
@@ -445,8 +439,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsHibernateProxy()
     {
-        String hibernateProxy =
-            (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROXY);
+        String hibernateProxy = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROXY);
 
         if (hibernateProxy == null)
         {
@@ -462,14 +455,11 @@ public class HibernateEntityLogicImpl
     protected int handleGetEhCacheMaxElementsInMemory()
     {
         String maxElements = null;
-        maxElements =
-            (String)this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
+        maxElements = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
 
         if (StringUtils.isBlank(maxElements))
         {
-            maxElements =
-                (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_MAX_ELEMENTS);
+            maxElements = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_MAX_ELEMENTS);
         }
 
         return Integer.parseInt(maxElements);
@@ -480,13 +470,11 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsEhCacheEternal()
     {
-        String eternal =
-            (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
+        String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
 
         if (eternal == null)
         {
-            eternal =
-                (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
+            eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
 
         return Boolean.valueOf(eternal).booleanValue();
@@ -498,14 +486,11 @@ public class HibernateEntityLogicImpl
     protected int handleGetEhCacheTimeToIdleSeconds()
     {
         String timeToIdle = null;
-        timeToIdle =
-            (String)this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
+        timeToIdle = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE);
 
         if (StringUtils.isBlank(timeToIdle))
         {
-            timeToIdle =
-                (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_IDLE);
+            timeToIdle = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_IDLE);
         }
 
         return Integer.parseInt(timeToIdle);
@@ -517,14 +502,11 @@ public class HibernateEntityLogicImpl
     protected int handleGetEhCacheTimeToLiveSeconds()
     {
         String timeToLive = null;
-        timeToLive =
-            (String)this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
+        timeToLive = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE);
 
         if (StringUtils.isBlank(timeToLive))
         {
-            timeToLive =
-                (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_LIVE);
+            timeToLive = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_TIME_TO_LIVE);
         }
 
         return Integer.parseInt(timeToLive);
@@ -535,15 +517,11 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsEhCacheOverflowToDisk()
     {
-        String eternal =
-            (String)this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
+        String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
 
         if (eternal == null)
         {
-            eternal =
-                (String)this.getConfiguredProperty(
-                    HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
+            eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
 
         return Boolean.valueOf(eternal).booleanValue();
@@ -582,8 +560,9 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * Gets the super entity for this entity (if one exists). If a generalization does not exist OR if it's not an
-     * instance of HibernateEntity then return null.
+     * Gets the super entity for this entity (if one exists). If a
+     * generalization does not exist OR if it's not an instance of
+     * HibernateEntity then return null.
      *
      * @return the super entity or null if one doesn't exist.
      */
@@ -591,9 +570,7 @@ public class HibernateEntityLogicImpl
     {
         HibernateEntity superEntity = null;
 
-        if (
-            (this.getGeneralization() != null) &&
-            this.getGeneralization() instanceof HibernateEntity)
+        if ((this.getGeneralization() != null) && this.getGeneralization() instanceof HibernateEntity)
         {
             superEntity = (HibernateEntity)this.getGeneralization();
         }
@@ -625,23 +602,26 @@ public class HibernateEntityLogicImpl
         final HibernateEntity superEntity = this.getSuperEntity();
 
         return this.isRoot() &&
-        (!this.isHibernateInheritanceInterface() ||
-        ((superEntity != null) && superEntity.isHibernateInheritanceInterface()));
+        (
+            !this.isHibernateInheritanceInterface() ||
+            ((superEntity != null) && superEntity.isHibernateInheritanceInterface())
+        );
     }
 
     /**
-     * Indicates if this entity is a <code>root</code> entity (meaning it doesn't specialize anything).
+     * Indicates if this entity is a <code>root</code> entity (meaning it
+     * doesn't specialize anything).
      */
     private boolean isRoot()
     {
         final HibernateEntity superEntity = this.getSuperEntity();
         boolean abstractConcreteEntity =
-            (this.isHibernateInheritanceConcrete() || this.isHibernateInheritanceInterface()) &&
-            this.isAbstract();
+            (this.isHibernateInheritanceConcrete() || this.isHibernateInheritanceInterface()) && this.isAbstract();
 
-        return ((this.getSuperEntity() == null) ||
-        (superEntity.isHibernateInheritanceInterface() ||
-        superEntity.isHibernateInheritanceConcrete())) && !abstractConcreteEntity;
+        return (
+            (this.getSuperEntity() == null) ||
+            (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())
+        ) && !abstractConcreteEntity;
     }
 
     /**
@@ -649,8 +629,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsRequiresSpecializationMapping()
     {
-        return this.isRoot() &&
-        (this.isHibernateInheritanceSubclass() || this.isHibernateInheritanceClass());
+        return this.isRoot() && (this.isHibernateInheritanceSubclass() || this.isHibernateInheritanceClass());
     }
 
     /**
@@ -659,14 +638,11 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsDynamicInsert()
     {
         String dynamicInsert =
-            (String)this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT);
+            (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT);
 
         if (dynamicInsert == null)
         {
-            dynamicInsert =
-                (String)this.getConfiguredProperty(
-                    HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
+            dynamicInsert = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
         }
 
         return Boolean.valueOf(dynamicInsert).booleanValue();
@@ -678,14 +654,11 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsDynamicUpdate()
     {
         String dynamicUpdate =
-            (String)this.findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE);
+            (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE);
 
         if (dynamicUpdate == null)
         {
-            dynamicUpdate =
-                (String)this.getConfiguredProperty(
-                    HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
+            dynamicUpdate = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
         }
 
         return Boolean.valueOf(dynamicUpdate).booleanValue();
@@ -696,8 +669,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsMappingRequiresSuperProperties()
     {
-        return this.isHibernateInheritanceInterface() ||
-        (this.isHibernateInheritanceConcrete() && this.isAbstract());
+        return this.isHibernateInheritanceInterface() || (this.isHibernateInheritanceConcrete() && this.isAbstract());
     }
 
     /**
@@ -705,8 +677,7 @@ public class HibernateEntityLogicImpl
      */
     protected String handleGetHibernateVersion()
     {
-        String version =
-            (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_VERSION);
+        String version = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_VERSION);
         if (version == null)
         {
             version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
@@ -717,9 +688,9 @@ public class HibernateEntityLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getVersion()
      */
-    protected int handleGetVersion() {
-        String version = 
-            (String)this.getConfiguredProperty(HibernateGlobals.VERSION);
+    protected int handleGetVersion()
+    {
+        String version = (String)this.getConfiguredProperty(HibernateGlobals.VERSION);
         return Integer.parseInt(version);
     }
 }

@@ -4,17 +4,20 @@ import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute.
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute
  */
 public class HibernateEntityAttributeLogicImpl
-        extends HibernateEntityAttributeLogic
+    extends HibernateEntityAttributeLogic
 {
     // ---------------- constructor -------------------------------
-
-    public HibernateEntityAttributeLogicImpl(Object metaObject, String context)
+    public HibernateEntityAttributeLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -27,55 +30,55 @@ public class HibernateEntityAttributeLogicImpl
     public boolean isRequired()
     {
         boolean required = super.isRequired();
-        if (this.getOwner() instanceof  HibernateEntity)
-        { 
-	        HibernateEntity entity = (HibernateEntity)this.getOwner();
-	        if (entity.isHibernateInheritanceClass() && entity.getGeneralization() != null)
-	        {
-	            required = false;
-	        }
+        if (this.getOwner() instanceof HibernateEntity)
+        {
+            HibernateEntity entity = (HibernateEntity)this.getOwner();
+            if (entity.isHibernateInheritanceClass() && entity.getGeneralization() != null)
+            {
+                required = false;
+            }
         }
         return required;
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleIsContainsEmbeddedObject()
      */
-    protected  boolean handleIsContainsEmbeddedObject() 
+    protected boolean handleIsContainsEmbeddedObject()
     {
-    	boolean returnValue = false; 
-        if (this.getType() instanceof HibernateEmbeddedValue) 
-        {        	
-        	returnValue = true;
-        }
-        return returnValue;    	
-    }
-    
-    /**
-     * Override to provide concatination of the embedded value
-     * name with the attribute column name.
-     * 
-     * @see org.andromda.metafacades.uml.EntityAttribute#getColumnName()
-     *
-    public String getColumnName()
-    {
-        String columnName = super.getColumnName();
-    }*/
-
-    /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleConcatColumnName(java.lang.String, java.lang.String)
-     */
-    protected  String handleConcatColumnName(java.lang.String prefix, java.lang.String name) 
-    {
-    	String returnValue = name;
-        if (StringUtils.isNotBlank(prefix)) 
+        boolean returnValue = false;
+        if (this.getType() instanceof HibernateEmbeddedValue)
         {
-        	returnValue = prefix + this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR) + name;
-            // handle maxSqlNameLength
-            Short maxSqlNameLength = Short.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
-            returnValue = EntityMetafacadeUtils.ensureMaximumNameLength(returnValue, maxSqlNameLength);
-        } 
-        return returnValue;        
+            returnValue = true;
+        }
+        return returnValue;
     }
 
+    /**
+     * Override to provide concatination of the embedded value name with the
+     * attribute column name.
+     *
+     * @see org.andromda.metafacades.uml.EntityAttribute#getColumnName() public
+     *      String getColumnName() { String columnName = super.getColumnName(); }
+     */
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleConcatColumnName(java.lang.String,
+     *      java.lang.String)
+     */
+    protected String handleConcatColumnName(
+        java.lang.String prefix,
+        java.lang.String name)
+    {
+        String returnValue = name;
+        if (StringUtils.isNotBlank(prefix))
+        {
+            returnValue = prefix + this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR) + name;
+
+            // handle maxSqlNameLength
+            Short maxSqlNameLength =
+                Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
+            returnValue = EntityMetafacadeUtils.ensureMaximumNameLength(returnValue, maxSqlNameLength);
+        }
+        return returnValue;
+    }
 }

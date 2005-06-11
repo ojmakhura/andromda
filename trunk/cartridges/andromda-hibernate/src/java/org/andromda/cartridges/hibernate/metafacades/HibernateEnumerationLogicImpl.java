@@ -2,17 +2,20 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import org.apache.commons.lang.StringUtils;
 
+
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration.
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration
  */
 public class HibernateEnumerationLogicImpl
-        extends HibernateEnumerationLogic
+    extends HibernateEnumerationLogic
 {
     // ---------------- constructor -------------------------------
-
-    public HibernateEnumerationLogicImpl(Object metaObject, String context)
+    public HibernateEnumerationLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -45,7 +48,9 @@ public class HibernateEnumerationLogicImpl
      */
     protected String handleGetEnumerationName()
     {
-        return StringUtils.trimToEmpty(this.getEnumerationNamePattern()).replaceAll("\\{0\\}", super.getName());
+        return StringUtils.trimToEmpty(this.getEnumerationNamePattern()).replaceAll(
+            "\\{0\\}",
+            super.getName());
     }
 
     /**
@@ -53,6 +58,9 @@ public class HibernateEnumerationLogicImpl
      */
     protected String handleGetFullyQualifiedHibernateEnumerationType()
     {
-        return HibernateMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getEnumerationName(), null);
+        return HibernateMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getEnumerationName(),
+            null);
     }
 }

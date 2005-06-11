@@ -3,6 +3,7 @@ package org.andromda.cartridges.hibernate;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.andromda.cartridges.hibernate.metafacades.HibernateGlobals;
 import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
@@ -55,11 +56,6 @@ public class HibernateUtils
     }
 
     /**
-     * The version for Hibernate 2.
-     */
-    private static final String VERSION_2 = "2";
-
-    /**
      * Retrieves the appropriate Hibernate package for the given version.
      *
      * @return the Hibernate package name.
@@ -67,7 +63,7 @@ public class HibernateUtils
     public String getHibernatePackage()
     {
         String packageName = "org.hibernate";
-        if (VERSION_2.equals(this.version))
+        if (!HibernateGlobals.HIBERNATE_VERSION_3.equals(this.version))
         {
             packageName = "net.sf.hibernate";
         }
@@ -83,7 +79,7 @@ public class HibernateUtils
     public String getHibernateUserTypePackage()
     {
         StringBuffer packageName = new StringBuffer();
-        if (!VERSION_2.equals(version))
+        if (HibernateGlobals.HIBERNATE_VERSION_3.equals(this.version))
         {
             packageName.append(".usertype");
         }
