@@ -139,7 +139,7 @@ public class ModelProcessor
         {
             this.processModels(models);
             AndroMDALogger.info(
-                "completed model processing --> TIME: " + ((System.currentTimeMillis() - startTime) / 1000.0) +
+                "completed model processing --> TIME: " + this.getDurationInSeconds(startTime) +
                 "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
         }
         else
@@ -237,6 +237,8 @@ public class ModelProcessor
      */
     public void initialize(final Configuration configuration)
     {
+        final long startTime = System.currentTimeMillis();
+
         // - first, print the AndroMDA header
         this.printConsoleHeader();
 
@@ -264,6 +266,7 @@ public class ModelProcessor
 
         // - finally the metafacade factory
         this.factory.initialize();
+        this.printWorkCompleteMessage("core initialization", startTime);
     }
 
     /**
@@ -277,6 +280,8 @@ public class ModelProcessor
         // - only load if the model has been changed from last time it was loaded
         if (model.isChanged())
         {
+            final long startTime = System.currentTimeMillis();
+
             // - first perform any transformations
             final Transformer transformer =
                 (Transformer)ComponentContainer.instance().findRequiredComponent(Transformer.class);
@@ -300,8 +305,6 @@ public class ModelProcessor
                 streams,
                 uris,
                 model.getModuleSearchLocationPaths());
-
-            AndroMDALogger.info("- loading complete -");
             try
             {
                 for (int ctr = 0; ctr < uriNumber; ctr++)
@@ -315,6 +318,7 @@ public class ModelProcessor
             {
                 // ignore
             }
+            this.printWorkCompleteMessage("loading", startTime);
 
             // - validate the model since loading has successfully occurred
             this.validateModel();
@@ -331,6 +335,7 @@ public class ModelProcessor
     {
         if (this.modelValidation)
         {
+            final long startTime = System.currentTimeMillis();
             AndroMDALogger.info("- validating model -");
             final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
             final ModelAccessFacade modelAccessFacade = this.repository.getModel();
@@ -349,8 +354,34 @@ public class ModelProcessor
                 }
             }
             this.printValidationMessages(this.factory.getValidationMessages());
-            AndroMDALogger.info("- validation complete -");
+            this.printWorkCompleteMessage("validation", startTime);
+
+            //AndroMDALogger.info("- validation complete -");
         }
+    }
+
+    /**
+     * Prints a work complete message using the type of <code>unitOfWork</code> and
+     * <code>startTime</code> as input.
+     * @param unitOfWork the type of unit of work that was completed
+     * @param startTime the time the unit of work was started.
+     */
+    private final void printWorkCompleteMessage(
+        final String unitOfWork,
+        final long startTime)
+    {
+        AndroMDALogger.info("- " + unitOfWork + " complete - " + this.getDurationInSeconds(startTime) + "[s]");
+    }
+
+    /**
+     * Calcuates the duration in seconds between the
+     * given <code>startTime</code> and the current time.
+     * @param startTime the time to compare against.
+     * @return the duration of time in seconds.
+     */
+    private final double getDurationInSeconds(final long startTime)
+    {
+        return ((System.currentTimeMillis() - startTime) / 1000.0);
     }
 
     /**
