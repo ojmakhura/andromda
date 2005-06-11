@@ -20,13 +20,13 @@ package $springTypesPackage;
  *
  * @author Stefan Reichert
  * @author Peter Friese
- * @see net.sf.hibernate.Criteria
- * @see net.sf.hibernate.expression.Expression
+ * @see ${hibernateUtils.basePackage}.Criteria
+ * @see ${hibernateUtils.criterionPackage}.Expression
  */
-public class ${criteriaSearchBaseName}
+public class $criteriaSearchBaseName
 {
     private ${criteriaSearchBaseName}Configuration configuration;
-    private net.sf.hibernate.Criteria rootCriteria;
+    private ${hibernateUtils.basePackage}.Criteria rootCriteria;
     private java.util.Map childCriteriaMap;
     private java.util.List orderList;
 
@@ -53,7 +53,7 @@ public class ${criteriaSearchBaseName}
      * @param session The Hibernate session.
      * @param resultType The <code>Class</code> of the result.
      */
-    public ${criteriaSearchBaseName}(net.sf.hibernate.Session session, Class resultType)
+    public ${criteriaSearchBaseName}(${hibernateUtils.basePackage}.Session session, Class resultType)
     {
         super();
         configuration = new ${criteriaSearchBaseName}Configuration();
@@ -67,9 +67,9 @@ public class ${criteriaSearchBaseName}
      * <code>${criteriaSearchBaseName}Parameter</code>s.
      *
      * @return result The result of the query.
-     * @throws net.sf.hibernate.HibernateException
+     * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    public java.util.Collection execute() throws net.sf.hibernate.HibernateException
+    public java.util.Collection execute() throws ${hibernateUtils.basePackage}.HibernateException
     {
         // add ordering
         if (orderList.size() > 0)
@@ -81,11 +81,11 @@ public class ${criteriaSearchBaseName}
                 int direction = parameter.getOrderDirection();
                 if (direction == ${criteriaSearchBaseName}Parameter.ORDER_ASC)
                 {
-                    rootCriteria.addOrder(net.sf.hibernate.expression.Order.asc(parameter.getParameterName()));
+                    rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.asc(parameter.getParameterName()));
                 }
                 else
                 {
-                    rootCriteria.addOrder(net.sf.hibernate.expression.Order.desc(parameter.getParameterName()));
+                    rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.desc(parameter.getParameterName()));
                 }
             }
         }
@@ -109,9 +109,9 @@ public class ${criteriaSearchBaseName}
      *
      * @param parameterValue The value of the parameter.
      * @param parameterPattern The pattern of the parameter (dot-seperated path e.g. person.address.street).
-     * @throws net.sf.hibernate.HibernateException
+     * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    public void addParameter(Object parameterValue, String parameterPattern) throws net.sf.hibernate.HibernateException
+    public void addParameter(Object parameterValue, String parameterPattern) throws ${hibernateUtils.basePackage}.HibernateException
     {
         addParameter(new ${criteriaSearchBaseName}Parameter(parameterValue, parameterPattern));
     }
@@ -124,9 +124,9 @@ public class ${criteriaSearchBaseName}
      *
      * @param parameterValue The value of the parameter.
      * @param parameterPattern The pattern of the parameter (dot-seperated path e.g. person.address.street).
-     * @throws net.sf.hibernate.HibernateException
+     * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    public void addParameter(String parameterValue, String parameterPattern) throws net.sf.hibernate.HibernateException
+    public void addParameter(String parameterValue, String parameterPattern) throws ${hibernateUtils.basePackage}.HibernateException
     {
         addParameter(new ${criteriaSearchBaseName}Parameter(parameterValue, parameterPattern));
     }
@@ -136,23 +136,23 @@ public class ${criteriaSearchBaseName}
      * the search by logical <b>and</b>.
      *
      * @param parameter The <code>${criteriaSearchBaseName}Parameter</code> to add.
-     * @throws net.sf.hibernate.HibernateException
+     * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    public void addParameter(${criteriaSearchBaseName}Parameter parameter) throws net.sf.hibernate.HibernateException
+    public void addParameter(${criteriaSearchBaseName}Parameter parameter) throws ${hibernateUtils.basePackage}.HibernateException
     {
         if (considerParameter(parameter))
         {
             // parsing the pattern of the parameter
             String[] path = ${criteriaSearchBaseName}Parameter.PATTERN.split(parameter.getParameterPattern());
             String parameterName = path[path.length - 1];
-            net.sf.hibernate.Criteria parameterCriteria = rootCriteria;
+            ${hibernateUtils.basePackage}.Criteria parameterCriteria = rootCriteria;
 
             if (path.length > 1)
             {
                 // We have a parameter affecting an attribute of an inner childEntity object so we need
                 // to traverse to get the right criteria object
                 String childEntityName;
-                net.sf.hibernate.Criteria childEntityCriteria = rootCriteria;
+                ${hibernateUtils.basePackage}.Criteria childEntityCriteria = rootCriteria;
                 // Evaluating the proper criteria object for the defined parameter
                 for (int index = 0; index < (path.length - 1); index++)
                 {
@@ -207,11 +207,11 @@ public class ${criteriaSearchBaseName}
      * @param matchMode
      */
     private void addExpression(
-        net.sf.hibernate.Criteria criteria,
+        ${hibernateUtils.basePackage}.Criteria criteria,
         String parameterName,
         Object parameterValue,
         int comparatorID,
-        net.sf.hibernate.expression.MatchMode matchMode)
+        ${hibernateUtils.criterionPackage}.MatchMode matchMode)
     {
         if (parameterValue != null)
         {
@@ -221,14 +221,14 @@ public class ${criteriaSearchBaseName}
                 {
                     if ((matchMode != null) && (parameterValue instanceof String))
                     {
-                        criteria.add(net.sf.hibernate.expression.Expression.like(
+                        criteria.add(${hibernateUtils.criterionPackage}.Expression.like(
                             parameterName,
                             (String)parameterValue,
                             matchMode));
                     }
                     else
                     {
-                        criteria.add(net.sf.hibernate.expression.Expression.like(parameterName, parameterValue));
+                        criteria.add(${hibernateUtils.criterionPackage}.Expression.like(parameterName, parameterValue));
                     }                        
                     break;
                 }
@@ -236,53 +236,53 @@ public class ${criteriaSearchBaseName}
                 {
                     if ((matchMode != null) && (parameterValue instanceof String))
                     {
-                        criteria.add(net.sf.hibernate.expression.Expression.ilike(
+                        criteria.add(${hibernateUtils.criterionPackage}.Expression.ilike(
                             parameterName,
                             (String)parameterValue,
                             matchMode));
                     }
                     else
                     {
-                        criteria.add(net.sf.hibernate.expression.Expression.ilike(parameterName, parameterValue));
+                        criteria.add(${hibernateUtils.criterionPackage}.Expression.ilike(parameterName, parameterValue));
                     }                        
                     break;
                 }
                 case ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR:
                 {
-                    criteria.add(net.sf.hibernate.expression.Expression.eq(parameterName, parameterValue));
+                    criteria.add(${hibernateUtils.criterionPackage}.Expression.eq(parameterName, parameterValue));
                     break;
                 }
                 case ${criteriaSearchBaseName}Parameter.GREATER_THAN_OR_EQUAL_COMPARATOR:
                 {
-                    criteria.add(net.sf.hibernate.expression.Expression.ge(parameterName, parameterValue));
+                    criteria.add(${hibernateUtils.criterionPackage}.Expression.ge(parameterName, parameterValue));
                     break;
                 }
                 case ${criteriaSearchBaseName}Parameter.GREATER_THAN_COMPARATOR:
                 {
-                    criteria.add(net.sf.hibernate.expression.Expression.gt(parameterName, parameterValue));
+                    criteria.add(${hibernateUtils.criterionPackage}.Expression.gt(parameterName, parameterValue));
                     break;
                 }
                 case ${criteriaSearchBaseName}Parameter.LESS_THAN_OR_EQUAL_COMPARATOR:
                 {
-                    criteria.add(net.sf.hibernate.expression.Expression.le(parameterName, parameterValue));
+                    criteria.add(${hibernateUtils.criterionPackage}.Expression.le(parameterName, parameterValue));
                     break;
                 }
                 case ${criteriaSearchBaseName}Parameter.LESS_THAN_COMPARATOR:
                 {
-                    criteria.add(net.sf.hibernate.expression.Expression.lt(parameterName, parameterValue));
+                    criteria.add(${hibernateUtils.criterionPackage}.Expression.lt(parameterName, parameterValue));
                     break;
                 }
             }
         }
         else if (parameterValue instanceof String)
         {
-            criteria.add(net.sf.hibernate.expression.Expression.or(
-                net.sf.hibernate.expression.Expression.isNull(parameterName),
-                net.sf.hibernate.expression.Expression.like(parameterName, new String())));
+            criteria.add(${hibernateUtils.criterionPackage}.Expression.or(
+                ${hibernateUtils.criterionPackage}.Expression.isNull(parameterName),
+                ${hibernateUtils.criterionPackage}.Expression.like(parameterName, new String())));
         }
         else
         {
-            criteria.add(net.sf.hibernate.expression.Expression.isNull(parameterName));
+            criteria.add(${hibernateUtils.criterionPackage}.Expression.isNull(parameterName));
         }
 
     }
@@ -296,18 +296,18 @@ public class ${criteriaSearchBaseName}
      * @param childEntityName
      * @param parentCriteria
      * @return criteria The Criteria for the childEntityName.
-     * @throws net.sf.hibernate.HibernateException
+     * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    private net.sf.hibernate.Criteria locateCriteria(String childEntityName, net.sf.hibernate.Criteria parentCriteria) throws net.sf.hibernate.HibernateException
+    private ${hibernateUtils.basePackage}.Criteria locateCriteria(String childEntityName, ${hibernateUtils.basePackage}.Criteria parentCriteria) throws ${hibernateUtils.basePackage}.HibernateException
     {
         if (childCriteriaMap.containsKey(childEntityName))
         {
-            return (net.sf.hibernate.Criteria) childCriteriaMap.get(childEntityName);
+            return (${hibernateUtils.basePackage}.Criteria) childCriteriaMap.get(childEntityName);
         }
-        net.sf.hibernate.Criteria childCriteria = parentCriteria.createCriteria(childEntityName);
+        ${hibernateUtils.basePackage}.Criteria childCriteria = parentCriteria.createCriteria(childEntityName);
         if (configuration.isForceEagerLoading())
         {
-            parentCriteria.setFetchMode(childEntityName, net.sf.hibernate.FetchMode.EAGER);
+            parentCriteria.setFetchMode(childEntityName, ${hibernateUtils.basePackage}.FetchMode.EAGER);
         }
         childCriteriaMap.put(childEntityName, childCriteria);
         return childCriteria;

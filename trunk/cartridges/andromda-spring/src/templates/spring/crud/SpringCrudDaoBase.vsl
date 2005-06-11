@@ -10,11 +10,11 @@
 package $manageable.manageablePackageName;
 
 #if ($manageable.read || $manageable.delete)
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Criteria;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.expression.MatchMode;
-import net.sf.hibernate.expression.Expression;
+import ${hibernateUtils.basePackage}.Session;
+import ${hibernateUtils.basePackage}.Criteria;
+import ${hibernateUtils.basePackage}.HibernateException;
+import ${hibernateUtils.critierionPackage}.MatchMode;
+import ${hibernateUtils.critierionPackage}.Expression;
 
 #end
 public final class $manageable.manageableDaoBaseName
@@ -135,7 +135,7 @@ public final class $manageable.manageableDaoBaseName
 #end
             return criteria.list();
         }
-        catch (net.sf.hibernate.HibernateException ex)
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }
@@ -175,7 +175,7 @@ public final class $manageable.manageableDaoBaseName
         {
             $member.type.fullyQualifiedName value = $member.type.javaNullString;
 
-            final net.sf.hibernate.Query queryObject = super.getSession(false).createQuery("select entity.${member.name} from $manageable.fullyQualifiedEntityName as entity where entity.${identifier.name} = :$identifier.name");
+            final ${hibernateUtils.basePackage}.Query queryObject = super.getSession(false).createQuery("select entity.${member.name} from $manageable.fullyQualifiedEntityName as entity where entity.${identifier.name} = :$identifier.name");
 #if ($identifier.type.primitive)
             queryObject.setParameter("$identifier.name", new ${identifier.type.wrapperName}($identifier.name));
 #else
@@ -189,7 +189,7 @@ public final class $manageable.manageableDaoBaseName
 
             return value;
         }
-        catch (net.sf.hibernate.HibernateException ex)
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }
