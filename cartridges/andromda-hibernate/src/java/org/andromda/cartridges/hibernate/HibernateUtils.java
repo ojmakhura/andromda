@@ -1,11 +1,12 @@
 package org.andromda.cartridges.hibernate;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 
-import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * Contains utilities used within the Hibernate cartridge.
@@ -23,27 +24,72 @@ public class HibernateUtils
     public Collection getAllRoles(Collection services)
     {
         final Collection allRoles = new HashSet();
-        CollectionUtils.forAllDo(services, new Closure()
-        {
-            public void execute(Object object)
+        CollectionUtils.forAllDo(
+            services,
+            new Closure()
             {
-                if (object != null && Service.class.isAssignableFrom(object.getClass()))
+                public void execute(Object object)
                 {
-                    allRoles.addAll(((Service)object).getAllRoles());
+                    if (object != null && Service.class.isAssignableFrom(object.getClass()))
+                    {
+                        allRoles.addAll(((Service)object).getAllRoles());
+                    }
                 }
-            }
-        });
+            });
         return allRoles;
     }
 
-    public String getHibernatePackage(String version){
-        if (version.equals("3"))
+    /**
+     * Stores the version of Hibernate we're generating for.
+     */
+    private String version;
+
+    /**
+     * Sets the version of Hibernate we're generating for.
+     *
+     * @param version The version to set.
+     */
+    public void setVersion(final String version)
+    {
+        this.version = version;
+    }
+
+    /**
+     * The version for Hibernate 2.
+     */
+    private static final String VERSION_2 = "2";
+
+    /**
+     * Retrieves the appropriate Hibernate package for the given version.
+     *
+     * @return the Hibernate package name.
+     */
+    public String getHibernatePackage()
+    {
+        String packageName = "org.hibernate";
+        if (VERSION_2.equals(this.version))
         {
-            return "org.hibernate";
+            packageName = "net.sf.hibernate";
         }
-        else
+        return packageName;
+    }
+
+    /**
+     * Retrieves the appropriate package for Hibernate user types given
+     * the version defined within this class.
+     *
+     * @return the hibernate user type package.
+     */
+    public String getHibernateUserTypePackage()
+    {
+        StringBuffer packageName = new StringBuffer();
+        if (!VERSION_2.equals(version))
         {
-            return "net.sf.hibernate";
+            packageName.append(".usertype");
         }
+        packageName.insert(
+            0,
+            this.getHibernatePackage());
+        return packageName.toString();
     }
 }
