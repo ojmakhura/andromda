@@ -16,6 +16,11 @@
                 they would be immediately present in the HTTP request. More is documented
                 <a href="andromda-bpm4struts-cartridge/howto2.html#Sending_parameters_across_use-cases">here</a>.
             </action>
+            <action dev="cwbrandon" type="add">
+                Major performance improvements have been added to the AndroMDA core, as well as a new feature called 
+                the <a href="configuration/server-howto.html">AndroMDA Server</a> which dramatically enhances the 
+                performance of AndroMDA.
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-67">
                 AndroMDA is now configured through a single XML configuration file.  This means both the Ant task and Maven
                 plugin just point to this file.  Please see the <a href="configuration.html">configuration</a> documentation 
