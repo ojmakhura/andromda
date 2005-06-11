@@ -7,7 +7,6 @@
 #set ($controllerPackageName = $controller.packageName)
 #set ($controllerClassName = $controller.name)
 #set ($useCase = $controller.useCase)
-#set ($formBeanClassName = $useCase.formBeanClassName)
 ##
 ##  START TEMPLATE
 ##
