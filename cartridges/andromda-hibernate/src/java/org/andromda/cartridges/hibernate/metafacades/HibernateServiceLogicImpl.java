@@ -2,17 +2,20 @@ package org.andromda.cartridges.hibernate.metafacades;
 
 import org.apache.commons.lang.StringUtils;
 
+
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateService.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateService.
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateService
  */
 public class HibernateServiceLogicImpl
-        extends HibernateServiceLogic
+    extends HibernateServiceLogic
 {
     // ---------------- constructor -------------------------------
-
-    public HibernateServiceLogicImpl(Object metaObject, String context)
+    public HibernateServiceLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -73,5 +76,4 @@ public class HibernateServiceLogicImpl
     {
         return this.getEjbViewType().equalsIgnoreCase(VIEW_TYPE_REMOTE);
     }
-
 }

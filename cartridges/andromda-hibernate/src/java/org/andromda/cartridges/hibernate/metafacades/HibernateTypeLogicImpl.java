@@ -4,17 +4,20 @@ import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateType.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateType.
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateType
  */
 public class HibernateTypeLogicImpl
-        extends HibernateTypeLogic
+    extends HibernateTypeLogic
 {
     // ---------------- constructor -------------------------------
-
-    public HibernateTypeLogicImpl(Object metaObject, String context)
+    public HibernateTypeLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -64,6 +67,7 @@ public class HibernateTypeLogicImpl
                     {
                         String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                         logger.error(errMsg);
+
                         // don't throw the exception
                         ExceptionRecorder.instance().record(errMsg, th);
                     }
@@ -76,5 +80,4 @@ public class HibernateTypeLogicImpl
         }
         return mappings;
     }
-
 }

@@ -3,17 +3,20 @@ package org.andromda.cartridges.hibernate.metafacades;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.hibernate.metafacades.HibernateAssociation.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.hibernate.metafacades.HibernateAssociation.
  *
  * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation
  */
 public class HibernateAssociationLogicImpl
-        extends HibernateAssociationLogic
+    extends HibernateAssociationLogic
 {
     // ---------------- constructor -------------------------------
-
-    public HibernateAssociationLogicImpl(Object metaObject, String context)
+    public HibernateAssociationLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
