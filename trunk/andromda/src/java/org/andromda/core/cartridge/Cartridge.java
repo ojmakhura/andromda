@@ -101,8 +101,8 @@ public class Cartridge
                 final ModelElement templateModelElement = (ModelElement)iterator.next();
 
                 // if the template model element has a stereotype
-                // defined, then we filter the model elements based
-                // on that stereotype, otherwise we get all model elements
+                // defined, then we filter the metafacades based
+                // on that stereotype, otherwise we get all metafacades
                 // and let the templateModelElement perform filtering on the
                 // metafacades by type and properties
                 if (templateModelElement.hasStereotype())
