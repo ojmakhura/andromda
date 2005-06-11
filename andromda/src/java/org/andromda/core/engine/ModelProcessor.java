@@ -370,7 +370,7 @@ public class ModelProcessor
         final String unitOfWork,
         final long startTime)
     {
-        AndroMDALogger.info("- " + unitOfWork + " complete - " + this.getDurationInSeconds(startTime) + "[s]");
+        AndroMDALogger.info("- " + unitOfWork + " complete: " + this.getDurationInSeconds(startTime) + "[s] -");
     }
 
     /**
