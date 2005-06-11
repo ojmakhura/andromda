@@ -115,12 +115,12 @@ public class Cartridge
                     templateModelElement.setMetafacades(factory.getAllMetafacades());
                 }
             }
-            this.processTemplateWithModelElements(factory, template);
+            this.processTemplateWithMetafacades(factory, template);
         }
         else
         {
-            // handle any templates WITHOUT model elements.
-            this.processTemplateWithoutModelElements(template);
+            // handle any templates WITHOUT metafacades.
+            this.processTemplateWithoutMetafacades(template);
         }
     }
 
@@ -130,11 +130,11 @@ public class Cartridge
      * @param factory the metafacade factory
      * @param context  the context for the cartridge
      */
-    protected void processTemplateWithModelElements(
+    protected void processTemplateWithMetafacades(
         final MetafacadeFactory factory,
         final Template template)
     {
-        final String methodName = "Cartridge.processTemplateWithModelElements";
+        final String methodName = "Cartridge.processTemplateWithMetafacades";
         ExceptionUtils.checkNull(methodName, "template", template);
         final ModelElements modelElements = template.getSupportedModeElements();
         if (modelElements != null && !modelElements.isEmpty())
@@ -211,9 +211,7 @@ public class Cartridge
                         for (final Iterator iterator = allMetafacades.iterator(); iterator.hasNext();)
                         {
                             final Map templateContext = new HashMap();
-
                             final Object metafacade = iterator.next();
-
                             templateContext.put(
                                 modelElements.getVariable(),
                                 metafacade);
@@ -236,15 +234,15 @@ public class Cartridge
     }
 
     /**
-     * Processes the <code>template</code> without model elements. This is useful if you need to generate something that
-     * is part of your cartridge, however you only need to use a proprety passed in from a namespace or a template
+     * Processes the <code>template</code> without metafacades. This is useful if you need to generate something that
+     * is part of your cartridge, however you only need to use a property passed in from a namespace or a template
      * object defined in your cartridge descriptor.
      *
      * @param template the template to process.
      */
-    protected void processTemplateWithoutModelElements(final Template template)
+    protected void processTemplateWithoutMetafacades(final Template template)
     {
-        final String methodName = "Cartridge.processTemplateWithoutModelElements";
+        final String methodName = "Cartridge.processTemplateWithoutMetafacades";
         ExceptionUtils.checkNull(methodName, "template", template);
         final Property outletProperty =
             Namespaces.instance().findNamespaceProperty(
@@ -287,7 +285,7 @@ public class Cartridge
         ExceptionUtils.checkNull(methodName, "templateContext", templateContext);
         ExceptionUtils.checkNull(methodName, "outletProperty", outletProperty);
 
-        File outFile = null;
+        File outputFile = null;
         try
         {
             // populate the template context will cartridge descriptor
@@ -304,24 +302,24 @@ public class Cartridge
 
             if (template.getOutputPattern().startsWith(TEMPLATE_ENGINE_OUTPUT_PREFIX))
             {
-                outFile = this.outputFileFromTemplateEngineContext(
+                outputFile = this.outputFileFromTemplateEngineContext(
                         template,
                         outletProperty.getValue());
             }
             else
             {
-                outFile =
+                outputFile =
                     this.outputFileFromTemplate(
                         modelElementName,
                         modelElementPackage,
                         template,
                         outletProperty.getValue());
             }
-            if (outFile != null)
+            if (outputFile != null)
             {
                 // only write files that do NOT exist, and
                 // those that have overwrite set to 'true'
-                if (!outFile.exists() || template.isOverwrite())
+                if (!outputFile.exists() || template.isOverwrite())
                 {
                     final String outputString = output.toString();
                     AndroMDALogger.setSuffix(this.getName());
@@ -332,15 +330,15 @@ public class Cartridge
                     {
                         ResourceWriter.instance().writeStringToFile(
                             outputString,
-                            outFile,
+                            outputFile,
                             this.getName());
-                        AndroMDALogger.info("Output: '" + outFile.toURI() + "'");
+                        AndroMDALogger.info("Output: '" + outputFile.toURI() + "'");
                     }
                     else
                     {
                         if (this.getLogger().isDebugEnabled())
                         {
-                            this.getLogger().debug("Empty Output: '" + outFile.toURI() + "' --> not writing");
+                            this.getLogger().debug("Empty Output: '" + outputFile.toURI() + "' --> not writing");
                         }
                     }
                     AndroMDALogger.reset();
@@ -349,10 +347,10 @@ public class Cartridge
         }
         catch (final Throwable throwable)
         {
-            if (outFile != null)
+            if (outputFile != null)
             {
-                outFile.delete();
-                this.getLogger().info("Removed: '" + outFile + "'");
+                outputFile.delete();
+                this.getLogger().info("Removed: '" + outputFile + "'");
             }
             final String message =
                 "Error performing " + methodName + " with template '" + template.getPath() + "', template context '" +

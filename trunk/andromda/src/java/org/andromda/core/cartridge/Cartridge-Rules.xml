@@ -69,17 +69,21 @@
                  <alias attr-name="className" prop-name="className" />
             </set-properties-rule>
 
-             <!-- add the properties to the TemplateObject -->
+             <!-- add the property references to the TemplateObject -->
 
             <pattern value="property">
 
                 <call-method-rule
                     methodname="addPropertyReference"
-                    paramcount="1"/>
+                    paramcount="2"/>
 
                 <call-param-rule
                     attrname="reference"
                     paramnumber="0" />
+
+                <call-param-rule
+                    attrname="default"
+                    paramnumber="1"/>
 
             </pattern>
 
@@ -193,7 +197,7 @@
                                 paramnumber="1"/>
 
                         </pattern>
-                        
+
                         <set-next-rule methodname="addType" />
 
                     </pattern>

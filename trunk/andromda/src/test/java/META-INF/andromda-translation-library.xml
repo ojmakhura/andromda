@@ -11,10 +11,10 @@
     <property reference="propertyReferenceWithDefault" default="aDefaultValue"/>
     <property reference="propertyReferenceNoDefault"/>
 	
-	<!-- transformers -->
-    <templateObject 
-    	name="stringUtils"
-    	className="org.apache.commons.lang.StringUtils"/>   
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="utils" className="org.andromda.core.translation.library.LibraryTemplateObject">
+        <property reference="value" default="3"/>
+    </templateObject> 
 	
 	<translation name="TranslationOne">
 		<description>

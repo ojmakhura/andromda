@@ -2,8 +2,6 @@ package org.andromda.core.common;
 
 import java.net.URL;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,8 +14,8 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Contains the configuration of a template object which are objects that are made available to the cartridge
- * templates.
+ * Contains the configuration of a template object which are objects that are
+ * made available to the cartridge templates.
  *
  * @author Chad Brandon
  */
@@ -39,11 +37,11 @@ public class TemplateObject
     public String getName()
     {
         final String methodName = "TemplateObject.getName";
-        if (StringUtils.isEmpty(name))
+        if (StringUtils.isEmpty(this.name))
         {
             throw new TemplateObjectException(methodName + " - templateObject '" + this + "' has no name defined");
         }
-        return name;
+        return this.name;
     }
 
     /**
@@ -52,32 +50,33 @@ public class TemplateObject
     private final Map objectCache = new HashMap();
 
     /**
-     * Returns the TemplateObject instance.
+     * Returns the actuall object instance described by this
+     * template object.
      *
-     * @return TemplateObject
+     * @return the actual object instance.
      */
-    public Object getTemplateObject()
+    public Object getObject()
     {
         final String methodName = "TemplateObject.getTemplateObject";
-        if (StringUtils.isEmpty(name))
+        if (StringUtils.isEmpty(this.className))
         {
             throw new TemplateObjectException(methodName + " - templateObject '" + this + "' has no className defined");
         }
-        Object templateObject = this.objectCache.get(className);
+        Object templateObject = this.objectCache.get(this.className);
         try
         {
             if (templateObject == null)
             {
-                final Class templateObjectClass = ClassUtils.loadClass(className);
+                final Class templateObjectClass = ClassUtils.loadClass(this.className);
                 templateObject = templateObjectClass.newInstance();
                 this.setProperties(templateObject);
-                this.objectCache.put(className, templateObject);
+                this.objectCache.put(this.className, templateObject);
             }
         }
-        catch (Exception ex)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new TemplateObjectException(errMsg, ex);
+            throwable.printStackTrace();
+            throw new TemplateObjectException(throwable);
         }
         return templateObject;
     }
@@ -89,35 +88,43 @@ public class TemplateObject
      */
     protected void setProperties(final Object templateObject)
     {
-        for (final Iterator referenceIterator = this.propertyReferences.iterator(); referenceIterator.hasNext();)
+        for (final Iterator iterator = propertyReferences.keySet().iterator(); iterator.hasNext();)
         {
-            final String reference = (String)referenceIterator.next();
-            final Property property = Namespaces.instance().findNamespaceProperty(
-                    this.getNamespace(),
-                    reference);
-            if (!property.isIgnore())
+            final String reference = (String)iterator.next();
+            String value = (String)propertyReferences.get(reference);
+
+            // if we have a default value, then don't warn
+            // that we don't have a property, otherwise we'll
+            // show the warning.
+            boolean showWarning = value == null;
+            final Property property =
+                Namespaces.instance().findNamespaceProperty(this.namespace, reference, showWarning);
+
+            // don't attempt to set if the property is null, or it's set to
+            // ignore.
+            if (property != null && !property.isIgnore())
             {
-                if (logger.isDebugEnabled())
+                value = property.getValue();
+            }
+            if (value != null)
+            {
+                if (this.getLogger().isDebugEnabled())
                 {
-                    logger.debug(
-                        "setting property '" + name + "' with value '" + property.getValue() + "' on templateObject '" +
-                        templateObject + "'");
+                    this.getLogger().debug(
+                        "populating template object '" + this.name + "' property '" + reference + "' with value '" +
+                        value + "' for namespace '" + namespace + "'");
                 }
                 try
                 {
-                    Introspector.instance().setProperty(
-                        templateObject,
-                        reference,
-                        property.getValue());
+                    Introspector.instance().setProperty(templateObject, reference, value);
                 }
-                catch (Exception ex)
+                catch (final Exception exception)
                 {
-                    String errMsg =
-                        "Error setting property '" + reference + "' with '" + property.getValue() +
-                        "' on templateObject --> '" + templateObject + "'";
-                    logger.warn(errMsg, ex);
-
-                    // don't throw the exception
+                    // - don't throw the exception
+                    final String message =
+                        "Error setting property '" + reference + "' with '" + value + "' on templateObject --> '" +
+                        templateObject + "'";
+                    logger.warn(message);
                 }
             }
         }
@@ -141,7 +148,7 @@ public class TemplateObject
     /**
      * Sets the class of the transformation object.
      *
-     * @param className
+     * @param className the name of the template object class.
      */
     public void setClassName(final String className)
     {
@@ -153,17 +160,20 @@ public class TemplateObject
     /**
      * The property references that configure this template object.
      */
-    private final Collection propertyReferences = new ArrayList();
+    private final Map propertyReferences = new HashMap();
 
     /**
      * Adds a templateObject property reference (used to customize templateObjects). Property references are used to
      * populate bean like properties of template objects.
      *
-     * @param reference
+     * @param reference the name of the property reference.
+     * @param defaultValue the default value of the property reference.
      */
-    public void addPropertyReference(final String reference)
+    public void addPropertyReference(
+        final String reference,
+        final String defaultValue)
     {
-        this.propertyReferences.add(reference);
+        this.propertyReferences.put(reference, defaultValue);
     }
 
     /**
@@ -174,7 +184,7 @@ public class TemplateObject
     /**
      * The resource in which the templateObject was found.
      *
-     * @return URL
+     * @return the resource as a URL.
      */
     public URL getResource()
     {
@@ -182,9 +192,9 @@ public class TemplateObject
     }
 
     /**
-     * Sets the resource in which the templateObject was found.
+     * Sets the resource in which the templateObject was defined.
      *
-     * @param resource
+     * @param resource the resource on which this template object was defined.
      */
     public void setResource(final URL resource)
     {
@@ -197,6 +207,8 @@ public class TemplateObject
     private String namespace;
 
     /**
+     * Gets the namespace to which this template object belongs.
+     *
      * @return Returns the namespace.
      */
     public String getNamespace()
@@ -205,11 +217,24 @@ public class TemplateObject
     }
 
     /**
+     * Sets the namespace to which this template object belongs.
+     *
      * @param namespace The namespace to set.
      */
     public void setNamespace(final String namespace)
     {
         this.namespace = StringUtils.trimToEmpty(namespace);
+    }
+
+    /**
+     * Gets the namespace logger (the logger under which output for this
+     * template object should be written).
+     *
+     * @return the logger instance.
+     */
+    protected Logger getLogger()
+    {
+        return AndroMDALogger.getNamespaceLogger(this.namespace);
     }
 
     /**

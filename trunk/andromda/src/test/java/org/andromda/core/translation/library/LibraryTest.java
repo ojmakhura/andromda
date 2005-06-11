@@ -6,6 +6,7 @@ import java.util.Map;
 import junit.framework.TestCase;
 
 import org.andromda.core.common.PluginDiscoverer;
+import org.andromda.core.common.TemplateObject;
 import org.andromda.core.common.XmlObjectFactory;
 
 
@@ -124,9 +125,16 @@ public class LibraryTest
 
     public void testGetTemplateObjects()
     {
-        assertNotNull(this.library.getTemplateObjects());
+        final Collection templateObjects = this.library.getTemplateObjects();
+        assertNotNull(templateObjects);
         assertEquals(
             1,
-            this.library.getTemplateObjects().size());
+            templateObjects.size());
+        TemplateObject templateObject = ((TemplateObject)templateObjects.iterator().next());
+        assertEquals("utils", templateObject.getName());
+        assertEquals("test-translation-library",templateObject.getNamespace());
+        LibraryTemplateObject object = (LibraryTemplateObject)templateObject.getObject();
+        assertNotNull(object);
+        assertEquals("3", object.getValue());
     }
 }
