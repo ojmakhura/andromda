@@ -349,18 +349,13 @@ public class StrutsActionLogicImpl
     protected String handleGetActionClassName()
     {
         String name = null;
-        final StateVertexFacade source = getSource();
 
-        if (source instanceof PseudostateFacade)
+        if (this.isExitingInitialState())
         {
-            final PseudostateFacade pseudostate = (PseudostateFacade)source;
-            if (pseudostate.isInitialState())
+            final StrutsUseCase useCase = getUseCase();
+            if (useCase != null)
             {
-                final StrutsUseCase useCase = getUseCase();
-                if (useCase != null)
-                {
-                    name = useCase.getName();
-                }
+                name = useCase.getName();
             }
         }
         else
