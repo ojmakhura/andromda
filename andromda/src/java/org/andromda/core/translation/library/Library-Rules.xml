@@ -60,24 +60,23 @@
                  <alias attr-name="className" prop-name="className" />
              </set-properties-rule>
 
-             <!-- add the Properties to the TemplateObject -->
+             <!-- add the property references to the TemplateObject -->
 
             <pattern value="property">
 
-                <object-create-rule
-                      classname="org.andromda.core.common.Property" />
+                <call-method-rule
+                    methodname="addPropertyReference"
+                    paramcount="2"/>
 
-                <set-properties-rule>
-                     <alias attr-name="name" prop-name="name" />
-                </set-properties-rule>
+                <call-param-rule
+                    attrname="reference"
+                    paramnumber="0" />
 
-                <set-properties-rule>
-                     <alias attr-name="value" prop-name="value" />
-                </set-properties-rule>
+                <call-param-rule
+                    attrname="default"
+                    paramnumber="1"/>
 
-                <set-next-rule methodname="addProperty" />
-
-            </pattern>
+            </pattern> 
 
             <set-next-rule methodname="addTemplateObject" />
 

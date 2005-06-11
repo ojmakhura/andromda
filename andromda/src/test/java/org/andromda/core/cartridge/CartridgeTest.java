@@ -10,6 +10,7 @@ import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.cartridge.template.Type;
 import org.andromda.core.common.PluginDiscoverer;
+import org.andromda.core.common.TemplateObject;
 import org.andromda.core.common.XmlObjectFactory;
 
 
@@ -177,10 +178,18 @@ public class CartridgeTest
 
     public void testGetTemplateObjects()
     {
-        assertNotNull(this.cartridge.getTemplateObjects());
+        final Collection templateObjects = this.cartridge.getTemplateObjects();
+        assertNotNull(templateObjects);
         assertEquals(
             1,
-            this.cartridge.getTemplateObjects().size());
+            templateObjects.size());
+        TemplateObject templateObject = ((TemplateObject)templateObjects.iterator().next());
+        assertEquals("utils", templateObject.getName());
+        assertEquals("andromda-test-cartridge",templateObject.getNamespace());
+        CartridgeTemplateObject object = (CartridgeTemplateObject)templateObject.getObject();
+        assertNotNull(object);
+        assertEquals("3", object.getValue());
+        
     }
 
     public void testGetContents()

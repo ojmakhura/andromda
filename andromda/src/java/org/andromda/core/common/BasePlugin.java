@@ -245,7 +245,7 @@ public abstract class BasePlugin
                 final TemplateObject templateObject = (TemplateObject)iterator.next();
                 templateContext.put(
                     templateObject.getName(),
-                    templateObject.getTemplateObject());
+                    templateObject.getObject());
             }
         }
     }
