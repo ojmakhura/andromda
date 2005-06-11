@@ -23,8 +23,8 @@
                         is tremendous.</li>
                     <li>Changes to the model are loaded in the background, in a seperate process,
                         and this is done automatically when the server detects the model has been
-                        changed. That way the new model will be reloaded by the time you want to
-                        generate code from it.</li>
+                        changed. That way the new model will already have been reloaded by the
+                        time you want to generate code from it.</li>
                 </ol>
             </p>
             <subsection name="Configuration">
