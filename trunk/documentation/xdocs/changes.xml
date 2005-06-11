@@ -9,7 +9,13 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-M1-SNAPSHOT" date="2005-05-19" description="Continuous build for the first milestone release of version 3.1">
+        <release version="3.1-M1-SNAPSHOT" date="2005-06-11" description="Continuous build for the first milestone release of version 3.1">
+            <action dev="draftdog" type="update">
+                In bpm4struts it is now also possible to have non-event parameters survive the trip to the next
+                use-case, previously only event parameters would only be able to do that because
+                they would be immediately present in the HTTP request. More is documented
+                <a href="andromda-bpm4struts-cartridge/howto2.html#Sending_parameters_across_use-cases">here</a>.
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-67">
                 AndroMDA is now configured through a single XML configuration file.  This means both the Ant task and Maven
                 plugin just point to this file.  Please see the <a href="configuration.html">configuration</a> documentation 
