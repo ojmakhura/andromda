@@ -59,12 +59,12 @@ public class Bpm4StrutsGlobals
     public static final String PROPERTY_NORMALIZE_MESSAGES = "normalizeMessages";
     
     /**
-     * The suffix uses for form names.
+     * The suffix for form names.
      */
     public static final String FORM_SUFFIX = "Form";
     
     /**
      * The suffix for form implementation names.
      */
-    public static final String FORM_IMPLEMENTATION_SUFFIX = "FormImpl";
+    public static final String FORM_IMPLEMENTATION_SUFFIX = FORM_SUFFIX + "Impl";
 }
