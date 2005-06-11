@@ -18,7 +18,7 @@ import ${hibernateUtils.criterionPackage}.Expression;
 
 #end
 public final class $manageable.manageableDaoBaseName
-    extends org.springframework.orm.hibernate.support.HibernateDaoSupport
+    extends ${hibernateUtils.springHibernatePackage}.support.HibernateDaoSupport
     implements $manageable.manageableDaoName
 {
     private $manageable.fullyQualifiedDaoName dao;

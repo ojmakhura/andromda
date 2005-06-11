@@ -11,10 +11,10 @@ package $springPresentationTypesPackage;
  * @author Sebastien Arbogast
  */
 public class $openSessionInViewFilterName 
-    extends org.springframework.orm.hibernate.support.OpenSessionInViewFilter 
+    extends ${hibernateUtils.springHibernatePackage}.support.OpenSessionInViewFilter 
 {
    /**
-    * @see org.springframework.orm.hibernate.support.OpenSessionInViewFilter#lookupSessionFactory()
+    * @see ${hibernateUtils.springHibernatePackage}.support.OpenSessionInViewFilter#lookupSessionFactory()
     */
    protected ${hibernateUtils.basePackage}.SessionFactory lookupSessionFactory() 
    {

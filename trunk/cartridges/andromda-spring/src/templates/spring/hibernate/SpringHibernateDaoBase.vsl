@@ -21,7 +21,7 @@ public abstract class $entity.daoBaseName
 #if($entity.generalization)
     extends $entity.generalization.fullyQualifiedDaoImplementationName
 #else
-    extends org.springframework.orm.hibernate.support.HibernateDaoSupport
+    extends ${hibernateUtils.springHibernatePackage}.support.HibernateDaoSupport
 #end
     implements $entity.fullyQualifiedDaoName
 {
@@ -71,7 +71,7 @@ public abstract class $entity.daoBaseName
                 $argument);
             return transformEntity(transform, ($entity.fullyQualifiedName)entity);
         }
-        catch (org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException ex)
+        catch (${hibernateUtils.springHibernatePackage}.HibernateObjectRetrievalFailureException ex)
         {
             // ignore since we just want null returned if no
             // object can be found
@@ -137,7 +137,7 @@ public abstract class $entity.daoBaseName
                 "${entity.name}.create - 'entities' can not be null");
         }
         this.getHibernateTemplate().execute(
-            new org.springframework.orm.hibernate.HibernateCallback()
+            new ${hibernateUtils.springHibernatePackage}.HibernateCallback()
             {
                 public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
                     throws ${hibernateUtils.basePackage}.HibernateException
@@ -242,7 +242,7 @@ public abstract class $entity.daoBaseName
                 "${entity.name}.update - 'entities' can not be null");
         }
         this.getHibernateTemplate().execute(
-            new org.springframework.orm.hibernate.HibernateCallback()
+            new ${hibernateUtils.springHibernatePackage}.HibernateCallback()
             {
                 public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
                     throws ${hibernateUtils.basePackage}.HibernateException

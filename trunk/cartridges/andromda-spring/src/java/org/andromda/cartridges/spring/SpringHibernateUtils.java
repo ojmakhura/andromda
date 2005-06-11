@@ -33,9 +33,7 @@ public class SpringHibernateUtils
     /**
      * Gets the appropriate hibernate package name for the given
      * <code>version</code>.
-     * @param hibernateVersion the version of hibernate for which to retrieve
-     *        the package (version 2 or 3 are valid), default is the
-     *        package for hibernate 3.
+     *
      * @return the base package name.
      */
     public String getBasePackage()
@@ -51,9 +49,6 @@ public class SpringHibernateUtils
     /**
      * Gets the appropriate hibernate criterion package name for the given <code>version</code>.
      *
-     * @param hibernateVersion the version of hibernate for which to retrieve
-     *        the package (version 2 or 3 are valid), default is the
-     *        package for hibernate 3.
      * @return the Hibernate criterion package name.
      */
     public String getCriterionPackage()
@@ -71,5 +66,20 @@ public class SpringHibernateUtils
             0,
             this.getBasePackage());
         return packageName.toString();
+    }
+
+    /**
+     * Gets the appropriate Spring Hibernate package based on the given
+     * <code>version</code>.
+     * @return
+     */
+    public String getSpringHibernatePackage()
+    {
+        String packageName = "org.springframework.orm.hibernate3";
+        if (VERSION_2.equals(hibernateVersion))
+        {
+            packageName = "org.springframework.orm.hibernate";
+        }
+        return packageName;
     }
 }
