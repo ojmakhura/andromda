@@ -158,10 +158,10 @@ public class HibernateProfile
             "HIBERNATE_ASSOCIATION_INDEX_TYPE");
     
     /**
-     * Defines the tagged value for hibernate version on entities 
+     * Defines the tagged value for hibernate version property on entities 
      */
-    public static final String TAGGEDVALUE_HIBERNATE_VERSION = profile.get(
-            "HIBERNATE_VERSION");
+    public static final String TAGGEDVALUE_HIBERNATE_VERSION_PROPERTY = profile.get(
+            "HIBERNATE_VERSION_PROPERTY");
     
     /**
      * Defines the tagged value for hibernate cascade on an association end 

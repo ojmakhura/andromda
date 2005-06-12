@@ -675,12 +675,12 @@ public class HibernateEntityLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateVersion()
      */
-    protected String handleGetHibernateVersion()
+    protected String handleGetHibernateVersionProperty()
     {
-        String version = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_VERSION);
+        String version = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_VERSION_PROPERTY);
         if (version == null)
         {
-            version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
+            version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION_PROPERTY);
         }
         return version;
     }
@@ -690,7 +690,6 @@ public class HibernateEntityLogicImpl
      */
     protected int handleGetVersion()
     {
-        String version = (String)this.getConfiguredProperty(HibernateGlobals.VERSION);
-        return Integer.parseInt(version);
+        return Integer.parseInt((String)this.getConfiguredProperty(HibernateGlobals.VERSION));
     }
 }
