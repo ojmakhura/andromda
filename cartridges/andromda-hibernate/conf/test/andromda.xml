@@ -34,6 +34,7 @@
                 <property name="hibernateAggregationCascade">all</property>
                 <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
                 <property name="specificCollectionInterfaces">true</property>
+                <property name="versionProperty">version</property>
             </properties>
         </namespace>
     </namespaces>

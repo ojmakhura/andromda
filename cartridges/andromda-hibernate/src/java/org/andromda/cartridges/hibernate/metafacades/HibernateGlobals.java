@@ -122,7 +122,7 @@ public class HibernateGlobals
      * The property which defines a default value for hibernate entities
      * versioning.
      */
-    static final String HIBERNATE_VERSION = "versionProperty";
+    static final String HIBERNATE_VERSION_PROPERTY = "versionProperty";
 
     /**
      * The 'list' type implementation to use.

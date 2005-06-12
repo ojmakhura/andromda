@@ -23,9 +23,9 @@ public abstract class $entity.entityName
      */
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
 
-#if ($stringUtils.isNotBlank($entity.hibernateVersion))
-#set ($versionProperty = $entity.hibernateVersion)
-#set ($versionPropertyCapitalized = $stringUtils.capitalize($entity.hibernateVersion))
+#if ($stringUtils.isNotBlank($entity.hibernateVersionProperty))
+#set ($versionProperty = $entity.hibernateVersionProperty)
+#set ($versionPropertyCapitalized = $stringUtils.capitalize($entity.hibernateVersionProperty))
     /**
      * Version property managed by Hibernate.
      */
