@@ -43,16 +43,16 @@ public class HibernateUtils
     /**
      * Stores the version of Hibernate we're generating for.
      */
-    private String version;
+    private String hibernateVersion;
 
     /**
      * Sets the version of Hibernate we're generating for.
      *
-     * @param version The version to set.
+     * @param hibernateVersion The version to set.
      */
-    public void setVersion(final String version)
+    public void setHibernateVersion(final String hibernateVersion)
     {
-        this.version = version;
+        this.hibernateVersion = hibernateVersion;
     }
 
     /**
@@ -63,7 +63,7 @@ public class HibernateUtils
     public String getHibernatePackage()
     {
         String packageName = "org.hibernate";
-        if (!HibernateGlobals.HIBERNATE_VERSION_3.equals(this.version))
+        if (!HibernateGlobals.HIBERNATE_VERSION_3.equals(this.hibernateVersion))
         {
             packageName = "net.sf.hibernate";
         }
@@ -79,7 +79,7 @@ public class HibernateUtils
     public String getHibernateUserTypePackage()
     {
         StringBuffer packageName = new StringBuffer();
-        if (HibernateGlobals.HIBERNATE_VERSION_3.equals(this.version))
+        if (HibernateGlobals.HIBERNATE_VERSION_3.equals(this.hibernateVersion))
         {
             packageName.append(".usertype");
         }

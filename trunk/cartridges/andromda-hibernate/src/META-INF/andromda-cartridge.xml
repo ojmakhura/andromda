@@ -10,7 +10,7 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils">
-        <property reference="version" default="2"/>
+        <property reference="hibernateVersion" default="2"/>
     </templateObject>
     <!-- cartridge-templateObject merge-point-->
 
@@ -19,7 +19,7 @@
     <!-- contains the package for the Hibernate user types -->
     <property reference="userTypesPackage" default="org.andromda.persistence.hibernate.usertypes"/>
     <!-- the name to give the service locator class -->
-    <property reference="version" default="2"/>
+    <property reference="hibernateVersion" default="2"/>
     <property reference="serviceLocatorName" default="ServiceLocator"/>
     <property reference="sequenceIdentifierSuffix" default="_SEQ"/>
     <property reference="driver" default=""/>

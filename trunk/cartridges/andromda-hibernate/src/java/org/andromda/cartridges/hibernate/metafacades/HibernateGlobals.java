@@ -11,7 +11,7 @@ public class HibernateGlobals
     /**
      * Hibernate version to use.
      */
-    static final String VERSION = "version";
+    static final String HIBERNATE_VERSION = "hibernateVersion";
 
     /**
      * The version for Hibernate 3.
