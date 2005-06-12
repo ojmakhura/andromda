@@ -350,7 +350,7 @@ public class HibernateAssociationEndLogicImpl
             value = this.getConfiguredProperty(PROPERTY_ASSOCIATION_END_OUTERJOIN);
         }
         String outerValue = StringUtils.trimToEmpty(String.valueOf(value));
-        String version = (String)this.getConfiguredProperty(HibernateGlobals.VERSION);
+        String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
 
         if (version.equals(HibernateGlobals.HIBERNATE_VERSION_3))
         {

@@ -690,6 +690,6 @@ public class HibernateEntityLogicImpl
      */
     protected int handleGetVersion()
     {
-        return Integer.parseInt((String)this.getConfiguredProperty(HibernateGlobals.VERSION));
+        return Integer.parseInt((String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION));
     }
 }

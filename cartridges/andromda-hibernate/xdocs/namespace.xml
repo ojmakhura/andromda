@@ -119,6 +119,22 @@
                 </tr>
                 <tr>
                     <td>
+                        hibernateVersion
+                    </td>
+                    <td>
+                        The version of Hibernate to use when generating.
+                        <li>
+                            Allowable values are:
+                            <ul>2</ul>
+                            <ul>3</ul>
+                        </li>
+                    </td>
+                    <td>
+                        No, default is <code>2</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                           defaultHibernateGeneratorClass
                     </td>
                     <td>
