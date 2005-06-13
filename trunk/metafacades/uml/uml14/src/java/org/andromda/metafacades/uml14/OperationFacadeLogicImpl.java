@@ -205,10 +205,6 @@ public class OperationFacadeLogicImpl
      */
     protected Object handleGetOwner()
     {
-        if (this.metaObject.getOwner() == null)
-        {
-            System.out.println("the owner!!!!!!: " + this.metaObject.getOwner() + "for operation: " + this.getName());
-        }
         return this.metaObject.getOwner();
     }
 
