@@ -1,6 +1,5 @@
 package org.andromda.schema2xmi;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -198,12 +197,7 @@ public class SchemaTransformer
         Connection connection = null;
         try
         {
-            URL url = null;
-            if (StringUtils.isNotBlank(inputModel))
-            {
-                url = new URL(inputModel);
-            }
-            this.repository.readModel(url, null);
+            this.repository.readModel(new String[]{inputModel}, null);
             Class.forName(this.jdbcDriver);
             connection = DriverManager.getConnection(
                 this.jdbcConnectionUrl,
