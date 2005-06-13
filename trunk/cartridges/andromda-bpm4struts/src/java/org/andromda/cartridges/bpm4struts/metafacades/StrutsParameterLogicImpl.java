@@ -145,8 +145,10 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetGetterName()
     {
-        String prefix = isValidatorBoolean() ? "is" : "get";
-        return StringUtils.trimToEmpty(prefix) + StringUtilsHelper.capitalize(this.getName());
+        // BPM-200: only actual boolean types can have the 'is' prefix, we can't make
+        // use of the dynamic mappings, we need to test for the real java type here
+        final String prefix = "boolean".equals(getFullyQualifiedName()) ? "is" : "get";
+        return prefix + StringUtilsHelper.capitalize(this.getName());
     }
 
     /**
