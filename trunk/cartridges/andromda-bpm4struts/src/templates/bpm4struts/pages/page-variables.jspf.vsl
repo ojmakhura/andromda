@@ -1,10 +1,16 @@
 #set ($generatedFile = "${jsp.fullPath}-vars.jspf")
+#if ($jsp.pageVariables.size() > 0)
+<div id="pageVariables">
 #foreach ($variable in $jsp.pageVariables)
-#set ($variableName = $variable.name)
-#set ($formVariableName = "${formName}.${variableName}")
-## Surround with catch so that if the property doesn't exist
-## on the form no exceptions will be thrown (since we don't want that)
-<c:catch>
-    <c:set var="$variableName" value="${${formVariableName}}" scope="request"/>
-</c:catch>
+#set ($formVariableName = "${formName}.${variable.name}")
+    <c:catch>
+#if ($setPageVariablesInPageScope=="true")
+        <c:set var="$variable.name" value="${${formVariableName}}"/>
+#end
+#if (!$variable.table)
+        <c:out value="${${formVariableName}}"/>
+#end
+    </c:catch>
+#end
+</div>
 #end
