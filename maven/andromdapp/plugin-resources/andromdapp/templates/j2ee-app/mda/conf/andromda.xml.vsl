@@ -49,6 +49,7 @@
 #elseif ($hibernate)
         <namespace name="hibernate">
             <properties>
+                <property name="hibernateVersion">$hibernateVersion</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>
