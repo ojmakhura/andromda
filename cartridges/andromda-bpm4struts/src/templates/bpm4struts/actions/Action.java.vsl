@@ -58,7 +58,7 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
         if (previousFormObject instanceof $formBeanType)
         {
             final $formBeanType previousForm = ($formBeanType)previousFormObject;
-#foreach ($parameter in $finalState.interUseCaseParameters)
+#foreach ($parameter in $finalStateAction.interUseCaseParameters)
             specificForm.${parameter.setterName}(previousForm.${parameter.getterName}());
 #end
         }

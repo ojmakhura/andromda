@@ -767,6 +767,40 @@ public class StrutsActionLogicImpl
         return (trigger == null) ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
     }
 
+    protected List handleGetInterUseCaseParameters(StrutsFinalState finalState)
+    {
+        List parameters = null;
+
+        if (finalState == null)
+        {
+            parameters = Collections.EMPTY_LIST;
+        }
+        else
+        {
+            // we don't want to list parameters with the same name to we use a hash map
+            final Map parameterMap = new HashMap();
+
+            final List transitions = getActionForwards();
+            for (int i = 0; i < transitions.size(); i++)
+            {
+                final StrutsForward forward = (StrutsForward)transitions.get(i);
+                // only return those parameters that belong to both this action and the argument final state
+                if (finalState.equals(forward.getTarget()))
+                {
+                    final List forwardParameters = forward.getForwardParameters();
+                    for (int j = 0; j < forwardParameters.size(); j++)
+                    {
+                        final ModelElementFacade parameter = (ModelElementFacade)forwardParameters.get(j);
+                        parameterMap.put(parameter.getName(), parameter);
+                    }
+                }
+            }
+            parameters = new ArrayList(parameterMap.values());
+        }
+
+        return parameters;
+    }
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTargetPages()
      */
