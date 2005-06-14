@@ -145,8 +145,8 @@ public class StrutsParameterLogicImpl
      */
     protected java.lang.String handleGetGetterName()
     {
-        // BPM-200: only actual boolean types can have the 'is' prefix, we can't make
-        // use of the dynamic mappings, we need to test for the real java type here
+        // BPM-200: only actual boolean types can have the 'is' prefix, we must not make
+        // use of the dynamic mappings since we need to test for the real java type here
         final String prefix = "boolean".equals(getFullyQualifiedName()) ? "is" : "get";
         return prefix + StringUtilsHelper.capitalize(this.getName());
     }
@@ -839,7 +839,7 @@ public class StrutsParameterLogicImpl
         return tableColumnNames;
     }
 
-/*
+/*  // @todo: remove ? (wouter)
     protected String handleGetTableColumnLinkName()
     {
         String linkName = null;
