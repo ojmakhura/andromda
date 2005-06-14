@@ -192,7 +192,7 @@ public final class Introspector
         }
         catch (Throwable throwable)
         {
-            throwable = getRootCause(throwable);
+            throwable = ExceptionUtils.getRootCause(throwable);
 
             // If cause is an IntrospectorException re-throw that exception
             // rather than creating a new one.
@@ -560,23 +560,6 @@ public final class Introspector
             throw new IntrospectorException(throwable);
         }
         return object;
-    }
-
-    /**
-     * Attempts to retrieve the root cause of the exception, if it can not be
-     * found, the <code>throwable</code> itself is returned.
-     *
-     * @param throwable the exception from which to retrieve the root cause.
-     * @return the root cause of the exception
-     */
-    private final Throwable getRootCause(Throwable throwable)
-    {
-        Throwable root = ExceptionUtils.getRootCause(throwable);
-        if (root != null)
-        {
-            throwable = root;
-        }
-        return throwable;
     }
 
     /**

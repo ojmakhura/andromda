@@ -1,5 +1,6 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -53,7 +54,8 @@ public class HibernateServiceLogicImpl
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
+        final String property = "ejbJndiNamePrefix";
+        return this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : null;
     }
 
     /**

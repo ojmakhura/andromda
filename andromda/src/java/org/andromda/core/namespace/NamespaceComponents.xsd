@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+     This schema defines a component registry xml configuration file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES
+     ========================================================================= -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="component">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="path" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="components">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="component" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="path" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

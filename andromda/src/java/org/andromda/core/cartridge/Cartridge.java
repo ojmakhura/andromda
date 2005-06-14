@@ -140,8 +140,8 @@ public class Cartridge
         if (modelElements != null && !modelElements.isEmpty())
         {
             final Property outletProperty =
-                Namespaces.instance().findNamespaceProperty(
-                    this.getName(),
+                Namespaces.instance().getProperty(
+                    this.getNamespace(),
                     template.getOutlet(),
                     template.isRequired());
 
@@ -245,8 +245,8 @@ public class Cartridge
         final String methodName = "Cartridge.processTemplateWithoutMetafacades";
         ExceptionUtils.checkNull(methodName, "template", template);
         final Property outletProperty =
-            Namespaces.instance().findNamespaceProperty(
-                this.getName(),
+            Namespaces.instance().getProperty(
+                this.getNamespace(),
                 template.getOutlet(),
                 template.isRequired());
         if (outletProperty != null && !outletProperty.isIgnore())
@@ -322,7 +322,7 @@ public class Cartridge
                 if (!outputFile.exists() || template.isOverwrite())
                 {
                     final String outputString = output.toString();
-                    AndroMDALogger.setSuffix(this.getName());
+                    AndroMDALogger.setSuffix(this.getNamespace());
 
                     // check to see if generateEmptyFiles is true and if
                     // outString is not blank
@@ -331,7 +331,7 @@ public class Cartridge
                         ResourceWriter.instance().writeStringToFile(
                             outputString,
                             outputFile,
-                            this.getName());
+                            this.getNamespace());
                         AndroMDALogger.info("Output: '" + outputFile.toURI() + "'");
                     }
                     else
@@ -354,7 +354,7 @@ public class Cartridge
             }
             final String message =
                 "Error performing " + methodName + " with template '" + template.getPath() + "', template context '" +
-                templateContext + "' and cartridge '" + this.getName() + "'";
+                templateContext + "' and cartridge '" + this.getNamespace() + "'";
             throw new CartridgeException(message, throwable);
         }
     }
@@ -380,7 +380,7 @@ public class Cartridge
             final List contents = this.getContents();
             if (contents != null)
             {
-                AndroMDALogger.setSuffix(this.getName());
+                AndroMDALogger.setSuffix(this.getNamespace());
                 for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
                 {
                     final String content = (String)iterator.next();
@@ -420,8 +420,8 @@ public class Cartridge
         try
         {
             final Property outletProperty =
-                Namespaces.instance().findNamespaceProperty(
-                    this.getName(),
+                Namespaces.instance().getProperty(
+                    this.getNamespace(),
                     resource.getOutlet(),
                     resource.isRequired());
             final String slash = "/";
@@ -524,14 +524,6 @@ public class Cartridge
         ExceptionUtils.checkNull("Cartridge.addResource", "resource", resource);
         resource.setCartridge(this);
         resources.add(resource);
-    }
-
-    /**
-     * @see org.andromda.core.common.Plugin#getType()
-     */
-    public String getType()
-    {
-        return "cartridge";
     }
 
     /**

@@ -1,4 +1,4 @@
-<cartridge name="hibernate">
+<cartridge>
 
     <templateEngine>
         <macrolibrary name="templates/hibernate/hibernate.java.vm" />
@@ -10,52 +10,52 @@
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils">
-        <property reference="hibernateVersion" default="2"/>
+        <property reference="hibernateVersion"/>
     </templateObject>
     <!-- cartridge-templateObject merge-point-->
 
-    <property reference="securityRealm" default=""/>
-    <property reference="customTypesPackage" default="org.andromda.persistence.hibernate"/>
+    <property reference="securityRealm"/>
+    <property reference="customTypesPackage"/>
     <!-- contains the package for the Hibernate user types -->
-    <property reference="userTypesPackage" default="org.andromda.persistence.hibernate.usertypes"/>
+    <property reference="userTypesPackage"/>
     <!-- the name to give the service locator class -->
-    <property reference="hibernateVersion" default="2"/>
-    <property reference="serviceLocatorName" default="ServiceLocator"/>
-    <property reference="sequenceIdentifierSuffix" default="_SEQ"/>
-    <property reference="driver" default=""/>
-    <property reference="username" default=""/>
-    <property reference="password" default=""/>
-    <property reference="connectionUrl" default=""/>
-    <property reference="dataSource" default=""/>
-    <property reference="hibernateDefaultCascade" default="none"/>
-    <property reference="hibernatePoolSize" default=""/>
-    <property reference="hibernateTransactionFactoryClass" default="net.sf.hibernate.transaction.JTATransactionFactory"/>
-    <property reference="hibernateTransactionManagerStrategy" default=""/>
-    <property reference="hibernateUserTransactionName" default="UserTransaction"/>
-    <property reference="hibernateTransactionManagerLookup" default=""/>
-    <property reference="hibernateUseOuterJoin" default=""/>
-    <property reference="hibernateShowSql" default=""/>
-    <property reference="hibernateJndiName" default="java:/hibernate/SessionFactory"/>
-    <property reference="hibernateDialect" default=""/>
-    <property reference="hibernateDefaultSchema" default=""/>
-    <property reference="hibernateMaxFetchDepth" default=""/>
-    <property reference="hibernateJdbcFetchSize" default=""/>
-    <property reference="hibernateJdbcBatchSize" default=""/>
-    <property reference="hibernateJdbcUseScrollableResultSet" default=""/>
-    <property reference="hibernateMaxFetchDepth" default=""/>
-    <property reference="hibernateJdbcUseStreamsForBinary" default=""/>
-    <property reference="hibernateHbm2DDLAuto" default=""/>
-    <property reference="hibernateQuerySubstitutions" default=""/>
-    <property reference="hibernateEnableCache" default="false"/>
-    <property reference="hibernateEnableAssociationsCache" default="false"/>
-    <property reference="hibernateEhCacheDiskStore" default="java.io.tmpdir"/>
-    <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider"/>
-    <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory"/>
-    <property reference="xmlEncoding" default="UTF-8"/>
-    <property reference="generateEntityEqualsAndHashCode" default="true"/>
-    <property reference="hibernateProxy" default="false"/>
+    <property reference="hibernateVersion"/>
+    <property reference="serviceLocatorName"/>
+    <property reference="sequenceIdentifierSuffix"/>
+    <property reference="driver"/>
+    <property reference="username"/>
+    <property reference="password"/>
+    <property reference="connectionUrl"/>
+    <property reference="dataSource"/>
+    <property reference="hibernateDefaultCascade"/>
+    <property reference="hibernatePoolSize"/>
+    <property reference="hibernateTransactionFactoryClass"/>
+    <property reference="hibernateTransactionManagerStrategy"/>
+    <property reference="hibernateUserTransactionName"/>
+    <property reference="hibernateTransactionManagerLookup"/>
+    <property reference="hibernateUseOuterJoin"/>
+    <property reference="hibernateShowSql"/>
+    <property reference="hibernateJndiName"/>
+    <property reference="hibernateDialect"/>
+    <property reference="hibernateDefaultSchema"/>
+    <property reference="hibernateMaxFetchDepth"/>
+    <property reference="hibernateJdbcFetchSize"/>
+    <property reference="hibernateJdbcBatchSize"/>
+    <property reference="hibernateJdbcUseScrollableResultSet"/>
+    <property reference="hibernateMaxFetchDepth"/>
+    <property reference="hibernateJdbcUseStreamsForBinary"/>
+    <property reference="hibernateHbm2DDLAuto"/>
+    <property reference="hibernateQuerySubstitutions"/>
+    <property reference="hibernateEnableCache"/>
+    <property reference="hibernateEnableAssociationsCache"/>
+    <property reference="hibernateEhCacheDiskStore"/>
+    <property reference="hibernateCacheProvider"/>
+    <property reference="hibernateQueryCacheFactory"/>
+    <property reference="xmlEncoding"/>
+    <property reference="generateEntityEqualsAndHashCode"/>
+    <property reference="hibernateProxy"/>
     <!-- This property is only relevant for Hibernate 3 -->
-    <property reference="hibernateQueryFactory" default="org.hibernate.hql.classic.ClassicQueryTranslatorFactory"/>
+    <property reference="hibernateQueryFactory"/>
 
     <!-- cartridge-property merge-point-->
 

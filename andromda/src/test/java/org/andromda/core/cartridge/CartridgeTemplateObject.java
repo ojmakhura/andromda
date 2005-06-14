@@ -8,15 +8,15 @@ package org.andromda.core.cartridge;
  */
 public class CartridgeTemplateObject
 {
-    private String value;
+    private String definitionOne;
 
-    public String getValue()
+    public String getDefinitionOne()
     {
-        return value;
+        return definitionOne;
     }
 
-    public void setValue(String value)
+    public void setDefinitionOne(String definitionOne)
     {
-        this.value = value;
+        this.definitionOne = definitionOne;
     }
 }

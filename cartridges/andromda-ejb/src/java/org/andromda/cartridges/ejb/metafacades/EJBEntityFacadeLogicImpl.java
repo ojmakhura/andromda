@@ -230,7 +230,12 @@ public class EJBEntityFacadeLogicImpl
      */
     protected String getJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
+        String prefix = null;
+        if (this.isConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX))
+        {
+            prefix = (String)this.getConfiguredProperty(EJBGlobals.JNDI_NAME_PREFIX);
+        }
+        return prefix;
     }
 
     /**

@@ -1,4 +1,4 @@
-<cartridge name="xmlschema">
+<cartridge>
 
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <!-- cartridge-templateObject merge-point-->
@@ -6,7 +6,7 @@
     <!-- The name of the namespace -->
     <property reference="namespace"/>
     <!-- encoding for xml documents -->
-    <property reference="xmlEncoding" default="UTF-8"/>
+    <property reference="xmlEncoding"/>
     <!-- cartridge-property merge-point-->
 
     <!-- cartridge-resource merge-point -->

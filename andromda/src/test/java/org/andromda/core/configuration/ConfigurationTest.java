@@ -124,7 +124,7 @@ public class ConfigurationTest
             transformation2.getUri());
 
         // namespaces
-        final Namespace namespace1 = Namespaces.instance().findNamespace("default");
+        final Namespace namespace1 = Namespaces.instance().getNamespace("default");
         final Property namespace1Property1 = namespace1.getProperty("languageMappingsUri");
 
         assertNotNull(namespace1Property1);
@@ -145,7 +145,7 @@ public class ConfigurationTest
         final Property namespace1Property4 = namespace1.getProperty("maxSqlNameLength");
         assertNotNull(namespace1Property4);
         assertTrue(namespace1Property4.isIgnore());
-        final Namespace namespace2 = Namespaces.instance().findNamespace("spring");
+        final Namespace namespace2 = Namespaces.instance().getNamespace("spring");
         assertNotNull(namespace2);
         final Property namespace2Property1 = namespace2.getProperty("hibernateQueryUseNamedParameters");
         assertNotNull(namespace2Property1);

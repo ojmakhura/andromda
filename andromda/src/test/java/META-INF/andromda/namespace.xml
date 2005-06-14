@@ -1,0 +1,25 @@
+<namespace name="test">
+    <components>
+        <component name="cartridge"/>
+        <component name="metafacades"/>    
+        <component name="translation-library"/>    
+    </components>
+    <properties>
+        <property name="definitionOne">
+            <default>3</default>
+            <documentation>
+                <![CDATA[
+                The first property definition.
+                ]]>
+            </documentation>
+        </property>
+        <property name="definitionTwo">
+            <default>two</default>
+            <documentation>
+                <![CDATA[
+                The second property definition.
+                ]]>
+            </documentation>            
+        </property>
+    </properties>
+</namespace>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+     This schema defines a registry xml configuration file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES
+     ========================================================================= -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="component">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="components">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="component" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="default" type="xs:string"/>
+    <xs:element name="documentation" type="xs:string"/>
+    <xs:element name="namespace">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="components" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="properties" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="shared" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="default" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="documentation" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="required" type="xs:boolean" use="optional" default="true"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="properties">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="property" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

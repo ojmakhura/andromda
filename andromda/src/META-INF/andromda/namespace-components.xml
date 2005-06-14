@@ -1,0 +1,14 @@
+<components path="META-INF/andromda/namespace.xml">
+    <component 
+        name="cartridge"
+        type="org.andromda.core.cartridge.Cartridge"
+        path="META-INF/andromda-cartridge.xml"/>
+    <component
+        name="translation-library"
+        type="org.andromda.core.translation.library.Library"
+        path="META-INF/andromda-translation-library.xml"/>
+    <component
+        name="metafacades"
+        type="org.andromda.core.metafacade.MetafacadeMappings"
+        path="META-INF/andromda-metafacades.xml"/>
+</components>

@@ -151,7 +151,6 @@ public class Merger
     public boolean requiresMerge(final String namespace)
     {
         final Mappings mergeMappings = this.getMergeMappings(namespace);
-
         return (mergeMappings != null) && !mergeMappings.getMappings().isEmpty();
     }
 
@@ -169,7 +168,7 @@ public class Merger
         if (StringUtils.isNotBlank(namespace))
         {
             final Property mergeMappingsUri =
-                Namespaces.instance().findNamespaceProperty(namespace, NamespaceProperties.MERGE_MAPPINGS_URI, false);
+                Namespaces.instance().getProperty(namespace, NamespaceProperties.MERGE_MAPPINGS_URI, false);
             String mergeMappingsUriValue = (mergeMappingsUri != null) ? mergeMappingsUri.getValue() : null;
             if (StringUtils.isNotBlank(mergeMappingsUriValue))
             {

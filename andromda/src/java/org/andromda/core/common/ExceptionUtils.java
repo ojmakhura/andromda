@@ -113,4 +113,21 @@ public class ExceptionUtils
                 "' must be assignable to class --> '" + assignableToClass + "'");
         }
     }
+
+    /**
+     * Attempts to retrieve the root cause of the exception, if it can not be
+     * found, the <code>throwable</code> itself is returned.
+     *
+     * @param throwable the exception from which to retrieve the root cause.
+     * @return the root cause of the exception
+     */
+    public static final Throwable getRootCause(Throwable throwable)
+    {
+        final Throwable root = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
+        if (root != null)
+        {
+            throwable = root;
+        }
+        return throwable;
+    }
 }

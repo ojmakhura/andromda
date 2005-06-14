@@ -12,6 +12,7 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -164,7 +165,7 @@ public class MetafacadeLogicImpl
      */
     private String getMetaModelVersionPackage()
     {
-        return String.valueOf(this.getConfiguredProperty(METAMODEL_VERSION_PACKAGE));
+        return ObjectUtils.toString(this.getConfiguredProperty(METAMODEL_VERSION_PACKAGE));
     }
 
     /**

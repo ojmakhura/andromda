@@ -105,7 +105,7 @@ public class Profile
             }
         }
         final Property mappingsUri =
-            Namespaces.instance().findNamespaceProperty(
+            Namespaces.instance().getProperty(
                 Namespaces.DEFAULT, NamespaceProperties.PROFILE_MAPPINGS_URI, false);
         final String mappingsUriValue = StringUtils.trimToEmpty(mappingsUri != null ? mappingsUri.getValue() : null);
         if (StringUtils.isNotEmpty(mappingsUriValue))

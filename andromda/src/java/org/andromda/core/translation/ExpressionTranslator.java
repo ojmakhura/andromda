@@ -2,7 +2,7 @@ package org.andromda.core.translation;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.PluginDiscoverer;
+import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.translation.library.LibraryTranslation;
 import org.andromda.core.translation.library.LibraryTranslationFinder;
 import org.apache.log4j.Logger;
@@ -39,7 +39,7 @@ public class ExpressionTranslator
         AndroMDALogger.initialize();
 
         // discover plugins
-        PluginDiscoverer.instance().discoverPlugins();
+        NamespaceComponents.instance().discover();
     }
 
     /**
@@ -85,10 +85,7 @@ public class ExpressionTranslator
         }
         catch (final Throwable throwable)
         {
-            final String message =
-                "Error performing " + methodName + " with translationName '" + translationName + "', contextElement '" +
-                contextElement + "' and expression '" + expression + "'";
-            throw new TranslatorException(message, throwable);
+            throw new TranslatorException(throwable);
         }
         return translatedExpression;
     }

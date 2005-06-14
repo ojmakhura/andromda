@@ -74,17 +74,15 @@ public class Library
      */
     public void setTranslator(final String translatorClass)
     {
-        final String methodName = "Library.setTranslator";
         try
         {
             ComponentContainer.instance().registerDefaultComponent(
                 Translator.class,
                 ClassUtils.loadClass(translatorClass));
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new LibraryException(errMsg, th);
+            throw new LibraryException(throwable);
         }
     }
 
@@ -94,13 +92,5 @@ public class Library
     public void populateTemplateContext(final Map templateContext)
     {
         super.populateTemplateContext(templateContext);
-    }
-
-    /**
-     * @see org.andromda.core.common.Plugin#getType()
-     */
-    public String getType()
-    {
-        return "translation-library";
     }
 }

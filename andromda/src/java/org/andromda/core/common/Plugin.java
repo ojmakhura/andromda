@@ -1,11 +1,9 @@
 package org.andromda.core.common;
 
-import java.net.URL;
-
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
+import org.andromda.core.namespace.NamespaceComponent;
 import org.andromda.core.templateengine.TemplateEngine;
 
 
@@ -17,6 +15,7 @@ import org.andromda.core.templateengine.TemplateEngine;
  * @author Chad Brandon
  */
 public interface Plugin
+    extends NamespaceComponent
 {
     /**
      * Initializes the plugin.
@@ -29,34 +28,6 @@ public interface Plugin
      * logfiles.
      */
     public void shutdown();
-
-    /**
-     * Returns the name of this Plugin. This name must be unique amoung those Plugins of the same type.
-     *
-     * @return String the name of this Plugin
-     */
-    public String getName();
-
-    /**
-     * The entire path to the resource the Plugin instance is configured from.
-     *
-     * @return URL the path to the resource from which this Plugin was configured.
-     */
-    public URL getResource();
-
-    /**
-     * Sets the path of the resource from which this plugin is configured.
-     *
-     * @param resource the resource URL.
-     */
-    public void setResource(URL resource);
-
-    /**
-     * Returns the type of this plugin (i.e. <code>cartridge</code>, <code>translation-library</code>).
-     *
-     * @return String the type name.
-     */
-    public String getType();
 
     /**
      * Returns all the TemplateObject objects that are available to this Plugin.
@@ -74,12 +45,12 @@ public interface Plugin
     public TemplateEngine getTemplateEngine();
 
     /**
-     * Gets all property references available for this cartridge. Returns a Map that contains all property references
-     * and their default values (if any).
+     * Gets all property references available for this cartridge. This is 
+     * an array of names corresponding to property references.
      *
      * @return the Map of property references.
      */
-    public Map getPropertyReferences();
+    public String[] getPropertyReferences();
 
     /**
      * Returns a list containing the name of each resource contained within the plugin.

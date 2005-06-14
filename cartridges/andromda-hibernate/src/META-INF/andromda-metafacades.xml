@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!-- contains the hibernate cartridge metafacade mappings -->
-<metafacades namespace="hibernate">
-    <property reference="hibernateVersion" default="2"/>
-    <property reference="entityNamePattern" default="{0}"/>
-    <property reference="entityImplementationNamePattern" default="{0}Impl"/>
-    <property reference="defaultHibernateGeneratorClass" default="native"/>
-    <property reference="hibernateDefaultCascade" default="none"/>
-    <property reference="hibernateCompositionCascade" default=""/>
-    <property reference="hibernateAggregationCascade" default=""/>
-    <property reference="hibernateEntityCache" default="read-write"/>
-    <property reference="hibernateEntityDynamicInsert" default="false"/>
-    <property reference="hibernateEntityDynamicUpdate" default="false"/>
-    <property reference="hibernateProxy" default="false"/>
-    <property reference="hibernateQueryUseNamedParameters" default="false"/>
-    <property reference="hibernateInheritanceStrategy" default="subclass"/>
-    <property reference="hibernateUseQueryCache" default="false"/>
-    <property reference="ehCacheMaxElementsInMemory" default="10000"/>
-    <property reference="ehCacheEternal" default="false"/>
-    <property reference="ehCacheTimeToIdleSeconds" default="120"/>
-    <property reference="ehCacheTimeToLiveSeconds" default="120"/>
-    <property reference="ehCacheOverflowToDisk" default="true"/>
-    <property reference="compositionDefinesEagerLoading" default="true"/>
-    <property reference="ejbJndiNamePrefix" default=""/>
-    <property reference="ejbViewType" default="local"/>
-    <property reference="hibernateAssociationCollectionType" default="set"/>
-    <property reference="hibernateAssociationSortType" default="unsorted"/>
-    <property reference="enumerationNamePattern" default="{0}Enum"/>
-    <property reference="hibernateQueryUseSpecializedSetters" default="false"/>
-    <property reference="versionProperty" default=""/>
+<metafacades>
+    <property reference="hibernateVersion"/>
+    <property reference="entityNamePattern"/>
+    <property reference="entityImplementationNamePattern"/>
+    <property reference="defaultHibernateGeneratorClass"/>
+    <property reference="hibernateDefaultCascade"/>
+    <property reference="hibernateCompositionCascade"/>
+    <property reference="hibernateAggregationCascade"/>
+    <property reference="hibernateEntityCache"/>
+    <property reference="hibernateEntityDynamicInsert"/>
+    <property reference="hibernateEntityDynamicUpdate"/>
+    <property reference="hibernateProxy"/>
+    <property reference="hibernateQueryUseNamedParameters"/>
+    <property reference="hibernateInheritanceStrategy"/>
+    <property reference="hibernateUseQueryCache"/>
+    <property reference="ehCacheMaxElementsInMemory"/>
+    <property reference="ehCacheEternal"/>
+    <property reference="ehCacheTimeToIdleSeconds"/>
+    <property reference="ehCacheTimeToLiveSeconds"/>
+    <property reference="ehCacheOverflowToDisk"/>
+    <property reference="compositionDefinesEagerLoading"/>
+    <property reference="ejbJndiNamePrefix"/>
+    <property reference="ejbViewType"/>
+    <property reference="hibernateAssociationCollectionType"/>
+    <property reference="hibernateAssociationSortType"/>
+    <property reference="enumerationNamePattern"/>
+    <property reference="hibernateQueryUseSpecializedSetters"/>
+    <property reference="versionProperty"/>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
@@ -37,21 +37,21 @@
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
-        <property reference="hibernateAssociationEndOuterJoin" default="auto"/>
-        <property reference="listTypeImplementation" default="java.util.ArrayList"/>
-        <property reference="setTypeImplementation" default="java.util.HashSet"/>
-        <property reference="mapTypeImplementation" default="java.util.HashMap"/>
-        <property reference="bagTypeImplementation" default="java.util.ArrayList"/>
-        <property reference="specificCollectionInterfaces" default="false"/>
-        <property reference="defaultCollectionInterface" default="java.util.Collection"/>
-        <property reference="associationEndCollectionIndexName" default=""/>
-        <property reference="associationEndCollectionIndexType" default=""/>
+        <property reference="hibernateAssociationEndOuterJoin"/>
+        <property reference="listTypeImplementation"/>
+        <property reference="setTypeImplementation"/>
+        <property reference="mapTypeImplementation"/>
+        <property reference="bagTypeImplementation"/>
+        <property reference="specificCollectionInterfaces"/>
+        <property reference="defaultCollectionInterface"/>
+        <property reference="associationEndCollectionIndexName"/>
+        <property reference="associationEndCollectionIndexType"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
-        <property reference="hibernateAssociationCache" default="read-write"/>
+        <property reference="hibernateAssociationCache"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
@@ -69,7 +69,7 @@
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateService</context>
         </mapping>
-        <property reference="serviceOperationTransactionType" default="Required"/>
+        <property reference="serviceOperationTransactionType"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgumentLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl">
@@ -83,7 +83,7 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateTypeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
-        <property reference="hibernateTypeMappingsUri" default=""/>
+        <property reference="hibernateTypeMappingsUri"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEnumerationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
@@ -99,7 +99,7 @@
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>EMBEDDED_VALUE</stereotype>
         </mapping>
-        <property reference="embeddedValueImplementationNamePattern" default="{0}Impl"/>
+        <property reference="embeddedValueImplementationNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">

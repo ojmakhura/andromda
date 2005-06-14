@@ -76,8 +76,8 @@ public class MetafacadeFactory
     private final MetafacadeMappings mappings = MetafacadeMappings.newInstance();
 
     /**
-     * Performs any initialization required by the factory (i.e. discovering all <code>metafacade</code> mappings,
-     * etc).
+     * Performs any initialization required by the factory (i.e. discovering all
+     * <code>metafacade</code> mappings, etc).
      */
     public void initialize()
     {
@@ -454,7 +454,6 @@ public class MetafacadeFactory
     {
         final String methodName = "MetafacadeFactory.registerProperty";
         ExceptionUtils.checkEmpty(methodName, "name", name);
-        ExceptionUtils.checkNull(methodName, "value", value);
         Map metafacadeNamespace = (Map)this.metafacadeNamespaces.get(namespace);
         if (metafacadeNamespace == null)
         {
@@ -522,7 +521,8 @@ public class MetafacadeFactory
         final MetafacadeBase metafacade,
         final String name)
     {
-        return this.findProperty(metafacade, name) != null;
+        final Map propertyNamespace = this.getMetafacadePropertyNamespace(metafacade);
+        return propertyNamespace != null ? propertyNamespace.containsKey(name) : false;
     }
 
     /**
@@ -557,7 +557,7 @@ public class MetafacadeFactory
     {
         final String methodName = "MetafacadeFactory.getRegisteredProperty";
         final Object registeredProperty = this.findProperty(metafacade, name);
-        if (registeredProperty == null)
+        if (registeredProperty == null && !this.isPropertyRegistered(metafacade, name))
         {
             throw new MetafacadeFactoryException(
                 methodName + " - no property '" + name + "' registered under metafacade '" + metafacade.getName() +

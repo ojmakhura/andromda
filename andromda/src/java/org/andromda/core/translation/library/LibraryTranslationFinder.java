@@ -33,7 +33,7 @@ public class LibraryTranslationFinder
      */
     protected static final Library findLibrary(final String libraryName)
     {
-        return (Library)ComponentContainer.instance().findComponent(libraryName);
+        return (Library)ComponentContainer.instance().findComponentByNamespace(libraryName, Library.class);
     }
 
     /**

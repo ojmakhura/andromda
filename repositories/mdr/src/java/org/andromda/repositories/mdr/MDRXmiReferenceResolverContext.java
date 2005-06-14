@@ -1,12 +1,5 @@
 package org.andromda.repositories.mdr;
 
-import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.ResourceUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.netbeans.api.xmi.XMIInputConfig;
-import org.netbeans.lib.jmi.xmi.XmiContext;
-
 import java.io.File;
 import java.io.InputStream;
 
@@ -16,6 +9,13 @@ import java.net.URL;
 import java.util.HashMap;
 
 import javax.jmi.reflect.RefPackage;
+
+import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.netbeans.api.xmi.XMIInputConfig;
+import org.netbeans.lib.jmi.xmi.XmiContext;
 
 
 /**
@@ -106,9 +106,9 @@ public class MDRXmiReferenceResolverContext
         }
         return modelUrl;
     }
-    
+
     /**
-     * Keeps track of whether or mot the fact the 
+     * Keeps track of whether or mot the fact the
      * referenced model was found, was logged or not.
      */
     private boolean loggedReferedModel = false;

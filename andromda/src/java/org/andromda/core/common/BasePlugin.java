@@ -14,23 +14,23 @@ import java.util.Map;
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
+import org.andromda.core.namespace.BaseNamespaceComponent;
 import org.andromda.core.templateengine.TemplateEngine;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 
 /**
  * Represents the base plugin of AndroMDA. All Plugin instances inherit from this class.
- *
- * @author Chad Brandon
+S * @author Chad Brandon
  */
 public abstract class BasePlugin
+    extends BaseNamespaceComponent
     implements Plugin
 {
     /**
      * Property references made available to the plugin
      */
-    private final Map propertyReferences = new HashMap();
+    private final Collection propertyReferences = new ArrayList();
 
     /**
      * The template objects made available to templates of this BasePlugin.
@@ -38,24 +38,9 @@ public abstract class BasePlugin
     private final Collection templateObjects = new ArrayList();
 
     /**
-     * Stores the name of this plugin.
-     */
-    private String name;
-
-    /**
      * The resource that configured this BasePlugin.
      */
     private URL resource;
-
-    /**
-     * Returns the name of this Library.
-     *
-     * @return String
-     */
-    public String getName()
-    {
-        return this.name;
-    }
 
     /**
      * @see org.andromda.core.common.Plugin#initialize()
@@ -67,8 +52,8 @@ public abstract class BasePlugin
         // set before the template engine is initialized) so that the
         // merge property can be set once on the template engine.
         final Property mergeProperty =
-            Namespaces.instance().findNamespaceProperty(
-                this.getName(),
+            Namespaces.instance().getProperty(
+                this.getNamespace(),
                 NamespaceProperties.MERGE_LOCATION,
                 false);
         this.mergeLocation = mergeProperty != null ? new File(mergeProperty.getValue()).toURL() : null;
@@ -76,7 +61,13 @@ public abstract class BasePlugin
         {
             this.getTemplateEngine().setMergeLocation(this.getMergeLocation().getFile());
         }
-        this.getTemplateEngine().initialize(this.getName());
+        this.getTemplateEngine().initialize(this.getNamespace());
+        for (final Iterator iterator = this.templateObjects.iterator(); iterator.hasNext();)
+        {
+            final TemplateObject templateObject = (TemplateObject)iterator.next();
+            templateObject.setResource(this.getResource());
+            templateObject.setNamespace(this.getNamespace());
+        }
     }
 
     /**
@@ -103,16 +94,6 @@ public abstract class BasePlugin
     }
 
     /**
-     * Sets the name of this Library.
-     *
-     * @param name
-     */
-    public void setName(final String name)
-    {
-        this.name = name;
-    }
-
-    /**
      * @see org.andromda.core.common.Plugin#getResource()
      */
     public URL getResource()
@@ -136,11 +117,10 @@ public abstract class BasePlugin
      */
     public void addTemplateObject(final TemplateObject templateObject)
     {
-        final String methodName = "BasePlugin.addTemplateObjects";
-        ExceptionUtils.checkNull(methodName, "templateObject", templateObject);
-        templateObject.setResource(this.getResource());
-        templateObject.setNamespace(this.getName());
-        this.templateObjects.add(templateObject);
+        if (templateObject != null)
+        {
+            this.templateObjects.add(templateObject);
+        }
     }
 
     /**
@@ -173,6 +153,9 @@ public abstract class BasePlugin
         this.templateEngineClass = templateEngineClass;
     }
 
+    /**
+     * The template engine that this plugin will use.
+     */
     private TemplateEngine templateEngine = null;
 
     /**
@@ -180,34 +163,32 @@ public abstract class BasePlugin
      */
     public TemplateEngine getTemplateEngine()
     {
-        if (templateEngine == null)
+        if (this.templateEngine == null)
         {
-            templateEngine =
-                (TemplateEngine)ComponentContainer.instance().newComponent(templateEngineClass, TemplateEngine.class);
+            this.templateEngine =
+                (TemplateEngine)ComponentContainer.instance().newComponent(
+                    this.templateEngineClass, TemplateEngine.class);
         }
-        return templateEngine;
+        return this.templateEngine;
     }
 
     /**
      * @see org.andromda.core.common.Plugin#getPropertyReferences()
      */
-    public Map getPropertyReferences()
+    public String[] getPropertyReferences()
     {
-        return this.propertyReferences;
+        return (String[])this.propertyReferences.toArray(new String[0]);
     }
 
     /**
      * Adds a property reference. Property references are those properties that are expected to be supplied by the
      * calling client. These supplied properties are made available to the template during processing.
      *
-     * @param reference    the name of the reference.
-     * @param defaultValue the default value of the property reference.
+     * @param reference the namespace of the reference.
      */
-    public void addPropertyReference(
-        final String reference,
-        final String defaultValue)
+    public void addPropertyReference(final String reference)
     {
-        this.propertyReferences.put(reference, defaultValue);
+        this.propertyReferences.add(reference);
     }
 
     /**
@@ -255,46 +236,21 @@ public abstract class BasePlugin
      * supplied by the calling client and supplies them to the <code>templateContext</code>.
      *
      * @param templateContext the template context
-     * @param properties      the user properties
      */
-    private void addPropertyReferencesToContext(final Map templateContext)
+    private final void addPropertyReferencesToContext(final Map templateContext)
     {
-        final Map propertyReferences = this.getPropertyReferences();
-        if (propertyReferences != null && !propertyReferences.isEmpty())
+        final String[] propertyReferences = this.getPropertyReferences();
+        if (propertyReferences != null && propertyReferences.length > 0)
         {
-            for (final Iterator iterator = propertyReferences.keySet().iterator(); iterator.hasNext();)
+            final Namespaces namespaces = Namespaces.instance();
+            for (int ctr = 0; ctr < propertyReferences.length; ctr++)
             {
-                final String reference = (String)iterator.next();
-                final String defaultValue = (String)propertyReferences.get(reference);
-
-                // if we have a default value, then don't warn
-                // that we don't have a property, otherwise we'll
-                // show the warning.
-                boolean showWarning = false;
-                if (defaultValue == null)
-                {
-                    showWarning = true;
-                }
-
-                // find the property from the namespace
-                final Property property =
-                    Namespaces.instance().findNamespaceProperty(
-                        this.getName(),
-                        reference,
-                        showWarning);
-
-                // if property isn't ignore, then add it to
-                // the context
-                if (property != null && !property.isIgnore())
-                {
-                    templateContext.put(
-                        property.getName(),
-                        property.getValue());
-                }
-                else if (defaultValue != null)
-                {
-                    templateContext.put(reference, defaultValue);
-                }
+                final String reference = propertyReferences[ctr];
+                templateContext.put(
+                    reference,
+                    namespaces.getPropertyValue(
+                        this.getNamespace(),
+                        reference));
             }
         }
     }
@@ -345,7 +301,7 @@ public abstract class BasePlugin
      */
     protected Logger getLogger()
     {
-        return AndroMDALogger.getNamespaceLogger(this.name);
+        return AndroMDALogger.getNamespaceLogger(this.getNamespace());
     }
 
     /**
@@ -353,6 +309,6 @@ public abstract class BasePlugin
      */
     public String toString()
     {
-        return ToStringBuilder.reflectionToString(this);
+        return super.toString() + "[" + this.getNamespace() + "]";
     }
 }

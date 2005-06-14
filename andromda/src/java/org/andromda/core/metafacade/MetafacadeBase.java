@@ -382,12 +382,12 @@ public class MetafacadeBase
      */
     public final boolean isMetafacadePropertyCachingEnabled()
     {
-        if (metafacadePropertyCachingEnabled == null)
+        if (this.metafacadePropertyCachingEnabled == null)
         {
             final String enableCache =
                 (String)this.getConfiguredProperty(MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
-            metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache);
+            this.metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache);
         }
-        return metafacadePropertyCachingEnabled.booleanValue();
+        return this.metafacadePropertyCachingEnabled.booleanValue();
     }
 }

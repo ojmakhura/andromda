@@ -53,20 +53,20 @@
                 <xs:element ref="metafacade" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
             <!-- each grouping of metafacades is identified by this namespaces -->
-            <xs:attribute name="namespace" type="xs:string" use="required"/>
+            <xs:attribute name="namespace" type="xs:string" use="optional"/>
             <!-- Specifies whether or not this set of metafacades is 'shared'
                  Shared metafacades are mappings used across all namespaces -->
             <xs:attribute name="shared" type="xs:boolean" use="optional" default="false"/>
+            <!-- Specifies the pattern of the classes based on the metaclass interface names,
+                 for example '{0}Impl' might be the value, where '{0}' represents the metaclass
+                 interface name -->
+            <xs:attribute name="metaclassPattern" type="xs:string" use="optional"/>
         </xs:complexType>
     </xs:element>
     <!-- property references are properties you wish to configure on a metafacade,
          through bean properties -->
     <xs:element name="property">
         <xs:complexType>
-            <xs:sequence>
-                <!-- provides any information about this property reference -->
-                <xs:element name="documentation" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            </xs:sequence>
             <xs:attribute name="reference" type="xs:string" use="required"/>
             <!-- defines the default value of the property if the property isn't supplied -->
             <xs:attribute name="default" use="optional"/>

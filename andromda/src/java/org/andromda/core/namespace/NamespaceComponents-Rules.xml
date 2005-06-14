@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- Digester rules used to configurate a Registry instance by Apache Digester -->
+<digester-rules>
+
+    <pattern value="components">
+
+        <object-create-rule
+              classname="org.andromda.core.namespace.NamespaceComponents" />
+
+        <set-properties-rule>
+             <alias attr-name="path" prop-name="path" />
+        </set-properties-rule>
+
+        <pattern value="component">
+
+            <object-create-rule
+                  classname="org.andromda.core.namespace.Component" />
+           
+            <set-properties-rule>
+                 <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>
+
+            <set-properties-rule>
+                 <alias attr-name="type" prop-name="typeClass" />
+            </set-properties-rule>
+
+            <set-properties-rule>
+                 <alias attr-name="path" prop-name="path" />
+            </set-properties-rule>
+
+            <set-next-rule methodname="addComponent" />
+
+        </pattern>
+
+    </pattern>
+
+</digester-rules>

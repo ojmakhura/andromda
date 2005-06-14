@@ -164,7 +164,8 @@ public class SpringServiceLogicImpl
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
+        final String property = "ejbJndiNamePrefix";
+        return this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : null;
     }
 
     /**
@@ -228,8 +229,10 @@ public class SpringServiceLogicImpl
         String serviceRemoteServer = StringUtils.trimToEmpty(String.valueOf(
                 this.getConfiguredProperty("serviceRemoteServer")));
 
-        String serviceRemoteContext = StringUtils.trimToEmpty(String.valueOf(
-                this.getConfiguredProperty("serviceRemoteContext")));
+        final String property = "serviceRemoteContext";
+        
+        final String serviceRemoteContext = this.isConfiguredProperty(property) ? 
+            ObjectUtils.toString(this.getConfiguredProperty(property)) : "";
 
         String serviceRemotePort = this.getRemotePort();
 

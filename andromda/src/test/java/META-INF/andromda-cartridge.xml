@@ -1,13 +1,13 @@
 <cartridge name="andromda-test-cartridge">
 
-    <!-- define template external properties -->
-    <property reference="propertyReferenceWithDefault" default="aDefaultValue"/>
-    <property reference="propertyReferenceNoDefault"/>
-
     <!-- define the template objects that are made available to the template -->
     <templateObject name="utils" className="org.andromda.core.cartridge.CartridgeTemplateObject">
-        <property reference="value" default="3"/>
+        <property reference="definitionOne"/>
     </templateObject>
+    
+    <!-- define template external properties -->
+    <property reference="propertyReferenceOne"/>
+    <property reference="propertyReferenceTwo"/>
 
     <template
         path="EntityBean.vsl"

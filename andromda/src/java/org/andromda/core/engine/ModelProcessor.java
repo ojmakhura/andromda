@@ -20,7 +20,6 @@ import org.andromda.core.common.BuildInformation;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.Introspector;
-import org.andromda.core.common.PluginDiscoverer;
 import org.andromda.core.common.Profile;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.XmlObjectFactory;
@@ -33,6 +32,7 @@ import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
+import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.transformation.Transformer;
 import org.apache.commons.collections.CollectionUtils;
@@ -185,7 +185,7 @@ public class ModelProcessor
 
             if (lastModifiedCheck ? writer.isHistoryBefore(lastModified) : true)
             {
-                final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
+                final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
                 if (cartridges.isEmpty())
                 {
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
@@ -196,7 +196,7 @@ public class ModelProcessor
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
-                    cartridgeName = cartridge.getName();
+                    cartridgeName = cartridge.getNamespace();
                     if (this.shouldProcess(cartridgeName))
                     {
                         this.factory.setNamespace(cartridgeName);
@@ -249,10 +249,10 @@ public class ModelProcessor
         //   namespace properties)
         this.configure(configuration);
 
-        // - discover all plugins on the classpath
-        PluginDiscoverer.instance().discoverPlugins();
+        // - discover all namespace components
+        NamespaceComponents.instance().discover();
 
-        // - load all the logical mappings
+        // - find and load all the logical mappings
         Mappings.initializeLogicalMappings();
 
         // - load the model into the repository (if it
@@ -264,7 +264,7 @@ public class ModelProcessor
             this.repository.open();
         }
 
-        // - finally the metafacade factory
+        // - finally initialize the metafacade factory
         this.factory.initialize();
         this.printWorkCompleteMessage("core initialization", startTime);
     }
@@ -337,7 +337,7 @@ public class ModelProcessor
         {
             final long startTime = System.currentTimeMillis();
             AndroMDALogger.info("- validating model -");
-            final Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
+            final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
             final ModelAccessFacade modelAccessFacade = this.repository.getModel();
 
             // - clear out the factory's caches (such as any previous validation messages, etc.)
@@ -346,7 +346,7 @@ public class ModelProcessor
             for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
             {
                 final Cartridge cartridge = (Cartridge)iterator.next();
-                final String cartridgeName = cartridge.getName();
+                final String cartridgeName = cartridge.getNamespace();
                 if (this.shouldProcess(cartridgeName))
                 {
                     this.factory.setNamespace(cartridgeName);
@@ -355,8 +355,6 @@ public class ModelProcessor
             }
             this.printValidationMessages(this.factory.getValidationMessages());
             this.printWorkCompleteMessage("validation", startTime);
-
-            //AndroMDALogger.info("- validation complete -");
         }
     }
 
@@ -681,14 +679,14 @@ public class ModelProcessor
         // - shutdown the metafacade factory instance
         MetafacadeFactory.getInstance().shutdown();
 
-        // - shutdown the namespaces instance
+        // - shutdown the configuration namespaces instance
         Namespaces.instance().shutdown();
 
         // - shutdown the container instance
         ComponentContainer.instance().shutdown();
 
-        // - shutdown the plugin discoverer instance
-        PluginDiscoverer.instance().shutdown();
+        // - shutdown the namespace components registry
+        NamespaceComponents.instance().shutdown();
 
         // - shutdown the profile instance
         Profile.instance().shutdown();

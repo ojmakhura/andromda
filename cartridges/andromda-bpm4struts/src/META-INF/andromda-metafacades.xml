@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <!-- contains the bpm4struts cartridge metafacade mappings -->
-<metafacades namespace="bpm4struts">
+<metafacades>
     
-    <property reference="defaultDateFormat" default="dd/MM/yyyy"/>
-    <property reference="defaultActionRedirect" default="false"/>
+    <property reference="defaultDateFormat"/>
+    <property reference="defaultActionRedirect"/>
     <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
-    <property reference="actionPathPrefix" default=""/>
-    <property reference="actionFormScope" default="session"/>
+    <property reference="actionPathPrefix"/>
+    <property reference="actionFormScope"/>
     <!-- denotes which kinf of resource messages should be generated -->
-    <property reference="normalizeMessages" default="false"/>
+    <property reference="normalizeMessages"/>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendServiceLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>            
         </mapping>
-        <property reference="serviceAccessorPattern" default=""/>
-        <property reference="servicePackageNamePattern" default="{0}"/>
+        <property reference="serviceAccessorPattern"/>
+        <property reference="servicePackageNamePattern"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
@@ -61,9 +61,9 @@
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>
-        <property reference="generateTableDecorators" default="false"/>
-        <property reference="tableDecoratorSuffix" default="Decorator"/>
-        <property reference="defaultTableExportTypes" default="xml csv excel pdf"/>
+        <property reference="generateTableDecorators"/>
+        <property reference="tableDecoratorSuffix"/>
+        <property reference="defaultTableExportTypes"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">

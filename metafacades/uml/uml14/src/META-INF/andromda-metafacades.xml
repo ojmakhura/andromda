@@ -1,205 +1,33 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!-- contains the default metafacade mappings -->
-<metafacades namespace="uml-1.4" shared="true">
+<metafacades metaclassPattern="{0}$Impl">
     <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
-    <property reference="languageMappingsUri">
-        <documentation>
-            URI specifying the specific mappings from model types to language types.
-            (i.e. file:${basedir}/JavaMappings.xml)
-        </documentation>
-    </property>
-    <property reference="wrapperMappingsUri">
-        <documentation>
-            <![CDATA[
-            URI specifying primitive type to wrapper types (i.e.
-            int -> java.lang.Integer)
-            (i.e. file:${basedir}/JavaWrapperMappings.xml)
-            ]]>
-        </documentation>
-    </property>
-    <property reference="pluralizeAssociationEndNames" default="true">
-        <documentation>
-            <![CDATA[
-            Turns on/off the pluralization of association ends with multiplicities
-            greater than one.  You'll want to turn off this feature if your model
-            is in a language other than english.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="namespaceSeparator" default=".">
-        <documentation>
-            <![CDATA[
-            Used to separate namespaces within the generated code.  For example
-            setting this to '.' causes fully qualified names to be defined as
-            'some.package.name.SomeClass'.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="undefinedName" default="undefined">
-        <documentation>
-            <![CDATA[
-            When a model element name is unspecified this is
-            the name used (instead of null).
-            ]]>
-        </documentation>
-    </property>
-    <property reference="arrayNameSuffix" default="[]">
-        <documentation>
-            <![CDATA[
-            The suffix given to array names.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="useArraysForMultiplicitiesOfTypeMany" default="false">
-        <documentation>
-            <![CDATA[
-            Whether or not array types should denote multiplicities
-            greater than one for associations between objects where appropriate
-            (i.e. value objects when exposed as webservices).
-            ]]>
-        </documentation>
-    </property>
-    <property reference="maxSqlNameLength" default="30">
-        <documentation>
-            <![CDATA[
-            The maximum length that a SQL name (such as a column name or
-            table name) may be.  This is useful for databases that have a limit
-            on the lengh that a name used in DDL may be (like Oracle).  If you set
-            this to 30 for example, then all names will be truncated
-            after 30 characters when retrieveing the column name or table name.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="tableNamePrefix" default="">
-        <documentation>
-            <![CDATA[
-            The prefix to give all persistent entity table names.  For example
-            if you had an entity named 'Car' and you defined the tableNamePrefix
-            as 'My_', then the table name for the 'Car' entity would be
-            'My_Car'.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="foreignKeySuffix" default="_FK">
-        <documentation>
-            <![CDATA[
-            The suffix to use when creating foreign keys for entity associations.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="constraintSuffix" default="C">
-        <documentation>
-            <![CDATA[
-            The suffix to use when creating constraints such as for entity associations.
-            This is appended to the <code>foreignKeySuffix</code> suffix for foreign
-            key constraint names.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="manageablePackageSuffix" default="crud">
-        <documentation>
-            <![CDATA[
-            The name of the subpackage that will be used for the generation of
-            <<Manageable>> entities.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="sqlNameSeparator" default="_">
-        <documentation>
-           <![CDATA[
-            Definies what is used for seperating words when SQL names are
-            constructed, for example a model element named CompanyAddress would
-            be translated to COMPANY_ADDRESS if the value of <code>sqlNameSeparator</code>
-            was '<em>_</em>'.
-           ]]>
-        </documentation>
-    </property>
-    <property reference="classifierNameMask" default="none">
-        <documentation>
-           <![CDATA[
-           Provides the ability to apply a mask to all classifier names.
-           ]]>
-        </documentation>
-    </property>
-    <property reference="operationNameMask" default="none">
-        <documentation>
-            <![CDATA[
-            Provides the ability to apply a mask to all operation names.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="classifierPropertyNameMask" default="none">
-        <documentation>
-            <![CDATA[
-            Provides the ability to apply a mask to all classifier property names.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="roleNameMask" default="none">
-        <documentation>
-           <![CDATA[
-            Provides the ability to apply a mask to role names (roles are actors
-            marked with the role stereotype).
-           ]]>
-        </documentation>
-    </property>
-    <property reference="enumerationNameMask" default="none">
-        <documentation>
-            <![CDATA[
-            Provides the ability to apply a mask to enumeration names.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="entityNameMask" default="none">
-        <documentation>
-            <![CDATA[
-            Provides the ability to apply a mask to entity names.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="entityPropertyNameMask" default="none">
-        <documentation>
-            <![CDATA[
-            Provides the ability to apply a mask to entity property names.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="parameterNameMask" default="none">
-        <documentation>
-            <![CDATA[
-            Provides the ability to apply a mask to all parameter names.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="enableMetafacadePropertyCaching" default="true">
-        <documentation>
-            <![CDATA[
-            Used for performance reasons, caching a metafacade's properties
-            significantly speeds up the code generation process. Can be disabled when debugging.
-            This feature can be set on a per cartridge basis.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="metaclassImplementationNamePattern" default="{0}$Impl">
-        <documentation>
-            <![CDATA[
-            The pattern for constructing the metaclass implementation name (this should not
-            be changed unless you're changing the meta model repository (and the metaclass implementation
-            names a different) thant the default
-            ]]>
-        </documentation>
-    </property>
-    <property reference="defaultMultiplicity" default="1">
-        <documentation>
-            <![CDATA[
-            The default multiplicity to use when nothing is defined, the possible values
-            are 0 or 1.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="defaultResolveable" default="true"/>
-    <property reference="defaultPageSize" default="20"/>
-    <property reference="defaultMaximumListSize" default="250"/>
+    <property reference="languageMappingsUri"/>
+    <property reference="wrapperMappingsUri"/>
+    <property reference="pluralizeAssociationEndNames"/>
+    <property reference="namespaceSeparator"/>
+    <property reference="undefinedName"/>
+    <property reference="arrayNameSuffix"/>
+    <property reference="useArraysForMultiplicitiesOfTypeMany"/>
+    <property reference="maxSqlNameLength"/>
+    <property reference="tableNamePrefix"/>
+    <property reference="foreignKeySuffix"/>
+    <property reference="constraintSuffix"/>
+    <property reference="manageablePackageSuffix"/>
+    <property reference="sqlNameSeparator"/>
+    <property reference="classifierNameMask"/>
+    <property reference="operationNameMask"/>
+    <property reference="classifierPropertyNameMask"/>
+    <property reference="roleNameMask"/>
+    <property reference="enumerationNameMask"/>
+    <property reference="entityNameMask"/>
+    <property reference="entityPropertyNameMask"/>
+    <property reference="parameterNameMask"/>
+    <property reference="enableMetafacadePropertyCaching"/>
+    <property reference="defaultMultiplicity"/>
+    <property reference="defaultResolveable"/>
+    <property reference="defaultPageSize"/>
+    <property reference="defaultMaximumListSize"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>
@@ -225,7 +53,7 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl"/>
-        <property reference="relationNameSeparator" default="2"/>
+        <property reference="relationNameSeparator"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.DependencyFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
@@ -235,24 +63,12 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.OperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl"/>
-        <property reference="preconditionNamePattern" default="{0}Precondition">
-            <documentation>
-                <![CDATA[
-                The pattern used for constructing an operation's precondition name.
-                ]]>
-            </documentation>
-        </property>
-        <property reference="postconditionNamePattern" default="{0}Postcondition">
-            <documentation>
-                <![CDATA[
-                The pattern used to constructing an operation's postcondition name.
-                ]]>
-            </documentation>
-        </property>
+        <property reference="preconditionNamePattern"/>
+        <property reference="postconditionNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AttributeFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
-        <property reference="enumerationLiteralNameMask" default="none"/>
+        <property reference="enumerationLiteralNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ParameterFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>
@@ -361,13 +177,13 @@
             <stereotype>MANAGEABLE</stereotype>
             <property name="manageable"/>
         </mapping>
-        <property reference="manageableServiceAccessorPattern" default=""/>
+        <property reference="manageableServiceAccessorPattern"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
             <context>org.andromda.metafacades.uml.ManageableEntity</context>
         </mapping>
-        <property reference="manageableIdDisplayStrategy" default="auto"/>
+        <property reference="manageableIdDisplayStrategy"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ManageableEntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
@@ -379,49 +195,25 @@
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
         </mapping>
-        <property reference="allowDefaultIdentifiers" default="true"/>
-        <property reference="defaultIdentifierPattern" default="id"/>
-        <property reference="defaultIdentifierType" default="datatype::Long"/>
-        <property reference="defaultIdentifierVisibility" default="public"/>
-        <property reference="relationNameSeparator" default="2"/>
+        <property reference="allowDefaultIdentifiers"/>
+        <property reference="defaultIdentifierPattern"/>
+        <property reference="defaultIdentifierType"/>
+        <property reference="defaultIdentifierVisibility"/>
+        <property reference="relationNameSeparator"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
             <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
-        <property reference="sqlMappingsUri" default="">
-            <documentation>
-                <![CDATA[
-                The URI to the the SQL mappings file.
-                ]]>
-            </documentation>
-        </property>
-        <property reference="jdbcMappingsUri" default="">
-            <documentation>
-                <![CDATA[
-                The URI to the the JDBC mappings file.
-                ]]>
-            </documentation>
-        </property>
+        <property reference="sqlMappingsUri"/>
+        <property reference="jdbcMappingsUri"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <context>org.andromda.metafacades.uml.Entity</context>
         </mapping>
-        <property reference="sqlMappingsUri" default="">
-            <documentation>
-                <![CDATA[
-                The URI to the the SQL mappings file.
-                ]]>
-            </documentation>
-        </property>
-        <property reference="jdbcMappingsUri" default="">
-            <documentation>
-                <![CDATA[
-                The URI to the the JDBC mappings file.
-                ]]>
-            </documentation>
-        </property>
+        <property reference="sqlMappingsUri"/>
+        <property reference="jdbcMappingsUri"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">

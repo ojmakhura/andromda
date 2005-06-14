@@ -41,6 +41,6 @@ public class NamespacesTest
 
         assertEquals(
             outletLocation,
-            Namespaces.instance().findNamespaceProperty(TEST_NAMESPACE, TEST_OUTLET));
+            Namespaces.instance().getProperty(TEST_NAMESPACE, TEST_OUTLET));
     }
 }

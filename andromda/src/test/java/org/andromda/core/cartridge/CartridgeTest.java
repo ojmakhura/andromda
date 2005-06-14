@@ -2,16 +2,15 @@ package org.andromda.core.cartridge;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
 import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.cartridge.template.Type;
-import org.andromda.core.common.PluginDiscoverer;
+import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.TemplateObject;
-import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.namespace.NamespaceComponents;
 
 
 /**
@@ -44,13 +43,11 @@ public class CartridgeTest
     protected void setUp()
         throws Exception
     {
-        // set validation off since the parser used by JUnit
-        // doesn't seem to support schema validation
-        XmlObjectFactory.setDefaultValidating(false);
-        PluginDiscoverer.instance().discoverPlugins();
-        Collection cartridges = PluginDiscoverer.instance().findPlugins(Cartridge.class);
+        NamespaceComponents.instance().discover();
+        Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
         assertNotNull(cartridges);
         this.cartridge = (Cartridge)cartridges.iterator().next();
+        this.cartridge.initialize();
     }
 
     /**
@@ -62,11 +59,11 @@ public class CartridgeTest
         this.cartridge = null;
     }
 
-    public void testGetName()
+    public void testGetNamespace()
     {
         assertEquals(
-            "andromda-test-cartridge",
-            this.cartridge.getName());
+            "test",
+            this.cartridge.getNamespace());
     }
 
     public void testGetResources()
@@ -148,32 +145,17 @@ public class CartridgeTest
 
     public void testGetPropertyReferences()
     {
-        Map propertyRefs = this.cartridge.getPropertyReferences();
+        String[] propertyRefs = this.cartridge.getPropertyReferences();
         assertNotNull(propertyRefs);
         assertEquals(
             2,
-            propertyRefs.size());
+            propertyRefs.length);
 
-        String propertyReferenceOne = "propertyReferenceWithDefault";
-        String propertyReferenceTwo = "propertyReferenceNoDefault";
+        String propertyReferenceOne = "propertyReferenceOne";
+        String propertyReferenceTwo = "propertyReferenceTwo";
 
-        assertTrue(propertyRefs.containsKey(propertyReferenceOne));
-        assertTrue(propertyRefs.containsKey(propertyReferenceTwo));
-
-        assertEquals(
-            "aDefaultValue",
-            propertyRefs.get(propertyReferenceOne));
-        assertEquals(
-            null,
-            propertyRefs.get(propertyReferenceTwo));
-    }
-
-    public void testGetType()
-    {
-        assertNotNull(this.cartridge.getType());
-        assertEquals(
-            "cartridge",
-            this.cartridge.getType());
+        assertEquals(propertyReferenceOne, propertyRefs[0]);
+        assertEquals(propertyReferenceTwo, propertyRefs[1]);
     }
 
     public void testGetTemplateObjects()
@@ -185,10 +167,10 @@ public class CartridgeTest
             templateObjects.size());
         TemplateObject templateObject = ((TemplateObject)templateObjects.iterator().next());
         assertEquals("utils", templateObject.getName());
-        assertEquals("andromda-test-cartridge",templateObject.getNamespace());
+        assertEquals("test",templateObject.getNamespace());
         CartridgeTemplateObject object = (CartridgeTemplateObject)templateObject.getObject();
         assertNotNull(object);
-        assertEquals("3", object.getValue());
+        assertEquals("3", object.getDefinitionOne());
         
     }
 

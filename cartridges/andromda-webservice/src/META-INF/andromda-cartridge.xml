@@ -1,4 +1,4 @@
-<cartridge name="webservice">
+<cartridge>
 
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
@@ -12,44 +12,44 @@
     <!-- The location of where the WSDL will reside
          (i.e. "http://localhost:8080/security-service/services") -->
     <property reference="wsdlSoapAddress"/>
-    <property reference="securityRealm" default=""/>
-    <property reference="testServiceLocatorName" default="TestServiceLocator"/>
-    <property reference="testServiceLocatorPackage" default="org.andromda.webservice.test"/>
-    <property reference="servicesPath" default="/services/"/>
-    <property reference="ejbJndiUrl" default=""/>
-    <property reference="ejbNamingContextFactory" default="org.jnp.interfaces.NamingContextFactory"/>
-    <property reference="sessionTimeout" default="5"/>
+    <property reference="securityRealm"/>
+    <property reference="testServiceLocatorName"/>
+    <property reference="testServiceLocatorPackage"/>
+    <property reference="servicesPath"/>
+    <property reference="ejbJndiUrl"/>
+    <property reference="ejbNamingContextFactory"/>
+    <property reference="sessionTimeout"/>
 
     <!-- default namespaces -->
-    <property reference="wsdlSoapNamespace" default="http://schemas.xmlsoap.org/wsdl/soap/"/>
-    <property reference="xmlSchemaNamespace" default="http://www.w3.org/2001/XMLSchema"/>
-    <property reference="wsdlNamespace" default="http://schemas.xmlsoap.org/wsdl/"/>
-    <property reference="documentStyleTransportNamespace" default="http://schemas.xmlsoap.org/soap/http"/>
+    <property reference="wsdlSoapNamespace"/>
+    <property reference="xmlSchemaNamespace"/>
+    <property reference="wsdlNamespace"/>
+    <property reference="documentStyleTransportNamespace"/>
     <!-- encoding for xml documents -->
-    <property reference="xmlEncoding" default="UTF-8"/>
+    <property reference="xmlEncoding"/>
 
     <!-- if true, causes generation of necessary code that expects
          the request to be signed -->
-    <property reference="signedRequest" default="false"/>
+    <property reference="signedRequest"/>
 
     <!-- if true, causes generation of necessary code to that expects
          the request to be encrypted -->
-    <property reference="encryptedRequest" default="false"/>
+    <property reference="encryptedRequest"/>
 
     <!-- if true, causes generation of necessary code that encrypts
          the response -->
-    <property reference="encryptedResponse" default="false"/>
+    <property reference="encryptedResponse"/>
 
     <!-- if true, causes generation of necessary code that signs
          the response -->
-    <property reference="signedResponse" default="false"/>
+    <property reference="signedResponse"/>
 
     <!-- Defines the crypto properties for WSS4J -->
-    <property reference="cryptoKeyStore" default=""/>
-    <property reference="cryptoKeyStoreType" default=""/>
-    <property reference="cryptoKeyStoreAlias" default=""/>
-    <property reference="cryptoAliasPassword" default=""/>
-    <property reference="cryptoKeyStorePassword" default=""/>
+    <property reference="cryptoKeyStore"/>
+    <property reference="cryptoKeyStoreType"/>
+    <property reference="cryptoKeyStoreAlias"/>
+    <property reference="cryptoAliasPassword"/>
+    <property reference="cryptoKeyStorePassword"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
