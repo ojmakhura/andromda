@@ -84,18 +84,18 @@ public class StrutsParameterLogicImpl
     {
         Object jspObject = null;
 
-        EventFacade event = getEvent();
+        final EventFacade event = getEvent();
         if (event != null)
         {
-            TransitionFacade transition = event.getTransition();
+            final TransitionFacade transition = event.getTransition();
             if (transition instanceof StrutsAction)
             {
-                StrutsAction action = (StrutsAction)transition;
+                final StrutsAction action = (StrutsAction)transition;
                 jspObject = action.getInput();
             }
             else if (transition instanceof StrutsForward)
             {
-                StrutsForward forward = (StrutsForward)transition;
+                final StrutsForward forward = (StrutsForward)transition;
                 if (forward.isEnteringPage())
                 {
                     jspObject = forward.getTarget();
@@ -515,7 +515,7 @@ public class StrutsParameterLogicImpl
         ClassifierFacade type = getType();
         if (type != null)
         {
-            isTable = (type.isCollectionType() || type.isArrayType()) && (!getTableColumnNames().isEmpty());
+            isTable = (type.isCollectionType() || type.isArrayType()) && !getTableColumnNames().isEmpty();
         }
         return isTable;
     }
@@ -814,39 +814,20 @@ public class StrutsParameterLogicImpl
 
         if (!isActionParameter() && !isControllerOperationArgument())
         {
-            Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
+            final Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
             if (taggedValues.isEmpty() == false)
             {
                 for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
                 {
-                    String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                    final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
                     if (taggedValue != null)
                     {
-                        String[] properties = taggedValue.split("[,\\s]+");
+                        final String[] properties = taggedValue.split("[,\\s]+");
                         for (int i = 0; i < properties.length; i++)
                         {
-                            String property = properties[i];
+                            final String property = properties[i];
                             tableColumnNames.add(property);
                         }
-                    }
-                }
-            }
-        }
-        else if (isControllerOperationArgument())   // @todo: remove (wouter)
-        {
-            tableColumnNames = new HashSet();
-            final String name = StringUtils.trimToEmpty(getName());
-            Collection actions = getControllerOperation().getDeferringActions();
-            for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
-            {
-                StrutsAction action = (StrutsAction)actionIterator.next();
-                Collection formFields = action.getActionFormFields();
-                for (Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext();)
-                {
-                    StrutsParameter parameter = (StrutsParameter)fieldIterator.next();
-                    if (name.equals(parameter.getName()))
-                    {
-                        tableColumnNames.addAll(parameter.getTableColumnNames());
                     }
                 }
             }

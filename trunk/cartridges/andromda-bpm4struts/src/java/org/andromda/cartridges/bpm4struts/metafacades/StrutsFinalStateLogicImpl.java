@@ -137,18 +137,6 @@ public class StrutsFinalStateLogicImpl
             }
         }
 
-        final List actions = getActions();
-        for (int i = 0; i < actions.size(); i++)
-        {
-            final StrutsAction action = (StrutsAction)actions.get(i);
-            final List actionParameters = action.getActionParameters();
-            for (int j = 0; j < actionParameters.size(); j++)
-            {
-                final ModelElementFacade parameter = (ModelElementFacade)actionParameters.get(j);
-                parameterMap.put(parameter.getName(), parameter);
-            }
-        }
-
         return new ArrayList(parameterMap.values());
     }
 }

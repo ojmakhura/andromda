@@ -43,10 +43,6 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
         final $formBeanClassName specificForm = ($formBeanClassName)form;
 
 #if ($action.useCaseStart)
-        // copy any parameters from the previous form into this one
-        // (only those with the same name and type are considered, and only if they can be set in the target form)
-//        org.apache.commons.beanutils.BeanUtils.populate(form, request.getParameterMap());
-
 ## for each final state targetting this use-case we check the incoming variables that ought to
 ## survive the trip to this use-case, those parameters will have been put into session scope
 ## and here we move them into the new form
@@ -59,14 +55,11 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 #foreach ($finalState in $action.useCase.referencingFinalStates)
 #foreach ($finalStateAction in $finalState.actions)
 #set ($formBeanType = $finalStateAction.formBeanType)
-#set ($formFields = $finalStateAction.formFields)
         if (previousFormObject instanceof $formBeanType)
         {
             final $formBeanType previousForm = ($formBeanType)previousFormObject;
 #foreach ($parameter in $finalState.interUseCaseParameters)
-#if ($finalStateAction.actionFormFields.contains($parameter))
             specificForm.${parameter.setterName}(previousForm.${parameter.getterName}());
-#end
 #end
         }
         else
