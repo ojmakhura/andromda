@@ -8,8 +8,8 @@
         <mapping class="org.andromda.core.metafacade.MappingObject1">
             <stereotype>FINDER_METHOD</stereotype>
         </mapping>
-        <property reference="metafacadeProperteryOne" default="true"/>
-        <property reference="metafacadeProperteryTwo" default="false"/>
+        <property reference="metafacadeProperteryOne"/>
+        <property reference="metafacadeProperteryTwo"/>
     </metafacade>
     <metafacade class="org.andromda.core.metafacade.Metafacade1Impl">
         <mapping class="org.andromda.core.metafacade.MappingObject1">
