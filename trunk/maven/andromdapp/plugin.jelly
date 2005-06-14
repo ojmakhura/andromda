@@ -36,7 +36,7 @@
             name="${projectId}/maven.xml"
             basedir="${templatesDir}"
             template="maven.xml.vsl"/>
-            
+
         <velocity:merge
             name="${projectId}/build.properties"
             basedir="${templatesDir}"
@@ -87,11 +87,11 @@
         <ant:copy
             file="${mdaTemplatesDir}/src/uml/empty-model.xmi"
             tofile="${mdaModelDir}/${projectNameNoWhitespace}Model.xmi"/>
-            
+
         <j:set var="mdaConfDir" value="${mdaDir}/conf"/>
-        
+
         <ant:mkdir dir="${mdaConfDir}"/>
-        
+
         <velocity:merge
             name="${mdaConfDir}/andromda.xml"
             basedir="${mdaTemplatesDir}/conf"
@@ -210,7 +210,7 @@
         <velocity:merge
           name="${moduleDir}/maven.xml"
           basedir="${moduleTemplatesDir}"
-          template="maven.xml.vsl"/>      
+          template="maven.xml.vsl"/>
 
         <attainGoal name="andromdapp:generate-core-subproject"/>
     </goal>
@@ -343,8 +343,8 @@
             <i:ask
                 question="Would you like an EAR or standalone WAR (enter 'ear' or 'war')?"
                 answer="projectType"/>
-        </j:while>        
-        <j:choose>       
+        </j:while>
+        <j:choose>
             <j:when test="${projectType == 'ear'}">
                 <j:while test="${empty(persistenceType) or
                                   (persistenceType ne 'hibernate' and persistenceType ne 'ejb' and persistenceType ne 'spring')}">
@@ -352,6 +352,15 @@
                         question="Please enter the type of transactional/persistence cartridge to use (enter 'hibernate', 'ejb', or 'spring'):"
                         answer="persistenceType"/>
                 </j:while>
+                <ant:echo>${persistenceType} ${persistenceType == 'hibernate'} ${empty(hibernateVersion) or (hibernateVersion ne '2' and hibernateVersion ne '3')}</ant:echo>
+                <j:if test="${persistenceType == 'hibernate'}">
+                    <j:while test="${empty(hibernateVersion) or
+                                  (hibernateVersion ne '2' and hibernateVersion ne '3')}">
+                        <i:ask
+                            question="Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x):"
+                            answer="hibernateVersion"/>
+                    </j:while>
+                </j:if>
                 <j:while test="${empty(webComponent) or (webComponent ne 'yes' and webComponent ne 'no')}">
                     <i:ask
                         question="Would you like a web application? (enter 'yes' or 'no'):"
