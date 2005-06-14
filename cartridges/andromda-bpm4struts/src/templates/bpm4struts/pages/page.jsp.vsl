@@ -5,12 +5,9 @@
 ##
 #set ($hasTable = false)
 <%@ include file="/taglib-imports.jspf" %>
-#if (!$jsp.pageVariables.empty)
-<%@ include file="${jsp.fullPath}-vars.jspf" %>
 #foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
 #set ($hasTable = true)
-#end
 #end
 #end
 
@@ -59,81 +56,16 @@
         </div>
 
 #if ($jsp.pageVariables.size() > 0)
-        <div id="pageVariables">
-#foreach ($variable in $jsp.pageVariables)
-#if (!$variable.table)
-            <c:choose>
-                <c:when test="${!empty ${formName}.${variable.name}}">
-                    <bean:write name="$formName" property="$variable.name"/>
-                </c:when>
-                <c:otherwise>
-                    Missing from request : ${variable.name} <br/>
-                </c:otherwise>
-            </c:choose>
-#end
-#end
-        </div>
-#end
+        <%@ include file="${jsp.fullPath}-vars.jspf" %>
 
+#end
 #foreach ($action in $jsp.nonTableActions)
         <tiles:insert page="${action.fullTilePath}.jsp" flush="false"/>
-#end
 
+#end
 #foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
-#set ($targetColumns = $variable.targettedTableColumnNames)
-#set ($sortable = $variable.tableSortable)
-#set ($exportable = $variable.tableExportable)
-        <div id="${variable.name}" class="table">
-                <display:table name="${${variable.name}}" id="row"
-                           requestURI="${pageContext.request.requestURI}"
-#if ($variable.tableDecoratorRequired)
-                           decorator="${variable.tableDecoratorFullyQualifiedName}"
-#end
-                           export="$exportable" pagesize="$variable.tableMaxRows" sort="list">
-#if ($exportable)
-#set ($exportFileName = "${jsp.name}-${variable.name}")
-#set ($exportFileName = "$stringUtils.toWebFileName($exportFileName)")
-                    <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
-#end
-#foreach ($column in $variable.tableColumns)
-#if($column.actionParameter)#set($columnName=$column.name)#else#set($columnName=$column)#end
-#if ($exportable)
-                    <display:column media="$variable.tableExportTypes"
-                        titleKey="$variable.getTableColumnMessageKey($columnName)"
-                        property="$columnName" autolink="true" paramId="$columnName" />
-#end
-                    <display:column media="html"
-                        headerClass="$columnName" paramId="$columnName"
-#if (!$variable.tableDecoratorRequired && $variable.tableSortable && (!$column.actionParameter || $column.sortableBy))
-                        sortProperty="$columnName" sortable="true"
-#end
-                        titleKey="$variable.getTableColumnMessageKey($columnName)">
-#if ($column.actionParameter)
-                        <div class="$columnName">
-#renderFormField($column.action $column "                            " '${row_rowNum}')
-                        </div>
-#else## just render as text since the column is in fact a simple String
-#set ($columnValue = "row.$columnName")
-                        <div class="$columnName">${${columnValue}}</div>
-#end
-                    </display:column>
-#end
-#foreach ($tableAction in $variable.tableHyperlinkActions)
-#if (!$tableAction.tableLinkColumnName)
-                    <display:column media="html">
-#renderTableHyperlink($tableAction "                        ")
-                    </display:column>
-#end
-#end
-#foreach ($tableAction in $variable.tableFormActions)
-                    <display:column media="html">
-#renderTableButton($tableAction "                        " '${row_rowNum}')
-                    </display:column>
-#end
-                </display:table>
-        </div>
-
+        <%@ include file="${jsp.fullPath}-${variable.name}.jspf" %>
 #end
 #end
 

@@ -37,6 +37,8 @@
     <!-- the name of the form passed along with the application flow (normally
          stored within the session) -->
     <property reference="formName" default="form"/>
+    <!-- whether or not form page variables are copied into page scope -->
+    <property reference="setPageVariablesInPageScope" default="true"/>
     <!-- the name of the form passed along with the application flow (normally
          stored within the session), only used for manageable entities -->
     <property reference="manageableFormName" default="manageableForm"/>
@@ -216,10 +218,25 @@
         path="templates/bpm4struts/pages/page-variables.jspf.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
-        overwrite="true">
+        overwrite="true"
+        generateEmptyFiles="false">
         <modelElements variable="jsp">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/page-table.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="table">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter">
+                    <property name="table"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>

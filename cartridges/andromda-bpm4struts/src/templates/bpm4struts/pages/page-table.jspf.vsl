@@ -1,0 +1,55 @@
+#parse("templates/bpm4struts/pages/page.jsp.vm")
+#set ($jsp = $table.jsp)
+#set ($generatedFile = "${jsp.fullPath}-${table.name}.jspf")
+#set ($targetColumns = $table.targettedTableColumnNames)
+#set ($sortable = $table.tableSortable)
+#set ($exportable = $table.tableExportable)
+<div id="${table.name}" class="table">
+    <display:table name="${${table.name}}" id="row"
+        requestURI="${pageContext.request.requestURI}"
+#if ($table.tableDecoratorRequired)
+        decorator="${table.tableDecoratorFullyQualifiedName}"
+#end
+        export="$exportable" pagesize="$table.tableMaxRows" sort="list">
+#if ($exportable)
+#set ($exportFileName = "${jsp.name}-${table.name}")
+#set ($exportFileName = "$stringUtils.toWebFileName($exportFileName)")
+        <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
+#end
+#foreach ($column in $table.tableColumns)
+#if($column.actionParameter)#set($columnName=$column.name)#else#set($columnName=$column)#end
+#if ($exportable)
+        <display:column media="$table.tableExportTypes"
+            titleKey="$table.getTableColumnMessageKey($columnName)"
+            property="$columnName" autolink="true" paramId="$columnName" />
+#end
+        <display:column media="html"
+            headerClass="$columnName" paramId="$columnName"
+#if (!$table.tableDecoratorRequired && $table.tableSortable && (!$column.actionParameter || $column.sortableBy))
+            sortProperty="$columnName" sortable="true"
+#end
+            titleKey="$table.getTableColumnMessageKey($columnName)">
+#if ($column.actionParameter)
+            <div class="$columnName">
+#renderFormField($column.action $column "                " '${row_rowNum}')
+            </div>
+#else## just render as text since the column is in fact a simple String
+#set ($columnValue = "row.$columnName")
+            <div class="$columnName">${${columnValue}}</div>
+#end
+        </display:column>
+#end
+#foreach ($tableAction in $table.tableHyperlinkActions)
+#if (!$tableAction.tableLinkColumnName)
+        <display:column media="html">
+#renderTableHyperlink($tableAction "            ")
+        </display:column>
+#end
+#end
+#foreach ($tableAction in $table.tableFormActions)
+        <display:column media="html">
+#renderTableButton($tableAction "            " '${row_rowNum}')
+        </display:column>
+#end
+    </display:table>
+</div>
