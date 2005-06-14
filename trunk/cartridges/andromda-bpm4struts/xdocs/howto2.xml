@@ -323,12 +323,6 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                     leading into a final state and the parameters will be automagically be available in the target
                     use-case.
                 </p>
-                <p class="highlight">
-                    Please note that when an event eventually leads into a final state all the event parameters will be
-                    visible in the use-case targetted by the final state, all other parameters that need to survive the 
-                    transition to the next use-case will need to be modeled explicitely on the transition going into
-                    the final state.
-                </p>
                 <p>
                     <h4>This is the first use-case</h4>
                     <img src="resources/howto/org/andromda/test/inter-usecase-source.gif"/>
