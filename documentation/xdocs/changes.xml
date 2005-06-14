@@ -10,6 +10,13 @@
     </properties>
     <body>
         <release version="3.1-M1-SNAPSHOT" date="2005-06-11" description="Continuous build for the first milestone release of version 3.1">
+            <action dev="cwbrandon" type="add" issue="CORE-72">
+                Property references are now defined in a namespace descriptor in which each namespace component 
+                (cartridge, translation-library, and metafacades must be registered within).
+                Unfortunately this change is not backwards compatible with 3.0 cartridges, to upgrade 3.0 cartridges
+                to be 3.1 compatible, you will need to create a META-INF/andromda/namespace.xml descriptor per cartridge 
+                and register the cartridge and metafacades (as well as any namespace properties and its defaults) in this file.
+            </action>
             <action dev="cwbrandon" type="add">
                 The Spring cartridge can now generate for Hiberante 3 (as well as Hibernate 2 as before).  Version 2
                 is the default, in order to change the version to 3, you must set the <em>hibernateVersion</em> 
