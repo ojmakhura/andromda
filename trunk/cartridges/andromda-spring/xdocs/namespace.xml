@@ -576,6 +576,74 @@
                         No, default is <code>true</code>.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        acegiServiceSecurity
+                    </td>
+                    <td>
+                        Whether or not acegi security framework should be used for
+						role based recurity handling for spring services.
+                    </td>
+                    <td>
+                        No, default is <code>false</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        acegiServiceSecurityInterceptor
+                    </td>
+                    <td>
+                        The name of the class to use for the acegi security interception.
+                    </td>
+                    <td>
+                        No, default is <code>net.sf.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        acegiServiceAccessDecisionManager
+                    </td>
+                    <td>
+                        The name of the class to use for the acegi security access decision manager.
+                    </td>
+                    <td>
+                        No, default is <code>net.sf.acegisecurity.vote.AffirmativeBased</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        acegiServiceDecisionVoter
+                    </td>
+                    <td>
+                        The name of the class to use for the acegi security access decision voter.
+                    </td>
+                    <td>
+                        No, default is <code>net.sf.acegisecurity.vote.RoleVoter</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        acegiAuthenticationManager
+                    </td>
+                    <td>
+                        The bean name of the acegi authentication manager (defined in a seperate applicationContext outside of the generated one).
+                    </td>
+                    <td>
+                        Yes if using default acegiServiceSecurityInterceptor (own implementations might not need one).
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        acegiRunAsManager
+                    </td>
+                    <td>
+                        The bean name of the acegi run as manager (defined in a seperate applicationContext outside of the generated one).
+                    </td>
+                    <td>
+                        Yes if using default acegiServiceSecurityInterceptor (own implementations might not need one).
+                    </td>
+                </tr>
+				
             </table>
             <subsection name="Hibernate Specific Properties">
                 <table>

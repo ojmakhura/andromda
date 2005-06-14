@@ -4,3 +4,4 @@
 #set ($daosEnabled = $stringUtils.isNotBlank($daos))
 #set ($requiredCheckEnabled = $parameterRequiredCheck.equalsIgnoreCase('true'))
 #set ($adviceEnabled = $stringUtils.isNotBlank($advice-impls))
+#set ($acegiServiceSecurityEnabled = $acegiServiceSecurity.equalsIgnoreCase('true'))

@@ -497,5 +497,51 @@
              or not, this allows us to determine whether or not we need to generate
              entity related information -->
         <property name="daos" required="false"/>
+        <property name="acegiServiceSecurity">
+            <default>false</default>
+            <documentation>
+                <![CDATA[
+                Whether or not acegi security framework should be used for role based recurity handling for spring services.
+                ]]>
+            </documentation>
+        </property>
+        <property name="acegiServiceSecurityInterceptor">
+            <default>net.sf.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor</default>
+            <documentation>
+                <![CDATA[
+                The name of the class to use for the acegi security interception.
+                ]]>
+            </documentation>
+        </property>
+        <property name="acegiServiceAccessDecisionManager">
+            <default>net.sf.acegisecurity.vote.AffirmativeBased"</default>
+            <documentation>
+                <![CDATA[
+                The name of the class to use for the acegi security access decision manager.
+                ]]>
+            </documentation>
+        </property>
+        <property name="acegiServiceDecisionVoter">
+            <default>net.sf.acegisecurity.vote.RoleVoter</default>
+            <documentation>
+                <![CDATA[
+                The name of the class to use for the acegi security access decision voter.
+                ]]>
+            </documentation>
+        </property>
+        <property name="acegiAuthenticationManager" required="false">
+            <documentation>
+                <![CDATA[
+                The bean name of the acegi authentication manager (defined in a seperate applicationContext outside of the generated one).
+                ]]>
+            </documentation>
+        </property>
+        <property name="acegiRunAsManager" required="false">
+            <documentation>
+                <![CDATA[
+                The bean name of the acegi run as manager (defined in a seperate applicationContext outside of the generated one).
+                ]]>
+            </documentation>
+        </property>
     </properties>
 </namespace>
