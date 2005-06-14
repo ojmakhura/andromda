@@ -107,11 +107,23 @@
         <property name="manageableFieldMaxLength">
             <default>36</default>
         </property>
-        <!-- the prefix used for hidden form input fields when pre-filling an entity reference after switching,
-             this property should only be changed if you have form fields whose name could conflict with
-             these extra fields -->
         <property name="manageableReferenceParameterPrefix">
             <default>ref_</default>
+            <documentation>
+                <![CDATA[
+                The prefix used for hidden form input fields when pre-filling an entity reference after switching,
+                this property should only be changed if you have form fields whose name could conflict with
+                these extra fields.
+                ]]>
+            </documentation>
+        </property>
+        <property name="setPageVariablesInPageScope">
+            <default>true</default>
+            <documentation>
+                <![CDATA[
+                Whether or not form page variables are copied into page scope.
+                ]]>
+            </documentation>
         </property>
     </properties>
 </namespace>

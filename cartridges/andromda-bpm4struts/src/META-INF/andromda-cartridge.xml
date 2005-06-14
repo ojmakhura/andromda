@@ -16,42 +16,30 @@
     <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
     <!-- cartridge-templateObject merge-point-->
 
-    <!-- define template external properties -->
-    <property reference="security" default="false"/>
-    <property reference="xhtml" default="false"/>
-    <property reference="securityRealm" default="other"/>
-    <property reference="clientValidation" default="true"/>
-    <property reference="serverValidation" default="true"/>
-    <property reference="welcomeFileName" default="index.jsp"/>
-    <property reference="maxBreadCrumbs" default="5"/>
-    <property reference="dummyData" default="true"/>
-    <property reference="onlineHelp" default="true"/>
-    <property reference="hints" default="true"/>
-    <property reference="warningMessagesKey" default="org.andromda.bpm4struts.warningmessages"/>
-    <property reference="successMessagesKey" default="org.andromda.bpm4struts.successmessages"/>
-    <property reference="exceptionHandlerPattern" default="(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)"/>
-    <property reference="exceptionHandlerPackage" default="org.andromda.presentation.bpm4struts"/>
-    <property reference="validatorPackage" default="org.andromda.presentation.bpm4struts"/>
-    <property reference="servletPackage" default="org.andromda.presentation.bpm4struts"/>
-    <property reference="errorMessagesKey" default="org.andromda.bpm4struts.errormessages"/>
-    <!-- the name of the form passed along with the application flow (normally
-         stored within the session) -->
-    <property reference="formName" default="form"/>
-    <!-- whether or not form page variables are copied into page scope -->
-    <property reference="setPageVariablesInPageScope" default="true"/>
-    <!-- the name of the form passed along with the application flow (normally
-         stored within the session), only used for manageable entities -->
-    <property reference="manageableFormName" default="manageableForm"/>
-    <!-- generated xml's encoding -->
-    <property reference="xmlEncoding" default="UTF-8"/>
-    <!-- generate id attribute in web.xml elements -->
-    <property reference="generateWebXmlIds" default="false"/>
-    <!-- the maximum number of characters to allow in a managed entity's table (truncated using an ellipsis) -->
-    <property reference="manageableFieldMaxLength" default="36"/>
-    <!-- the prefix used for hidden form input fields when pre-filling an entity reference after switching,
-         this property should only be changed if you have form fields whose name could conflict with
-         these extra fields -->
-    <property reference="manageableReferenceParameterPrefix" default="ref_"/>
+    <property reference="security"/>
+    <property reference="xhtml"/>
+    <property reference="securityRealm"/>
+    <property reference="clientValidation"/>
+    <property reference="serverValidation"/>
+    <property reference="welcomeFileName"/>
+    <property reference="maxBreadCrumbs" />
+    <property reference="dummyData"/>
+    <property reference="onlineHelp"/>
+    <property reference="hints"/>
+    <property reference="warningMessagesKey"/>
+    <property reference="successMessagesKey"/>
+    <property reference="exceptionHandlerPattern"/>
+    <property reference="exceptionHandlerPackage"/>
+    <property reference="validatorPackage"/>
+    <property reference="servletPackage"/>
+    <property reference="errorMessagesKey"/>
+    <property reference="formName"/>
+    <property reference="manageableFormName"/>
+    <property reference="xmlEncoding"/>
+    <property reference="generateWebXmlIds"/>
+    <property reference="manageableFieldMaxLength"/>
+    <property reference="manageableReferenceParameterPrefix"/>
+    <property reference="setPageVariablesInPageScope"/> 
     <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->
