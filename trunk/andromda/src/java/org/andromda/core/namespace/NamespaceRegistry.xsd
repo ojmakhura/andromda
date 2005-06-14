@@ -6,9 +6,37 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <xs:element name="component">
         <xs:complexType>
-            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="componentName" use="required"/>
         </xs:complexType>
     </xs:element>
+    <xs:simpleType name="componentName">
+        <xs:annotation>
+            <xs:documentation> Stores the possible component names </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="cartridge">
+                <xs:annotation>
+                    <xs:documentation>
+                        Represents the 'cartridge' component.  Use this to register a cartridge in your namespace.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="translation-library">
+                <xs:annotation>
+                    <xs:documentation>
+                       Represents the 'translation-library' component.  Use this to register a translation-library in your namespace.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="metafacades">
+                <xs:annotation>
+                    <xs:documentation>
+                       Represents the 'metafacades' component.  Use this to register a set of metafacades in your namespace.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+       </xs:restriction>
+    </xs:simpleType>
     <xs:element name="components">
         <xs:complexType>
             <xs:sequence>
