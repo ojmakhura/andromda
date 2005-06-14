@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <!-- contains andromda-meta's metafacade mappings -->
-<metafacades namespace="meta">
+<metafacades>
     <property reference="implementationOperationNamePattern"/>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">

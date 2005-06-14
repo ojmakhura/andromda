@@ -9,96 +9,74 @@
         </p>
         <source language="xml">
 <![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-
-    <!-- description of what the translation-library does -->
-    <xs:element name="description" type="xs:string"/>
-
-    <!-- you configure the template engine through here -->
-    <xs:element name="templateEngine">
+    <!-- the translation 'fragment' -->
+    <xs:element name="fragment">
+        <xs:complexType mixed="true">
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="kind"/>
+            </xs:choice>
+            <!-- the name of the translation 'fragment' -->
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <!-- the optional name of the 'handler' method, this is the method
+                 that will handle translation of the fragment if the name is found.
+                 The handler method belongs on your Translator implementation -->
+            <xs:attribute name="handlerMethod" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="fragments">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="macrolibrary" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="fragment" maxOccurs="unbounded"/>
             </xs:sequence>
-            <!-- the class of the TemplateEngine implementation (must have a default constructor) -->
-            <xs:attribute name="className" type="xs:string" use="optional"/>
         </xs:complexType>
     </xs:element>
-
-    <!-- Defines a macro library that can be used with commonly used scripting engine macros -->
-    <xs:element name="macrolibrary">
+    <!-- the kind or type of the expression being translated by the
+         translation fragment -->
+    <xs:element name="kind">
         <xs:complexType>
-            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="name" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:NMTOKEN">
+                                <xs:enumeration value="body"/>
+                                <xs:enumeration value="def"/>
+                                <xs:enumeration value="inv"/>
+                                <xs:enumeration value="post"/>
+                                <xs:enumeration value="pre"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-
-    <!-- the translation which performs 'translation' of the expression
-         in combination with the translation template -->
-    <xs:element name="translator" type="xs:string"/>
-
-    <!-- any objects to make available to the translation template -->
-    <xs:element name="templateObject">
-        <xs:complexType>
-            <!-- the name of the templateObject, this is the name of the scripting object
-                 made available to the translation template during processing -->
-            <xs:attribute name="name" type="xs:string" use="required"/>
-            <!-- the fully qualified class name of the object (must have a
-                 default public constructor) -->
-            <xs:attribute name="className" type="xs:string" use="required"/>
-        </xs:complexType>
-    </xs:element>
-
-    <!-- the 'translation' element -->
+    <!-- the root 'translation' element -->
     <xs:element name="translation">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="translator" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="description" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="templateEngine" minOccurs="0" maxOccurs="1"/>
-                <!-- the optional template that contains the 'translation' tempate -->
-                <xs:element name="template" minOccurs="0" maxOccurs="1">
-                    <xs:complexType>
-                        <!-- The path to the template (relative to the translation-library resources-->
-                        <xs:attribute name="path" use="required"/>
-                        <!-- The name to be given to the variable made available to the template (this is
-                             the context element to which the expression applies) -->
-                        <xs:attribute name="variable" use="optional"/>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element ref="fragments"/>
+                <xs:element ref="patterns" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
-
-    <!-- the root 'translation-library' element -->
-    <xs:element name="translation-library">
+    <!-- patterns allow us to do additional things with patterns/regular expressions will translating -->
+    <xs:element name="patterns">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="templateEngine" minOccurs="0"/>
-                <xs:element ref="translator" minOccurs="0" maxOccurs="1"/>
-                <xs:element ref="templateObject" minOccurs="0" maxOccurs="unbounded"/>
-                <!-- these are references to properties that are expected to
-                     be supplied by the calling client through a <namespace/> element.
-                     When the property name and its value are supplied in the build
-                     file for example, that property is then supplied to the template.  -->
-                <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
-                <xs:element ref="translation" minOccurs="1" maxOccurs="unbounded"/>
+                <!-- These can be specified to indicate which patterns should be validated
+                     against the model -->
+                <xs:element ref="validate" minOccurs="0" maxOccurs="unbounded" />
+                <!-- These can be specified so that any pattern not matching in a handler can will be ignored,
+                     if these aren't specified any patterns not matching give errors -->
+                <xs:element ref="ignore" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
-            <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
-
-    <xs:element name="property">
-        <xs:complexType>
-            <!-- defines a reference to a <property/> element defined within
-                 a namespace element in your build file -->
-            <xs:attribute name="reference" use="required"/>
-            <!-- defines the default value of the property if the property isn't supplied -->
-            <xs:attribute name="default" use="optional"/>
-        </xs:complexType>
-    </xs:element>
+    <xs:element name="ignore" type="xs:string"/>
+    <xs:element name="validate" type="xs:string"/>
 </xs:schema>]]>
       </source>
       </section>
