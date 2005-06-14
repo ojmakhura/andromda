@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="bpm4struts">
+    <components>
+        <component name="cartridge"/>
+        <component name="metafacades"/>
+    </components>
+    <properties>
+        <property name="defaultDateFormat">
+            <default>dd/MM/yyyy</default>
+        </property>
+        <property name="defaultActionRedirect">
+            <default>false</default>
+        </property>
+        <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
+        <property name="actionPathPrefix" required="false"/>
+        <property name="actionFormScope">
+            <default>session</default>
+        </property>
+        <!-- denotes which kinf of resource messages should be generated -->
+        <property name="normalizeMessages">
+            <default>false</default>
+        </property>
+        <property name="serviceAccessorPattern" required="false"/>       
+        <property name="servicePackageNamePattern">
+            <default>{0}</default>
+        </property>
+        <property name="generateTableDecorators">
+            <default>false</default>
+        </property>
+        <property name="tableDecoratorSuffix">
+            <default>Decorator</default>
+        </property>
+        <property name="defaultTableExportTypes">
+            <default>xml csv excel pdf</default>
+        </property>
+        <property name="security">
+            <default>false</default>
+        </property>
+        <property name="xhtml">
+            <default>false</default>
+        </property>
+        <property name="securityRealm">
+            <default>other</default>
+        </property>
+        <property name="clientValidation">
+            <default>true</default>
+        </property>
+        <property name="serverValidation">
+            <default>true</default>            
+        </property>
+        <property name="welcomeFileName">
+            <default>index.jsp</default>
+        </property>
+        <property name="maxBreadCrumbs">
+            <default>5</default>
+        </property>
+        <property name="dummyData">
+            <default>true</default>
+        </property>
+        <property name="onlineHelp">
+            <default>true</default>
+        </property>
+        <property name="hints">
+            <default>true</default>
+        </property>
+        <property name="warningMessagesKey">
+            <default>org.andromda.bpm4struts.warningmessages</default>
+        </property>
+        <property name="successMessagesKey">
+            <default>org.andromda.bpm4struts.successmessages</default>
+        </property>
+        <property name="exceptionHandlerPattern">
+            <default>(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)</default>
+        </property>
+        <property name="exceptionHandlerPackage">
+            <default>org.andromda.presentation.bpm4struts</default>
+        </property>
+        <property name="validatorPackage">
+            <default>org.andromda.presentation.bpm4struts</default>
+        </property>
+        <property name="servletPackage">
+            <default>org.andromda.presentation.bpm4struts</default>
+        </property>
+        <property name="errorMessagesKey">
+            <default>org.andromda.bpm4struts.errormessages</default>
+        </property>
+        <!-- the name of the form passed along with the application flow (normally
+             stored within the session) -->
+        <property name="formName">
+            <default>form</default>
+        </property>
+        <!-- the name of the form passed along with the application flow (normally
+             stored within the session), only used for manageable entities -->
+        <property name="manageableFormName">
+            <default>manageableForm</default>
+        </property>
+        <!-- generated xml's encoding -->
+        <property name="xmlEncoding">
+            <default>UTF-8</default>
+        </property>
+        <!-- generate id attribute in web.xml elements -->
+        <property name="generateWebXmlIds">
+            <default>false</default>
+        </property>
+        <!-- the maximum number of characters to allow in a managed entity's table (truncated using an ellipsis) -->
+        <property name="manageableFieldMaxLength">
+            <default>36</default>
+        </property>
+        <!-- the prefix used for hidden form input fields when pre-filling an entity reference after switching,
+             this property should only be changed if you have form fields whose name could conflict with
+             these extra fields -->
+        <property name="manageableReferenceParameterPrefix">
+            <default>ref_</default>
+        </property>
+    </properties>
+</namespace>

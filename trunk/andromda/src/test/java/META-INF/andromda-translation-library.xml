@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <translation-library name="test-translation-library">
-
+       
 	<!-- contains the default class name (for this library) that provides the translation processing
 	     of the the translation file (it must implement org.andromda.core.translation.Translator) 
 	     (this can also be overridden on each translation element) -->
 	<translator>org.andromda.core.translation.library.TestTranslator</translator>
+    
+     <!-- define the template objects that are made available to the template -->
+    <templateObject name="utils" className="org.andromda.core.translation.library.LibraryTemplateObject">
+        <property reference="definitionOne"/>
+    </templateObject> 
 	
     <!-- define template external properties -->
-    <property reference="propertyReferenceWithDefault" default="aDefaultValue"/>
-    <property reference="propertyReferenceNoDefault"/>
-	
-    <!-- define the template objects that are made available to the template -->
-    <templateObject name="utils" className="org.andromda.core.translation.library.LibraryTemplateObject">
-        <property reference="value" default="3"/>
-    </templateObject> 
+    <property reference="propertyReferenceOne"/>
+    <property reference="propertyReferenceTwo"/>
 	
 	<translation name="TranslationOne">
 		<description>

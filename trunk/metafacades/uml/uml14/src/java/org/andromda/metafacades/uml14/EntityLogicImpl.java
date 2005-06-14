@@ -1,5 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -22,15 +28,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.Attribute;
 import org.omg.uml.foundation.core.Classifier;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 
 /**
@@ -194,9 +193,10 @@ public class EntityLogicImpl
      */
     protected String handleGetTableName()
     {
-        String tableNamePrefix =
-            StringUtils.trimToEmpty(
-                String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.TABLE_NAME_PREFIX)));
+        final String prefixProperty = UMLMetafacadeProperties.TABLE_NAME_PREFIX;
+        final String tableNamePrefix =
+            this.isConfiguredProperty(prefixProperty)
+            ? ObjectUtils.toString(this.getConfiguredProperty(prefixProperty)) : null;
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
             tableNamePrefix,
             this,
@@ -226,7 +226,8 @@ public class EntityLogicImpl
 
         Collection attributes = this.getAttributes();
 
-        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+        for (
+            ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
             superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             if (Entity.class.isAssignableFrom(superClass.getClass()))

@@ -20,6 +20,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -269,7 +270,9 @@ public class StrutsActionLogicImpl
         {
             StringBuffer buffer = new StringBuffer();
 
-            String prefix = String.valueOf(getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_ACTION_PATH_PREFIX));
+            final String actionPathPrefix = Bpm4StrutsGlobals.PROPERTY_ACTION_PATH_PREFIX;
+            String prefix = this.isConfiguredProperty(actionPathPrefix) ? 
+                ObjectUtils.toString(this.getConfiguredProperty(actionPathPrefix)) : "";
 
             ModelElementFacade useCasePackage = useCase.getPackage();
             if (useCasePackage != null)

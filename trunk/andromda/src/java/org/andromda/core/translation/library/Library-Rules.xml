@@ -10,7 +10,7 @@
             classname="org.andromda.core.translation.library.Library" />
 
         <set-properties-rule>
-            <alias attr-name="name" prop-name="name" />
+             <alias attr-name="name" prop-name="namespace" />
         </set-properties-rule>
 
         <!-- add the TemplateEngine implementation to the Cartridge -->
@@ -66,15 +66,11 @@
 
                 <call-method-rule
                     methodname="addPropertyReference"
-                    paramcount="2"/>
+                    paramcount="1"/>
 
                 <call-param-rule
                     attrname="reference"
                     paramnumber="0" />
-
-                <call-param-rule
-                    attrname="default"
-                    paramnumber="1"/>
 
             </pattern> 
 
@@ -88,16 +84,12 @@
 
             <call-method-rule
                 methodname="addPropertyReference"
-                paramcount="2"
-                paramtypes="java.lang.String,java.lang.String"/>
+                paramcount="1"
+                paramtypes="java.lang.String"/>
 
             <call-param-rule
                 attrname="reference"
                 paramnumber="0" />
-
-            <call-param-rule
-                attrname="default"
-                paramnumber="1" />
 
            </pattern>
 

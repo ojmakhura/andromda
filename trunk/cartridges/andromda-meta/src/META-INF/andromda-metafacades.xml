@@ -2,17 +2,12 @@
 
 <!-- contains andromda-meta's metafacade mappings -->
 <metafacades namespace="meta">
-    <property reference="implementationOperationNamePattern" default="handle{0}"/>
+    <property reference="implementationOperationNamePattern"/>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>METAFACADE</stereotype>
         </mapping>
-        <!-- this defines the metamodel version package name
-            (i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc)
-             used by this cartridge to create the generated impl package name, if
-             left empty then the impl package will be the same as the metafacade
-             package (therefore we default to an empty name) -->
-        <property reference="metamodelVersionPackage" default=""/>
+        <property reference="metamodelVersionPackage"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
@@ -33,6 +28,6 @@
         <mapping class="org.omg.uml.foundation.core.Generalization$Impl">
             <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
         </mapping>
-        <property reference="generalizationNamePattern" default="super{0}"/>
+        <property reference="generalizationNamePattern"/>
     </metafacade>
 </metafacades>

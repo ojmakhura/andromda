@@ -2,7 +2,7 @@ package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -145,27 +145,25 @@ public class MetafacadeMapping
     /**
      * Used to hold references to language mapping classes.
      */
-    private final Map propertyReferences = new HashMap();
+    private final Collection propertyReferences = new HashSet();
 
     /**
      * Adds a mapping property reference. These are used to populate metafacade impl classes with mapping files, etc.
      * The property reference applies to the given mapping.
      *
      * @param reference the name of the reference.
-     * @param defaultValue the default value of the property reference.
-     * @see MetafacadeMappings#addPropertyReference(String, String)
+     * @see MetafacadeMappings#addPropertyReference(String)
      */
     public void addPropertyReference(
-        final String reference,
-        final String defaultValue)
+        final String reference)
     {
-        this.propertyReferences.put(reference, defaultValue);
+        this.propertyReferences.add(reference);
     }
 
     /**
      * Returns all mapping references for this MetafacadeMapping instance.
      */
-    public Map getPropertyReferences()
+    public Collection getPropertyReferences()
     {
         return this.propertyReferences;
     }
@@ -252,11 +250,11 @@ public class MetafacadeMapping
      *
      * @param propertyReferences the property references to add.
      */
-    public void addPropertyReferences(final Map propertyReferences)
+    public void addPropertyReferences(final Collection propertyReferences)
     {
         if (propertyReferences != null)
         {
-            this.propertyReferences.putAll(propertyReferences);
+            this.propertyReferences.addAll(propertyReferences);
         }
     }
 

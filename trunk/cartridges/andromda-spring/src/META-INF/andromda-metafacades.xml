@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <!-- contains the hibernate cartridge metafacade mappings -->
-<metafacades namespace="spring">
-    <property reference="daoNamePattern" default="{0}Dao"/>
-    <property reference="daoBaseNamePattern" default="{0}DaoBase"/>
-    <property reference="daoImplementationNamePattern" default="{0}DaoImpl"/>
-    <property reference="ejbJndiNamePrefix" default=""/>
-    <property reference="ejbPackageNamePattern" default="{0}.ejb"/>
-    <property reference="defaultServiceExceptionNamePattern" default="{0}Exception"/>
-    <property reference="defaultServiceExceptions" default="true"/>
-    <property reference="serviceRemotingType" default="none"/>
-    <property reference="serviceRemotePort" default="8080"/>
-    <property reference="serviceRemoteContext" default=""/>
-    <property reference="serviceRemoteServer" default="localhost"/>
-    <property reference="entityNamePattern" default="{0}"/>
-    <property reference="hibernateQueryUseNamedParameters" default="false"/>
-    <property reference="hibernateInheritanceStrategy" default="subclass"/>
-    <property reference="serviceOperationTransactionType" default="PROPAGATION_REQUIRED"/>
-    <property reference="ejbServiceOperationTransactionType" default="Required"/>
-    <property reference="serviceHibernateInterceptorEnabled" default="true"/>
-    <property reference="ejbViewType" default="local"/>
+<metafacades>
+    <property reference="daoNamePattern"/>
+    <property reference="daoBaseNamePattern"/>
+    <property reference="daoImplementationNamePattern"/>
+    <property reference="ejbJndiNamePrefix"/>
+    <property reference="ejbPackageNamePattern"/>
+    <property reference="defaultServiceExceptionNamePattern"/>
+    <property reference="defaultServiceExceptions"/>
+    <property reference="serviceRemotingType"/>
+    <property reference="serviceRemotePort"/>
+    <property reference="serviceRemoteContext"/>
+    <property reference="serviceRemoteServer"/>
+    <property reference="entityNamePattern"/>
+    <property reference="hibernateQueryUseNamedParameters"/>
+    <property reference="hibernateInheritanceStrategy"/>
+    <property reference="serviceOperationTransactionType"/>
+    <property reference="ejbServiceOperationTransactionType"/>
+    <property reference="serviceHibernateInterceptorEnabled"/>
+    <property reference="ejbViewType"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <stereotype>FINDER_METHOD</stereotype>
@@ -52,8 +52,8 @@
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
-        <property reference="serviceAccessorPattern" default=""/>
-        <property reference="servicePackageNamePattern" default="{0}"/>
+        <property reference="serviceAccessorPattern"/>
+        <property reference="servicePackageNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
@@ -74,13 +74,13 @@
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
         </mapping>
-        <property reference="implementationOperationNamePattern" default="handle{0}"/>
+        <property reference="implementationOperationNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
         </mapping>
-        <property reference="implementationOperationNamePattern" default="handle{0}"/>
+        <property reference="implementationOperationNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>

@@ -1,18 +1,18 @@
 package org.andromda.repositories.mdr;
 
+import javax.jmi.reflect.RefPackage;
+
 import org.netbeans.api.xmi.XMIReferenceResolver;
 import org.netbeans.lib.jmi.xmi.InputConfig;
 
-import javax.jmi.reflect.RefPackage;
 
 /**
  * @author Matthias Bohlen
  * @author Chad Brandon
  */
 public class MDRXmiReferenceResolver
-        extends InputConfig
+    extends InputConfig
 {
-
     private XMIReferenceResolver referenceResolver;
 
     /**
@@ -20,7 +20,9 @@ public class MDRXmiReferenceResolver
      *
      * @param extents
      */
-    public MDRXmiReferenceResolver(RefPackage extents[], String[] moduleSearchPath)
+    public MDRXmiReferenceResolver(
+        RefPackage[] extents,
+        String[] moduleSearchPath)
     {
         this.referenceResolver = new MDRXmiReferenceResolverContext(extents, this, moduleSearchPath);
     }
@@ -40,5 +42,4 @@ public class MDRXmiReferenceResolver
     {
         return referenceResolver;
     }
-
 }

@@ -23,15 +23,11 @@
                      by an AndroMDA template engine -->
                 <xs:element ref="template" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="optional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="property">
         <xs:complexType>
-            <xs:sequence>
-                <!-- provides any information about this property reference -->
-                <xs:element name="documentation" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            </xs:sequence>
             <!-- defines a reference to a <property/> element defined within
                  a namespace element in your build file -->
             <xs:attribute name="reference" use="required"/>

@@ -250,18 +250,23 @@ public class XmlObjectFactory
                 throw new XmlObjectFactoryException(errMsg);
             }
         }
-        catch (final SAXException ex)
+        catch (final SAXException exception)
         {
-            String validationErrorMsg =
-                "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" + this.schemaUri +
-                "' --> message: '" + ex.getMessage() + "'";
-            throw new XmlObjectFactoryException(validationErrorMsg);
+            final Throwable cause = ExceptionUtils.getRootCause(exception);
+            if (cause instanceof SAXException)
+            {
+                final String message =
+                    "VALIDATION FAILED for --> '" + objectXml + "' against SCHEMA --> '" + this.schemaUri +
+                    "' --> message: '" + exception.getMessage() + "'";
+                throw new XmlObjectFactoryException(message);
+            }
+            throw new XmlObjectFactoryException(exception);
         }
-        catch (final Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg =
+            final String message =
                 "Error performing " + methodName + ", XML resource could not be loaded --> '" + objectXml + "'";
-            throw new XmlObjectFactoryException(errMsg, th);
+            throw new XmlObjectFactoryException(message, throwable);
         }
         return object;
     }

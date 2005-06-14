@@ -1,4 +1,4 @@
-<cartridge name="spring">
+<cartridge>
 
     <templateEngine>
         <macrolibrary name="templates/spring/RenderPreconditions.vm"/>
@@ -9,412 +9,65 @@
     <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.spring.SpringHibernateUtils">
-        <property reference="hibernateVersion" default="2"/>
+        <property reference="hibernateVersion"/>
     </templateObject>
     <!-- cartridge-templateObject merge-point-->
 
-    <property reference="driver" default="">
-        <documentation>
-            <![CDATA[
-            JDBC Driver to make a database connection.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="username" default="">
-        <documentation>
-            <![CDATA[
-            The database user login name.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="password" default="">
-        <documentation>
-            <![CDATA[
-            The database user password.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="connectionUrl" default="">
-        <documentation>
-            <![CDATA[
-            URL for the JDBC Driver to make the connection to the database.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="dataSource" default="">
-        <documentation>
-            <![CDATA[
-            JNDI name of data source to use. (would be used instead
-            of the connection properties, driver, username, password, etc).
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernatePoolSize" default="">
-        <documentation>
-            <![CDATA[
-            Hibernate connection pool size.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateTransactionManagerStrategy" default="">
-        <documentation>
-            <![CDATA[
-            Strategy for obtaining the JTA TransactionManager
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateUserTransactionName" default="">
-        <documentation>
-            <![CDATA[
-            The JNDI name of the JTA UserTransaction object
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateTransactionManagerLookup" default="">
-        <documentation>
-            <![CDATA[
-            The fully qualified class name of the Hibernate TransactionFactory implementation
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateUseOuterJoin" default="">
-        <documentation>
-            <![CDATA[
-            Whether or not to use outer joins.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateShowSql" default="">
-        <documentation>
-            <![CDATA[
-            Whether or not to log SQL statements (true/false).  By default
-            this is off (within Hibernate).
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateJndiName" default="">
-        <documentation>
-            <![CDATA[
-            JNDI name bound to the SessionFactory.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateDialect" default="">
-        <documentation>
-            <![CDATA[
-            SQL dialect of the database being used.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateDefaultSchema" default="">
-        <documentation>
-            <![CDATA[
-            Qualify unqualified tablenames with the given
-            schema/tablespace in generated SQL.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateMaxFetchDepth" default="">
-        <documentation>
-            <![CDATA[
-            Sets a maximum "depth" for the outer join fetch tree. eg. recommended values between 0 and 3
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateJdbcFetchSize" default="">
-        <documentation>
-            <![CDATA[
-            A non-zero value determines the JDBC fetch size.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateJdbcBatchSize" default="">
-        <documentation>
-            <![CDATA[
-            A nonzero value enables use of JDBC2 batch updates by Hibernate. ex: recommended values between 5 and 30
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateJdbcUseScrollableResultSet" default="">
-        <documentation>
-            <![CDATA[
-            Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
-            This property is only necessary when using user supplied connections.
-            Hibernate uses connection metadata otherwise.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateMaxFetchDepth" default="">
-        <documentation>
-            <![CDATA[
-            Sets a maximum "depth" for the outer join fetch tree. eg. recommended values between 0 and 3
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateJdbcUseStreamsForBinary" default="">
-        <documentation>
-            <![CDATA[
-            Whether or not to use streams when writing / reading binary or serializable types to/from JDBC
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateHbm2DDLAuto" default="">
-        <documentation>
-            <![CDATA[
-            Automatically export schema DDL to the database when the SessionFactory
-            is created. With create-drop, the database schema will be dropped when
-            the SessionFactory is closed explicitely. Permitted values are:
-            <ol>
-                <li>update</li>
-                <li>create</li>
-                <li>create-drop</li>
-            </ol>
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateQuerySubstitutions" default="">
-        <documentation>
-            <![CDATA[
-            Allows you to define new Hibernate query tokens. For example:
-            giving this a value of <em>true=1, false=0</em>
-            would cause the tokens true and false to be translated to integer
-            literals in the generated SQL.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateUseQueryCache" default="false">
-        <documentation>
-            <![CDATA[
-             The default query cache usage.
-             Can be overwritten using
-             <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
-             Possible values are:
-             <ul>
-                <li>true</li>
-                <li>false</li>
-             </ul>
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateCacheProvider" default="net.sf.hibernate.cache.EhCacheProvider">
-        <documentation>
-            <![CDATA[
-             Defines the Hibernate cache provider implementation class.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="hibernateQueryCacheFactory" default="net.sf.hibernate.cache.StandardQueryCacheFactory">
-        <documentation>
-            <![CDATA[
-            Defines Hibernate Query Cache Factory implementation class
-            ]]>
-        </documentation>
-    </property>
-    <property reference="applicationContext" default="applicationContext.xml">
-        <documentation>
-            <![CDATA[
-            The name given to the Spring application context file.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="applicationContextManageable" default="applicationContext-manageable.xml">
-        <documentation>
-            <![CDATA[
-            The name given to the Spring CRUD application context file.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="applicationContextDataSource" default="applicationContext-dataSource.xml">
-        <documentation>
-            <![CDATA[
-            The name given to the Spring datasource application context file
-            ]]>
-        </documentation>
-    </property>
-    <property reference="serverContext" default="serverContext.xml">
-        <documentation>
-            <![CDATA[
-            The name given to the Spring remote services application context xml file (server side)
-            ]]>
-        </documentation>
-    </property>
-    <property reference="clientContext" default="clientContext.xml">
-        <documentation>
-            <![CDATA[
-            The name given to the Spring remote services application context xml file (client side)
-            ]]>
-        </documentation>
-    </property>
-    <property reference="beanRefFactory" default="beanRefFactory.xml">
-        <documentation>
-            <![CDATA[
-            The name/path of the bean ref factory resource file (i.e. some/path/beanRefFactory.xml)
-            ]]>
-        </documentation>
-    </property>
-    <property reference="beanRefFactoryId" default="beanRefFactory">
-        <documentation>
-            <![CDATA[
-            The ID for the Spring bean reference factory (used to load the bean factory).
-            ]]>
-        </documentation>
-    </property>
-    <property reference="transactionManager" default="org.springframework.orm.hibernate.HibernateTransactionManager">
-        <documentation>
-            <![CDATA[
-            The transaction manager implementation used by Spring.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="sessionFactory" default="org.springframework.orm.hibernate.LocalSessionFactoryBean">
-        <documentation>
-            <![CDATA[
-            Factory bean that creates a local Hibernate SessionFactory instance within Spring.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="springTypesPackage" default="org.andromda.spring">
-        <documentation>
-            <![CDATA[
-            The package to which extra types are generated (i.e. ServiceLocator).
-            ]]>
-        </documentation>
-    </property>
-    <property reference="springPresentationTypesPackage" default="org.andromda.spring.presentation">
-        <documentation>
-            <![CDATA[
-            The package to which extra presentation types are generated (i.e. OpenSessionInViewFilter).
-            ]]>
-        </documentation>
-    </property>
-    <property reference="serviceLocatorName" default="ServiceLocator">
-        <documentation>
-            <![CDATA[
-            The name to give the service locator class.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="manageableServiceLocatorName" default="ManageableServiceLocator">
-        <documentation>
-            <![CDATA[
-            The name to give the CRUD service locator class.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="clientServiceLocatorName" default="ClientServiceLocator">
-        <documentation>
-            <![CDATA[
-            The name to give the client service locator class.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="clientServiceLocatorClassloaderSwitching" default="off">
-        <documentation>
-            <![CDATA[
-            Whether the client service locator should switch the thread context class loader during
-            retrieval of the client application context xml file.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="clientExceptionHandlingAdviceName" default="ClientExceptionHandlingAdvice">
-        <documentation>
-            <![CDATA[
-            The name for the client side exception handling advice
-            ]]>
-        </documentation>
-    </property>
-    <property reference="criteriaSearchBaseName" default="CriteriaSearch">
-        <documentation>
-            <![CDATA[
-            The base name for the hibernate criteria search utility classes.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="principalStoreName" default="PrincipalStore">
-        <documentation>
-            <![CDATA[
-            The name of the principal store class.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="openSessionInViewFilterName" default="AndroMDAOpenSessionInViewFilter">
-        <documentation>
-            <![CDATA[
-            The name of the OpenSessionInViewFilter (when using the open-session-in-view
-            pattern).
-            ]]>
-        </documentation>
-    </property>
-    <property reference="ejbViewType" default="local">
-        <documentation>
-            <![CDATA[
-            If EJBs are being used, this specifies the view type
-            for the EJB interfaces.  Can be either <em>local</em>
-            or <code>remote</code>.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="springRemotingType" default="none">
-        <documentation>
-            <![CDATA[
-            The kind of remoting to use for a spring service
-            ]]>
-        </documentation>
-    </property>
-    <property reference="securityRealm" default="">
-        <documentation>
-            <![CDATA[
-            The name of the security realm (i.e. animal-quiz, other, etc).
-            <strong>NOTE:</strong>This enables EJB security if specified.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="jndiDataSourceClass" default="org.springframework.jndi.JndiObjectFactoryBean">
-        <documentation>
-            <![CDATA[
-            The name of the class to use when using a JNDI data source for data access.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="jdbcDataSourceClass" default="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <documentation>
-            <![CDATA[
-            The name of the class to use when using a JDBC data source for data access.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="jdbcDataSourceDestroyMethod" default="">
-        <documentation>
-            <![CDATA[
-            The name of the method to use for destroying the JDBC datasource.
-            ]]>
-        </documentation>
-    </property>
-    <property reference="parameterRequiredCheck" default="true">
-        <documentation>
-            <![CDATA[
-            Whether or not parameters should be checked if they're required (on DAOs and services)
-            ]]>
-        </documentation>
-    </property>
-    <!--  -->
-    <property reference="xmlEncoding" default="UTF-8">
-        <documentation>
-            <![CDATA[
-            The encoding for xml documents
-            ]]>
-        </documentation>
-    </property>
-    <!-- not really used from the template except to check if it has been defined
-         or not, so that we can determine whether or not we'll use the session
-         EJBs for transaction management (rather than Spring's transaction framework) -->
-    <property reference="session-ejbs" default=""/>
-    <!-- used to determine if the advice-impls outlet has been defined -->
-    <property reference="advice-impls" default=""/>
-    <!-- not really used from the template except to check if it has been defined
-         or not, this allows us to determine whether or not we need to generate
-         entity related information -->
-    <property reference="daos" default=""/>
+    <property reference="driver"/>
+    <property reference="username"/>
+    <property reference="password"/>
+    <property reference="connectionUrl"/>
+    <property reference="dataSource"/>
+    <property reference="hibernatePoolSize"/>
+    <property reference="hibernateTransactionManagerStrategy"/>
+    <property reference="hibernateUserTransactionName"/>
+    <property reference="hibernateTransactionManagerLookup"/>
+    <property reference="hibernateUseOuterJoin"/>
+    <property reference="hibernateShowSql"/>
+    <property reference="hibernateJndiName"/>
+    <property reference="hibernateDialect"/>
+    <property reference="hibernateDefaultSchema"/>
+    <property reference="hibernateMaxFetchDepth"/>
+    <property reference="hibernateJdbcFetchSize"/>
+    <property reference="hibernateJdbcBatchSize"/>
+    <property reference="hibernateJdbcUseScrollableResultSet"/>
+    <property reference="hibernateMaxFetchDepth"/>
+    <property reference="hibernateJdbcUseStreamsForBinary"/>
+    <property reference="hibernateHbm2DDLAuto"/>
+    <property reference="hibernateQuerySubstitutions"/>
+    <property reference="hibernateUseQueryCache"/>
+    <property reference="hibernateCacheProvider"/>
+    <property reference="hibernateQueryCacheFactory"/>
+    <property reference="applicationContext"/>
+    <property reference="applicationContextManageable"/>
+    <property reference="applicationContextDataSource"/>
+    <property reference="serverContext"/>
+    <property reference="clientContext"/>
+    <property reference="beanRefFactory"/>
+    <property reference="beanRefFactoryId"/>
+    <property reference="transactionManager"/>
+    <property reference="sessionFactory"/>
+    <property reference="springTypesPackage"/>
+    <property reference="springPresentationTypesPackage"/>
+    <property reference="serviceLocatorName"/>
+    <property reference="manageableServiceLocatorName"/>
+    <property reference="clientServiceLocatorName"/>
+    <property reference="clientServiceLocatorClassloaderSwitching"/>
+    <property reference="clientExceptionHandlingAdviceName"/>
+    <property reference="criteriaSearchBaseName"/>
+    <property reference="principalStoreName"/>
+    <property reference="openSessionInViewFilterName"/>
+    <property reference="ejbViewType"/>
+    <property reference="springRemotingType"/>
+    <property reference="securityRealm"/>
+    <property reference="jndiDataSourceClass"/>
+    <property reference="jdbcDataSourceClass"/>
+    <property reference="jdbcDataSourceDestroyMethod"/>
+    <property reference="parameterRequiredCheck"/>
+    <property reference="xmlEncoding"/>
+    <property reference="session-ejbs"/>
+    <property reference="advice-impls"/>
+    <property reference="daos"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->

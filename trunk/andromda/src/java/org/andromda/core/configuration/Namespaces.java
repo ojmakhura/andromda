@@ -3,10 +3,14 @@ package org.andromda.core.configuration;
 import java.io.Serializable;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.namespace.NamespaceComponent;
+import org.andromda.core.namespace.NamespaceRegistry;
+import org.andromda.core.namespace.PropertyDefinition;
 import org.apache.log4j.Logger;
 
 
@@ -25,7 +29,7 @@ public class Namespaces
     private static final Logger logger = Logger.getLogger(Namespaces.class);
 
     /**
-     * This is passed as the cartridge name for the findNamespaceProperty method if we wish to use a 'default' Namespace
+     * This is passed as the cartridge name for the {@link #getProperty} method if we wish to use a 'default' Namespace
      * for Plugins. This is so we don't need to define a specific mapping for each Plugin if we don't want. If a
      * namespaceName exists with a specific Plugin name, then that will be used instead of the 'default'
      */
@@ -95,12 +99,12 @@ public class Namespaces
     }
 
     /**
-     * Finds the Namespace with the corresponding <code>namespaceName</code>.
+     * Gets the Namespace with the corresponding <code>namespaceName</code>.
      *
      * @param namespaceName
      * @return the found Namespace
      */
-    public Namespace findNamespace(final String namespaceName)
+    public Namespace getNamespace(final String namespaceName)
     {
         return (Namespace)namespaces.get(namespaceName);
     }
@@ -113,7 +117,7 @@ public class Namespaces
      */
     public boolean namespacePresent(final String namespaceName)
     {
-        return this.findNamespace(namespaceName) != null;
+        return this.getNamespace(namespaceName) != null;
     }
 
     /**
@@ -126,11 +130,11 @@ public class Namespaces
      * @param propertyName  name of the namespace property to find.
      * @return String the namespace property value.
      */
-    public Property findNamespaceProperty(
+    public Property getProperty(
         final String namespaceName,
         final String propertyName)
     {
-        return this.findNamespaceProperty(namespaceName, propertyName, true);
+        return this.getProperty(namespaceName, propertyName, true);
     }
 
     /**
@@ -143,12 +147,12 @@ public class Namespaces
      * @param showWarning   true/false if we'd like to display a warning if the property/namespace can not be found.
      * @return String the namespace property value.
      */
-    public Property findNamespaceProperty(
+    public Property getProperty(
         final String namespaceName,
         final String propertyName,
         final boolean showWarning)
     {
-        final String methodName = "Namespaces.findNamespaceProperty";
+        final String methodName = "Namespaces.getProperty";
         ExceptionUtils.checkEmpty(methodName, "namespaceName", namespaceName);
         ExceptionUtils.checkEmpty(methodName, "propertyName", propertyName);
 
@@ -159,8 +163,8 @@ public class Namespaces
             property = namespace.getProperty(propertyName);
         }
 
-        // since we couldn't find a Namespace for the specified cartridge,
-        // try to lookup the default
+        // - since we couldn't find a Namespace for the specified cartridge,
+        //   try to lookup the default
         Namespace defaultNamespace = null;
         if (property == null)
         {
@@ -179,18 +183,120 @@ public class Namespaces
         {
             logger.warn(
                 "WARNING! No '" + DEFAULT + "' or '" + namespaceName + "' namespace found, " +
-                "--> please define a namespace with" + " at least one of these names, if you would like " +
+                "--> please define a namespace with at least one of these names, if you would like " +
                 "to ignore this message, define the namespace with " + "ignore set to 'true'");
         }
         else if (property == null && showWarning)
         {
             logger.warn(
                 "WARNING! Namespaces '" + DEFAULT + "' and '" + namespaceName + "' have no property '" + propertyName +
-                "' defined --> please define this " + "property in AT LEAST ONE of these two namespaces. " +
-                " If you want to 'ignore' this message, add the " +
-                "property to the namespace with ignore set to 'true'");
+                "' defined --> please define this property in AT LEAST ONE of these two namespaces. " +
+                " If you want to 'ignore' this message, add the property to the namespace with ignore set to 'true'");
         }
         return property;
+    }
+
+    /**
+     * Stores the namespace registries
+     */
+    private final Map registries = new HashMap();
+
+    /**
+     * Adds a property definition to this instance.  Property definitions
+     * are properties that are registered defined within a {@link NamespaceRegistry}
+     * descriptor (used to describe {@link NamespaceComponent} instances.
+     *
+     * @param namespace the namespace under which to add the property reference.
+     * @param propertyDefinition the property definition.
+     */
+    public void addRegistry(final NamespaceRegistry registry)
+    {
+        if (registry != null)
+        {
+            if (registry.isShared())
+            {
+                NamespaceRegistry defaultRegistry = (NamespaceRegistry)this.registries.get(DEFAULT);
+                if (defaultRegistry == null)
+                {
+                    defaultRegistry = registry;
+                }
+                else
+                {
+                    defaultRegistry.addPropertyDefinitions(registry.getPropertyDefinitions());
+                }
+                this.registries.put(DEFAULT, defaultRegistry);
+            }
+            else
+            {
+                this.registries.put(
+                    registry.getName(),
+                    registry);
+            }
+        }
+    }
+
+    /**
+     * Indicates if the given <code>namespace</code> is
+     * shared or not.
+     *
+     * @param namespace the namespace to check.
+     * @return true/false.
+     */
+    public boolean isShared(final String namespace)
+    {
+        return Namespaces.DEFAULT.equals(namespace);
+    }
+
+    /**
+     * Attempts to get the value of a property from the given
+     * <code>namespace</code> with the given <code>name</code> by first attempting
+     * to retreive it from the namespace and if no property is defined
+     * in the namespace we retrieve the default value (if one is defined).
+     *
+     * @param namespace the namespace for which to retreive the value.
+     * @param name the name of the value to retrieve.
+     * @return the value (or null if one couldn't be retrieved).
+     */
+    public String getPropertyValue(
+        final String namespace,
+        final String name)
+    {
+        final PropertyDefinition definition = this.getPropertyDefinition(namespace, name);
+        String defaultValue = definition != null ? definition.getDefaultValue() : null;
+        boolean warning = defaultValue == null && definition != null ? definition.isRequired() : false;
+        final Property property = this.getProperty(namespace, name, warning);
+        return property != null ? property.getValue() : defaultValue;
+    }
+
+    /**
+     * Attempts to get the value of a property from the given
+     * <code>namespace</code> with the given <code>name</code> by first attempting
+     * to retreive it from the namespace and if no property is defined
+     * in the namespace we retrieve the default value (if one is defined).
+     *
+     * @param namespace the namespace for which to retreive the value.
+     * @param name the name of the value to retrieve.
+     * @return the value (or null if one couldn't be retrieved).
+     */
+    private final PropertyDefinition getPropertyDefinition(
+        final String namespace,
+        final String name)
+    {
+        final NamespaceRegistry registry = (NamespaceRegistry)this.registries.get(namespace);
+        PropertyDefinition definition = null;
+        if (registry != null)
+        {
+            definition = registry.getPropertyDefinition(name);
+        }
+        if (definition == null)
+        {
+            final NamespaceRegistry defaultRegistry = (NamespaceRegistry)this.registries.get(Namespaces.DEFAULT);
+            if (defaultRegistry != null)
+            {
+                definition = defaultRegistry.getPropertyDefinition(name);
+            }
+        }
+        return definition;
     }
 
     /**

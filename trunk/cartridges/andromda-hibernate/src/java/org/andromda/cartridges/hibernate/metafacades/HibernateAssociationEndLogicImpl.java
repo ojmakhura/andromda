@@ -614,13 +614,20 @@ public class HibernateAssociationEndLogicImpl
         return implementation.toString();
     }
 
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getHibernateAggregationCascade()
+     */
     protected java.lang.String handleGetHibernateAggregationCascade()
     {
         return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_AGGREGATION_CASCADE)));
     }
 
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getHibernateCompositionCascade()
+     */
     protected java.lang.String handleGetHibernateCompositionCascade()
     {
-        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_COMPOSITION_CASCADE)));
+        final String cascadeProperty = HIBERNATE_COMPOSITION_CASCADE;
+        return this.isConfiguredProperty(cascadeProperty) ? ObjectUtils.toString(this.getConfiguredProperty(cascadeProperty)) : null;
     }
 }

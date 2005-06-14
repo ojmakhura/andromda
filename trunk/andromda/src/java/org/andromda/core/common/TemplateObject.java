@@ -1,13 +1,13 @@
 package org.andromda.core.common;
 
 import java.net.URL;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.andromda.core.configuration.Namespaces;
-import org.andromda.core.configuration.Property;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
@@ -88,24 +88,12 @@ public class TemplateObject
      */
     protected void setProperties(final Object templateObject)
     {
-        for (final Iterator iterator = propertyReferences.keySet().iterator(); iterator.hasNext();)
+        for (final Iterator iterator = propertyReferences.iterator(); iterator.hasNext();)
         {
             final String reference = (String)iterator.next();
-            String value = (String)propertyReferences.get(reference);
-
-            // if we have a default value, then don't warn
-            // that we don't have a property, otherwise we'll
-            // show the warning.
-            boolean showWarning = value == null;
-            final Property property =
-                Namespaces.instance().findNamespaceProperty(this.namespace, reference, showWarning);
-
-            // don't attempt to set if the property is null, or it's set to
-            // ignore.
-            if (property != null && !property.isIgnore())
-            {
-                value = property.getValue();
-            }
+            String value = Namespaces.instance().getPropertyValue(
+                    this.getNamespace(),
+                    reference);
             if (value != null)
             {
                 if (this.getLogger().isDebugEnabled())
@@ -160,7 +148,7 @@ public class TemplateObject
     /**
      * The property references that configure this template object.
      */
-    private final Map propertyReferences = new HashMap();
+    private final Collection propertyReferences = new ArrayList();
 
     /**
      * Adds a templateObject property reference (used to customize templateObjects). Property references are used to
@@ -169,11 +157,9 @@ public class TemplateObject
      * @param reference the name of the property reference.
      * @param defaultValue the default value of the property reference.
      */
-    public void addPropertyReference(
-        final String reference,
-        final String defaultValue)
+    public void addPropertyReference(final String reference)
     {
-        this.propertyReferences.put(reference, defaultValue);
+        this.propertyReferences.add(reference);
     }
 
     /**

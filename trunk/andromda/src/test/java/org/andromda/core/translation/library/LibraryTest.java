@@ -5,9 +5,9 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.common.PluginDiscoverer;
+import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.TemplateObject;
-import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.namespace.NamespaceComponents;
 
 
 /**
@@ -38,13 +38,11 @@ public class LibraryTest
     protected void setUp()
         throws Exception
     {
-        // set validation off since the parser used by JUnit
-        // doesn't seem to support schema validation
-        XmlObjectFactory.setDefaultValidating(false);
-        PluginDiscoverer.instance().discoverPlugins();
-        Collection librarys = PluginDiscoverer.instance().findPlugins(Library.class);
+        NamespaceComponents.instance().discover();
+        Collection librarys = ComponentContainer.instance().findComponentsOfType(Library.class);
         assertNotNull(librarys);
         this.library = (Library)librarys.iterator().next();
+        this.library.initialize();
     }
 
     /**
@@ -54,13 +52,6 @@ public class LibraryTest
         throws Exception
     {
         this.library = null;
-    }
-
-    public void testGetName()
-    {
-        assertEquals(
-            "test-translation-library",
-            this.library.getName());
     }
 
     public void testGetLibraryTranslations()
@@ -95,32 +86,17 @@ public class LibraryTest
 
     public void testGetPropertyReferences()
     {
-        Map propertyRefs = this.library.getPropertyReferences();
+        String[] propertyRefs = this.library.getPropertyReferences();
         assertNotNull(propertyRefs);
         assertEquals(
             2,
-            propertyRefs.size());
+            propertyRefs.length);
 
-        String propertyReferenceOne = "propertyReferenceWithDefault";
-        String propertyReferenceTwo = "propertyReferenceNoDefault";
+        String propertyReferenceOne = "propertyReferenceOne";
+        String propertyReferenceTwo = "propertyReferenceTwo";
 
-        assertTrue(propertyRefs.containsKey(propertyReferenceOne));
-        assertTrue(propertyRefs.containsKey(propertyReferenceTwo));
-
-        assertEquals(
-            "aDefaultValue",
-            propertyRefs.get(propertyReferenceOne));
-        assertEquals(
-            null,
-            propertyRefs.get(propertyReferenceTwo));
-    }
-
-    public void testGetType()
-    {
-        assertNotNull(this.library.getType());
-        assertEquals(
-            "translation-library",
-            this.library.getType());
+        assertEquals(propertyReferenceOne, propertyRefs[0]);
+        assertEquals(propertyReferenceTwo, propertyRefs[1]);
     }
 
     public void testGetTemplateObjects()
@@ -132,9 +108,9 @@ public class LibraryTest
             templateObjects.size());
         TemplateObject templateObject = ((TemplateObject)templateObjects.iterator().next());
         assertEquals("utils", templateObject.getName());
-        assertEquals("test-translation-library",templateObject.getNamespace());
+        assertEquals("test",templateObject.getNamespace());
         LibraryTemplateObject object = (LibraryTemplateObject)templateObject.getObject();
         assertNotNull(object);
-        assertEquals("3", object.getValue());
+        assertEquals("3", object.getDefinitionOne());
     }
 }

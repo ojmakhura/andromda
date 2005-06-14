@@ -2,13 +2,11 @@ package org.andromda.core.common;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.picocontainer.MutablePicoContainer;
-import org.picocontainer.defaults.DefaultPicoContainer;
 
 
 /**
@@ -50,7 +48,7 @@ public class ComponentContainer
     /**
      * The container instance
      */
-    private final MutablePicoContainer container = new DefaultPicoContainer();
+    private final Map container = new LinkedHashMap();
 
     /**
      * The shared instance.
@@ -79,7 +77,7 @@ public class ComponentContainer
      */
     public Object findComponent(final Object key)
     {
-        return this.container.getComponentInstance(key);
+        return this.container.get(key);
     }
 
     /**
@@ -96,8 +94,8 @@ public class ComponentContainer
         final Class type)
     {
         Object component = null;
-        implementation = StringUtils.trimToEmpty(implementation);
-        if (StringUtils.isBlank(implementation))
+        implementation = implementation != null ? implementation.trim() : "";
+        if (implementation.length() == 0)
         {
             component = this.newDefaultComponent(type);
         }
@@ -123,7 +121,7 @@ public class ComponentContainer
         try
         {
             final String implementation = this.getDefaultImplementation(type);
-            if (StringUtils.isBlank(implementation))
+            if (implementation.trim().length() == 0)
             {
                 throw new ComponentContainerException(
                     "Default configuration file '" + this.getComponentDefaultConfigurationPath(type) +
@@ -207,11 +205,11 @@ public class ComponentContainer
         ExceptionUtils.checkNull(methodName, "type", type);
         try
         {
-            Object component = this.container.getComponentInstance(key);
+            Object component = this.findComponent(key);
             if (component == null)
             {
                 final String typeName = type.getName();
-                component = this.container.getComponentInstance(typeName);
+                component = this.findComponent(typeName);
 
                 // if the component doesn't have a default already
                 // (i.e. component == null), then see if we can find the default
@@ -219,7 +217,7 @@ public class ComponentContainer
                 if (component == null)
                 {
                     final String defaultImplementation = this.getDefaultImplementation(type);
-                    if (StringUtils.isNotEmpty(defaultImplementation))
+                    if (defaultImplementation.trim().length() > 0)
                     {
                         component =
                             this.registerDefaultComponent(
@@ -253,7 +251,8 @@ public class ComponentContainer
      */
     private final String getDefaultImplementation(final Class type)
     {
-        return StringUtils.trimToEmpty(ResourceUtils.getContents(this.getComponentDefaultConfigurationPath(type)));
+        final String contents = ResourceUtils.getContents(this.getComponentDefaultConfigurationPath(type));
+        return contents != null ? contents.trim() : "";
     }
 
     /**
@@ -264,22 +263,26 @@ public class ComponentContainer
      */
     public Collection findComponentsOfType(final Class type)
     {
-        Collection components = new ArrayList(this.container.getComponentInstances());
-        CollectionUtils.filter(
-            components,
-            new Predicate()
+        final Collection components = new ArrayList(this.container.values());
+        final Collection containerInstances = this.container.values();
+        for (final Iterator iterator = containerInstances.iterator(); iterator.hasNext();)
+        {
+            final Object component = iterator.next();
+            if (component instanceof ComponentContainer)
             {
-                public boolean evaluate(Object object)
-                {
-                    boolean match = false;
-                    if (object != null)
-                    {
-                        match = type.isAssignableFrom(object.getClass());
-                    }
-                    return match;
-                }
-            });
-        return components;
+                components.addAll(((ComponentContainer)component).container.values());
+            }
+        }
+        final Collection componentsOfType = new ArrayList();
+        for (final Iterator iterator = components.iterator(); iterator.hasNext();)
+        {
+            final Object component = iterator.next();
+            if (type.isInstance(component))
+            {
+                componentsOfType.add(component);
+            }
+        }
+        return componentsOfType;
     }
 
     /**
@@ -297,7 +300,7 @@ public class ComponentContainer
         {
             logger.debug("unregistering component with key --> '" + key + "'");
         }
-        return container.unregisterComponent(key);
+        return container.remove(key);
     }
 
     /**
@@ -310,19 +313,31 @@ public class ComponentContainer
      */
     public Object findComponentByNamespace(
         final String namespace,
-        final String key)
+        final Object key)
     {
         final String methodName = "findComponentByNamespace";
         ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
         ExceptionUtils.checkNull(methodName, "key", key);
 
         Object component = null;
-        final ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
-        if (container != null)
+        final ComponentContainer namespaceContainer = this.getNamespaceContainer(namespace);
+        if (namespaceContainer != null)
         {
-            component = container.findComponent(key);
+            component = namespaceContainer.findComponent(key);
         }
         return component;
+    }
+    
+    /**
+     * Gets an instance of the container for the given <code>namespace</code>
+     * or returns null if one can not be found.
+     * 
+     * @param namespace the name of the namespace.
+     * @return the namespace container.
+     */
+    private final ComponentContainer getNamespaceContainer(final String namespace)
+    {
+        return (ComponentContainer)this.findComponent(namespace); 
     }
 
     /**
@@ -336,13 +351,13 @@ public class ComponentContainer
      */
     public boolean isRegisteredByNamespace(
         final String namespace,
-        final String key)
+        final Object key)
     {
         final String methodName = "ComponentContainer.isRegisteredByNamespace";
         ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
         ExceptionUtils.checkNull(methodName, "key", key);
-        ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
-        return container != null && container.isRegistered(key);
+        final ComponentContainer namespaceContainer = this.getNamespaceContainer(namespace);
+        return namespaceContainer != null && namespaceContainer.isRegistered(key);
     }
 
     /**
@@ -352,7 +367,7 @@ public class ComponentContainer
      * @param key the unique key.
      * @return boolean true/false depending on whether or not it is registerd.
      */
-    public boolean isRegistered(final String key)
+    public boolean isRegistered(final Object key)
     {
         return this.findComponent(key) != null;
     }
@@ -365,9 +380,9 @@ public class ComponentContainer
      * @param key the unique key.
      * @return Object the registered component.
      */
-    public Object registerComponentByNamespace(
+    public void registerComponentByNamespace(
         final String namespace,
-        final String key,
+        final Object key,
         final Object component)
     {
         final String methodName = "ComponentContainer.registerComponentByNamespace";
@@ -377,14 +392,13 @@ public class ComponentContainer
         {
             logger.debug("registering component '" + component + "' with key --> '" + key + "'");
         }
-
-        ComponentContainer container = (ComponentContainer)this.findComponent(namespace);
-        if (container == null)
+        ComponentContainer namespaceContainer = this.getNamespaceContainer(namespace);
+        if (namespaceContainer == null)
         {
-            container = new ComponentContainer();
-            this.registerComponent(namespace, container);
+            namespaceContainer = new ComponentContainer();
+            this.registerComponent(namespace, namespaceContainer);
         }
-        return container.registerComponent(key, component);
+        namespaceContainer.registerComponent(key, component);
     }
 
     /**
@@ -395,7 +409,7 @@ public class ComponentContainer
      * @return Object the registered component.
      */
     public Object registerComponent(
-        final String key,
+        final Object key,
         final Object component)
     {
         final String methodName = "ComponentContainer.registerComponent";
@@ -404,7 +418,7 @@ public class ComponentContainer
         {
             logger.debug("registering component '" + component + "' with key --> '" + key + "'");
         }
-        return container.registerComponentInstance(key, component).getComponentInstance(this.container);
+        return this.container.put(key, component);
     }
 
     /**
@@ -416,7 +430,7 @@ public class ComponentContainer
      *        that this is the name of a class.
      * @return Object the registered component.
      */
-    public Object registerDefaultComponent(
+    public void registerDefaultComponent(
         final Class componentInterface,
         final String defaultTypeName)
     {
@@ -425,7 +439,7 @@ public class ComponentContainer
         ExceptionUtils.checkEmpty(methodName, "defaultTypeName", defaultTypeName);
         try
         {
-            return this.registerDefaultComponent(
+            this.registerDefaultComponent(
                 componentInterface,
                 ClassUtils.loadClass(defaultTypeName));
         }
@@ -465,9 +479,9 @@ public class ComponentContainer
             {
                 this.unregisterComponent(interfaceName);
             }
-            return container.registerComponentInstance(
-                interfaceName,
-                defaultType.newInstance()).getComponentInstance(this.container);
+            final Object component = defaultType.newInstance();
+            this.container.put(interfaceName, component);
+            return component;
         }
         catch (final Throwable throwable)
         {
@@ -481,11 +495,20 @@ public class ComponentContainer
      * @param type the type Class.
      * @return Object an instance of the type registered.
      */
-    public Object registerComponentType(final Class type)
+    public void registerComponentType(final Class type)
     {
         final String methodName = "ComponentContainer.registerComponent";
         ExceptionUtils.checkNull(methodName, "type", type);
-        return this.container.registerComponentImplementation(type).getComponentInstance(this.container);
+        try
+        {
+            this.container.put(
+                type,
+                type.newInstance());
+        }
+        catch (final Throwable throwable)
+        {
+            throw new ComponentContainerException(throwable);
+        }
     }
 
     /**
@@ -516,7 +539,7 @@ public class ComponentContainer
      */
     public void shutdown()
     {
-        this.container.dispose();
+        this.container.clear();
         instance = null;
     }
 }

@@ -1,9 +1,9 @@
-<cartridge name="java">
+<cartridge>
 
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <!-- cartridge-templateObject merge-point-->  
 
-    <property reference="serializable" default="true"/>
+    <property reference="serializable"/>
     <!-- cartridge-property merge-point-->  
 
     <!-- cartridge-resource merge-point -->

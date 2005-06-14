@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
 import org.andromda.core.metafacade.MetafacadeMapping.PropertyGroup;
+import org.andromda.core.namespace.NamespaceComponents;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 /**
  * Tests {@link org.andromda.core.mappings.MetafacadeMappings)
@@ -28,6 +30,16 @@ public class MetafacadeMappingsTest
     {
         super(name);
     }
+    
+    /**
+     * @see TestCase#setUp()
+     */
+    protected void setUp()
+        throws Exception
+    {
+        NamespaceComponents.instance().discover();
+    }
+
 
     private static final String METAFACADE_1 = "org.andromda.core.metafacade.Metafacade1";
     private static final String METAFACADE_IMPL_1 = "org.andromda.core.metafacade.Metafacade1Impl";
@@ -67,11 +79,6 @@ public class MetafacadeMappingsTest
     
     private static final Object MAPPING_OBJECT_11 = new MappingObject11();
 
-    private static final String NAMESPACE_PROPERTY_1 = "namespacePropertyOne";
-    private static final String NAMESPACE_PROPERTY_1_VALUE = "false";
-    private static final String NAMESPACE_PROPERTY_2 = "namespacePropertyTwo";
-    private static final String NAMESPACE_PROPERTY_2_VALUE = "true";
-
     private static final String MAPPING_PROPERTY = "mappingProperty";
     private static final String PROPERTY = "property";
     private static final String PROPERTY_ONE = "propertyOne";
@@ -98,21 +105,19 @@ public class MetafacadeMappingsTest
     {
 
         MetafacadeMappings mappings = MetafacadeMappings.newInstance();
-        final String namespace = "andromda-test-metafacades";
+        mappings.initialize();
+        final String namespace = mappings.getNamespace();
         final MetafacadeFactory factory = MetafacadeFactory.getInstance();
         factory.setModel(new Model());
-        factory.setNamespace(namespace);
-        mappings.initialize();
+        factory.setNamespace(mappings.getNamespace());
 
         // verify the property references
-        Map propertyReferences = mappings.getPropertyReferences();
+        Collection propertyReferences = mappings.getPropertyReferences();
         // test retrieval of the namespace properties
         assertEquals(2, propertyReferences.size());
-        assertNotNull(propertyReferences.get(NAMESPACE_PROPERTY_1));
-        assertEquals(NAMESPACE_PROPERTY_1_VALUE, propertyReferences
-            .get(NAMESPACE_PROPERTY_1));
-        assertEquals(NAMESPACE_PROPERTY_2_VALUE, propertyReferences
-            .get(NAMESPACE_PROPERTY_2));
+        Iterator referenceIterator = propertyReferences.iterator();
+        assertEquals("definitionOne", referenceIterator.next());
+        assertEquals("definitionTwo", referenceIterator.next());
 
         // test the default metafacade mapping
         assertNotNull(mappings.getDefaultMetafacadeClass(namespace));
@@ -132,8 +137,22 @@ public class MetafacadeMappingsTest
         propertyReferences = mapping.getPropertyReferences();
         assertNotNull(propertyReferences);
         assertEquals(2, propertyReferences.size());
-        assertEquals("true", propertyReferences.get("metafacadeProperteryOne"));
-        assertEquals("false", propertyReferences.get("metafacadeProperteryTwo"));
+        assertNotNull(CollectionUtils.find(propertyReferences, 
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return ((String)object).equals("metafacadeProperteryOne");
+                }
+            }));
+        assertNotNull(CollectionUtils.find(propertyReferences, 
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return ((String)object).equals("metafacadeProperteryTwo");
+                }
+            }));
 
         // test that we can get a mapping to the same metafacade with a
         // different stereotype

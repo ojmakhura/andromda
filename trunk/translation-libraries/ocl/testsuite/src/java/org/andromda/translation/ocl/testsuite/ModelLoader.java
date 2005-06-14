@@ -55,7 +55,7 @@ public class ModelLoader
             {
                 moduleSearchPaths = new String[]{moduleSearchPath};
             }
-            this.repository.readModel(modelUrl, moduleSearchPaths);
+            this.repository.readModel(new String[]{modelUrl.toString()}, moduleSearchPaths);
         }
         catch (Exception ex)
         {

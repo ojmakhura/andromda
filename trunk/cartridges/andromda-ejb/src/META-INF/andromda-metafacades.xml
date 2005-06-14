@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<metafacades namespace="ejb">
-    <property reference="transactionType" default="Required"/>
+<metafacades>
+    <property reference="transactionType"/>
     <metafacade class="org.andromda.cartridges.ejb.metafacades.ValueObjectFacadeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>VALUE_OBJECT</stereotype>
         </mapping>
-        <property reference="valueObjectPackage" default="{0}"/>
-        <property reference="valueObjectName" default="{0}"/>
+        <property reference="valueObjectPackage"/>
+        <property reference="valueObjectName"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBOperationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
@@ -41,7 +41,7 @@
             <stereotype>ENTITY</stereotype>
         </mapping>
         <property reference="sqlMappingsUri"/>
-        <property reference="jndiNamePrefix" default=""/>
+        <property reference="jndiNamePrefix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
@@ -63,7 +63,7 @@
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>SERVICE</stereotype>
         </mapping>
-        <property reference="jndiNamePrefix" default=""/>
+        <property reference="jndiNamePrefix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBSessionAttributeFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">

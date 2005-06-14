@@ -7,15 +7,15 @@ package org.andromda.core.translation.library;
  */
 public class LibraryTemplateObject
 {
-    private String value;
+    private String definitionOne;
 
-    public String getValue()
+    public String getDefinitionOne()
     {
-        return value;
+        return definitionOne;
     }
 
-    public void setValue(String value)
+    public void setDefinitionOne(String definitionOne)
     {
-        this.value = value;
+        this.definitionOne = definitionOne;
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="ejb">
+    <components>
+        <component name="cartridge"/>
+        <component name="metafacades"/>
+    </components>
+    <properties>
+        <property name="valueObjectPackage">
+            <default>{0}</default>
+        </property>
+        <property name="valueObjectName">
+            <default>{0}</default>
+        </property>
+        <property name="jndiNamePrefix" required="false"/>
+        <property name="transactionType">
+            <default>Required</default>
+        </property>
+    </properties>
+</namespace>

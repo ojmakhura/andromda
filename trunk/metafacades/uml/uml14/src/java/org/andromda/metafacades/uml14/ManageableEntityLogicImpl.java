@@ -1,5 +1,14 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -11,19 +20,11 @@ import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.ManageableEntity;
 import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.ModelElementFacade;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.Comparator;
 
 
 /**
@@ -32,10 +33,11 @@ import java.util.Comparator;
  * @see org.andromda.metafacades.uml.ManageableEntity
  */
 public class ManageableEntityLogicImpl
-        extends ManageableEntityLogic
+    extends ManageableEntityLogic
 {
-
-    public ManageableEntityLogicImpl(Object metaObject, String context)
+    public ManageableEntityLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -72,7 +74,10 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageablePackagePath()
     {
-        return StringUtils.replace(this.getManageablePackageName(), this.getNamespaceSeparator(), "/");
+        return StringUtils.replace(
+            this.getManageablePackageName(),
+            this.getNamespaceSeparator(),
+            "/");
     }
 
     protected java.util.List handleGetManageableAssociationEnds()
@@ -116,7 +121,10 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageableServiceFullPath()
     {
-        return '/' + StringUtils.replace(getFullyQualifiedManageableServiceName(), getNamespaceSeparator(), "/");
+        return '/' + StringUtils.replace(
+            getFullyQualifiedManageableServiceName(),
+            getNamespaceSeparator(),
+            "/");
     }
 
     protected String handleGetFullyQualifiedManageableServiceName()
@@ -126,10 +134,14 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageableServiceAccessorCall()
     {
-        final String accessorImplementation = String.valueOf(
-                getConfiguredProperty(UMLMetafacadeProperties.MANAGEABLE_SERVICE_ACCESSOR_PATTERN));
-        return accessorImplementation.replaceAll("\\{0\\}", getManageablePackageName()).replaceAll("\\{1\\}",
-                getManageableServiceName());
+        final String property = UMLMetafacadeProperties.MANAGEABLE_SERVICE_ACCESSOR_PATTERN;
+        final String accessorImplementation =
+            this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : "";
+        return accessorImplementation.replaceAll(
+            "\\{0\\}",
+            getManageablePackageName()).replaceAll(
+            "\\{1\\}",
+            getManageableServiceName());
     }
 
     protected boolean handleIsRead()
@@ -183,7 +195,8 @@ public class ManageableEntityLogicImpl
         final Collection associationEnds = getManageableAssociationEnds();
         for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
-            final ManageableEntityAssociationEnd associationEnd = (ManageableEntityAssociationEnd)associationEndIterator.next();
+            final ManageableEntityAssociationEnd associationEnd =
+                (ManageableEntityAssociationEnd)associationEndIterator.next();
             final Entity entity = (Entity)associationEnd.getType();
 
             final Iterator identifierIterator = entity.getIdentifiers().iterator();
@@ -254,7 +267,7 @@ public class ManageableEntityLogicImpl
 
         final Collection attributes = getAttributes();
         for (Iterator attributeIterator = attributes.iterator();
-             attributeIterator.hasNext() && displayAttribute == null;)
+            attributeIterator.hasNext() && displayAttribute == null;)
         {
             final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
             if (attribute.isUnique())
@@ -297,7 +310,9 @@ public class ManageableEntityLogicImpl
         return new ArrayList(users);
     }
 
-    private void collectActors(ActorFacade actor, Collection actors)
+    private void collectActors(
+        ActorFacade actor,
+        Collection actors)
     {
         if (!actors.contains(actor))
         {
@@ -342,8 +357,8 @@ public class ManageableEntityLogicImpl
 
         try
         {
-            maximumListSize = Integer.parseInt(
-                    (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_MAX_LIST_SIZE));
+            maximumListSize =
+                Integer.parseInt((String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_MAX_LIST_SIZE));
         }
         catch (NumberFormatException e1)
         {
@@ -384,7 +399,7 @@ public class ManageableEntityLogicImpl
         try
         {
             pageSize =
-                    Integer.parseInt((String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_PAGE_SIZE));
+                Integer.parseInt((String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_PAGE_SIZE));
         }
         catch (NumberFormatException e1)
         {
@@ -424,8 +439,9 @@ public class ManageableEntityLogicImpl
 
         try
         {
-            resolveable = Boolean.valueOf(
-                    (String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE)).booleanValue();
+            resolveable =
+                Boolean.valueOf((String)getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE))
+                       .booleanValue();
         }
         catch (NumberFormatException ex)
         {
@@ -453,9 +469,11 @@ public class ManageableEntityLogicImpl
     }
 
     private final class ManageableComparator
-            implements Comparator
+        implements Comparator
     {
-        public int compare(Object left, Object right)
+        public int compare(
+            Object left,
+            Object right)
         {
             final ModelElementFacade leftEntity = (ModelElementFacade)left;
             final ModelElementFacade rightEntity = (ModelElementFacade)right;

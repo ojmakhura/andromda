@@ -2,6 +2,7 @@ package org.andromda.cartridges.webservice.metafacades;
 
 import java.text.Collator;
 import java.text.MessageFormat;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,7 +28,9 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebService.
@@ -35,11 +38,12 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.webservice.metafacades.WebService
  */
 public class WebServiceLogicImpl
-        extends WebServiceLogic
+    extends WebServiceLogic
 {
     // ---------------- constructor -------------------------------
-
-    public WebServiceLogicImpl(Object metaObject, String context)
+    public WebServiceLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -50,21 +54,25 @@ public class WebServiceLogicImpl
     protected java.util.Collection handleGetAllowedOperations()
     {
         List operations = new ArrayList(this.getOperations());
-        CollectionUtils.filter(operations, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            operations,
+            new Predicate()
             {
-                boolean valid = WebServiceOperation.class.isAssignableFrom(object.getClass());
-                if (valid)
+                public boolean evaluate(Object object)
                 {
-                    valid = ((WebServiceOperation)object).isExposed();
+                    boolean valid = WebServiceOperation.class.isAssignableFrom(object.getClass());
+                    if (valid)
+                    {
+                        valid = ((WebServiceOperation)object).isExposed();
+                    }
+                    return valid;
                 }
-                return valid;
-            }
-        });
+            });
         if (this.getWSDLOperationSortMode().equals(OPERATION_SORT_MODE_NAME))
         {
-            Collections.sort(operations, new OperationNameComparator());
+            Collections.sort(
+                operations,
+                new OperationNameComparator());
         }
         return operations;
     }
@@ -85,7 +93,9 @@ public class WebServiceLogicImpl
                 methodNames.add(StringUtils.trimToEmpty(operation.getName()));
             }
         }
-        return StringUtils.join(methodNames.iterator(), " ");
+        return StringUtils.join(
+            methodNames.iterator(),
+            " ");
     }
 
     /**
@@ -93,8 +103,9 @@ public class WebServiceLogicImpl
      */
     protected String handleGetQName()
     {
-        return MessageFormat.format(this.getQualifiedNameLocalPartPattern(), new Object[]{
-            StringUtils.trimToEmpty(this.getName())});
+        return MessageFormat.format(
+            this.getQualifiedNameLocalPartPattern(),
+            new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
 
     /**
@@ -107,7 +118,9 @@ public class WebServiceLogicImpl
         {
             packageName = WebServiceUtils.reversePackage(packageName);
         }
-        return MessageFormat.format(this.getNamespacePattern(), new Object[]{StringUtils.trimToEmpty(packageName)});
+        return MessageFormat.format(
+            this.getNamespacePattern(),
+            new Object[] {StringUtils.trimToEmpty(packageName)});
     }
 
     /**
@@ -168,6 +181,7 @@ public class WebServiceLogicImpl
         Set types = new TreeSet(new TypeComparator());
         Collection nonArrayTypes = new TreeSet(new TypeComparator());
         Iterator paramTypeIt = paramTypes.iterator();
+
         // clear out the cache of checkedTypes, otherwise
         // they'll be ignored the second time this method is
         // called (if the instance is reused)
@@ -207,7 +221,10 @@ public class WebServiceLogicImpl
      * @param types         the collection to load.
      * @param nonArrayTypes the collection of non array types.
      */
-    private void loadTypes(ModelElementFacade modelElement, Set types, Collection nonArrayTypes)
+    private void loadTypes(
+        ModelElementFacade modelElement,
+        Set types,
+        Collection nonArrayTypes)
     {
         final String methodName = "WebServiceImpl.loadTypes";
         ExceptionUtils.checkNull(methodName, "types", types);
@@ -217,6 +234,7 @@ public class WebServiceLogicImpl
             if (modelElement != null && !this.checkedTypes.contains(modelElement))
             {
                 ClassifierFacade type = this.getType(modelElement);
+
                 // only continue if the model element has a type
                 if (type != null)
                 {
@@ -233,6 +251,7 @@ public class WebServiceLogicImpl
                                 // convert to non-array type since we
                                 // check if that one has the stereotype
                                 nonArrayType = type.getNonArray();
+
                                 // set the type to the non array type since
                                 // that will have the attributes
                                 type = nonArrayType;
@@ -240,8 +259,9 @@ public class WebServiceLogicImpl
                         }
                         if (nonArrayType != null)
                         {
-                            if (nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT) ||
-                                    nonArrayType.isEnumeration())
+                            if (
+                                nonArrayType.hasStereotype(UMLProfile.STEREOTYPE_VALUE_OBJECT) ||
+                                nonArrayType.isEnumeration())
                             {
                                 // we add the type when its a non array and has
                                 // the correct stereotype (even if we have added
@@ -287,7 +307,9 @@ public class WebServiceLogicImpl
      * @param modelElement the model element to check to see if it represents a <code>many</code> type
      * @return true/false depending on whether or not the model element is a many type.
      */
-    private boolean containsManyType(final Collection types, final Object modelElement)
+    private boolean containsManyType(
+        final Collection types,
+        final Object modelElement)
     {
         ClassifierFacade classifier = null;
         if (modelElement instanceof AssociationEndFacade)
@@ -317,42 +339,45 @@ public class WebServiceLogicImpl
         boolean containsManyType = false;
         if (compareType != null)
         {
-            containsManyType = CollectionUtils.find(types, new Predicate()
-            {
-                public boolean evaluate(Object object)
-                {
-                    boolean valid = false;
-                    if (object != null)
+            containsManyType =
+                CollectionUtils.find(
+                    types,
+                    new Predicate()
                     {
-                        ClassifierFacade type = null;
-                        if (object instanceof AssociationEndFacade)
+                        public boolean evaluate(Object object)
                         {
-                            AssociationEndFacade end = (AssociationEndFacade)object;
-                            if (end.isMany())
+                            boolean valid = false;
+                            if (object != null)
                             {
-                                type = ((AssociationEndFacade)object).getType();
+                                ClassifierFacade type = null;
+                                if (object instanceof AssociationEndFacade)
+                                {
+                                    AssociationEndFacade end = (AssociationEndFacade)object;
+                                    if (end.isMany())
+                                    {
+                                        type = ((AssociationEndFacade)object).getType();
+                                    }
+                                }
+                                else if (object instanceof ClassifierFacade)
+                                {
+                                    type = (ClassifierFacade)object;
+                                    if (type.isArrayType())
+                                    {
+                                        type = type.getNonArray();
+                                    }
+                                    else
+                                    {
+                                        type = null;
+                                    }
+                                }
+                                if (type != null)
+                                {
+                                    valid = type.equals(compareType);
+                                }
                             }
+                            return valid;
                         }
-                        else if (object instanceof ClassifierFacade)
-                        {
-                            type = (ClassifierFacade)object;
-                            if (type.isArrayType())
-                            {
-                                type = type.getNonArray();
-                            }
-                            else
-                            {
-                                type = null;
-                            }
-                        }
-                        if (type != null)
-                        {
-                            valid = type.equals(compareType);
-                        }
-                    }
-                    return valid;
-                }
-            }) != null;
+                    }) != null;
         }
         return containsManyType;
     }
@@ -387,16 +412,18 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetWsdlFile()
     {
-        return '/' + StringUtils.replace(this.getFullyQualifiedName(),
-                String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), "/") +
-                ".wsdl";
+        return '/' +
+        StringUtils.replace(
+            this.getFullyQualifiedName(),
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
+            "/") + ".wsdl";
     }
 
     /**
      * We use this comparator to actually elimate duplicates instead of sorting like a comparator is normally used.
      */
     private final class TypeComparator
-            implements Comparator
+        implements Comparator
     {
         private final Collator collator = Collator.getInstance();
 
@@ -405,7 +432,9 @@ public class WebServiceLogicImpl
             collator.setStrength(Collator.PRIMARY);
         }
 
-        public int compare(Object objectA, Object objectB)
+        public int compare(
+            Object objectA,
+            Object objectB)
         {
             ModelElementFacade a = (ModelElementFacade)objectA;
             ModelElementFacade aType = getType(a);
@@ -419,7 +448,9 @@ public class WebServiceLogicImpl
             {
                 bType = b;
             }
-            return collator.compare(aType.getFullyQualifiedName(), bType.getFullyQualifiedName());
+            return collator.compare(
+                aType.getFullyQualifiedName(),
+                bType.getFullyQualifiedName());
         }
     }
 
@@ -436,11 +467,13 @@ public class WebServiceLogicImpl
             final Introspector introspector = Introspector.instance();
             ClassifierFacade type = null;
             String typeProperty = "type";
+
             // only continue if the model element has a type
             if (introspector.isReadable(modelElement, typeProperty))
             {
                 type = (ClassifierFacade)introspector.getProperty(modelElement, typeProperty);
             }
+
             // try for return type if type wasn't found
             typeProperty = "returnType";
             if (type == null && introspector.isReadable(modelElement, typeProperty))
@@ -525,7 +558,8 @@ public class WebServiceLogicImpl
      */
     protected String getEjbJndiNamePrefix()
     {
-        return (String)this.getConfiguredProperty("ejbJndiNamePrefix");
+        final String property = "ejbJndiNamePrefix";
+        return this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : null;
     }
 
     /**
@@ -533,8 +567,9 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetEjbHomeInterface()
     {
-        return MessageFormat.format(this.getEjbHomeInterfacePattern(), new Object[]{
-            StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
+        return MessageFormat.format(
+            this.getEjbHomeInterfacePattern(),
+            new Object[] {StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
     }
 
     /**
@@ -552,8 +587,9 @@ public class WebServiceLogicImpl
      */
     protected java.lang.String handleGetEjbInterface()
     {
-        return MessageFormat.format(this.getEjbInterfacePattern(), new Object[]{
-            StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
+        return MessageFormat.format(
+            this.getEjbInterfacePattern(),
+            new Object[] {StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
     }
 
     /**
@@ -581,8 +617,9 @@ public class WebServiceLogicImpl
      */
     protected String handleGetRpcClassName()
     {
-        return MessageFormat.format(this.getRpcClassNamePattern(), new Object[]{
-            StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
+        return MessageFormat.format(
+            this.getRpcClassNamePattern(),
+            new Object[] {StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
     }
 
     private static final String WSDL_OPERATION_SORT_MODE = "wsdlOperationSortMode";
@@ -591,7 +628,7 @@ public class WebServiceLogicImpl
      * Used to sort operations by <code>name</code>.
      */
     private final static class OperationNameComparator
-            implements Comparator
+        implements Comparator
     {
         private final Collator collator = Collator.getInstance();
 
@@ -600,12 +637,16 @@ public class WebServiceLogicImpl
             collator.setStrength(Collator.PRIMARY);
         }
 
-        public int compare(Object objectA, Object objectB)
+        public int compare(
+            Object objectA,
+            Object objectB)
         {
             ModelElementFacade a = (ModelElementFacade)objectA;
             ModelElementFacade b = (ModelElementFacade)objectB;
 
-            return collator.compare(a.getName(), b.getName());
+            return collator.compare(
+                a.getName(),
+                b.getName());
         }
     }
 
@@ -627,8 +668,7 @@ public class WebServiceLogicImpl
     private String getWSDLOperationSortMode()
     {
         Object property = this.getConfiguredProperty(WSDL_OPERATION_SORT_MODE);
-        return property != null || property.equals(OPERATION_SORT_MODE_NAME) ?
-                (String)property : OPERATION_SORT_MODE_NONE;
+        return property != null || property.equals(OPERATION_SORT_MODE_NAME) ? (String)property : OPERATION_SORT_MODE_NONE;
     }
 
     /**
@@ -648,16 +688,18 @@ public class WebServiceLogicImpl
     public Collection getAllRoles()
     {
         final Collection roles = new HashSet(this.getRoles());
-        CollectionUtils.forAllDo(this.getAllowedOperations(), new Closure()
-        {
-            public void execute(Object object)
+        CollectionUtils.forAllDo(
+            this.getAllowedOperations(),
+            new Closure()
             {
-                if (object != null && ServiceOperation.class.isAssignableFrom(object.getClass()))
+                public void execute(Object object)
                 {
-                    roles.addAll(((ServiceOperation)object).getRoles());
+                    if (object != null && ServiceOperation.class.isAssignableFrom(object.getClass()))
+                    {
+                        roles.addAll(((ServiceOperation)object).getRoles());
+                    }
                 }
-            }
-        });
+            });
         return roles;
     }
 
@@ -671,8 +713,9 @@ public class WebServiceLogicImpl
      */
     protected String handleGetTestPackageName()
     {
-        return String.valueOf(this.getConfiguredProperty(TEST_PACKAGE_NAME_PATTERN)).replaceAll("\\{0\\}",
-                this.getPackageName());
+        return String.valueOf(this.getConfiguredProperty(TEST_PACKAGE_NAME_PATTERN)).replaceAll(
+            "\\{0\\}",
+            this.getPackageName());
     }
 
     /**
@@ -693,7 +736,9 @@ public class WebServiceLogicImpl
      */
     protected String handleGetTestName()
     {
-        return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN)).replaceAll("\\{0\\}", this.getName());
+        return String.valueOf(this.getConfiguredProperty(TEST_NAME_PATTERN)).replaceAll(
+            "\\{0\\}",
+            this.getName());
     }
 
     /**
@@ -771,8 +816,9 @@ public class WebServiceLogicImpl
      */
     protected String handleGetTestImplementationName()
     {
-        return String.valueOf(this.getConfiguredProperty(TEST_IMPLEMENTATION_NAME_PATTERN)).replaceAll("\\{0\\}",
-                this.getName());
+        return String.valueOf(this.getConfiguredProperty(TEST_IMPLEMENTATION_NAME_PATTERN)).replaceAll(
+            "\\{0\\}",
+            this.getName());
     }
 
     /**
