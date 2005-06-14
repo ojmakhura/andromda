@@ -402,6 +402,20 @@
                         No, default is <code>ref_</code>.
                     </td>
                 </tr>
+                <tr>
+                    <a name="setPageVariablesInPageScope"/>
+                    <td>
+                        setPageVariablesInPageScope
+                    </td>
+                    <td>
+                        When this property is set to <code>true</code> all page variables from the action form
+                        will be copied into page scope so their values can be retrieved without going to the
+                        form instance first, use <code>false</code> to disable this feature.
+                    </td>
+                    <td>
+                        No, default is <code>true</code>.
+                    </td>
+                </tr>
             </table>
         </section>
     </body>
