@@ -68,6 +68,12 @@
     <property reference="session-ejbs"/>
     <property reference="advice-impls"/>
     <property reference="daos"/>
+    <property reference="acegiServiceSecurity"/>
+    <property reference="acegiServiceSecurityInterceptor"/>
+    <property reference="acegiServiceAccessDecisionManager"/>
+    <property reference="acegiServiceDecisionVoter"/>
+    <property reference="acegiAuthenticationManager"/>
+    <property reference="acegiRunAsManager"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
