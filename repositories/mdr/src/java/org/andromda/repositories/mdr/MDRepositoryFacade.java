@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.util.Iterator;
 
 import javax.jmi.model.ModelPackage;
@@ -379,7 +381,11 @@ public class MDRepositoryFacade
                     final int uriNumber = modelUris.length;
                     for (int ctr = 0; ctr < uriNumber; ctr++)
                     {
-                        xmiReader.read(modelUris[ctr], model);
+                        final String uri = modelUris[ctr];
+                        if (uri != null)
+                        {
+                            xmiReader.read(modelUris[ctr], model);
+                        }
                     }
                 }
             }
@@ -433,7 +439,10 @@ public class MDRepositoryFacade
                         {
                             uri = uris[ctr];
                         }
-                        xmiReader.read(stream, uri, model);
+                        if (stream != null)
+                        {
+                            xmiReader.read(stream, uri, model);
+                        }
                     }
                 }
             }
