@@ -59,6 +59,9 @@
     <property reference="openSessionInViewFilterName"/>
     <property reference="ejbViewType"/>
     <property reference="springRemotingType"/>
+    <property reference="serviceRemotePort"/>
+    <property reference="serviceRemoteContext"/>
+    <property reference="serviceRemoteServer"/>	
     <property reference="securityRealm"/>
     <property reference="jndiDataSourceClass"/>
     <property reference="jdbcDataSourceClass"/>
