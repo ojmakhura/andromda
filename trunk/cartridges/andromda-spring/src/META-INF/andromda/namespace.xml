@@ -431,7 +431,7 @@
                     ]]>
                 </documentation>
             </property>
-            <property name="springRemotingType" >
+            <property name="springRemotingType">
                 <default>none</default>
                 <documentation>
                     <![CDATA[
@@ -439,8 +439,7 @@
                     ]]>
                 </documentation>
             </property>
-            <property name="securityRealm">
-                <default>false</default>
+            <property name="securityRealm" required="false">
                 <documentation>
                     <![CDATA[
                     The name of the security realm (i.e. animal-quiz, other, etc).
