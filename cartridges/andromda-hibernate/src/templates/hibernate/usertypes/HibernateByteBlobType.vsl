@@ -8,7 +8,6 @@
 package $userTypesPackage;
 
 import java.io.ByteArrayInputStream;
-import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -115,9 +114,9 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(Serializable cached, Object owner)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(java.io.Serializable cached, Object owner)
      */
-    public Object assemble(Serializable cached, Object owner)
+    public Object assemble(java.io.Serializable cached, Object owner)
     {
         return cached;
     }
@@ -125,9 +124,9 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(Object value)
      */
-     public Serializable disassemble(Object value)
+     public java.io.Serializable disassemble(Object value)
      {
-        return (Serializable)value;
+        return (java.io.Serializable)value;
      }
 
      /**
