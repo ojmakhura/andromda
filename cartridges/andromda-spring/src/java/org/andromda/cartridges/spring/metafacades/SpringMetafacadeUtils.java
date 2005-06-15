@@ -94,8 +94,8 @@ class SpringMetafacadeUtils
     }
 
     /**
-     * Gets the remote service port for the passed in <code>classifier</code>. If the remote service port can be
-     * retrieved from the <code>classifier</code>, then that is used, otherwise the
+     * Gets the remote service port for the passed in <code>classifier</code>. If the remote service 
+     * port can be retrieved from the <code>classifier</code>, then that is used, otherwise the
      * <code>defaultRemoteServicePort</code> is returned.
      *
      * @return String the remote service port.
