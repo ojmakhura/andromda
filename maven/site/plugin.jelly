@@ -2,7 +2,8 @@
 
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
-         xmlns:util="jelly:util"
+         xmlns:x="jelly:xml"
+         xmlns:u="jelly:util"
          xmlns:maven="jelly:maven">
          
     <j:set var="pluginResources" value="${plugin.resources}/andromda"/>
@@ -24,5 +25,25 @@
             <ant:fileset dir="${pluginResources}/style"/>
         </ant:copy>
     </postGoal>
-    
+
+    <preGoal name="xdoc:copy-resources">
+        <!-- if a namespace.xml is present then generate documentation for it -->
+        <u:available file="${maven.src.dir}/META-INF/andromda/namespace.xml">
+            <!-- setting the XSLT factory provider @todo: do this only once (wouter)-->
+            <j:invokeStatic var="dummy" method="setProperty" className="java.lang.System">
+                <j:arg value="javax.xml.transform.TransformerFactory" type="java.lang.String"/>
+                <j:arg value="org.apache.xalan.processor.TransformerFactoryImpl" type="java.lang.String"/>
+            </j:invokeStatic>
+            <!-- copy the stylesheet for this specific run -->
+            <ant:copy file="${pluginResources}/xsl/namespace.xsl" todir="${maven.build.dir}/xsl"/>
+            <!-- replace the variable property in the stylesheet -->
+            <ant:replace file="${maven.build.dir}/xsl/namespace.xsl" token="%module%" value="${pom.name}"/>
+            <!-- performing the transformation -->
+            <ant:xslt force="true"
+                in="${maven.src.dir}/META-INF/andromda/namespace.xml"
+                out="${maven.gen.docs}/namespace.xml"
+                style="${maven.build.dir}/xsl/namespace.xsl"/>
+        </u:available>
+    </preGoal>
+
 </project>
