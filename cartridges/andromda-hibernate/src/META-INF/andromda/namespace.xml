@@ -113,7 +113,14 @@
             <property name="embeddedValueImplementationNamePattern">
                 <default>{0}Impl</default>
             </property>
-            <property name="securityRealm" required="false"/>
+            <property name="securityRealm" required="false">
+                <documentation>
+                    <![CDATA[
+                    The name of the security realm (i.e. animal-quiz, other, etc).
+                    <strong>NOTE:</strong>This enables EJB security if specified.
+                    ]]>
+                </documentation>
+            </property>
             <property name="customTypesPackage">
                 <default>org.andromda.persistence.hibernate</default>
             </property>
