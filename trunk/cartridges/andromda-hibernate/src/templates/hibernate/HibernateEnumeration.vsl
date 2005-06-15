@@ -10,7 +10,6 @@ package $enumeration.packageName;
 
 import ${hibernateUtils.hibernatePackage}.HibernateException;
 
-import java.io.Serializable;
 import java.sql.Types;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -125,9 +124,9 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(Serializable cached, Object owner)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(java.io.Serializable cached, Object owner)
      */
-    public Object assemble(Serializable cached, Object owner)
+    public Object assemble(java.io.Serializable cached, Object owner)
     {
         return cached;
     }
@@ -135,9 +134,9 @@ public final class $enumeration.enumerationName
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(Object value)
      */
-     public Serializable disassemble(Object value)
+     public java.io.Serializable disassemble(Object value)
      {
-        return (Serializable)value;
+        return (java.io.Serializable)value;
      }
 
     /**
