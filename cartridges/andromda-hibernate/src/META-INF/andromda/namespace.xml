@@ -135,9 +135,6 @@
         <property name="password" required="false"/>
         <property name="connectionUrl" required="false"/>
         <property name="dataSource" required="false"/>
-        <property name="hibernateDefaultCascade">
-            <default>none</default>
-        </property>
         <property name="hibernatePoolSize" required="false"/>
         <property name="hibernateTransactionFactoryClass">
             <default>net.sf.hibernate.transaction.JTATransactionFactory</default>
