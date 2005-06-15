@@ -66,7 +66,7 @@
             generates. Easy to do: just specify a <strong>mergeLocation</strong> when declaring the cartridge-dependency
             and put the replacement-files in that directory (if you generated your project using the Maven
             <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a> plugin you will need to do that in
-            <code>&lt;your-project&gt;/mda/project.xml</code>):
+            <code>&lt;your-project&gt;/mda/conf/andromda.xml</code>):
         </p>
         <source language="xml"><![CDATA[
  ...
