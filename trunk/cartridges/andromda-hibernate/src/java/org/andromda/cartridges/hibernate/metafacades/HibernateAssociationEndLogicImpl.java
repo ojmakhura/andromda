@@ -241,9 +241,9 @@ public class HibernateAssociationEndLogicImpl
             {
                 cascade = HibernateGlobals.HIBERNATE_CASCADE_DELETE;
 
-                Object type = this.getType();
+                final Object type = this.getType();
 
-                if ((type != null) && HibernateEntity.class.isAssignableFrom(type.getClass()))
+                if (type != null && type instanceof HibernateEntity)
                 {
                     HibernateEntity entity = (HibernateEntity)type;
                     final String defaultCascade = entity.getHibernateDefaultCascade();
@@ -282,7 +282,7 @@ public class HibernateAssociationEndLogicImpl
             {
                 cascade = HibernateGlobals.HIBERNATE_CASCADE_NONE;
             }
-            else if ((this.getOtherEnd() != null) && this.getOtherEnd().isAggregation())
+            else if (this.getOtherEnd() != null && this.getOtherEnd().isAggregation())
             {
                 cascade = this.getHibernateAggregationCascade();
             }
@@ -619,7 +619,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected java.lang.String handleGetHibernateAggregationCascade()
     {
-        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_AGGREGATION_CASCADE)));
+        return StringUtils.trimToEmpty(ObjectUtils.toString(String.valueOf(this.getConfiguredProperty(HIBERNATE_AGGREGATION_CASCADE))));
     }
 
     /**
@@ -627,7 +627,6 @@ public class HibernateAssociationEndLogicImpl
      */
     protected java.lang.String handleGetHibernateCompositionCascade()
     {
-        final String cascadeProperty = HIBERNATE_COMPOSITION_CASCADE;
-        return this.isConfiguredProperty(cascadeProperty) ? ObjectUtils.toString(this.getConfiguredProperty(cascadeProperty)) : null;
+        return StringUtils.trimToEmpty(ObjectUtils.toString(this.getConfiguredProperty(HIBERNATE_COMPOSITION_CASCADE)));
     }
 }
