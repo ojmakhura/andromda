@@ -24,7 +24,7 @@ public class MetafacadeBase
     private Object metaObject;
 
     /**
-     * Construts a new instance of this class with the given <code>metaObject</code>
+     * Constructs a new instance of this class with the given <code>metaObject</code>
      * and <code>context</code>.  The metaObject is the meta model element which
      * this metafacade insulates. The <code>context</code> is the name of the
      * context for this metafacade instance.
