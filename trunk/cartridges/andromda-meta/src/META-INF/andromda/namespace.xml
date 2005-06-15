@@ -6,22 +6,24 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <property name="implementationOperationNamePattern">
-            <default>handle{0}</default>
-        </property>
-        <property name="metamodelVersionPackage" required="false">
-            <documentation>
-                <![CDATA[
-                Defines the metamodel version package name
-                (i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc)
-                used by this cartridge to create the generated impl package name, if
-                left empty then the impl package will be the same as the metafacade
-                package (therefore we default to an empty name)
-                ]]>
-            </documentation>
-        </property>
-        <property name="generalizationNamePattern">
-            <default>super{0}</default>
-        </property>
+        <propertyGroup>      
+            <property name="implementationOperationNamePattern">
+                <default>handle{0}</default>
+            </property>
+            <property name="metamodelVersionPackage" required="false">
+                <documentation>
+                    <![CDATA[
+                    Defines the metamodel version package name
+                    (i.e. org.andromda.metafacades.uml14, org.andromda.metafacades.um20, etc)
+                    used by this cartridge to create the generated impl package name, if
+                    left empty then the impl package will be the same as the metafacade
+                    package (therefore we default to an empty name)
+                    ]]>
+                </documentation>
+            </property>
+            <property name="generalizationNamePattern">
+                <default>super{0}</default>
+            </property>
+        </propertyGroup>
     </properties>
 </namespace>

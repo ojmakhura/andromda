@@ -5,21 +5,53 @@
         <component name="translation-library"/>    
     </components>
     <properties>
-        <property name="definitionOne">
-            <default>3</default>
+        <propertyGroup>
+            <name>The First Group of Properties</name>
             <documentation>
                 <![CDATA[
-                The first property definition.
+                    This is some documentation about the first group of properties.
                 ]]>
             </documentation>
-        </property>
-        <property name="definitionTwo">
-            <default>two</default>
+            <property name="definitionOne">
+                <default>3</default>
+                <documentation>
+                    <![CDATA[
+                    The first property definition.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="definitionTwo">
+                <default>two</default>
+                <documentation>
+                    <![CDATA[
+                    The second property definition.
+                    ]]>
+                </documentation>            
+            </property>
+        </propertyGroup>
+        <propertyGroup>
+            <name>The Second Group of Properties</name>
             <documentation>
                 <![CDATA[
-                The second property definition.
+                    This is some documentation about the second group of properties
                 ]]>
-            </documentation>            
-        </property>
+            </documentation>
+            <property name="definitionThree">
+                <default>3</default>
+                <documentation>
+                    <![CDATA[
+                    The first property definition.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="definitionFour">
+                <default>two</default>
+                <documentation>
+                    <![CDATA[
+                    The second property definition.
+                    ]]>
+                </documentation>            
+            </property>
+        </propertyGroup>
     </properties>
 </namespace>

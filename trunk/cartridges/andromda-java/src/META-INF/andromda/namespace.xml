@@ -5,8 +5,10 @@
         <component name="cartridge"/>
     </components>
     <properties>
-        <property name="serializable">
-            <default>true</default>
-        </property>
+        <propertyGroup>
+            <property name="serializable">
+                <default>true</default>
+            </property>
+        </propertyGroup>
     </properties>
 </namespace>

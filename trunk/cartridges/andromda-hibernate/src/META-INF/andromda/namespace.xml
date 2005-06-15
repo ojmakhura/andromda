@@ -6,186 +6,188 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <property name="hibernateVersion">
-            <default>2</default>
-        </property>
-        <property name="entityNamePattern">
-            <default>{0}</default>
-        </property>
-        <property name="entityImplementationNamePattern">
-            <default>{0}Impl</default>
-        </property>
-        <property name="defaultHibernateGeneratorClass">
-            <default>native</default>
-        </property>
-        <property name="hibernateDefaultCascade">
-            <default>none</default>
-        </property>
-        <property name="hibernateCompositionCascade" required="false"/>
-        <property name="hibernateAggregationCascade" required="false"/>
-        <property name="hibernateEntityCache">
-            <default>read-write</default>
-        </property>
-        <property name="hibernateEntityDynamicInsert">
-            <default>false</default>
-        </property>
-        <property name="hibernateEntityDynamicUpdate">
-            <default>false</default>
-        </property>
-        <property name="hibernateProxy">
-            <default>false</default>
-        </property>
-        <property name="hibernateQueryUseNamedParameters">
-            <default>false</default>
-        </property>
-        <property name="hibernateInheritanceStrategy">
-            <default>subclass</default>
-        </property>
-        <property name="hibernateUseQueryCache">
-            <default>false</default>
-        </property>
-        <property name="ehCacheMaxElementsInMemory">
-            <default>10000</default>
-        </property>
-        <property name="ehCacheEternal">
-            <default>false</default>
-        </property>
-        <property name="ehCacheTimeToIdleSeconds">
-            <default>120</default>
-        </property>
-        <property name="ehCacheTimeToLiveSeconds">
-            <default>120</default>
-        </property>
-        <property name="ehCacheOverflowToDisk">
-            <default>true</default>
-        </property>
-        <property name="compositionDefinesEagerLoading">
-            <default>true</default>
-        </property>
-        <property name="ejbJndiNamePrefix" required="false"/>
-        <property name="ejbViewType">
-            <default>local</default>
-        </property>
-        <property name="hibernateAssociationCollectionType">
-            <default>set</default>
-        </property>
-        <property name="hibernateAssociationSortType">
-            <default>unsorted</default>
-        </property>
-        <property name="enumerationNamePattern">
-            <default>{0}Enum</default>
-        </property>
-        <property name="hibernateQueryUseSpecializedSetters">
-            <default>false</default>
-        </property>
-        <property name="versionProperty" required="false"/>
-        <property name="hibernateAssociationEndOuterJoin">
-            <default>auto</default>
-        </property>
-        <property name="listTypeImplementation">
-            <default>java.util.ArrayList</default>
-        </property>
-        <property name="setTypeImplementation">
-            <default>java.util.HashSet</default>
-        </property>
-        <property name="mapTypeImplementation">
-            <default>java.util.HashMap</default>
-        </property>
-        <property name="bagTypeImplementation">
-            <default>java.util.ArrayList</default>
-        </property>
-        <property name="specificCollectionInterfaces">
-            <default>false</default>
-        </property>
-        <property name="defaultCollectionInterface">
-            <default>java.util.Collection</default>
-        </property>
-        <property name="associationEndCollectionIndexName" required="false"/>
-        <property name="associationEndCollectionIndexType" required="false"/>
-        <property name="hibernateAssociationCache">
-            <default>read-write</default>
-        </property>
-        <property name="serviceOperationTransactionType">
-            <default>Required</default>
-        </property>
-        <property name="hibernateTypeMappingsUri" required="false"/>
-        <property name="embeddedValueImplementationNamePattern">
-            <default>{0}Impl</default>
-        </property>
-        <property name="securityRealm" required="false"/>
-        <property name="customTypesPackage">
-            <default>org.andromda.persistence.hibernate</default>
-        </property>
-        <property name="userTypesPackage">
-            <default>org.andromda.persistence.hibernate.usertypes</default>
-            <documentation>
-                <![CDATA[
-                Defines the package for the Hibernate user types
-                ]]>
-            </documentation>
-        </property>
-        <property name="serviceLocatorName">
-            <default>ServiceLocator</default>
-        </property>
-        <property name="sequenceIdentifierSuffix">
-            <default>_SEQ</default>
-        </property>
-        <property name="driver" required="false"/>
-        <property name="username" required="false"/>
-        <property name="password" required="false"/>
-        <property name="connectionUrl" required="false"/>
-        <property name="dataSource" required="false"/>
-        <property name="hibernatePoolSize" required="false"/>
-        <property name="hibernateTransactionFactoryClass">
-            <default>net.sf.hibernate.transaction.JTATransactionFactory</default>
-        </property>
-        <property name="hibernateTransactionManagerStrategy" required="false"/>
-        <property name="hibernateUserTransactionName">
-            <default>UserTransaction</default>
-        </property>
-        <property name="hibernateTransactionManagerLookup" required="false"/>
-        <property name="hibernateUseOuterJoin" required="false"/>
-        <property name="hibernateShowSql" required="false"/>
-        <property name="hibernateJndiName">
-            <default>java:/hibernate/SessionFactory</default>
-        </property>
-        <property name="hibernateDialect" required="false"/>
-        <property name="hibernateDefaultSchema" required="false"/>
-        <property name="hibernateMaxFetchDepth" required="false"/>
-        <property name="hibernateJdbcFetchSize" required="false"/>
-        <property name="hibernateJdbcBatchSize" required="false"/>
-        <property name="hibernateJdbcUseScrollableResultSet" required="false"/>
-        <property name="hibernateMaxFetchDepth" required="false"/>
-        <property name="hibernateJdbcUseStreamsForBinary" required="false"/>
-        <property name="hibernateHbm2DDLAuto" required="false"/>
-        <property name="hibernateQuerySubstitutions" required="false"/>
-        <property name="hibernateEnableCache">
-            <default>false</default>
-        </property>
-        <property name="hibernateEnableAssociationsCache">
-            <default>false</default>
-        </property>
-        <property name="hibernateEhCacheDiskStore">
-            <default>java.io.tmpdir</default>
-        </property>
-        <property name="hibernateCacheProvider">
-            <default>net.sf.hibernate.cache.EhCacheProvider</default>
-        </property>
-        <property name="hibernateQueryCacheFactory">
-            <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
-        </property>
-        <property name="xmlEncoding">
-            <default>UTF-8</default>
-        </property>
-        <property name="generateEntityEqualsAndHashCode">
-            <default>true</default>
-        </property>
-        <property name="hibernateProxy">
-            <default>false</default>
-        </property>
-        <!-- This property is only relevant for Hibernate 3 -->
-        <property name="hibernateQueryFactory">
-            <default>org.hibernate.hql.classic.ClassicQueryTranslatorFactory</default>
-        </property>
+        <propertyGroup>
+            <property name="hibernateVersion">
+                <default>2</default>
+            </property>
+            <property name="entityNamePattern">
+                <default>{0}</default>
+            </property>
+            <property name="entityImplementationNamePattern">
+                <default>{0}Impl</default>
+            </property>
+            <property name="defaultHibernateGeneratorClass">
+                <default>native</default>
+            </property>
+            <property name="hibernateDefaultCascade">
+                <default>none</default>
+            </property>
+            <property name="hibernateCompositionCascade" required="false"/>
+            <property name="hibernateAggregationCascade" required="false"/>
+            <property name="hibernateEntityCache">
+                <default>read-write</default>
+            </property>
+            <property name="hibernateEntityDynamicInsert">
+                <default>false</default>
+            </property>
+            <property name="hibernateEntityDynamicUpdate">
+                <default>false</default>
+            </property>
+            <property name="hibernateProxy">
+                <default>false</default>
+            </property>
+            <property name="hibernateQueryUseNamedParameters">
+                <default>false</default>
+            </property>
+            <property name="hibernateInheritanceStrategy">
+                <default>subclass</default>
+            </property>
+            <property name="hibernateUseQueryCache">
+                <default>false</default>
+            </property>
+            <property name="ehCacheMaxElementsInMemory">
+                <default>10000</default>
+            </property>
+            <property name="ehCacheEternal">
+                <default>false</default>
+            </property>
+            <property name="ehCacheTimeToIdleSeconds">
+                <default>120</default>
+            </property>
+            <property name="ehCacheTimeToLiveSeconds">
+                <default>120</default>
+            </property>
+            <property name="ehCacheOverflowToDisk">
+                <default>true</default>
+            </property>
+            <property name="compositionDefinesEagerLoading">
+                <default>true</default>
+            </property>
+            <property name="ejbJndiNamePrefix" required="false"/>
+            <property name="ejbViewType">
+                <default>local</default>
+            </property>
+            <property name="hibernateAssociationCollectionType">
+                <default>set</default>
+            </property>
+            <property name="hibernateAssociationSortType">
+                <default>unsorted</default>
+            </property>
+            <property name="enumerationNamePattern">
+                <default>{0}Enum</default>
+            </property>
+            <property name="hibernateQueryUseSpecializedSetters">
+                <default>false</default>
+            </property>
+            <property name="versionProperty" required="false"/>
+            <property name="hibernateAssociationEndOuterJoin">
+                <default>auto</default>
+            </property>
+            <property name="listTypeImplementation">
+                <default>java.util.ArrayList</default>
+            </property>
+            <property name="setTypeImplementation">
+                <default>java.util.HashSet</default>
+            </property>
+            <property name="mapTypeImplementation">
+                <default>java.util.HashMap</default>
+            </property>
+            <property name="bagTypeImplementation">
+                <default>java.util.ArrayList</default>
+            </property>
+            <property name="specificCollectionInterfaces">
+                <default>false</default>
+            </property>
+            <property name="defaultCollectionInterface">
+                <default>java.util.Collection</default>
+            </property>
+            <property name="associationEndCollectionIndexName" required="false"/>
+            <property name="associationEndCollectionIndexType" required="false"/>
+            <property name="hibernateAssociationCache">
+                <default>read-write</default>
+            </property>
+            <property name="serviceOperationTransactionType">
+                <default>Required</default>
+            </property>
+            <property name="hibernateTypeMappingsUri" required="false"/>
+            <property name="embeddedValueImplementationNamePattern">
+                <default>{0}Impl</default>
+            </property>
+            <property name="securityRealm" required="false"/>
+            <property name="customTypesPackage">
+                <default>org.andromda.persistence.hibernate</default>
+            </property>
+            <property name="userTypesPackage">
+                <default>org.andromda.persistence.hibernate.usertypes</default>
+                <documentation>
+                    <![CDATA[
+                    Defines the package for the Hibernate user types
+                    ]]>
+                </documentation>
+            </property>
+            <property name="serviceLocatorName">
+                <default>ServiceLocator</default>
+            </property>
+            <property name="sequenceIdentifierSuffix">
+                <default>_SEQ</default>
+            </property>
+            <property name="driver" required="false"/>
+            <property name="username" required="false"/>
+            <property name="password" required="false"/>
+            <property name="connectionUrl" required="false"/>
+            <property name="dataSource" required="false"/>
+            <property name="hibernatePoolSize" required="false"/>
+            <property name="hibernateTransactionFactoryClass">
+                <default>net.sf.hibernate.transaction.JTATransactionFactory</default>
+            </property>
+            <property name="hibernateTransactionManagerStrategy" required="false"/>
+            <property name="hibernateUserTransactionName">
+                <default>UserTransaction</default>
+            </property>
+            <property name="hibernateTransactionManagerLookup" required="false"/>
+            <property name="hibernateUseOuterJoin" required="false"/>
+            <property name="hibernateShowSql" required="false"/>
+            <property name="hibernateJndiName">
+                <default>java:/hibernate/SessionFactory</default>
+            </property>
+            <property name="hibernateDialect" required="false"/>
+            <property name="hibernateDefaultSchema" required="false"/>
+            <property name="hibernateMaxFetchDepth" required="false"/>
+            <property name="hibernateJdbcFetchSize" required="false"/>
+            <property name="hibernateJdbcBatchSize" required="false"/>
+            <property name="hibernateJdbcUseScrollableResultSet" required="false"/>
+            <property name="hibernateMaxFetchDepth" required="false"/>
+            <property name="hibernateJdbcUseStreamsForBinary" required="false"/>
+            <property name="hibernateHbm2DDLAuto" required="false"/>
+            <property name="hibernateQuerySubstitutions" required="false"/>
+            <property name="hibernateEnableCache">
+                <default>false</default>
+            </property>
+            <property name="hibernateEnableAssociationsCache">
+                <default>false</default>
+            </property>
+            <property name="hibernateEhCacheDiskStore">
+                <default>java.io.tmpdir</default>
+            </property>
+            <property name="hibernateCacheProvider">
+                <default>net.sf.hibernate.cache.EhCacheProvider</default>
+            </property>
+            <property name="hibernateQueryCacheFactory">
+                <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
+            </property>
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+            </property>
+            <property name="generateEntityEqualsAndHashCode">
+                <default>true</default>
+            </property>
+            <property name="hibernateProxy">
+                <default>false</default>
+            </property>
+            <!-- This property is only relevant for Hibernate 3 -->
+            <property name="hibernateQueryFactory">
+                <default>org.hibernate.hql.classic.ClassicQueryTranslatorFactory</default>
+            </property>
+        </propertyGroup>
     </properties>
 </namespace>
