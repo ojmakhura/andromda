@@ -61,8 +61,12 @@ public class AndroMDARunner
     /**
      *  Runs AndroMDA.
      */
-    public void run()
+    public String run()
     {
+        // - since maven doesn't fail on exceptions on this method (for some reason)
+        //   we'll save the error message and if present call ant fail from within
+        //   the plugin jelly.
+        String message = null;
         Thread.currentThread().setContextClassLoader(AndroMDARunner.class.getClassLoader());
         try
         {
@@ -79,13 +83,14 @@ public class AndroMDARunner
             }
             if (throwable instanceof FileNotFoundException)
             {
-                throw new RuntimeException("No configuration could be loaded from --> '" + configurationUri + "'");
+                message = "No configuration could be loaded from --> '" + configurationUri + "'";
             }
             else if (throwable instanceof MalformedURLException)
             {
-                throw new RuntimeException("Configuration is not a valid URI --> '" + configurationUri + "'");
+                message = "Configuration is not a valid URI --> '" + configurationUri + "'";
             }
-            throw new RuntimeException(throwable);
+            throwable.printStackTrace();
+            message = throwable.toString();
         }
         finally
         {
@@ -94,6 +99,7 @@ public class AndroMDARunner
             // the ContextClassLoader for this class.
             Thread.currentThread().setContextClassLoader(ClassLoader.getSystemClassLoader());
         }
+        return message;
     }
 
     /**
