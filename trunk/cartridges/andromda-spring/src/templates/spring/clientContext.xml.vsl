@@ -3,6 +3,28 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
+	
+    <!-- ========================= Start of BEAN POSTPROCESSORS ======================== -->
+
+    <bean id="propertyPlaceholderConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties">
+            <props>
+                <prop key="remoteServer">$serviceRemoteServer</prop>
+                <prop key="remotePort">$serviceRemotePort</prop>
+#if($stringUtils.isNotBlank($serviceRemoteContext))
+                <prop key="remoteContext">$serviceRemoteContext</prop>
+#end
+            </props>
+        </property>
+        <property name="systemPropertiesModeName">
+            <value>SYSTEM_PROPERTIES_MODE_OVERRIDE</value>
+        </property>
+    </bean>
+
+    <!-- ========================= End of BEAN POSTPROCESSORS ========================== -->
+
+
 #if ($adviceEnabled)
 
     <!-- ========================= Start of INTERCEPTOR DEFINITIONS ==================== -->
