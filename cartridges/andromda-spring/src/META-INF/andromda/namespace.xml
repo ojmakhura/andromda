@@ -498,6 +498,9 @@
                  or not, this allows us to determine whether or not we need to generate
                  entity related information -->
             <property name="daos" required="false"/>
+        </propertyGroup>
+        <propertyGroup>
+            <name>Acegi Security System Properties</name>
             <property name="acegiServiceSecurity">
                 <default>false</default>
                 <documentation>
