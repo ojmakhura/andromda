@@ -6,136 +6,142 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <property name="namespacePrefix">
-            <default>impl</default>
-        </property>
-        <property name="qualifiedNameLocalPartPattern">
-            <default>{0}</default>
-        </property>
-        <property name="namespacePattern">
-            <default>http://{0}</default>
-        </property>
-        <property name="reverseNamespace">
-            <default>false</default>
-        </property>
-        <property name="defaultProvider">
-            <default>RPC</default>
-        </property>
-        <property name="defaultStyle">
-            <default>wrapped</default>
-        </property>
-        <property name="defaultUse">
-            <default>literal</default>
-        </property>
-        <property name="rpcClassNamePattern">
-            <default>{0}.{1}Impl</default>
-        </property>
-        <property name="wsdlOperationSortMode">
-            <default>name</default>
-        </property>
-        <property name="testPackageNamePattern">
-            <default>{0}.test</default>
-        </property>
-        <property name="testNamePattern">
-            <default>{0}Test</default>
-        </property>
-        <property name="testImplementationNamePattern">
-            <default>{0}TestImpl</default>
-        </property>
-        <property name="arrayNamePrefix">
-            <default>ArrayOf</default>
-        </property>
-        <property name="schemaTypeMappingsUri"/>
-        <property name="ejbJndiNamePrefix" required="false"/>
-        <property name="ejbInterfacePattern">
-            <default>{0}.{1}</default>
-        </property>
-        <property name="ejbHomeInterfacePattern">
-            <default>{0}.{1}Home</default>
-        </property>
-        <property name="testImplementationOperationNamePrefix">
-            <default>handle</default>
-        </property>
-        <property name="applicationName">
+        <propertyGroup>
+            <property name="namespacePrefix">
+                <default>impl</default>
+            </property>
+            <property name="qualifiedNameLocalPartPattern">
+                <default>{0}</default>
+            </property>
+            <property name="namespacePattern">
+                <default>http://{0}</default>
+            </property>
+            <property name="reverseNamespace">
+                <default>false</default>
+            </property>
+            <property name="defaultProvider">
+                <default>RPC</default>
+            </property>
+            <property name="defaultStyle">
+                <default>wrapped</default>
+            </property>
+            <property name="defaultUse">
+                <default>literal</default>
+            </property>
+            <property name="rpcClassNamePattern">
+                <default>{0}.{1}Impl</default>
+            </property>
+            <property name="wsdlOperationSortMode">
+                <default>name</default>
+            </property>
+            <property name="testPackageNamePattern">
+                <default>{0}.test</default>
+            </property>
+            <property name="testNamePattern">
+                <default>{0}Test</default>
+            </property>
+            <property name="testImplementationNamePattern">
+                <default>{0}TestImpl</default>
+            </property>
+            <property name="arrayNamePrefix">
+                <default>ArrayOf</default>
+            </property>
+            <property name="schemaTypeMappingsUri"/>
+            <property name="ejbJndiNamePrefix" required="false"/>
+            <property name="ejbInterfacePattern">
+                <default>{0}.{1}</default>
+            </property>
+            <property name="ejbHomeInterfacePattern">
+                <default>{0}.{1}Home</default>
+            </property>
+            <property name="testImplementationOperationNamePrefix">
+                <default>handle</default>
+            </property>
+            <property name="applicationName">
+                <documentation>
+                    <![CDATA[
+                    The name of the application that this service will run within
+                    (i.e. Security Services}     
+                    ]]>
+                </documentation>
+            </property>
+            <property name="wsdlSoapAddress">
+                <documentation>
+                    <![CDATA[
+                    The location of where the WSDL will reside (i.e. "http://localhost:8080/security-service/services")
+                    ]]>
+                </documentation>
+            </property>
+            <property name="securityRealm" required="false"/>
+            <property name="testServiceLocatorName">
+                <default>TestServiceLocator</default>
+            </property>
+            <property name="testServiceLocatorPackage">
+                <default>org.andromda.webservice.test</default>
+            </property>
+            <property name="servicesPath">
+                <default>/services/</default>
+            </property>
+            <property name="ejbJndiUrl" required="false"/>
+            <property name="ejbNamingContextFactory">
+                <default>org.jnp.interfaces.NamingContextFactory</default>
+            </property>
+            <property name="sessionTimeout">
+                <default>5</default>
+            </property>
+        
+            <!-- default namespaces -->
+            <property name="wsdlSoapNamespace">
+                <default>http://schemas.xmlsoap.org/wsdl/soap/</default>
+            </property>
+            <property name="xmlSchemaNamespace">
+                <default>http://www.w3.org/2001/XMLSchema</default>
+            </property>
+            <property name="wsdlNamespace">
+                <default>http://schemas.xmlsoap.org/wsdl/</default>
+            </property>
+            <property name="documentStyleTransportNamespace">
+                <default>http://schemas.xmlsoap.org/soap/http</default>
+            </property>
+            <!-- encoding for xml documents -->
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+            </property>
+        
+            <!-- if true, causes generation of necessary code that expects
+                 the request to be signed -->
+            <property name="signedRequest">
+                <default>false</default>
+            </property>
+        
+            <!-- if true, causes generation of necessary code to that expects
+                 the request to be encrypted -->
+            <property name="encryptedRequest">
+                <default>false</default>
+            </property>
+        
+            <!-- if true, causes generation of necessary code that encrypts
+                 the response -->
+            <property name="encryptedResponse">
+                <default>false</default>
+            </property>
+        
+            <!-- if true, causes generation of necessary code that signs
+                 the response -->
+            <property name="signedResponse">
+                <default>false</default>
+            </property>
+        </propertyGroup>
+        <propertyGroup>
+            <name>WSS4J Properties</name>
             <documentation>
-                <![CDATA[
-                The name of the application that this service will run within
-                (i.e. Security Services}     
-                ]]>
+                Defines the crypto properties for WSS4J.
             </documentation>
-        </property>
-        <property name="wsdlSoapAddress">
-            <documentation>
-                <![CDATA[
-                The location of where the WSDL will reside (i.e. "http://localhost:8080/security-service/services")
-                ]]>
-            </documentation>
-        </property>
-        <property name="securityRealm" required="false"/>
-        <property name="testServiceLocatorName">
-            <default>TestServiceLocator</default>
-        </property>
-        <property name="testServiceLocatorPackage">
-            <default>org.andromda.webservice.test</default>
-        </property>
-        <property name="servicesPath">
-            <default>/services/</default>
-        </property>
-        <property name="ejbJndiUrl" required="false"/>
-        <property name="ejbNamingContextFactory">
-            <default>org.jnp.interfaces.NamingContextFactory</default>
-        </property>
-        <property name="sessionTimeout">
-            <default>5</default>
-        </property>
-    
-        <!-- default namespaces -->
-        <property name="wsdlSoapNamespace">
-            <default>http://schemas.xmlsoap.org/wsdl/soap/</default>
-        </property>
-        <property name="xmlSchemaNamespace">
-            <default>http://www.w3.org/2001/XMLSchema</default>
-        </property>
-        <property name="wsdlNamespace">
-            <default>http://schemas.xmlsoap.org/wsdl/</default>
-        </property>
-        <property name="documentStyleTransportNamespace">
-            <default>http://schemas.xmlsoap.org/soap/http</default>
-        </property>
-        <!-- encoding for xml documents -->
-        <property name="xmlEncoding">
-            <default>UTF-8</default>
-        </property>
-    
-        <!-- if true, causes generation of necessary code that expects
-             the request to be signed -->
-        <property name="signedRequest">
-            <default>false</default>
-        </property>
-    
-        <!-- if true, causes generation of necessary code to that expects
-             the request to be encrypted -->
-        <property name="encryptedRequest">
-            <default>false</default>
-        </property>
-    
-        <!-- if true, causes generation of necessary code that encrypts
-             the response -->
-        <property name="encryptedResponse">
-            <default>false</default>
-        </property>
-    
-        <!-- if true, causes generation of necessary code that signs
-             the response -->
-        <property name="signedResponse">
-            <default>false</default>
-        </property>
-    
-        <!-- Defines the crypto properties for WSS4J -->
-        <property name="cryptoKeyStore" required="false"/>
-        <property name="cryptoKeyStoreType" required="false"/>
-        <property name="cryptoKeyStoreAlias" required="false"/>
-        <property name="cryptoAliasPassword" required="false"/>
-        <property name="cryptoKeyStorePassword" required="false"/>
+            <property name="cryptoKeyStore" required="false"/>
+            <property name="cryptoKeyStoreType" required="false"/>
+            <property name="cryptoKeyStoreAlias" required="false"/>
+            <property name="cryptoAliasPassword" required="false"/>
+            <property name="cryptoKeyStorePassword" required="false"/>
+        </propertyGroup>
     </properties>
 </namespace>

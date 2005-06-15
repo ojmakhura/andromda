@@ -2,295 +2,297 @@
 
 <namespace name="uml" shared="true">
     <components>
-        <component name="metafacades"/>        
+        <component name="metafacades"/>
     </components>
     <properties>
-        <property name="languageMappingsUri">
-            <documentation>
-                URI specifying the specific mappings from model types to language types.
-                (i.e. file:${basedir}/JavaMappings.xml)
-            </documentation>
-        </property>
-        <property name="wrapperMappingsUri">
-            <documentation>
-                <![CDATA[
-                URI specifying primitive type to wrapper types (i.e.
-                int -> java.lang.Integer)
-                (i.e. file:${basedir}/JavaWrapperMappings.xml)
-                ]]>
-            </documentation>
-        </property>
-        <property name="pluralizeAssociationEndNames">
-            <default>true</default>
-            <documentation>
-                <![CDATA[
-                Turns on/off the pluralization of association ends with multiplicities
-                greater than one.  You'll want to turn off this feature if your model
-                is in a language other than english.
-                ]]>
-            </documentation>
-        </property>
-        <property name="namespaceSeparator">
-            <default>.</default>
-            <documentation>
-                <![CDATA[
-                Used to separate namespaces within the generated code.  For example
-                setting this to '.' causes fully qualified names to be defined as
-                'some.package.name.SomeClass'.
-                ]]>
-            </documentation>
-        </property>
-        <property name="undefinedName">
-            <default>undefined</default>
-            <documentation>
-                <![CDATA[
-                When a model element name is unspecified this is
-                the name used (instead of null).
-                ]]>
-            </documentation>
-        </property>
-        <property name="arrayNameSuffix">
-            <default>[]</default>
-            <documentation>
-                <![CDATA[
-                The suffix given to array names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="useArraysForMultiplicitiesOfTypeMany">
-            <default>false</default>
-            <documentation>
-                <![CDATA[
-                Whether or not array types should denote multiplicities
-                greater than one for associations between objects where appropriate
-                (i.e. value objects when exposed as webservices).
-                ]]>
-            </documentation>
-        </property>
-        <property name="maxSqlNameLength">
-            <default>30</default>
-            <documentation>
-                <![CDATA[
-                The maximum length that a SQL name (such as a column name or
-                table name) may be.  This is useful for databases that have a limit
-                on the lengh that a name used in DDL may be (like Oracle).  If you set
-                this to 30 for example, then all names will be truncated
-                after 30 characters when retrieveing the column name or table name.
-                ]]>
-            </documentation>
-        </property>
-        <property name="tableNamePrefix" required="false">
-            <documentation>
-                <![CDATA[
-                The prefix to give all persistent entity table names.  For example
-                if you had an entity named 'Car' and you defined the tableNamePrefix
-                as 'My_', then the table name for the 'Car' entity would be
-                'My_Car'.
-                ]]>
-            </documentation>
-        </property>
-        <property name="foreignKeySuffix">
-            <default>_FK</default>
-            <documentation>
-                <![CDATA[
-                The suffix to use when creating foreign keys for entity associations.
-                ]]>
-            </documentation>
-        </property>
-        <property name="constraintSuffix">
-            <default>C</default>
-            <documentation>
-                <![CDATA[
-                The suffix to use when creating constraints such as for entity associations.
-                This is appended to the <code>foreignKeySuffix</code> suffix for foreign
-                key constraint names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="manageablePackageSuffix">
-            <default>crud</default>
-            <documentation>
-                <![CDATA[
-                The name of the subpackage that will be used for the generation of
-                <<Manageable>> entities.
-                ]]>
-            </documentation>
-        </property>
-        <property name="sqlNameSeparator">
-            <default>_</default>
-            <documentation>
-               <![CDATA[
-                Definies what is used for seperating words when SQL names are
-                constructed, for example a model element named CompanyAddress would
-                be translated to COMPANY_ADDRESS if the value of <code>sqlNameSeparator</code>
-                was '<em>_</em>'.
-               ]]>
-            </documentation>
-        </property>
-        <property name="classifierNameMask">
-            <default>none</default>
-            <documentation>
-               <![CDATA[
-               Provides the ability to apply a mask to all classifier names.
-               ]]>
-            </documentation>
-        </property>
-        <property name="operationNameMask">
-            <default>none</default>
-            <documentation>
-                <![CDATA[
-                Provides the ability to apply a mask to all operation names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="classifierPropertyNameMask">
-            <default>none</default>
-            <documentation>
-                <![CDATA[
-                Provides the ability to apply a mask to all classifier property names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="roleNameMask">
-            <default>none</default>
-            <documentation>
-               <![CDATA[
-                Provides the ability to apply a mask to role names (roles are actors
-                marked with the role stereotype).
-               ]]>
-            </documentation>
-        </property>
-        <property name="enumerationNameMask">
-            <default>none</default>
-            <documentation>
-                <![CDATA[
-                Provides the ability to apply a mask to enumeration names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="entityNameMask">
-            <default>none</default>
-            <documentation>
-                <![CDATA[
-                Provides the ability to apply a mask to entity names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="entityPropertyNameMask">
-            <default>none</default>
-            <documentation>
-                <![CDATA[
-                Provides the ability to apply a mask to entity property names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="parameterNameMask">
-            <default>none</default>
-            <documentation>
-                <![CDATA[
-                Provides the ability to apply a mask to all parameter names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="enumerationLiteralNameMask">
-            <default>none</default>
-            <documentation>
-                <![CDATA[
-                Provides the ability to apply a mask to all enumeration literal names.
-                ]]>
-            </documentation>
-        </property>
-        <property name="enableMetafacadePropertyCaching">
-            <default>true</default>
-            <documentation>
-                <![CDATA[
-                Used for performance reasons, caching a metafacade's properties
-                significantly speeds up the code generation process. Can be disabled when debugging.
-                This feature can be set on a per cartridge basis.
-                ]]>
-            </documentation>
-        </property>
-        <property name="defaultMultiplicity">
-            <default>1</default>
-            <documentation>
-                <![CDATA[
-                The default multiplicity to use when nothing is defined, the possible values
-                are 0 or 1.
-                ]]>
-            </documentation>
-        </property>
-        <property name="preconditionNamePattern">
-            <default>{0}Precondition</default>
-            <documentation>
-                <![CDATA[
-                The pattern used for constructing an operation's precondition name.
-                ]]>
-            </documentation>
-        </property>
-        <property name="postconditionNamePattern">
-            <default>{0}Postcondition</default>
-            <documentation>
-                <![CDATA[
-                The pattern used to constructing an operation's postcondition name.
-                ]]>
-            </documentation>
-        </property>
-        <property name="sqlMappingsUri" required="false">
-            <documentation>
-                <![CDATA[
-                The URI to the the SQL mappings file.
-                ]]>
-            </documentation>
-        </property>
-        <property name="jdbcMappingsUri" required="false">
-            <documentation>
-                <![CDATA[
-                The URI to the the JDBC mappings file.
-                ]]>
-            </documentation>
-        </property>
-        <property name="relationNameSeparator">
-            <default>2</default>
-            <documentation>
-                <![CDATA[
-                The separator used for constructing a relation name between two associations.
-                ]]>
-            </documentation>
-        </property>
-        <property name="manageableServiceAccessorPattern" required="false">
-            <documentation>
-                <![CDATA[
-                The pattern used for constructing the accessor's for manageable services.  
-                Used with CRUD.
-                ]]>
-            </documentation>
-        </property>
-        <property name="allowDefaultIdentifiers">
-            <default>true</default>
-        </property>
-        <property name="defaultIdentifierPattern">
-            <default>id</default>
-        </property>
-        <property name="defaultIdentifierType">
-            <default>datatype::Long</default>
-        </property>
-        <property name="defaultIdentifierVisibility">
-            <default>public</default>
-        </property>
-        <property name="relationNameSeparator">
-            <default>2</default>
-        </property>
-        <property name="manageableIdDisplayStrategy">
-            <default>auto</default>
-        </property>
-        <property name="defaultResolveable">
-            <default>true</default>
-        </property>
-        <property name="defaultPageSize">
-            <default>20</default>
-        </property>
-        <property name="defaultMaximumListSize">
-            <default>250</default>
-        </property>
+        <propertyGroup>
+            <property name="languageMappingsUri">
+                <documentation>
+                    URI specifying the specific mappings from model types to language types.
+                    (i.e. file:${basedir}/JavaMappings.xml)
+                </documentation>
+            </property>
+            <property name="wrapperMappingsUri">
+                <documentation>
+                    <![CDATA[
+                    URI specifying primitive type to wrapper types (i.e.
+                    int -> java.lang.Integer)
+                    (i.e. file:${basedir}/JavaWrapperMappings.xml)
+                    ]]>
+                </documentation>
+            </property>
+            <property name="pluralizeAssociationEndNames">
+                <default>true</default>
+                <documentation>
+                    <![CDATA[
+                    Turns on/off the pluralization of association ends with multiplicities
+                    greater than one.  You'll want to turn off this feature if your model
+                    is in a language other than english.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="namespaceSeparator">
+                <default>.</default>
+                <documentation>
+                    <![CDATA[
+                    Used to separate namespaces within the generated code.  For example
+                    setting this to '.' causes fully qualified names to be defined as
+                    'some.package.name.SomeClass'.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="undefinedName">
+                <default>undefined</default>
+                <documentation>
+                    <![CDATA[
+                    When a model element name is unspecified this is
+                    the name used (instead of null).
+                    ]]>
+                </documentation>
+            </property>
+            <property name="arrayNameSuffix">
+                <default>[]</default>
+                <documentation>
+                    <![CDATA[
+                    The suffix given to array names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="useArraysForMultiplicitiesOfTypeMany">
+                <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    Whether or not array types should denote multiplicities
+                    greater than one for associations between objects where appropriate
+                    (i.e. value objects when exposed as webservices).
+                    ]]>
+                </documentation>
+            </property>
+            <property name="maxSqlNameLength">
+                <default>30</default>
+                <documentation>
+                    <![CDATA[
+                    The maximum length that a SQL name (such as a column name or
+                    table name) may be.  This is useful for databases that have a limit
+                    on the lengh that a name used in DDL may be (like Oracle).  If you set
+                    this to 30 for example, then all names will be truncated
+                    after 30 characters when retrieveing the column name or table name.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="tableNamePrefix" required="false">
+                <documentation>
+                    <![CDATA[
+                    The prefix to give all persistent entity table names.  For example
+                    if you had an entity named 'Car' and you defined the tableNamePrefix
+                    as 'My_', then the table name for the 'Car' entity would be
+                    'My_Car'.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="foreignKeySuffix">
+                <default>_FK</default>
+                <documentation>
+                    <![CDATA[
+                    The suffix to use when creating foreign keys for entity associations.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="constraintSuffix">
+                <default>C</default>
+                <documentation>
+                    <![CDATA[
+                    The suffix to use when creating constraints such as for entity associations.
+                    This is appended to the <code>foreignKeySuffix</code> suffix for foreign
+                    key constraint names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="manageablePackageSuffix">
+                <default>crud</default>
+                <documentation>
+                    <![CDATA[
+                    The name of the subpackage that will be used for the generation of
+                    <<Manageable>> entities.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="sqlNameSeparator">
+                <default>_</default>
+                <documentation>
+                   <![CDATA[
+                    Definies what is used for seperating words when SQL names are
+                    constructed, for example a model element named CompanyAddress would
+                    be translated to COMPANY_ADDRESS if the value of <code>sqlNameSeparator</code>
+                    was '<em>_</em>'.
+                   ]]>
+                </documentation>
+            </property>
+            <property name="classifierNameMask">
+                <default>none</default>
+                <documentation>
+                   <![CDATA[
+                   Provides the ability to apply a mask to all classifier names.
+                   ]]>
+                </documentation>
+            </property>
+            <property name="operationNameMask">
+                <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    Provides the ability to apply a mask to all operation names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="classifierPropertyNameMask">
+                <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    Provides the ability to apply a mask to all classifier property names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="roleNameMask">
+                <default>none</default>
+                <documentation>
+                   <![CDATA[
+                    Provides the ability to apply a mask to role names (roles are actors
+                    marked with the role stereotype).
+                   ]]>
+                </documentation>
+            </property>
+            <property name="enumerationNameMask">
+                <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    Provides the ability to apply a mask to enumeration names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="entityNameMask">
+                <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    Provides the ability to apply a mask to entity names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="entityPropertyNameMask">
+                <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    Provides the ability to apply a mask to entity property names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="parameterNameMask">
+                <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    Provides the ability to apply a mask to all parameter names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="enumerationLiteralNameMask">
+                <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    Provides the ability to apply a mask to all enumeration literal names.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="enableMetafacadePropertyCaching">
+                <default>true</default>
+                <documentation>
+                    <![CDATA[
+                    Used for performance reasons, caching a metafacade's properties
+                    significantly speeds up the code generation process. Can be disabled when debugging.
+                    This feature can be set on a per cartridge basis.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="defaultMultiplicity">
+                <default>1</default>
+                <documentation>
+                    <![CDATA[
+                    The default multiplicity to use when nothing is defined, the possible values
+                    are 0 or 1.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="preconditionNamePattern">
+                <default>{0}Precondition</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern used for constructing an operation's precondition name.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="postconditionNamePattern">
+                <default>{0}Postcondition</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern used to constructing an operation's postcondition name.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="sqlMappingsUri" required="false">
+                <documentation>
+                    <![CDATA[
+                    The URI to the the SQL mappings file.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="jdbcMappingsUri" required="false">
+                <documentation>
+                    <![CDATA[
+                    The URI to the the JDBC mappings file.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="relationNameSeparator">
+                <default>2</default>
+                <documentation>
+                    <![CDATA[
+                    The separator used for constructing a relation name between two associations.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="manageableServiceAccessorPattern" required="false">
+                <documentation>
+                    <![CDATA[
+                    The pattern used for constructing the accessor's for manageable services.
+                    Used with CRUD.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="allowDefaultIdentifiers">
+                <default>true</default>
+            </property>
+            <property name="defaultIdentifierPattern">
+                <default>id</default>
+            </property>
+            <property name="defaultIdentifierType">
+                <default>datatype::Long</default>
+            </property>
+            <property name="defaultIdentifierVisibility">
+                <default>public</default>
+            </property>
+            <property name="relationNameSeparator">
+                <default>2</default>
+            </property>
+            <property name="manageableIdDisplayStrategy">
+                <default>auto</default>
+            </property>
+            <property name="defaultResolveable">
+                <default>true</default>
+            </property>
+            <property name="defaultPageSize">
+                <default>20</default>
+            </property>
+            <property name="defaultMaximumListSize">
+                <default>250</default>
+            </property>
+        </propertyGroup>
     </properties>
 </namespace>

@@ -6,15 +6,17 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <property name="valueObjectPackage">
-            <default>{0}</default>
-        </property>
-        <property name="valueObjectName">
-            <default>{0}</default>
-        </property>
-        <property name="jndiNamePrefix" required="false"/>
-        <property name="transactionType">
-            <default>Required</default>
-        </property>
+        <propertyGroup>
+            <property name="valueObjectPackage">
+                <default>{0}</default>
+            </property>
+            <property name="valueObjectName">
+                <default>{0}</default>
+            </property>
+            <property name="jndiNamePrefix" required="false"/>
+            <property name="transactionType">
+                <default>Required</default>
+            </property>
+        </propertyGroup>
     </properties>
 </namespace>

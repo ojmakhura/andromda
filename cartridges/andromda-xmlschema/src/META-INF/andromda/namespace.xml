@@ -6,15 +6,17 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <!-- The name of the namespace -->
-        <property name="namespace"/>
-        <property name="xmlEncoding">
-            <default>UTF-8</default>
-            <documentation>
-                <![CDATA[
-                The encoding of the schema.
-                ]]>
-            </documentation>
-        </property>
+        <propertyGroup>
+            <!-- The name of the namespace -->
+            <property name="namespace"/>
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    <![CDATA[
+                    The encoding of the schema.
+                    ]]>
+                </documentation>
+            </property>
+        </propertyGroup>
     </properties>
 </namespace>
