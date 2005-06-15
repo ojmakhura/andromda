@@ -38,11 +38,6 @@ public abstract class BasePlugin
     private final Collection templateObjects = new ArrayList();
 
     /**
-     * The resource that configured this BasePlugin.
-     */
-    private URL resource;
-
-    /**
      * @see org.andromda.core.common.Plugin#initialize()
      */
     public void initialize()
@@ -91,22 +86,6 @@ public abstract class BasePlugin
     public void shutdown()
     {
         this.getTemplateEngine().shutdown();
-    }
-
-    /**
-     * @see org.andromda.core.common.Plugin#getResource()
-     */
-    public URL getResource()
-    {
-        return this.resource;
-    }
-
-    /**
-     * @see org.andromda.core.common.Plugin#setResource(java.net.URL)
-     */
-    public void setResource(final URL resource)
-    {
-        this.resource = resource;
     }
 
     /**
