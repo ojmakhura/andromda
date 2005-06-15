@@ -147,7 +147,8 @@ public class StrutsParameterLogicImpl
     {
         // BPM-200: only actual boolean types can have the 'is' prefix, we must not make
         // use of the dynamic mappings since we need to test for the real java type here
-        final String prefix = "boolean".equals(getFullyQualifiedName()) ? "is" : "get";
+        final String typeName = this.getType() != null ? this.getType().getFullyQualifiedName() : null;
+        final String prefix = "boolean".equals(typeName) ? "is" : "get";
         return prefix + StringUtilsHelper.capitalize(this.getName());
     }
 
