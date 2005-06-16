@@ -87,7 +87,15 @@ public class HibernateAssociationEndLogicImpl
      * Stores the default collection index type.
      */
     private static final String COLLECTION_INDEX_TYPE = "associationEndCollectionIndexType";
+    
+    /**
+     * Stores the value of the cascade behavior when modeling an aggregation.
+     */
     private static final String HIBERNATE_AGGREGATION_CASCADE = "hibernateAggregationCascade";
+    
+    /**
+     * Stores the value of the cascade behavior when modeling a composition.
+     */
     private static final String HIBERNATE_COMPOSITION_CASCADE = "hibernateCompositionCascade";
 
     /**
@@ -619,7 +627,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected java.lang.String handleGetHibernateAggregationCascade()
     {
-        return StringUtils.trimToEmpty(ObjectUtils.toString(String.valueOf(this.getConfiguredProperty(HIBERNATE_AGGREGATION_CASCADE))));
+        return StringUtils.trimToEmpty(ObjectUtils.toString(this.getConfiguredProperty(HIBERNATE_AGGREGATION_CASCADE)));
     }
 
     /**
