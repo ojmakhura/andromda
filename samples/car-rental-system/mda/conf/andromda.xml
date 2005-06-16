@@ -49,6 +49,7 @@
                 <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
                 <property name="security">false</property>
                 <property name="securityRealm">other</property>
+                <property name="serviceAccessorPattern">null</property>
             </properties>
         </namespace>
     </namespaces>
