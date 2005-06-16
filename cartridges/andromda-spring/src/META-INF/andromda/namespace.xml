@@ -6,41 +6,41 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup name="Outlet Properties">
+        <propertyGroup name="Outlets">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
-            <property name="services">
+            <property name="services" required="true">
                 <documentation>
                     The location to which all service classes (including the service locator(s))
                     will be generated.
                 </documentation>
             </property>
-            <property name="service-impls">
+            <property name="service-impls" required="true">
                 <documentation>
                     The location to which all service implementation classes
                     will be generated.
                 </documentation>
             </property>
-            <property name="daos">
+            <property name="daos" required="true">
                 <documentation>
                     The location to which Spring DAOs, and any support classes.
                 </documentation>
             </property>
-            <property name="dao-impls">
+            <property name="dao-impls" required="true">
                 <documentation>
                     The location to which Spring DAO implementation
                     classes will be generated (if there are any classifier scoped business
                     operations modeled on any entity).
                 </documentation>
             </property>
-            <property name="spring-configuration">
+            <property name="spring-configuration" required="true">
                 <documentation>
                     The location to which the Spring applicationContext.xml
                     will be generated.
                 </documentation>
             </property>
-            <property name="open-session-in-view" required="false">
+            <property name="open-session-in-view">
                 <documentation>
                     <![CDATA[
                     The location to which the AndroMDA OpenSessionInViewFilter will be generated
@@ -50,87 +50,249 @@
                     ]]>
                 </documentation>
             </property>
-            <property name="session-ejbs" required="false">
+            <property name="session-ejbs">
                 <documentation>
                     Not really used from the template except to check if it has been defined
                     or not, so that we can determine whether or not we'll use the session
                     EJBs for transaction management (rather than Spring's transaction framework)
                 </documentation>
             </property>
-            <property name="advice-impls" required="false">
+            <property name="advice-impls">
                 <documentation>
                     The location to which any advice implementation classes will be generated.  Currently
                     this is useful when using the cartridge's remoting support.
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup name="Other Properties">
+        <propertyGroup name="Other">
             <property name="hibernateVersion">
                 <default>2</default>
                 <documentation>
                     <![CDATA[
-                        The version of Hibernate to use when generating.
-                        <ul>
-                            Allowable values are:
-                            <li>2</li>
-                            <li>3</li>
-                        </ul>
+                    The version of Hibernate to use when generating.
+                    <ul>
+                        Allowable values are:
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
                     ]]>
                 </documentation>
             </property>
             <property name="daoNamePattern">
                 <default>{0}Dao</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern to use when constructing the DAO name. <em>{0}</em> is used to represent
+                    the entity name in the model, so if you specified a value of <code>{0}Dao</code> all
+                    the entities generated would have a suffix of "Dao".
+                    ]]>
+                </documentation>
             </property>
             <property name="daoBaseNamePattern">
                 <default>{0}DaoBase</default>
+                <documentation>
+                    <![CDATA[
+                   The pattern to use when constructing the base DAO's name.
+                   <em>{0}</em> is used to represent the entity name
+                   in the model, so if you specified a value of
+                   <code>{0}DaoBase</code> all the entities generated
+                   would have a suffix of "DaoBase".
+                    ]]>
+                </documentation>
             </property>
             <property name="daoImplementationNamePattern">
                 <default>{0}DaoImpl</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern to use when constructing the DAO's
+                    implementation name. <em>{0}</em> is used to represent
+                    the entity name in the model, so if you specified a value of
+                    <code>{0}DaoImpl</code> all the entities generated
+                    would have a suffix of "DaoImpl".
+                    ]]>
+                </documentation>
             </property>
-            <property name="ejbJndiNamePrefix" required="false"/>
+            <property name="ejbJndiNamePrefix">
+                <documentation>
+                    The prefix to give to the Session EJB JNDI names (this allows
+                    the same Session EJB to be deployed multiple times in the same
+                    container)
+                </documentation>
+            </property>
             <property name="ejbPackageNamePattern">
                 <default>{0}.ejb</default>
+                <documentation>
+                    <![CDATA[
+                    If EJBs are being used, this specifies the pattern to be
+                    used when constructing the EJB package name
+                    (this allows a Spring Service to be wrapped by a Session EJB
+                    and avoids name conflicts).  The <em>{0}</em> character
+                    represents the service package name.  This could be something like
+                    <em>{0}.ejb</em> which would create the Spring Session EJBs in the
+                    package ending in the <em>ejb</em> package.
+                    ]]>
+                </documentation>
             </property>
             <property name="defaultServiceExceptionNamePattern">
                 <default>{0}Exception</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern to use when constructing the default service exception name.
+                    <strong>NOTE:</strong> This propety is only applicable when defaultServiceExceptions
+                    is <code>true</code>.
+                    ]]>
+                </documentation>
             </property>
             <property name="defaultServiceExceptions">
                 <default>true</default>
+                <documentation>
+                    <![CDATA[
+                    Whether or not to generate a default exception for each service.  This exception
+                    will handle unexpected exceptions occuring within the implemented operations.
+                    ]]>
+                </documentation>
             </property>
             <property name="serviceRemotingType">
                 <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    Determines the type of remoting to be used for Spring services. Can any one of
+                    <ul>
+                        <li>none</li>
+                        <li>rmi</li>
+                        <li>httpinvoker</li>
+                        <li>burlap</li>
+                        <li>hessian</li>
+                    </ul>
+                    ]]>
+                </documentation>
             </property>
             <property name="serviceRemotePort">
                 <default>8080</default>
+                <documentation>
+                    The port the exported services get published on.
+                </documentation>
             </property>
-            <property name="serviceRemoteContext" required="false"/>
+            <property name="serviceRemoteContext">
+                <documentation>
+                    The context the exported services get published on.
+                </documentation>
+            </property>
             <property name="serviceRemoteServer">
                 <default>localhost</default>
+                <documentation>
+                    The remote server the Spring services get published on.
+                </documentation>
             </property>
             <property name="entityNamePattern">
                 <default>{0}</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern to use when constructing an entity name.
+                    <em>{0}</em> is used to represent the entity name
+                    in the model, so if you specified a value of
+                    <code>{0}Entity</code> all the entities generated
+                    would have a suffix of "Entity".
+                    ]]>
+                </documentation>
             </property>
             <property name="hibernateQueryUseNamedParameters">
                 <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    Whether or not named parameters (i.e. ':someParameter') or unnamed
+                    (i.e. '?') parameters should be used in the HQL queries embedded
+                    within the model.
+                    <strong>NOTE:</strong> Does not apply to queries written in OCL.
+                    ]]>
+                </documentation>
             </property>
             <property name="hibernateInheritanceStrategy">
                 <default>subclass</default>
+                <documentation>
+                    <![CDATA[
+                    Defines the hibernate inheritance strategy (unless
+                    overridden on an entity level by the
+                    <a href="#modeling.html#andromda.hibernate.inheritance">@andromda.hibernate.inheritance</a>
+                    tagged value, can be the following possible values:
+                    <ul>
+                        <li>class - table per hierarchy.</li>
+                        <li>subclass - table per class in hierarchy.</li>
+                        <li>concrete - Table per class.</li>
+                        <li>
+                            interface - Root class is defined as an interface and the
+                            attributes remapped to the subclasses.  This is useful in
+                            the concrete case because it has limitations in the associations.
+                        </li>
+                    </ul>
+                    ]]>
+                </documentation>
             </property>
             <property name="serviceOperationTransactionType">
                 <default>PROPAGATION_REQUIRED</default>
+                <documentation>
+                    <![CDATA[
+                    The default transaction type used for service operations (when not
+                    wrapping your services with EJBs).
+                    <strong>NOTE:</strong> Can be overridden on a per entity basis with the
+                    <a href="modeling.html#@andromda.spring.transaction.type">@andromda.spring.transaction.type</a>
+                    tagged value.
+                    ]]>
+                </documentation>
             </property>
             <property name="ejbServiceOperationTransactionType">
                 <default>Required</default>
+                <documentation>
+                    <![CDATA[
+                    The default transaction type definition used if EJB service operations.
+                    <ul>
+                        Permitted values are:
+                        <li>NotSupported</li>
+                        <li>Supports</li>
+                        <li>Required</li>
+                        <li>RequiresNew</li>
+                        <li>Mandatory</li>
+                        <li>Never</li>
+                    </ul>
+                    ]]>
+                </documentation>
             </property>
             <property name="serviceHibernateInterceptorEnabled">
                 <default>true</default>
+                <documentation>
+                    <![CDATA[
+                    Whether or not the hibernate interceptor should be enabled
+                    on services.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="ejbViewType">
+                <default>local</default>
+                <documentation>
+                    <![CDATA[
+                    If EJBs are being used, this specifies the view type
+                    for the EJB interfaces.  Can be either <em>local</em>
+                    or <code>remote</code>.
+                    ]]>
+                </documentation>
             </property>
             <property name="serviceAccessorPattern" required="false"/>
             <property name="servicePackageNamePattern">
                 <default>{0}</default>
+                <documentation>
+                    <![CDATA[
+                    ]]>
+                </documentation>
             </property>
             <property name="implementationOperationNamePattern">
                 <default>handle{0}</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern used to the create the implementation operation name
+                    (i.e. the operations that actually perform the handling of the logic),
+                    where <em>{0}</em> represents the operation name
+                    ]]>
+                </documentation>
             </property>
             <property name="driver" required="false">
                 <documentation>
@@ -260,6 +422,13 @@
                     Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
                     This property is only necessary when using user supplied connections.
                     Hibernate uses connection metadata otherwise.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateMaxFetchDepth" required="false">
+                <documentation>
+                    <![CDATA[
+                    Sets a maximum "depth" for the outer join fetch tree. eg. recommended values between 0 and 3
                     ]]>
                 </documentation>
             </property>
@@ -546,7 +715,7 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup name="Acegi Security System Properties">
+        <propertyGroup name="Acegi Security">
             <property name="acegiServiceSecurity">
                 <default>false</default>
                 <documentation>
