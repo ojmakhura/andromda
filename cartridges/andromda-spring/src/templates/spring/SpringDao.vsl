@@ -43,7 +43,7 @@ public interface $entity.daoName
      * Converts this DAO's entity to an object of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
-    
+
     /**
      * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
@@ -185,7 +185,7 @@ public interface $entity.daoName
      * Updates the <code>$argumentName</code> instance in the persistent store.
      */
     public void update($entity.fullyQualifiedEntityName $argumentName);
-    
+
     /**
      * Updates all instances in the <code>entities</code> collection in the persistent store.
      */
