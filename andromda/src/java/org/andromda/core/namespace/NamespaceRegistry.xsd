@@ -43,6 +43,10 @@
                 <xs:element ref="component" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
+        <xs:unique name="uniqueComponentName">
+            <xs:selector xpath="component"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
     </xs:element>
     <xs:element name="default" type="xs:string"/>
     <xs:element name="documentation" type="xs:string"/>
@@ -74,6 +78,10 @@
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
+        <xs:unique name="uniquePropertyName">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
     </xs:element>
     <xs:element name="properties">
         <xs:complexType>
@@ -81,5 +89,9 @@
                 <xs:element ref="propertyGroup" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
+        <xs:unique name="uniquePropertyGroupName">
+            <xs:selector xpath="propertyGroup"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
     </xs:element>
 </xs:schema>

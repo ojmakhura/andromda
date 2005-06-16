@@ -190,7 +190,6 @@
             </property>
             <property name="hibernateDialect" required="false"/>
             <property name="hibernateDefaultSchema" required="false"/>
-            <property name="hibernateMaxFetchDepth" required="false"/>
             <property name="hibernateJdbcFetchSize" required="false"/>
             <property name="hibernateJdbcBatchSize" required="false"/>
             <property name="hibernateJdbcUseScrollableResultSet" required="false"/>
@@ -218,9 +217,6 @@
             </property>
             <property name="generateEntityEqualsAndHashCode">
                 <default>true</default>
-            </property>
-            <property name="hibernateProxy">
-                <default>false</default>
             </property>
             <!-- This property is only relevant for Hibernate 3 -->
             <property name="hibernateQueryFactory">
