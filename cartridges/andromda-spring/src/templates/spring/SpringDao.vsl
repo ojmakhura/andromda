@@ -55,7 +55,7 @@ public interface $entity.daoName
     /**
      * Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
      */
-     public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
+    public $entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
 
     /**
      * <p>
@@ -70,7 +70,7 @@ public interface $entity.daoName
      * @param $identifier.name the identifier of the entity to load.
      * @return either the entity or the object transformed from the entity.
      */
-     public Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
+    public Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
 
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
@@ -145,6 +145,7 @@ public interface $entity.daoName
         $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else);#end
 
 #end
+
 #end
 #set ($requiredProperties = $entity.getRequiredProperties(true,false))
 #if (!$requiredProperties.empty && $attributes.size() != $requiredProperties.size())
