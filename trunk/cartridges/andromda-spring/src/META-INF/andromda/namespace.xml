@@ -6,8 +6,7 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup>
-            <name>Outlets</name>
+        <propertyGroup name="Outlet Properties">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
@@ -65,7 +64,7 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup>
+        <propertyGroup name="Other Properties">
             <property name="hibernateVersion">
                 <default>2</default>
                 <documentation>
@@ -557,8 +556,7 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup>
-            <name>Acegi Security System Properties</name>
+        <propertyGroup name="Acegi Security System Properties">
             <property name="acegiServiceSecurity">
                 <default>false</default>
                 <documentation>

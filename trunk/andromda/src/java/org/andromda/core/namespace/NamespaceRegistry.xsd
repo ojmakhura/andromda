@@ -46,7 +46,6 @@
     </xs:element>
     <xs:element name="default" type="xs:string"/>
     <xs:element name="documentation" type="xs:string"/>
-    <xs:element name="name" type="xs:string"/>
     <xs:element name="namespace">
         <xs:complexType>
             <xs:sequence>
@@ -70,10 +69,10 @@
     <xs:element name="propertyGroup">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="name" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="documentation" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="property" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="properties">

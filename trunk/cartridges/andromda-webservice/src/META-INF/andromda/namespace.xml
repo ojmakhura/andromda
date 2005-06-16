@@ -6,8 +6,7 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup>
-            <name>Outlets</name>
+        <propertyGroup name="Outlet Properties">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
@@ -46,7 +45,7 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup>
+        <propertyGroup name="Other Properties">
             <property name="namespacePrefix">
                 <default>impl</default>
             </property>
@@ -129,7 +128,6 @@
             <property name="sessionTimeout">
                 <default>5</default>
             </property>
-
             <!-- default namespaces -->
             <property name="wsdlSoapNamespace">
                 <default>http://schemas.xmlsoap.org/wsdl/soap/</default>
@@ -143,40 +141,53 @@
             <property name="documentStyleTransportNamespace">
                 <default>http://schemas.xmlsoap.org/soap/http</default>
             </property>
-            <!-- encoding for xml documents -->
             <property name="xmlEncoding">
                 <default>UTF-8</default>
-            </property>
-
-            <!-- if true, causes generation of necessary code that expects
-                 the request to be signed -->
-            <property name="signedRequest">
-                <default>false</default>
-            </property>
-
-            <!-- if true, causes generation of necessary code to that expects
-                 the request to be encrypted -->
-            <property name="encryptedRequest">
-                <default>false</default>
-            </property>
-
-            <!-- if true, causes generation of necessary code that encrypts
-                 the response -->
-            <property name="encryptedResponse">
-                <default>false</default>
-            </property>
-
-            <!-- if true, causes generation of necessary code that signs
-                 the response -->
-            <property name="signedResponse">
-                <default>false</default>
+                <documentation>
+                    Encoding for xml documents (i.e. WSDL, etc).
+                </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup>
-            <name>WSS4J Properties</name>
+        <propertyGroup name="WSS4J Properties">
             <documentation>
                 Defines the crypto properties for WSS4J.
             </documentation>
+            <property name="signedRequest">
+                <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    If true, causes generation of necessary code that expects
+                    the request to be signed 
+                    ]]>
+                </documentation>
+            </property>
+            <property name="encryptedRequest">
+                <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    If true, causes generation of necessary code to that expects
+                    the request to be encrypted 
+                    ]]>
+                </documentation>
+            </property>
+            <property name="encryptedResponse">
+                <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    If true, causes generation of necessary code that encrypts
+                    the response.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="signedResponse">
+                <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    If true, causes generation of necessary code that signs
+                    the response.
+                    ]]>
+                </documentation>
+            </property>
             <property name="cryptoKeyStore" required="false"/>
             <property name="cryptoKeyStoreType" required="false"/>
             <property name="cryptoKeyStoreAlias" required="false"/>

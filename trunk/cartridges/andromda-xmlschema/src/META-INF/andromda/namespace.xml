@@ -6,8 +6,7 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup>
-            <name>Outlets</name>
+        <propertyGroup name="Outlet Properties">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
@@ -17,7 +16,7 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup>
+        <propertyGroup name="Other Properties">
             <!-- The name of the namespace -->
             <property name="namespace"/>
             <property name="xmlEncoding">

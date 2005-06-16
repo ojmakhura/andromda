@@ -5,8 +5,7 @@
         <component name="translation-library"/>    
     </components>
     <properties>
-        <propertyGroup>
-            <name>The First Group of Properties</name>
+        <propertyGroup name="The First Group of Properties">
             <documentation>
                 <![CDATA[
                     This is some documentation about the first group of properties.
@@ -29,8 +28,7 @@
                 </documentation>            
             </property>
         </propertyGroup>
-        <propertyGroup>
-            <name>The Second Group of Properties</name>
+        <propertyGroup name="The Second Group of Properties">
             <documentation>
                 <![CDATA[
                     This is some documentation about the second group of properties
