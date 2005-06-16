@@ -6,8 +6,7 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup>
-            <name>Outlets</name>
+        <propertyGroup name="Outlet Properties">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
@@ -37,7 +36,7 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup>
+        <propertyGroup name="Other Properties">
             <property name="valueObjectPackage">
                 <default>{0}</default>
             </property>

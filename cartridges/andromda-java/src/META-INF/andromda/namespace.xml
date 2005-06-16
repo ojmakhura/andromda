@@ -5,8 +5,7 @@
         <component name="cartridge"/>
     </components>
     <properties>
-        <propertyGroup>
-            <name>Outlets</name>
+        <propertyGroup name="Outlet Properties">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
@@ -36,7 +35,7 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup>
+        <propertyGroup name="Other Properties">
             <property name="serializable">
                 <default>true</default>
                 <documentation>

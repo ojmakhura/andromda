@@ -2,9 +2,7 @@ package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.io.StringWriter;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,7 +21,6 @@ import org.andromda.core.common.PathMatcher;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.configuration.Namespaces;
-import org.andromda.core.configuration.Property;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.apache.commons.lang.StringUtils;
 
@@ -406,28 +403,25 @@ public class Cartridge
         File outFile = null;
         try
         {
-            final Property outletProperty =
-                Namespaces.instance().getProperty(
+            String outlet = Namespaces.instance().getPropertyValue(
                     this.getNamespace(),
-                    resource.getOutlet(),
-                    resource.isRequired());
+                    resource.getOutlet());
             final String slash = "/";
-            if (outletProperty != null && !outletProperty.isIgnore())
+            if (outlet != null)
             {
                 // make sure we don't have any back slashes
                 final String resourceUri = resourceUrl.toString().replaceAll("\\\\", slash);
                 final String uriSuffix = resourceUri.substring(
                         resourceUri.lastIndexOf(slash),
                         resourceUri.length());
-                String outletLocation = outletProperty.getValue();
-                if (outletLocation.endsWith(slash))
+                if (outlet.endsWith(slash))
                 {
                     // remove the extra slash
-                    outletLocation = outletLocation.replaceFirst(slash, "");
+                    outlet = outlet.replaceFirst(slash, "");
                 }
                 outFile = resource.getOutputLocation(
                         new String[] {uriSuffix},
-                        new File(outletLocation));
+                        new File(outlet));
 
                 // only write files that do NOT exist, and
                 // those that have overwrite set to 'true'

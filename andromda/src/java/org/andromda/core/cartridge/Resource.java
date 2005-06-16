@@ -20,34 +20,9 @@ import org.apache.commons.lang.StringUtils;
 public class Resource
 {
     /**
-     * Store the path to a cartridge resource.
-     */
-    private String path;
-
-    /**
-     * Stores whether or not the resource should be overwritten.
-     */
-    private boolean overwrite = false;
-
-    /**
-     * Stores whether or not the resource is required.
-     */
-    private boolean required = true;
-
-    /**
      * Stores the output location logical name.
      */
     private String outlet;
-
-    /**
-     * Stores the cartridge that owns this resource.
-     */
-    private Cartridge cartridge;
-
-    /**
-     * Stores the output pattern for which the resource(s) should be written.
-     */
-    private String outputPattern;
 
     /**
      * Gets the logical location to which output from this resource will be written.
@@ -100,6 +75,11 @@ public class Resource
     }
 
     /**
+     * Stores whether or not the resource should be overwritten.
+     */
+    private boolean overwrite = false;
+
+    /**
      * Tells us whether output files produced by this resource should be overwritten if they already exist. Overwriting
      * can be turned on and off for entire cartridges by setting the <code>overwrite</code> property in a namespace.
      * This is useful for cartridge developers when they always want produced resources to be overwritten at first.
@@ -131,26 +111,9 @@ public class Resource
     }
 
     /**
-     * Gets whether or not this template is required, so AndroMDA will NOT warn if a outlet is <code>not</code> defined
-     * in a namespace. Otherwise AndroMDA always warns if the resource outlet isn't defined. By default resources are
-     * required.
-     *
-     * @return Returns the required.
+     * Store the path to a cartridge resource.
      */
-    public boolean isRequired()
-    {
-        return required;
-    }
-
-    /**
-     * Sets whether or not this template is required.
-     *
-     * @param required The required to set.
-     */
-    public void setRequired(final boolean optional)
-    {
-        this.required = optional;
-    }
+    private String path;
 
     /**
      * Gets the path to the cartridge resource.
@@ -159,7 +122,7 @@ public class Resource
      */
     public String getPath()
     {
-        return path;
+        return this.path;
     }
 
     /**
@@ -173,13 +136,18 @@ public class Resource
     }
 
     /**
-     * The cartridge that owns this template configuration.
+     * Stores the cartridge that owns this resource.
+     */
+    private Cartridge cartridge;
+
+    /**
+     * The cartridge that owns this resource.
      *
      * @return Returns the owning cartridge.
      */
     public Cartridge getCartridge()
     {
-        return cartridge;
+        return this.cartridge;
     }
 
     /**
@@ -191,6 +159,11 @@ public class Resource
     {
         this.cartridge = cartridge;
     }
+
+    /**
+     * Stores the output pattern for which the resource(s) should be written.
+     */
+    private String outputPattern;
 
     /**
      * Sets the pattern that is used to build the name of the output file.
