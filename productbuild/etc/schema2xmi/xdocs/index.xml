@@ -73,6 +73,8 @@ Options:
  -P,--package <arg>                 The package to output classifiers
  -V,--tableTaggedValue <arg>        The tagged value to use for storing
                                     the table name
+ -a,--columnPattern <arg>           The column name pattern of columns to
+                                    process (regular expression)
  -c,--connectionUrl <arg>           JDBC connection URL
  -d,--driver <arg>                  JDBC driver class
  -h,--help                          Display help information
@@ -80,8 +82,8 @@ Options:
                                     elements will be added)
  -m,--mappings <arg>                The type mappings URI (i.e.
                                     file:${basedir}/DataypeMappings.xml)
- -o,--output <arg>                  Output location to which the result
-                                    of the transformation will be written
+ -o,--output <arg>                  Output location to which the result of
+                                    the transformation will be written
  -p,--password <arg>                Schema user password
  -s,--schema <arg>                  The name of the schema where the
                                     tables can be found
@@ -90,6 +92,8 @@ Options:
  -u,--user <arg>                    Schema user name
  -v,--columnTaggedValue <arg>       The tagged value to use for storing
                                     the column name
+ -x,--xmi <arg>                     Specifies the XMI version that will be
+                                    produced
 ]]></source>
         <p>
 			Here's an example of how you could use Schema2XMI with 
