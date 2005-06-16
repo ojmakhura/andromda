@@ -139,13 +139,10 @@ public class Cartridge
         final ModelElements modelElements = template.getSupportedModeElements();
         if (modelElements != null && !modelElements.isEmpty())
         {
-            final Property outletProperty =
-                Namespaces.instance().getProperty(
+            final String outlet = Namespaces.instance().getPropertyValue(
                     this.getNamespace(),
-                    template.getOutlet(),
-                    template.isRequired());
-
-            if (outletProperty != null && !outletProperty.isIgnore())
+                    template.getOutlet());
+            if (outlet != null)
             {
                 try
                 {
@@ -200,7 +197,7 @@ public class Cartridge
                                     new HashSet(metafacades));
                             }
                         }
-                        this.processWithTemplate(template, templateContext, outletProperty, null, null);
+                        this.processWithTemplate(template, templateContext, outlet, null, null);
                     }
                     else
                     {
@@ -219,7 +216,7 @@ public class Cartridge
                             this.processWithTemplate(
                                 template,
                                 templateContext,
-                                outletProperty,
+                                outlet,
                                 factory.getModel().getName(metafacade),
                                 factory.getModel().getPackageName(metafacade));
                         }
@@ -244,15 +241,13 @@ public class Cartridge
     {
         final String methodName = "Cartridge.processTemplateWithoutMetafacades";
         ExceptionUtils.checkNull(methodName, "template", template);
-        final Property outletProperty =
-            Namespaces.instance().getProperty(
+        final String outlet = Namespaces.instance().getPropertyValue(
                 this.getNamespace(),
-                template.getOutlet(),
-                template.isRequired());
-        if (outletProperty != null && !outletProperty.isIgnore())
+                template.getOutlet());
+        if (outlet != null)
         {
             final Map templateContext = new HashMap();
-            this.processWithTemplate(template, templateContext, outletProperty, null, null);
+            this.processWithTemplate(template, templateContext, outlet, null, null);
         }
     }
 
@@ -265,8 +260,7 @@ public class Cartridge
      *        available to the template engine for processing. This will contain
      *        any model elements being made avaiable to the template(s) as well
      *        as properties/template objects.
-     * @param outletProperty the property defining the outlet to which output
-     *        will be written.
+     * @param outlet the location or pattern defining where output will be written.
      * @param modelElementName the name of the model element (if we are
      *        processing a single model element, otherwise this will be
      *        ignored).
@@ -276,14 +270,14 @@ public class Cartridge
     private final void processWithTemplate(
         final Template template,
         final Map templateContext,
-        final Property outletProperty,
+        final String outlet,
         final String modelElementName,
         final String modelElementPackage)
     {
         final String methodName = "Cartridge.processWithTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
         ExceptionUtils.checkNull(methodName, "templateContext", templateContext);
-        ExceptionUtils.checkNull(methodName, "outletProperty", outletProperty);
+        ExceptionUtils.checkEmpty(methodName, "outlet", outlet);
 
         File outputFile = null;
         try
@@ -302,18 +296,11 @@ public class Cartridge
 
             if (template.getOutputPattern().startsWith(TEMPLATE_ENGINE_OUTPUT_PREFIX))
             {
-                outputFile = this.outputFileFromTemplateEngineContext(
-                        template,
-                        outletProperty.getValue());
+                outputFile = this.outputFileFromTemplateEngineContext(template, outlet);
             }
             else
             {
-                outputFile =
-                    this.outputFileFromTemplate(
-                        modelElementName,
-                        modelElementPackage,
-                        template,
-                        outletProperty.getValue());
+                outputFile = this.outputFileFromTemplate(modelElementName, modelElementPackage, template, outlet);
             }
             if (outputFile != null)
             {

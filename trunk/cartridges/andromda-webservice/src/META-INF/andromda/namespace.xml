@@ -7,6 +7,46 @@
     </components>
     <properties>
         <propertyGroup>
+            <name>Outlets</name>
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="wsdls">
+                <documentation>
+                    Specifies the directory to which generated WSDL's will be placed.
+                </documentation>
+            </property>
+            <property name="java-types">
+                <documentation>
+                    The directory to which any non implementation Java files will be generated.
+                </documentation>
+            </property>
+            <property name="axis-configuration">
+                <documentation>
+                    The directory to which any AXIS specific configuration files
+                    are generated (such as the WSDD files, etc).
+                </documentation>
+            </property>
+            <property name="axis-tests" required="false">
+                <documentation>
+                    The directory to which AXIS specific test classes are generated.
+                </documentation>
+            </property>
+            <property name="axis-test-impls" required="false">
+                <documentation>
+                    The directory to which the AXIS specific test implementation classes are generated.
+                </documentation>
+            </property>
+            <property name="wss4j-configuration" required="false">
+                <documentation>
+                    <![CDATA[
+                    The directory to which any <a href="http://ws.apache.org/ws-fx/wss4j/index.html">WSS4J</a>
+                    specific configuration files are generated.
+                    ]]>
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup>
             <property name="namespacePrefix">
                 <default>impl</default>
             </property>
@@ -61,7 +101,7 @@
                 <documentation>
                     <![CDATA[
                     The name of the application that this service will run within
-                    (i.e. Security Services}     
+                    (i.e. Security Services}
                     ]]>
                 </documentation>
             </property>
@@ -89,7 +129,7 @@
             <property name="sessionTimeout">
                 <default>5</default>
             </property>
-        
+
             <!-- default namespaces -->
             <property name="wsdlSoapNamespace">
                 <default>http://schemas.xmlsoap.org/wsdl/soap/</default>
@@ -107,25 +147,25 @@
             <property name="xmlEncoding">
                 <default>UTF-8</default>
             </property>
-        
+
             <!-- if true, causes generation of necessary code that expects
                  the request to be signed -->
             <property name="signedRequest">
                 <default>false</default>
             </property>
-        
+
             <!-- if true, causes generation of necessary code to that expects
                  the request to be encrypted -->
             <property name="encryptedRequest">
                 <default>false</default>
             </property>
-        
+
             <!-- if true, causes generation of necessary code that encrypts
                  the response -->
             <property name="encryptedResponse">
                 <default>false</default>
             </property>
-        
+
             <!-- if true, causes generation of necessary code that signs
                  the response -->
             <property name="signedResponse">

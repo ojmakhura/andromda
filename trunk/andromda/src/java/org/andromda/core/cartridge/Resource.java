@@ -108,7 +108,7 @@ public class Resource
      */
     public boolean isOverwrite()
     {
-        Property property =
+        final Property property =
             Namespaces.instance().getProperty(
                 this.getCartridge().getNamespace(),
                 NamespaceProperties.OVERWRITE,

@@ -7,6 +7,37 @@
     </components>
     <properties>
         <propertyGroup>
+            <name>Outlets</name>
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="entity-beans">
+                <documentation>
+                    The directory to which Entity EJBs are generated.
+                </documentation>
+            </property>
+            <property name="entity-impls">
+                <documentation>
+                    The location to which Entity EJB implementation files are generated.
+                </documentation>
+            </property>
+            <property name="session-beans">
+                <documentation>
+                    The directory to which Session Bean files are generated.
+                </documentation>
+            </property>
+            <property name="session-impls">
+                <documentation>
+                    The directory to which Session Bean implementation files are generated.
+                </documentation>
+            </property>
+            <property name="value-objects" required="false">
+                <documentation>
+                   The directory to which isomorphic value objects are generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup>
             <property name="valueObjectPackage">
                 <default>{0}</default>
             </property>
