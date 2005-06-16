@@ -111,7 +111,6 @@
         outlet="wss4j-configuration"
         overwrite="true"
         outputToSingleFile="true"
-        required="false"
         outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
@@ -126,8 +125,7 @@
         path="templates/webservice/axis/WebServiceTest.vsl"
         outputPattern="$generatedFile"
         outlet="axis-tests"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">
@@ -142,7 +140,6 @@
         outputPattern="$generatedFile"
         outlet="axis-tests"
         overwrite="true"
-        required="false"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements variable="services">
@@ -158,8 +155,7 @@
         path="templates/webservice/axis/WebServiceTestImpl.vsl"
         outputPattern="$generatedFile"
         outlet="axis-test-impls"
-        overwrite="false"
-        required="false">
+        overwrite="false">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">

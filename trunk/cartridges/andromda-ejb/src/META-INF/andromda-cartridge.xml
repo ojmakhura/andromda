@@ -13,8 +13,7 @@
         path="templates/ejb/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
         outlet="value-objects"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb.metafacades.ValueObjectFacade"/>

@@ -499,22 +499,6 @@
                   No, default is <code>true</code>.
               </td>
           </tr>
-          <tr>
-              <td>
-                  required
-              </td>
-              <td>
-                  Specifies whether or not the template is required during
-                  processing, if set to false, AndroMDA will ignore the
-                  fact that no outlet property has been defined in a namespace
-                  when running AndroMDA.  Otherwise if its true, warnings
-                  will be issued notifying a cartridge user that they must
-                  define a property matching the outlet name.
-              </td>
-              <td>
-                  No, default is <code>true</code>.
-              </td>
-          </tr>
         </table>
         <a name="modelElements"/>
         <h3><![CDATA[<modelElements/>]]></h3>

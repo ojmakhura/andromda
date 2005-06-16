@@ -4,7 +4,7 @@
         <macrolibrary name="templates/spring/RenderPreconditions.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
-   
+
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
@@ -31,7 +31,6 @@
     <property reference="hibernateJdbcFetchSize"/>
     <property reference="hibernateJdbcBatchSize"/>
     <property reference="hibernateJdbcUseScrollableResultSet"/>
-    <property reference="hibernateMaxFetchDepth"/>
     <property reference="hibernateJdbcUseStreamsForBinary"/>
     <property reference="hibernateHbm2DDLAuto"/>
     <property reference="hibernateQuerySubstitutions"/>
@@ -61,7 +60,7 @@
     <property reference="springRemotingType"/>
     <property reference="serviceRemotePort"/>
     <property reference="serviceRemoteContext"/>
-    <property reference="serviceRemoteServer"/>	
+    <property reference="serviceRemoteServer"/>
     <property reference="securityRealm"/>
     <property reference="jndiDataSourceClass"/>
     <property reference="jdbcDataSourceClass"/>
@@ -117,8 +116,7 @@
         outlet="advice-impls"
         overwrite="false"
         outputToSingleFile="true"
-        outputOnEmptyElements="false"
-        required="false">
+        outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
@@ -222,8 +220,7 @@
         path="templates/spring/SpringDao.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
@@ -235,8 +232,7 @@
         path="templates/spring/hibernate/SpringHibernateDaoBase.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
@@ -248,8 +244,7 @@
         path="templates/spring/hibernate/SpringHibernateDaoImpl.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
@@ -263,8 +258,7 @@
         path="templates/spring/hibernate/SpringHibernateDaoImplManual.vsl"
         outputPattern="$generatedFile"
         outlet="dao-impls"
-        overwrite="false"
-        required="false">
+        overwrite="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
@@ -278,8 +272,7 @@
         path="templates/spring/ejb/SpringSessionBean.vsl"
         outputPattern="$generatedFile"
         outlet="session-ejbs"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
@@ -291,8 +284,7 @@
         path="templates/spring/ejb/SpringSession.vsl"
         outputPattern="$generatedFile"
         outlet="session-ejbs"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
@@ -304,8 +296,7 @@
         path="templates/spring/ejb/SpringSessionHome.vsl"
         outputPattern="$generatedFile"
         outlet="session-ejbs"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
@@ -389,7 +380,6 @@
         outputPattern="META-INF/ejb-jar.xml"
         outlet="session-ejbs"
         overwrite="true"
-        required="false"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements variable="services">
@@ -404,7 +394,6 @@
         outputPattern="META-INF/jboss.xml"
         outlet="session-ejbs"
         overwrite="true"
-        required="false"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements variable="services">
@@ -439,7 +428,6 @@
         outputPattern="$generatedFile"
         outlet="daos"
         overwrite="true"
-        required="false"
         outputToSingleFile="true">
         <modelElements variable="entities">
             <modelElement>
@@ -453,7 +441,6 @@
         outputPattern="$generatedFile"
         outlet="daos"
         overwrite="true"
-        required="false"
         outputToSingleFile="true">
         <modelElements variable="entities">
             <modelElement>
@@ -467,7 +454,6 @@
         outputPattern="$generatedFile"
         outlet="daos"
         overwrite="true"
-        required="false"
         outputToSingleFile="true">
         <modelElements variable="entities">
             <modelElement>
@@ -480,8 +466,7 @@
         path="templates/spring/hibernate/SearchCriteria.vsl"
         outputPattern="{0}/{1}.java"
         outlet="daos"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="CRITERIA"/>
         </modelElements>
@@ -491,7 +476,6 @@
         path="templates/spring/presentation/hibernate/OpenSessionInViewFilter.java.vsl"
         outputPattern="$generatedFile"
         outlet="open-session-in-view"
-        required="false"
         overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="entities">
@@ -537,8 +521,7 @@
         path="templates/spring/crud/SpringCrudService.vsl"
         outputPattern="$generatedFile"
         outlet="services"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
@@ -550,8 +533,7 @@
         path="templates/spring/crud/SpringCrudServiceBase.vsl"
         outputPattern="$generatedFile"
         outlet="services"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
@@ -563,8 +545,7 @@
         path="templates/spring/crud/SpringCrudDao.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
@@ -576,8 +557,7 @@
         path="templates/spring/crud/SpringCrudDaoBase.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
@@ -589,8 +569,7 @@
         path="templates/spring/crud/SpringCrudValueObject.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>

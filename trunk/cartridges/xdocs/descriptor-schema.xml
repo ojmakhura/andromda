@@ -12,7 +12,6 @@
     <xs:element name="cartridge">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="class" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="templateEngine" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="templateObject" minOccurs="0" maxOccurs="unbounded"/>
                 <!-- these are references to properties that are expected to
@@ -30,6 +29,10 @@
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="optional"/>
         </xs:complexType>
+        <xs:unique name="uniquePropertyReference">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@reference"/>
+        </xs:unique>
     </xs:element>
     <xs:element name="property">
         <xs:complexType>
@@ -79,6 +82,10 @@
                  enclosing <modelElements/> element will be used. -->
             <xs:attribute name="variable" use="optional"/>
         </xs:complexType>
+        <xs:unique name="uniquePropertyName">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
     </xs:element>
     <xs:complexType name="resourceType">
         <!-- the resource to process -->
@@ -88,10 +95,6 @@
         <xs:attribute name="outlet" type="xs:string" use="required"/>
         <!-- true/false on whether we should overwrite results of previous run -->
         <xs:attribute name="overwrite" type="xs:boolean" use="required"/>
-        <!-- if this flag is set to false, then template outlets are not required
-             to be defined in a namespace, and no warning will be declared,
-             by default required is true -->
-        <xs:attribute name="required" type="xs:boolean" use="optional"/>
     </xs:complexType>
     <xs:element name="resource" type="resourceType"/>
     <xs:element name="template">
@@ -130,15 +133,13 @@
             <!-- the class of the templateObject (must have a default constructor) -->
             <xs:attribute name="className" type="xs:string" use="required"/>
         </xs:complexType>
+        <xs:unique name="uniqueTemplateObjectPropertyReference">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@reference"/>
+        </xs:unique>
     </xs:element>
     <!-- Defines a macro library that can be used with commonly used scripting engine macros -->
     <xs:element name="macrolibrary">
-        <xs:complexType>
-            <xs:attribute name="name" type="xs:string" use="required"/>
-        </xs:complexType>
-    </xs:element>
-    <!-- defines a cartridge class that may override the existing default cartridge class implementation -->
-    <xs:element name="class">
         <xs:complexType>
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
