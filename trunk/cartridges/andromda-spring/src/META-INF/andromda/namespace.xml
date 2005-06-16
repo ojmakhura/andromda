@@ -125,9 +125,6 @@
             <property name="serviceHibernateInterceptorEnabled">
                 <default>true</default>
             </property>
-            <property name="ejbViewType">
-                <default>local</default>
-            </property>
             <property name="serviceAccessorPattern" required="false"/>
             <property name="servicePackageNamePattern">
                 <default>{0}</default>
@@ -263,13 +260,6 @@
                     Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
                     This property is only necessary when using user supplied connections.
                     Hibernate uses connection metadata otherwise.
-                    ]]>
-                </documentation>
-            </property>
-            <property name="hibernateMaxFetchDepth" required="false">
-                <documentation>
-                    <![CDATA[
-                    Sets a maximum "depth" for the outer join fetch tree. eg. recommended values between 0 and 3
                     ]]>
                 </documentation>
             </property>
