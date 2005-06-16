@@ -48,7 +48,7 @@
                             Whether or not AndroMDA should be run without Ant, this is sometimes not desirable
                             as it isn't possible to run forked without running inside of Ant.  However setting
                             this value to true renders much greater times in initialization speed therefore
-                            increasing the speed in which a model is processed.  Please note that when 
+                            increasing the speed in which a model is processed.  Please note that when
                             running with this flag to true, you'll need to explicitly specify any modules within the
                             moduleSearchLocations element of your <a href="../configuration.html">AndroMDA configuration</a>
                             (because modules will NOT be able to be found on the classpath).
@@ -189,7 +189,7 @@
                         <td>
                             A regular expression pattern for limiting the number of columns
                             added when reading the schema. (i.e. <code>FIRST_NAME|LAST_NAME</code>
-                            will match on columns named <em>FIRST_NAME</em> and <em>LAST_NAME</em> 
+                            will match on columns named <em>FIRST_NAME</em> and <em>LAST_NAME</em>
                             in any of the tables).
                         </td>
                     </tr>
