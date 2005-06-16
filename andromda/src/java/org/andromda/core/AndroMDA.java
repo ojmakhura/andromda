@@ -12,16 +12,16 @@ import org.andromda.core.engine.Engine;
 import org.andromda.core.server.Client;
 import org.apache.log4j.Logger;
 
-
 /**
- * The main entry point to the framework.  Handles the processing of models. Facilitates Model Driven
- * Architecture by enabling the generation of source code, configuration files, and other such artifacts from a single
- * or multiple models.
+ * The main entry point to the framework. Handles the processing of models.
+ * Facilitates Model Driven Architecture by enabling the generation of source
+ * code, configuration files, and other such artifacts from a single or multiple
+ * models.
  *
  * @see Engine
  * @author Chad Brandon
  */
-public class AndroMDA
+public final class AndroMDA
 {
     /**
      * The logger instance.
@@ -36,16 +36,16 @@ public class AndroMDA
     /**
      * Gets a new instance of AndroMDA.
      *
-     * @param configurationUri the URI to the configuration file
-     *        that configures AndroMDA.
-     *
      * @return the new instance of AndroMDA.
      */
-    public static final AndroMDA newInstance()
+    public static AndroMDA newInstance()
     {
         return new AndroMDA();
     }
 
+    /**
+     * Hidden constructor.
+     */
     private AndroMDA()
     {
         AndroMDALogger.initialize();
@@ -55,10 +55,8 @@ public class AndroMDA
     /**
      * Runs AndroMDA with the given configuration.
      *
-     * @param configurationUri the URI to the configuration file
-     *        that configures AndroMDA.
-     *
-     * @return the new instance of AndroMDA.
+     * @param configurationUri
+     *            the URI to the configuration file that configures AndroMDA.
      */
     public void run(final URL configurationUri)
     {
@@ -68,14 +66,11 @@ public class AndroMDA
     /**
      * Runs AndroMDA with the given configuration.
      *
-     * @param configurationStream the InputStream that contains the configuration
-     *        contents for configuring AndroMDA.
-     *
-     * @return the new instance of AndroMDA.
+     * @param configurationStream
+     *            the InputStream that contains the configuration contents for
+     *            configuring AndroMDA.
      */
-    public void run(
-        final InputStream configurationStream,
-        final URL uri)
+    public void run(final InputStream configurationStream, final URL uri)
     {
         this.run(Configuration.getInstance(configurationStream));
     }
@@ -83,34 +78,32 @@ public class AndroMDA
     /**
      * Runs AndroMDA with the given configuration.
      *
-     * @param configuration the String that contains the configuration
-     *        contents for configuring AndroMDA.
-     *
-     * @return the new instance of AndroMDA.
+     * @param configuration
+     *            the String that contains the configuration contents for
+     *            configuring AndroMDA.
+     * @param uri
+     *            the configuration location.
      */
-    public void run(
-        final String configuration,
-        final URL uri)
+    public void run(final String configuration, final URL uri)
     {
         this.run(Configuration.getInstance(configuration));
     }
 
     /**
-     * Runs AndroMDA with the given configuration.  Determines whether or
-     * not AndroMDA should be run in client/server mode (if the client
-     * can contact the AndroMDA server), or just stand-alone mode if the
-     * server can NOT be contacted.
+     * Runs AndroMDA with the given configuration. Determines whether or not
+     * AndroMDA should be run in client/server mode (if the client can contact
+     * the AndroMDA server), or just stand-alone mode if the server can NOT be
+     * contacted.
      *
-     * @param configuration the String that contains the configuration
-     *        contents for configuring AndroMDA.
-     *
-     * @return the new instance of AndroMDA.
+     * @param configuration
+     *            the String that contains the configuration contents for configuring AndroMDA.
      */
     public void run(final Configuration configuration)
     {
         if (configuration != null)
         {
-            final Client serverClient = (Client)ComponentContainer.instance().findRequiredComponent(Client.class);
+            final Client serverClient = (Client)ComponentContainer.instance()
+                    .findRequiredComponent(Client.class);
             boolean client = true;
 
             // only attempt to run with the client, if they
