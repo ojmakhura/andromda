@@ -46,6 +46,11 @@
                             commit messages get sent to a mailing list, they are almost impossible
                             to read if you use tabs.
                         </p>
+                        <p>
+                            Another requirement is to set the right margin to 120 characters, so lines break
+                            if they exceed this limit. A shorter limit is not acceptable since it will break
+                            lines sooner and will disrupt the look and feel of the code.
+                        </p>
                     </li>
                  </ul>
             </subsection>
