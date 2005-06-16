@@ -181,6 +181,20 @@
                     </tr>
                     <tr>
                         <td>
+                            maven.andromda.schema2xmi.columnPattern
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            A regular expression pattern for limiting the number of columns
+                            added when reading the schema. (i.e. <code>FIRST_NAME|LAST_NAME</code>
+                            will match on columns named <em>FIRST_NAME</em> and <em>LAST_NAME</em> 
+                            in any of the tables).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             maven.andromda.schema2xmi.schema
                         </td>
                         <td>
