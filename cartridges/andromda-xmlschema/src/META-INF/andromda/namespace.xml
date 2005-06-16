@@ -7,6 +7,17 @@
     </components>
     <properties>
         <propertyGroup>
+            <name>Outlets</name>
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="schema">
+                <documentation>
+                    The location to which the XML schema will be written.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup>
             <!-- The name of the namespace -->
             <property name="namespace"/>
             <property name="xmlEncoding">

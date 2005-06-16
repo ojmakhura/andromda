@@ -7,6 +7,38 @@
     </components>
     <properties>
         <propertyGroup>
+            <name>Outlets</name>
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="entities">
+                <documentation>
+                    The directory to which hibernate entities are generated.
+                </documentation>
+            </property>
+            <property name="entity-impls">
+                <documentation>
+                    The location to which hibernate entity implementation files are generated.
+                </documentation>
+            </property>
+            <property name="session-beans" required="false">
+                <documentation>
+                    The directory to which Session EJB service wrappers are generated.  If this
+                    property is not specified, Session EJB service wrappers will not be generated.
+                </documentation>
+            </property>
+            <property name="session-impls" required="false">
+                <documentation>
+                    The directory to which Session Bean implementation files are generated.
+                </documentation>
+            </property>
+            <property name="configuration" required="false">
+                <documentation>
+                    The directory to which the hibernate.cfg.xml file is generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup>
             <property name="hibernateVersion">
                 <default>2</default>
             </property>

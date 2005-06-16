@@ -7,8 +7,77 @@
     </components>
     <properties>
         <propertyGroup>
+            <name>Outlets</name>
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="services">
+                <documentation>
+                    The location to which all service classes (including the service locator(s))
+                    will be generated.
+                </documentation>
+            </property>
+            <property name="service-impls">
+                <documentation>
+                    The location to which all service implementation classes
+                    will be generated.
+                </documentation>
+            </property>
+            <property name="daos">
+                <documentation>
+                    The location to which Spring DAOs, and any support classes.
+                </documentation>
+            </property>
+            <property name="dao-impls">
+                <documentation>
+                    The location to which Spring DAO implementation
+                    classes will be generated (if there are any classifier scoped business
+                    operations modeled on any entity).
+                </documentation>
+            </property>
+            <property name="spring-configuration">
+                <documentation>
+                    The location to which the Spring applicationContext.xml
+                    will be generated.
+                </documentation>
+            </property>
+            <property name="open-session-in-view" required="false">
+                <documentation>
+                    <![CDATA[
+                    The location to which the AndroMDA OpenSessionInViewFilter will be generated
+                    (allows the Hibernate <em>open-session-in-view</em> pattern when you want to
+                    expose your enties directly to your presentation tier - allows lazy-loading to
+                    occur that level).
+                    ]]>
+                </documentation>
+            </property>
+            <property name="session-ejbs" required="false">
+                <documentation>
+                    Not really used from the template except to check if it has been defined
+                    or not, so that we can determine whether or not we'll use the session
+                    EJBs for transaction management (rather than Spring's transaction framework)
+                </documentation>
+            </property>
+            <property name="advice-impls" required="false">
+                <documentation>
+                    The location to which any advice implementation classes will be generated.  Currently
+                    this is useful when using the cartridge's remoting support.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup>
             <property name="hibernateVersion">
                 <default>2</default>
+                <documentation>
+                    <![CDATA[
+                        The version of Hibernate to use when generating.
+                        <ul>
+                            Allowable values are:
+                            <li>2</li>
+                            <li>3</li>
+                        </ul>
+                    ]]>
+                </documentation>
             </property>
             <property name="daoNamePattern">
                 <default>{0}Dao</default>
@@ -487,16 +556,6 @@
                     ]]>
                 </documentation>
             </property>
-            <!-- not really used from the template except to check if it has been defined
-                 or not, so that we can determine whether or not we'll use the session
-                 EJBs for transaction management (rather than Spring's transaction framework) -->
-            <property name="session-ejbs" required="false"/>
-            <!-- used to determine if the advice-impls outlet has been defined -->
-            <property name="advice-impls" required="false"/>
-            <!-- not really used from the template except to check if it has been defined
-                 or not, this allows us to determine whether or not we need to generate
-                 entity related information -->
-            <property name="daos" required="false"/>
         </propertyGroup>
         <propertyGroup>
             <name>Acegi Security System Properties</name>

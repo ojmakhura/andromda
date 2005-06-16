@@ -6,8 +6,42 @@
     </components>
     <properties>
         <propertyGroup>
+            <name>Outlets</name>
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="services" required="false">
+                <documentation>
+                    The directory to which POJO service interfaces are generated.
+                </documentation>
+            </property>
+            <property name="service-impls" required="false">
+                <documentation>
+                    The directory to which POJO service implementation classes are generated
+                </documentation>
+            </property>
+            <property name="value-objects" required="false">
+                <documentation>
+                    The directory to which value objects are generated.
+                </documentation>
+            </property>
+            <property name="exceptions" required="false">
+                <documentation>
+                    The directory to which exceptions are generated.
+                </documentation>
+            </property>
+            <property name="enumerations" required="false">
+                <documentation>
+                    The directory to which enumerations are generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup>
             <property name="serializable">
                 <default>true</default>
+                <documentation>
+                    Indicates whether or not generated objects must support distributed environments.
+                </documentation>
             </property>
         </propertyGroup>
     </properties>

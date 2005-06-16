@@ -7,6 +7,61 @@
     </components>
     <properties>
         <propertyGroup>
+            <name>Outlets</name>
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="actions">
+                <documentation>
+                    The location to which Struts actions are generated.
+                </documentation>
+            </property>
+            <property name="forms">
+                <documentation>
+                    The location to which Struts action forms are generated.
+                </documentation>
+            </property>
+            <property name="configuration">
+                <documentation>
+                    The location to which Struts configuration files are generated. These are the files
+                    that typically appear in WEB-INF, such as validation-rules.xml and tiles-defs.xml.
+                </documentation>
+            </property>
+            <property name="controllers">
+                <documentation>
+                    The location to which abstract controllers are generated.
+                </documentation>
+            </property>
+            <property name="controller-impls">
+                <documentation>
+                    The location to which the controller implementation classes are generated.
+                </documentation>
+            </property>
+            <property name="messages">
+                <documentation>
+                    The location to which message resource bundles are generated.
+                </documentation>
+            </property>
+            <property name="pages">
+                <documentation>
+                    application JSP pages, login pages and stylesheets are outputted here
+                </documentation>
+            </property>
+            <property name="server" required="false">
+                <documentation>
+                    The location where to store application server specific configuration, such as users.properties
+                    and roles.properties (in case security has been enabled)
+                </documentation>
+            </property>
+             <property name="decorators" required="false">
+                <documentation>
+                    The location where the displaytag table decorators will be generated (if any).
+                    Files generated into this outlet will not be overwritten upon regeneration, they
+                    are meant to be edited by hand.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup>
             <property name="defaultDateFormat">
                 <default>dd/MM/yyyy</default>
             </property>
