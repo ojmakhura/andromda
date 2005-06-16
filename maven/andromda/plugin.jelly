@@ -205,6 +205,11 @@ Please define the location of your AndroMDA configuration by setting a value for
                   <ant:arg value="-t"/>
                   <ant:arg value="${tablePattern}"/>
               </j:if>
+              <j:set var="columnPattern" value="${maven.andromda.schema2xmi.columnPattern}"/>
+              <j:if test="${columnPattern != null and columnPattern != ''}">
+                  <ant:arg value="-a"/>
+                  <ant:arg value="${columnPattern}"/>
+              </j:if>
               <j:set var="package" value="${maven.andromda.schema2xmi.package}"/>
               <j:if test="${package != null and package != ''}">
                   <ant:arg value="-P"/>
