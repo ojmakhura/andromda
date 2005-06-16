@@ -97,8 +97,7 @@ public final class AndroMDA
      * the AndroMDA server), or just stand-alone mode if the server can NOT be
      * contacted.
      *
-     * @param configuration the String that contains the configuration contents
-     *        for configuring AndroMDA.
+     * @param configuration the configuration instance that configures AndroMDA.
      */
     public void run(final Configuration configuration)
     {
