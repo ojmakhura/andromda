@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.jmi.reflect.RefPackage;
@@ -99,19 +101,18 @@ public class MDRXmiReferenceResolverContext
                 urlMap.put(suffixWithExt, modelUrl);
             }
         }
-        if (!loggedReferedModel && modelUrl != null)
+        if (modelUrl != null && !this.loggedReferencedModels.contains(modelUrl))
         {
             AndroMDALogger.info("referenced model --> '" + modelUrl + "'");
-            this.loggedReferedModel = true;
+            this.loggedReferencedModels.add(modelUrl);
         }
         return modelUrl;
     }
 
     /**
-     * Keeps track of whether or mot the fact the
-     * referenced model was found, was logged or not.
+     * Keeps track of the referenced models that have been logged.
      */
-    private boolean loggedReferedModel = false;
+    private final Collection loggedReferencedModels = new ArrayList();
 
     /**
      * Finds a module in the module search path.
