@@ -464,7 +464,6 @@
         outputPattern="users.properties"
         outlet="server"
         overwrite="true"
-        required="false"
         generateEmptyFiles="false"/>
 
     <template
@@ -472,7 +471,6 @@
         outputPattern="roles.properties"
         outlet="server"
         overwrite="true"
-        required="false"
         generateEmptyFiles="true"
         outputToSingleFile="true">
         <modelElements variable="applicationUseCases">
@@ -561,7 +559,6 @@
         outputPattern="$generatedFile"
         outlet="decorators"
         overwrite="false"
-        required="false"
         generateEmptyFiles="false">
         <modelElements variable="table">
             <modelElement>
@@ -580,8 +577,7 @@
         path="templates/bpm4struts/actions/crud/CrudAction.java.vsl"
         outputPattern="$generatedFile"
         outlet="actions"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
@@ -593,8 +589,7 @@
         path="templates/bpm4struts/forms/crud/CrudForm.java.vsl"
         outputPattern="$generatedFile"
         outlet="forms"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>

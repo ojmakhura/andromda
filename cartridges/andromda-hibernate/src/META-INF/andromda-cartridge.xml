@@ -42,7 +42,6 @@
     <property reference="hibernateJdbcFetchSize"/>
     <property reference="hibernateJdbcBatchSize"/>
     <property reference="hibernateJdbcUseScrollableResultSet"/>
-    <property reference="hibernateMaxFetchDepth"/>
     <property reference="hibernateJdbcUseStreamsForBinary"/>
     <property reference="hibernateHbm2DDLAuto"/>
     <property reference="hibernateQuerySubstitutions"/>
@@ -66,8 +65,7 @@
         path="templates/hibernate2/ejb/HibernateEntityFactory.vsl"
         outputPattern="{0}/{1}Factory.java"
         outlet="session-beans"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
@@ -83,7 +81,6 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true"
-        required="false"
         outputOnEmptyElements="false">
         <modelElements variable="entities">
             <modelElement>
@@ -99,8 +96,7 @@
         path="templates/hibernate2/hibernate.hbm.xml.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="true"
-        required="true">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
@@ -116,8 +112,7 @@
         path="templates/hibernate3/ejb/HibernateEntityFactory.vsl"
         outputPattern="{0}/{1}Factory.java"
         outlet="session-beans"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
@@ -133,7 +128,6 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true"
-        required="false"
         outputOnEmptyElements="false">
         <modelElements variable="entities">
             <modelElement>
@@ -149,8 +143,7 @@
         path="templates/hibernate3/hibernate.hbm.xml.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="true"
-        required="true">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
@@ -166,8 +159,7 @@
         path="templates/hibernate/HibernateEmbeddedValue.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="embeddedValue">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue"/>
@@ -191,8 +183,7 @@
         path="templates/hibernate/HibernateEntity.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
@@ -232,22 +223,19 @@
         path="templates/hibernate/usertypes/HibernateByteBlobType.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="true"
-        required="false"/>
+        overwrite="true"/>
 
     <template
         path="templates/hibernate/usertypes/HibernateStringClobType.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="true"
-        required="false"/>
+        overwrite="true"/>
 
     <template
         path="templates/hibernate/HibernateEnumeration.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="enumeration">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EnumerationFacade"/>
@@ -260,7 +248,6 @@
         outputPattern="META-INF/ejb-jar.xml"
         outlet="session-beans"
         overwrite="true"
-        required="false"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements variable="services">
@@ -275,7 +262,6 @@
         outputPattern="META-INF/jboss.xml"
         outlet="session-beans"
         overwrite="true"
-        required="false"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements variable="services">
@@ -290,7 +276,6 @@
         outputPattern="$generatedFile"
         outlet="session-beans"
         overwrite="true"
-        required="false"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements variable="services">
@@ -304,8 +289,7 @@
         path="templates/hibernate/ejb/HibernateSessionBean.vsl"
         outputPattern="{0}/{1}Bean.java"
         outlet="session-beans"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.Service"/>
@@ -317,8 +301,7 @@
         path="templates/hibernate/ejb/HibernateSessionBeanImpl.vsl"
         outputPattern="{0}/{1}BeanImpl.java"
         outlet="session-impls"
-        overwrite="false"
-        required="false">
+        overwrite="false">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.Service"/>
@@ -330,8 +313,7 @@
         path="templates/hibernate/ejb/HibernateSession.vsl"
         outputPattern="$generatedFile"
         outlet="session-beans"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.Service"/>
@@ -343,8 +325,7 @@
         path="templates/hibernate/ejb/HibernateSessionHome.vsl"
         outputPattern="$generatedFile"
         outlet="session-beans"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.Service"/>
@@ -356,8 +337,7 @@
         path="templates/hibernate/ejb/HibernateUtils.vsl"
         outputPattern="$generatedFile"
         outlet="session-beans"
-        overwrite="true"
-        required="false"/>
+        overwrite="true"/>
 
     <template
         path="templates/hibernate/ehcache.xml.vsl"
@@ -365,7 +345,6 @@
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true"
-        required="false"
         outputOnEmptyElements="false">
         <modelElements variable="entities">
             <modelElement>

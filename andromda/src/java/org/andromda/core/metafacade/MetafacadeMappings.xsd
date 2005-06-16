@@ -28,6 +28,10 @@
                  mapping will be used as a context for other mappings -->
             <xs:attribute name="contextRoot" type="xs:boolean" use="optional" default="false"/>
         </xs:complexType>
+        <xs:unique name="uniqueMetafacadePropertyName">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
     </xs:element>
     <xs:element name="mapping">
         <xs:complexType>
@@ -44,6 +48,10 @@
                  metafacade or a metaclass) -->
             <xs:attribute name="class" type="xs:string" use="required"/>
         </xs:complexType>
+        <xs:unique name="uniqueMetafacadePropertyReference">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@reference"/>
+        </xs:unique>
     </xs:element>
     <xs:element name="metafacades">
         <xs:complexType>
@@ -66,6 +74,10 @@
                 </xs:annotation>
             </xs:attribute>
         </xs:complexType>
+        <xs:unique name="uniquePropertyReference">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@reference"/>
+        </xs:unique>
     </xs:element>
     <!-- property references are properties you wish to configure on a metafacade,
          through bean properties -->

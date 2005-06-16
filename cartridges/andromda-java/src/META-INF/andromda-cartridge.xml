@@ -12,8 +12,7 @@
         path="templates/java/Service.vsl"
         outputPattern="{0}/{1}.java"
         outlet="services"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.Service"/>
@@ -25,8 +24,7 @@
         path="templates/java/ServiceImpl.vsl"
         outputPattern="{0}/{1}Impl.java"
         outlet="service-impls"
-        overwrite="false"
-        required="false">
+        overwrite="false">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.Service"/>
@@ -38,8 +36,7 @@
         path="templates/java/ValueObject.vsl"
         outputPattern="{0}/{1}.java"
         outlet="value-objects"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.ValueObject"/>
@@ -51,8 +48,7 @@
         path="templates/java/ApplicationException.vsl"
         outputPattern="{0}/{1}.java"
         outlet="exceptions"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="EXCEPTION"/>
             <modelElement stereotype="APPLICATION_EXCEPTION"/>
@@ -63,8 +59,7 @@
         path="templates/java/UnexpectedException.vsl"
         outputPattern="{0}/{1}.java"
         outlet="exceptions"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="class">
             <modelElement stereotype="UNEXPECTED_EXCEPTION"/>
         </modelElements>
@@ -74,8 +69,7 @@
         path="templates/java/Enumeration.vsl"
         outputPattern="{0}/{1}.java"
         outlet="enumerations"
-        overwrite="true"
-        required="false">
+        overwrite="true">
         <modelElements variable="enumeration">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.EnumerationFacade"/>
