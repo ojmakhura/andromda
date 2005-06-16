@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  * @see Engine
  * @author Chad Brandon
  */
-public final class AndroMDA
+public class AndroMDA
 {
     /**
      * The logger instance.
