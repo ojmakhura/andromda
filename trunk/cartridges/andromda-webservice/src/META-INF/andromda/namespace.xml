@@ -150,7 +150,7 @@
         </propertyGroup>
         <propertyGroup name="WSS4J Properties">
             <documentation>
-                Defines the crypto properties for WSS4J.
+                Defines the properties for WSS4J.
             </documentation>
             <property name="signedRequest">
                 <default>false</default>
@@ -188,6 +188,7 @@
                     ]]>
                 </documentation>
             </property>
+            <!-- crypto properties for WSS4J -->
             <property name="cryptoKeyStore" required="false"/>
             <property name="cryptoKeyStoreType" required="false"/>
             <property name="cryptoKeyStoreAlias" required="false"/>
