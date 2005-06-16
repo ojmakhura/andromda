@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <namespace name="hibernate">
     <components>
@@ -6,7 +6,7 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup name="Outlet Properties">
+        <propertyGroup name="Outlets">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
@@ -37,112 +37,596 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup name="Other Properties">
-            <property name="hibernateVersion">
-                <default>2</default>
+        <propertyGroup name="Caching">
+            <property name="hibernateEnableCache">
+                <default>false</default>
+                <documentation>
+                    Enable/disable hibernate's second level cache features for the cartridge.
+                </documentation>
             </property>
-            <property name="entityNamePattern">
-                <default>{0}</default>
-            </property>
-            <property name="entityImplementationNamePattern">
-                <default>{0}Impl</default>
-            </property>
-            <property name="defaultHibernateGeneratorClass">
-                <default>native</default>
-            </property>
-            <property name="hibernateDefaultCascade">
-                <default>none</default>
-            </property>
-            <property name="hibernateCompositionCascade" required="false"/>
-            <property name="hibernateAggregationCascade" required="false"/>
             <property name="hibernateEntityCache">
                 <default>read-write</default>
+                <documentation>
+                    <![CDATA[
+                    Defines the default strategy for Entities caching. Can be overwritten using the corresponding
+                    tagged value. Possible values are:
+                    <ul>
+                       <li>read-write</li>
+                       <li>nonstrict-read-write</li>
+                       <li>read-only</li>
+                    </ul>
+                    ]]>
+                </documentation>
             </property>
-            <property name="hibernateEntityDynamicInsert">
-                <default>false</default>
-            </property>
-            <property name="hibernateEntityDynamicUpdate">
-                <default>false</default>
-            </property>
-            <property name="hibernateProxy">
-                <default>false</default>
-            </property>
-            <property name="hibernateQueryUseNamedParameters">
-                <default>false</default>
-            </property>
-            <property name="hibernateInheritanceStrategy">
-                <default>subclass</default>
+            <property name="hibernateAssociationCache">
+                <default>read-write</default>
+                <documentation>
+                    <![CDATA[
+                    Defines the default strategy for associations between Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
+                    <ul>
+                       <li>read-write</li>
+                       <li>nonstrict-read-write</li>
+                       <li>read-only</li>
+                    </ul>
+                     ]]>
+                </documentation>
             </property>
             <property name="hibernateUseQueryCache">
                 <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    The default query cache usage.
+                    Can be overwritten using
+                    <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
+                    Possible values are:
+                    <ul>
+                       <li>true</li>
+                       <li>false</li>
+                    </ul>
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateEnableAssociationsCache">
+                <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    Enable/disable Hibernate's second level cache feature for entity associations.
+                    Please <strong>NOTE</strong> that hibernateEnableCache should also be enabled when
+                    specifying this property.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateEhCacheDiskStore">
+                <default>java.io.tmpdir</default>
+                <documentation>
+                    Defines the path to the directory where cache files will be created
+                </documentation>
+            </property>
+            <property name="hibernateCacheProvider">
+                <default>net.sf.hibernate.cache.EhCacheProvider</default>
+                <documentation>
+                    <![CDATA[
+                    Defines Hibernate Cache Provider implementation class.
+                    Possible values for Hibernate2 are:
+                    <ul>
+                       <li>net.sf.hibernate.cache.EhCacheProvider</li>
+                       <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
+                       <li>net.sf.hibernate.cache.JCSCacheProvider</li>
+                       <li>net.sf.hibernate.cache.SwarmCacheProvider</li>
+                       <li>net.sf.hibernate.cache.TreeCacheProvider</li>
+                       <li>net.sf.hibernate.cache.OSCacheProvider</li>
+                    </ul>
+                    Possible values for Hibernate3 are:
+                    <ul>
+                       <li>org.hibernate.cache.EhCacheProvider</li>
+                       <li>org.hibernate.cache.HashtableCacheProvider</li>
+                       <li>org.hibernate.cache.JCSCacheProvider</li>
+                       <li>org.hibernate.cache.SwarmCacheProvider</li>
+                       <li>org.hibernate.cache.TreeCacheProvider</li>
+                       <li>org.hibernate.cache.OSCacheProvider</li>
+                    </ul>
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateQueryCacheFactory">
+                <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
+                <documentation>
+                    <![CDATA[
+                    Defines Hibernate Query Cache Factory implementation class. Possible value for Hibernate2 is:
+                    <ul>
+                       <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
+                    </ul>
+                    Possible value for Hibernate3 is:
+                    <ul>
+                       <li>org.hibernate.cache.StandardQueryCacheFactory</li>
+                    </ul>
+                    ]]>
+                </documentation>
             </property>
             <property name="ehCacheMaxElementsInMemory">
                 <default>10000</default>
+                <documentation>
+                    Defines the default maximum number of objects that will be created in memory.
+                </documentation>
             </property>
             <property name="ehCacheEternal">
                 <default>false</default>
+                <documentation>
+                    Defines a default value for the eternal parameter.
+                </documentation>
             </property>
             <property name="ehCacheTimeToIdleSeconds">
                 <default>120</default>
+                <documentation>
+                    Defines the default time to idle for an element before it expires.
+                </documentation>
             </property>
             <property name="ehCacheTimeToLiveSeconds">
                 <default>120</default>
+                <documentation>
+                    Defines the default time to live for an element before it expires.
+                </documentation>
             </property>
             <property name="ehCacheOverflowToDisk">
                 <default>true</default>
+                <documentation>
+                    Defines the default value for the overflow to disk property.
+                </documentation>
             </property>
-            <property name="compositionDefinesEagerLoading">
-                <default>true</default>
+        </propertyGroup>
+        <propertyGroup name="JDBC">
+            <property name="driver" required="false">
+                <documentation>
+                    JDBC Driver to make database connection, this should be a fully qualified Java class name.
+                </documentation>
             </property>
-            <property name="ejbJndiNamePrefix" required="false"/>
-            <property name="ejbViewType">
-                <default>local</default>
+            <property name="username" required="false">
+                <documentation>
+                    The database user login name.
+                </documentation>
             </property>
-            <property name="hibernateAssociationCollectionType">
-                <default>set</default>
+            <property name="password" required="false">
+                <documentation>
+                    The database user password.
+                </documentation>
             </property>
-            <property name="hibernateAssociationSortType">
-                <default>unsorted</default>
+            <property name="connectionUrl" required="false">
+                <documentation>
+                    URL for the JDBC Driver to make the connection to the database.
+                </documentation>
+            </property>
+            <property name="dataSource" required="false">
+                <documentation>
+                    JNDI name of data source to use. (would be used instead
+                    of the connection properties, driver, username, password, etc).
+                </documentation>
+            </property>
+            <property name="hibernateShowSql" required="false">
+                <documentation>
+                    Whether or not to log SQL statements.
+                </documentation>
+            </property>
+            <property name="hibernateDialect" required="false">
+                <documentation>
+                    SQL dialect of the database.
+                </documentation>
+            </property>
+            <property name="hibernateDefaultSchema" required="false">
+                <documentation>
+                    Qualify unqualified tablenames with the given schema/tablespace in generated SQL.
+                </documentation>
+            </property>
+            <property name="hibernateMaxFetchDepth" required="false">
+                <documentation>
+                    Sets a maximum "depth" for the outer join fetch tree. Recommended values between 0 and 3
+                </documentation>
+            </property>
+            <property name="hibernateJdbcFetchSize" required="false">
+                <documentation>
+                    A non-zero value determines the JDBC fetch size
+                </documentation>
+            </property>
+            <property name="hibernateJdbcBatchSize" required="false">
+                <documentation>
+                    A nonzero value enables use of JDBC2 batch updates by Hibernate.
+                    Recommended values between 5 and 30
+                </documentation>
+            </property>
+            <property name="hibernateJdbcUseScrollableResultSet" required="false">
+                <documentation>
+                    Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
+                    This property is only necessary when using user supplied connections.
+                    Hibernate uses connection metadata otherwise.
+                </documentation>
+            </property>
+            <property name="hibernateMaxFetchDepth" required="false">
+                <documentation>
+                    Sets a maximum "depth" for the outer join fetch tree.
+                    eg. recommended values between 0 and 3
+                </documentation>
+            </property>
+            <property name="hibernateJdbcUseStreamsForBinary" required="false">
+                <documentation>
+                    Whether or not to use streams when writing / reading binary or serializable types to/from JDBC.
+                </documentation>
+            </property>
+            <property name="hibernateHbm2DDLAuto" required="false">
+                <documentation>
+                    <![CDATA[
+                    Automatically export schema DDL to the database when the SessionFactory
+                    is created. With create-drop, the database schema will be dropped when
+                    the SessionFactory is closed explicitely. Permitted values are:
+                    <ol>
+                        <li>update</li>
+                        <li>create</li>
+                        <li>create-drop</li>
+                    </ol>
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateQuerySubstitutions" required="false">
+                <documentation>
+                    <![CDATA[
+                    Allows you to define new Hibernate query tokens. For example:
+                    giving this a value of <em>true=1, false=0</em>
+                    would cause the tokens true and false to be translated to integer
+                    literals in the generated SQL.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="sequenceIdentifierSuffix">
+                <default>_SEQ</default>
+                <documentation>
+                    The suffix to use for identifier sequences.
+                </documentation>
+            </property>
+            <property name="hibernateUseOuterJoin" required="false">
+                <documentation>
+                    Whether or not to use outer join.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Name Patterns">
+            <property name="entityNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern to use when constructing an entity name.
+                    <em>{0}</em> is used to represent the entity name
+                    in the model, so if you specified a value of
+                    <code>{0}Entity</code> all the entities generated
+                    would have a suffix of "Entity".
+                    ]]>
+                </documentation>
+            </property>
+            <property name="entityImplementationNamePattern">
+                <default>{0}Impl</default>
+                <documentation>
+                    The pattern to use when constructing the entity implementation name.
+                </documentation>
+            </property>
+            <property name="embeddedValueImplementationNamePattern">
+                <default>{0}Impl</default>
+                <documentation>
+                    The pattern to use when constructing an embedded value implementation name.
+                </documentation>
             </property>
             <property name="enumerationNamePattern">
                 <default>{0}Enum</default>
+                <documentation>
+                    The pattern to use when constructing hibernate enumerations.
+                </documentation>
+            </property>
+            <property name="ejbJndiNamePrefix" required="false">
+                <documentation>
+                    The prefix to give to the Session EJB JNDI names (this allows
+                    the same Session EJB to be deployed multiple times in the same container)
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Transactions">
+            <property name="serviceOperationTransactionType">
+                <default>Required</default>
+                <documentation>
+                    <![CDATA[
+                    The default value to use for service operations transaction types.
+                    <ul>
+                        Permitted values are:
+                        <li>NotSupported</li>
+                        <li>Supports</li>
+                        <li>Required</li>
+                        <li>RequiresNew</li>
+                        <li>Mandatory</li>
+                        <li>Never</li>
+                    </ul>
+                    <strong>NOTE:</strong> Can be overridden on a per entity basis with the
+                    <a href="modeling.html#andromda.ejb.transaction.type">@andromda.ejb.transaction.type</a>
+                    tagged value.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateTransactionFactoryClass">
+                <default>net.sf.hibernate.transaction.JTATransactionFactory</default>
+                <documentation>
+                    The name of the hibernate transaction factory class to use.
+                </documentation>
+            </property>
+            <property name="hibernateTransactionManagerStrategy" required="false">
+                <documentation>
+                    Strategy for obtaining the JTA TransactionManager.
+                </documentation>
+            </property>
+            <property name="hibernateUserTransactionName">
+                <default>UserTransaction</default>
+                <documentation>
+                    The JNDI name of the JTA UserTransaction object.
+                </documentation>
+            </property>
+            <property name="hibernateTransactionManagerLookup" required="false">
+                <documentation>
+                    The fully qualified class name of the Hibernate TransactionFactory implementation.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="hibernateVersion">
+                <default>2</default>
+                <documentation>
+                    <![CDATA[
+                    The version of Hibernate to use when generating.
+                    <ul>
+                        Allowable values are:
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
+                    ]]>
+                </documentation>
+            </property>
+            <property name="defaultHibernateGeneratorClass">
+                <default>native</default>
+                <documentation>
+                    <![CDATA[
+                    The default class to use for Hibernate ID generation (can be overridden
+                    on a per entity basis with the
+                    <a href="modeling.html#andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a>
+                    tagged value).
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateDefaultCascade">
+                <default>none</default>
+                <documentation>
+                    <![CDATA[
+                    The value of the <code>default-cascade</code> attribute of the hibernate entity XML mapping.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateCompositionCascade" required="false">
+                <documentation>
+                    <![CDATA[
+                    Indicates how a UML composition should be interpreted as cascade.
+                    <ul>
+                        <li>
+                           If undefined, the cascade attribute is computed by AndroMDA in the following manner:
+                           if default-cascade is <em>save-update</em> or <em>all</em>,
+                           then cascade is <em>all</em> (0..1) or <em>all-delete-orphan</em> (many)
+                           otherwise cascade is <em>delete</em>.
+                        </li>
+                        <li>
+                            If the property IS defined, it's value is generated at each occurence of a UML composition,
+                            and the inverse side is marked with cascade="none".  The value must be a valid Hibernate cascade style.
+                            You should use a cascade value which includes delete to be conform with the
+                            UML concept of a composition, e.g. <em>all-delete-orphan</em>.
+                        </li>
+                    </ul>
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateAggregationCascade" required="false">
+                <documentation>
+                    <![CDATA[
+                    Indicates how a UML aggregation should be interpreted as cascade. Possible values are are as follows:
+                    <ul>
+                        <li>
+                            If undefined, aggregation is not interpreted as a cascade value
+                        </li>
+                        <li>
+                            If the property IS defined, its value is generated at each
+                            occurence of a UML aggregation, and the inverse side is marked with <em>cascade="none"</em>.
+                            The value must be a valid Hibernate cascade style, e.g. <em>all</em>.
+                         </li>
+                    </ul>
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateEntityDynamicInsert">
+                <default>false</default>
+                <documentation>
+                    Defines the default value dynamic-insert property on entities.
+                </documentation>
+            </property>
+            <property name="hibernateEntityDynamicUpdate">
+                <default>false</default>
+                <documentation>
+                    Defines the default value dynamic-update property on entities.
+                </documentation>
+            </property>
+            <property name="hibernateProxy">
+                <default>false</default>
+                <documentation>
+                    Defines if proxies will be enabled for Hibernate Entities.
+                </documentation>
+            </property>
+            <property name="hibernateQueryUseNamedParameters">
+                <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    Whether or not named parameters (i.e. ':someParameter') or unnamed
+                    (i.e. '?') parameters should be used in the HQL queries embedded
+                    within the model.
+                    <strong>NOTE:</strong> Does not apply to queries written in OCL.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateInheritanceStrategy">
+                <default>subclass</default>
+                <documentation>
+                    <![CDATA[
+                    Defines the hibernate inheritance strategy (unless
+                    overridden on an entity level by the
+                    <a href="#modeling.html#andromda_hibernate_inheritance">@andromda.hibernate.inheritance</a>
+                    tagged value, can be the following possible values:
+                      <ul>
+                          <li>class - table per hierarchy.</li>
+                          <li>subclass - table per class in hierarchy.</li>
+                          <li>concrete - Table per class.</li>
+                          <li>
+                              interface - Root class is defined as an interface and the
+                              attributes remapped to the subclasses.  This is useful in
+                              the concrete case because it has limitations in the associations.
+                          </li>
+                      </ul>
+                    ]]>
+                </documentation>
+            </property>
+            <property name="compositionDefinesEagerLoading">
+                <default>true</default>
+                <documentation>
+                    Allows you to turn on/off whether or not composite associations will define eager loading.
+                </documentation>
+            </property>
+            <property name="ejbViewType">
+                <default>local</default>
+                <documentation>
+                    <![CDATA[
+                        If EJBs are being used, this specifies the default view type
+                        for the EJB interfaces.  Can be either <em>local</em>
+                        or <code>remote</code>.
+                    ]]>
+                </documentation>
+            </property>
+            <property name="hibernateAssociationCollectionType">
+                <default>set</default>
+                <documentation>
+                    Used to define the default mapping for hibernate collections.
+                </documentation>
+            </property>
+            <property name="hibernateAssociationSortType">
+                <default>unsorted</default>
+                <documentation>
+                    Used to define how elements will be sorted within the collection defined by the association.
+                    (Only available for maps and sets).
+                </documentation>
             </property>
             <property name="hibernateQueryUseSpecializedSetters">
                 <default>false</default>
+                <documentation>
+                    Defines if the finder setters method for parameters will use "setParameter" for all parameters (by default),
+                    or a specialized setter (setDate,setBoolean...) in case the parameter type has it's own setter method.
+            </documentation>
             </property>
-            <property name="versionProperty" required="false"/>
+            <property name="versionProperty" required="false">
+                <documentation>
+                    <![CDATA[
+                    The name of the property/attribute to automatically add to entities
+                    for versioning purposes. If this value is not specified or it contains
+                    only whitespace characters it will be ignored and the property will
+                    not be generated. This value can be overridden with the
+                    <a href="modeling.html#andromda.hibernate.version">@andromda.hibernate.version</a>tagged value.
+                    ]]>
+                </documentation>
+            </property>
             <property name="hibernateAssociationEndOuterJoin">
                 <default>auto</default>
+                <documentation>
+                    <![CDATA[
+                    Defines the default outer join value for many to one and
+                    one to one association ends. Possible values are:
+                   <ul>
+                       <li>auto</li>
+                       <li>true</li>
+                       <li>false</li>
+                    </ul>
+                       For hibernate 3 the above values will be translated to
+                    <ul>
+                        <li>join</li>
+                        <li>select</li>
+                    </ul>
+                    ]]>
+                </documentation>
             </property>
             <property name="listTypeImplementation">
                 <default>java.util.ArrayList</default>
+                <documentation>
+                    The implementation type to use for association ends that are modeled as lists.
+                </documentation>
             </property>
             <property name="setTypeImplementation">
                 <default>java.util.HashSet</default>
+                <documentation>
+                    The implementation type to use for association ends that are modeled as sets.
+                </documentation>
             </property>
             <property name="mapTypeImplementation">
                 <default>java.util.HashMap</default>
+                <documentation>
+                    The implementation type to use for association ends that are modeled as maps.
+                </documentation>
             </property>
             <property name="bagTypeImplementation">
                 <default>java.util.ArrayList</default>
+                <documentation>
+                    The implementation type to use for association ends that are modeled as bags.
+                </documentation>
             </property>
             <property name="specificCollectionInterfaces">
                 <default>false</default>
+                <documentation>
+                    <![CDATA[
+                    A flag indicating whether or not specific collection interfaces will be used
+                    in association end mutators and accessors (i.e. java.util.Set, java.util.List, etc).
+                    If this is set to false, then the value of the <a href="#defaultCollectionInterface">defaultCollectionInterface</a>
+                    property will used to provide the collection interface.
+                    ]]>
+                </documentation>
             </property>
             <property name="defaultCollectionInterface">
                 <default>java.util.Collection</default>
+                <documentation>
+                    <![CDATA[
+                    The default collection interface, this is the interface used with association end
+                    accessors and mutators if the <a href="#specificCollectionInterfaces">specificCollectionInterfaces</a>
+                    flag is set to <code>false</code>.
+                    ]]>
+                </documentation>
             </property>
-            <property name="associationEndCollectionIndexName" required="false"/>
-            <property name="associationEndCollectionIndexType" required="false"/>
-            <property name="hibernateAssociationCache">
-                <default>read-write</default>
+            <property name="associationEndCollectionIndexName" required="false">
+                <documentation>
+                    <![CDATA[
+                    The default association end collection index name (this can be overridden by the
+                    <a href="modeling.html#andromda_hibernate_collection_index">@andromda.hibernate.collection.index</a>).
+                    ]]>
+                </documentation>
             </property>
-            <property name="serviceOperationTransactionType">
-                <default>Required</default>
+            <property name="associationEndCollectionIndexType" required="false">
+                <documentation>
+                    <![CDATA[
+                    The default association end collection index type (this can be overridden by the
+                    <a href="modeling.html#andromda_hibernate_collection_index_type">@andromda.hibernate.collection.index.type</a>
+                    (this is applicable when the collection is a map).
+                    ]]>
+                </documentation>
             </property>
-            <property name="hibernateTypeMappingsUri" required="false"/>
-            <property name="embeddedValueImplementationNamePattern">
-                <default>{0}Impl</default>
+            <property name="hibernateTypeMappingsUri" required="false">
+                <documentation>
+                    <![CDATA[
+                    URI specifying the specific mappings from model types to hibernate types.
+                    (i.e. <code>file:${basedir}/HibernateTypeMappings.xml</code>). This
+                    is not necessary but useful for defining hibernate user types (when
+                    hibernate doesn't support a specific type in the manner needed
+                    for your application).
+                    ]]>
+                </documentation>
             </property>
             <property name="securityRealm" required="false">
                 <documentation>
@@ -154,6 +638,8 @@
             </property>
             <property name="customTypesPackage">
                 <default>org.andromda.persistence.hibernate</default>
+                <documentation>
+                </documentation>
             </property>
             <property name="userTypesPackage">
                 <default>org.andromda.persistence.hibernate.usertypes</default>
@@ -165,62 +651,52 @@
             </property>
             <property name="serviceLocatorName">
                 <default>ServiceLocator</default>
+                <documentation>
+                    The name to give to the generated service locator class.
+                </documentation>
             </property>
-            <property name="sequenceIdentifierSuffix">
-                <default>_SEQ</default>
+            <property name="hibernatePoolSize" required="false">
+                <documentation>
+                    Hibernate connection pool size.
+                </documentation>
             </property>
-            <property name="driver" required="false"/>
-            <property name="username" required="false"/>
-            <property name="password" required="false"/>
-            <property name="connectionUrl" required="false"/>
-            <property name="dataSource" required="false"/>
-            <property name="hibernatePoolSize" required="false"/>
-            <property name="hibernateTransactionFactoryClass">
-                <default>net.sf.hibernate.transaction.JTATransactionFactory</default>
-            </property>
-            <property name="hibernateTransactionManagerStrategy" required="false"/>
-            <property name="hibernateUserTransactionName">
-                <default>UserTransaction</default>
-            </property>
-            <property name="hibernateTransactionManagerLookup" required="false"/>
-            <property name="hibernateUseOuterJoin" required="false"/>
-            <property name="hibernateShowSql" required="false"/>
             <property name="hibernateJndiName">
                 <default>java:/hibernate/SessionFactory</default>
-            </property>
-            <property name="hibernateDialect" required="false"/>
-            <property name="hibernateDefaultSchema" required="false"/>
-            <property name="hibernateJdbcFetchSize" required="false"/>
-            <property name="hibernateJdbcBatchSize" required="false"/>
-            <property name="hibernateJdbcUseScrollableResultSet" required="false"/>
-            <property name="hibernateMaxFetchDepth" required="false"/>
-            <property name="hibernateJdbcUseStreamsForBinary" required="false"/>
-            <property name="hibernateHbm2DDLAuto" required="false"/>
-            <property name="hibernateQuerySubstitutions" required="false"/>
-            <property name="hibernateEnableCache">
-                <default>false</default>
-            </property>
-            <property name="hibernateEnableAssociationsCache">
-                <default>false</default>
-            </property>
-            <property name="hibernateEhCacheDiskStore">
-                <default>java.io.tmpdir</default>
-            </property>
-            <property name="hibernateCacheProvider">
-                <default>net.sf.hibernate.cache.EhCacheProvider</default>
-            </property>
-            <property name="hibernateQueryCacheFactory">
-                <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
+                <documentation>
+                    JNDI name bound to the SessionFactory.
+                </documentation>
             </property>
             <property name="xmlEncoding">
                 <default>UTF-8</default>
+                <documentation>
+                    Encoding for generated XML files.
+                </documentation>
             </property>
             <property name="generateEntityEqualsAndHashCode">
                 <default>true</default>
+                <documentation>
+                    Indicates whether or not a default equals and hashCode implementation should be generated.
+                </documentation>
+            </property>
+            <property name="hibernateProxy">
+                <default>false</default>
+                <documentation>
+                    Defines if proxies will be enabled for Hibernate Entities.
+                </documentation>
             </property>
             <!-- This property is only relevant for Hibernate 3 -->
             <property name="hibernateQueryFactory">
                 <default>org.hibernate.hql.classic.ClassicQueryTranslatorFactory</default>
+                <documentation>
+                    <![CDATA[
+                    Hibernate3 comes with a brand-new, ANTLR-based HQL/SQL query translator. However, it is still buggy and so in mean time use the Hibernate 2.1 query parser which is still available.
+                    Possible values are:
+                     <ul>
+                        <li>org.hibernate.hql.ast.ASTQueryTranslatorFactory (for the new query parser)</li>
+                        <li>org.hibernate.hql.classic.ClassicQueryTranslatorFactory (for the old parser)</li>
+                     </ul>
+                    ]]>
+                </documentation>
             </property>
         </propertyGroup>
     </properties>

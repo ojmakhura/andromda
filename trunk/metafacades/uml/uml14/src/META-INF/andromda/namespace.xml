@@ -5,7 +5,7 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup name="Properties">
+        <propertyGroup name="Other">
             <property name="languageMappingsUri">
                 <documentation>
                     URI specifying the specific mappings from model types to language types.
@@ -268,27 +268,68 @@
             </property>
             <property name="allowDefaultIdentifiers">
                 <default>true</default>
+                <documentation>
+                    Specifies whether or not default identifiers should
+                    be created for entities that do not have them
+                    modeled.
+                </documentation>
             </property>
             <property name="defaultIdentifierPattern">
                 <default>id</default>
+                <documentation>
+                    <![CDATA[
+                    The pattern used to construct the default identifier name of an entity, where <em>{0}</em>
+                    represents the name of the entity as lower camel case (i.e. if <code>defaultIdentifierPattern</code>
+                    had a value of <em>{0}Id</em>, then the resulting identifier of a an Entity named PersonName would
+                    be <em>personNameId</em>).
+                    ]]>
+                </documentation>
             </property>
             <property name="defaultIdentifierType">
                 <default>datatype::Long</default>
+                <documentation>
+                    The type to give default identifiers.
+                </documentation>
             </property>
             <property name="defaultIdentifierVisibility">
                 <default>public</default>
+                <documentation>
+                    The visibility to give default identifiers.
+                </documentation>
+            </property>
+            <property name="relationNameSeparator">
+                <default>2</default>
+                <documentation>
+                    The separator used for constructing a relation name between two associations.
+                </documentation>
             </property>
             <property name="manageableIdDisplayStrategy">
                 <default>auto</default>
+                <documentation>
+                    <![CDATA[
+                    ]]>
+                </documentation>
             </property>
             <property name="defaultResolveable">
                 <default>true</default>
+                <documentation>
+                    <![CDATA[
+                    ]]>
+                </documentation>
             </property>
             <property name="defaultPageSize">
                 <default>20</default>
+                <documentation>
+                    <![CDATA[
+                    ]]>
+                </documentation>
             </property>
             <property name="defaultMaximumListSize">
                 <default>250</default>
+                <documentation>
+                    <![CDATA[
+                    ]]>
+                </documentation>
             </property>
         </propertyGroup>
     </properties>

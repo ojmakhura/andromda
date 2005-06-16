@@ -6,7 +6,7 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup name="Outlet Properties">
+        <propertyGroup name="Outlets">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
@@ -16,15 +16,16 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup name="Other Properties">
-            <!-- The name of the namespace -->
-            <property name="namespace"/>
+        <propertyGroup name="Other">
+            <property name="namespace">
+                <documentation>
+                    The name that will be given to the target and default namespaces.
+                </documentation>
+            </property>
             <property name="xmlEncoding">
                 <default>UTF-8</default>
                 <documentation>
-                    <![CDATA[
                     The encoding of the schema.
-                    ]]>
                 </documentation>
             </property>
         </propertyGroup>

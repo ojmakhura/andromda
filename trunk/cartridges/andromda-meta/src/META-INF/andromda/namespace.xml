@@ -6,7 +6,7 @@
         <component name="metafacades"/>
     </components>
     <properties>
-        <propertyGroup name="Outlet Properties">
+        <propertyGroup name="Outlet">
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
@@ -34,7 +34,7 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup name="Other Properties">
+        <propertyGroup name="Other">
             <property name="implementationOperationNamePattern">
                 <default>handle{0}</default>
                 <documentation>
@@ -59,12 +59,12 @@
                 <default>super{0}</default>
                 <documentation>
                     <![CDATA[
-                        The pattern used for constructing the generalize name
-                        for the delegated generalizations (these are exposed
-                        to the child metafacade implementation class when
-                        a metafacade extends more than one other metafacade).
-                        <em>{0}</em> is the name of the generalization (or type
-                        if the name has not been specified).
+                    The pattern used for constructing the generalize name
+                    for the delegated generalizations (these are exposed
+                    to the child metafacade implementation class when
+                    a metafacade extends more than one other metafacade).
+                    <em>{0}</em> is the name of the generalization (or type
+                    if the name has not been specified).
                     ]]>
                 </documentation>
             </property>
