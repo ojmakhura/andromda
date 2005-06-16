@@ -10,9 +10,10 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+
 /**
  * Converts a database schema to an XMI document.
- * 
+ *
  * @author Chad Brandon
  */
 public class Schema2XMI
@@ -83,6 +84,11 @@ public class Schema2XMI
     private static final String TABLE_PATTERN = "t";
 
     /**
+     * The command line argument specifying the attribute names pattern to match on.
+     */
+    private static final String COLUMN_PATTERN = "a";
+
+    /**
      * The command line argument specifying the class stereotype name.
      */
     private static final String CLASS_STEREOTYPES = "C";
@@ -112,6 +118,7 @@ public class Schema2XMI
         try
         {
             AndroMDALogger.initialize();
+
             // turn off validation because of the incorrect parsers
             // in the JDK
             XmlObjectFactory.setDefaultValidating(false);
@@ -127,17 +134,11 @@ public class Schema2XMI
         option.setLongOpt("help");
         options.addOption(option);
 
-        option = new Option(
-            XMI_VERSION,
-            true,
-            "Specifies the XMI version that will be produced");
+        option = new Option(XMI_VERSION, true, "Specifies the XMI version that will be produced");
         option.setLongOpt("xmi");
         options.addOption(option);
 
-        option = new Option(
-            INPUT_MODEL,
-            true,
-            "Input model file (to which model elements will be added)");
+        option = new Option(INPUT_MODEL, true, "Input model file (to which model elements will be added)");
         option.setLongOpt("input");
         options.addOption(option);
 
@@ -157,63 +158,47 @@ public class Schema2XMI
         option.setLongOpt("password");
         options.addOption(option);
 
-        option = new Option(
-            MAPPINGS,
-            true,
-            "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
+        option = new Option(MAPPINGS, true, "The type mappings URI (i.e. file:${basedir}/DataypeMappings.xml)");
         option.setLongOpt("mappings");
         options.addOption(option);
 
-        option = new Option(
-            SCHEMA,
-            true,
-            "The name of the schema where the tables can be found");
+        option = new Option(SCHEMA, true, "The name of the schema where the tables can be found");
         option.setLongOpt("schema");
         options.addOption(option);
 
-        option = new Option(
-            TABLE_PATTERN,
-            true,
-            "The table name pattern of tables to process (regular expression)");
+        option = new Option(TABLE_PATTERN, true, "The table name pattern of tables to process (regular expression)");
         option.setLongOpt("tablePattern");
+        options.addOption(option);
+
+        option = new Option(COLUMN_PATTERN, true, "The column name pattern of columns to process (regular expression)");
+        option.setLongOpt("columnPattern");
         options.addOption(option);
 
         option = new Option(PACKAGE, true, "The package to output classifiers");
         option.setLongOpt("package");
         options.addOption(option);
 
-        option = new Option(
-            CLASS_STEREOTYPES,
-            true,
-            "Comma seperated list of stereotype names to add to the created class");
+        option =
+            new Option(CLASS_STEREOTYPES, true, "Comma seperated list of stereotype names to add to the created class");
         option.setLongOpt("classStereotypes");
         options.addOption(option);
 
-        option = new Option(
-            IDENTIFIER_STEREOTYPES,
-            true,
-            "Comma seperated list of stereotype names to add to any class identifiers");
+        option =
+            new Option(
+                IDENTIFIER_STEREOTYPES, true, "Comma seperated list of stereotype names to add to any class identifiers");
         option.setLongOpt("identifierStereotypes");
         options.addOption(option);
 
-        option = new Option(
-            TABLE_TAGGEDVALUE,
-            true,
-            "The tagged value to use for storing the table name");
+        option = new Option(TABLE_TAGGEDVALUE, true, "The tagged value to use for storing the table name");
         option.setLongOpt("tableTaggedValue");
         options.addOption(option);
 
-        option = new Option(
-            COLUMN_TAGGEDVALUE,
-            true,
-            "The tagged value to use for storing the column name");
+        option = new Option(COLUMN_TAGGEDVALUE, true, "The tagged value to use for storing the column name");
         option.setLongOpt("columnTaggedValue");
         options.addOption(option);
 
-        option = new Option(
-            OUTPUT_MODEL,
-            true,
-            "Output location to which the result of the transformation will be written");
+        option =
+            new Option(OUTPUT_MODEL, true, "Output location to which the result of the transformation will be written");
         option.setLongOpt("output");
         options.addOption(option);
     }
@@ -225,12 +210,7 @@ public class Schema2XMI
     public static void displayHelp()
     {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp(
-            Schema2XMI.class.getName() + " [options] ...]]",
-            "\nOptions:",
-            options,
-            "\n");
-
+        formatter.printHelp(Schema2XMI.class.getName() + " [options] ...]]", "\nOptions:", options, "\n");
     }
 
     /**
@@ -240,70 +220,66 @@ public class Schema2XMI
      * command-line options, and return a <code>CommandLine</code> object from
      * which we can retrieve the command like options.
      * </p>
-     * 
+     *
      * @see <a href="http://jakarta.apache.org/commons/cli/">CLI </a>
      * @param args The command-line arguments to parse.
      * @return The <code>CommandLine</code> result.
      * @throws ParseException If an error occurs while parsing the command-line
      *         options.
      */
-    public CommandLine parseCommands(String[] args) throws ParseException
+    public CommandLine parseCommands(String[] args)
+        throws ParseException
     {
         CommandLineParser parser = new PosixParser();
         return parser.parse(options, args);
     }
 
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         Schema2XMI schema2Xmi = new Schema2XMI();
         try
         {
             CommandLine commandLine = schema2Xmi.parseCommands(args);
-            if (commandLine.hasOption(HELP)
-                || !(commandLine.hasOption(OUTPUT_MODEL)
-                    && commandLine.hasOption(DRIVER)
-                    && commandLine.hasOption(CONNECTION_URL)
-                    && commandLine.hasOption(USER) && commandLine
-                    .hasOption(PASSWORD)))
+            if (
+                commandLine.hasOption(HELP) ||
+                !(
+                    commandLine.hasOption(OUTPUT_MODEL) && commandLine.hasOption(DRIVER) &&
+                    commandLine.hasOption(CONNECTION_URL) && commandLine.hasOption(USER) &&
+                    commandLine.hasOption(PASSWORD)
+                ))
             {
                 Schema2XMI.displayHelp();
             }
             else
             {
                 String inputModel = commandLine.getOptionValue(INPUT_MODEL);
-                SchemaTransformer transformer = new SchemaTransformer(
-                    commandLine.getOptionValue(DRIVER),
-                    commandLine.getOptionValue(CONNECTION_URL),
-                    commandLine.getOptionValue(USER),
-                    commandLine.getOptionValue(PASSWORD));
+                SchemaTransformer transformer =
+                    new SchemaTransformer(
+                        commandLine.getOptionValue(DRIVER),
+                        commandLine.getOptionValue(CONNECTION_URL),
+                        commandLine.getOptionValue(USER),
+                        commandLine.getOptionValue(PASSWORD));
 
                 // set the extra options
-                transformer.setXmiVersion(commandLine
-                    .getOptionValue(XMI_VERSION));
-                transformer.setTypeMappings(commandLine
-                    .getOptionValue(MAPPINGS));
+                transformer.setXmiVersion(commandLine.getOptionValue(XMI_VERSION));
+                transformer.setTypeMappings(commandLine.getOptionValue(MAPPINGS));
                 transformer.setPackageName(commandLine.getOptionValue(PACKAGE));
                 transformer.setSchema(commandLine.getOptionValue(SCHEMA));
-                transformer.setTableNamePattern(commandLine
-                    .getOptionValue(TABLE_PATTERN));
-                transformer.setClassStereotypes(commandLine
-                    .getOptionValue(CLASS_STEREOTYPES));
-                transformer.setIdentifierStereotypes(commandLine
-                    .getOptionValue(IDENTIFIER_STEREOTYPES));
-                transformer.setTableTaggedValue(commandLine
-                    .getOptionValue(TABLE_TAGGEDVALUE));
-                transformer.setColumnTaggedValue(commandLine
-                    .getOptionValue(COLUMN_TAGGEDVALUE));
+                transformer.setTableNamePattern(commandLine.getOptionValue(TABLE_PATTERN));
+                transformer.setColumnNamePattern(commandLine.getOptionValue(COLUMN_PATTERN));
+                transformer.setClassStereotypes(commandLine.getOptionValue(CLASS_STEREOTYPES));
+                transformer.setIdentifierStereotypes(commandLine.getOptionValue(IDENTIFIER_STEREOTYPES));
+                transformer.setTableTaggedValue(commandLine.getOptionValue(TABLE_TAGGEDVALUE));
+                transformer.setColumnTaggedValue(commandLine.getOptionValue(COLUMN_TAGGEDVALUE));
 
-                String outputLocation = commandLine
-                    .getOptionValue(OUTPUT_MODEL);
+                String outputLocation = commandLine.getOptionValue(OUTPUT_MODEL);
                 transformer.transform(inputModel, outputLocation);
             }
         }
-        catch (Throwable th)
+        catch (Throwable throwable)
         {
-            th = getRootCause(th);
-            th.printStackTrace();
+            throwable = getRootCause(throwable);
+            throwable.printStackTrace();
         }
     }
 

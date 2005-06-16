@@ -115,11 +115,6 @@ public class SchemaTransformer
     private String classStereotypes = null;
 
     /**
-     * Specifies the identifier stereotype.
-     */
-    private String identifierStereotypes = null;
-
-    /**
      * Stores the name of the column tagged value to use for storing the name of
      * the column.
      */
@@ -270,6 +265,22 @@ public class SchemaTransformer
     }
 
     /**
+     * The column name pattern.
+     */
+    private String columnNamePattern;
+
+    /**
+     * Sets the regular expression pattern to match on when deciding what attributes
+     * ti create in the XMI.
+     *
+     * @param columnNamePattern The pattern for filtering the column name.
+     */
+    public void setColumnNamePattern(String columnNamePattern)
+    {
+        this.columnNamePattern = columnNamePattern;
+    }
+
+    /**
      * Sets the stereotype name for the new classes.
      *
      * @param classStereotypes The classStereotypes to set.
@@ -278,6 +289,11 @@ public class SchemaTransformer
     {
         this.classStereotypes = StringUtils.deleteWhitespace(classStereotypes);
     }
+
+    /**
+     * Specifies the identifier stereotype.
+     */
+    private String identifierStereotypes = null;
 
     /**
      * Sets the stereotype name for the identifiers on the new classes.
@@ -533,84 +549,88 @@ public class SchemaTransformer
         String tableName)
         throws SQLException
     {
-        Collection attributes = new ArrayList();
-        ResultSet columnRs = metadata.getColumns(null, this.schema, tableName, null);
-        Collection primaryKeyColumns = this.getPrimaryKeyColumns(metadata, tableName);
+        final Collection attributes = new ArrayList();
+        final ResultSet columnRs = metadata.getColumns(null, this.schema, tableName, null);
+        final Collection primaryKeyColumns = this.getPrimaryKeyColumns(metadata, tableName);
         while (columnRs.next())
         {
             final String columnName = columnRs.getString("COLUMN_NAME");
-            final String attributeName = SqlToModelNameFormatter.toAttributeName(columnName);
-            if (logger.isInfoEnabled())
+            if (this.columnNamePattern == null || columnName.matches(this.columnNamePattern))
             {
-                logger.info("adding attribute --> '" + attributeName + "'");
-            }
-
-            // do NOT add foreign key columns as attributes (since
-            // they are placed on association ends)
-            if (!this.hasForeignKey(tableName, columnName))
-            {
-                Classifier typeClass = null;
-
-                // first we try to find a mapping that maps to the
-                // database proprietary type
-                String type =
-                    Schema2XMIUtils.constructTypeName(
-                        columnRs.getString("TYPE_NAME"),
-                        columnRs.getString("COLUMN_SIZE"));
-                logger.info("  -  searching for type mapping '" + type + "'");
-                if (typeMappings.containsFrom(type))
+                final String attributeName = SqlToModelNameFormatter.toAttributeName(columnName);
+                if (logger.isInfoEnabled())
                 {
-                    typeClass = this.getOrCreateDataType(corePackage, type);
+                    logger.info("adding attribute --> '" + attributeName + "'");
                 }
 
-                // - See if we can find a type matching a mapping for a JDBC type 
-                //   (if we haven't found a database specific one)
-                if (typeClass == null)
+                // do NOT add foreign key columns as attributes (since
+                // they are placed on association ends)
+                if (!this.hasForeignKey(tableName, columnName))
                 {
-                    type = JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE"));
+                    Classifier typeClass = null;
+
+                    // first we try to find a mapping that maps to the
+                    // database proprietary type
+                    String type =
+                        Schema2XMIUtils.constructTypeName(
+                            columnRs.getString("TYPE_NAME"),
+                            columnRs.getString("COLUMN_SIZE"));
                     logger.info("  -  searching for type mapping '" + type + "'");
                     if (typeMappings.containsFrom(type))
                     {
                         typeClass = this.getOrCreateDataType(corePackage, type);
                     }
-                    else
+
+                    // - See if we can find a type matching a mapping for a JDBC type 
+                    //   (if we haven't found a database specific one)
+                    if (typeClass == null)
                     {
-                        logger.info("  !  no mapping found, type not added to '" + attributeName + "'");
+                        type = JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE"));
+                        logger.info("  -  searching for type mapping '" + type + "'");
+                        if (typeMappings.containsFrom(type))
+                        {
+                            typeClass = this.getOrCreateDataType(corePackage, type);
+                        }
+                        else
+                        {
+                            logger.info("  !  no mapping found, type not added to '" + attributeName + "'");
+                        }
                     }
-                }
 
-                boolean required = !this.isColumnNullable(metadata, tableName, columnName);
+                    boolean required = !this.isColumnNullable(metadata, tableName, columnName);
 
-                Attribute attribute =
-                    corePackage.getAttribute().createAttribute(
-                        attributeName,
-                        VisibilityKindEnum.VK_PUBLIC,
-                        false,
-                        ScopeKindEnum.SK_INSTANCE,
-                        this.createAttributeMultiplicity(
-                            corePackage.getDataTypes(),
-                            required),
-                        ChangeableKindEnum.CK_CHANGEABLE,
-                        ScopeKindEnum.SK_CLASSIFIER,
-                        OrderingKindEnum.OK_UNORDERED,
-                        null);
-                attribute.setType(typeClass);
+                    Attribute attribute =
+                        corePackage.getAttribute().createAttribute(
+                            attributeName,
+                            VisibilityKindEnum.VK_PUBLIC,
+                            false,
+                            ScopeKindEnum.SK_INSTANCE,
+                            this.createAttributeMultiplicity(
+                                corePackage.getDataTypes(),
+                                required),
+                            ChangeableKindEnum.CK_CHANGEABLE,
+                            ScopeKindEnum.SK_CLASSIFIER,
+                            OrderingKindEnum.OK_UNORDERED,
+                            null);
+                    attribute.setType(typeClass);
 
-                if (StringUtils.isNotEmpty(this.columnTaggedValue))
-                {
-                    // add the tagged value for the column name
-                    TaggedValue taggedValue = this.createTaggedValue(corePackage, this.columnTaggedValue, columnName);
-                    if (taggedValue != null)
+                    if (StringUtils.isNotEmpty(this.columnTaggedValue))
                     {
-                        attribute.getTaggedValue().add(taggedValue);
+                        // add the tagged value for the column name
+                        TaggedValue taggedValue =
+                            this.createTaggedValue(corePackage, this.columnTaggedValue, columnName);
+                        if (taggedValue != null)
+                        {
+                            attribute.getTaggedValue().add(taggedValue);
+                        }
                     }
+                    if (primaryKeyColumns.contains(columnName))
+                    {
+                        attribute.getStereotype().addAll(
+                            this.getOrCreateStereotypes(corePackage, this.identifierStereotypes, "Attribute"));
+                    }
+                    attributes.add(attribute);
                 }
-                if (primaryKeyColumns.contains(columnName))
-                {
-                    attribute.getStereotype().addAll(
-                        this.getOrCreateStereotypes(corePackage, this.identifierStereotypes, "Attribute"));
-                }
-                attributes.add(attribute);
             }
         }
         DbUtils.closeQuietly(columnRs);
