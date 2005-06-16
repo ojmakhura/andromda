@@ -12,6 +12,7 @@ import org.andromda.core.engine.Engine;
 import org.andromda.core.server.Client;
 import org.apache.log4j.Logger;
 
+
 /**
  * The main entry point to the framework. Handles the processing of models.
  * Facilitates Model Driven Architecture by enabling the generation of source
@@ -55,8 +56,8 @@ public final class AndroMDA
     /**
      * Runs AndroMDA with the given configuration.
      *
-     * @param configurationUri
-     *            the URI to the configuration file that configures AndroMDA.
+     * @param configurationUri the URI to the configuration file that configures
+     *        AndroMDA.
      */
     public void run(final URL configurationUri)
     {
@@ -66,11 +67,12 @@ public final class AndroMDA
     /**
      * Runs AndroMDA with the given configuration.
      *
-     * @param configurationStream
-     *            the InputStream that contains the configuration contents for
-     *            configuring AndroMDA.
+     * @param configurationStream the InputStream that contains the
+     *        configuration contents for configuring AndroMDA.
      */
-    public void run(final InputStream configurationStream, final URL uri)
+    public void run(
+        final InputStream configurationStream,
+        final URL uri)
     {
         this.run(Configuration.getInstance(configurationStream));
     }
@@ -78,13 +80,13 @@ public final class AndroMDA
     /**
      * Runs AndroMDA with the given configuration.
      *
-     * @param configuration
-     *            the String that contains the configuration contents for
-     *            configuring AndroMDA.
-     * @param uri
-     *            the configuration location.
+     * @param configuration the String that contains the configuration contents
+     *        for configuring AndroMDA.
+     * @param uri the configuration location.
      */
-    public void run(final String configuration, final URL uri)
+    public void run(
+        final String configuration,
+        final URL uri)
     {
         this.run(Configuration.getInstance(configuration));
     }
@@ -95,15 +97,14 @@ public final class AndroMDA
      * the AndroMDA server), or just stand-alone mode if the server can NOT be
      * contacted.
      *
-     * @param configuration
-     *            the String that contains the configuration contents for configuring AndroMDA.
+     * @param configuration the String that contains the configuration contents
+     *        for configuring AndroMDA.
      */
     public void run(final Configuration configuration)
     {
         if (configuration != null)
         {
-            final Client serverClient = (Client)ComponentContainer.instance()
-                    .findRequiredComponent(Client.class);
+            final Client serverClient = (Client)ComponentContainer.instance().findRequiredComponent(Client.class);
             boolean client = true;
 
             // only attempt to run with the client, if they
