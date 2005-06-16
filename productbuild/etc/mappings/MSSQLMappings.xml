@@ -44,7 +44,7 @@
     <mapping>
         <from>datatype::long</from>
         <from>datatype::Long</from>
-        <to>BIGINT</to>
+        <to>NUMERIC(19,0)</to>
     </mapping>
     <mapping>
         <from>datatype::float</from>
