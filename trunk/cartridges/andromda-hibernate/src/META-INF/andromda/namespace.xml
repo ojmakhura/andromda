@@ -493,9 +493,9 @@
                 <default>local</default>
                 <documentation>
                     <![CDATA[
-                        If EJBs are being used, this specifies the default view type
-                        for the EJB interfaces.  Can be either <em>local</em>
-                        or <code>remote</code>.
+                    If EJBs are being used, this specifies the default view type
+                    for the EJB interfaces.  Can be either <em>local</em>
+                    or <code>remote</code>.
                     ]]>
                 </documentation>
             </property>
@@ -516,8 +516,8 @@
                 <default>false</default>
                 <documentation>
                     Defines if the finder setters method for parameters will use "setParameter" for all parameters (by default),
-                    or a specialized setter (setDate,setBoolean...) in case the parameter type has it's own setter method.
-            </documentation>
+                    or a specialized setter (setDate, setBoolean, etc.) in case the parameter type has it's own setter method.
+                </documentation>
             </property>
             <property name="versionProperty" required="false">
                 <documentation>
@@ -670,12 +670,6 @@
                 <default>true</default>
                 <documentation>
                     Indicates whether or not a default equals and hashCode implementation should be generated.
-                </documentation>
-            </property>
-            <property name="hibernateProxy">
-                <default>false</default>
-                <documentation>
-                    Defines if proxies will be enabled for Hibernate Entities.
                 </documentation>
             </property>
             <!-- This property is only relevant for Hibernate 3 -->
