@@ -47,7 +47,6 @@
             <property name="hibernateEntityCache">
                 <default>read-write</default>
                 <documentation>
-                    <![CDATA[
                     Defines the default strategy for Entities caching. Can be overwritten using the corresponding
                     tagged value. Possible values are:
                     <ul>
@@ -55,26 +54,22 @@
                        <li>nonstrict-read-write</li>
                        <li>read-only</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateAssociationCache">
                 <default>read-write</default>
                 <documentation>
-                    <![CDATA[
                     Defines the default strategy for associations between Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
                     <ul>
                        <li>read-write</li>
                        <li>nonstrict-read-write</li>
                        <li>read-only</li>
                     </ul>
-                     ]]>
                 </documentation>
             </property>
             <property name="hibernateUseQueryCache">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                     The default query cache usage.
                     Can be overwritten using
                     <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
@@ -83,17 +78,14 @@
                        <li>true</li>
                        <li>false</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateEnableAssociationsCache">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                     Enable/disable Hibernate's second level cache feature for entity associations.
                     Please <strong>NOTE</strong> that hibernateEnableCache should also be enabled when
                     specifying this property.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateEhCacheDiskStore">
@@ -105,7 +97,6 @@
             <property name="hibernateCacheProvider">
                 <default>net.sf.hibernate.cache.EhCacheProvider</default>
                 <documentation>
-                    <![CDATA[
                     Defines Hibernate Cache Provider implementation class.
                     Possible values for Hibernate2 are:
                     <ul>
@@ -125,13 +116,11 @@
                        <li>org.hibernate.cache.TreeCacheProvider</li>
                        <li>org.hibernate.cache.OSCacheProvider</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateQueryCacheFactory">
                 <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
                 <documentation>
-                    <![CDATA[
                     Defines Hibernate Query Cache Factory implementation class. Possible value for Hibernate2 is:
                     <ul>
                        <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
@@ -140,7 +129,6 @@
                     <ul>
                        <li>org.hibernate.cache.StandardQueryCacheFactory</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="ehCacheMaxElementsInMemory">
@@ -246,7 +234,6 @@
             </property>
             <property name="hibernateHbm2DDLAuto" required="false">
                 <documentation>
-                    <![CDATA[
                     Automatically export schema DDL to the database when the SessionFactory
                     is created. With create-drop, the database schema will be dropped when
                     the SessionFactory is closed explicitely. Permitted values are:
@@ -255,17 +242,14 @@
                         <li>create</li>
                         <li>create-drop</li>
                     </ol>
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateQuerySubstitutions" required="false">
                 <documentation>
-                    <![CDATA[
                     Allows you to define new Hibernate query tokens. For example:
                     giving this a value of <em>true=1, false=0</em>
                     would cause the tokens true and false to be translated to integer
                     literals in the generated SQL.
-                    ]]>
                 </documentation>
             </property>
             <property name="sequenceIdentifierSuffix">
@@ -284,13 +268,11 @@
             <property name="entityNamePattern">
                 <default>{0}</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when constructing an entity name.
                     <em>{0}</em> is used to represent the entity name
                     in the model, so if you specified a value of
                     <code>{0}Entity</code> all the entities generated
                     would have a suffix of "Entity".
-                    ]]>
                 </documentation>
             </property>
             <property name="entityImplementationNamePattern">
@@ -322,7 +304,6 @@
             <property name="serviceOperationTransactionType">
                 <default>Required</default>
                 <documentation>
-                    <![CDATA[
                     The default value to use for service operations transaction types.
                     <ul>
                         Permitted values are:
@@ -336,7 +317,6 @@
                     <strong>NOTE:</strong> Can be overridden on a per entity basis with the
                     <a href="modeling.html#andromda.ejb.transaction.type">@andromda.ejb.transaction.type</a>
                     tagged value.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateTransactionFactoryClass">
@@ -366,38 +346,31 @@
             <property name="hibernateVersion">
                 <default>2</default>
                 <documentation>
-                    <![CDATA[
                     The version of Hibernate to use when generating.
                     <ul>
                         Allowable values are:
                         <li>2</li>
                         <li>3</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="defaultHibernateGeneratorClass">
                 <default>native</default>
                 <documentation>
-                    <![CDATA[
                     The default class to use for Hibernate ID generation (can be overridden
                     on a per entity basis with the
                     <a href="modeling.html#andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a>
                     tagged value).
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateDefaultCascade">
                 <default>none</default>
                 <documentation>
-                    <![CDATA[
                     The value of the <code>default-cascade</code> attribute of the hibernate entity XML mapping.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateCompositionCascade" required="false">
                 <documentation>
-                    <![CDATA[
                     Indicates how a UML composition should be interpreted as cascade.
                     <ul>
                         <li>
@@ -413,12 +386,10 @@
                             UML concept of a composition, e.g. <em>all-delete-orphan</em>.
                         </li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateAggregationCascade" required="false">
                 <documentation>
-                    <![CDATA[
                     Indicates how a UML aggregation should be interpreted as cascade. Possible values are are as follows:
                     <ul>
                         <li>
@@ -430,7 +401,6 @@
                             The value must be a valid Hibernate cascade style, e.g. <em>all</em>.
                          </li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateEntityDynamicInsert">
@@ -454,18 +424,15 @@
             <property name="hibernateQueryUseNamedParameters">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                     Whether or not named parameters (i.e. ':someParameter') or unnamed
                     (i.e. '?') parameters should be used in the HQL queries embedded
                     within the model.
                     <strong>NOTE:</strong> Does not apply to queries written in OCL.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateInheritanceStrategy">
                 <default>subclass</default>
                 <documentation>
-                    <![CDATA[
                     Defines the hibernate inheritance strategy (unless
                     overridden on an entity level by the
                     <a href="#modeling.html#andromda_hibernate_inheritance">@andromda.hibernate.inheritance</a>
@@ -480,7 +447,6 @@
                               the concrete case because it has limitations in the associations.
                           </li>
                       </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="compositionDefinesEagerLoading">
@@ -492,11 +458,9 @@
             <property name="ejbViewType">
                 <default>local</default>
                 <documentation>
-                    <![CDATA[
                     If EJBs are being used, this specifies the default view type
                     for the EJB interfaces.  Can be either <em>local</em>
                     or <code>remote</code>.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateAssociationCollectionType">
@@ -521,19 +485,16 @@
             </property>
             <property name="versionProperty" required="false">
                 <documentation>
-                    <![CDATA[
                     The name of the property/attribute to automatically add to entities
                     for versioning purposes. If this value is not specified or it contains
                     only whitespace characters it will be ignored and the property will
                     not be generated. This value can be overridden with the
                     <a href="modeling.html#andromda.hibernate.version">@andromda.hibernate.version</a>tagged value.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateAssociationEndOuterJoin">
                 <default>auto</default>
                 <documentation>
-                    <![CDATA[
                     Defines the default outer join value for many to one and
                     one to one association ends. Possible values are:
                    <ul>
@@ -546,7 +507,6 @@
                         <li>join</li>
                         <li>select</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="listTypeImplementation">
@@ -576,58 +536,46 @@
             <property name="specificCollectionInterfaces">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                     A flag indicating whether or not specific collection interfaces will be used
                     in association end mutators and accessors (i.e. java.util.Set, java.util.List, etc).
                     If this is set to false, then the value of the <a href="#defaultCollectionInterface">defaultCollectionInterface</a>
                     property will used to provide the collection interface.
-                    ]]>
                 </documentation>
             </property>
             <property name="defaultCollectionInterface">
                 <default>java.util.Collection</default>
                 <documentation>
-                    <![CDATA[
                     The default collection interface, this is the interface used with association end
                     accessors and mutators if the <a href="#specificCollectionInterfaces">specificCollectionInterfaces</a>
                     flag is set to <code>false</code>.
-                    ]]>
                 </documentation>
             </property>
             <property name="associationEndCollectionIndexName" required="false">
                 <documentation>
-                    <![CDATA[
                     The default association end collection index name (this can be overridden by the
                     <a href="modeling.html#andromda_hibernate_collection_index">@andromda.hibernate.collection.index</a>).
-                    ]]>
                 </documentation>
             </property>
             <property name="associationEndCollectionIndexType" required="false">
                 <documentation>
-                    <![CDATA[
                     The default association end collection index type (this can be overridden by the
                     <a href="modeling.html#andromda_hibernate_collection_index_type">@andromda.hibernate.collection.index.type</a>
                     (this is applicable when the collection is a map).
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateTypeMappingsUri" required="false">
                 <documentation>
-                    <![CDATA[
                     URI specifying the specific mappings from model types to hibernate types.
                     (i.e. <code>file:${basedir}/HibernateTypeMappings.xml</code>). This
                     is not necessary but useful for defining hibernate user types (when
                     hibernate doesn't support a specific type in the manner needed
                     for your application).
-                    ]]>
                 </documentation>
             </property>
             <property name="securityRealm" required="false">
                 <documentation>
-                    <![CDATA[
                     The name of the security realm (i.e. animal-quiz, other, etc).
                     <strong>NOTE:</strong>This enables EJB security if specified.
-                    ]]>
                 </documentation>
             </property>
             <property name="customTypesPackage">
@@ -638,9 +586,7 @@
             <property name="userTypesPackage">
                 <default>org.andromda.persistence.hibernate.usertypes</default>
                 <documentation>
-                    <![CDATA[
                     Defines the package for the Hibernate user types
-                    ]]>
                 </documentation>
             </property>
             <property name="serviceLocatorName">
@@ -676,14 +622,12 @@
             <property name="hibernateQueryFactory">
                 <default>org.hibernate.hql.classic.ClassicQueryTranslatorFactory</default>
                 <documentation>
-                    <![CDATA[
                     Hibernate3 comes with a brand-new, ANTLR-based HQL/SQL query translator. However, it is still buggy and so in mean time use the Hibernate 2.1 query parser which is still available.
                     Possible values are:
                      <ul>
                         <li>org.hibernate.hql.ast.ASTQueryTranslatorFactory (for the new query parser)</li>
                         <li>org.hibernate.hql.classic.ClassicQueryTranslatorFactory (for the old parser)</li>
                      </ul>
-                    ]]>
                 </documentation>
             </property>
         </propertyGroup>

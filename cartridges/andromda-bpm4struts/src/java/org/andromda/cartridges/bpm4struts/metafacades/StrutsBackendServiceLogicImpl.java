@@ -1,6 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 
 
 /**
@@ -11,8 +11,6 @@ import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 public class StrutsBackendServiceLogicImpl
         extends StrutsBackendServiceLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsBackendServiceLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -24,7 +22,7 @@ public class StrutsBackendServiceLogicImpl
     protected java.lang.String handleGetAccessorImplementation()
     {
         String accessorImplementation = String.valueOf(
-                getConfiguredProperty(UMLMetafacadeProperties.SERVICE_ACCESSOR_PATTERN));
+                getConfiguredProperty(Bpm4StrutsGlobals.SERVICE_ACCESSOR_PATTERN));
         return accessorImplementation.replaceAll("\\{0\\}", getPackageName()).replaceAll("\\{1\\}", getName());
     }
 
@@ -34,7 +32,7 @@ public class StrutsBackendServiceLogicImpl
     public java.lang.String getFullyQualifiedName()
     {
         String packageName = String.valueOf(
-                getConfiguredProperty(UMLMetafacadeProperties.SERVICE_PACKAGE_NAME_PATTERN));
+                getConfiguredProperty(Bpm4StrutsGlobals.SERVICE_PACKAGE_NAME_PATTERN));
         return packageName.replaceAll("\\{0\\}", super.getPackageName()) + "." + this.getName();
     }
 

@@ -258,6 +258,13 @@
                     ]]>
                 </documentation>
             </property>
+            <property name="servicePackageNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The name of the package in which to create the service files, <code>{0}</code>
+                    can be used to denote the package in which the service has been modeled.
+                </documentation>
+            </property>
             <property name="allowDefaultIdentifiers">
                 <default>true</default>
                 <documentation>
