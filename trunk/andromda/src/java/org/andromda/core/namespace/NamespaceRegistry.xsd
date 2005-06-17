@@ -49,7 +49,7 @@
         </xs:unique>
     </xs:element>
     <xs:element name="default" type="xs:string"/>
-    <xs:element name="documentation" type="xs:string"/>
+    <xs:element name="documentation" type="xs:anyType"/>
     <xs:element name="namespace">
         <xs:complexType>
             <xs:sequence>
