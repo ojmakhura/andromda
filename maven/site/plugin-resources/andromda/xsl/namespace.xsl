@@ -15,49 +15,45 @@
 
     <xsl:template match="properties">
         <section name="%module% Namespace Properties">
-            <div class="namespacePropertyGroups">
-                <table>
-                    <tr>
-                        <xsl:for-each select="propertyGroup">
+            <xsl:for-each select="propertyGroup">
+                <xsl:sort select="@name"/>
+                <div class="namespacePropertyGroup">
+                    <b><xsl:value-of select="@name"/></b><br/>
+                    <xsl:if test="normalize-space(documentation)">
+                        <div class="namespacePropertyGroupDocumentation"><xsl:text disable-output-escaping="yes">&lt;</xsl:text>![CDATA[<xsl:value-of select="documentation" disable-output-escaping="yes"/>]]<xsl:text disable-output-escaping="yes">&gt;</xsl:text></div>
+                    </xsl:if>
+                    <ul>
+                        <xsl:for-each select="property">
                             <xsl:sort select="@name"/>
-                            <td>
-                                <b><xsl:value-of select="@name"/></b><br/>
-                                <xsl:if test="normalize-space(documentation)">
-                                    <div class="namespacePropertyGroupDocumentation"><xsl:text disable-output-escaping="yes">&lt;</xsl:text>![CDATA[<xsl:value-of select="documentation" disable-output-escaping="yes"/>]]<xsl:text disable-output-escaping="yes">&gt;</xsl:text></div>
-                                </xsl:if>
-                                <ul>
-                                    <xsl:for-each select="property">
-                                        <xsl:sort select="@name"/>
-                                        <li>
-                                            <xsl:element name="a">
-                                                <xsl:attribute name="href">#<xsl:value-of select="@name"/></xsl:attribute>
-                                                <xsl:attribute name="title">
-                                                    <xsl:choose>
-                                                        <!-- when a default value is present the property is considered not to be required
-                                                             to have a value specified by the user, when a default value is missing the property
-                                                             is considered to be required when the 'required' attribute is not set to 'false' -->
-                                                        <xsl:when test="default or @required = 'false'">
-                                                            Optional
-                                                            <xsl:if test="default">
-                                                                <xsl:choose>
-                                                                    <xsl:when test="normalize-space(default)"> defaults to '<xsl:value-of select="default"/>'</xsl:when>
-                                                                    <xsl:otherwise> defaults to the empty string</xsl:otherwise>
-                                                                </xsl:choose>
-                                                            </xsl:if>
-                                                        </xsl:when>
-                                                        <xsl:otherwise>Required</xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:attribute>
-                                                <xsl:value-of select="@name"/>
-                                            </xsl:element>
-                                        </li>
-                                    </xsl:for-each>
-                                </ul>
-                            </td>
+                            <li>
+                                <xsl:element name="a">
+                                    <xsl:attribute name="href">#<xsl:value-of select="@name"/></xsl:attribute>
+                                    <xsl:attribute name="title">
+                                        <xsl:choose>
+                                            <!-- when a default value is present the property is considered not to be required
+                                                 to have a value specified by the user, when a default value is missing the property
+                                                 is considered to be required when the 'required' attribute is not set to 'false' -->
+                                            <xsl:when test="default or @required = 'false'">
+                                                <xsl:choose>
+                                                    <xsl:when test="default">
+                                                        <xsl:choose>
+                                                            <xsl:when test="normalize-space(default)">Optional, defaults to '<xsl:value-of select="default"/>'</xsl:when>
+                                                            <xsl:otherwise>Optional, defaults to the empty string</xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>Optional, no default value available</xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>Required</xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:attribute>
+                                    <xsl:value-of select="@name"/>
+                                </xsl:element>
+                            </li>
                         </xsl:for-each>
-                    </tr>
-                </table>
-            </div>
+                    </ul>
+                </div>
+            </xsl:for-each>
             <p>
                 <xsl:apply-templates/>
             </p>
