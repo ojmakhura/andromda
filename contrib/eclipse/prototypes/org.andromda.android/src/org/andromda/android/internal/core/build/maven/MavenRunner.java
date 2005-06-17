@@ -9,17 +9,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.IDebugEventSetListener;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.Launch;
+import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
@@ -27,31 +33,46 @@ import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
+import org.eclipse.ui.internal.Workbench;
 import org.osgi.framework.Bundle;
 
+/**
+ * TODO: Hava a look at AntLaunchDelegate.runInSeparateVM()
+ * 
+ * @author Peter Friese
+ * @since 17.06.2005
+ */
 public class MavenRunner
+        implements IDebugEventSetListener
 {
 
     /** Contains the project properties the user has entered in the wizard. */
     private Map projectProperties;
 
+    private IProcess[] processes;
+
+    private final IProject project;
+
     /**
-     * A <code>MavenRunner</code> can execute maven in order to attain maven goals. Project specific
-     * properties can be set using the <code>projectProperties</code> parameter.
-     *
+     * A <code>MavenRunner</code> can execute maven in order to attain maven goals. Project specific properties can be
+     * set using the <code>projectProperties</code> parameter.
+     * 
      * @param projectProperties The project properties as entered by the user.
+     * @param project TODO
      */
-    public MavenRunner(Map projectProperties)
+    public MavenRunner(Map projectProperties, IProject project)
     {
         this.projectProperties = projectProperties;
+        this.project = project;
     }
 
     /**
      * Runs maven.
-     *
+     * 
      * @param monitor The progress monitor to be used.
      */
-    public void execute(IProgressMonitor monitor) {
+    public void execute(IProgressMonitor monitor)
+    {
 
         try
         {
@@ -72,8 +93,8 @@ public class MavenRunner
             File projectParentDir = new File(projectPath).getParentFile();
 
             // VM runner
-            VMRunnerConfiguration vmConfig = new VMRunnerConfiguration(
-                    "com.werken.forehead.Forehead", foreheadClasspath);
+            VMRunnerConfiguration vmConfig = new VMRunnerConfiguration("com.werken.forehead.Forehead",
+                    foreheadClasspath);
 
             vmConfig.setVMArguments(options);
             vmConfig.setProgramArguments(goals);
@@ -90,8 +111,7 @@ public class MavenRunner
                 ILaunchConfigurationType type = manager
                         .getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
 
-                ILaunchConfigurationWorkingCopy launchWorkingCopy = type.newInstance(null,
-                        "Create AndroMDA project.");
+                ILaunchConfigurationWorkingCopy launchWorkingCopy = type.newInstance(null, "Create AndroMDA project.");
                 launchWorkingCopy.setAttribute(IDebugUIConstants.ATTR_PRIVATE, true);
 
                 monitor.worked(2);
@@ -100,6 +120,8 @@ public class MavenRunner
                 ILaunch newLaunch = new Launch(launchWorkingCopy, ILaunchManager.RUN_MODE, null);
                 DebugPlugin.getDefault().getLaunchManager().addLaunch(newLaunch);
                 vmRunner.run(vmConfig, newLaunch, monitor);
+                processes = newLaunch.getProcesses();
+                DebugPlugin.getDefault().addDebugEventListener(this);
                 monitor.worked(8);
             }
         }
@@ -216,6 +238,50 @@ public class MavenRunner
     private String getToolsJarPath()
     {
         return getJDKHome() + "/lib/tools.jar";
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.IDebugEventSetListener#handleDebugEvents(org.eclipse.debug.core.DebugEvent[])
+     */
+    public void handleDebugEvents(DebugEvent[] events)
+    {
+        for (int i = 0; i < events.length; i++)
+        {
+            DebugEvent event = events[i];
+            if (ArrayUtils.contains(getProcesses(), event.getSource()))
+            {
+
+                if (event.getKind() == DebugEvent.TERMINATE)
+                {
+                    DebugPlugin.getDefault().removeDebugEventListener(this);
+                    try
+                    {
+                        project.refreshLocal(IResource.DEPTH_INFINITE, null);
+                    }
+                    catch (CoreException e)
+                    {
+                        e.printStackTrace();
+                    }                    
+                }
+            }
+        }
+    }
+
+    /**
+     * @return
+     */
+    private IProcess[] getProcesses()
+    {
+        if (processes != null)
+        {
+            return processes;
+        }
+        else
+        {
+            return new IProcess[0];
+        }
     }
 
 }

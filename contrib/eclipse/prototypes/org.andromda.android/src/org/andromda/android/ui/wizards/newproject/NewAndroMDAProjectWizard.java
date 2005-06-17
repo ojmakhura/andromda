@@ -8,6 +8,7 @@ import org.andromda.android.internal.ui.wizards.BasicProjectInformationWizardPag
 import org.andromda.android.internal.ui.wizards.ProjectFeaturesWizardPage;
 import org.andromda.android.internal.ui.wizards.ProjectMetaInformationWizardPage;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -96,7 +97,7 @@ public class NewAndroMDAProjectWizard
         project.create(null);
         project.open(null);
 
-        MavenRunner runner = new MavenRunner(projectProperties);
+        MavenRunner runner = new MavenRunner(projectProperties, project);
         runner.execute(monitor);
     }
 
