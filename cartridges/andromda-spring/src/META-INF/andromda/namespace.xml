@@ -92,11 +92,11 @@
                 <default>{0}DaoBase</default>
                 <documentation>
                     <![CDATA[
-                   The pattern to use when constructing the base DAO's name.
-                   <em>{0}</em> is used to represent the entity name
-                   in the model, so if you specified a value of
-                   <code>{0}DaoBase</code> all the entities generated
-                   would have a suffix of "DaoBase".
+                    The pattern to use when constructing the base DAO's name.
+                    <em>{0}</em> is used to represent the entity name
+                    in the model, so if you specified a value of
+                    <code>{0}DaoBase</code> all the entities generated
+                    would have a suffix of "DaoBase".
                     ]]>
                 </documentation>
             </property>
@@ -636,16 +636,6 @@
                     <![CDATA[
                     The name of the OpenSessionInViewFilter (when using the open-session-in-view
                     pattern).
-                    ]]>
-                </documentation>
-            </property>
-            <property name="ejbViewType">
-                <default>local</default>
-                <documentation>
-                    <![CDATA[
-                    If EJBs are being used, this specifies the view type
-                    for the EJB interfaces.  Can be either <em>local</em>
-                    or <code>remote</code>.
                     ]]>
                 </documentation>
             </property>
