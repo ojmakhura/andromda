@@ -112,7 +112,7 @@
                     ]]>
                 </documentation>
             </property>
-            <property name="ejbJndiNamePrefix">
+            <property name="ejbJndiNamePrefix" required="false">
                 <documentation>
                     The prefix to give to the Session EJB JNDI names (this allows
                     the same Session EJB to be deployed multiple times in the same
@@ -173,7 +173,7 @@
                     The port the exported services get published on.
                 </documentation>
             </property>
-            <property name="serviceRemoteContext">
+            <property name="serviceRemoteContext" required="false">
                 <documentation>
                     The context the exported services get published on.
                 </documentation>
