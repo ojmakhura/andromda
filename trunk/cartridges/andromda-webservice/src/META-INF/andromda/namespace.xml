@@ -328,7 +328,12 @@
                     Encoding for generated XML files.
                 </documentation>
             </property>
-            <property name="signedRequest">
+        </propertyGroup>
+        <propertyGroup name="WSS4J">
+            <documentation>
+                Defines the properties for configuring support for WSS4J generation.
+            </documentation>
+           <property name="signedRequest">
                 <default>false</default>
                 <documentation>
                     <![CDATA[
@@ -357,11 +362,6 @@
                     If true, causes generation of necessary code that signs the response.
                 </documentation>
             </property>
-        </propertyGroup>
-        <propertyGroup name="WSS4J">
-            <documentation>
-                Defines the crypto properties for WSS4J.
-            </documentation>
             <property name="cryptoKeyStore" required="false">
                 <documentation>
                     <![CDATA[
