@@ -52,8 +52,6 @@
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
-        <property reference="serviceAccessorPattern"/>
-        <property reference="servicePackageNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">

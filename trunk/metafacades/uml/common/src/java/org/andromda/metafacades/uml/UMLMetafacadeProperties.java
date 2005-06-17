@@ -180,21 +180,11 @@ public class UMLMetafacadeProperties
      * The pattern used for constructing operations that handle postcondition constraints.
      */
     public static final String POSTCONDITION_NAME_PATTERN = "postconditionNamePattern";
-
-    /**
-     * The namespace property used to identify the pattern used to construct the backend service's accessor.
-     */
-    public static final String SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
-
+    
     /**
      * The namespace property used to identify the pattern used to construct the backend CRUD service's accessor.
      */
     public static final String MANAGEABLE_SERVICE_ACCESSOR_PATTERN = "manageableServiceAccessorPattern";
-
-    /**
-     * The namespace property used to identify the pattern used to construct the backend service's package name.
-     */
-    public static final String SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
     
     /**
      * The namespace property used to define the default multiplicity of

@@ -38,10 +38,8 @@
             </property>
             <property name="wss4j-configuration" required="false">
                 <documentation>
-                    <![CDATA[
                     The directory to which any <a href="http://ws.apache.org/ws-fx/wss4j/index.html">WSS4J</a>
                     specific configuration files are generated.
-                    ]]>
                 </documentation>
             </property>
         </propertyGroup>
@@ -49,62 +47,52 @@
             <property name="namespacePrefix">
                 <default>impl</default>
                 <documentation>
-                    <![CDATA[
-                    ]]>
+                    Defines the prefix to give to the default namespace.
                 </documentation>
             </property>
             <property name="qualifiedNameLocalPartPattern">
                 <default>{0}</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when a qualified name local part is created.
                     <em>{0}</em> represents the name of the classifier (i.e.
                     <em>WS{0}</em> would give all your types and services a prefix
                     of <em>WS</em>).
-                    ]]>
                 </documentation>
             </property>
             <property name="namespacePattern">
                 <default>http://{0}</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when a namespace is created.
                     <em>{0}</em> represents the package name of the classifier (i.e.
                     <em>ws.{0}</em> would prefix all your type and service
                     namespaces with <em>ws.</em>).
-                    ]]>
                 </documentation>
             </property>
             <property name="reverseNamespace">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                     Whether or not to reverse the ordering of the namespace.
                     The namespace is typically determined by the package
                     name of the service or type, this allows you to reverse the package
                     name. (i.e. org.andromda.samples would become
                     <em>samples.andromda.org</em> if this was set to <code>true</code>).
                     Value should be <code>true or false</code>.
-                    ]]>
                 </documentation>
             </property>
             <property name="defaultProvider">
                 <default>RPC</default>
                 <documentation>
-                    <![CDATA[
                     The default use given all web services (if not defined seperately
                     on each web service). Possible choices are:
                     <ul>
                         <li>RPC</li>
                         <li>EJB</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="defaultStyle">
                 <default>wrapped</default>
                 <documentation>
-                    <![CDATA[
                     The default style given all web services (if not defined seperately
                     on each web service). Possible choices are:
                     <ul>
@@ -112,68 +100,55 @@
                         <li>document</li>
                         <li>rpc</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="defaultUse">
                 <default>literal</default>
                 <documentation>
-                    <![CDATA[
                     The default use given all web services (if not defined seperately
                     on each web service). Possible choices are:
                     <ul>
                         <li>literal</li>
                         <li>encoded</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="rpcClassNamePattern">
                 <default>{0}.{1}Impl</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use for the class name for a web service using an RPC
                     provider.  It's useful to set this when your RPC service
                     has a non typical name (i.e. you want to use the web service delegator
                     from the spring cartridge).
                     <em>{0}</em> is the service package name and <em>{1}</em> is the service class name.
-                    ]]>
                 </documentation>
             </property>
             <property name="wsdlOperationSortMode">
                 <default>name</default>
                 <documentation>
-                    <![CDATA[
                     Specifies how operations should be sorted within the WSDL.
                     Current options are <strong>none</strong> and <strong>name</strong>.
-                    ]]>
                 </documentation>
             </property>
             <property name="testPackageNamePattern">
                 <default>{0}.test</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when constructing the package name to which tests are generated, where
                     <em>{0}</em> is the current model element package name.
-                    ]]>
                 </documentation>
             </property>
             <property name="testNamePattern">
                 <default>{0}Test</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when constructing the name's of the tests that should be generated,
                     where <em>{0}</em> is the current model element name.
-                    ]]>
                 </documentation>
             </property>
             <property name="testImplementationNamePattern">
                 <default>{0}TestImpl</default>
                 <documentation>
-                    <![CDATA[
                     The pattern used to construct the test implementation name, where <em>{0}</em>
                     is the current model element name.
-                    ]]>
                 </documentation>
             </property>
             <property name="arrayNamePrefix">
@@ -184,79 +159,63 @@
             </property>
             <property name="schemaTypeMappingsUri">
                 <documentation>
-                    <![CDATA[
                     URI specifying the specific mappings from model types to WSDL Schema types.
                     (i.e. <code>file:${basedir}/XmlSchemaMappings.xml</code>)
-                     ]]>
                 </documentation>
             </property>
             <property name="ejbJndiNamePrefix" required="false">
                 <documentation>
-                    <![CDATA[
                     The prefix given to the JNDI name of the EJB provider.  This
                     may be specified by another cartridge (i.e. the
                     <a href="../andromda-hibernate-cartridge/namespace.html#ejbJndiNamePrefix">Hibernate</a>
                     cartridge, <a href="../andromda-ejb-cartridge/namespace.html#jndiName">EJB</a>
                     cartridge, etc.) so it must be specified here in order to give
                     the correct JNDI name of an EJB provider.
-                    ]]>
                 </documentation>
             </property>
             <property name="ejbInterfacePattern">
                 <default>{0}.{1}</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when determining the interface of an EJB
                     provider: <em>{0}</em> represents the package name of the
                     model element and <em>{1}</em> represents the name of the
                     model element.
-                    ]]>
                 </documentation>
             </property>
             <property name="ejbHomeInterfacePattern">
                 <default>{0}.{1}Home</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when determining the home interface of
                     an EJB provider: <em>{0}</em> represents the package name
                     of the model element and <em>{1}</em> represents the name
                     of the model element.
-                    ]]>
                 </documentation>
             </property>
             <property name="testImplementationOperationNamePrefix">
                 <default>handle</default>
                 <documentation>
-                    <![CDATA[
                     The pattern used to construct the test implementation name, where <em>{0}</em>
                     is the current model element name.
-                    ]]>
                 </documentation>
             </property>
             <property name="applicationName">
                 <documentation>
-                    <![CDATA[
                     The name of the application that this service will run within
                     (i.e. Security Services}
-                    ]]>
                 </documentation>
             </property>
             <property name="wsdlSoapAddress">
                 <documentation>
-                    <![CDATA[
                     The location of where the WSDL will reside (i.e. "http://localhost:8080/security-service/services")
-                    ]]>
                 </documentation>
             </property>
             <property name="securityRealm" required="false">
                 <documentation>
-                    <![CDATA[
                     The security realm to use for securing your web service(s).
                     <strong>NOTE:</strong> this must be set in order to have
                     <strong>ANY</strong> of your web services secured.  A web service
                     will be secured if it has <strong>any</strong> roles (i.e. Actors)
                     associated to it.
-                    ]]>
                 </documentation>
             </property>
             <property name="testServiceLocatorName">
@@ -297,29 +256,21 @@
             <property name="wsdlSoapNamespace">
                 <default>http://schemas.xmlsoap.org/wsdl/soap/</default>
                 <documentation>
-                    <![CDATA[
-                    ]]>
                 </documentation>
             </property>
             <property name="xmlSchemaNamespace">
                 <default>http://www.w3.org/2001/XMLSchema</default>
                 <documentation>
-                    <![CDATA[
-                    ]]>
                 </documentation>
             </property>
             <property name="wsdlNamespace">
                 <default>http://schemas.xmlsoap.org/wsdl/</default>
                 <documentation>
-                    <![CDATA[
-                    ]]>
                 </documentation>
             </property>
             <property name="documentStyleTransportNamespace">
                 <default>http://schemas.xmlsoap.org/soap/http</default>
                 <documentation>
-                    <![CDATA[
-                    ]]>
                 </documentation>
             </property>
             <property name="xmlEncoding">
@@ -336,12 +287,10 @@
            <property name="signedRequest">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                     True or false on whether or not the webservice will expect signed
                     requests.  If true, a WSS4J Axis handler will be added to provide
                     decryption of signed requests (if this is set to <code>true</code>
                     the following properties below MUST be specified.
-                    ]]>
                 </documentation>
             </property>
             <property name="encryptedRequest">
@@ -364,16 +313,12 @@
             </property>
             <property name="cryptoKeyStore" required="false">
                 <documentation>
-                    <![CDATA[
                     The location of the key store file (i.e. <em>keys/authorization-service.jks</em>).
-                    ]]>
                 </documentation>
             </property>
             <property name="cryptoKeyStoreType" required="false">
                 <documentation>
-                    <![CDATA[
                     The key store's type (i.e. <em>jks</em>).
-                    ]]>
                 </documentation>
             </property>
             <property name="cryptoKeyStoreAlias" required="false">

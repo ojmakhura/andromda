@@ -42,12 +42,10 @@
             </property>
             <property name="open-session-in-view" required="false">
                 <documentation>
-                    <![CDATA[
                     The location to which the AndroMDA OpenSessionInViewFilter will be generated
                     (allows the Hibernate <em>open-session-in-view</em> pattern when you want to
                     expose your enties directly to your presentation tier - allows lazy-loading to
                     occur that level).
-                    ]]>
                 </documentation>
             </property>
             <property name="session-ejbs" required="false">
@@ -68,48 +66,40 @@
             <property name="hibernateVersion">
                 <default>2</default>
                 <documentation>
-                    <![CDATA[
                     The version of Hibernate to use when generating.
                     <ul>
                         Allowable values are:
                         <li>2</li>
                         <li>3</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="daoNamePattern">
                 <default>{0}Dao</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when constructing the DAO name. <em>{0}</em> is used to represent
                     the entity name in the model, so if you specified a value of <code>{0}Dao</code> all
                     the entities generated would have a suffix of "Dao".
-                    ]]>
                 </documentation>
             </property>
             <property name="daoBaseNamePattern">
                 <default>{0}DaoBase</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when constructing the base DAO's name.
                     <em>{0}</em> is used to represent the entity name
                     in the model, so if you specified a value of
                     <code>{0}DaoBase</code> all the entities generated
                     would have a suffix of "DaoBase".
-                    ]]>
                 </documentation>
             </property>
             <property name="daoImplementationNamePattern">
                 <default>{0}DaoImpl</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when constructing the DAO's
                     implementation name. <em>{0}</em> is used to represent
                     the entity name in the model, so if you specified a value of
                     <code>{0}DaoImpl</code> all the entities generated
                     would have a suffix of "DaoImpl".
-                    ]]>
                 </documentation>
             </property>
             <property name="ejbJndiNamePrefix" required="false">
@@ -122,7 +112,6 @@
             <property name="ejbPackageNamePattern">
                 <default>{0}.ejb</default>
                 <documentation>
-                    <![CDATA[
                     If EJBs are being used, this specifies the pattern to be
                     used when constructing the EJB package name
                     (this allows a Spring Service to be wrapped by a Session EJB
@@ -130,32 +119,26 @@
                     represents the service package name.  This could be something like
                     <em>{0}.ejb</em> which would create the Spring Session EJBs in the
                     package ending in the <em>ejb</em> package.
-                    ]]>
                 </documentation>
             </property>
             <property name="defaultServiceExceptionNamePattern">
                 <default>{0}Exception</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when constructing the default service exception name.
                     <strong>NOTE:</strong> This propety is only applicable when defaultServiceExceptions
                     is <code>true</code>.
-                    ]]>
                 </documentation>
             </property>
             <property name="defaultServiceExceptions">
                 <default>true</default>
                 <documentation>
-                    <![CDATA[
                     Whether or not to generate a default exception for each service.  This exception
                     will handle unexpected exceptions occuring within the implemented operations.
-                    ]]>
                 </documentation>
             </property>
             <property name="serviceRemotingType">
                 <default>none</default>
                 <documentation>
-                    <![CDATA[
                     Determines the type of remoting to be used for Spring services. Can any one of
                     <ul>
                         <li>none</li>
@@ -164,7 +147,6 @@
                         <li>burlap</li>
                         <li>hessian</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="serviceRemotePort">
@@ -187,30 +169,25 @@
             <property name="entityNamePattern">
                 <default>{0}</default>
                 <documentation>
-                    <![CDATA[
                     The pattern to use when constructing an entity name.
                     <em>{0}</em> is used to represent the entity name
                     in the model, so if you specified a value of
                     <code>{0}Entity</code> all the entities generated
                     would have a suffix of "Entity".
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateQueryUseNamedParameters">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                     Whether or not named parameters (i.e. ':someParameter') or unnamed
                     (i.e. '?') parameters should be used in the HQL queries embedded
                     within the model.
                     <strong>NOTE:</strong> Does not apply to queries written in OCL.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateInheritanceStrategy">
                 <default>subclass</default>
                 <documentation>
-                    <![CDATA[
                     Defines the hibernate inheritance strategy (unless
                     overridden on an entity level by the
                     <a href="#modeling.html#andromda.hibernate.inheritance">@andromda.hibernate.inheritance</a>
@@ -225,25 +202,21 @@
                             the concrete case because it has limitations in the associations.
                         </li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="serviceOperationTransactionType">
                 <default>PROPAGATION_REQUIRED</default>
                 <documentation>
-                    <![CDATA[
                     The default transaction type used for service operations (when not
                     wrapping your services with EJBs).
                     <strong>NOTE:</strong> Can be overridden on a per entity basis with the
                     <a href="modeling.html#@andromda.spring.transaction.type">@andromda.spring.transaction.type</a>
                     tagged value.
-                    ]]>
                 </documentation>
             </property>
             <property name="ejbServiceOperationTransactionType">
                 <default>Required</default>
                 <documentation>
-                    <![CDATA[
                     The default transaction type definition used if EJB service operations.
                     <ul>
                         Permitted values are:
@@ -254,145 +227,102 @@
                         <li>Mandatory</li>
                         <li>Never</li>
                     </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="serviceHibernateInterceptorEnabled">
                 <default>true</default>
                 <documentation>
-                    <![CDATA[
                     Whether or not the hibernate interceptor should be enabled
                     on services.
-                    ]]>
                 </documentation>
             </property>
             <property name="ejbViewType">
                 <default>local</default>
                 <documentation>
-                    <![CDATA[
                     If EJBs are being used, this specifies the view type
                     for the EJB interfaces.  Can be either <em>local</em>
                     or <code>remote</code>.
-                    ]]>
-                </documentation>
-            </property>
-            <property name="serviceAccessorPattern" required="false"/>
-            <property name="servicePackageNamePattern">
-                <default>{0}</default>
-                <documentation>
-                    <![CDATA[
-                    ]]>
                 </documentation>
             </property>
             <property name="implementationOperationNamePattern">
                 <default>handle{0}</default>
                 <documentation>
-                    <![CDATA[
                     The pattern used to the create the implementation operation name
                     (i.e. the operations that actually perform the handling of the logic),
                     where <em>{0}</em> represents the operation name
-                    ]]>
                 </documentation>
             </property>
             <property name="driver" required="false">
                 <documentation>
-                    <![CDATA[
                     JDBC Driver to make a database connection.
-                    ]]>
                 </documentation>
             </property>
             <property name="username" required="false">
                 <documentation>
-                    <![CDATA[
                     The database user login name.
-                    ]]>
                 </documentation>
             </property>
             <property name="password" required="false">
                 <documentation>
-                    <![CDATA[
                     The database user password.
-                    ]]>
                 </documentation>
             </property>
             <property name="connectionUrl" required="false">
                 <documentation>
-                    <![CDATA[
                     URL for the JDBC Driver to make the connection to the database.
-                    ]]>
                 </documentation>
             </property>
             <property name="dataSource" required="false">
                 <documentation>
-                    <![CDATA[
                     JNDI name of data source to use. (would be used instead
                     of the connection properties, driver, username, password, etc).
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernatePoolSize" required="false">
                 <documentation>
-                    <![CDATA[
                     Hibernate connection pool size.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateTransactionManagerStrategy" required="false">
                 <documentation>
-                    <![CDATA[
                     Strategy for obtaining the JTA TransactionManager
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateUserTransactionName" required="false">
                 <documentation>
-                    <![CDATA[
                     The JNDI name of the JTA UserTransaction object
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateTransactionManagerLookup" required="false">
                 <documentation>
-                    <![CDATA[
                     The fully qualified class name of the Hibernate TransactionFactory implementation
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateUseOuterJoin" required="false">
                 <documentation>
-                    <![CDATA[
                     Whether or not to use outer joins.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateShowSql" required="false">
                 <documentation>
-                    <![CDATA[
                     Whether or not to log SQL statements (true/false).  By default
                     this is off (within Hibernate).
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateJndiName" required="false">
                 <documentation>
-                    <![CDATA[
                     JNDI name bound to the SessionFactory.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateDialect" required="false">
                 <documentation>
-                    <![CDATA[
                     SQL dialect of the database being used.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateDefaultSchema" required="false">
                 <documentation>
-                    <![CDATA[
                     Qualify unqualified tablenames with the given
                     schema/tablespace in generated SQL.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateMaxFetchDepth" required="false">
@@ -402,37 +332,28 @@
             </property>
             <property name="hibernateJdbcFetchSize" required="false">
                 <documentation>
-                    <![CDATA[
                     A non-zero value determines the JDBC fetch size.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateJdbcBatchSize" required="false">
                 <documentation>
-                    <![CDATA[
                     A nonzero value enables use of JDBC2 batch updates by Hibernate. ex: recommended values between 5 and 30
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateJdbcUseScrollableResultSet" required="false">
                 <documentation>
-                    <![CDATA[
                     Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
                     This property is only necessary when using user supplied connections.
                     Hibernate uses connection metadata otherwise.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateJdbcUseStreamsForBinary" required="false">
                 <documentation>
-                    <![CDATA[
                     Whether or not to use streams when writing / reading binary or serializable types to/from JDBC
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateHbm2DDLAuto" required="false">
                 <documentation>
-                    <![CDATA[
                     Automatically export schema DDL to the database when the SessionFactory
                     is created. With create-drop, the database schema will be dropped when
                     the SessionFactory is closed explicitely. Permitted values are:
@@ -441,23 +362,19 @@
                         <li>create</li>
                         <li>create-drop</li>
                     </ol>
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateQuerySubstitutions" required="false">
                 <documentation>
-                    <![CDATA[
                     Allows you to define new Hibernate query tokens. For example:
                     giving this a value of <em>true=1, false=0</em>
                     would cause the tokens true and false to be translated to integer
                     literals in the generated SQL.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateUseQueryCache">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                      The default query cache usage.
                      Can be overwritten using
                      <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
@@ -466,233 +383,175 @@
                         <li>true</li>
                         <li>false</li>
                      </ul>
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateCacheProvider">
                 <default>net.sf.hibernate.cache.EhCacheProvider</default>
                 <documentation>
-                    <![CDATA[
                      Defines the Hibernate cache provider implementation class.
-                    ]]>
                 </documentation>
             </property>
             <property name="hibernateQueryCacheFactory">
                 <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
                 <documentation>
-                    <![CDATA[
                     Defines Hibernate Query Cache Factory implementation class
-                    ]]>
                 </documentation>
             </property>
             <property name="applicationContext">
                 <default>applicationContext.xml</default>
                 <documentation>
-                    <![CDATA[
                     The name given to the Spring application context file.
-                    ]]>
                 </documentation>
             </property>
             <property name="applicationContextManageable">
                 <default>applicationContext-manageable.xml</default>
                 <documentation>
-                    <![CDATA[
                     The name given to the Spring CRUD application context file.
-                    ]]>
                 </documentation>
             </property>
             <property name="applicationContextDataSource">
                 <default>applicationContext-dataSource.xml</default>
                 <documentation>
-                    <![CDATA[
                     The name given to the Spring datasource application context file
-                    ]]>
                 </documentation>
             </property>
             <property name="serverContext">
                 <default>serverContext.xml</default>
                 <documentation>
-                    <![CDATA[
                     The name given to the Spring remote services application context xml file (server side)
-                    ]]>
                 </documentation>
             </property>
             <property name="clientContext">
                 <default>clientContext.xml</default>
                 <documentation>
-                    <![CDATA[
                     The name given to the Spring remote services application context xml file (client side)
-                    ]]>
                 </documentation>
             </property>
             <property name="beanRefFactory">
                 <default>beanRefFactory.xml</default>
                 <documentation>
-                    <![CDATA[
                     The name/path of the bean ref factory resource file (i.e. some/path/beanRefFactory.xml)
-                    ]]>
                 </documentation>
             </property>
             <property name="beanRefFactoryId">
                 <default>beanRefFactory</default>
                 <documentation>
-                    <![CDATA[
                     The ID for the Spring bean reference factory (used to load the bean factory).
-                    ]]>
                 </documentation>
             </property>
             <property name="transactionManager">
                 <default>org.springframework.orm.hibernate.HibernateTransactionManager</default>
                 <documentation>
-                    <![CDATA[
                     The transaction manager implementation used by Spring.
-                    ]]>
                 </documentation>
             </property>
             <property name="sessionFactory">
                 <default>org.springframework.orm.hibernate.LocalSessionFactoryBean</default>
                 <documentation>
-                    <![CDATA[
                     Factory bean that creates a local Hibernate SessionFactory instance within Spring.
-                    ]]>
                 </documentation>
             </property>
             <property name="springTypesPackage">
                 <default>org.andromda.spring</default>
                 <documentation>
-                    <![CDATA[
                     The package to which extra types are generated (i.e. ServiceLocator).
-                    ]]>
                 </documentation>
             </property>
             <property name="springPresentationTypesPackage">
                 <default>org.andromda.spring.presentation</default>
                 <documentation>
-                    <![CDATA[
                     The package to which extra presentation types are generated (i.e. OpenSessionInViewFilter).
-                    ]]>
                 </documentation>
             </property>
             <property name="serviceLocatorName">
                 <default>ServiceLocator</default>
                 <documentation>
-                    <![CDATA[
                     The name to give the service locator class.
-                    ]]>
                 </documentation>
             </property>
             <property name="manageableServiceLocatorName">
                 <default>ManageableServiceLocator</default>
                 <documentation>
-                    <![CDATA[
                     The name to give the CRUD service locator class.
-                    ]]>
                 </documentation>
             </property>
             <property name="clientServiceLocatorName">
                 <default>ClientServiceLocator</default>
                 <documentation>
-                    <![CDATA[
                     The name to give the client service locator class.
-                    ]]>
                 </documentation>
             </property>
             <property name="clientServiceLocatorClassloaderSwitching">
                 <default>off</default>
                 <documentation>
-                    <![CDATA[
                     Whether the client service locator should switch the thread context class loader during
                     retrieval of the client application context xml file.
-                    ]]>
                 </documentation>
             </property>
             <property name="clientExceptionHandlingAdviceName">
                 <default>ClientExceptionHandlingAdvice</default>
                 <documentation>
-                    <![CDATA[
                     The name for the client side exception handling advice
-                    ]]>
                 </documentation>
             </property>
             <property name="criteriaSearchBaseName">
                 <default>CriteriaSearch</default>
                 <documentation>
-                    <![CDATA[
                     The base name for the hibernate criteria search utility classes.
-                    ]]>
                 </documentation>
             </property>
             <property name="principalStoreName">
                 <default>PrincipalStore</default>
                 <documentation>
-                    <![CDATA[
                     The name of the principal store class.
-                    ]]>
                 </documentation>
             </property>
             <property name="openSessionInViewFilterName">
                 <default>AndroMDAOpenSessionInViewFilter</default>
                 <documentation>
-                    <![CDATA[
                     The name of the OpenSessionInViewFilter (when using the open-session-in-view
                     pattern).
-                    ]]>
                 </documentation>
             </property>
             <property name="springRemotingType">
                 <default>none</default>
                 <documentation>
-                    <![CDATA[
                     The kind of remoting to use for a spring service
-                    ]]>
                 </documentation>
             </property>
             <property name="securityRealm" required="false">
                 <documentation>
-                    <![CDATA[
                     The name of the security realm (i.e. animal-quiz, other, etc).
                     <strong>NOTE:</strong>This enables EJB security if specified.
-                    ]]>
                 </documentation>
             </property>
             <property name="jndiDataSourceClass">
                 <default>org.springframework.jndi.JndiObjectFactoryBean</default>
                 <documentation>
-                    <![CDATA[
                     The name of the class to use when using a JNDI data source for data access.
-                    ]]>
                 </documentation>
             </property>
             <property name="jdbcDataSourceClass">
                 <default>org.springframework.jdbc.datasource.DriverManagerDataSource</default>
                 <documentation>
-                    <![CDATA[
                     The name of the class to use when using a JDBC data source for data access.
-                    ]]>
                 </documentation>
             </property>
             <property name="jdbcDataSourceDestroyMethod" required="false">
                 <documentation>
-                    <![CDATA[
                     The name of the method to use for destroying the JDBC datasource.
-                    ]]>
                 </documentation>
             </property>
             <property name="parameterRequiredCheck">
                 <default>true</default>
                 <documentation>
-                    <![CDATA[
                     Whether or not parameters should be checked if they're required (on DAOs and services)
-                    ]]>
                 </documentation>
             </property>
-            <!--  -->
             <property name="xmlEncoding">
                 <default>UTF-8</default>
                 <documentation>
-                    <![CDATA[
                     The encoding for xml documents
-                    ]]>
                 </documentation>
             </property>
         </propertyGroup>
@@ -700,47 +559,35 @@
             <property name="acegiServiceSecurity">
                 <default>false</default>
                 <documentation>
-                    <![CDATA[
                     Whether or not acegi security framework should be used for role based recurity handling for spring services.
-                    ]]>
                 </documentation>
             </property>
             <property name="acegiServiceSecurityInterceptor">
                 <default>net.sf.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor</default>
                 <documentation>
-                    <![CDATA[
                     The name of the class to use for the acegi security interception.
-                    ]]>
                 </documentation>
             </property>
             <property name="acegiServiceAccessDecisionManager">
                 <default>net.sf.acegisecurity.vote.AffirmativeBased"</default>
                 <documentation>
-                    <![CDATA[
                     The name of the class to use for the acegi security access decision manager.
-                    ]]>
                 </documentation>
             </property>
             <property name="acegiServiceDecisionVoter">
                 <default>net.sf.acegisecurity.vote.RoleVoter</default>
                 <documentation>
-                    <![CDATA[
                     The name of the class to use for the acegi security access decision voter.
-                    ]]>
                 </documentation>
             </property>
             <property name="acegiAuthenticationManager" required="false">
                 <documentation>
-                    <![CDATA[
                     The bean name of the acegi authentication manager (defined in a seperate applicationContext outside of the generated one).
-                    ]]>
                 </documentation>
             </property>
             <property name="acegiRunAsManager" required="false">
                 <documentation>
-                    <![CDATA[
                     The bean name of the acegi run as manager (defined in a seperate applicationContext outside of the generated one).
-                    ]]>
                 </documentation>
             </property>
         </propertyGroup>
