@@ -50,7 +50,7 @@
             <cache usage="$sourceEnd.association.hibernateCacheType" />
 #end
             <key foreign-key="$sourceEnd.foreignKeyConstraintName">
-                <column name="$sourceEnd.columnName"/>
+                <column name="$sourceEnd.columnName" sql-type="$sourceEnd.sqlType"/>
             </key>
 #if ($otherEnd.indexedCollection)
             <index column="$otherEnd.collectionIndexName"#if($otherEnd.map) type="$otherEnd.collectionIndexType"#end/>
@@ -64,9 +64,11 @@
 #elseif ($sourceEnd.many2Many)
         <set name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns" outer-join="$otherEnd.outerJoin" lazy="$otherEnd.lazy" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
             <key foreign-key="$sourceEnd.foreignKeyConstraintName">
-                <column name="$sourceEnd.columnName"/>
+                <column name="$sourceEnd.columnName" sql-type="$sourceEnd.sqlType"/>
             </key>
-            <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" column="$otherEnd.columnName" foreign-key="$otherEnd.foreignKeyConstraintName"/>
+            <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" foreign-key="$otherEnd.foreignKeyConstraintName">
+                <column name="$otherEnd.columnName" sql-type="$otherEnd.sqlType"/>
+            </many-to-many>
         </set>
 #end
 #end
@@ -79,7 +81,9 @@
 ## Should only get get invoked for inheritance class or subclass.
         <$entity.mappingClassName name="$entity.fullyQualifiedEntityImplementationName"#if($entity.tableRequired) table="$entity.tableName"#else discriminator-value="$entity.entityImplementationName"#end#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate">
 #if($entity.subclassKeyColumn)
-            <key column="$entity.subclassKeyColumn"/>
+            <key foreign-key="${entity.tableName}_INHERITANCE_FKC">                    
+                <column name="$entity.subclassKeyColumn" sql-type="$identifier.sqlType"/>
+            </key>
 #end
 #renderPropertiesAndAssociations($entity "")
 #foreach ($subentity in $entity.specializations)
