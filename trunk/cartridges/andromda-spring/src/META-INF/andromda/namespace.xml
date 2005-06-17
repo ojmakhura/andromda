@@ -10,37 +10,37 @@
             <documentation>
                 Defines the locations to which output is generated.
             </documentation>
-            <property name="services" required="true">
+            <property name="services">
                 <documentation>
                     The location to which all service classes (including the service locator(s))
                     will be generated.
                 </documentation>
             </property>
-            <property name="service-impls" required="true">
+            <property name="service-impls">
                 <documentation>
                     The location to which all service implementation classes
                     will be generated.
                 </documentation>
             </property>
-            <property name="daos" required="true">
+            <property name="daos">
                 <documentation>
                     The location to which Spring DAOs, and any support classes.
                 </documentation>
             </property>
-            <property name="dao-impls" required="true">
+            <property name="dao-impls">
                 <documentation>
                     The location to which Spring DAO implementation
                     classes will be generated (if there are any classifier scoped business
                     operations modeled on any entity).
                 </documentation>
             </property>
-            <property name="spring-configuration" required="true">
+            <property name="spring-configuration">
                 <documentation>
                     The location to which the Spring applicationContext.xml
                     will be generated.
                 </documentation>
             </property>
-            <property name="open-session-in-view">
+            <property name="open-session-in-view" required="false">
                 <documentation>
                     <![CDATA[
                     The location to which the AndroMDA OpenSessionInViewFilter will be generated
