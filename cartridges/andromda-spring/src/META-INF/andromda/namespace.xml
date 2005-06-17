@@ -50,14 +50,14 @@
                     ]]>
                 </documentation>
             </property>
-            <property name="session-ejbs">
+            <property name="session-ejbs" required="false">
                 <documentation>
                     Not really used from the template except to check if it has been defined
                     or not, so that we can determine whether or not we'll use the session
                     EJBs for transaction management (rather than Spring's transaction framework)
                 </documentation>
             </property>
-            <property name="advice-impls">
+            <property name="advice-impls" required="false">
                 <documentation>
                     The location to which any advice implementation classes will be generated.  Currently
                     this is useful when using the cartridge's remoting support.
