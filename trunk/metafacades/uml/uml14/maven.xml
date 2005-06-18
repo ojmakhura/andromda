@@ -1,1 +1,15 @@
-<project default="jar:install"/>
+<project default="jar:install"
+         xmlns:ant="jelly:ant">
+    <!-- ==================================================================
+           Add the META-INF/andromda/namespace.xml to the UML 1.4 jar
+           (it can't be contained in the uml common jar because of the
+           fact that the andromda-metafacades.xml are registered per UML version
+         ================================================================== -->
+    <preGoal name="jar:jar">
+        <ant:copy todir="${maven.build.dest}">
+            <ant:fileset dir="../common/src">
+                <ant:include name="META-INF/andromda/namespace.xml"/>
+            </ant:fileset>
+        </ant:copy>
+    </preGoal>
+</project>

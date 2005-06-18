@@ -21,4 +21,29 @@
 	      	<type>plugin</type>
 	    </dependency>
     </dependencies>
+  	<build>
+		<resources>
+	      	<resource>
+		        <directory>src/java</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+	      	<resource>
+		        <directory>src</directory>
+	        	<includes>
+	        		<include>META-INF/**/*</include>
+	        	</includes>
+                <excludes>
+                    <exclude>META-INF/andromda**/*</exclude>
+                </excludes>
+	      	</resource>
+	  		<resource>
+				<directory>target/src</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	  		</resource>
+    	</resources>
+  	</build>
 </project>
