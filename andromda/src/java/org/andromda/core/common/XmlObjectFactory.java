@@ -152,7 +152,7 @@ public class XmlObjectFactory
                         stream = null;
                     }
                 }
-                catch (IOException ex)
+                catch (final IOException exception)
                 {
                     this.schemaUri = null;
                 }
@@ -178,11 +178,11 @@ public class XmlObjectFactory
                         JAXP_SCHEMA_SOURCE,
                         this.digester.getSchema());
                 }
-                catch (Exception ex)
+                catch (final Exception exception)
                 {
                     logger.warn(
                         "WARNING! Your parser does NOT support the " +
-                        " schema validation continuing in non validation mode", ex);
+                        " schema validation continuing in non validation mode", exception);
                 }
             }
         }
@@ -280,7 +280,7 @@ public class XmlObjectFactory
         /**
          * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
          */
-        public final void error(SAXParseException exception)
+        public final void error(final SAXParseException exception)
             throws SAXException
         {
             throw new SAXException(this.getMessage(exception));
@@ -289,7 +289,7 @@ public class XmlObjectFactory
         /**
          * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
          */
-        public final void fatalError(SAXParseException exception)
+        public final void fatalError(final SAXParseException exception)
             throws SAXException
         {
             throw new SAXException(this.getMessage(exception));
@@ -298,7 +298,7 @@ public class XmlObjectFactory
         /**
          * @see org.xml.sax.ErrorHandler#warning(org.xml.sax.SAXParseException)
          */
-        public final void warning(SAXParseException exception)
+        public final void warning(final SAXParseException exception)
         {
             logger.warn("WARNING!: " + this.getMessage(exception));
         }
@@ -309,9 +309,9 @@ public class XmlObjectFactory
          * @param exception the exception from which to extract the message.
          * @return the message.
          */
-        private final String getMessage(SAXParseException exception)
+        private final String getMessage(final SAXParseException exception)
         {
-            StringBuffer message = new StringBuffer();
+            final StringBuffer message = new StringBuffer();
             if (exception != null)
             {
                 message.append(exception.getMessage());
