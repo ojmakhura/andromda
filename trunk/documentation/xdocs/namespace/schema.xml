@@ -62,8 +62,24 @@
                 <xs:element ref="components" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="properties" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="name" type="xs:string" use="required"/>
-            <xs:attribute name="shared" type="xs:boolean" use="optional"/>
+            <xs:attribute name="name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the name of the namespace, this name should be unique among the
+                        namespaces that will be used at a given time.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="shared" type="xs:boolean" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates if component(s) registered by this namespace should be treated as <em>shared</em>.
+                        Shared can mean for example: these metafacades will be made available to <strong>ALL</strong> namespaces. 
+                        An example of this in use is: we have the "uml" namespace marked as shared because we want these
+                        to be able to be used by all cartridges.
+                    </xs:documentation>
+                </xs:annotation>                
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="property">
