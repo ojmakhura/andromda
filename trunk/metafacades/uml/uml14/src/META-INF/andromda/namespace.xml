@@ -5,6 +5,81 @@
         <component name="metafacades"/>
     </components>
     <properties>
+        <propertyGroup name="Masking">
+            <documentation>
+                Certain namespace properties (the ones listed below) are used to provide masking of names.
+                For example a name such as "Hospital Visit" given to an enumeration literal could be transformed
+                into <em>HOSPITAL_VISIT</em> during model processing by applying the <em>upperunderscore</em>
+                mask to it.
+                When applicable, the following masks are available:
+                <ul>
+                    <li>uppercase - upper cases the name (i.e. "Hospital Visit" would become <em>HOSPITAL VISIT</em>)</li>
+                    <li>lowercase - lower cases the name (i.e. "Hospital Visit" would become <em>hospital visit</em>)</li>
+                    <li>upperunderscore - upper cases the name and replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>HOSPITAL_VISIT</em>)</li>
+                    <li>lowerunderscore - lower cases the name and replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>hospital_visit</em>)</li>
+                    <li>underscore - replaces all non-word characters with an underscore (i.e. "Hospital Visit" would become <em>Hospital_Visit</em>)</li>
+                    <li>nospace - removes all spaces (i.e. "Hospital Visit" would become <em>HospitalVisit</em>)</li>
+                    <li>uppercamelcase - camel cases the word beginning with an upper cased letter (i.e. "Hospital Visit" would become <em>HospitalVisit</em>)</li>
+                    <li>lowercamelcase - camel cases the word beginning with a lower cased letter (i.e. "Hospital Visit" would become <em>hospitalVisit</em></li>
+                    <li>none - no mask is applied</li>
+                </ul>
+            </documentation>
+            <property name="classifierNameMask">
+                <default>none</default>
+                <documentation>
+                   Provides the ability to apply a mask to all classifier names.
+                </documentation>
+            </property>
+            <property name="operationNameMask">
+                <default>none</default>
+                <documentation>
+                    Provides the ability to apply a mask to all operation names.
+                </documentation>
+            </property>
+            <property name="classifierPropertyNameMask">
+                <default>none</default>
+                <documentation>
+                    Provides the ability to apply a mask to all classifier property names.
+                </documentation>
+            </property>
+            <property name="roleNameMask">
+                <default>none</default>
+                <documentation>
+                    Provides the ability to apply a mask to role names (roles are actors
+                    marked with the role stereotype).
+                </documentation>
+            </property>
+            <property name="enumerationNameMask">
+                <default>none</default>
+                <documentation>
+                    Provides the ability to apply a mask to enumeration names.
+                </documentation>
+            </property>
+            <property name="entityNameMask">
+                <default>none</default>
+                <documentation>
+                    Provides the ability to apply a mask to entity names
+                </documentation>
+            </property>
+            <property name="entityPropertyNameMask">
+                <default>none</default>
+                <documentation>
+                    Provides the ability to apply a mask to entity property names.
+                </documentation>
+            </property>
+            <property name="parameterNameMask">
+                <default>none</default>
+                <documentation>
+                    Provides the ability to apply a mask to all parameter names.
+                </documentation>
+            </property>
+            <property name="enumerationLiteralNameMask">
+                <default>none</default>
+                <documentation>
+                    Provides the ability to apply a mask to all enumeration literal names.
+                </documentation>
+            </property>
+        </propertyGroup>
         <propertyGroup name="Other">
             <property name="languageMappingsUri">
                 <documentation>
@@ -102,61 +177,6 @@
                     constructed, for example a model element named CompanyAddress would
                     be translated to COMPANY_ADDRESS if the value of <code>sqlNameSeparator</code>
                     was '<em>_</em>'.
-                </documentation>
-            </property>
-            <property name="classifierNameMask">
-                <default>none</default>
-                <documentation>
-                   Provides the ability to apply a mask to all classifier names.
-                </documentation>
-            </property>
-            <property name="operationNameMask">
-                <default>none</default>
-                <documentation>
-                    Provides the ability to apply a mask to all operation names.
-                </documentation>
-            </property>
-            <property name="classifierPropertyNameMask">
-                <default>none</default>
-                <documentation>
-                    Provides the ability to apply a mask to all classifier property names.
-                </documentation>
-            </property>
-            <property name="roleNameMask">
-                <default>none</default>
-                <documentation>
-                    Provides the ability to apply a mask to role names (roles are actors
-                    marked with the role stereotype).
-                </documentation>
-            </property>
-            <property name="enumerationNameMask">
-                <default>none</default>
-                <documentation>
-                    Provides the ability to apply a mask to enumeration names.
-                </documentation>
-            </property>
-            <property name="entityNameMask">
-                <default>none</default>
-                <documentation>
-                    Provides the ability to apply a mask to entity names
-                </documentation>
-            </property>
-            <property name="entityPropertyNameMask">
-                <default>none</default>
-                <documentation>
-                    Provides the ability to apply a mask to entity property names.
-                </documentation>
-            </property>
-            <property name="parameterNameMask">
-                <default>none</default>
-                <documentation>
-                    Provides the ability to apply a mask to all parameter names.
-                </documentation>
-            </property>
-            <property name="enumerationLiteralNameMask">
-                <default>none</default>
-                <documentation>
-                    Provides the ability to apply a mask to all enumeration literal names.
                 </documentation>
             </property>
             <property name="enableMetafacadePropertyCaching">
