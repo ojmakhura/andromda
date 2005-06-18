@@ -556,6 +556,10 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Acegi Security">
+            <documentation>
+                Configures the declaritive role based security <strong>without EJB</strong>, which uses the 
+                <a href="http://acegisecurity.sourceforge.net">Acegi Security System for Spring</a>.
+            </documentation>
             <property name="acegiServiceSecurity">
                 <default>false</default>
                 <documentation>
