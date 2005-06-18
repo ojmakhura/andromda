@@ -63,7 +63,7 @@ public class ResourceUtils
     {
         try
         {
-            return getContents((resource != null) ? new InputStreamReader(resource.openStream()) : null);
+            return getContents(resource != null ? new InputStreamReader(resource.openStream()) : null);
         }
         catch (Throwable throwable)
         {
@@ -75,7 +75,7 @@ public class ResourceUtils
      * Loads the resource and returns the contents as a String.
      *
      * @param resource the name of the resource.
-     * @return String
+     * @return the contents of the resource as a string.
      */
     public static String getContents(final Reader resource)
     {
@@ -99,7 +99,7 @@ public class ResourceUtils
                 in = null;
             }
         }
-        catch (Throwable throwable)
+        catch (final Throwable throwable)
         {
             final String errMsg = "Error performing " + methodName;
             logger.error(errMsg, throwable);
@@ -140,8 +140,8 @@ public class ResourceUtils
      * List).
      *
      * @param resource the resource from which to retrieve the contents
-     * @param levels   the number of levels to step down if the resource ends up being a directory (if its an artifact,
-     *                 levels will be ignored).
+     * @param levels the number of levels to step down if the resource ends up being a directory (if its an artifact,
+     *               levels will be ignored).
      * @return a list of Strings containing the names of every nested resource found in this resource.
      */
     public static List getDirectoryContents(
@@ -326,7 +326,7 @@ public class ResourceUtils
         }
         return getResource(resourceName);
     }
-    
+
     /**
      * Gets the time as a <code>long</code> when this <code>resource</code> was last modified.
      * If it can not be determined <code>0</code> is returned.
