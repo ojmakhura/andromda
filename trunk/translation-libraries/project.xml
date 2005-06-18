@@ -15,6 +15,12 @@
             <artifactId>${pom.groupId}-core</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-site-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
     </dependencies>
     <!-- restrict the reports generated -->
     <reports>
