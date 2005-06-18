@@ -26,8 +26,7 @@ public class UseCaseFacadeLogicImpl
     {
         ActivityGraph activityGraph = null;
 
-        for (Iterator iterator = metaObject.getOwnedElement().iterator();
-             iterator.hasNext() && activityGraph == null;)
+        for (Iterator iterator = metaObject.getOwnedElement().iterator(); iterator.hasNext() && activityGraph == null;)
         {
             ModelElement modelElement = (ModelElement)iterator.next();
             if (modelElement instanceof ActivityGraph)
