@@ -16,7 +16,7 @@
         <developer>
             <name>Wouter Zoons</name>
             <id>draftdog</id>
-            <email>draftdog@sourceforge.users.net</email>
+            <email>wouter@andromda.org</email>
             <roles>
                 <role>Developer</role>
                 <role>Documentation</role>
@@ -26,7 +26,7 @@
         <developer>
             <name>Chad Brandon</name>
             <id>cwbrandon</id>
-            <email>cwbrandon@sourceforge.users.net</email>
+            <email>chad@andromda.org</email>
             <roles>
                 <role>Developer</role>
             </roles>
@@ -36,7 +36,7 @@
     <contributors>
         <contributor>
             <name>Carlos Cuenca</name>
-            <email>carlos@cuenca-diaz.com</email>
+            <email>carlos@andromda.org</email>
             <roles>
                 <role>Developer</role>
             </roles>
@@ -48,14 +48,6 @@
             <artifactId>maven-andromda-plugin</artifactId>
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
-            <properties>
-                <languageMappingsUri>Java</languageMappingsUri>
-                <wrapperMappingsUri>JavaWrapper</wrapperMappingsUri>
-                <facades>${basedir}/target/src</facades>
-                <facade-logics>${basedir}/target/src</facade-logics>
-                <facades-to-impls>${basedir}/target/src</facades-to-impls>
-                <facade-logic-impls>${basedir}/src/java</facade-logic-impls>
-            </properties>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
