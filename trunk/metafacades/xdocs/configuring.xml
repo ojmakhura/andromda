@@ -3,14 +3,19 @@
 <document> 
 	<properties>
     	<title>Configuring metafacades</title> 
-        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
+        <author email="chad@andromda.org">Chad Brandon</author>
     </properties>
   	<body> 
-
   		<section name="Writing the metafacades descriptor">
   		    <p>
   		        Now that you have written metafacades, you'll want to tell
   		        AndroMDA under which conditions it should instantiate them.
+            </p>
+            <p class="highlight">
+                Because metafacades are a <em><a href="../namespace.html">namespace component</a></em> they
+                <strong>MUST</strong> be registered in a <a href="../namespace.html">namespace descriptor</a>.
+                This descriptor is what allows the metafacades namespace to be <em>"discovered"</em> on the classpath.
+                This namespace descriptor also registers the set of metafacades as a component within the AndroMDA core.             
             </p>
             <a name="descriptor"/>
             <p> 
@@ -29,7 +34,7 @@
             <p>
                 Let's have a look at part of a typical metafacades descriptor:
             <source language="xml"><![CDATA[
-<metafacades namespace="webservice">
+<metafacades>
     ...
     <property reference="arrayNamePrefix" default="ArrayOf"/>
     <property reference="schemaTypeMappingsUri"/>
@@ -112,25 +117,14 @@
                     <th>Required?</th>
                 </tr>
                 <tr>
-                    <a name="namespace"/>
-                    <td>namespace</td>
+                    <td>metaclassPattern</td>
                     <td>
-                        Specifies the name of the namespace to which this set of metafacades applies.  For example:
-                        <em><![CDATA[<metafacades namespace="spring">]]></em> tells us to apply the set of metafacades to the
-                        <em>spring</em> namespace. Note that most of the time the namespace will match the name of a
-                        cartridge.
-                    </td>
-                    <td >Yes</td>
-                </tr>
-                <tr>
-                    <td>shared</td>
-                    <td>
-                        Indicates if metafacades described by the metafacades descriptor should be treated as <em>shared</em>.
-                        Shared means: these metafacades will be made available to <strong>ALL</strong> namespaces. For example
-                        we have the UML 1.4 metafacades descriptor defining its metafacades as shared because we want all cartridges
-                        to be able to use the UML metafacades:
+                        Specifies the pattern of th classes based on the metaclass interface names,
+                        for example '{0}Impl' might be the value, where '{0}' represents the metaclass
+                        interface name.  At least one set of registered metafacades must have this
+                        attribute defined.
                         <source language="xml"><![CDATA[
-<metafacades namespace="uml-1.4" shared="true">
+<metafacades metaclassPattern="{0}$Impl">
 ...
 </metafacades>                            
                         ]]></source>
