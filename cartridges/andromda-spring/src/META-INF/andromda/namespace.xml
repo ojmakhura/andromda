@@ -63,17 +63,6 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Other">
-            <property name="hibernateVersion">
-                <default>2</default>
-                <documentation>
-                    The version of Hibernate to use when generating.
-                    <ul>
-                        Allowable values are:
-                        <li>2</li>
-                        <li>3</li>
-                    </ul>
-                </documentation>
-            </property>
             <property name="daoNamePattern">
                 <default>{0}Dao</default>
                 <documentation>
@@ -176,34 +165,6 @@
                     would have a suffix of "Entity".
                 </documentation>
             </property>
-            <property name="hibernateQueryUseNamedParameters">
-                <default>false</default>
-                <documentation>
-                    Whether or not named parameters (i.e. ':someParameter') or unnamed
-                    (i.e. '?') parameters should be used in the HQL queries embedded
-                    within the model.
-                    <strong>NOTE:</strong> Does not apply to queries written in OCL.
-                </documentation>
-            </property>
-            <property name="hibernateInheritanceStrategy">
-                <default>subclass</default>
-                <documentation>
-                    Defines the hibernate inheritance strategy (unless
-                    overridden on an entity level by the
-                    <a href="#modeling.html#andromda.hibernate.inheritance">@andromda.hibernate.inheritance</a>
-                    tagged value, can be the following possible values:
-                    <ul>
-                        <li>class - table per hierarchy.</li>
-                        <li>subclass - table per class in hierarchy.</li>
-                        <li>concrete - Table per class.</li>
-                        <li>
-                            interface - Root class is defined as an interface and the
-                            attributes remapped to the subclasses.  This is useful in
-                            the concrete case because it has limitations in the associations.
-                        </li>
-                    </ul>
-                </documentation>
-            </property>
             <property name="serviceOperationTransactionType">
                 <default>PROPAGATION_REQUIRED</default>
                 <documentation>
@@ -227,13 +188,6 @@
                         <li>Mandatory</li>
                         <li>Never</li>
                     </ul>
-                </documentation>
-            </property>
-            <property name="serviceHibernateInterceptorEnabled">
-                <default>true</default>
-                <documentation>
-                    Whether or not the hibernate interceptor should be enabled
-                    on services.
                 </documentation>
             </property>
             <property name="ejbViewType">
@@ -276,125 +230,6 @@
                 <documentation>
                     JNDI name of data source to use. (would be used instead
                     of the connection properties, driver, username, password, etc).
-                </documentation>
-            </property>
-            <property name="hibernatePoolSize" required="false">
-                <documentation>
-                    Hibernate connection pool size.
-                </documentation>
-            </property>
-            <property name="hibernateTransactionManagerStrategy" required="false">
-                <documentation>
-                    Strategy for obtaining the JTA TransactionManager
-                </documentation>
-            </property>
-            <property name="hibernateUserTransactionName" required="false">
-                <documentation>
-                    The JNDI name of the JTA UserTransaction object
-                </documentation>
-            </property>
-            <property name="hibernateTransactionManagerLookup" required="false">
-                <documentation>
-                    The fully qualified class name of the Hibernate TransactionFactory implementation
-                </documentation>
-            </property>
-            <property name="hibernateUseOuterJoin" required="false">
-                <documentation>
-                    Whether or not to use outer joins.
-                </documentation>
-            </property>
-            <property name="hibernateShowSql" required="false">
-                <documentation>
-                    Whether or not to log SQL statements (true/false).  By default
-                    this is off (within Hibernate).
-                </documentation>
-            </property>
-            <property name="hibernateJndiName" required="false">
-                <documentation>
-                    JNDI name bound to the SessionFactory.
-                </documentation>
-            </property>
-            <property name="hibernateDialect" required="false">
-                <documentation>
-                    SQL dialect of the database being used.
-                </documentation>
-            </property>
-            <property name="hibernateDefaultSchema" required="false">
-                <documentation>
-                    Qualify unqualified tablenames with the given
-                    schema/tablespace in generated SQL.
-                </documentation>
-            </property>
-            <property name="hibernateMaxFetchDepth" required="false">
-                <documentation>
-                    Sets a maximum "depth" for the outer join fetch tree. eg. recommended values between 0 and 3
-                </documentation>
-            </property>
-            <property name="hibernateJdbcFetchSize" required="false">
-                <documentation>
-                    A non-zero value determines the JDBC fetch size.
-                </documentation>
-            </property>
-            <property name="hibernateJdbcBatchSize" required="false">
-                <documentation>
-                    A nonzero value enables use of JDBC2 batch updates by Hibernate. ex: recommended values between 5 and 30
-                </documentation>
-            </property>
-            <property name="hibernateJdbcUseScrollableResultSet" required="false">
-                <documentation>
-                    Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
-                    This property is only necessary when using user supplied connections.
-                    Hibernate uses connection metadata otherwise.
-                </documentation>
-            </property>
-            <property name="hibernateJdbcUseStreamsForBinary" required="false">
-                <documentation>
-                    Whether or not to use streams when writing / reading binary or serializable types to/from JDBC
-                </documentation>
-            </property>
-            <property name="hibernateHbm2DDLAuto" required="false">
-                <documentation>
-                    Automatically export schema DDL to the database when the SessionFactory
-                    is created. With create-drop, the database schema will be dropped when
-                    the SessionFactory is closed explicitely. Permitted values are:
-                    <ol>
-                        <li>update</li>
-                        <li>create</li>
-                        <li>create-drop</li>
-                    </ol>
-                </documentation>
-            </property>
-            <property name="hibernateQuerySubstitutions" required="false">
-                <documentation>
-                    Allows you to define new Hibernate query tokens. For example:
-                    giving this a value of <em>true=1, false=0</em>
-                    would cause the tokens true and false to be translated to integer
-                    literals in the generated SQL.
-                </documentation>
-            </property>
-            <property name="hibernateUseQueryCache">
-                <default>false</default>
-                <documentation>
-                     The default query cache usage.
-                     Can be overwritten using
-                     <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
-                     Possible values are:
-                     <ul>
-                        <li>true</li>
-                        <li>false</li>
-                     </ul>
-                </documentation>
-            </property>
-            <property name="hibernateCacheProvider">
-                <default>net.sf.hibernate.cache.EhCacheProvider</default>
-                <documentation>
-                     Defines the Hibernate cache provider implementation class.
-                </documentation>
-            </property>
-            <property name="hibernateQueryCacheFactory">
-                <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
-                <documentation>
-                    Defines Hibernate Query Cache Factory implementation class
                 </documentation>
             </property>
             <property name="applicationContext">
@@ -555,9 +390,179 @@
                 </documentation>
             </property>
         </propertyGroup>
+        <propertyGroup name="Hibernate">
+            <documentation>
+                The properties for configuring <a href="http://www.hibernate.org">Hibernate</a> support generation.
+            </documentation>
+            <property name="hibernateVersion">
+                <default>2</default>
+                <documentation>
+                    The version of Hibernate to use when generating.
+                    <ul>
+                        Allowable values are:
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="hibernateQueryUseNamedParameters">
+                <default>false</default>
+                <documentation>
+                    Whether or not named parameters (i.e. ':someParameter') or unnamed
+                    (i.e. '?') parameters should be used in the HQL queries embedded
+                    within the model.
+                    <strong>NOTE:</strong> Does not apply to queries written in OCL.
+                </documentation>
+            </property>
+            <property name="hibernateInheritanceStrategy">
+                <default>subclass</default>
+                <documentation>
+                    Defines the hibernate inheritance strategy (unless
+                    overridden on an entity level by the
+                    <a href="#modeling.html#andromda.hibernate.inheritance">@andromda.hibernate.inheritance</a>
+                    tagged value, can be the following possible values:
+                    <ul>
+                        <li>class - table per hierarchy.</li>
+                        <li>subclass - table per class in hierarchy.</li>
+                        <li>concrete - Table per class.</li>
+                        <li>
+                            interface - Root class is defined as an interface and the
+                            attributes remapped to the subclasses.  This is useful in
+                            the concrete case because it has limitations in the associations.
+                        </li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="serviceHibernateInterceptorEnabled">
+                <default>true</default>
+                <documentation>
+                    Whether or not the hibernate interceptor should be enabled
+                    on services.
+                </documentation>
+            </property>
+            <property name="hibernatePoolSize" required="false">
+                <documentation>
+                    Hibernate connection pool size.
+                </documentation>
+            </property>
+            <property name="hibernateTransactionManagerStrategy" required="false">
+                <documentation>
+                    Strategy for obtaining the JTA TransactionManager
+                </documentation>
+            </property>
+            <property name="hibernateUserTransactionName" required="false">
+                <documentation>
+                    The JNDI name of the JTA UserTransaction object
+                </documentation>
+            </property>
+            <property name="hibernateTransactionManagerLookup" required="false">
+                <documentation>
+                    The fully qualified class name of the Hibernate TransactionFactory implementation
+                </documentation>
+            </property>
+            <property name="hibernateUseOuterJoin" required="false">
+                <documentation>
+                    Whether or not to use outer joins.
+                </documentation>
+            </property>
+            <property name="hibernateShowSql" required="false">
+                <documentation>
+                    Whether or not to log SQL statements (true/false).  By default
+                    this is off (within Hibernate).
+                </documentation>
+            </property>
+            <property name="hibernateJndiName" required="false">
+                <documentation>
+                    JNDI name bound to the SessionFactory.
+                </documentation>
+            </property>
+            <property name="hibernateDialect" required="false">
+                <documentation>
+                    SQL dialect of the database being used.
+                </documentation>
+            </property>
+            <property name="hibernateDefaultSchema" required="false">
+                <documentation>
+                    Qualify unqualified tablenames with the given
+                    schema/tablespace in generated SQL.
+                </documentation>
+            </property>
+            <property name="hibernateMaxFetchDepth" required="false">
+                <documentation>
+                    Sets a maximum "depth" for the outer join fetch tree. eg. recommended values between 0 and 3
+                </documentation>
+            </property>
+            <property name="hibernateJdbcFetchSize" required="false">
+                <documentation>
+                    A non-zero value determines the JDBC fetch size.
+                </documentation>
+            </property>
+            <property name="hibernateJdbcBatchSize" required="false">
+                <documentation>
+                    A nonzero value enables use of JDBC2 batch updates by Hibernate. ex: recommended values between 5 and 30
+                </documentation>
+            </property>
+            <property name="hibernateJdbcUseScrollableResultSet" required="false">
+                <documentation>
+                    Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
+                    This property is only necessary when using user supplied connections.
+                    Hibernate uses connection metadata otherwise.
+                </documentation>
+            </property>
+            <property name="hibernateJdbcUseStreamsForBinary" required="false">
+                <documentation>
+                    Whether or not to use streams when writing / reading binary or serializable types to/from JDBC
+                </documentation>
+            </property>
+            <property name="hibernateHbm2DDLAuto" required="false">
+                <documentation>
+                    Automatically export schema DDL to the database when the SessionFactory
+                    is created. With create-drop, the database schema will be dropped when
+                    the SessionFactory is closed explicitely. Permitted values are:
+                    <ol>
+                        <li>update</li>
+                        <li>create</li>
+                        <li>create-drop</li>
+                    </ol>
+                </documentation>
+            </property>
+            <property name="hibernateQuerySubstitutions" required="false">
+                <documentation>
+                    Allows you to define new Hibernate query tokens. For example:
+                    giving this a value of <em>true=1, false=0</em>
+                    would cause the tokens true and false to be translated to integer
+                    literals in the generated SQL.
+                </documentation>
+            </property>
+            <property name="hibernateUseQueryCache">
+                <default>false</default>
+                <documentation>
+                     The default query cache usage.
+                     Can be overwritten using
+                     <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
+                     Possible values are:
+                     <ul>
+                        <li>true</li>
+                        <li>false</li>
+                     </ul>
+                </documentation>
+            </property>
+            <property name="hibernateCacheProvider">
+                <default>net.sf.hibernate.cache.EhCacheProvider</default>
+                <documentation>
+                     Defines the Hibernate cache provider implementation class.
+                </documentation>
+            </property>
+            <property name="hibernateQueryCacheFactory">
+                <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
+                <documentation>
+                    Defines Hibernate Query Cache Factory implementation class
+                </documentation>
+            </property>
+        </propertyGroup>
         <propertyGroup name="Acegi Security">
             <documentation>
-                Configures the declaritive role based security <strong>without EJB</strong>, which uses the 
+                Configures the declaritive role based security <strong>without EJB</strong>, which uses the
                 <a href="http://acegisecurity.sourceforge.net">Acegi Security System for Spring</a>.
             </documentation>
             <property name="acegiServiceSecurity">
