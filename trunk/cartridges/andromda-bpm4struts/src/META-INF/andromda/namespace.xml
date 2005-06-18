@@ -150,14 +150,6 @@
             <documentation>
                 These properties configure the validation of user input as well as the security.
             </documentation>
-            <property name="security">
-                <default>false</default>
-                <documentation>
-                    Whether or not to render code enabling the security features. When enabled buttons will be
-                    greyed out when the user is no authorized to call the action, hyperlink will be rendered
-                    in plaintext, resources will be protected on a per-usecase basis, etc...
-                </documentation>
-            </property>
             <property name="securityRealm">
                 <default>other</default>
                 <documentation>

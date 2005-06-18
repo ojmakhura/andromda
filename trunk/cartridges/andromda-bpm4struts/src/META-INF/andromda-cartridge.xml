@@ -16,7 +16,6 @@
     <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
     <!-- cartridge-templateObject merge-point-->
 
-    <property reference="security"/>
     <property reference="xhtml"/>
     <property reference="securityRealm"/>
     <property reference="clientValidation"/>

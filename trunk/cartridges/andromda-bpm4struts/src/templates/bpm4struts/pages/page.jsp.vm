@@ -10,7 +10,7 @@
 #set ($triggerKey = $trigger.triggerKey)
 #set ($parameters = $action.actionParameters)
 #set ($formBeanName = $formName)
-#set ($securityEnabled = ($security=="true") && ($roles != "") )
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
 #end
@@ -101,7 +101,7 @@ ${indent}<html:link href="javascript:document.location=${link};" styleClass="but
 #set ($messageKey = $action.messageKey)
 #set ($trigger = $action.actionTrigger)
 #set ($roles = $action.actionRoles)
-#set ($securityEnabled = ($security=="true") && ($roles != "") )
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
 #end

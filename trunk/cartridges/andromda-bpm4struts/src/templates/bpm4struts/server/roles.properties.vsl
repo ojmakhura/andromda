@@ -1,4 +1,4 @@
-#if ($security == "true")
+#if ($stringUtils.isNotBlank($securityRealm))
 #if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 #set ($users = $applicationUseCase.model.allActors)
 #

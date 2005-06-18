@@ -11,7 +11,7 @@
 #set ($actionExceptions = $action.actionExceptions)
 #set ($actionStates = $action.actionStates)
 #set ($decisionTransitions = $action.decisionTransitions)
-#set ($security = ($security=="true") && ($roles != "") )
+#set ($security = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
 ##
 ##  MACROS
 ##
