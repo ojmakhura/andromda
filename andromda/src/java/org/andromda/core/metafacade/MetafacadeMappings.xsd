@@ -60,9 +60,6 @@
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="metafacade" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
-            <!-- Specifies the pattern of the classes based on the metaclass interface names,
-                 for example '{0}Impl' might be the value, where '{0}' represents the metaclass
-                 interface name -->
             <xs:attribute name="metaclassPattern" type="xs:string" use="optional">
                 <xs:annotation>
                     <xs:documentation>
