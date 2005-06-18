@@ -139,10 +139,6 @@ public final class $manageable.manageableDaoBaseName
         {
             throw super.convertHibernateAccessException(ex);
         }
-        finally
-        {
-            this.closeSessionIfNecessary(session);
-        }
     }
 
     public java.util.List readAll()
@@ -160,10 +156,6 @@ public final class $manageable.manageableDaoBaseName
         catch (HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
-        }
-        finally
-        {
-            this.closeSessionIfNecessary(session);
         }
     }
 
@@ -214,11 +206,6 @@ public final class $manageable.manageableDaoBaseName
         {
             throw super.convertHibernateAccessException(ex);
         }
-        finally
-        {
-            this.closeSessionIfNecessary(session);
-        }
-
         return lists;
     }
 
@@ -260,7 +247,6 @@ public final class $manageable.manageableDaoBaseName
     public void delete(${identifier.type.fullyQualifiedName}[] ids)
     {
         final Session session = getSession(false);
-
         try
         {
             // hibernate 3 provides a better way: Query.executeUpdate(query:String) : int
@@ -272,10 +258,6 @@ public final class $manageable.manageableDaoBaseName
         catch (HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
-        }
-        finally
-        {
-            this.closeSessionIfNecessary(session);
         }
     }
 
