@@ -1,0 +1,108 @@
+<document>
+    <properties>
+        <author email="chad@andromda.org">Chad Brandon</author>
+        <title>AndroMDA Namespace Descriptor Schema</title>
+    </properties>
+      <body>
+          <section name="AndroMDA Namespace Descriptor Schema">
+          <p>
+              The AndroMDA namespace descriptor must comply with the following XSD Schema:
+          </p>
+<source language="xml"><![CDATA[
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="component">
+        <xs:complexType>
+            <xs:attribute name="name" type="componentName" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="componentName">
+        <xs:annotation>
+            <xs:documentation> Stores the possible component names </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="cartridge">
+                <xs:annotation>
+                    <xs:documentation>
+                        Represents the 'cartridge' component.  Use this to register a cartridge in your namespace.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="translation-library">
+                <xs:annotation>
+                    <xs:documentation>
+                       Represents the 'translation-library' component.  Use this to register a translation-library in your namespace.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="metafacades">
+                <xs:annotation>
+                    <xs:documentation>
+                       Represents the 'metafacades' component.  Use this to register a set of metafacades in your namespace.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+       </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="components">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="component" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueComponentName">
+            <xs:selector xpath="component"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="default" type="xs:string"/>
+    <xs:element name="documentation" type="xs:anyType"/>
+    <xs:element name="namespace">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="components" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="properties" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="shared" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="default" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="documentation" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="required" type="xs:boolean" use="optional" default="true"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="propertyGroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="property" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+        <xs:unique name="uniquePropertyName">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="properties">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="propertyGroup" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniquePropertyGroupName">
+            <xs:selector xpath="propertyGroup"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+</xs:schema>
+]]>
+              </source>
+          </section>
+      </body>
+</document>
