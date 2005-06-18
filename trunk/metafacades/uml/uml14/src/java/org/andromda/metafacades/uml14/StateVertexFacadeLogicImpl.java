@@ -1,6 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.behavioralelements.activitygraphs.Partition;
+import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
+import org.omg.uml.behavioralelements.statemachines.StateMachine;
+
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * MetafacadeLogic implementation.
@@ -41,5 +46,28 @@ public class StateVertexFacadeLogicImpl
     public Object getValidationOwner()
     {
         return getActivityGraph();
+    }
+
+    protected Object handleGetPartition()
+    {
+        Partition thePartition = null;
+
+        final StateMachine stateMachine = metaObject.getContainer().getStateMachine();
+        if (stateMachine instanceof ActivityGraph)
+        {
+            final ActivityGraph activityGraph = (ActivityGraph)stateMachine;
+            final Collection partitions = activityGraph.getPartition();
+            for (Iterator partitionIterator = partitions.iterator(); partitionIterator.hasNext();)
+            {
+                final Partition partition = (Partition)partitionIterator.next();
+                if (partition.getContents().contains(metaObject))
+                {
+                    thePartition = partition;
+                    break;
+                }
+            }
+        }
+
+        return thePartition;
     }
 }

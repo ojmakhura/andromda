@@ -1,5 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.behavioralelements.statemachines.StateVertex;
+
+import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.PartitionFacade.
@@ -24,4 +30,20 @@ public class PartitionFacadeLogicImpl
         return metaObject.getActivityGraph();
     }
 
+    protected Collection handleGetVertices()
+    {
+        Collection vertices = new ArrayList();
+
+        final Collection contents = metaObject.getContents();
+        for (Iterator contentIterator = contents.iterator(); contentIterator.hasNext();)
+        {
+            final Object element = contentIterator.next();
+            if (element instanceof StateVertex)
+            {
+                vertices.add(element);
+            }
+        }
+
+        return vertices;
+    }
 }

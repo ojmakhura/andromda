@@ -8,6 +8,7 @@ import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
+import org.andromda.metafacades.uml.PseudostateFacade;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -148,6 +149,36 @@ public class ActivityGraphFacadeLogicImpl
     protected Collection handleGetPartitions()
     {
         return metaObject.getPartition();
+    }
+
+    protected Object handleGetInitialTransition()
+    {
+        Object transition = null;
+
+        final PseudostateFacade initialState = getInitialState();
+        if (initialState != null)
+        {
+            final Collection transitions = initialState.getOutgoing();
+            if (!transitions.isEmpty())
+            {
+                transition = transitions.iterator().next();
+            }
+        }
+
+        return transition;
+    }
+
+    protected Object handleGetInitialState()
+    {
+        Object initialState = null;
+
+        final Collection initialStates = getInitialStates();
+        if (!initialStates.isEmpty())
+        {
+            initialState = initialStates.iterator().next();
+        }
+
+        return initialState;
     }
 
     public Object getValidationOwner()
