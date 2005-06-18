@@ -25,7 +25,7 @@
                     </td>
                     <td>
                         Because the translation-library ia a <em><a href="../namespace.html">namespace component</a></em> it
-                        <strong>MUST</strong> have a <a href="../namespace.html">namespace descriptor</a>.
+                        <strong>MUST</strong> be registered within a <a href="../namespace.html">namespace descriptor</a>.
                         This descriptor is what allows the translation-library's namespace to be <em>"discovered"</em> on the classpath.
                         This namespace descriptor also registers the translation-library component within the AndroMDA core.
                     </td>
