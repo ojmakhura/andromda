@@ -20,7 +20,16 @@
                 <div class="namespacePropertyGroup">
                     <b><xsl:value-of select="@name"/></b><br/>
                     <xsl:if test="normalize-space(documentation)">
-                        <div class="namespacePropertyGroupDocumentation"><xsl:text disable-output-escaping="yes">&lt;</xsl:text>![CDATA[<xsl:value-of select="documentation" disable-output-escaping="yes"/>]]<xsl:text disable-output-escaping="yes">&gt;</xsl:text></div>
+                        <div class="namespacePropertyGroupDocumentation">
+                            <xsl:choose>
+                                <xsl:when test="normalize-space(documentation)">
+                                    <xsl:copy-of select="documentation"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    No documentation available
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </div>
                     </xsl:if>
                     <ul>
                         <xsl:for-each select="property">
