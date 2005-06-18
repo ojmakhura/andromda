@@ -15,8 +15,8 @@
             The <strong>primary plugin</strong> of the AndroMDA framework, <em>cartridges</em>
             provide the ability to process model elements that have specified <code>stereotypes</code>
             (i.e. <code><![CDATA[<<Entity>>]]></code>, <code><![CDATA[<<Enumeration>>]]></code>, etc.) or
-            model elements that meet certain conditions inferred by the model (all Actors that have a dependency 
-            to a <![CDATA[<<Service>>]]> for example). Cartridges process these model elements using template 
+            model elements that meet certain conditions inferred by the model (all Actors that have a dependency
+            to a <![CDATA[<<Service>>]]> for example). Cartridges process these model elements using template
             files defined within the cartridge <a href="descriptor-schema.html">descriptor</a>.
       </p>
       <p>
@@ -142,11 +142,11 @@
      </source>
      <a name="mergingFileContents"/>
      <p>
-        In addition to the ability of merging literal strings into merge-points (the contents of the <![CDATA[<to/>]]> element).  It's 
+        In addition to the ability of merging literal strings into merge-points (the contents of the <![CDATA[<to/>]]> element).  It's
         also possible to merge the entire contents of one or more files into a merge-point.  For example, this fragment below (from a mappings file)
         says we want to replace anything matching <em># custom-messages merge-point</em> with the combined contents of the files
-        <em>../../../web/conf/resources/custom-resources1.properties</em> and <em>../../../web/conf/resources/custom-resources2.properties</em> 
-        (please take note of the nested <strong><![CDATA[<path/>]]></strong> elements, these tell AndroMDA to treat the contents of 
+        <em>../../../web/conf/resources/custom-resources1.properties</em> and <em>../../../web/conf/resources/custom-resources2.properties</em>
+        (please take note of the nested <strong><![CDATA[<path/>]]></strong> elements, these tell AndroMDA to treat the contents of
         the <em>to</em> element as the concatinated contents of the files defined by the paths).
         <source language="xml">
 &lt;mappings name="Bpm4StrutsMergeMappings"&gt;
@@ -159,7 +159,7 @@
         &lt;/to&gt;
     &lt;/mapping&gt;
     ...
-&lt;/mappings&gt;            
+&lt;/mappings&gt;
         </source>
      </p>
      <p class="highlight">
@@ -168,16 +168,29 @@
         <a href="#mergeLocation">mergeLocation</a>.  You would use the <a href="#mergeMappingsUri">mergeMappingsUri</a> to define
         the new template in a cartridge, and use the mergeLocation to specify the actual template.
      </p>
-      <h2>Inside a cartridge</h2>
-      <p>
-          An AndroMDA cartridge is a "thing" (directory or jar file)
-          on the classpath that consists of several items:
-      </p>
-      <table>
+     <h2>Inside a cartridge</h2>
+     <p>
+          An AndroMDA cartridge is a "thing" (directory or jar file) on the classpath that consists of several items:
+     </p>
+     <table>
+         <tr>
+             <th>File</th>
+             <th>Contents</th>
+             <th>Required</th>
+        </tr>
         <tr>
-          <th>File</th>
-          <th>Contents</th>
-          <th>Required</th>
+            <td>
+                <code>src/META-INF/andromda/namespace.xml</code>
+            </td>
+            <td>
+                Because the cartridge ia a <em><a href="../namespace.html">namespace component</a></em> it
+                <strong>MUST</strong> have a <a href="../namespace.html">namespace descriptor</a>.
+                This descriptor is what allows the cartridge's namespace to be <em>"discovered"</em> on the classpath.
+                This namespace descriptor also registers the cartridge component within the AndroMDA core.
+            </td>
+            <td>
+                Yes
+            </td>
         </tr>
         <tr>
             <td>
@@ -224,7 +237,7 @@
           <td>
               Templates that tell the cartridge how to format the generated code.
           </td>
-          <td>Yes.</td>
+          <td>Yes</td>
         </tr>
       </table>
       <p>
@@ -236,12 +249,10 @@
       <h2>The cartridge descriptor</h2>
 
       <p>
-        The descriptor allows AndroMDA to find this cartridge on the classpath automatically.
-        The core also uses this descriptor to find out the capabilities of a cartridge: the
-        supported stereotypes, the outlets and, templates and the variable name
-        to place the model element(s) into in the template. The cartridge descriptor <strong>must</strong>
-        reside in the <code>META-INF</code> subdirectory and <strong>must</strong> be named
-        <code>andromda-cartridge.xml</code>.
+        The AndroMDA core uses this descriptor to discover the capabilities of a cartridge: the
+        supported metafacades, stereotypes, outlets, templates, property references, etc. 
+        The cartridge descriptor <strong>must</strong> reside in the <code>META-INF</code> 
+        subdirectory and <strong>must</strong> be named <code>andromda-cartridge.xml</code>.
       </p>
 
       <p>
@@ -257,7 +268,9 @@
 
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="str" className="org.andromda.core.common.StringUtilsHelper"/>
-    <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
+    <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper">
+        <property reference="viewType"/>
+    </templateObject>
 
     <resource
         path="templates/*.properties"
@@ -488,7 +501,7 @@
                   outputOnEmptyElements
               </td>
               <td>
-                  This attribute only makes sense when 
+                  This attribute only makes sense when
                   <a href="#outputToSingleFile">outputToSingleFile</a>
                   is set to <code>true</code>.
                   Indicates that when there are no elements aggregated
