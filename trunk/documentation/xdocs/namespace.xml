@@ -16,8 +16,8 @@
                 In order for a namespace component to be <em>"discovered"</em> by AndroMDA, it <strong>MUST</strong> be registered within this descriptor.
             </p>
             <p>
+                There are several purposes of the namespace descriptor:
                 <ol>
-                    There are several purposes of the namespace descriptor:
                     <li>Allowing discovery of the namespace by AndroMDA when placed on the classpath</li>
                     <li>Providing registration all components for the namespace</li>
                     <li>Defining any properties that are used to configure the namespace</li>
@@ -27,11 +27,51 @@
                 Each namespace descriptor must adhere to this <a href="namespace/schema.html">XML Schema</a>.
             </p>
             <p>
-                Let's take a look at how a typlical namespace descriptor is structured.  
-                You'll notice from this example below that both the cartridge and metafacades components are defined
+                Take a look at how a typlical namespace descriptor is structured in the <a href="#Namespace_Descriptor_Example">example below</a>.  
+                You'll notice from this example that both the cartridge and metafacades components are defined
                 for the <em>webservice</em> namespace.  What this means, is that when AndroMDA <em>"discovers"</em> this namepsace,
                 it will know that it needs to register both a cartridge and a set of metafacades under the namespace of <em>webservice</em> 
-                (the descriptors for both the cartridge and metafacades will be need to be present in the webservice cartridge jar).
+                (the descriptors for both the cartridge and metafacades will be need to be present in the webservice cartridge jar in order
+                for these to be correctly registered).
+            </p>
+            <p>
+                You'll also notice that we have plenty of properties defined in this example as well.  AndroMDA uses these properties
+                in two ways:
+                <ul>
+                    <li>The core uses these properties internally (the name of the property, whether or not its required, and its default value)</li>
+                    <li>
+                        The namespace documentation is generated from these properties (see the 
+                        <a href="andromda-bpm4struts-cartridge/namespace.html">BPM4Struts namespace documentation</a>
+                        for an example).
+                    </li>
+                </ul>
+                Properties are grouped logically according to <em>propertyGroup</em> elements each with a <em>required</em> name 
+                defining what the group of properties configures, and an <em>optional</em> documentation element that describes in 
+                more detail what this group of properties does.  Each property defines the name of a property that can be configured 
+                through a namespace element in the <a href="configuration.html">AndroMDA Configuration</a>.  Properties defined here 
+                are referenced within the namespace component descriptors (in for example: the andromda-cartridge.xml and andromda-metafacades.xml).  
+            </p>   
+            <p>
+                Each property element defines the following aspects about a given property: 
+                <ul>
+                    <li>The name of the property.</li>
+                    <li>
+                        Whether or not the property is <em>required</em> (the required attribute will determine whether or not AndroMDA will 
+                        warn you if you do not have the property defined for the specific namespace in your 
+                        <a href="configuration.html">AndroMDA Configuration</a>).
+                    </li>
+                    <li>
+                        The default of the property (if a default should be present).
+                    </li>
+                    <li>
+                        The optional documentation of the property (this is a description of what exactly the property configures within the namespace).
+                    </li>
+                </ul>    
+            </p>
+            <p class="highlight">
+                Because of the fact the <em>documentation</em> element is of type <em>xs:anyType</em> you can embed any other xml elements within it.
+            </p>
+            <subsection name="Namespace Descriptor Example">
                 <source language="xml">
 <![CDATA[<namespace name="webservice">
     <components>
@@ -107,7 +147,7 @@
     </properties>
 </namespace>]]>                   
                 </source>
-            </p>
+            </subsection> 
         </section>
     </body>
 </document>
