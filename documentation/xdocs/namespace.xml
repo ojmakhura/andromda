@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <author email="chad@andromda.org">Chad Brandon</author>
+        <title>AndroMDA Namespace</title>
+    </properties>
+    <body>
+        <section name="AndroMDA Namespace">
+            <p>
+                AndroMDA namespace components are described through a single XML descriptor, the namespace.xml file.  
+                You'll find this file in a cartridge, translation-library or metafacades jar (basically any component that 
+                can reside with a <em>namespace</em>) located in the <em>/META-INF/andromda</em> directory of that jar.
+            </p>
+            <p class="highlight">
+                In order for a namespace component to be <em>"discovered"</em> by AndroMDA, it <strong>MUST</strong> be registered within this descriptor.
+            </p>
+            <p>
+                <ol>
+                    There are several purposes of the namespace descriptor:
+                    <li>Allowing discovery of the namespace by AndroMDA when placed on the classpath</li>
+                    <li>Providing registration all components for the namespace</li>
+                    <li>Defining any properties that are used to configure the namespace</li>
+                </ol>
+            </p>
+            <p class="highlight">
+                Each namespace descriptor must adhere to this <a href="namespace/schema.html">XML Schema</a>.
+            </p>
+        </section>
+    </body>
+</document>
