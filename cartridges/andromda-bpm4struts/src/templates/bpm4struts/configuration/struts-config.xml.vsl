@@ -60,7 +60,7 @@
             type="$action.actionType"
             name="$action.formBeanName"
 #set ($roles = $action.actionRoles)
-#if (($security=="true") && ($roles != "") && ($useCase.secured))
+#if ($stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) && $useCase.secured)
             roles="$roles"
 #end
             scope="$action.actionScope"

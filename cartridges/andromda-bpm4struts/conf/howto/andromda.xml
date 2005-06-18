@@ -22,7 +22,6 @@
                 <property name="welcomeFileName">index.jsp</property>
                 <property name="clientValidation">true</property>
                 <property name="serverValidation">true</property>
-                <property name="security">true</property>
                 <property name="securityRealm">other</property>
                 <property name="server">${howto.output.dir}</property>
                 <property name="forms">${howto.output.dir}</property>

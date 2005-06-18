@@ -34,7 +34,7 @@
 #end
 #foreach ($useCase in $useCases)
 #set ($roles = $useCase.actionRoles)
-#set ($securityEnabled = ($security=="true") && ($roles != "") )
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
 #if ($securityEnabled)
         <logic:present role="$roles">
 #end

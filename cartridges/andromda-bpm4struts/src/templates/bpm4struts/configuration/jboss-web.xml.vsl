@@ -1,4 +1,4 @@
-#if ($security == "true" && $securityRealm)
+#if ($stringUtils.isNotBlank($securityRealm))
 <?xml version="1.0" encoding="$xmlEncoding" ?>
 
 <jboss-web>

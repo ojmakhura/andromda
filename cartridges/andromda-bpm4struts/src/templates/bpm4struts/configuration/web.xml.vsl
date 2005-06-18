@@ -95,7 +95,7 @@
     <!-- taglib merge-point -->
     <!-- resource-ref merge-point -->
 
-#if ($security == "true")
+#if ($stringUtils.isNotBlank($securityRealm))
 ##
 ## We don't use security-role-refs at this point, maybe in a later step
 ##
@@ -160,7 +160,7 @@
     <login-config>
 #end
         <auth-method>FORM</auth-method>
-#if ($securityRealm)
+#if ($stringUtils.isNotBlank($securityRealm))
         <realm-name>$securityRealm</realm-name>
 #end
         <form-login-config>
