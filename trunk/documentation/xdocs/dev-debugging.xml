@@ -2,7 +2,7 @@
 
 <document>
     <properties>
-        <author email="martin.west@dsl.pipex.com">Martin West</author>
+        <author email="martin@andromda.org">Martin West</author>
         <title>AndroMDA Developer Debugging Hints and Tips</title>
     </properties>
     <body>
@@ -21,11 +21,12 @@
                     Too override the default log4j settings:.
                     <ul>
                         <li>Create a file <a href="resources/log4j.txt">log4j.xml</a></li>
-                        <li>Add a line to your project.properties
-                            <source>maven.andromda.loggingConfigurationUri=file:/some_location/log4j.xml</source>
-                            or other maven file where properties are picked up from. 
+                        <li>Add the <em>loggingConfigurationUri</em> property to your <a href="configuration.html">AndroMDA configuration</a>.
+                            For example:
+                            <source><![CDATA[<loggingConfigurationUri>file:/some_location/log4j.xml</loggingConfigurationUri>]]></source>.
                         </li>
-                        <li>Modify as required. For more information consult the 
+                        <li>
+                            Modify as required. For more information consult the 
                             <a href="http://logging.apache.org/log4j/docs/manual.html">log4j
                             documentation</a> or this 
                             <a href="http://www.vipan.com/htdocs/log4jhelp.html">useful 
