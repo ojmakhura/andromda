@@ -28,7 +28,11 @@ maven.andromda.common.generated.dir=${maven.src.dir}/../../common/target/src
 #if ($hibernate || $spring)
 #if ($hibernate)
 # The hibernate transaction manager to use.
+#if ($hibernateVersion=="2")
 hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransactionManagerLookup
+#elseif ($hibernateVersion=="3")
+hibernate.transaction.manager.lookup=org.hibernate.transaction.JBossTransactionManagerLookup
+#end
 #end
 # The default strategy to use when using inhertiance
 hibernate.inheritance.strategy=subclass
