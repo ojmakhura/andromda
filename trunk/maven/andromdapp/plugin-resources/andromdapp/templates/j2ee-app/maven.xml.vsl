@@ -28,6 +28,36 @@
         </ant:delete>
     </goal>
 
+    <!-- ==================================================================
+           Cleans Everything and deletes all implementation classes
+         ================================================================== -->
+    <goal name="nuke">
+        <i:ask
+                question="This will also clean out all implementation classes, are you sure (y/n) ?"
+                answer="nukeit"/>
+        <j:choose>
+            <j:when test="${nukeit eq 'y'}">
+                <ant:echo>Nuking source code...</ant:echo>
+                <attainGoal name="clean"/>
+                <ant:delete>
+                    <fileset dir="common/src/java">
+                        <include name="**/*Impl.java"/>
+                    </fileset>
+                    <fileset dir="core/src/java">
+                        <include name="**/*Impl.java"/>
+                    </fileset>
+                    <fileset dir="web/src/java">
+                        <include name="**/*Impl.java"/>
+                    </fileset>
+                </ant:delete>
+                <ant:echo>Finished nuke.</ant:echo>
+            </j:when>
+            <j:otherwise>
+                <ant:echo>Nuke was canceled by user.</ant:echo>
+            </j:otherwise>
+        </j:choose>
+    </goal>
+
 #set ($appModule = "app")
 #if ($war)
 #set ($appModule = "web")

@@ -231,6 +231,13 @@
             deletes all generated files, rebuilds and deploys; files in /src
             directories are *not* deleted
 
+        %> maven nuke
+
+            cleans out all /target directories and removes all Java classes with names
+            ending with 'Impl' from the source directories (from the common, core and
+            web modules); this goal asks for confirmation, but be careful calling it
+            anyway as you will lose your manually edited files
+
         %> maven create-schema
 
             invokes the generated DDL code and subsequently tells the database
