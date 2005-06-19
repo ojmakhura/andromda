@@ -35,6 +35,9 @@
                 <property name="entityNameMask">none</property>
                 <property name="entityPropertyNameMask">none</property>
                 <property name="parameterNameMask">none</property>
+#if ($spring)
+                <property name="hibernateVersion">$hibernateVersion</property>
+#end
             </properties>
         </namespace>
 #if ($ejb)
@@ -52,17 +55,24 @@
                 <property name="hibernateVersion">$hibernateVersion</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="dataSource">${dataSource}</property>
-                <property name="hibernateDialect">${hibernate.db.dialect}</property>
-                <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+                <property name="hibernateDialect">${hibernate.db.dialect}</property>
                 <property name="hibernateInheritanceStrategy">subclass</property>
+                <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
                 <property name="customTypesPackage">${application.package}</property>
                 <property name="hibernateJdbcBatchSize">0</property>
                 <property name="hibernateUseQueryCache">false</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="compositionDefinesEagerLoading">true</property>
+#if ($hibernateVersion=="2")
                 <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateTransactionFactoryClass">net.sf.hibernate.transaction.JTATransactionFactory</a>
+#elseif ($hibernateVersion=="3")
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</a>
+#end
                 <property name="entities">${maven.andromda.core.generated.dir}</property>
                 <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="session-beans">${maven.andromda.core.generated.dir}</property>
@@ -87,9 +97,18 @@
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
                 <property name="hibernateUseQueryCache">false</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
+#if ($hibernateVersion=="2")
+                <property name="sessionFactory">org.springframework.orm.hibernate.LocalSessionFactoryBean</property>
+                <property name="transactionManager">org.springframework.orm.hibernate.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
-                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+#elseif ($hibernateVersion=="3")
+                <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
+                <property name="transactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+#end
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="springTypesPackage">${application.package}</property>
                 <property name="daos">${maven.andromda.core.generated.dir}</property>
                 <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
