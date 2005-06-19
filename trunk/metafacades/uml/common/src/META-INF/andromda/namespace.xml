@@ -9,7 +9,7 @@
             <documentation>
                 Certain namespace properties (the ones listed below) are used to provide masking of names.
                 For example a name such as "Hospital Visit" given to an enumeration literal could be transformed
-                into <em>HOSPITAL_VISIT</em> during model processing by applying the <em>upperunderscore</em>
+                into <em>'HOSPITAL_VISIT'</em> during model processing by applying the <em>'upperunderscore'</em>
                 mask to it.
                 When applicable, the following masks are available:
                 <ul>
