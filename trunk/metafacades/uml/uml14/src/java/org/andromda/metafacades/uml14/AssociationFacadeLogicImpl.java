@@ -47,11 +47,11 @@ public class AssociationFacadeLogicImpl
      */
     public String handleGetRelationName()
     {
-        Collection ends = this.getAssociationEnds();
-        Iterator endIt = ends.iterator();
-        AssociationEndFacade firstEnd = (AssociationEndFacade)endIt.next();
-        AssociationEndFacade secondEnd = (AssociationEndFacade)endIt.next();
-        String relationName = MetafacadeUtils.toRelationName(firstEnd.getName(), secondEnd.getName(), String.valueOf(this.getConfiguredProperty(
+        final Collection ends = this.getAssociationEnds();
+        final Iterator endIt = ends.iterator();
+        final AssociationEndFacade firstEnd = (AssociationEndFacade)endIt.next();
+        final AssociationEndFacade secondEnd = (AssociationEndFacade)endIt.next();
+        final String relationName = MetafacadeUtils.toRelationName(firstEnd.getName(), secondEnd.getName(), String.valueOf(this.getConfiguredProperty(
                 UMLMetafacadeProperties.RELATION_NAME_SEPARATOR)));
         return relationName;
     }

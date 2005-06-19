@@ -20,8 +20,6 @@ import org.apache.commons.lang.StringUtils;
 public class EntityAssociationEndLogicImpl
         extends EntityAssociationEndLogic
 {
-    // ---------------- constructor -------------------------------
-
     public EntityAssociationEndLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
@@ -69,7 +67,7 @@ public class EntityAssociationEndLogicImpl
      */
     protected boolean handleIsForeignIdentifier()
     {
-        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
+        final Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
         boolean test = value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
         return test;
     }
@@ -173,7 +171,7 @@ public class EntityAssociationEndLogicImpl
     public TypeMappings getSqlMappings()
     {
         final String propertyName = UMLMetafacadeProperties.SQL_MAPPINGS_URI;
-        Object property = this.getConfiguredProperty(propertyName);
+        final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
         String uri = null;
         if (property instanceof String)

@@ -14,8 +14,6 @@ import java.util.Iterator;
 public class ActionFacadeLogicImpl
         extends ActionFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public ActionFacadeLogicImpl(org.omg.uml.behavioralelements.commonbehavior.Action metaObject,
                                  java.lang.String context)
     {
@@ -26,7 +24,7 @@ public class ActionFacadeLogicImpl
     {
         Transition effectTransition = null;
 
-        Collection allTransitions = UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
+        final Collection allTransitions = UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
         for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && effectTransition == null;)
         {
             Transition transition = (Transition)iterator.next();
@@ -43,10 +41,10 @@ public class ActionFacadeLogicImpl
     {
         ActionState entryState = null;
 
-        Collection allActionStates = UML14MetafacadeUtils.getModel().getActivityGraphs().getActionState().refAllOfType();
+        final Collection allActionStates = UML14MetafacadeUtils.getModel().getActivityGraphs().getActionState().refAllOfType();
         for (Iterator iterator = allActionStates.iterator(); iterator.hasNext() && entryState == null;)
         {
-            ActionState actionState = (ActionState)iterator.next();
+            final ActionState actionState = (ActionState)iterator.next();
             if (metaObject.equals(actionState.getEntry()))
             {
                 entryState = actionState;

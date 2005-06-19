@@ -34,7 +34,6 @@ import org.omg.uml.foundation.core.Operation;
 public class ClassifierFacadeLogicImpl
     extends ClassifierFacadeLogic
 {
-    // ---------------- constructor -------------------------------
     public ClassifierFacadeLogicImpl(
         org.omg.uml.foundation.core.Classifier metaObject,
         String context)
@@ -146,7 +145,7 @@ public class ClassifierFacadeLogicImpl
     protected TypeMappings getWrapperMappings()
     {
         final String propertyName = UMLMetafacadeProperties.WRAPPER_MAPPINGS_URI;
-        Object property = this.getConfiguredProperty(propertyName);
+        final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
         String uri = null;
         if (String.class.isAssignableFrom(property.getClass()))
@@ -159,7 +158,7 @@ public class ClassifierFacadeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg, th);
 
                 // don't throw the exception
