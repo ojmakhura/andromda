@@ -2,18 +2,18 @@ package org.andromda.metafacades.uml14;
 
 import org.omg.uml.behavioralelements.commonbehavior.CallAction;
 
+
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.metafacades.uml.CallActionFacade
  */
 public class CallActionFacadeLogicImpl
-        extends CallActionFacadeLogic
+    extends CallActionFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
-    public CallActionFacadeLogicImpl(org.omg.uml.behavioralelements.commonbehavior.CallAction metaObject,
-                                     java.lang.String context)
+    public CallActionFacadeLogicImpl(
+        org.omg.uml.behavioralelements.commonbehavior.CallAction metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }

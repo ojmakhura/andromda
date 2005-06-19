@@ -1,5 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import org.andromda.metafacades.uml.PseudostateFacade;
 import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
@@ -8,102 +14,98 @@ import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
-import org.andromda.metafacades.uml.PseudostateFacade;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * Metaclass facade implementation.
  */
 public class ActivityGraphFacadeLogicImpl
-        extends ActivityGraphFacadeLogic
+    extends ActivityGraphFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
-    public ActivityGraphFacadeLogicImpl(org.omg.uml.behavioralelements.activitygraphs.ActivityGraph metaObject,
-                                        String context)
+    public ActivityGraphFacadeLogicImpl(
+        org.omg.uml.behavioralelements.activitygraphs.ActivityGraph metaObject,
+        String context)
     {
         super(metaObject, context);
     }
 
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StateMachineDecorator ...
-
-    // ------------- relations ------------------
-
     public Collection handleGetInitialStates()
     {
-        final Predicate filter = new Predicate()
-        {
-            public boolean evaluate(Object object)
+        final Predicate filter =
+            new Predicate()
             {
-                return (object instanceof Pseudostate) && (PseudostateKindEnum.PK_INITIAL.equals(
-                        ((Pseudostate)object).getKind()));
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return (object instanceof Pseudostate) &&
+                    (PseudostateKindEnum.PK_INITIAL.equals(((Pseudostate)object).getKind()));
+                }
+            };
         return getSubvertices(filter);
     }
 
     public Collection handleGetPseudostates()
     {
-        final Predicate filter = new Predicate()
-        {
-            public boolean evaluate(Object object)
+        final Predicate filter =
+            new Predicate()
             {
-                return (object instanceof Pseudostate);
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return (object instanceof Pseudostate);
+                }
+            };
         return getSubvertices(filter);
     }
 
     public Collection handleGetActionStates()
     {
-        final Predicate filter = new Predicate()
-        {
-            public boolean evaluate(Object object)
+        final Predicate filter =
+            new Predicate()
             {
-                return object instanceof ActionState;
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof ActionState;
+                }
+            };
         return getSubvertices(filter);
     }
 
     public Collection handleGetObjectFlowStates()
     {
-        final Predicate filter = new Predicate()
-        {
-            public boolean evaluate(Object object)
+        final Predicate filter =
+            new Predicate()
             {
-                return object instanceof ObjectFlowState;
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof ObjectFlowState;
+                }
+            };
         return getSubvertices(filter);
     }
 
     public Collection handleGetFinalStates()
     {
-        final Predicate filter = new Predicate()
-        {
-            public boolean evaluate(Object object)
+        final Predicate filter =
+            new Predicate()
             {
-                return object instanceof FinalState;
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof FinalState;
+                }
+            };
         return getSubvertices(filter);
     }
 
     protected Collection getSubvertices(Predicate collectionFilter)
     {
         CompositeState compositeState = (CompositeState)metaObject.getTop();
-        return filter(compositeState.getSubvertex(), collectionFilter);
+        return filter(
+            compositeState.getSubvertex(),
+            collectionFilter);
     }
 
-    private Collection filter(Collection collection, Predicate collectionFilter)
+    private Collection filter(
+        Collection collection,
+        Predicate collectionFilter)
     {
         final Set filteredCollection = new LinkedHashSet();
         for (Iterator iterator = collection.iterator(); iterator.hasNext();)
@@ -132,8 +134,7 @@ public class ActivityGraphFacadeLogicImpl
         UseCase stateMachineUseCase = null;
 
         Collection useCases = UML14MetafacadeUtils.getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator();
-             useCaseIterator.hasNext() && stateMachineUseCase == null;)
+        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && stateMachineUseCase == null;)
         {
             // loop over all use-cases
             UseCase useCase = (UseCase)useCaseIterator.next();

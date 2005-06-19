@@ -9,11 +9,13 @@ package org.andromda.metafacades.uml14;
 public class AttributeLinkFacadeLogicImpl
     extends AttributeLinkFacadeLogic
 {
-
-    public AttributeLinkFacadeLogicImpl (org.omg.uml.behavioralelements.commonbehavior.AttributeLink metaObject, String context)
+    public AttributeLinkFacadeLogicImpl(
+        org.omg.uml.behavioralelements.commonbehavior.AttributeLink metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
+
     /**
      * @see org.andromda.metafacades.uml.AttributeLinkFacade#getAttribute()
      */
@@ -45,5 +47,4 @@ public class AttributeLinkFacadeLogicImpl
     {
         return metaObject.getValue();
     }
-
 }

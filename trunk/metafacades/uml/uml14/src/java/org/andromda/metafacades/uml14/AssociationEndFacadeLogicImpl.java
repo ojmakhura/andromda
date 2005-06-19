@@ -1,5 +1,8 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
@@ -16,19 +19,17 @@ import org.omg.uml.foundation.datatypes.MultiplicityRange;
 import org.omg.uml.foundation.datatypes.OrderingKind;
 import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
  */
 public class AssociationEndFacadeLogicImpl
-        extends AssociationEndFacadeLogic
-        implements org.andromda.metafacades.uml.AssociationEndFacade
+    extends AssociationEndFacadeLogic
+    implements org.andromda.metafacades.uml.AssociationEndFacade
 {
-    // ---------------- constructor -------------------------------
-
-    public AssociationEndFacadeLogicImpl(org.omg.uml.foundation.core.AssociationEnd metaObject, String context)
+    public AssociationEndFacadeLogicImpl(
+        org.omg.uml.foundation.core.AssociationEnd metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -64,6 +65,7 @@ public class AssociationEndFacadeLogicImpl
     protected String handleGetName()
     {
         String name = super.handleGetName();
+
         // if name is empty, then get the name from the type
         if (StringUtils.isEmpty(name))
         {
@@ -77,8 +79,8 @@ public class AssociationEndFacadeLogicImpl
                 name = StringUtilsHelper.pluralize(name);
             }
         }
-        final String nameMask = String.valueOf(
-                this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
+        final String nameMask =
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
         return NameMasker.mask(name, nameMask);
     }
 
@@ -145,6 +147,7 @@ public class AssociationEndFacadeLogicImpl
     {
         boolean isMany = false;
         Multiplicity multiplicity = this.metaObject.getMultiplicity();
+
         // we'll say a null multiplicity is 1
         if (multiplicity != null)
         {
@@ -171,6 +174,7 @@ public class AssociationEndFacadeLogicImpl
         boolean ordered = false;
 
         OrderingKind ordering = metaObject.getOrdering();
+
         // no ordering is 'unordered'
         if (ordering != null)
         {
@@ -309,11 +313,11 @@ public class AssociationEndFacadeLogicImpl
         }
         return lower.intValue();
     }
-    
+
     /**
      * Gets the default multiplicity for this attribute (the
      * multiplicity if none is defined).
-     * 
+     *
      * @return the defautl multiplicity as a String.
      */
     private String getDefaultMultiplicity()

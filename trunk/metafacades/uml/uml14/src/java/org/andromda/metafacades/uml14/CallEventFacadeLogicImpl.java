@@ -1,22 +1,20 @@
 package org.andromda.metafacades.uml14;
 
+
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.metafacades.uml.CallEventFacade
  */
 public class CallEventFacadeLogicImpl
-        extends CallEventFacadeLogic
+    extends CallEventFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
-    public CallEventFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.CallEvent metaObject,
-                                    java.lang.String context)
+    public CallEventFacadeLogicImpl(
+        org.omg.uml.behavioralelements.statemachines.CallEvent metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
-
-    // ------------- relations ------------------
 
     /**
      * @see org.andromda.metafacades.uml.CallEventFacade#getOperation()
@@ -25,5 +23,4 @@ public class CallEventFacadeLogicImpl
     {
         return metaObject.getOperation();
     }
-
 }

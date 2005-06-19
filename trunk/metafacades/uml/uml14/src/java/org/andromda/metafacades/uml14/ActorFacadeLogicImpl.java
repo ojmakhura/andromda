@@ -1,22 +1,22 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.metafacades.uml.ActorFacade;
-
-import java.util.Iterator;
-import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+
+import org.andromda.metafacades.uml.ActorFacade;
 
 
 /**
  * Metaclass facade implementation.
  */
 public class ActorFacadeLogicImpl
-        extends ActorFacadeLogic
+    extends ActorFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
-    public ActorFacadeLogicImpl(org.omg.uml.behavioralelements.usecases.Actor metaObject, String context)
+    public ActorFacadeLogicImpl(
+        org.omg.uml.behavioralelements.usecases.Actor metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -49,7 +49,7 @@ public class ActorFacadeLogicImpl
     }
 
     /**
-     * 
+     *
      * @see org.andromda.metafacades.uml.ActorFacade#getGeneralizedByActors()
      */
     protected java.util.List handleGetGeneralizedByActors()
@@ -67,5 +67,4 @@ public class ActorFacadeLogicImpl
         }
         return generalizedByActors;
     }
-
 }
