@@ -12,12 +12,16 @@
             </documentation>
             <property name="entities">
                 <documentation>
-                    The directory to which hibernate entities are generated.
+                    The directory to which hibernate entities are generated.  Please <strong>NOTE</strong>
+                    that the entity implementation classes will also be generated to this location when 
+                    <strong>no operations</strong> are present on the entity with <em>instance scope</em>.
                 </documentation>
             </property>
             <property name="entity-impls">
                 <documentation>
-                    The location to which hibernate entity implementation files are generated.
+                    The location to which hibernate entity implementation files are generated. Please <strong>NOTE</strong>
+                    that the entity implementation classes will be generated to the <em>entities</em> outlet when 
+                    <strong>no operations</strong> are present on the entity with <em>instance scope</em>.
                 </documentation>
             </property>
             <property name="session-beans" required="false">
