@@ -37,6 +37,7 @@
     <property reference="hibernateUseQueryCache"/>
     <property reference="hibernateCacheProvider"/>
     <property reference="hibernateQueryCacheFactory"/>
+    <property reference="hibernateVersion"/>
     <property reference="applicationContext"/>
     <property reference="applicationContextManageable"/>
     <property reference="applicationContextDataSource"/>
