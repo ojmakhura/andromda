@@ -28,7 +28,7 @@
         <namespace name="spring">
             <properties>
                 <property name="dataSource">${dataSource}</property>
-                <property name="sessionFactory"> org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
+                <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
