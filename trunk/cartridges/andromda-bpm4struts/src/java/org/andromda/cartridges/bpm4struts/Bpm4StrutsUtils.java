@@ -57,14 +57,14 @@ public final class Bpm4StrutsUtils
         int left = validatorTaggedValue.indexOf('(');
         if (left > -1)
         {
-            int right = validatorTaggedValue.indexOf(')');
+            final int right = validatorTaggedValue.indexOf(')');
             validatorTaggedValue = validatorTaggedValue.substring(left + 1, right);
 
-            String[] pairs = validatorTaggedValue.split(",");
+            final String[] pairs = validatorTaggedValue.split(",");
             for (int i = 0; i < pairs.length; i++)
             {
-                String pair = pairs[i];
-                int equalsIndex = pair.indexOf('=');
+                final String pair = pairs[i];
+                final int equalsIndex = pair.indexOf('=');
                 // it's possible the argument is the empty string
                 if (equalsIndex < pair.length() - 1)
                 {
@@ -107,11 +107,11 @@ public final class Bpm4StrutsUtils
             int right = validatorTaggedValue.indexOf(')');
             validatorTaggedValue = validatorTaggedValue.substring(left + 1, right);
 
-            String[] pairs = validatorTaggedValue.split(",");
+            final String[] pairs = validatorTaggedValue.split(",");
             for (int i = 0; i < pairs.length; i++)
             {
-                String pair = pairs[i];
-                int equalsIndex = pair.indexOf('=');
+                final String pair = pairs[i];
+                final int equalsIndex = pair.indexOf('=');
                 validatorVars.add(pair.substring(0, equalsIndex));
             }
         }
@@ -136,7 +136,7 @@ public final class Bpm4StrutsUtils
             throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
         }
 
-        int leftParen = validatorTaggedValue.indexOf('(');
+        final int leftParen = validatorTaggedValue.indexOf('(');
         return (leftParen == -1) ? validatorTaggedValue : validatorTaggedValue.substring(0, leftParen);
     }
 
@@ -156,8 +156,8 @@ public final class Bpm4StrutsUtils
     {
         public int compare(Object left, Object right)
         {
-            ManageableEntity leftEntity = (ManageableEntity)left;
-            ManageableEntity rightEntity = (ManageableEntity)right;
+            final ManageableEntity leftEntity = (ManageableEntity)left;
+            final ManageableEntity rightEntity = (ManageableEntity)right;
             return StringUtils.trimToEmpty(leftEntity.getName()).compareTo(
                     StringUtils.trimToEmpty(rightEntity.getName()));
         }
