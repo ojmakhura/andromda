@@ -352,10 +352,8 @@
                         question="Please enter the type of transactional/persistence cartridge to use (enter 'hibernate', 'ejb', or 'spring'):"
                         answer="persistenceType"/>
                 </j:while>
-                <ant:echo>${persistenceType} ${persistenceType == 'hibernate'} ${empty(hibernateVersion) or (hibernateVersion ne '2' and hibernateVersion ne '3')}</ant:echo>
-                <j:if test="${persistenceType == 'hibernate'}">
-                    <j:while test="${empty(hibernateVersion) or
-                                  (hibernateVersion ne '2' and hibernateVersion ne '3')}">
+                <j:if test="${persistenceType eq 'hibernate' or persistenceType eq 'spring'}">
+                    <j:while test="${empty(hibernateVersion) or (hibernateVersion ne '2' and hibernateVersion ne '3')}">
                         <i:ask
                             question="Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x):"
                             answer="hibernateVersion"/>
