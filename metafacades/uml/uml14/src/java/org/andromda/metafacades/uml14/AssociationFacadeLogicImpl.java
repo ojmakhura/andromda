@@ -15,8 +15,6 @@ public class AssociationFacadeLogicImpl
         extends AssociationFacadeLogic
         implements org.andromda.metafacades.uml.AssociationFacade
 {
-    // ---------------- constructor -------------------------------
-
     public AssociationFacadeLogicImpl(org.omg.uml.foundation.core.UmlAssociation metaObject, String context)
     {
         super(metaObject, context);

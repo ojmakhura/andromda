@@ -26,7 +26,6 @@ import java.util.Iterator;
 public class AttributeFacadeLogicImpl
     extends AttributeFacadeLogic
 {
-    // ---------------- constructor -------------------------------
     public AttributeFacadeLogicImpl(
         org.omg.uml.foundation.core.Attribute metaObject,
         String context)
