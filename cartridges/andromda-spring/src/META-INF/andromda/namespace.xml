@@ -24,14 +24,18 @@
             </property>
             <property name="daos">
                 <documentation>
-                    The location to which Spring DAOs, and any support classes.
+                    The location to which Spring DAOs, and any support classes.  Please <strong>NOTE</strong>
+                    that the dao implementation classes will also be generated to this location when 
+                    <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
                 </documentation>
             </property>
             <property name="dao-impls">
                 <documentation>
                     The location to which Spring DAO implementation
                     classes will be generated (if there are any classifier scoped business
-                    operations modeled on any entity).
+                    operations modeled on any entity).   Please <strong>NOTE</strong>
+                    that the dao implementation classes will be generated to the <em>daos</em> outlet when 
+                    <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
                 </documentation>
             </property>
             <property name="spring-configuration">
