@@ -97,10 +97,8 @@ public class ActivityGraphFacadeLogicImpl
 
     protected Collection getSubvertices(Predicate collectionFilter)
     {
-        CompositeState compositeState = (CompositeState)metaObject.getTop();
-        return filter(
-            compositeState.getSubvertex(),
-            collectionFilter);
+        final CompositeState compositeState = (CompositeState)metaObject.getTop();
+        return filter(compositeState.getSubvertex(), collectionFilter);
     }
 
     private Collection filter(
@@ -110,7 +108,7 @@ public class ActivityGraphFacadeLogicImpl
         final Set filteredCollection = new LinkedHashSet();
         for (Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
-            Object object = iterator.next();
+            final Object object = iterator.next();
             if (collectionFilter.evaluate(object))
             {
                 filteredCollection.add(object);
@@ -133,11 +131,12 @@ public class ActivityGraphFacadeLogicImpl
     {
         UseCase stateMachineUseCase = null;
 
-        Collection useCases = UML14MetafacadeUtils.getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && stateMachineUseCase == null;)
+        final Collection useCases = UML14MetafacadeUtils.getModel().getUseCases().getUseCase().refAllOfType();
+        for (Iterator useCaseIterator = useCases.iterator();
+             useCaseIterator.hasNext() && stateMachineUseCase == null;)
         {
             // loop over all use-cases
-            UseCase useCase = (UseCase)useCaseIterator.next();
+            final UseCase useCase = (UseCase)useCaseIterator.next();
             if (useCase.getOwnedElement().contains(metaObject))
             {
                 stateMachineUseCase = useCase;

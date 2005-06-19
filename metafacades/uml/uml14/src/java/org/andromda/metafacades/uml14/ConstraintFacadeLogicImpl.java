@@ -38,15 +38,13 @@ public class ConstraintFacadeLogicImpl
         return body;
     }
 
-    // ------------- relations ------------------
-
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#getContextElement()
      */
     public java.lang.Object handleGetContextElement()
     {
         Object element = null;
-        List elements = this.metaObject.getConstrainedElement();
+        final List elements = this.metaObject.getConstrainedElement();
         if (elements != null && !elements.isEmpty())
         {
             element = elements.get(0);

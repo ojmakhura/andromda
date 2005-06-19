@@ -10,8 +10,6 @@ import java.util.Collection;
 public class DependencyFacadeLogicImpl
         extends DependencyFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public DependencyFacadeLogicImpl(org.omg.uml.foundation.core.Dependency metaObject, String context)
     {
         super(metaObject, context);

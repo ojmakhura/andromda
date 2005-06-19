@@ -47,10 +47,10 @@ public class AssociationEndFacadeLogicImpl
      */
     protected Object handleGetOtherEnd()
     {
-        Collection ends = metaObject.getAssociation().getConnection();
+        final Collection ends = metaObject.getAssociation().getConnection();
         for (Iterator endIt = ends.iterator(); endIt.hasNext();)
         {
-            AssociationEnd end = (AssociationEnd)endIt.next();
+            final AssociationEnd end = (AssociationEnd) endIt.next();
             if (!metaObject.equals(end))
             {
                 return end;
@@ -69,7 +69,7 @@ public class AssociationEndFacadeLogicImpl
         // if name is empty, then get the name from the type
         if (StringUtils.isEmpty(name))
         {
-            ClassifierFacade type = this.getType();
+            final ClassifierFacade type = this.getType();
             if (type != null)
             {
                 name = StringUtils.uncapitalize(StringUtils.trimToEmpty(type.getName()));
@@ -80,7 +80,7 @@ public class AssociationEndFacadeLogicImpl
             }
         }
         final String nameMask =
-            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
+                String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
         return NameMasker.mask(name, nameMask);
     }
 
@@ -92,7 +92,7 @@ public class AssociationEndFacadeLogicImpl
     private boolean isPluralizeAssociationEndNames()
     {
         boolean pluralize = false;
-        Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
+        final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
         if (value != null)
         {
             pluralize = Boolean.valueOf(String.valueOf(value)).booleanValue();
@@ -146,19 +146,18 @@ public class AssociationEndFacadeLogicImpl
     protected boolean handleIsMany()
     {
         boolean isMany = false;
-        Multiplicity multiplicity = this.metaObject.getMultiplicity();
-
+        final Multiplicity multiplicity = this.metaObject.getMultiplicity();
         // we'll say a null multiplicity is 1
         if (multiplicity != null)
         {
-            Collection ranges = multiplicity.getRange();
+            final Collection ranges = multiplicity.getRange();
             if (ranges != null && !ranges.isEmpty())
             {
-                Iterator rangeIt = ranges.iterator();
+                final Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                    int upper = multiplicityRange.getUpper();
+                    final MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
+                    final int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
             }
@@ -173,7 +172,7 @@ public class AssociationEndFacadeLogicImpl
     {
         boolean ordered = false;
 
-        OrderingKind ordering = metaObject.getOrdering();
+        final OrderingKind ordering = metaObject.getOrdering();
 
         // no ordering is 'unordered'
         if (ordering != null)
@@ -249,9 +248,8 @@ public class AssociationEndFacadeLogicImpl
         if (this.isMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();
-            name =
-                isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
-                    UMLProfile.COLLECTION_TYPE_NAME);
+            name = isOrdered() ?
+                    mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
         }
         if (name == null && this.getType() != null)
         {
@@ -265,7 +263,7 @@ public class AssociationEndFacadeLogicImpl
      */
     protected boolean handleIsRequired()
     {
-        int lower = this.getMultiplicityRangeLower();
+        final int lower = this.getMultiplicityRangeLower();
         return lower >= 1;
     }
 
@@ -285,16 +283,16 @@ public class AssociationEndFacadeLogicImpl
     private int getMultiplicityRangeLower()
     {
         Integer lower = null;
-        Multiplicity multiplicity = this.metaObject.getMultiplicity();
+        final Multiplicity multiplicity = this.metaObject.getMultiplicity();
         if (multiplicity != null)
         {
-            Collection ranges = multiplicity.getRange();
+            final Collection ranges = multiplicity.getRange();
             if (ranges != null && !ranges.isEmpty())
             {
-                Iterator rangeIt = ranges.iterator();
+                final Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
+                    final MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
                     lower = new Integer(multiplicityRange.getLower());
                 }
             }

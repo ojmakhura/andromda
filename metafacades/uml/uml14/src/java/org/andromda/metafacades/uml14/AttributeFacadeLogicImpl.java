@@ -162,19 +162,19 @@ public class AttributeFacadeLogicImpl
     public boolean handleIsMany()
     {
         boolean isMany = false;
-        Multiplicity multiplicity = this.metaObject.getMultiplicity();
+        final Multiplicity multiplicity = this.metaObject.getMultiplicity();
 
         // assume no multiplicity is 1
         if (multiplicity != null)
         {
-            Collection ranges = multiplicity.getRange();
+            final Collection ranges = multiplicity.getRange();
             if (ranges != null && !ranges.isEmpty())
             {
-                Iterator rangeIt = ranges.iterator();
+                final Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                    int upper = multiplicityRange.getUpper();
+                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
+                    final int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
             }
@@ -190,18 +190,18 @@ public class AttributeFacadeLogicImpl
     private int getMultiplicityRangeLower()
     {
         Integer lower = null;
-        Multiplicity multiplicity = metaObject.getMultiplicity();
+        final Multiplicity multiplicity = metaObject.getMultiplicity();
         if (multiplicity != null)
         {
             if (multiplicity != null)
             {
-                Collection ranges = multiplicity.getRange();
+                final Collection ranges = multiplicity.getRange();
                 if (ranges != null && !ranges.isEmpty())
                 {
-                    Iterator rangeIt = ranges.iterator();
+                    final Iterator rangeIt = ranges.iterator();
                     while (rangeIt.hasNext())
                     {
-                        MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
+                        final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
                         lower = new Integer(multiplicityRange.getLower());
                     }
                 }
@@ -298,7 +298,7 @@ public class AttributeFacadeLogicImpl
     {
         boolean ordered = false;
 
-        OrderingKind ordering = metaObject.getOrdering();
+        final OrderingKind ordering = metaObject.getOrdering();
 
         // no ordering is 'unordered'
         if (ordering != null)
