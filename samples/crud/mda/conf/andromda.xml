@@ -21,33 +21,29 @@
                 <property name="maxSqlNameLength">30</property>
                 <property name="foreignKeySuffix">_FK</property>
                 <property name="ejbJndiNamePrefix">${application.id}</property>
+                <!-- used in both hibernate and spring cartridges -->
+                <property name="hibernateVersion">3</property>
             </properties>
         </namespace>
         <namespace name="spring">
             <properties>
                 <property name="dataSource">${dataSource}</property>
+                <property name="sessionFactory"> org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
-                <property name="hibernateUseQueryCache">false</property>
-                <property name="hibernateQueryUseNamedParameters">true</property>
-                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
-                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="transactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
                 <property name="springTypesPackage">${application.package}</property>
                 <property name="daos">${maven.andromda.core.generated.dir}</property>
                 <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="spring-configuration">${maven.andromda.core.generated.dir}</property>
                 <property name="services">${maven.andromda.core.generated.dir}</property>
                 <property name="service-impls">${maven.andromda.core.manual.dir}</property>
-                <!-- to remove any dependency on EJB, comment the following property -->
-                <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
-                <!-- uncomment to enable EJB security -->
-                <!-- <securityRealm>${application.id}</securityRealm> -->
             </properties>
         </namespace>
         <namespace name="hibernate">
             <properties>
-                <property name="version">2</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>

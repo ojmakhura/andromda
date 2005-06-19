@@ -17,7 +17,7 @@
 
         <ant:pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
 
-        <ant:java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+        <ant:java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
             <ant:arg value="--output=${hibernate.schema.output.dir}/schema-create.sql"/>
             <ant:arg value="--text"/>
             <ant:arg value="--quiet"/>
@@ -34,7 +34,7 @@
                        flags="i"
                        byline="true"/>
 
-        <ant:java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+        <ant:java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
             <ant:arg value="--output=${hibernate.schema.output.dir}/schema-drop.sql"/>
             <ant:arg value="--text"/>
             <ant:arg value="--quiet"/>
