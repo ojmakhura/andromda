@@ -45,7 +45,7 @@ protected PersonDetails handleGet(Long id) throws Exception
                 EJBs, simply put the <![CDATA[<session-ejbs>]]> outlet in comment, like this 
                 (this is done in <code>mda/conf/andromda.xml</code>):
 <source language="xml"><![CDATA[
-<namespace>
+<namespace name="spring">
     <properties>
         ...
         <!--
