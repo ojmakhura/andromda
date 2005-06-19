@@ -22,7 +22,7 @@ import org.apache.tools.ant.taskdefs.MatchingTask;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author <a href="http://www.amowers.com">Anthony Mowers </a>
  * @author Chad Brandon
- * @see org.andromda.core.engine.ModelProcessor
+ * @see org.andromda.core.AndroMDA
  */
 public class AndroMDAGenTask
     extends MatchingTask
