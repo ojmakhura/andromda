@@ -249,11 +249,17 @@ public final class $manageable.manageableDaoBaseName
         final Session session = getSession(false);
         try
         {
-            // hibernate 3 provides a better way: Query.executeUpdate(query:String) : int
+#if ($hibernateVersion == "3")
+            final ${hibernateUtils.basePackage}.Query queryObject =
+                super.getSession(false).createQuery("delete $manageable.fullyQualifiedEntityImplementationName where ${identifier.name} in (:ids)");
+            queryObject.setParameterList("ids", ids);
+            queryObject.executeUpdate();
+#else
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
             criteria.add(Expression.in("$manageable.identifiers.iterator().next().name", ids));
             final java.util.List list = criteria.list();
             getHibernateTemplate().deleteAll(list);
+#end
         }
         catch (HibernateException ex)
         {
