@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeConstants;
@@ -39,8 +38,8 @@ public class EntityLogicImpl
     extends EntityLogic
 {
     public EntityLogicImpl(
-        java.lang.Object metaObject,
-        String context)
+        final java.lang.Object metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -93,10 +92,9 @@ public class EntityLogicImpl
      */
     protected java.util.Collection handleGetQueryOperations(boolean follow)
     {
-        Collection queryOperations = this.getOperations();
+        final Collection queryOperations = this.getOperations();
 
         MetafacadeUtils.filterByType(queryOperations, EntityQueryOperation.class);
-
         for (
             ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
             superClass = (ClassifierFacade)superClass.getGeneralization())
@@ -121,16 +119,15 @@ public class EntityLogicImpl
     /**
      * @see org.andromda.metafacades.uml.Entity#getIdentifiers(boolean)
      */
-    protected java.util.Collection handleGetIdentifiers(boolean follow)
+    protected java.util.Collection handleGetIdentifiers(final boolean follow)
     {
-        Collection identifiers = EntityMetafacadeUtils.getIdentifiers(this, follow);
-        return identifiers;
+        return EntityMetafacadeUtils.getIdentifiers(this, follow);
     }
 
     /**
      * Creates an identifier from the default identifier properties specified within a namespace.
      */
-    private void createIdentifier()
+    private final void createIdentifier()
     {
         // first check if the foreign identifier flag is set, and
         // let those taken precedence if so
@@ -151,7 +148,7 @@ public class EntityLogicImpl
      * @param type the type to give the identifier
      * @param visibility the visibility to give the identifier
      */
-    private void createIdentifier(
+    private final void createIdentifier(
         String name,
         String type,
         String visibility)
@@ -208,7 +205,7 @@ public class EntityLogicImpl
     /**
      * @see org.andromda.metafacades.uml.Entity#getOperationCallFromAttributes(boolean)
      */
-    protected String handleGetOperationCallFromAttributes(boolean withIdentifiers)
+    protected String handleGetOperationCallFromAttributes(final boolean withIdentifiers)
     {
         return this.getOperationCallFromAttributes(withIdentifiers, false);
     }
@@ -217,20 +214,19 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getOperationCallFromAttributes(boolean, boolean)
      */
     protected String handleGetOperationCallFromAttributes(
-        boolean withIdentifiers,
-        boolean follow)
+        final boolean withIdentifiers,
+        final boolean follow)
     {
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
         String separator = "";
         buffer.append("(");
 
         Collection attributes = this.getAttributes();
 
-        for (
-            ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
-            superClass = (ClassifierFacade)superClass.getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+             superClass = (ClassifierFacade)superClass.getGeneralization())
         {
-            if (Entity.class.isAssignableFrom(superClass.getClass()))
+            if (superClass instanceof Entity)
             {
                 Entity entity = (Entity)superClass;
                 attributes.addAll(entity.getAttributes());
@@ -549,7 +545,7 @@ public class EntityLogicImpl
         boolean follow,
         final boolean withIdentifiers)
     {
-        final Set properties = new HashSet(this.getProperties());
+        final Collection properties = this.getProperties();
         if (follow)
         {
             CollectionUtils.forAllDo(
@@ -584,7 +580,7 @@ public class EntityLogicImpl
                     return valid;
                 }
             });
-        return properties;
+        return new HashSet(properties);
     }
 
     /**
