@@ -186,7 +186,7 @@ public abstract class $entity.daoBaseName
 
 #end
 #set ($requiredProperties = $entity.getRequiredProperties(true,false))
-#if (!$requiredProperties.empty && $attributes.size() != $requiredProperties.size())
+#if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
     /**
      * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredPropertyTypeList(true, false)})
      */
