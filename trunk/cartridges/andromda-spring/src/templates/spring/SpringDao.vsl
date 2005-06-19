@@ -148,7 +148,7 @@ public interface $entity.daoName
 
 #end
 #set ($requiredProperties = $entity.getRequiredProperties(true,false))
-#if (!$requiredProperties.empty && $attributes.size() != $requiredProperties.size())
+#if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
     /**
      * <p>
      *  Creates a new <code>$entity.fullyQualifiedEntityName</code>
