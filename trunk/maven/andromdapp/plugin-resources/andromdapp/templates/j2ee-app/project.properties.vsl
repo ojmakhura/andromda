@@ -35,10 +35,17 @@ dataSource.sql.onError=continue
 sql.mappings=HypersonicSql
 
 #if ($hibernate || $spring)
+#if ($hibernateVersion=="2")
 # For MySql use: net.sf.hibernate.dialect.MySQLDialect
 # For Hypersonic use: net.sf.hibernate.dialect.HSQLDialect
 # For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect
 hibernate.db.dialect=net.sf.hibernate.dialect.HSQLDialect
+#elseif ($hibernateVersion=="3")
+# For MySql use: org.hibernate.dialect.MySQLDialect
+# For Hypersonic use: org.hibernate.dialect.HSQLDialect
+# For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
+hibernate.db.dialect=org.hibernate.dialect.HSQLDialect
+#end
 #end
 #if ($ejb)
 
