@@ -38,10 +38,14 @@ public class SpringHibernateUtils
      */
     public String getBasePackage()
     {
-        String packageName = "org.hibernate";
+        String packageName = null;
         if (VERSION_2.equals(hibernateVersion))
         {
             packageName = "net.sf.hibernate";
+        }
+        else
+        {
+            packageName = "org.hibernate";
         }
         return packageName;
     }
@@ -53,7 +57,7 @@ public class SpringHibernateUtils
      */
     public String getCriterionPackage()
     {
-        StringBuffer packageName = new StringBuffer();
+        final StringBuffer packageName = new StringBuffer();
         if (VERSION_2.equals(hibernateVersion))
         {
             packageName.append(".expression");
@@ -62,23 +66,26 @@ public class SpringHibernateUtils
         {
             packageName.append(".criterion");
         }
-        packageName.insert(
-            0,
-            this.getBasePackage());
+        packageName.insert(0, this.getBasePackage());
         return packageName.toString();
     }
 
     /**
      * Gets the appropriate Spring Hibernate package based on the given
      * <code>version</code>.
+     *
      * @return
      */
     public String getSpringHibernatePackage()
     {
-        String packageName = "org.springframework.orm.hibernate3";
+        String packageName = null;
         if (VERSION_2.equals(hibernateVersion))
         {
             packageName = "org.springframework.orm.hibernate";
+        }
+        else
+        {
+            packageName = "org.springframework.orm.hibernate3";
         }
         return packageName;
     }
