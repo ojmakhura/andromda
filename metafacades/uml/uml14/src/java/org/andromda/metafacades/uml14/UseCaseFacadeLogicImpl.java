@@ -12,8 +12,6 @@ import org.omg.uml.foundation.core.ModelElement;
 public class UseCaseFacadeLogicImpl
         extends UseCaseFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public UseCaseFacadeLogicImpl(org.omg.uml.behavioralelements.usecases.UseCase metaObject, String context)
     {
         super(metaObject, context);
@@ -28,7 +26,7 @@ public class UseCaseFacadeLogicImpl
 
         for (Iterator iterator = metaObject.getOwnedElement().iterator(); iterator.hasNext() && activityGraph == null;)
         {
-            ModelElement modelElement = (ModelElement)iterator.next();
+            final ModelElement modelElement = (ModelElement)iterator.next();
             if (modelElement instanceof ActivityGraph)
             {
                 activityGraph = (ActivityGraph)modelElement;
