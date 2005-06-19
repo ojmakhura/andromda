@@ -63,7 +63,11 @@
         <dependency>
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>
+#if ($hibernateVersion=="2")
             <version>2.1.8</version>
+#elseif ($hibernateVersion=="3")
+            <version>3.0.5</version>
+#end
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
