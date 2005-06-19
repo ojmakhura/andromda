@@ -24,7 +24,8 @@
                 to make the bpm4struts cartridge aware of how to call the actual service instances in the
                 back-end tier, since this
                 is most likely different on different platforms (Spring, EJB, ...). For this reason we have
-                introduced a <a href="namespace.html">namespace</a> property called <code>serviceAccessorPattern</code>.
+                introduced a <a href="namespace.html">namespace</a> property called
+                <a href="namespace.html#serviceAccessorPattern">serviceAccessorPattern</a>.
                 It allows you to specify how calls to the back end ought to be rendered, if you have generated the
                 project structure using the
                 <a href="../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> Maven plugin you should
