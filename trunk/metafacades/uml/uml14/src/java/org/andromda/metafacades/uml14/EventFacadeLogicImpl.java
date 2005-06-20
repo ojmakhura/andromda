@@ -31,10 +31,10 @@ public class EventFacadeLogicImpl
     {
         Transition eventTransition = null;
 
-        Collection allTransitions = UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
+        final Collection allTransitions = UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
         for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition == null;)
         {
-            Transition transition = (Transition)iterator.next();
+            final Transition transition = (Transition)iterator.next();
             if (metaObject.equals(transition.getTrigger()))
             {
                 eventTransition = transition;
@@ -53,7 +53,7 @@ public class EventFacadeLogicImpl
 
         for (Iterator stateIterator = allStates.iterator(); stateIterator.hasNext() && eventState == null;)
         {
-            State state = (State)stateIterator.next();
+            final State state = (State)stateIterator.next();
             if (state.getDeferrableEvent().contains(metaObject))
             {
                 eventState = state;
