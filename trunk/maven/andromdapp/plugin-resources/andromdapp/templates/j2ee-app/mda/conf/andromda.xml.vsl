@@ -78,8 +78,9 @@
                 <property name="session-beans">${maven.andromda.core.generated.dir}</property>
                 <property name="session-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="configuration">${maven.andromda.core.generated.dir}</property>
-                <!-- uncomment to enable EJB security -->
-                <!-- <property name="securityRealm">${application.id}</property> -->
+                <!-- uncomment to enable EJB security
+                <property name="securityRealm">${application.id}</property> 
+                -->
             </properties>
         </namespace>        
 #else
@@ -118,8 +119,9 @@
 #if ($ear)
                 <!-- to remove any dependency on EJB, comment the following property -->
                 <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
-                <!-- uncomment to enable EJB security -->
+                <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
+                 -->
 #end
             </properties>
         </namespace>
@@ -181,8 +183,9 @@
                 <property name="decorators">${maven.andromda.web.manual.java.dir}</property>
                 <property name="messages">${maven.andromda.web.generated.dir}/WEB-INF/classes</property>
                 <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
-                <property name="security">false</property>
+                <!-- uncomment to enable web tier security 
                 <property name="securityRealm">other</property>
+                -->
 #if ($ejb)
                 <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
 #else
