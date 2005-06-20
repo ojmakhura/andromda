@@ -33,9 +33,8 @@
            Cleans Everything and deletes all implementation classes
          ================================================================== -->
     <goal name="nuke">
-        <i:ask
-                question="This will also clean out all implementation classes, are you sure (y/n) ?"
-                answer="nukeit"/>
+        <i:ask question="This will also clean out all implementation classes, are you sure (y/n) ?"
+               answer="nukeit"/>
         <j:choose>
 #set ($test = "nukeit eq 'y'")
             <j:when test="${${test}}">
