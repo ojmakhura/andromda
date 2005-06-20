@@ -36,7 +36,8 @@
                 question="This will also clean out all implementation classes, are you sure (y/n) ?"
                 answer="nukeit"/>
         <j:choose>
-            <j:when test="${nukeit eq 'y'}">
+#set ($test = "nukeit eq 'y'")
+            <j:when test="${${test}}">
                 <ant:echo>Nuking source code...</ant:echo>
                 <attainGoal name="clean"/>
                 <ant:delete>
@@ -235,4 +236,4 @@
         </j:if>
     </goal>
 
-</project>
+</project> 
