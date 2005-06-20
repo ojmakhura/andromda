@@ -2,7 +2,8 @@
          xmlns:ant="jelly:ant"
          xmlns:maven="jelly:maven"
          xmlns:j="jelly:core"
-         xmlns:util="jelly:util">
+         xmlns:util="jelly:util"
+         xmlns:i="jelly:interaction">
 
     <ant:property environment="env"/>
 
