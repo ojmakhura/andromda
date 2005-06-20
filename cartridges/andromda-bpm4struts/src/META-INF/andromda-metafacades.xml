@@ -111,7 +111,11 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Event$Impl"/>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl"/>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl" contextRoot="true">

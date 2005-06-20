@@ -116,6 +116,9 @@
     <metafacade class="org.andromda.metafacades.uml14.PartitionFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.Partition$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.CallEventFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EventFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Event$Impl"/>
     </metafacade>
