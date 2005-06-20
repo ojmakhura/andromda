@@ -7,9 +7,6 @@
 #if ($setPageVariablesInPageScope=="true")
         <c:set var="$variable.name" value="${${formVariableName}}"/>
 #end
-#if (!$variable.table)
-        <c:out value="${${formVariableName}}"/>
-#end
     </c:catch>
 #end
 </div>
