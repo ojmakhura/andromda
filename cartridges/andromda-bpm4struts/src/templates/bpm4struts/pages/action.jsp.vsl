@@ -31,11 +31,8 @@
 #set ($onsubmit = "")
 #end
         <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
-
-#foreach ($field in $actionParameters)
-#if ($field.widgetType == "hidden")
-#renderFormField($action $field "            " '')
-#end
+#if (!$action.hiddenActionParameters.empty)
+            <%@ include file="${action.fullTilePath}-hidden-params.jsp" %>
 #end
             <table>
                 <tbody>

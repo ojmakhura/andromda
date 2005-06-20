@@ -953,7 +953,7 @@ public class StrutsParameterLogicImpl
             }
             else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType))
             {
-                widgetType = "hidden";
+                widgetType = HIDDEN_INPUT_TYPE;
             }
             else if (fieldType.toLowerCase().startsWith(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_RADIO))
             {
@@ -996,6 +996,11 @@ public class StrutsParameterLogicImpl
         }
         return widgetType;
     }
+    
+    /**
+     * The input type representing a 'hidden' parameter.
+     */
+    static final String HIDDEN_INPUT_TYPE = "hidden";
 
     protected boolean handleIsFile()
     {

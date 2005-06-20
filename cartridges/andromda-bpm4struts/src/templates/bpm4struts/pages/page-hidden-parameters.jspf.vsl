@@ -1,0 +1,9 @@
+##
+##
+##      This JSP fragment stores all hidden parameters.
+##
+##
+#set ($generatedFile = "${action.fullTilePath}-hidden-params.jsp")
+#foreach ($field in $action.hiddenActionParameters)
+<html:hidden name="$formName" property="$field.name" styleId="$field.styleId"/>
+#end 
