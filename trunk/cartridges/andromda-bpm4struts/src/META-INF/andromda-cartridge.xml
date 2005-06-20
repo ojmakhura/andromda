@@ -213,6 +213,21 @@
             </modelElement>
         </modelElements>
     </template>
+    
+    <template
+        path="templates/bpm4struts/pages/page-hidden-parameters.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction">
+                    <property name="tableLink">false</property>
+                    <property name="hiddenActionParameters"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <template
         path="templates/bpm4struts/pages/page-table.jspf.vsl"

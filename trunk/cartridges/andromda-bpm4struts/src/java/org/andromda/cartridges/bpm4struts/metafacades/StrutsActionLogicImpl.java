@@ -20,6 +20,8 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -932,5 +934,22 @@ public class StrutsActionLogicImpl
     protected boolean handleIsFormScopeNone()
     {
         return this.getFormScope().equalsIgnoreCase(FORM_SCOPE_NONE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#handleGetHiddenActionParameters()
+     */
+    protected List handleGetHiddenActionParameters()
+    {
+        final List hiddenActionParameters = new ArrayList(this.getActionParameters());
+        CollectionUtils.filter(hiddenActionParameters,
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    return StrutsParameterLogicImpl.HIDDEN_INPUT_TYPE.equals(((StrutsParameter)object).getWidgetType());
+                }
+            });
+        return hiddenActionParameters;
     }
 }
