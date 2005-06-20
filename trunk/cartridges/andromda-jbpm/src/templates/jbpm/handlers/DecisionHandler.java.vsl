@@ -1,0 +1,13 @@
+#set ($generatedFile = "${decision.className}.java")
+#set ($packageName = $decision.activityGraph.useCase.packageName)
+#if ($stringUtils.isNotBlank($packageName))
+#set ($generatedFile = "${decision.activityGraph.useCase.packagePath}/${generatedFile}")
+package $packageName;
+
+#end
+/**
+$decision.getDocumentation(" * ")
+ */
+public interface $decision.className extends org.jbpm.graph.node.DecisionHandler
+{
+}

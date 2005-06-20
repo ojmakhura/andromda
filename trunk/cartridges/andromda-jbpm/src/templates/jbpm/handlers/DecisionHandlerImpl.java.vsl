@@ -1,0 +1,14 @@
+#set ($generatedFile = "${decision.className}Impl.java")
+#set ($packageName = $decision.activityGraph.useCase.packageName)
+#if ($stringUtils.isNotBlank($packageName))
+#set ($generatedFile = "${decision.activityGraph.useCase.packagePath}/${generatedFile}")
+package $packageName;
+
+#end
+public class ${decision.className}Impl implements ${decision.className}
+{
+    public void decide(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+    }
+}

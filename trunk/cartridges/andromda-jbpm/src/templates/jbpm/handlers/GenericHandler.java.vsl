@@ -1,0 +1,22 @@
+#set ($generatedFile = "${handler.className}.java")
+#set ($packageName = $handler.owner.packageName)
+#if ($stringUtils.isNotBlank($packageName))
+#set ($generatedFile = "${handler.owner.packagePath}/${generatedFile}")
+package $packageName;
+
+#end
+/**
+$handler.getDocumentation(" * ")
+ */
+public interface $handler.className extends
+#set ($comma = "")
+#if ($handler.actionHandler)
+    ${comma}org.jbpm.graph.def.ActionHandler
+#set ($comma = ", ")
+#end
+#if ($handler.assignmentHandler)
+    ${comma}org.jbpm.taskmgmt.def.AssignmentHandler
+#set ($comma = ", ")
+#end
+{
+}

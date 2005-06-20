@@ -1,0 +1,98 @@
+##
+##
+##
+#macro (events $state $indent)
+#if (!$state.beforeSignal.empty)
+${indent}<event type="before-signal">
+#actions($state.beforeSignal "${indent}    ")
+${indent}</event>
+#end
+#if (!$state.afterSignal.empty)
+${indent}<event type="after-signal">
+#actions($state.afterSignal "${indent}    ")
+${indent}</event>
+#end
+#if (!$state.nodeEnter.empty)
+${indent}<event type="node-enter">
+#actions($state.nodeEnter "${indent}    ")
+${indent}</event>
+#end
+#if (!$state.nodeLeave.empty)
+${indent}<event type="node-leave">
+#actions($state.nodeLeave "${indent}    ")
+${indent}</event>
+#end
+#end
+##
+##
+##
+#macro (tasks $taskNode $indent)
+#foreach ($task in $taskNode.tasks)
+${indent}<task#renderName($task)#renderDueDate($task) blocking="$task.blocking">
+#if ($task.assignment)
+${indent}    <assignment#renderClass($task)#renderConfigType($task)/>
+#end
+${indent}</task>
+#end
+#end
+##
+##
+##
+#macro (actions $actions $indent)
+#foreach ($action in $actions)
+${indent}<action#renderName($action)#renderClass($action)#renderConfigType($action)/>
+#end
+#end
+##
+##
+##
+#macro (transitions $state $indent $considerConditions)
+#foreach ($transition in $state.outgoing)
+#if($transition.condition || $transition.trigger)
+${indent}<transition#renderName($transition) to="$transition.target.name">
+#if ($transition.trigger)
+${indent}   <action#renderName($transition.trigger)#renderClass($transition.trigger)#renderConfigType($transition.trigger)/>
+#end
+#if($considerConditions && $transition.condition)
+${indent}   <condition>
+${indent}       <![CDATA[${transition.condition}]]>
+${indent}   </condition>
+#end
+${indent}</transition>
+#else
+${indent}<transition#renderName($transition) to="$transition.target.name"/>
+#end
+#end
+#end
+##
+##
+##
+#macro (renderName $element)
+#if ($element.name)
+ name="$element.name"## no newline
+#end
+#end
+##
+##
+##
+#macro (renderClass $element)
+#if ($element.clazz)
+ class="$element.clazz"## no newline
+#end
+#end
+##
+##
+##
+#macro (renderConfigType $element)
+#if ($element.configType)
+ config-type="$element.configType"## no newline
+#end
+#end
+##
+##
+##
+#macro (renderDueDate $element)
+#if ($element.dueDate)
+ duedate="$element.dueDate"## no newline
+#end
+#end

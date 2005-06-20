@@ -1,0 +1,24 @@
+#set ($generatedFile = "${handler.className}Impl.java")
+#set ($packageName = $handler.owner.packageName)
+#if ($stringUtils.isNotBlank($packageName))
+#set ($generatedFile = "${handler.owner.packagePath}/${generatedFile}")
+package $packageName;
+
+#end
+public class ${handler.className}Impl implements ${handler.className}
+{
+#if ($handler.actionHandler)
+    public void execute(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+    }
+
+#end
+#if ($handler.assignmentHandler)
+    public void assign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+    }
+
+#end
+}
