@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- contains the jbpm cartridge metafacade mappings -->
+<metafacades>
+    
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+            <property name="businessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.Partition$Impl"/>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+            <property name="initialState"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogicImpl">
+        <!-- to ensure no decision handler is generated when the graph is not a business process -->
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+            <property name="decisionPoint"/>
+            <property name="activityGraph.useCase.businessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+            <property name="join"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+            <property name="fork"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmStateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"/>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmActionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+            <!-- to ensure no handler is generated when the graph is not a business process -->
+<!--
+            <property name="state.activityGraph.useCase.businessProcess"/>
+-->
+        </mapping>
+    </metafacade>
+
+    <!-- to ensure no handler is generated when the graph is not a business process -->
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmActionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+            <property name="transition.source.activityGraph.useCase.businessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmTransitionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl"/>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmEndStateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl"/>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <property name="owner.activityGraphContext.useCase.businessProcess"/>
+        </mapping>
+    </metafacade>
+
+</metafacades>

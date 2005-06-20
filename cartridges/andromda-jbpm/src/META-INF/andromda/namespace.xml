@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="jbpm">
+    <components>
+        <component name="cartridge"/>
+        <component name="metafacades"/>
+    </components>
+    <properties>
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="definitions">
+                <documentation>
+                    The location to which the process definition XML descriptors are written.
+                </documentation>
+            </property>
+            <property name="handlers">
+                <documentation>
+                    The location to which the action handlers, assignment handlers,
+                    decision handlers and task controller handlers are written
+                    (interfaces that are overwritten upon regeneration).
+                </documentation>
+            </property>
+            <property name="handler-impls">
+                <documentation>
+                    The location to which the action handlers, assignment handlers,
+                    decision handlers and task controller handlers are written
+                    (implementation classes manually edited by the user).
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

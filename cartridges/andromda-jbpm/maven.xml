@@ -1,0 +1,34 @@
+<project default="jar:install"
+         xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core">
+         
+    <!-- ==================================================================
+             Cleans the cartridge
+         ================================================================== -->        
+    <goal name="clean">
+        <attainGoal name="clean:clean"/>
+    </goal>
+
+    <!-- ==================================================================
+             Generate the PDF documentation
+         ================================================================== -->
+    <postGoal name="xdoc">
+        <!-- we want to generate a pdf from the documentation -->
+        <attainGoal name="fo:fo"/>
+        <attainGoal name="pdf:pdf"/>
+    </postGoal>
+
+    <!-- ==================================================================
+            Include the taglib code into the resources after compilation
+         ================================================================== -->
+    <postGoal name="java:compile">
+        <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/lib"/>
+        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/andromda-breadcrumbs-taglib-${pom.currentVersion}.jar"
+            tofile="${maven.build.dest}/resources/WEB-INF/lib/andromda-breadcrumbs-taglib.jar"/>
+        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/andromda-formatting-taglib-${pom.currentVersion}.jar"
+            tofile="${maven.build.dest}/resources/WEB-INF/lib/andromda-formatting-taglib.jar"/>
+    </postGoal>
+
+</project>
+
+

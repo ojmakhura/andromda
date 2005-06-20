@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - jBpm - Introduction</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="Abstract">
+            <p class="abstract">
+                These pages describe the 'jBPM' cartridge. <a href="http://www.jboss.org/products/jbpm">jBPM</a>
+                is a workflow engine that is now part of the <a href="http://www.jboss.org">JBoss</a> product line.
+                This cartridge is able to generate <i>process definitions</i> and <i>handlers</i> from UML activity
+                graphs.
+            </p>
+        </section>
+
+        <section name="Modeling for jBpm">
+            <p>
+                Modeling for the jBpm cartridge is actually very simple, for a single jBpm process you will need
+                to model a usecase containing an activity graph, and a class which will own the operations to call
+                in specific areas of the graph.
+            </p>
+            <subsection name="The activity graph">
+                <p>
+                    The activity graph will determine the content of the process definition XML descriptor, all
+                    transitions, states and swimlanes will be analyzes and a suitable descriptor is emitted.
+                    More formally, we will be considering the following model elements for the jBpm cartridge:
+                </p>
+                <p>
+                    <ul>
+                        <li>use-case</li>
+                        <li>activity graph</li>
+                        <li>initial state</li>
+                        <li>action state</li>
+                        <li>decision point</li>
+                        <li>transition</li>
+                        <li>final state</li>
+                        <li>swimlane</li>
+                        <li>class</li>
+                    </ul>
+                </p>
+                <p>
+                    The <strong>use-case</strong> is used to envelop the activity graph, stereotypes and tagged values
+                    will be modeled on the use-case rather than directly on the activity graph.
+                </p>
+                <p>
+                    The <strong>activity graph</strong> explicitly describes the process flow, almost all types of
+                    supported model elements will be used to describe the process.
+                </p>
+                <p>
+                    A single <strong>initial state</strong> represents the start of the process, it typically has
+                    a single outgoing transition.
+                </p>
+                <p>
+                    <strong>Action states</strong> represents the different states in the state machine
+                    (activity graph), these states typically have one or more incoming transitions and a single
+                    outgoing transition.<br/>
+                    It is allowed to have such action states deferring events to one or more operations, therefore
+                    these events must be of type <em>call-event</em>. Each such event will result in the generation
+                    of an <em>action handler</em> (if the action state does <em>not</em> carry the
+                    <![CDATA[<<Task>>]]> stereotype and if the event itself carries the
+                    <![CDATA[<<Before Signal>>]]>, <![CDATA[<<After Signal>>]]>, <![CDATA[<<Node Enter>>]]> or
+                    <![CDATA[<<Node Leave>>]]>) or a <em>task assignment handler</em> (if the action state carries
+                    the <![CDATA[<<Task>>]]> stereotype).
+                </p>
+                <p>
+                    Use <strong>decision points</strong> when you want to have the process split up in different
+                    directions based on a specific decision. Each decision point will result in the generation
+                    of a <em>decision handler</em>. A decision point is required to have a non-empty name.
+                </p>
+                <p>
+                    One or more <strong>final states</strong> represent the end of the process. A final state
+                    is required to have a non-empty name.
+                </p>
+                <p>
+                    <strong>Transitions</strong> tie all other elements used in an activity graph together, they
+                    represent the different directions a flow can take. Just as with action states transitions
+                    may use a call-event to defer control to an operation.
+                </p>
+                <p>
+                    Specific action roles are represented using <strong>swimlanes</strong> (the technical UML
+                    term for a swimlane is <em>partition</em>), states can be assigned to a specific swimlane,
+                    denoting the user/role assigned to it. A swimlane optionally take one or more assigment
+                    expression tagged values, use <code>@andromda.process.jbpm.assignment.expression</code>.
+                </p>
+                <p>
+                    Per activity graph a single <strong>class</strong> is used containing the operations to which
+                    will be deferred from within the action states or transitions. Each operation will result in
+                    the generation of a <em>handler</em>. See the <a href="#The_handler_class">next section</a>
+                    for more information.
+                </p>
+            </subsection>
+            <subsection name="The handler class">
+                <p>
+                    Once in a while you will want to defer control to a specific operation, implemented in jBpm
+                    by means of <em>Handler</em> interfaces. For each such operation to which is deferred the
+                    cartridge will generate a class, implementing the necessary interfaces. By default this
+                    implementation is empty so it needs manual editing.
+                </p>
+                <p>
+                    In order to be able to defer to such an operation you will need to assign the class
+                    as the context of the activity graph, UML tools often have different ways of achieving this
+                    (if at all). MagicDraw allows you to right-click the class to popup the menu, select the
+                    'Assign...' item and select the appropriate graph from the select before clicking the 'Assign'
+                    button.
+                </p>
+            </subsection>
+        </section>
+        <section name="Example">
+            <p>
+                Although not displaying everything, the following diagram shows how a process can be modeled
+                (the events, use-case and handler operations aren't shown). The
+                generated process description file is found below.
+            </p>
+            <p>
+                <img src="images/example.gif"/>
+            </p>
+            <p>
+                <source language="xml">
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="Example Scenario">
+
+    <swimlane name="someRole"/>
+
+    <start-state>
+        <transition to="create file"/>
+        <swimlane name="someRole"/>
+    </start-state>
+
+    <state name="create file">
+        <transition to="ensure integrity"/>
+        <swimlane name="someRole"/>
+    </state>
+    <state name="ensure integrity">
+        <transition name="send flows" to="check file completeness">
+           <action class="org.andromda.cartridges.jbpm.tests.SendRequestedFlows"/>
+        </transition>
+        <swimlane name="someRole"/>
+    </state>
+    <state name="await reponses">
+        <transition name="flow received" to="check file completeness"/>
+        <transition name="attestation encoded" to="check file completeness"/>
+        <swimlane name="someRole"/>
+    </state>
+    <state name="file complete">
+        <transition to="select useful period"/>
+        <transition name="additional requests" to="check file completeness"/>
+        <swimlane name="someRole"/>
+    </state>
+    <state name="select useful period">
+        <transition name="give right" to="end process">
+           <action class="org.andromda.cartridges.jbpm.tests.GiveRight"/>
+        </transition>
+        <transition name="refuse right" to="end process">
+           <action class="org.andromda.cartridges.jbpm.tests.RefuseRight"/>
+        </transition>
+        <swimlane name="someRole"/>
+    </state>
+
+    <end-state name="end process"/>
+
+    <decision name="check file completeness">
+        <handler class="org.andromda.cartridges.jbpm.tests.CheckFileCompleteness"/>
+        <transition to="file complete">
+           <condition>
+               <![CDATA[file complete (add beanshell script to the transition's guard)]]>
+           </condition>
+        </transition>
+        <transition to="await reponses">
+           <condition>
+               <![CDATA[file incomplete (add beanshell script to the transition's guard)]]>
+           </condition>
+        </transition>
+    </decision>
+
+</process-definition>
+-->
+                </source>
+            </p>
+        </section>
+        <section name="More will be added later...">
+        </section>
+
+    </body>
+</document>
