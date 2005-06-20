@@ -1,7 +1,8 @@
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
          xmlns:velocity="jelly:velocity"
-         xmlns:artifact="artifact">
+         xmlns:artifact="artifact"
+         xmlns:i="jelly:interaction">
 
    <preGoal name="jar:jar">
         <!-- replace the ${pom.currentVersion} in these
