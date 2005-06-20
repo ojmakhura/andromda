@@ -8,18 +8,11 @@ import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 public class PseudostateFacadeLogicImpl
         extends PseudostateFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public PseudostateFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.Pseudostate metaObject,
                                       String context)
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class PseudostateDecorator ...
 
     public boolean handleIsChoice()
     {
