@@ -150,8 +150,7 @@
             <documentation>
                 These properties configure the validation of user input as well as the security.
             </documentation>
-            <property name="securityRealm">
-                <default>other</default>
+            <property name="securityRealm" required="false">
                 <documentation>
                     The security realm to use when security is enabled.
                 </documentation>
