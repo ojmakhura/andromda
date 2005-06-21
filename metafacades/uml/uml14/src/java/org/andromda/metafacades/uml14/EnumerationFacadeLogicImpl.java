@@ -47,7 +47,7 @@ public class EnumerationFacadeLogicImpl
      */
     protected String handleGetFromOperationSignature()
     {
-        StringBuffer signature = new StringBuffer(this.getFromOperationName());
+        final StringBuffer signature = new StringBuffer(this.getFromOperationName());
         final ClassifierFacade type = this.getLiteralType();
         if (type != null)
         {
@@ -63,7 +63,7 @@ public class EnumerationFacadeLogicImpl
      */
     protected String handleGetFromOperationName()
     {
-        StringBuffer name = new StringBuffer("from");
+        final StringBuffer name = new StringBuffer("from");
         final ClassifierFacade type = this.getLiteralType();
         if (type != null)
         {
