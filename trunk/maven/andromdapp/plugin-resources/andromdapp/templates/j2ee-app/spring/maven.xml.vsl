@@ -21,9 +21,9 @@
 
         <ant:pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
 
-#if ($hibernateVersion=="2")
+#if ($hibernateVersion == "2")
         <ant:java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
-#elseif ($hibernateVersion=="3")
+#else
         <ant:java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
 #end
             <ant:arg value="--output=${hibernate.schema.output.dir}/schema-create.sql"/>
@@ -42,9 +42,9 @@
                        flags="i"
                        byline="true"/>
 
-#if ($hibernateVersion=="2")
+#if ($hibernateVersion == "2")
         <ant:java classname="net.sf.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
-#elseif ($hibernateVersion=="3")
+#else
         <ant:java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
 #end
             <ant:arg value="--output=${hibernate.schema.output.dir}/schema-drop.sql"/>

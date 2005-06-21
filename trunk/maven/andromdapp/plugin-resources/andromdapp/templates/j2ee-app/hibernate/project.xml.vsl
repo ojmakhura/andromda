@@ -60,9 +60,9 @@
         <dependency>
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>
-#if ($hibernateVersion=="2")
+#if ($hibernateVersion == "2")
             <version>2.1.8</version>
-#elseif ($hibernateVersion=="3")
+#else
             <version>3.0.5</version>
 #end
             <properties>

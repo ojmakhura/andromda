@@ -346,8 +346,7 @@
         </j:while>
         <j:choose>
             <j:when test="${projectType == 'ear'}">
-                <j:while test="${empty(persistenceType) or
-                                  (persistenceType ne 'hibernate' and persistenceType ne 'ejb' and persistenceType ne 'spring')}">
+                <j:while test="${empty(persistenceType) or (persistenceType ne 'hibernate' and persistenceType ne 'ejb' and persistenceType ne 'spring')}">
                     <i:ask
                         question="Please enter the type of transactional/persistence cartridge to use (enter 'hibernate', 'ejb', or 'spring'):"
                         answer="persistenceType"/>
@@ -365,7 +364,12 @@
                         answer="webComponent"/>
                 </j:while>
             </j:when>
-            <j:otherwise>
+            <j:otherwise> 
+                <j:while test="${empty(hibernateVersion) or (hibernateVersion ne '2' and hibernateVersion ne '3')}">
+                    <i:ask
+                        question="Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x):"
+                        answer="hibernateVersion"/>
+                </j:while>
                 <j:set var="persistenceType" value="spring"/>
                 <j:set var="webComponent" value="yes"/>
             </j:otherwise>
