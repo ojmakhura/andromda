@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeConstants;
@@ -367,22 +369,22 @@ public class EntityLogicImpl
      * @param attributes the attributes to construct the list from.
      * @return the comma seperated list of attribute names.
      */
-    private String getNameList(Collection attributes)
+    private String getNameList(final Collection properties)
     {
         final StringBuffer list = new StringBuffer();
         final String comma = ", ";
         CollectionUtils.forAllDo(
-            attributes,
+            properties,
             new Closure()
             {
                 public void execute(Object object)
                 {
-                    if (object instanceof AttributeFacade)
+                    if (object instanceof EntityAttribute)
                     {
                         list.append(((AttributeFacade)object).getName());
                         list.append(comma);
                     }
-                    if (object instanceof AssociationEndFacade)
+                    if (object instanceof EntityAssociationEnd)
                     {
                         list.append(((AssociationEndFacade)object).getName());
                         list.append(comma);
@@ -542,17 +544,17 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getRequiredProperties(boolean, boolean)
      */
     protected Collection handleGetRequiredProperties(
-        boolean follow,
+        final boolean follow,
         final boolean withIdentifiers)
     {
-        final Collection properties = this.getProperties();
+        final Set properties = new HashSet(this.getProperties());
         if (follow)
         {
             CollectionUtils.forAllDo(
                 this.getAllGeneralizations(),
                 new Closure()
                 {
-                    public void execute(Object object)
+                    public void execute(final Object object)
                     {
                         properties.addAll(((ClassifierFacade)object).getProperties());
                     }
@@ -562,7 +564,7 @@ public class EntityLogicImpl
             properties,
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     boolean valid = false;
                     if (object instanceof AttributeFacade)
@@ -580,7 +582,9 @@ public class EntityLogicImpl
                     return valid;
                 }
             });
-        return new HashSet(properties);
+        List sortedProperties = new ArrayList(properties);
+        MetafacadeUtils.sortByFullyQualifiedName(sortedProperties);
+        return sortedProperties;
     }
 
     /**
