@@ -14,66 +14,59 @@ public class PseudostateFacadeLogicImpl
         super(metaObject, context);
     }
 
-    public boolean handleIsChoice()
+    protected boolean handleIsChoice()
     {
         return PseudostateKindEnum.PK_CHOICE.equals(metaObject.getKind());
     }
 
-    public boolean handleIsInitialState()
+    protected boolean handleIsInitialState()
     {
         return PseudostateKindEnum.PK_INITIAL.equals(metaObject.getKind());
     }
 
-    public boolean handleIsJoin()
+    protected boolean handleIsJoin()
     {
         return PseudostateKindEnum.PK_JOIN.equals(metaObject.getKind());
     }
 
-    public boolean handleIsDeepHistory()
-    {
-        return PseudostateKindEnum.PK_DEEP_HISTORY.equals(metaObject.getKind());
-    }
-
-    public boolean handleIsFork()
+    protected boolean handleIsFork()
     {
         return PseudostateKindEnum.PK_FORK.equals(metaObject.getKind());
     }
 
-    public boolean handleIsJunction()
+    protected boolean handleIsJunction()
     {
         return PseudostateKindEnum.PK_JUNCTION.equals(metaObject.getKind());
     }
 
-    public boolean handleIsShallowHistory()
+    protected boolean handleIsDecisionPoint()
+    {
+        return (isChoice() || isJunction()) && metaObject.getOutgoing().size()>1;
+    }
+
+    protected boolean handleIsMergePoint()
+    {
+        return (isChoice() || isJunction()) && metaObject.getIncoming().size()>1;
+    }
+
+    protected boolean handleIsDeepHistory()
+    {
+        return PseudostateKindEnum.PK_DEEP_HISTORY.equals(metaObject.getKind());
+    }
+
+    protected boolean handleIsShallowHistory()
     {
         return PseudostateKindEnum.PK_SHALLOW_HISTORY.equals(metaObject.getKind());
     }
 
-    public boolean handleIsDecisionPoint()
+    protected boolean handleIsSplit()
     {
-        boolean isDecisionPoint = false;
-
-        if (isChoice() || isJunction())
-        {
-            isDecisionPoint = true;
-            isDecisionPoint = isDecisionPoint && (metaObject.getOutgoing().size() > 1);
-        }
-
-        return isDecisionPoint;
+        return (isJoin() || isFork()) && metaObject.getIncoming().size()==1 && metaObject.getOutgoing().size()>1;
     }
 
-    public boolean handleIsMergePoint()
+    protected boolean handleIsCollect()
     {
-        boolean isMergePoint = false;
-
-        if (isChoice() || isJoin())
-        {
-            isMergePoint = true;
-            isMergePoint = isMergePoint && (metaObject.getIncoming().size() > 1);
-            isMergePoint = isMergePoint && (metaObject.getOutgoing().size() == 1);
-        }
-
-        return isMergePoint;
+        return (isJoin() || isFork()) && metaObject.getOutgoing().size()==1 && metaObject.getIncoming().size()>1;
     }
 
     public Object getValidationOwner()
