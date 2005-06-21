@@ -20,17 +20,9 @@ public class EnumerationLiteralFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
-    public String handleGetName()
+    protected String handleGetName()
     {
         return StringUtilsHelper.separate(super.handleGetName(), "_").toUpperCase();
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.EnumerationLiteralFacade#getEnumeration()
-     */
-    protected java.lang.Object handleGetEnumeration()
-    {
-        return metaObject.getEnumeration();
     }
 
     /**

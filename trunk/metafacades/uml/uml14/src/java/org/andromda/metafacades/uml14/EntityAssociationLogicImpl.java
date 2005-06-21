@@ -31,10 +31,10 @@ public class EntityAssociationLogicImpl
     public String handleGetTableName()
     {
         String tableName = null;
-        Collection ends = this.getAssociationEnds();
+        final Collection ends = this.getAssociationEnds();
         if (ends != null && !ends.isEmpty())
         {
-            AssociationEndFacade end = (AssociationEndFacade)ends.iterator().next();
+            final AssociationEndFacade end = (AssociationEndFacade)ends.iterator().next();
             if (end.isMany2Many())
             {
                 // prevent ClassCastException if the association isn't an

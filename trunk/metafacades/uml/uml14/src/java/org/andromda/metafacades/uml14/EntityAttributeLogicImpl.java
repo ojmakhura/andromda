@@ -36,7 +36,7 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnName()
      */
-    public String handleGetColumnName()
+    protected String handleGetColumnName()
     {
         final Short maxSqlNameLength = 
             Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
@@ -47,16 +47,15 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnLength()
      */
-    public String handleGetColumnLength()
+    protected String handleGetColumnLength()
     {
-        Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
-        return (String)value;
+        return (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
     }
 
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#isIdentifier()
      */
-    public boolean handleIsIdentifier()
+    protected boolean handleIsIdentifier()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
@@ -64,7 +63,7 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#isUnique()
      */
-    public boolean handleIsUnique()
+    protected boolean handleIsUnique()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_UNIQUE);
     }
@@ -72,21 +71,21 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnIndex()
      */
-    public java.lang.String handleGetColumnIndex()
+    protected java.lang.String handleGetColumnIndex()
     {
-        String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
+        final String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
     }
 
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getSqlType()
      */
-    public java.lang.String handleGetSqlType()
+    protected java.lang.String handleGetSqlType()
     {
         String value = null;
         if (this.getSqlMappings() != null)
         {
-            ClassifierFacade type = this.getType();
+            final ClassifierFacade type = this.getType();
             if (type != null)
             {
                 String typeName = type.getFullyQualifiedName(true);
@@ -100,7 +99,7 @@ public class EntityAttributeLogicImpl
                     }
                 }
                 value = this.getSqlMappings().getTo(typeName);
-                String columnLength = this.getColumnLength();
+                final String columnLength = this.getColumnLength();
                 if (StringUtils.isNotEmpty(columnLength))
                 {
                     value = EntityMetafacadeUtils.constructSqlTypeName(value, columnLength);
@@ -114,15 +113,15 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getJdbcType()
      */
-    public java.lang.String handleGetJdbcType()
+    protected java.lang.String handleGetJdbcType()
     {
         String value = null;
         if (this.getJdbcMappings() != null)
         {
-            ClassifierFacade type = this.getType();
+            final ClassifierFacade type = this.getType();
             if (type != null)
             {
-                String typeName = type.getFullyQualifiedName(true);
+                final String typeName = type.getFullyQualifiedName(true);
                 value = this.getJdbcMappings().getTo(typeName);
             }
         }
@@ -135,7 +134,7 @@ public class EntityAttributeLogicImpl
      *
      * @return the SQL Mappings instance.
      */
-    public TypeMappings handleGetSqlMappings()
+    protected TypeMappings handleGetSqlMappings()
     {
         return this.getMappingsProperty(UMLMetafacadeProperties.SQL_MAPPINGS_URI);
     }
@@ -143,7 +142,7 @@ public class EntityAttributeLogicImpl
     /**
      * Gets the JDBC mappings.
      */
-    public TypeMappings handleGetJdbcMappings()
+    protected TypeMappings handleGetJdbcMappings()
     {
         return this.getMappingsProperty(UMLMetafacadeProperties.JDBC_MAPPINGS_URI);
     }
@@ -156,7 +155,7 @@ public class EntityAttributeLogicImpl
      */
     private TypeMappings getMappingsProperty(final String propertyName)
     {
-        Object property = this.getConfiguredProperty(propertyName);
+        final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
         String uri = null;
         if (property instanceof String)

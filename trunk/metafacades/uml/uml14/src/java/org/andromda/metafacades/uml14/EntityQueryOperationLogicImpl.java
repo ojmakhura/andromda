@@ -18,11 +18,11 @@ public class EntityQueryOperationLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery(java.lang.String)
      */
-    public java.lang.String handleGetQuery(String translation)
+    protected java.lang.String handleGetQuery(String translation)
     {
         final String methodName = "EntityQueryOperationLogicImpl.handleGetQuery";
         ExceptionUtils.checkEmpty(methodName, "translation", translation);
-        String[] translatedExpressions = this.translateConstraints(ExpressionKinds.BODY, translation);
+        final String[] translatedExpressions = this.translateConstraints(ExpressionKinds.BODY, translation);
         String query = null;
         // we just get the first body constraint found
         if (translatedExpressions != null && translatedExpressions.length > 0)

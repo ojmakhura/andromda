@@ -159,7 +159,7 @@ public class EntityLogicImpl
         // already exist
         if (!UML14MetafacadeUtils.attributeExists(this.metaObject, name))
         {
-            Attribute identifier =
+            final Attribute identifier =
                 UML14MetafacadeUtils.createAttribute(
                     name, type, visibility, MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);
 
@@ -175,7 +175,7 @@ public class EntityLogicImpl
      */
     protected boolean handleIsIdentifiersPresent()
     {
-        Collection identifiers = this.getIdentifiers(true);
+        final Collection identifiers = this.getIdentifiers(true);
         return identifiers != null && !identifiers.isEmpty();
     }
 
@@ -223,14 +223,14 @@ public class EntityLogicImpl
         String separator = "";
         buffer.append("(");
 
-        Collection attributes = this.getAttributes();
+        final Collection attributes = this.getAttributes();
 
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
              superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             if (superClass instanceof Entity)
             {
-                Entity entity = (Entity)superClass;
+                final Entity entity = (Entity)superClass;
                 attributes.addAll(entity.getAttributes());
             }
         }
@@ -336,7 +336,7 @@ public class EntityLogicImpl
                 {
                     if (object instanceof AttributeFacade)
                     {
-                        AttributeFacade attribute = (AttributeFacade)object;
+                        final AttributeFacade attribute = (AttributeFacade)object;
                         if (attribute.getType() != null)
                         {
                             list.append(attribute.getType().getFullyQualifiedName());
@@ -345,7 +345,7 @@ public class EntityLogicImpl
                     }
                     if (object instanceof AssociationEndFacade)
                     {
-                        AssociationEndFacade associationEnd = (AssociationEndFacade)object;
+                        final AssociationEndFacade associationEnd = (AssociationEndFacade)object;
                         if (associationEnd.getType() != null)
                         {
                             list.append(associationEnd.getType().getFullyQualifiedName());
