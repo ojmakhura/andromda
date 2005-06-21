@@ -1,12 +1,16 @@
 package org.andromda.metafacades.uml;
 
+import java.text.Collator;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A class containing utlities for metafacade manipulation.
@@ -16,21 +20,22 @@ import java.util.Map;
  */
 public class MetafacadeUtils
 {
-
     /**
      * Checks to see if the element is the specified type and if so casts it to the object and returns it, otherwise it
      * returns null.
      *
      * @param element the element to check.
-     * @param type    the Class type.
-     * @return java.lang.Object
+     * @param type the Class type.
+     * @return the element has the given type or null.
      */
-    public static Object getElementAsType(Object element, Class type)
+    public static Object getElementAsType(
+        final Object element,
+        final Class type)
     {
         Object elementAsType = null;
         if (element != null && type != null)
         {
-            Class elementClass = element.getClass();
+            final Class elementClass = element.getClass();
             if (type.isAssignableFrom(elementClass))
             {
                 elementAsType = element;
@@ -47,17 +52,21 @@ public class MetafacadeUtils
      * @param stereotype    the stereotype that a model element must have in order to stay remain within the
      *                      <code>modelElements</code> collection.
      */
-    public static void filterByStereotype(Collection modelElements, final String stereotype)
+    public static void filterByStereotype(
+        final Collection modelElements,
+        final String stereotype)
     {
         if (StringUtils.isNotEmpty(stereotype))
         {
-            CollectionUtils.filter(modelElements, new Predicate()
-            {
-                public boolean evaluate(Object object)
+            CollectionUtils.filter(
+                modelElements,
+                new Predicate()
                 {
-                    return ((ModelElementFacade)object).hasStereotype(stereotype);
-                }
-            });
+                    public boolean evaluate(Object object)
+                    {
+                        return ((ModelElementFacade)object).hasStereotype(stereotype);
+                    }
+                });
         }
     }
 
@@ -68,17 +77,21 @@ public class MetafacadeUtils
      * @param modelElements the model elements to filter.
      * @param type          the type of Class.
      */
-    public static void filterByType(Collection modelElements, final Class type)
+    public static void filterByType(
+        final Collection modelElements,
+        final Class type)
     {
         if (type != null)
         {
-            CollectionUtils.filter(modelElements, new Predicate()
-            {
-                public boolean evaluate(Object object)
+            CollectionUtils.filter(
+                modelElements,
+                new Predicate()
                 {
-                    return type.isAssignableFrom(object.getClass());
-                }
-            });
+                    public boolean evaluate(Object object)
+                    {
+                        return type.isAssignableFrom(object.getClass());
+                    }
+                });
         }
     }
 
@@ -87,19 +100,23 @@ public class MetafacadeUtils
      * specified type <code>type</code>
      *
      * @param modelElements the model elements to filter.
-     * @param type          the type of Class.
+     * @param type the type of Class.
      */
-    public static void filterByNotType(Collection modelElements, final Class type)
+    public static void filterByNotType(
+        final Collection modelElements,
+        final Class type)
     {
         if (type != null)
         {
-            CollectionUtils.filter(modelElements, new Predicate()
-            {
-                public boolean evaluate(Object object)
+            CollectionUtils.filter(
+                modelElements,
+                new Predicate()
                 {
-                    return !type.isAssignableFrom(object.getClass());
-                }
-            });
+                    public boolean evaluate(Object object)
+                    {
+                        return !type.isAssignableFrom(object.getClass());
+                    }
+                });
         }
     }
 
@@ -116,7 +133,10 @@ public class MetafacadeUtils
      * @param separator      character used to separate words
      * @return uniform mapping name (in alphabetical order)
      */
-    public static String toRelationName(String roleName, String targetRoleName, String separator)
+    public static String toRelationName(
+        final String roleName,
+        final String targetRoleName,
+        final String separator)
     {
         if (roleName.compareTo(targetRoleName) <= 0)
         {
@@ -125,34 +145,41 @@ public class MetafacadeUtils
         return (targetRoleName + separator + roleName);
     }
 
-    private final static Map uniqueNames = new HashMap();
+    /**
+     * Sorts given metafacades by their fully qualified name.
+     *
+     * @param metafacades the collection of model elements to sort.
+     * @return the sorted collection.
+     */
+    public static void sortByFullyQualifiedName(final List metafacades)
+    {
+        Collections.sort(
+            metafacades,
+            new FullyQualifiedNameComparator());
+    }
 
     /**
-     * Registers the argument name and updates it if necessary so it is unique amoung all the registered names so far.
-     *
-     * @param name the name to register
-     * @return the argument, possible transformed in case it was already registered
+     * Used to sort operations by <code>fullyQualifiedName</code>.
      */
-    public static String createUniqueName(String name)
+    private final static class FullyQualifiedNameComparator
+        implements Comparator
     {
-        if (StringUtils.isBlank(name))
-            return name;
+        private final Collator collator = Collator.getInstance();
 
-        String uniqueName = null;
-        if (uniqueNames.containsKey(name))
+        private FullyQualifiedNameComparator()
         {
-            int collisionCount = ((Integer)uniqueNames.get(name)).intValue() + 1;
-            String suffix = String.valueOf(collisionCount);
-
-            uniqueNames.put(name, new Integer(collisionCount));
-
-            uniqueName = name.substring(0, name.length() - suffix.length()) + suffix;
+            collator.setStrength(Collator.PRIMARY);
         }
-        else
+
+        public int compare(
+            final Object objectA,
+            final Object objectB)
         {
-            uniqueName = name;
+            final ModelElementFacade a = (ModelElementFacade)objectA;
+            final ModelElementFacade b = (ModelElementFacade)objectB;
+            return collator.compare(
+                a.getFullyQualifiedName() != null ? a.getFullyQualifiedName() : "",
+                b.getFullyQualifiedName() != null ? b.getFullyQualifiedName() : "");
         }
-        uniqueNames.put(uniqueName, new Integer(0));
-        return uniqueName;
     }
 }

@@ -200,7 +200,7 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(int, ${entity.getRequiredAttributeTypeList(true, false)})
+     * @see ${entity.fullyQualifiedDaoName}#create(int, ${entity.getRequiredPropertyTypeList(true, false)})
      */
     public Object create(
         final int transform,
