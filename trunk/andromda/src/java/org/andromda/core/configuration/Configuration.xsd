@@ -90,6 +90,10 @@
                 <xs:element ref="namespace" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
+        <xs:unique name="uniqueNamespaceName">
+            <xs:selector xpath="namespace"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
     </xs:element>
     <xs:element name="port" type="xs:integer"/>
     <xs:element name="properties">
@@ -98,6 +102,10 @@
                 <xs:element ref="property" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
+        <xs:unique name="uniquePropertyName">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
     </xs:element>
     <xs:element name="property">
         <xs:complexType>
