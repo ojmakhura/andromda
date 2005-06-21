@@ -71,8 +71,6 @@
                 <property name="decorators">${maven.andromda.web.manual.java.dir}</property>
                 <property name="messages">${maven.andromda.web.generated.dir}/WEB-INF/classes</property>
                 <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
-                <property name="security">false</property>
-                <property name="securityRealm">other</property>
                 <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
                 <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
             </properties>
