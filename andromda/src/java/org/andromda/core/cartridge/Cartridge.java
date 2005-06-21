@@ -2,7 +2,9 @@ package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.io.StringWriter;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -274,7 +276,7 @@ public class Cartridge
         final String methodName = "Cartridge.processWithTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
         ExceptionUtils.checkNull(methodName, "templateContext", templateContext);
-        ExceptionUtils.checkEmpty(methodName, "outlet", outlet);
+        ExceptionUtils.checkNull(methodName, "outlet", outlet);
 
         File outputFile = null;
         try
@@ -391,6 +393,11 @@ public class Cartridge
     }
 
     /**
+     * The forward slash constant.
+     */
+    private static final String FORWARD_SLASH = "/";
+
+    /**
      * Writes the contents of <code>resourceUrl</code> to the outlet specified by <code>resource</code>.
      *
      * @param resource    contains the outlet where the resource is written.
@@ -406,18 +413,18 @@ public class Cartridge
             String outlet = Namespaces.instance().getPropertyValue(
                     this.getNamespace(),
                     resource.getOutlet());
-            final String slash = "/";
             if (outlet != null)
             {
                 // make sure we don't have any back slashes
-                final String resourceUri = resourceUrl.toString().replaceAll("\\\\", slash);
-                final String uriSuffix = resourceUri.substring(
-                        resourceUri.lastIndexOf(slash),
+                final String resourceUri = resourceUrl.toString().replaceAll("\\\\", FORWARD_SLASH);
+                final String uriSuffix =
+                    resourceUri.substring(
+                        resourceUri.lastIndexOf(FORWARD_SLASH),
                         resourceUri.length());
-                if (outlet.endsWith(slash))
+                if (outlet.endsWith(FORWARD_SLASH))
                 {
                     // remove the extra slash
-                    outlet = outlet.replaceFirst(slash, "");
+                    outlet = outlet.replaceFirst(FORWARD_SLASH, "");
                 }
                 outFile = resource.getOutputLocation(
                         new String[] {uriSuffix},
