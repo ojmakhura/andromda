@@ -32,7 +32,7 @@
 #end
         <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
 #if (!$action.hiddenActionParameters.empty)
-            <%@ include file="${action.fullTilePath}-hidden-params.jsp" %>
+            <%@ include file="${action.fullTilePath}-hidden-params.jspf" %>
 #end
             <table>
                 <tbody>
