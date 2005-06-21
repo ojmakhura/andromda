@@ -63,20 +63,10 @@ public abstract class $entity.daoBaseName
                 "${entity.name}.load - '$argument' can not be null");
         }
 #end
-        Object entity = null;
-        try
-        {
-            entity = this.getHibernateTemplate().load(
-                ${entity.fullyQualifiedEntityImplementationName}.class,
-                $argument);
-            return transformEntity(transform, ($entity.fullyQualifiedName)entity);
-        }
-        catch (${hibernateUtils.springHibernatePackage}.HibernateObjectRetrievalFailureException ex)
-        {
-            // ignore since we just want null returned if no
-            // object can be found
-        }
-        return entity;
+        final java.util.List list = this.getHibernateTemplate().find(
+            "from $entity.fullyQualifiedEntityName as entity where entity.$identifier.name = ?", $argument);
+        final Object entity = list != null && !list.isEmpty() ? list.iterator().next() : null;
+        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
     }
 
     /**
