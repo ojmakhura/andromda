@@ -21,6 +21,7 @@ maven.andromda.webservice.generated.dir=${maven.andromda.web.generated.dir}
 #else
 maven.andromda.webservice.generated.dir=${maven.src.dir}/../../webservice/target/src
 #end
+maven.andromda.webservice.generated.wsdl.dir=${maven.andromda.webservice.generated.dir}/WEB-INF/classes/
 #end
 
 maven.andromda.common.generated.dir=${maven.src.dir}/../../common/target/src
@@ -28,9 +29,9 @@ maven.andromda.common.generated.dir=${maven.src.dir}/../../common/target/src
 #if ($hibernate || $spring)
 #if ($hibernate)
 # The hibernate transaction manager to use.
-#if ($hibernateVersion=="2")
+#if ($hibernateVersion == "2")
 hibernate.transaction.manager.lookup=net.sf.hibernate.transaction.JBossTransactionManagerLookup
-#elseif ($hibernateVersion=="3")
+#else
 hibernate.transaction.manager.lookup=org.hibernate.transaction.JBossTransactionManagerLookup
 #end
 #end
