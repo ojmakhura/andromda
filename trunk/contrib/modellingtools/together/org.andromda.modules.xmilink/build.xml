@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     Generic build file for Together Designer modules.
+     
+     You can fully configure this build file using the associated 
+     build.properties file. 
+     
+     Please do not modify this build file.
+
+     (c) 2004, 2005 The AndroMDA Team
+     ====================================================================== -->
+<project name="org.andromda.modules.xmilink" default="deploy">
+	
+	<description>
+		${module.description}
+    </description>
+
+	<property file="build.properties" />
+
+	<echo>
+=====================================================================
+Building ${module.name} 
+${module.description}
+${module.copyright}
+=====================================================================
+	</echo>
+
+	<property name="dist.dir" value="dist" />
+	<property name="launcher.dir" value="launcher" />
+	<property name="descriptors.dir" value="descriptors" />
+
+	<path id="build.classpath">
+		<pathelement path="${together.modules-path}"/>
+		<pathelement path="${together.lib-path}"/>
+		<pathelement path="${together.libext-path}"/>
+		<pathelement path="${apache-commons.lib-path}"/>
+	</path>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: compile                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="compile">
+		<delete dir="bin"/>
+		<mkdir dir="bin"/>
+		<javac srcdir="src" destdir="bin" classpathref="build.classpath" debug="on" />
+	</target>
+
+	<!-- ================================= 
+          target: dist              
+         ================================= -->
+	<target name="dist" depends="compile" description="--> Build distribution">
+		<delete dir="${dist.dir}"/>
+		<mkdir dir="${dist.dir}" />
+		
+		<copy todir="${dist.dir}">
+			<fileset dir="${descriptors.dir}">
+			    <include name="**/*"/>
+			</fileset>
+			<fileset dir="${lib-dir}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		
+		<jar destfile="${dist.dir}/${module.jar.name}" >
+			<fileset dir="bin" id="classfiles">
+			    <include name="**/*.*"/>
+			</fileset>
+		</jar>
+	</target>
+
+	<!-- ================================= 
+          target: deploy              
+         ================================= -->
+	<target name="deploy" depends="dist" description="--> Deploy the module into Together">
+		<mkdir dir="${together.modules-dir}/${module.name}"/>
+		<copy todir="${together.modules-dir}/${module.name}">
+			<fileset dir="${dist.dir}">
+			    <include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${together.bin-dir}">
+			<fileset dir="${launcher.dir}">
+			    <include name="**/*"/>
+			</fileset>
+		</copy>
+	</target>
+
+</project>

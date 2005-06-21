@@ -1,0 +1,15 @@
+java.util.Properties props = new java.util.Properties();
+props.setProperty("test1", "eins");
+props.setProperty("zwei", "zwei");
+
+java.util.Enumeration enum = props.keys();
+while (enum.hasMoreElements()) {
+	String key = (String) enum.nextElement();
+	String value = props.getProperty(key);
+	System.out.println(key + " : " + value);
+}
+
+java.util.StringTokenizer strTok = new java.util.StringTokenizer("0..1", "..");
+String multiplicityLowerBound = strTok.nextToken();
+String multiplicityUpperBound = strTok.nextToken();
+System.out.println(multiplicityLowerBound + " through " + multiplicityUpperBound);

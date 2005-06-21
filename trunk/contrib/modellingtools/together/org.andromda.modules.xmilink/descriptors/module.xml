@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module feature="tools.xmi.export"
+         name="org.andromda.modules.xmilink">
+    <libraries>
+        <library path="xmilink.jar"/>
+        <library path="commons-lang-2.0.jar"/>
+    </libraries>
+    <services>
+        <service classname="org.andromda.modules.xmilink.headless.XMIExport4AndroMDA"
+                 name="XMIExport4AndroMDA"
+                 type="com.togethersoft.platform.modulemanager.service.Application"/>
+        <service type="com.togethersoft.platform.ide.action.service.IdeMenu"
+                 id="andromdaMenu"
+                 caption="AndroMDA"
+                 paths="toolsMenu/andromdaSection"/>
+        <service type="com.togethersoft.platform.ide.action.service.IdeActionDelegate"
+                 id="export_as_xmi2"
+                 caption="Export Model to XMI..."
+                 classname="org.andromda.modules.xmilink.action.XMIExport2"
+                 paths="andromdaMenu/defaultSection"/>
+                 
+        <service type="com.togethersoft.platform.ide.action.service.IdeMenu"
+                 id="andromdaToolsMenu"
+                 caption="Tools"
+                 paths="andromdaMenu/defaultSection"/>
+        <service type="com.togethersoft.platform.ide.action.service.IdeActionDelegate"
+                 id="dump_model"
+                 caption="Dump Model"
+                 classname="org.andromda.modules.xmilink.action.DumpModelAction"
+                 paths="andromdaToolsMenu/defaultSection"/>
+        <service type="com.togethersoft.platform.ide.action.service.IdeActionDelegate"
+                 id="cancreatetest"
+                 caption="Test creation"
+                 classname="org.andromda.modules.xmilink.action.CanCreateNodeAction"
+                 paths="andromdaToolsMenu/defaultSection"/>
+    </services>
+    <dependencies>
+        <dependency module="com.togethersoft.openapi.baseexpert"/>
+        <dependency module="com.togethersoft.openapi.util"/>
+        <dependency module="com.togethersoft.openapi.util.ui"/>
+        <dependency module="com.togethersoft.openapi.ide.config"/>
+        <dependency module="com.togethersoft.openapi.ide.resource"/>
+        <dependency module="com.togethersoft.openapi.ide.undo"/>
+        <dependency module="com.togethersoft.openapi.ide.message"/>
+        <dependency module="com.togethersoft.openapi.ide.progress"/>
+        <dependency module="com.togethersoft.platform.ide.window"/>
+        <dependency module="com.togethersoft.modules.projectproperties"/>
+        <dependency module="com.togethersoft.modules.primetimebridge"/>
+        <dependency module="com.togethersoft.modules.project.diagram"/>
+        <dependency module="com.togethersoft.platform.ide.view"/>
+        <dependency module="com.togethersoft.modules.umlconstants"/>
+        <dependency module="com.togethersoft.modules.interchange"/>
+        <dependency module="com.togethersoft.platform.project"/>
+        <dependency module="com.togethersoft.openapi.model"/>
+        <dependency module="com.togethersoft.modules.model"/>
+        <dependency module="com.togethersoft.modules.project.navigation"/>
+        <dependency module="com.togethersoft.modules.chooser"/>
+        <dependency module="com.togethersoft.modules.filechooser"/>
+        <dependency module="com.togethersoft.openapi.sci"/>
+        <dependency module="com.togethersoft.modules.gendoc"/>
+        <dependency module="com.togethersoft.modules.help"/>
+        <dependency module="com.togethersoft.modules.project.language"/>
+        <dependency module="com.togethersoft.modules.vfs"/>
+        <dependency module="com.togethersoft.modules.sequencediagram"/>
+        <dependency module="com.togethersoft.modules.undo"/>
+        <dependency module="com.togethersoft.platform.ide.action"/>
+    </dependencies>
+</module>
