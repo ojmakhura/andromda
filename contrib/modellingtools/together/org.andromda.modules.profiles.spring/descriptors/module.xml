@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module name="org.andromda.modules.profiles.spring"
+	resourcebase="resources.locales">
+	<libraries>
+		<library path="profile-spring.jar"/>
+	</libraries>
+	<services>
+		<service type="com.togethersoft.openapi.ide.config.IdeConfig"
+			file="profile/spring/profile.config"
+			prefixes="profilesettings.profile"/>
+		<service type="com.togethersoft.openapi.ide.config.IdeConfig"
+			file="profile/spring/diagram.config"
+			prefixes="diagram.toolbar,menu.item"/>
+		<service type="com.togethersoft.openapi.ide.config.IdeConfig"
+			file="profile/spring/viewmap.config" prefixes="view.map"/>
+		
+		<service metaclass="AssociatesLink" type="inspector-builder">
+			<component name="AndroMDA Client">
+				<field displayName="hibernate lazy loading"
+					name="@client.@andromda.hibernate.lazy"
+					editor="DefaultEditableComboBoxEditor">
+					<model name="XmlComboBoxModel" values="true, false"
+						names="true, false"/>
+				</field>
+				<field displayName="hibernate outer join"
+					name="@client.@andromda.hibernate.outerjoin"
+					editor="DefaultEditableComboBoxEditor">
+					<model name="XmlComboBoxModel" values="auto, true, false"
+						names="auto, true, false"/>
+				</field>
+				<field displayName="hibernate cascade"
+					name="@client.@andromda.hibernate.cascade"
+					editor="DefaultEditableComboBoxEditor">
+					<model name="XmlComboBoxModel" values="all,none,save-update,delete,all-delete-orphan"
+						names="all,none,save-update,delete,all-delete-orphan"/>
+				</field>				
+			</component>
+			
+			<component name="AndroMDA Supplier">
+				<field displayName="hibernate lazy loading"
+					name="@supplier.@andromda.hibernate.lazy"
+					editor="DefaultEditableComboBoxEditor">
+					<model name="XmlComboBoxModel" values="true, false"
+						names="true, false"/>
+				</field>
+				<field displayName="hibernate outer join"
+					name="@supplier.@andromda.hibernate.outerjoin"
+					editor="DefaultEditableComboBoxEditor">
+					<model name="XmlComboBoxModel" values="auto, true, false"
+						names="auto, true, false"/>
+				</field>
+				<field displayName="hibernate cascade"
+					name="@supplier.@andromda.hibernate.cascade"
+					editor="DefaultEditableComboBoxEditor">
+					<model name="XmlComboBoxModel" values="all,none,save-update,delete,all-delete-orphan"
+						names="all,none,save-update,delete,all-delete-orphan"/>
+				</field>	
+			</component>
+		</service>
+		<service metaclass="Class" type="inspector-builder">
+			<component name="AndroMDA" displayName="AndroMDA">
+				<field displayName="serial version UID"
+					name="@andromda.serialVersionUID"
+					editor="DefaultIntegerEditor">
+					<condition propertyName="stereotype" propertyValue="Entity"/>
+				</field>
+				<field displayName="persistence table"
+					name="@andromda.persistence.table">
+					<condition propertyName="stereotype" propertyValue="Entity"/>
+				</field>
+				<field displayName="generator class"
+					name="@andromda.hibernate.generator.class"
+					editor="DefaultEditableComboBoxEditor">
+					<condition propertyName="stereotype" propertyValue="Entity"/>
+					<model name="XmlComboBoxModel"
+						values="increment, identity, sequence, hilo, seqhilo, uuid.hex, uuid.string, native, assigned, foreign"
+						names="increment, identity, sequence, hilo, seqhilo, uuid.hex, uuid.string, native, assigned, foreign"/>
+				</field>
+				<field displayName="hibernate inheritance"
+					name="@andromda.hibernate.inheritance"
+					editor="DefaultEditableComboBoxEditor">
+					<condition propertyName="stereotype" propertyValue="Entity"/>
+					<model name="XmlComboBoxModel"
+						values="class, subclass, concrete, interface"
+						names="class, subclass, concrete, interface"/>
+				</field>
+				<field displayName="hibernate caching"
+					name="@andromda.hibernate.entity.cache"
+					editor="DefaultEditableComboBoxEditor">
+					<condition propertyName="stereotype" propertyValue="Entity"/>
+					<model name="XmlComboBoxModel"
+						values="read-write, nonstrict-read-write, read-only"
+						names="read-write, nonstrict-read-write, read-only"/>
+				</field>
+				
+			</component>
+		</service>
+		
+		<service metaclass="Class" type="inspector-builder">
+			<component name="AndroMDA" displayName="AndroMDA">
+				<field displayName="remoting type"
+					name="@andromda.spring.service.remoting.type"
+					editor="DefaultEditableComboBoxEditor">
+					<condition propertyName="stereotype" propertyValue="Service"/>
+					<model name="XmlComboBoxModel"
+						values="none, rmi, httpinvoker, burlap, hessian"
+						names="none, rmi, httpinvoker, burlap, hessian"/>
+				</field>
+				<field displayName="remoting port"
+					name="@andromda.spring.service.remote.port"
+					editor="DefaultIntegerEditor">
+					<condition propertyName="stereotype" propertyValue="Service"/>
+				</field>
+			</component>
+		</service>
+		
+		<service metaclass="Operation" type="inspector-builder">
+			<component name="AndroMDA" displayName="AndroMDA">
+				<field displayName="HQL query" name="@andromda.hibernate.query"
+					editor="DefaultMultilineStringEditor">
+					<condition propertyName="isQuery" propertyValue="true"/>
+					<condition name="XmlParentCondition"
+						reference-to-element="true" propertyName="stereotype"
+						propertyValue="Entity"/>
+				</field>
+			</component>
+		</service>
+		
+		<service metaclass="Attribute" type="inspector-builder">
+			<component name="AndroMDA" displayName="AndroMDA">
+				<field displayName="persistence column"
+					name="@andromda.persistence.column">
+					<condition name="XmlParentCondition"
+						reference-to-element="true" propertyName="stereotype"
+						propertyValue="Entity"/>
+				</field>
+				<field displayName="persistence column length"
+					name="@andromda.persistence.column.length">
+					<condition name="XmlParentCondition"
+						reference-to-element="true" propertyName="stereotype"
+						propertyValue="Entity"/>
+				</field>
+				<field displayName="persistence column index"
+					name="@andromda.persistence.column.index">
+					<condition name="XmlParentCondition"
+						reference-to-element="true" propertyName="stereotype"
+						propertyValue="Entity"/>
+				</field>
+				<field displayName="criteria attribute"
+					name="@andromda.hibernate.criteria.attribute">
+					<condition name="XmlParentCondition"
+						reference-to-element="true" propertyName="stereotype"
+						propertyValue="Criteria"/>
+				</field>
+				<field displayName="criteria comparator"
+					name="@andromda.hibernate.criteria.comparator"
+					editor="DefaultEditableComboBoxEditor">
+					<condition name="XmlParentCondition"
+						reference-to-element="true" propertyName="stereotype"
+						propertyValue="Criteria"/>
+					<model name="XmlComboBoxModel"
+						values="like, equal, greater_equal, greater, less, less_equal"
+						names="like, equal, greater_equal, greater, less, less_equal"/>
+				</field>
+				<field displayName="criteria match mode"
+					name="@andromda.hibernate.criteria.matchmode"
+					editor="DefaultEditableComboBoxEditor">
+					<condition name="XmlParentCondition"
+						reference-to-element="true" propertyName="stereotype"
+						propertyValue="Criteria"/>
+					<model name="XmlComboBoxModel"
+						values="start, end, anywhere, exact"
+						names="start, end, anywhere, exact"/>
+				</field>
+				<field displayName="criteria nullable"
+					name="@andromda.hibernate.criteria.nullable"
+					editor="DefaultEditableComboBoxEditor">
+					<condition name="XmlParentCondition"
+						reference-to-element="true" propertyName="stereotype"
+						propertyValue="Criteria"/>
+					<model name="XmlComboBoxModel" values="true, false"
+						names="true, false"/>
+				</field>
+			</component>
+		</service>
+		
+	</services>
+	<dependencies>
+		<dependency module="com.togethersoft.modules.projectproperties"/>
+		<dependency module="com.togethersoft.modules.primetimebridge"/>
+		<dependency module="com.togethersoft.modules.umlconstants"/>
+		<dependency module="com.togethersoft.modules.project.diagram"/>
+		<dependency module="com.togethersoft.modules.project.language"/>
+		<dependency module="com.togethersoft.platform.ide.window"/>
+		<dependency module="com.togethersoft.platform.ide.action"/>
+		<dependency module="com.togethersoft.platform.ide.view"/>
+		<dependency module="com.togethersoft.platform.project"/>
+		<dependency module="com.togethersoft.openapi.ide.config"/>
+		<dependency module="com.togethersoft.openapi.ide.util"/>
+		<dependency module="com.togethersoft.openapi.util"/>
+		<dependency module="com.togethersoft.openapi.model"/>
+		<dependency module="com.togethersoft.modules.model"/>
+		<dependency module="com.togethersoft.component.query"/>
+		<dependency module="com.togethersoft.modules.modelquery"/>
+		<dependency module="com.togethersoft.modules.project.config"/>
+		<dependency module="com.togethersoft.modules.inspector"/>
+		<dependency module="com.togethersoft.modules.inspector.xmlbuilder"/>
+		<dependency
+			module="com.togethersoft.modules.inspector.customproperties"/>
+	</dependencies>
+</module>
