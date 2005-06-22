@@ -57,7 +57,7 @@ public class FreeMarkerTemplateEngine
         }
 
         // create the template
-        Template template = configuration.getTemplate(templateFile);
+        final Template template = configuration.getTemplate(templateFile);
 
         if (templateObjects == null)
         {
