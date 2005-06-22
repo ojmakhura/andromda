@@ -38,7 +38,7 @@ public class NamespaceRegistry
     {
         this.name = name;
     }
-    
+
     /**
      * Whether or not this is a shared namespace.
      */
@@ -91,7 +91,7 @@ public class NamespaceRegistry
     {
         return (String[])this.components.toArray(new String[0]);
     }
-    
+
     /**
      * Stores the property definitions.
      */
@@ -99,19 +99,18 @@ public class NamespaceRegistry
 
     /**
      * Attempts to retrieve the property definition for the given
-     * <code>name</code>.  
-     * 
+     * <code>name</code>.
+     *
      * @return the property definition or null if one could not be found.
      */
-    public PropertyDefinition getPropertyDefinition(
-        final String name)
+    public PropertyDefinition getPropertyDefinition(final String name)
     {
         return (PropertyDefinition)this.definitions.get(name);
     }
-    
+
     /**
      * Adds all property definitions to the current property definitions.
-     * 
+     *
      * @param propertyDefinitions the collection of property definitions.
      */
     public void addPropertyDefinitions(final PropertyDefinition[] propertyDefinitions)
@@ -121,10 +120,10 @@ public class NamespaceRegistry
             this.addPropertyDefinition(propertyDefinitions[ctr]);
         }
     }
-    
+
     /**
      * Gets all property definitions belonging to this registry.
-     * 
+     *
      * @return all property definitions.
      */
     public PropertyDefinition[] getPropertyDefinitions()
@@ -141,7 +140,9 @@ public class NamespaceRegistry
     {
         if (propertyDefinition != null)
         {
-            this.definitions.put(propertyDefinition.getName(), propertyDefinition);
+            this.definitions.put(
+                propertyDefinition.getName(),
+                propertyDefinition);
         }
     }
 }

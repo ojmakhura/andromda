@@ -116,7 +116,7 @@ public class NamespaceComponents
                             AndroMDALogger.info("  +  registering component '" + componentName + "'");
                             if (component == null)
                             {
-                                throw new ComponentRegistryException(
+                                throw new NamespaceComponentsException(
                                     "'" + componentName + "' is not a valid namespace component");
                             }
                             final XmlObjectFactory componentFactory = XmlObjectFactory.getInstance(component.getType());
@@ -125,7 +125,7 @@ public class NamespaceComponents
                                     component.getPath());
                             if (componentResource == null)
                             {
-                                throw new ComponentRegistryException(
+                                throw new NamespaceComponentsException(
                                     "'" + componentName + "' is not a valid component with namespace '" + namespace +
                                     "'");
                             }
