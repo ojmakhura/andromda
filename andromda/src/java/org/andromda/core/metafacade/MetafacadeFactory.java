@@ -10,9 +10,6 @@ import java.util.Map;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.configuration.ModelPackages;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.log4j.Logger;
 
 
@@ -420,6 +417,8 @@ public class MetafacadeFactory
     }
 
     /**
+     * The model access facade instance (provides access to the meta model).
+     * 
      * @param model the model
      */
     public void setModel(final ModelAccessFacade model)
@@ -584,23 +583,6 @@ public class MetafacadeFactory
     }
 
     /**
-     * The model packages that are used to determine whether or not
-     * some packages should be filtered out. Set as protected
-     * visibility to improve innerclass access performance.
-     */
-    protected ModelPackages modelPackages = null;
-
-    /**
-     * Sets the model packages; these indicate which packages
-     * should and should not be processed (if defined).
-     * @param packages
-     */
-    public void setModelPackages(final ModelPackages modelPackages)
-    {
-        this.modelPackages = modelPackages;
-    }
-
-    /**
      * Stores the collection of all metafacades for
      * each namespace.
      */
@@ -634,7 +616,6 @@ public class MetafacadeFactory
             {
                 metafacades = new ArrayList(metafacades);
             }
-            this.filterMetafacades(metafacades);
         }
         return metafacades;
     }
@@ -679,30 +660,8 @@ public class MetafacadeFactory
             {
                 metafacades = new ArrayList(metafacades);
             }
-            this.filterMetafacades(metafacades);
         }
         return metafacades;
-    }
-
-    /**
-     * Filters out those metafacades which <strong>should </strong> be processed.
-     *
-     * @param modelElements the Collection of modelElements.
-     */
-    private final void filterMetafacades(final Collection metafacades)
-    {
-        if (this.modelPackages != null)
-        {
-            CollectionUtils.filter(
-                metafacades,
-                new Predicate()
-                {
-                    public boolean evaluate(final Object modelElement)
-                    {
-                        return modelPackages.isProcess(getModel().getPackageName(modelElement));
-                    }
-                });
-        }
     }
 
     /**

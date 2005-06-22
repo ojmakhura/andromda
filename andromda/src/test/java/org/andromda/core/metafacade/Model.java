@@ -2,6 +2,8 @@ package org.andromda.core.metafacade;
 
 import java.util.Collection;
 
+import org.andromda.core.configuration.ModelPackages;
+
 
 /**
  * @author Chad Brandon
@@ -14,7 +16,6 @@ public class Model
      */
     public void setModel(Object model)
     {
-        // TODO Auto-generated method stub
     }
 
     /**
@@ -22,7 +23,6 @@ public class Model
      */
     public Object getModel()
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -31,7 +31,6 @@ public class Model
      */
     public String getName(Object modelElement)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -40,7 +39,6 @@ public class Model
      */
     public String getPackageName(Object modelElement)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -49,7 +47,6 @@ public class Model
      */
     public Collection getStereotypeNames(Object modelElement)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -58,7 +55,6 @@ public class Model
      */
     public Collection findByStereotype(String stereotype)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -67,7 +63,10 @@ public class Model
      */
     public Collection getModelElements()
     {
-        // TODO Auto-generated method stub
         return null;
+    }
+
+    public void setPackageFilter(ModelPackages modelPackages)
+    {
     }
 }
