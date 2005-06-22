@@ -75,7 +75,7 @@ public class Component
         final Class type = ClassUtils.loadClass(typeClass);
         if (!NamespaceComponent.class.isAssignableFrom(type))
         {
-            throw new ComponentRegistryException(
+            throw new NamespaceComponentsException(
                 "namespace component '" + type + "' must implement --> '" + NamespaceComponent.class.getName() + "'");
         }
         this.type = type;
