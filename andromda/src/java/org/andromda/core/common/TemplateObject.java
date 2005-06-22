@@ -1,6 +1,7 @@
 package org.andromda.core.common;
 
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -69,13 +70,14 @@ public class TemplateObject
             {
                 final Class templateObjectClass = ClassUtils.loadClass(this.className);
                 templateObject = templateObjectClass.newInstance();
-                this.setProperties(templateObject);
                 this.objectCache.put(this.className, templateObject);
             }
+
+            // - we want to set the properties each time we retrieve (in case they've changed)
+            this.setProperties(templateObject);
         }
         catch (final Throwable throwable)
         {
-            throwable.printStackTrace();
             throw new TemplateObjectException(throwable);
         }
         return templateObject;
