@@ -55,7 +55,8 @@ public interface ModelAccessFacade
     /**
      * Sets the model packages instance which contains the information about what
      * packages should and should not be filtered out.  Ths model access facade
-     * instance then uses this information to provide any filtering by package.
+     * instance then uses this information to provide any filtering by package when
+     * calling {@link #getModelElements()} and {@link #findByStereotype(String)}.
      *
      * @param modelPackages the model packages by which to filter.
      */
