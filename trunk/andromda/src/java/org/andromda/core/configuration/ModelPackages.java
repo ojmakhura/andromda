@@ -121,7 +121,7 @@ public class ModelPackages
                 ModelPackage modelPackage = (ModelPackage)iterator.next();
                 this.modelPackages.put(
                     modelPackage.getName(),
-                    new Boolean(modelPackage.isProcess()));
+                    Boolean.valueOf(modelPackage.isProcess()));
             }
         }
     }
