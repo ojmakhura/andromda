@@ -86,7 +86,7 @@ public class ModelPackages
     {
         boolean shouldProcess = this.processAll;
         this.initialize();
-        Boolean process = (Boolean)modelPackages.get(packageName);
+        final Boolean process = (Boolean)modelPackages.get(packageName);
         if (process != null)
         {
             shouldProcess = process.booleanValue();
@@ -95,9 +95,21 @@ public class ModelPackages
     }
 
     /**
-     * This method normally be unnecessary. It is here because of the way Ant behaves. Ant calls
-     * addModelPackage(ModelPackage) before the ModelPackage is fully initialized (therefore the 'name' isn't set). So
-     * we kept the modelPackages in an ArrayList that we have to copy into the modelPackages Map.
+     * Indicates whether or not this model packages instance
+     * has any filtering defined.
+     *
+     * @return true/false
+     */
+    public boolean isEmpty()
+    {
+        this.initialize();
+        return modelPackages.isEmpty();
+    }
+
+    /**
+     * This method normally be unnecessary. Howe the digester doesn't set the name of the package
+     * before the package is added therefore we can't store the package by name in the
+     * {@link #modelPackages} map until we initialize.
      */
     private final void initialize()
     {

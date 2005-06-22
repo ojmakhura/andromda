@@ -2,10 +2,13 @@ package org.andromda.core.metafacade;
 
 import java.util.Collection;
 
+import org.andromda.core.configuration.ModelPackages;
+
 
 /**
  * <p/>
- * Provides access to a model loaded by a Repository and made available to be used by metafacades. </p>
+ * Provides access to a model loaded by a Repository and made available to be used to retrieve information about
+ * model elements and metafacades. </p>
  * <p/>
  * Models can be instances of any metamodel. The most common models will be UML models. This interface is an
  * abstraction. Any model that implements this interface can be used with AndroMDA. </p>
@@ -34,12 +37,12 @@ public interface ModelAccessFacade
     public Object getModel();
 
     /**
-     * Returns the name of a model element (whatever that means for a concrete model).
+     * Returns the name of a metafacade (whatever that means for a concrete model).
      *
-     * @param modelElement the model element
+     * @param metafacade the metafacade from which to retrieve the name.
      * @return String containing the name
      */
-    public String getName(Object modelElement);
+    public String getName(Object metafacade);
 
     /**
      * Returns the package name of a model element (whatever that means for a concrete model).
@@ -50,15 +53,25 @@ public interface ModelAccessFacade
     public String getPackageName(Object modelElement);
 
     /**
-     * Returns a collection of stereotype names for a model element (whatever that means for a concrete model).
+     * Sets the model packages instance which contains the information about what
+     * packages should and should not be filtered out.  Ths model access facade
+     * instance then uses this information to provide any filtering by package.
      *
-     * @param modelElement the model element
+     * @param modelPackages the model packages by which to filter.
+     */
+    public void setPackageFilter(ModelPackages modelPackages);
+
+    /**
+     * Returns a collection of stereotype names for a modelElement (whatever that means for a concrete model).
+     *
+     * @param modelElement the modelElement
      * @return Collection of Strings with stereotype names
      */
     public Collection getStereotypeNames(Object modelElement);
 
     /**
-     * Finds all the model elements that have the specified <code>stereotype</code>.
+     * Finds all the model elements that have the specified <code>stereotype</code> (with any filtering
+     * applied from the information provided by {@link #setPackageFilter(ModelPackages)}).
      *
      * @param stereotype the name of the stereotype, they are matched without regard to case.
      * @return Collection of model elements having the given stereotype
@@ -66,9 +79,10 @@ public interface ModelAccessFacade
     public Collection findByStereotype(String stereotype);
 
     /**
-     * Returns all meta class model elements from the model.
+     * Returns all elements from the model (with any filtering
+     * applied from the information provided by {@link #setPackageFilter(ModelPackages)}).
      *
-     * @return Collection
+     * @return Collection of all metafacades
      */
     public Collection getModelElements();
 }

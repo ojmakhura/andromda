@@ -206,7 +206,6 @@ public class ModelProcessor
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
                             this.factory.setModel(this.repository.getModel());
-                            this.factory.setModelPackages(models[ctr].getPackages());
                             cartridge.processModelElements(factory);
                             writer.writeHistory();
                         }
@@ -305,6 +304,9 @@ public class ModelProcessor
                 streams,
                 uris,
                 model.getModuleSearchLocationPaths());
+
+            // - set the package filter
+            this.repository.getModel().setPackageFilter(model.getPackages());
             try
             {
                 for (int ctr = 0; ctr < uriNumber; ctr++)
