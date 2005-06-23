@@ -307,7 +307,7 @@ public class $criteriaSearchBaseName
         ${hibernateUtils.basePackage}.Criteria childCriteria = parentCriteria.createCriteria(childEntityName);
         if (configuration.isForceEagerLoading())
         {
-            parentCriteria.setFetchMode(childEntityName, ${hibernateUtils.basePackage}.FetchMode.EAGER);
+            parentCriteria.setFetchMode(childEntityName, ${hibernateUtils.basePackage}.FetchMode.${hibernateUtils.eagerFetchMode});
         }
         childCriteriaMap.put(childEntityName, childCriteria);
         return childCriteria;
