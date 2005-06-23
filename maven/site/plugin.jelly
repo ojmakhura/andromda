@@ -27,7 +27,32 @@
     </postGoal>
 
     <preGoal name="xdoc:copy-resources">
+        <attainGoal name="xdoc:profile-xsl"/>
+        <attainGoal name="xdoc:namespace-xsl"/>
+    </preGoal>
+
+    <goal name="xdoc:profile-xsl">
         <!-- if a namespace.xml is present then generate documentation for it -->
+        <u:available file="${maven.src.dir}/META-INF/andromda-profile.xml">
+            <!-- setting the XSLT factory provider @todo: do this only once (wouter)-->
+            <j:invokeStatic var="dummy" method="setProperty" className="java.lang.System">
+                <j:arg value="javax.xml.transform.TransformerFactory" type="java.lang.String"/>
+                <j:arg value="org.apache.xalan.processor.TransformerFactoryImpl" type="java.lang.String"/>
+            </j:invokeStatic>
+            <!-- copy the stylesheet for this specific run -->
+            <ant:copy file="${pluginResources}/xsl/profile.xsl" todir="${maven.build.dir}/xsl"/>
+            <!-- replace the variable property in the stylesheet -->
+            <ant:replace file="${maven.build.dir}/xsl/profile.xsl" token="%module%" value="${pom.name}"/>
+            <!-- performing the transformations -->
+            <ant:xslt force="true"
+                in="${maven.src.dir}/META-INF/andromda-profile.xml"
+                out="${maven.gen.docs}/profile.xml"
+                style="${maven.build.dir}/xsl/profile.xsl"/>
+        </u:available>
+    </goal>
+
+    <goal name="xdoc:namespace-xsl">
+        <!-- if a profile.xml is present then generate documentation for it -->
         <u:available file="${maven.src.dir}/META-INF/andromda/namespace.xml">
             <!-- setting the XSLT factory provider @todo: do this only once (wouter)-->
             <j:invokeStatic var="dummy" method="setProperty" className="java.lang.System">
@@ -38,12 +63,12 @@
             <ant:copy file="${pluginResources}/xsl/namespace.xsl" todir="${maven.build.dir}/xsl"/>
             <!-- replace the variable property in the stylesheet -->
             <ant:replace file="${maven.build.dir}/xsl/namespace.xsl" token="%module%" value="${pom.name}"/>
-            <!-- performing the transformation -->
+            <!-- performing the transformations -->
             <ant:xslt force="true"
                 in="${maven.src.dir}/META-INF/andromda/namespace.xml"
                 out="${maven.gen.docs}/namespace.xml"
                 style="${maven.build.dir}/xsl/namespace.xsl"/>
         </u:available>
-    </preGoal>
+    </goal>
 
 </project>
