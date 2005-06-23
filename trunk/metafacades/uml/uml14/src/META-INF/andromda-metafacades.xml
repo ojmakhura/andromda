@@ -104,6 +104,9 @@
     <metafacade class="org.andromda.metafacades.uml14.ActionStateFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.StateMachineFacadeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.StateMachine$Impl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ActivityGraphFacadeLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl"/>
     </metafacade>

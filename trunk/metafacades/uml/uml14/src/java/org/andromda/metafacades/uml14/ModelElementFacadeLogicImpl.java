@@ -1,9 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.common.DocumentationAnalyzer;
 import org.andromda.core.common.Paragraph;
 import org.andromda.core.metafacade.MetafacadeConstants;
@@ -21,7 +17,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
+import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Comment;
 import org.omg.uml.foundation.core.Dependency;
@@ -29,13 +25,16 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * Metaclass facade implementation.
  */
 public class ModelElementFacadeLogicImpl
         extends ModelElementFacadeLogic
 {
-    
     public ModelElementFacadeLogicImpl(org.omg.uml.foundation.core.ModelElement metaObject, String context)
     {
         super(metaObject, context);
@@ -66,9 +65,9 @@ public class ModelElementFacadeLogicImpl
         if (modelName)
         {
             packageName = StringUtils.replace(
-                packageName, 
-                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), 
-                MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);
+                    packageName,
+                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
+                    MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);
         }
         return packageName;
     }
@@ -286,7 +285,7 @@ public class ModelElementFacadeLogicImpl
             ModelElement stereotype = (ModelElement)stereotypeIt.next();
             if (stereotype != null)
             {
-                stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));                
+                stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));
             }
         }
         return stereotypeNames;
@@ -636,24 +635,24 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getActivityGraphContext()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getStateMachineContext()
      */
-    protected Object handleGetActivityGraphContext()
+    protected Object handleGetStateMachineContext()
     {
-        ActivityGraph graphContext = null;
+        StateMachine machineContext = null;
 
-        Collection graphs = UML14MetafacadeUtils.getModel().getActivityGraphs().getActivityGraph().refAllOfType();
-        for (Iterator graphIterator = graphs.iterator(); graphIterator.hasNext();)
+        final Collection machines = UML14MetafacadeUtils.getModel().getStateMachines().getStateMachine().refAllOfType();
+        for (Iterator machineIterator = machines.iterator(); machineIterator.hasNext();)
         {
-            ActivityGraph graph = (ActivityGraph)graphIterator.next();
-            ModelElement contextElement = graph.getContext();
+            final StateMachine machine = (StateMachine)machineIterator.next();
+            final ModelElement contextElement = machine.getContext();
             if (metaObject.equals(contextElement))
             {
-                graphContext = graph;
+                machineContext = machine;
             }
         }
 
-        return graphContext;
+        return machineContext;
     }
 
     /**
@@ -661,10 +660,9 @@ public class ModelElementFacadeLogicImpl
      */
     public String getValidationName()
     {
-        StringBuffer validationName = new StringBuffer();
+        final StringBuffer validationName = new StringBuffer();
         final Object seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
-        for (ModelElement namespace = metaObject.getNamespace();
-             namespace != null; namespace = namespace.getNamespace())
+        for (ModelElement namespace = metaObject.getNamespace(); namespace != null; namespace = namespace.getNamespace())
         {
             if (validationName.length() == 0)
             {

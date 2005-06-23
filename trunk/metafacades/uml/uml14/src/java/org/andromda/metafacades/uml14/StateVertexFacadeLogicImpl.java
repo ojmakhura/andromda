@@ -15,15 +15,13 @@ import java.util.Iterator;
 public class StateVertexFacadeLogicImpl
         extends StateVertexFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StateVertexFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.StateVertex metaObject,
                                       java.lang.String context)
     {
         super(metaObject, context);
     }
 
-    protected Object handleGetActivityGraph()
+    protected Object handleGetStateMachine()
     {
         return metaObject.getContainer().getStateMachine();
     }
@@ -45,7 +43,7 @@ public class StateVertexFacadeLogicImpl
 
     public Object getValidationOwner()
     {
-        return getActivityGraph();
+        return getStateMachine();
     }
 
     protected Object handleGetPartition()
