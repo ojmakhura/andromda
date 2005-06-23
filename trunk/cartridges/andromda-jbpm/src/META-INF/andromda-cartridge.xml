@@ -28,6 +28,18 @@
     </template>
 
     <template
+        path="templates/jbpm/helpers/ProcessHelper.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="helpers"
+        overwrite="true">
+        <modelElements variable="processDefinition">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/jbpm/handlers/GenericHandler.java.vsl"
         outputPattern="$generatedFile"
         outlet="handlers"

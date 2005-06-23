@@ -1,6 +1,9 @@
 #if ($processDefinition.activityPresent)
 #parse("templates/jbpm/definitions/process-definition.xml.vm")
 #set ($generatedFile = "${stringUtils.toWebFileName($processDefinition.name)}.xml")
+#if ($stringUtils.isNotBlank($processDefinition.packagePath))
+#set ($generatedFile = "${processDefinition.packagePath}/${generatedFile}")
+#end
 ##
 <?xml version="1.0" encoding="UTF-8"?>
 

@@ -8,7 +8,7 @@ package $packageName;
 /**
 $handler.getDocumentation(" * ")
  */
-public interface $handler.className extends
+public abstract class $handler.className implements
 #set ($comma = "")
 #if ($handler.actionHandler)
     ${comma}org.jbpm.graph.def.ActionHandler
@@ -19,4 +19,26 @@ public interface $handler.className extends
 #set ($comma = ", ")
 #end
 {
+#if ($handler.actionHandler)
+    public final void execute(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        handleExecute(executionContext);
+    }
+
+    protected abstract void handleExecute(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception;
+
+#end
+#if ($handler.assignmentHandler)
+    public final void assign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        handleAssign(assignable, executionContext);
+    }
+
+    protected abstract void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception;
+
+#end
 }

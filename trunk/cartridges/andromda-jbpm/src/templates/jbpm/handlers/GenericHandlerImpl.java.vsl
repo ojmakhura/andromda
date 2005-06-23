@@ -5,17 +5,17 @@
 package $packageName;
 
 #end
-public class ${handler.className}Impl implements ${handler.className}
+public class ${handler.className}Impl extends ${handler.className}
 {
 #if ($handler.actionHandler)
-    public void execute(org.jbpm.graph.exe.ExecutionContext executionContext)
+    protected final void handleExecute(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
     }
 
 #end
 #if ($handler.assignmentHandler)
-    public void assign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+    protected final void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
     }

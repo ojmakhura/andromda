@@ -5,6 +5,7 @@ import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.StateFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,9 +64,10 @@ public class JBpmHandlerLogicImpl
     {
         final List deferringEvents = new ArrayList();
 
-        final ActivityGraphFacade graph = getOwner().getActivityGraphContext();
-        if (graph != null)
+        final StateMachineFacade stateMachine = getOwner().getStateMachineContext();
+        if (stateMachine instanceof ActivityGraphFacade)
         {
+            final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;
             final Collection actionStates = graph.getActionStates();
             for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
