@@ -2,13 +2,31 @@
 <document>
     <properties>
         <author email="wouter@andromda.org">Wouter Zoons</author>
-        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
-        <author email="amartinwest@users.sourceforge.net">Martin West</author>
-        <author email="freter@users.sourceforge.net">Peter Friese</author>
-        <author email="carloslcuenca@users.sourceforge.net">Carlos Cuenca</author>
+        <author email="chad@andromda.org">Chad Brandon</author>
+        <author email="martin@andromda.org">Martin West</author>
+        <author email="peter@andromda.org">Peter Friese</author>
+        <author email="carlos@andromda.org">Carlos Cuenca</author>
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
+        <release version="3.1-RC1" date="2005-06-23" description="First release candidate of version 3.1">
+            <action dev="draftdog" type="update" issue="UMLMETA-42">
+                Changes have been applied to the generic UML metafacade layer, more specifically in the way
+                state machines are handled. The <code>ActivityGraphFacade</code> now generalizes a new facade
+                called <code>StateMachineFacade</code>, and a few refactorings were required to properly model
+                this new addition, most importantly, association ends have been renamed according. These changes can
+                impact your code generation in case you are accessing these properties directly. It is also
+                possible you have compilation errors if you have a custom facade generalizing the
+                <code>ActivityGraphFacade</code>. It will be sufficient to merely replace references to the activity
+                graph by references to the state machine. In doing so you will remain complete backwards compatible
+                with your previous code base.
+            </action>
+            <action dev="draftdog" type="fix">
+                An issue was fixed in the bpm4struts cartridge regarding the generation of dummy data in the controller
+                implementation classes: the dummy inner class used for table form properties wasn't used at all,
+                this would lead into compilation errors during build time.
+            </action>
+        </release>
         <release version="3.1-M1" date="2005-06-19" description="First milestone release of version 3.1">
             <action dev="cwbrandon" type="fix" issue="SCHEMATOXMI-1">
                 Schema2XMI is now able to map to database types with their precision defined.
