@@ -167,6 +167,16 @@
                     Denotes whether or not the server should validate user input.
                 </documentation>
             </property>
+            <property name="disableValidationForHiddenFormFields">
+                <default>false</default>
+                <documentation>
+                    This property only makes sense when using the
+                    <a href="#clientValidation">clientValidation</a> and/or
+                    <a href="#serverValidation">serverValidation</a> namespace properties,
+                    it instructs the cartridge to disable validation for form fields
+                    that are hidden from the end-user.
+                </documentation>
+            </property>
             <property name="validatorPackage">
                 <default>org.andromda.presentation.bpm4struts</default>
                 <documentation>
