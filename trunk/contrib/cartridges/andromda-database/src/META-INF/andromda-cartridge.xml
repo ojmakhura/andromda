@@ -1,4 +1,4 @@
-<cartridge name="database">
+<cartridge>
 
     <!-- templateObjects -->
 
@@ -16,7 +16,7 @@
         name="databaseUtils"
         className="org.andromda.cartridges.database.DatabaseUtils"/>
 
-    <property reference="sequenceSuffix" default="_SEQ"/>
+    <property reference="sequenceSuffix"/>
     <!-- cartridge-property merge-point -->
 
     <!-- template definitions -->
@@ -123,8 +123,7 @@
         outputPattern="create-dummy-load.sql"
         outlet="dummy-data-script"
         overwrite="true"
-        outputToSingleFile="true"
-        required="false">
+        outputToSingleFile="true">
         <modelElements variable="tables">
             <modelElement>
                 <type name="org.andromda.cartridges.database.metafacades.Table"/>

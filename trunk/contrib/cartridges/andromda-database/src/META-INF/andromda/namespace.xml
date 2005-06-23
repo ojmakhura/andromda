@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="database">
+    <components>
+        <component name="cartridge"/>
+        <component name="metafacades"/>
+    </components>
+    <properties>
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="scripts">
+                <documentation>
+                    The location to which the DDL scripts are generated.
+                </documentation>
+            </property>
+            <property name="dummy-data-script" required="false">
+                <documentation>
+                    The location to which the DDL script for loading dummy data is generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+           <property name="sequenceSuffix">
+               <default>_SEQ</default>
+               <documentation>
+                    The suffix given to sequences.
+               </documentation>
+            </property>
+            <property name="primaryKeyConstraintPrefix">
+                <default>XPK</default>
+            </property>
+            <property name="indexPrefix">
+                <default>IDX</default>
+            </property> 
+            <property name="foreignKeyConstraintPrefix">
+                <default>FK</default>
+            </property> 
+            <property name="dummyLoadMultiplier">
+                <default>1</default>
+            </property> 
+        </propertyGroup>
+    </properties>
+</namespace>
