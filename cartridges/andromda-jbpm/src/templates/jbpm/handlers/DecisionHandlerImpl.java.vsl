@@ -5,9 +5,9 @@
 package $packageName;
 
 #end
-public class ${decision.className}Impl implements ${decision.className}
+public class ${decision.className}Impl extends ${decision.className}
 {
-    public void decide(org.jbpm.graph.exe.ExecutionContext executionContext)
+    protected final void handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
     }

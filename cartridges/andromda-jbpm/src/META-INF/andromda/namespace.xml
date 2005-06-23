@@ -29,6 +29,13 @@
                     (implementation classes manually edited by the user).
                 </documentation>
             </property>
+            <property name="helpers">
+                <documentation>
+                    The location to which the process helper classes are written. These classes
+                    contain static utility methods to more easily handle the process, they
+                    are overwritten upon regeneration.
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>

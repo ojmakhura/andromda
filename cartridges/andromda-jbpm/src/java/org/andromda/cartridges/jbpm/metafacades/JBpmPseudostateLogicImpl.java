@@ -3,6 +3,7 @@ package org.andromda.cartridges.jbpm.metafacades;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Collections;
@@ -31,9 +32,10 @@ public class JBpmPseudostateLogicImpl
 
         if (isDecisionPoint())
         {
-            final ActivityGraphFacade graph = getActivityGraph();
-            if (graph != null)
+            final StateMachineFacade stateMachine = getStateMachineContext();
+            if (stateMachine instanceof ActivityGraphFacade)
             {
+                final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;
                 final UseCaseFacade useCase = graph.getUseCase();
                 if (useCase != null)
                 {
@@ -104,4 +106,13 @@ public class JBpmPseudostateLogicImpl
         return Collections.EMPTY_LIST;
     }
 
+    public boolean isCollect()
+    {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public boolean isSplit()
+    {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

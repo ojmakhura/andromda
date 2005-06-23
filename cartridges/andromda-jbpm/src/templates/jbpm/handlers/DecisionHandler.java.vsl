@@ -8,6 +8,14 @@ package $packageName;
 /**
 $decision.getDocumentation(" * ")
  */
-public interface $decision.className extends org.jbpm.graph.node.DecisionHandler
+public abstract class $decision.className implements org.jbpm.graph.node.DecisionHandler
 {
+    public final void decide(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        handleDecide(executionContext);
+    }
+
+    protected abstract void handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception;
 }
