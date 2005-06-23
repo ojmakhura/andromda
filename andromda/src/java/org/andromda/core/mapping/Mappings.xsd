@@ -24,14 +24,6 @@
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
-        <xs:unique name="uniqueTo">
-            <xs:selector xpath="mapping"/>
-            <xs:field xpath="@to"/>
-        </xs:unique>
-        <xs:unique name="uniqueFrom">
-            <xs:selector xpath="mapping"/>
-            <xs:field xpath="@form"/>
-        </xs:unique>
     </xs:element>
     <xs:element name="to">
         <xs:complexType mixed="true">
