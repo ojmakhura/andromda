@@ -71,6 +71,6 @@ public class PseudostateFacadeLogicImpl
 
     public Object getValidationOwner()
     {
-        return getActivityGraph();
+        return getStateMachine();
     }
 }

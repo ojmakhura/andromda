@@ -19,6 +19,6 @@ public class FinalStateFacadeLogicImpl
      */
     public Object getValidationOwner()
     {
-        return getActivityGraph();
+        return getStateMachine();
     }
 }

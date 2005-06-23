@@ -82,7 +82,7 @@ public class TransitionFacadeLogicImpl
 
     public Object getValidationOwner()
     {
-        return getTarget().getActivityGraph();
+        return getTarget().getStateMachine();
     }
 
 }

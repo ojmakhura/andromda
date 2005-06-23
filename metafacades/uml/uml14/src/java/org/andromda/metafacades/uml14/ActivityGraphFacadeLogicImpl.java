@@ -29,33 +29,6 @@ public class ActivityGraphFacadeLogicImpl
         super(metaObject, context);
     }
 
-    public Collection handleGetInitialStates()
-    {
-        final Predicate filter =
-            new Predicate()
-            {
-                public boolean evaluate(Object object)
-                {
-                    return (object instanceof Pseudostate) &&
-                    (PseudostateKindEnum.PK_INITIAL.equals(((Pseudostate)object).getKind()));
-                }
-            };
-        return getSubvertices(filter);
-    }
-
-    public Collection handleGetPseudostates()
-    {
-        final Predicate filter =
-            new Predicate()
-            {
-                public boolean evaluate(Object object)
-                {
-                    return (object instanceof Pseudostate);
-                }
-            };
-        return getSubvertices(filter);
-    }
-
     public Collection handleGetActionStates()
     {
         final Predicate filter =
@@ -82,51 +55,6 @@ public class ActivityGraphFacadeLogicImpl
         return getSubvertices(filter);
     }
 
-    public Collection handleGetFinalStates()
-    {
-        final Predicate filter =
-            new Predicate()
-            {
-                public boolean evaluate(Object object)
-                {
-                    return object instanceof FinalState;
-                }
-            };
-        return getSubvertices(filter);
-    }
-
-    protected Collection getSubvertices(Predicate collectionFilter)
-    {
-        final CompositeState compositeState = (CompositeState)metaObject.getTop();
-        return filter(compositeState.getSubvertex(), collectionFilter);
-    }
-
-    private Collection filter(
-        Collection collection,
-        Predicate collectionFilter)
-    {
-        final Set filteredCollection = new LinkedHashSet();
-        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
-        {
-            final Object object = iterator.next();
-            if (collectionFilter.evaluate(object))
-            {
-                filteredCollection.add(object);
-            }
-        }
-        return filteredCollection;
-    }
-
-    protected Object handleGetContextElement()
-    {
-        return metaObject.getContext();
-    }
-
-    protected Collection handleGetTransitions()
-    {
-        return metaObject.getTransitions();
-    }
-
     protected Object handleGetUseCase()
     {
         UseCase stateMachineUseCase = null;
@@ -151,43 +79,13 @@ public class ActivityGraphFacadeLogicImpl
         return metaObject.getPartition();
     }
 
-    protected Object handleGetInitialTransition()
-    {
-        Object transition = null;
-
-        final PseudostateFacade initialState = getInitialState();
-        if (initialState != null)
-        {
-            final Collection transitions = initialState.getOutgoing();
-            if (!transitions.isEmpty())
-            {
-                transition = transitions.iterator().next();
-            }
-        }
-
-        return transition;
-    }
-
-    protected Object handleGetInitialState()
-    {
-        Object initialState = null;
-
-        final Collection initialStates = getInitialStates();
-        if (!initialStates.isEmpty())
-        {
-            initialState = initialStates.iterator().next();
-        }
-
-        return initialState;
-    }
-
     public Object getValidationOwner()
     {
         Object validationOwner = getUseCase();
 
         if (validationOwner == null)
         {
-            validationOwner = getActivityGraphContext();
+            validationOwner = getStateMachineContext();
         }
         if (validationOwner == null)
         {
