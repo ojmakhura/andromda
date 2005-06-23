@@ -173,7 +173,7 @@ public class StrutsForwardLogicImpl
 
     protected Object handleGetStrutsActivityGraph()
     {
-        Object graph = getSource().getActivityGraph();
+        final Object graph = getSource().getStateMachine();
         return (graph instanceof StrutsActivityGraph) ? graph : null;
     }
 

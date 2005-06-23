@@ -9,11 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
 
 
 /**
@@ -24,41 +25,32 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class StrutsActionStateLogicImpl
         extends StrutsActionStateLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsActionStateLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsActionState ...
 
     protected java.lang.String handleGetActionMethodName()
     {
         return '_' + StringUtilsHelper.lowerCamelCaseName(getName());
     }
 
-    // ------------- relations ------------------
-
     protected List handleGetContainerActions()
     {
-        Collection actionSet = new HashSet();
-        ActivityGraphFacade activityGraphFacade = this.getActivityGraph();
+        final Collection actionSet = new HashSet();
 
-        if (activityGraphFacade instanceof StrutsActivityGraph)
+        final StateMachineFacade stateMachineFacade = this.getStateMachine();
+        if (stateMachineFacade instanceof ActivityGraphFacade)
         {
-            StrutsActivityGraph activityGraph = (StrutsActivityGraph)activityGraphFacade;
-            UseCaseFacade useCase = activityGraph.getUseCase();
+            final ActivityGraphFacade activityGraph = (ActivityGraphFacade)stateMachineFacade;
+            final UseCaseFacade useCase = activityGraph.getUseCase();
 
             if (useCase instanceof StrutsUseCase)
             {
-                Collection actions = ((StrutsUseCase)useCase).getActions();
+                final Collection actions = ((StrutsUseCase)useCase).getActions();
                 for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
-                    StrutsAction action = (StrutsAction)actionIterator.next();
+                    final StrutsAction action = (StrutsAction)actionIterator.next();
                     if (action.getActionStates().contains(this))
                     {
                         actionSet.add(action);

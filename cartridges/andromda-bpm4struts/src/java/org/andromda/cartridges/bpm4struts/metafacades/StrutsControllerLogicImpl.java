@@ -15,6 +15,7 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
 
 
 /**
@@ -25,17 +26,10 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class StrutsControllerLogicImpl
         extends StrutsControllerLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsControllerLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsController ...
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getFullPath()
@@ -50,12 +44,12 @@ public class StrutsControllerLogicImpl
      */
     protected List handleGetDeferringActions()
     {
-        Collection deferringActions = new HashSet();
+        final Collection deferringActions = new HashSet();
 
-        Collection operations = getOperations();
+        final Collection operations = getOperations();
         for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
         {
-            StrutsControllerOperation operation = (StrutsControllerOperation)operationIterator.next();
+            final StrutsControllerOperation operation = (StrutsControllerOperation)operationIterator.next();
             deferringActions.addAll(operation.getDeferringActions());
         }
         return new ArrayList(deferringActions);
@@ -71,8 +65,8 @@ public class StrutsControllerLogicImpl
         final Collection dependencies = this.getSourceDependencies();
         for (Iterator iterator = dependencies.iterator(); iterator.hasNext();)
         {
-            DependencyFacade dependency = (DependencyFacade)iterator.next();
-            ModelElementFacade modelElement = dependency.getTargetElement();
+            final DependencyFacade dependency = (DependencyFacade)iterator.next();
+            final ModelElementFacade modelElement = dependency.getTargetElement();
             if (modelElement instanceof StrutsSessionObject)
                 objectsList.add(modelElement);
         }
@@ -89,7 +83,7 @@ public class StrutsControllerLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                final ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                 return targetElement != null && Service.class.isAssignableFrom(targetElement.getClass());
             }
         };
@@ -102,24 +96,23 @@ public class StrutsControllerLogicImpl
     {
         UseCaseFacade useCase = null;
 
-        ActivityGraphFacade graphContext = getActivityGraphContext();
-
-        if (graphContext == null)
+        final StateMachineFacade graphContext = getStateMachineContext();
+        if (graphContext instanceof ActivityGraphFacade)
         {
-            Object useCaseTaggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_CONTROLLER_USE_CASE);
-            if (useCaseTaggedValue != null)
+            useCase = ((ActivityGraphFacade)graphContext).getUseCase();
+            if (useCase != null && !StrutsUseCase.class.isAssignableFrom(useCase.getClass()))
             {
-                String tag = useCaseTaggedValue.toString();
-                // return the first use-case with this name
-                useCase = getModel().findUseCaseWithNameAndStereotype(tag, Bpm4StrutsProfile.STEREOTYPE_USECASE);
+                useCase = null;
             }
         }
         else
         {
-            useCase = graphContext.getUseCase();
-            if (useCase != null && !StrutsUseCase.class.isAssignableFrom(useCase.getClass()))
+            final Object useCaseTaggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_CONTROLLER_USE_CASE);
+            if (useCaseTaggedValue != null)
             {
-                useCase = null;
+                final String tag = useCaseTaggedValue.toString();
+                // return the first use-case with this name
+                useCase = getModel().findUseCaseWithNameAndStereotype(tag, Bpm4StrutsProfile.STEREOTYPE_USECASE);
             }
         }
 
