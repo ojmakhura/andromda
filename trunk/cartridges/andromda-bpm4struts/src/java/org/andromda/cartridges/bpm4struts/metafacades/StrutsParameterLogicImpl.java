@@ -42,10 +42,10 @@ public class StrutsParameterLogicImpl
     {
         Object actionObject = null;
 
-        EventFacade event = getEvent();
+        final EventFacade event = getEvent();
         if (event != null)
         {
-            TransitionFacade transition = event.getTransition();
+            final TransitionFacade transition = event.getTransition();
             if (transition instanceof StrutsAction)
             {
                 actionObject = transition;
@@ -513,7 +513,7 @@ public class StrutsParameterLogicImpl
     {
         boolean isTable = false;
 
-        ClassifierFacade type = getType();
+        final ClassifierFacade type = getType();
         if (type != null)
         {
             isTable = (type.isCollectionType() || type.isArrayType()) && !getTableColumnNames().isEmpty();
@@ -811,12 +811,12 @@ public class StrutsParameterLogicImpl
 
     protected Collection handleGetTableColumnNames()
     {
-        Collection tableColumnNames = new ArrayList();
+        final Collection tableColumnNames = new ArrayList();
 
         if (!isActionParameter() && !isControllerOperationArgument())
         {
             final Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
-            if (taggedValues.isEmpty() == false)
+            if (!taggedValues.isEmpty())
             {
                 for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
                 {
@@ -833,41 +833,10 @@ public class StrutsParameterLogicImpl
                 }
             }
         }
-        else
-        {
-            tableColumnNames = Collections.EMPTY_LIST;
-        }
+
         return tableColumnNames;
     }
 
-/*  // @todo: remove ? (wouter)
-    protected String handleGetTableColumnLinkName()
-    {
-        String linkName = null;
-
-        final StrutsAction action = getAction();
-        if (action != null)
-        {
-            if (action.isHyperlink() && action.isTableLink())
-            {
-                final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TABLELINK);
-                if (taggedValueObject != null)
-                {
-                    linkName = StringUtils.trimToNull(taggedValueObject.toString());
-                }
-
-                // when no meaningful tagged value has been specified we let the column point to itself
-                if (linkName == null)
-                {
-                    linkName = getName();
-                }
-            }
-        }
-
-        return linkName;
-    }
-
-*/
     protected String handleGetTableColumnMessageKey(String columnName)
     {
         StringBuffer messageKey = null;
@@ -996,7 +965,7 @@ public class StrutsParameterLogicImpl
         }
         return widgetType;
     }
-    
+
     /**
      * The input type representing a 'hidden' parameter.
      */

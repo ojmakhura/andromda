@@ -1,5 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.ServiceOperation;
+import org.andromda.metafacades.uml.StateVertexFacade;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,16 +18,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.metafacades.uml.ServiceOperation;
-import org.andromda.metafacades.uml.StateVertexFacade;
+import java.util.Set;
 
 
 /**
@@ -27,8 +29,6 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 public class StrutsControllerOperationLogicImpl
         extends StrutsControllerOperationLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsControllerOperationLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -58,17 +58,17 @@ public class StrutsControllerOperationLogicImpl
     {
         final Collection deferringActions = new HashSet();
 
-        StrutsActivityGraph graph = getActivityGraph();
+        final StrutsActivityGraph graph = getActivityGraph();
         if (graph != null)
         {
-            Collection actionStates = graph.getActionStates();
+            final Collection actionStates = graph.getActionStates();
             for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
-                StrutsActionState actionState = (StrutsActionState)actionStateIterator.next();
-                Collection controllerCalls = actionState.getControllerCalls();
+                final StrutsActionState actionState = (StrutsActionState)actionStateIterator.next();
+                final Collection controllerCalls = actionState.getControllerCalls();
                 for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
                 {
-                    OperationFacade operation = (OperationFacade)controllerCallIterator.next();
+                    final OperationFacade operation = (OperationFacade)controllerCallIterator.next();
                     if (this.equals(operation))
                     {
                         deferringActions.addAll(actionState.getContainerActions());
@@ -76,30 +76,30 @@ public class StrutsControllerOperationLogicImpl
                 }
             }
 
-            Collection transitions = graph.getTransitions();
+            final Collection transitions = graph.getTransitions();
             for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
             {
-                StrutsForward transition = (StrutsForward)transitionIterator.next();
-                EventFacade event = transition.getTrigger();
+                final StrutsForward transition = (StrutsForward)transitionIterator.next();
+                final EventFacade event = transition.getTrigger();
                 if (event instanceof StrutsTrigger)
                 {
-                    StrutsTrigger trigger = (StrutsTrigger)event;
-                    StrutsControllerOperation operation = trigger.getControllerCall();
+                    final StrutsTrigger trigger = (StrutsTrigger)event;
+                    final StrutsControllerOperation operation = trigger.getControllerCall();
                     if (this.equals(operation))
                     {
                         // we have two types of controller calls: the ones in action states and the ones for decisions
-                        StateVertexFacade source = transition.getSource();
+                        final StateVertexFacade source = transition.getSource();
                         if (source instanceof StrutsActionState)
                         {
-                            StrutsActionState sourceActionState = (StrutsActionState)source;
+                            final StrutsActionState sourceActionState = (StrutsActionState)source;
                             deferringActions.addAll(sourceActionState.getContainerActions());
                         }
 
                         // test for decision
-                        StateVertexFacade target = transition.getTarget();
+                        final StateVertexFacade target = transition.getTarget();
                         if (target instanceof StrutsPseudostate)
                         {
-                            StrutsPseudostate targetPseudoState = (StrutsPseudostate)target;
+                            final StrutsPseudostate targetPseudoState = (StrutsPseudostate)target;
                             if (targetPseudoState.isDecisionPoint())
                             {
                                 deferringActions.addAll(targetPseudoState.getContainerActions());
@@ -114,39 +114,100 @@ public class StrutsControllerOperationLogicImpl
 
     protected Object handleGetController()
     {
-        Object owner = getOwner();
+        final Object owner = getOwner();
         return (owner instanceof StrutsController) ? owner : null;
     }
 
     protected List handleGetFormFields()
     {
-        return new ArrayList(this.getArguments());
+        final Map formFieldsMap = new HashMap();
+
+        // for quick lookup we use a hashset for the argument names, we only consider parameters with a name
+        // which is also present in this set
+        final Set argumentNames = new HashSet();
+        final Collection arguments = this.getArguments();
+        for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+        {
+            final ModelElementFacade element = (ModelElementFacade)argumentIterator.next();
+            argumentNames.add(element.getName());
+        }
+
+        // get all actions deferring to this operation
+        final List deferringActions = this.getDeferringActions();
+        for (int i = 0; i < deferringActions.size(); i++)
+        {
+            final StrutsAction action = (StrutsAction)deferringActions.get(i);
+            // store the action parameters
+            final List actionFormFields = action.getActionFormFields();
+            for (int j = 0; j < actionFormFields.size(); j++)
+            {
+                final ModelElementFacade parameter = (ModelElementFacade)actionFormFields.get(j);
+                if (argumentNames.contains(parameter.getName()))
+                {
+                    formFieldsMap.put(parameter.getName(), parameter);
+                }
+            }
+            // get all forwards and overwrite when we find a table (or add when not yet present)
+            final List forwards = action.getActionForwards();
+            for (int j = 0; j < forwards.size(); j++)
+            {
+                final StrutsForward forward = (StrutsForward)forwards.get(j);
+                // only consider forwards directly entering a page
+                if (forward.isEnteringPage())
+                {
+                    final List pageVariables = forward.getForwardParameters();
+                    for (int k = 0; k < pageVariables.size(); k++)
+                    {
+                        final StrutsParameter pageVariable = (StrutsParameter)pageVariables.get(k);
+                        if (argumentNames.contains(pageVariable.getName()))
+                        {
+                            if (!formFieldsMap.containsKey(pageVariable.getName()) || pageVariable.isTable())
+                            {
+                                formFieldsMap.put(pageVariable.getName(), pageVariable);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // since all arguments need to be present we add those that haven't yet been stored in the map
+        for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+        {
+            final StrutsParameter argument = (StrutsParameter)argumentIterator.next();
+            if (!formFieldsMap.containsKey(argument.getName()))
+            {
+                formFieldsMap.put(argument.getName(), argument);
+            }
+        }
+
+        return new ArrayList(formFieldsMap.values());
     }
 
     protected boolean handleIsAllArgumentsHaveFormFields()
     {
-        Collection arguments = getFormFields();
-        Collection deferringActions = getDeferringActions();
+        final Collection arguments = this.getArguments();
+        final Collection deferringActions = this.getDeferringActions();
 
         boolean allArgumentsHaveFormFields = true;
         for (Iterator argumentIterator = arguments.iterator();
              argumentIterator.hasNext() && allArgumentsHaveFormFields;)
         {
-            StrutsParameter parameter = (StrutsParameter)argumentIterator.next();
-            String parameterName = parameter.getName();
-            String parameterType = parameter.getFullyQualifiedName();
+            final StrutsParameter parameter = (StrutsParameter)argumentIterator.next();
+            final String parameterName = parameter.getName();
+            final String parameterType = parameter.getFullyQualifiedName();
 
             boolean actionMissingField = false;
             for (Iterator actionIterator = deferringActions.iterator();
                  actionIterator.hasNext() && !actionMissingField;)
             {
-                StrutsAction action = (StrutsAction)actionIterator.next();
-                Collection actionFormFields = action.getActionFormFields();
+                final StrutsAction action = (StrutsAction)actionIterator.next();
+                final Collection actionFormFields = action.getActionFormFields();
 
                 boolean fieldPresent = false;
                 for (Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext() && !fieldPresent;)
                 {
-                    StrutsParameter field = (StrutsParameter)fieldIterator.next();
+                    final StrutsParameter field = (StrutsParameter)fieldIterator.next();
                     if (parameterName.equals(field.getName()) && parameterType.equals(field.getFullyQualifiedName()))
                     {
                         fieldPresent = true;
@@ -163,13 +224,13 @@ public class StrutsControllerOperationLogicImpl
     {
         Object graph = null;
 
-        ClassifierFacade owner = getOwner();
+        final ClassifierFacade owner = getOwner();
         if (owner instanceof StrutsController)
         {
-            StrutsController controller = (StrutsController)owner;
+            final StrutsController controller = (StrutsController)owner;
             if (controller != null)
             {
-                StrutsUseCase useCase = controller.getUseCase();
+                final StrutsUseCase useCase = controller.getUseCase();
                 if (useCase != null)
                 {
                     graph = useCase.getActivityGraph();
@@ -231,7 +292,7 @@ public class StrutsControllerOperationLogicImpl
     {
         return getBackEndServiceOperation() != null;
     }
-    
+
     protected boolean handleIsOwnerIsController()
     {
         return this.getOwner() instanceof StrutsController;
