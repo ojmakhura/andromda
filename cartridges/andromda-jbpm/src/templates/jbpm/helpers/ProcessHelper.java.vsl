@@ -39,9 +39,7 @@ public class $className
 	    jbpmSession.beginTransaction();
 
 	    // Save the process definition in the database
-	    jbpmSession
-	        .getGraphSession()
-	        .saveProcessDefinition(processDefinition);
+	    jbpmSession.getGraphSession().saveProcessDefinition(processDefinition);
 
 	    // Commit the transaction
 	    jbpmSession.commitTransaction();
