@@ -23,7 +23,7 @@
         <!-- to ensure no decision handler is generated when the graph is not a business process -->
         <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
             <property name="decisionPoint"/>
-            <property name="activityGraph.useCase.businessProcess"/>
+            <property name="stateMachine.useCase.businessProcess"/>
         </mapping>
     </metafacade>
 
@@ -46,14 +46,14 @@
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
             <!-- to ensure no handler is generated when the graph is not a business process -->
-            <property name="state.activityGraph.useCase.businessProcess"/>
+            <property name="state.stateMachine.useCase.businessProcess"/>
         </mapping>
     </metafacade>
 
     <!-- to ensure no handler is generated when the graph is not a business process -->
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
-            <property name="transition.source.activityGraph.useCase.businessProcess"/>
+            <property name="transition.source.stateMachine.useCase.businessProcess"/>
         </mapping>
     </metafacade>
 
