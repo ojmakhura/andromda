@@ -1,13 +1,14 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -36,10 +37,10 @@ public class StrutsJspLogicImpl
     {
         String packageName = null;
 
-        ActivityGraphFacade graph = getActivityGraph();
-        if (graph != null)
+        final StateMachineFacade graphContext = getStateMachine();
+        if (graphContext instanceof ActivityGraphFacade)
         {
-            UseCaseFacade graphUseCase = graph.getUseCase();
+            final UseCaseFacade graphUseCase = ((ActivityGraphFacade)graphContext).getUseCase();
             if (graphUseCase instanceof StrutsUseCase)
             {
                 StrutsUseCase useCase = (StrutsUseCase)graphUseCase;
@@ -177,10 +178,11 @@ public class StrutsJspLogicImpl
     protected Object handleGetUseCase()
     {
         UseCaseFacade useCase = null;
-        final ActivityGraphFacade graph = getActivityGraph();
-        if (graph instanceof StrutsActivityGraph)
+
+        final StateMachineFacade graphContext = getStateMachine();
+        if (graphContext instanceof ActivityGraphFacade)
         {
-            useCase = ((StrutsActivityGraph)graph).getUseCase();
+            useCase = ((ActivityGraphFacade)graphContext).getUseCase();
             if (useCase != null && !StrutsUseCase.class.isAssignableFrom(useCase.getClass()))
             {
                 useCase = null;

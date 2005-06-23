@@ -10,6 +10,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
 
 
 /**
@@ -20,17 +21,10 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class StrutsPseudostateLogicImpl
         extends StrutsPseudostateLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsPseudostateLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
-
-    // -------------------- business methods ----------------------
-
-    // concrete business methods that were declared
-    // abstract in class StrutsPseudostate ...
 
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate#getActionMethodName()()
@@ -44,13 +38,12 @@ public class StrutsPseudostateLogicImpl
 
     protected List handleGetContainerActions()
     {
-        Collection actionSet = new HashSet();
-        ActivityGraphFacade activityGraphFacade = this.getActivityGraph();
+        final Collection actionSet = new HashSet();
+        final StateMachineFacade graphContext = getStateMachine();
 
-        if (activityGraphFacade instanceof StrutsActivityGraph)
+        if (graphContext instanceof ActivityGraphFacade)
         {
-            StrutsActivityGraph activityGraph = (StrutsActivityGraph)activityGraphFacade;
-            UseCaseFacade useCase = activityGraph.getUseCase();
+            final UseCaseFacade useCase = ((ActivityGraphFacade)graphContext).getUseCase();
 
             if (useCase instanceof StrutsUseCase)
             {
