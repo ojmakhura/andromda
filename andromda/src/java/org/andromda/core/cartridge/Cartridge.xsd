@@ -93,8 +93,10 @@
                                 <xs:complexType mixed="true">
                                     <xs:attribute name="name" use="required">
                                         <xs:annotation>
-                                            This defines the name of the type's property.  This is expected
-                                            to be a valid java bean property on the given metafacade.
+                                            <xs:documentation>
+                                                This defines the name of the type's property.  This is expected
+                                                to be a valid java bean property on the given metafacade.                                                
+                                            </xs:documentation>
                                         </xs:annotation>
                                     </xs:attribute>
                                 </xs:complexType>
