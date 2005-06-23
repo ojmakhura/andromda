@@ -194,7 +194,7 @@ ${indent}</html:$widgetType>
 #elseif ( ($widgetType == 'text') || ($widgetType == 'password') )
 ${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly styleId="$styleId"/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
-${indent}<html:img page="/layout/calendar/calendar.gif" styleId="$stringUtils.lowerCamelCase($action.actionTrigger.name)_${fieldName}_trigger" styleClass="calendar" #if($hints)onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
+${indent}<html:img page="/layout/calendar/calendar.gif" styleId="$stringUtils.lowerCamelCaseName($action.actionTrigger.name)_${fieldName}_trigger" styleClass="calendar" #if($hints)onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
 ${indent}<script type="text/javascript">
 #if ($xhtml == "true")
 ${indent}//<![CDATA[
@@ -207,7 +207,7 @@ ${indent}        inputField     :    "${styleId}",
 ${indent}        ifFormat       :    "$calendarFieldFormat",
 ${indent}        daFormat       :    "$calendarFieldFormat",
 ${indent}        showsTime      :    $dateUtils.containsTimeFormat($calendarFieldFormat),
-${indent}        button         :    "$stringUtils.lowerCamelCase($action.actionTrigger.name)_${fieldName}_trigger",
+${indent}        button         :    "$stringUtils.lowerCamelCaseName($action.actionTrigger.name)_${fieldName}_trigger",
 ${indent}        singleClick    :    true
 ${indent}    });
 #if ($xhtml == "true")
