@@ -1,5 +1,15 @@
 package org.andromda.translation.ocl.validation;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.commons.collections.Bag;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -8,14 +18,6 @@ import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Used to translated OCL collection expressions to their corresponding Java collection expressions.
@@ -25,48 +27,62 @@ public final class OCLCollections
     /**
      * Counts the number of occurrences of the argument item in the source collection.
      */
-    public static int count(Collection collection, Object item)
+    public static int count(
+        final Collection collection,
+        Object item)
     {
-        return CollectionUtils.cardinality(item, collection);
+        return collection == null ? 0 : CollectionUtils.cardinality(item, collection);
     }
 
     /**
      * Return true if the object is not an element of the collection, false otherwise.
      */
-    public static boolean excludes(Collection collection, Object item)
+    public static boolean excludes(
+        final Collection collection,
+        final Object item)
     {
-        return !collection.contains(item);
+        return collection == null || !collection.contains(item);
     }
 
     /**
      * Returns true if all elements of the parameter collection are not present in the current collection, false
      * otherwise.
      */
-    public static boolean excludesAll(Collection collection, Collection items)
+    public static boolean excludesAll(
+        final Collection collection,
+        final Collection items)
     {
-        for (Iterator iterator = items.iterator(); iterator.hasNext();)
+        boolean excludesAll = true;
+        for (final Iterator iterator = items.iterator(); iterator.hasNext();)
         {
-            Object object = iterator.next();
+            final Object object = iterator.next();
             if (!excludes(collection, object))
-                return false;
+            {
+                excludesAll = false;
+                break;
+            }
         }
-        return true;
+        return excludesAll;
     }
 
     /**
      * Returns true if the object is an element of the collection, false otherwise.
      */
-    public static boolean includes(Collection collection, Object item)
+    public static boolean includes(
+        final Collection collection,
+        final Object item)
     {
-        return collection.contains(item);
+        return collection != null && collection.contains(item);
     }
 
     /**
      * Returns true if all elements of the parameter collection are present in the current collection, false otherwise.
      */
-    public static boolean includesAll(Collection collection, Collection items)
+    public static boolean includesAll(
+        final Collection collection,
+        final Collection items)
     {
-        return collection.containsAll(items);
+        return collection != null && collection.containsAll(items);
     }
 
     /**
@@ -88,10 +104,10 @@ public final class OCLCollections
             if (object instanceof Collection)
             {
                 isEmpty = ((Collection)object).isEmpty();
-            } 
+            }
             else if (object instanceof String)
             {
-                isEmpty = isEmpty((String)object);    
+                isEmpty = isEmpty((String)object);
             }
         }
         return isEmpty;
@@ -150,10 +166,10 @@ public final class OCLCollections
      * @param object the object to check.
      * @return the size of the collection
      */
-    public static int size(Object object)
+    public static int size(final Object object)
     {
         int size = 0;
-        if (object != null && Collection.class.isAssignableFrom(object.getClass()))
+        if (object instanceof Collection)
         {
             size = size((Collection)object);
         }
@@ -163,7 +179,7 @@ public final class OCLCollections
     /**
      * Returns the number of elements in the collection.
      */
-    public static int size(Collection collection)
+    public static int size(final Collection collection)
     {
         int size = 0;
         if (collection != null)
@@ -180,20 +196,26 @@ public final class OCLCollections
      * @param collection a collection containing only classes extending java.lang.Number
      * @return the sum of all the elements in the collection
      */
-    public static double sum(Collection collection)
+    public static double sum(final Collection collection)
     {
         double sum = 0;
-
-        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+        if (collection != null && !collection.isEmpty())
         {
-            Object object = iterator.next();
-            if (object instanceof Number)
-                sum += ((Number)object).doubleValue();
-            else
-                throw new UnsupportedOperationException("In order to calculate the sum of a collection\'s elements " +
+            for (final Iterator iterator = collection.iterator(); iterator.hasNext();)
+            {
+                Object object = iterator.next();
+                if (object instanceof Number)
+                {
+                    sum += ((Number)object).doubleValue();
+                }
+                else
+                {
+                    throw new UnsupportedOperationException(
+                        "In order to calculate the sum of a collection\'s elements " +
                         "all of them must extend java.lang.Number, found: " + object.getClass().getName());
+                }
+            }
         }
-
         return sum;
     }
 
@@ -202,9 +224,11 @@ public final class OCLCollections
      *
      * @return true if the operation was a success
      */
-    public static boolean append(List list, Object item)
+    public static boolean append(
+        final List list,
+        final Object item)
     {
-        return list.add(item);
+        return list == null ? false : list.add(item);
     }
 
     /**
@@ -212,7 +236,9 @@ public final class OCLCollections
      *
      * @return the element previously at the first position
      */
-    public static Object prepend(List list, Object item)
+    public static Object prepend(
+        final List list,
+        final Object item)
     {
         return list.set(0, item);
     }
@@ -222,49 +248,53 @@ public final class OCLCollections
      *
      * @return true if the operation was a success
      */
-    public static boolean append(Bag collection, Object item)
+    public static boolean append(
+        final Bag collection,
+        final Object item)
     {
-        return collection.add(item);
+        return collection == null ? false : collection.add(item);
     }
 
     /**
      * Returns the argument as a bag.
      */
-    public static Bag asBag(Collection collection)
+    public static Bag asBag(final Collection collection)
     {
-        return new HashBag(collection);
+        return collection == null ? new HashBag() : new HashBag(collection);
     }
 
     /**
      * Returns the argument as an ordered set.
      */
-    public static Set asOrderedSet(Collection collection)
+    public static Set asOrderedSet(final Collection collection)
     {
-        return SetUtils.orderedSet(new TreeSet(collection));
+        return collection == null ? Collections.EMPTY_SET : SetUtils.orderedSet(new TreeSet(collection));
     }
 
     /**
      * Returns the argument as a list.
      */
-    public static List asSequence(Collection collection)
+    public static List asSequence(final Collection collection)
     {
-        return new ArrayList(collection);
+        return collection == null ? Collections.EMPTY_LIST : new ArrayList(collection);
     }
 
     /**
      * Returns the argument as a set.
      */
-    public static Set asSet(Collection collection)
+    public static Set asSet(final Collection collection)
     {
-        return new HashSet(collection);
+        return collection == null ? Collections.EMPTY_SET : new HashSet(collection);
     }
 
     /**
      * Returns the element at the specified index in the argument list.
      */
-    public static Object at(List list, int index)
+    public static Object at(
+        final List list,
+        final int index)
     {
-        return list.get(index);
+        return list == null ? null : list.get(index);
     }
 
     /**
@@ -272,9 +302,11 @@ public final class OCLCollections
      *
      * @return true if one or more elements were removed
      */
-    public static boolean excluding(Collection collection, Object item)
+    public static boolean excluding(
+        final Collection collection,
+        final Object item)
     {
-        return collection.remove(item);
+        return collection == null ? false : collection.remove(item);
     }
 
     /**
@@ -282,26 +314,31 @@ public final class OCLCollections
      *
      * @return true if the element was added
      */
-    public static boolean including(Collection collection, Object item)
+    public static boolean including(
+        final Collection collection,
+        final Object item)
     {
-        return collection.add(item);
+        return collection == null ? false : collection.add(item);
     }
 
     /**
      * Recursively flattens this collection, this method returns a Collection containing no nested Collection
      * instances.
      */
-    public static Collection flatten(Collection collection)
+    public static Collection flatten(final Collection collection)
     {
-        Collection flattenedCollection = new ArrayList();
-
-        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+        final Collection flattenedCollection = new ArrayList();
+        for (final Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
-            Object object = iterator.next();
+            final Object object = iterator.next();
             if (object instanceof Collection)
+            {
                 flattenedCollection.addAll(flatten((Collection)object));
+            }
             else
+            {
                 flattenedCollection.add(object);
+            }
         }
 
         return flattenedCollection;
@@ -309,18 +346,23 @@ public final class OCLCollections
 
     /**
      * Returns the index in this list of the first occurrence of the specified element, or -1 if this list does not
-     * contain this element. More formally, returns the lowest index i such that (o==null ? get(i)==null :
+     * contain this element. More formally, returns the lowest index i such that (o == null ? get(i) = =null :
      * o.equals(get(i))), or -1 if there is no such index.
      */
-    public static int indexOf(List collection, Object item)
+    public static int indexOf(
+        final List collection,
+        final Object item)
     {
-        return collection.indexOf(item);
+        return collection == null ? -1 : collection.indexOf(item);
     }
 
     /**
      * Insert the item at the specified index into the collection.
      */
-    public static void insertAt(List collection, int index, Object item)
+    public static void insertAt(
+        final List collection,
+        int index,
+        Object item)
     {
         collection.add(index, item);
     }
@@ -328,7 +370,9 @@ public final class OCLCollections
     /**
      * Returns the collection of elements common in both argument collections.
      */
-    public static Collection intersection(Collection first, Collection second)
+    public static Collection intersection(
+        final Collection first,
+        final Collection second)
     {
         return CollectionUtils.intersection(first, second);
     }
@@ -336,7 +380,9 @@ public final class OCLCollections
     /**
      * Returns the union of both collections into a single collection.
      */
-    public static Collection union(Collection first, Collection second)
+    public static Collection union(
+        final Collection first,
+        final Collection second)
     {
         return CollectionUtils.union(first, second);
     }
@@ -348,7 +394,7 @@ public final class OCLCollections
      * @return the last object of the collection or the object itself if the object is not a collection instance (or
      *         null if the object is null or an empty collection).
      */
-    public static Object last(Object object)
+    public static Object last(final Object object)
     {
         Object last = null;
         final List list = objectToList(object);
@@ -366,7 +412,7 @@ public final class OCLCollections
      * @return the first object of the collection or the object itself if the object is not a collection instance (or
      *         null if the object is null or an empty collection).
      */
-    public static Object first(Object object)
+    public static Object first(final Object object)
     {
         Object first = null;
         final List list = objectToList(object);
@@ -380,7 +426,9 @@ public final class OCLCollections
     /**
      * Returns those element that are contained in only one of both collections.
      */
-    public static Collection symmetricDifference(Collection first, Collection second)
+    public static Collection symmetricDifference(
+        final Collection first,
+        final Collection second)
     {
         return CollectionUtils.disjunction(first, second);
     }
@@ -388,7 +436,7 @@ public final class OCLCollections
     /**
      * @todo: implement
      */
-    public static Set subOrderedSet(Set collection)
+    public static Set subOrderedSet(final Set collection)
     {
         throw new UnsupportedOperationException(OCLCollections.class.getName() + ".subOrderedSet");
     }
@@ -396,7 +444,7 @@ public final class OCLCollections
     /**
      * @todo: implement
      */
-    public static List subSequence(List collection)
+    public static List subSequence(final List collection)
     {
         throw new UnsupportedOperationException(OCLCollections.class.getName() + ".subSequence");
     }
@@ -404,10 +452,12 @@ public final class OCLCollections
     /**
      * Returns a random element from the collection for which the argument expression evaluates true.
      */
-    public static Object any(Collection collection, Predicate predicate)
+    public static Object any(
+        final Collection collection,
+        final Predicate predicate)
     {
         final List selectedElements = new ArrayList(select(collection, predicate));
-        Random random = new Random(System.currentTimeMillis());
+        final Random random = new Random(System.currentTimeMillis());
         return selectedElements.isEmpty() ? null : selectedElements.get(random.nextInt(selectedElements.size()));
     }
 
@@ -415,7 +465,9 @@ public final class OCLCollections
      * Returns the collection of Objects that results from executing the transformer on each individual element in the
      * source collection.
      */
-    public static Collection collect(Collection collection, Transformer transformer)
+    public static Collection collect(
+        final Collection collection,
+        final Transformer transformer)
     {
         return CollectionUtils.collect(collection, transformer);
     }
@@ -423,7 +475,7 @@ public final class OCLCollections
     /**
      * @todo: implement
      */
-    public static Collection collectNested(Collection collection)
+    public static Collection collectNested(final Collection collection)
     {
         throw new UnsupportedOperationException(OCLCollections.class.getName() + ".collectNested");
     }
@@ -432,7 +484,9 @@ public final class OCLCollections
      * Returns true if a predicate is true for at least one element of a collection. <p/>A null collection or predicate
      * returns false.
      */
-    public static boolean exists(Collection collection, Predicate predicate)
+    public static boolean exists(
+        final Collection collection,
+        final Predicate predicate)
     {
         return CollectionUtils.exists(collection, predicate);
     }
@@ -445,14 +499,16 @@ public final class OCLCollections
      *
      * @return true if every evaluated predicate returns true, false otherwise.
      */
-    public static boolean forAll(Collection collection, Predicate predicate)
+    public static boolean forAll(
+        final Collection collection,
+        final Predicate predicate)
     {
         boolean valid = collection != null;
         if (valid)
         {
-            for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+            for (final Iterator iterator = collection.iterator(); iterator.hasNext();)
             {
-                Object object = iterator.next();
+                final Object object = iterator.next();
                 valid = predicate.evaluate(object);
                 if (!valid)
                 {
@@ -471,10 +527,12 @@ public final class OCLCollections
      *
      * @return true if every evaluated predicate returns true, false otherwise.
      */
-    public static boolean forAll(Object collection, Predicate predicate)
+    public static boolean forAll(
+        final Object collection,
+        final Predicate predicate)
     {
         boolean valid = false;
-        if (collection != null && Collection.class.isAssignableFrom(collection.getClass()))
+        if (collection instanceof Collection)
         {
             valid = forAll((Collection)collection, predicate);
         }
@@ -485,7 +543,9 @@ public final class OCLCollections
      * Returns <code>true</code> if the result of executing the <code>transformer</code> has a unique value for each
      * element in the source collection.
      */
-    public static boolean isUnique(Collection collection, Transformer transformer)
+    public static boolean isUnique(
+        final Collection collection,
+        final Transformer transformer)
     {
         boolean unique = true;
         final Set collected = new HashSet();
@@ -508,7 +568,9 @@ public final class OCLCollections
      * Returns <code>true</code> if the result of executing the <code>transformer</code> has a unique value for each
      * element in the source collection.
      */
-    public static boolean isUnique(Object collection, Transformer transformer)
+    public static boolean isUnique(
+        final Object collection,
+        final Transformer transformer)
     {
         boolean unique = collection != null;
         if (unique && Collection.class.isAssignableFrom(collection.getClass()))
@@ -521,7 +583,7 @@ public final class OCLCollections
     /**
      * @todo: implement
      */
-    public static Collection iterate(Collection collection)
+    public static Collection iterate(final Collection collection)
     {
         throw new UnsupportedOperationException(OCLCollections.class.getName() + ".iterate");
     }
@@ -530,13 +592,15 @@ public final class OCLCollections
      * Returns <code>true</true> when the argument expression evaluates true for one and only one element in the
      * collection. Returns <code>false</code> otherwise.
      */
-    public static boolean one(Collection collection, Predicate predicate)
+    public static boolean one(
+        final Collection collection,
+        final Predicate predicate)
     {
         boolean found = false;
 
         if (collection != null)
         {
-            for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+            for (final Iterator iterator = collection.iterator(); iterator.hasNext();)
             {
                 if (predicate.evaluate(iterator.next()))
                 {
@@ -558,17 +622,21 @@ public final class OCLCollections
      * <code>predicate</code> expression evaluates true for one and only one element in the collection. Returns
      * <code>false</code> otherwise. </p>
      */
-    public static boolean one(Object collection, Predicate predicate)
+    public static boolean one(
+        final Object collection,
+        final Predicate predicate)
     {
-        return collection != null && Collection.class.isAssignableFrom(collection.getClass()) && one(
-                (Collection)collection, predicate);
+        return collection != null && Collection.class.isAssignableFrom(collection.getClass()) &&
+        one((Collection)collection, predicate);
     }
 
     /**
      * Returns a subcollection of the source collection containing all elements for which the expression evaluates
      * <code>false</code>.
      */
-    public static Collection reject(Collection collection, Predicate predicate)
+    public static Collection reject(
+        final Collection collection,
+        final Predicate predicate)
     {
         return CollectionUtils.selectRejected(collection, predicate);
     }
@@ -577,7 +645,9 @@ public final class OCLCollections
      * Returns a subcollection of the source collection containing all elements for which the expression evaluates
      * <code>true</code>.
      */
-    public static Collection select(Collection collection, Predicate predicate)
+    public static Collection select(
+        final Collection collection,
+        final Predicate predicate)
     {
         return CollectionUtils.select(collection, predicate);
     }
@@ -586,7 +656,9 @@ public final class OCLCollections
      * Returns a subcollection of the source collection containing all elements for which the expression evaluates
      * <code>true</code>.
      */
-    public static Collection select(Object collection, Predicate predicate)
+    public static Collection select(
+        final Object collection,
+        final Predicate predicate)
     {
         return CollectionUtils.select((Collection)collection, predicate);
     }
@@ -594,7 +666,7 @@ public final class OCLCollections
     /**
      * @todo: implement
      */
-    public static Collection sortedBy(Collection collection)
+    public static Collection sortedBy(final Collection collection)
     {
         throw new UnsupportedOperationException(OCLCollections.class.getName() + ".sortedBy");
     }
