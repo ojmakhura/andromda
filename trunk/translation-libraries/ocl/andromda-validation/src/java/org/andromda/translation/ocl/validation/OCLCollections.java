@@ -488,16 +488,18 @@ public final class OCLCollections
     public static boolean isUnique(Collection collection, Transformer transformer)
     {
         boolean unique = true;
-        Collection collected = new ArrayList();
-        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+        final Set collected = new HashSet();
+        for (Iterator iterator = collection.iterator(); iterator.hasNext() && unique;)
         {
-            Object result = transformer.transform(iterator.next());
+            final Object result = transformer.transform(iterator.next());
             if (collected.contains(result))
             {
                 unique = false;
-                break;
             }
-            collected.add(result);
+            else
+            {
+                collected.add(result);
+            }
         }
         return unique;
     }
