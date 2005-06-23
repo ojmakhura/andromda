@@ -1,6 +1,7 @@
 package org.andromda.cartridges.spring;
 
 
+
 /**
  * Contains utilities used within the Spring cartridge
  * when dealing with Hibernate.
@@ -74,7 +75,7 @@ public class SpringHibernateUtils
      * Gets the appropriate Spring Hibernate package based on the given
      * <code>version</code>.
      *
-     * @return
+     * @return the spring hibernate package.
      */
     public String getSpringHibernatePackage()
     {
@@ -88,5 +89,25 @@ public class SpringHibernateUtils
             packageName = "org.springframework.orm.hibernate3";
         }
         return packageName;
+    }
+    
+    /**
+     * Retrieves the appropriate package for Hibernate user types given
+     * the version defined within this class.
+     *
+     * @return the hibernate user type package.
+     */
+    public String getEagerFetchMode()
+    {
+        String fetchMode = null;
+        if (VERSION_2.equals(this.hibernateVersion))
+        {
+            fetchMode = "EAGER";
+        }
+        else
+        {
+            fetchMode = "JOIN";
+        }
+        return fetchMode;
     }
 }
