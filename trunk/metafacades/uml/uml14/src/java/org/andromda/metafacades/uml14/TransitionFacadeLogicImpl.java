@@ -11,8 +11,6 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 public class TransitionFacadeLogicImpl
         extends TransitionFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public TransitionFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.Transition metaObject,
                                      String context)
     {
@@ -51,7 +49,7 @@ public class TransitionFacadeLogicImpl
 
     protected boolean handleIsExitingDecisionPoint()
     {
-        StateVertexFacade sourceVertex = getSource();
+        final StateVertexFacade sourceVertex = getSource();
         return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade)sourceVertex).isDecisionPoint();
     }
 
