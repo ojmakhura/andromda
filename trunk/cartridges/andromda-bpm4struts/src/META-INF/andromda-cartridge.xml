@@ -20,6 +20,7 @@
     <property reference="securityRealm"/>
     <property reference="clientValidation"/>
     <property reference="serverValidation"/>
+    <property reference="disableValidationForHiddenFormFields"/>
     <property reference="welcomeFileName"/>
     <property reference="maxBreadCrumbs" />
     <property reference="dummyData"/>
