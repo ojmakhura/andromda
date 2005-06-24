@@ -23,7 +23,6 @@
         <form name="$action.formBeanName">
 #set ($actionParameters = $action.actionParameters)
 #foreach ($field in $action.actionFormFields)
-#if (!$field.widgetType.equals("hidden"))
 #if ($field.validationRequired && $actionParameters.contains($field))
 #set ($validatorTypes = $field.validatorTypes)
             <field property="$field.name" depends="$stringUtils.join($validatorTypes.iterator(),",")">
@@ -43,7 +42,6 @@
                 </var>
 #end
             </field>
-#end
 #end
 #end
         </form>

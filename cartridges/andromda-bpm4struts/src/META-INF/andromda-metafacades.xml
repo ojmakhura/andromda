@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
-<!-- contains the bpm4struts cartridge metafacade mappings -->
+        <!-- contains the bpm4struts cartridge metafacade mappings -->
 <metafacades>
     <property reference="defaultActionRedirect"/>
     <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
@@ -8,10 +8,11 @@
     <property reference="actionFormScope"/>
     <!-- denotes which kinf of resource messages should be generated -->
     <property reference="normalizeMessages"/>
+    <property reference="disableValidationForHiddenFormFields"/>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendServiceLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-            <stereotype>SERVICE</stereotype>            
+            <stereotype>SERVICE</stereotype>
         </mapping>
         <property reference="serviceAccessorPattern"/>
         <property reference="servicePackageNamePattern"/>
@@ -19,32 +20,32 @@
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
-            <stereotype>FRONT_END_APPLICATION</stereotype>            
-        </mapping>        
+            <stereotype>FRONT_END_APPLICATION</stereotype>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
-            <stereotype>FRONT_END_USE_CASE</stereotype>            
-        </mapping>        
+            <stereotype>FRONT_END_USE_CASE</stereotype>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUserLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
-            <property name="associatedWithStrutsUseCase"/>            
-        </mapping>        
+            <property name="associatedWithStrutsUseCase"/>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <property name="useCase"/>
-        </mapping>      
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsPackageLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>
-    
+
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <property name="ownerIsController"/>
@@ -89,13 +90,13 @@
             <property name="exitingInitialState"/>
         </mapping>
     </metafacade>
-    
+
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
             <property name="exitingPage"/>
         </mapping>
     </metafacade>
-    
+
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandlerLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
             <stereotype>FRONT_END_EXCEPTION</stereotype>
@@ -118,7 +119,8 @@
         <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl"
+                contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
