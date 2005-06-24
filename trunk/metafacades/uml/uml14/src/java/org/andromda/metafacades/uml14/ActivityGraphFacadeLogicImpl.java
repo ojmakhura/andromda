@@ -2,18 +2,11 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
-import org.andromda.metafacades.uml.PseudostateFacade;
 import org.apache.commons.collections.Predicate;
 import org.omg.uml.behavioralelements.activitygraphs.ActionState;
 import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
-import org.omg.uml.behavioralelements.statemachines.CompositeState;
-import org.omg.uml.behavioralelements.statemachines.FinalState;
-import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.usecases.UseCase;
-import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 
 
 /**
