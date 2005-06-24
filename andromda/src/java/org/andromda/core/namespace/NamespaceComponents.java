@@ -58,7 +58,7 @@ public class NamespaceComponents
      * through this constructor, it is only
      * here to allow construction by the {@link XmlObjectFactory}.
      * The instance of this class should be retrieved through
-     * the call to {@link #instance()).
+     * the call to {@link #instance()}.
      */
     public NamespaceComponents()
     {
