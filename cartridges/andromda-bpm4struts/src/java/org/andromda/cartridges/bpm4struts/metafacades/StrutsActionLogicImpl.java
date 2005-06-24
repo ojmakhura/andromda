@@ -495,7 +495,7 @@ public class StrutsActionLogicImpl
         final Collection actionParameters = getActionParameters();
         for (Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
         {
-            StrutsParameter parameter = (StrutsParameter)iterator.next();
+            final StrutsParameter parameter = (StrutsParameter)iterator.next();
             if (parameter.isValidationRequired())
             {
                 return true;
