@@ -22,6 +22,9 @@ public class ActivityGraphFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ActivityGraphFacade#getActionStates()
+     */
     public Collection handleGetActionStates()
     {
         final Predicate filter =
@@ -35,6 +38,9 @@ public class ActivityGraphFacadeLogicImpl
         return getSubvertices(filter);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ActivityGraphFacade#getObjectFlowStates()
+     */
     public Collection handleGetObjectFlowStates()
     {
         final Predicate filter =
@@ -48,6 +54,9 @@ public class ActivityGraphFacadeLogicImpl
         return getSubvertices(filter);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ActivityGraphFacade#getUseCase()
+     */
     protected Object handleGetUseCase()
     {
         UseCase stateMachineUseCase = null;
@@ -67,11 +76,17 @@ public class ActivityGraphFacadeLogicImpl
         return stateMachineUseCase;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ActivityGraphFacade#getPartitions()
+     */
     protected Collection handleGetPartitions()
     {
         return metaObject.getPartition();
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         Object validationOwner = getUseCase();
