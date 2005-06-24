@@ -1,17 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
@@ -23,6 +11,18 @@ import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -1238,7 +1238,10 @@ public class StrutsParameterLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-        return getValidatorTypes().isEmpty() == false;
+        final String disableValidationForHiddenFormFields =
+                (String)getConfiguredProperty(Bpm4StrutsGlobals.DISABLE_VALIDATION_FOR_HIDDEN_FORM_FIELDS);
+        return "true".equals(disableValidationForHiddenFormFields) && "hidden".equals(getWidgetType())
+                ? false : !getValidatorTypes().isEmpty();
     }
 
     protected String getValidatorFormat()
@@ -1381,6 +1384,7 @@ public class StrutsParameterLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
      */
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
      */

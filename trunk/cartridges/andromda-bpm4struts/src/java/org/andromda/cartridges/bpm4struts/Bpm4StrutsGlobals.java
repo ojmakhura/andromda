@@ -62,7 +62,12 @@ public class Bpm4StrutsGlobals
      * For backward compatibility reasons this flag is disabled by default.
      */
     public static final String PROPERTY_NORMALIZE_MESSAGES = "normalizeMessages";
-    
+
+    /**
+     * Instructs the cartridge not to include hidden fields in the validation process. 
+     */
+    public static final String DISABLE_VALIDATION_FOR_HIDDEN_FORM_FIELDS = "disableValidationForHiddenFormFields";
+
     /**
      * The suffix for form names.
      */
