@@ -1277,6 +1277,8 @@ public class StrutsParameterLogicImpl
                 validatorTypesList.add("double");
             else if (isValidatorDate())
                 validatorTypesList.add("date");
+            else if (isValidatorTime())
+                validatorTypesList.add("time");
             else if (isValidatorUrl())
                 validatorTypesList.add("url");
 
@@ -1366,6 +1368,10 @@ public class StrutsParameterLogicImpl
                 args.add("${var:datePattern}");
             }
         }
+        else if ("time".equals(validatorType))
+        {
+            args.add("${var:timePattern}");
+        }
 
         // custom (paramterized) validators are allowed here
         Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
@@ -1433,9 +1439,9 @@ public class StrutsParameterLogicImpl
                     vars.put("datePattern", Arrays.asList(new Object[]{"datePattern", this.getDateFormat()}));
                 }
             }
-            if (this.isValidatorTime() && format != null)
+            if (this.isValidatorTime())
             {
-                vars.put("timeFormat", Arrays.asList(new Object[] {"timePattern", this.getTimeFormat()}));
+                vars.put("timePattern", Arrays.asList(new Object[] {"timePattern", this.getTimeFormat()}));
             }
 
             final String validWhen = getValidWhen();
