@@ -330,7 +330,7 @@ public class StrutsParameterLogicImpl
         if (isDate())
         {
             String dateFormat = getDateFormat();
-            buffer.append("This field represents a date and should be formatted like this " +
+            buffer.append("This field represents a date and should be formatted in the matter described here" +
                     "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" " +
                     "target=\"_jdk\">");
             buffer.append(dateFormat + "</a> ");
@@ -349,6 +349,15 @@ public class StrutsParameterLogicImpl
             buffer.append("A calendar has been foreseen to select a date from, it will automatically convert the date " +
                     "to the appropriate format.");
             buffer.append(crlf);
+        }
+        
+        if (this.isValidatorTime())
+        {
+            String dateFormat = getDateFormat();
+            buffer.append("This field represents a time and should be formatted in the manner described here (for time) " +
+                    "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" " +
+                    "target=\"_jdk\">");
+            buffer.append(dateFormat + "</a> ");            
         }
 
         if (isEmailFormat(format))
@@ -1124,14 +1133,7 @@ public class StrutsParameterLogicImpl
      */
     protected boolean handleIsDate()
     {
-        boolean dateType = false;
-
-        ClassifierFacade type = getType();
-        if (type != null)
-        {
-            dateType = type.isDateType();
-        }
-        return dateType;
+        return this.isValidatorDate();
     }
 
     /**
@@ -1139,16 +1141,34 @@ public class StrutsParameterLogicImpl
      */
     protected String handleGetDateFormat()
     {
-        final String format = getValidatorFormat();
-        return (format == null) ? getDefaultDateFormat() : getDateFormat(format);
+        final String format = this.getValidatorFormat();
+        return format == null ? this.getDefaultDateFormat() : this.getDateFormat(format);
     }
-
+    
     /**
      * @return the default date format pattern as defined using the configured property
      */
-    private String getDefaultDateFormat()
+    private final String getDefaultDateFormat()
     {
         return (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTimeFormat()
+     */
+    protected String handleGetTimeFormat()
+    {
+        final String format = this.getValidatorFormat();
+        System.out.println("the format!!!!!!!!!!!!!!!!!!111: " + format);
+        return format == null ? this.getDefaultTimeFormat() : format;
+    }
+    
+    /**
+     * @return the default time format pattern as defined using the configured property
+     */
+    private final String getDefaultTimeFormat()
+    {
+        return (String)this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
     }
 
     /**
@@ -1369,7 +1389,7 @@ public class StrutsParameterLogicImpl
     {
         final Map vars = new HashMap();
 
-        ClassifierFacade type = getType();
+        final ClassifierFacade type = getType();
         if (type != null)
         {
             final String format = getValidatorFormat();
@@ -1384,18 +1404,18 @@ public class StrutsParameterLogicImpl
                 }
                 else
                 {
-                    Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
-                    for (Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                    final Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
+                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
-                        String additionalFormat = String.valueOf(formatIterator.next());
+                        final String additionalFormat = String.valueOf(formatIterator.next());
                         if (isMinLengthFormat(additionalFormat))
                             vars.put("minlength",
-                                    Arrays.asList(new Object[]{"minlength", getMinLengthValue(additionalFormat)}));
+                                    Arrays.asList(new Object[]{"minlength", this.getMinLengthValue(additionalFormat)}));
                         else if (isMaxLengthFormat(additionalFormat))
                             vars.put("maxlength",
-                                    Arrays.asList(new Object[]{"maxlength", getMaxLengthValue(additionalFormat)}));
+                                    Arrays.asList(new Object[]{"maxlength", this.getMaxLengthValue(additionalFormat)}));
                         else if (isPatternFormat(additionalFormat))
-                            vars.put("mask", Arrays.asList(new Object[]{"mask", getPatternValue(additionalFormat)}));
+                            vars.put("mask", Arrays.asList(new Object[]{"mask", this.getPatternValue(additionalFormat)}));
                     }
                 }
             }
@@ -1403,12 +1423,16 @@ public class StrutsParameterLogicImpl
             {
                 if (format != null && isStrictDateFormat(format))
                 {
-                    vars.put("datePatternStrict", Arrays.asList(new Object[]{"datePatternStrict", getDateFormat()}));
+                    vars.put("datePatternStrict", Arrays.asList(new Object[]{"datePatternStrict", this.getDateFormat()}));
                 }
                 else
                 {
-                    vars.put("datePattern", Arrays.asList(new Object[]{"datePattern", getDateFormat()}));
+                    vars.put("datePattern", Arrays.asList(new Object[]{"datePattern", this.getDateFormat()}));
                 }
+            }
+            if (this.isValidatorTime() && format != null)
+            {
+                vars.put("timeFormat", Arrays.asList(new Object[] {"timePattern", this.getTimeFormat()}));
             }
 
             final String validWhen = getValidWhen();
@@ -1612,6 +1636,14 @@ public class StrutsParameterLogicImpl
     {
         return this.getType() != null ? this.getType().isDateType() : false;
     }
+    
+    /**
+     * @return <code>true</code> if the type of this field is a time, <code>false</code> otherwise
+     */
+    private boolean isValidatorTime()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), Bpm4StrutsProfile.TIME_TYPE_NAME);
+    }
 
     /**
      * @return <code>true</code> if the type of this field is a URL, <code>false</code> otherwise
@@ -1773,5 +1805,13 @@ public class StrutsParameterLogicImpl
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#handleIsTime()
+     */
+    protected boolean handleIsTime()
+    {
+        return this.isValidatorTime();
     }
 }

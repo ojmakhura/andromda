@@ -55,7 +55,12 @@ $field.getDocumentation("     * ")
      */
     public Object[] ${field.getterName}AsArray();
 
-#elseif ($field.date)
+#elseif ($field.date || $field.time)
+#if ($field.date)
+#set ($asType = "Date")
+#else
+#set ($asType = "Time")
+#end
     /**
      * This field is a date type, and this method allows you to set it into the form.
      *
@@ -63,7 +68,7 @@ $field.getDocumentation("     * ")
      *
      * @see #${field.setterName}(java.lang.String)
      */
-    public void ${field.setterName}AsDate($fieldType $fieldName);
+    public void ${field.setterName}As${asType}($fieldType $fieldName);
 
     /**
      * This field is a date type, and this method allows you to get it from the form.
@@ -72,14 +77,14 @@ $field.getDocumentation("     * ")
      *
      * @see #${field.getterName}()
      */
-    public $fieldType ${field.getterName}AsDate();
+    public $fieldType ${field.getterName}As${asType}();
 
     /**
      * This field is a date type, and this method allows you to set it into the form as a String.
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}AsDate($fieldType)
+     * @see #${field.setterName}As${asType}($fieldType)
      */
     public void ${field.setterName}(java.lang.String ${fieldName});
 
@@ -88,7 +93,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}AsDate()
+     * @see #${field.getterName}As${asType}()
      */
     public java.lang.String ${field.getterName}();
 

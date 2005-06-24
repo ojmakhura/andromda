@@ -29,7 +29,11 @@ public class $formBeanClassName
     private $field.type.fullyQualifiedName $field.name;
 #end
 #if ($field.date)
-    private final static java.text.DateFormat ${field.name}DateFormatter = new java.text.SimpleDateFormat("${field.dateFormat}");
+#set ($dateFormatter = "${field.name}DateFormatter")
+    private final static java.text.DateFormat $dateFormatter = new java.text.SimpleDateFormat("$field.dateFormat");
+#elseif ($field.time)
+#set ($timeFormatter = "${field.name}TimeFormatter")
+    private final static java.text.DateFormat $timeFormatter = new java.text.SimpleDateFormat("$field.timeFormat");
 #end
     private Object[] $field.valueListName;
     private Object[] $field.labelListName;
@@ -39,13 +43,19 @@ public class $formBeanClassName
     {
 #foreach ($field in $fields)
 #if ($field.date)
+#set ($dateFormatter = "${field.name}DateFormatter")
 #set ($lenient = !$field.strictDateFormat)
-        ${field.name}DateFormatter.setLenient($lenient);
+        ${dateFormatter}.setLenient($lenient);
 #end
 #end
     }
 
 #foreach ($field in $fields)
+#if ($field.date)
+#set ($dateFormatter = "${field.name}DateFormatter")
+#elseif ($field.time)
+#set ($timeFormatter = "${field.name}TimeFormatter")
+#end
 #set ($fieldType = $field.type.fullyQualifiedName)
 #set ($fieldName = $field.name)
 #if ($field.type.mapType)
@@ -97,8 +107,13 @@ $field.getDocumentation("     * ")
         return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
     
-#elseif ($field.date)
-    public void ${field.setterName}AsDate($fieldType $fieldName)
+#elseif ($field.date || $field.time)
+#if ($field.date)
+#set ($asType = "Date")
+#else
+#set ($asType = "Time")
+#end
+    public void ${field.setterName}As${asType}($fieldType $fieldName)
     {
         this.$fieldName = $fieldName;
     }
@@ -107,16 +122,20 @@ $field.getDocumentation("     * ")
      * Returns the Date instance representing the <code>$field.name</code> field.
      *
      * @see ${action.formBeanType}${hash}${field.getterName}
-     * @see ${action.formBeanType}${hash}${field.getterName}DateFormatter
+#if ($field.date)
+     * @see ${action.formBeanType}${hash}${dateFormatter}
+#else
+     * @see ${action.formBeanType}${hash}${timeFormatter}
+#end
      */
-    public $fieldType ${field.getterName}AsDate()
+    public $fieldType ${field.getterName}As${asType}()
     {
         return this.$fieldName;
     }
 
     public void ${field.setterName}(java.lang.String ${fieldName})
     {
-        if (${fieldName} == null || ${fieldName}.trim().length()==0)
+        if (${fieldName} == null || ${fieldName}.trim().length() == 0)
         {
             this.$fieldName = null;
         }
@@ -125,10 +144,19 @@ $field.getDocumentation("     * ")
             try
             {
 #if ($fieldType == "java.util.Date")
-                this.$fieldName = ${fieldName}DateFormatter.parse(${fieldName});
+#if ($field.date)
+                this.$fieldName = ${dateFormatter}.parse(${fieldName});
+#else
+                this.$fieldName = ${timeFormatter}.parse(${fieldName});
+#end
 #else
 ## this is an attempt to support descendants of java.util.Date, the class needs <init>(long)
-                this.$fieldName = new ${fieldType}(${fieldName}DateFormatter.parse(${fieldName}).getTime());
+#if ($field.date)
+                this.$fieldName = new ${fieldType}(${dateFormatter}.parse(${fieldName}).getTime());
+#else
+                this.$fieldName = new ${fieldType}(${timeFormatter}.parse(${fieldName}).getTime());
+#end
+
 #end
             }
             catch(java.text.ParseException e)
@@ -143,29 +171,37 @@ $field.getDocumentation("     * ")
 $field.getDocumentation("     * ")
      *
      * This method returns a <code>java.lang.String</code> instance, in order to get the
-     * <code>java.util.Date</code> instance see the <code>${field.getterName}AsDate()</code>
+     * <code>java.util.Date</code> instance see the <code>${field.getterName}As${asType}()</code>
      * method.
      * <p>
      * The conversion from Date to String (and vice-versa) is done by means of a date formatter, which
-     * can be accessed here: <code>${field.getterName}DateFormatter()</code>.
+     * can be accessed here: <code>${field.getterName}${asType}Formatter()</code>.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}AsDate
-     * @see ${action.formBeanType}${hash}${field.getterName}DateFormatter
+     * @see ${action.formBeanType}${hash}${field.getterName}As${asType}
+     * @see ${action.formBeanType}${hash}${field.getterName}${asType}Formatter
      */
     public java.lang.String ${field.getterName}()
     {
-        return (${fieldName} == null) ? null : ${fieldName}DateFormatter.format($fieldName);
+#if ($field.date)
+        return (${fieldName} == null) ? null : ${dateFormatter}.format($fieldName);
+#else
+        return (${fieldName} == null) ? null : ${timeFormatter}.format($fieldName);
+#end
     }
 
     /**
      * Returns the date formatter used for the <code>$field.name</code> property.
      *
      * @see ${action.formBeanType}${hash}${field.getterName}
-     * @see ${action.formBeanType}${hash}${field.getterName}AsDate
+     * @see ${action.formBeanType}${hash}${field.getterName}As${asType}
      */
-    public final static java.text.DateFormat ${field.getterName}DateFormatter()
+    public final static java.text.DateFormat ${field.getterName}${asType}Formatter()
     {
-        return ${formBeanClassName}.${fieldName}DateFormatter;
+#if ($field.date)
+        return ${formBeanClassName}.${dateFormatter};
+#else
+        return ${formBeanClassName}.${timeFormatter};
+#end
     }
 
 #elseif ($field.file)

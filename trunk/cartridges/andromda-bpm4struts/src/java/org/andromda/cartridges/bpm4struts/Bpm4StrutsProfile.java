@@ -68,6 +68,7 @@ public class Bpm4StrutsProfile
     public static final String FLOAT_TYPE_NAME = profile.get("FLOAT_TYPE");
     public static final String DOUBLE_TYPE_NAME = profile.get("DOUBLE_TYPE");
     public static final String URL_TYPE_NAME = profile.get("URL_TYPE");
+    public static final String TIME_TYPE_NAME = profile.get("TIME_TYPE");
 
     /* ----------------- Default Values ------------------- */
     public static final String TAGGEDVALUE_INPUT_DEFAULT_REQUIRED = "true";

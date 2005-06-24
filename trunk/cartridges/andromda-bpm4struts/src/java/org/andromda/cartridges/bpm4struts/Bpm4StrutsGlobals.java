@@ -12,6 +12,11 @@ public class Bpm4StrutsGlobals
      * Stores the default date format when dates are formatted.
      */
     public static final String PROPERTY_DEFAULT_DATEFORMAT = "defaultDateFormat";
+    
+    /**
+     * Stores the default time format when times are formatted.
+     */
+    public static final String PROPERTY_DEFAULT_TIMEFORMAT = "defaultTimeFormat";
 
     /**
      * Contains the default value for whether or not all forwards should perform a HTTP redirect or not.

@@ -29,12 +29,9 @@
         <to>java.lang.String</to>
     </mapping>
     <mapping>
+        <from>datatype::Time</from>
         <from>datatype::Date</from>
         <to>java.util.Date</to>
-    </mapping>
-    <mapping>
-        <from>datatype::Time</from>
-        <to>java.sql.Time</to>
     </mapping>
     <mapping>
         <from>datatype::DateTime</from>
