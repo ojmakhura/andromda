@@ -1159,7 +1159,6 @@ public class StrutsParameterLogicImpl
     protected String handleGetTimeFormat()
     {
         final String format = this.getValidatorFormat();
-        System.out.println("the format!!!!!!!!!!!!!!!!!!111: " + format);
         return format == null ? this.getDefaultTimeFormat() : format;
     }
     
