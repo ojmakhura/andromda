@@ -2,8 +2,6 @@
 
 <!-- contains the bpm4struts cartridge metafacade mappings -->
 <metafacades>
-    
-    <property reference="defaultDateFormat"/>
     <property reference="defaultActionRedirect"/>
     <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
     <property reference="actionPathPrefix"/>
@@ -64,6 +62,8 @@
         <property reference="generateTableDecorators"/>
         <property reference="tableDecoratorSuffix"/>
         <property reference="defaultTableExportTypes"/>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">
@@ -129,6 +129,7 @@
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
             <context>org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity</context>
         </mapping>
+        <property reference="defaultDateFormat"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogicImpl">
