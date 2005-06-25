@@ -126,8 +126,8 @@ public class NamespaceComponents
                             if (componentResource == null)
                             {
                                 throw new NamespaceComponentsException(
-                                    "'" + componentName + "' is not a valid component with namespace '" + namespace +
-                                    "'");
+                                    "'" + componentName + "' is not a valid component within namespace '" + namespace +
+                                    "' (the " + componentName + "'s descriptor can not be found)");
                             }
                             NamespaceComponent namespaceComponent =
                                 (NamespaceComponent)componentFactory.getObject(componentResource);
