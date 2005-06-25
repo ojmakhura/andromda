@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- Digester rules used to configure a Profile instance by Apache Digester -->
+<digester-rules>
+
+    <pattern value="profile">
+
+        <object-create-rule
+              classname="org.andromda.core.profile.Profile" />
+
+        <pattern value="elements/elementGroup/element">
+
+            <object-create-rule
+                classname="org.andromda.core.profile.Element" />
+
+            <set-properties-rule>
+                <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>
+
+            <pattern value="value">
+
+                <call-method-rule
+                    methodname="setValue"
+                    paramcount="1"
+                    paramtypes="java.lang.String"/>
+
+                <call-param-rule
+                    paramnumber="0" />
+
+            </pattern>
+
+            <set-next-rule methodname="addElement" />
+
+        </pattern>
+
+    </pattern>
+
+</digester-rules>

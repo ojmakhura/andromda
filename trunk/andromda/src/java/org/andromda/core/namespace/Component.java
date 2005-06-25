@@ -1,5 +1,8 @@
 package org.andromda.core.namespace;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.andromda.core.common.ClassUtils;
 
 
@@ -38,26 +41,27 @@ public class Component
     /**
      * The path to the compoment's descriptor.
      */
-    private String path;
+    private final Collection paths = new ArrayList();
 
     /**
-     * Gets the path to the component's descriptor.
+     * Gets the component's descriptor paths (these are the paths
+     * where the component's descriptor may be found).
      *
      * @return the path to the component's descriptor.
      */
-    public String getPath()
+    public String[] getPaths()
     {
-        return path;
+        return (String[])paths.toArray(new String[0]);
     }
 
     /**
-     * Sets the path to the component's descriptor.
+     * Adds a path to the component's descriptor.
      *
      * @param path that path to the component's descriptor.
      */
-    public void setPath(final String path)
+    public void addPath(final String path)
     {
-        this.path = path;
+        this.paths.add(path);
     }
 
     /**
