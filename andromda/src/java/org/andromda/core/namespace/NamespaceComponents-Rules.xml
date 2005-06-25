@@ -24,9 +24,17 @@
                  <alias attr-name="type" prop-name="typeClass" />
             </set-properties-rule>
 
-            <set-properties-rule>
-                 <alias attr-name="path" prop-name="path" />
-            </set-properties-rule>
+            <pattern value="path">
+
+                <call-method-rule
+                    methodname="addPath"
+                    paramcount="1"
+                    paramtypes="java.lang.String"/>
+
+                <call-param-rule
+                    paramnumber="0" />
+
+            </pattern>
 
             <set-next-rule methodname="addComponent" />
 

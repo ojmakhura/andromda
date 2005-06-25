@@ -122,7 +122,7 @@ public class NamespaceComponents
                             final XmlObjectFactory componentFactory = XmlObjectFactory.getInstance(component.getType());
                             final URL componentResource = this.getRelativeResource(
                                     resource,
-                                    component.getPath());
+                                    component.getPaths());
                             if (componentResource == null)
                             {
                                 throw new NamespaceComponentsException(
@@ -163,34 +163,46 @@ public class NamespaceComponents
 
     /**
      * Attempts to retrieve a resource relative to the given <code>resource</code>
-     * by computing the complete path from the given relative <code>path</code>.
+     * by computing the complete path from the given relative <code>path</code>.  Retrieves
+     * the first valid one found.
      *
      * @param resource the resource from which to search.
-     * @param path the relative path.
+     * @param paths the relative paths to check.
      * @return the resource found or null if invalid.
      */
     private final URL getRelativeResource(
         final URL resource,
-        final String path)
+        final String[] paths)
     {
         URL relativeResource = null;
-        InputStream stream = null;
-        try
+        final int pathNumber = paths.length;
+        for (int ctr = 0; ctr < pathNumber; ctr++)
         {
-            relativeResource = new URL(StringUtils.replace(
-                        resource.toString(),
-                        this.getPath(),
-                        path));
-            stream = relativeResource.openStream();
-            stream.close();
-        }
-        catch (final Throwable throwable)
-        {
-            relativeResource = null;
-        }
-        finally
-        {
-            stream = null;
+            final String path = paths[ctr];
+            InputStream stream = null;
+            try
+            {
+                relativeResource = new URL(StringUtils.replace(
+                            resource.toString(),
+                            this.getPath(),
+                            path));
+                stream = relativeResource.openStream();
+                stream.close();
+            }
+            catch (final Throwable throwable)
+            {
+                relativeResource = null;
+            }
+            finally
+            {
+                stream = null;
+            }
+
+            // - break at the first valid one
+            if (relativeResource != null)
+            {
+                break;
+            }
         }
         return relativeResource;
     }

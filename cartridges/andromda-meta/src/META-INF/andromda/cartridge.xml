@@ -1,0 +1,63 @@
+<cartridge>
+    
+    <templateEngine>
+        <macrolibrary name="templates/meta/RenderTranslation.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
+    <!-- define the template objects that are made availble to the template -->
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
+    <templateObject name="metaUtils" className="org.andromda.cartridges.meta.MetaCartridgeUtils"/>
+
+    <!-- the template definitions -->
+    <template
+        path="templates/meta/MetafacadeLogic.vsl"
+        outputPattern="$generatedFile"
+        outlet="facade-logics"
+        overwrite="true">
+        <modelElements variable="metafacade">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/meta/MetafacadeLogicImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="facade-logic-impls"
+        overwrite="false">
+        <modelElements variable="metafacade">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/meta/Metafacade.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="facades"
+        overwrite="true">
+        <modelElements variable="metafacade">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/meta/MetafacadesToImpls.vsl"
+        outputPattern="metafacade-impls.properties"
+        outlet="facades-to-impls"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="metafacades">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+</cartridge>
