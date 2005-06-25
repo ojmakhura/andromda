@@ -2,21 +2,21 @@ package org.andromda.core.profile;
 
 
 /**
- * Stores information about a namespace component.
+ * Stores information about a profile element.
  *
  * @author Chad Brandon
  */
 public class Element
 {
     /**
-     * The name of the component
+     * The name of the element
      */
     private String name;
 
     /**
-     * Gets the name of the component.
+     * Gets the name of the element.
      *
-     * @return the component name.
+     * @return the element name.
      */
     public String getName()
     {
@@ -24,9 +24,9 @@ public class Element
     }
 
     /**
-     * Sets the name of the component.
+     * Sets the name of the element.
      *
-     * @param name the component's name.
+     * @param name the element's name.
      */
     public void setName(final String name)
     {
