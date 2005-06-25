@@ -6,60 +6,47 @@
     <!-- ===================================================================
          Install the model into the repository
          =================================================================== -->
-    <goal name="xml.zip:install" prereqs="xml.zip:prepare">
+	<goal name="xml.zip:install" prereqs="xml.zip:prepare">
         <!-- construct the suffix shared by all profiles -->
         <j:set var="versionSuffix" value="-${pom.currentVersion}.xml.zip"/>
         <!-- backup the original artifact id -->
         <j:set var="originalArtifactId" value="${pom.artifactId}"/>
-        <!-- update the versions in the XMI to the current version -->
-        <j:set var="xmiToken" value=".xml.zip"/>
-        <j:set var="xmiValue" value="-${pom.currentVersion}.xml.zip"/>
-        <j:set var="directory" value="${maven.build.dir}"/>
-        <attainGoal name="update-xmi"/>
         <!-- loop over the profiles and install them one by one -->
         <j:forEach var="model" items="${models.iterator()}">
-            <j:set var="replacement" value="-${pom.currentVersion}.xml.zip"/>
-            <j:set var="dummy" value="${pom.setArtifactId(model.name.replaceAll(replacement,''))}"/>
+            <j:set var="dummy" value="${pom.setArtifactId(model.name.replaceAll('.xml.zip',''))}"/>
             <artifact:install
-                artifact="${maven.build.dir}/${model.name}"
+                artifact="${maven.build.dir}/${model.name.replaceAll('.xml.zip',versionSuffix)}"
                 type="xml.zip"
                 project="${pom}"/>
         </j:forEach>
         <!-- recover the original artifact id -->
         <j:set var="dummy" value="${pom.setArtifactId(originalArtifactId)}"/>
      </goal>
-
+      
     <!-- ===================================================================
          Deploy the model into the remote repository
          =================================================================== -->
-    <goal name="xml.zip:deploy" prereqs="xml.zip:prepare">
+	<goal name="xml.zip:deploy" prereqs="xml.zip:prepare"> 	
         <!-- construct the suffix shared by all profiles -->
         <j:set var="versionSuffix" value="-${pom.currentVersion}.xml.zip"/>
         <!-- backup the original artifact id -->
         <j:set var="originalArtifactId" value="${pom.artifactId}"/>
-        <!-- update the versions in the XMI to the current version -->
-        <j:set var="xmiToken" value=".xml.zip"/>
-        <j:set var="xmiValue" value="-${pom.currentVersion}.xml.zip"/>
-        <j:set var="directory" value="${maven.build.dir}"/>
-        <attainGoal name="update-xmi"/>
         <!-- loop over the profiles and deploy them one by one -->
         <j:forEach var="model" items="${models.iterator()}">
-            <j:set var="replacement" value="-${pom.currentVersion}.xml.zip"/>
-            <j:set var="dummy" value="${pom.setArtifactId(model.name.replaceAll(replacement,''))}"/>
+            <j:set var="dummy" value="${pom.setArtifactId(model.name.replaceAll('.xml.zip',''))}"/>
             <artifact:deploy
-                artifact="${maven.build.dir}/${model.name}"
+                artifact="${maven.build.dir}/${model.name.replaceAll('.xml.zip',versionSuffix)}"
                 type="xml.zip"
                 project="${pom}"/>
         </j:forEach>
         <!-- recover the original artifact id -->
         <j:set var="dummy" value="${pom.setArtifactId(originalArtifactId)}"/>
-    </goal>
-
+	</goal>
+ 
     <!-- ===================================================================
          Prepare the xml.zip for install/deploy
-         =================================================================== -->
-    <goal name="xml.zip:prepare">
-        <ant:mkdir dir="${maven.build.dir}"/>
+         =================================================================== --> 	
+	<goal name="xml.zip:prepare">
         <!-- collect all profiles -->
         <ant:fileScanner var="models">
             <ant:fileset dir="${maven.src.dir}/uml">
@@ -84,5 +71,5 @@
                      includes="${nameWithoutExtension}-${pom.currentVersion}.xml"/>
         </j:forEach>
     </goal>
-
+            
 </project>
