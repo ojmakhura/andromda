@@ -79,10 +79,6 @@ public class Profile
     /**
      * Attempts to retrieve the Mappings instance for the given <code>mappingsUri</code> belonging to the given
      * <code>namespace</code>.
-     *
-     * @param mappingsProperty the name of the namespace property that will provide the ability to override any default
-     *                         default profile values.
-     * @param defaultFileName  the name of the file to search for that contains the default profile values.
      */
     private final Mappings getMappings()
     {
