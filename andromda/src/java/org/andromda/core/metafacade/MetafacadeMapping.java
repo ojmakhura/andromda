@@ -6,15 +6,17 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
-import org.andromda.core.common.Profile;
+import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
 
 
 /**
- * A meta facade mapping class. This class is a child of {@link MetafacadeMappings}.
+ * A meta facade mapping class. This class is a child of {@link MetafacadeMappings}
+ * (that is: instances of this class below to an instance of {@link MetafacadeMappings}).
  *
  * @author Chad Brandon
  */
@@ -119,7 +121,7 @@ public class MetafacadeMapping
      */
     public void addStereotype(final String stereotype)
     {
-        this.stereotypes.add(Profile.instance().get(stereotype));
+        this.stereotypes.add(stereotype);
     }
 
     /**
@@ -129,6 +131,10 @@ public class MetafacadeMapping
      */
     final List getStereotypes()
     {
+        for (final ListIterator iterator = this.stereotypes.listIterator(); iterator.hasNext();)
+        {
+            iterator.set(Profile.instance().get((String)iterator.next()));
+        }
         return this.stereotypes;
     }
 
@@ -154,8 +160,7 @@ public class MetafacadeMapping
      * @param reference the name of the reference.
      * @see MetafacadeMappings#addPropertyReference(String)
      */
-    public void addPropertyReference(
-        final String reference)
+    public void addPropertyReference(final String reference)
     {
         this.propertyReferences.add(reference);
     }
@@ -337,8 +342,6 @@ public class MetafacadeMapping
     public String toString()
     {
         return super.toString() + "[" + this.getMetafacadeClass() + "] " + this.getPropertyReferences();
-
-        //return ToStringBuilder.reflectionToString(this);
     }
 
     /**

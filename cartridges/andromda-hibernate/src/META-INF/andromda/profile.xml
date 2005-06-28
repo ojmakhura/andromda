@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<profile>
+    <elements>
+        <elementGroup name="Tagged Values">
+            <documentation>
+                The tagged values which can be applied in the <em>hibernate</em> namespace.
+            </documentation>
+            <element name="HIBERNATE_QUERY">
+                <documentation></documentation>
+                <value>@andromda.hibernate.query</value>
+            </element>
+            <element name="EJB_VIEWTYPE">
+                <documentation></documentation>
+                <value>@andromda.ejb.viewType</value>
+            </element>
+            <element name="EJB_TRANSACTION_TYPE">
+                <documentation></documentation>
+                <value>@andromda.ejb.transaction.type</value>
+            </element>
+            <element name="HIBERNATE_LAZY">
+                <documentation></documentation>
+                <value>@andromda.hibernate.lazy</value>
+            </element>
+            <element name="HIBERNATE_INHERITANCE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.inheritance</value>
+            </element>
+            <element name="HIBERNATE_OUTER_JOIN">
+                <documentation></documentation>
+                <value>@andromda.hibernate.outerjoin</value>
+            </element>
+            <element name="HIBERNATE_USE_QUERY_CACHE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.query.useCache</value>
+            </element>
+            <element name="HIBERNATE_ENTITY_CACHE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.entity.cache</value>
+            </element>
+            <element name="HIBERNATE_ENTITY_DYNAMIC_INSERT">
+                <documentation></documentation>
+                <value>@andromda.hibernate.entity.dynamicInsert</value>
+            </element>
+            <element name="HIBERNATE_ENTITY_DYNAMIC_UPDATE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.entity.dynamicUpdate</value>
+            </element>
+            <element name="HIBERNATE_ASSOCIATION_CACHE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.association.cache</value>
+            </element>
+            <element name="HIBERNATE_EHCACHE_MAX_ELEMENTS">
+                <documentation></documentation>
+                <value>@andromda.hibernate.ehcache.maxElementsInMemory</value>
+            </element>
+            <element name="HIBERNATE_EHCACHE_ETERNAL">
+                <documentation></documentation>
+                <value>@andromda.hibernate.ehcache.eternal</value>
+            </element>
+            <element name="HIBERNATE_EHCACHE_TIME_TO_IDLE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.ehcache.timeToIdleSeconds</value>
+            </element>
+            <element name="HIBERNATE_EHCACHE_TIME_TO_LIVE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.ehcache.timeToLiveSeconds</value>
+            </element>
+            <element name="HIBERNATE_EHCACHE_OVERFLOW_TO_DISK">
+                <documentation></documentation>
+                <value>@andromda.hibernate.ehcache.overflowToDisk</value>
+            </element>
+            <element name="HIBERNATE_GENERATOR_CLASS">
+                <documentation></documentation>
+                <value>@andromda.hibernate.generator.class</value>
+            </element>
+            <element name="HIBERNATE_PROXY">
+                <documentation></documentation>
+                <value>@andromda.hibernate.entity.proxy</value>
+            </element>
+            <element name="HIBERNATE_ASSOCIATION_COLLECTION_TYPE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.collection.type</value>
+            </element>
+            <element name="HIBERNATE_ASSOCIATION_SORT_TYPE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.sort.type</value>
+            </element>
+            <element name="TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS">
+                <documentation></documentation>
+                <value>@andromda.hibernate.orderByColumns</value>
+            </element>
+            <element name="HIBERNATE_ASSOCIATION_WHERE_CLAUSE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.whereClause</value>
+            </element>
+            <element name="HIBERNATE_ASSOCIATION_INDEX">
+                <documentation></documentation>
+                <value>@andromda.hibernate.collection.index</value>
+            </element>
+            <element name="HIBERNATE_ASSOCIATION_INDEX_TYPE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.collection.index.type</value>
+            </element>
+            <element name="HIBERNATE_VERSION_PROPERTY">
+                <documentation></documentation>
+                <value>@andromda.hibernate.version</value>
+            </element>
+            <element name="HIBERNATE_CASCADE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.cascade</value>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>

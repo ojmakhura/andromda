@@ -418,7 +418,7 @@ public class MetafacadeFactory
 
     /**
      * The model access facade instance (provides access to the meta model).
-     * 
+     *
      * @param model the model
      */
     public void setModel(final ModelAccessFacade model)
@@ -457,15 +457,15 @@ public class MetafacadeFactory
         if (metafacadeNamespace == null)
         {
             metafacadeNamespace = new HashMap();
+            this.metafacadeNamespaces.put(namespace, metafacadeNamespace);
         }
         Map propertyNamespace = (Map)metafacadeNamespace.get(metafacadeName);
         if (propertyNamespace == null)
         {
             propertyNamespace = new HashMap();
+            metafacadeNamespace.put(metafacadeName, propertyNamespace);
         }
         propertyNamespace.put(name, value);
-        metafacadeNamespace.put(metafacadeName, propertyNamespace);
-        this.metafacadeNamespaces.put(namespace, metafacadeNamespace);
     }
 
     /**

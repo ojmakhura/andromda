@@ -4,19 +4,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -164,19 +161,15 @@ public class ResourceUtils
                 final File pluginDirectory = rootDirectory;
                 loadAllFiles(pluginDirectory, contents);
 
-                // remove the root path from each file
-                CollectionUtils.transform(
-                    contents,
-                    new Transformer()
-                    {
-                        public Object transform(Object object)
-                        {
-                            return StringUtils.replace(
-                                ((File)object).getPath().replace('\\', '/'),
-                                pluginDirectory.getPath().replace('\\', '/') + '/',
-                                "");
-                        }
-                    });
+                // - remove the root path from each file
+                for (final ListIterator iterator = contents.listIterator(); iterator.hasNext();)
+                {
+                    iterator.set(
+                        StringUtils.replace(
+                            ((File)iterator.next()).getPath().replace('\\', '/'),
+                            pluginDirectory.getPath().replace('\\', '/') + '/',
+                            ""));
+                }
             }
         }
         return contents;

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<profile>
+    <elements>
+        <elementGroup name="Stereotypes">
+            <element name="CRITERIA">
+                <documentation></documentation>
+                <value>Criteria</value>
+            </element>
+            <element name="ENTITY">
+                <documentation></documentation>
+                <value>Entity</value>
+            </element>
+            <element name="SERVICE">
+                <documentation></documentation>
+                <value>Service</value>
+            </element>
+            <element name="FINDER_METHOD">
+                <documentation></documentation>
+                <value>FinderMethod</value>
+            </element>
+            <element name="IDENTIFIER">
+                <documentation></documentation>
+                <value>Identifier</value>
+            </element>
+            <element name="UNIQUE">
+                <documentation></documentation>
+                <value>Unique</value>
+            </element>
+            <element name="VALUE_OBJECT">
+                <documentation></documentation>
+                <value>ValueObject</value>
+            </element>
+            <element name="EXCEPTION">
+                <documentation></documentation>
+                <value>Exception</value>
+            </element>
+            <element name="APPLICATION_EXCEPTION">
+                <documentation></documentation>
+                <value>ApplicationException</value>
+            </element>
+            <element name="UNEXPECTED_EXCEPTION">
+                <documentation></documentation>
+                <value>UnexpectedException</value>
+            </element>
+            <element name="ENUMERATION">
+                <documentation></documentation>
+                <value>Enumeration</value>
+            </element>
+            <element name="WEBSERVICE">
+                <documentation></documentation>
+                <value>WebService</value>
+            </element>
+            <element name="WEBSERVICE_OPERATION">
+                <documentation></documentation>
+                <value>WebServiceOperation</value>
+            </element>
+            <element name="NULLABLE">
+                <documentation></documentation>
+                <value>Nullable</value>
+            </element>
+            <element name="MANAGEABLE">
+                <documentation></documentation>
+                <value>Manageable</value>
+            </element>
+            <element name="EMBEDDED_VALUE">
+                <documentation></documentation>
+                <value>EmbeddedValue</value>
+            </element>
+        </elementGroup>
+        <elementGroup name="Tagged Values">
+            <element name="DOCUMENTATION">
+                <documentation></documentation>
+                <value>documentation</value>
+            </element>
+            <element name="PERSISTENCE_TABLE">
+                <documentation></documentation>
+                <value>@andromda.persistence.table</value>
+            </element>
+            <element name="PERSISTENCE_COLUMN">
+                <documentation></documentation>
+                <value>@andromda.persistence.column</value>
+            </element>
+            <element name="PERSISTENCE_COLUMN_LENGTH">
+                <documentation></documentation>
+                <value>@andromda.persistence.column.length</value>
+            </element>
+            <element name="PERSISTENCE_COLUMN_INDEX">
+                <documentation></documentation>
+                <value>@andromda.persistence.column.index</value>
+            </element>
+            <element name="PERSISTENCE_FOREIGN_IDENTIFIER">
+                <documentation></documentation>
+                <value>@andromda.persistence.foreign.identifier</value>
+            </element>
+            <element name="PERSISTENCE_ASSIGNED_IDENTIFIER">
+                <documentation></documentation>
+                <value>@andromda.persistence.assigned.identifier</value>
+            </element>
+            <element name="PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME">
+                <documentation></documentation>
+                <value>@andromda.persistence.foreignkey.constraint</value>
+            </element>
+            <element name="PERSISTENCE_IMMUTABLE">
+                <documentation></documentation>
+                <value>@andromda.persistence.immutable</value>
+            </element>
+            <element name="WEBSERVICE_STYLE">
+                <documentation></documentation>
+                <value>@andromda.webservice.style</value>
+            </element>
+            <element name="WEBSERVICE_USE">
+                <documentation></documentation>
+                <value>@andromda.webservice.use</value>
+            </element>
+            <element name="WEBSERVICE_PROVIDER">
+                <documentation></documentation>
+                <value>@andromda.webservice.provider</value>
+            </element>
+            <element name="ROLE_NAME">
+                <documentation></documentation>
+                <value>@andromda.role.name</value>
+            </element>
+            <element name="SERIALVERSION_UID">
+                <documentation></documentation>
+                <value>@andromda.serialVersionUID</value>
+            </element>
+        </elementGroup>
+        <elementGroup name="Data Types">
+            <element name="COLLECTION_TYPE">
+                <documentation></documentation>
+                <value>datatype::Collection</value>
+            </element>
+            <element name="LIST_TYPE">
+                <documentation></documentation>
+                <value>datatype::List</value>
+            </element>
+            <element name="SET_TYPE">
+                <documentation></documentation>
+                <value>datatype::Set</value>
+            </element>
+            <element name="DATE_TYPE">
+                <documentation></documentation>
+                <value>datatype::Date</value>
+            </element>
+            <element name="BOOLEAN_TYPE">
+                <documentation></documentation>
+                <value>datatype::boolean</value>
+            </element>
+            <element name="FILE_TYPE">
+                <documentation></documentation>
+                <value>datatype::File</value>
+            </element>
+            <element name="BLOB_TYPE">
+                <documentation></documentation>
+                <value>datatype::Blob</value>
+            </element>
+            <element name="MAP_TYPE">
+                <documentation></documentation>
+                <value>datatype::Map</value>
+            </element>
+            <element name="STRING_TYPE">
+                <documentation></documentation>
+                <value>datatype::String</value>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>

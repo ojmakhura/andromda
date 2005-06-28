@@ -1,6 +1,6 @@
 package org.andromda.cartridges.meta;
 
-import org.andromda.core.common.Profile;
+import org.andromda.core.profile.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
 
 

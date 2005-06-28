@@ -1,7 +1,8 @@
 package org.andromda.cartridges.hibernate;
 
-import org.andromda.core.common.Profile;
+import org.andromda.core.profile.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
+
 
 /**
  * The Hibernate profile. Contains the profile information (tagged values, and stereotypes) for the Hibernate
@@ -11,7 +12,7 @@ import org.andromda.metafacades.uml.UMLProfile;
  * @author Carlos Cuenca
  */
 public class HibernateProfile
-        extends UMLProfile
+    extends UMLProfile
 {
     /**
      * The Profile instance from which we retrieve the mapped profile names.
@@ -19,7 +20,6 @@ public class HibernateProfile
     private static final Profile profile = Profile.instance();
 
     /* ----------------- Stereotypes -------------------- */
-
     /* ----------------- Tagged Values -------------------- */
 
     /**
@@ -73,14 +73,14 @@ public class HibernateProfile
     /**
      * Defines if the entity will limit the SQL insert statement to properties with values
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT = profile.get(
-            "HIBERNATE_ENTITY_DYNAMIC_INSERT");
+    public static final String TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT =
+        profile.get("HIBERNATE_ENTITY_DYNAMIC_INSERT");
 
     /**
      * Defines if the entity will limit the SQL update statements to properties that are modified
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE = profile.get(
-            "HIBERNATE_ENTITY_DYNAMIC_UPDATE");
+    public static final String TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE =
+        profile.get("HIBERNATE_ENTITY_DYNAMIC_UPDATE");
 
     /**
      * Defines the cache type for an association
@@ -95,8 +95,8 @@ public class HibernateProfile
     /**
      * Defines the maximum number of objects that will be created in memory
      */
-    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS = profile.get(
-            "HIBERNATE_EHCACHE_MAX_ELEMENTS");
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS =
+        profile.get("HIBERNATE_EHCACHE_MAX_ELEMENTS");
 
     /**
      * Defines if elements are eternal.
@@ -106,67 +106,63 @@ public class HibernateProfile
     /**
      * Defines the time to idle for an element before it expires.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE = profile.get(
-            "HIBERNATE_EHCACHE_TIME_TO_IDLE");
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_IDLE =
+        profile.get("HIBERNATE_EHCACHE_TIME_TO_IDLE");
 
     /**
      * Defines the time to live for an element before it expires.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE = profile.get(
-            "HIBERNATE_EHCACHE_TIME_TO_LIVE");
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_TIME_TO_LIVE =
+        profile.get("HIBERNATE_EHCACHE_TIME_TO_LIVE");
 
     /**
      * Defines if elements can overflow to disk.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = profile.get(
-            "HIBERNATE_EHCACHE_OVERFLOW_TO_DISK");
+    public static final String TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK =
+        profile.get("HIBERNATE_EHCACHE_OVERFLOW_TO_DISK");
 
     /**
      * Defines the association collection type
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE = profile.get(
-            "HIBERNATE_ASSOCIATION_COLLECTION_TYPE");
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE =
+        profile.get("HIBERNATE_ASSOCIATION_COLLECTION_TYPE");
 
     /**
      * Defines the association sort type.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE = profile.get(
-            "HIBERNATE_ASSOCIATION_SORT_TYPE");
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE =
+        profile.get("HIBERNATE_ASSOCIATION_SORT_TYPE");
 
     /**
      * Defines the association order by columns names.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS = profile.get(
-            "TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS");
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS =
+        profile.get("TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS");
 
     /**
      * Defines the association where clause.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE = profile.get(
-            "HIBERNATE_ASSOCIATION_WHERE_CLAUSE");
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE =
+        profile.get("HIBERNATE_ASSOCIATION_WHERE_CLAUSE");
 
     /**
      * Defines the index column for hibernate indexed collections
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX  = profile.get(
-            "HIBERNATE_ASSOCIATION_INDEX");
-    
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX = profile.get("HIBERNATE_ASSOCIATION_INDEX");
+
     /**
      * Defines the index column type for hibernate indexed collections
      */
-    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_TYPE  = profile.get(
-            "HIBERNATE_ASSOCIATION_INDEX_TYPE");
-    
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_INDEX_TYPE =
+        profile.get("HIBERNATE_ASSOCIATION_INDEX_TYPE");
+
     /**
-     * Defines the tagged value for hibernate version property on entities 
+     * Defines the tagged value for hibernate version property on entities
      */
-    public static final String TAGGEDVALUE_HIBERNATE_VERSION_PROPERTY = profile.get(
-            "HIBERNATE_VERSION_PROPERTY");
-    
+    public static final String TAGGEDVALUE_HIBERNATE_VERSION_PROPERTY = profile.get("HIBERNATE_VERSION_PROPERTY");
+
     /**
-     * Defines the tagged value for hibernate cascade on an association end 
+     * Defines the tagged value for hibernate cascade on an association end
      */
-    public static final String TAGGEDVALUE_HIBERNATE_CASCADE = profile.get(
-    		"HIBERNATE_CASCADE");
-     
+    public static final String TAGGEDVALUE_HIBERNATE_CASCADE = profile.get("HIBERNATE_CASCADE");
 }

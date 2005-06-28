@@ -1,6 +1,7 @@
 package org.andromda.cartridges.xmlschema;
 
-import org.andromda.core.common.Profile;
+import org.andromda.core.profile.Profile;
+
 
 /**
  * <p/>
@@ -9,7 +10,6 @@ import org.andromda.core.common.Profile;
  */
 public class XmlSchemaProfile
 {
-
     /**
      * The Profile instance from which we retrieve the mapped profile names.
      */
@@ -22,7 +22,6 @@ public class XmlSchemaProfile
      * Represents a complex element type. </p>
      */
     public static final java.lang.String STEREOTYPE_XML_SCHEMA_TYPE = profile.get("XML_SCHEMA_TYPE");
-   
 
     /* ---------------- Tagged Values ------------------- */
 
@@ -41,5 +40,4 @@ public class XmlSchemaProfile
     {
         // should not be instantiated
     }
-
 }

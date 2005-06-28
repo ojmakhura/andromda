@@ -1,6 +1,6 @@
 package org.andromda.metafacades.uml;
 
-import org.andromda.core.common.Profile;
+import org.andromda.core.profile.Profile;
 
 /**
  * Contains the common UML AndroMDA profile. That is, it contains elements "common" to all AndroMDA components (tagged
@@ -106,11 +106,6 @@ public class UMLProfile
      * Represents a manageable entity.
      */
     public static final String STEREOTYPE_MANAGEABLE = profile.get("MANAGEABLE");
-
-    /**
-     * Represents an unsecured element.
-     */
-    public static final String STEREOTYPE_UNSECURED = profile.get("UNSECURED");
 
     /* ----------------- Tagged Values -------------------- */
 

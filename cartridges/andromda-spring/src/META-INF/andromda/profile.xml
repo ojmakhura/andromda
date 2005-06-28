@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<profile>
+    <documentation>
+        <p>
+             Dependencies can be used between Services and Entities, they
+             won't need any stereotype assigned to them. These dependencies
+             are used to produce entity references (from a entity or service)
+             in the Spring applicationContext.xml and within
+             the Spring base classes (i.e. DaoBase and ServiceBase),
+             or to produce service references (from another service)
+             in the Spring applicationContext.xml and within
+             the ServiceBase classes.
+         </p>
+         <p>
+             Entity business operations can be set to <code>classifier</code> scope
+             instead of the usual <code>instance</code> scope. By doing so they
+             will be generated into the corresponding DAO for that entity instead
+             of the entity implementation class.
+         </p>
+         <p>
+             Entity query operations (i.e. finders) can be denoted by setting the
+             query flag on the modeled operation to true
+             (they do not require any stereotypes).
+         </p>
+         <p>
+             Actors represent roles within your model.  To designate that a role
+             has access to a given service you must draw a dependency from an Actor
+             to the <a href="Service"><![CDATA[<<Service>>]]></a>.  To designate the
+             role has access to to a given operation, you must draw a dependency from
+             an Actor to the operation.
+         </p>
+    </documentation>
+    <elements>
+        <elementGroup name="Tagged Values">
+            <documentation>
+                The tagged values which apply to the Spring namespace.
+            </documentation>
+            <element name="EJB_TRANSACTION_TYPE">
+                <documentation></documentation>
+                <value>@andromda.ejb.transaction.type</value>
+            </element>
+            <element name="TRANSACTION_TYPE">
+                <documentation></documentation>
+                <value>@andromda.spring.transaction.type</value>
+            </element>
+            <element name="HIBERNATE_QUERY">
+                <documentation></documentation>
+                <value>@andromda.hibernate.query</value>
+            </element>
+            <element name="HIBERNATE_INHERITANCE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.inheritance</value>
+            </element>
+            <element name="SPRING_SERVICE_REMOTING_TYPE">
+                <documentation></documentation>
+                <value>@andromda.spring.service.remoting.type</value>
+            </element>
+            <element name="HIBERNATE_CRITERIA_NULLABLE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.criteria.nullable</value>
+            </element>
+            <element name="HIBERNATE_CRITERIA_ATTRIBUTE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.criteria.attribute</value>
+            </element>
+            <element name="SPRING_SERVICE_REMOTE_PORT">
+                <documentation></documentation>
+                <value>@andromda.spring.service.remote.port</value>
+            </element>
+            <element name="HIBERNATE_CRITERIA_COMPARATOR">
+                <documentation></documentation>
+                <value>@andromda.hibernate.criteria.comparator</value>
+            </element>
+            <element name="HIBERNATE_CRITERIA_MATCHMODE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.criteria.matchmode</value>
+            </element>
+            <element name="HIBERNATE_CRITERIA_ORDER_DIRECTION">
+                <documentation></documentation>
+                <value>@andromda.hibernate.criteria.order.direction</value>
+            </element>
+            <element name="HIBERNATE_CRITERIA_ORDER_RELEVANCE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.criteria.order.relevance</value>
+            </element>
+        </elementGroup>
+        <elementGroup name="Constants">
+            <documentation>
+                Values of contants used in the Spring namespace.
+            </documentation>
+            <element name="LIKE_COMPARATOR">
+                <documentation></documentation>
+                <value>like</value>
+            </element>
+            <element name="INSENSITIVE_LIKE_COMPARATOR">
+                <documentation></documentation>
+                <value>insensitive_like</value>
+            </element>
+            <element name="EQUAL_COMPARATOR">
+                <documentation></documentation>
+                <value>equal</value>
+            </element>
+            <element name="GREATER_THAN_OR_EQUAL_COMPARATOR">
+                <documentation></documentation>
+                <value>greater_equal</value>
+            </element>
+            <element name="GREATER_THAN_COMPARATOR">
+                <documentation></documentation>
+                <value>greater</value>
+            </element>
+            <element name="LESS_THAN_OR_EQUAL_COMPARATOR">
+                <documentation></documentation>
+                <value>less_equal</value>
+            </element>
+            <element name="LESS_THAN_COMPARATOR">
+                <documentation></documentation>
+                <value>less</value>
+            </element>
+            <element name="MATCHMODE_ANYWHERE">
+                <documentation></documentation>
+                <value>anywhere</value>
+            </element>
+            <element name="MATCHMODE_END">
+                <documentation></documentation>
+                <value>end</value>
+            </element>
+            <element name="MATCHMODE_EXACT">
+                <documentation></documentation>
+                <value>exact</value>
+            </element>
+            <element name="MATCHMODE_START">
+                <documentation></documentation>
+                <value>start</value>
+            </element>
+            <element name="ORDER_ASCENDING">
+                <documentation></documentation>
+                <value>ascending</value>
+            </element>
+            <element name="ORDER_DESCENDING">
+                <documentation></documentation>
+                <value>descending</value>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>

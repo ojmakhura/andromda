@@ -1,8 +1,8 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.cartridges.jbpm.JBpmProfile;
-
 import java.util.Collection;
+
+import org.andromda.cartridges.jbpm.JBpmProfile;
 
 
 /**
@@ -13,14 +13,15 @@ import java.util.Collection;
 public class JBpmSwimlaneLogicImpl
     extends JBpmSwimlaneLogic
 {
-
-    public JBpmSwimlaneLogicImpl (Object metaObject, String context)
+    public JBpmSwimlaneLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     protected Collection handleGetAssignmentExpressions()
     {
-        return findTaggedValues(JBpmProfile.TAGGED_VALUE_ASSIGNMENT_EXPRESSION);
+        return findTaggedValues(JBpmProfile.TAGGEDVALUE_ASSIGNMENT_EXPRESSION);
     }
 }

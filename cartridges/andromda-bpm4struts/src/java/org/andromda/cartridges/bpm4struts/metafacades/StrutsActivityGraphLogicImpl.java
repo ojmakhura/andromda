@@ -54,6 +54,13 @@ public class StrutsActivityGraphLogicImpl
         }
         return useCase;
     }
+    
+    public boolean handleIsAssociatedWithStrutsUseCase()
+    {
+        final Object uc = this.getUseCase();
+        System.out.println("the use case:>>>>>>>>>>>>>> " + uc);
+        return uc instanceof StrutsUseCase;
+    } 
 
     protected Object handleGetController()
     {

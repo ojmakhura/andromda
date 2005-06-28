@@ -93,17 +93,17 @@ public final class MetafacadeCache
         if (namespaceMetafacadeCache == null)
         {
             namespaceMetafacadeCache = new HashMap();
+            this.metafacadeCache.put(mappingObject, namespaceMetafacadeCache);
         }
         Map metafacadeCache = (Map)namespaceMetafacadeCache.get(metafacade.getClass());
         if (metafacadeCache == null)
         {
             metafacadeCache = new HashMap();
+            namespaceMetafacadeCache.put(
+                metafacade.getClass(),
+                metafacadeCache);
         }
         metafacadeCache.put(this.namespace, metafacade);
-        namespaceMetafacadeCache.put(
-            metafacade.getClass(),
-            metafacadeCache);
-        this.metafacadeCache.put(mappingObject, namespaceMetafacadeCache);
     }
 
     /**

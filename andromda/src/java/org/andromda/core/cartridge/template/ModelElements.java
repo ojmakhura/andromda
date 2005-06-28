@@ -3,11 +3,10 @@ package org.andromda.core.cartridge.template;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.apache.commons.collections.Closure;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -68,15 +67,10 @@ public class ModelElements
     public Set getAllMetafacades()
     {
         final Set allMetafacades = new HashSet();
-        CollectionUtils.forAllDo(
-            this.modelElements,
-            new Closure()
-            {
-                public void execute(Object object)
-                {
-                    allMetafacades.addAll(((ModelElement)object).getMetafacades());
-                }
-            });
+        for (final Iterator iterator = this.modelElements.iterator(); iterator.hasNext();)
+        {
+            allMetafacades.addAll(((ModelElement)iterator.next()).getMetafacades());
+        }
         return allMetafacades;
     }
 
