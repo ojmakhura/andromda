@@ -268,7 +268,7 @@ public class Namespaces
                 "Property '" + name + "' is not registered in either the '" + namespace + "' or '" +
                 Namespaces.DEFAULT + "' namespaces");
         }
-        String defaultValue = definition != null ? definition.getDefaultValue() : null;
+        final String defaultValue = definition != null ? definition.getDefaultValue() : null;
         boolean warning = defaultValue == null && definition != null ? definition.isRequired() : false;
         final Property property = this.getProperty(namespace, name, warning);
         return property != null && !property.isIgnore() ? property.getValue() : defaultValue;

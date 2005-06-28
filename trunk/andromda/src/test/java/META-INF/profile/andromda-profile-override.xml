@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
-<mappings name="test-override"> 
-    <mapping>
-        <from>TEST_FROM_OVERRIDE</from>
-        <to>TestFromOverride</to>
-    </mapping>
-    <mapping>
-        <from>TEST_FROM_3</from>
-        <to>TestFrom3</to>
-    </mapping>
-</mappings>
+<profile>
+    <elements>
+        <elementGroup name="Stereotypes">
+            <element name="TEST_FROM_OVERRIDE">
+                <value>TestFromOverride</value>
+            </element>
+            <element name="ENTITY">
+                <value>New Entity</value>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>

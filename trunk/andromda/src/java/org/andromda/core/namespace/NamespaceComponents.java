@@ -16,6 +16,7 @@ import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -153,6 +154,9 @@ public class NamespaceComponents
                 }
                 this.registeredNamespaces.add(registryName);
             }
+
+            // - initialize the profile
+            Profile.instance().initialize();
         }
     }
 

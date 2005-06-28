@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<profile>
+    <elementGroup name="Stereotypes">
+        <element name="BUSINESS_PROCESS">
+            <documentation></documentation>
+            <value>Business Process</value>
+        </element>
+        <element name="BEFORE_SIGNAL">
+            <documentation></documentation>
+            <value>Before Signal</value>
+        </element>
+        <element name="AFTER_SIGNAL">
+            <documentation></documentation>
+            <value>After Signal</value>
+        </element>
+        <element name="NODE_ENTER">
+            <documentation></documentation>
+            <value>Node Enter</value>
+        </element>
+        <element name="NODE_LEAVE">
+            <documentation></documentation>
+            <value>Node Leave</value>
+        </element>
+        <element name="TASK">
+            <documentation></documentation>
+            <value>Task</value>
+        </element>
+    </elementGroup>
+    <elementGroup name="Tagged Values">
+        <element name="ASSIGNMENT_EXPRESSION">
+            <documentation></documentation>
+            <value>@andromda.process.jbpm.assignment.expression</value>
+        </element>
+    </elementGroup>
+</profile>

@@ -11,6 +11,7 @@ import org.andromda.core.cartridge.template.Type;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.TemplateObject;
 import org.andromda.core.namespace.NamespaceComponents;
+import org.andromda.core.profile.Profile;
 
 
 /**
@@ -47,6 +48,7 @@ public class CartridgeTest
         Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
         assertNotNull(cartridges);
         this.cartridge = (Cartridge)cartridges.iterator().next();
+        Profile.instance().setNamespace(this.cartridge.getNamespace());
         this.cartridge.initialize();
     }
 

@@ -2,9 +2,9 @@ package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.ListIterator;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -158,19 +158,14 @@ public class MetafacadeBase
      */
     protected Collection shieldedElements(final Collection metaobjects)
     {
-        Collection metafacades = new ArrayList();
+        final List metafacades = new ArrayList();
         if (metaobjects != null)
         {
             metafacades.addAll(metaobjects);
-            CollectionUtils.transform(
-                metafacades,
-                new Transformer()
-                {
-                    public Object transform(Object object)
-                    {
-                        return MetafacadeBase.this.shieldedElement(object);
-                    }
-                });
+            for (final ListIterator iterator = metafacades.listIterator(); iterator.hasNext();)
+            {
+                iterator.set(this.shieldedElement(iterator.next()));
+            }
         }
         return metafacades;
     }

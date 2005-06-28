@@ -1,21 +1,22 @@
 package org.andromda.core.common;
 
 import java.net.URL;
+import java.util.Iterator;
 
 import org.andromda.core.configuration.NamespaceProperties;
-import org.andromda.core.configuration.Namespaces;
-import org.andromda.core.configuration.Property;
+import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
-import org.apache.commons.lang.StringUtils;
 
 
 /**
- * <p/>
+ * <p>
  * This class provides the ability to load profile mapping files from default locations as well as easily load profile
  * mappings files that will override the default profile values. This allows us to decouple all profile information from
  * the actual code and allows users to override default profile values (i.e. stereotype names can be anything the user
  * would like, instead of forcing them to users our naming conventions). </p>
  *
+ * @deprecated this is deprecated and will be removed after 3.1 (please use {org.andromda.core.profile.Profile} instead
+ * you must all move your META-INF/andromda-profile.xml to META-INF/andromda/profile.xml.
  * @author Chad Brandon
  */
 public class Profile
@@ -39,14 +40,17 @@ public class Profile
         return instance;
     }
 
-    /**
-     * The default constructor. NOTE: normally you'll want to retrieve the shared instance of this class using {@link
-     * #instance()}.
-     */
-    public Profile()
+    private Profile()
     {
-        this.profileMappings = this.getMappings();
+        this.discoverMappings();
+
+        // - do not allow instantiation
     }
+
+    /**
+     * The shared underlying profile instance.
+     */
+    private final org.andromda.core.profile.Profile profile = org.andromda.core.profile.Profile.instance();
 
     /**
      * Gets the profile value for the given <code>from</code> value. Returns the <code>from</code> if the profile value
@@ -55,20 +59,10 @@ public class Profile
      * @param from the <code>from</code> value of the mapped profile value.
      * @return the mapped profile value.
      */
-    public String get(final String from)
+    public String get(final String name)
     {
-        String value = from;
-        if (this.profileMappings != null)
-        {
-            value = this.profileMappings.getTo(from);
-        }
-        return StringUtils.trimToEmpty(value);
+        return profile.get(name);
     }
-
-    /**
-     * Stores the profile values.
-     */
-    private Mappings profileMappings = null;
 
     /**
      * The location to which default profiles are stored. If the {@link NamespaceProperties#MERGE_MAPPINGS_URI}isn't
@@ -80,53 +74,33 @@ public class Profile
      * Attempts to retrieve the Mappings instance for the given <code>mappingsUri</code> belonging to the given
      * <code>namespace</code>.
      */
-    private final Mappings getMappings()
+    private final void discoverMappings()
     {
         final String defaultLocation = DEFAULT_LOCATION;
-        Mappings mappings = null;
         final URL[] profileResources = ResourceFinder.findResources(defaultLocation);
         if (profileResources != null && profileResources.length > 0)
         {
             for (int ctr = 0; ctr < profileResources.length; ctr++)
             {
                 final URL profileResource = profileResources[ctr];
-                if (mappings == null)
+                AndroMDALogger.warn(
+                    "WARNING!! '" + profileResource +
+                    "' is using the deprecated profile format, please upgrade to the new one");
+                Mappings mappings = Mappings.getInstance(profileResource);
+                for (final Iterator iterator = mappings.getMappings().iterator(); iterator.hasNext();)
                 {
-                    mappings = Mappings.getInstance(profileResource);
+                    final Mapping mapping = (Mapping)iterator.next();
+                    if (!mapping.getFroms().isEmpty())
+                    {
+                        final String from = (String)mapping.getFroms().iterator().next();
+                        final String to = mapping.getTo();
+                        profile.addElement(
+                            mappings.getName(),
+                            from,
+                            to);
+                    }
                 }
-                else
-                {
-                    mappings.addMappings(Mappings.getInstance(profileResource));
-                }
             }
         }
-        final Property mappingsUri =
-            Namespaces.instance().getProperty(
-                Namespaces.DEFAULT, NamespaceProperties.PROFILE_MAPPINGS_URI, false);
-        final String mappingsUriValue = StringUtils.trimToEmpty(mappingsUri != null ? mappingsUri.getValue() : null);
-        if (StringUtils.isNotEmpty(mappingsUriValue))
-        {
-            if (mappings == null)
-            {
-                mappings = Mappings.getInstance(mappingsUriValue);
-            }
-            else
-            {
-                mappings.addMappings(Mappings.getInstance(mappingsUriValue));
-            }
-        }
-        if (mappings == null)
-        {
-            AndroMDALogger.warn("Profile resources could not be found --> '" + defaultLocation + "'");
-        }
-        return mappings;
-    }
-
-    /**
-     * Shuts down the shared instance and releases any used resources.
-     */
-    public void shutdown()
-    {
-        instance = null;
     }
 }

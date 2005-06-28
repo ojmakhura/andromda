@@ -1,7 +1,8 @@
 package org.andromda.cartridges.spring;
 
-import org.andromda.core.common.Profile;
+import org.andromda.core.profile.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
+
 
 /**
  * The Spring profile. Contains the profile information (tagged values, and stereotypes) for the Spring cartridge.
@@ -10,16 +11,14 @@ import org.andromda.metafacades.uml.UMLProfile;
  * @author Peter Friese
  */
 public class SpringProfile
-        extends UMLProfile
+    extends UMLProfile
 {
-
     /**
      * The Profile instance from which we retrieve the mapped profile names.
      */
     private static final Profile profile = Profile.instance();
 
     /* ----------------- Stereotypes -------------------- */
-
     /* ----------------- Tagged Values -------------------- */
 
     /**
@@ -55,17 +54,19 @@ public class SpringProfile
     /**
      * Stores the criteria search order direction.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION = profile.get("HIBERNATE_CRITERIA_ORDER_DIRECTION");
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION =
+        profile.get("HIBERNATE_CRITERIA_ORDER_DIRECTION");
 
     /**
      * Stores the criteria search order relevance.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE = profile.get("HIBERNATE_CRITERIA_ORDER_RELEVANCE");
-    
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE =
+        profile.get("HIBERNATE_CRITERIA_ORDER_RELEVANCE");
+
     /**
      * Stores whether or not criteria like comparator's should ignore case.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE = 
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE =
         profile.get("HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE");
 
     /**
@@ -94,11 +95,12 @@ public class SpringProfile
      * The "like" comparator.
      */
     public static final String TAGGEDVALUEVALUE_COMPARATOR_LIKE = profile.get("LIKE_COMPARATOR");
-    
+
     /**
      * The "case insensitive like" comparator.
      */
-    public static final String TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR = profile.get("INSENSITIVE_LIKE_COMPARATOR");
+    public static final String TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR =
+        profile.get("INSENSITIVE_LIKE_COMPARATOR");
 
     /**
      * The "equals" comparator.
@@ -108,8 +110,8 @@ public class SpringProfile
     /**
      * The "greater of even" comparator.
      */
-    public static final String TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL = profile.get(
-            "GREATER_THAN_OR_EQUAL_COMPARATOR");
+    public static final String TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL =
+        profile.get("GREATER_THAN_OR_EQUAL_COMPARATOR");
 
     /**
      * The "greater" comparator.
@@ -155,5 +157,4 @@ public class SpringProfile
      * Descending sort order.
      */
     public static final String TAGGEDVALUEVALUE_ORDER_DESCENDING = profile.get("ORDER_DESCENDING");
-
 }

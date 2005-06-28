@@ -20,7 +20,6 @@ import org.andromda.core.common.BuildInformation;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.core.common.Introspector;
-import org.andromda.core.common.Profile;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Configuration;
@@ -33,10 +32,9 @@ import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.namespace.NamespaceComponents;
+import org.andromda.core.profile.Profile;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.transformation.Transformer;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -154,6 +152,11 @@ public class ModelProcessor
     private final MetafacadeFactory factory = MetafacadeFactory.getInstance();
 
     /**
+     * The shared profile instance.
+     */
+    private final Profile profile = Profile.instance();
+
+    /**
      * Processes multiple <code>models</code>.
      *
      * @param repository the RepositoryFacade that will be used to read/load the model
@@ -199,7 +202,9 @@ public class ModelProcessor
                     cartridgeName = cartridge.getNamespace();
                     if (this.shouldProcess(cartridgeName))
                     {
+                        // - set the active namespace on the shared factory and profile instances
                         this.factory.setNamespace(cartridgeName);
+                        this.profile.setNamespace(cartridgeName);
                         cartridge.initialize();
 
                         // - process each model
@@ -351,7 +356,9 @@ public class ModelProcessor
                 final String cartridgeName = cartridge.getNamespace();
                 if (this.shouldProcess(cartridgeName))
                 {
+                    // - set the active namespace on the shared factory and profile instances
                     this.factory.setNamespace(cartridgeName);
+                    this.profile.setNamespace(cartridgeName);
                     this.factory.validateAllMetafacades();
                 }
             }
@@ -652,17 +659,15 @@ public class ModelProcessor
      */
     private final Model[] filterInvalidModels(final Model[] models)
     {
-        Collection validModels = new ArrayList(Arrays.asList(models));
-        CollectionUtils.filter(
-            validModels,
-            new Predicate()
+        final Collection validModels = new ArrayList(Arrays.asList(models));
+        for (final Iterator iterator = validModels.iterator(); iterator.hasNext();)
+        {
+            final Model model = (Model)iterator.next();
+            if (!(model != null && model.getUris() != null && model.getUris().length > 0))
             {
-                public boolean evaluate(Object object)
-                {
-                    final Model model = (Model)object;
-                    return model != null && model.getUris() != null && model.getUris().length > 0;
-                }
-            });
+                iterator.remove();
+            }
+        }
         return (Model[])validModels.toArray(new Model[0]);
     }
 
@@ -691,7 +696,7 @@ public class ModelProcessor
         NamespaceComponents.instance().shutdown();
 
         // - shutdown the profile instance
-        Profile.instance().shutdown();
+        this.profile.shutdown();
 
         // - shutdown the introspector
         Introspector.instance().shutdown();
@@ -710,6 +715,7 @@ public class ModelProcessor
      */
     private final void reset()
     {
+        this.profile.refresh();
         this.factory.reset();
         this.cartridgeFilter = null;
         this.transformations.clear();
@@ -729,7 +735,7 @@ public class ModelProcessor
      */
     protected void sortValidationMessages(final List messages)
     {
-        ComparatorChain chain = new ComparatorChain();
+        final ComparatorChain chain = new ComparatorChain();
         chain.addComparator(new ValidationMessageTypeComparator());
         chain.addComparator(new ValidationMessageNameComparator());
         Collections.sort(messages, chain);
@@ -749,11 +755,11 @@ public class ModelProcessor
         }
 
         public int compare(
-            Object objectA,
-            Object objectB)
+            final Object objectA,
+            final Object objectB)
         {
-            ModelValidationMessage a = (ModelValidationMessage)objectA;
-            ModelValidationMessage b = (ModelValidationMessage)objectB;
+            final ModelValidationMessage a = (ModelValidationMessage)objectA;
+            final ModelValidationMessage b = (ModelValidationMessage)objectB;
             return collator.compare(
                 a.getMetafacadeClass().getName(),
                 b.getMetafacadeClass().getName());
@@ -774,11 +780,11 @@ public class ModelProcessor
         }
 
         public int compare(
-            Object objectA,
-            Object objectB)
+            final Object objectA,
+            final Object objectB)
         {
-            ModelValidationMessage a = (ModelValidationMessage)objectA;
-            ModelValidationMessage b = (ModelValidationMessage)objectB;
+            final ModelValidationMessage a = (ModelValidationMessage)objectA;
+            final ModelValidationMessage b = (ModelValidationMessage)objectB;
             return collator.compare(
                 StringUtils.trimToEmpty(a.getMetafacadeName()),
                 StringUtils.trimToEmpty(b.getMetafacadeName()));

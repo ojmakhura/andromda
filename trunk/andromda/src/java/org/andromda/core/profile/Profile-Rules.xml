@@ -9,26 +9,21 @@
 
         <pattern value="elements/elementGroup/element">
 
-            <object-create-rule
-                classname="org.andromda.core.profile.Element" />
+            <call-method-rule
+                methodname="addElement"
+                paramcount="2"
+                paramtypes="java.lang.String,java.lang.String"/>
 
-            <set-properties-rule>
-                <alias attr-name="name" prop-name="name" />
-            </set-properties-rule>
+            <call-param-rule
+                attrname="name"
+                paramnumber="0" />
 
             <pattern value="value">
 
-                <call-method-rule
-                    methodname="setValue"
-                    paramcount="1"
-                    paramtypes="java.lang.String"/>
-
                 <call-param-rule
-                    paramnumber="0" />
+                    paramnumber="1" />
 
             </pattern>
-
-            <set-next-rule methodname="addElement" />
 
         </pattern>
 

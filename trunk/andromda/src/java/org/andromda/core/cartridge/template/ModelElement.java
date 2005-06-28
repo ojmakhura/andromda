@@ -7,9 +7,7 @@ import java.util.Iterator;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
-import org.andromda.core.common.Profile;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
+import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -32,7 +30,7 @@ public class ModelElement
      */
     public String getStereotype()
     {
-        return this.stereotype;
+        return Profile.instance().get(this.stereotype);
     }
 
     /**
@@ -43,7 +41,7 @@ public class ModelElement
      */
     public boolean hasStereotype()
     {
-        return StringUtils.isNotBlank(this.getStereotype());
+        return this.stereotype != null;
     }
 
     /**
@@ -53,7 +51,7 @@ public class ModelElement
 
     /**
      * Gets all types associated with this model element.
-     * 
+     *
      * @return the collection of types.
      */
     public Collection getTypes()
@@ -80,7 +78,7 @@ public class ModelElement
     public void setStereotype(final String stereotype)
     {
         final String methodName = "ModelElement.setStereotype";
-        this.stereotype = Profile.instance().get(StringUtils.trimToEmpty(stereotype));
+        this.stereotype = stereotype;
         ExceptionUtils.checkEmpty(methodName, "stereotype", this.stereotype);
     }
 
@@ -159,15 +157,13 @@ public class ModelElement
     {
         if (this.hasTypes())
         {
-            CollectionUtils.filter(
-                this.metafacades,
-                new Predicate()
+            for (final Iterator iterator = this.metafacades.iterator(); iterator.hasNext();)
+            {
+                if (!accept(iterator.next()))
                 {
-                    public boolean evaluate(Object object)
-                    {
-                        return accept(object);
-                    }
-                });
+                    iterator.remove();
+                }
+            }
         }
     }
 
@@ -179,7 +175,7 @@ public class ModelElement
      * @param metafacade the metafacade to check
      * @return true/false
      */
-    protected boolean accept(final Object metafacade)
+    private final boolean accept(final Object metafacade)
     {
         boolean accept = true;
         for (final Iterator iterator = types.iterator(); iterator.hasNext() && accept;)

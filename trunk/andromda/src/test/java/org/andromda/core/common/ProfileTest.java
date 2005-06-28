@@ -1,13 +1,6 @@
 package org.andromda.core.common;
 
-import java.net.URL;
-
 import junit.framework.TestCase;
-
-import org.andromda.core.configuration.Namespace;
-import org.andromda.core.configuration.NamespaceProperties;
-import org.andromda.core.configuration.Namespaces;
-import org.andromda.core.configuration.Property;
 
 
 /**
@@ -21,15 +14,8 @@ public class ProfileTest
 {
     public void testGetProfileValues()
     {
-        Namespace namespace = new Namespace();
-        namespace.setName(Namespaces.DEFAULT);
-        URL profileOverrideResource = ProfileTest.class.getResource("/META-INF/profile/andromda-profile-override.xml");
-        assertNotNull(profileOverrideResource);
-        Property property = new Property();
-        property.setName(NamespaceProperties.PROFILE_MAPPINGS_URI);
-        property.setValue(profileOverrideResource.toString());
-        namespace.addProperty(property);
-        Namespaces.instance().addNamespace(namespace);
+        final String namespaceName = "test";
+        org.andromda.core.profile.Profile.instance().setNamespace(namespaceName);
         Profile profile = Profile.instance();
         assertEquals(
             "TestFrom1",
@@ -37,11 +23,5 @@ public class ProfileTest
         assertEquals(
             "TestFrom2",
             profile.get("TEST_FROM_2"));
-        assertEquals(
-            "TestFrom3",
-            profile.get("TEST_FROM_3"));
-        assertEquals(
-            "TestFromOverride",
-            profile.get("TEST_FROM_OVERRIDE"));
     }
 }
