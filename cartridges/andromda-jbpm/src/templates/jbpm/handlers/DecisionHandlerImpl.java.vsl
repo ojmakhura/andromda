@@ -1,14 +1,15 @@
 #set ($generatedFile = "${decision.className}Impl.java")
-#set ($packageName = $decision.activityGraph.useCase.packageName)
+#set ($packageName = $decision.stateMachine.useCase.packageName)
 #if ($stringUtils.isNotBlank($packageName))
-#set ($generatedFile = "${decision.activityGraph.useCase.packagePath}/${generatedFile}")
+#set ($generatedFile = "${decision.stateMachine.useCase.packagePath}/${generatedFile}")
 package $packageName;
 
 #end
 public class ${decision.className}Impl extends ${decision.className}
 {
-    protected final void handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
+    protected final java.lang.String handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
+        return null;
     }
 }

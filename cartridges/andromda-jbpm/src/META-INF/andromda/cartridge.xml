@@ -10,6 +10,7 @@
     <!-- cartridge-templateObject merge-point-->
 
     <!-- cartridge-property merge-point -->
+    <property reference="clientPackage"/>
 
     <!-- cartridge-resource merge-point -->
 
@@ -36,6 +37,20 @@
             <modelElement>
                 <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
             </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/helpers/Client.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="clients"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="processDefinitions">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
+            </modelElement>
+
         </modelElements>
     </template>
 

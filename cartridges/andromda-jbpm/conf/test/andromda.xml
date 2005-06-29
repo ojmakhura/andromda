@@ -20,6 +20,7 @@
                 <property name="handlers">${test.output.dir}</property>
                 <property name="handler-impls">${test.output.dir}</property>
                 <property name="helpers">${test.output.dir}</property>
+                <property name="clients">${test.output.dir}</property>
             </properties>
         </namespace>
     </namespaces>

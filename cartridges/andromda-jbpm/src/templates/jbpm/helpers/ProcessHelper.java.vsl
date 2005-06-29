@@ -4,6 +4,22 @@
 #set ($packageName = $processDefinition.packageName)
 #if ($stringUtils.isNotBlank($packageName))
 #set ($generatedFile = "${processDefinition.packagePath}/${generatedFile}")
+##
+##
+##
+#macro (renderLocator $state)
+#if ($state.name)
+#set ($methodName = "isIn${stringUtils.upperCamelCaseName($state.name)}")
+    public static boolean ${methodName}(final org.jbpm.graph.exe.Token token)
+    {
+        return "$state.name".equals(token.getName());
+    }
+
+#end
+#end
+##
+##
+##
 package $packageName;
 
 import org.jbpm.db.JbpmSession;
@@ -17,45 +33,34 @@ import org.jbpm.graph.def.ProcessDefinition;
  */
 public class $className
 {
-#set ($descriptor = "${stringUtils.toWebFileName($processDefinition.name)}.xml")
-#if ($stringUtils.isNotBlank($packageName))
-#set ($descriptor = "${processDefinition.packageName}.${descriptor}")
+
+#if ($processDefinition.startState.initialState)
+#renderLocator($processDefinition.startState.initialState)
 #end
-    public static final String PROCESS_DEFINITION_NAME = "${descriptor}";
+#foreach ($state in $processDefinition.states)
+#renderLocator($state)
+#end
+#foreach ($state in $processDefinition.taskNodes)
+#renderLocator($state)
+#end
+#foreach ($state in $processDefinition.nodes)
+#renderLocator($state)
+#end
+#foreach ($state in $processDefinition.decisions)
+#renderLocator($state)
+#end
+#foreach ($state in $processDefinition.joins)
+#renderLocator($state)
+#end
+#foreach ($state in $processDefinition.forks)
+#renderLocator($state)
+#end
+#foreach ($state in $processDefinition.endStates)
+#renderLocator($state)
+#end
 
-	private static final JbpmSessionFactory jbpmSessionFactory = JbpmSessionFactory.getInstance();
-
-	/**
-	 * Injects the process definition into the database
-	 */
-	private static void injectProcess()
-	{
-		final ProcessDefinition processDefinition = ProcessDefinition.parseXmlResource(processFileName);
-
-		//Let's open a new persistence session
-	    JbpmSession jbpmSession = jbpmSessionFactory.openJbpmSession();
-
-	    // ... and begin a transaction on the persistence session
-	    jbpmSession.beginTransaction();
-
-	    // Save the process definition in the database
-	    jbpmSession.getGraphSession().saveProcessDefinition(processDefinition);
-
-	    // Commit the transaction
-	    jbpmSession.commitTransaction();
-
-	    // And close the jbpmSession.
-	    jbpmSession.close();
-
-	}
-
-	/**
-	 * Creates the schema in the database
-	 *
-	 */
-	public static void createSchema()
-	{
-		jbpmSessionFactory.getJbpmSchema().createSchema();
-	}
+    public static void main(String[] args)
+    {
+    }
 }
 

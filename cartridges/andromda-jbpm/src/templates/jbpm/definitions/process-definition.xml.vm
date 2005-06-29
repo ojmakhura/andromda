@@ -1,6 +1,138 @@
 ##
 ##
 ##
+#macro (renderStartState $processDefinition $indent)
+#if ($processDefinition.startState.initialState)
+#set ($state = $processDefinition.startState)
+${indent}<start-state#renderName($state)#renderSwimlane($state)>
+## due to UML limitations it is not possible to have a task here
+#transitions($state "${indent}    " false)
+#events($state "${indent}")
+## exception handlers not supported at this point
+${indent}</start-state>
+
+#end
+#end
+##
+##
+##
+#macro (renderSwimlanes $processDefinition ${indent})
+#if (!$processDefinition.swimlanes.empty)
+#foreach ($swimlane in $processDefinition.swimlanes)
+#if ($swimlane.assignmentExpressions.empty)
+${indent}<swimlane name="$swimlane.name"/>
+#else
+${indent}<swimlane name="$swimlane.name">
+#foreach ($expression in $swimlane.assignmentExpressions)
+${indent}    <assignment expression="$expression"/>
+#end
+${indent}</swimlane>
+#end
+
+#end
+#end
+#end
+##
+##
+##
+#macro (renderStates $processDefinition $indent)
+#if (!$processDefinition.states.empty)
+#foreach ($state in $processDefinition.states)
+${indent}<state name="$state.name">
+#transitions($state "${indent}    " false)
+#events($state "${indent}    ")
+${indent}</state>
+
+#end
+#end
+#end
+##
+##
+##
+#macro (renderNodes $processDefinition $indent)
+#if (!$processDefinition.nodes.empty)
+#foreach ($node in $processDefinition.nodes)
+${indent}<node name="$node.name">
+#transitions($node "${indent}    " false)
+#events($node "${indent}    ")
+${indent}</node>
+
+#end
+#end
+#end
+##
+##
+##
+#macro (renderEndStates $processDefinition $indent)
+#if (!$processDefinition.endStates.empty)
+#foreach ($state in $processDefinition.endStates)
+${indent}<end-state name="$state.name"/>
+
+#end
+#end
+#end
+##
+##
+##
+#macro (renderTaskNodes $processDefinition $indent)
+#if (!$processDefinition.taskNodes.empty)
+#foreach ($state in $processDefinition.taskNodes)
+${indent}<task-node name="$state.name">
+#tasks($state "${indent}    ")
+#transitions($state "${indent}    " false)
+#events($state "${indent}    ")
+${indent}</task-node>
+
+#end
+#end
+#end
+##
+##
+##
+#macro (renderDecisions $processDefinition $indent)
+#if (!$processDefinition.decisions.empty)
+#foreach ($decision in $processDefinition.decisions)
+${indent}<decision name="$decision.name">
+${indent}    <handler class="${decision.clazz}Impl"#renderConfigType($decision)/>
+#transitions($decision "${indent}    " true)
+${indent}</decision>
+
+#end
+#end
+#end
+##
+##
+##
+#macro (renderForks $processDefinition $indent)
+#if (!$processDefinition.forks.empty)
+#foreach ($fork in $processDefinition.forks)
+${indent}<fork name="$fork.name">
+#transitions($fork "${indent}    " false)
+${indent}</fork>
+
+#end
+#end
+#end
+##
+##
+##
+#macro (renderJoins $processDefinition $indent)
+#if (!$processDefinition.joins.empty)
+#foreach ($join in $processDefinition.joins)
+${indent}<join name="$join.name">
+#transitions($join "${indent}    " false)
+${indent}</join>
+
+#end
+#end
+#end
+##
+##
+##
+
+##
+##
+##
 #macro (events $state $indent)
 #if (!$state.beforeSignal.empty)
 ${indent}<event type="before-signal">
@@ -77,7 +209,7 @@ ${indent}<transition#renderName($transition) to="$transition.target.name"/>
 ##
 #macro (renderClass $element)
 #if ($element.clazz)
- class="$element.clazz"## no newline
+ class="${element.clazz}Impl"## no newline
 #end
 #end
 ##
@@ -94,5 +226,13 @@ ${indent}<transition#renderName($transition) to="$transition.target.name"/>
 #macro (renderDueDate $element)
 #if ($element.dueDate)
  duedate="$element.dueDate"## no newline
+#end
+#end
+##
+##
+##
+#macro (renderSwimlane $element)
+#if ($element.swimlane)
+ swimlane="$element.swimlane.name"## no newline
 #end
 #end

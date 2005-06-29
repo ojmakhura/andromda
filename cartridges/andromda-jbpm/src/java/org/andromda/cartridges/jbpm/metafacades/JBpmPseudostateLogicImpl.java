@@ -32,7 +32,7 @@ public class JBpmPseudostateLogicImpl
 
         if (isDecisionPoint())
         {
-            final StateMachineFacade stateMachine = getStateMachineContext();
+            final StateMachineFacade stateMachine = getStateMachine();
             if (stateMachine instanceof ActivityGraphFacade)
             {
                 final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;

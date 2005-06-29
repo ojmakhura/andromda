@@ -14,8 +14,10 @@
          ================================================================== -->
     <postGoal name="xdoc">
         <!-- we want to generate a pdf from the documentation -->
+<!--
         <attainGoal name="fo:fo"/>
         <attainGoal name="pdf:pdf"/>
+-->
     </postGoal>
     
 </project>

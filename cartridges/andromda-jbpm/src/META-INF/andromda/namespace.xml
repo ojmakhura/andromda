@@ -37,6 +37,21 @@
                     are overwritten upon regeneration.
                 </documentation>
             </property>
+            <property name="clients">
+                <documentation>
+                    The location to which the a small client application will be generated
+                    that will allow you to initialize the JBpm database environment. This client
+                    can be called from the command line.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="clientPackage">
+                <default>org.andromda.cartridges.jbpm.client</default>
+                <documentation>
+                    The package to use for generated client applications.
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>
