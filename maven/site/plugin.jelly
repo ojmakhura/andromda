@@ -33,7 +33,7 @@
 
     <goal name="xdoc:profile-xsl">
         <!-- if a namespace.xml is present then generate documentation for it -->
-        <u:available file="${maven.src.dir}/META-INF/andromda-profile.xml">
+        <u:available file="${maven.src.dir}/META-INF/andromda/profile.xml">
             <!-- setting the XSLT factory provider @todo: do this only once (wouter)-->
             <j:invokeStatic var="dummy" method="setProperty" className="java.lang.System">
                 <j:arg value="javax.xml.transform.TransformerFactory" type="java.lang.String"/>
@@ -45,7 +45,7 @@
             <ant:replace file="${maven.build.dir}/xsl/profile.xsl" token="%module%" value="${pom.name}"/>
             <!-- performing the transformations -->
             <ant:xslt force="true"
-                in="${maven.src.dir}/META-INF/andromda-profile.xml"
+                in="${maven.src.dir}/META-INF/andromda/profile.xml"
                 out="${maven.gen.docs}/profile.xml"
                 style="${maven.build.dir}/xsl/profile.xsl"/>
         </u:available>
