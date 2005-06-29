@@ -341,7 +341,8 @@ public class MetafacadeMapping
      */
     public String toString()
     {
-        return super.toString() + "[" + this.getMetafacadeClass() + "] " + this.getPropertyReferences();
+        return super.toString() + "[" + this.getMetafacadeClass() + "],properties[" + this.getMappingProperties() +
+        "] propertiesReferences" + this.getPropertyReferences();
     }
 
     /**
