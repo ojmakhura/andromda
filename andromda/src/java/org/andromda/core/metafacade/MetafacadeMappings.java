@@ -401,7 +401,7 @@ public class MetafacadeMappings
                                 boolean valid = false;
                                 if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     mapping.hasContext() && mapping.hasMappingProperties() &&
-                                    !inProcessMappings.contains(mapping))
+                                    (inProcessMappings.isEmpty() || !inProcessMappings.contains(mapping)))
                                 {
                                     if (getContextHierarchy(context).contains(mapping.getContext()))
                                     {
@@ -475,7 +475,7 @@ public class MetafacadeMappings
                                 boolean valid = false;
                                 if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     !mapping.hasContext() && mapping.hasMappingProperties() &&
-                                    !inProcessMappings.contains(mapping))
+                                    (inProcessMappings.isEmpty() || !inProcessMappings.contains(mapping)))
                                 {
                                     inProcessMappings.add(mapping);
                                     final MetafacadeBase metafacade =
