@@ -680,7 +680,7 @@ public class MetafacadeFactory
     /**
      * Registers all namespace properties (if required).
      */
-    private void registerNamespaceProperties()
+    private final void registerNamespaceProperties()
     {
         // - only register them if they already aren't registered
         if (this.metafacadeNamespaces.isEmpty())
