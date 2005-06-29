@@ -48,7 +48,10 @@ public final class Bpm4StrutsUtils
         // check if the input tagged value matches the required pattern
         if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
         {
-            throw new IllegalArgumentException("Illegal validator tagged value: " + validatorTaggedValue);
+            throw new IllegalArgumentException(
+                    "Illegal validator tagged value (this tag is used to specify custom validators " +
+                    "and might look like myValidator(myVar=myArg,myVar2=myArg2), perhaps you wanted to use " +
+                    "@andromda.struts.view.field.format?): " + validatorTaggedValue);
         }
 
         final List validatorArgs = new ArrayList();
