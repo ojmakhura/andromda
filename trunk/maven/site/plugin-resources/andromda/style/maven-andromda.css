@@ -242,13 +242,13 @@ div#pdf img { width: 13px; height: 16px; display: block; margin-left: 45px; }
 
 /* styles related to the namespace.xml xdoc */
 
-.namespacePropertyGroup
+.namespacePropertyGroup, .elementGroup
 {
     border: 0;
     vertical-align: top;
 }
 
-.namespacePropertyGroupDocumentation
+.namespacePropertyGroupDocumentation, .elementGroupDocumentation
 {
     color: #666;
     font-size: 86%;
@@ -257,10 +257,10 @@ div#pdf img { width: 13px; height: 16px; display: block; margin-left: 45px; }
     margin: 12px 6px;
 }
 
-.namespaceProperty table { margin-left: 20px; }
-.namespaceProperty table td { border: 0; }
-.namespaceProperty .required { color: red; font-weight: bold; }
-.namespaceProperty .optional { color: green; font-weight: bold; }
-.namespaceProperty code.defaultValue { color: blue; }
-.namespaceProperty .documentation { color: #666; font-style: italic; }
-.namespaceProperty .documentation code { color: #222; font-style: normal; }
+.namespaceProperty table, element table { margin-left: 20px; }
+.namespaceProperty table td, element table td { border: 0; }
+.namespaceProperty .required, element .required { color: red; font-weight: bold; }
+.namespaceProperty .optional, element .optional { color: green; font-weight: bold; }
+.namespaceProperty code.defaultValue, element code.defaultValue { color: blue; }
+.namespaceProperty .documentation, element .documentation { color: #666; font-style: italic; }
+.namespaceProperty .documentation code,, element documentation code { color: #222; font-style: normal; }
