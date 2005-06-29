@@ -41,7 +41,7 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
     public org.apache.struts.action.ActionForward execute(org.apache.struts.action.ActionMapping mapping, org.apache.struts.action.ActionForm form, javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws java.lang.Exception
     {
         // perform a check on the token to make sure the user did not accidently post the form twice
-        if (this.isValidToken(request))
+        if (this.isTokenValid(request))
         {
             // the token has been validated, so we invalidate it here
             this.resetToken(request);
