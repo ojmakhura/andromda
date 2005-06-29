@@ -1,91 +1,19 @@
 #if ($processDefinition.activityPresent)
 #parse("templates/jbpm/definitions/process-definition.xml.vm")
-#set ($generatedFile = "${stringUtils.toWebFileName($processDefinition.name)}.xml")
-#if ($stringUtils.isNotBlank($processDefinition.packagePath))
-#set ($generatedFile = "${processDefinition.packagePath}/${generatedFile}")
-#end
-##
+#set ($generatedFile = "${processDefinition.descriptorFullPath}")
 <?xml version="1.0" encoding="UTF-8"?>
 
-<process-definition name="$processDefinition.name">
+<process-definition#renderName($processDefinition)>
 
-#if (!$processDefinition.swimlanes.empty)
-#foreach ($swimlane in $processDefinition.swimlanes)
-#if ($swimlane.assignmentExpressions.empty)
-    <swimlane name="$swimlane.name"/>
-#else
-    <swimlane name="$swimlane.name">
-#foreach ($expression in $swimlane.assignmentExpressions)
-        <assignment expression="$expression"/>
-#end
-    </swimlane>
-#end
-#end
+#renderStartState($processDefinition "    ")
+#renderSwimlanes($processDefinition "    ")
+#renderStates($processDefinition "    ")
+#renderNodes($processDefinition "    ")
+#renderEndStates($processDefinition "    ")
+#renderTaskNodes($processDefinition "    ")
+#renderDecisions($processDefinition "    ")
+#renderForks($processDefinition "    ")
+#renderJoins($processDefinition "    ")
 
-#end
-#if ($processDefinition.startState.initialState)
-#set ($state = $processDefinition.startState)
-    <start-state#renderName($state)>
-#events($state "        ")
-#transitions($state "        " false)
-#if ($state.swimlane)
-        <swimlane name="$state.swimlane.name"/>
-#end
-    </start-state>
-
-#end
-#if (!$processDefinition.states.empty)
-#foreach ($state in $processDefinition.states)
-    <state name="$state.name">
-#events($state "        ")
-#transitions($state "        " false)
-#if ($state.swimlane)
-        <swimlane name="$state.swimlane.name"/>
-#end
-    </state>
-#end
-
-#end
-#if (!$processDefinition.endStates.empty)
-#foreach ($state in $processDefinition.endStates)
-    <end-state name="$state.name"/>
-#end
-
-#end
-#if (!$processDefinition.taskNodes.empty)
-#foreach ($state in $processDefinition.taskNodes)
-    <task-node name="$state.name">
-#tasks($state "        ")
-#events($state "        ")
-#transitions($state "        " false)
-    </task-node>
-#end
-
-#end
-#if (!$processDefinition.decisions.empty)
-#foreach ($decision in $processDefinition.decisions)
-    <decision name="$decision.name">
-        <handler class="$decision.clazz"#renderConfigType($decision)/>
-#transitions($decision "        " true)
-    </decision>
-#end
-
-#end
-#if (!$processDefinition.forks.empty)
-#foreach ($fork in $processDefinition.forks)
-    <fork name="$fork.name">
-#transitions($fork "        " false)
-    </fork>
-#end
-
-#end
-#if (!$processDefinition.joins.empty)
-#foreach ($join in $processDefinition.joins)
-    <join name="$join.name">
-#transitions($join "        " false)
-    </join>
-#end
-
-#end
 </process-definition>
 #end

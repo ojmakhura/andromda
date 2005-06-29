@@ -1,0 +1,81 @@
+#set ($generatedFile = ${clientPackage.replaceAll('.','/')})
+#set ($generatedFile = "${generatedFile}/ProcessManager.java")
+package ${clientPackage};
+
+public final class ProcessManager
+{
+    public static void main(String[] java.lang.arguments)
+    {
+        try
+        {
+            if (arguments.length == 0)
+            {
+                java.lang.System.out.println("Nothing do to, please specify an argument [create,drop,clean,inject]");
+            }
+            else
+            {
+                final java.lang.String argument = arguments[0];
+
+                if ("create".equalsIgnoreCase(argument))
+                {
+                    createSchema();
+                }
+                else if ("drop".equalsIgnoreCase(argument))
+                {
+                    dropSchema();
+                }
+                else if ("clean".equalsIgnoreCase(argument))
+                {
+                    cleanSchema();
+                }
+                else if ("inject".equalsIgnoreCase(argument))
+                {
+                    injectProcesses();
+                }
+            }
+        }
+        catch (java.lang.Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+    }
+
+	/**
+	 * Injects the process definition into the database, this should only be done once.
+	 */
+	private static void injectProcesses() throws Exception
+	{
+	    final org.jbpm.db.JbpmSession jbpmSession = org.jbpm.db.JbpmSessionFactory.getInstance().openJbpmSession();
+
+#foreach ($processDefinition in $processDefinitions)
+		final org.jbpm.graph.def.ProcessDefinition $stringUtils.lowerCamelCaseName($processDefinition.name)Definition = org.jbpm.graph.def.ProcessDefinition.parseXmlResource("${processDefinition.descriptorFullPath}");
+#end
+
+        final org.jbpm.db.GraphSession graphSession = jbpmSession.getGraphSession();
+	    jbpmSession.beginTransaction();
+#foreach ($processDefinition in $processDefinitions)
+	    graphSession.saveProcessDefinition($stringUtils.lowerCamelCaseName($processDefinition.name)Definition);
+#end
+	    jbpmSession.commitTransaction();
+
+	    jbpmSession.close();
+	}
+
+    private static void createSchema() throws Exception
+    {
+        org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().createSchema();
+    }
+
+    private static void dropSchema() throws Exception
+    {
+        org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().dropSchema();
+    }
+
+    private static void cleanSchema() throws Exception
+    {
+        org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().cleanSchema();
+    }
+
+
+}

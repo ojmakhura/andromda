@@ -17,7 +17,8 @@ public class JBpmProfile
     public static final String STEREOTYPE_NODE_ENTER = profile.get("NODE_ENTER");
     public static final String STEREOTYPE_NODE_LEAVE = profile.get("NODE_LEAVE");
     public static final String STEREOTYPE_TASK = profile.get("TASK");
-    
+    public static final String STEREOTYPE_TIMER = profile.get("TIMER");
+
     // Tagged Values
     public static final String TAGGEDVALUE_ASSIGNMENT_EXPRESSION = profile.get("ASSIGNMENT_EXPRESSION");
 }

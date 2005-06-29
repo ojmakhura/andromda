@@ -2,7 +2,11 @@ package org.andromda.cartridges.jbpm.metafacades;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.ActionStateFacade;
+import org.andromda.metafacades.uml.StateFacade;
 import org.andromda.cartridges.jbpm.JBpmProfile;
+import org.andromda.core.common.StringUtilsHelper;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 import java.util.Collection;
@@ -31,11 +35,32 @@ public class JBpmProcessDefinitionLogicImpl
         final ActivityGraphFacade graph = this.getFirstActivityGraph();
         if (graph != null)
         {
+            final Collection graphStates = graph.getStates();
+            for (final Iterator stateIterator = graphStates.iterator(); stateIterator.hasNext();)
+            {
+                final StateFacade state = (StateFacade)stateIterator.next();
+                if (state instanceof JBpmState)
+                {
+                    states.add(state);
+                }
+            }
+        }
+
+        return states;
+    }
+
+    protected List handleGetNodes()
+    {
+        final List states = new ArrayList();
+
+        final ActivityGraphFacade graph = this.getFirstActivityGraph();
+        if (graph != null)
+        {
             final Collection actionStates = graph.getActionStates();
             for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
-                final JBpmState state = (JBpmState)actionStateIterator.next();
-                if (!state.isTaskNode())
+                final ActionStateFacade state = (ActionStateFacade)actionStateIterator.next();
+                if (state instanceof JBpmNode && !((JBpmNode)state).isTaskNode())
                 {
                     states.add(state);
                 }
@@ -55,8 +80,8 @@ public class JBpmProcessDefinitionLogicImpl
             final Collection actionStates = graph.getActionStates();
             for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
-                final JBpmState state = (JBpmState)actionStateIterator.next();
-                if (state.isTaskNode())
+                final ActionStateFacade state = (ActionStateFacade)actionStateIterator.next();
+                if (state instanceof JBpmNode && ((JBpmNode)state).isTaskNode())
                 {
                     taskNodes.add(state);
                 }
@@ -68,7 +93,7 @@ public class JBpmProcessDefinitionLogicImpl
 
     protected boolean handleIsBusinessProcess()
     {
-        return hasStereotype(JBpmProfile.STEREOTYPE_BUSINESS_PROCESS) && (getFirstActivityGraph() != null); 
+        return hasStereotype(JBpmProfile.STEREOTYPE_BUSINESS_PROCESS) && isActivityPresent();
     }
 
     protected boolean handleIsActivityPresent()
@@ -176,5 +201,20 @@ public class JBpmProcessDefinitionLogicImpl
         }
 
         return joins;
+    }
+
+    protected String handleGetDescriptorFullPath()
+    {
+        final StringBuffer pathBuffer = new StringBuffer();
+
+        if (StringUtils.isNotBlank(this.getPackagePath()))
+        {
+            pathBuffer.append(this.getPackagePath());
+            pathBuffer.append('/');
+        }
+        pathBuffer.append(StringUtilsHelper.toWebFileName(getName()));
+        pathBuffer.append(".pdl.xml");
+
+        return pathBuffer.toString();
     }
 }

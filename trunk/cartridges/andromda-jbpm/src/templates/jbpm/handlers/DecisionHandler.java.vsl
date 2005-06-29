@@ -1,7 +1,7 @@
 #set ($generatedFile = "${decision.className}.java")
-#set ($packageName = $decision.activityGraph.useCase.packageName)
+#set ($packageName = $decision.stateMachine.useCase.packageName)
 #if ($stringUtils.isNotBlank($packageName))
-#set ($generatedFile = "${decision.activityGraph.useCase.packagePath}/${generatedFile}")
+#set ($generatedFile = "${decision.stateMachine.useCase.packagePath}/${generatedFile}")
 package $packageName;
 
 #end
@@ -10,12 +10,12 @@ $decision.getDocumentation(" * ")
  */
 public abstract class $decision.className implements org.jbpm.graph.node.DecisionHandler
 {
-    public final void decide(org.jbpm.graph.exe.ExecutionContext executionContext)
+    public final java.lang.String decide(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
-        handleDecide(executionContext);
+        return handleDecide(executionContext);
     }
 
-    protected abstract void handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
+    protected abstract java.lang.String handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception;
 }

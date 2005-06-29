@@ -1,12 +1,12 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.cartridges.jbpm.JBpmProfile;
+import org.andromda.metafacades.uml.EventFacade;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 
 /**

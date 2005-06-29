@@ -2,6 +2,7 @@ package org.andromda.cartridges.jbpm.metafacades;
 
 import org.andromda.cartridges.jbpm.JBpmProfile;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -17,6 +18,26 @@ public class JBpmActionLogicImpl
     public JBpmActionLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
+    }
+
+    /**
+     * We override this method in order to be able to return the call-event's operation name
+     * when the event's name itself has not been specified.
+     */
+    public String getName()
+    {
+        String name = super.getName();
+
+        if (StringUtils.isBlank(name))
+        {
+            final ModelElementFacade operation = getOperation();
+            if (operation != null)
+            {
+                name = operation.getName();
+            }
+        }
+
+        return name;
     }
 
     /**
@@ -56,20 +77,15 @@ public class JBpmActionLogicImpl
      */
     protected boolean handleIsTask()
     {
-        boolean task = false;
+        return this.hasStereotype(JBpmProfile.STEREOTYPE_TASK);
+    }
 
-        final JBpmState state = (JBpmState)this.getState();
-        if (state == null)
-        {
-            final JBpmTransition transition = (JBpmTransition)this.getTransition();
-            task = transition.isTaskNode();
-        }
-        else
-        {
-            task = state.isTaskNode();
-        }
-
-        return task;
+    /**
+     * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction#isTimer()
+     */
+    protected boolean handleIsTimer()
+    {
+        return this.hasStereotype(JBpmProfile.STEREOTYPE_TIMER);
     }
 
     /**
