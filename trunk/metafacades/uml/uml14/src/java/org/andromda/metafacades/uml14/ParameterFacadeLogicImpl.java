@@ -3,7 +3,8 @@ package org.andromda.metafacades.uml14;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.omg.uml.behavioralelements.statemachines.SignalEvent;
+import org.andromda.core.common.StringUtilsHelper;
+import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.datatypes.Expression;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
@@ -18,8 +19,6 @@ import java.util.Iterator;
 public class ParameterFacadeLogicImpl
         extends ParameterFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public ParameterFacadeLogicImpl(org.omg.uml.foundation.core.Parameter metaObject, String context)
     {
         super(metaObject, context);
@@ -35,6 +34,27 @@ public class ParameterFacadeLogicImpl
         final String nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.PARAMETER_NAME_MASK));
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#getGetterName()
+     */
+    protected java.lang.String handleGetGetterName()
+    {
+        // BPM-200: only actual boolean types can have the 'is' prefix, we must not make
+        // use of the dynamic mappings since we need to test for the real java type here
+        final String typeName = this.getType() != null ? this.getType().getFullyQualifiedName() : null;
+        final String prefix = "boolean".equals(typeName) ? "is" : "get";
+        return prefix + StringUtilsHelper.capitalize(this.getName());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#getSetterName()
+     */
+    protected java.lang.String handleGetSetterName()
+    {
+        return "set" + StringUtilsHelper.capitalize(this.getName());
+    }
+
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
@@ -91,10 +111,10 @@ public class ParameterFacadeLogicImpl
     protected Object handleGetOperation()
     {
         Operation parameterOperation = null;
-        Collection allOperations = UML14MetafacadeUtils.getModel().getCore().getOperation().refAllOfType();
-        for (Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation == null;)
+        final Collection allOperations = UML14MetafacadeUtils.getModel().getCore().getOperation().refAllOfType();
+        for (final Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation == null;)
         {
-            Operation operation = (Operation)iterator.next();
+            final Operation operation = (Operation)iterator.next();
             if (operation.getParameter().contains(metaObject))
             {
                 parameterOperation = operation;
@@ -108,16 +128,16 @@ public class ParameterFacadeLogicImpl
      */
     protected Object handleGetEvent()
     {
-        SignalEvent parameterSignalEvent = null;
-        Collection allSignalEvents = UML14MetafacadeUtils.getModel().getStateMachines().getSignalEvent().refAllOfType();
-        for (Iterator iterator = allSignalEvents.iterator(); iterator.hasNext() && parameterSignalEvent == null;)
+        Event parameterEvent = null;
+        final Collection allEvents = UML14MetafacadeUtils.getModel().getStateMachines().getEvent().refAllOfType();
+        for (final Iterator iterator = allEvents.iterator(); iterator.hasNext() && parameterEvent == null;)
         {
-            SignalEvent signalEvent = (SignalEvent)iterator.next();
-            if (signalEvent.getParameter().contains(metaObject))
+            final Event event = (Event)iterator.next();
+            if (event.getParameter().contains(metaObject))
             {
-                parameterSignalEvent = signalEvent;
+                parameterEvent = event;
             }
         }
-        return parameterSignalEvent;
+        return parameterEvent;
     }
 }
