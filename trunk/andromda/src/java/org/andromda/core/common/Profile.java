@@ -15,8 +15,8 @@ import org.andromda.core.mapping.Mappings;
  * the actual code and allows users to override default profile values (i.e. stereotype names can be anything the user
  * would like, instead of forcing them to users our naming conventions). </p>
  *
- * @deprecated this is deprecated and will be removed after 3.1 (please use {org.andromda.core.profile.Profile} instead
- * you must all move your META-INF/andromda-profile.xml to META-INF/andromda/profile.xml.
+ * @deprecated this is deprecated and will be removed after 3.1 (please use {org.andromda.core.profile.Profile} instead)
+ * you must all move your META-INF/andromda-profile.xml to META-INF/andromda/profile.xml as well.
  * @author Chad Brandon
  */
 public class Profile
