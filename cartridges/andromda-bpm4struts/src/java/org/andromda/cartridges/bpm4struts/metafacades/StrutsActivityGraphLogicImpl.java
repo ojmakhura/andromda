@@ -16,22 +16,24 @@ import java.util.Collection;
 public class StrutsActivityGraphLogicImpl
         extends StrutsActivityGraphLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsActivityGraphLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
     }
-    // ------------- relations ------------------
+
+    protected boolean handleIsAssociatedWithStrutsUseCase()
+    {
+        return this.getUseCase() instanceof StrutsUseCase;
+    }
 
     protected Object handleGetFirstAction()
     {
         Object firstAction = null;
-        Collection initialStates = getInitialStates();
+        final Collection initialStates = getInitialStates();
         if (initialStates.isEmpty() == false)
         {
-            PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
-            Collection outgoing = initialState.getOutgoing();
+            final PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
+            final Collection outgoing = initialState.getOutgoing();
             firstAction = (outgoing.isEmpty()) ? null : outgoing.iterator().next();
         }
         return firstAction;
@@ -54,13 +56,6 @@ public class StrutsActivityGraphLogicImpl
         }
         return useCase;
     }
-    
-    public boolean handleIsAssociatedWithStrutsUseCase()
-    {
-        final Object uc = this.getUseCase();
-        System.out.println("the use case:>>>>>>>>>>>>>> " + uc);
-        return uc instanceof StrutsUseCase;
-    } 
 
     protected Object handleGetController()
     {
@@ -80,7 +75,7 @@ public class StrutsActivityGraphLogicImpl
          */
         if (controller == null)
         {
-            UseCaseFacade useCase = this.getUseCase();
+            final UseCaseFacade useCase = this.getUseCase();
             if (useCase != null)
             {
                 final String useCaseName = useCase.getName();

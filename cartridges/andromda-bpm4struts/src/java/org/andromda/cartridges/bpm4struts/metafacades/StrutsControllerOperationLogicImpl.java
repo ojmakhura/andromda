@@ -64,14 +64,18 @@ public class StrutsControllerOperationLogicImpl
             final Collection actionStates = graph.getActionStates();
             for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
-                final StrutsActionState actionState = (StrutsActionState)actionStateIterator.next();
-                final Collection controllerCalls = actionState.getControllerCalls();
-                for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
+                final Object actionStateObject = actionStateIterator.next();
+                if (actionStateObject instanceof StrutsActionState)
                 {
-                    final OperationFacade operation = (OperationFacade)controllerCallIterator.next();
-                    if (this.equals(operation))
+                    final StrutsActionState actionState = (StrutsActionState)actionStateObject;
+                    final Collection controllerCalls = actionState.getControllerCalls();
+                    for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
                     {
-                        deferringActions.addAll(actionState.getContainerActions());
+                        final OperationFacade operation = (OperationFacade)controllerCallIterator.next();
+                        if (this.equals(operation))
+                        {
+                            deferringActions.addAll(actionState.getContainerActions());
+                        }
                     }
                 }
             }

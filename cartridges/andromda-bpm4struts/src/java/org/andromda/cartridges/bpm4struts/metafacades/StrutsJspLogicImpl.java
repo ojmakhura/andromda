@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -43,7 +44,7 @@ public class StrutsJspLogicImpl
             final UseCaseFacade graphUseCase = ((ActivityGraphFacade)graphContext).getUseCase();
             if (graphUseCase instanceof StrutsUseCase)
             {
-                StrutsUseCase useCase = (StrutsUseCase)graphUseCase;
+                final StrutsUseCase useCase = (StrutsUseCase)graphUseCase;
                 if (useCase != null)
                 {
                     packageName = useCase.getPackageName();
@@ -105,9 +106,9 @@ public class StrutsJspLogicImpl
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
 
-        String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         buffer.append((value == null) ? "No page documentation has been specified" : value);
         buffer.append(crlf);
         buffer.append(crlf);
@@ -124,9 +125,9 @@ public class StrutsJspLogicImpl
     protected boolean handleIsValidationRequired()
     {
         final Collection actions = getActions();
-        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
-            StrutsAction action = (StrutsAction)actionIterator.next();
+            final StrutsAction action = (StrutsAction)actionIterator.next();
             if (action.isValidationRequired())
             {
                 return true;
@@ -138,9 +139,9 @@ public class StrutsJspLogicImpl
     protected boolean handleIsDateFieldPresent()
     {
         final Collection actions = getActions();
-        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
-            StrutsAction action = (StrutsAction)actionIterator.next();
+            final StrutsAction action = (StrutsAction)actionIterator.next();
             if (action.isDateFieldPresent())
             {
                 return true;
@@ -152,9 +153,9 @@ public class StrutsJspLogicImpl
     protected boolean handleIsCalendarRequired()
     {
         final Collection actions = getActions();
-        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
-            StrutsAction action = (StrutsAction)actionIterator.next();
+            final StrutsAction action = (StrutsAction)actionIterator.next();
             if (action.isCalendarRequired())
             {
                 return true;
@@ -167,9 +168,9 @@ public class StrutsJspLogicImpl
     {
         final List actionParameters = new ArrayList();
         final Collection actions = getActions();
-        for (Iterator iterator = actions.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
         {
-            StrutsAction action = (StrutsAction)iterator.next();
+            final StrutsAction action = (StrutsAction)iterator.next();
             actionParameters.addAll(action.getActionParameters());
         }
         return actionParameters;
@@ -196,9 +197,9 @@ public class StrutsJspLogicImpl
         final List actions = new ArrayList();
         final Collection outgoing = getOutgoing();
 
-        for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {
-            Object object = iterator.next();
+            final Object object = iterator.next();
             if (object instanceof StrutsAction)
                 actions.add(object);
         }
@@ -211,9 +212,9 @@ public class StrutsJspLogicImpl
         final List actions = new ArrayList();
         final Collection outgoing = getOutgoing();
 
-        for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {
-            Object object = iterator.next();
+            final Object object = iterator.next();
             if (!(object instanceof StrutsAction))
             {
                 actions.add(object);
@@ -232,10 +233,10 @@ public class StrutsJspLogicImpl
         final Map variablesMap = new HashMap();
 
         final Collection incoming = getIncoming();
-        for (Iterator iterator = incoming.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = incoming.iterator(); iterator.hasNext();)
         {
-            TransitionFacade transition = (TransitionFacade)iterator.next();
-            EventFacade trigger = transition.getTrigger();
+            final TransitionFacade transition = (TransitionFacade)iterator.next();
+            final EventFacade trigger = transition.getTrigger();
             if (trigger != null)
                 collectByName(trigger.getParameters(), variablesMap);
         }
@@ -248,7 +249,7 @@ public class StrutsJspLogicImpl
      */
     private void collectByName(Collection modelElements, Map elementMap)
     {
-        for (Iterator iterator = modelElements.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = modelElements.iterator(); iterator.hasNext();)
         {
             final ModelElementFacade modelElement = (ModelElementFacade)iterator.next();
             elementMap.put(modelElement.getName(), modelElement);
@@ -273,7 +274,7 @@ public class StrutsJspLogicImpl
                                         Collection actions)
     {
         final Collection incomingTransitions = stateVertex.getIncoming();
-        for (Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
         {
             final TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
             collectIncomingActions(incomingTransition, processedTransitions, actions);
@@ -301,7 +302,7 @@ public class StrutsJspLogicImpl
                 if (((StrutsAction)transition).isUseCaseStart())
                 {
                     Collection finalStates = getUseCase().getFinalStates();// todo: test usecase for null
-                    for (Iterator iterator = finalStates.iterator(); iterator.hasNext();)
+                    for (final Iterator iterator = finalStates.iterator(); iterator.hasNext();)
                     {
                         FinalStateFacade finalState = (FinalStateFacade) iterator.next();
                         collectIncomingActions(finalState, processedTransitions, actions);
@@ -312,7 +313,7 @@ public class StrutsJspLogicImpl
             else
             {
                 final Collection incomingTransitions = transition.getSource().getIncoming();
-                for (Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
+                for (final Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
                 {
                     final TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
                     collectIncomingActions(incomingTransition, processedTransitions, actions);
@@ -331,7 +332,7 @@ public class StrutsJspLogicImpl
         final List nonTableActions = new ArrayList();
 
         final Collection actions = getActions();
-        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
             final StrutsAction action = (StrutsAction)actionIterator.next();
             if (!action.isTableLink())

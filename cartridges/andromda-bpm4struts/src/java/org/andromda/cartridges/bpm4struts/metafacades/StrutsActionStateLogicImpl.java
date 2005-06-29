@@ -1,5 +1,13 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.CallEventFacade;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,14 +15,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.CallEventFacade;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
-import org.andromda.metafacades.uml.StateMachineFacade;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
 
 
 /**
@@ -48,7 +48,7 @@ public class StrutsActionStateLogicImpl
             if (useCase instanceof StrutsUseCase)
             {
                 final Collection actions = ((StrutsUseCase)useCase).getActions();
-                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
                     final StrutsAction action = (StrutsAction)actionIterator.next();
                     if (action.getActionStates().contains(this))
@@ -66,12 +66,12 @@ public class StrutsActionStateLogicImpl
     {
         final List controllerCallsList = new ArrayList();
         final Collection deferrableEvents = getDeferrableEvents();
-        for (Iterator iterator = deferrableEvents.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = deferrableEvents.iterator(); iterator.hasNext();)
         {
-            EventFacade event = (EventFacade)iterator.next();
+            final EventFacade event = (EventFacade)iterator.next();
             if (event instanceof CallEventFacade)
             {
-                Object operationObject = ((CallEventFacade)event).getOperation();
+                final Object operationObject = ((CallEventFacade)event).getOperation();
                 if (operationObject != null)
                 {
                     controllerCallsList.add(operationObject);
@@ -79,7 +79,7 @@ public class StrutsActionStateLogicImpl
             }
             else if (event instanceof StrutsTrigger)
             {
-                Object callObject = ((StrutsTrigger)event).getControllerCall();
+                final Object callObject = ((StrutsTrigger)event).getControllerCall();
                 if (callObject != null)
                 {
                     controllerCallsList.add(callObject);
@@ -93,7 +93,7 @@ public class StrutsActionStateLogicImpl
     {
         Object forward = null;
 
-        for (Iterator iterator = getOutgoing().iterator(); iterator.hasNext() && forward == null;)
+        for (final Iterator iterator = getOutgoing().iterator(); iterator.hasNext() && forward == null;)
         {
             final TransitionFacade transition = (TransitionFacade)iterator.next();
             if (!(transition instanceof StrutsExceptionHandler))
@@ -108,9 +108,9 @@ public class StrutsActionStateLogicImpl
     {
         final Map exceptionsMap = new HashMap();
         final Collection outgoing = getOutgoing();
-        for (Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {
-            TransitionFacade transition = (TransitionFacade)iterator.next();
+            final TransitionFacade transition = (TransitionFacade)iterator.next();
             if (transition instanceof StrutsExceptionHandler)
             {
                 exceptionsMap.put(((StrutsExceptionHandler)transition).getExceptionKey(), transition);
