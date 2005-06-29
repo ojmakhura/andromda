@@ -40,6 +40,19 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 {
     public org.apache.struts.action.ActionForward execute(org.apache.struts.action.ActionMapping mapping, org.apache.struts.action.ActionForm form, javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws java.lang.Exception
     {
+        // perform a check on the token to make sure the user did not accidently post the form twice
+        if (this.isValidToken(request))
+        {
+            // the token has been validated, so we invalidate it here
+            this.resetToken(request);
+        }
+        else
+        {
+            // token not valid: throw an exception and show an appropriate message to the user
+            ${controllerClass.name}Factory.get${controllerClass.name}Instance().saveErrorMessage(request, "form.already.submitted");
+            throw new java.lang.Exception();
+        }
+
         final $formBeanClassName specificForm = ($formBeanClassName)form;
 
 #if ($action.useCaseStart)
@@ -97,6 +110,9 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
         specificForm.${field.resetName}();
 #end
 #end
+
+        // save the token for the next form
+        this.saveToken(request);
 
         return forward;
     }
