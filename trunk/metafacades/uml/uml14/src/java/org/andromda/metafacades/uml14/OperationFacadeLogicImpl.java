@@ -30,8 +30,6 @@ import java.util.Iterator;
 public class OperationFacadeLogicImpl
         extends OperationFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public OperationFacadeLogicImpl(org.omg.uml.foundation.core.Operation metaObject, String context)
     {
         super(metaObject, context);
@@ -189,7 +187,7 @@ public class OperationFacadeLogicImpl
      */
     protected Collection handleGetArguments()
     {
-        Collection arguments = new ArrayList(metaObject.getParameter());
+        final Collection arguments = new ArrayList(metaObject.getParameter());
         CollectionUtils.filter(arguments, new Predicate()
         {
             public boolean evaluate(Object object)
