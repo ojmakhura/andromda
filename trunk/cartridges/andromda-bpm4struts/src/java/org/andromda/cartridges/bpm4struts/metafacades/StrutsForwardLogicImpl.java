@@ -31,6 +31,11 @@ public class StrutsForwardLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsContainedInFrontEndUseCase()
+    {
+        return this.getStrutsActivityGraph() != null;
+    }
+
     protected String handleGetGuardName()
     {
         final GuardFacade guard = getGuard();
@@ -140,7 +145,7 @@ public class StrutsForwardLogicImpl
         {
             messages = new LinkedHashMap(); // we want to keep the order
 
-            for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
                 final String value = (String)iterator.next();
                 messages.put(StringUtilsHelper.toResourceMessageKey(value), value);
@@ -206,26 +211,26 @@ public class StrutsForwardLogicImpl
             }
             else
             {
-                StateVertexFacade vertex = getSource();
+                final StateVertexFacade vertex = getSource();
                 if (vertex instanceof StrutsJsp)
                 {
-                    StrutsJsp jsp = (StrutsJsp)vertex;
+                    final StrutsJsp jsp = (StrutsJsp)vertex;
                     actions.addAll(jsp.getActions());
                 }
                 else if (vertex instanceof StrutsActionState)
                 {
-                    StrutsActionState actionState = (StrutsActionState)vertex;
+                    final StrutsActionState actionState = (StrutsActionState)vertex;
                     actions.addAll(actionState.getContainerActions());
                 }
                 else if (vertex instanceof PseudostateFacade)
                 {
-                    PseudostateFacade pseudostate = (PseudostateFacade)vertex;
+                    final PseudostateFacade pseudostate = (PseudostateFacade)vertex;
                     if (!pseudostate.isInitialState())
                     {
-                        Collection incomingForwards = pseudostate.getIncoming();
-                        for (Iterator forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
+                        final Collection incomingForwards = pseudostate.getIncoming();
+                        for (final Iterator forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
                         {
-                            StrutsForward forward = (StrutsForward)forwardIterator.next();
+                            final StrutsForward forward = (StrutsForward)forwardIterator.next();
                             actions.addAll(forward.getActions());
                         }
                     }
@@ -238,10 +243,10 @@ public class StrutsForwardLogicImpl
     {
         StrutsUseCase useCase = null;
 
-        StrutsActivityGraph graph = getStrutsActivityGraph();
+        final StrutsActivityGraph graph = getStrutsActivityGraph();
         if (graph != null)
         {
-            UseCaseFacade graphUseCase = graph.getUseCase();
+            final UseCaseFacade graphUseCase = graph.getUseCase();
             if (graphUseCase instanceof StrutsUseCase)
             {
                 useCase = (StrutsUseCase)graphUseCase;
@@ -255,10 +260,10 @@ public class StrutsForwardLogicImpl
     {
         StrutsControllerOperation operation = null;
 
-        EventFacade triggerEvent = getTrigger();
+        final EventFacade triggerEvent = getTrigger();
         if (triggerEvent instanceof StrutsTrigger)
         {
-            StrutsTrigger trigger = (StrutsTrigger)triggerEvent;
+            final StrutsTrigger trigger = (StrutsTrigger)triggerEvent;
             operation = trigger.getControllerCall();
         }
 

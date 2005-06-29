@@ -20,6 +20,11 @@ public class StrutsTriggerLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsContainedInFrontEndUseCase()
+    {
+        return this.getTransition() instanceof StrutsForward;
+    }
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getNotAllowedTitleKey()()
      */

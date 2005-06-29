@@ -18,6 +18,11 @@ public class StrutsExceptionHandlerLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsFrontEndException()
+    {
+        return this.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_EXCEPTION);
+    }
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionKey()()
      */
@@ -36,7 +41,7 @@ public class StrutsExceptionHandlerLogicImpl
      */
     protected java.lang.String handleGetExceptionType()
     {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_EXCEPTION_TYPE);
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_EXCEPTION_TYPE);
         String type = value == null ? null : value.toString();
         if (type == null)
         {

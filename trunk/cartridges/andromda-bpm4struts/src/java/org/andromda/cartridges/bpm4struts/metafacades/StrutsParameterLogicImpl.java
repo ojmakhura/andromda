@@ -38,6 +38,11 @@ public class StrutsParameterLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsContainedInFrontEndUseCase()
+    {
+        return (this.getEvent() instanceof StrutsTrigger) || (this.getOperation() instanceof StrutsControllerOperation);
+    }
+
     protected Object handleGetAction()
     {
         Object actionObject = null;
@@ -119,11 +124,11 @@ public class StrutsParameterLogicImpl
             final String name = getName();
             formFields = new ArrayList();
             Collection actions = getControllerOperation().getDeferringActions();
-            for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 StrutsAction action = (StrutsAction)actionIterator.next();
                 Collection actionFormFields = action.getActionFormFields();
-                for (Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext();)
+                for (final Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext();)
                 {
                     StrutsParameter parameter = (StrutsParameter)fieldIterator.next();
                     if (name.equals(parameter.getName()))
@@ -138,26 +143,6 @@ public class StrutsParameterLogicImpl
             formFields = Collections.EMPTY_LIST;
         }
         return formFields;
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getGetterName()()
-     */
-    protected java.lang.String handleGetGetterName()
-    {
-        // BPM-200: only actual boolean types can have the 'is' prefix, we must not make
-        // use of the dynamic mappings since we need to test for the real java type here
-        final String typeName = this.getType() != null ? this.getType().getFullyQualifiedName() : null;
-        final String prefix = "boolean".equals(typeName) ? "is" : "get";
-        return prefix + StringUtilsHelper.capitalize(this.getName());
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getSetterName()()
-     */
-    protected java.lang.String handleGetSetterName()
-    {
-        return "set" + StringUtilsHelper.capitalize(this.getName());
     }
 
     /**
@@ -626,7 +611,7 @@ public class StrutsParameterLogicImpl
         final Collection tableActions = new HashSet();
 
         final Collection allUseCases = getModel().getAllUseCases();
-        for (Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
+        for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
         {
             final UseCaseFacade useCase = (UseCaseFacade)useCaseIterator.next();
             if (useCase instanceof StrutsUseCase)
@@ -635,7 +620,7 @@ public class StrutsParameterLogicImpl
                 if (graph != null)
                 {
                     final Collection transitions = graph.getTransitions();
-                    for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+                    for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                     {
                         final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
                         if (transition.getSource().equals(page) && transition instanceof StrutsAction)
@@ -706,7 +691,7 @@ public class StrutsParameterLogicImpl
             else
             {
                 StringBuffer buffer = new StringBuffer();
-                for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
                 {
                     final String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
                     if ("csv".equalsIgnoreCase(exportType) || "pdf".equalsIgnoreCase(exportType) ||
@@ -774,11 +759,11 @@ public class StrutsParameterLogicImpl
         // the user should not have modeled it that way (constraints will warn him/her)
         actions.addAll(getTableHyperlinkActions());
 
-        for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
             final StrutsAction action = (StrutsAction)actionIterator.next();
             final Collection actionParameters = action.getActionParameters();
-            for (Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
+            for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
             {
                 final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
                 final String parameterName = parameter.getName();
@@ -798,7 +783,7 @@ public class StrutsParameterLogicImpl
 
         // for any missing parameters we just add the name of the column
         final Collection columnNames = getTableColumnNames();
-        for (Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+        for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
         {
             final String columnName = (String)columnNameIterator.next();
             if (!tableColumnsMap.containsKey(columnName))
@@ -809,7 +794,7 @@ public class StrutsParameterLogicImpl
 
         // return everything in the same order as it has been modeled (using the table tagged value)
         final Collection tableColumns = new ArrayList();
-        for (Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+        for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
         {
             final Object columnObject = columnNameIterator.next();
             tableColumns.add(tableColumnsMap.get(columnObject));
@@ -827,7 +812,7 @@ public class StrutsParameterLogicImpl
             final Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
             if (!taggedValues.isEmpty())
             {
-                for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
                 {
                     final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
                     if (taggedValue != null)
@@ -1038,11 +1023,11 @@ public class StrutsParameterLogicImpl
                  * allow the user to set the backing list too
                  */
                 Collection pages = getAction().getTargetPages();
-                for (Iterator pageIterator = pages.iterator(); pageIterator.hasNext() && !selectable;)
+                for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext() && !selectable;)
                 {
                     StrutsJsp page = (StrutsJsp)pageIterator.next();
                     Collection parameters = page.getAllActionParameters();
-                    for (Iterator parameterIterator = parameters.iterator();
+                    for (final Iterator parameterIterator = parameters.iterator();
                          parameterIterator.hasNext() && !selectable;)
                     {
                         StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
@@ -1065,11 +1050,11 @@ public class StrutsParameterLogicImpl
         {
             final String name = getName();
             Collection actions = getControllerOperation().getDeferringActions();
-            for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 StrutsAction action = (StrutsAction)actionIterator.next();
                 Collection formFields = action.getActionFormFields();
-                for (Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
+                for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
                 {
                     StrutsParameter parameter = (StrutsParameter)fieldIterator.next();
                     if (name.equals(parameter.getName()))
@@ -1298,7 +1283,7 @@ public class StrutsParameterLogicImpl
                 else
                 {
                     Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
-                    for (Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
                         String additionalFormat = String.valueOf(formatIterator.next());
                         if (isMinLengthFormat(additionalFormat))
@@ -1319,7 +1304,7 @@ public class StrutsParameterLogicImpl
 
         // custom (paramterized) validators are allowed here
         Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-        for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
         {
             String validator = String.valueOf(iterator.next());
             validatorTypesList.add(Bpm4StrutsUtils.parseValidatorName(validator));
@@ -1375,7 +1360,7 @@ public class StrutsParameterLogicImpl
 
         // custom (paramterized) validators are allowed here
         Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-        for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
         {
             String validator = String.valueOf(iterator.next());
             if (validatorType.equals(Bpm4StrutsUtils.parseValidatorName(validator)))
@@ -1454,7 +1439,7 @@ public class StrutsParameterLogicImpl
         // custom (paramterized) validators are allowed here
         // in this case we will reuse the validator arg values
         Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-        for (Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
         {
             String validator = String.valueOf(iterator.next());
 

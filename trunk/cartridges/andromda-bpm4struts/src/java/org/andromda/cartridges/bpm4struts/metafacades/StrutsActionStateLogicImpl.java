@@ -30,6 +30,11 @@ public class StrutsActionStateLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsContainedInFrontEndUseCase()
+    {
+        return this.getStateMachine() instanceof StrutsActivityGraph;
+    }
+
     protected java.lang.String handleGetActionMethodName()
     {
         return '_' + StringUtilsHelper.lowerCamelCaseName(getName());

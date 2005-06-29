@@ -1,11 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -14,8 +8,13 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Service;
-import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -47,7 +46,7 @@ public class StrutsControllerLogicImpl
         final Collection deferringActions = new HashSet();
 
         final Collection operations = getOperations();
-        for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+        for (final Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
         {
             final StrutsControllerOperation operation = (StrutsControllerOperation)operationIterator.next();
             deferringActions.addAll(operation.getDeferringActions());
@@ -63,7 +62,7 @@ public class StrutsControllerLogicImpl
         final List objectsList = new ArrayList();
 
         final Collection dependencies = this.getSourceDependencies();
-        for (Iterator iterator = dependencies.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = dependencies.iterator(); iterator.hasNext();)
         {
             final DependencyFacade dependency = (DependencyFacade)iterator.next();
             final ModelElementFacade modelElement = dependency.getTargetElement();
@@ -94,16 +93,12 @@ public class StrutsControllerLogicImpl
      */
     protected Object handleGetUseCase()
     {
-        UseCaseFacade useCase = null;
+        Object useCase = null;
 
         final StateMachineFacade graphContext = getStateMachineContext();
-        if (graphContext instanceof ActivityGraphFacade)
+        if (graphContext instanceof StrutsActivityGraph)
         {
             useCase = ((ActivityGraphFacade)graphContext).getUseCase();
-            if (useCase != null && !StrutsUseCase.class.isAssignableFrom(useCase.getClass()))
-            {
-                useCase = null;
-            }
         }
         else
         {
@@ -127,13 +122,13 @@ public class StrutsControllerLogicImpl
         final List allArguments = new ArrayList();
         final Collection operations = this.getOperations();
 
-        for (Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+        for (final Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
         {
             final OperationFacade operationFacade = (OperationFacade)operationIterator.next();
             final Collection arguments = operationFacade.getArguments();
-            for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+            for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
             {
-                ParameterFacade parameterFacade = (ParameterFacade)argumentIterator.next();
+                final ParameterFacade parameterFacade = (ParameterFacade)argumentIterator.next();
                 allArguments.add(parameterFacade);
             }
         }

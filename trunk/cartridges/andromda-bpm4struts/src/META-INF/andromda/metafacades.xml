@@ -43,7 +43,9 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsPackageLogicImpl">
-        <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
+        <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl">
+            <property name="containsFrontEndUseCase"/>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
@@ -59,7 +61,9 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>
+        <mapping class="org.omg.uml.foundation.core.Parameter$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
         <property reference="generateTableDecorators"/>
         <property reference="tableDecoratorSuffix"/>
         <property reference="defaultTableExportTypes"/>
@@ -68,26 +72,41 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl"/>
-    </metafacade>
-
-    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl"/>
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
-            <stereotype>FRONT_END_VIEW</stereotype>
+            <property name="frontEndView"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionStateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+            <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl"/>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandlerLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <property name="frontEndException"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
             <property name="exitingInitialState"/>
+            <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
@@ -97,26 +116,28 @@
         </mapping>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandlerLogicImpl">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
-            <stereotype>FRONT_END_EXCEPTION</stereotype>
+            <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl"/>
-    </metafacade>
-
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl"/>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl"/>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl"/>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl"

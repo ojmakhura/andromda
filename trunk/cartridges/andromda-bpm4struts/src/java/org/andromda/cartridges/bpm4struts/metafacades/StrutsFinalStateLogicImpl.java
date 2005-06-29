@@ -28,6 +28,11 @@ public class StrutsFinalStateLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsContainedInFrontEndUseCase()
+    {
+        return this.getStateMachine() instanceof StrutsActivityGraph;
+    }
+
     public String getName()
     {
         String name = super.getName();
@@ -112,7 +117,7 @@ public class StrutsFinalStateLogicImpl
         Set actions = new HashSet();
         Collection incoming = this.getIncoming();
 
-        for (Iterator incomingIterator = incoming.iterator(); incomingIterator.hasNext();)
+        for (final Iterator incomingIterator = incoming.iterator(); incomingIterator.hasNext();)
         {
             StrutsForward forward = (StrutsForward)incomingIterator.next();
             actions.addAll(forward.getActions());
@@ -126,7 +131,7 @@ public class StrutsFinalStateLogicImpl
         final Map parameterMap = new HashMap();
 
         final Collection transitions = getIncoming();
-        for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+        for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
         {
             final StrutsForward forward = (StrutsForward)transitionIterator.next();
             final List forwardParameters = forward.getForwardParameters();

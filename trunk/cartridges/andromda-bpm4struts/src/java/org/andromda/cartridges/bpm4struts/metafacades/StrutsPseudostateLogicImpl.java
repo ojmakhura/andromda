@@ -26,6 +26,11 @@ public class StrutsPseudostateLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsContainedInFrontEndUseCase()
+    {
+        return this.getStateMachine() instanceof StrutsActivityGraph;
+    }
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate#getActionMethodName()()
      */
@@ -48,11 +53,11 @@ public class StrutsPseudostateLogicImpl
             if (useCase instanceof StrutsUseCase)
             {
                 Collection actions = ((StrutsUseCase)useCase).getActions();
-                for (Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
                     StrutsAction action = (StrutsAction)actionIterator.next();
                     Collection transitions = action.getTransitions();
-                    for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+                    for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                     {
                         TransitionFacade transition = (TransitionFacade)transitionIterator.next();
                         if (this.equals(transition.getTarget()))

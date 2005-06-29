@@ -14,21 +14,24 @@ import java.util.List;
 public class StrutsPackageLogicImpl
         extends StrutsPackageLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsPackageLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
+    }
+
+    protected boolean handleIsContainsFrontEndUseCase()
+    {
+        return !getStrutsUseCases().isEmpty();
     }
 
     protected java.util.List handleGetStrutsUseCases()
     {
         final List useCases = new ArrayList();
 
-        Collection ownedElements = getOwnedElements();
-        for (Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
+        final Collection ownedElements = getOwnedElements();
+        for (final Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
         {
-            Object object = elementIterator.next();
+            final Object object = elementIterator.next();
             if (object instanceof StrutsUseCase)
             {
                 useCases.add(object);
@@ -43,9 +46,9 @@ public class StrutsPackageLogicImpl
         final List useCases = new ArrayList();
 
         final Collection ownedElements = getOwnedElements();
-        for (Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
+        for (final Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
         {
-            Object object = elementIterator.next();
+            final Object object = elementIterator.next();
             if (object instanceof StrutsController)
             {
                 useCases.add(object);

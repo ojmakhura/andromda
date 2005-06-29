@@ -21,6 +21,11 @@ public class StrutsActivityGraphLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsContainedInFrontEndUseCase()
+    {
+        return this.getUseCase() instanceof StrutsUseCase;
+    }
+
     protected boolean handleIsAssociatedWithStrutsUseCase()
     {
         return this.getUseCase() instanceof StrutsUseCase;

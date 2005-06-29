@@ -15,8 +15,6 @@ import java.util.Iterator;
 public class StrutsUserLogicImpl
         extends StrutsUserLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsUserLogicImpl(java.lang.Object metaObject, String context)
     {
         super(metaObject, context);
@@ -27,10 +25,10 @@ public class StrutsUserLogicImpl
         boolean associated = false;
 
         final Collection associationEnds = getAssociationEnds();
-        for (Iterator iterator = associationEnds.iterator(); iterator.hasNext() && !associated;)
+        for (final Iterator iterator = associationEnds.iterator(); iterator.hasNext() && !associated;)
         {
-            AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
-            ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
+            final AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
+            final ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
             associated = classifier instanceof StrutsUseCase;
         }
 

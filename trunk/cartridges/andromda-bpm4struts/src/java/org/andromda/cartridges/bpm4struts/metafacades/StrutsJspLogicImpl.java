@@ -33,6 +33,11 @@ public class StrutsJspLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsFrontEndView()
+    {
+        return this.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_VIEW);
+    }
+
     public String getPackageName()
     {
         String packageName = null;
