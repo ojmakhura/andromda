@@ -96,9 +96,9 @@ ClassifierFacade classifier = (ClassifierFacade)element;
                             into that block). Example:
                        </p>
                        <source language="java">
-for (Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext();)
+for (final Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext();)
 {
-    ModelElement stereotype = (ModelElement)stereotypeIterator.next();
+    final ModelElement stereotype = (ModelElement)stereotypeIterator.next();
     stereoTypeNames.add(stereotype.getName());
 }                        
                         </source>
