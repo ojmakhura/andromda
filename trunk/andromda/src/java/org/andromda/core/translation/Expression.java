@@ -6,7 +6,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 
 /**
- * Contains the translated expression,
+ * Stores the translated expression,
  *
  * @author Chad Brandon
  */
