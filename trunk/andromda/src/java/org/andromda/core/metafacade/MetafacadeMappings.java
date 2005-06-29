@@ -92,7 +92,6 @@ public class MetafacadeMappings
     {
         final String methodName = "MetafacadeMappings.addMapping";
         ExceptionUtils.checkNull(methodName, "mapping", mapping);
-
         final String mappingClassName = mapping.getMappingClassName();
         ExceptionUtils.checkEmpty(methodName, "mapping.mappingClassName", mappingClassName);
         ExceptionUtils.checkNull(
@@ -366,7 +365,7 @@ public class MetafacadeMappings
         {
             final boolean emptyStereotypes = stereotypes == null || stereotypes.isEmpty();
 
-            // first try to find the mapping by context and stereotypes
+            // - first try to find the mapping by context and stereotypes
             if (context != null && !emptyStereotypes)
             {
                 mapping =
@@ -377,8 +376,7 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
                                     mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
                                     valid =
@@ -390,7 +388,7 @@ public class MetafacadeMappings
                         });
             }
 
-            // check for context and metafacade properties
+            // - check for context and metafacade properties
             if (mapping == null && context != null)
             {
                 mapping =
@@ -401,10 +399,9 @@ public class MetafacadeMappings
                             {
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
                                 boolean valid = false;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     mapping.hasContext() && mapping.hasMappingProperties() &&
-                                    !inProcessMappings.contains(mapping) && inProcessMetafacades.isEmpty())
+                                    !inProcessMappings.contains(mapping))
                                 {
                                     if (getContextHierarchy(context).contains(mapping.getContext()))
                                     {
@@ -423,7 +420,7 @@ public class MetafacadeMappings
                         });
             }
 
-            // check just the context alone
+            // - check just the context alone
             if (mapping == null && context != null)
             {
                 mapping =
@@ -434,8 +431,7 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasContext() &&
                                     !mapping.hasStereotypes() && !mapping.hasMappingProperties())
                                 {
                                     valid = getContextHierarchy(context).contains(mapping.getContext());
@@ -456,8 +452,7 @@ public class MetafacadeMappings
                             {
                                 boolean valid = false;
                                 final MetafacadeMapping mapping = (MetafacadeMapping)object;
-                                if (
-                                    metaclassName.equals(mapping.getMappingClassName()) && mapping.hasStereotypes() &&
+                                if (metaclassName.equals(mapping.getMappingClassName()) && mapping.hasStereotypes() &&
                                     !mapping.hasContext() && !mapping.hasMappingProperties())
                                 {
                                     valid = stereotypes.containsAll(mapping.getStereotypes());
@@ -467,7 +462,7 @@ public class MetafacadeMappings
                         });
             }
 
-            // now check for metafacade properties
+            // - now check for metafacade properties
             if (mapping == null)
             {
                 mapping =
@@ -480,7 +475,7 @@ public class MetafacadeMappings
                                 boolean valid = false;
                                 if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     !mapping.hasContext() && mapping.hasMappingProperties() &&
-                                    !inProcessMappings.contains(mapping) && inProcessMetafacades.isEmpty())
+                                    !inProcessMappings.contains(mapping))
                                 {
                                     inProcessMappings.add(mapping);
                                     final MetafacadeBase metafacade =
@@ -496,7 +491,7 @@ public class MetafacadeMappings
                         });
             }
 
-            // finally find the mapping with just the class
+            // - finally find the mapping with just the class
             if (mapping == null)
             {
                 mapping =
@@ -513,13 +508,13 @@ public class MetafacadeMappings
             }
         }
 
-        // if it's still null, try with the parent
+        // - if it's still null, try with the parent
         if (mapping == null && this.parent != null)
         {
             mapping = this.parent.getMapping(metaclassName, mappingObject, context, stereotypes);
         }
 
-        // reset the "in process" metafacades
+        // - reset the "in process" metafacades
         this.inProcessMetafacades.clear();
         return mapping;
     }
@@ -528,7 +523,7 @@ public class MetafacadeMappings
      * Finds the first mapping in the internal {@link #mappings} collection
      * that matches the given predicate.
      * @param predicate the condition
-     * @return
+     * @return the found mapping instance
      */
     private final MetafacadeMapping findMapping(final Condition condition)
     {
@@ -749,7 +744,7 @@ public class MetafacadeMappings
     private MetafacadeMappings parent;
 
     /**
-     * Adds another MetafacadeMappings instance to the namespace metafacade mappings of this instance.
+     * Adds a MetafacadeMappings instance to the namespace metafacade mappings of this instance.
      *
      * @param namespace the namespace name to which the <code>mappings</code> will belong.
      * @param mappings  the MetafacadeMappings instance to add.
@@ -875,12 +870,13 @@ public class MetafacadeMappings
             for (final Iterator iterator = metafacades.iterator(); iterator.hasNext();)
             {
                 final MetafacadeMappings mappings = (MetafacadeMappings)iterator.next();
+                final String namespace = mappings.getNamespace();
 
                 // - If we have 'shared' mappings or only a single set available, they are copied
                 //   to this mappings instance.
-                if (namespaces.isShared(mappings.getNamespace()) || metafacades.size() == 1)
+                if (namespaces.isShared(namespace) || metafacades.size() == 1)
                 {
-                    // - copy over any 'shared' mappings
+                    // - copy over any 'shared' mappings to this root instance
                     this.copyMappings(mappings);
 
                     // - set the metaclass pattern from the 'shared' or single instance of metafacades
@@ -893,9 +889,7 @@ public class MetafacadeMappings
                 else
                 {
                     // add all others as namespace mappings
-                    this.addNamespaceMappings(
-                        mappings.getNamespace(),
-                        mappings);
+                    this.addNamespaceMappings(namespace, mappings);
                 }
             }
         }
