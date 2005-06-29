@@ -62,14 +62,14 @@ public class StrutsControllerOperationLogicImpl
         if (graph != null)
         {
             final Collection actionStates = graph.getActionStates();
-            for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+            for (final Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
                 final Object actionStateObject = actionStateIterator.next();
                 if (actionStateObject instanceof StrutsActionState)
                 {
                     final StrutsActionState actionState = (StrutsActionState)actionStateObject;
                     final Collection controllerCalls = actionState.getControllerCalls();
-                    for (Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
+                    for (final Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
                     {
                         final OperationFacade operation = (OperationFacade)controllerCallIterator.next();
                         if (this.equals(operation))
@@ -81,7 +81,7 @@ public class StrutsControllerOperationLogicImpl
             }
 
             final Collection transitions = graph.getTransitions();
-            for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+            for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
             {
                 final StrutsForward transition = (StrutsForward)transitionIterator.next();
                 final EventFacade event = transition.getTrigger();
@@ -130,7 +130,7 @@ public class StrutsControllerOperationLogicImpl
         // which is also present in this set
         final Set argumentNames = new HashSet();
         final Collection arguments = this.getArguments();
-        for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+        for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
         {
             final ModelElementFacade element = (ModelElementFacade)argumentIterator.next();
             argumentNames.add(element.getName());
@@ -176,7 +176,7 @@ public class StrutsControllerOperationLogicImpl
         }
 
         // since all arguments need to be present we add those that haven't yet been stored in the map
-        for (Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+        for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
         {
             final StrutsParameter argument = (StrutsParameter)argumentIterator.next();
             if (!formFieldsMap.containsKey(argument.getName()))
@@ -194,7 +194,7 @@ public class StrutsControllerOperationLogicImpl
         final Collection deferringActions = this.getDeferringActions();
 
         boolean allArgumentsHaveFormFields = true;
-        for (Iterator argumentIterator = arguments.iterator();
+        for (final Iterator argumentIterator = arguments.iterator();
              argumentIterator.hasNext() && allArgumentsHaveFormFields;)
         {
             final StrutsParameter parameter = (StrutsParameter)argumentIterator.next();
@@ -202,16 +202,16 @@ public class StrutsControllerOperationLogicImpl
             final String parameterType = parameter.getFullyQualifiedName();
 
             boolean actionMissingField = false;
-            for (Iterator actionIterator = deferringActions.iterator();
+            for (final Iterator actionIterator = deferringActions.iterator();
                  actionIterator.hasNext() && !actionMissingField;)
             {
                 final StrutsAction action = (StrutsAction)actionIterator.next();
                 final Collection actionFormFields = action.getActionFormFields();
 
                 boolean fieldPresent = false;
-                for (Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext() && !fieldPresent;)
+                for (final Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext() && !fieldPresent;)
                 {
-                    final StrutsParameter field = (StrutsParameter)fieldIterator.next();
+                    final ModelElementFacade field = (ModelElementFacade)fieldIterator.next();
                     if (parameterName.equals(field.getName()) && parameterType.equals(field.getFullyQualifiedName()))
                     {
                         fieldPresent = true;
@@ -253,7 +253,7 @@ public class StrutsControllerOperationLogicImpl
         // cache this operation's parameters for easy lookup
         final Map parameterMap = new HashMap();
         final Collection controllerParameters = getParameters();
-        for (Iterator iterator = controllerParameters.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = controllerParameters.iterator(); iterator.hasNext();)
         {
             final ParameterFacade parameter = (ParameterFacade)iterator.next();
             parameterMap.put(parameter.getName(), parameter.getType());
@@ -261,7 +261,7 @@ public class StrutsControllerOperationLogicImpl
 
         // make sure that any service parameter exists here too
         final Collection serviceParameters = serviceOperation.getParameters();
-        for (Iterator iterator = serviceParameters.iterator(); iterator.hasNext() && matches;)
+        for (final Iterator iterator = serviceParameters.iterator(); iterator.hasNext() && matches;)
         {
             final ParameterFacade serviceParameter = (ParameterFacade)iterator.next();
             final ClassifierFacade controllerParameterType = (ClassifierFacade)parameterMap.get(
@@ -278,7 +278,7 @@ public class StrutsControllerOperationLogicImpl
         Object operation = null;
 
         final Collection dependencies = getSourceDependencies();
-        for (Iterator dependencyIterator = dependencies.iterator();
+        for (final Iterator dependencyIterator = dependencies.iterator();
              dependencyIterator.hasNext() && operation == null;)
         {
             final DependencyFacade dependency = (DependencyFacade)dependencyIterator.next();
