@@ -17,11 +17,8 @@ public class Bpm4StrutsProfile
 
     /* ----------------- Stereotypes -------------------- */
     public static final String STEREOTYPE_VIEW = profile.get("FRONT_END_VIEW");
-    public static final String STEREOTYPE_EVENT = profile.get("FRONT_END_EVENT");
-    public static final String STEREOTYPE_USER = profile.get("FRONT_END_USER");
     public static final String STEREOTYPE_USECASE = profile.get("FRONT_END_USE_CASE");
     public static final String STEREOTYPE_APPLICATION = profile.get("FRONT_END_APPLICATION");
-    public static final String STEREOTYPE_CONTROLLER = profile.get("FRONT_END_CONTROLLER");
     public static final String STEREOTYPE_EXCEPTION = profile.get("FRONT_END_EXCEPTION");
 
     /* ----------------- Tagged Values -------------------- */
