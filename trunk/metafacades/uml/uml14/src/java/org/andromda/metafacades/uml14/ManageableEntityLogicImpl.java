@@ -35,9 +35,7 @@ import org.apache.commons.lang.StringUtils;
 public class ManageableEntityLogicImpl
     extends ManageableEntityLogic
 {
-    public ManageableEntityLogicImpl(
-        Object metaObject,
-        String context)
+    public ManageableEntityLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -85,14 +83,14 @@ public class ManageableEntityLogicImpl
         final List manageableAssociationEnds = new ArrayList();
 
         final Collection associationEnds = getAssociationEnds();
-        for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
+        for (final Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
             final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
             final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
 
             if (otherEnd.isNavigable())
             {
-                if (associationEnd.isMany2One() || (associationEnd.isOne2One() && otherEnd.isChild()))
+                if (associationEnd.isMany() || (associationEnd.isOne2One() && otherEnd.isChild()))
                 {
                     final Object otherEndType = otherEnd.getType();
                     if (otherEndType instanceof Entity)
@@ -172,7 +170,7 @@ public class ManageableEntityLogicImpl
         final StringBuffer buffer = new StringBuffer();
 
         final Collection attributes = getAttributes();
-        for (Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
+        for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
         {
             if (buffer.length() > 0)
             {
@@ -193,7 +191,7 @@ public class ManageableEntityLogicImpl
         }
 
         final Collection associationEnds = getManageableAssociationEnds();
-        for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
+        for (final Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
             final ManageableEntityAssociationEnd associationEnd =
                 (ManageableEntityAssociationEnd)associationEndIterator.next();
@@ -216,6 +214,10 @@ public class ManageableEntityLogicImpl
                         if (withTypes)
                         {
                             buffer.append(type.getFullyQualifiedName());
+                            if (associationEnd.isMany())
+                            {
+                                buffer.append("[]");
+                            }
                             buffer.append(' ');
                         }
                         buffer.append(associationEnd.getName());
@@ -236,7 +238,7 @@ public class ManageableEntityLogicImpl
     {
         final Set referencingManageables = new HashSet();
         final Collection associationEnds = getAssociationEnds();
-        for (Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
+        for (final Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
             final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
 
@@ -266,7 +268,7 @@ public class ManageableEntityLogicImpl
         }
 
         final Collection attributes = getAttributes();
-        for (Iterator attributeIterator = attributes.iterator();
+        for (final Iterator attributeIterator = attributes.iterator();
             attributeIterator.hasNext() && displayAttribute == null;)
         {
             final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
@@ -296,7 +298,7 @@ public class ManageableEntityLogicImpl
         final Set users = new HashSet();
 
         final Collection dependencies = getTargetDependencies();
-        for (Iterator dependencyIterator = dependencies.iterator(); dependencyIterator.hasNext();)
+        for (final Iterator dependencyIterator = dependencies.iterator(); dependencyIterator.hasNext();)
         {
             final DependencyFacade dependency = (DependencyFacade)dependencyIterator.next();
             final Object dependencyObject = dependency.getSourceElement();
@@ -319,7 +321,7 @@ public class ManageableEntityLogicImpl
             actors.add(actor);
 
             final Collection childActors = actor.getGeneralizedByActors();
-            for (Iterator iterator = childActors.iterator(); iterator.hasNext();)
+            for (final Iterator iterator = childActors.iterator(); iterator.hasNext();)
             {
                 final ActorFacade childActor = (ActorFacade)iterator.next();
                 collectActors(childActor, actors);
@@ -456,7 +458,7 @@ public class ManageableEntityLogicImpl
         final Set allManageableEntities = new TreeSet(new ManageableComparator());
 
         final Collection allClasses = getModel().getAllClasses();
-        for (Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
+        for (final Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
         {
             final Object classObject = classIterator.next();
             if (classObject instanceof ManageableEntity)
