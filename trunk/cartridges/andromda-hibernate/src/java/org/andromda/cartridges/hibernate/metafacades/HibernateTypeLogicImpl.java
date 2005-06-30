@@ -28,10 +28,10 @@ public class HibernateTypeLogicImpl
     protected String handleGetFullyQualifiedHibernateType()
     {
         String fullyQualifiedName = super.getFullyQualifiedName();
-        TypeMappings mappings = this.getHibernateTypeMappings();
+        final TypeMappings mappings = this.getHibernateTypeMappings();
         if (mappings != null)
         {
-            String fullyQualifiedModelName = super.getFullyQualifiedName(true);
+            final String fullyQualifiedModelName = super.getFullyQualifiedName(true);
             if (mappings.getMappings().containsFrom(fullyQualifiedModelName))
             {
                 fullyQualifiedName = mappings.getTo(fullyQualifiedModelName);
@@ -51,9 +51,9 @@ public class HibernateTypeLogicImpl
         final String propertyName = "hibernateTypeMappingsUri";
         if (this.isConfiguredProperty(propertyName))
         {
-            Object property = this.getConfiguredProperty(propertyName);
+            final Object property = this.getConfiguredProperty(propertyName);
             String uri = null;
-            if (String.class.isAssignableFrom(property.getClass()))
+            if (property instanceof String)
             {
                 uri = (String)property;
                 if (StringUtils.isNotBlank(uri))
@@ -63,13 +63,13 @@ public class HibernateTypeLogicImpl
                         mappings = TypeMappings.getInstance((String)property);
                         this.setProperty(propertyName, mappings);
                     }
-                    catch (Throwable th)
+                    catch (final Throwable throwable)
                     {
-                        String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                        logger.error(errMsg);
+                        final String message = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                        logger.error(message);
 
                         // don't throw the exception
-                        ExceptionRecorder.instance().record(errMsg, th);
+                        ExceptionRecorder.instance().record(message, throwable);
                     }
                 }
             }
