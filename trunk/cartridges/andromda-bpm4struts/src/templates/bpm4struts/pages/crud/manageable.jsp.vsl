@@ -238,7 +238,15 @@ form)
                             <c:if test="${${test}}"><html:link action="$manageable.actionPath$linkQuery"><div class="binaryData"><nobr><bean:message key="binary.data"/></nobr></div></html:link></c:if>
                         </display:column>
 #else
-#if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)#set($propertySuffix='Label')#else#set($propertySuffix='')#end
+#if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)
+#if ($member.many)
+#set($propertySuffix='Labels')
+#else
+#set($propertySuffix='Label')
+#end
+#else
+#set($propertySuffix='')
+#end
                         <display:column media="all" property="${member.name}${propertySuffix}"
                             headerClass="$member.name" paramId="$member.name" maxLength="$manageableFieldMaxLength"
                             sortProperty="${member.name}${propertySuffix}" sortable="true" titleKey="$member.messageKey"/>

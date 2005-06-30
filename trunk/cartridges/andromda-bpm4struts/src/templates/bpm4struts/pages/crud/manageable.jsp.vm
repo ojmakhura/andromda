@@ -60,8 +60,10 @@ ${indent}        <select name="$field.name" disabled="disabled"/>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
 #if ($field.type.resolveable)
-${indent}        <select name="$field.name">
+${indent}        <select name="$field.name"#if($field.many) multiple="multiple"#end>
+#if (!$field.many)
 ${indent}            <option value=""><bean:message key="select.option.blank"/></option>
+#end
 ${indent}            <c:forEach var="valueLabel" items="${${list}}">
 ${indent}                <c:choose>
 #set ($test = "valueLabel[0] eq ${manageableFormName}.$field.name")

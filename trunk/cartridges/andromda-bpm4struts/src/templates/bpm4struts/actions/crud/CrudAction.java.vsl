@@ -49,6 +49,9 @@ public final class $manageable.actionClassName extends DispatchAction
 
 #end
 #end
+#foreach ($member in $manageable.manageableMembers)
+System.out.println(request.getParameter("$member.name"));
+#end
         ${manageable.manageableServiceAccessorCall}.create(
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
@@ -161,10 +164,16 @@ public final class $manageable.actionClassName extends DispatchAction
         {
 ## here we assume the id is of a type (with a wrapper) supporting .valueOf(String)
 #set ($identifierType = $member.type.identifiers.iterator().next().type)
+#if ($member.many)
+            final ${identifierType.fullyQualifiedName}[] array = new ${identifierType.fullyQualifiedName}[1];
+            array[0] = new ${identifierType.fullyQualifiedName}(request.getParameter("$referenceParameterName"));
+            form.${member.setterName}(array);
+#else
 #if ($identifierType.primitive)
             form.${member.setterName}(${identifierType.wrapperName}.valueOf(request.getParameter("$referenceParameterName")));
 #else
             form.${member.setterName}(new ${identifierType.fullyQualifiedName}(request.getParameter("$referenceParameterName")));
+#end
 #end
         }
         form.${member.setterName}BackingList((java.util.List)backingLists.get("$member.name"));
