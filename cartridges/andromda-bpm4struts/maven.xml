@@ -38,6 +38,8 @@
             tofile="${maven.build.dest}/resources/WEB-INF/lib/andromda-breadcrumbs-taglib.jar"/>
         <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/andromda-formatting-taglib-${pom.currentVersion}.jar"
             tofile="${maven.build.dest}/resources/WEB-INF/lib/andromda-formatting-taglib.jar"/>
+        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/andromda-collections-taglib-${pom.currentVersion}.jar"
+            tofile="${maven.build.dest}/resources/WEB-INF/lib/andromda-collections-taglib.jar"/>
     </postGoal>
 
 </project>

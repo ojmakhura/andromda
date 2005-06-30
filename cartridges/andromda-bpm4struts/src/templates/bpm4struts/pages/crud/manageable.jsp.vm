@@ -65,17 +65,22 @@ ${indent}        <select name="$field.name"#if($field.many) multiple="multiple"#
 ${indent}            <option value=""><bean:message key="select.option.blank"/></option>
 #end
 ${indent}            <c:forEach var="valueLabel" items="${${list}}">
-${indent}                <c:choose>
-#set ($test = "valueLabel[0] eq ${manageableFormName}.$field.name")
-${indent}                    <c:when test="${${test}}">
 #set ($value = '${valueLabel[0]}')
 #set ($label = '${valueLabel[1]}')
+#if ($member.many)
+#set ($items = "${manageableFormName}.$field.name")
+                        <option value="$value"<collections:contains item="${valueLabel}" array="${${items}}"> selected="selected"</collections:contains>>$label</option>
+#else
+#set ($test = "valueLabel[0] eq ${manageableFormName}.$field.name")
+${indent}                <c:choose>
+${indent}                    <c:when test="${${test}}">
 ${indent}                        <option value="$value" selected="selected">$label</option>
 ${indent}                    </c:when>
 ${indent}                    <c:otherwise>
 ${indent}                        <option value="$value">$label</option>
 ${indent}                    </c:otherwise>
 ${indent}                </c:choose>
+#end
 ${indent}            </c:forEach>
 ${indent}        </select>
 #else
