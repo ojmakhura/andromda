@@ -1,7 +1,8 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.metafacades.uml.GuardFacade;
 import org.andromda.cartridges.jbpm.JBpmProfile;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.GuardFacade;
 
 
 /**
@@ -10,12 +11,17 @@ import org.andromda.cartridges.jbpm.JBpmProfile;
  * @see org.andromda.cartridges.jbpm.metafacades.JBpmTransition
  */
 public class JBpmTransitionLogicImpl
-    extends JBpmTransitionLogic
+        extends JBpmTransitionLogic
 {
-
-    public JBpmTransitionLogicImpl (Object metaObject, String context)
+    public JBpmTransitionLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
+    }
+
+    protected boolean handleIsContainedInBusinessProcess()
+    {
+        return this.getSource().getStateMachine() instanceof ActivityGraphFacade &&
+                ((ActivityGraphFacade)this.getSource().getStateMachine()).getUseCase() instanceof JBpmProcessDefinition;
     }
 
     protected String handleGetCondition()

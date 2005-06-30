@@ -20,6 +20,11 @@ public class JBpmActionLogicImpl
         super (metaObject, context);
     }
 
+    protected boolean handleIsContainedInBusinessProcess()
+    {
+        return this.getTransition() instanceof JBpmTransition;
+    }
+
     /**
      * We override this method in order to be able to return the call-event's operation name
      * when the event's name itself has not been specified.

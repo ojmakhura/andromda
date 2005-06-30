@@ -1,10 +1,16 @@
-#set ($generatedFile = ${clientPackage.replaceAll('.','/')})
-#set ($generatedFile = "${generatedFile}/ProcessManager.java")
+#if (!$processDefinitions.empty)
+#set ($generatedFile = "ProcessManager.java")
+#if ($stringUtils.isNotBlank($clientPackage))
+#set ($packagePath = $stringUtils.replace($clientPackage,'.','/'))
+#set ($generatedFile = "${packagePath}/${generatedFile}")
+#end
+#if ($stringUtils.isNotBlank($clientPackage))
 package ${clientPackage};
 
+#end
 public final class ProcessManager
 {
-    public static void main(String[] java.lang.arguments)
+    public static void main(java.lang.String[] arguments)
     {
         try
         {
@@ -38,13 +44,12 @@ public final class ProcessManager
         {
             ex.printStackTrace();
         }
-
     }
 
 	/**
 	 * Injects the process definition into the database, this should only be done once.
 	 */
-	private static void injectProcesses() throws Exception
+	private static void injectProcesses() throws java.lang.Exception
 	{
 	    final org.jbpm.db.JbpmSession jbpmSession = org.jbpm.db.JbpmSessionFactory.getInstance().openJbpmSession();
 
@@ -62,20 +67,21 @@ public final class ProcessManager
 	    jbpmSession.close();
 	}
 
-    private static void createSchema() throws Exception
+    private static void createSchema() throws java.lang.Exception
     {
         org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().createSchema();
     }
 
-    private static void dropSchema() throws Exception
+    private static void dropSchema() throws java.lang.Exception
     {
         org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().dropSchema();
     }
 
-    private static void cleanSchema() throws Exception
+    private static void cleanSchema() throws java.lang.Exception
     {
         org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().cleanSchema();
     }
 
 
 }
+#end

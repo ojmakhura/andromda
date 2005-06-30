@@ -1,4 +1,4 @@
-#if ($processDefinition.activityPresent)
+#if ($processDefinition.firstActivityGraph)
 #parse("templates/jbpm/definitions/process-definition.xml.vm")
 #set ($generatedFile = "${processDefinition.descriptorFullPath}")
 <?xml version="1.0" encoding="UTF-8"?>

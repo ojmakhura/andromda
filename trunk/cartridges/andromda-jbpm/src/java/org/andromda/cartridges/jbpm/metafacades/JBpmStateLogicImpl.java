@@ -2,6 +2,7 @@ package org.andromda.cartridges.jbpm.metafacades;
 
 import org.andromda.cartridges.jbpm.JBpmProfile;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +22,12 @@ public class JBpmStateLogicImpl
     public JBpmStateLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
+    }
+
+    protected boolean handleIsContainedInBusinessProcess()
+    {
+        return this.getStateMachine() instanceof ActivityGraphFacade
+                && ((ActivityGraphFacade)this.getStateMachine()).getUseCase() instanceof JBpmProcessDefinition;
     }
 
     protected boolean handleIsTaskNode()

@@ -26,6 +26,13 @@ public class JBpmHandlerLogicImpl
         super(metaObject, context);
     }
 
+    protected boolean handleIsContainedInBusinessProcess()
+    {
+        return this.getOwner().getStateMachineContext() instanceof ActivityGraphFacade &&
+                ((ActivityGraphFacade)this.getOwner().getStateMachineContext()).getUseCase()
+                        instanceof JBpmProcessDefinition;
+    }
+
     protected boolean handleIsAssignmentHandler()
     {
         boolean assignmentHandler = false;
@@ -60,52 +67,57 @@ public class JBpmHandlerLogicImpl
         return StringUtilsHelper.upperCamelCaseName(getName());
     }
 
+    private List internalActions = null;
+
     private List internalJBpmActions()
     {
-        final List deferringEvents = new ArrayList();
-
-        final StateMachineFacade stateMachine = getOwner().getStateMachineContext();
-        if (stateMachine instanceof ActivityGraphFacade)
+        if (this.internalActions == null)
         {
-            final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;
-            final Collection actionStates = graph.getActionStates();
-            for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+            internalActions = new ArrayList();
+
+            final StateMachineFacade stateMachine = getOwner().getStateMachineContext();
+            if (stateMachine instanceof ActivityGraphFacade)
             {
-                final StateFacade actionState = (StateFacade) actionStateIterator.next();
-                final Collection events = actionState.getDeferrableEvents();
-                for (Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+                final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;
+                final Collection actionStates = graph.getActionStates();
+                for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
                 {
-                    final EventFacade event = (EventFacade) eventIterator.next();
-                    if (event instanceof JBpmAction)
+                    final StateFacade actionState = (StateFacade) actionStateIterator.next();
+                    final Collection events = actionState.getDeferrableEvents();
+                    for (Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
                     {
-                        final JBpmAction action = (JBpmAction) event;
-                        if (this.equals(action.getOperation()))
+                        final EventFacade event = (EventFacade) eventIterator.next();
+                        if (event instanceof JBpmAction)
                         {
-                            deferringEvents.add(event);
+                            final JBpmAction action = (JBpmAction) event;
+                            if (this.equals(action.getOperation()))
+                            {
+                                internalActions.add(event);
+                            }
                         }
                     }
                 }
-            }
 
-            final Collection transitions = graph.getTransitions();
-            for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
-            {
-                final TransitionFacade transition = (TransitionFacade) transitionIterator.next();
-                final EventFacade event = transition.getTrigger();
-                if (event != null)
+                final Collection transitions = graph.getTransitions();
+                for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                 {
-                    if (event instanceof JBpmAction)
+                    final TransitionFacade transition = (TransitionFacade) transitionIterator.next();
+                    final EventFacade event = transition.getTrigger();
+                    if (event != null)
                     {
-                        final JBpmAction action = (JBpmAction) event;
-                        if (this.equals(action.getOperation()))
+                        if (event instanceof JBpmAction)
                         {
-                            deferringEvents.add(event);
+                            final JBpmAction action = (JBpmAction) event;
+                            if (this.equals(action.getOperation()))
+                            {
+                                internalActions.add(event);
+                            }
                         }
                     }
                 }
             }
         }
 
-        return deferringEvents;
+        return internalActions;
     }
 }
