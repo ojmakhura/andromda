@@ -49,9 +49,6 @@ public final class $manageable.actionClassName extends DispatchAction
 
 #end
 #end
-#foreach ($member in $manageable.manageableMembers)
-System.out.println(request.getParameter("$member.name"));
-#end
         ${manageable.manageableServiceAccessorCall}.create(
 #set ($comma = '')
 #foreach ($member in $manageable.manageableMembers)
