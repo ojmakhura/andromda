@@ -29,4 +29,32 @@
         </attribute>
     </tag>
 
+    <tag>
+        <name>contains</name>
+        <tag-class>org.andromda.taglibs.formatting.ContainsTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            This tag adds allows you to test whether or not an element is present
+            in a Collection instance.
+        </description>
+        <attribute>
+            <name>var</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Object</type>
+            <description>
+                The element to look for.
+            </description>
+        </attribute>
+        <attribute>
+            <name>items</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Object[]</type>
+            <description>
+                The collection instance in which to look for the element.
+            </description>
+        </attribute>
+    </tag>
+
 </taglib>
