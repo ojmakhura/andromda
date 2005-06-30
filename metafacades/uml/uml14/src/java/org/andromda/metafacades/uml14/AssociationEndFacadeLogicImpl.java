@@ -8,6 +8,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -50,7 +51,7 @@ public class AssociationEndFacadeLogicImpl
         final Collection ends = metaObject.getAssociation().getConnection();
         for (Iterator endIt = ends.iterator(); endIt.hasNext();)
         {
-            final AssociationEnd end = (AssociationEnd) endIt.next();
+            final AssociationEnd end = (AssociationEnd)endIt.next();
             if (!metaObject.equals(end))
             {
                 return end;
@@ -80,7 +81,7 @@ public class AssociationEndFacadeLogicImpl
             }
         }
         final String nameMask =
-                String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
         return NameMasker.mask(name, nameMask);
     }
 
@@ -147,6 +148,7 @@ public class AssociationEndFacadeLogicImpl
     {
         boolean isMany = false;
         final Multiplicity multiplicity = this.metaObject.getMultiplicity();
+
         // we'll say a null multiplicity is 1
         if (multiplicity != null)
         {
@@ -156,7 +158,7 @@ public class AssociationEndFacadeLogicImpl
                 final Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    final MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
+                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
                     final int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
@@ -220,7 +222,7 @@ public class AssociationEndFacadeLogicImpl
      */
     protected java.lang.String handleGetGetterName()
     {
-        return "get" + StringUtils.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtilsHelper.capitalize(this.getName());
     }
 
     /**
@@ -248,8 +250,9 @@ public class AssociationEndFacadeLogicImpl
         if (this.isMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();
-            name = isOrdered() ?
-                    mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            name =
+                isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
+                    UMLProfile.COLLECTION_TYPE_NAME);
         }
         if (name == null && this.getType() != null)
         {
@@ -292,7 +295,7 @@ public class AssociationEndFacadeLogicImpl
                 final Iterator rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    final MultiplicityRange multiplicityRange = (MultiplicityRange) rangeIt.next();
+                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
                     lower = new Integer(multiplicityRange.getLower());
                 }
             }

@@ -46,6 +46,17 @@ public class UMLMetafacadeUtils
         }
         return isType;
     }
+    
+    /**
+     * Gets the getter prefix for a getter operation given the <code>type</code>.
+     * 
+     * @param type the type from which to determine the prefix.
+     * @return the gettern prefix.
+     */
+    public static String getGetterPrefix(final ClassifierFacade type)
+    {
+        return type != null && type.isBooleanType() && type.isPrimitive() ? "is" : "get";
+    }
 
     /**
      * Returns true if the passed in constraint <code>expression</code> is of type <code>kind</code>, false otherwise.
