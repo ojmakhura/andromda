@@ -1,5 +1,9 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.NameMasker;
@@ -15,9 +19,6 @@ import org.omg.uml.foundation.datatypes.MultiplicityRange;
 import org.omg.uml.foundation.datatypes.OrderingKind;
 import org.omg.uml.foundation.datatypes.OrderingKindEnum;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 
 /**
@@ -46,15 +47,7 @@ public class AttributeFacadeLogicImpl
      */
     public java.lang.String handleGetGetterName()
     {
-        String prefix = null;
-        if (getType() != null)
-        {
-            prefix = UMLMetafacadeUtils.isType(
-                    getType(),
-                    UMLProfile.BOOLEAN_TYPE_NAME) ? "is" : "get";
-        }
-
-        return StringUtils.trimToEmpty(prefix) + StringUtils.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtilsHelper.capitalize(this.getName());
     }
 
     /**

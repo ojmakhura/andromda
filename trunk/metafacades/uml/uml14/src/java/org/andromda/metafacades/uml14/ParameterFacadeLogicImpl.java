@@ -1,25 +1,29 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.core.common.StringUtilsHelper;
 import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.datatypes.Expression;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
  */
 public class ParameterFacadeLogicImpl
-        extends ParameterFacadeLogic
+    extends ParameterFacadeLogic
 {
-    public ParameterFacadeLogicImpl(org.omg.uml.foundation.core.Parameter metaObject, String context)
+    public ParameterFacadeLogicImpl(
+        org.omg.uml.foundation.core.Parameter metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -32,7 +36,9 @@ public class ParameterFacadeLogicImpl
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.PARAMETER_NAME_MASK));
-        return NameMasker.mask(super.handleGetName(), nameMask);
+        return NameMasker.mask(
+            super.handleGetName(),
+            nameMask);
     }
 
     /**
@@ -40,11 +46,7 @@ public class ParameterFacadeLogicImpl
      */
     protected java.lang.String handleGetGetterName()
     {
-        // BPM-200: only actual boolean types can have the 'is' prefix, we must not make
-        // use of the dynamic mappings since we need to test for the real java type here
-        final String typeName = this.getType() != null ? this.getType().getFullyQualifiedName() : null;
-        final String prefix = "boolean".equals(typeName) ? "is" : "get";
-        return prefix + StringUtilsHelper.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtilsHelper.capitalize(this.getName());
     }
 
     /**
@@ -54,7 +56,6 @@ public class ParameterFacadeLogicImpl
     {
         return "set" + StringUtilsHelper.capitalize(this.getName());
     }
-
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()

@@ -194,6 +194,14 @@ public class ClassifierFacadeLogicImpl
     {
         return UMLMetafacadeUtils.isType(this, UMLProfile.SET_TYPE_NAME);
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isBooleanType()
+     */
+    protected boolean handleIsBooleanType()
+    {
+        return UMLMetafacadeUtils.isType(this, UMLProfile.BOOLEAN_TYPE_NAME);
+    }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDateType()
