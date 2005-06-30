@@ -23,30 +23,41 @@ public final class $manageable.manageableValueObjectClassName
 
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
-    private $member.manageableIdentifier.type.fullyQualifiedName $member.name;
+#if ($member.many)
+#set ($fieldType = "java.util.Collection")
+#else
+#set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
+#end
+    private $fieldType $member.name;
 
-    $member.visibility $member.manageableIdentifier.type.fullyQualifiedName ${member.getterName}()
+    $member.visibility $fieldType ${member.getterName}()
     {
         return this.$member.name;
     }
 
-    $member.visibility void ${member.setterName}($member.manageableIdentifier.type.fullyQualifiedName $member.name)
+    $member.visibility void ${member.setterName}($fieldType $member.name)
     {
         this.$member.name = $member.name;
     }
 
 #if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
-#set ($qualifiedType = $member.type.displayAttribute.type.fullyQualifiedName)
-    private $qualifiedType ${member.name}Label;
+#if ($member.many)
+#set ($fieldType = "java.util.Collection")
+#set ($labelSuffix = "Labels")
+#else
+#set ($fieldType = $member.type.displayAttribute.type.fullyQualifiedName)
+#set ($labelSuffix = "Label")
+#end
+    private $fieldType ${member.name}${labelSuffix};
 
-    $member.visibility $qualifiedType ${member.getterName}Label()
+    $member.visibility $fieldType ${member.getterName}${labelSuffix}()
     {
-        return this.${member.name}Label;
+        return this.${member.name}${labelSuffix};
     }
 
-    $member.visibility void ${member.setterName}Label($qualifiedType ${member.name}Label)
+    $member.visibility void ${member.setterName}${labelSuffix}($fieldType ${member.name}${labelSuffix})
     {
-        this.${member.name}Label = ${member.name}Label;
+        this.${member.name}${labelSuffix} = ${member.name}${labelSuffix};
     }
 
 #end

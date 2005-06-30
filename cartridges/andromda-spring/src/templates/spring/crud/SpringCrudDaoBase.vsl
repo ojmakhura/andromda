@@ -12,7 +12,6 @@ package $manageable.manageablePackageName;
 #if ($manageable.read || $manageable.delete)
 import ${hibernateUtils.basePackage}.Session;
 import ${hibernateUtils.basePackage}.Criteria;
-import ${hibernateUtils.basePackage}.HibernateException;
 import ${hibernateUtils.criterionPackage}.MatchMode;
 import ${hibernateUtils.criterionPackage}.Expression;
 
@@ -47,6 +46,23 @@ public final class $manageable.manageableDaoBaseName
         return this.$member.daoName;
     }
 
+#if ($member.many)## in this case we need to be able to load multiple entities at the same time
+    protected java.util.Set find${member.type.name}ByIds(${member.type.identifiers.iterator().next().type.fullyQualifiedName}[] ids)
+    {
+        final Session session = getSession(false);
+        try
+        {
+            final Criteria criteria = session.createCriteria(${member.type.fullyQualifiedEntityImplementationName}.class);
+            criteria.add(Expression.in("$member.type.identifiers.iterator().next().name", ids));
+            return new java.util.HashSet(criteria.list());
+        }
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+    }
+
+#end
 #end
 #if ($manageable.create)
     public void create($memberList)
@@ -56,12 +72,21 @@ public final class $manageable.manageableDaoBaseName
         entity.${member.setterName}($member.name);
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+#set ($memberEntityName = "${member.name}Entities")
+        java.util.Set $memberEntityName = null;
+        if ($member.name != null)
+        {
+            $memberEntityName = this.find${member.type.name}ByIds($member.name);
+        }
+#else
 #set ($memberEntityName = "${member.name}Entity")
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
             $memberEntityName = ${member.daoGetterName}().load($member.name);
         }
+#end
 #if ($member.required)
         entity.${member.setterName}($memberEntityName);
 #else
@@ -123,10 +148,14 @@ public final class $manageable.manageableDaoBaseName
 #end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+            if ($member.name != null) criteria.createCriteria("$member.name").add(Expression.in("$member.manageableIdentifier.name", $member.name));
+#else
 #if ($member.type.primitive)
             criteria.add(Expression.eq("$member.name", new ${member.manageableIdentifier.type.wrapperName}($member.name)));
 #else
             if ($member.name != null) criteria.createCriteria("$member.name").add(Expression.eq("$member.manageableIdentifier.name", $member.name));
+#end
 #end
 #end
 #if ($manageable.maximumListSize > 0)
@@ -153,7 +182,7 @@ public final class $manageable.manageableDaoBaseName
 #end
             return criteria.list();
         }
-        catch (HibernateException ex)
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }
@@ -202,7 +231,7 @@ public final class $manageable.manageableDaoBaseName
             lists.put("${member.name}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityName item order by item.$member.type.displayAttribute.name").list());
 #end
         }
-        catch (HibernateException ex)
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }
@@ -223,12 +252,21 @@ public final class $manageable.manageableDaoBaseName
 #end
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+#set ($memberEntityName = "${member.name}Entities")
+        java.util.Set $memberEntityName = null;
+        if ($member.name != null)
+        {
+            $memberEntityName = this.find${member.type.name}ByIds($member.name);
+        }
+#else
 #set ($memberEntityName = "${member.name}Entity")
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
             $memberEntityName = ${member.daoGetterName}().load($member.name);
         }
+#end
 #if ($member.required)
         entity.${member.setterName}($memberEntityName);
 #else
@@ -251,7 +289,7 @@ public final class $manageable.manageableDaoBaseName
         {
 #if ($hibernateVersion == "3")
             final ${hibernateUtils.basePackage}.Query queryObject =
-                super.getSession(false).createQuery("delete $manageable.fullyQualifiedEntityImplementationName where ${identifier.name} in (:ids)");
+                session.createQuery("delete $manageable.fullyQualifiedEntityImplementationName where ${identifier.name} in (:ids)");
             queryObject.setParameterList("ids", ids);
             queryObject.executeUpdate();
 #else
@@ -261,7 +299,7 @@ public final class $manageable.manageableDaoBaseName
             getHibernateTemplate().deleteAll(list);
 #end
         }
-        catch (HibernateException ex)
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
             throw super.convertHibernateAccessException(ex);
         }

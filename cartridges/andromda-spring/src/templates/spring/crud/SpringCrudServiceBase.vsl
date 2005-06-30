@@ -158,10 +158,37 @@ public final class $manageable.manageableServiceBaseName
 #end
         valueObject.${member.setterName}(entity.${member.getterName}());
 #end
+
 #foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+        final java.util.Collection $member.name = entity.${member.getterName}();
+        if (${member.name}.isEmpty())
+        {
+            valueObject.${member.setterName}(java.util.Collections.EMPTY_LIST);
+            valueObject.${member.setterName}Labels(java.util.Collections.EMPTY_LIST);
+        }
+        else
+        {
+            final java.util.List values = new java.util.ArrayList();
+#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
+            final java.util.List labels = new java.util.ArrayList();
+#end
+            for (final java.util.Iterator iterator = ${member.name}.iterator(); iterator.hasNext();)
+            {
+                final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
+                values.add(element.${member.manageableIdentifier.getterName}());
+#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
+                labels.add(element.${member.type.displayAttribute.getterName}());
+#end
+            }
+            valueObject.${member.setterName}(values);
+#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
+            valueObject.${member.setterName}Labels(labels);
+#end
+        }
+#else
 #if ($member.manageableIdentifier)
         final $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
-
 #if (!$member.type.primitive)
         if ($member.name != null)
 #end
@@ -171,6 +198,7 @@ public final class $manageable.manageableServiceBaseName
             valueObject.${member.setterName}Label(${member.name}.${member.type.displayAttribute.getterName}());
 #end
         }
+#end
 #end
 #end
 

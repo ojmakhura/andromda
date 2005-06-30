@@ -14,8 +14,6 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsManageableEntityLogicImpl
         extends StrutsManageableEntityLogic
 {
-    // ---------------- constructor -------------------------------
-
     /**
      * @return the configured property denoting the character sequence to use for the separation of namespaces
      */
