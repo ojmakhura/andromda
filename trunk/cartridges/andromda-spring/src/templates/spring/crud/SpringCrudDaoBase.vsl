@@ -93,6 +93,14 @@ public final class $manageable.manageableDaoBaseName
         if ($memberEntityName != null)
         {
             entity.${member.setterName}($memberEntityName);
+#if ($member.many)
+            // set the other ends of the many2many association too
+            for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
+            {
+                final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
+                element.${member.otherEnd.getterName}().add(entity);
+            }
+#end
         }
 #end
 #end
@@ -273,6 +281,14 @@ public final class $manageable.manageableDaoBaseName
         if ($memberEntityName != null)
         {
             entity.${member.setterName}($memberEntityName);
+#if ($member.many)
+            // set the other ends of the many2many association too
+            for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
+            {
+                final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
+                element.${member.otherEnd.getterName}().add(entity);
+            }
+#end
         }
 #end
 #end
