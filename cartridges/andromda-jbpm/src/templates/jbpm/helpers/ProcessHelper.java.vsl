@@ -58,9 +58,5 @@ public class $className
 #foreach ($state in $processDefinition.endStates)
 #renderLocator($state)
 #end
-
-    public static void main(String[] args)
-    {
-    }
 }
 

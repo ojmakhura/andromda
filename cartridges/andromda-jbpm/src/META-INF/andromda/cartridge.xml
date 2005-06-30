@@ -45,12 +45,12 @@
         outputPattern="$generatedFile"
         outlet="clients"
         overwrite="true"
+        generateEmptyFiles="false"
         outputToSingleFile="true">
         <modelElements variable="processDefinitions">
             <modelElement>
                 <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
             </modelElement>
-
         </modelElements>
     </template>
 

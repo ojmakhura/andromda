@@ -23,6 +23,12 @@ public class JBpmPseudostateLogicImpl
         super (metaObject, context);
     }
 
+    protected boolean handleIsContainedInBusinessProcess()
+    {
+        return this.getStateMachine() instanceof ActivityGraphFacade
+                && ((ActivityGraphFacade)this.getStateMachine()).getUseCase() instanceof JBpmProcessDefinition;
+    }
+
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getClazz()
      */

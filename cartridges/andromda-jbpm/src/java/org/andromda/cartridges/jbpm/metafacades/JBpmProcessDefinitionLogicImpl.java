@@ -1,17 +1,16 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.StateFacade;
-import org.andromda.cartridges.jbpm.JBpmProfile;
-import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.List;
-import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -93,12 +92,7 @@ public class JBpmProcessDefinitionLogicImpl
 
     protected boolean handleIsBusinessProcess()
     {
-        return hasStereotype(JBpmProfile.STEREOTYPE_BUSINESS_PROCESS) && isActivityPresent();
-    }
-
-    protected boolean handleIsActivityPresent()
-    {
-        return getFirstActivityGraph() != null;
+        return true;
     }
 
     protected List handleGetSwimlanes()
