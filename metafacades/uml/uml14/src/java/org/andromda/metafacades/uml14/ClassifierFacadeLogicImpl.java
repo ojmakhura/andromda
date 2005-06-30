@@ -148,7 +148,7 @@ public class ClassifierFacadeLogicImpl
         final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
         String uri = null;
-        if (String.class.isAssignableFrom(property.getClass()))
+        if (property instanceof String)
         {
             uri = (String)property;
             try
@@ -156,10 +156,10 @@ public class ClassifierFacadeLogicImpl
                 mappings = TypeMappings.getInstance(uri);
                 this.setProperty(propertyName, mappings);
             }
-            catch (Throwable th)
+            catch (final Throwable throwable)
             {
                 final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                logger.error(errMsg, th);
+                logger.error(errMsg, throwable);
 
                 // don't throw the exception
             }
