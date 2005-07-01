@@ -27,7 +27,7 @@
 #else
         //<!--
 #end
-            function setSelect(form, name, value)
+            function setSelect(multi, form, name, value)
             {
                 var select = form.elements[name];
                 var options = select.options;
@@ -35,12 +35,28 @@
                 // for browser compatibility's sake we go through the options ourselves
                 for (var i=0; i<options.length; i++)
                 {
-                    if (options[i].value == value)
+                    if (multi)
                     {
-                        select.selectedIndex = i;
-                        break;
+                        // Array.indexOf is defined in Javascript 1.5, not before
+                        options[i].selected = arrayContainsElement(value,options[i].value);
                     }
+                    else
+                    {
+                        if (options[i].value == value)
+                        {
+                            select.selectedIndex = i;
+                            break;
+                        }
+                    }
+
                 }
+            }
+
+            function arrayContainsElement(array, element)
+            {
+              var containsElement = false;
+              for (var i=0; i<array.length && !containsElement; i++) containsElement = (array[i] == element);
+              return containsElement;
             }
 
             function setAction(crud) { document.forms['${manageable.formBeanName}'].elements['$manageable.actionParameter'].value = crud; }
@@ -72,7 +88,11 @@ false,## no newline
 #end
 #end
 #foreach($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+"[]",## no newline
+#else
 "",## no newline
+#end
 #end
 form);
             }
@@ -100,7 +120,11 @@ form)
 #end
 #end
 #foreach($member in $manageable.manageableAssociationEnds)
-                setSelect(form,"$member.name",$member.name);
+#if ($member.many)
+                setSelect(true,form,"$member.name",${member.name}.substring(1,${member.name}.length-1).split(", "));
+#else
+                setSelect(false,form,"$member.name",$member.name);
+#end
 #end
             }
 #if ($xhtml == "true")
