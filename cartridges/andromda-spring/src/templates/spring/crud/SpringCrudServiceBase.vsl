@@ -165,7 +165,9 @@ public final class $manageable.manageableServiceBaseName
         if (${member.name}.isEmpty())
         {
             valueObject.${member.setterName}(java.util.Collections.EMPTY_LIST);
+#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
             valueObject.${member.setterName}Labels(java.util.Collections.EMPTY_LIST);
+#end
         }
         else
         {

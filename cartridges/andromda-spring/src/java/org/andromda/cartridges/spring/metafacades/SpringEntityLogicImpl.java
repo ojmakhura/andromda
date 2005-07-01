@@ -161,13 +161,13 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetBeanName(boolean targetSuffix)
     {
-        StringBuffer beanName = new StringBuffer(StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName())));
-        beanName = new StringBuffer(this.getDaoNamePattern().replaceAll("\\{0\\}", beanName.toString()));
+        final String beanName = StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName()));
+        final StringBuffer beanNameBuffer = new StringBuffer(this.getDaoNamePattern().replaceAll("\\{0\\}", beanName));
         if (targetSuffix)
         {
-            beanName.append(SpringGlobals.BEAN_NAME_TARGET_SUFFIX);
+            beanNameBuffer.append(SpringGlobals.BEAN_NAME_TARGET_SUFFIX);
         }
-        return beanName.toString();
+        return beanNameBuffer.toString();
     }
 
     /**
@@ -175,7 +175,7 @@ public class SpringEntityLogicImpl
      */
     protected String handleGetEntityName()
     {
-        String entityNamePattern = (String)this.getConfiguredProperty("entityNamePattern");
+        final String entityNamePattern = (String)this.getConfiguredProperty("entityNamePattern");
         return MessageFormat.format(entityNamePattern, new Object[]{StringUtils.trimToEmpty(this.getName())});
     }
 

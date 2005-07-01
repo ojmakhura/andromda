@@ -94,12 +94,19 @@ public final class $manageable.manageableDaoBaseName
         {
             entity.${member.setterName}($memberEntityName);
 #if ($member.many)
+#if ($member.otherEnd.navigable)
             // set the other ends of the many2many association too
             for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
             {
                 final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
                 element.${member.otherEnd.getterName}().add(entity);
             }
+#else
+            // we ought to be setting the other end of the many2many association here
+            // but the navigability on the other end has been disabled, therefore doing
+            // the following would break compilation: element.${member.otherEnd.getterName}()
+            // the result is that only one end of this association will be set
+#end
 #end
         }
 #end
@@ -282,12 +289,19 @@ public final class $manageable.manageableDaoBaseName
         {
             entity.${member.setterName}($memberEntityName);
 #if ($member.many)
+#if ($member.otherEnd.navigable)
             // set the other ends of the many2many association too
             for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
             {
                 final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
                 element.${member.otherEnd.getterName}().add(entity);
             }
+#else
+            // we ought to be setting the other end of the many2many association here
+            // but the navigability on the other end has been disabled, therefore doing
+            // the following would break compilation: element.${member.otherEnd.getterName}()
+            // the result is that only one end of this association will be set
+#end
 #end
         }
 #end
