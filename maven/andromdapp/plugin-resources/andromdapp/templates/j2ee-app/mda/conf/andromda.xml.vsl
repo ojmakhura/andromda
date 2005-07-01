@@ -67,11 +67,11 @@
 #if ($hibernateVersion == "2")
                 <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
-                <property name="hibernateTransactionFactoryClass">net.sf.hibernate.transaction.JTATransactionFactory</a>
+                <property name="hibernateTransactionFactoryClass">net.sf.hibernate.transaction.JTATransactionFactory</property>
 #else
                 <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
-                <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</a>
+                <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
 #end
                 <property name="entities">${maven.andromda.core.generated.dir}</property>
                 <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
