@@ -244,7 +244,7 @@ public class ManageableEntityLogicImpl
 
             if (associationEnd.isNavigable())
             {
-                if (associationEnd.isOne2Many() || (associationEnd.isOne2One() && associationEnd.isChild()))
+                if (associationEnd.isMany() || (associationEnd.isOne2One() && associationEnd.isChild()))
                 {
                     final Object otherEndType = associationEnd.getOtherEnd().getType();
                     if (otherEndType instanceof Entity)
