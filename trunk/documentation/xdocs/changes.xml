@@ -9,7 +9,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-RC1-SNAPSHOT" date="2005-06-30" description="First release candidate of version 3.1">
+        <release version="3.1-RC1-SNAPSHOT" date="2005-07-01" description="First release candidate of version 3.1">
+            <action dev="cwbrandon" type="update">
+                The BPM4Struts tagged values <em>@andromda.struts.usecase.activity</em> and <e>@andromda.struts.controller.usecase</e> have been renamed
+                to <em>@andromda.presentation.usecase.activity</em> and <em>@andromda.presentation.controller.usecase</em>.
+            </action>
             <action dev="draftdog" type="add" issue="BPM-210">
                 The CRUD feature now supports many2many relationships between manageable entities. The page will
                 contain a list in which multiple selections can be made, for each such navigable relation end.

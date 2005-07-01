@@ -1,17 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UMLMetafacadeUtils;
-import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.UseCaseFacade;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +11,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -616,7 +617,7 @@ public class StrutsParameterLogicImpl
             final UseCaseFacade useCase = (UseCaseFacade)useCaseIterator.next();
             if (useCase instanceof StrutsUseCase)
             {
-                final StrutsActivityGraph graph = ((StrutsUseCase)useCase).getActivityGraph();
+                final FrontEndActivityGraph graph = ((StrutsUseCase)useCase).getActivityGraph();
                 if (graph != null)
                 {
                     final Collection transitions = graph.getTransitions();

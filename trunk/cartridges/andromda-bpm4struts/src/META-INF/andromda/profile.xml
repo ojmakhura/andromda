@@ -20,26 +20,6 @@
     </documentation>
     <elements>
         <elementGroup name="Stereotypes">
-            <element name="FRONT_END_VIEW">
-                <documentation>
-                    This stereotype is modeled on an action state to denote it is representing a JSP page.
-                </documentation>
-                <value>FrontEndView</value>
-            </element>
-            <element name="FRONT_END_USE_CASE">
-                <documentation>
-                    A use-case that participates in the front-end processes. Use this stereotype to tell the cartridge to
-                    include this use-case in the generation process.
-                </documentation>
-                <value>FrontEndUseCase</value>
-            </element>
-            <element name="FRONT_END_APPLICATION">
-                <documentation>
-                    The use-case flagged with this stereotype will be the application's starting point,
-                    you can only use this stereotype in combination with the <![CDATA[<<FrontEndUseCase>>]]> stereotype.
-                </documentation>
-                <value>FrontEndApplication</value>
-            </element>
             <element name="FRONT_END_EXCEPTION">
                 <documentation>
                     Modeled on a transition it designates an exception occuring while processing an action,
@@ -348,26 +328,6 @@
                     Indicates which exception this handler takes care of
                 </documentation>
                 <value>@andromda.struts.exception.type</value>
-            </element>
-            <element name="CONTROLLER_USECASE">
-                <documentation>
-                    The value should correspond to the use-case holding the activity graph
-                    which has this controller as its context. This is used when deferring operations to
-                    the controller. Please note that if your CASE tool supports setting the context of an
-                    activity graph you will not need to explicitely set this tagged value. This feature
-                    has been provided to support tool such as Poseidon that have only limited UML support.
-                    If you are a MagicDraw user you will not need to use this tagged value, instead
-                    assign the controller by right clicking on it and selecting "Assign...".
-                </documentation>
-                <value>@andromda.struts.controller.usecase</value>
-            </element>
-            <element name="USECASE_ACTIVITY">
-                <documentation>
-                    For tools that do not allow the placement of activity graphs inside of a use-case
-                    you can use this tagged value to point to an activity graph, this will link them and
-                    denotes that the graphs specifies this use-case.
-                </documentation>
-                <value>@andromda.struts.usecase.activity</value>
             </element>
             <element name="ACTION_REDIRECT">
                 <documentation>

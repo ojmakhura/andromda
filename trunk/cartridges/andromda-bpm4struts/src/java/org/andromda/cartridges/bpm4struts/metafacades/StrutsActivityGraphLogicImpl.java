@@ -1,11 +1,11 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import java.util.Collection;
+
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
-
-import java.util.Collection;
 
 
 /**
@@ -19,16 +19,6 @@ public class StrutsActivityGraphLogicImpl
     public StrutsActivityGraphLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
-    }
-
-    protected boolean handleIsContainedInFrontEndUseCase()
-    {
-        return this.getUseCase() instanceof StrutsUseCase;
-    }
-
-    protected boolean handleIsAssociatedWithStrutsUseCase()
-    {
-        return this.getUseCase() instanceof StrutsUseCase;
     }
 
     protected Object handleGetFirstAction()
@@ -50,7 +40,7 @@ public class StrutsActivityGraphLogicImpl
 
         if (useCase == null)
         {
-            useCase = getModel().findUseCaseWithTaggedValueOrHyperlink(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY,
+            useCase = getModel().findUseCaseWithTaggedValueOrHyperlink(UMLProfile.TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY,
                     getName());
         }
 
@@ -85,7 +75,7 @@ public class StrutsActivityGraphLogicImpl
             {
                 final String useCaseName = useCase.getName();
                 controller = getModel().findClassWithTaggedValueOrHyperlink(
-                        Bpm4StrutsProfile.TAGGEDVALUE_CONTROLLER_USE_CASE, useCaseName);
+                        UMLProfile.TAGGEDVALUE_PRESENTATION_CONTROLLER_USECASE, useCaseName);
             }
         }
 

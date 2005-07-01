@@ -1,29 +1,30 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.LinkedHashMap;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.UMLProfile;
 
 
 /**
  * MetafacadeLogic implementation.
- *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase
  */
 public class StrutsUseCaseLogicImpl
@@ -65,7 +66,7 @@ public class StrutsUseCaseLogicImpl
     {
         String actionPath = null;
 
-        final StrutsActivityGraph graph = getActivityGraph();
+        final StrutsActivityGraph graph = (StrutsActivityGraph)getActivityGraph();
         if (graph != null)
         {
             final StrutsAction action = graph.getFirstAction();
@@ -81,7 +82,7 @@ public class StrutsUseCaseLogicImpl
     {
         String actionPathRoot = null;
 
-        final StrutsActivityGraph graph = getActivityGraph();
+        final StrutsActivityGraph graph = (StrutsActivityGraph)getActivityGraph();
         if (graph != null)
         {
             final StrutsAction action = graph.getFirstAction();
@@ -91,6 +92,29 @@ public class StrutsUseCaseLogicImpl
             }
         }
         return actionPathRoot;
+    }
+    
+    /**
+     * @see org.andromda.bpm4struts.metafacades.StrutsUseCase#isCyclic()
+     */
+    protected boolean handleIsCyclic()
+    {
+        boolean selfTargetting = false;
+        final ActivityGraphFacade graph = getActivityGraph();
+        if (graph != null)
+        {
+            final Collection finalStates = graph.getFinalStates();
+            for (final Iterator finalStateIterator = finalStates.iterator();
+                finalStateIterator.hasNext() && !selfTargetting;)
+            {
+                final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
+                if (this.equals(finalState.getTargetUseCase()))
+                {
+                    selfTargetting = true;
+                }
+            }
+        }
+        return selfTargetting;
     }
 
     protected String handleGetActionRoles()
@@ -117,38 +141,6 @@ public class StrutsUseCaseLogicImpl
     public Collection getOperations()
     {
         return Collections.EMPTY_LIST;
-    }
-
-    protected java.lang.Object handleGetActivityGraph()
-    {
-        ActivityGraphFacade activityGraph = null;
-
-        /*
-         * In case there is a tagged value pointing to an activity graph, and this graph is found,
-         * then return it.
-         */
-        final Object activity = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_USECASE_ACTIVITY);
-        if (activity != null)
-        {
-            final String activityName = String.valueOf(activity.toString());
-            activityGraph = getModel().findActivityGraphByName(activityName);
-        }
-
-        /*
-         * Otherwise just take the first one in this use-case's namespace.
-         */
-        if (activityGraph == null)
-        {
-            final Collection ownedElements = getOwnedElements();
-            for (final Iterator iterator = ownedElements.iterator(); iterator.hasNext();)
-            {
-                Object obj = iterator.next();
-                if (obj instanceof StrutsActivityGraph)
-                    return obj;
-            }
-        }
-
-        return activityGraph;
     }
 
     /**
@@ -221,7 +213,7 @@ public class StrutsUseCaseLogicImpl
     {
         List pagesList = null;
 
-        final StrutsActivityGraph graph = getActivityGraph();
+        final ActivityGraphFacade graph = getActivityGraph();
         if (graph == null)
         {
             pagesList = Collections.EMPTY_LIST;
@@ -229,7 +221,7 @@ public class StrutsUseCaseLogicImpl
         else
         {
             pagesList = new ArrayList(
-                    getModel().getAllActionStatesWithStereotype(graph, Bpm4StrutsProfile.STEREOTYPE_VIEW));
+                    getModel().getAllActionStatesWithStereotype(graph, UMLProfile.STEREOTYPE_FRONT_END_VIEW));
         }
         return pagesList;
     }
@@ -246,25 +238,6 @@ public class StrutsUseCaseLogicImpl
                 pagesList.add(actionState);
         }
         return pagesList;
-    }
-
-    protected List handleGetAllUseCases()
-    {
-        final List useCases = new ArrayList();
-
-        for (final Iterator useCaseIterator = getModel().getAllUseCases().iterator(); useCaseIterator.hasNext();)
-        {
-            Object object = useCaseIterator.next();
-            if (object instanceof StrutsUseCase)
-                useCases.add(object);
-        }
-        return useCases;
-    }
-
-    protected Object handleGetController()
-    {
-        final StrutsActivityGraph graph = getActivityGraph();
-        return (graph == null) ? null : graph.getController();
     }
 
     protected List handleGetFormFields()
@@ -328,7 +301,7 @@ public class StrutsUseCaseLogicImpl
             actions.addAll(jsp.getActions());
         }
 
-        final StrutsActivityGraph graph = getActivityGraph();
+        final StrutsActivityGraph graph = (StrutsActivityGraph)getActivityGraph();
         if (graph != null)
         {
             final StrutsAction action = graph.getFirstAction();
@@ -368,35 +341,7 @@ public class StrutsUseCaseLogicImpl
 
     protected boolean handleIsApplicationUseCase()
     {
-        return hasStereotype(Bpm4StrutsProfile.STEREOTYPE_APPLICATION);
-    }
-
-    protected boolean handleIsCyclic()
-    {
-        boolean selfTargetting = false;
-
-        final StrutsActivityGraph graph = getActivityGraph();
-        if (graph != null)
-        {
-            final Collection finalStates = graph.getFinalStates();
-            for (final Iterator finalStateIterator = finalStates.iterator();
-                 finalStateIterator.hasNext() && !selfTargetting;)
-            {
-                final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
-                if (this.equals(finalState.getTargetUseCase()))
-                {
-                    selfTargetting = true;
-                }
-            }
-        }
-
-        return selfTargetting;
-    }
-
-    protected List handleGetReferencingFinalStates()
-    {
-        final List referencingFinalStates = new ArrayList(this.getModel().findFinalStatesWithNameOrHyperlink(this));
-        return referencingFinalStates;
+        return this.isEntryUseCase();
     }
 
     protected String handleGetCssFileName()
@@ -436,7 +381,7 @@ public class StrutsUseCaseLogicImpl
     {
         final StrutsUseCase useCase = (StrutsUseCase)root.getUserObject();
 
-        final StrutsActivityGraph graph = useCase.getActivityGraph();
+        final FrontEndActivityGraph graph = useCase.getActivityGraph();
         if (graph != null)
         {
             final Collection finalStates = graph.getFinalStates();

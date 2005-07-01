@@ -106,6 +106,21 @@ public class UMLProfile
      * Represents a manageable entity.
      */
     public static final String STEREOTYPE_MANAGEABLE = profile.get("MANAGEABLE");
+    
+    /**
+     * Represents a "front end" use case (that is a use case used to model a presentation tier or "front end").
+     */
+    public static final String STEREOTYPE_FRONT_END_USECASE = profile.get("FRONT_END_USE_CASE");
+    
+    /**
+     * Represents a "front end" use case that is the entry point to the presentation tier.
+     */
+    public static final String STEREOTYPE_FRONT_END_APPLICATION = profile.get("FRONT_END_APPLICATION");
+    
+    /**
+     * Represents a "front end" view (that is it can represent a JSP page, etc).
+     */
+    public static final String STEREOTYPE_FRONT_END_VIEW = profile.get("FRONT_END_VIEW");
 
     /* ----------------- Tagged Values -------------------- */
 
@@ -113,6 +128,11 @@ public class UMLProfile
      * Represents documentation stored as a tagged value
      */
     public static final String TAGGEDVALUE_DOCUMENTATION = profile.get("DOCUMENTATION");
+    
+    /**
+     * Represents a hyperlink stored as a tagged value.
+     */
+    public static final String TAGGEDVALUE_HYPERLINK = profile.get("HYPERLINK");
 
     /**
      * Represents a relational table name for entity persistence.
@@ -158,6 +178,16 @@ public class UMLProfile
      */
     public static final String TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME = profile.get(
         "PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME");
+    
+    /**
+     * Used to assign the controller to the activity (when it can not be assigned explicity).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_CONTROLLER_USECASE = profile.get("PRESENTATION_CONTROLLER_USECASE");
+    
+    /**
+     * Used to associate an activity to a use case (when it can not be assigned explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY = profile.get("PRESENTATION_USECASE_ACTIVITY");
 
     /**
      * Stores the style of a web service (document, wrapped, rpc).
