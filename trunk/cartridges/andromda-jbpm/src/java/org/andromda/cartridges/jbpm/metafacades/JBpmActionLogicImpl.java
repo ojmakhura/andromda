@@ -22,7 +22,8 @@ public class JBpmActionLogicImpl
 
     protected boolean handleIsContainedInBusinessProcess()
     {
-        return this.getTransition() instanceof JBpmTransition;
+        // an action is modeled either on a state either on a transition
+        return (this.getState() instanceof JBpmNode) || (this.getTransition() instanceof JBpmTransition);
     }
 
     /**
@@ -82,7 +83,8 @@ public class JBpmActionLogicImpl
      */
     protected boolean handleIsTask()
     {
-        return this.hasStereotype(JBpmProfile.STEREOTYPE_TASK);
+        // tasks may only be used on a node, not on a wait-state
+        return this.hasStereotype(JBpmProfile.STEREOTYPE_TASK) && this.getState() instanceof JBpmNode;
     }
 
     /**

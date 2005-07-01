@@ -160,11 +160,22 @@ ${indent}</event>
 ##
 #macro (tasks $taskNode $indent)
 #foreach ($task in $taskNode.tasks)
-${indent}<task#renderName($task)#renderDueDate($task) blocking="$task.blocking">
-#if ($task.assignment)
-${indent}    <assignment#renderClass($task)#renderConfigType($task)/>
+${indent}<task#renderName($task)#renderDueDate($task) blocking="$task.blocking"## no newline
+#if ($task.operation.arguments.empty)
+/>
+#else
+>
+${indent}    <controller>
+#foreach ($parameter in $task.operation.arguments)
+#set($access=false)#set($comma="")
+#if($parameter.required)#set($access="required")#set($comma=",")#end
+#if($parameter.readable)#set($access="${comma}read")#set($comma=",")
+#elseif($parameter.writeable)#set($access="${comma}write")#end
+${indent}        <variable name="$parameter.name"#if($access) access="${access}"#end/>
 #end
+${indent}    </controller>
 ${indent}</task>
+#end
 #end
 #end
 ##
