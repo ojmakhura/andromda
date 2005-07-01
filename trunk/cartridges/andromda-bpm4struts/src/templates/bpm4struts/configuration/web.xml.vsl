@@ -120,7 +120,7 @@
         </web-resource-collection>
 #if ($useCase.secured)
         <auth-constraint>
-#foreach ($user in $useCase.users)
+#foreach ($user in $useCase.roles)
             <role-name>$user.name</role-name>
 #end
         </auth-constraint>
@@ -171,7 +171,7 @@
 
     <!-- security-role merge-point -->
 #set ($counter = 0)
-#foreach ($user in $applicationUseCase.allUsers)
+#foreach ($user in $applicationUseCase.allRoles)
 #if ($generateWebXmlIds=="true")
 #set ($counter = $counter + 1)
     <security-role id="security_role_$counter">

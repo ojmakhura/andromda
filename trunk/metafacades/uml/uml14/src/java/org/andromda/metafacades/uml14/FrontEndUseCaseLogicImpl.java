@@ -3,11 +3,15 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
 
 
@@ -94,8 +98,82 @@ public class FrontEndUseCaseLogicImpl
         {
             final Object object = useCaseIterator.next();
             if (object instanceof FrontEndUseCase)
+            {
                 useCases.add(object);
+            }
         }
         return useCases;
+    }
+    
+    /**
+     * Gets those roles directly associated to this use-case.
+     */
+    private final Collection getAssociatedRoles()
+    {
+        final Collection usersList = new ArrayList();
+        final Collection associationEnds = getAssociationEnds();
+        for (final Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
+        {
+            final AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
+            final ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
+            if (classifier instanceof Role)
+            {
+                usersList.add(classifier);
+            }
+        }
+        return usersList;
+    }
+    
+    /**
+     * Recursively collects all roles generalizing the argument user, in the specified collection.
+     */
+    private final void collectRoles(final Role role, final Collection roles)
+    {
+        if (!roles.contains(role))
+        {
+            roles.add(role);
+            final Collection childUsers = role.getGeneralizedByActors();
+            for (final Iterator iterator = childUsers.iterator(); iterator.hasNext();)
+            {
+                final Role childUser = (Role)iterator.next();
+                this.collectRoles(childUser, roles);
+            }
+        }
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndUseCase#getRoles()
+     */
+    protected List handleGetRoles()
+    {
+        final Collection allRoles = new LinkedHashSet();
+        final Collection associatedUsers = this.getAssociatedRoles();
+        for (final Iterator iterator = associatedUsers.iterator(); iterator.hasNext();)
+        {
+            final Role user = (Role)iterator.next();
+            this.collectRoles(user, allRoles);
+        }
+        return new ArrayList(allRoles);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndUseCase#getAllRoles()
+     */
+    protected List handleGetAllRoles()
+    {
+        final Collection allRoles = new LinkedHashSet();
+        for (final Iterator iterator = this.getAllUseCases().iterator(); iterator.hasNext();)
+        {
+            allRoles.addAll(((FrontEndUseCase)iterator.next()).getRoles());
+        }
+        return new ArrayList(allRoles);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndUseCase#isSecured()
+     */
+    protected boolean handleIsSecured()
+    {
+        return !this.getRoles().isEmpty();
     }
 }

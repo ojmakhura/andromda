@@ -330,7 +330,7 @@ public class StrutsActionLogicImpl
             final StrutsUseCase useCase = getUseCase();
             if (useCase != null)
             {
-                roleUsers.addAll(useCase.getUsers());
+                roleUsers.addAll(useCase.getRoles());
             }
         }
         else
@@ -343,7 +343,7 @@ public class StrutsActionLogicImpl
                     final StrutsUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
                     if (useCase != null)
                     {
-                        roleUsers.addAll(useCase.getUsers());
+                        roleUsers.addAll(useCase.getRoles());
                     }
                 }
             }

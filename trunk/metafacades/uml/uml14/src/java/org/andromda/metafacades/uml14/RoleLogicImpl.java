@@ -1,6 +1,13 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.Service;
@@ -11,8 +18,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.Role.
@@ -20,11 +25,12 @@ import java.util.HashSet;
  * @see org.andromda.metafacades.uml.Role
  */
 public class RoleLogicImpl
-        extends RoleLogic
+    extends RoleLogic
 {
     // ---------------- constructor -------------------------------
-
-    public RoleLogicImpl(Object metaObject, String context)
+    public RoleLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -43,8 +49,9 @@ public class RoleLogicImpl
         else
         {
             name = super.handleGetName();
-            String mask = StringUtils.trimToEmpty(String.valueOf(
-                    this.getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
+            String mask =
+                StringUtils.trimToEmpty(
+                    String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ROLE_NAME_MASK)));
             name = NameMasker.mask(name, mask);
         }
         return name;
@@ -56,22 +63,43 @@ public class RoleLogicImpl
     protected boolean handleIsReferencesPresent()
     {
         final Collection allSourceDependencies = new HashSet(this.getSourceDependencies());
-        for (GeneralizableElementFacade parent = this.getGeneralization();
-             parent != null; parent = parent.getGeneralization())
+        for (
+            GeneralizableElementFacade parent = this.getGeneralization(); parent != null;
+            parent = parent.getGeneralization())
         {
             allSourceDependencies.addAll(parent.getSourceDependencies());
         }
-        Object test = CollectionUtils.find(allSourceDependencies, new Predicate()
+        boolean present =
+            CollectionUtils.find(
+                allSourceDependencies,
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        DependencyFacade dependency = (DependencyFacade)object;
+                        Object target = dependency.getTargetElement();
+                        return target instanceof Service || target instanceof ServiceOperation;
+                    }
+                }) != null;
+
+        // - if no references on any services, try the FrontEndUseCases
+        if (!present)
         {
-            public boolean evaluate(Object object)
+            final Collection associationEnds = this.getAssociationEnds();
+            for (final Iterator iterator = associationEnds.iterator(); iterator.hasNext() && !present;)
             {
-                DependencyFacade dependency = (DependencyFacade)object;
-                Object target = dependency.getTargetElement();
-                return target instanceof Service || target instanceof ServiceOperation;
+                final AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
+                final ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
+                present = classifier instanceof FrontEndUseCase;
             }
-        });
 
-        return test != null;
+            // - a generalized role is still a role, and therefore is associated with the FrontEndUseCase
+            if (!present)
+            {
+                present = !this.getGeneralizedActors().isEmpty();
+            }
+        }
+
+        return present;
     }
-
 }
