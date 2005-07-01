@@ -10,6 +10,11 @@
     </properties>
     <body>
         <release version="3.1-RC1-SNAPSHOT" date="2005-07-01" description="First release candidate of version 3.1">
+            <action dev="draftdog" type="update">
+                The <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a>
+                tool now generates the versions of all dependencies into the
+                <code>build.properties</code> file in the root of the project.
+            </action>
             <action dev="cwbrandon" type="update">
                 The BPM4Struts tagged values <em>@andromda.struts.usecase.activity</em> and <e>@andromda.struts.controller.usecase</e> have been renamed
                 to <em>@andromda.presentation.usecase.activity</em> and <em>@andromda.presentation.controller.usecase</em>.
