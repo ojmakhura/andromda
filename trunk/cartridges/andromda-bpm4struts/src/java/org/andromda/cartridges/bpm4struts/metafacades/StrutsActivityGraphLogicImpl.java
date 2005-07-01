@@ -33,25 +33,7 @@ public class StrutsActivityGraphLogicImpl
         }
         return firstAction;
     }
-
-    public UseCaseFacade getUseCase()
-    {
-        UseCaseFacade useCase = super.getUseCase();
-
-        if (useCase == null)
-        {
-            useCase = getModel().findUseCaseWithTaggedValueOrHyperlink(UMLProfile.TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY,
-                    getName());
-        }
-
-        if ((useCase instanceof StrutsUseCase) == false)
-        {
-            // unset the use-case because it should not be processed (eg. missing <<FrontEndUseCase>> stereotype)
-            useCase = null;
-        }
-        return useCase;
-    }
-
+    
     protected Object handleGetController()
     {
         Object controller = null;
