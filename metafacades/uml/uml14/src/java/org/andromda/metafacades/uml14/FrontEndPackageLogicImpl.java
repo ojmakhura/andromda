@@ -1,60 +1,61 @@
-package org.andromda.cartridges.bpm4struts.metafacades;
+package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.andromda.metafacades.uml.FrontEndController;
+import org.andromda.metafacades.uml.FrontEndUseCase;
+
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsPackage.
+ * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndPackage.
  *
- * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPackage
+ * @see org.andromda.metafacades.uml.FrontEndPackage
  */
-public class StrutsPackageLogicImpl
-        extends StrutsPackageLogic
+public class FrontEndPackageLogicImpl
+    extends FrontEndPackageLogic
 {
-    public StrutsPackageLogicImpl(Object metaObject, String context)
-    {
-        super(metaObject, context);
-    }
 
-    protected boolean handleIsContainsFrontEndUseCase()
+    public FrontEndPackageLogicImpl (Object metaObject, String context)
     {
-        return !getStrutsUseCases().isEmpty();
+        super (metaObject, context);
     }
-
-    protected java.util.List handleGetStrutsUseCases()
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndPackage#getFrontEndUseCases()
+     */
+    protected java.util.List handleGetFrontEndUseCases()
     {
         final List useCases = new ArrayList();
-
         final Collection ownedElements = getOwnedElements();
         for (final Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
         {
             final Object object = elementIterator.next();
-            if (object instanceof StrutsUseCase)
+            if (object instanceof FrontEndUseCase)
             {
                 useCases.add(object);
             }
         }
-
         return useCases;
     }
 
-    protected java.util.List handleGetStrutsControllers()
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndPackage#getFrontEndControllers()
+     */
+    protected java.util.List handleGetFrontEndControllers()
     {
         final List useCases = new ArrayList();
-
         final Collection ownedElements = getOwnedElements();
         for (final Iterator elementIterator = ownedElements.iterator(); elementIterator.hasNext();)
         {
             final Object object = elementIterator.next();
-            if (object instanceof StrutsController)
+            if (object instanceof FrontEndController)
             {
                 useCases.add(object);
             }
         }
-
         return useCases;
     }
 

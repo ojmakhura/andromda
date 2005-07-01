@@ -42,12 +42,6 @@
         </mapping>
     </metafacade>
 
-    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsPackageLogicImpl">
-        <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl">
-            <property name="containsFrontEndUseCase"/>
-        </mapping>
-    </metafacade>
-
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <property name="ownerIsController"/>
