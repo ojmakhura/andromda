@@ -33,34 +33,4 @@ public class StrutsActivityGraphLogicImpl
         }
         return firstAction;
     }
-    
-    protected Object handleGetController()
-    {
-        Object controller = null;
-
-        final ModelElementFacade contextElement = getContextElement();
-        if (contextElement instanceof StrutsController)
-        {
-            controller = contextElement;
-        }
-
-        /*
-         * for those tools not supporting setting the context of an activity graph (such as Poseidon)
-         * an alternative is implemented: a tagged value on the controller, specifying the name of the use-case
-         *
-         * It is also allowed to set a hyperlink from the controller to the usecase
-         */
-        if (controller == null)
-        {
-            final UseCaseFacade useCase = this.getUseCase();
-            if (useCase != null)
-            {
-                final String useCaseName = useCase.getName();
-                controller = getModel().findClassWithTaggedValueOrHyperlink(
-                        UMLProfile.TAGGEDVALUE_PRESENTATION_CONTROLLER_USECASE, useCaseName);
-            }
-        }
-
-        return controller;
-    }
 }
