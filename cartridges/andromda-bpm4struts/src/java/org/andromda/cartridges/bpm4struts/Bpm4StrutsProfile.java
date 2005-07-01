@@ -16,9 +16,6 @@ public class Bpm4StrutsProfile
     private static final Profile profile = Profile.instance();
 
     /* ----------------- Stereotypes -------------------- */
-    public static final String STEREOTYPE_VIEW = profile.get("FRONT_END_VIEW");
-    public static final String STEREOTYPE_USECASE = profile.get("FRONT_END_USE_CASE");
-    public static final String STEREOTYPE_APPLICATION = profile.get("FRONT_END_APPLICATION");
     public static final String STEREOTYPE_EXCEPTION = profile.get("FRONT_END_EXCEPTION");
 
     /* ----------------- Tagged Values -------------------- */
@@ -44,8 +41,6 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_TABLE_SORTABLE = profile.get("TABLE_SORTABLE");
     public static final String TAGGEDVALUE_TABLE_DECORATOR = profile.get("TABLE_DECORATOR");
     public static final String TAGGEDVALUE_EXCEPTION_TYPE = profile.get("EXCEPTION_TYPE");
-    public static final String TAGGEDVALUE_CONTROLLER_USE_CASE = profile.get("CONTROLLER_USECASE");
-    public static final String TAGGEDVALUE_USECASE_ACTIVITY = profile.get("USECASE_ACTIVITY");
     public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
     public static final String TAGGEDVALUE_DATE_FORMAT = profile.get("DATE_FORMAT");
 

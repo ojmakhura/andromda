@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -17,6 +16,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
@@ -36,7 +36,7 @@ public class StrutsJspLogicImpl
 
     protected boolean handleIsFrontEndView()
     {
-        return this.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_VIEW);
+        return this.hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_VIEW);
     }
 
     public String getPackageName()

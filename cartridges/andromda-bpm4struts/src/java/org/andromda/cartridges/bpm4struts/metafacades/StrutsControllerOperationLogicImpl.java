@@ -1,16 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.DependencyFacade;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
-import org.andromda.metafacades.uml.ServiceOperation;
-import org.andromda.metafacades.uml.StateVertexFacade;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,6 +8,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.ServiceOperation;
+import org.andromda.metafacades.uml.StateVertexFacade;
 
 
 /**
@@ -234,7 +235,7 @@ public class StrutsControllerOperationLogicImpl
             final StrutsController controller = (StrutsController)owner;
             if (controller != null)
             {
-                final StrutsUseCase useCase = controller.getUseCase();
+                final FrontEndUseCase useCase = controller.getUseCase();
                 if (useCase != null)
                 {
                     graph = useCase.getActivityGraph();
@@ -295,10 +296,5 @@ public class StrutsControllerOperationLogicImpl
     protected boolean handleIsCallingBackEnd()
     {
         return getBackEndServiceOperation() != null;
-    }
-
-    protected boolean handleIsOwnerIsController()
-    {
-        return this.getOwner() instanceof StrutsController;
     }
 }

@@ -20,6 +20,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
@@ -624,7 +625,7 @@ public class StrutsActionLogicImpl
         }
         else
         {
-            if (source.hasStereotype(Bpm4StrutsProfile.STEREOTYPE_VIEW))
+            if (source.hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_VIEW))
             {
                 input = source;
             }
