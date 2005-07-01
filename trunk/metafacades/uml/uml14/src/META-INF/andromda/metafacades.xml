@@ -249,4 +249,10 @@
             <property name="service"/>
         </mapping>
     </metafacade>
+    <!-- FrontEnd metafacades -->
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndPackageLogicImpl">
+        <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl">
+            <property name="frontEndUseCases"/>
+        </mapping>
+    </metafacade>
 </metafacades>

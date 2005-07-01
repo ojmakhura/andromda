@@ -1,4 +1,4 @@
-package org.andromda.cartridges.bpm4struts.metafacades;
+ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;

@@ -2,10 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import java.util.Collection;
 
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
