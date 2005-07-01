@@ -21,7 +21,7 @@
         <dependency>
             <groupId>commons-discovery</groupId>
             <artifactId>commons-discovery</artifactId>
-            <version>0.2</version>
+            <version>${commons.discovery.version}</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>

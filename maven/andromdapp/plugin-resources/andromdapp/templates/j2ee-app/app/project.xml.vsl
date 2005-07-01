@@ -52,7 +52,7 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.7.0</version>
+            <version>${commons.beanutils.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -60,7 +60,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.1</version>
+            <version>${commons.collections.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.0</version>
+            <version>${commons.lang.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -79,7 +79,7 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
+            <version>${commons.logging.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -89,11 +89,7 @@
         <dependency>
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>
-#if ($hibernateVersion == "2")
-            <version>2.1.8</version>
-#else
-            <version>3.0.5</version>
-#end
+            <version>${hibernate.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -101,7 +97,7 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>2.0.2</version>
+            <version>${cglib.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -109,7 +105,7 @@
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>1.4</version>
+            <version>${dom4j.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -117,7 +113,7 @@
         <dependency>
             <groupId>odmg</groupId>
             <artifactId>odmg</artifactId>
-            <version>3.0</version>
+            <version>${odmg.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -125,7 +121,7 @@
         <dependency>
             <groupId>ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>1.1</version>
+            <version>${ehcache.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -133,7 +129,7 @@
         <dependency>
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>
-            <version>1.4.3</version>
+            <version>${asm.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -169,7 +165,7 @@
         <dependency>
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
-            <version>1.0</version>
+            <version>${aopalliance.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -177,7 +173,7 @@
         <dependency>
             <groupId>springframework</groupId>
             <artifactId>spring</artifactId>
-            <version>1.2.1</version>
+            <version>${spring.version}</version>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
