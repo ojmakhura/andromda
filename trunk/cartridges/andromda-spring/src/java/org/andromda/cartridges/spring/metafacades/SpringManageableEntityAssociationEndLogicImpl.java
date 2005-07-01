@@ -20,14 +20,14 @@ public class SpringManageableEntityAssociationEndLogicImpl
 
     protected java.lang.String handleGetDaoName()
     {
-        return StringUtilsHelper.lowerCamelCaseName(getName()) + "Dao";
+        return StringUtilsHelper.lowerCamelCaseName(this.getName()) + "Dao";
     }
 
     protected java.lang.String handleGetDaoReferenceName()
     {
         String referenceName = null;
 
-        final ClassifierFacade type = getType();
+        final ClassifierFacade type = this.getType();
         if (type instanceof SpringManageableEntity)
         {
             final SpringManageableEntity entity = (SpringManageableEntity)type;
@@ -39,12 +39,12 @@ public class SpringManageableEntityAssociationEndLogicImpl
 
     protected java.lang.String handleGetDaoGetterName()
     {
-        return getGetterName() + "Dao";
+        return this.getGetterName() + "Dao";
     }
 
     protected java.lang.String handleGetDaoSetterName()
     {
-        return getSetterName() + "Dao";
+        return this.getSetterName() + "Dao";
     }
 
 }
