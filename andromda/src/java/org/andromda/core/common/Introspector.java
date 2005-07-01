@@ -4,7 +4,6 @@ import java.beans.PropertyDescriptor;
 
 import java.lang.reflect.Method;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,12 +39,6 @@ public final class Introspector
     }
 
     /**
-     * Prevents stack-over-flows by keeping storing the objects that
-     * are currently being evaluted within {@link #containsValidProperty(Object, String, String)}
-     */
-    private final Collection evaluatingObjects = new ArrayList();
-
-    /**
      * <p> Indicates whether or not the given <code>object</code> contains a
      * valid property with the given <code>name</code> and <code>value</code>.
      * </p>
@@ -72,46 +65,39 @@ public final class Introspector
     {
         boolean valid = false;
 
-        // - prevent stack-over-flows by checking to make sure
-        //   we aren't entering any circular evalutions
-        if (!this.evaluatingObjects.contains(object))
+        try
         {
-            this.evaluatingObjects.add(object);
-            try
-            {
-                final Object propertyValue = this.getProperty(object, name);
-                valid = propertyValue != null;
+            final Object propertyValue = this.getProperty(object, name);
+            valid = propertyValue != null;
 
-                // if valid is still true, and the propertyValue
-                // is not null
-                if (valid)
+            // if valid is still true, and the propertyValue
+            // is not null
+            if (valid)
+            {
+                // if it's a collection then we check to see if the
+                // collection is not empty
+                if (propertyValue instanceof Collection)
                 {
-                    // if it's a collection then we check to see if the
-                    // collection is not empty
-                    if (propertyValue instanceof Collection)
+                    valid = !((Collection)propertyValue).isEmpty();
+                }
+                else
+                {
+                    final String valueAsString = String.valueOf(propertyValue);
+                    if (StringUtils.isNotEmpty(value))
                     {
-                        valid = !((Collection)propertyValue).isEmpty();
+                        valid = valueAsString.equals(value);
                     }
-                    else
+                    else if (propertyValue instanceof Boolean)
                     {
-                        final String valueAsString = String.valueOf(propertyValue);
-                        if (StringUtils.isNotEmpty(value))
-                        {
-                            valid = valueAsString.equals(value);
-                        }
-                        else if (propertyValue instanceof Boolean)
-                        {
-                            valid = Boolean.valueOf(valueAsString).booleanValue();
-                        }
+                        valid = Boolean.valueOf(valueAsString).booleanValue();
                     }
                 }
             }
-            catch (final Throwable throwable)
-            {
-                valid = false;
-            }
         }
-        this.evaluatingObjects.remove(object);
+        catch (final Throwable throwable)
+        {
+            valid = false;
+        }
         return valid;
     }
 
@@ -179,6 +165,7 @@ public final class Introspector
         final String feature)
     {
         Object result = null;
+
         try
         {
             result = this.getNestedProperty(object, feature);
@@ -425,6 +412,12 @@ public final class Introspector
     }
 
     /**
+     * Prevents stack-over-flows by storing the objects that
+     * are currently being evaluted within {@link #internalGetProperty(Object, String)}.
+     */
+    private final Map evaluatingObjects = new HashMap();
+
+    /**
      * Attempts to get the value of the property with <code>name</code> on the
      * given <code>object</code> (throws an exception if the property
      * is not readable on the object).
@@ -439,22 +432,31 @@ public final class Introspector
         final String name)
     {
         Object property = null;
-        if (object != null || name != null || name.length() > 0)
+
+        // - prevent stack-over-flows by checking to make sure
+        //   we aren't entering any circular evalutions
+        final Object value = this.evaluatingObjects.get(object);
+        if (value == null || !value.equals(name))
         {
-            final Method method = this.getReadMethod(object, name);
-            if (method == null)
+            this.evaluatingObjects.put(object, name);
+            if (object != null || name != null || name.length() > 0)
             {
-                throw new IntrospectorException(
-                    "No readable property named '" + name + "', exists on object '" + object + "'");
+                final Method method = this.getReadMethod(object, name);
+                if (method == null)
+                {
+                    throw new IntrospectorException(
+                        "No readable property named '" + name + "', exists on object '" + object + "'");
+                }
+                try
+                {
+                    property = method.invoke(object, (Object[])null);
+                }
+                catch (final Throwable throwable)
+                {
+                    throw new IntrospectorException(throwable);
+                }
             }
-            try
-            {
-                property = method.invoke(object, (Object[])null);
-            }
-            catch (final Throwable throwable)
-            {
-                throw new IntrospectorException(throwable);
-            }
+            this.evaluatingObjects.remove(object);
         }
         return property;
     }

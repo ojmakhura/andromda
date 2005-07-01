@@ -29,13 +29,7 @@
             <stereotype>FRONT_END_USE_CASE</stereotype>
         </mapping>
     </metafacade>
-
-    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUserLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
-            <property name="associatedWithStrutsUseCase"/>
-        </mapping>
-    </metafacade>
-
+    
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <property name="useCase"/>

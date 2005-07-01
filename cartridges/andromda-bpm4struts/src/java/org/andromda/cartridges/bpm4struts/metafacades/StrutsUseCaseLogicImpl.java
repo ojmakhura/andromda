@@ -17,9 +17,8 @@ import javax.swing.tree.TreeNode;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
 
 
@@ -119,7 +118,7 @@ public class StrutsUseCaseLogicImpl
 
     protected String handleGetActionRoles()
     {
-        final Collection users = getUsers();
+        final Collection users = this.getRoles();
         final StringBuffer rolesBuffer = new StringBuffer();
         boolean first = true;
         for (final Iterator userIterator = users.iterator(); userIterator.hasNext();)
@@ -132,8 +131,8 @@ public class StrutsUseCaseLogicImpl
             {
                 rolesBuffer.append(',');
             }
-            final StrutsUser strutsUser = (StrutsUser)userIterator.next();
-            rolesBuffer.append(strutsUser.getName());
+            final Role role = (Role)userIterator.next();
+            rolesBuffer.append(role.getName());
         }
         return rolesBuffer.toString();
     }
@@ -141,72 +140,6 @@ public class StrutsUseCaseLogicImpl
     public Collection getOperations()
     {
         return Collections.EMPTY_LIST;
-    }
-
-    /**
-     * @return those users directly associated to this use-case, the returned collection only contains StrutsUser
-     *  instances
-     */
-    private Collection associatedUsers()
-    {
-        final Collection usersList = new ArrayList();
-
-        final Collection associationEnds = getAssociationEnds();
-        for (final Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
-        {
-            final AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
-            final ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
-            if (classifier instanceof StrutsUser)
-                usersList.add(classifier);
-        }
-
-        return usersList;
-    }
-
-    protected List handleGetUsers()
-    {
-        final Collection allUsersList = new HashSet();
-        final Collection associatedUsers = associatedUsers();
-        for (final Iterator iterator = associatedUsers.iterator(); iterator.hasNext();)
-        {
-            final StrutsUser user = (StrutsUser)iterator.next();
-            collectUsers(user, allUsersList);
-        }
-        return new ArrayList(allUsersList);
-    }
-
-    protected List handleGetAllUsers()
-    {
-        List allUsers = new ArrayList();
-        Collection allActors = getModel().getAllActors();
-
-        for (final Iterator actorIterator = allActors.iterator(); actorIterator.hasNext();)
-        {
-            Object actorObject = actorIterator.next();
-            if (actorObject instanceof StrutsUser)
-            {
-                allUsers.add(actorObject);
-            }
-        }
-        return allUsers;
-    }
-
-    /**
-     * Recursively collects all users generalizing the argument user, in the specified collection.
-     */
-    private void collectUsers(StrutsUser user, Collection users)
-    {
-        if (!users.contains(user))
-        {
-            users.add(user);
-
-            final Collection childUsers = user.getGeneralizedByActors();
-            for (final Iterator iterator = childUsers.iterator(); iterator.hasNext();)
-            {
-                final StrutsUser childUser = (StrutsUser)iterator.next();
-                collectUsers(childUser, users);
-            }
-        }
     }
 
     protected List handleGetPages()
@@ -332,11 +265,6 @@ public class StrutsUseCaseLogicImpl
             }
         }
         return new ArrayList(pageVariableMap.values());
-    }
-
-    protected boolean handleIsSecured()
-    {
-        return !getUsers().isEmpty();
     }
 
     protected boolean handleIsApplicationUseCase()
