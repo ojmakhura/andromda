@@ -2,7 +2,7 @@ package org.andromda.core.repository;
 
 
 /**
- * An exception thrown whenever an error is encountered while performing processing RepositoryFacade processing.
+ * An exception thrown whenever an error is encountered while performing RepositoryFacade processing.
  *
  * @author <A HREF="http://www.amowers.com">Anthony Mowers </A>
  * @author Chad Brandon
@@ -10,14 +10,6 @@ package org.andromda.core.repository;
 public final class RepositoryFacadeException
     extends RuntimeException
 {
-    /**
-     * Constructor for the RepositoryFacadeException object
-     */
-    public RepositoryFacadeException()
-    {
-        super();
-    }
-
     /**
      * Constructor for the RepositoryFacadeException object
      *
