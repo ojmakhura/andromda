@@ -238,6 +238,10 @@
           description="private internal goal">
         <j:set var="moduleName" value="hibernate"/>
         <attainGoal name="andromdapp:generate-core-subproject"/>
+        <velocity:merge
+          name="${moduleDir}/maven.xml"
+          basedir="${moduleTemplatesDir}"
+          template="maven.xml.vsl"/>
     </goal>
 
     <!--==================================================================
