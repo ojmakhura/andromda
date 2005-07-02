@@ -170,7 +170,7 @@ ${indent}    <controller>
 #set($access=false)#set($comma="")
 #if($parameter.required)#set($access="required")#set($comma=",")#end
 #if($parameter.readable)#set($access="${comma}read")#set($comma=",")
-#elseif($parameter.writeable)#set($access="${comma}write")#end
+#elseif($parameter.writable)#set($access="${comma}write")#end
 ${indent}        <variable name="$parameter.name"#if($access) access="${access}"#end/>
 #end
 ${indent}    </controller>

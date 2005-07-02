@@ -1,8 +1,5 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -14,16 +11,19 @@ import org.omg.uml.foundation.datatypes.Expression;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 
 /**
  * Metaclass facade implementation.
  */
 public class ParameterFacadeLogicImpl
-    extends ParameterFacadeLogic
+        extends ParameterFacadeLogic
 {
     public ParameterFacadeLogicImpl(
-        org.omg.uml.foundation.core.Parameter metaObject,
-        String context)
+            org.omg.uml.foundation.core.Parameter metaObject,
+            String context)
     {
         super(metaObject, context);
     }
@@ -37,8 +37,8 @@ public class ParameterFacadeLogicImpl
     {
         final String nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.PARAMETER_NAME_MASK));
         return NameMasker.mask(
-            super.handleGetName(),
-            nameMask);
+                super.handleGetName(),
+                nameMask);
     }
 
     /**
@@ -95,7 +95,7 @@ public class ParameterFacadeLogicImpl
     public boolean handleIsReturn()
     {
         final ParameterDirectionKind kind = metaObject.getKind();
-        return kind != null ? kind.equals(ParameterDirectionKindEnum.PDK_RETURN) : false;
+        return kind == null ? false : kind.equals(ParameterDirectionKindEnum.PDK_RETURN);
     }
 
     /**
@@ -140,5 +140,19 @@ public class ParameterFacadeLogicImpl
             }
         }
         return parameterEvent;
+    }
+
+    protected boolean handleIsReadable()
+    {
+        final ParameterDirectionKind kind = metaObject.getKind();
+        return kind == null ? true :
+                kind.equals(ParameterDirectionKindEnum.PDK_IN) || kind.equals(ParameterDirectionKindEnum.PDK_INOUT);
+    }
+
+    protected boolean handleIsWritable()
+    {
+        final ParameterDirectionKind kind = metaObject.getKind();
+        return kind == null ? true :
+                kind.equals(ParameterDirectionKindEnum.PDK_OUT) || kind.equals(ParameterDirectionKindEnum.PDK_INOUT);
     }
 }
