@@ -12,8 +12,9 @@
         <ant:copy todir="${maven.build.dir}/sar" overwrite="true">
             <ant:fileset dir="${maven.src.dir}/sar">
                 <ant:include name="ehcache.xml"/>
-                <ant:include name="jbpm.hibernate.cfg.xml"/>
-                <ant:include name="jbpm.hibernate.properties"/>
+                <ant:include name="jbpm.properties"/>
+                <ant:include name="hibernate.cfg.xml"/>
+                <ant:include name="hibernate.properties"/>
                 <ant:include name="META-INF/jboss-service.xml"/>
             </ant:fileset>
             <ant:filterset>

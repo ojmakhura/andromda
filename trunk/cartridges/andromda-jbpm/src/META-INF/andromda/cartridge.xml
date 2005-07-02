@@ -13,6 +13,17 @@
     <property reference="clientPackage"/>
 
     <!-- cartridge-resource merge-point -->
+    <resource
+        path="resources/*.*"
+        outputPattern="{0}"
+        outlet="configuration"
+        overwrite="false"/>
+
+    <resource
+        path="resources/META-INF/*.*"
+        outputPattern="META-INF/{0}"
+        outlet="configuration"
+        overwrite="false"/>
 
     <!-- process templates on model elements -->
     <template
