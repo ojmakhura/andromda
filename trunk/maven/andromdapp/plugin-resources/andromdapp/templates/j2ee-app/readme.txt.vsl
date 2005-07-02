@@ -21,18 +21,37 @@
 
     /$projectName J2EE project
          |
+         |    The root of the project contains a few files that control the overall
+         |    build process and common properties
+         |
+         |-- project.xml
+         |        contains information about this project, you may add more information
+         |        as long as you do not violate the Maven POM schema, see
+         |        http://maven.apache.org/reference/project-descriptor.html
+         |-- maven.xml
+         |        this file defines the goals that can be called from the root of the
+         |        project, most of the time just calling goals in submodules, see below
+         |        for examples
+         |-- project.properties
+         |        common properties that might be changed to configure the project
+         |-- build.properties
+         |        properties related to versions of external dependencies such as
+         |        libraries, also defines project identifier properties; usually
+         |        this file is not edited (except perhaps when upgrading to
+         |        another AndroMDA version)
+         |
          +-- /mda
          |     |
          |     |    The MDA module is the heart of this project, this is where
          |     |    AndroMDA is configured to generate the files needed to
          |     |    assemble the application
          |     |
-         |     +-- /project.xml
+         |     +-- project.xml
          |     |        contains the AndroMDA dependencies
-         |     +-- /project.properties
+         |     +-- project.properties
          |     |        specific AndroMDA properties, can be configured here,
          |     |        such as toggling the validation errors on/off
-         |     +-- /maven.xml
+         |     +-- maven.xml
          |     |        no need to edit this file
          |     +-- /src
          |     |        additional sources such as merge-mappings can be
@@ -49,7 +68,7 @@
          |     |    The COMMON module collects those resources and classes
          |     |    that are shared between the other modules.
          |     |
-         |     +-- /project.xml
+         |     +-- project.xml
          |     |        lists common dependencies
          |     +-- /target
          |              shared resources and java classes are generated here,
@@ -61,11 +80,11 @@
          |     |    The CORE module collects those resources and classes
          |     |    that use the EJB framework
          |     |
-         |     +-- /project.xml
+         |     +-- project.xml
          |     |        lists EJB dependencies
-         |     +-- /project.properties
+         |     +-- project.properties
          |     |        specific EJB build properties, no need to edit these
-         |     +-- /maven.xml
+         |     +-- maven.xml
          |     |        runs XDoclet on the generated sources
          |     +-- /src
          |     |        EJB classes that need manual implementation are
@@ -82,12 +101,12 @@
          |     |    The CORE module collects those resources and classes
          |     |    that use the Hibernate framework
          |     |
-         |     +-- /project.xml
+         |     +-- project.xml
          |     |        lists Hibernate dependencies
-         |     +-- /project.properties
+         |     +-- project.properties
          |     |        specific Hibernate build properties,
          |     |        no need to edit these
-         |     +-- /maven.xml
+         |     +-- maven.xml
          |     |        defines goals for the generation of the database
          |     |        specific DDL code for the creation/deletion of the
          |     |        schema (using SchemaExport)
@@ -112,12 +131,12 @@
          |     |    that use the Spring framework, optionally making
          |     |    use of Hibernate and/or EJB under the hood.
          |     |
-         |     +-- /project.xml
+         |     +-- project.xml
          |     |        lists Spring dependencies
-         |     +-- /project.properties
+         |     +-- project.properties
          |     |        specific Spring build properties,
          |     |        no need to edit these
-         |     +-- /maven.xml
+         |     +-- maven.xml
          |     |        defines goals for the generation of the database
          |     |        specific DDL code for the creation/deletion of the
          |     |        schema (using Hibernate's SchemaExport)
@@ -143,11 +162,11 @@
          |     |    The Workflow module collects those resources and classes
          |     |    that are needed to support the workflow engine
          |     |
-         |     +-- /project.xml
+         |     +-- project.xml
          |     |        lists Workflow dependencies
-         |     +-- /project.properties
+         |     +-- project.properties
          |     |        no need to edit this file
-         |     +-- /maven.xml
+         |     +-- maven.xml
          |     |        contains logic to also install a JBoss .sar connector
          |     |        bundle into the local Maven repository
          |     +-- /src/sar
@@ -169,13 +188,13 @@
          |     |    bundling all other modules to create a deployable war.
 #end
          |     |
-         |     +-- /project.xml
+         |     +-- project.xml
          |     |        lists WebApp dependencies
-         |     +-- /project.properties
+         |     +-- project.properties
          |     |        specific Spring build properties,
          |     |        you can set precompileJsps=true to enable the
          |     |        automatic precompilation of JSPs
-         |     +-- /maven.xml
+         |     +-- maven.xml
          |     |        defines specific goals related to JSP precompilation,
          |     |        uncomment the war:init preGoal to enable the copy-over
          |     |        feature
@@ -200,13 +219,13 @@
          |     |    The WEBSERVICE module collects those resources and
          |     |    classes that use the AXIS framework
          |     |
-         |     +-- /project.xml
+         |     +-- project.xml
          |     |        lists AXIS dependencies for webservices
-         |     +-- /project.properties
+         |     +-- project.properties
          |     |        no need to edit this file
          |     +-- /target
          |              generated files are emitted here
-         |     |
+         |
 #end
 #if ($ear)
          +-- /app
@@ -214,14 +233,14 @@
                |    The APP module collects those resources and classes
                |    that are required to actually build the .ear bundle
                |
-               +-- /project.xml
+               +-- project.xml
                |        lists dependencies to be bundles into the
                |        root of the .ear
-               +-- /project.properties
+               +-- project.properties
                |        properties controlling the bundling and deploying
                |        process set the JBoss server directory here, or
                |        choose to explode the .ear bundle on deploy
-               +-- /maven.xml
+               +-- maven.xml
                |        goals to deploy and undeploy the application
                +-- /src
                |        any custom resources that should be deployed
