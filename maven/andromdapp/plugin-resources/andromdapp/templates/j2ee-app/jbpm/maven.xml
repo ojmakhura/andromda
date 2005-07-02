@@ -9,7 +9,7 @@
 
     <goal name="sar:install">
         <!-- copy the jbpm .sar configuration files, replacing any tokens -->
-        <ant:copy todir="${maven.build.dir}/sar">
+        <ant:copy todir="${maven.build.dir}/sar" overwrite="true">
             <ant:fileset dir="${maven.src.dir}/sar">
                 <ant:include name="ehcache.xml"/>
                 <ant:include name="jbpm.hibernate.cfg.xml"/>
