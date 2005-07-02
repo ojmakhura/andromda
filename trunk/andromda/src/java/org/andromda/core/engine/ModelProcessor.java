@@ -259,8 +259,7 @@ public class ModelProcessor
         // - find and load all the logical mappings
         Mappings.initializeLogicalMappings();
 
-        // - load the model into the repository (if it
-        //   has yet to be loaded)
+        // - find and open the repository
         if (this.repository == null)
         {
             this.repository =
