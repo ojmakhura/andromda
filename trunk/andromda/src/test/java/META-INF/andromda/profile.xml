@@ -12,6 +12,7 @@
                     This is some documentation about the Entity stereotype
                 </documentation>
                 <value>Entity</value>
+                <appliedOnElement>ModelElement</appliedOnElement>
             </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
@@ -23,6 +24,12 @@
                     Some documentation about the andromda tagged value.
                 </documentation>
                 <value>@andromda.tagged.value</value>
+                <appliedOnElement>SomeElement</appliedOnElement>
+                <allowedValues>
+                    <value>1</value>
+                    <value>2</value>
+                    <value default="true">3</value>
+                </allowedValues>
             </element>
         </elementGroup>
         <elementGroup name="Data Types">
