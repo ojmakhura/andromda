@@ -11,7 +11,7 @@ public final class RepositoryFacadeException
     extends RuntimeException
 {
     /**
-     * Constructor for the MetaDataReadException object
+     * Constructor for the RepositoryFacadeException object
      */
     public RepositoryFacadeException()
     {
@@ -19,7 +19,7 @@ public final class RepositoryFacadeException
     }
 
     /**
-     * Constructor for the MetaDataReadException object
+     * Constructor for the RepositoryFacadeException object
      *
      * @param message describes cause of the exception
      */
@@ -39,7 +39,7 @@ public final class RepositoryFacadeException
     }
 
     /**
-     * Constructor for the MetaDataReadException object
+     * Constructor for the RepositoryFacadeException object
      *
      * @param message describes cause of the exception
      * @param cause original exception that caused this exception
