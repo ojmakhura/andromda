@@ -12,9 +12,9 @@
         <release version="3.1-RC1-SNAPSHOT" date="2005-07-01" description="First release candidate of version 3.1">
             <action dev="draftdog" type="add">
                 The <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a>
-                tool is now able to generate projects using the <a href="http://www.jbpm.org">jBpm workflow engine</a>,
+                tool is now able to generate projects using the <a href="http://www.jbpm.org/">jBpm workflow engine</a>,
                 it will be deployed a a service archive (.sar) when selecting 'ear'. When using the 'war' option
-                you'll have to deploy to .sar manually. In both cases selecting the 'jbpm' option will imply
+                you'll have to deploy the .sar manually. In both cases selecting the 'jbpm' option will imply
                 the use of Hibernate 3 (you will not longer be prompted for it).
             </action>
             <action dev="draftdog" type="update">
