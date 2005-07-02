@@ -52,7 +52,7 @@
             basedir="${templatesDir}"
             template="/readme.txt.vsl"/>
 
-        <j:if test="${projectType == 'ear'}">
+        <j:if test="${projectType eq 'ear'}">
             <attainGoal name="andromdapp:generate-app-subproject"/>
         </j:if>
         <attainGoal name="andromdapp:generate-${persistenceType}-subproject"/>
@@ -67,7 +67,11 @@
         <j:if test="${webservice and ear}">
             <attainGoal name="andromdapp:generate-webservice-subproject"/>
         </j:if>
-        <ant:echo>New J2EE project generated to: '${basedir}/${projectId}'</ant:echo>
+        <ant:echo>|  </ant:echo>
+        <ant:echo>|  New J2EE project generated to: '${basedir}/${projectId}'</ant:echo>
+        <ant:echo>|  </ant:echo>
+        <ant:echo>|  For more information on how to proceed from here read '${basedir}/${projectId}/readme.txt'</ant:echo>
+        <ant:echo>|  </ant:echo>
 
     </goal>
 
@@ -314,6 +318,29 @@
     </goal>
 
     <!--==================================================================
+              Creates the jbpm subproject directory.
+        ==================================================================-->
+    <goal name="andromdapp:generate-jbpm-subproject"
+          prereqs="andromdapp:init"
+          description="private internal goal">
+
+        <j:set var="moduleName" value="jbpm"/>
+        <j:set var="moduleTemplatesDir" value="${templatesDir}/${moduleName}"/>
+        <j:set var="moduleDir" value="${projectId}/workflow"/>
+        <attainGoal name="andromdapp:generate-module"/>
+        <!-- copy remaining default sources -->
+        <ant:copy todir="${moduleDir}">
+            <ant:fileset dir="${moduleTemplatesDir}">
+                <ant:include name="src/sar/**/*"/>
+            </ant:fileset>
+        </ant:copy>
+        <!-- create an empty build directory so that maven doesn't complain
+             when building the ear until model content is added -->
+        <ant:mkdir dir="${moduleDir}/target/src"/>
+
+    </goal>
+
+    <!--==================================================================
               Asks the generate questions to get the required input.
         ==================================================================-->
     <goal name="andromdapp:init" description="private internal goal">
@@ -348,13 +375,22 @@
                 answer="projectType"/>
         </j:while>
         <j:choose>
-            <j:when test="${projectType == 'ear'}">
+            <j:when test="${projectType eq 'ear'}">
                 <j:while test="${empty(persistenceType) or (persistenceType ne 'hibernate' and persistenceType ne 'ejb' and persistenceType ne 'spring')}">
                     <i:ask
                         question="Please enter the type of transactional/persistence cartridge to use (enter 'hibernate', 'ejb', or 'spring'):"
                         answer="persistenceType"/>
                 </j:while>
                 <j:if test="${persistenceType eq 'hibernate' or persistenceType eq 'spring'}">
+                    <j:while test="${jbpm ne 'yes' and jbpm ne 'no'}">
+                        <i:ask
+                            question="Would you like to use the jBpm workflow engine, it uses Hibernate3 (enter 'yes' or 'no')?"
+                            answer="jbpm"/>
+                    </j:while>
+                    <j:if test="${jbpm eq 'yes'}">
+                        <!-- jBpm requires Hibernate 3 or later -->
+                        <j:set var="hibernateVersion" value="3"/>
+                    </j:if>
                     <j:while test="${empty(hibernateVersion) or (hibernateVersion ne '2' and hibernateVersion ne '3')}">
                         <i:ask
                             question="Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x):"
@@ -368,6 +404,15 @@
                 </j:while>
             </j:when>
             <j:otherwise> 
+                <j:while test="${jbpm ne 'yes' and jbpm ne 'no'}">
+                    <i:ask
+                        question="Would you like to use the jBpm workflow engine, it uses Hibernate3 (enter 'yes' or 'no')?"
+                        answer="jbpm"/>
+                </j:while>
+                <j:if test="${jbpm eq 'yes'}">
+                    <!-- jBpm requires Hibernate 3 or later -->
+                    <j:set var="hibernateVersion" value="3"/>
+                </j:if>
                 <j:while test="${empty(hibernateVersion) or (hibernateVersion ne '2' and hibernateVersion ne '3')}">
                     <i:ask
                         question="Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x):"
@@ -382,13 +427,14 @@
                 question="Would you like to be able to expose your services as web services? (enter 'yes' or 'no'):"
                 answer="exposeAsWebService"/>
         </j:while>
-        <j:set var="web" value="${webComponent == 'yes'}"/>
-        <j:set var="ejb" value="${persistenceType == 'ejb'}"/>
-        <j:set var="hibernate" value="${persistenceType == 'hibernate'}"/>
-        <j:set var="spring" value="${persistenceType == 'spring'}"/>
-        <j:set var="webservice" value="${exposeAsWebService == 'yes'}"/>
-        <j:set var="war" value="${projectType == 'war'}"/>
-        <j:set var="ear" value="${projectType == 'ear'}"/>
+        <j:set var="web" value="${webComponent eq 'yes'}"/>
+        <j:set var="ejb" value="${persistenceType eq 'ejb'}"/>
+        <j:set var="hibernate" value="${persistenceType eq 'hibernate'}"/>
+        <j:set var="spring" value="${persistenceType eq 'spring'}"/>
+        <j:set var="webservice" value="${exposeAsWebService eq 'yes'}"/>
+        <j:set var="workflow" value="${jbpm eq 'yes'}"/>
+        <j:set var="war" value="${projectType eq 'war'}"/>
+        <j:set var="ear" value="${projectType eq 'ear'}"/>
 
         <j:new var="stringUtils" className="org.apache.commons.lang.StringUtils"/>
 

@@ -13,7 +13,8 @@ service.port=8080
 deployExploded=$deployExploded
 
 # The datasource for the application
-dataSource=java:/DefaultDS
+dataSource.name=DefaultDS
+dataSource=java:/${dataSource.name}
 
 # Properties for management of the database schema, 
 # ignore if you setup/drop your schema manually

@@ -138,6 +138,18 @@
             </properties>
         </namespace>
 #end
+#if ($workflow)
+        <namespace name="jbpm">
+            <properties>
+                <property name="definitions">${maven.andromda.workflow.generated.dir}</property>
+                <property name="handlers">${maven.andromda.workflow.generated.dir}</property>
+                <property name="handler-impls">${maven.andromda.workflow.manual.dir}</property>
+                <property name="helpers">${maven.andromda.workflow.generated.dir}</property>
+                <property name="clients">${maven.andromda.workflow.generated.dir}</property>
+                <property name="clientPackage">${application.package}.business.process</property>
+            </properties>
+        </namespace>
+#end
 #if ($webservice)
         <namespace name="webservice">
             <properties>

@@ -179,6 +179,17 @@
 #end
         </dependency>
 #if ($war)
+#if ($workflow)
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-workflow</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+#end
         <dependency>
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>

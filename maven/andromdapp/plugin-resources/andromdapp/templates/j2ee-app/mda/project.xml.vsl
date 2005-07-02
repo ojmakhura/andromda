@@ -42,6 +42,14 @@
             <version>${andromda.version}</version>
         </dependency>
 #end
+#if ($workflow)
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-jbpm-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <type>jar</type>
+        </dependency>
+#end
 #if ($webservice)
         <dependency>
             <groupId>andromda</groupId>
