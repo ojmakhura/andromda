@@ -17,6 +17,11 @@
         <path>META-INF/andromda/profile.xml</path>
     </component>
     <component
+        name="repository"
+        type="org.andromda.core.repository.Repository">
+        <path>META-INF/andromda/repository.xml</path>
+    </component>
+    <component
         name="translation-library"
         type="org.andromda.core.translation.library.Library">
         <path>META-INF/andromda/translation-library.xml</path>

@@ -5,6 +5,11 @@ import junit.framework.TestCase;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.NamespaceComponents;
 
+/**
+ * Tests {@link NamespaceComponents}
+ * 
+ * @author Chad Brandon
+ */
 public class NamespaceComponentsTest
     extends TestCase
 {

@@ -82,80 +82,93 @@
 
         </pattern>
 
-        <pattern value="models/model">
+        <pattern value="repositories/repository">
 
             <object-create-rule
-                classname="org.andromda.core.configuration.Model" />
+                classname="org.andromda.core.configuration.Repository" />
 
-            <pattern value="uri">
+            <set-properties-rule>
+                <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>
 
-                <call-method-rule
-                    methodname="addUri"
-                    paramcount="1"/>
-
-                <call-param-rule
-                    paramnumber="0"/>
-
-            </pattern>
-
-            <pattern value="moduleSearchLocations/location">
+            <pattern value="models/model">
 
                 <object-create-rule
-                    classname="org.andromda.core.configuration.Location" />
+                    classname="org.andromda.core.configuration.Model" />
 
-                <set-properties-rule>
-                     <alias attr-name="patterns" prop-name="patterns" />
-                </set-properties-rule>
-
-                <call-method-rule
-                    methodname="setPath"
-                    paramcount="1" />
-
-                <call-param-rule
-                    paramnumber="0"/>
-
-                <set-next-rule methodname="addModuleSearchLocation" />
-
-            </pattern>
-
-            <pattern value="modelPackages">
-
-                <object-create-rule
-                    classname="org.andromda.core.configuration.ModelPackages" />
-
-                <set-properties-rule>
-                     <alias attr-name="processAll" prop-name="processAll" />
-                </set-properties-rule>
-
-                <pattern value="modelPackage">
-
-                    <object-create-rule
-                        classname="org.andromda.core.configuration.ModelPackage" />
-
-                    <set-properties-rule>
-                         <alias attr-name="process" prop-name="process" />
-                    </set-properties-rule>
+                <pattern value="uri">
 
                     <call-method-rule
-                        methodname="setName"
+                        methodname="addUri"
                         paramcount="1"/>
 
                     <call-param-rule
                         paramnumber="0"/>
 
-                    <set-next-rule methodname="addPackage" />
+                </pattern>
+
+                <pattern value="moduleSearchLocations/location">
+
+                    <object-create-rule
+                        classname="org.andromda.core.configuration.Location" />
+
+                    <set-properties-rule>
+                         <alias attr-name="patterns" prop-name="patterns" />
+                    </set-properties-rule>
+
+                    <call-method-rule
+                        methodname="setPath"
+                        paramcount="1" />
+
+                    <call-param-rule
+                        paramnumber="0"/>
+
+                    <set-next-rule methodname="addModuleSearchLocation" />
 
                 </pattern>
 
-                <set-next-rule methodname="setPackages" />
+                <pattern value="modelPackages">
+
+                    <object-create-rule
+                        classname="org.andromda.core.configuration.ModelPackages" />
+
+                    <set-properties-rule>
+                         <alias attr-name="processAll" prop-name="processAll" />
+                    </set-properties-rule>
+
+                    <pattern value="modelPackage">
+
+                        <object-create-rule
+                            classname="org.andromda.core.configuration.ModelPackage" />
+
+                        <set-properties-rule>
+                             <alias attr-name="process" prop-name="process" />
+                        </set-properties-rule>
+
+                        <call-method-rule
+                            methodname="setName"
+                            paramcount="1"/>
+
+                        <call-param-rule
+                            paramnumber="0"/>
+
+                        <set-next-rule methodname="addPackage" />
+
+                    </pattern>
+
+                    <set-next-rule methodname="setPackages" />
+
+                </pattern>
+
+                <set-properties-rule>
+                     <alias attr-name="lastModifiedCheck" prop-name="lastModifiedCheck" />
+                </set-properties-rule>
+
+                <set-next-rule methodname="addModel" />
 
             </pattern>
 
-            <set-properties-rule>
-                 <alias attr-name="lastModifiedCheck" prop-name="lastModifiedCheck" />
-            </set-properties-rule>
-
-            <set-next-rule methodname="addModel" />
+            <set-next-rule methodname="addRepository" />
 
         </pattern>
 

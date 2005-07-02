@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- Digester rules used to configure a Repository instance by Apache Digester -->
+<digester-rules>
+
+    <pattern value="repository">
+
+        <object-create-rule
+              classname="org.andromda.core.repository.Repository" />
+
+        <pattern value="implementation">
+
+            <call-method-rule
+                methodname="setImplementationClass"
+                paramcount="1"
+                paramtypes="java.lang.String"/>
+
+                <call-param-rule
+                    paramnumber="0" />
+
+        </pattern>
+
+    </pattern>
+
+</digester-rules>

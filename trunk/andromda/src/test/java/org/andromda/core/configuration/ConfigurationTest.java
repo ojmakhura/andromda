@@ -55,10 +55,16 @@ public class ConfigurationTest
         assertEquals(
             50,
             server.getMaximumFailedLoadAttempts());
+        
+        // repositories
+        assertEquals(1, configuration.getRepositories().length);
+        final Repository repository = configuration.getRepositories()[0];
+        assertNotNull(repository);
+        assertEquals("test", repository.getName());
 
         // models
-        assertEquals(3, configuration.getModels().length);
-        final Model model1 = configuration.getModels()[0];
+        assertEquals(3, repository.getModels().length);
+        final Model model1 = repository.getModels()[0];
         assertNotNull(model1);
         assertEquals(2, model1.getUris().length);
         assertEquals(
@@ -88,7 +94,7 @@ public class ConfigurationTest
         assertFalse(model1.getPackages().isProcess("org::andromda::metafacades::uml"));
         assertTrue(model1.getPackages().isProcess("org::andromda::cartridges::test"));
 
-        final Model model2 = configuration.getModels()[1];
+        final Model model2 = repository.getModels()[1];
         assertNotNull(model2);
         assertEquals(1, model2.getUris().length);
         assertEquals(
@@ -97,7 +103,7 @@ public class ConfigurationTest
         assertEquals(0, model2.getModuleSearchLocations().length);
         assertFalse(model2.isLastModifiedCheck());
 
-        final Model model3 = configuration.getModels()[2];
+        final Model model3 = repository.getModels()[2];
         assertNotNull(model3);
         assertEquals(1, model3.getUris().length);
         assertEquals(

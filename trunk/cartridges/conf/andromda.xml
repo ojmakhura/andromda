@@ -2,17 +2,21 @@
     <properties>
         <property name="cartridgeFilter">meta</property>
     </properties>
-    <models>
-        <model>
-            <uri>${maven.andromda.model.uri}</uri>
-            <moduleSearchLocations>
-                <location>${maven.repo.local}/andromda/xml.zips</location>
-            </moduleSearchLocations>
-            <modelPackages>
-                <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
-            </modelPackages>
-        </model>
-    </models>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${maven.andromda.model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location>${maven.repo.local}/andromda/xml.zips</location>
+                    </moduleSearchLocations>
+                    <modelPackages>
+                        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                    </modelPackages>
+                </model>
+            </models>            
+        </repository>
+    </repositories>
     <namespaces>
         <namespace name="meta">
             <properties>
