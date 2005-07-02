@@ -36,10 +36,19 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-workflow-jbpm</artifactId>
-            <version>${pom.currentVersion}</version>
-            <type>sar</type>
+            <groupId>jbpm</groupId>
+            <artifactId>jbpm</artifactId>
+            <version>${jbpm.version}</version>
+            <type>jar</type>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>jbpm</groupId>
+            <artifactId>jbpm-identity</artifactId>
+            <version>${jbpm.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>

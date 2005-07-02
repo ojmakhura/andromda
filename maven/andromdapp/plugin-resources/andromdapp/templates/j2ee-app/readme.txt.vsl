@@ -167,8 +167,8 @@
          |     +-- project.properties
          |     |        no need to edit this file
          |     +-- maven.xml
-         |     |        contains logic to also install a JBoss .sar connector
-         |     |        bundle into the local Maven repository
+         |     |        contains a goal that will take care of bundling the proper
+         |     |        configuration into this module
          |     +-- /src/sar
          |     |        files used to configure the workflow engine connection,
          |     |        please note that these files contain properties

@@ -1,21 +1,14 @@
 <project default="jar:install"
-         xmlns:j="jelly:core"
-         xmlns:ant="jelly:ant"
-         xmlns:artifact="artifact">
+         xmlns:ant="jelly:ant">
 
-    <postGoal name="jar:jar">
-        <attainGoal name="sar:install"/>
-    </postGoal>
-
-    <goal name="sar:install">
-        <!-- copy the jbpm .sar configuration files, replacing any tokens -->
-        <ant:copy todir="${maven.build.dir}/sar" overwrite="true">
-            <ant:fileset dir="${maven.src.dir}/sar">
+    <!-- this goal makes sure the proper configuration files are included in the artifact -->
+    <preGoal name="jar:jar">
+        <ant:copy todir="${maven.build.dest}" overwrite="true">
+            <ant:fileset dir="${maven.src.dir}/conf">
                 <ant:include name="ehcache.xml"/>
                 <ant:include name="jbpm.properties"/>
                 <ant:include name="hibernate.cfg.xml"/>
                 <ant:include name="hibernate.properties"/>
-                <ant:include name="META-INF/jboss-service.xml"/>
             </ant:fileset>
             <ant:filterset>
                 <ant:filter token="dataSource" value="${dataSource}"/>
@@ -28,28 +21,6 @@
                 <ant:filter token="hibernate.db.showSql" value="${hibernate.db.showSql}"/>
             </ant:filterset>
         </ant:copy>
-        <!-- also include the required dependencies -->
-        <j:forEach var="artifact" items="${pom.artifacts}">
-            <j:set var="dep" value="${artifact.dependency}"/>
-            <j:if test="${dep.artifactId eq 'jbpm' or dep.artifactId eq 'jbpm-identity'}">
-                <ant:echo>Bundling: ${dep.type} - ${dep.id} - ${dep.version}</ant:echo>
-                <ant:copy file="${artifact.file.parent}/${artifact.file.name}" todir="${maven.build.dir}/sar"/>
-            </j:if>
-        </j:forEach>
-        <!-- define the name of the .sar bundle -->
-        <j:set var="sarArtifactId" value="${pom.artifactId}-jbpm"/>
-        <j:set var="sarName" value="${sarArtifactId}-${pom.currentVersion}.sar"/>
-        <!-- now zip it all up into a .sar -->
-        <ant:jar destfile="${maven.build.dir}/${sarName}">
-            <ant:fileset dir="${maven.build.dir}/sar">
-                <ant:include name="**/*"/>
-            </ant:fileset>
-        </ant:jar>
-        <!-- install it into the maven repository using the proper artifact id -->
-        <j:set var="originalArtifactId" value="${pom.artifactId}"/>
-        <j:set var="dummy" value="${pom.setArtifactId(sarArtifactId)}"/>
-        <artifact:install artifact="${maven.build.dir}/${sarName}" type="sar" project="${pom}"/>
-        <j:set var="dummy" value="${pom.setArtifactId(originalArtifactId)}"/>
-    </goal>
+    </preGoal>
 
 </project>

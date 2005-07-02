@@ -189,6 +189,24 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
+        <dependency>
+            <groupId>jbpm</groupId>
+            <artifactId>jbpm</artifactId>
+            <version>${jbpm.version}</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>jbpm</groupId>
+            <artifactId>jbpm-identity</artifactId>
+            <version>${jbpm.version}</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
 #end
         <dependency>
             <groupId>hibernate</groupId>

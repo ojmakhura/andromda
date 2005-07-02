@@ -146,7 +146,7 @@
                 <property name="handler-impls">${maven.andromda.workflow.manual.dir}/java</property>
                 <property name="helpers">${maven.andromda.workflow.generated.dir}</property>
                 <property name="clients">${maven.andromda.workflow.generated.dir}</property>
-                <property name="configuration">${maven.andromda.workflow.manual.dir}/sar</property>
+                <property name="configuration">${maven.andromda.workflow.manual.dir}/conf</property>
                 <property name="clientPackage">${application.package}.business.process</property>
             </properties>
         </namespace>
