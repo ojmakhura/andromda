@@ -33,6 +33,7 @@ import org.jbpm.graph.def.ProcessDefinition;
  */
 public class $className
 {
+    public static final String PROCESS_NAME = "$processDefinition.name"; 
 
 #if ($processDefinition.startState.initialState)
 #renderLocator($processDefinition.startState.initialState)
