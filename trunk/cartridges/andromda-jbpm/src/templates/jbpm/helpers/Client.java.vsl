@@ -10,15 +10,22 @@ package ${clientPackage};
 #end
 public final class ProcessManager
 {
+    /**
+     * Constructs the jBpm session factory, this will initialize the environment.
+     */
+    private final static org.jbpm.db.JbpmSessionFactory SESSION_FACTORY =
+        org.jbpm.db.JbpmSessionFactory.buildJbpmSessionFactory();
+
 	/**
 	 * Injects the process definitions into the database, this should only be done once.
 	 */
 	public static void injectAllProcessDefinitions() throws java.lang.Exception
 	{
-	    final org.jbpm.db.JbpmSession jbpmSession = org.jbpm.db.JbpmSessionFactory.getInstance().openJbpmSession();
+	    final org.jbpm.db.JbpmSession jbpmSession = SESSION_FACTORY.openJbpmSession();
 
 #foreach ($processDefinition in $processDefinitions)
-		final org.jbpm.graph.def.ProcessDefinition $stringUtils.lowerCamelCaseName($processDefinition.name)Definition = org.jbpm.graph.def.ProcessDefinition.parseXmlResource("${processDefinition.descriptorFullPath}");
+		final org.jbpm.graph.def.ProcessDefinition $stringUtils.lowerCamelCaseName($processDefinition.name)Definition =
+		    org.jbpm.graph.def.ProcessDefinition.parseXmlResource("${processDefinition.descriptorFullPath}");
 #end
 
         final org.jbpm.db.GraphSession graphSession = jbpmSession.getGraphSession();
@@ -33,23 +40,22 @@ public final class ProcessManager
 
     public static void createProcessSchema() throws java.lang.Exception
     {
-        org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().createSchema();
+        SESSION_FACTORY.getJbpmSchema().createSchema();
     }
 
     public static void dropProcessSchema() throws java.lang.Exception
     {
-        org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().dropSchema();
+        SESSION_FACTORY.getJbpmSchema().dropSchema();
     }
 
     public static void cleanProcessSchema() throws java.lang.Exception
     {
-        org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().cleanSchema();
+        SESSION_FACTORY.getJbpmSchema().cleanSchema();
     }
 
     public static boolean isProcessSchemaAvailable() throws java.lang.Exception
     {
-        return org.jbpm.db.JbpmSessionFactory.getInstance().getJbpmSchema().hasJbpmTables();
+        return SESSION_FACTORY.getJbpmSchema().hasJbpmTables();
     }
-
 }
 #end
