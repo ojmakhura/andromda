@@ -25,6 +25,26 @@
                 <ear.bundle>true</ear.bundle>
             </properties>
         </dependency>
+#if ($workflow)
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-workflow</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-workflow-jbpm</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>sar</type>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+#end
 #if ($web)
         <dependency>
             <groupId>${pom.groupId}</groupId>

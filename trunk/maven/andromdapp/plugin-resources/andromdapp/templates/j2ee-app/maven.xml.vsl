@@ -120,6 +120,15 @@
     </goal>
 
     <!-- ==================================================================
+            Builds the Workflow component
+         ================================================================== -->
+    <goal name="workflow">
+        <maven:maven
+            descriptor="workflow/project.xml"
+            goals="jar:install"/>
+    </goal>
+
+    <!-- ==================================================================
             Starts the AndroMDA server
          ================================================================== -->
     <goal name="start-andromda-server">

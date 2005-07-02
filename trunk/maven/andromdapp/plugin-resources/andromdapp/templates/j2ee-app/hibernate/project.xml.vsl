@@ -19,6 +19,17 @@
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
         </dependency>
+#if ($workflow)
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-workflow</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+#end
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
