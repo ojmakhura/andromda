@@ -17,7 +17,7 @@ import org.andromda.core.common.ResourceUtils;
 
 
 /**
- * Stores the processing information for each model that AndroMDA will process.
+ * Stores the model information for each model that AndroMDA will process.
  *
  * @author Chad Brandon
  */
