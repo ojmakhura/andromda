@@ -37,7 +37,7 @@
         </j:forEach>
         <!-- define the name of the .sar bundle -->
         <j:set var="sarArtifactId" value="${pom.artifactId}-jbpm"/>
-        <j:set var="sarName" value="${sarSrtifactId}-${pom.currentVersion}.sar"/>
+        <j:set var="sarName" value="${sarArtifactId}-${pom.currentVersion}.sar"/>
         <!-- now zip it all up into a .sar -->
         <ant:jar destfile="${maven.build.dir}/${sarName}">
             <ant:fileset dir="${maven.build.dir}/sar">
