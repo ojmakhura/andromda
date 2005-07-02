@@ -44,6 +44,12 @@
                     can be called from the command line.
                 </documentation>
             </property>
+            <property name="configuration">
+                <documentation>
+                    The outlet for jBpm specific configuration, this includes configuration
+                    files for Hibernate, EhCache and a jboss-service.xml.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Other">
             <property name="clientPackage">
