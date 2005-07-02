@@ -34,6 +34,24 @@ public class ClassUtils
             throw new ClassUtilsException(throwable);
         }
     }
+    
+    /**
+     * Creates a new instance of the class given the <code>type</code>.
+     *
+     * @param type the type from which to instantiate the new instance.
+     * @return Object the new instance
+     */
+    public static Object newInstance(final Class type)
+    {
+        try
+        {
+            return type != null ? type.newInstance() : null;
+        }
+        catch (final Throwable throwable)
+        {
+            throw new ClassUtilsException(throwable);
+        }        
+    }
 
     /**
      * Loads and returns the class having the className. Will load but normal classes and the classes representing

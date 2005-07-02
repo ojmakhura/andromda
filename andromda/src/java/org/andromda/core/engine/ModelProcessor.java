@@ -11,7 +11,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
@@ -33,6 +35,7 @@ import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.profile.Profile;
+import org.andromda.core.repository.Repository;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.transformation.Transformer;
 import org.apache.commons.collections.comparators.ComparatorChain;
@@ -81,7 +84,7 @@ public class ModelProcessor
     public void process(final Configuration configuration)
     {
         this.configure(configuration);
-        this.process(configuration.getModels());
+        this.process(configuration.getRepositories());
     }
 
     /**
@@ -123,26 +126,37 @@ public class ModelProcessor
     }
 
     /**
-     * Processes all <code>models</code> with the discovered plugins.
+     * Processes all models contained within the <code>repositories</code>
+     * with the discovered cartridges.
      *
      * @param models an array of URLs to models.
      */
-    private final void process(Model[] models)
+    private final void process(org.andromda.core.configuration.Repository[] repositories)
     {
         final long startTime = System.currentTimeMillis();
 
-        // - filter out any invalid models (ones that don't have any uris defined)
-        models = this.filterInvalidModels(models);
-        if (models.length > 0)
+        final int repositoryNumber = repositories.length;
+        for (int ctr = 0; ctr < repositoryNumber; ctr++)
         {
-            this.processModels(models);
-            AndroMDALogger.info(
-                "completed model processing --> TIME: " + this.getDurationInSeconds(startTime) +
-                "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
-        }
-        else
-        {
-            AndroMDALogger.warn("No model(s) found to process");
+            final org.andromda.core.configuration.Repository repository = repositories[ctr];
+            if (repository != null)
+            {
+                final String repositoryName = repository.getName();
+
+                // - filter out any invalid models (ones that don't have any uris defined)
+                final Model[] models = this.filterInvalidModels(repository.getModels());
+                if (models.length > 0)
+                {
+                    this.processModels(repositoryName, models);
+                    AndroMDALogger.info(
+                        "completed model processing --> TIME: " + this.getDurationInSeconds(startTime) +
+                        "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
+                }
+                else
+                {
+                    AndroMDALogger.warn("No model(s) found to process for repository '" + repositoryName + "'");
+                }
+            }
         }
     }
 
@@ -159,11 +173,12 @@ public class ModelProcessor
     /**
      * Processes multiple <code>models</code>.
      *
-     * @param repository the RepositoryFacade that will be used to read/load the model
+     * @param repositoryName the name of the repository that loads/reads the model.
      * @param models the Model(s) to process.
-     * @param cartridges the collection of cartridge used to process the models.
      */
-    private void processModels(final Model[] models)
+    private void processModels(
+        final String repositoryName,
+        final Model[] models)
     {
         String cartridgeName = null;
         try
@@ -195,7 +210,7 @@ public class ModelProcessor
                 }
 
                 // - pre-load the models
-                this.loadIfNecessary(models);
+                this.loadIfNecessary(repositoryName, models);
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
@@ -210,7 +225,7 @@ public class ModelProcessor
                         // - process each model
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
-                            this.factory.setModel(this.repository.getModel());
+                            this.factory.setModel(this.getRepositoryImplementation(repositoryName).getModel());
                             cartridge.processModelElements(factory);
                             writer.writeHistory();
                         }
@@ -259,12 +274,19 @@ public class ModelProcessor
         // - find and load all the logical mappings
         Mappings.initializeLogicalMappings();
 
-        // - find and open the repository
-        if (this.repository == null)
+        // - find and open any repositories
+        if (this.repositories.isEmpty())
         {
-            this.repository =
-                (RepositoryFacade)ComponentContainer.instance().findRequiredComponent(RepositoryFacade.class);
-            this.repository.open();
+            final Collection repositories = ComponentContainer.instance().findComponentsOfType(Repository.class);
+            for (final Iterator iterator = repositories.iterator(); iterator.hasNext();)
+            {
+                final Repository repository = (Repository)iterator.next();
+                final RepositoryFacade repositoryImplementation = repository.getImplementation();
+                repositoryImplementation.open();
+                this.repositories.put(
+                    repository.getNamespace(),
+                    repositoryImplementation);
+            }
         }
 
         // - finally initialize the metafacade factory
@@ -276,9 +298,12 @@ public class ModelProcessor
      * Loads the model into the repository only when necessary (the model has a timestamp
      * later than the last timestamp of the loaded model).
      *
+     * @param repositoryName the name of the repository that will load/read the model.
      * @param model the model to be loaded.
      */
-    protected final void loadModelIfNecessary(final Model model)
+    protected final void loadModelIfNecessary(
+        final String repositoryName,
+        final Model model)
     {
         // - only load if the model has been changed from last time it was loaded
         if (model.isChanged())
@@ -304,13 +329,14 @@ public class ModelProcessor
                 final String uri = uris[ctr];
                 AndroMDALogger.info("loading model --> '" + uri + "'");
             }
-            this.repository.readModel(
+            final RepositoryFacade repositoryImplementation = this.getRepositoryImplementation(repositoryName);
+            repositoryImplementation.readModel(
                 streams,
                 uris,
                 model.getModuleSearchLocationPaths());
 
             // - set the package filter
-            this.repository.getModel().setPackageFilter(model.getPackages());
+            repositoryImplementation.getModel().setPackageFilter(model.getPackages());
             try
             {
                 for (int ctr = 0; ctr < uriNumber; ctr++)
@@ -327,7 +353,7 @@ public class ModelProcessor
             this.printWorkCompleteMessage("loading", startTime);
 
             // - validate the model since loading has successfully occurred
-            this.validateModel();
+            this.validateModel(repositoryName);
         }
     }
 
@@ -335,16 +361,16 @@ public class ModelProcessor
      * Validates the entire model with each cartridge namespace,
      * and logs the failures if model validation fails.
      *
-     * @param model the model to validate
+     * @param repositoryName the name of the repository storing the model to validate.
      */
-    private final void validateModel()
+    private final void validateModel(final String repositoryName)
     {
         if (this.modelValidation)
         {
             final long startTime = System.currentTimeMillis();
             AndroMDALogger.info("- validating model -");
             final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
-            final ModelAccessFacade modelAccessFacade = this.repository.getModel();
+            final ModelAccessFacade modelAccessFacade = this.getRepositoryImplementation(repositoryName).getModel();
 
             // - clear out the factory's caches (such as any previous validation messages, etc.)
             this.factory.clearCaches();
@@ -450,18 +476,43 @@ public class ModelProcessor
     }
 
     /**
-     * Checks to see if <em>any</em> of the
-     * models need to be reloaded, and if so, re-loads them.
+     * Checks to see if <em>any</em> of the repositories contain models
+     * that need to be reloaded, and if so, re-loads them.
      */
-    final void loadIfNecessary(final Model[] models)
+    final void loadIfNecessary(final org.andromda.core.configuration.Repository[] repositories)
     {
-        // - only allow loading when processing is not occurring.
+        if (repositories != null && repositories.length > 0)
+        {
+            final int repositoryNumber = repositories.length;
+            for (int repositoryCtr = 0; repositoryCtr < repositoryNumber; repositoryCtr++)
+            {
+                final org.andromda.core.configuration.Repository repository = repositories[repositoryCtr];
+                if (repository != null)
+                {
+                    this.loadIfNecessary(
+                        repository.getName(),
+                        repository.getModels());
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks to see if <em>any</em> of the models need to be reloaded, and if so, re-loads them.
+     *
+     * @param repositoryName the name of the repository used to load/read the models
+     * @param the models that will be loaded (if necessary).
+     */
+    private final void loadIfNecessary(
+        final String repositoryName,
+        final Model[] models)
+    {
         if (models != null && models.length > 0)
         {
             final int modelNumber = models.length;
-            for (int ctr = 0; ctr < modelNumber; ctr++)
+            for (int modelCtr = 0; modelCtr < modelNumber; modelCtr++)
             {
-                this.loadModelIfNecessary(models[ctr]);
+                this.loadModelIfNecessary(repositoryName, models[modelCtr]);
             }
         }
     }
@@ -671,10 +722,41 @@ public class ModelProcessor
     }
 
     /**
-     * The repository instance which loads the models to
-     * be processed.
+     * Stores all the repository implementations keyed by name.
      */
-    private RepositoryFacade repository;
+    private final Map repositories = new LinkedHashMap();
+
+    /**
+     * Retrieves the repository implementation with the given name.
+     *
+     * @param name the name of the repository implementation to retrieve.
+     * @return the repository implementation.
+     */
+    private final RepositoryFacade getRepositoryImplementation(final String name)
+    {
+        final RepositoryFacade implementation = (RepositoryFacade)this.repositories.get(name);
+        if (implementation == null)
+        {
+            String message = null;
+            if (this.repositories.isEmpty())
+            {
+                message =
+                    "No repository implementations have been registered, " +
+                    "make sure you have at least one valid repository registered under a namespace on your classpath";
+            }
+            else
+            {
+                message =
+                    "No repository implementation registered under namespace '" + name +
+                    "', you must specify one of the available as your repository name: '" +
+                    StringUtils.join(
+                        this.repositories.keySet().iterator(),
+                        ",") + "'";
+            }
+            throw new ModelProcessorException(message);
+        }
+        return implementation;
+    }
 
     /**
      * Shuts down the model processor (reclaims any
@@ -703,9 +785,13 @@ public class ModelProcessor
         // - clear out any caches used by the configuration
         Configuration.clearCaches();
 
-        if (this.repository != null)
+        // - clear out any repositories
+        if (!this.repositories.isEmpty())
         {
-            this.repository.clear();
+            for (final Iterator iterator = this.repositories.values().iterator(); iterator.hasNext();)
+            {
+                ((RepositoryFacade)iterator.next()).clear();
+            }
         }
     }
 

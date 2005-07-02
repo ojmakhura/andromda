@@ -9,27 +9,31 @@
         <loadInterval>5000</loadInterval>
         <maximumFailedLoadAttempts>50</maximumFailedLoadAttempts>
     </server>
-    <models>
-        <model lastModifiedCheck="true">
-            <uri>file:model1Uri1.xmi</uri>
-            <uri>file:model1Uri2.xmi</uri>
-            <moduleSearchLocations>
-                <location patterns="*.xmi, *.xml.zip">/path/to/model/modules1</location>
-                <location>/path/to/model/modules2</location>
-            </moduleSearchLocations>
-            <modelPackages processAll="false">
-                <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
-                <modelPackage>org::andromda::cartridges::test</modelPackage>
-            </modelPackages>
-        </model>
-        <model><uri>file:model2.xmi</uri></model>
-        <model>
-            <uri>file:model3.xmi</uri>
-            <modelPackages processAll="true">
-                <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
-            </modelPackages>
-        </model>
-    </models>
+    <repositories>
+        <repository name="test">
+            <models>
+                <model lastModifiedCheck="true">
+                    <uri>file:model1Uri1.xmi</uri>
+                    <uri>file:model1Uri2.xmi</uri>
+                    <moduleSearchLocations>
+                        <location patterns="*.xmi, *.xml.zip">/path/to/model/modules1</location>
+                        <location>/path/to/model/modules2</location>
+                    </moduleSearchLocations>
+                    <modelPackages processAll="false">
+                        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                        <modelPackage>org::andromda::cartridges::test</modelPackage>
+                    </modelPackages>
+                </model>
+                <model><uri>file:model2.xmi</uri></model>
+                <model>
+                    <uri>file:model3.xmi</uri>
+                    <modelPackages processAll="true">
+                        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                    </modelPackages>
+                </model>
+            </models>
+        </repository>
+    </repositories>
     <transformations>
         <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
         <transformation><uri>file:transformation2.xsl</uri></transformation>

@@ -80,28 +80,28 @@ public class Configuration
     }
 
     /**
-     * Stores the models for this Configuration instance.
+     * Stores the repositories for this Configuration instance.
      */
-    private final Collection models = new ArrayList();
+    private final Collection repositories = new ArrayList();
 
     /**
-     * Adds the URI of a model to this configuration.
+     * Adds the repository to this configuration.
      *
-     * @param modelUri the URI of the model.
+     * @param repository the repository instance.
      */
-    public void addModel(final Model model)
+    public void addRepository(final Repository repository)
     {
-        this.models.add(model);
+        this.repositories.add(repository);
     }
 
     /**
-     * Gets the mode instances belonging to this configuration.
+     * Gets the repository instances belonging to this configuration.
      *
-     * @return the collection of model instances.
+     * @return the collection of repository instances.
      */
-    public Model[] getModels()
+    public Repository[] getRepositories()
     {
-        return (Model[])this.models.toArray(new Model[0]);
+        return (Repository[])this.repositories.toArray(new Repository[0]);
     }
 
     /**

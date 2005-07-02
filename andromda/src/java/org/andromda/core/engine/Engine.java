@@ -57,7 +57,7 @@ public class Engine
     {
         if (configuration != null)
         {
-            this.modelProcessor.loadIfNecessary(configuration.getModels());
+            this.modelProcessor.loadIfNecessary(configuration.getRepositories());
         }
     }
 
