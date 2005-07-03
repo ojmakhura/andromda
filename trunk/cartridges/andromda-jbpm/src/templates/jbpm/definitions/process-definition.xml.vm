@@ -16,7 +16,7 @@ ${indent}</start-state>
 ##
 ##
 ##
-#macro (renderSwimlanes $processDefinition ${indent})
+#macro (renderSwimlanes $processDefinition $indent)
 #if (!$processDefinition.swimlanes.empty)
 #foreach ($swimlane in $processDefinition.swimlanes)
 #if ($swimlane.assignmentExpressions.empty)
@@ -160,7 +160,7 @@ ${indent}</event>
 ##
 #macro (tasks $taskNode $indent)
 #foreach ($task in $taskNode.tasks)
-${indent}<task#renderName($task)#renderDueDate($task) blocking="$task.blocking"## no newline
+${indent}<task#renderName($task)#renderDueDate($task)#renderSwimlane($task) blocking="$task.blocking"## no newline
 #if ($task.operation.arguments.empty)
 />
 #else
@@ -242,8 +242,8 @@ ${indent}<transition#renderName($transition) to="$transition.target.name"/>
 ##
 ##
 ##
-#macro (renderSwimlane $element)
-#if ($element.swimlane)
- swimlane="$element.swimlane.name"## no newline
+#macro (renderSwimlane $task)
+#if ($task.state.swimlane)
+ swimlane="$task.state.swimlane.name"## no newline
 #end
 #end
