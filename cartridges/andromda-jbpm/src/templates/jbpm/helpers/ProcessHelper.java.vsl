@@ -10,9 +10,9 @@
 #macro (renderLocator $state)
 #if ($state.name)
 #set ($methodName = "isIn${stringUtils.upperCamelCaseName($state.name)}")
-    public static boolean ${methodName}(final org.jbpm.graph.exe.Token token)
+    public static boolean ${methodName}(final org.jbpm.graph.exe.ProcessInstance processInstance)
     {
-        return "$state.name".equals(token.getName());
+        return "$state.name".equals(processInstance.getRootToken().getNode().getName());
     }
 
 #end
@@ -33,7 +33,24 @@ import org.jbpm.graph.def.ProcessDefinition;
  */
 public class $className
 {
-    public static final String PROCESS_NAME = "$processDefinition.name"; 
+    public static final java.lang.String PROCESS_NAME = "$processDefinition.name";
+
+#if ($processDefinition.taskNodes)
+#foreach ($taskNode in $processDefinition.taskNodes)
+    public static final String TASK_$stringUtils.separate($taskNode.name,"_").toUpperCase()_NAME = "$taskNode.name";
+#end
+
+#end
+    public static java.util.List getTasks(java.lang.String actorId)
+    {
+        final JbpmSession session = JbpmSessionFactory.getInstance().openJbpmSession();
+        final GraphSession graphSession = session.getGraphSession();
+
+        ProcessDefinition definition = graphSession.findLatestProcessDefinition(CreateFileProcessHelper.PROCESS_NAME);
+        TaskMgmtDefinition taskManagement = definition.getTaskMgmtDefinition();
+
+
+    }
 
 #if ($processDefinition.startState.initialState)
 #renderLocator($processDefinition.startState.initialState)
