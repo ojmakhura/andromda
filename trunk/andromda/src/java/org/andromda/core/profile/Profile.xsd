@@ -29,10 +29,6 @@
                 </xs:element>
             </xs:sequence>
         </xs:complexType>
-        <xs:unique name="defaultOnlySpecifiedOnce">
-            <xs:selector xpath="value"/>
-            <xs:field xpath="@default"/>
-        </xs:unique>
     </xs:element>
     <xs:element name="appliedOnElement" type="xs:string">
         <xs:annotation>
