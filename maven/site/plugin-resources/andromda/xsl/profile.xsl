@@ -25,7 +25,11 @@
             <xsl:for-each select="elementGroup">
                 <xsl:sort select="@name"/>
                 <div class="profileElementGroup">
-                    <b><xsl:value-of select="@name"/></b><br/>
+                    <xsl:element name="a">
+                        <xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
+                        <xsl:attribute name="class">profileElementGroupTitle</xsl:attribute>
+                        <xsl:value-of select="@name"/>
+                    </xsl:element>
                     <xsl:if test="@name='Stereotypes'">
                         <div class="profileElementGroupDocumentation">
                             Stereotypes are the names you sometimes see appear in UML diagrams, they typically look
@@ -64,7 +68,7 @@
                                 <xsl:element name="a">
                                     <xsl:attribute name="href">#<xsl:value-of select="normalize-space(value)"/></xsl:attribute>
                                     <xsl:attribute name="title">
-                                        <xsl:if test="appliedOnElement">Applies on: <xsl:value-of select="normalize-space(appliedOnElement)"/></xsl:if>
+                                        <xsl:if test="appliedOnElement">Applied on: <xsl:value-of select="normalize-space(appliedOnElement)"/></xsl:if>
                                     </xsl:attribute>
                                     <xsl:value-of select="normalize-space(value)"/>
                                 </xsl:element>
@@ -84,16 +88,22 @@
     </xsl:template>
 
     <xsl:template match="element">
-        <xsl:element name="a">
-            <xsl:attribute name="name"><xsl:value-of select="normalize-space(value)"/></xsl:attribute>
-            <h3><xsl:value-of select="value"/></h3>
-        </xsl:element>
         <div class="profileElement">
             <table>
+                <tr>
+                    <td class="profileElementTitle">
+                        <xsl:element name="a">
+                            <xsl:attribute name="name"><xsl:value-of select="normalize-space(value)"/></xsl:attribute>
+                            <xsl:attribute name="class">profileElementTitle</xsl:attribute>
+                            <xsl:value-of select="value"/>
+                        </xsl:element>
+                        <xsl:element name="a"><xsl:attribute name="href">#<xsl:value-of select="../@name"/></xsl:attribute><xsl:attribute name="title">Go to <xsl:value-of select="../@name"/> profile element group</xsl:attribute>(Back to <xsl:value-of select="../@name"/>)</xsl:element>
+                    </td>
+                </tr>
                 <xsl:if test="appliedOnElement">
                     <tr>
                         <td>
-                            Applies on: <xsl:copy-of select="appliedOnElement"/>
+                            Applied on: <xsl:copy-of select="appliedOnElement"/>
                         </td>
                     </tr>
                 </xsl:if>
