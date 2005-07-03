@@ -26,6 +26,7 @@
                     must exit an action state and enter a JSP page.
                 </documentation>
                 <value>FrontEndException</value>
+                <appliedOnElement>Transition</appliedOnElement>
             </element>
             <element name="FRONT_END_SESSION_OBJECT">
                 <documentation>
@@ -36,20 +37,13 @@
                     such session objects; and in the same way a session object might be shared between controllers.</i>
                 </documentation>
                 <value>FrontEndSessionObject</value>
+                <appliedOnElement>Class</appliedOnElement>
             </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
             <documentation>
-                <p>
-                    Sometimes it happens you want to add information to the model but there is no clean way of doing it.
-                    In those cases you may want to resort to tagged values, but these cases should be considered with
-                    caution. A tagged value is something extra, something optional,
-                    and the application should run fine without them.
-                </p>
-                <p>
-                    Bpm4struts allows you to add tagged values here and there but provides a
-                    default value in case they are missing.
-                </p>
+                Bpm4struts allows you to add tagged values here and there but provides a
+                default value in case they are missing.
             </documentation>
             <element name="ACTION_TYPE">
                 <documentation>
@@ -58,6 +52,12 @@
                     is the default value.
                 </documentation>
                 <value>@andromda.struts.action.type</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">form</value>
+                    <value>hyperlink</value>
+                    <value>image</value>
+                </allowedValues>
             </element>
             <element name="ACTION_TABLELINK">
                 <documentation>
@@ -67,6 +67,7 @@
                     column will be created for it.
                 </documentation>
                 <value>@andromda.struts.action.tablelink</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
             </element>
             <element name="ACTION_FORM_SCOPE">
                 <documentation>
@@ -74,6 +75,11 @@
                     by the <a href="namespace.html#actionFormScope">actionFormScope</a> namespace property.
                 </documentation>
                 <value>@andromda.struts.action.form.scope</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>session</value>
+                    <value>request</value>
+                </allowedValues>
             </element>
             <element name="ACTION_RESETTABLE">
                 <documentation>
@@ -81,18 +87,37 @@
                     to reset forms to their initial values
                 </documentation>
                 <value>@andromda.struts.action.resettable</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
             </element>
             <element name="ACTION_SUCCESS_MESSAGE">
                 <documentation>
                     On action completion will have a success message rendered on screen
                 </documentation>
                 <value>@andromda.struts.action.success.message</value>
+                <appliedOnElement>Transition</appliedOnElement>
+                <allowedValues>
+                    <value>
+                        Any message you would like to see displayed, it will be included in the resource bundle
+                        for internationalization
+                    </value>
+                </allowedValues>
             </element>
             <element name="ACTION_WARNING_MESSAGE">
                 <documentation>
                     On action completion will have a warning message rendered on screen
                 </documentation>
                 <value>@andromda.struts.action.warning.message</value>
+                <appliedOnElement>Transition</appliedOnElement>
+                <allowedValues>
+                    <value>
+                        Any message you would like to see displayed, it will be included in the resource bundle
+                        for internationalization
+                    </value>
+                </allowedValues>
             </element>
             <element name="INPUT_REQUIRED">
                 <documentation>
@@ -100,12 +125,22 @@
                     checked (you cannot enter a String value when an int is expected)
                 </documentation>
                 <value>@andromda.struts.view.field.required</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
             </element>
             <element name="INPUT_READONLY">
                 <documentation>
                     Indicates the parameter is read only, it's value cannot be entered by the user
                 </documentation>
                 <value>@andromda.struts.view.field.readonly</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
             </element>
             <element name="INPUT_FORMAT">
                 <documentation>
@@ -184,6 +219,10 @@
                     </p>
                 </documentation>
                 <value>@andromda.struts.view.field.format</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>Any of the formats listed above</value>
+                </allowedValues>
             </element>
             <element name="INPUT_TYPE">
                 <documentation>
@@ -194,6 +233,18 @@
                     possible types see <a href="user-guide.html#Field_Types">this page</a>
                 </documentation>
                 <value>@andromda.struts.view.field.type</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">text</value>
+                    <value>select</value>
+                    <value>password</value>
+                    <value>hidden</value>
+                    <value>textarea</value>
+                    <value>checkbox</value>
+                    <value>radio</value>
+                    <value>link</value>
+                    <value>multibox</value>
+                </allowedValues>
             </element>
             <element name="INPUT_MULTIBOX">
                 <documentation>
@@ -203,6 +254,10 @@
                     a match is found the checkbox will be checked for the corresponding row.
                 </documentation>
                 <value>@andromda.struts.view.field.multibox</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>any name of a page-variable that is a datatype::Collection type</value>
+                </allowedValues>
             </element>
             <element name="INPUT_RADIO">
                 <documentation>
@@ -214,6 +269,10 @@
                     assume it to have value '3'.
                 </documentation>
                 <value>@andromda.struts.view.field.radio</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a strictly positive integer</value>
+                </allowedValues>
             </element>
             <element name="INPUT_VALIDWHEN">
                 <documentation>
@@ -225,6 +284,10 @@
                     parentheses will automatically be placed around your condition.
                 </documentation>
                 <value>@andromda.struts.view.field.validwhen</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a Struts 'validwhen' condition</value>
+                </allowedValues>
             </element>
             <element name="INPUT_VALIDATORS">
                 <documentation>
@@ -242,6 +305,10 @@
                     test, datePattern, ...)
                 </documentation>
                 <value>@andromda.struts.view.field.validators</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a call to one of your custom validators</value>
+                </allowedValues>
             </element>
             <element name="INPUT_CALENDAR">
                 <documentation>
@@ -249,6 +316,11 @@
                     popup next to it.
                 </documentation>
                 <value>@andromda.struts.view.field.calendar</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
             </element>
             <element name="INPUT_TABLELINK">
                 <documentation>
@@ -269,6 +341,13 @@
                     By setting the parameter type you can have any widget rendered into the table.
                 </documentation>
                 <value>@andromda.struts.view.field.tablelink</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>
+                        any name of a table page-variable that is a datatype::Collection type followed by a dot
+                        and the name of the target column
+                    </value>
+                </allowedValues>
             </element>
             <element name="INPUT_RESET">
                 <documentation>
@@ -277,6 +356,11 @@
                     some of the parameters reset on the form but not all of them.
                 </documentation>
                 <value>@andromda.struts.view.field.reset</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
             </element>
             <element name="TABLE_COLUMNS">
                 <documentation>
@@ -289,6 +373,13 @@
                     this tag, all properties will correctly be resolved.
                 </documentation>
                 <value>@andromda.struts.view.table.columns</value>
+                <appliedOnElement>
+                    Parameter of type <code>datatype::Collection</code>
+                    going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>a comma-separated list of column names</value>
+                </allowedValues>
             </element>
             <element name="TABLE_MAXROWS">
                 <documentation>
@@ -297,6 +388,14 @@
                     than this value then a list of pages will be displayed to jump to the other values.
                 </documentation>
                 <value>@andromda.struts.view.table.maxrows</value>
+                <appliedOnElement>
+                    Parameter of type <code>datatype::Collection</code>
+                    going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>a strictly positive integer</value>
+                    <value default="true">15</value>
+                </allowedValues>
             </element>
             <element name="TABLE_EXPORT">
                 <documentation>
@@ -308,6 +407,16 @@
                     priority over any other ones if specified.
                 </documentation>
                 <value>@andromda.struts.view.table.export</value>
+                <appliedOnElement>
+                    Parameter of type <code>datatype::Collection</code>
+                    going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">xml</value>
+                    <value default="true">csv</value>
+                    <value default="true">excel</value>
+                    <value default="true">pdf</value>
+                </allowedValues>
             </element>
             <element name="TABLE_SORTABLE">
                 <documentation>
@@ -315,6 +424,14 @@
                     on the header.
                 </documentation>
                 <value>@andromda.struts.view.table.sortable</value>
+                <appliedOnElement>
+                    Parameter of type <code>datatype::Collection</code>
+                    going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">true</value>
+                    <value>false</value>
+                </allowedValues>
             </element>
             <element name="TABLE_DECORATOR">
                 <documentation>
@@ -322,18 +439,36 @@
                     in combination with the <code>generateTableDecorators</code> namespace property.
                 </documentation>
                 <value>@andromda.struts.view.table.decorator</value>
+                <appliedOnElement>
+                    Parameter of type <code>datatype::Collection</code>
+                    going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
             </element>
             <element name="EXCEPTION_TYPE">
                 <documentation>
                     Indicates which exception this handler takes care of
                 </documentation>
                 <value>@andromda.struts.exception.type</value>
+                <appliedOnElement>Transition</appliedOnElement>
+                <allowedValues>
+                    <value>the fully qualified name of a Java java.lang.Exception type</value>
+                    <value default="true">java.lang.Exception</value>
+                </allowedValues>
             </element>
             <element name="ACTION_REDIRECT">
                 <documentation>
                     Indicates whether or not HTTP redirection should occur when forwarded on to the next action
                 </documentation>
                 <value>@andromda.struts.action.redirect</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
             </element>
             <element name="DATE_FORMAT">
                 <documentation>
@@ -345,6 +480,20 @@
                     SimpleDateFormat JavaDoc</a>
                 </documentation>
                 <value>@andromda.struts.view.field.dateformat</value>
+                <appliedOnElement>
+                    Parameter of type <code>datatype::Collection</code>
+                    going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>
+                        any format accepted by
+                        <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">java.text.SimpleDateFormat</a>
+                    </value>
+                    <value default="true">
+                        the value specified by the
+                        <a href="namespace.html#defaultDateFormat">defaultDateFormat</a> namespace property
+                    </value>
+                </allowedValues>
             </element>
             <element name="MANAGEABLE_MAXIMUM_LIST_SIZE">
                 <documentation>
@@ -353,12 +502,22 @@
                     the search facility to refine the result set
                 </documentation>
                 <value>@andromda.manageable.table.maxlistsize</value>
-            </element>     
+                <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a strictly positive integer</value>
+                    <value default="true">250</value>
+                </allowedValues>
+            </element>
             <element name="MANAGEABLE_PAGE_SIZE">
                 <documentation>
                     The maximum number of records to show on the same page.
                 </documentation>
                 <value>@andromda.manageable.table.pagesize</value>
+                <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a strictly positive integer</value>
+                    <value default="true">20</value>
+                </allowedValues>
             </element>
             <element name="MANAGEABLE_DISPLAY_NAME">
                 <documentation>
@@ -369,6 +528,11 @@
                     <![CDATA[<<Unique>>]]> attribute is found the identifier is used, which isn't very helpful.
                 </documentation>
                 <value>@andromda.manageable.table.displayname</value>
+                <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>any column name present in this entity</value>
+                    <value default="true">the name of the identifier column</value>
+                </allowedValues>
             </element>
             <element name="MANAGEABLE_RESOLVEABLE">
                 <documentation>
@@ -377,7 +541,12 @@
                     (meaning a table with lots of records).
                 </documentation>
                 <value>@andromda.manageable.table.resolveable</value>
-            </element>    
+                <appliedOnElement>Association end to a class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
         </elementGroup>
         <elementGroup name="Data Types">
             <element name="CHARACTER_TYPE">
