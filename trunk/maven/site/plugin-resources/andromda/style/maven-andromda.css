@@ -242,6 +242,13 @@ div#pdf img { width: 13px; height: 16px; display: block; margin-left: 45px; }
 
 /* styles related to the namespace.xml xdoc */
 
+a.namespacePropertyGroupTitle, a.namespacePropertyTitle, a.profileElementGroupTitle, a.profileElementTitle
+{
+    font-size: 120%;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
 .namespacePropertyGroup, .profileElementGroup
 {
     border: 0;
@@ -257,8 +264,9 @@ div#pdf img { width: 13px; height: 16px; display: block; margin-left: 45px; }
     margin: 12px 6px;
 }
 
-.namespaceProperty table, .profileElement table { margin-left: 20px; }
-.namespaceProperty table td, .profileElement table td { border: 0; }
+.namespaceProperty table, .profileElement table { margin: 0 0 20px 20px; }
+.namespaceProperty table td, .profileElement table td { border: 0; padding: 10px 10px 0 10px; background-color: white; }
+.namespaceProperty table td.namespacePropertyTitle, .profileElement table td.profileElementTitle { padding: 10px 0;}
 .namespaceProperty .required, .profileElement .required { color: red; font-weight: bold; }
 .namespaceProperty .optional, .profileElement .optional { color: green; font-weight: bold; }
 .namespaceProperty code.defaultValue, .profileElement code.defaultValue { color: blue; }

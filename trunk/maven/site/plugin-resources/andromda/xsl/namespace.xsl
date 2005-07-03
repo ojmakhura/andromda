@@ -18,7 +18,11 @@
             <xsl:for-each select="propertyGroup">
                 <xsl:sort select="@name"/>
                 <div class="namespacePropertyGroup">
-                    <b><xsl:value-of select="@name"/></b><br/>
+                    <xsl:element name="a">
+                        <xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
+                        <xsl:attribute name="class">namespacePropertyGroup</xsl:attribute>
+                        <xsl:value-of select="@name"/>
+                    </xsl:element>
                     <xsl:if test="normalize-space(documentation)">
                         <div class="namespacePropertyGroupDocumentation">
                             <xsl:choose>
@@ -74,12 +78,18 @@
     </xsl:template>
 
     <xsl:template match="property">
-        <xsl:element name="a">
-            <xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
-            <h3><xsl:value-of select="@name"/></h3>
-        </xsl:element>
         <div class="namespaceProperty">
             <table>
+                <tr>
+                    <td class="namespacePropertyTitle" colspan="2">
+                        <xsl:element name="a">
+                            <xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
+                            <xsl:attribute name="class">namespacePropertyTitle</xsl:attribute>
+                            <xsl:value-of select="@name"/>
+                        </xsl:element>
+                        <xsl:element name="a"><xsl:attribute name="href">#<xsl:value-of select="../@name"/></xsl:attribute><xsl:attribute name="title">Go to <xsl:value-of select="../@name"/> namespace element group</xsl:attribute>(Back to <xsl:value-of select="../@name"/>)</xsl:element>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <xsl:choose>
