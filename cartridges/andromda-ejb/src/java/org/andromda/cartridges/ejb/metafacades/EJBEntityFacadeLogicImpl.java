@@ -161,7 +161,7 @@ public class EJBEntityFacadeLogicImpl
         do
         {
             Collection ops = this.getOperations();
-            for (Iterator i = ops.iterator(); i.hasNext();)
+            for (final Iterator i = ops.iterator(); i.hasNext();)
             {
                 OperationFacade op = (OperationFacade)i.next();
                 if (op.hasStereotype(EJBProfile.STEREOTYPE_SELECT_METHOD))

@@ -156,7 +156,7 @@ public class StateMachineFacadeLogicImpl
         Predicate collectionFilter)
     {
         final Set filteredCollection = new LinkedHashSet();
-        for (Iterator iterator = collection.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = collection.iterator(); iterator.hasNext();)
         {
             final Object object = iterator.next();
             if (collectionFilter.evaluate(object))

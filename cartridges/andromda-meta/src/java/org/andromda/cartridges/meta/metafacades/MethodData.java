@@ -163,7 +163,7 @@ public class MethodData
     {
         String key = ((returnTypeName != null) ? (returnTypeName + " ") : "") + name + "(";
 
-        for (Iterator iterator = arguments.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = arguments.iterator(); iterator.hasNext();)
         {
             final ArgumentData argument = (ArgumentData)iterator.next();
             key += argument.getFullyQualifiedTypeName();

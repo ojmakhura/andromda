@@ -35,7 +35,7 @@ public class PartitionFacadeLogicImpl
         Collection vertices = new ArrayList();
 
         final Collection contents = metaObject.getContents();
-        for (Iterator contentIterator = contents.iterator(); contentIterator.hasNext();)
+        for (final Iterator contentIterator = contents.iterator(); contentIterator.hasNext();)
         {
             final Object element = contentIterator.next();
             if (element instanceof StateVertex)

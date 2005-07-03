@@ -74,7 +74,7 @@ public class MetafacadeLogicImpl
      */
     private ClassifierFacade getMetaclass(ClassifierFacade classifier)
     {
-        for (Iterator iter = classifier.getSourceDependencies().iterator(); iter.hasNext();)
+        for (final Iterator iter = classifier.getSourceDependencies().iterator(); iter.hasNext();)
         {
             DependencyFacade dep = (DependencyFacade)iter.next();
             ClassifierFacade target = (ClassifierFacade)dep.getTargetElement();

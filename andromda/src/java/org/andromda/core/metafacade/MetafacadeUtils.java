@@ -45,7 +45,7 @@ final class MetafacadeUtils
                 {
                     final MetafacadeMapping.PropertyGroup propertyGroup =
                         (MetafacadeMapping.PropertyGroup)tterator.next();
-                    for (Iterator propertyIterator = propertyGroup.getProperties().iterator();
+                    for (final Iterator propertyIterator = propertyGroup.getProperties().iterator();
                         propertyIterator.hasNext();)
                     {
                         final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator.next();

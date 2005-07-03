@@ -38,7 +38,7 @@ public class EmptyDirsLister
         normalize(emptyDirs);
 
         final List dirNames = new ArrayList();
-        for (Iterator iterator = emptyDirs.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = emptyDirs.iterator(); iterator.hasNext();)
         {
             final File file = (File)iterator.next();
             dirNames.add(file.getAbsolutePath());
@@ -56,7 +56,7 @@ public class EmptyDirsLister
      */
     private static void normalize(Set emptyDirs)
     {
-        for (Iterator iterator = emptyDirs.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = emptyDirs.iterator(); iterator.hasNext();)
         {
             final File file = (File)iterator.next();
             if (emptyDirs.contains(file.getParent()))

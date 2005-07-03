@@ -49,7 +49,7 @@ public class AssociationEndFacadeLogicImpl
     protected Object handleGetOtherEnd()
     {
         final Collection ends = metaObject.getAssociation().getConnection();
-        for (Iterator endIt = ends.iterator(); endIt.hasNext();)
+        for (final Iterator endIt = ends.iterator(); endIt.hasNext();)
         {
             final AssociationEnd end = (AssociationEnd)endIt.next();
             if (!metaObject.equals(end))

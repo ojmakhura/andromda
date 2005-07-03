@@ -25,7 +25,7 @@ public class ActionFacadeLogicImpl
         Transition effectTransition = null;
 
         final Collection allTransitions = UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
-        for (Iterator iterator = allTransitions.iterator(); iterator.hasNext() && effectTransition == null;)
+        for (final Iterator iterator = allTransitions.iterator(); iterator.hasNext() && effectTransition == null;)
         {
             Transition transition = (Transition)iterator.next();
             if (metaObject.equals(transition.getEffect()))
@@ -42,7 +42,7 @@ public class ActionFacadeLogicImpl
         ActionState entryState = null;
 
         final Collection allActionStates = UML14MetafacadeUtils.getModel().getActivityGraphs().getActionState().refAllOfType();
-        for (Iterator iterator = allActionStates.iterator(); iterator.hasNext() && entryState == null;)
+        for (final Iterator iterator = allActionStates.iterator(); iterator.hasNext() && entryState == null;)
         {
             final ActionState actionState = (ActionState)iterator.next();
             if (metaObject.equals(actionState.getEntry()))

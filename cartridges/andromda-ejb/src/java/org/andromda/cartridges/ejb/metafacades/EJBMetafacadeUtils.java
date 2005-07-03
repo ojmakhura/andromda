@@ -39,7 +39,7 @@ class EJBMetafacadeUtils
         do
         {
             Collection ops = entity.getOperations();
-            for (Iterator i = ops.iterator(); i.hasNext();)
+            for (final Iterator i = ops.iterator(); i.hasNext();)
             {
                 OperationFacade op = (OperationFacade)i.next();
                 if (op.hasStereotype(EJBProfile.STEREOTYPE_CREATE_METHOD))

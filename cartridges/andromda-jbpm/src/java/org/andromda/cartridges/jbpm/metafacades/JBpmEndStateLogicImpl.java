@@ -37,7 +37,7 @@ public class JBpmEndStateLogicImpl
         final List beforeSignal = new ArrayList();
 
         final Collection events = getDeferrableEvents();
-        for (Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
         {
             final EventFacade event = (EventFacade)eventIterator.next();
             if (event instanceof JBpmAction)
@@ -61,7 +61,7 @@ public class JBpmEndStateLogicImpl
         final List nodeLeave = new ArrayList();
 
         final Collection events = getDeferrableEvents();
-        for (Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
         {
             final EventFacade event = (EventFacade)eventIterator.next();
             if (event instanceof JBpmAction)
@@ -85,7 +85,7 @@ public class JBpmEndStateLogicImpl
         final List nodeEnter = new ArrayList();
 
         final Collection events = getDeferrableEvents();
-        for (Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
         {
             final EventFacade event = (EventFacade)eventIterator.next();
             if (event instanceof JBpmAction)
@@ -109,7 +109,7 @@ public class JBpmEndStateLogicImpl
         final List afterSignals = new ArrayList();
 
         final Collection events = getDeferrableEvents();
-        for (Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
         {
             final EventFacade event = (EventFacade)eventIterator.next();
             if (event instanceof JBpmAction)

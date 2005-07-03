@@ -289,7 +289,7 @@ public class QueryTranslator
             // here we loop through the feature calls and find the ones
             // that are operation feature calls, we then retrieve and replace
             // all parameters in the translated expression
-            for (Iterator callIterator = featureCalls.iterator(); callIterator.hasNext();)
+            for (final Iterator callIterator = featureCalls.iterator(); callIterator.hasNext();)
             {
                 AFeatureCall featureCall = (AFeatureCall)callIterator.next();
 

@@ -80,11 +80,11 @@ public class JBpmHandlerLogicImpl
             {
                 final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;
                 final Collection actionStates = graph.getActionStates();
-                for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+                for (final Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
                 {
                     final StateFacade actionState = (StateFacade) actionStateIterator.next();
                     final Collection events = actionState.getDeferrableEvents();
-                    for (Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+                    for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
                     {
                         final EventFacade event = (EventFacade) eventIterator.next();
                         if (event instanceof JBpmAction)
@@ -99,7 +99,7 @@ public class JBpmHandlerLogicImpl
                 }
 
                 final Collection transitions = graph.getTransitions();
-                for (Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+                for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                 {
                     final TransitionFacade transition = (TransitionFacade) transitionIterator.next();
                     final EventFacade event = transition.getTrigger();

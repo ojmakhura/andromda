@@ -62,7 +62,7 @@ public class ActivityGraphFacadeLogicImpl
         UseCase stateMachineUseCase = null;
 
         final Collection useCases = UML14MetafacadeUtils.getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator();
+        for (final Iterator useCaseIterator = useCases.iterator();
              useCaseIterator.hasNext() && stateMachineUseCase == null;)
         {
             // loop over all use-cases

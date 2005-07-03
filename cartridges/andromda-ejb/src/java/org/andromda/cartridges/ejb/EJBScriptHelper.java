@@ -35,7 +35,7 @@ public class EJBScriptHelper
         StringBuffer sb = new StringBuffer();
         String separator = "";
 
-        for (Iterator it = attributes.iterator(); it.hasNext();)
+        for (final Iterator it = attributes.iterator(); it.hasNext();)
         {
             AttributeFacade attr = (AttributeFacade)it.next();
             sb.append(separator);
@@ -63,7 +63,7 @@ public class EJBScriptHelper
     public Collection filterByVisibility(Collection list, String visibility)
     {
         Collection retval = new ArrayList(list.size());
-        for (Iterator iter = list.iterator(); iter.hasNext();)
+        for (final Iterator iter = list.iterator(); iter.hasNext();)
         {
             ModelElementFacade elem = (ModelElementFacade)iter.next();
             if (visibility.equals(elem.getVisibility().toString()))
