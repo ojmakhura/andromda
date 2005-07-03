@@ -272,6 +272,7 @@
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a strictly positive integer</value>
+                    <value default="true">3</value>
                 </allowedValues>
             </element>
             <element name="INPUT_VALIDWHEN">
