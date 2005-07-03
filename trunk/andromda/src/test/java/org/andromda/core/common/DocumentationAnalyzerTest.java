@@ -37,7 +37,7 @@ public class DocumentationAnalyzerTest
                 "The list of paragraphs can be used in a VelocityTemplateEngine template" +
                 " to generate JavaDoc documentation for a class, an attribute or a" + " method.</p>", true);
 
-        for (Iterator it = c.iterator(); it.hasNext();)
+        for (final Iterator it = c.iterator(); it.hasNext();)
         {
             Paragraph par = (Paragraph)it.next();
             System.out.println("<p>");

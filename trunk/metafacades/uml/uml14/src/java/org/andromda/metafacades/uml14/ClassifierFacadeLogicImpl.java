@@ -267,7 +267,7 @@ public class ClassifierFacadeLogicImpl
         String separator = "";
         sb.append("(");
 
-        for (Iterator iterator = getAttributes().iterator(); iterator.hasNext();)
+        for (final Iterator iterator = getAttributes().iterator(); iterator.hasNext();)
         {
             AttributeFacade attribute = (AttributeFacade)iterator.next();
 

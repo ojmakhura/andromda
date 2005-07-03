@@ -119,7 +119,7 @@ public class SpringQueryOperationLogicImpl
     protected ParameterFacade handleGetCriteriaArgument()
     {
         Collection parameters = getParameters();
-        for (Iterator iter = parameters.iterator(); iter.hasNext();)
+        for (final Iterator iter = parameters.iterator(); iter.hasNext();)
         {
             ParameterFacade parameter = (ParameterFacade)iter.next();
             ClassifierFacade type = parameter.getType();

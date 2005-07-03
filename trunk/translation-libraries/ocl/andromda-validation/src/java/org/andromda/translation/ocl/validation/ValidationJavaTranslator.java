@@ -1290,7 +1290,7 @@ public class ValidationJavaTranslator
 
     private String getDeclaredLetVariableValue(String variableName)
     {
-        for (Iterator iterator = letVariableStack.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = letVariableStack.iterator(); iterator.hasNext();)
         {
             Map variableMap = (Map)iterator.next();
             if (variableMap.containsKey(variableName))

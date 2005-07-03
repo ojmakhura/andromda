@@ -549,7 +549,7 @@ public final class OCLCollections
     {
         boolean unique = true;
         final Set collected = new HashSet();
-        for (Iterator iterator = collection.iterator(); iterator.hasNext() && unique;)
+        for (final Iterator iterator = collection.iterator(); iterator.hasNext() && unique;)
         {
             final Object result = transformer.transform(iterator.next());
             if (collected.contains(result))

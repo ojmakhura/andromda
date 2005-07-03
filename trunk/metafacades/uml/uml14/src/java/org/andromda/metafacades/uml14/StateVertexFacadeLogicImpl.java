@@ -55,13 +55,12 @@ public class StateVertexFacadeLogicImpl
         {
             final ActivityGraph activityGraph = (ActivityGraph)stateMachine;
             final Collection partitions = activityGraph.getPartition();
-            for (Iterator partitionIterator = partitions.iterator(); partitionIterator.hasNext();)
+            for (final Iterator partitionIterator = partitions.iterator(); partitionIterator.hasNext() && thePartition == null;)
             {
                 final Partition partition = (Partition)partitionIterator.next();
                 if (partition.getContents().contains(metaObject))
                 {
                     thePartition = partition;
-                    break;
                 }
             }
         }

@@ -367,7 +367,7 @@ public class ModelElementFacadeLogicImpl
             if (paragraphs != null && !paragraphs.isEmpty())
             {
                 documentation = new StringBuffer();
-                for (Iterator paragraphIt = paragraphs.iterator(); paragraphIt.hasNext();)
+                for (final Iterator paragraphIt = paragraphs.iterator(); paragraphIt.hasNext();)
                 {
                     Paragraph paragraph = (Paragraph)paragraphIt.next();
                     documentation.append(indent + startParaTag + newLine);
@@ -642,7 +642,7 @@ public class ModelElementFacadeLogicImpl
         StateMachine machineContext = null;
 
         final Collection machines = UML14MetafacadeUtils.getModel().getStateMachines().getStateMachine().refAllOfType();
-        for (Iterator machineIterator = machines.iterator(); machineIterator.hasNext();)
+        for (final Iterator machineIterator = machines.iterator(); machineIterator.hasNext();)
         {
             final StateMachine machine = (StateMachine)machineIterator.next();
             final ModelElement contextElement = machine.getContext();

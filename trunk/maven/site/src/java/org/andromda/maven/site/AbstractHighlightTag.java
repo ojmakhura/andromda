@@ -62,7 +62,7 @@ public abstract class AbstractHighlightTag
         {
             XMLWriter xmlWriter = new XMLWriter(stringWriter);
 
-            for (Iterator iterator = element.nodeIterator(); iterator.hasNext();)
+            for (final Iterator iterator = element.nodeIterator(); iterator.hasNext();)
             {
                 Node childElement = (Node)iterator.next();
                 xmlWriter.write(childElement.getText());

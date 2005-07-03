@@ -56,7 +56,7 @@ public class JBpmProcessDefinitionLogicImpl
         if (graph != null)
         {
             final Collection actionStates = graph.getActionStates();
-            for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+            for (final Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
                 final ActionStateFacade state = (ActionStateFacade)actionStateIterator.next();
                 if (state instanceof JBpmNode && !((JBpmNode)state).isTaskNode())
@@ -77,7 +77,7 @@ public class JBpmProcessDefinitionLogicImpl
         if (graph != null)
         {
             final Collection actionStates = graph.getActionStates();
-            for (Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+            for (final Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
             {
                 final ActionStateFacade state = (ActionStateFacade)actionStateIterator.next();
                 if (state instanceof JBpmNode && ((JBpmNode)state).isTaskNode())
@@ -142,7 +142,7 @@ public class JBpmProcessDefinitionLogicImpl
         if (graph != null)
         {
             final Collection pseudostates = graph.getPseudostates();
-            for (Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
+            for (final Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
             {
                 final PseudostateFacade pseudostate = (PseudostateFacade) pseudostateIterator.next();
                 if (pseudostate.isDecisionPoint())
@@ -163,7 +163,7 @@ public class JBpmProcessDefinitionLogicImpl
         if (graph != null)
         {
             final Collection pseudostates = graph.getPseudostates();
-            for (Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
+            for (final Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
             {
                 final PseudostateFacade pseudostate = (PseudostateFacade) pseudostateIterator.next();
                 if (pseudostate.isFork())
@@ -184,7 +184,7 @@ public class JBpmProcessDefinitionLogicImpl
         if (graph != null)
         {
             final Collection pseudostates = graph.getPseudostates();
-            for (Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
+            for (final Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
             {
                 final PseudostateFacade pseudostate = (PseudostateFacade) pseudostateIterator.next();
                 if (pseudostate.isJoin())

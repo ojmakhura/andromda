@@ -247,7 +247,7 @@ public class UML14MetafacadeUtils
             List features = ((Classifier)classifier).getFeature();
             if (features != null && !features.isEmpty())
             {
-                for (Iterator featureIterator = features.iterator(); featureIterator.hasNext();)
+                for (final Iterator featureIterator = features.iterator(); featureIterator.hasNext();)
                 {
                     Object feature = featureIterator.next();
                     if (feature != null && Attribute.class.isAssignableFrom(feature.getClass()))
@@ -294,7 +294,7 @@ public class UML14MetafacadeUtils
         UseCase useCaseWithNameAndStereotype = null;
 
         Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithNameAndStereotype ==
+        for (final Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithNameAndStereotype ==
                 null;)
         {
             UseCase useCase = (UseCase)useCaseIterator.next();
@@ -327,7 +327,7 @@ public class UML14MetafacadeUtils
         ActivityGraph graphWithNameAndStereotype = null;
 
         Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
-        for (Iterator graphIterator = graphs.iterator();
+        for (final Iterator graphIterator = graphs.iterator();
              graphIterator.hasNext() && graphWithNameAndStereotype == null;)
         {
             ActivityGraph graph = (ActivityGraph)graphIterator.next();
@@ -351,12 +351,12 @@ public class UML14MetafacadeUtils
         boolean tagPresent = false;
 
         Collection taggedValues = element.getTaggedValue();
-        for (Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext() && !tagPresent;)
+        for (final Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext() && !tagPresent;)
         {
             TaggedValue taggedValue = (TaggedValue)taggedValueIterator.next();
             if (tag.equals(taggedValue.getName()))
             {
-                for (Iterator valueIterator = taggedValue.getDataValue().iterator(); valueIterator.hasNext() &&
+                for (final Iterator valueIterator = taggedValue.getDataValue().iterator(); valueIterator.hasNext() &&
                         !tagPresent;)
                 {
                     Object dataValue = valueIterator.next();
@@ -365,7 +365,7 @@ public class UML14MetafacadeUtils
                         tagPresent = true;
                     }
                 }
-                for (Iterator valueIterator = taggedValue.getReferenceValue().iterator(); valueIterator.hasNext() &&
+                for (final Iterator valueIterator = taggedValue.getReferenceValue().iterator(); valueIterator.hasNext() &&
                         !tagPresent;)
                 {
                     Object referenceValue = valueIterator.next();
@@ -392,7 +392,7 @@ public class UML14MetafacadeUtils
         boolean stereotypePresent = false;
 
         Collection stereotypes = element.getStereotype();
-        for (Iterator stereotypeIterator = stereotypes.iterator();
+        for (final Iterator stereotypeIterator = stereotypes.iterator();
              stereotypeIterator.hasNext() && !stereotypePresent;)
         {
             Stereotype stereotype = (Stereotype)stereotypeIterator.next();
@@ -413,7 +413,7 @@ public class UML14MetafacadeUtils
         UseCase useCaseWithTaggedValue = null;
 
         Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
-        for (Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithTaggedValue ==
+        for (final Iterator useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithTaggedValue ==
                 null;)
         {
             // loop over all use-cases
@@ -436,7 +436,7 @@ public class UML14MetafacadeUtils
         UmlClass classWithTaggedValue = null;
 
         Collection classes = getModel().getCore().getUmlClass().refAllOfType();
-        for (Iterator classIterator = classes.iterator(); classIterator.hasNext() && classWithTaggedValue == null;)
+        for (final Iterator classIterator = classes.iterator(); classIterator.hasNext() && classWithTaggedValue == null;)
         {
             // loop over all use-cases
             UmlClass clazz = (UmlClass)classIterator.next();
@@ -457,7 +457,7 @@ public class UML14MetafacadeUtils
         {
             String useCaseName = useCase.getName();
             Collection allFinalStates = getModel().getStateMachines().getFinalState().refAllOfType();
-            for (Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)
+            for (final Iterator iterator = allFinalStates.iterator(); iterator.hasNext();)
             {
                 FinalState finalState = (FinalState)iterator.next();
                 if (useCaseName != null)
@@ -501,7 +501,7 @@ public class UML14MetafacadeUtils
         {
             String id = facade.getId();
             Collection graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
-            for (Iterator iterator = graphs.iterator(); iterator.hasNext() && activityGraph == null;)
+            for (final Iterator iterator = graphs.iterator(); iterator.hasNext() && activityGraph == null;)
             {
                 ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
@@ -527,7 +527,7 @@ public class UML14MetafacadeUtils
         {
             String id = facade.getId();
             Collection useCases = getModel().getUseCases().getUseCase().refAllOfType();
-            for (Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase == null;)
+            for (final Iterator iterator = useCases.iterator(); iterator.hasNext() && useCase == null;)
             {
                 ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
@@ -553,7 +553,7 @@ public class UML14MetafacadeUtils
         {
             String id = facade.getId();
             Collection parameters = getModel().getCore().getParameter().refAllOfType();
-            for (Iterator iterator = parameters.iterator(); iterator.hasNext() && parameter == null;)
+            for (final Iterator iterator = parameters.iterator(); iterator.hasNext() && parameter == null;)
             {
                 ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
@@ -579,7 +579,7 @@ public class UML14MetafacadeUtils
         {
             String id = facade.getId();
             Collection events = getModel().getStateMachines().getEvent().refAllOfType();
-            for (Iterator iterator = events.iterator(); iterator.hasNext() && event == null;)
+            for (final Iterator iterator = events.iterator(); iterator.hasNext() && event == null;)
             {
                 ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))
@@ -605,7 +605,7 @@ public class UML14MetafacadeUtils
         {
             String id = facade.getId();
             Collection modelElements = getModel().getCore().getModelElement().refAllOfType();
-            for (Iterator iterator = modelElements.iterator(); iterator.hasNext() && modelElement == null;)
+            for (final Iterator iterator = modelElements.iterator(); iterator.hasNext() && modelElement == null;)
             {
                 ModelElement element = (ModelElement)iterator.next();
                 if (id.equals(element.refMofId()))

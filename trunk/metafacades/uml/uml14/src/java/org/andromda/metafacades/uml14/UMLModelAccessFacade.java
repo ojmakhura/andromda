@@ -110,7 +110,7 @@ public class UMLModelAccessFacade
         {
             ModelElement element = (ModelElement)modelElement;
             Collection stereotypes = element.getStereotype();
-            for (Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+            for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
             {
                 ModelElement stereotype = (ModelElement)iterator.next();
                 stereotypeNames.add(stereotype.getName());

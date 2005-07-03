@@ -92,7 +92,7 @@ public class MDRepositoryTransformationTest
         }
 
         Collection elements = namespace.getOwnedElement();
-        for (Iterator i = elements.iterator(); i.hasNext();)
+        for (final Iterator i = elements.iterator(); i.hasNext();)
         {
             ModelElement element = (ModelElement)i.next();
             if (element.getName().equals(fqn[pos]))
