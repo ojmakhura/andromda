@@ -30,7 +30,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="appliedOnElement" type="xs:string">
+    <xs:element name="appliedOnElement" type="xs:anyType">
         <xs:annotation>
             <xs:documentation>
                 The model element on which the profile element can be applied.

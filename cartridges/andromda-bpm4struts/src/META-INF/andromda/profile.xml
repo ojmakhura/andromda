@@ -486,12 +486,10 @@
                 </appliedOnElement>
                 <allowedValues>
                     <value>
-                        any format accepted by
-                        <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">java.text.SimpleDateFormat</a>
+                        any format accepted by java.text.SimpleDateFormat
                     </value>
                     <value default="true">
-                        the value specified by the
-                        <a href="namespace.html#defaultDateFormat">defaultDateFormat</a> namespace property
+                        the value specified by the 'defaultDateFormat' namespace property
                     </value>
                 </allowedValues>
             </element>
