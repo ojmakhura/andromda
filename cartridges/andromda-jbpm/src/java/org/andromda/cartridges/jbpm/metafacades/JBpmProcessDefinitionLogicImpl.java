@@ -90,6 +90,20 @@ public class JBpmProcessDefinitionLogicImpl
         return taskNodes;
     }
 
+    protected List handleGetTasks()
+    {
+        final List tasks = new ArrayList();
+
+        final List taskNodes = getTaskNodes();
+        for (int i = 0; i < taskNodes.size(); i++)
+        {
+            final JBpmNode node = (JBpmNode)taskNodes.get(i);
+            tasks.addAll(node.getTasks());
+        }
+
+        return tasks;
+    }
+
     protected boolean handleIsBusinessProcess()
     {
         return true;
