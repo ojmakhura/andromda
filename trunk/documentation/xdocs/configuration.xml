@@ -35,18 +35,22 @@
         <host>localhost</host>
         <port>4446</port>
     </server>
-    <models>
-        <model>
-            <uri>jar:file:/path/to/my/model.zuml!/model1.xmi</uri>
-            <moduleSearchLocations>
-                <location patterns="*.xml.zip,*.xmi">/path/to/modules</location>
-            </moduleSearchLocations>
-        </model>
-        <model>
-            <uri>file:/path/to/my/model2Uri1.xmi</uri>
-            <uri>file:/path/to/my/model2Uri2.xmi</uri>
-        </model>
-    </models>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>jar:file:/path/to/my/model.zuml!/model1.xmi</uri>
+                    <moduleSearchLocations>
+                        <location patterns="*.xml.zip,*.xmi">/path/to/modules</location>
+                    </moduleSearchLocations>
+                </model>
+                <model>
+                    <uri>file:/path/to/my/model2Uri1.xmi</uri>
+                    <uri>file:/path/to/my/model2Uri2.xmi</uri>
+                </model>
+            </models>
+        </repository>
+    </repositories>
     <mappingsSearchLoations>
         <location patterns="*.xml">/path/to/mappings</location>
     </mappingsSearchLocations>
@@ -484,7 +488,7 @@
     ...
     <modelPackages processAll="false">
         <modelPackage process="true">some::package::to::process</location>
-    </moduleSearchLocations>
+    </modelPackages>
     ...
 </model>]]>
                         </source>
