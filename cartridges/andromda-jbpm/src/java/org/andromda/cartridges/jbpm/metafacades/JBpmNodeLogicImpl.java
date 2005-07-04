@@ -1,6 +1,8 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
+import org.andromda.core.common.StringUtilsHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -144,4 +146,26 @@ public class JBpmNodeLogicImpl
         return this.getPartition();
     }
 
+    protected String handleGetNodeClassName()
+    {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Node";
+    }
+
+    protected String handleGetNodePackageName()
+    {
+        return (this.getProcessDefinition() == null) ? null : this.getProcessDefinition().getPackageName();
+    }
+
+    protected Object handleGetProcessDefinition()
+    {
+        Object processDefinition = null;
+
+        final StateMachineFacade stateMachine = this.getStateMachine();
+        if (stateMachine instanceof ActivityGraphFacade)
+        {
+            processDefinition = ((ActivityGraphFacade)stateMachine).getUseCase();
+        }
+
+        return (processDefinition instanceof JBpmProcessDefinition) ? processDefinition : null;
+    }
 }

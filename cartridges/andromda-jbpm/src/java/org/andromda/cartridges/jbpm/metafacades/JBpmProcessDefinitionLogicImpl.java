@@ -225,4 +225,9 @@ public class JBpmProcessDefinitionLogicImpl
 
         return pathBuffer.toString();
     }
+
+    protected String handleGetNodeInterfaceName()
+    {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Node";
+    }
 }

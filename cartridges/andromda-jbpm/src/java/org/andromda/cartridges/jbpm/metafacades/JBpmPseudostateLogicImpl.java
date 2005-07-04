@@ -23,41 +23,20 @@ public class JBpmPseudostateLogicImpl
         super (metaObject, context);
     }
 
+    public String getName()
+    {
+        String name = super.getName();
+        if (StringUtils.isBlank(name))
+        {
+            name = "start";
+        }
+        return name;
+    }
+
     protected boolean handleIsContainedInBusinessProcess()
     {
         return this.getStateMachine() instanceof ActivityGraphFacade
                 && ((ActivityGraphFacade)this.getStateMachine()).getUseCase() instanceof JBpmProcessDefinition;
-    }
-
-    /**
-     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getClazz()
-     */
-    protected java.lang.String handleGetClazz()
-    {
-        String clazz = null;
-
-        if (isDecisionPoint())
-        {
-            final StateMachineFacade stateMachine = getStateMachine();
-            if (stateMachine instanceof ActivityGraphFacade)
-            {
-                final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;
-                final UseCaseFacade useCase = graph.getUseCase();
-                if (useCase != null)
-                {
-                    final StringBuffer clazzBuffer = new StringBuffer();
-                    if (StringUtils.isNotBlank(useCase.getPackageName()))
-                    {
-                        clazzBuffer.append(useCase.getPackageName());
-                        clazzBuffer.append('.');
-                    }
-                    clazzBuffer.append(getClassName());
-                    clazz = clazzBuffer.toString();
-                }
-            }
-        }
-
-        return clazz;
     }
 
     /**
@@ -112,13 +91,72 @@ public class JBpmPseudostateLogicImpl
         return Collections.EMPTY_LIST;
     }
 
-    public boolean isCollect()
+    protected String handleGetDecisionHandlerPackageName()
     {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        String packageName = null;
+
+        final StateMachineFacade stateMachine = this.getStateMachine();
+        if (stateMachine instanceof ActivityGraphFacade)
+        {
+            final UseCaseFacade useCase = ((ActivityGraphFacade)stateMachine).getUseCase();
+            if (useCase != null)
+            {
+                packageName = useCase.getPackageName();
+            }
+        }
+
+        return packageName;
     }
 
-    public boolean isSplit()
+    protected String handleGetDecisionHandlerFullPath()
     {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return StringUtils.replace(this.getClazz(), ".", "/");
+    }
+
+    protected String handleGetDecisionHandlerClassName()
+    {
+        return StringUtilsHelper.upperCamelCaseName(this.getName());
+    }
+
+    protected String handleGetClazz()
+    {
+        String decisionHandlerClass = null;
+
+        if (this.isDecisionPoint())
+        {
+            final StringBuffer clazzBuffer = new StringBuffer();
+            if (StringUtils.isNotBlank(this.getDecisionHandlerPackageName()))
+            {
+                clazzBuffer.append(this.getDecisionHandlerPackageName());
+                clazzBuffer.append('.');
+            }
+            clazzBuffer.append(this.getDecisionHandlerClassName());
+            decisionHandlerClass = clazzBuffer.toString();
+        }
+
+        return decisionHandlerClass;
+    }
+
+    protected String handleGetNodeClassName()
+    {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Node";
+    }
+
+    protected String handleGetNodePackageName()
+    {
+        return (this.getProcessDefinition() == null) ? null : this.getProcessDefinition().getPackageName();
+    }
+
+    protected Object handleGetProcessDefinition()
+    {
+        Object processDefinition = null;
+
+        final StateMachineFacade stateMachine = this.getStateMachine();
+        if (stateMachine instanceof ActivityGraphFacade)
+        {
+            processDefinition = ((ActivityGraphFacade)stateMachine).getUseCase();
+        }
+
+        return (processDefinition instanceof JBpmProcessDefinition) ? processDefinition : null;
     }
 }

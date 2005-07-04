@@ -23,9 +23,7 @@ ${indent}</start-state>
 ${indent}<swimlane name="$swimlane.name"/>
 #else
 ${indent}<swimlane name="$swimlane.name">
-#foreach ($expression in $swimlane.assignmentExpressions)
-${indent}    <assignment expression="$expression"/>
-#end
+${indent}    <assignment#renderClass($swimlane)#renderAssignmentExpression($swimlane)/>
 ${indent}</swimlane>
 #end
 
@@ -93,7 +91,7 @@ ${indent}</task-node>
 #if (!$processDefinition.decisions.empty)
 #foreach ($decision in $processDefinition.decisions)
 ${indent}<decision name="$decision.name">
-${indent}    <handler class="${decision.clazz}Impl"#renderConfigType($decision)/>
+${indent}    <handler#renderClass($decision)#renderConfigType($decision)/>
 #transitions($decision "${indent}    " true)
 ${indent}</decision>
 
@@ -160,7 +158,7 @@ ${indent}</event>
 ##
 #macro (tasks $taskNode $indent)
 #foreach ($task in $taskNode.tasks)
-${indent}<task#renderName($task)#renderDueDate($task)#renderSwimlane($task) blocking="$task.blocking"## no newline
+${indent}<task#renderName($task)#renderDueDate($task)#renderSwimlane($taskNode) blocking="$task.blocking"## no newline
 #if ($task.operation.arguments.empty)
 />
 #else
@@ -194,12 +192,12 @@ ${indent}<action#renderName($action)#renderClass($action)#renderConfigType($acti
 #if($transition.condition || $transition.trigger)
 ${indent}<transition#renderName($transition) to="$transition.target.name">
 #if ($transition.trigger)
-${indent}   <action#renderName($transition.trigger)#renderClass($transition.trigger)#renderConfigType($transition.trigger)/>
+${indent}    <action#renderName($transition.trigger)#renderClass($transition.trigger)#renderConfigType($transition.trigger)/>
 #end
 #if($considerConditions && $transition.condition)
-${indent}   <condition>
-${indent}       <![CDATA[${transition.condition}]]>
-${indent}   </condition>
+${indent}    <condition>
+${indent}        <![CDATA[${transition.condition}]]>
+${indent}    </condition>
 #end
 ${indent}</transition>
 #else
@@ -242,8 +240,16 @@ ${indent}<transition#renderName($transition) to="$transition.target.name"/>
 ##
 ##
 ##
-#macro (renderSwimlane $task)
-#if ($task.state.swimlane)
- swimlane="$task.state.swimlane.name"## no newline
+#macro (renderSwimlane $state)
+#if ($state.swimlane)
+ swimlane="$state.swimlane.name"## no newline
+#end
+#end
+##
+##
+##
+#macro (renderAssignmentExpression $swimlane)
+#if ($swimlane.assignmentExpression)
+ expression="$swimlane.assignmentExpression"## no newline
 #end
 #end

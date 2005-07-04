@@ -1,0 +1,12 @@
+#set ($generatedFile = "${processDefinition.nodeInterfaceName}.java")
+#if ($stringUtils.isNotBlank($processDefinition.packageName))
+#set ($generatedFile = "$stringUtils.replace($processDefinition.packageName,'.','/')/$generatedFile")
+package $processDefinition.packageName;
+
+#end
+/**
+ * Marker interface.
+ */
+public interface $processDefinition.nodeInterfaceName
+{
+}

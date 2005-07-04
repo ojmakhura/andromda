@@ -117,6 +117,66 @@
         </modelElements>
     </template>
 
+    <template
+        path="templates/jbpm/handlers/AssignmentHandler.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="handlers"
+        overwrite="true">
+        <modelElements variable="swimlane">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlane"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/handlers/AssignmentHandlerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="handler-impls"
+        overwrite="false">
+        <modelElements variable="swimlane">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlane"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/Node.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmNode"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/Node.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/NodeInterface.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="processDefinition">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>

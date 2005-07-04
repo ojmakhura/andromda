@@ -131,7 +131,7 @@ public class JBpmActionLogicImpl
                 {
                     clazzBuffer.append('.');
                 }
-                clazzBuffer.append(((JBpmHandler)handler).getClassName());
+                clazzBuffer.append(((JBpmHandler)handler).getHandlerClassName());
                 clazz = clazzBuffer.toString();
             }
         }

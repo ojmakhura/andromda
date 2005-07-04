@@ -6,6 +6,7 @@ import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.StateFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,11 +63,6 @@ public class JBpmHandlerLogicImpl
         return actionHandler;
     }
 
-    protected String handleGetClassName()
-    {
-        return StringUtilsHelper.upperCamelCaseName(getName());
-    }
-
     private List internalActions = null;
 
     private List internalJBpmActions()
@@ -119,5 +115,36 @@ public class JBpmHandlerLogicImpl
         }
 
         return internalActions;
+    }
+
+    protected String handleGetHandlerPackageName()
+    {
+        return this.getOwner().getPackageName();
+    }
+
+    protected String handleGetHandlerFullPath()
+    {
+        return StringUtils.replace(this.getClazz(), ".", "/");
+    }
+
+    protected String handleGetHandlerClassName()
+    {
+        return StringUtilsHelper.upperCamelCaseName(this.getName());
+    }
+
+    protected String handleGetClazz()
+    {
+        String handlerClass = null;
+
+        final StringBuffer clazzBuffer = new StringBuffer();
+        if (StringUtils.isNotBlank(this.getHandlerPackageName()))
+        {
+            clazzBuffer.append(this.getHandlerPackageName());
+            clazzBuffer.append('.');
+        }
+        clazzBuffer.append(this.getHandlerClassName());
+        handlerClass = clazzBuffer.toString();
+
+        return handlerClass;
     }
 }
