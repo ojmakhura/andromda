@@ -34,6 +34,17 @@ public final class $node.nodeClassName implements $nodeInterfaceName
         return this.token;
     }
 
+    /**
+     * Returns the identifier for the underlying process instance. This method is a conveniece method as it
+     * is perfectly equivalent to <code>new java.lang.Long(getToken().getProcessInstance().getId())</code>.
+     *
+     * @return the identifier for the proces instance to which this node is associated
+     */
+    public java.lang.Long getProcessInstanceId()
+    {
+        return (this.token == null) ? null : new java.lang.Long(this.token.getProcessInstance().getId());
+    }
+
 #if ($node.finalState)
     /**
      * Ends the process instance.
@@ -45,6 +56,18 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     }
 
 #elseif ($node.taskNode)
+#if (!$node.tasks.empty)
+    /**
+     * Returns true if all tasks for this node are ended.
+     *
+     * @return true if this node does not have any tasks that have not yet been finished, false otherwise
+     */
+    public boolean isTasksFinished()
+    {
+        return !this.token.getProcessInstance().getTaskMgmtInstance().hasUnfinishedTasks(this.token);
+    }
+
+#end
 #foreach ($task in $node.tasks)
 #set ($taskName = $stringUtils.upperCamelCaseName($task.name))
     /**
@@ -103,16 +126,21 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     }
 
 #end
+#end
 #if ($node.outgoing.size() == 1)
+#set ($target = $node.outgoing.iterator().next().target)
     /**
      * Signals the process to leave this node and proceed to the next one.
+#if ($node.initialState)
+     * Calling this method will make the process leave the start state and enter the first node.
+#end
      *
      * @return the next node in the process
      */
-    public $nodeInterfaceName signal()
+    public $target.nodeClassName signal()
     {
         this.token.signal();
-        return new ${node.outgoing.iterator().next().target.nodeClassName}(this.token);
+        return new ${target.nodeClassName}(this.token);
     }
 
 #else
@@ -120,15 +148,14 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     /**
      * Signals the process to leave this node via the <em>$transition.name</em> transition and proceed to the next one.
      *
-     * @return the next node in the process after following the <em>$transition.name</em> transition 
+     * @return the next node in the process after following the <em>$transition.name</em> transition
      */
-    public $nodeInterfaceName signal$stringUtils.upperCamelCaseName($transition.name)()
+    public $transition.target.nodeClassName signal$stringUtils.upperCamelCaseName($transition.name)()
     {
         this.token.signal("transition.name");
         return new ${transition.target.nodeClassName}(this.token);
     }
 
-#end
 #end
 #end
 }
