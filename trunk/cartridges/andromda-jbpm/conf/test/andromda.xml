@@ -21,6 +21,7 @@
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="definitions">${test.output.dir}</property>
+                <property name="nodes">${test.output.dir}</property>
                 <property name="handlers">${test.output.dir}</property>
                 <property name="handler-impls">${test.output.dir}</property>
                 <property name="helpers">${test.output.dir}</property>

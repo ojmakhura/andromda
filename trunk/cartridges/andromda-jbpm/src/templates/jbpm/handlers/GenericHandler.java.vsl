@@ -1,14 +1,12 @@
-#set ($generatedFile = "${handler.className}.java")
-#set ($packageName = $handler.owner.packageName)
-#if ($stringUtils.isNotBlank($packageName))
-#set ($generatedFile = "${handler.owner.packagePath}/${generatedFile}")
-package $packageName;
+#set ($generatedFile = "${handler.handlerFullPath}.java")
+#if ($stringUtils.isNotBlank($handler.handlerPackageName))
+package $handler.handlerPackageName;
 
 #end
 /**
 $handler.getDocumentation(" * ")
  */
-public abstract class $handler.className implements
+public abstract class $handler.handlerClassName implements
 #set ($comma = "")
 #if ($handler.actionHandler)
     ${comma}org.jbpm.graph.def.ActionHandler

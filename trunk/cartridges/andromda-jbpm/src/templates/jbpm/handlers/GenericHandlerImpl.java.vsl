@@ -1,11 +1,9 @@
-#set ($generatedFile = "${handler.className}Impl.java")
-#set ($packageName = $handler.owner.packageName)
-#if ($stringUtils.isNotBlank($packageName))
-#set ($generatedFile = "${handler.owner.packagePath}/${generatedFile}")
-package $packageName;
+#set ($generatedFile = "${handler.handlerFullPath}Impl.java")
+#if ($stringUtils.isNotBlank($handler.handlerPackageName))
+package $handler.handlerPackageName;
 
 #end
-public class ${handler.className}Impl extends ${handler.className}
+public class ${handler.handlerClassName}Impl extends ${handler.handlerClassName}
 {
 #if ($handler.actionHandler)
     protected final void handleExecute(org.jbpm.graph.exe.ExecutionContext executionContext)

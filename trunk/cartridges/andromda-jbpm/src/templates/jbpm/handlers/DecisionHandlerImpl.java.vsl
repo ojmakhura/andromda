@@ -1,11 +1,9 @@
-#set ($generatedFile = "${decision.className}Impl.java")
-#set ($packageName = $decision.stateMachine.useCase.packageName)
-#if ($stringUtils.isNotBlank($packageName))
-#set ($generatedFile = "${decision.stateMachine.useCase.packagePath}/${generatedFile}")
-package $packageName;
+#set ($generatedFile = "${decision.decisionHandlerFullPath}Impl.java")
+#if ($stringUtils.isNotBlank($decision.decisionHandlerPackageName))
+package $decision.decisionHandlerPackageName;
 
 #end
-public class ${decision.className}Impl extends ${decision.className}
+public class ${decision.decisionHandlerClassName}Impl extends $decision.decisionHandlerClassName
 {
     protected final java.lang.String handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception

@@ -16,6 +16,12 @@
                     The location to which the process definition XML descriptors are written.
                 </documentation>
             </property>
+            <property name="nodes">
+                <documentation>
+                    The location to which classes representing the different nodes in the process are
+                    generated. These classes allow strongly-typed usage of the process instances.
+                </documentation>
+            </property>
             <property name="handlers">
                 <documentation>
                     The location to which the action handlers, assignment handlers,
