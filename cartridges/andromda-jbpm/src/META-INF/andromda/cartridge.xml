@@ -166,6 +166,18 @@
     </template>
 
     <template
+        path="templates/jbpm/nodes/Node.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmState"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/jbpm/nodes/NodeInterface.java.vsl"
         outputPattern="$generatedFile"
         outlet="nodes"
