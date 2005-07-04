@@ -9,4 +9,5 @@ package $processDefinition.packageName;
  */
 public interface $processDefinition.nodeInterfaceName
 {
+    public org.jbpm.graph.exe.Token getToken();
 }

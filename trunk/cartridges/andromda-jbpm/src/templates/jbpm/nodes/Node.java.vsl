@@ -4,52 +4,22 @@
 package $node.nodePackageName;
 
 #end
-public final class $node.nodeClassName implements $node.processDefinition.nodeInterfaceName
+#set ($nodeInterfaceName = $node.processDefinition.nodeInterfaceName)
+public final class $node.nodeClassName implements $nodeInterfaceName
 {
-    private final org.jbpm.graph.exe.Token token = null;
+    private org.jbpm.graph.exe.Token token = null;
 
-#if (!$node.initialState)
     ${node.nodeClassName}(final org.jbpm.graph.exe.Token token)
     {
         this.token = token;
     }
 
-#end
-#if ($node.initialState)
-    /**
-     * Creates a new process instance for the corresponding process definition.
-     *
-     * @return java.lang.Long the id of the newly created process
-     */
-    public java.lang.Long startProcess()
+    public org.jbpm.graph.exe.Token getToken()
     {
-        // open up the JBpm session
-        final JbpmSession session = JbpmSessionFactory.getInstance().openJbpmSession();
-
-        // the graph session allows us to work with the process definition
-        final GraphSession graphSession = session.getGraphSession();
-
-        // find the latest process definition we can use
-        final ProcessDefinition processDefinition =
-                graphSession.findLatestProcessDefinition("$node.processDefinition.descriptorFullPath");
-
-        // create a new process
-        final ProcessInstance processInstance = processDefinition.createProcessInstance();
-
-        // we signal the token (which is in the start state to go to the next node)
-        this.token = processInstance.getRootToken();
-
-        // return the process id
-        return new java.lang.Long(processInstance.getId());
+        return this.token;
     }
 
-    public $node.processDefinition.nodeInterfaceName signal()
-    {
-        this.token.signal();
-        return new ${node.outgoing.iterator().next().target.nodeClassName}(this.token);
-    }
-
-#elseif ($node.finalState)
+#if ($node.finalState)
     public void endProcess()
     {
         this.token.end();
@@ -90,11 +60,11 @@ public final class $node.nodeClassName implements $node.processDefinition.nodeIn
     {
         if (this.$taskField == null)
         {
-            final java.util.Collection tasks = this.token.getProcessInstance().getTaskMgmtInstance().getTaskInstances(token);
+            final java.util.Collection tasks = this.token.getProcessInstance().getTaskMgmtInstance().getTaskInstances();
             for (final java.util.Iterator taskIterator = tasks.iterator(); taskIterator.hasNext() && this.$taskField == null;)
             {
                 final org.jbpm.taskmgmt.exe.TaskInstance taskInstance = (org.jbpm.taskmgmt.exe.TaskInstance)taskIterator.next();
-                if ("$task.name".equals(taskInstance.getName())
+                if ("$task.name".equals(taskInstance.getName()))
                 {
                     this.$taskField = taskInstance;
                 }
@@ -105,7 +75,7 @@ public final class $node.nodeClassName implements $node.processDefinition.nodeIn
 
 #end
 #if ($node.outgoing.size() == 1)
-    public $node.processDefinition.nodeInterfaceName signal()
+    public $nodeInterfaceName signal()
     {
         this.token.signal();
         return new ${node.outgoing.iterator().next().target.nodeClassName}(this.token);
@@ -113,9 +83,9 @@ public final class $node.nodeClassName implements $node.processDefinition.nodeIn
 
 #else
 #foreach ($transition in $node.outgoing)
-    public $node.processDefinition.nodeInterfaceName signal(java.lang.String transitionName)
+    public $nodeInterfaceName signal$stringUtils.upperCamelCaseName($transition.name)()
     {
-        this.token.signal(transitionName);
+        this.token.signal("transition.name");
         return new ${transition.target.nodeClassName}(this.token);
     }
 
