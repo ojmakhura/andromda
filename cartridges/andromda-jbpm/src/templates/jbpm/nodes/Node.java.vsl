@@ -1,3 +1,6 @@
+##
+##
+##
 #set ($generatedFile = "${node.nodeClassName}.java")
 #if ($stringUtils.isNotBlank($node.nodePackageName))
 #set ($generatedFile = "$stringUtils.replace($node.nodePackageName,'.','/')/$generatedFile")
@@ -128,32 +131,74 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 #end
 #end
 #if ($node.outgoing.size() == 1)
-#set ($target = $node.outgoing.iterator().next().target)
+#set ($transition = $node.outgoing.iterator().next())
+#set ($target = $transition.target)
     /**
      * Signals the process to leave this node and proceed to the next one.
 #if ($node.initialState)
      * Calling this method will make the process leave the start state and enter the first node.
 #end
+#if ($target.outgoing.size()>1)
+     * Since this transition leads into a node that will split it up into different transitions
+     * this method returns the {@link $nodeInterfaceName} instead of a concrete implementing class type.
+#end
      *
      * @return the next node in the process
      */
+#if ($target.outgoing.size()>1)
+    public $nodeInterfaceName signal()
+#else
     public $target.nodeClassName signal()
+#end
     {
         this.token.signal();
+#if ($target.outgoing.size()>1)
+        $nodeInterfaceName targetNode = null;
+        final java.lang.String nodeName = this.token.getNode().getName();
+
+#foreach ($targetNode in $transition.possibleTargetNodes)
+        if ("$targetNode.name".equals(nodeName)) targetNode = new ${targetNode.nodeClassName}(this.token); else
+#end
+        throw new IllegalArgumentException("No matching node could be found for target token: " + nodeName);
+
+        return targetNode;
+#else
         return new ${target.nodeClassName}(this.token);
+#end
     }
 
 #else
 #foreach ($transition in $node.outgoing)
+#set ($target = $transition.target)
     /**
      * Signals the process to leave this node via the <em>$transition.name</em> transition and proceed to the next one.
+#if ($target.outgoing.size()>1)
+     * Since this transition leads into a node that will split it up into different transitions
+     * this method returns the {@link $nodeInterfaceName} instead of a concrete implementing class type.
+#end
      *
      * @return the next node in the process after following the <em>$transition.name</em> transition
      */
+#if ($target.outgoing.size()>1)
+    public $nodeInterfaceName signal$stringUtils.upperCamelCaseName($transition.name)()
+#else
     public $transition.target.nodeClassName signal$stringUtils.upperCamelCaseName($transition.name)()
+#end
     {
-        this.token.signal("transition.name");
+        this.token.signal("$transition.name");
+#if ($target.outgoing.size()>1)
+        $nodeInterfaceName targetNode = null;
+        final java.lang.String nodeName = this.token.getNode().getName();
+
+#foreach ($targetNode in $transition.possibleTargetNodes)
+        if ("$targetNode.name".equals(nodeName)) targetNode = new ${targetNode.nodeClassName}(this.token); else
+#end
+        throw new IllegalArgumentException("No matching node could be found for target token: " + nodeName);
+
+        return targetNode;
+#else
         return new ${transition.target.nodeClassName}(this.token);
+#end
     }
 
 #end
