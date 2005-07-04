@@ -5,9 +5,22 @@ package $processDefinition.packageName;
 
 #end
 /**
- * Marker interface.
+ * Interface for all nodes in the <em>$processDefinition.name</em> process.
  */
 public interface $processDefinition.nodeInterfaceName
 {
+    /**
+     * This node is associated with a specific process instance and this method return the root token
+     * for that instance.
+     *
+     * @return the token with which this node has been associated
+     */
     public org.jbpm.graph.exe.Token getToken();
+
+    /**
+     * Returns the identifier for the underlying process instance.
+     *
+     * @return the identifier for the proces instance to which this node is associated
+     */
+    public java.lang.Long getProcessInstanceId();
 }

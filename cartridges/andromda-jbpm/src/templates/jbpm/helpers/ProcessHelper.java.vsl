@@ -1,5 +1,5 @@
 #set ($className = "$stringUtils.upperCamelCaseName($processDefinition.name)")
-#set ($className = "${className}Helper")
+#set ($className = "${className}")
 #set ($generatedFile = "${className}.java")
 #set ($packageName = $processDefinition.packageName)
 #if ($stringUtils.isNotBlank($packageName))
