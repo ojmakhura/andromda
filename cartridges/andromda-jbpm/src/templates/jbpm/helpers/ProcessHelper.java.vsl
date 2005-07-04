@@ -10,6 +10,12 @@
 #macro (renderLocator $state)
 #if ($state.name)
 #set ($methodName = "is$stringUtils.upperCamelCaseName($state.nodeClassName)")
+    /**
+     * Checks whether or not the argument node represent the $state.name state in this process.
+     *
+     * @param node the node instance to check
+     * @return true if the argument is an instance of {@link ${packageName}.${state.nodeClassName}}
+     */
     public static boolean ${methodName}(final $processDefinition.nodeInterfaceName node)
     {
         return node instanceof ${state.nodeClassName};
@@ -37,9 +43,18 @@ package $packageName;
  */
 public class $className
 {
+    /**
+     * The name for this process, this is the name used in the corresponding jPDL descriptor file.
+     */
     public static final java.lang.String PROCESS_NAME = "$processDefinition.name";
 
 #if ($processDefinition.startState)
+    /**
+     * Creates a new process instance and returns the node representing the start state
+     * in which the root token will be present.
+     *
+     * @return the node in which the process is started
+     */
     public static $processDefinition.startState.nodeClassName startProcess()
     {
         // open up the JBpm session
@@ -50,16 +65,26 @@ public class $className
 
         // find the latest process definition we can use
         final org.jbpm.graph.def.ProcessDefinition processDefinition =
-                graphSession.findLatestProcessDefinition("$processDefinition.descriptorFullPath");
+                graphSession.findLatestProcessDefinition(PROCESS_NAME);
 
         // create a new process
         final org.jbpm.graph.exe.ProcessInstance processInstance = processDefinition.createProcessInstance();
+
+        // close the session before returning
+        session.close();
 
         // return the first node in the process
         return new ${processDefinition.startState.nodeClassName}(processInstance.getRootToken());
     }
 
 #end
+    /**
+     * Finds the process instance with the given id and returns the node representing the state in which
+     * the process is in.
+     *
+     * @param processInstanceId the identifier for the process instance to load
+     * @return the node in which the process instance with the argument id is currently present
+     */
     public static $processDefinition.nodeInterfaceName getProcess(final java.lang.Long processInstanceId)
     {
         // open up the JBpm session
@@ -89,19 +114,16 @@ public class $className
 #foreach ($state in $processDefinition.nodes)
 #renderNodeTest($state)
 #end
-#foreach ($state in $processDefinition.decisions)
-#renderNodeTest($state)
-#end
-#foreach ($state in $processDefinition.joins)
-#renderNodeTest($state)
-#end
-#foreach ($state in $processDefinition.forks)
-#renderNodeTest($state)
-#end
 #foreach ($state in $processDefinition.endStates)
 #renderNodeTest($state)
 #end
-        throw new IllegalArgumentException("No matching node could be found for the process instance");
+        {
+            session.close();
+            throw new IllegalArgumentException("No matching node could be found for the process instance");
+        }
+
+        // close the session before returning
+        session.close();
 
         return currentNode;
     }
@@ -124,15 +146,6 @@ public class $className
 #renderLocator($state)
 #end
 #foreach ($state in $processDefinition.nodes)
-#renderLocator($state)
-#end
-#foreach ($state in $processDefinition.decisions)
-#renderLocator($state)
-#end
-#foreach ($state in $processDefinition.joins)
-#renderLocator($state)
-#end
-#foreach ($state in $processDefinition.forks)
 #renderLocator($state)
 #end
 #foreach ($state in $processDefinition.endStates)

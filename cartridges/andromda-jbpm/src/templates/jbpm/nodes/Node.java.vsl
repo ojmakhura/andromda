@@ -5,21 +5,39 @@ package $node.nodePackageName;
 
 #end
 #set ($nodeInterfaceName = $node.processDefinition.nodeInterfaceName)
+/**
+ * The node representing the $node.name state in the <em>$node.processDefinition.name</em> process.
+ */
 public final class $node.nodeClassName implements $nodeInterfaceName
 {
     private org.jbpm.graph.exe.Token token = null;
 
+    /**
+     * Constructs a new node using the specific process instance token. This constructor is package private
+     * because it is not supposed to be instantiated by other regular classes.
+     *
+     * @param token the token for which this node is constructed
+     */
     ${node.nodeClassName}(final org.jbpm.graph.exe.Token token)
     {
         this.token = token;
     }
 
+    /**
+     * This node is associated with a specific process instance and this method return the root token
+     * for that instance.
+     *
+     * @return the token with which this node has been associated (constructed)
+     */
     public org.jbpm.graph.exe.Token getToken()
     {
         return this.token;
     }
 
 #if ($node.finalState)
+    /**
+     * Ends the process instance.
+     */
     public void endProcess()
     {
         this.token.end();
@@ -29,6 +47,9 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 #elseif ($node.taskNode)
 #foreach ($task in $node.tasks)
 #set ($taskName = $stringUtils.upperCamelCaseName($task.name))
+    /**
+     * Starts this node's <em>$task.name</em> task.
+     */
     public void start${taskName}Task()
     {
         final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
@@ -38,6 +59,9 @@ public final class $node.nodeClassName implements $nodeInterfaceName
         }
     }
 
+    /**
+     * Finishes this node's <em>$task.name</em> task.
+     */
     public void finish${taskName}Task()
     {
         final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
@@ -47,6 +71,11 @@ public final class $node.nodeClassName implements $nodeInterfaceName
         }
     }
 
+    /**
+     * Checks whether or not this node's <em>$task.name</em> task has been finished.
+     *
+     * @return true if this node's $task.name has been finished, false otherwise
+     */
     public boolean is${taskName}TaskFinished()
     {
         final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
@@ -75,6 +104,11 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 
 #end
 #if ($node.outgoing.size() == 1)
+    /**
+     * Signals the process to leave this node and proceed to the next one.
+     *
+     * @return the next node in the process
+     */
     public $nodeInterfaceName signal()
     {
         this.token.signal();
@@ -83,6 +117,11 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 
 #else
 #foreach ($transition in $node.outgoing)
+    /**
+     * Signals the process to leave this node via the <em>$transition.name</em> transition and proceed to the next one.
+     *
+     * @return the next node in the process after following the <em>$transition.name</em> transition 
+     */
     public $nodeInterfaceName signal$stringUtils.upperCamelCaseName($transition.name)()
     {
         this.token.signal("transition.name");

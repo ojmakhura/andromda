@@ -160,7 +160,21 @@
         overwrite="true">
         <modelElements variable="node">
             <modelElement>
-                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate"/>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate">
+                    <property name="initialState"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/Node.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmEndState"/>
             </modelElement>
         </modelElements>
     </template>
