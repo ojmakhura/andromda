@@ -98,9 +98,7 @@ public class ResourceUtils
         }
         catch (final Throwable throwable)
         {
-            final String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, throwable);
-            throw new RuntimeException(errMsg, throwable);
+            throw new RuntimeException(throwable);
         }
         return contents.toString();
     }
