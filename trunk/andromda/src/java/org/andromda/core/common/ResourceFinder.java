@@ -27,11 +27,11 @@ public class ResourceFinder
         ExceptionUtils.checkEmpty(methodName, "resource", resource);
         try
         {
-            Collection resources = new ArrayList();
-            final Enumeration resourceEnumeration = Thread.currentThread().getContextClassLoader().getResources(resource);\
-            while (resourceEnumeration.hasMoreElements())
+            final Collection resources = new ArrayList();
+            for (final Enumeration enumeration = Thread.currentThread().getContextClassLoader().getResources(resource);
+                 enumeration.hasMoreElements();)
             {
-                resources.add(resourceEnumeration.nextElement());
+                resources.add(enumeration.nextElement());
             }
             return (URL[])resources.toArray(new URL[0]);
         }
