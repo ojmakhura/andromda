@@ -53,13 +53,11 @@ public class $className
      * Creates a new process instance and returns the node representing the start state
      * in which the root token will be present.
      *
+     * @param session the session into which to perform this operation
      * @return the node in which the process is started
      */
-    public static $processDefinition.startState.nodeClassName startProcess()
+    public static $processDefinition.startState.nodeClassName startProcess(final org.jbpm.db.JbpmSession session)
     {
-        // open up the JBpm session
-        final org.jbpm.db.JbpmSession session = org.jbpm.db.JbpmSessionFactory.getInstance().openJbpmSession();
-
         // the graph session allows us to work with the process definition
         final org.jbpm.db.GraphSession graphSession = session.getGraphSession();
 
@@ -67,12 +65,8 @@ public class $className
         final org.jbpm.graph.def.ProcessDefinition processDefinition =
                 graphSession.findLatestProcessDefinition(PROCESS_NAME);
 
-        // create a new process and store it
+        // create a new process
         final org.jbpm.graph.exe.ProcessInstance processInstance = processDefinition.createProcessInstance();
-        graphSession.saveProcessInstance(processInstance);
-
-        // close the session before returning
-        session.close();
 
         // return the first node in the process
         return new ${processDefinition.startState.nodeClassName}(processInstance.getRootToken());
@@ -83,14 +77,12 @@ public class $className
      * Finds the process instance with the given id and returns the node representing the state in which
      * the process is in.
      *
+     * @param session the session into which to perform this operation
      * @param processInstanceId the identifier for the process instance to load
      * @return the node in which the process instance with the argument id is currently present
      */
-    public static $processDefinition.nodeInterfaceName getProcess(final java.lang.Long processInstanceId)
+    public static $processDefinition.nodeInterfaceName getProcess(final org.jbpm.db.JbpmSession session, final java.lang.Long processInstanceId)
     {
-        // open up the JBpm session
-        final org.jbpm.db.JbpmSession session = org.jbpm.db.JbpmSessionFactory.getInstance().openJbpmSession();
-
         // the graph session allows us to work with the process definition
         final org.jbpm.db.GraphSession graphSession = session.getGraphSession();
 
@@ -119,13 +111,8 @@ public class $className
 #renderNodeTest($state)
 #end
         {
-            session.close();
             throw new IllegalArgumentException("No matching node could be found for the process instance: " + nodeName);
         }
-
-        // save the process instance and close the session before returning
-        graphSession.saveProcessInstance(processInstance);
-        session.close();
 
         return currentNode;
     }
@@ -153,5 +140,16 @@ public class $className
 #foreach ($state in $processDefinition.endStates)
 #renderLocator($state)
 #end
+
+    /**
+     * Saves the process instance to which this node is associated.
+     *
+     * @param session the session into which to perform this operation
+     * @param node the process instance to persist will be retrieved from this node
+     */
+    public static void save(final org.jbpm.db.JbpmSession session, final $processDefinition.nodeInterfaceName node)
+    {
+        session.getGraphSession().saveProcessInstance(node.getToken().getProcessInstance());
+    }
 }
 

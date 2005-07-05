@@ -138,6 +138,23 @@ public class JBpmNodeLogicImpl
         return tasks;
     }
 
+    protected List handleGetTimers()
+    {
+        final List timers = new ArrayList();
+
+        final Collection events = this.getDeferrableEvents();
+        for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
+        {
+            final Object eventObject = eventIterator.next();
+            if (eventObject instanceof JBpmAction && ((JBpmAction)eventObject).isTimer())
+            {
+                timers.add(eventObject);
+            }
+        }
+
+        return timers;
+    }
+
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmNode#getSwimlane()
      */

@@ -21,4 +21,6 @@ public class JBpmProfile
 
     // Tagged Values
     public static final String TAGGEDVALUE_ASSIGNMENT_EXPRESSION = profile.get("ASSIGNMENT_EXPRESSION");
+    public static final String TAGGEDVALUE_TIMER_REPEAT = profile.get("TIMER_REPEAT");
+    public static final String TAGGEDVALUE_TIMER_DUEDATE = profile.get("TIMER_DUEDATE");
 }

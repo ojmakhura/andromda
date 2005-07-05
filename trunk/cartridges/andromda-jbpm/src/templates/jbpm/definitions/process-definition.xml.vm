@@ -39,6 +39,7 @@ ${indent}</swimlane>
 ${indent}<state name="$state.name">
 #transitions($state "${indent}    " false)
 #events($state "${indent}    ")
+#timers($state "${indent}    ")
 ${indent}</state>
 
 #end
@@ -156,6 +157,18 @@ ${indent}</event>
 ##
 ##
 ##
+#macro (timers $state $indent)
+#if (!$state.timers.empty)
+#foreach ($timer in $state.timers)
+${indent}<timer name="$timer.name" duedate="$timer.dueDate"#renderRepeat($timer)>
+#action($timer "$indent    ")
+${indent}</timer>
+#end
+#end
+#end
+##
+##
+##
 #macro (tasks $taskNode $indent)
 #foreach ($task in $taskNode.tasks)
 ${indent}<task#renderName($task)#renderDueDate($task)#renderSwimlane($taskNode) blocking="$task.blocking"## no newline
@@ -183,6 +196,12 @@ ${indent}</task>
 #foreach ($action in $actions)
 ${indent}<action#renderName($action)#renderClass($action)#renderConfigType($action)/>
 #end
+#end
+##
+##
+##
+#macro (action $action $indent)
+${indent}<action#renderName($action)#renderClass($action)#renderConfigType($action)/>
 #end
 ##
 ##
@@ -235,6 +254,14 @@ ${indent}<transition#renderName($transition) to="$transition.target.name"/>
 #macro (renderDueDate $element)
 #if ($element.dueDate)
  duedate="$element.dueDate"## no newline
+#end
+#end
+##
+##
+##
+#macro (renderRepeat $element)
+#if ($element.repeat)
+ repeat="$element.repeat"## no newline
 #end
 #end
 ##

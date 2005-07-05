@@ -660,12 +660,19 @@ public class StrutsActionLogicImpl
                 final Collection finalStates = useCase.getReferencingFinalStates();
                 for (final Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
                 {
-                    final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
-                    final Collection parameters = finalState.getInterUseCaseParameters();
-                    for (final Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+                    final Object finalStateObject = finalStateIterator.next();
+                    // we need to test for the type because a non struts-use-case final state might accidently
+                    // we linking to this use-case (for example: the user temporarily wants to disable code generation
+                    // for a specific use-case and is not removing the final-state to use-case link(s))
+                    if (finalStateObject instanceof StrutsFinalState)
                     {
-                        final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
-                        formFieldMap.put(parameter.getName(), parameter);
+                        final StrutsFinalState finalState = (StrutsFinalState)finalStateObject;
+                        final Collection parameters = finalState.getInterUseCaseParameters();
+                        for (final Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+                        {
+                            final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
+                            formFieldMap.put(parameter.getName(), parameter);
+                        }
                     }
                 }
             }
@@ -673,17 +680,17 @@ public class StrutsActionLogicImpl
 
         // if any action encountered by the execution of the complete action-graph path emits a forward
         // containing one or more parameters they need to be included as a form field too
-        Collection actionStates = getActionStates();
+        final Collection actionStates = getActionStates();
         for (final Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
-            StrutsActionState actionState = (StrutsActionState)iterator.next();
-            StrutsForward forward = actionState.getForward();
+            final StrutsActionState actionState = (StrutsActionState)iterator.next();
+            final StrutsForward forward = actionState.getForward();
             if (forward != null)
             {
-                Collection forwardParameters = forward.getForwardParameters();
+                final Collection forwardParameters = forward.getForwardParameters();
                 for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    StrutsParameter forwardParameter = (StrutsParameter)parameterIterator.next();
+                    final StrutsParameter forwardParameter = (StrutsParameter)parameterIterator.next();
                     formFieldMap.put(forwardParameter.getName(), forwardParameter);
                 }
             }
@@ -691,36 +698,36 @@ public class StrutsActionLogicImpl
 
         // add page variables for all pages/final-states targetted
         // also add the fields of the target page's actions (for preloading)
-        Collection forwards = getActionForwards();
+        final Collection forwards = getActionForwards();
         for (final Iterator iterator = forwards.iterator(); iterator.hasNext();)
         {
-            StrutsForward forward = (StrutsForward)iterator.next();
-            StateVertexFacade target = forward.getTarget();
+            final StrutsForward forward = (StrutsForward)iterator.next();
+            final StateVertexFacade target = forward.getTarget();
             if (target instanceof StrutsJsp)
             {
-                StrutsJsp jsp = (StrutsJsp)target;
-                Collection pageVariables = jsp.getPageVariables();
+                final StrutsJsp jsp = (StrutsJsp)target;
+                final Collection pageVariables = jsp.getPageVariables();
                 for (final Iterator pageVariableIterator = pageVariables.iterator(); pageVariableIterator.hasNext();)
                 {
-                    ModelElementFacade facade = (ModelElementFacade)pageVariableIterator.next();
+                    final ModelElementFacade facade = (ModelElementFacade)pageVariableIterator.next();
                     formFieldMap.put(facade.getName(), facade);
                 }
-                Collection allActionParameters = jsp.getAllActionParameters();
+                final Collection allActionParameters = jsp.getAllActionParameters();
                 for (final Iterator actionParameterIterator = allActionParameters.iterator();
                      actionParameterIterator.hasNext();)
                 {
-                    ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
+                    final ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
                     formFieldMap.put(facade.getName(), facade);
                 }
             }
             else if (target instanceof StrutsFinalState)
             {
                 // only add these if there is no parameter recorded yet with the same name
-                Collection forwardParameters = forward.getForwardParameters();
+                final Collection forwardParameters = forward.getForwardParameters();
                 for (final Iterator forwardParameterIterator = forwardParameters.iterator();
                      forwardParameterIterator.hasNext();)
                 {
-                    ModelElementFacade facade = (ModelElementFacade)forwardParameterIterator.next();
+                    final ModelElementFacade facade = (ModelElementFacade)forwardParameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(facade.getName(), facade);
@@ -730,10 +737,10 @@ public class StrutsActionLogicImpl
         }
 
         // we do the action parameters in the end because they are allowed to overwrite existing properties
-        Collection actionParameters = getActionParameters();
+        final Collection actionParameters = getActionParameters();
         for (final Iterator actionParameterIterator = actionParameters.iterator(); actionParameterIterator.hasNext();)
         {
-            ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
+            final ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
             formFieldMap.put(facade.getName(), facade);
         }
 

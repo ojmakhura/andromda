@@ -45,7 +45,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
      */
     public java.lang.Long getProcessInstanceId()
     {
-        return (this.token == null) ? null : new java.lang.Long(this.token.getProcessInstance().getId());
+        return new java.lang.Long(this.token.getProcessInstance().getId());
     }
 
 #if ($node.finalState)

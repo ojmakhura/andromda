@@ -5,7 +5,6 @@ import org.omg.uml.behavioralelements.statemachines.Transition;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.ArrayList;
 
 /**
  * MetafacadeLogic implementation.
@@ -48,9 +47,7 @@ public class EventFacadeLogicImpl
     {
         State eventState = null;
 
-        final Collection allStates = new ArrayList(UML14MetafacadeUtils.getModel().getActivityGraphs().getActionState().refAllOfType());
-        allStates.addAll(UML14MetafacadeUtils.getModel().getActivityGraphs().getObjectFlowState().refAllOfType());
-
+        final Collection allStates = UML14MetafacadeUtils.getModel().getStateMachines().getState().refAllOfType();
         for (final Iterator stateIterator = allStates.iterator(); stateIterator.hasNext() && eventState == null;)
         {
             final State state = (State)stateIterator.next();
