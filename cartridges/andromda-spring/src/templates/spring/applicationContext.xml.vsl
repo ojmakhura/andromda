@@ -96,13 +96,6 @@
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
     </bean>
 
-#if (!$ejbsEnabled || !$manageables.empty)
-    <!-- Transaction Manager -->
-    <bean id="transactionManager" class="$transactionManager">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
-    </bean>
-
-#end
 #foreach($entity in $entities)
      <!-- $entity.name Entity Proxy -->
      <bean id="$entity.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
@@ -137,17 +130,13 @@
     </bean>
 
 #end
-#else
-    <!-- Transaction Manager -->
-    <bean id="transactionManager" class="$transactionManager"/>
-
 #end
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
 
-#if (!$ejbsEnabled && !$services.empty)
+#if (!$services.empty)
     <!-- Service Transactional Interceptor -->
     <bean id="serviceTransactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
-        <property name="transactionManager"><ref local="transactionManager"/></property>
+        <property name="transactionManager"><ref bean="transactionManager"/></property>
         <property name="transactionAttributeSource">
             <value>
 #foreach ($service in $services)
@@ -194,9 +183,7 @@
 #if ($acegiServiceSecurityEnabled)
                  <value>serviceSecurityInterceptor</value>
 #end
-#if (!$ejbsEnabled)
                  <value>serviceTransactionInterceptor</value>
-#end
 #if ($daosEnabled && $service.hibernateInterceptorEnabled)
                  <value>hibernateInterceptor</value>
 #end

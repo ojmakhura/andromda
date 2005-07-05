@@ -11,13 +11,29 @@ package $service.ejbPackageName;
 /**
  * @see $service.fullyQualifiedName
  */
-public interface $service.name 
+public interface $service.name
 #set ($ejbInterface = "javax.ejb.EJBLocalObject")
 #if ($service.ejbRemoteView)
 #set ($ejbInterface = "javax.ejb.EJBObject")
 #end
-    extends $ejbInterface,
-            $service.fullyQualifiedName 
+    extends $ejbInterface
 {
+#foreach ($operation in $service.operations)
+    /**
+$operation.getDocumentation("     * ")
+     */
+#if ($service.ejbRemoteView)
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+        $operation.getThrowsClause("java.rmi.RemoteException");
+#else
+#if ($operation.exceptionsPresent)
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+        $operation.throwsClause;
+#else
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature;
+#end
+#end
+
+#end
 }
 #end

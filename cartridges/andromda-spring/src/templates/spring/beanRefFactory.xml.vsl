@@ -1,3 +1,4 @@
+#parse("templates/spring/SpringGlobals.vm")
 <?xml version="1.0" encoding="$xmlEncoding"?>
 
 <!DOCTYPE beans
@@ -10,11 +11,26 @@
          class="org.springframework.context.support.ClassPathXmlApplicationContext">
         <constructor-arg>
            <list>
+## The ejb configuration files must be listed first since they replace the default bean definitions
+## in the default applicationContext.xml
+#if ($ejbsEnabled)
+#if ($springUtils.remoteEjbsPresent($services))
+                <value>$stringUtils.replace($applicationContextRemoteEjb, '/', '.')</value>
+#end
+#if ($springUtils.localEjbsPresent($services))
+                <value>$stringUtils.replace($applicationContextLocalEjb, '/', '.')</value>
+#end
+#end
                 <value>$stringUtils.replace($applicationContext, '/', '.')</value>
+#if ($stringUtils.isNotBlank($applicationContextDataSource))
+                <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
+#end
+#if ($stringUtils.isNotBlank($applicationContextLocalDataSource))
+                <value>$stringUtils.replace($applicationContextLocalDataSource, '/', '.')</value>
+#end
 #if (!$manageables.empty)
                 <value>$stringUtils.replace($applicationContextManageable, '/', '.')</value>
 #end
-                <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
                 <!-- beanRefFactory merge-point -->
            </list>
         </constructor-arg>
