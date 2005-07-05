@@ -1,0 +1,32 @@
+#parse("templates/spring/SpringGlobals.vm")
+#if ($ejbsEnabled && $springUtils.remoteEjbsPresent($services))
+<?xml version="1.0" encoding="$xmlEncoding"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!-- define JndiEnvironment helper bean for setting jndiEnvironment of all service proxies  -->
+    <bean id="jndiServerEnvironment" class="${springTypesPackage}.${serviceLocatorName}$JndiEnvironment">
+        <property name="providerUrl"><value>localhost:1099</value></property>
+        <property name="initialContextFactory"><value>org.jnp.interfaces.NamingContextFactory</value></property>
+        <property name="urlPkgPrefixes"><value>org.jboss.naming:org.jnp.interface</value></property>
+    </bean>
+
+    <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
+
+#foreach($service in $services)
+#if ($service.ejbRemoteView)
+    <!-- $service.name -->
+    <bean id="$service.getBeanName(false)" class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+        <property name="jndiName"><value>$service.ejbJndiName</value></property>
+        <property name="businessInterface"><value>$service.fullyQualifiedName</value></property>
+        <property name="jndiEnvironment"><ref local="jndiServerEnvironment" /></property>
+    </bean>
+
+#end
+#end
+    <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
+
+</beans>
+#end

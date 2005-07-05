@@ -17,12 +17,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Locates and provides all available application services.
  */
-public class ${clientServiceLocatorName}
+public class $clientServiceLocatorName
 {
     /**
      * The default application context location.
      */
-    private final String DEFAULT_CONTEXT_LOCATION = "$clientContext";
+    private final String DEFAULT_CONTEXT_LOCATION = "$applicationContextClient";
 
     /**
      * The spring application context shared instance.

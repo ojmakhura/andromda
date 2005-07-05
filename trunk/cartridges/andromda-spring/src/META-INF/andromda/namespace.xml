@@ -261,16 +261,39 @@
                     The name given to the Spring datasource application context file
                 </documentation>
             </property>
-            <property name="serverContext">
+            <property name="applicationContextLocalDataSource" required="false">
+                <documentation>
+                    The name given to the Spring local datasource application context file
+                </documentation>
+            </property>
+            <property name="applicationContextServer">
                 <default>serverContext.xml</default>
                 <documentation>
                     The name given to the Spring remote services application context xml file (server side)
                 </documentation>
             </property>
-            <property name="clientContext">
+            <property name="applicationContextClient">
                 <default>clientContext.xml</default>
                 <documentation>
                     The name given to the Spring remote services application context xml file (client side)
+                </documentation>
+            </property>
+            <property name="applicationContextRemoteEjb">
+                <default>applicationContext-remoteEjb.xml</default>
+                <documentation>
+                    The name/path of the application context resource
+                    file that contains the bean proxy definitions for accessing the
+                    ejb service wrappers (if generated with ejbViewType=remote) via remote ejb interfaces
+                    (i.e. some/path/applicationContext-remoteejb.xml).
+                </documentation>
+            </property>
+            <property name="applicationContextLocalEjb" required="false">
+                <default>applicationContext-localEjb.xml</default>
+                <documentation>
+                    The name/path of the application context resource
+                    file that contains the bean proxy definitions for accessing the
+                    ejb service wrappers (if generated with ejbViewType=local) via local ejb interfaces
+                    (i.e. some/path/applicationContext-localejb.xml)
                 </documentation>
             </property>
             <property name="beanRefFactory">
@@ -289,6 +312,18 @@
                 <default>org.springframework.orm.hibernate.HibernateTransactionManager</default>
                 <documentation>
                     The transaction manager implementation used by Spring.
+                </documentation>
+            </property>
+            <property name="localTransactionManager">
+                <default>org.springframework.orm.hibernate.HibernateTransactionManager</default>
+                <documentation>
+                    The transaction manager implementation used by Spring for the local datasource (applicationContextLocalDataSource).
+                </documentation>
+            </property>
+            <property name="userTransactionName" required="false">
+                <default></default>
+                <documentation>
+                    The (JNDI-) transaction manager of the J2EE container if using JTA transactions (via spring).
                 </documentation>
             </property>
             <property name="sessionFactory">

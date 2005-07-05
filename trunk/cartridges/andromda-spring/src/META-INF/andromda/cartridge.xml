@@ -41,15 +41,20 @@
     <property reference="applicationContext"/>
     <property reference="applicationContextManageable"/>
     <property reference="applicationContextDataSource"/>
-    <property reference="serverContext"/>
-    <property reference="clientContext"/>
+    <property reference="applicationContextLocalDataSource"/>
+    <property reference="applicationContextRemoteEjb"/>
+    <property reference="applicationContextLocalEjb"/>
+    <property reference="applicationContextServer"/>
+    <property reference="applicationContextClient"/>
     <property reference="beanRefFactory"/>
     <property reference="beanRefFactoryId"/>
     <property reference="transactionManager"/>
+    <property reference="localTransactionManager"/>
+    <property reference="userTransactionName"/>
     <property reference="sessionFactory"/>
+    <property reference="serviceLocatorName"/>
     <property reference="springTypesPackage"/>
     <property reference="springPresentationTypesPackage"/>
-    <property reference="serviceLocatorName"/>
     <property reference="manageableServiceLocatorName"/>
     <property reference="clientServiceLocatorName"/>
     <property reference="clientServiceLocatorClassloaderSwitching"/>
@@ -80,8 +85,8 @@
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
-
-    <template
+    
+     <template
         path="templates/spring/SpringServiceLocator.vsl"
         outputPattern="$generatedFile"
         outlet="services"
@@ -94,7 +99,7 @@
             </modelElement>
         </modelElements>
     </template>
-
+    
     <template
         path="templates/spring/SpringClientServiceLocator.vsl"
         outputPattern="$generatedFile"
@@ -123,20 +128,6 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="remotable"/>
                 </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/spring/ejb/SpringSessionEJBLocator.vsl"
-        outputPattern="$generatedFile"
-        outlet="services"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements variable="services">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
     </template>
@@ -345,8 +336,25 @@
     </template>
 
     <template
-        path="templates/spring/serverContext.xml.vsl"
-        outputPattern="$serverContext"
+        path="templates/spring/applicationContext-localDataSource.xml.vsl"
+        outputPattern="$applicationContextLocalDataSource"
+        outlet="spring-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/applicationContext-server.xml.vsl"
+        outputPattern="$applicationContextServer"
         outlet="spring-configuration"
         overwrite="true"
         outputToSingleFile="true"
@@ -361,8 +369,8 @@
     </template>
 
     <template
-        path="templates/spring/clientContext.xml.vsl"
-        outputPattern="$clientContext"
+        path="templates/spring/applicationContext-client.xml.vsl"
+        outputPattern="$applicationContextClient"
         outlet="spring-configuration"
         overwrite="true"
         outputToSingleFile="true"
@@ -372,6 +380,34 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="remotable"/>
                 </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/applicationContext-remoteEjb.xml.vsl"
+        outputPattern="$applicationContextRemoteEjb"
+        outlet="spring-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService" />
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/applicationContext-localEjb.xml.vsl"
+        outputPattern="$applicationContextLocalEjb"
+        outlet="spring-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService" />
             </modelElement>
         </modelElements>
     </template>
@@ -412,7 +448,7 @@
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements>
-            <modelElement>
+            <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
             <modelElement>

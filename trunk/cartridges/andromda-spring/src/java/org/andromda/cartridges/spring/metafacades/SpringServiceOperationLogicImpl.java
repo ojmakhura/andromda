@@ -98,60 +98,16 @@ public class SpringServiceOperationLogicImpl
         }
         return transactionType;
     }
-    
-    /**
-     * Override to provide checking of whether a remote exception is required.
-     * 
-     * @see org.andromda.metafacades.uml.OperationFacade#isExceptionsPresent()
-     */
-    public boolean isExceptionsPresent()
-    {
-        boolean present = super.isExceptionsPresent();
-        if (!present)
-        {
-            final SpringService owner = this.getServiceOwner();
-            present = owner != null && owner.isEjbRemoteView();
-        }
-        return present;
-    }
-    
-    /**
-     * Gets the owner if a SpringService, otherwise
-     * returns null.
-     * 
-     * @return the spring service owner.
-     */
-    private SpringService getServiceOwner()
-    {
-        SpringService owner = null;
-        if (super.getOwner() instanceof SpringService)
-        {
-            owner = (SpringService)this.getOwner();
-        }        
-        return owner;
-    }
 
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringServiceOperation#getThrowsClause()
      */
     protected String handleGetThrowsClause()
     {
-        SpringService owner = null;
-        if (this.getOwner() instanceof SpringService)
-        {
-            owner = (SpringService)this.getOwner();
-        }
         StringBuffer throwsClause = null;
         if (this.isExceptionsPresent())
         {
-            if (owner != null && owner.isEjbRemoteView())
-            {
-                throwsClause = new StringBuffer(this.getExceptionList("java.rmi.RemoteException"));
-            }
-            else
-            {
-                throwsClause = new StringBuffer(this.getExceptionList());
-            }
+            throwsClause = new StringBuffer(this.getExceptionList());
         }
         if (throwsClause != null)
         {

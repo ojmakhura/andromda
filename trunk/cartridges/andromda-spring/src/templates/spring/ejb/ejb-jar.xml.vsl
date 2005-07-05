@@ -56,15 +56,25 @@
 #end
 #end
             <method>
-              <description><![CDATA[Creates the $service.name Session EJB]]></description>
-              <ejb-name>$service.name</ejb-name>
+                <description><![CDATA[Creates the $service.name Session EJB]]></description>
+                <ejb-name>$service.name</ejb-name>
 #set ($homeInterface = "LocalHome")
 #if ($service.ejbRemoteView)
 #set ($homeInterface = "Home")
 #end
-              <method-intf>$homeInterface</method-intf>
-              <method-name>create</method-name>
-          </method>
+                <method-intf>$homeInterface</method-intf>
+                <method-name>create</method-name>
+            </method>
+            <method>
+                <description><![CDATA[Removes the $service.name Session EJB]]></description>
+                <ejb-name>$service.name</ejb-name>
+#set ($interface = "Local")
+#if ($service.ejbRemoteView)
+#set ($interface = "Remote")
+#end
+                <method-intf>$interface</method-intf>
+                <method-name>remove</method-name>
+            </method>
         </method-permission>
 
 #foreach ($operation in $service.operations)
