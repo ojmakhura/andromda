@@ -160,7 +160,7 @@ ${indent}</event>
 #macro (timers $state $indent)
 #if (!$state.timers.empty)
 #foreach ($timer in $state.timers)
-${indent}<timer name="$timer.name" duedate="$timer.dueDate"#renderRepeat($timer)>
+${indent}<timer name="$timer.name" duedate="$timer.dueDate"#renderTimerRepeat($timer)>
 #action($timer "$indent    ")
 ${indent}</timer>
 #end
@@ -259,9 +259,9 @@ ${indent}<transition#renderName($transition) to="$transition.target.name"/>
 ##
 ##
 ##
-#macro (renderRepeat $element)
-#if ($element.repeat)
- repeat="$element.repeat"## no newline
+#macro (renderTimerRepeat $element)
+#if ($element.timerRepeat)
+ repeat="$element.timerRepeat"## no newline
 #end
 #end
 ##
