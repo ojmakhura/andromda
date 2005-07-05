@@ -90,14 +90,11 @@
 #else
         <namespace name="spring">
             <properties>
-#if ($ear)
                 <property name="dataSource">${dataSource}</property>
-#else
                 <property name="username">${dataSource.user}</property>
                 <property name="password">${dataSource.password}</property>
                 <property name="driver">${dataSource.driver.class}</property>
                 <property name="connectionUrl">${dataSource.url}</property>
-#end
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
                 <property name="hibernateUseQueryCache">false</property>
