@@ -262,6 +262,7 @@
                 </documentation>
             </property>
             <property name="applicationContextLocalDataSource" required="false">
+                <default>applicationContext-localDataSource.xml</default>
                 <documentation>
                     The name given to the Spring local datasource application context file
                 </documentation>

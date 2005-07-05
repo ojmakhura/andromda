@@ -22,10 +22,9 @@
 #end
 #end
                 <value>$stringUtils.replace($applicationContext, '/', '.')</value>
-#if ($stringUtils.isNotBlank($applicationContextDataSource))
+#if ($stringUtils.isNotBlank($dataSource))
                 <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
-#end
-#if ($stringUtils.isNotBlank($applicationContextLocalDataSource))
+#else
                 <value>$stringUtils.replace($applicationContextLocalDataSource, '/', '.')</value>
 #end
 #if (!$manageables.empty)
