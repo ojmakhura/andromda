@@ -44,9 +44,7 @@ public class ResourceUtils
     {
         final String methodName = "ResourceUtils.getResource";
         if (logger.isDebugEnabled())
-        {
             logger.debug("performing '" + methodName + "' with resourceName '" + resourceName + "'");
-        }
 
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
         final ClassLoader loader = ClassUtils.getClassLoader();
