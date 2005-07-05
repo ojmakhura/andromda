@@ -28,17 +28,16 @@ public class ResourceFinder
         try
         {
             Collection resources = new ArrayList();
-            Enumeration resourceEnumeration = Thread.currentThread().getContextClassLoader().getResources(resource);
+            final Enumeration resourceEnumeration = Thread.currentThread().getContextClassLoader().getResources(resource);\
             while (resourceEnumeration.hasMoreElements())
             {
                 resources.add(resourceEnumeration.nextElement());
             }
             return (URL[])resources.toArray(new URL[0]);
         }
-        catch (Exception ex)
+        catch (final Exception exception)
         {
-            String errMsg = "Error performing " + methodName;
-            throw new ResourceFinderException(errMsg, ex);
+            throw new ResourceFinderException(exception);
         }
     }
 }
