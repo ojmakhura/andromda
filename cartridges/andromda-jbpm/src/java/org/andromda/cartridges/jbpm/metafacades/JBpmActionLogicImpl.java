@@ -122,12 +122,17 @@ public class JBpmActionLogicImpl
      */
     protected java.lang.String handleGetDueDate()
     {
-        return (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_DUEDATE);
+        return isTimer() ? (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_DUEDATE) : null;
     }
 
-    protected java.lang.String handleGetRepeat()
+    protected java.lang.String handleGetTimerRepeat()
     {
         return (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_REPEAT);
+    }
+
+    protected java.lang.String handleGetTimerTransition()
+    {
+        return (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_TRANSITION);
     }
 
     /**
@@ -136,7 +141,6 @@ public class JBpmActionLogicImpl
     protected java.lang.String handleGetClazz()
     {
         String clazz = null;
-
         if (this.isAssignment() || this.isTimer())
         {
             final OperationFacade handler = this.getOperation();

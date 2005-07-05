@@ -4,8 +4,8 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.StateFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class JBpmHandlerLogicImpl
         final List actions = internalJBpmActions();
         for (int i = 0; i < actions.size() && !assignmentHandler; i++)
         {
-            final JBpmAction action = (JBpmAction) actions.get(i);
+            final JBpmAction action = (JBpmAction)actions.get(i);
             assignmentHandler = action.isTask();
         }
 
@@ -55,9 +55,10 @@ public class JBpmHandlerLogicImpl
         final List actions = internalJBpmActions();
         for (int i = 0; i < actions.size() && !actionHandler; i++)
         {
-            final JBpmAction action = (JBpmAction) actions.get(i);
+            final JBpmAction action = (JBpmAction)actions.get(i);
             actionHandler =
-                    action.isAfterSignal() || action.isBeforeSignal() || action.isNodeEnter() || action.isNodeLeave();
+                    action.isAfterSignal() || action.isBeforeSignal() || action.isNodeEnter() || action.isNodeLeave() ||
+                            action.isTimer();
         }
 
         return actionHandler;
@@ -75,17 +76,17 @@ public class JBpmHandlerLogicImpl
             if (stateMachine instanceof ActivityGraphFacade)
             {
                 final ActivityGraphFacade graph = (ActivityGraphFacade)stateMachine;
-                final Collection actionStates = graph.getActionStates();
-                for (final Iterator actionStateIterator = actionStates.iterator(); actionStateIterator.hasNext();)
+                final Collection states = graph.getStates();
+                for (final Iterator stateIterator = states.iterator(); stateIterator.hasNext();)
                 {
-                    final StateFacade actionState = (StateFacade) actionStateIterator.next();
-                    final Collection events = actionState.getDeferrableEvents();
+                    final StateFacade state = (StateFacade)stateIterator.next();
+                    final Collection events = state.getDeferrableEvents();
                     for (final Iterator eventIterator = events.iterator(); eventIterator.hasNext();)
                     {
-                        final EventFacade event = (EventFacade) eventIterator.next();
+                        final EventFacade event = (EventFacade)eventIterator.next();
                         if (event instanceof JBpmAction)
                         {
-                            final JBpmAction action = (JBpmAction) event;
+                            final JBpmAction action = (JBpmAction)event;
                             if (this.equals(action.getOperation()))
                             {
                                 internalActions.add(event);
@@ -97,13 +98,13 @@ public class JBpmHandlerLogicImpl
                 final Collection transitions = graph.getTransitions();
                 for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                 {
-                    final TransitionFacade transition = (TransitionFacade) transitionIterator.next();
+                    final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
                     final EventFacade event = transition.getTrigger();
                     if (event != null)
                     {
                         if (event instanceof JBpmAction)
                         {
-                            final JBpmAction action = (JBpmAction) event;
+                            final JBpmAction action = (JBpmAction)event;
                             if (this.equals(action.getOperation()))
                             {
                                 internalActions.add(event);
