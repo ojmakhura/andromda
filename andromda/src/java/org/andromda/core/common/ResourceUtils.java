@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -45,6 +47,7 @@ public class ResourceUtils
         {
             logger.debug("performing '" + methodName + "' with resourceName '" + resourceName + "'");
         }
+
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
         final ClassLoader loader = ClassUtils.getClassLoader();
         return loader != null ? loader.getResource(resourceName) : null;
@@ -81,6 +84,7 @@ public class ResourceUtils
         {
             logger.debug("performing " + methodName + " with resource '" + resource + "'");
         }
+
         final StringBuffer contents = new StringBuffer();
         try
         {
@@ -296,6 +300,7 @@ public class ResourceUtils
                 "performing '" + methodName + "' with resourceName '" + resourceName + "' and directory '" + directory +
                 "'");
         }
+
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
 
         if (directory != null)
