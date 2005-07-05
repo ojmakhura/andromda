@@ -1,8 +1,10 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 /**
  * Stores the repository information for each model that AndroMDA will process.
@@ -16,43 +18,43 @@ public class Repository
      * Stores the unique name of this repository.
      */
     private String name;
-    
+
     /**
      * Sets the unique (among other repositories)
      * name.
-     * 
+     *
      * @param name the unique name of this repository.
      */
     public void setName(final String name)
     {
         this.name = name;
     }
-    
+
     /**
      * Gets the unique name of this repository.
-     * 
+     *
      * @return the repository name.
      */
     public String getName()
     {
         return this.name;
     }
-    
+
     /**
      * The models loaded by this repository.
      */
     private final Collection models = new ArrayList();
-    
+
     /**
      * Adds a model that this repository will load.
-     * 
+     *
      * @param model the model to load.
      */
     public void addModel(final Model model)
     {
         this.models.add(model);
     }
-    
+
     /**
      * Gets the model instances belonging to this repository.
      *
