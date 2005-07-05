@@ -105,11 +105,13 @@
 #if ($hibernateVersion == "2")
                 <property name="sessionFactory">org.springframework.orm.hibernate.LocalSessionFactoryBean</property>
                 <property name="transactionManager">org.springframework.orm.hibernate.HibernateTransactionManager</property>
+                <property name="localTransactionManager">org.springframework.orm.hibernate.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
 #else
                 <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
                 <property name="transactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
+                <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
                 <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
 #end
