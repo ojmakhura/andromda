@@ -2,29 +2,29 @@
     <component 
         name="cartridge"
         type="org.andromda.core.cartridge.Cartridge">
-        <path>META-INF/andromda/cartridge.xml</path>
-        <path>META-INF/andromda-cartridge.xml</path>
+        <path>/META-INF/andromda/cartridge.xml</path>
+        <path>/META-INF/andromda-cartridge.xml</path>
     </component>
     <component
         name="metafacades"
         type="org.andromda.core.metafacade.MetafacadeMappings">
-        <path>META-INF/andromda/metafacades.xml</path>
-        <path>META-INF/andromda-metafacades.xml</path>
+        <path>/META-INF/andromda/metafacades.xml</path>
+        <path>/META-INF/andromda-metafacades.xml</path>
     </component>
     <component
         name="profile"
         type="org.andromda.core.profile.Profile">
-        <path>META-INF/andromda/profile.xml</path>
+        <path>/META-INF/andromda/profile.xml</path>
     </component>
     <component
         name="repository"
         type="org.andromda.core.repository.Repository">
-        <path>META-INF/andromda/repository.xml</path>
+        <path>/META-INF/andromda/repository.xml</path>
     </component>
     <component
         name="translation-library"
         type="org.andromda.core.translation.library.Library">
-        <path>META-INF/andromda/translation-library.xml</path>
-        <path>META-INF/andromda-translation-library.xml</path>        
+        <path>/META-INF/andromda/translation-library.xml</path>
+        <path>/META-INF/andromda-translation-library.xml</path>        
     </component>
 </components>
