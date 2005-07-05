@@ -80,7 +80,6 @@ public class NamespaceComponents
             for (int ctr = 0; ctr < resourceNumber; ctr++)
             {
                 final URL resource = resources[ctr];
-                System.out.println("the resource!!!!: " + resource);
                 NamespaceRegistry registry = (NamespaceRegistry)registryFactory.getObject(resource);
                 final String registryName = registry.getName();
 
@@ -191,7 +190,6 @@ public class NamespaceComponents
                             resource.toString(),
                             this.getPath(),
                             path));
-                System.out.println("the relative resource!!!!!!: " + relativeResource);
                 stream = relativeResource.openStream();
                 stream.close();
             }
