@@ -91,6 +91,12 @@ public class JBpmPseudostateLogicImpl
         return Collections.EMPTY_LIST;
     }
 
+    protected java.util.List handleGetTimers()
+    {
+        // maybe one day UML will support events on pseudostates
+        return Collections.EMPTY_LIST;
+    }
+
     protected String handleGetDecisionHandlerPackageName()
     {
         String packageName = null;

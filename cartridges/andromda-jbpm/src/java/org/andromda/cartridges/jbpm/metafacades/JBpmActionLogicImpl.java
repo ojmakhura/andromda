@@ -1,8 +1,10 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
 import org.andromda.cartridges.jbpm.JBpmProfile;
-import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -12,18 +14,30 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.jbpm.metafacades.JBpmAction
  */
 public class JBpmActionLogicImpl
-    extends JBpmActionLogic
+        extends JBpmActionLogic
 {
-
-    public JBpmActionLogicImpl (Object metaObject, String context)
+    public JBpmActionLogicImpl(Object metaObject, String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     protected boolean handleIsContainedInBusinessProcess()
     {
-        // an action is modeled either on a state either on a transition
-        return (this.getState() instanceof JBpmNode) || (this.getTransition() instanceof JBpmTransition);
+        boolean containedInBusinessProcess = false;
+        if (this.getState() != null)
+        {
+            final StateMachineFacade stateMachine = this.getState().getStateMachine();
+            if (stateMachine instanceof ActivityGraphFacade)
+            {
+                final ActivityGraphFacade activityGraph = (ActivityGraphFacade)stateMachine;
+                containedInBusinessProcess = activityGraph.getUseCase() instanceof JBpmProcessDefinition;
+            }
+        }
+        else
+        {
+            containedInBusinessProcess = this.getTransition() instanceof JBpmTransition;
+        }
+        return containedInBusinessProcess;
     }
 
     /**
@@ -108,7 +122,12 @@ public class JBpmActionLogicImpl
      */
     protected java.lang.String handleGetDueDate()
     {
-        return null;
+        return (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_DUEDATE);
+    }
+
+    protected java.lang.String handleGetRepeat()
+    {
+        return (String)findTaggedValue(JBpmProfile.TAGGEDVALUE_TIMER_REPEAT);
     }
 
     /**
@@ -118,7 +137,7 @@ public class JBpmActionLogicImpl
     {
         String clazz = null;
 
-        if (isAssignment())
+        if (this.isAssignment() || this.isTimer())
         {
             final OperationFacade handler = this.getOperation();
 

@@ -37,6 +37,14 @@
                 <documentation></documentation>
                 <value>@andromda.process.jbpm.assignment.expression</value>
             </element>
+            <element name="TIMER_REPEAT">
+                <documentation></documentation>
+                <value>@andromda.process.jbpm.timer.repeat</value>
+            </element>
+            <element name="TIMER_DUEDATE">
+                <documentation></documentation>
+                <value>@andromda.process.jbpm.timer.duedate</value>
+            </element>
         </elementGroup>
     </elements>
 </profile>
