@@ -18,6 +18,16 @@
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
+            <xs:sequence>
+                <xs:element name="path" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Defines a path (relative to the namespace component) of where to find the 
+                            component descriptor.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
             <xs:attribute name="name" type="componentName" use="required">
                 <xs:annotation>
                     <xs:documentation>
@@ -35,21 +45,28 @@
             <xs:enumeration value="cartridge">
                 <xs:annotation>
                     <xs:documentation>
-                        Represents the 'cartridge' component.  Use this to register a cartridge in your namespace.
+                        Represents the 'cartridge' component.  Use this to register a cartridge in a namespace.
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="metafacades">
                 <xs:annotation>
                     <xs:documentation>
-                       Represents the 'metafacades' component.  Use this to register a set of metafacades in your namespace.
+                       Represents the 'metafacades' component.  Use this to register a set of metafacades in a namespace.
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="profile">
                 <xs:annotation>
                     <xs:documentation>
-                       Represents the 'profile' component.  Use this to register a profile in your namespace.
+                       Represents the 'profile' component.  Use this to register a profile in a namespace.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="repository">
+                <xs:annotation>
+                    <xs:documentation>
+                       Represents the 'repository' component.  Use this to register a repository in a namespace.
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>

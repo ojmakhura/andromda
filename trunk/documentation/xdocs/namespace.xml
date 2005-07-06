@@ -49,7 +49,7 @@
                 defining what the group of properties configures, and an <em>optional</em> documentation element that describes in 
                 more detail what this group of properties does.  Each property defines the name of a property that can be configured 
                 through a namespace element in the <a href="configuration.html">AndroMDA Configuration</a>.  Properties defined here 
-                are referenced within the namespace component descriptors (in for example: the andromda-cartridge.xml and andromda-metafacades.xml).  
+                are referenced within the namespace component descriptors (in for example: the META-INF/andromda/cartridge.xml and META-INF/andromda/metafacades.xml).  
             </p>   
             <p>
                 Each property element defines the following aspects about a given property: 
@@ -75,8 +75,12 @@
                 <source language="xml">
 <![CDATA[<namespace name="webservice">
     <components>
-        <component name="cartridge"/>
-        <component name="metafacades"/>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
     </components>
     <properties>
         <propertyGroup name="Outlets">
