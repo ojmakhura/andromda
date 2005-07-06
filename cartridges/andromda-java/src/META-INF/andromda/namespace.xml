@@ -2,7 +2,9 @@
 
 <namespace name="java">
     <components>
-        <component name="cartridge"/>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
     </components>
     <properties>
         <propertyGroup name="Outlets">

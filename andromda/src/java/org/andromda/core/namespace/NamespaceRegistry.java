@@ -1,7 +1,5 @@
 package org.andromda.core.namespace;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,9 +65,10 @@ public class NamespaceRegistry
 
     /**
      * Stores the names of the components registered
-     * within this namespace registry.
+     * within this namespace registry and the paths from which 
+     * they can be initialized.
      */
-    private final Collection components = new ArrayList();
+    private final Map components = new HashMap();
 
     /**
      * Registers the component with the
@@ -77,19 +76,33 @@ public class NamespaceRegistry
      *
      * @param name the name of the component of the registry.
      */
-    public void registerComponent(final String name)
+    public void registerComponent(final Component component)
     {
-        this.components.add(name);
+        if (component != null)
+        {
+           this.components.put(component.getName(), component.getPaths());
+        }
     }
 
     /**
-     * Gets the names of the registered components.
+     * Gets the names registered components.
      *
      * @return the names of the registered components.
      */
     public String[] getRegisteredComponents()
     {
-        return (String[])this.components.toArray(new String[0]);
+        return (String[])this.components.keySet().toArray(new String[0]);
+    }
+    
+    /**
+     * Gets the initialization paths for the given component name.
+     * 
+     * @param name the name of the component.
+     * @return the paths or null if none are found.
+     */
+    public String[] getPaths(final String name)
+    {
+        return (String[])this.components.get(name);
     }
 
     /**

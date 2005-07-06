@@ -1,7 +1,8 @@
 package org.andromda.core.namespace;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import org.andromda.core.common.ClassUtils;
 
@@ -41,7 +42,7 @@ public class Component
     /**
      * The path to the compoment's descriptor.
      */
-    private final Collection paths = new ArrayList();
+    private final Collection paths = new LinkedHashSet();
 
     /**
      * Gets the component's descriptor paths (these are the paths
@@ -62,6 +63,20 @@ public class Component
     public void addPath(final String path)
     {
         this.paths.add(path);
+    }
+
+    /**
+     * Adds the given <code>paths</code> to the existing paths
+     * contained within this component.
+     *
+     * @param paths the paths to add.
+     */
+    final void addPaths(final String[] paths)
+    {
+        if (paths != null && paths.length > 0)
+        {
+            this.paths.addAll(Arrays.asList(paths));
+        }
     }
 
     /**

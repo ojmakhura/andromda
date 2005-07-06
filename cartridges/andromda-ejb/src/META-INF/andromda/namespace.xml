@@ -2,8 +2,12 @@
 
 <namespace name="ejb">
     <components>
-        <component name="cartridge"/>
-        <component name="metafacades"/>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
     </components>
     <properties>
         <propertyGroup name="Outlet Properties">
