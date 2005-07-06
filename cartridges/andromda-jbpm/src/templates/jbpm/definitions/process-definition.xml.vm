@@ -54,6 +54,7 @@ ${indent}</state>
 ${indent}<node name="$node.name">
 #transitions($node "${indent}    " false)
 #events($node "${indent}    ")
+#timers($node "${indent}    ")
 ${indent}</node>
 
 #end
@@ -76,10 +77,11 @@ ${indent}<end-state name="$state.name"/>
 #macro (renderTaskNodes $processDefinition $indent)
 #if (!$processDefinition.taskNodes.empty)
 #foreach ($state in $processDefinition.taskNodes)
-${indent}<task-node name="$state.name">
+${indent}<task-node name="$state.name" signal="never" create-tasks="true">
 #tasks($state "${indent}    ")
 #transitions($state "${indent}    " false)
 #events($state "${indent}    ")
+#timers($state "${indent}    ")
 ${indent}</task-node>
 
 #end
@@ -128,10 +130,6 @@ ${indent}</join>
 ##
 ##
 ##
-
-##
-##
-##
 #macro (events $state $indent)
 #if (!$state.beforeSignal.empty)
 ${indent}<event type="before-signal">
@@ -160,7 +158,7 @@ ${indent}</event>
 #macro (timers $state $indent)
 #if (!$state.timers.empty)
 #foreach ($timer in $state.timers)
-${indent}<timer name="$timer.name" duedate="$timer.dueDate"#renderTimerRepeat($timer)>
+${indent}<timer name="$timer.name" duedate="$timer.dueDate"#renderTimerRepeat($timer)#renderTimerTransition($timer)>
 #action($timer "$indent    ")
 ${indent}</timer>
 #end
@@ -262,6 +260,14 @@ ${indent}<transition#renderName($transition) to="$transition.target.name"/>
 #macro (renderTimerRepeat $element)
 #if ($element.timerRepeat)
  repeat="$element.timerRepeat"## no newline
+#end
+#end
+##
+##
+##
+#macro (renderTimerTransition $element)
+#if ($element.timerTransition)
+ transition="$element.timerTransition"## no newline
 #end
 #end
 ##

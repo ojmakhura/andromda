@@ -49,6 +49,10 @@
                 <documentation></documentation>
                 <value>@andromda.process.jbpm.timer.transition</value>
             </element>
+            <element name="TASK_BLOCKING">
+                <documentation></documentation>
+                <value>@andromda.process.jbpm.task.blocking</value>
+            </element>
         </elementGroup>
     </elements>
 </profile>

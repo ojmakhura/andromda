@@ -3,6 +3,9 @@
 package $handler.handlerPackageName;
 
 #end
+/**
+ * @see {@link $handler.handlerClassName}
+ */
 public class ${handler.handlerClassName}Impl extends ${handler.handlerClassName}
 {
 #if ($handler.actionHandler)

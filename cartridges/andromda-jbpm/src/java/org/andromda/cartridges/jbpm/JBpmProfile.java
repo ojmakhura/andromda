@@ -24,4 +24,5 @@ public class JBpmProfile
     public static final String TAGGEDVALUE_TIMER_REPEAT = profile.get("TIMER_REPEAT");
     public static final String TAGGEDVALUE_TIMER_DUEDATE = profile.get("TIMER_DUEDATE");
     public static final String TAGGEDVALUE_TIMER_TRANSITION = profile.get("TIMER_TRANSITION");
+    public static final String TAGGEDVALUE_TASK_BLOCKING = profile.get("TASK_BLOCKING");
 }
