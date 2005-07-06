@@ -418,7 +418,7 @@ public class ModelElementFacadeLogicImpl
      *
      * @return the array suffix.
      */
-    private String getArraySuffix()
+    private final String getArraySuffix()
     {
         return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }

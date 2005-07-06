@@ -438,7 +438,7 @@ public class UML14MetafacadeUtils
         Collection classes = getModel().getCore().getUmlClass().refAllOfType();
         for (final Iterator classIterator = classes.iterator(); classIterator.hasNext() && classWithTaggedValue == null;)
         {
-            // loop over all use-cases
+            // loop over all classes
             UmlClass clazz = (UmlClass)classIterator.next();
             if (isTagPresent(clazz, tag, value) || isHyperlinkPresent(clazz, value))
             {

@@ -66,7 +66,7 @@ public class FrontEndUseCaseLogicImpl
         // - otherwise just take the first one in this use-case's namespace.
         if (activityGraph == null)
         {
-            final Collection ownedElements = getOwnedElements();
+            final Collection ownedElements = this.getOwnedElements();
             for (final Iterator iterator = ownedElements.iterator(); iterator.hasNext();)
             {
                 final Object object = iterator.next();
@@ -76,7 +76,6 @@ public class FrontEndUseCaseLogicImpl
                 }
             }
         }
-
         return activityGraph;
     }
 

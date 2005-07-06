@@ -52,7 +52,6 @@ public class FrontEndControllerLogicImpl
     protected java.lang.Object handleGetUseCase()
     {
         Object useCase = null;
-
         final StateMachineFacade graphContext = this.getStateMachineContext();
         if (graphContext instanceof FrontEndActivityGraph)
         {
@@ -65,8 +64,8 @@ public class FrontEndControllerLogicImpl
             {
                 final String tag = useCaseTaggedValue.toString();
 
-                // return the first use-case with this name
-                useCase = getModel().findUseCaseWithNameAndStereotype(tag, UMLProfile.STEREOTYPE_FRONT_END_USECASE);
+                // - return the first use-case with this name
+                useCase = this.getModel().findUseCaseWithNameAndStereotype(tag, UMLProfile.STEREOTYPE_FRONT_END_USECASE);
             }
         }
         return useCase;
