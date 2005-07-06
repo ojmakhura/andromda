@@ -25,6 +25,8 @@ public class $class.name
     }
 #end
 
+#set ($propertiesNumber = $class.properties.size())
+#if ($propertiesNumber == 0 || $propertiesNumber != 1 || !$class.properties.iterator().next().getterSetterTypeName.equals($class.fullyQualifiedName))
     /**
      * Constructor taking all properties.
      */
@@ -44,6 +46,7 @@ public class $class.name
 #end
     }
 
+#end
     /**
      * Copies constructor from other ${class.name}
      */
@@ -96,7 +99,7 @@ $target.getDocumentation("     * ")
     {
         this.${target.name} = ${target.name};
     }
-    
+
 #end
 #end
 }
