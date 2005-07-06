@@ -176,6 +176,56 @@
                 </p>
             </subsection>
         </section>
+        <section name="Good to know">
+            <p>
+                There are a few things you should know about the jBpm cartridge. It's important to realize that
+                using a modeling tool such as a UML editor offers a level of abstraction but also makes you lose
+                a certain degree of control over the generated file. For this reason you need to understand some
+                of the decisions behind the cartridge, in jBpm something can be implemented in many different
+                ways but the cartridge consistency applies the same patterns, something humans rarely do.
+            </p>
+            <subsection name="Patterns">
+                <p>
+                    Most of the time you won't need to customize anything, and if you do you will have a set of
+                    tagged values and stereotypes at your disposal that will allow you to tweak the generated code.
+                    Here's a list of patterns applied by the cartridge:
+                </p>
+                <p>
+                    <ul>
+                        <li>all tasks are blocking by default, the process can't continue until all tasks have finished</li>
+                        <li>no task is signalling, in order to continue to the next state you will
+                            <em>always</em> have to explicitely signal the process
+                        </li>
+                        <li>assignment is done on the level of the swimlane, all tasks that are part of that
+                            swimlane will have the same actor assigned to it
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Modeling">
+                <p>
+                    There is a simple set of guidelines for working with the jBpm cartridge that will get you
+                    started:
+                </p>
+                <p>
+                    <ul>
+                        <li>tasks are modeled as deferrable call-events on an <em>action state</em>,
+                            give these events the <![CDATA[<<Task>>]]> stereotype</li>
+                        <li>if you want to schedule the timely execution of an action you should
+                            model a deferrable call-event with the <![CDATA[<<Timer>>]]> stereotype,
+                            you can do this on an <em>action state</em> or on a <em>regular state</em>
+                        </li>
+                        <li>most, but not all, of the model elements require a name, it's a good practice
+                            to give descriptive names; don't be afraid of using spaces
+                        </li>
+                        <li>in real processes it's a good idea to have a naming convention for your elements:
+                            states should sounds like 'request sent' or 'form stored', use the <em>past tense</em>,
+                            use the <em>present tense</em> for transitions and tasks: 'send request' or 'store form'
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+        </section>
         <section name="Example">
             <p>
                 Although not displaying everything, the following diagram shows how a process can be modeled
@@ -187,7 +237,7 @@
             </p>
 <source language="xml">
 <!--
-<process-definition name="Real Scenario Example">
+<process-definition name="Scenario Example">
 
     <start-state name="start" swimlane="human">
         <transition to="perform initial tasks"/>
