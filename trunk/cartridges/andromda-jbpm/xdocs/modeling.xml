@@ -24,16 +24,9 @@
                     </tr>
                     <tr>
                         <td>Business Process</td>
-                        <td>Activity Graph</td>
-                        <td>Putting this stereotype on an activity graph will tell the cartridge to generate
+                        <td>UseCase</td>
+                        <td>Putting this stereotype on a usecase will tell the cartridge to generate
                             code from it.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Task Node</td>
-                        <td>Action State, Transition</td>
-                        <td>Designates an action state to be a jBpm task, this means all deferrable events
-                            will be calling <i>assignment handlers</i>.
                         </td>
                     </tr>
                     <tr>
@@ -64,6 +57,16 @@
                             calling an <i>action handler</i>.
                         </td>
                     </tr>
+                    <tr>
+                        <td>Task</td>
+                        <td>Call Event</td>
+                        <td>will render the action as a task</td>
+                    </tr>
+                    <tr>
+                        <td>Timer</td>
+                        <td>Call Event</td>
+                        <td>will render a timed action handler for this action</td>
+                    </tr>
                 </table>
             </subsection>
 
@@ -80,6 +83,30 @@
                         <td>By using one or more of these tagged values on a swimlane the cartridge will
                             generate assignment expressions into the swimlane declaration in the beginning
                             of the process definition XML descriptor.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.process.jbpm.timer.duedate</td>
+                        <td>Call-event with the <![CDATA[<<Timer>>]]> stereotype</td>
+                        <td>Sets the due date for this timer, you'll need to respect the duedate
+                            format as defined in jBpm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.process.jbpm.timer.repeat</td>
+                        <td>Call-event with the <![CDATA[<<Timer>>]]> stereotype</td>
+                        <td>the number of times to repeat the timer execution</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.process.jbpm.timer.transition</td>
+                        <td>Call-event with the <![CDATA[<<Timer>>]]> stereotype</td>
+                        <td>the transition to take when the timer finishes execution</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.process.jbpm.task.blocking</td>
+                        <td>Call-event with the <![CDATA[<<Task>>]]> stereotype</td>
+                        <td>denotes a task to be blocking or not, blocking tasks need to be finished
+                            before the process is allowed to continue
                         </td>
                     </tr>
                 </table>
