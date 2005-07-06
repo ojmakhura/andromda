@@ -4,27 +4,17 @@
     <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <property reference="languageMappingsUri"/>
     <property reference="wrapperMappingsUri"/>
-    <property reference="pluralizeAssociationEndNames"/>
     <property reference="namespaceSeparator"/>
     <property reference="undefinedName"/>
     <property reference="arrayNameSuffix"/>
-    <property reference="useArraysForMultiplicitiesOfTypeMany"/>
     <property reference="maxSqlNameLength"/>
     <property reference="tableNamePrefix"/>
     <property reference="foreignKeySuffix"/>
     <property reference="constraintSuffix"/>
     <property reference="manageablePackageSuffix"/>
     <property reference="sqlNameSeparator"/>
-    <property reference="classifierNameMask"/>
-    <property reference="operationNameMask"/>
     <property reference="classifierPropertyNameMask"/>
-    <property reference="roleNameMask"/>
-    <property reference="enumerationNameMask"/>
-    <property reference="entityNameMask"/>
-    <property reference="entityPropertyNameMask"/>
-    <property reference="parameterNameMask"/>
     <property reference="enableMetafacadePropertyCaching"/>
-    <property reference="defaultMultiplicity"/>
     <property reference="defaultResolveable"/>
     <property reference="defaultPageSize"/>
     <property reference="defaultMaximumListSize"/>
@@ -36,6 +26,7 @@
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ClassifierFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
+        <property reference="classifierNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.EnumerationLiteral$Impl"/>
@@ -44,12 +35,15 @@
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
             <stereotype>ENUMERATION</stereotype>
         </mapping>
+        <property reference="enumerationNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationClassFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationClass$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationEndFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl"/>
+        <property reference="defaultMultiplicity"/>
+        <property reference="pluralizeAssociationEndNames"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl"/>
@@ -65,13 +59,16 @@
         <mapping class="org.omg.uml.foundation.core.Operation$Impl"/>
         <property reference="preconditionNamePattern"/>
         <property reference="postconditionNamePattern"/>
+        <property reference="operationNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AttributeFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
         <property reference="enumerationLiteralNameMask"/>
+        <property reference="defaultMultiplicity"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.ParameterFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl"/>
+        <property reference="parameterNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.GeneralizationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Generalization$Impl"/>
@@ -159,6 +156,7 @@
         <mapping class="org.omg.uml.behavioralelements.usecases.Actor$Impl">
             <property name="referencesPresent"/>
         </mapping>
+        <property reference="roleNameMask"/>
     </metafacade>
     <!-- Value Object metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.ValueObjectLogicImpl" contextRoot="true">
@@ -170,6 +168,7 @@
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
             <property name="valueObjectType"/>
         </mapping>
+        <property reference="useArraysForMultiplicitiesOfTypeMany"/>
     </metafacade>
     <!--
         Manageable metafacades:
@@ -206,6 +205,7 @@
         <property reference="defaultIdentifierType"/>
         <property reference="defaultIdentifierVisibility"/>
         <property reference="relationNameSeparator"/>
+        <property reference="entityNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
@@ -213,6 +213,7 @@
         </mapping>
         <property reference="sqlMappingsUri"/>
         <property reference="jdbcMappingsUri"/>
+        <property reference="entityPropertyNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
@@ -220,6 +221,7 @@
         </mapping>
         <property reference="sqlMappingsUri"/>
         <property reference="jdbcMappingsUri"/>
+        <property reference="entityPropertyNameMask"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EntityAssociationLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
@@ -253,6 +255,26 @@
     <metafacade class="org.andromda.metafacades.uml14.FrontEndPackageLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl">
             <property name="frontEndUseCases"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndControllerLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <property name="useCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndControllerOperationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+            <property name="ownerIsController"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndUseCaseLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+            <stereotype>FRONT_END_APPLICATION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndActivityGraphLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl">
+            <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 </metafacades>

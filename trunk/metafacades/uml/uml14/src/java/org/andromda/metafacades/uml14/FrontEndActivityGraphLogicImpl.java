@@ -52,7 +52,7 @@ public class FrontEndActivityGraphLogicImpl
     {
         Object controller = null;
 
-        final ModelElementFacade contextElement = getContextElement();
+        final ModelElementFacade contextElement = this.getContextElement();
         if (contextElement instanceof FrontEndController)
         {
             controller = contextElement;
@@ -68,11 +68,10 @@ public class FrontEndActivityGraphLogicImpl
             if (useCase != null)
             {
                 final String useCaseName = useCase.getName();
-                controller = getModel().findClassWithTaggedValueOrHyperlink(
+                controller = this.getModel().findClassWithTaggedValueOrHyperlink(
                         UMLProfile.TAGGEDVALUE_PRESENTATION_CONTROLLER_USECASE, useCaseName);
             }
         }
-
         return controller;
     }
 
