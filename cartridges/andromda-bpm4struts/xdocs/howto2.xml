@@ -186,6 +186,21 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                                 <code>'number'</code>. Most of the time the data that will go into the list is coming
                                 from the back-end, in this example the list contents never change.
                             </p>
+                            <p>
+                                There is another method available for selectable event parameters that is equivalent
+                                to the above but is easier to use when the labels and values are encapsulated
+                                in value objects:
+<source language="java"><!--
+public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm form, ...
+{
+    // the next list contains value objects
+    Collection numberValueObjects = getNumbers();
+
+    // use the 'id' property as the value, and use the 'text' property as the label
+    form.setNumberBackingList(numberValueObjects, "id", "text");
+}
+--></source>
+                            </p>
                             <p class="highlight">
                                 Setting the labels is optional, in case they are missing the application will
                                 assume the values instead.
