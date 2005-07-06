@@ -76,7 +76,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     /**
      * Starts this node's <em>$task.name</em> task.
      */
-    public void start${taskName}Task()
+    public void start${taskName}()
     {
         final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
         if (task != null)
@@ -88,7 +88,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     /**
      * Finishes this node's <em>$task.name</em> task.
      */
-    public void finish${taskName}Task()
+    public void finish${taskName}()
     {
         final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
         if (task != null)
@@ -102,7 +102,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
      *
      * @return true if this node's $task.name has been finished, false otherwise
      */
-    public boolean is${taskName}TaskFinished()
+    public boolean is${taskName}Finished()
     {
         final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
         return task == null ? true : task.hasEnded();

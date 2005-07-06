@@ -28,71 +28,103 @@
             <subsection name="The activity graph">
                 <p>
                     The activity graph will determine the content of the process definition XML descriptor, all
-                    transitions, states and swimlanes will be analyzes and a suitable descriptor is emitted.
+                    transitions, states and swimlanes will be analyzed and a suitable descriptor is emitted.
                     More formally, we will be considering the following model elements for the jBpm cartridge:
                 </p>
                 <p>
-                    <ul>
-                        <li>use-case</li>
-                        <li>activity graph</li>
-                        <li>initial state</li>
-                        <li>action state</li>
-                        <li>decision point</li>
-                        <li>transition</li>
-                        <li>final state</li>
-                        <li>swimlane</li>
-                        <li>class</li>
-                    </ul>
-                </p>
-                <p>
-                    The <strong>use-case</strong> is used to envelop the activity graph, stereotypes and tagged values
-                    will be modeled on the use-case rather than directly on the activity graph.
-                </p>
-                <p>
-                    The <strong>activity graph</strong> explicitly describes the process flow, almost all types of
-                    supported model elements will be used to describe the process.
-                </p>
-                <p>
-                    A single <strong>initial state</strong> represents the start of the process, it typically has
-                    a single outgoing transition.
-                </p>
-                <p>
-                    <strong>Action states</strong> represents the different states in the state machine
-                    (activity graph), these states typically have one or more incoming transitions and a single
-                    outgoing transition.<br/>
-                    It is allowed to have such action states deferring events to one or more operations, therefore
-                    these events must be of type <em>call-event</em>. Each such event will result in the generation
-                    of an <em>action handler</em> (if the action state does <em>not</em> carry the
-                    <![CDATA[<<Task>>]]> stereotype and if the event itself carries the
-                    <![CDATA[<<Before Signal>>]]>, <![CDATA[<<After Signal>>]]>, <![CDATA[<<Node Enter>>]]> or
-                    <![CDATA[<<Node Leave>>]]>) or a <em>task assignment handler</em> (if the action state carries
-                    the <![CDATA[<<Task>>]]> stereotype).
-                </p>
-                <p>
-                    Use <strong>decision points</strong> when you want to have the process split up in different
-                    directions based on a specific decision. Each decision point will result in the generation
-                    of a <em>decision handler</em>. A decision point is required to have a non-empty name.
-                </p>
-                <p>
-                    One or more <strong>final states</strong> represent the end of the process. A final state
-                    is required to have a non-empty name.
-                </p>
-                <p>
-                    <strong>Transitions</strong> tie all other elements used in an activity graph together, they
-                    represent the different directions a flow can take. Just as with action states transitions
-                    may use a call-event to defer control to an operation.
-                </p>
-                <p>
-                    Specific action roles are represented using <strong>swimlanes</strong> (the technical UML
-                    term for a swimlane is <em>partition</em>), states can be assigned to a specific swimlane,
-                    denoting the user/role assigned to it. A swimlane optionally take one or more assigment
-                    expression tagged values, use <code>@andromda.process.jbpm.assignment.expression</code>.
-                </p>
-                <p>
-                    Per activity graph a single <strong>class</strong> is used containing the operations to which
-                    will be deferred from within the action states or transitions. Each operation will result in
-                    the generation of a <em>handler</em>. See the <a href="#The_handler_class">next section</a>
-                    for more information.
+                    <table>
+                        <tr>
+                            <td>use-case</td>
+                            <td>
+                                The use-case is used to envelop the activity graph, stereotypes and tagged values
+                                will be modeled on the use-case rather than directly on the activity graph.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>activity graph</td>
+                            <td>
+                                The activity graph explicitly describes the process flow, almost all types of
+                                supported model elements will be used to describe the process.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>swimlane</td>
+                            <td>
+                                Specific action roles are represented using swimlanes (the technical UML
+                                term for a swimlane is <em>partition</em>), states can be assigned to a specific swimlane,
+                                denoting the user/role assigned to it. A swimlane optionally take one or more assigment
+                                expression tagged values, use <code>@andromda.process.jbpm.assignment.expression</code>.
+                                A swimlane will result in the generation of an assignment handler, the user assigned
+                                to this swimlane will subsequently be assigned to all tasks in it.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>initial state</td>
+                            <td>
+                                A single initial state represents the start of the process, it typically has
+                                a single outgoing transition.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>state</td>
+                            <td>
+                                A state element represents a jBpm <em>state</em>, which is a node in which
+                                the process is waiting for a signal. A state may contain deferrable call-events
+                                (see below).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>action state</td>
+                            <td>
+                                Action states are a specific type of state without indicating the process is waiting,
+                                you would typically use an action state as a pass-through state or a state
+                                in which a few tasks are created or events are triggered.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>decision point</td>
+                            <td>
+                                Use decision points when you want to have the process split up in different
+                                directions based on a specific decision. Each decision point will
+                                result in the generation of a <em>decision handler</em>. A decision point is
+                                required to have a non-empty name.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>call-event</td>
+                            <td>
+                                Each event will result in the generation
+                                of an <em>action handler</em> (if the state does <em>not</em> carry the
+                                <![CDATA[<<Task>>]]> stereotype and if the event itself carries the
+                                <![CDATA[<<Before Signal>>]]>, <![CDATA[<<After Signal>>]]>, <![CDATA[<<Node Enter>>]]>,
+                                <![CDATA[<<Node Leave>>]]> or <![CDATA[<<Timer>>]]>)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>transition</td>
+                            <td>
+                                Transitions tie all other elements used in an activity graph together, they
+                                represent the different directions a flow can take. Just as with action states
+                                transitions may use a call-event to defer control to an operation.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>final state</td>
+                            <td>
+                                One or more final states represent the end of the process. A final state
+                                is required to have a non-empty name.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>class</td>
+                            <td>
+                                Per activity graph a single <strong>class</strong> is used containing the operations
+                                to which will be deferred from within the action states or transitions.
+                                Each operation will result in the generation of a <em>handler</em>.
+                                See the <a href="#The_handler_class">next section</a> for more information.
+                            </td>
+                        </tr>
+                    </table>
                 </p>
             </subsection>
             <subsection name="The handler class">
@@ -109,6 +141,39 @@
                     'Assign...' item and select the appropriate graph from the select before clicking the 'Assign'
                     button.
                 </p>
+                <p>
+                    Below you'll find examples of such handlers.
+                </p>
+            </subsection>
+            <subsection name="Node classes">
+                <p>
+                    Having the process definition descriptor generated is nice, but it's not enough to have
+                    a good workflow experience since working with the jBpm API is kind of cumbersome: suppose
+                    you're in a state with two outgoing transitions and you need to signal one of them, in this case
+                    you'll use the name of the transition, but if that name does not match any of the existing names
+                    you'll have a runtime error. This is a very common mistake to make as the process might change
+                    over time and transitions might be renamed, and not to mention the introduction of typos.
+                </p>
+                <p>
+                    For this reason the jBpm cartridge generates a layer of classes that'll make it significantly
+                    easier to work with the underlying process. For each node a class is generate containing
+                    a set of methods ensuring proper execution on the process instance.
+                </p>
+                <p>
+                    Take a look at the <a href="#Example">example</a> below to get an idea of what has been
+                    discussed so far.
+                </p>
+            </subsection>
+            <subsection name="Integrating jBpm in your own applications">
+                <p>
+                    Using jBpm in your own applications will require you to setup the jBpm database schema and inject
+                    the process definitions, this can be done by the generated <code>ProcessManager</code> class.
+                    It contains operations to create, clean and drop the schema and a method to
+                    insert all process definitions.
+                    Once this is done you will be able to work with the node classes so you'll be able
+                    to persist your processes. Please refer to the
+                    <a href="http://www.jbpm.org/download.html">jBpm documentation</a> for more information.
+                </p>
             </subsection>
         </section>
         <section name="Example">
@@ -120,70 +185,214 @@
             <p>
                 <img src="images/example.gif"/>
             </p>
-            <p>
-                <source language="xml">
+<source language="xml">
 <!--
-<?xml version="1.0" encoding="UTF-8"?>
+<process-definition name="Real Scenario Example">
 
-<process-definition name="Example Scenario">
-
-    <swimlane name="someRole"/>
-
-    <start-state>
-        <transition to="create file"/>
-        <swimlane name="someRole"/>
+    <start-state name="start" swimlane="human">
+        <transition to="perform initial tasks"/>
     </start-state>
 
-    <state name="create file">
-        <transition to="ensure integrity"/>
-        <swimlane name="someRole"/>
-    </state>
-    <state name="ensure integrity">
-        <transition name="send flows" to="check file completeness">
-           <action class="org.andromda.cartridges.jbpm.tests.SendRequestedFlows"/>
-        </transition>
-        <swimlane name="someRole"/>
-    </state>
-    <state name="await reponses">
-        <transition name="flow received" to="check file completeness"/>
-        <transition name="attestation encoded" to="check file completeness"/>
-        <swimlane name="someRole"/>
-    </state>
-    <state name="file complete">
-        <transition to="select useful period"/>
-        <transition name="additional requests" to="check file completeness"/>
-        <swimlane name="someRole"/>
-    </state>
-    <state name="select useful period">
-        <transition name="give right" to="end process">
-           <action class="org.andromda.cartridges.jbpm.tests.GiveRight"/>
-        </transition>
-        <transition name="refuse right" to="end process">
-           <action class="org.andromda.cartridges.jbpm.tests.RefuseRight"/>
-        </transition>
-        <swimlane name="someRole"/>
+    <swimlane name="human">
+        <assignment class="org.andromda.cartridges.jbpm.tests.HumanAssignmentImpl"/>
+    </swimlane>
+
+    <swimlane name="system">
+        <assignment class="org.andromda.cartridges.jbpm.tests.SystemAssignmentImpl"/>
+    </swimlane>
+
+    <state name="await responses">
+        <transition name="flow received or attestation encoded" to="check file completeness"/>
+        <transition name="take decision" to="decision taken"/>
     </state>
 
-    <end-state name="end process"/>
+    <node name="take decision">
+        <transition name="check useful period and take decision" to="decision taken"/>
+        <transition name="additional requests" to="check file completeness"/>
+        <timer name="takeDecision" duedate="15 business days" repeat="5" transition="additional requests">
+            <action name="takeDecision" class="org.andromda.cartridges.jbpm.tests.TakeDecisionImpl"/>
+        </timer>
+    </node>
+
+    <node name="decision taken">
+        <transition to="check flow conflicts"/>
+    </node>
+
+    <node name="conflicts in file">
+        <transition to="take decision"/>
+    </node>
+
+    <task-node name="perform initial tasks">
+        <task name="createFile" swimlane="human" blocking="false">
+            <controller>
+                <variable name="fileId" access="required,write"/>
+            </controller>
+        </task>
+        <task name="integrateMember" swimlane="human" blocking="false"/>
+        <task name="sendFlows" swimlane="human" blocking="false"/>
+        <transition to="check file completeness"/>
+    </task-node>
 
     <decision name="check file completeness">
-        <handler class="org.andromda.cartridges.jbpm.tests.CheckFileCompleteness"/>
-        <transition to="file complete">
-           <condition>
-               <![CDATA[file complete (add beanshell script to the transition's guard)]]>
-           </condition>
+        <handler class="org.andromda.cartridges.jbpm.tests.CheckFileCompletenessImpl"/>
+        <transition to="await responses">
+            <condition>
+                <![CDATA[file incomplete]]>
+            </condition>
         </transition>
-        <transition to="await reponses">
-           <condition>
-               <![CDATA[file incomplete (add beanshell script to the transition's guard)]]>
-           </condition>
+        <transition to="take decision">
+            <condition>
+                <![CDATA[file complete]]>
+            </condition>
+        </transition>
+    </decision>
+
+    <decision name="check flow conflicts">
+        <handler class="org.andromda.cartridges.jbpm.tests.CheckFlowConflictsImpl"/>
+        <transition to="decision taken">
+            <condition>
+                <![CDATA[no conflicts]]>
+            </condition>
+        </transition>
+        <transition to="conflicts in file">
+            <condition>
+                <![CDATA[ conflict ]]>
+            </condition>
         </transition>
     </decision>
 
 </process-definition>
 -->
-                </source>
+</source>
+            <p>
+                The next two code fragments show a comparison between regular jBpm access and access via the
+                classes generated by the cartridge, we'll be using the example process above.
             </p>
+<source language="java">
+<!--
+    // create a new instance for this definition
+    ProcessInstance process = processDefinition.createProcessInstance();
+
+    // we're now in the start state
+    Token token = process.getRootToken();
+
+    // move to the first state
+    token.signal();
+
+    // get all tasks from this state
+    Collection tasks = process.getTaskMgmtInstance().getTaskInstances();
+
+    // let's mark the first task as finished
+    for (Iterator taskIterator = tasks.iterator(); taskIterator.hasNext();)
+    {
+        TaskInstance task = (TaskInstance)tasks.iterator().next();
+        if ("create file".equals(task.getName()))
+        {
+            if (!task.hasEnded())
+            {
+                task.end();
+            }
+            break;
+        }
+    }
+-->
+</source>
+            <p>
+                And this is a code snippet how the same thing can be achieved using the generated node classes,
+                notice how much easier it is to read the code, even for this very simple example.
+            </p>
+<source language="java">
+<!--
+    // tell the process helper class we want to start a new process
+    StartNode start = RealScenarioExample.startProcess();
+
+    // move to the first state
+    PerformInitialTasksNode tasksNode = start.signal();
+
+    // finish the first task
+    if (!tasksNode.isCreateFileFinished())
+    {
+        tasksNode.finishCreateFile();
+    }
+-->
+</source>
+            <p>
+                More elaborate cases such as ones involving decision points, forks, timers, etc.. will
+                yield the proper methods in these node classes, that way if something changes in the process
+                model your compiler will tell you if your code is out of sync'.
+            </p>
+            <p>
+                Here are the generated assignment handlers for the <code>human</code> swimlane, you're looking
+                at the generated parent and implementation classes:
+            </p>
+<source language="java">
+<!--
+package org.andromda.cartridges.jbpm.tests;
+
+/**
+ *
+ */
+public abstract class HumanAssignment implements org.jbpm.taskmgmt.def.AssignmentHandler
+{
+    public final void assign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        handleAssign(assignable, executionContext);
+    }
+
+    protected abstract void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception;
+}
+
+package org.andromda.cartridges.jbpm.tests;
+
+/**
+ * @see {@link HumanAssignment}
+ */
+public class HumanAssignmentImpl extends HumanAssignment
+{
+    protected void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+    }
+}
+-->
+</source>
+            <p>
+                There's a timer in the <code>take decision</code> node, here are the corresponding action handler
+                classes:
+            </p>
+<source language="java">
+<!--
+package org.andromda.cartridges.jbpm.tests;
+
+/**
+ *
+ */
+public abstract class TakeDecision implements
+    org.jbpm.graph.def.ActionHandler
+{
+    public final void execute(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        handleExecute(executionContext);
+    }
+
+    protected abstract void handleExecute(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception;
+}
+
+package org.andromda.cartridges.jbpm.tests;
+
+public class TakeDecisionImpl extends TakeDecision
+{
+    protected final void handleExecute(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+    }
+}
+-->
+</source>
         </section>
         <section name="More will be added later...">
         </section>

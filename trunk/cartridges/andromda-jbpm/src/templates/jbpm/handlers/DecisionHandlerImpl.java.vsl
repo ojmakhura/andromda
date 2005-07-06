@@ -3,6 +3,9 @@
 package $decision.decisionHandlerPackageName;
 
 #end
+/**
+ * @see {@link $decision.decisionHandlerClassName}
+ */
 public class ${decision.decisionHandlerClassName}Impl extends $decision.decisionHandlerClassName
 {
     protected final java.lang.String handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
