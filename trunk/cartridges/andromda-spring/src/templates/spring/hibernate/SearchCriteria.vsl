@@ -59,11 +59,65 @@ public class $class.name
         }
     }
 
-    /** The maximum size of the result set. */
+    /**
+     * The first result to retrieve.
+     */
+    private java.lang.Integer firstResult;
+
+    /**
+     * Gets the first result to retrieve.
+     *
+     * @return the first result to retrieve
+     */
+    public java.lang.Integer getFirstResult()
+    {
+        return this.firstResult;
+    }
+
+    /**
+     * Sets the first result to retrieve.
+     *
+     * @param firstResult the first result to retrieve
+     */
+    public void setFirstResult(java.lang.Integer firstResult)
+    {
+        this.firstResult = firstResult;
+    }
+
+    /**
+     * The fetch size.
+     */
+    private java.lang.Integer fetchSize;
+
+    /**
+     * Gets the fetch size.
+     *
+     * @return the fetch size
+     */
+    public java.lang.Integer getFetchSize()
+    {
+        return this.fetchSize;
+    }
+
+    /**
+     * Sets the fetch size.
+     *
+     * @param fetchSize the fetch size
+     */
+    public void setFetchSize(java.lang.Integer fetchSize)
+    {
+        this.fetchSize = fetchSize;
+    }
+
+    /**
+     * The maximum size of the result set.
+     */
     private java.lang.Integer maximumResultSize;
 
     /**
-     * Returns the maximum size of the search result.
+     * Gets the maximum size of the search result.
+     *
+     * @return the maximum size of the search result.
      */
     public java.lang.Integer getMaximumResultSize()
     {
@@ -72,6 +126,7 @@ public class $class.name
 
     /**
      * Sets the maxmimum size of the result.
+     *
      * @param maximumResultSize A number indicating how many results will be returned.
      */
     public void setMaximumResultSize(java.lang.Integer maximumResultSize)
