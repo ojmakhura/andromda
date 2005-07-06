@@ -1,5 +1,7 @@
 <namespace name="netBeansMDR">
     <components>
-        <component name="repository"/>
+        <component name="repository">
+            <path>META-INF/andromda/repository.xml</path>
+        </component>
     </components>
 </namespace>

@@ -17,13 +17,26 @@
 
         <pattern value="components/component">
 
-            <call-method-rule
-                methodname="registerComponent"
-                paramcount="1"/>
+            <object-create-rule
+                  classname="org.andromda.core.namespace.Component" />
 
-            <call-param-rule
-                attrname="name"
-                paramnumber="0"/>
+            <set-properties-rule>
+                 <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>
+
+            <pattern value="path">
+
+                <call-method-rule
+                    methodname="addPath"
+                    paramcount="1"
+                    paramtypes="java.lang.String"/>
+
+                <call-param-rule
+                    paramnumber="0" />
+
+            </pattern>
+
+            <set-next-rule methodname="registerComponent" />
 
         </pattern>
 

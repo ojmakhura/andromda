@@ -110,16 +110,19 @@ public class NamespaceComponents
                     {
                         final String componentName = components[componentCtr];
                         final Component component = this.getComponent(componentName);
+                        if (component == null)
+                        {
+                            throw new NamespaceComponentsException(
+                                "'" + componentName + "' is not a valid namespace component");
+                        }
+
+                        // - add any paths defined within the registry
+                        component.addPaths(registry.getPaths(component.getName()));
                         if (!container.isRegisteredByNamespace(
                                 namespace,
                                 component.getType()))
                         {
                             AndroMDALogger.info("  +  registering component '" + componentName + "'");
-                            if (component == null)
-                            {
-                                throw new NamespaceComponentsException(
-                                    "'" + componentName + "' is not a valid namespace component");
-                            }
                             final XmlObjectFactory componentFactory = XmlObjectFactory.getInstance(component.getType());
                             final URL componentResource = this.getRelativeResource(
                                     resource,

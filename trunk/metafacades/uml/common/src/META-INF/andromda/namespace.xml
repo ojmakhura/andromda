@@ -2,8 +2,12 @@
 
 <namespace name="uml" shared="true">
     <components>
-        <component name="metafacades"/>
-        <component name="profile"/>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
     </components>
     <properties>
         <propertyGroup name="Masking">
