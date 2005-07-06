@@ -55,11 +55,10 @@ public class $criteriaSearchBaseName
      */
     public ${criteriaSearchBaseName}(${hibernateUtils.basePackage}.Session session, Class resultType)
     {
-        super();
-        configuration = new ${criteriaSearchBaseName}Configuration();
+        this.configuration = new ${criteriaSearchBaseName}Configuration();
         this.rootCriteria = session.createCriteria(resultType);
-        childCriteriaMap = new java.util.HashMap();
-        orderList = new java.util.ArrayList();
+        this.childCriteriaMap = new java.util.HashMap();
+        this.orderList = new java.util.ArrayList();
     }
 
     /**
@@ -72,33 +71,46 @@ public class $criteriaSearchBaseName
     public java.util.Collection execute() throws ${hibernateUtils.basePackage}.HibernateException
     {
         // add ordering
-        if (orderList.size() > 0)
+        if (this.orderList.size() > 0)
         {
-            java.util.Collections.sort(orderList, new ParameterComparator());
-            for (java.util.Iterator orderIterator = orderList.iterator(); orderIterator.hasNext();)
+            java.util.Collections.sort(this.orderList, new ParameterComparator());
+            for (java.util.Iterator orderIterator = this.orderList.iterator(); orderIterator.hasNext();)
             {
                 ${criteriaSearchBaseName}Parameter parameter = (${criteriaSearchBaseName}Parameter)orderIterator.next();
                 int direction = parameter.getOrderDirection();
                 if (direction == ${criteriaSearchBaseName}Parameter.ORDER_ASC)
                 {
-                    rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.asc(parameter.getParameterName()));
+                    this.rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.asc(parameter.getParameterName()));
                 }
                 else
                 {
-                    rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.desc(parameter.getParameterName()));
+                    this.rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.desc(parameter.getParameterName()));
                 }
             }
         }
 
-        // limit the maximum result if configured
-        if (configuration.getMaximumResultSize() != null)
+        // set the first result if configured
+        if (this.configuration.getFirstResult() != null)
         {
-            rootCriteria.setMaxResults(configuration.getMaximumResultSize().intValue());
+            this.rootCriteria.setFirstResult(this.configuration.getFirstResult().intValue());
         }
+
+        // set the fetch size if configured
+        if (this.configuration.getFetchSize() != null)
+        {
+            this.rootCriteria.setFetchSize(this.configuration.getFetchSize().intValue());
+        }
+
+        // limit the maximum result if configured
+        if (this.configuration.getMaximumResultSize() != null)
+        {
+            this.rootCriteria.setMaxResults(this.configuration.getMaximumResultSize().intValue());
+        }
+
         // Hibernate does not support a 'unique' identifier. As a search may contain outer joins,
         // duplicates in the resultList are possible. Putting the resultList in a HashSet ensure a
         // distinctified resultSet (Suggestion from Hibernate itself; see www.hibernate.org's FAQ's).
-        return new java.util.HashSet(rootCriteria.list());
+        return new java.util.HashSet(this.rootCriteria.list());
     }
 
     /**
@@ -145,14 +157,14 @@ public class $criteriaSearchBaseName
             // parsing the pattern of the parameter
             String[] path = ${criteriaSearchBaseName}Parameter.PATTERN.split(parameter.getParameterPattern());
             String parameterName = path[path.length - 1];
-            ${hibernateUtils.basePackage}.Criteria parameterCriteria = rootCriteria;
+            ${hibernateUtils.basePackage}.Criteria parameterCriteria = this.rootCriteria;
 
             if (path.length > 1)
             {
                 // We have a parameter affecting an attribute of an inner childEntity object so we need
                 // to traverse to get the right criteria object
                 String childEntityName;
-                ${hibernateUtils.basePackage}.Criteria childEntityCriteria = rootCriteria;
+                ${hibernateUtils.basePackage}.Criteria childEntityCriteria = this.rootCriteria;
                 // Evaluating the proper criteria object for the defined parameter
                 for (int index = 0; index < (path.length - 1); index++)
                 {
@@ -172,7 +184,7 @@ public class $criteriaSearchBaseName
             // if the parameter is to be ordered, add it to the order list
             if (parameter.getOrderDirection() != ${criteriaSearchBaseName}Parameter.ORDER_UNSET)
             {
-                orderList.add(parameter);
+                this.orderList.add(parameter);
             }
         }
     }
@@ -300,16 +312,16 @@ public class $criteriaSearchBaseName
      */
     private ${hibernateUtils.basePackage}.Criteria locateCriteria(String childEntityName, ${hibernateUtils.basePackage}.Criteria parentCriteria) throws ${hibernateUtils.basePackage}.HibernateException
     {
-        if (childCriteriaMap.containsKey(childEntityName))
+        if (this.childCriteriaMap.containsKey(childEntityName))
         {
-            return (${hibernateUtils.basePackage}.Criteria) childCriteriaMap.get(childEntityName);
+            return (${hibernateUtils.basePackage}.Criteria) this.childCriteriaMap.get(childEntityName);
         }
         ${hibernateUtils.basePackage}.Criteria childCriteria = parentCriteria.createCriteria(childEntityName);
-        if (configuration.isForceEagerLoading())
+        if (this.configuration.isForceEagerLoading())
         {
             parentCriteria.setFetchMode(childEntityName, ${hibernateUtils.basePackage}.FetchMode.${hibernateUtils.eagerFetchMode});
         }
-        childCriteriaMap.put(childEntityName, childCriteria);
+        this.childCriteriaMap.put(childEntityName, childCriteria);
         return childCriteria;
     }
 
@@ -320,6 +332,6 @@ public class $criteriaSearchBaseName
      */
     public ${criteriaSearchBaseName}Configuration getConfiguration()
     {
-        return configuration;
+        return this.configuration;
     }
 }

@@ -384,10 +384,8 @@ public abstract class $entity.daoBaseName
                 if (results.size() > 1)
                 {
                     throw new org.springframework.dao.InvalidDataAccessResourceUsageException(
-                        "More than one instance of '"
-                            + ${finder.returnType.fullyQualifiedName}.class.getName()
+                        "More than one instance of '${finder.returnType.fullyQualifiedName}"
                             + "' was found when executing query --> '" + queryString + "'");
-
                 }
                 else if (results.size() == 1)
                 {
@@ -424,6 +422,8 @@ public abstract class $entity.daoBaseName
         try
         {
             ${springTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${springTypesPackage}.${criteriaSearchBaseName}(super.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class);
+            criteriaSearch.getConfiguration().setFirstResult(${criteriaArgumentName}.getFirstResult());
+            criteriaSearch.getConfiguration().setFetchSize(${criteriaArgumentName}.getFetchSize());
             criteriaSearch.getConfiguration().setMaximumResultSize(${criteriaArgumentName}.getMaximumResultSize());
 #set($criteriaClass = $criteriaArgument.type)
 #foreach($criteriaAttribute in $criteriaClass.attributes)
