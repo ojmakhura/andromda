@@ -16,7 +16,6 @@ import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.GuardFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -233,23 +232,6 @@ public class StrutsForwardLogicImpl
                 }
             }
         }
-    }
-
-    protected Object handleGetUseCase()
-    {
-        StrutsUseCase useCase = null;
-
-        final StrutsActivityGraph graph = getStrutsActivityGraph();
-        if (graph != null)
-        {
-            final UseCaseFacade graphUseCase = graph.getUseCase();
-            if (graphUseCase instanceof StrutsUseCase)
-            {
-                useCase = (StrutsUseCase)graphUseCase;
-            }
-        }
-
-        return useCase;
     }
 
     protected Object handleGetOperationCall()

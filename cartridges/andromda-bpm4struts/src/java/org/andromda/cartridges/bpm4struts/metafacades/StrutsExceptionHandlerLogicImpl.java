@@ -3,6 +3,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -66,7 +67,7 @@ public class StrutsExceptionHandlerLogicImpl
 
     protected String handleGetMessageKey()
     {
-        final StrutsUseCase useCase = getUseCase();
-        return (useCase != null) ? StringUtilsHelper.toResourceMessageKey(useCase.getName()) : null;
+        final UseCaseFacade useCase = this.getUseCase();
+        return useCase != null ? StringUtilsHelper.toResourceMessageKey(useCase.getName()) : null;
     }
 }

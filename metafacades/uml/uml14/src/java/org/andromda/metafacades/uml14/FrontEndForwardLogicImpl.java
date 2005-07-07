@@ -9,9 +9,11 @@ import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -107,6 +109,24 @@ public class FrontEndForwardLogicImpl
     }
     
     /**
+     * @see org.andromda.metafacades.uml.FrontEndForward#getUseCase()
+     */
+    protected Object handleGetUseCase()
+    {
+        FrontEndUseCase useCase = null;
+        final FrontEndActivityGraph graph = this.getFrontEndActivityGraph();
+        if (graph != null)
+        {
+            final UseCaseFacade graphUseCase = graph.getUseCase();
+            if (graphUseCase instanceof FrontEndUseCase)
+            {
+                useCase = (FrontEndUseCase)graphUseCase;
+            }
+        }
+        return useCase;
+    }
+    
+    /**
      * All action states that make up this action, this includes all possible action states traversed
      * after a decision point too.
      */
@@ -146,9 +166,9 @@ public class FrontEndForwardLogicImpl
      * @param transition the current transition that is being processed
      * @param processedTransitions the set of transitions already processed
      */
-    private void collectTransitions(
-        TransitionFacade transition,
-        Collection processedTransitions)
+    private final void collectTransitions(
+        final TransitionFacade transition,
+        final Collection processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {

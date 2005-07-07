@@ -16,12 +16,14 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
@@ -269,7 +271,7 @@ public class StrutsActionLogicImpl
     {
         String actionPathRoot = null;
 
-        StrutsUseCase useCase = getUseCase();
+        final FrontEndUseCase useCase = this.getUseCase();
         if (useCase != null)
         {
             StringBuffer buffer = new StringBuffer();
@@ -322,13 +324,13 @@ public class StrutsActionLogicImpl
      * are returned, otherwise it will return the users associated to the use-cases targetted by this
      * action (which may be none at all)
      */
-    private Collection getRoleUsers()
+    private final Collection getRoleUsers()
     {
         final Collection roleUsers = new ArrayList();
 
-        if (isUseCaseStart())
+        if (this.isUseCaseStart())
         {
-            final StrutsUseCase useCase = getUseCase();
+            final FrontEndUseCase useCase = getUseCase();
             if (useCase != null)
             {
                 roleUsers.addAll(useCase.getRoles());
@@ -359,7 +361,7 @@ public class StrutsActionLogicImpl
 
         if (this.isExitingInitialState())
         {
-            final StrutsUseCase useCase = getUseCase();
+            final UseCaseFacade useCase = this.getUseCase();
             if (useCase != null)
             {
                 name = useCase.getName();
@@ -388,7 +390,7 @@ public class StrutsActionLogicImpl
     {
         String formBeanName = null;
 
-        final StrutsUseCase useCase = getUseCase();
+        final UseCaseFacade useCase = this.getUseCase();
         if (useCase != null)
         {
             final String useCaseName = useCase.getName();
@@ -428,7 +430,7 @@ public class StrutsActionLogicImpl
     {
         String packageName = null;
 
-        StrutsUseCase useCase = getUseCase();
+        final UseCaseFacade useCase = this.getUseCase();
         if (useCase != null)
         {
             packageName = useCase.getPackageName();
@@ -479,7 +481,7 @@ public class StrutsActionLogicImpl
     {
         String packagePath = null;
 
-        StrutsUseCase useCase = getUseCase();
+        final UseCaseFacade useCase = this.getUseCase();
         if (useCase != null)
         {
             packagePath = '/' + useCase.getPackagePath();
@@ -653,9 +655,9 @@ public class StrutsActionLogicImpl
          * for useCaseStart actions we need to detect all usecases forwarding to the one belonging to this action
          * if there are any parameters in those requests we need to have them included in this action's form
          */
-        if (isUseCaseStart())
+        if (this.isUseCaseStart())
         {
-            final StrutsUseCase useCase = getUseCase();
+            final FrontEndUseCase useCase = this.getUseCase();
             if (useCase != null)
             {
                 final Collection finalStates = useCase.getReferencingFinalStates();
