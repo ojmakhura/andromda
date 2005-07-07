@@ -6,7 +6,7 @@
     <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
     <property reference="actionPathPrefix"/>
     <property reference="actionFormScope"/>
-    <!-- denotes which kinf of resource messages should be generated -->
+    <!-- denotes which kind of resource messages should be generated -->
     <property reference="normalizeMessages"/>
     <property reference="disableValidationForHiddenFormFields"/>
 
