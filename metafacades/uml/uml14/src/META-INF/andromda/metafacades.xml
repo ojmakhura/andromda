@@ -272,8 +272,40 @@
             <stereotype>FRONT_END_APPLICATION</stereotype>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndUseCaseLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+            <stereotype>FRONT_END_USE_CASE</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.FrontEndActivityGraphLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndViewLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+            <property name="frontEndView"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndActionStateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndForwardLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndEventLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndExceptionHandlerLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <property name="frontEndException"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>

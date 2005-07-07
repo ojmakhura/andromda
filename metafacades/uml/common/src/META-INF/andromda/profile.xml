@@ -67,6 +67,13 @@
                 <documentation></documentation>
                 <value>EmbeddedValue</value>
             </element>
+            <element name="FRONT_END_EXCEPTION">
+                <documentation>
+                    Modeled on a transition within a <em>front-end</em> process, it designates an exception occuring while processing an action.
+                </documentation>
+                <value>FrontEndException</value>
+                <appliedOnElement>Transition</appliedOnElement>
+            </element>
             <element name="FRONT_END_VIEW">
                 <documentation>
                     This stereotype is modeled on an action state to denote it is representing a view on a front end (such as a JSP page).

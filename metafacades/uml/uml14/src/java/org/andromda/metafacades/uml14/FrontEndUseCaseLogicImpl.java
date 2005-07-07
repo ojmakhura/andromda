@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -174,5 +175,24 @@ public class FrontEndUseCaseLogicImpl
     protected boolean handleIsSecured()
     {
         return !this.getRoles().isEmpty();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndUseCase#getViews()
+     */
+    protected List handleGetViews()
+    {
+        List views = null;
+        final ActivityGraphFacade graph = this.getActivityGraph();
+        if (graph == null)
+        {
+            views = Collections.EMPTY_LIST;
+        }
+        else
+        {
+            views = new ArrayList(
+                    getModel().getAllActionStatesWithStereotype(graph, UMLProfile.STEREOTYPE_FRONT_END_VIEW));
+        }
+        return views;
     }
 }
