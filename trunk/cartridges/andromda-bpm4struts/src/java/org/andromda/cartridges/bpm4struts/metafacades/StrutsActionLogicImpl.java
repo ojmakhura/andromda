@@ -17,6 +17,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
@@ -670,7 +671,7 @@ public class StrutsActionLogicImpl
                         final Collection parameters = finalState.getInterUseCaseParameters();
                         for (final Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
                         {
-                            final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
+                            final ParameterFacade parameter = (ParameterFacade)parameterIterator.next();
                             formFieldMap.put(parameter.getName(), parameter);
                         }
                     }
@@ -690,7 +691,7 @@ public class StrutsActionLogicImpl
                 final Collection forwardParameters = forward.getForwardParameters();
                 for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    final StrutsParameter forwardParameter = (StrutsParameter)parameterIterator.next();
+                    final ModelElementFacade forwardParameter = (ModelElementFacade)parameterIterator.next();
                     formFieldMap.put(forwardParameter.getName(), forwardParameter);
                 }
             }
