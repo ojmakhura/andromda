@@ -57,6 +57,9 @@ public class $service.ejbImplementationName
      */
     protected void onEjbCreate()
     {
+#if($service.generalization)
+        super.onEjbCreate();
+#end
         this.${businessObject} = ($service.fullyQualifiedName)
             getBeanFactory().getBean("${businessObject}");
     }

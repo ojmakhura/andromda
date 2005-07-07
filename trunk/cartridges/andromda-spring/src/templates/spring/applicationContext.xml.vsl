@@ -156,6 +156,12 @@
 #foreach($entityRef in $service.entityReferences)
         <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
+## also initialize daos of parent services
+#if($service.generalization)
+#foreach($entityRef in $service.generalization.entityReferences)
+        <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
+#end
+#end
 #end
 ## Because of a bug in Spring with circular references (and using AOP proxies),
 ## we need to use the lookup-method as a work-a-round for dependencies
