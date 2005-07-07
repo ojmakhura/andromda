@@ -50,8 +50,9 @@ public class HibernateProfile
     /**
      * Support for hibernate inheritance strategy, supported values are <ul> <li>class : one table per base class</li>
      * <li>subclass : one table per subclass</li> <li>concrete : one table per class, subclasses may implement subclass
-     * or joined-subclass</li> <li>interface : generate interface and put attributes etc on subclasses</li> </ul> See
-     * Hibernate documentation for specific details.
+     * or joined-subclass</li> <li>union-subclass: generate per concrete class with union-subclass mapping</li> <li>
+     * interface : generate interface and put attributes etc on subclasses</li> </ul> See  Hibernate documentation for 
+     * specific details.
      */
     public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE = profile.get("HIBERNATE_INHERITANCE");
 
