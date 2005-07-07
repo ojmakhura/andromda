@@ -121,6 +121,11 @@ public class UMLProfile
      * Represents a "front end" view (that is it can represent a JSP page, etc).
      */
     public static final String STEREOTYPE_FRONT_END_VIEW = profile.get("FRONT_END_VIEW");
+    
+    /**
+     * Represents an exception on a "front-end" view.
+     */
+    public static final String STEREOTYPE_FRONT_END_EXCEPTION = profile.get("FRONT_END_EXCEPTION");
 
     /* ----------------- Tagged Values -------------------- */
 
