@@ -2,9 +2,7 @@ package org.andromda.core.engine;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.text.Collator;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +26,6 @@ import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
-import org.andromda.core.configuration.Transformation;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
