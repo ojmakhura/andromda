@@ -62,6 +62,11 @@ public class HibernateEntityLogicImpl
     private static final String INHERITANCE_STRATEGY_INTERFACE = "interface";
 
     /**
+     * Value for one table per concrete class, (with union-subclass)
+     */
+    private static final String INHERITANCE_STRATEGY_UNION_SUBCLASS ="union-subclass";
+    
+    /**
      * Stores the valid inheritance strategies.
      */
     private static final Collection inheritanceStrategies = new ArrayList();
@@ -72,6 +77,7 @@ public class HibernateEntityLogicImpl
         inheritanceStrategies.add(INHERITANCE_STRATEGY_SUBCLASS);
         inheritanceStrategies.add(INHERITANCE_STRATEGY_CONCRETE);
         inheritanceStrategies.add(INHERITANCE_STRATEGY_INTERFACE);
+        inheritanceStrategies.add(INHERITANCE_STRATEGY_UNION_SUBCLASS);
     }
 
     /**
@@ -125,6 +131,11 @@ public class HibernateEntityLogicImpl
      * The "subclass" mapping name.
      */
     private static final String SUBCLASS_MAPPING_NAME = "subclass";
+
+    /**
+     * The "union-subclass" mapping name.
+     */
+    private static final String UNION_SUBCLASS_MAPPING_NAME = "union-subclass";
 
     /**
      * Return all the business operations (ones that are inherited as well as
@@ -269,6 +280,16 @@ public class HibernateEntityLogicImpl
         return this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_CONCRETE);
     }
 
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceUnionSubClass()
+     */
+    protected boolean handleIsHibernateInheritanceUnionSubClass()
+    {
+        String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
+        return (version.equals(HibernateGlobals.HIBERNATE_VERSION_3))
+         && this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_UNION_SUBCLASS);
+    }
+    
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateCacheType()
      */
@@ -554,6 +575,11 @@ public class HibernateEntityLogicImpl
             {
                 mappingClassName = SUBCLASS_MAPPING_NAME;
             }
+            else if (this.isHibernateInheritanceUnionSubClass())
+            {
+                mappingClassName = UNION_SUBCLASS_MAPPING_NAME;
+            }
+                
         }
 
         return mappingClassName;
