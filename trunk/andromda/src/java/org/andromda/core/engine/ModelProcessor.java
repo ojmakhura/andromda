@@ -100,7 +100,6 @@ public class ModelProcessor
         {
             configuration.initialize();
             this.reset();
-            this.addTransformations(configuration.getTransformations());
             final Property[] properties = configuration.getProperties();
             final int propertyNumber = properties.length;
             final Introspector introspector = Introspector.instance();
@@ -320,7 +319,7 @@ public class ModelProcessor
             {
                 streams[ctr] = transformer.transform(
                         uris[ctr],
-                        this.getTransformations());
+                        model.getTransformations());
             }
 
             // - now load the models into the repository
@@ -652,17 +651,6 @@ public class ModelProcessor
     }
 
     /**
-     * Gets the current transformations that will be applied
-     * to the model before processing beings.
-     *
-     * @return the transformations.
-     */
-    private Transformation[] getTransformations()
-    {
-        return (Transformation[])this.transformations.toArray(new Transformation[0]);
-    }
-
-    /**
      * Sets the encoding (UTF-8, ISO-8859-1, etc) for all output
      * produced during model processing.
      *
@@ -803,7 +791,6 @@ public class ModelProcessor
         this.profile.refresh();
         this.factory.reset();
         this.cartridgeFilter = null;
-        this.transformations.clear();
         this.setXmlValidation(true);
         this.setOuputEncoding(null);
         this.setModelValidation(true);
