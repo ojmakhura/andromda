@@ -109,7 +109,10 @@ public class StrutsActionStateLogicImpl
         return forward;
     }
 
-    protected java.util.List handleGetExceptions()
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndActionState#getExceptions()
+     */
+    public java.util.List getExceptions()
     {
         final Map exceptionsMap = new HashMap();
         final Collection outgoing = getOutgoing();
