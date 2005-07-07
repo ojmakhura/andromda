@@ -5,7 +5,8 @@
 #set ($sortable = $table.tableSortable)
 #set ($exportable = $table.tableExportable)
 <div id="${table.name}" class="table">
-    <display:table name="${${table.name}}" id="row"
+#set ($displayTableName = "form.${table.name}")
+    <display:table name="${${displayTableName}}" id="row"
         requestURI="${pageContext.request.requestURI}"
 #if ($table.tableDecoratorRequired)
         decorator="${table.tableDecoratorFullyQualifiedName}"

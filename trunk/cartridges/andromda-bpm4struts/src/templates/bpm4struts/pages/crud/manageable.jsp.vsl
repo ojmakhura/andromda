@@ -110,7 +110,7 @@ form)
             {
 #foreach($member in $manageable.attributes)
 #if ($member.type.enumeration)
-                setSelect(form,"$member.name",$member.name);
+                setSelect(false,form,"$member.name",$member.name);
 #elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
                 form.elements["$member.name"].checked = $member.name;
 #elseif ($member.type.dateType)
