@@ -212,6 +212,7 @@ public class MetafacadeFactory
             final String message =
                 "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" +
                 mappingObject.getClass() + "'";
+            throwable.printStackTrace();
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }
@@ -288,26 +289,41 @@ public class MetafacadeFactory
         MetafacadeBase metafacade = this.cache.get(mappingObject, metafacadeClass);
         if (metafacade == null)
         {
-            metafacade = MetafacadeUtils.constructMetafacade(metafacadeClass, mappingObject, context);
-            if (mapping != null)
+            final Object value = this.metafacadesInCreation.get(mappingObject);
+            if (value == null || !value.equals(metafacadeClass))
             {
-                // set whether or not this metafacade is a context root
-                metafacade.setContextRoot(mapping.isContextRoot());
+                this.metafacadesInCreation.put(mappingObject, metafacadeClass);
+                metafacade = MetafacadeUtils.constructMetafacade(metafacadeClass, mappingObject, context);
+                this.metafacadesInCreation.remove(mappingObject);
+                if (mapping != null)
+                {
+                    // set whether or not this metafacade is a context root
+                    metafacade.setContextRoot(mapping.isContextRoot());
+                }
+                this.cache.add(mappingObject, metafacade);
             }
-            this.cache.add(mappingObject, metafacade);
         }
 
-        // we need to set some things each time
-        // we change a metafacade's namespace
-        final String metafacadeNamespace = metafacade.getNamespace();
-        if (metafacadeNamespace == null || !metafacadeNamespace.equals(this.getNamespace()))
+        if (metafacade != null)
         {
-            // assign the logger and active namespace
-            metafacade.setNamespace(this.getNamespace());
-            metafacade.setLogger(this.getLogger());
+            // we need to set some things each time
+            // we change a metafacade's namespace
+            final String metafacadeNamespace = metafacade.getNamespace();
+            if (metafacadeNamespace == null || !metafacadeNamespace.equals(this.getNamespace()))
+            {
+                // assign the logger and active namespace
+                metafacade.setNamespace(this.getNamespace());
+                metafacade.setLogger(this.getLogger());
+            }
         }
         return metafacade;
     }
+
+    /**
+     * Stores the metafacades being created, so that we don't get stuck in
+     * endless recursion during creation.
+     */
+    private final Map metafacadesInCreation = new HashMap();
 
     /**
      * Returns a metafacade for a mappingObject, depending on its <code>mappingClass</code>.
@@ -379,11 +395,10 @@ public class MetafacadeFactory
         {
             for (final Iterator iterator = mappingObjects.iterator(); iterator.hasNext();)
             {
-                Object test = this.createMetafacade(
+                metafacades.add(this.createMetafacade(
                         iterator.next(),
                         contextName,
-                        null);
-                metafacades.add(test);
+                        null));
             }
         }
         return metafacades;
@@ -716,5 +731,6 @@ public class MetafacadeFactory
         this.allMetafacades.clear();
         this.metafacadesByStereotype.clear();
         this.cache.clear();
+        this.metafacadesInCreation.clear();
     }
 }
