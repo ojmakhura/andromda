@@ -115,6 +115,20 @@
                     container)
                 </documentation>
             </property>
+            <property name="ejbRemoteProxyFactoryBean">
+                <default>org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean</default>
+                <documentation>
+                    Full class name for proxy factory bean used in application context for
+                    remote ejb access <code>applicationContextRemoteEjb</code>.
+                </documentation>
+            </property>
+            <property name="ejbLocalProxyFactoryBean">
+                <default>org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean</default>
+                <documentation>
+                    Full class name for proxy factory bean used in application context for
+                    local ejb access <code>applicationContextLocalEjb</code>.
+                </documentation>
+            </property>
             <property name="ejbPackageNamePattern">
                 <default>{0}.ejb</default>
                 <documentation>

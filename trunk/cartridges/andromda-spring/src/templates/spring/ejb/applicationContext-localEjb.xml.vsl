@@ -11,7 +11,7 @@
 #foreach($service in $services)
 #if (!$service.ejbRemoteView)
     <!-- $service.name -->
-    <bean id="$service.getBeanName(false)" class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+    <bean id="$service.getBeanName(false)" class="$ejbLocalProxyFactoryBean">
         <property name="jndiName"><value>$service.ejbJndiName</value></property>
         <property name="businessInterface"><value>$service.fullyQualifiedName</value></property>
     </bean>
