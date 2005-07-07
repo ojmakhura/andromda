@@ -119,14 +119,32 @@
                 <default>org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean</default>
                 <documentation>
                     Full class name for proxy factory bean used in application context for
-                    remote ejb access <code>applicationContextRemoteEjb</code>.
+                    remote EJB access <code>applicationContextRemoteEjb</code>.
                 </documentation>
             </property>
             <property name="ejbLocalProxyFactoryBean">
                 <default>org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean</default>
                 <documentation>
                     Full class name for proxy factory bean used in application context for
-                    local ejb access <code>applicationContextLocalEjb</code>.
+                    local EJB access <code>applicationContextLocalEjb</code>.
+                </documentation>
+            </property>
+            <property name="ejbRemoteProviderUrl">
+                <default>localhost:1099</default>
+                <documentation>
+                    The provider URL for remote EJB access.
+                </documentation>
+            </property>
+            <property name="ejbRemoteInitialContextFactory">
+                <default>org.jnp.interfaces.NamingContextFactory</default>
+                <documentation>
+                    The initial context factory class for remote EJB access.
+                </documentation>
+            </property>
+            <property name="ejbRemoteUrlPackagePrefixes">
+                <default>org.jboss.naming:org.jnp.interface</default>
+                <documentation>
+                    The URL package prefixes for remote EJB access.
                 </documentation>
             </property>
             <property name="ejbPackageNamePattern">

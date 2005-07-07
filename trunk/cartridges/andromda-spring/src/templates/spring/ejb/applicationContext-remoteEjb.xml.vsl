@@ -8,9 +8,9 @@
 
     <!-- define JndiEnvironment helper bean for setting jndiEnvironment of all service proxies  -->
     <bean id="jndiServerEnvironment" class="${springTypesPackage}.${serviceLocatorName}$JndiEnvironment">
-        <property name="providerUrl"><value>localhost:1099</value></property>
-        <property name="initialContextFactory"><value>org.jnp.interfaces.NamingContextFactory</value></property>
-        <property name="urlPkgPrefixes"><value>org.jboss.naming:org.jnp.interface</value></property>
+        <property name="providerUrl"><value>$ejbRemoteProviderUrl</value></property>
+        <property name="initialContextFactory"><value>$ejbRemoteInitialContextFactory</value></property>
+        <property name="urlPkgPrefixes"><value>$ejbRemoteUrlPackagePrefixes</value></property>
     </bean>
 
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
