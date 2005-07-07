@@ -634,23 +634,6 @@ public class ModelProcessor
     }
 
     /**
-     * Stores any transformations that should be applied
-     * to the model(s) before processing occurs.
-     */
-    private final List transformations = new ArrayList();
-
-    /**
-     * Adds transformation to be applied to the model(s)
-     * before processing occurrs.
-     *
-     * @param transformation a transformation document.
-     */
-    public void addTransformations(final Transformation[] transformations)
-    {
-        this.transformations.addAll(Arrays.asList(transformations));
-    }
-
-    /**
      * Sets the encoding (UTF-8, ISO-8859-1, etc) for all output
      * produced during model processing.
      *
