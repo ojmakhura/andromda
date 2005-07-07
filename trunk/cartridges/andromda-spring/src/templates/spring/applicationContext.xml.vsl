@@ -133,7 +133,7 @@
 #end
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
 
-#if (!$services.empty)
+#if (!$ejbsEnabled && !$services.empty)
     <!-- Service Transactional Interceptor -->
     <bean id="serviceTransactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
         <property name="transactionManager"><ref bean="transactionManager"/></property>
@@ -189,7 +189,9 @@
 #if ($acegiServiceSecurityEnabled)
                  <value>serviceSecurityInterceptor</value>
 #end
+#if (!$ejbsEnabled)
                  <value>serviceTransactionInterceptor</value>
+#end
 #if ($daosEnabled && $service.hibernateInterceptorEnabled)
                  <value>hibernateInterceptor</value>
 #end
