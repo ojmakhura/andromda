@@ -7,6 +7,12 @@
     </properties>
     <body>
         <section name="AndroMDA Profiles">
+            <p class="highlight">
+                Because the profile ia a <em><a href="namespace.html">namespace component</a></em> it
+                <strong>MUST</strong> be registered within a <a href="namespace.html">namespace descriptor</a>.
+                This descriptor is what allows the profile's namespace to be <em>"discovered"</em> on the classpath.
+                This namespace descriptor also registers the profile component within the AndroMDA core.
+            </p>
             <p>
                 People sometimes ask: "Can I change the stereotype names?, I really don't like using the capitalized <em><![CDATA[<<Entity>>]]></em>
                 to denote an entity, I'd rather use the lowercase <em><![CDATA[<<entity>>]]></em> instead."  Well in order to provide this ability to
