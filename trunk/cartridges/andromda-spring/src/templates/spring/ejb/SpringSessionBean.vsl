@@ -15,7 +15,7 @@ public class $service.ejbImplementationName
 #if($service.generalization)
     extends $service.generalization.fullyQualifiedEjbImplementationName
 #else
-    extends org.springframework.ejb.support.AbstractStatelessSessionBean
+    extends $ejbSessionBeanBaseClass
 #end
     implements $service.fullyQualifiedName
 {

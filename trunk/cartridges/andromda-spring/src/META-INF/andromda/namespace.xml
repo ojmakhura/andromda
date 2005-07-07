@@ -215,6 +215,24 @@
                     or <code>remote</code>.
                 </documentation>
             </property>
+            <property name="ejbSessionBeanBaseInterfaceLocal">
+                <default>javax.ejb.EJBLocalObject</default>
+                <documentation>
+                    Name of session bean local base interface for ejb wrapper.
+                </documentation>
+            </property>
+            <property name="ejbSessionBeanBaseInterfaceRemote">
+                <default>javax.ejb.EJBObject</default>
+                <documentation>
+                    Name of session bean remote base interface for ejb wrapper.
+                </documentation>
+            </property>
+            <property name="ejbSessionBeanBaseClass">
+                <default>org.springframework.ejb.support.AbstractStatelessSessionBean</default>
+                <documentation>
+                    Full name of session bean base class for ejb wrapper.
+                </documentation>
+            </property>
             <property name="implementationOperationNamePattern">
                 <default>handle{0}</default>
                 <documentation>
