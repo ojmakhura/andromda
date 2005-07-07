@@ -64,6 +64,9 @@
     <property reference="principalStoreName"/>
     <property reference="openSessionInViewFilterName"/>
     <property reference="ejbViewType"/>
+	<property reference="ejbSessionBeanBaseInterfaceLocal"/>
+	<property reference="ejbSessionBeanBaseInterfaceRemote"/>
+	<property reference="ejbSessionBeanBaseClass"/>
     <property reference="springRemotingType"/>
     <property reference="serviceRemotePort"/>
     <property reference="serviceRemoteContext"/>

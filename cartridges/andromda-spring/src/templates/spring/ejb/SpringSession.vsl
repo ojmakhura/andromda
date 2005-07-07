@@ -12,9 +12,9 @@ package $service.ejbPackageName;
  * @see $service.fullyQualifiedName
  */
 public interface $service.name
-#set ($ejbInterface = "javax.ejb.EJBLocalObject")
+#set ($ejbInterface = $ejbSessionBeanBaseInterfaceLocal)
 #if ($service.ejbRemoteView)
-#set ($ejbInterface = "javax.ejb.EJBObject")
+#set ($ejbInterface = $ejbSessionBeanBaseInterfaceRemote)
 #end
     extends $ejbInterface
 {
