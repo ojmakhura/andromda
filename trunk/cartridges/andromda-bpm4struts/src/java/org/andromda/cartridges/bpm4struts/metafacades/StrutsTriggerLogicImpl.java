@@ -1,10 +1,8 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-
-import java.lang.reflect.Method;
 
 
 /**
@@ -18,11 +16,6 @@ public class StrutsTriggerLogicImpl
     public StrutsTriggerLogicImpl(java.lang.Object metaObject, java.lang.String context)
     {
         super(metaObject, context);
-    }
-
-    protected boolean handleIsContainedInFrontEndUseCase()
-    {
-        return this.getTransition() instanceof StrutsForward;
     }
 
     /**
@@ -118,23 +111,6 @@ public class StrutsTriggerLogicImpl
     protected boolean handleIsActionTrigger()
     {
         return getAction() != null;
-    }
-
-    protected Object handleGetControllerCall()
-    {
-        /*
-         * hack until I find a solution to workaround the JMI multiple inheritance (through interfaces)
-         * @todo: find the solution
-         */
-        try
-        {
-            Method method = metaObject.getClass().getMethod("getOperation", (Class[])null);
-            return method.invoke(metaObject, (Object[])null);
-        }
-        catch (Exception ex)
-        {
-            return null;
-        }
     }
 
     protected Object handleGetAction()

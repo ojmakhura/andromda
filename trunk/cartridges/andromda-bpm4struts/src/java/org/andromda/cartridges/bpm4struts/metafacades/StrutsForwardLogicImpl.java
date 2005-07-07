@@ -32,11 +32,6 @@ public class StrutsForwardLogicImpl
         super(metaObject, context);
     }
 
-    protected boolean handleIsContainedInFrontEndUseCase()
-    {
-        return this.getStrutsActivityGraph() != null;
-    }
-
     protected String handleGetGuardName()
     {
         final GuardFacade guard = getGuard();
