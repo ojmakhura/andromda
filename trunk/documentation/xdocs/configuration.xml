@@ -9,7 +9,7 @@
         <section name="AndroMDA Configuration">
             <p>
                 AndroMDA is configured through a single XML file.  This page documents the attributes and element that
-                make up that configuration.  Lets first take a look at the contents of a typical configuration file (and then 
+                make up that configuration.  Lets first take a look at the contents of a typical configuration file (and then
                 after that we'll go into more detail describing each element and attributes that belong that element).
             </p>
             <p class="highlight">
@@ -39,7 +39,7 @@
         <repository name="netBeansMDR">
             <models>
                 <model>
-                    <uri>jar:file:/path/to/my/model.zuml!/model1.xmi</uri>
+                    <uri>jar:file:/path/to/my/model.zuml!/modelUri1.xmi</uri>
                     <moduleSearchLocations>
                         <location patterns="*.xml.zip,*.xmi">/path/to/modules</location>
                     </moduleSearchLocations>
@@ -47,6 +47,10 @@
                 <model>
                     <uri>file:/path/to/my/model2Uri1.xmi</uri>
                     <uri>file:/path/to/my/model2Uri2.xmi</uri>
+                    <transformations>
+                        <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
+                        <transformation><uri>file:transformation2.xsl</uri></transformation>
+                    </transformations>
                 </model>
             </models>
         </repository>
@@ -276,9 +280,9 @@
                 <p>
                     The <em>optional</em> <![CDATA[<server>]]> element provides information
                     about the AndroMDA server.  The AndroMDA server can be used to initialize
-                    AndroMDA and to provide the pre-loading of models.  What this means is 
-                    that initialization, model loading, and model validation does not occur 
-                    each time you run AndroMDA, but only when your model changes 
+                    AndroMDA and to provide the pre-loading of models.  What this means is
+                    that initialization, model loading, and model validation does not occur
+                    each time you run AndroMDA, but only when your model changes
                     (significantly lowering total model processing time).
                     <source language="xml">
 
@@ -299,7 +303,7 @@
                         <a name="host"><![CDATA[<host>]]></a>
                     </h2>
                     <p>
-                        The contents of the <em>required</em> <![CDATA[<host>]]> element defines the 
+                        The contents of the <em>required</em> <![CDATA[<host>]]> element defines the
                         host of the AndroMDA <a href="#andromda">server</a> instance.  This is used by the
                         server's client to connect to the host on which the server instance is running.
                         <source language="xml">
@@ -316,7 +320,7 @@
                         <a name="port"><![CDATA[<port>]]></a>
                     </h2>
                     <p>
-                        The contents of the <em>required</em> <![CDATA[<port>]]> element defines the 
+                        The contents of the <em>required</em> <![CDATA[<port>]]> element defines the
                         port of the AndroMDA <a href="#andromda">server</a> instance.  This is used by the
                         server to indicate what port the server will run on and and the server's client
                         to know on what port it needs to connect.
@@ -327,15 +331,15 @@
     <port>4446</port>
 </server>]]>
                         </source>
-                    </p>                    
+                    </p>
                 </subsection>
                 <subsection name="">
                     <h2>
                         <a name="loadInterval"><![CDATA[<loadInterval>]]></a>
-                    </h2>            
+                    </h2>
                     <p>
                         The contents of this <em>optional</em> element defines the interval (in milliseconds)
-                        at which the model should be re-loaded into AndroMDA's repository (loading only 
+                        at which the model should be re-loaded into AndroMDA's repository (loading only
                         occurs if model is out-of-date). By default this value is set to <em>1000</em> (or 1 second).
                         <source language="xml">
 
@@ -345,14 +349,14 @@
     <loadInterval>1000</loadInterval>
 </server>]]>
                         </source>
-                    </p>        
+                    </p>
                 </subsection>
                 <subsection name="">
                     <h2>
                         <a name="maximumFailedLoadAttempts"><![CDATA[<maximumFailedLoadAttempts>]]></a>
-                    </h2>            
+                    </h2>
                     <p>
-                        The contents of this <em>optional</em> element defines the maximum number of 
+                        The contents of this <em>optional</em> element defines the maximum number of
                         failed model loading attempts that may occur before a failure is reported by AndroMDA.
                         By default this value is set to <em>10</em>.
                         <source language="xml">
@@ -363,7 +367,7 @@
     <maximumFailedLoadAttempts>10</maximumFailedLoadAttempts>
 </server>]]>
                         </source>
-                    </p>        
+                    </p>
                 </subsection>
             </subsection>
             <subsection name="">
@@ -457,6 +461,83 @@
 </model>]]>
                         </source>
                     </p>
+                </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="transformations"><![CDATA[<transformations>]]></a>
+                </h2>
+                <p>
+                    The <![CDATA[<transformations>]]> in an <em>optional</em> element of the <a href="#model">model</a> aggregating the XSL transformations that will be
+                    applied to the model before model processing begins (they are applied in the order in which they are listed).
+                    Here's an example of what the <em><![CDATA[<transformations>]]></em> element might contain.
+                    <source language="xml">
+<![CDATA[<andromda>
+    ...
+    <model>
+        ...
+        <transformations>
+            <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
+            <transformation><uri>file:transformation2.xsl</uri></transformation>
+       </transformations>
+        ...
+    </model>
+    ...
+</andromda>]]>
+                    </source>
+                </p>
+            </subsection>
+            <subsection>
+                <table>
+                    <h2>
+                        <a name="transformation"><![CDATA[<transformation>]]></a>
+                    </h2>
+                    <p>
+                        The <code><![CDATA[<transformation/>]]></code> is a <em>required</em>
+                        element used to tell AndroMDA to apply an XSL transformation to the model(s) <em>before</em>
+                        modeling processing occurs.  Note, that as many
+                        transformations can be specified as you like, the transformations will be applied
+                        in the order that they are specified in your build.xml.  Also note that any imports
+                        are assumed to be relative to the transformation itself.
+                    </p>
+                    <tr>
+                        <td>
+                            <strong>Attribute</strong>
+                        </td>
+                        <td>
+                            <strong>Description</strong>
+                        </td>
+                        <td>
+                            <strong>Required</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            output
+                        </td>
+                        <td>
+                            The location to which the result of the output will be written.
+                            This is useful for debugging purposes, or if you need to "fix"
+                            your model with a transformation.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                 </table>
+                <subsection name="">
+                    <h2>
+                        <a name="uri"><![CDATA[<uri>]]></a>
+                    </h2>
+                    <p>
+                        The contents of the required <em>uri</em> element is used to
+                        define the location of the transformation.
+                        <source language="xml">
+<![CDATA[<transformation>
+    <uri>file:/path/to/transformations/transformation2.xsl</uri>
+</transformation>]]>
+                            </source>
+                        </p>
+                    </subsection>
                 </subsection>
                 <subsection name="">
                     <h2>
@@ -590,79 +671,6 @@
             </subsection>
             <subsection name="">
                 <h2>
-                    <a name="transformations"><![CDATA[<transformations>]]></a>
-                </h2>
-                <p>
-                    The <![CDATA[<transformations>]]> in an <em>optional</em> element aggregating the XSL transformations that will be
-                    applied before model processing begins (they are applied in the order in which they are listed).
-                    Here's an example of what the <em><![CDATA[<transformations>]]></em> element might contain.
-                    <source language="xml">
-<![CDATA[<andromda>
-    ...
-    <transformations>
-        <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
-        <transformation><uri>file:transformation2.xsl</uri></transformation>
-    </transformations>
-    ...
-</andromda>]]>
-                    </source>
-                </p>
-            </subsection>
-            <subsection>
-                <table>
-                    <h2>
-                        <a name="transformation"><![CDATA[<transformation>]]></a>
-                    </h2>
-                    <p>
-                        The <code><![CDATA[<transformation/>]]></code> is a <em>required</em>
-                        element used to tell AndroMDA to apply an XSL transformation to the model(s) <em>before</em>
-                        modeling processing occurs.  Note, that as many
-                        transformations can be specified as you like, the transformations will be applied
-                        in the order that they are specified in your build.xml.  Also note that any imports
-                        are assumed to be relative to the transformation itself.
-                    </p>
-                    <tr>
-                        <td>
-                            <strong>Attribute</strong>
-                        </td>
-                        <td>
-                            <strong>Description</strong>
-                        </td>
-                        <td>
-                            <strong>Required</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            output
-                        </td>
-                        <td>
-                            The location to which the result of the output will be written.
-                            This is useful for debugging purposes, or if you need to "fix"
-                            your model with a transformation.
-                        </td>
-                        <td>
-                            No
-                        </td>
-                    </tr>
-                 </table>
-                <subsection name="">
-                    <h2>
-                        <a name="uri"><![CDATA[<uri>]]></a>
-                    </h2>
-                    <p>
-                        The contents of the required <em>uri</em> element is used to
-                        define the location of the transformation.
-                        <source language="xml">
-<![CDATA[<transformation>
-    <uri>file:/path/to/transformations/transformation2.xsl</uri>
-</transformation>]]>
-                        </source>
-                    </p>
-                </subsection>
-            </subsection>
-            <subsection name="">
-                <h2>
                     <a name="mappingsSearchLocations"><![CDATA[<mappingsSearchLocations>]]></a>
                 </h2>
                 <p>
@@ -774,7 +782,7 @@
                 </p>
                 <p class="highlight">
                     A special <em>default</em> namespace exists which is different than a regular namespace, properties
-                    that you place in this namespace are available to *ALL* plugins.  You'll want to use this when you 
+                    that you place in this namespace are available to *ALL* plugins.  You'll want to use this when you
                     have a property that you want to apply to all plugins.
                     <source language="xml">
 <![CDATA[
