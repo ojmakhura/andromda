@@ -64,9 +64,9 @@
     <property reference="principalStoreName"/>
     <property reference="openSessionInViewFilterName"/>
     <property reference="ejbViewType"/>
-	<property reference="ejbSessionBeanBaseInterfaceLocal"/>
-	<property reference="ejbSessionBeanBaseInterfaceRemote"/>
-	<property reference="ejbSessionBeanBaseClass"/>
+    <property reference="ejbSessionBeanBaseInterfaceLocal"/>
+    <property reference="ejbSessionBeanBaseInterfaceRemote"/>
+    <property reference="ejbSessionBeanBaseClass"/>
     <property reference="springRemotingType"/>
     <property reference="serviceRemotePort"/>
     <property reference="serviceRemoteContext"/>
@@ -89,7 +89,7 @@
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
-    
+
      <template
         path="templates/spring/SpringServiceLocator.vsl"
         outputPattern="$generatedFile"
@@ -103,7 +103,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/spring/SpringClientServiceLocator.vsl"
         outputPattern="$generatedFile"
