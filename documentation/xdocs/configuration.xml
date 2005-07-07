@@ -372,6 +372,87 @@
             </subsection>
             <subsection name="">
                 <h2>
+                    <a name="repositories"><![CDATA[<repositories>]]></a>
+                </h2>
+                <p>
+                    <![CDATA[<repositories>]]> aggregates all <em>repository</em> elements and is used to 
+                    to tell AndroMDA what repository(s) to use when processing a model.  Here's an example of what the
+                    <em><![CDATA[<repositories>]]></em> element might contain.
+                    <source language="xml">
+<![CDATA[<andromda>
+    ...
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model lastModifiedCheck="true">
+                    <uri>file:/path/to/models/model1.xmi</uri>
+                    <moduleSearchLocations>
+                        <location patterns="*.xmi, *.xml.zip">/path/to/modules</location>
+                        <location>/path/to/more/modules</location>
+                    </moduleSearchLocations>
+                    <modelPackages>
+                        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                        <modelPackage>org::andromda::cartridges::test</modelPackage>
+                    </modelPackages>
+                </model>
+                <model><uri>file:/path/to/models/model2.xmi</uri></model>
+            </models>
+        <repository>
+        <repository name="EMF">
+            ...
+        </repository>
+        ...
+    </repositories>
+    ...
+</andromda>]]>
+                    </source>
+                </p>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="repository"><![CDATA[<repository>]]></a>
+                </h2>
+                <p>
+                    The <strong>required</strong> <code><![CDATA[<repository/>]]></code>
+                    element is used to tell AndroMDA what repository to use when processing one or 
+                    more models.
+                    <source language="xml">
+<![CDATA[<repositories>
+    <repository name="netBeansMDR">
+        ...
+    </repository>
+    ...
+</repositories>]]>
+                    </source>
+                </p>
+                <table>
+                    <tr>
+                        <td>
+                            <strong>Attribute</strong>
+                        </td>
+                        <td>
+                            <strong>Description</strong>
+                        </td>
+                        <td>
+                            <strong>Required</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            name
+                        </td>
+                        <td>
+                            This is the name of an available repository, repositories are namespace
+                            components discovered and made available by placing them on the classpath.
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                    </tr>
+                </table>
+            </subsection>
+            <subsection name="">
+                <h2>
                     <a name="models"><![CDATA[<models>]]></a>
                 </h2>
                 <p>
@@ -379,7 +460,7 @@
                     for AndroMDA to process one or more model(s).  Here's an example of what the
                     <em><![CDATA[<models>]]></em> element might contain.
                     <source language="xml">
-<![CDATA[<andromda>
+<![CDATA[
     ...
     <models>
         <model lastModifiedCheck="true">
@@ -396,7 +477,7 @@
         <model><uri>file:/path/to/models/model2.xmi</uri></model>
     </models>
     ...
-</andromda>]]>
+]]>
                     </source>
                 </p>
             </subsection>
@@ -462,7 +543,7 @@
                         </source>
                     </p>
                 </subsection>
-            <subsection name="">
+                <subsection name="">
                 <h2>
                     <a name="transformations"><![CDATA[<transformations>]]></a>
                 </h2>
