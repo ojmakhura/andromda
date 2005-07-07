@@ -48,6 +48,7 @@
     <property reference="applicationContextClient"/>
     <property reference="beanRefFactory"/>
     <property reference="beanRefFactoryId"/>
+    <property reference="beanRefFactoryEjbId"/>
     <property reference="transactionManager"/>
     <property reference="localTransactionManager"/>
     <property reference="userTransactionName"/>
@@ -385,7 +386,7 @@
     </template>
 
     <template
-        path="templates/spring/applicationContext-remoteEjb.xml.vsl"
+        path="templates/spring/ejb/applicationContext-remoteEjb.xml.vsl"
         outputPattern="$applicationContextRemoteEjb"
         outlet="spring-configuration"
         overwrite="true"
@@ -399,7 +400,7 @@
     </template>
 
     <template
-        path="templates/spring/applicationContext-localEjb.xml.vsl"
+        path="templates/spring/ejb/applicationContext-localEjb.xml.vsl"
         outputPattern="$applicationContextLocalEjb"
         outlet="spring-configuration"
         overwrite="true"

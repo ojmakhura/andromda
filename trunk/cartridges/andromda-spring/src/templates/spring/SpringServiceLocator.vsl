@@ -16,16 +16,6 @@ package $springTypesPackage;
 public class $serviceLocatorName
 {
 
-    /**
-     * The default application context location.
-     */
-    private final String DEFAULT_BEAN_REFERENCE_LOCATION = "$beanRefFactory";
-
-    /**
-     * The bean factory reference location.
-     */
-    private String beanFactoryReferenceLocation;
-
     private ${serviceLocatorName}()
     {
         // shouldn't be instantiated
@@ -50,6 +40,31 @@ public class $serviceLocatorName
      * The bean factory reference instance.
      */
     private org.springframework.beans.factory.access.BeanFactoryReference beanFactoryReference;
+    
+    /**
+     * The bean factory reference location.
+     */
+    private String beanFactoryReferenceLocation;
+    
+    /**
+     * The bean factory reference id.
+     */
+    private String beanRefFactoryReferenceId;
+
+    /**
+     * Initializes the Spring application context from
+     * the given <code>beanFactoryReferenceLocation</code>.  If <code>null</code>
+     * is specified for the <code>beanFactoryReferenceLocation</code>
+     * then the default application context will be used.
+     *
+     * @param beanFactoryReferenceLocation the location of the beanRefFactory reference.
+     */
+    public synchronized void init(final String beanFactoryReferenceLocation, final String beanRefFactoryReferenceId)
+    {
+        this.beanFactoryReferenceLocation = beanFactoryReferenceLocation;
+        this.beanRefFactoryReferenceId = beanRefFactoryReferenceId;
+        this.beanFactoryReference = null;
+    }
 
     /**
      * Initializes the Spring application context from
@@ -64,25 +79,44 @@ public class $serviceLocatorName
         this.beanFactoryReferenceLocation = beanFactoryReferenceLocation;
         this.beanFactoryReference = null;
     }
+    
+#if ($ejbsEnabled)
+#set ($factoryId = $beanRefFactoryEjbId)
+#else
+#set ($factoryId = $beanRefFactoryId)
+#end
+    /**
+     * The default bean reference factory location.
+     */
+    private final String DEFAULT_BEAN_REFERENCE_LOCATION = "$beanRefFactory";
+    
+    /**
+     * The default bean reference factory ID.
+     */
+    private final String DEFAULT_BEAN_REFERENCE_ID = "$factoryId";
 
-   /**
-    * Gets the Spring ApplicationContext.
-    */
-   protected synchronized org.springframework.context.ApplicationContext getContext()
-   {
-       if (this.beanFactoryReference == null)
-       {
-           if (this.beanFactoryReferenceLocation == null)
-           {
-               this.beanFactoryReferenceLocation = DEFAULT_BEAN_REFERENCE_LOCATION;
-           }
-           org.springframework.beans.factory.access.BeanFactoryLocator beanFactoryLocator =
-               org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance(
-                   this.beanFactoryReferenceLocation);
-           this.beanFactoryReference = beanFactoryLocator.useBeanFactory("$beanRefFactoryId");
-       }
-       return (org.springframework.context.ApplicationContext)this.beanFactoryReference.getFactory();
-   }
+    /**
+     * Gets the Spring ApplicationContext.
+     */
+    protected synchronized org.springframework.context.ApplicationContext getContext()
+    {
+        if (this.beanFactoryReference == null)
+        {
+            if (this.beanFactoryReferenceLocation == null)
+            {
+                this.beanFactoryReferenceLocation = DEFAULT_BEAN_REFERENCE_LOCATION;
+            }
+            if (this.beanRefFactoryReferenceId == null)
+            {
+                this.beanRefFactoryReferenceId = DEFAULT_BEAN_REFERENCE_ID;
+            }
+            org.springframework.beans.factory.access.BeanFactoryLocator beanFactoryLocator =
+                org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance(
+                    this.beanFactoryReferenceLocation);
+            this.beanFactoryReference = beanFactoryLocator.useBeanFactory(this.beanRefFactoryReferenceId);
+        }
+        return (org.springframework.context.ApplicationContext)this.beanFactoryReference.getFactory();
+    }
 
     /**
      * Shuts down the ServiceLocator and releases any used resources.
@@ -101,7 +135,7 @@ public class $serviceLocatorName
      * Helper for setting jndiEnvironment property of SimpleRemoteStatelessSessionProxyFactoryBean
      * through PropertyOverrideConfigurer
      */
-    static final public class JndiEnvironment 
+    static final public class JndiEnvironment
         extends java.util.Properties
     {
         private static final long serialVersionUID = 1L;

@@ -11,16 +11,6 @@
          class="org.springframework.context.support.ClassPathXmlApplicationContext">
         <constructor-arg>
            <list>
-## The ejb configuration files must be listed first since they replace the default bean definitions
-## in the default applicationContext.xml
-#if ($ejbsEnabled)
-#if ($springUtils.remoteEjbsPresent($services))
-                <value>$stringUtils.replace($applicationContextRemoteEjb, '/', '.')</value>
-#end
-#if ($springUtils.localEjbsPresent($services))
-                <value>$stringUtils.replace($applicationContextLocalEjb, '/', '.')</value>
-#end
-#end
                 <value>$stringUtils.replace($applicationContext, '/', '.')</value>
 #if ($stringUtils.isNotBlank($dataSource))
                 <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
@@ -34,5 +24,21 @@
            </list>
         </constructor-arg>
     </bean>
+#if ($ejbsEnabled)
+
+    <bean id="$beanRefFactoryEjbId"
+         class="org.springframework.context.support.ClassPathXmlApplicationContext">
+        <constructor-arg>
+           <list>
+#if ($springUtils.remoteEjbsPresent($services))
+                <value>$stringUtils.replace($applicationContextRemoteEjb, '/', '.')</value>
+#end
+#if ($springUtils.localEjbsPresent($services))
+                <value>$stringUtils.replace($applicationContextLocalEjb, '/', '.')</value>
+#end
+           </list>
+        </constructor-arg>
+    </bean>
+#end
 
 </beans>

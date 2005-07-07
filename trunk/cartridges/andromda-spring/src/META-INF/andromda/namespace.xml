@@ -315,6 +315,12 @@
                     The ID for the Spring bean reference factory (used to load the bean factory).
                 </documentation>
             </property>
+            <property name="beanRefFactoryEjbId">
+                <default>beanRefFactoryEjb</default>
+                <documentation>
+                    The ID for the Spring bean reference factory that holds the EJB references.
+                </documentation>
+            </property>
             <property name="transactionManager">
                 <default>org.springframework.orm.hibernate.HibernateTransactionManager</default>
                 <documentation>
