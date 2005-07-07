@@ -107,6 +107,30 @@
 
                 </pattern>
 
+                <pattern value="transformations/transformation">
+
+                    <object-create-rule
+                        classname="org.andromda.core.configuration.Transformation" />
+
+                    <pattern value="uri">
+
+                        <call-method-rule
+                            methodname="setUri"
+                            paramcount="1" />
+
+                        <call-param-rule
+                            paramnumber="0"/>
+
+                    </pattern>
+
+                    <set-properties-rule>
+                         <alias attr-name="output" prop-name="outputLocation" />
+                    </set-properties-rule>
+
+                    <set-next-rule methodname="addTransformation" />
+
+                </pattern>
+
                 <pattern value="moduleSearchLocations/location">
 
                     <object-create-rule
@@ -169,30 +193,6 @@
             </pattern>
 
             <set-next-rule methodname="addRepository" />
-
-        </pattern>
-
-        <pattern value="transformations/transformation">
-
-            <object-create-rule
-                classname="org.andromda.core.configuration.Transformation" />
-
-            <pattern value="uri">
-
-                <call-method-rule
-                    methodname="setUri"
-                    paramcount="1" />
-
-                <call-param-rule
-                    paramnumber="0"/>
-
-            </pattern>
-
-            <set-properties-rule>
-                 <alias attr-name="output" prop-name="outputLocation" />
-            </set-properties-rule>
-
-            <set-next-rule methodname="addTransformation" />
 
         </pattern>
 

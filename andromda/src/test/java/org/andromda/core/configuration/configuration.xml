@@ -15,6 +15,10 @@
                 <model lastModifiedCheck="true">
                     <uri>file:model1Uri1.xmi</uri>
                     <uri>file:model1Uri2.xmi</uri>
+                    <transformations>
+                        <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
+                        <transformation><uri>file:transformation2.xsl</uri></transformation>
+                    </transformations>
                     <moduleSearchLocations>
                         <location patterns="*.xmi, *.xml.zip">/path/to/model/modules1</location>
                         <location>/path/to/model/modules2</location>
@@ -34,10 +38,6 @@
             </models>
         </repository>
     </repositories>
-    <transformations>
-        <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
-        <transformation><uri>file:transformation2.xsl</uri></transformation>
-    </transformations>
     <mappingsSearchLocations>
         <location>/path/to/mappings/location1</location>
         <location>/path/to/mappings/location2</location>

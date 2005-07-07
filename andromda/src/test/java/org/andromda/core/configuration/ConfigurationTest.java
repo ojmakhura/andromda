@@ -93,6 +93,22 @@ public class ConfigurationTest
         assertFalse(model1.getPackages().isProcess("some::package"));
         assertFalse(model1.getPackages().isProcess("org::andromda::metafacades::uml"));
         assertTrue(model1.getPackages().isProcess("org::andromda::cartridges::test"));
+        
+        // transformations
+        assertEquals(2, model1.getTransformations().length);
+        final Transformation transformation1 = model1.getTransformations()[0];
+        assertNotNull(transformation1);
+        assertEquals(
+            "file:transformation1.xsl",
+            transformation1.getUri());
+        assertEquals(
+            "path/to/some/directory/transformed-model.xmi",
+            transformation1.getOutputLocation());
+        final Transformation transformation2 = model1.getTransformations()[1];
+        assertNotNull(transformation2);
+        assertEquals(
+            "file:transformation2.xsl",
+            transformation2.getUri());
 
         final Model model2 = repository.getModels()[1];
         assertNotNull(model2);
@@ -112,22 +128,6 @@ public class ConfigurationTest
         assertNotNull(model3.getPackages());
         assertTrue(model3.getPackages().isProcess("some::package"));
         assertFalse(model3.getPackages().isProcess("org::andromda::metafacades::uml"));
-
-        // transformations
-        assertEquals(2, configuration.getTransformations().length);
-        final Transformation transformation1 = configuration.getTransformations()[0];
-        assertNotNull(transformation1);
-        assertEquals(
-            "file:transformation1.xsl",
-            transformation1.getUri());
-        assertEquals(
-            "path/to/some/directory/transformed-model.xmi",
-            transformation1.getOutputLocation());
-        final Transformation transformation2 = configuration.getTransformations()[1];
-        assertNotNull(transformation2);
-        assertEquals(
-            "file:transformation2.xsl",
-            transformation2.getUri());
 
         // namespaces
         final Namespace namespace1 = Namespaces.instance().getNamespace("default");

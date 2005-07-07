@@ -105,31 +105,6 @@ public class Configuration
     }
 
     /**
-     * Stores the transformations for this Configuration instance.
-     */
-    private final Collection transformations = new ArrayList();
-
-    /**
-     * Adds a transformation to this configuration instance.
-     *
-     * @param transformation the transformation instance to add.
-     */
-    public void addTransformation(final Transformation transformation)
-    {
-        this.transformations.add(transformation);
-    }
-
-    /**
-     * Gets the transformations belonging to this configuration.
-     *
-     * @return the array of {@link Transformation} instances.
-     */
-    public Transformation[] getTransformations()
-    {
-        return (Transformation[])this.transformations.toArray(new Transformation[0]);
-    }
-
-    /**
      * Stores the configuration namespaces.
      */
     private final Collection namespaces = new ArrayList();

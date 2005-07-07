@@ -10,7 +10,6 @@
                 <xs:element ref="properties" minOccurs="0"/>
                 <xs:element ref="server" minOccurs="0"/>
                 <xs:element ref="repositories"/>
-                <xs:element ref="transformations" minOccurs="0"/>
                 <xs:element ref="mappingsSearchLocations" minOccurs="0"/>
                 <xs:element ref="namespaces"/>
             </xs:sequence>
@@ -46,6 +45,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="uri" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element ref="transformations" minOccurs="0"/>
                 <xs:element ref="moduleSearchLocations" minOccurs="0"/>
                 <xs:element ref="modelPackages" minOccurs="0"/>
             </xs:sequence>
