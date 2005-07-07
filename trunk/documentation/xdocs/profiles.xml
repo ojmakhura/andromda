@@ -9,92 +9,103 @@
         <section name="AndroMDA Profiles">
             <p>
                 People sometimes ask: "Can I change the stereotype names?, I really don't like using the capitalized <em><![CDATA[<<Entity>>]]></em>
-                to denote an entity, I'd rather use the lowercase <em><![CDATA[<<entity>>]]></em> instead."  Well in order to provide this ability to 
-                customize existing AndroMDA profiles (as well as creating your own), AndroMDA has the concept of customizable profile descriptors.  
-                This XML configuration file (which must be named <em>andromda-profile.xml</em> and reside in the <em>META-INF</em> directory) 
-                allows someone using AndroMDA to map stereotypes, tagged values, and data types to ANY names he or she  wants without having to 
+                to denote an entity, I'd rather use the lowercase <em><![CDATA[<<entity>>]]></em> instead."  Well in order to provide this ability to
+                customize existing AndroMDA profiles (as well as creating your own), AndroMDA has the concept of customizable profile descriptors.
+                This XML configuration file (which is typically located at <em>META-INF/andromda/profile.xml</em> with a cartridge or metafacade jar)
+                allows someone using AndroMDA to map stereotypes, tagged values, and data types to ANY names he or she  wants without having to
                 change <code>ANY</code> code.
             </p>
+            <p class="highlight">
+                Each profile file must adhere to this <a href="profile/schema.html">XML Schema</a>.
+            </p>
             <p>
-                Lets have a look at the contents of what a typical andromda-profile.xml file might contain (this snippet was taken from
-                the UML metafacades <em>andromda-profile.xml</em> file):
+                Lets have a look at the contents of what a typical profile.xml file might contain (this snippet was taken from
+                the UML metafacades <em>META-INF/andromda/profile.xml</em> file):
                 <source language="xml">
 <![CDATA[
-<mappings name="uml">
-    <!-- stereotypes -->
-    <mapping>
-        <from>CRITERIA</from>
-        <to>Criteria</to>
-    </mapping>
-    <mapping>
-        <from>ENTITY</from>
-        <to>Entity</to>
-    </mapping>
-    ...
-    <!-- tagged values -->
-    <mapping>
-        <from>DOCUMENTATION</from>
-        <to>documentation</to>
-    </mapping>
-    <mapping>
-        <from>PERSISTENCE_TABLE</from>
-        <to>@andromda.persistence.table</to>
-    </mapping>
-    <mapping>
-        <from>PERSISTENCE_COLUMN</from>
-        <to>@andromda.persistence.column</to>
-    </mapping>
-    <mapping>
-        <from>PERSISTENCE_COLUMN_LENGTH</from>
-        <to>@andromda.persistence.column.length</to>
-    </mapping>
-    ...
-    <!-- datatypes -->
-    <mapping>
-        <from>COLLECTION_TYPE</from>
-        <to>datatype::Collection</to>
-    </mapping>
-    <mapping>
-        <from>LIST_TYPE</from>
-        <to>datatype::List</to>
-    </mapping>
-    <mapping>
-        <from>SET_TYPE</from>
-        <to>datatype::Set</to>
-    </mapping>
-    ...
-</mappings>              
-]]>      
+<profile>
+    <elements>
+        <elementGroup name="Stereotypes">
+            <element name="CRITERIA">
+                <documentation></documentation>
+                <value>Criteria</value>
+            </element>
+            <element name="ENTITY">
+                <documentation></documentation>
+                <value>Entity</value>
+            </element>
+            ...
+        </elementGroup>
+        <elementGroup name="Tagged Values">
+            <element name="DOCUMENTATION">
+                <documentation></documentation>
+                <value>documentation</value>
+            </element>
+            <element name="HYPERLINK">
+                <documentation>Represents a hyperlink within a model</documentation>
+                <value>hyperlink</value>
+            </element>
+            <element name="PERSISTENCE_TABLE">
+                <documentation></documentation>
+                <value>@andromda.persistence.table</value>
+            </element>
+            <element name="PERSISTENCE_COLUMN">
+                <documentation></documentation>
+                <value>@andromda.persistence.column</value>
+            </element>
+            <element name="PERSISTENCE_COLUMN_LENGTH">
+                <documentation></documentation>
+                <value>@andromda.persistence.column.length</value>
+            </element>
+            ...
+        </elementGroup>
+        <elementGroup name="Data Types">
+            <element name="COLLECTION_TYPE">
+                <documentation></documentation>
+                <value>datatype::Collection</value>
+            </element>
+            <element name="LIST_TYPE">
+                <documentation></documentation>
+                <value>datatype::List</value>
+            </element>
+            <element name="SET_TYPE">
+                <documentation></documentation>
+                <value>datatype::Set</value>
+            </element>
+            ...
+        </elementGroup>
+    </elements>
+</profile>
+]]>
                 </source>
             </p>
             <p>
-                If you'll familiar with AndroMDA <a href="mappings.html">mappings</a> you'll notice that the above profile is in the same structure: you have the <![CDATA[<from/>]]>
-                element which is the profile constant, and the <![CDATA[<to/>]]> element which is to what the constant should be mapped.   These andromda-profile.xml files
-                are loaded during AndroMDA startup and made available to the framework. 
+                If you'll take a closer look at the above example, you'll notice that the <em>name</em> attribute contains the constant, and the contents of the
+                <em>value</em> element contains the value to which the constant is mapped (this is the value that corresponds to the profile element in your model).
+                These XML profiles (typically located at META-INF/andromda/profile.xml of a cartridge or metafacades jar) are loaded during AndroMDA startup and
+                made available to the framework.
             </p>
             <subsection name="Overriding Profile Values">
                 <p>
-                    In order to customize a specific profile mapping value, one must override that value by creating his/her own
-                    profile mapping and letting AndroMDA know its location by using the <em>profileMappingsUri</em> property.  
-                    For example, this profile mappings file below would allow us to change the stereotype indentifying an entity to 
+                    In order to customize a specific mapped profile value, one must override that value by creating his/her own
+                    profile mapping and letting AndroMDA know its location by using the <em>profileMappingsUri</em> property.
+                    For example, this profile mappings file below would allow us to change the stereotype indentifying an entity to
                     <![CDATA[<<entity>>]]> instead of the default <![CDATA[<<Entity>>]]>  (the <em>ENTITY</em> profile constant
-                    is defined in the andromda-profile.xml of the UML metafacades jar which we saw above).  Once we provide
+                    is defined in the profile.xml of the UML metafacades jar which we saw above).  Once we provide
                     this customized mappings file AndroMDA will now recognize model elements with the stereotype <![CDATA[<<entity>>]]> :
                     <source language="xml">
 <![CDATA[
-<mappings name="CustomProfile">
+<profile>
     ...
-    <mapping>
-        <from>ENTITY</from>
-        <to>entity</to>
-    </mapping>
+    <element name="ENTITY">
+        <value>entity</value>
+    </element>
     ...
-</mappings>      
-]]>  
-                    </source>                                    
-                    After writing your profile mappings file (the mappings named "CustomProfile" we wrote above), you'd then define the location of this mappings 
-                    file as the namespace property <em>profileMappingsUri</em> (within the mda/project.xml file or your mda/build.xml if using Ant), like
-                    we do here (notice that the path must be a URI):
+</mappings>
+]]>
+                    </source>
+                    After writing your profile, you'd then define the location of this mappings file as the namespace property <em>profileMappingsUri</em>
+                    (within the mda/conf/andromda.xml file), like we do here (notice that the path must be a URI):
                     <source language="xml">
 <![CDATA[
 <namespace name="default">
