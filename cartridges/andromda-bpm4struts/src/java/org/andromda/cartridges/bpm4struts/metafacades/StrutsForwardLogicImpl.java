@@ -1,13 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.GuardFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,6 +8,15 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
+import org.andromda.metafacades.uml.GuardFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -258,7 +259,7 @@ public class StrutsForwardLogicImpl
 
     protected Object handleGetOperationCall()
     {
-        StrutsControllerOperation operation = null;
+        FrontEndControllerOperation operation = null;
 
         final EventFacade triggerEvent = getTrigger();
         if (triggerEvent instanceof StrutsTrigger)

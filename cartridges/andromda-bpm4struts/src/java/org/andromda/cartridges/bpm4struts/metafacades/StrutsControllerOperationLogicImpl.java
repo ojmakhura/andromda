@@ -14,6 +14,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -89,7 +90,7 @@ public class StrutsControllerOperationLogicImpl
                 if (event instanceof StrutsTrigger)
                 {
                     final StrutsTrigger trigger = (StrutsTrigger)event;
-                    final StrutsControllerOperation operation = trigger.getControllerCall();
+                    final FrontEndControllerOperation operation = trigger.getControllerCall();
                     if (this.equals(operation))
                     {
                         // we have two types of controller calls: the ones in action states and the ones for decisions
