@@ -16,6 +16,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -112,7 +113,7 @@ public class StrutsActionLogicImpl
         else if (target instanceof StrutsActionState)
         {
             actionStates.add(target);
-            final StrutsForward forward = ((StrutsActionState)target).getForward();
+            final FrontEndForward forward = ((StrutsActionState)target).getForward();
             if (forward != null)
             {
                 collectTransitions(forward, processedTransitions);
@@ -687,7 +688,7 @@ public class StrutsActionLogicImpl
         for (final Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
             final StrutsActionState actionState = (StrutsActionState)iterator.next();
-            final StrutsForward forward = actionState.getForward();
+            final StrutsForward forward = (StrutsForward)actionState.getForward();
             if (forward != null)
             {
                 final Collection forwardParameters = forward.getForwardParameters();
