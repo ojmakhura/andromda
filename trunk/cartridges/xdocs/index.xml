@@ -93,7 +93,7 @@
       <h3>Merging cartridge resources</h3>
       <p>
         Sometimes you may want to merge (or replace) things in a cartridge: this can be done in templates, within
-        the andromda-cartrige.xml, or even within the andromda-metafacades.xml. For example within the BPM4Struts cartridge,
+        the cartridge.xml, or even within the metafacades.xml. For example within the BPM4Struts cartridge,
         the web.xml (or struts-config.xml) may not contain everyting you need (i.e. you may need to add a new <![CDATA[<servlet/>]]>
         and <![CDATA[<servlet-mapping/>]]>, some <![CDATA[<context-param/>]]>, or even <![CDATA[<error-page/>]]> definitions).
       </p>
@@ -207,7 +207,7 @@
         </tr>
         <tr>
             <td nowrap="nowrap">
-                <code>/META-INF/andromda-cartridge.xml</code>
+                <code>/META-INF/andromda/cartridge.xml</code>
             </td>
             <td>
                 Declarative cartridge descriptor (see below).
@@ -218,7 +218,7 @@
         </tr>
         <tr>
             <td nowrap="nowrap">
-                <code>/META-INF/andromda-metafacades.xml</code>
+                <code>/META-INF/andromda/metafacades.xml</code>
             </td>
             <td>
                 Metafacades descriptor. This is used to specify
