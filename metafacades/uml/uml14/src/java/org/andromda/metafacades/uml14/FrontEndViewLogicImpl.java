@@ -5,8 +5,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -39,16 +43,32 @@ public class FrontEndViewLogicImpl
     {
         final List actions = new ArrayList();
         final Collection outgoing = getOutgoing();
-
         for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {
             final Object object = iterator.next();
-            if (object instanceof FrontEndForward)
+            if (object instanceof FrontEndAction)
             {
                 actions.add(object);
             }
         }
-
         return actions;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndView#getUseCase()
+     */
+    protected Object handleGetUseCase()
+    {
+        UseCaseFacade useCase = null;
+        final StateMachineFacade graphContext = this.getStateMachine();
+        if (graphContext instanceof ActivityGraphFacade)
+        {
+            useCase = ((ActivityGraphFacade)graphContext).getUseCase();
+            if (!(useCase instanceof FrontEndUseCase))
+            {
+                useCase = null;
+            }
+        }
+        return useCase;
     }
 }

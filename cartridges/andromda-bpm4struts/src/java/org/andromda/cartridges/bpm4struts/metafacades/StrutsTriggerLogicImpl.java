@@ -67,7 +67,7 @@ public class StrutsTriggerLogicImpl
             final StrutsAction action = getAction();
             if (action != null)
             {
-                final StrutsJsp page = action.getInput();
+                final StrutsJsp page = (StrutsJsp)action.getInput();
                 if (page != null)
                 {
                     triggerKey = page.getMessageKey() + '.' + triggerKey;
