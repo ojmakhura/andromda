@@ -10,6 +10,9 @@
     </properties>
     <body>
         <release version="3.1-RC1-SNAPSHOT" date="2005-07-01" description="First release candidate of version 3.1">
+            <action dev="carloslcuenca" type="add" issue="HIB-115">
+                Hibernate Cartridge now also supports "union-subclass" inheritance mapping for Hibernate 3.x projects.
+            </action>
             <action dev="cwbrandon" type="add" issue="CORE-77">
                 AndroMDA can now handle more than one repository at a given time.  This means you'll need to make a slight
                 modification to your andromda configuration file (typically found in mda/conf/andromda.xml of your project).
