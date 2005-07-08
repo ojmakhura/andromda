@@ -124,7 +124,7 @@ public class StrutsControllerOperationLogicImpl
         return (owner instanceof StrutsController) ? owner : null;
     }
 
-    protected List handleGetFormFields()
+    public List getFormFields()
     {
         final Map formFieldsMap = new HashMap();
 
