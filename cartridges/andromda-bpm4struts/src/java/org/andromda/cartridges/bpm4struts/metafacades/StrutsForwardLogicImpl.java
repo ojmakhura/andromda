@@ -77,7 +77,7 @@ public class StrutsForwardLogicImpl
         }
         else if (isEnteringFinalState())
         {
-            return ((StrutsFinalState)getTarget()).getTargetUseCase().getTitleKey();
+            return ((StrutsUseCase)((StrutsFinalState)getTarget()).getTargetUseCase()).getTitleKey();
         }
         return null;
     }

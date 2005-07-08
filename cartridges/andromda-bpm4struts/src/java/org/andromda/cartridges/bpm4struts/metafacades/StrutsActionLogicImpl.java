@@ -344,7 +344,7 @@ public class StrutsActionLogicImpl
                 final TransitionFacade transition = (TransitionFacade)iterator.next();
                 if (transition.getTarget() instanceof StrutsFinalState)
                 {
-                    final StrutsUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
+                    final FrontEndUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
                     if (useCase != null)
                     {
                         roleUsers.addAll(useCase.getRoles());

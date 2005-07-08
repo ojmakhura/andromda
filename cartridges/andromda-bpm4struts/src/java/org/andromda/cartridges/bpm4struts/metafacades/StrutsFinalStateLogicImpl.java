@@ -2,16 +2,17 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -27,19 +28,17 @@ public class StrutsFinalStateLogicImpl
     {
         super(metaObject, context);
     }
-
-    protected boolean handleIsContainedInFrontEndUseCase()
-    {
-        return this.getStateMachine() instanceof StrutsActivityGraph;
-    }
-
+    
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacad#getName()
+     */
     public String getName()
     {
         String name = super.getName();
 
         if (name == null)
         {
-            StrutsUseCase useCase = getTargetUseCase();
+            final UseCaseFacade useCase = this.getTargetUseCase();
             if (useCase != null)
             {
                 name = useCase.getName();
@@ -53,7 +52,7 @@ public class StrutsFinalStateLogicImpl
     {
         String fullPath = null;
 
-        StrutsUseCase useCase = getTargetUseCase();
+        StrutsUseCase useCase = (StrutsUseCase)this.getTargetUseCase();
         if (useCase == null)
         {
             // perhaps this final state links outside of the UML model
@@ -79,9 +78,13 @@ public class StrutsFinalStateLogicImpl
         return fullPath;
     }
 
-    protected Object handleGetTargetUseCase()
+    /**
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndFinalState#getTargetUseCase()
+     */
+    public FrontEndUseCase getTargetUseCase()
     {
-        Object targetUseCase = null;
+        FrontEndUseCase targetUseCase = null;
 
         // first check if there is a hyperlink from this final state to a use-case
         // this works at least in MagicDraw
@@ -90,11 +93,11 @@ public class StrutsFinalStateLogicImpl
         {
             if (taggedValue instanceof StrutsActivityGraph)
             {
-                targetUseCase = ((StrutsActivityGraph)taggedValue).getUseCase();
+                targetUseCase = (FrontEndUseCase)((StrutsActivityGraph)taggedValue).getUseCase();
             }
             else if (taggedValue instanceof StrutsUseCase)
             {
-                targetUseCase = taggedValue;
+                targetUseCase = (FrontEndUseCase)taggedValue;
             }
         }
         else // maybe the name points to a use-case ?
@@ -103,9 +106,9 @@ public class StrutsFinalStateLogicImpl
             if (StringUtils.isNotBlank(name))
             {
                 UseCaseFacade useCase = getModel().findUseCaseByName(name);
-                if (useCase instanceof StrutsUseCase)
+                if (useCase instanceof FrontEndUseCase)
                 {
-                    targetUseCase = useCase;
+                    targetUseCase = (FrontEndUseCase)useCase;
                 }
             }
         }

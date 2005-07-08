@@ -316,7 +316,7 @@ public class StrutsUseCaseLogicImpl
             for (final Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
             {
                 final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
-                final StrutsUseCase targetUseCase = finalState.getTargetUseCase();
+                final StrutsUseCase targetUseCase = (StrutsUseCase)finalState.getTargetUseCase();
                 if (targetUseCase != null)
                 {
                     final UseCaseNode useCaseNode = new UseCaseNode(targetUseCase);
