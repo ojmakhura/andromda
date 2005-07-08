@@ -219,8 +219,9 @@
                             to give descriptive names; don't be afraid of using spaces
                         </li>
                         <li>in real processes it's a good idea to have a naming convention for your elements:
-                            states should sounds like 'request sent' or 'form stored', use the <em>past tense</em>,
-                            use the <em>present tense</em> for transitions and tasks: 'send request' or 'store form'
+                            states should sounds like 'request sent', 'form stored', 'filing issue' or
+                            'updating record', use the <em>present tense</em>
+                            for transitions and tasks: 'send request' or 'store form'
                         </li>
                     </ul>
                 </p>
@@ -237,79 +238,81 @@
             </p>
 <source language="xml">
 <!--
-<process-definition name="Scenario Example">
+<process-definition name="Online Store">
 
-    <start-state name="start" swimlane="human">
-        <transition to="perform initial tasks"/>
+    <start-state name="start" swimlane="customer">
+        <transition to="customer ready for purchase"/>
     </start-state>
 
-    <swimlane name="human">
-        <assignment class="org.andromda.cartridges.jbpm.tests.HumanAssignmentImpl"/>
+    <swimlane name="customer">
+        <assignment class="org.andromda.cartridges.jbpm.tests.onlinestore.CustomerAssignmentImpl"/>
     </swimlane>
 
     <swimlane name="system">
-        <assignment class="org.andromda.cartridges.jbpm.tests.SystemAssignmentImpl"/>
+        <assignment expression="user(onlineStore)"/>
     </swimlane>
 
-    <state name="await responses">
-        <transition name="flow received or attestation encoded" to="check file completeness"/>
-        <transition name="take decision" to="decision taken"/>
-    </state>
+    <node name="customer ready for purchase">
+        <transition name="select article" to="article selected"/>
+        <transition name="check out" to="checking out"/>
+    </node>
 
-    <node name="take decision">
-        <transition name="check useful period and take decision" to="decision taken"/>
-        <transition name="additional requests" to="check file completeness"/>
-        <timer name="takeDecision" duedate="15 business days" repeat="5" transition="additional requests">
-            <action name="takeDecision" class="org.andromda.cartridges.jbpm.tests.TakeDecisionImpl"/>
+    <node name="checking out">
+        <transition name="confirm" to="check out confirmed"/>
+        <transition name="cancel" to="customer ready for purchase"/>
+    </node>
+
+    <node name="notifying customer">
+        <transition to="customer notified during dispatching"/>
+        <timer name="sendNotification" duedate="1 business day" repeat="1 day">
+            <action name="sendNotification" class="org.andromda.cartridges.jbpm.tests.onlinestore.SendNotificationImpl"/>
         </timer>
     </node>
 
-    <node name="decision taken">
-        <transition to="check flow conflicts"/>
-    </node>
+    <end-state name="items dispatched"/>
 
-    <node name="conflicts in file">
-        <transition to="take decision"/>
-    </node>
-
-    <task-node name="perform initial tasks">
-        <task name="createFile" swimlane="human" blocking="false">
-            <controller>
-                <variable name="fileId" access="required,write"/>
-            </controller>
-        </task>
-        <task name="integrateMember" swimlane="human" blocking="false"/>
-        <task name="sendFlows" swimlane="human" blocking="false"/>
-        <transition to="check file completeness"/>
+    <task-node name="article selected" signal="never" create-tasks="true">
+        <task name="addArticleToBasket" swimlane="customer" blocking="true"/>
+        <transition name="continue shopping" to="customer ready for purchase"/>
     </task-node>
 
-    <decision name="check file completeness">
-        <handler class="org.andromda.cartridges.jbpm.tests.CheckFileCompletenessImpl"/>
-        <transition to="await responses">
+    <task-node name="check out confirmed" signal="never" create-tasks="true">
+        <task name="confirmCheckoutCredentials" swimlane="system" blocking="true"/>
+        <transition to="customer check out credentials okay"/>
+    </task-node>
+
+    <task-node name="dispatching articles" signal="never" create-tasks="true">
+        <task name="dispatchArticles" swimlane="system" blocking="true"/>
+        <transition to="customer notified during dispatching"/>
+    </task-node>
+
+    <task-node name="update credentials" signal="never" create-tasks="true">
+        <task name="updateCredentials" swimlane="customer" blocking="true"/>
+        <transition name="continue with check out" to="check out confirmed"/>
+    </task-node>
+
+    <decision name="customer check out credentials okay">
+        <handler class="org.andromda.cartridges.jbpm.tests.onlinestore.CustomerCheckOutCredentialsOkayImpl"/>
+        <transition to="update credentials">
             <condition>
-                <![CDATA[file incomplete]]>
+                <![CDATA[ not okay ]]>
             </condition>
         </transition>
-        <transition to="take decision">
+        <transition to="notify customer while dispatching articles">
             <condition>
-                <![CDATA[file complete]]>
+                <![CDATA[ okay ]]>
             </condition>
         </transition>
     </decision>
 
-    <decision name="check flow conflicts">
-        <handler class="org.andromda.cartridges.jbpm.tests.CheckFlowConflictsImpl"/>
-        <transition to="decision taken">
-            <condition>
-                <![CDATA[no conflicts]]>
-            </condition>
-        </transition>
-        <transition to="conflicts in file">
-            <condition>
-                <![CDATA[ conflict ]]>
-            </condition>
-        </transition>
-    </decision>
+    <fork name="notify customer while dispatching articles">
+        <transition to="dispatching articles"/>
+        <transition to="notifying customer"/>
+    </fork>
+
+    <join name="customer notified during dispatching">
+        <transition to="items dispatched"/>
+    </join>
 
 </process-definition>
 -->
@@ -329,6 +332,9 @@
     // move to the first state
     token.signal();
 
+    // we are now in the "customer ready for purchase" state, signal again
+    token.signal("select article");
+
     // get all tasks from this state
     Collection tasks = process.getTaskMgmtInstance().getTaskInstances();
 
@@ -336,7 +342,7 @@
     for (Iterator taskIterator = tasks.iterator(); taskIterator.hasNext();)
     {
         TaskInstance task = (TaskInstance)tasks.iterator().next();
-        if ("create file".equals(task.getName()))
+        if ("addArticleToBasket".equals(task.getName()))
         {
             if (!task.hasEnded())
             {
@@ -354,15 +360,18 @@
 <source language="java">
 <!--
     // tell the process helper class we want to start a new process
-    StartNode start = RealScenarioExample.startProcess();
+    StartNode start = OnlineStore.startProcess();
 
     // move to the first state
-    PerformInitialTasksNode tasksNode = start.signal();
+    CustomerReadyForPurchaseNode readyNode = start.signal();
+
+    // move to the second state
+    ArticleSelectedNode selectedNode = readyNode.signal();
 
     // finish the first task
-    if (!tasksNode.isCreateFileFinished())
+    if (!selectedNode.isArticleToBasketFinished())
     {
-        tasksNode.finishCreateFile();
+        selectedNode.finishAddArticleToBasket();
     }
 -->
 </source>
@@ -372,17 +381,17 @@
                 model your compiler will tell you if your code is out of sync'.
             </p>
             <p>
-                Here are the generated assignment handlers for the <code>human</code> swimlane, you're looking
+                Here are the generated assignment handlers for the <code>customer</code> swimlane, you're looking
                 at the generated parent and implementation classes:
             </p>
 <source language="java">
 <!--
-package org.andromda.cartridges.jbpm.tests;
+package org.andromda.cartridges.jbpm.tests.onlinestore;
 
 /**
  *
  */
-public abstract class HumanAssignment implements org.jbpm.taskmgmt.def.AssignmentHandler
+public abstract class CustomerAssignment implements org.jbpm.taskmgmt.def.AssignmentHandler
 {
     public final void assign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
@@ -394,12 +403,12 @@ public abstract class HumanAssignment implements org.jbpm.taskmgmt.def.Assignmen
         throws java.lang.Exception;
 }
 
-package org.andromda.cartridges.jbpm.tests;
+package org.andromda.cartridges.jbpm.tests.onlinestore;
 
 /**
- * @see {@link HumanAssignment}
+ * @see {@link CustomerAssignment}
  */
-public class HumanAssignmentImpl extends HumanAssignment
+public class CustomerAssignmentImpl extends CustomerAssignment
 {
     protected void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
@@ -409,17 +418,18 @@ public class HumanAssignmentImpl extends HumanAssignment
 -->
 </source>
             <p>
-                There's a timer in the <code>take decision</code> node, here are the corresponding action handler
+                There's a timer in the <code>notifying customer</code> node, more specifically on the event deferring
+                to the <code>sendNotification></code> operation, here are the corresponding action handler
                 classes:
             </p>
 <source language="java">
 <!--
-package org.andromda.cartridges.jbpm.tests;
+package org.andromda.cartridges.jbpm.tests.onlinestore;
 
 /**
  *
  */
-public abstract class TakeDecision implements
+public abstract class SendNotification implements
     org.jbpm.graph.def.ActionHandler
 {
     public final void execute(org.jbpm.graph.exe.ExecutionContext executionContext)
@@ -432,9 +442,12 @@ public abstract class TakeDecision implements
         throws java.lang.Exception;
 }
 
-package org.andromda.cartridges.jbpm.tests;
+package org.andromda.cartridges.jbpm.tests.onlinestore;
 
-public class TakeDecisionImpl extends TakeDecision
+/**
+ * @see {@link SendNotification}
+ */
+public class SendNotificationImpl extends SendNotification
 {
     protected final void handleExecute(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception

@@ -19,13 +19,13 @@ ${indent}</start-state>
 #macro (renderSwimlanes $processDefinition $indent)
 #if (!$processDefinition.swimlanes.empty)
 #foreach ($swimlane in $processDefinition.swimlanes)
-#if ($swimlane.assignmentExpressions.empty)
-${indent}<swimlane name="$swimlane.name"/>
-#else
 ${indent}<swimlane name="$swimlane.name">
-${indent}    <assignment#renderClass($swimlane)#renderAssignmentExpression($swimlane)/>
-${indent}</swimlane>
+#if ($swimlane.assignmentExpression)
+${indent}    <assignment expression="$swimlane.assignmentExpression"/>
+#else
+${indent}    <assignment#renderClass($swimlane)/>
 #end
+${indent}</swimlane>
 
 #end
 #end
@@ -276,13 +276,5 @@ ${indent}<transition#renderName($transition) to="$transition.target.name"/>
 #macro (renderSwimlane $state)
 #if ($state.swimlane)
  swimlane="$state.swimlane.name"## no newline
-#end
-#end
-##
-##
-##
-#macro (renderAssignmentExpression $swimlane)
-#if ($swimlane.assignmentExpression)
- expression="$swimlane.assignmentExpression"## no newline
 #end
 #end

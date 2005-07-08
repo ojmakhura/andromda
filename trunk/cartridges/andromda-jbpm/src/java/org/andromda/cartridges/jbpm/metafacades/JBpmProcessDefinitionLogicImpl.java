@@ -180,7 +180,7 @@ public class JBpmProcessDefinitionLogicImpl
             for (final Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
             {
                 final PseudostateFacade pseudostate = (PseudostateFacade) pseudostateIterator.next();
-                if (pseudostate.isFork())
+                if (pseudostate.isSplit())
                 {
                     forks.add(pseudostate);
                 }
@@ -201,7 +201,7 @@ public class JBpmProcessDefinitionLogicImpl
             for (final Iterator pseudostateIterator = pseudostates.iterator(); pseudostateIterator.hasNext();)
             {
                 final PseudostateFacade pseudostate = (PseudostateFacade) pseudostateIterator.next();
-                if (pseudostate.isJoin())
+                if (pseudostate.isCollect())
                 {
                     joins.add(pseudostate);
                 }
