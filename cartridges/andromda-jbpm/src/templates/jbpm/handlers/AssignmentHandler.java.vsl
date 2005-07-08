@@ -1,3 +1,4 @@
+#if (!$swimlane.assignmentExpression)
 #set ($generatedFile = "${swimlane.assignmentHandlerFullPath}.java")
 #if ($stringUtils.isNotBlank($swimlane.assignmentHandlerPackageName))
 package $swimlane.assignmentHandlerPackageName;
@@ -17,3 +18,4 @@ public abstract class $swimlane.assignmentHandlerClassName implements org.jbpm.t
     protected abstract void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception;
 }
+#end

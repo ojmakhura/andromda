@@ -1,3 +1,4 @@
+#if (!$swimlane.assignmentExpression)
 #set ($generatedFile = "${swimlane.assignmentHandlerFullPath}Impl.java")
 #if ($stringUtils.isNotBlank($swimlane.assignmentHandlerPackageName))
 package $swimlane.assignmentHandlerPackageName;
@@ -13,3 +14,4 @@ public class ${swimlane.assignmentHandlerClassName}Impl extends $swimlane.assign
     {
     }
 }
+#end
