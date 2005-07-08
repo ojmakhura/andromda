@@ -655,7 +655,9 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsRequiresSpecializationMapping()
     {
-        return this.isRoot() && (this.isHibernateInheritanceSubclass() || this.isHibernateInheritanceClass());
+        return this.isRoot() && (this.isHibernateInheritanceSubclass() 
+                || this.isHibernateInheritanceClass()
+                || this.isHibernateInheritanceUnionSubClass());
     }
 
     /**
