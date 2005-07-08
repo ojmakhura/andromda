@@ -184,6 +184,7 @@
                                 <li>class - table per hierarchy.</li>
                                 <li>subclass - table per class in hierarchy.</li>
                                 <li>concrete - Table per class.</li>
+                                <li>union-subclass - Table per class (only on Hibernate 3).</li>
                                 <li>
                                     interface - Root class is defined as
                                     an interface and the attributes remapped to the subclasses.
