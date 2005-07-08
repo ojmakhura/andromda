@@ -115,6 +115,13 @@
                     container)
                 </documentation>
             </property>
+            <property name="enableSpringTransactionsWhenEjbsEnabled">
+                <default>true</default>
+                <documentation>
+                    Whether or not to enable Spring transaction support when EJBs are enabled.  If this is set to false
+                    then only EJB transaction support is generated.
+                </documentation>
+            </property>
             <property name="ejbRemoteProxyFactoryBean">
                 <default>org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean</default>
                 <documentation>
