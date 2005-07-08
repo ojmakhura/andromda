@@ -121,7 +121,8 @@
         path="templates/jbpm/handlers/AssignmentHandler.java.vsl"
         outputPattern="$generatedFile"
         outlet="handlers"
-        overwrite="true">
+        overwrite="true"
+        generateEmptyFiles="false">
         <modelElements variable="swimlane">
             <modelElement>
                 <type name="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlane"/>
@@ -133,7 +134,8 @@
         path="templates/jbpm/handlers/AssignmentHandlerImpl.java.vsl"
         outputPattern="$generatedFile"
         outlet="handler-impls"
-        overwrite="false">
+        overwrite="false"
+        generateEmptyFiles="false">
         <modelElements variable="swimlane">
             <modelElement>
                 <type name="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlane"/>
