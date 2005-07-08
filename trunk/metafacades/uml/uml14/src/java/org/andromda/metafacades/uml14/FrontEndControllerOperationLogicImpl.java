@@ -1,5 +1,7 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+
 import org.andromda.metafacades.uml.FrontEndController;
 
 
@@ -24,5 +26,13 @@ public class FrontEndControllerOperationLogicImpl
     protected boolean handleIsOwnerIsController()
     {
         return this.getOwner() instanceof FrontEndController;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getFormFields()
+     */
+    protected java.util.List handleGetFormFields()
+    {
+        return new ArrayList(this.getParameters());
     }
 }
