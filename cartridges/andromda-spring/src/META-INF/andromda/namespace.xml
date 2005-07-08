@@ -372,7 +372,7 @@
                 </documentation>
             </property>
             <property name="transactionManager">
-                <default>org.springframework.orm.hibernate.HibernateTransactionManager</default>
+                <default>org.springframework.transaction.jta.JtaTransactionManager</default>
                 <documentation>
                     The transaction manager implementation used by Spring.
                 </documentation>
