@@ -11,11 +11,13 @@ import org.andromda.metafacades.uml.FrontEndController;
 public class FrontEndControllerOperationLogicImpl
     extends FrontEndControllerOperationLogic
 {
-
-    public FrontEndControllerOperationLogicImpl (Object metaObject, String context)
+    public FrontEndControllerOperationLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#isOwnerIsController()
      */

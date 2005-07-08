@@ -16,7 +16,6 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
@@ -32,11 +31,6 @@ public class StrutsJspLogicImpl
     public StrutsJspLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
-    }
-
-    protected boolean handleIsFrontEndView()
-    {
-        return this.hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_VIEW);
     }
 
     public String getPackageName()
@@ -65,7 +59,7 @@ public class StrutsJspLogicImpl
 
         if (!normalizeMessages())
         {
-            final StrutsUseCase useCase = getUseCase();
+            final UseCaseFacade useCase = this.getUseCase();
             if (useCase != null)
             {
                 messageKey.append(StringUtilsHelper.toResourceMessageKey(useCase.getName()));
@@ -181,23 +175,10 @@ public class StrutsJspLogicImpl
         return actionParameters;
     }
 
-    protected Object handleGetUseCase()
-    {
-        UseCaseFacade useCase = null;
-
-        final StateMachineFacade graphContext = getStateMachine();
-        if (graphContext instanceof ActivityGraphFacade)
-        {
-            useCase = ((ActivityGraphFacade)graphContext).getUseCase();
-            if (useCase != null && !StrutsUseCase.class.isAssignableFrom(useCase.getClass()))
-            {
-                useCase = null;
-            }
-        }
-        return useCase;
-    }
-
-    protected List handleGetActions()
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndView#getActions()
+     */
+    public List getActions()
     {
         final List actions = new ArrayList();
         final Collection outgoing = getOutgoing();

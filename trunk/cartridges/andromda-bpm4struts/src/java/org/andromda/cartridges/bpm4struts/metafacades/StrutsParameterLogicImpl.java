@@ -39,11 +39,6 @@ public class StrutsParameterLogicImpl
         super(metaObject, context);
     }
 
-    protected boolean handleIsContainedInFrontEndUseCase()
-    {
-        return (this.getEvent() instanceof StrutsTrigger) || (this.getOperation() instanceof StrutsControllerOperation);
-    }
-
     protected Object handleGetAction()
     {
         Object actionObject = null;
@@ -112,11 +107,6 @@ public class StrutsParameterLogicImpl
         return jspObject;
     }
 
-    protected Object handleGetControllerOperation()
-    {
-        return getOperation();
-    }
-
     protected List handleGetFormFields()
     {
         List formFields = null;
@@ -124,7 +114,7 @@ public class StrutsParameterLogicImpl
         {
             final String name = getName();
             formFields = new ArrayList();
-            Collection actions = getControllerOperation().getDeferringActions();
+            Collection actions = ((StrutsControllerOperation)this.getControllerOperation()).getDeferringActions();
             for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 StrutsAction action = (StrutsAction)actionIterator.next();
@@ -188,11 +178,6 @@ public class StrutsParameterLogicImpl
             }
         }
         return resetRequired;
-    }
-
-    protected boolean handleIsControllerOperationArgument()
-    {
-        return getControllerOperation() != null;
     }
 
     /**
@@ -1049,8 +1034,8 @@ public class StrutsParameterLogicImpl
         }
         else if (isControllerOperationArgument())
         {
-            final String name = getName();
-            Collection actions = getControllerOperation().getDeferringActions();
+            final String name = this.getName();
+            Collection actions = ((StrutsControllerOperation)this.getControllerOperation()).getDeferringActions();
             for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 StrutsAction action = (StrutsAction)actionIterator.next();
