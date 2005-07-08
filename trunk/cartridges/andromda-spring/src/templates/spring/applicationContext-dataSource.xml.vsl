@@ -17,7 +17,6 @@
     <!-- ===================== TRANSACTION MANAGER DEFINITION ========================= -->
 
     <bean id="transactionManager" class="$transactionManager">
-        <property name="sessionFactory"><ref bean="sessionFactory"/></property>
 #if ($stringUtils.isNotBlank($userTransactionName))
         <property name="userTransactionName"><value>$userTransactionName</value></property>
 #end
