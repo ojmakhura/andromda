@@ -55,14 +55,6 @@
             <version>${andromda.version}</version>
             <type>xml.zip</type>
         </dependency>
-#if ($workflow)
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-profile-process</artifactId>
-            <version>${andromda.version}</version>
-            <type>xml.zip</type>
-        </dependency>
-#end
         <dependency>
             <groupId>andromda</groupId>
              <artifactId>maven-andromda-plugin</artifactId>
