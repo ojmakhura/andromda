@@ -9,7 +9,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-RC1-SNAPSHOT" date="2005-07-01" description="First release candidate of version 3.1">
+        <release version="3.1-RC1-SNAPSHOT" date="2005-07-09" description="First release candidate of version 3.1">
+            <action dev="cwbrandon" type="update">
+                The andromda-profile has been broken up into sub-profiles, process, persistence, service, meta, etc.
+                In order to successfully use this new profile with a Magic Draw model, you must open and save your 
+                model once to update all profile references, after that you should be able to successfully build.
+            </action>
             <action dev="carloslcuenca" type="add" issue="HIB-115">
                 Hibernate Cartridge now also supports "union-subclass" inheritance mapping for Hibernate 3.x projects.
             </action>
