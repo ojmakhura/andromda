@@ -23,6 +23,12 @@
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
         </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>xml.zip</type>
+        </dependency>
     </dependencies>
     <!-- restrict the reports generated -->
     <reports>
