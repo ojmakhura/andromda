@@ -419,7 +419,7 @@ public class CustomerAssignmentImpl extends CustomerAssignment
 </source>
             <p>
                 There's a timer in the <code>notifying customer</code> node, more specifically on the event deferring
-                to the <code>sendNotification></code> operation, here are the corresponding action handler
+                to the <code>sendNotification</code> operation, here are the corresponding action handler
                 classes:
             </p>
 <source language="java">
