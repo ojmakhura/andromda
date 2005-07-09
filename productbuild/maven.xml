@@ -459,6 +459,7 @@
 
             - xmiToken = the token to replace
             - xmiValue = the value by which to replace the tokens found
+            - directory = the directory from which to start (default is ${basedir})
 
         At the command line do something like this:
 
@@ -467,9 +468,12 @@
     -->
     <goal name="update-xmi">
         <j:if test="${!empty xmiToken &amp;&amp; !empty xmiValue}">
+            <j:if test="${directory == null}">
+                <j:set var="directory" value="${basedir}"/>
+            </j:if>
             <util:tokenize var="xmiExtensions" delim=",">${xmi.model.extensions}</util:tokenize>
             <ant:fileScanner var="models">
-                <ant:fileset dir="${basedir}">
+                <ant:fileset dir="${directory}">
                     <j:forEach var="xmiExtension" items="${xmiExtensions}">
                         <ant:include name="**/*.${xmiExtension}"/>
                     </j:forEach>
