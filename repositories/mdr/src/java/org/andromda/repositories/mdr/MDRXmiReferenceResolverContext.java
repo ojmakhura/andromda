@@ -198,23 +198,27 @@ public class MDRXmiReferenceResolverContext
         // (like magicdraw)
         modelName = StringUtils.substringBeforeLast(modelName, dot);
 
-        URL modelUrl = ResourceUtils.getResource(modelName);
-        if (modelUrl == null)
+        URL modelUrl = null;
+        if (StringUtils.isNotBlank(modelName))
         {
-            if (CLASSPATH_MODEL_SUFFIXES != null && CLASSPATH_MODEL_SUFFIXES.length > 0)
+            modelUrl = ResourceUtils.getResource(modelName);
+            if (modelUrl == null)
             {
-                int suffixNum = CLASSPATH_MODEL_SUFFIXES.length;
-                for (int ctr = 0; ctr < suffixNum; ctr++)
+                if (CLASSPATH_MODEL_SUFFIXES != null && CLASSPATH_MODEL_SUFFIXES.length > 0)
                 {
-                    if (logger.isDebugEnabled())
+                    int suffixNum = CLASSPATH_MODEL_SUFFIXES.length;
+                    for (int ctr = 0; ctr < suffixNum; ctr++)
                     {
-                        logger.debug("searching for model reference --> '" + modelUrl + "'");
-                    }
-                    String suffix = CLASSPATH_MODEL_SUFFIXES[ctr];
-                    modelUrl = ResourceUtils.getResource(modelName + dot + suffix);
-                    if (modelUrl != null)
-                    {
-                        break;
+                        if (logger.isDebugEnabled())
+                        {
+                            logger.debug("searching for model reference --> '" + modelUrl + "'");
+                        }
+                        String suffix = CLASSPATH_MODEL_SUFFIXES[ctr];
+                        modelUrl = ResourceUtils.getResource(modelName + dot + suffix);
+                        if (modelUrl != null)
+                        {
+                            break;
+                        }
                     }
                 }
             }
