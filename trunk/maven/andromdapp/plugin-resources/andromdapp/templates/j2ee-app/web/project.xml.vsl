@@ -22,6 +22,7 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>${pom.groupId}-common</artifactId>
             <version>${pom.currentVersion}</version>
+            <type>jar</type>
 #if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
@@ -35,6 +36,7 @@
 #if ($ear)
             <type>ejb</type>
 #else
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -44,6 +46,7 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>${commons.collections.version}</version>
+            <type>jar</type>
 #if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
@@ -54,6 +57,7 @@
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
             <version>${commons.digester.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -62,6 +66,7 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${commons.beanutils.version}</version>
+            <type>jar</type>
 #if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
@@ -72,6 +77,7 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>${commons.logging.version}</version>
+            <type>jar</type>
 #if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
@@ -82,6 +88,7 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>${commons.lang.version}</version>
+            <type>jar</type>
 #if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
@@ -92,6 +99,7 @@
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>${commons.validator.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -100,6 +108,7 @@
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>${commons.fileupload.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -108,11 +117,13 @@
             <groupId>servletapi</groupId>
             <artifactId>servletapi</artifactId>
             <version>${servletapi.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts</artifactId>
             <version>${struts.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -121,6 +132,7 @@
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
             <version>${displaytag.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -130,6 +142,7 @@
             <groupId>itext</groupId>
             <artifactId>itext</artifactId>
             <version>${itext.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -138,6 +151,7 @@
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>${taglibs.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -146,6 +160,7 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -156,6 +171,7 @@
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
             <version>${antlr.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -164,6 +180,7 @@
             <groupId>oro</groupId>
             <artifactId>oro</artifactId>
             <version>${oro.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -172,6 +189,7 @@
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
             <version>${jboss.version}</version>
+            <type>jar</type>
 #if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
@@ -207,11 +225,39 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
+        <dependency>
+            <groupId>bsh</groupId>
+            <artifactId>bsh</artifactId>
+            <version>${bsh.version}</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>${c3p0.version}</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>jta</groupId>
+            <artifactId>jta</artifactId>
+            <version>${jta.version}</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
 #end
         <dependency>
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>
             <version>${hibernate.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -220,6 +266,7 @@
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>${cglib.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -228,6 +275,7 @@
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>${dom4j.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -236,6 +284,7 @@
             <groupId>odmg</groupId>
             <artifactId>odmg</artifactId>
             <version>${odmg.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -244,6 +293,7 @@
             <groupId>ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>${ehcache.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -252,6 +302,7 @@
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>
             <version>${asm.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -260,6 +311,7 @@
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
             <version>${aopalliance.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -268,6 +320,7 @@
             <groupId>springframework</groupId>
             <artifactId>spring</artifactId>
             <version>${spring.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -290,22 +343,26 @@
             <groupId>tomcat</groupId>
             <artifactId>jsp-api</artifactId>
             <version>${tomcat.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>ant</groupId>
             <artifactId>ant</artifactId>
             <version>${ant.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>commons-el</groupId>
             <artifactId>commons-el</artifactId>
             <version>${commons.el.version}</version>
+            <type>jar</type>
         </dependency>
  #if ($webservice)
         <dependency>
             <groupId>commons-discovery</groupId>
             <artifactId>commons-discovery</artifactId>
             <version>${commons.discovery.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -314,11 +371,13 @@
             <groupId>axis</groupId>
             <artifactId>axis-ant</artifactId>
             <version>${axis.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis</artifactId>
             <version>${axis.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -327,6 +386,7 @@
             <groupId>axis</groupId>
             <artifactId>axis-jaxrpc</artifactId>
             <version>${axis.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -335,6 +395,7 @@
             <groupId>axis</groupId>
             <artifactId>axis-saaj</artifactId>
             <version>${axis.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
@@ -343,6 +404,7 @@
             <groupId>axis</groupId>
             <artifactId>axis-wsdl4j</artifactId>
             <version>${axis.version}</version>
+            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>

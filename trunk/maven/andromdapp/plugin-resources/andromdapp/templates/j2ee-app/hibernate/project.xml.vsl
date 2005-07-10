@@ -15,6 +15,7 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>${pom.groupId}-common</artifactId>
             <version>${pom.currentVersion}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -34,11 +35,13 @@
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
             <version>${jboss.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${commons.beanutils.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -47,6 +50,7 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>${commons.collections.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -55,6 +59,7 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>${commons.lang.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -63,6 +68,7 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>${commons.logging.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -72,6 +78,7 @@
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>
             <version>${hibernate.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -80,6 +87,7 @@
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>${cglib.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -88,6 +96,7 @@
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>${dom4j.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -96,6 +105,7 @@
             <groupId>odmg</groupId>
             <artifactId>odmg</artifactId>
             <version>${odmg.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -104,6 +114,7 @@
             <groupId>ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>${ehcache.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -112,6 +123,7 @@
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>
             <version>${asm.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>

@@ -15,6 +15,7 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>${pom.groupId}-common</artifactId>
             <version>${pom.currentVersion}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -23,6 +24,7 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>${commons.collections.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -31,6 +33,7 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>${commons.logging.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -39,6 +42,7 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>${commons.lang.version}</version>
+            <type>jar</type>
             <properties>
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
@@ -48,44 +52,52 @@
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
             <version>${jboss.version}</version>
+            <type>jar</type>
         </dependency>
         <!-- XDoclet dependencies -->
         <dependency>
             <groupId>xjavadoc</groupId>
             <artifactId>xjavadoc</artifactId>
             <version>${xjavadoc.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet</artifactId>
             <version>${xdoclet.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-xdoclet-module</artifactId>
             <version>${xdoclet.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-ejb-module</artifactId>
             <version>${xdoclet.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-jboss-module</artifactId>
             <version>${xdoclet.version}</version>
+            <type>jar</type>
         </dependency>
         <!-- This one is needed because jboss-module depends on it -->
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-jmx-module</artifactId>
             <version>${xdoclet.version}</version>
+            <type>jar</type>
         </dependency>
         <!-- ejbdoclet depends on this module for some reason -->
         <dependency>
             <groupId>xdoclet</groupId>
             <artifactId>xdoclet-web-module</artifactId>
             <version>${xdoclet.version}</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <build>

@@ -67,12 +67,14 @@
             <groupId>andromda</groupId>
             <artifactId>andromda-ejb-cartridge</artifactId>
             <version>${andromda.version}</version>
+            <type>jar</type>
         </dependency>
 #elseif ($spring)
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-spring-cartridge</artifactId>
             <version>${andromda.version}</version>
+            <type>jar</type>
             <type>jar</type>
         </dependency>
 #end
@@ -82,6 +84,7 @@
             <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
             <version>${andromda.version}</version>
+            <type>jar</type>
         </dependency>
 #end
 #if ($workflow)
@@ -104,23 +107,27 @@
             <groupId>andromda</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${andromda.version}</version>
+            <type>jar</type>
         </dependency>
 #if ($web)
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${andromda.version}</version>
+            <type>jar</type>
         </dependency>
 #end
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${andromda.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-query-library</artifactId>
             <version>${andromda.version}</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 </project>
