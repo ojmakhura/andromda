@@ -21,11 +21,13 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>${pom.groupId}-common</artifactId>
             <version>${pom.currentVersion}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
         </dependency>
 #if ($workflow)
+## the workflow implies the usage of hibernate
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${pom.groupId}-workflow</artifactId>
@@ -53,6 +55,35 @@
                 <ear.bundle>true</ear.bundle>
             </properties>
         </dependency>
+        <dependency>
+            <groupId>bsh</groupId>
+            <artifactId>bsh</artifactId>
+            <version>${bsh.version}</version>
+            <type>jar</type>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>${c3p0.version}</version>
+            <type>jar</type>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+#if ($web)
+        <dependency>
+            <groupId>jta</groupId>
+            <artifactId>jta</artifactId>
+            <version>${jta.version}</version>
+            <type>jar</type>
+            <properties>
+                <ear.bundle>true</ear.bundle>
+            </properties>
+        </dependency>
+#end
 #end
 #if ($web)
         <dependency>
@@ -82,6 +113,7 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${commons.beanutils.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -90,6 +122,7 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>${commons.collections.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -98,6 +131,7 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>${commons.lang.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -109,6 +143,7 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>${commons.logging.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -119,6 +154,7 @@
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>
             <version>${hibernate.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -127,6 +163,7 @@
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>${cglib.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -135,6 +172,7 @@
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>${dom4j.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -143,6 +181,7 @@
             <groupId>odmg</groupId>
             <artifactId>odmg</artifactId>
             <version>${odmg.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -151,6 +190,7 @@
             <groupId>ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>${ehcache.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -159,6 +199,7 @@
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>
             <version>${asm.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -195,6 +236,7 @@
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
             <version>${aopalliance.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
@@ -203,6 +245,7 @@
             <groupId>springframework</groupId>
             <artifactId>spring</artifactId>
             <version>${spring.version}</version>
+            <type>jar</type>
             <properties>
                 <ear.bundle>true</ear.bundle>
             </properties>
