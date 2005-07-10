@@ -14,7 +14,7 @@
                 The andromda-profile has been broken up into sub-profiles: process, persistence, service, meta, etc.
                 In order to successfully use this new profile with a Magic Draw model, you'll need to do 2 things: First,
                 add several new dependencies to your project.xml (or regenerate a project using the andromdapp plugin), see
-                this <a href="http://forum.andromda.org/viewtopic.php?p=2264#2264">forum thread</a> for more information. 
+                this <a href="http://forum.andromda.org/viewtopic.php?p=2264">forum thread</a> for more information. 
                 Second, you must open and save your model once to update all profile references, after that you should be able to successfully build.
             </action>
             <action dev="carloslcuenca" type="add" issue="HIB-115">
