@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndController;
 
 
@@ -18,6 +19,17 @@ public class FrontEndControllerOperationLogicImpl
         String context)
     {
         super(metaObject, context);
+    }
+    
+    /**
+     * Override to return the owner's package as the package name.
+     * 
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetPackageName()
+     */
+    public String handleGetPackageName()
+    {
+        final ClassifierFacade owner = this.getOwner();
+        return owner != null ? owner.getPackageName() : "";
     }
 
     /**
