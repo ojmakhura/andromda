@@ -243,15 +243,6 @@
                 <war.bundle>true</ear.bundle>
             </properties>
         </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
-            <version>${jboss.version}</version>
-            <type>jar</type>
-            <properties>
-                <war.bundle>true</ear.bundle>
-            </properties>
-        </dependency>
 #end
         <dependency>
             <groupId>hibernate</groupId>
