@@ -73,17 +73,6 @@
                 <ear.bundle>true</ear.bundle>
             </properties>
         </dependency>
-#if ($web)
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-j2ee</artifactId>
-            <version>${jboss.version}</version>
-            <type>jar</type>
-            <properties>
-                <ear.bundle>true</ear.bundle>
-            </properties>
-        </dependency>
-#end
 #end
 #if ($web)
         <dependency>
