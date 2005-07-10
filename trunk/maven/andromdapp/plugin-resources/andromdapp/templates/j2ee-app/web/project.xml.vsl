@@ -244,9 +244,9 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>jta</groupId>
-            <artifactId>jta</artifactId>
-            <version>${jta.version}</version>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-j2ee</artifactId>
+            <version>${jboss.version}</version>
             <type>jar</type>
             <properties>
                 <war.bundle>true</ear.bundle>
