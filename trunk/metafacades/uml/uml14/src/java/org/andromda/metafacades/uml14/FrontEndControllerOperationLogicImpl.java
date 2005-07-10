@@ -33,6 +33,6 @@ public class FrontEndControllerOperationLogicImpl
      */
     protected java.util.List handleGetFormFields()
     {
-        return new ArrayList(this.getParameters());
+        return new ArrayList(this.getArguments());
     }
 }
