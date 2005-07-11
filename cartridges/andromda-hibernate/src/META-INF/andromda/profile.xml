@@ -110,6 +110,12 @@
                 <documentation></documentation>
                 <value>@andromda.hibernate.cascade</value>
             </element>
+            <element name="HIBERNATE_FORMULA">
+                <documentation>Defines an attribute of a class as a calculated value. This tagged value
+                    stores the SQL formula that will be used to assign a value to this property.
+                </documentation>
+                <value>@andromda.hibernate.formula</value>
+            </element>
         </elementGroup>
     </elements>
 </profile>
