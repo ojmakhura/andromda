@@ -455,7 +455,7 @@ public abstract class $entity.daoBaseName
 #end
             java.util.List results = criteriaSearch.executeAsList();
 #if ($finder.returnType.setType)
-            java.util.List results = criteriaSearch.executeAsSet();
+            java.util.Set results = criteriaSearch.executeAsSet();
 #end
             transformEntities(transform, results);
             return results;
