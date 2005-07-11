@@ -32,7 +32,7 @@
     <!-- ===================================================================
          Deploy the model into the remote repository
          =================================================================== -->
-    <goal name="xml.zip:deploy" prereqs="xml.zip:prepare">
+    <goal name="xml.zip:deploy" prereqs="clean:clean,xml.zip:prepare">
         <!-- construct the suffix shared by all profiles -->
         <j:set var="versionSuffix" value="-${pom.currentVersion}.xml.zip"/>
         <!-- backup the original artifact id -->
