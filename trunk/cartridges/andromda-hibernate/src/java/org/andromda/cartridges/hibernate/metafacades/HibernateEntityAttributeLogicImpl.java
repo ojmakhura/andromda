@@ -1,5 +1,6 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
@@ -42,7 +43,7 @@ public class HibernateEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleIsContainsEmbeddedObject()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isContainsEmbeddedObject()
      */
     protected boolean handleIsContainsEmbeddedObject()
     {
@@ -62,7 +63,7 @@ public class HibernateEntityAttributeLogicImpl
      *      String getColumnName() { String columnName = super.getColumnName(); }
      */
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleConcatColumnName(java.lang.String,
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#concatColumnName(java.lang.String,
      *      java.lang.String)
      */
     protected String handleConcatColumnName(
@@ -80,5 +81,13 @@ public class HibernateEntityAttributeLogicImpl
             returnValue = EntityMetafacadeUtils.ensureMaximumNameLength(returnValue, maxSqlNameLength);
         }
         return returnValue;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#getFormula()
+     */
+    protected String handleGetFormula()
+    {
+        return (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_FORMULA);
     }
 }

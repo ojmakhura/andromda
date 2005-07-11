@@ -166,4 +166,10 @@ public class HibernateProfile
      * Defines the tagged value for hibernate cascade on an association end
      */
     public static final String TAGGEDVALUE_HIBERNATE_CASCADE = profile.get("HIBERNATE_CASCADE");
+    
+    /**
+     * Stores sql formula for an attribute.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_FORMULA = profile.get("HIBERNATE_FORMULA");
+
 }
