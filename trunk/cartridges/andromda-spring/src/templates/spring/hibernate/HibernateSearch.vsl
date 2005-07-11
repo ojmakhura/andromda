@@ -33,15 +33,23 @@ public class $criteriaSearchBaseName
     private static final class ParameterComparator
         implements java.util.Comparator
     {
-        public int compare(Object object1, Object object2)
+        public int compare(final Object object1, final Object object2)
         {
-            CriteriaSearchParameter parameter1 = (CriteriaSearchParameter)object1;
-            CriteriaSearchParameter parameter2 = (CriteriaSearchParameter)object2;
+            final CriteriaSearchParameter parameter1 = (CriteriaSearchParameter)object1;
+            final CriteriaSearchParameter parameter2 = (CriteriaSearchParameter)object2;
 
-            int relevance1 = parameter1.getOrderRelevance();
-            int relevance2 = parameter2.getOrderRelevance();
-
-            return relevance2 - relevance1;
+            final int relevance1 = parameter1.getOrderRelevance();
+            final int relevance2 = parameter2.getOrderRelevance();
+            int result = 0;
+            if (relevance1 > relevance2) 
+            {
+                result = 1;
+            } 
+            else if (relevance1 < relevance2) 
+            {
+                result = -1;    
+            }
+            return result;
 
         }
     }
@@ -206,12 +214,11 @@ public class $criteriaSearchBaseName
                 parameter.getParameterValue(),
                 parameter.getComparatorID(),
                 parameter.getMatchMode());
-
-            // if the parameter is to be ordered, add it to the order list
-            if (parameter.getOrderDirection() != ${criteriaSearchBaseName}Parameter.ORDER_UNSET)
-            {
-                this.orderList.add(parameter);
-            }
+        }
+        // if the parameter is to be ordered, add it to the order list
+        if (parameter.getOrderDirection() != CriteriaSearchParameter.ORDER_UNSET)
+        {
+            this.orderList.add(parameter);
         }
     }
 
