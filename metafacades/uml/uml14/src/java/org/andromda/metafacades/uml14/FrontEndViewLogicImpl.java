@@ -71,4 +71,28 @@ public class FrontEndViewLogicImpl
         }
         return useCase;
     }
+    
+    /**
+     * Override to create the package of the view.
+     * 
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetPackageName()
+     */
+    public String handleGetPackageName()
+    {
+        String packageName = null;
+        final StateMachineFacade graphContext = this.getStateMachine();
+        if (graphContext instanceof ActivityGraphFacade)
+        {
+            final UseCaseFacade graphUseCase = ((ActivityGraphFacade)graphContext).getUseCase();
+            if (graphUseCase instanceof FrontEndUseCase)
+            {
+                final FrontEndUseCase useCase = (FrontEndUseCase)graphUseCase;
+                if (useCase != null)
+                {
+                    packageName = useCase.getPackageName();
+                }
+            }
+        }
+        return packageName;
+    }
 }
