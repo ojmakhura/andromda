@@ -58,12 +58,13 @@ $literal.getDocumentation("     * ")
 #if($enumeration.literalType.primitive)
 #set ($value = "new ${enumeration.literalType.wrapperName}(value)")
 #end
-        if (!literals.contains($value))
+        $enumeration.name typeValue = (${enumeration.name})values.get($value);
+        if (typeValue == null)
         {
             throw new IllegalArgumentException(
                 "invalid value '" + value + "', possible values are: " + literals);
         }
-        return new ${enumeration.name}(value);
+        return typeValue;
     }
 
     /**
