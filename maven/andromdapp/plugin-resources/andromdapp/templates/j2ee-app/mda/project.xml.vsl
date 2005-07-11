@@ -57,9 +57,15 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
-             <artifactId>maven-andromda-plugin</artifactId>
-             <version>${andromda.version}</version>
-             <type>plugin</type>
+            <artifactId>andromda-profile-presentation</artifactId>
+            <version>${andromda.version}</version>
+            <type>xml.zip</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>maven-andromda-plugin</artifactId>
+            <version>${andromda.version}</version>
+            <type>plugin</type>
         </dependency>
 #if ($ejb)
         <!-- Specify and configure our cartridges -->
