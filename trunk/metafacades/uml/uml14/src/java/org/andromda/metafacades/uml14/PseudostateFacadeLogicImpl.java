@@ -61,12 +61,12 @@ public class PseudostateFacadeLogicImpl
 
     protected boolean handleIsSplit()
     {
-        return (isJoin() || isFork()) && metaObject.getIncoming().size() == 1 && metaObject.getOutgoing().size() > 1;
+        return (isJoin() || isFork()) && metaObject.getOutgoing().size() > 1;
     }
 
     protected boolean handleIsCollect()
     {
-        return (isJoin() || isFork()) && metaObject.getOutgoing().size() == 1 && metaObject.getIncoming().size() > 1;
+        return (isJoin() || isFork()) && metaObject.getIncoming().size() > 1;
     }
 
     public Object getValidationOwner()
