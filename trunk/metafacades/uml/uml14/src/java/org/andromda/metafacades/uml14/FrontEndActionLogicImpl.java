@@ -22,6 +22,7 @@ import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -243,5 +244,22 @@ public class FrontEndActionLogicImpl
     {
         final FrontEndActivityGraph graph = this.getFrontEndActivityGraph();
         return graph == null ? null : graph.getController();
+    }
+    
+    /**
+     * Overridden because actions (transitions) are not directly contained in a UML namespace.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
+     */
+    public String handleGetPackageName()
+    {
+        String packageName = null;
+
+        final UseCaseFacade useCase = this.getUseCase();
+        if (useCase != null)
+        {
+            packageName = useCase.getPackageName();
+        }
+        return packageName;
     }
 }
