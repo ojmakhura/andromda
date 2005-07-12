@@ -77,7 +77,8 @@ public class $criteriaSearchBaseName
      * @return result The result of the query.
      * @throws org.hibernate.HibernateException
      */
-    public java.util.Set executeAsSet() throws org.hibernate.HibernateException
+    public final java.util.List executeAsList() 
+        throws ${hibernateUtils.basePackage}.HibernateException
     {
         // add ordering
         if (this.orderList.size() > 0)
@@ -119,7 +120,11 @@ public class $criteriaSearchBaseName
         // Hibernate does not support a 'unique' identifier. As a search may contain outer joins,
         // duplicates in the resultList are possible. We eliminate any duplicates here, creating a
         // distinctified resultSet (Suggestion from Hibernate itself; see www.hibernate.org's FAQ's).
-        return new java.util.LinkedHashSet(this.rootCriteria.list());
+        final java.util.List result = this.rootCriteria.list();
+        org.apache.commons.collections.CollectionUtils.filter(
+            result, 
+            org.apache.commons.collections.functors.UniquePredicate.getInstance());
+        return result;
     }
     
     /**
@@ -130,9 +135,9 @@ public class $criteriaSearchBaseName
      * @return result The result of the query.
      * @throws org.hibernate.HibernateException
      */
-    public java.util.List executeAsList() throws org.hibernate.HibernateException
+    public java.util.Set executeAsSet() throws org.hibernate.HibernateException
     {
-        return new java.util.ArrayList(this.executeAsSet());
+        return new java.util.LinkedHashSet(this.executeAsList());
     }
 
     /**
