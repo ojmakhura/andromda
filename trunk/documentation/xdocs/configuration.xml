@@ -826,7 +826,7 @@
                 <p>
                     The <code><![CDATA[<namespace>]]></code> element is used to do two things:
                     <ol>
-                        <li>Activate a cartridge</li>
+                        <li>Activate a cartridge (if a cartridge resides within the given namespace)</li>
                         <li>
                             Customize the properties of a plugin (cartridge, translation-library, etc).
                             These properties can be used to define the location to which generated files are written,
