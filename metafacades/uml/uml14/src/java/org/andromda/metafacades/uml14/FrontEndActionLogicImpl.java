@@ -1,5 +1,9 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -43,5 +47,14 @@ public class FrontEndActionLogicImpl
             }
         }
         return input;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndAction#getParameters()
+     */
+    protected java.util.List handleGetParameters()
+    {
+        final EventFacade trigger = this.getTrigger();
+        return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
     }
 }

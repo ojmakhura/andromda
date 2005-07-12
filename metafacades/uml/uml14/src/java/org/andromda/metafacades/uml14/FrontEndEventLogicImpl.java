@@ -2,7 +2,9 @@ package org.andromda.metafacades.uml14;
 
 import java.lang.reflect.Method;
 
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.TransitionFacade;
 
 
 /**
@@ -36,12 +38,28 @@ public class FrontEndEventLogicImpl
         try
         {
             final Method method = metaObject.getClass().getMethod("getOperation", (Class[])null);
+            System.out.println("the controller call!!!!! " + method.invoke(metaObject, (Object[])null));
             return method.invoke(metaObject, (Object[])null);
         }
         catch (Exception ex)
         {
+            ex.printStackTrace();
             return null;
         }
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndEvent#getAction()
+     */
+    protected Object handleGetAction()
+    {
+        FrontEndAction action = null;
+        TransitionFacade transition = getTransition();
+        if (transition instanceof FrontEndAction)
+        {
+            action = (FrontEndAction)transition;
+        }
+        return action;
     }
 
 }
