@@ -71,7 +71,7 @@ public class $criteriaSearchBaseName
 
     /**
      * Executes a <code>HibernateQuery</code> using the currently defined
-     * <code>CriteriaSearchParameter</code>s, and returns a java.util.Set
+     * <code>CriteriaSearchParameter</code>s, and returns a java.util.List
      * containing the query results.
      *
      * @return result The result of the query.
@@ -129,7 +129,7 @@ public class $criteriaSearchBaseName
     
     /**
      * Executes a <code>HibernateQuery</code> using the currently defined
-     * <code>CriteriaSearchParameter</code>s, and returns a java.util.List
+     * <code>CriteriaSearchParameter</code>s, and returns a java.util.Set
      * containing the query results.
      *
      * @return result The result of the query.
