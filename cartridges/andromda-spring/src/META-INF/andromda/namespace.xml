@@ -391,10 +391,14 @@
                 </documentation>
             </property>
             <property name="userTransactionName" required="false">
-                <default></default>
+                <documentation>
+                    The (JNDI-) user transaction manager of the J2EE container if using JTA transactions (via spring).
+                </documentation>
+            </property>
+            <property name="transactionManagerName" required="false">
                 <documentation>
                     The (JNDI-) transaction manager of the J2EE container if using JTA transactions (via spring).
-                </documentation>
+                </documentation>                
             </property>
             <property name="sessionFactory">
                 <default>org.springframework.orm.hibernate.LocalSessionFactoryBean</default>

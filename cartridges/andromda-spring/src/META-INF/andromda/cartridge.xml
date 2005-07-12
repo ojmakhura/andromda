@@ -52,6 +52,7 @@
     <property reference="transactionManager"/>
     <property reference="localTransactionManager"/>
     <property reference="userTransactionName"/>
+    <property reference="transactionManagerName"/>
     <property reference="sessionFactory"/>
     <property reference="serviceLocatorName"/>
     <property reference="springTypesPackage"/>
