@@ -1,6 +1,8 @@
 package org.andromda.core.common;
 
 import junit.framework.TestCase;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 
 
 /**
@@ -227,6 +229,72 @@ public class StringUtilsHelperTest
             String[] strings = fixture[i];
             assertEquals(
                 StringUtilsHelper.separate(strings[0], "_"),
+                strings[1]);
+        }
+    }
+
+    public void testSimpleFormat()
+    {
+        final String newline = SystemUtils.LINE_SEPARATOR;
+
+        final String[][] fixture =
+            new String[][]
+            {
+                new String[] {null, ""},
+                new String[] {"", ""},
+                new String[] {"  ", "  "},
+                new String[] {"word", "word"},
+                new String[] {"hottentottententoonstelling", "hottentottententoonstelling"},
+                new String[] {"line1\nline2", "line1"+newline+"line2"},
+                new String[] {"testing without any indentation", "testing"+newline+"without"+newline+"any"+newline+"indentation"},
+                new String[] {"do you know the a b c ?", "do"+newline+"you"+newline+"know"+newline+"the a"+newline+"b c ?"},
+                new String[] {"dodo do do doooo", "dodo"+newline+"do do"+newline+"doooo"}
+            };
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            String[] strings = fixture[i];
+            assertEquals(
+                StringUtilsHelper.format(strings[0], null, 5, false),
+                strings[1]);
+        }
+    }
+
+    public void testIndentedFormat()
+    {
+        final String indentation = " * ";
+        final String newline = SystemUtils.LINE_SEPARATOR + indentation;
+
+        final String[][] fixture =
+            new String[][]
+            {
+                new String[] {"one two three", indentation+"one"+newline+"two"+newline+"three"},
+            };
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            String[] strings = fixture[i];
+            assertEquals(
+                StringUtilsHelper.format(strings[0], indentation, 5, false),
+                strings[1]);
+        }
+    }
+
+    public void testHtmlFormat()
+    {
+        final String newline = SystemUtils.LINE_SEPARATOR + "<p/>" + SystemUtils.LINE_SEPARATOR;
+
+        final String[][] fixture =
+            new String[][]
+            {
+                new String[] {"one two three", "one"+newline+"two"+newline+"three"},
+            };
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            String[] strings = fixture[i];
+            assertEquals(
+                StringUtilsHelper.format(strings[0], "", 5, true),
                 strings[1]);
         }
     }
