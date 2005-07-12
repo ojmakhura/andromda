@@ -38,12 +38,10 @@ public class FrontEndEventLogicImpl
         try
         {
             final Method method = metaObject.getClass().getMethod("getOperation", (Class[])null);
-            System.out.println("the controller call!!!!! " + method.invoke(metaObject, (Object[])null));
             return method.invoke(metaObject, (Object[])null);
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
             return null;
         }
     }
