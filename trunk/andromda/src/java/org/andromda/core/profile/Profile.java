@@ -16,7 +16,7 @@ import org.andromda.core.namespace.BaseNamespaceComponent;
 
 
 /**
- * Represents an AndroMDA profile applied to model.
+ * Represents an AndroMDA profile applied to a model.
  * Profiles allow us to extend aspects of a model.
  *
  * @author Chad Brandon
