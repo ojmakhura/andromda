@@ -764,14 +764,6 @@
                     Please Note: The logical name is the value of the <em>name</em> attribute within an the actual mappings
                     file on the <em><![CDATA[<mappings/>]]></em> element.
                 </p>
-                <p>
-                    We want to define the location of the mapping files so that we
-                    use the logical name of mapping, files therefore we create a
-                    <code><![CDATA[<mappingsSearchLocations>]]></code> element pointing to
-                    the location for which to find all AndroMDA mapping files we'll be
-                    using.  Note how we are able to use logical names such as <code>JDBC</code>
-                    and <code>HypersonicSql</code> instead of the complete paths.
-                </p>
                 <source language="xml">
 <![CDATA[<andromda>
     ...
