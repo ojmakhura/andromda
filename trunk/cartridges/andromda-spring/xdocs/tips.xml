@@ -86,5 +86,34 @@ protected boolean doSomethingWithUserGroups(User user) throws Exception
 }
 ]]></source>
         </section>
+        <section name="Connecting to JBoss with Remote EJBs">
+            <p>
+                When connecting to a remote EJB wrapped Spring service deployed in JBoss, its possible you'll get 
+                the following exception:
+<source>
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'transactionManager' defined in c
+lass path resource [applicationContext-dataSource.xml]: Initialization of bean failed; nested exception is org.springfra
+mework.transaction.TransactionSystemException: JTA UserTransaction is not available at JNDI location [java:comp/UserTran
+saction]; nested exception is javax.naming.NameNotFoundException: UserTransaction not bound
+org.springframework.transaction.TransactionSystemException: JTA UserTransaction is not available at JNDI location [java:
+comp/UserTransaction]; nested exception is javax.naming.NameNotFoundException: UserTransaction not bound
+javax.naming.NameNotFoundException: UserTransaction not bound
+        at org.jnp.server.NamingServer.getBinding(NamingServer.java:491)
+        at org.jnp.server.NamingServer.getBinding(NamingServer.java:499)
+        at org.jnp.server.NamingServer.getObject(NamingServer.java:505)
+        at org.jnp.server.NamingServer.lookup(NamingServer.java:278)    
+</source>
+                To get around this, place the following 2 properties in your <em>spring</em> namespace:
+                <source language="xml"><![CDATA[
+                    
+<namespace name="spring">
+    ...
+    <property name="userTransactionName">null</property>
+    <property name="transactionManagerName">java:/TransactionManager</property>    
+    ...  
+</namespace>              
+                ]]></source>
+            </p>
+        </section>
     </body>
 </document>
