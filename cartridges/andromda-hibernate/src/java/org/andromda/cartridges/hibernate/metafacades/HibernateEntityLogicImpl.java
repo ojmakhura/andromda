@@ -492,12 +492,10 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsEhCacheEternal()
     {
         String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
-
         if (eternal == null)
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
-
         return Boolean.valueOf(eternal).booleanValue();
     }
 
