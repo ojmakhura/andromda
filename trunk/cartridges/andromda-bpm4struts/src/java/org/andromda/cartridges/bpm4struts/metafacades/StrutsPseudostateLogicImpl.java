@@ -41,7 +41,12 @@ public class StrutsPseudostateLogicImpl
                 "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);
     }
 
-    protected List handleGetContainerActions()
+    /**
+     * Overrideen since StrutsAction does not extend FrontEndAction
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndPseudostate#getContainerActions()
+     */
+    public List getContainerActions()
     {
         final Collection actionSet = new HashSet();
         final StateMachineFacade graphContext = getStateMachine();
