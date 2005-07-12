@@ -36,7 +36,7 @@ public class StrutsControllerLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getDeferringActions()
      */
-    protected List handleGetDeferringActions()
+    public List getDeferringActions()
     {
         final Collection deferringActions = new HashSet();
 

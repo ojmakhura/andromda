@@ -177,10 +177,15 @@ public class StrutsForwardLogicImpl
         return (graph instanceof StrutsActivityGraph) ? graph : null;
     }
 
-    protected java.util.List handleGetActions()
+    /**
+     * Overridden since StrutsAction doesn't extend FrontEndAction.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndForward#getActions()
+     */
+    public java.util.List getActions()
     {
         final Set actions = new HashSet();
-        findActions(actions, new HashSet());
+        this.findActions(actions, new HashSet());
         return new ArrayList(actions);
     }
 
@@ -193,8 +198,8 @@ public class StrutsForwardLogicImpl
      *
      * @param actions the default set of actions, duplicates will not be recorded
      * @param handledForwards the forwards already processed
-     */
-    private void findActions(Set actions, Set handledForwards)
+     */ 
+    private final void findActions(Set actions, Set handledForwards)
     {
         if (!handledForwards.contains(this))
         {

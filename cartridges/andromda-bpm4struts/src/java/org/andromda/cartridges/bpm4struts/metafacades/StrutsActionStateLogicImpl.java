@@ -40,7 +40,12 @@ public class StrutsActionStateLogicImpl
         return '_' + StringUtilsHelper.lowerCamelCaseName(getName());
     }
 
-    protected List handleGetContainerActions()
+    /**
+     * Overridden because StrutsAction does not extend FrontEndAction.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndActionState#getContainerActions()
+     */
+    public List getContainerActions()
     {
         final Collection actionSet = new HashSet();
 

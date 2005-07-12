@@ -1,9 +1,16 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -69,5 +76,21 @@ public class FrontEndControllerLogicImpl
             }
         }
         return useCase;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndController#getDeferringActions()
+     */
+    protected List handleGetDeferringActions()
+    {
+        final Collection deferringActions = new HashSet();
+
+        final Collection operations = getOperations();
+        for (final Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)
+        {
+            final FrontEndControllerOperation operation = (FrontEndControllerOperation)operationIterator.next();
+            deferringActions.addAll(operation.getDeferringActions());
+        }
+        return new ArrayList(deferringActions);
     }
 }

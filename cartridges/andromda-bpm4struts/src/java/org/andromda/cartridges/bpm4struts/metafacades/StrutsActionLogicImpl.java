@@ -16,6 +16,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -769,7 +770,7 @@ public class StrutsActionLogicImpl
             for (int i = 0; i < transitions.size(); i++)
             {
                 final StrutsForward forward = (StrutsForward)transitions.get(i);
-                final StrutsTrigger trigger = forward.getDecisionTrigger();
+                final FrontEndEvent trigger = forward.getDecisionTrigger();
                 if (trigger != null)
                 {
                     deferredOperations.add(trigger.getControllerCall());

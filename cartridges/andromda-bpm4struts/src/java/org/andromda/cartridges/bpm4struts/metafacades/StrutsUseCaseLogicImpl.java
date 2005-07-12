@@ -223,7 +223,12 @@ public class StrutsUseCaseLogicImpl
         return false;
     }
 
-    protected List handleGetActions()
+    /**
+     * Overriden because StrutsAction does not extend FrontEndAction.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndUseCase#getActions()
+     */
+    public List getActions()
     {
         final Collection actions = new HashSet();
 
