@@ -855,8 +855,8 @@
                 </p>
                 <p class="highlight">
                     A special <em>default</em> namespace exists which is different than a regular namespace, properties
-                    that you place in this namespace are available to *ALL* plugins.  You'll want to use this when you
-                    have a property that you want to apply to all plugins.
+                    that you place in this namespace are available to *ALL* namespace components.  For example: you'd want to 
+                    define a property in this namespace when you want a property to apply to all cartridges.
                     <source language="xml">
 <![CDATA[
 <namespaces>
