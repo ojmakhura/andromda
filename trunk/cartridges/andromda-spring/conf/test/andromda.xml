@@ -35,6 +35,8 @@
                 <property name="advice-impls">${test.output.dir}</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="open-session-in-view">${test.output.dir}</property>
+                <property name="userTransactionName">null</property>
+                <property name="transactionManagerName">java:/TransactionManager</property>
             </properties>
         </namespace>
     </namespaces>

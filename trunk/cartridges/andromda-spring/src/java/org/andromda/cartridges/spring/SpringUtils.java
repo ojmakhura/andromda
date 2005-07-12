@@ -53,21 +53,22 @@ public class SpringUtils
         boolean present = services != null && !services.isEmpty();
         if (present)
         {
-            present = CollectionUtils.find(
-                services,
-                new Predicate()
-                {
-                    public boolean evaluate(final Object object)
+            present =
+                CollectionUtils.find(
+                    services,
+                    new Predicate()
                     {
-                        boolean valid = false;
-                        if (object instanceof SpringService)
+                        public boolean evaluate(final Object object)
                         {
-                            final SpringService service = (SpringService)object;
-                            valid = service.isEjbRemoteView();
+                            boolean valid = false;
+                            if (object instanceof SpringService)
+                            {
+                                final SpringService service = (SpringService)object;
+                                valid = service.isEjbRemoteView();
+                            }
+                            return valid;
                         }
-                        return valid;
-                    }
-                }) != null;
+                    }) != null;
         }
         return present;
     }
@@ -84,25 +85,26 @@ public class SpringUtils
         boolean present = services != null && !services.isEmpty();
         if (present)
         {
-            present = CollectionUtils.find(
-                services,
-                new Predicate()
-                {
-                    public boolean evaluate(final Object object)
+            present =
+                CollectionUtils.find(
+                    services,
+                    new Predicate()
                     {
-                        boolean valid = false;
-                        if (object instanceof SpringService)
+                        public boolean evaluate(final Object object)
                         {
-                            final SpringService service = (SpringService)object;
-                            valid = !service.isEjbRemoteView();
+                            boolean valid = false;
+                            if (object instanceof SpringService)
+                            {
+                                final SpringService service = (SpringService)object;
+                                valid = !service.isEjbRemoteView();
+                            }
+                            return valid;
                         }
-                        return valid;
-                    }
-                }) != null;
+                    }) != null;
         }
         return present;
     }
-    
+
     /**
      * Indicates if any Spring remotable services are present.
      *
@@ -114,22 +116,47 @@ public class SpringUtils
         boolean present = services != null && !services.isEmpty();
         if (present)
         {
-            present = CollectionUtils.find(
-                services,
-                new Predicate()
-                {
-                    public boolean evaluate(final Object object)
+            present =
+                CollectionUtils.find(
+                    services,
+                    new Predicate()
                     {
-                        boolean valid = false;
-                        if (object instanceof SpringService)
+                        public boolean evaluate(final Object object)
                         {
-                            final SpringService service = (SpringService)object;
-                            valid = service.isRemotable();
+                            boolean valid = false;
+                            if (object instanceof SpringService)
+                            {
+                                final SpringService service = (SpringService)object;
+                                valid = service.isRemotable();
+                            }
+                            return valid;
                         }
-                        return valid;
-                    }
-                }) != null;
+                    }) != null;
         }
         return present;
+    }
+
+    /**
+     * Based on the given <code>value</code>, this method will return
+     * a formatted Spring property (including the handling of 'null').
+     *
+     * @param value the value from which to create the spring value.
+     * @return the spring value.
+     */
+    public String getSpringPropertyValue(final String value)
+    {
+        String propertyValue = "";
+        if (value != null)
+        {
+            if ("null".equalsIgnoreCase(value))
+            {
+                propertyValue = "<null/>";
+            }
+            else
+            {
+                propertyValue = "<value>" + value + "</value>";
+            }
+        }
+        return propertyValue;
     }
 }
