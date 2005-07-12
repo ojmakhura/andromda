@@ -386,19 +386,16 @@ public class StringUtilsHelper
      * Formats the given argument with the specified indentation, wrapping the text at the desired column margin.
      * <p/>
      * The returned text will be suitable for display in HTML environments such as JavaDoc, all newlines will be
-     * replaced by breaks.
+     * replaced by paragraphs.
      * <p/>
      * This method does <em>not</em> trim the input text.
-     * <p/>
-     * <strong>Please note:</strong> <em>the first line will not be indented</em>
      *
      * @param the          text to format, the empty string will be returned in case this argument is <code>null</code>
      * @param indentation  the empty string will be used if this argument would be <code>null</code>
      * @param wrapAtColumn does not take into account the length of the indentation
      * @param htmlStyle    whether or not to make sure the returned string is suited for display in HTML environments
      *                     such as JavaDoc
-     * @return a String instance which represents the formatted input, if case indentiation was specified the first
-     *         line of this returned value will not be affected by it
+     * @return a String instance which represents the formatted input
      */
     public static String format(String plainText, String indentation, int wrapAtColumn, boolean htmlStyle)
     {
