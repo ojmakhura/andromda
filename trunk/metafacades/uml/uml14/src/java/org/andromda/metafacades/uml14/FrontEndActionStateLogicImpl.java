@@ -8,13 +8,18 @@ import java.util.List;
 import java.util.Set;
 
 import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndExceptionHandler;
+import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
 
 
 /**
@@ -120,5 +125,34 @@ public class FrontEndActionStateLogicImpl
             }
         }
         return new ArrayList(exceptions);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndActionState#getContainerActions()
+     */
+    protected List handleGetContainerActions()
+    {
+        final Collection actionSet = new HashSet();
+
+        final StateMachineFacade stateMachineFacade = this.getStateMachine();
+        if (stateMachineFacade instanceof ActivityGraphFacade)
+        {
+            final ActivityGraphFacade activityGraph = (ActivityGraphFacade)stateMachineFacade;
+            final UseCaseFacade useCase = activityGraph.getUseCase();
+
+            if (useCase instanceof FrontEndUseCase)
+            {
+                final Collection actions = ((FrontEndUseCase)useCase).getActions();
+                for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                {
+                    final FrontEndAction action = (FrontEndAction)actionIterator.next();
+                    if (action.getActionStates().contains(this))
+                    {
+                        actionSet.add(action);
+                    }
+                }
+            }
+        }
+        return new ArrayList(actionSet);
     }
 }

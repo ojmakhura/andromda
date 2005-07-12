@@ -1,8 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
@@ -43,6 +46,22 @@ public class FrontEndActivityGraphLogicImpl
                     getName());
         }
         return useCase;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndActivityGraph#getInitialAction()
+     */
+    protected Object handleGetInitialAction()
+    {
+        Object firstAction = null;
+        final Collection initialStates = getInitialStates();
+        if (!initialStates.isEmpty())
+        {
+            final PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
+            final Collection outgoing = initialState.getOutgoing();
+            firstAction = (outgoing.isEmpty()) ? null : outgoing.iterator().next();
+        }
+        return firstAction;
     }
 
     /**

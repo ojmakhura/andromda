@@ -14,6 +14,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -56,11 +57,16 @@ public class StrutsControllerOperationLogicImpl
         return '/' + getInterfaceType().replace('.', '/');
     }
 
-    protected java.util.List handleGetDeferringActions()
+    /**
+     * Overridden because StrutsAction does not extend FrontEndAction.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getDeferringActions()
+     */
+    public java.util.List getDeferringActions()
     {
         final Collection deferringActions = new HashSet();
 
-        final StrutsActivityGraph graph = getActivityGraph();
+        final FrontEndActivityGraph graph = getActivityGraph();
         if (graph != null)
         {
             final Collection actionStates = graph.getActionStates();

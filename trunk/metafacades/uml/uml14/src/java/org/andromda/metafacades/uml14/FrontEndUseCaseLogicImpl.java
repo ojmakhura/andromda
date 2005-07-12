@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -10,8 +11,10 @@ import java.util.List;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
 
@@ -194,5 +197,27 @@ public class FrontEndUseCaseLogicImpl
                     getModel().getAllActionStatesWithStereotype(graph, UMLProfile.STEREOTYPE_FRONT_END_VIEW));
         }
         return views;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndUseCase#getViews()
+     */
+    protected List handleGetActions()
+    {
+        final Collection actions = new HashSet();
+        final Collection pages = this.getViews();
+        for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
+        {
+            final FrontEndView jsp = (FrontEndView)pageIterator.next();
+            actions.addAll(jsp.getActions());
+        }
+
+        final FrontEndActivityGraph graph = this.getActivityGraph();
+        if (graph != null)
+        {
+            final FrontEndAction action = graph.getInitialAction();
+            if (action != null) actions.add(action);
+        }
+        return new ArrayList(actions);
     }
 }

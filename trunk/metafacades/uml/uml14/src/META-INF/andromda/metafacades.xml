@@ -335,4 +335,9 @@
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndPseudostateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
 </metafacades>
