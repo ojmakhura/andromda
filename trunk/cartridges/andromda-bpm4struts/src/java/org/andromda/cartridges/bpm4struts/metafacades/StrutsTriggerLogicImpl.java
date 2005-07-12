@@ -64,10 +64,10 @@ public class StrutsTriggerLogicImpl
 
         if (!normalizeMessages())
         {
-            final StrutsAction action = getAction();
+            final StrutsAction action = getStrutsAction();
             if (action != null)
             {
-                final StrutsJsp page = (StrutsJsp)action.getInput();
+                final StrutsJsp page = action.getInput();
                 if (page != null)
                 {
                     triggerKey = page.getMessageKey() + '.' + triggerKey;
@@ -113,7 +113,7 @@ public class StrutsTriggerLogicImpl
         return getAction() != null;
     }
 
-    protected Object handleGetAction()
+    protected Object handleGetStrutsAction()
     {
         StrutsAction triggerAction = null;
 

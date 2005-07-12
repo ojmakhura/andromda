@@ -293,13 +293,13 @@
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.FrontEndForwardLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndEventLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.FrontEndEventLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
@@ -314,8 +314,19 @@
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.metafacades.uml14.FrontEndActionStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndActionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <property name="exitingInitialState"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndActionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <property name="exitingView"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.FrontEndForwardLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
