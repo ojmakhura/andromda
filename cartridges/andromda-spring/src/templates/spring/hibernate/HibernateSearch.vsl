@@ -86,15 +86,15 @@ public class $criteriaSearchBaseName
             java.util.Collections.sort(this.orderList, new ParameterComparator());
             for (java.util.Iterator orderIterator = this.orderList.iterator(); orderIterator.hasNext();)
             {
-                CriteriaSearchParameter parameter = (CriteriaSearchParameter)orderIterator.next();
+                ${criteriaSearchBaseName}Parameter parameter = (${criteriaSearchBaseName}Parameter)orderIterator.next();
                 int direction = parameter.getOrderDirection();
-                if (direction == CriteriaSearchParameter.ORDER_ASC)
+                if (direction == ${criteriaSearchBaseName}Parameter.ORDER_ASC)
                 {
-                    this.rootCriteria.addOrder(org.hibernate.criterion.Order.asc(parameter.getParameterName()));
+                    this.rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.asc(parameter.getParameterName()));
                 }
                 else
                 {
-                    this.rootCriteria.addOrder(org.hibernate.criterion.Order.desc(parameter.getParameterName()));
+                    this.rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.desc(parameter.getParameterName()));
                 }
             }
         }
@@ -135,7 +135,7 @@ public class $criteriaSearchBaseName
      * @return result The result of the query.
      * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    public java.util.Set executeAsSet() throws org.hibernate.HibernateException
+    public java.util.Set executeAsSet() throws ${hibernateUtils.basePackage}.HibernateException
     {
         return new java.util.LinkedHashSet(this.executeAsList());
     }
