@@ -55,12 +55,12 @@
             <h1><bean:message key="$jsp.titleKey"/></h1>
         </div>
 
-#if ($jsp.pageVariables.size() > 0)
+#if ($setPageVariablesInPageScope=="true" && $jsp.pageVariables.size() > 0)
         <%@ include file="${jsp.fullPath}-vars.jspf" %>
 
 #end
 #foreach ($action in $jsp.nonTableActions)
-        <tiles:insert page="${action.fullTilePath}.jsp" flush="false"/>
+        <%@ include file="${action.fullTilePath}.jsp" %>
 
 #end
 #foreach ($variable in $jsp.pageVariables)

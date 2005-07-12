@@ -1,13 +1,13 @@
+#if ($setPageVariablesInPageScope=="true")
 #set ($generatedFile = "${jsp.fullPath}-vars.jspf")
 #if ($jsp.pageVariables.size() > 0)
 <div id="pageVariables">
 #foreach ($variable in $jsp.pageVariables)
 #set ($formVariableName = "${formName}.${variable.name}")
     <c:catch>
-#if ($setPageVariablesInPageScope=="true")
         <c:set var="$variable.name" value="${${formVariableName}}"/>
-#end
     </c:catch>
 #end
 </div>
+#end
 #end
