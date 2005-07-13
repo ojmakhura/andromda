@@ -6,17 +6,20 @@ import java.util.Iterator;
 import org.omg.uml.behavioralelements.activitygraphs.ActivityGraph;
 import org.omg.uml.foundation.core.ModelElement;
 
+
 /**
  * Metaclass facade implementation.
  */
 public class UseCaseFacadeLogicImpl
-        extends UseCaseFacadeLogic
+    extends UseCaseFacadeLogic
 {
-    public UseCaseFacadeLogicImpl(org.omg.uml.behavioralelements.usecases.UseCase metaObject, String context)
+    public UseCaseFacadeLogicImpl(
+        org.omg.uml.behavioralelements.usecases.UseCase metaObject,
+        String context)
     {
         super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml14.UseCaseFacadeLogic#handleGetFirstActivityGraph()
      */
@@ -24,7 +27,9 @@ public class UseCaseFacadeLogicImpl
     {
         ActivityGraph activityGraph = null;
 
-        for (final Iterator iterator = metaObject.getOwnedElement().iterator(); iterator.hasNext() && activityGraph == null;)
+        for (
+            final Iterator iterator = metaObject.getOwnedElement().iterator();
+            iterator.hasNext() && activityGraph == null;)
         {
             final ModelElement modelElement = (ModelElement)iterator.next();
             if (modelElement instanceof ActivityGraph)
@@ -52,7 +57,7 @@ public class UseCaseFacadeLogicImpl
         return metaObject.getExtensionPoint();
     }
 
-    /*** 
+    /***
      * @see org.andromda.metafacades.uml14.UseCaseFacade#getExtends()
      */
     protected Collection handleGetExtends()

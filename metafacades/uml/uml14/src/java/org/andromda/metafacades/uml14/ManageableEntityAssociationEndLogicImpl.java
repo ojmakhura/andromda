@@ -1,10 +1,10 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
-
-import java.util.Collection;
 
 
 /**
@@ -15,10 +15,11 @@ import java.util.Collection;
 public class ManageableEntityAssociationEndLogicImpl
     extends ManageableEntityAssociationEndLogic
 {
-
-    public ManageableEntityAssociationEndLogicImpl (Object metaObject, String context)
+    public ManageableEntityAssociationEndLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**

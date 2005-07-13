@@ -72,12 +72,13 @@ public class FrontEndControllerLogicImpl
                 final String tag = useCaseTaggedValue.toString();
 
                 // - return the first use-case with this name
-                useCase = this.getModel().findUseCaseWithNameAndStereotype(tag, UMLProfile.STEREOTYPE_FRONT_END_USECASE);
+                useCase =
+                    this.getModel().findUseCaseWithNameAndStereotype(tag, UMLProfile.STEREOTYPE_FRONT_END_USECASE);
             }
         }
         return useCase;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndController#getDeferringActions()
      */

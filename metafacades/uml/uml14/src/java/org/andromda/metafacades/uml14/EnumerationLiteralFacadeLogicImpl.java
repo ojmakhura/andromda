@@ -3,16 +3,18 @@ package org.andromda.metafacades.uml14;
 import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.EnumerationLiteralFacade.
  *
  * @see org.andromda.metafacades.uml.EnumerationLiteralFacade
  */
 public class EnumerationLiteralFacadeLogicImpl
-        extends EnumerationLiteralFacadeLogic
+    extends EnumerationLiteralFacadeLogic
 {
-
-    public EnumerationLiteralFacadeLogicImpl(org.omg.uml.foundation.core.EnumerationLiteral metaObject, String context)
+    public EnumerationLiteralFacadeLogicImpl(
+        org.omg.uml.foundation.core.EnumerationLiteral metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -22,7 +24,9 @@ public class EnumerationLiteralFacadeLogicImpl
      */
     protected String handleGetName()
     {
-        return StringUtilsHelper.separate(super.handleGetName(), "_").toUpperCase();
+        return StringUtilsHelper.separate(
+            super.handleGetName(),
+            "_").toUpperCase();
     }
 
     /**

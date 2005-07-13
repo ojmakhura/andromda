@@ -39,7 +39,7 @@ public class StrutsForwardLogicImpl
 
     protected boolean handleIsEnteringPage()
     {
-        return getTarget() instanceof StrutsJsp;
+        return this.isEnteringView();
     }
 
     protected java.lang.String handleGetForwardName()
@@ -105,7 +105,7 @@ public class StrutsForwardLogicImpl
 
     protected boolean handleIsExitingPage()
     {
-        return getSource() instanceof StrutsJsp;
+        return this.isExitingView();
     }
 
     protected boolean handleIsSuccessMessagesPresent()
@@ -160,21 +160,9 @@ public class StrutsForwardLogicImpl
         return getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
-    protected java.util.List handleGetForwardParameters()
-    {
-        final EventFacade trigger = getTrigger();
-        return (trigger == null) ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
-    }
-
-    protected Object handleGetDecisionTrigger()
-    {
-        return (isEnteringDecisionPoint()) ? getTrigger() : null;
-    }
-
     protected Object handleGetStrutsActivityGraph()
     {
-        final Object graph = getSource().getStateMachine();
-        return (graph instanceof StrutsActivityGraph) ? graph : null;
+        return this.getFrontEndActivityGraph();
     }
 
     /**

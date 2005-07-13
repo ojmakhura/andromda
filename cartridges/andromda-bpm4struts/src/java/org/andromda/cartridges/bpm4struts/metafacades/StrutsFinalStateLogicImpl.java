@@ -127,24 +127,4 @@ public class StrutsFinalStateLogicImpl
         }
         return new ArrayList(actions);
     }
-
-    protected List handleGetInterUseCaseParameters()
-    {
-        // we don't want to list parameters with the same name to we use a hash map
-        final Map parameterMap = new HashMap();
-
-        final Collection transitions = getIncoming();
-        for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
-        {
-            final StrutsForward forward = (StrutsForward)transitionIterator.next();
-            final List forwardParameters = forward.getForwardParameters();
-            for (int i = 0; i < forwardParameters.size(); i++)
-            {
-                final ModelElementFacade parameter = (ModelElementFacade)forwardParameters.get(i);
-                parameterMap.put(parameter.getName(), parameter);
-            }
-        }
-
-        return new ArrayList(parameterMap.values());
-    }
 }

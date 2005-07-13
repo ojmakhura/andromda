@@ -11,10 +11,11 @@ import org.andromda.metafacades.uml.UMLProfile;
 public class FrontEndExceptionHandlerLogicImpl
     extends FrontEndExceptionHandlerLogic
 {
-
-    public FrontEndExceptionHandlerLogicImpl (Object metaObject, String context)
+    public FrontEndExceptionHandlerLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -24,5 +25,4 @@ public class FrontEndExceptionHandlerLogicImpl
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_EXCEPTION);
     }
-
 }

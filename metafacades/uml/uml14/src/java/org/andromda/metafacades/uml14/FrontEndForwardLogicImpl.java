@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -221,7 +222,7 @@ public class FrontEndForwardLogicImpl
      * @param actions the default set of actions, duplicates will not be recorded
      * @param handledForwards the forwards already processed
      */
-    private void findActions(Set actions, Set handledForwards)
+    private final void findActions(final Set actions, final Set handledForwards)
     {
         if (!handledForwards.contains(this))
         {
@@ -259,5 +260,14 @@ public class FrontEndForwardLogicImpl
                 }
             }
         }
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndAction#getForwardParameters()
+     */
+    protected java.util.List handleGetForwardParameters()
+    {
+        final EventFacade trigger = this.getTrigger();
+        return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
     }
 }

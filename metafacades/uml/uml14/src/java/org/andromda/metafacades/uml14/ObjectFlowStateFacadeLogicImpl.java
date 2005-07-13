@@ -3,14 +3,16 @@ package org.andromda.metafacades.uml14;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 
+
 /**
  * Metaclass facade implementation.
  */
 public class ObjectFlowStateFacadeLogicImpl
-        extends ObjectFlowStateFacadeLogic
+    extends ObjectFlowStateFacadeLogic
 {
-    public ObjectFlowStateFacadeLogicImpl(org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState metaObject,
-                                          String context)
+    public ObjectFlowStateFacadeLogicImpl(
+        org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -40,5 +42,4 @@ public class ObjectFlowStateFacadeLogicImpl
     {
         return metaObject.getType();
     }
-
 }

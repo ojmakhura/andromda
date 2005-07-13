@@ -23,10 +23,11 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class FrontEndPseudostateLogicImpl
     extends FrontEndPseudostateLogic
 {
-
-    public FrontEndPseudostateLogicImpl (Object metaObject, String context)
+    public FrontEndPseudostateLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -51,7 +52,9 @@ public class FrontEndPseudostateLogicImpl
 
             if (useCase instanceof FrontEndUseCase)
             {
-                for (final Iterator actionIterator = ((FrontEndUseCase)useCase).getActions().iterator(); actionIterator.hasNext();)
+                for (
+                    final Iterator actionIterator = ((FrontEndUseCase)useCase).getActions().iterator();
+                    actionIterator.hasNext();)
                 {
                     final FrontEndAction action = (FrontEndAction)actionIterator.next();
                     final Collection transitions = action.getTransitions();
@@ -68,5 +71,4 @@ public class FrontEndPseudostateLogicImpl
         }
         return new ArrayList(actionSet);
     }
-
 }
