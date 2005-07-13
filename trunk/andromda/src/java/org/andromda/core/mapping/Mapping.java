@@ -61,15 +61,15 @@ public class Mapping
             try
             {
                 final StringBuffer pathsContents = new StringBuffer();
-                for (final Iterator pathIterator = paths.iterator(); pathIterator.hasNext();)
+                for (final Iterator iterator = this.paths.iterator(); iterator.hasNext();)
                 {
                     pathsContents.append(
                         ResourceUtils.getContents(
-                            new FileReader(this.mappings.getCompletePath((String)pathIterator.next()))));
+                            new FileReader(this.mappings.getCompletePath((String)iterator.next()))));
                 }
                 this.to = pathsContents.toString();
             }
-            catch (FileNotFoundException exception)
+            catch (final FileNotFoundException exception)
             {
                 throw new MappingsException(exception);
             }

@@ -69,14 +69,12 @@ public class Merger
     {
         // avoid any possible infinite recursion with the mergedStringCache
         // check (may need to refactor the mergedStringCache solution)
-        if ((namespace != null) && (string != null))
+        if (namespace != null && string != null)
         {
             final Mappings mergeMappings = this.getMergeMappings(namespace);
-
             if (mergeMappings != null)
             {
                 final Collection mappings = mergeMappings.getMappings();
-
                 if ((mappings != null) && !mappings.isEmpty())
                 {
                     for (final Iterator mappingsIterator = mappings.iterator(); mappingsIterator.hasNext();)
@@ -84,7 +82,7 @@ public class Merger
                         final Mapping mapping = (Mapping)mappingsIterator.next();
                         final Collection froms = mapping.getFroms();
 
-                        if ((froms != null) && !froms.isEmpty())
+                        if (froms != null && !froms.isEmpty())
                         {
                             for (final Iterator fromsIterator = froms.iterator(); fromsIterator.hasNext();)
                             {
@@ -92,7 +90,7 @@ public class Merger
 
                                 if (StringUtils.isNotEmpty(from))
                                 {
-                                    String to = StringUtils.trimToEmpty(mapping.getTo());
+                                    final String to = mapping.getTo() != null ? mapping.getTo().trim() : "";
                                     string = StringUtils.replace(string, from, to);
                                 }
                             }
@@ -136,9 +134,9 @@ public class Merger
             writer = null;
             return this.getMergedString(string, namespace);
         }
-        catch (Exception ex)
+        catch (final Exception exception)
         {
-            throw new MergerException(ex);
+            throw new MergerException(exception);
         }
     }
 
@@ -164,7 +162,6 @@ public class Merger
     private final Mappings getMergeMappings(final String namespace)
     {
         Mappings mergeMappings = null;
-
         if (StringUtils.isNotBlank(namespace))
         {
             final Property mergeMappingsUri =
@@ -181,7 +178,6 @@ public class Merger
                 }
             }
         }
-
         return mergeMappings;
     }
 }
