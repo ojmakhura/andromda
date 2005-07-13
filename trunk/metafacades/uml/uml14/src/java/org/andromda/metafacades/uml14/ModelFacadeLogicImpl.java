@@ -1,5 +1,10 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -10,20 +15,17 @@ import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.usecases.UseCase;
 import org.omg.uml.foundation.core.ModelElement;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * Metaclass facade implementation.
  */
 public class ModelFacadeLogicImpl
-        extends ModelFacadeLogic
+    extends ModelFacadeLogic
 {
     // ---------------- constructor -------------------------------
-
-    public ModelFacadeLogicImpl(org.omg.uml.UmlPackage metaObject, String context)
+    public ModelFacadeLogicImpl(
+        org.omg.uml.UmlPackage metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -72,15 +74,19 @@ public class ModelFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelFacadeLogic#findUseCaseWithTaggedValueOrHyperlink(java.lang.String, java.lang.String)
      */
-    protected UseCaseFacade handleFindUseCaseWithTaggedValueOrHyperlink(String tag, String value)
+    protected UseCaseFacade handleFindUseCaseWithTaggedValueOrHyperlink(
+        String tag,
+        String value)
     {
         return (UseCaseFacade)shieldedElement(UML14MetafacadeUtils.findUseCaseWithTaggedValueOrHyperlink(tag, value));
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelFacade#findClassWithTaggedValueOrHyperlink(java.lang.String, java.lang.String)
      */
-    protected ClassifierFacade handleFindClassWithTaggedValueOrHyperlink(String tag, String value)
+    protected ClassifierFacade handleFindClassWithTaggedValueOrHyperlink(
+        String tag,
+        String value)
     {
         return (ClassifierFacade)shieldedElement(UML14MetafacadeUtils.findClassWithTaggedValueOrHyperlink(tag, value));
     }
@@ -96,10 +102,12 @@ public class ModelFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelFacade#findActivityGraphByNameAndStereotype(java.lang.String, java.lang.String)
      */
-    protected ActivityGraphFacade handleFindActivityGraphByNameAndStereotype(String name, String stereotypeName)
+    protected ActivityGraphFacade handleFindActivityGraphByNameAndStereotype(
+        String name,
+        String stereotypeName)
     {
-        return (ActivityGraphFacade)shieldedElement(UML14MetafacadeUtils.findFirstActivityGraphWithNameAndStereotype(
-                name, stereotypeName));
+        return (ActivityGraphFacade)shieldedElement(
+            UML14MetafacadeUtils.findFirstActivityGraphWithNameAndStereotype(name, stereotypeName));
     }
 
     /**
@@ -113,10 +121,12 @@ public class ModelFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelFacade#findUseCaseWithNameAndStereotype(java.lang.String, java.lang.String)
      */
-    protected UseCaseFacade handleFindUseCaseWithNameAndStereotype(String name, String stereotypeName)
+    protected UseCaseFacade handleFindUseCaseWithNameAndStereotype(
+        String name,
+        String stereotypeName)
     {
-        return (UseCaseFacade)shieldedElement(UML14MetafacadeUtils.findFirstUseCaseWithNameAndStereotype(name,
-                stereotypeName));
+        return (UseCaseFacade)shieldedElement(
+            UML14MetafacadeUtils.findFirstUseCaseWithNameAndStereotype(name, stereotypeName));
     }
 
     /**
@@ -131,17 +141,20 @@ public class ModelFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelFacade#getAllActionStatesWithStereotype(org.andromda.metafacades.uml.ActivityGraphFacade, java.lang.String)
      */
-    protected Collection handleGetAllActionStatesWithStereotype(ActivityGraphFacade activityGraph,
-                                                                String stereotypeName)
+    protected Collection handleGetAllActionStatesWithStereotype(
+        ActivityGraphFacade activityGraph,
+        String stereotypeName)
     {
         ActivityGraph activityGraphMetaClass = UML14MetafacadeUtils.getMetaClass(activityGraph);
 
         CompositeState compositeState = (CompositeState)activityGraphMetaClass.getTop();
-        return filter(compositeState.getSubvertex(), new ActionStateWithStereotypeFilter(stereotypeName));
+        return filter(
+            compositeState.getSubvertex(),
+            new ActionStateWithStereotypeFilter(stereotypeName));
     }
 
     private final static class ActionStateWithStereotypeFilter
-            implements Predicate
+        implements Predicate
     {
         private String stereotypeName = null;
 
@@ -152,12 +165,14 @@ public class ModelFacadeLogicImpl
 
         public boolean evaluate(final Object object)
         {
-            return (object instanceof ActionState) && UML14MetafacadeUtils.isStereotypePresent((ModelElement)object,
-                    stereotypeName);
+            return (object instanceof ActionState) &&
+            UML14MetafacadeUtils.isStereotypePresent((ModelElement)object, stereotypeName);
         }
     }
 
-    private final Collection filter(Collection collection, Predicate collectionFilter)
+    private final Collection filter(
+        Collection collection,
+        Predicate collectionFilter)
     {
         final Set filteredCollection = new LinkedHashSet();
         for (final Iterator iterator = collection.iterator(); iterator.hasNext();)
@@ -170,5 +185,4 @@ public class ModelFacadeLogicImpl
         }
         return filteredCollection;
     }
-
 }

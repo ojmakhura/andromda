@@ -16,10 +16,11 @@ import org.andromda.metafacades.uml.TransitionFacade;
 public class FrontEndParameterLogicImpl
     extends FrontEndParameterLogic
 {
-
-    public FrontEndParameterLogicImpl (Object metaObject, String context)
+    public FrontEndParameterLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -29,7 +30,7 @@ public class FrontEndParameterLogicImpl
     {
         return this.getControllerOperation() != null;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getControllerOperation()
      */
@@ -37,7 +38,7 @@ public class FrontEndParameterLogicImpl
     {
         return this.getOperation();
     }
-   
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#isContainedInFrontEndUseCase()
      */
@@ -45,7 +46,7 @@ public class FrontEndParameterLogicImpl
     {
         return this.getEvent() instanceof FrontEndEvent || this.getOperation() instanceof FrontEndControllerOperation;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getView()
      */

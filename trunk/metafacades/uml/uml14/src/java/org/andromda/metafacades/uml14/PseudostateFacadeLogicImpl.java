@@ -2,14 +2,16 @@ package org.andromda.metafacades.uml14;
 
 import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
 
+
 /**
  * Metaclass facade implementation.
  */
 public class PseudostateFacadeLogicImpl
-        extends PseudostateFacadeLogic
+    extends PseudostateFacadeLogic
 {
-    public PseudostateFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.Pseudostate metaObject,
-                                      String context)
+    public PseudostateFacadeLogicImpl(
+        org.omg.uml.behavioralelements.statemachines.Pseudostate metaObject,
+        String context)
     {
         super(metaObject, context);
     }

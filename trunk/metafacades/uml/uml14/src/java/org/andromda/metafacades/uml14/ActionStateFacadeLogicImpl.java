@@ -1,13 +1,15 @@
 package org.andromda.metafacades.uml14;
 
+
 /**
  * Metaclass facade implementation.
  */
 public class ActionStateFacadeLogicImpl
-        extends ActionStateFacadeLogic
+    extends ActionStateFacadeLogic
 {
-    public ActionStateFacadeLogicImpl(org.omg.uml.behavioralelements.activitygraphs.ActionState metaObject,
-                                      String context)
+    public ActionStateFacadeLogicImpl(
+        org.omg.uml.behavioralelements.activitygraphs.ActionState metaObject,
+        String context)
     {
         super(metaObject, context);
     }

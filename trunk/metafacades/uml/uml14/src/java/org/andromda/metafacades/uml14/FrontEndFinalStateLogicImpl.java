@@ -1,7 +1,16 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
@@ -77,5 +86,28 @@ public class FrontEndFinalStateLogicImpl
             }
         }
         return targetUseCase;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndFinalState#getInterUseCaseParameters()
+     */
+    protected List handleGetInterUseCaseParameters()
+    {
+        // we don't want to list parameters with the same name to we use a hash map
+        final Map parameterMap = new HashMap();
+
+        final Collection transitions = getIncoming();
+        for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+        {
+            final FrontEndForward forward = (FrontEndForward)transitionIterator.next();
+            final List forwardParameters = forward.getForwardParameters();
+            for (int i = 0; i < forwardParameters.size(); i++)
+            {
+                final ModelElementFacade parameter = (ModelElementFacade)forwardParameters.get(i);
+                parameterMap.put(parameter.getName(), parameter);
+            }
+        }
+
+        return new ArrayList(parameterMap.values());
     }
 }

@@ -1,10 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.omg.uml.behavioralelements.statemachines.State;
 import org.omg.uml.behavioralelements.statemachines.Transition;
 
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * MetafacadeLogic implementation.
@@ -12,11 +13,11 @@ import java.util.Iterator;
  * @see org.andromda.metafacades.uml.EventFacade
  */
 public class EventFacadeLogicImpl
-        extends EventFacadeLogic
+    extends EventFacadeLogic
 {
-    
-    public EventFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.Event metaObject,
-                                java.lang.String context)
+    public EventFacadeLogicImpl(
+        org.omg.uml.behavioralelements.statemachines.Event metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -30,7 +31,8 @@ public class EventFacadeLogicImpl
     {
         Transition eventTransition = null;
 
-        final Collection allTransitions = UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
+        final Collection allTransitions =
+            UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
         for (final Iterator iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition == null;)
         {
             final Transition transition = (Transition)iterator.next();
@@ -71,5 +73,4 @@ public class EventFacadeLogicImpl
 
         return validationOwner;
     }
-
 }

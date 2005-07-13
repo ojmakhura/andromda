@@ -3,14 +3,16 @@ package org.andromda.metafacades.uml14;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.translation.ocl.ExpressionKinds;
 
+
 /**
  * Metaclass facade implementation.
  */
 public class EntityQueryOperationLogicImpl
-        extends EntityQueryOperationLogic
+    extends EntityQueryOperationLogic
 {
-
-    public EntityQueryOperationLogicImpl(java.lang.Object metaObject, String context)
+    public EntityQueryOperationLogicImpl(
+        java.lang.Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -24,6 +26,7 @@ public class EntityQueryOperationLogicImpl
         ExceptionUtils.checkEmpty(methodName, "translation", translation);
         final String[] translatedExpressions = this.translateConstraints(ExpressionKinds.BODY, translation);
         String query = null;
+
         // we just get the first body constraint found
         if (translatedExpressions != null && translatedExpressions.length > 0)
         {

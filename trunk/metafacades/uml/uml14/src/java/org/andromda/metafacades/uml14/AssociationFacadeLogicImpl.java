@@ -1,21 +1,24 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
  */
 public class AssociationFacadeLogicImpl
-        extends AssociationFacadeLogic
-        implements org.andromda.metafacades.uml.AssociationFacade
+    extends AssociationFacadeLogic
+    implements org.andromda.metafacades.uml.AssociationFacade
 {
-    public AssociationFacadeLogicImpl(org.omg.uml.foundation.core.UmlAssociation metaObject, String context)
+    public AssociationFacadeLogicImpl(
+        org.omg.uml.foundation.core.UmlAssociation metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -34,6 +37,7 @@ public class AssociationFacadeLogicImpl
     public String handleGetName()
     {
         String name = super.handleGetName();
+
         // if the name isn't defined, use the relation name
         if (StringUtils.isEmpty(name))
         {
@@ -51,8 +55,11 @@ public class AssociationFacadeLogicImpl
         final Iterator endIt = ends.iterator();
         final AssociationEndFacade firstEnd = (AssociationEndFacade)endIt.next();
         final AssociationEndFacade secondEnd = (AssociationEndFacade)endIt.next();
-        final String relationName = MetafacadeUtils.toRelationName(firstEnd.getName(), secondEnd.getName(), String.valueOf(this.getConfiguredProperty(
-                UMLMetafacadeProperties.RELATION_NAME_SEPARATOR)));
+        final String relationName =
+            MetafacadeUtils.toRelationName(
+                firstEnd.getName(),
+                secondEnd.getName(),
+                String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.RELATION_NAME_SEPARATOR)));
         return relationName;
     }
 
@@ -63,5 +70,4 @@ public class AssociationFacadeLogicImpl
     {
         return ((AssociationEndFacade)this.getAssociationEnds().iterator().next()).isMany2Many();
     }
-
 }

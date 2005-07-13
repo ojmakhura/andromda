@@ -1,7 +1,6 @@
 package org.andromda.metafacades.uml14;
 
 
-
 /**
  * MetafacadeLogic implementation.
  *
