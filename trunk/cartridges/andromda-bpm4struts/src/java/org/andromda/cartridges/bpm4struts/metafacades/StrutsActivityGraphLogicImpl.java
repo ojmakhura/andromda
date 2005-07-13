@@ -22,7 +22,7 @@ public class StrutsActivityGraphLogicImpl
     {
         Object firstAction = null;
         final Collection initialStates = getInitialStates();
-        if (initialStates.isEmpty() == false)
+        if (!initialStates.isEmpty())
         {
             final PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
             final Collection outgoing = initialState.getOutgoing();
