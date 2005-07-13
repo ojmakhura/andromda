@@ -2,16 +2,14 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.FrontEndUseCase;
-import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
@@ -79,6 +77,8 @@ public class StrutsFinalStateLogicImpl
     }
 
     /**
+     * Overridden for now (@todo need to figure out why it doesn't work correctly when using
+     * the one from the FrontEndFinalState).
      * 
      * @see org.andromda.metafacades.uml.FrontEndFinalState#getTargetUseCase()
      */
@@ -88,7 +88,7 @@ public class StrutsFinalStateLogicImpl
 
         // first check if there is a hyperlink from this final state to a use-case
         // this works at least in MagicDraw
-        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_HYPERLINK);
+        final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_HYPERLINK);
         if (taggedValue != null)
         {
             if (taggedValue instanceof StrutsActivityGraph)

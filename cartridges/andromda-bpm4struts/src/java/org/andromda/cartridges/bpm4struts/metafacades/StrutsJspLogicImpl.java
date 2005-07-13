@@ -211,30 +211,7 @@ public class StrutsJspLogicImpl
     
     protected List handleGetPageVariables()
     {
-        final Map variablesMap = new HashMap();
-
-        final Collection incoming = getIncoming();
-        for (final Iterator iterator = incoming.iterator(); iterator.hasNext();)
-        {
-            final TransitionFacade transition = (TransitionFacade)iterator.next();
-            final EventFacade trigger = transition.getTrigger();
-            if (trigger != null)
-                collectByName(trigger.getParameters(), variablesMap);
-        }
-
-        return new ArrayList(variablesMap.values());
-    }
-
-    /**
-     * Iterates over the model elements and maps their name on their instance in the argument map.
-     */
-    private void collectByName(Collection modelElements, Map elementMap)
-    {
-        for (final Iterator iterator = modelElements.iterator(); iterator.hasNext();)
-        {
-            final ModelElementFacade modelElement = (ModelElementFacade)iterator.next();
-            elementMap.put(modelElement.getName(), modelElement);
-        }
+        return this.getVariables();
     }
 
     protected List handleGetIncomingActions()
