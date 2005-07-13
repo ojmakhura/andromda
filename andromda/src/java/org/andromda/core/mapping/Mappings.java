@@ -398,7 +398,7 @@ public class Mappings
     /**
      * Caches the complete path.
      */
-    private String completePath;
+    private final Map completePaths = new HashMap();
 
     /**
      * Constructs the complete path from the given <code>relativePath</code>
@@ -409,12 +409,13 @@ public class Mappings
      */
     final String getCompletePath(final String relativePath)
     {
-        if (this.completePath == null)
+        String completePath = (String)this.completePaths.get(relativePath);
+        if (completePath == null)
         {
             final StringBuffer path = new StringBuffer();
             if (this.mappings != null)
             {
-                URL resource = this.getResource();
+                final URL resource = this.getResource();
                 if (resource != null)
                 {
                     String rootPath = resource.getFile().replace('\\', '/');
@@ -426,9 +427,10 @@ public class Mappings
             {
                 path.append(StringUtils.trimToEmpty(relativePath));
             }
-            this.completePath = path.toString();
+            completePath = path.toString();
+            this.completePaths.put(relativePath, completePath);
         }
-        return this.completePath;
+        return completePath;
     }
 
     /**
