@@ -208,12 +208,7 @@ public class StrutsJspLogicImpl
         }
         return actions;
     }
-
-    public Object handleGetForward()
-    {
-        return (StrutsForward)shieldedElement(getOutgoing().iterator().next());
-    }
-
+    
     protected List handleGetPageVariables()
     {
         final Map variablesMap = new HashMap();
