@@ -16,7 +16,6 @@ import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
-import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -130,6 +129,11 @@ public class StrutsControllerOperationLogicImpl
         return (owner instanceof StrutsController) ? owner : null;
     }
 
+    /**
+     * Overridden since StrutsAction does not extend FrontEndAction.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getFormFields()
+     */
     public List getFormFields()
     {
         final Map formFieldsMap = new HashMap();
@@ -230,26 +234,6 @@ public class StrutsControllerOperationLogicImpl
             allArgumentsHaveFormFields = !actionMissingField;
         }
         return allArgumentsHaveFormFields;
-    }
-
-    protected Object handleGetActivityGraph()
-    {
-        Object graph = null;
-
-        final ClassifierFacade owner = getOwner();
-        if (owner instanceof StrutsController)
-        {
-            final StrutsController controller = (StrutsController)owner;
-            if (controller != null)
-            {
-                final FrontEndUseCase useCase = controller.getUseCase();
-                if (useCase != null)
-                {
-                    graph = useCase.getActivityGraph();
-                }
-            }
-        }
-        return graph;
     }
 
     protected boolean handleIsBackEndServiceOperationMatchingParameters()
