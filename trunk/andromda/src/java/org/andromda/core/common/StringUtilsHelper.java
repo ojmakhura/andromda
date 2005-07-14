@@ -1,14 +1,15 @@
 package org.andromda.core.common;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
-import org.apache.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -20,8 +21,13 @@ import java.util.regex.Pattern;
  * @author Wouter Zoons
  */
 public class StringUtilsHelper
-        extends StringUtils
+    extends StringUtils
 {
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(StringUtilsHelper.class);
+
     /**
      * <p/>
      * Replaces a given suffix of the source string with a new one. If the suffix isn't present, the string is returned
@@ -32,7 +38,10 @@ public class StringUtilsHelper
      * @param suffixNew a <code>String</code> with the new suffix
      * @return a <code>String</code> with the given suffix replaced or unmodified if the suffix isn't present
      */
-    public static String replaceSuffix(final String src, final String suffixOld, final String suffixNew)
+    public static String replaceSuffix(
+        final String src,
+        final String suffixOld,
+        final String suffixNew)
     {
         if (src.endsWith(suffixOld))
         {
@@ -81,7 +90,9 @@ public class StringUtilsHelper
      * @param value  the value to remove.
      * @return String the resulting string.
      */
-    public static String removeLastOccurrence(String string, final String value)
+    public static String removeLastOccurrence(
+        String string,
+        final String value)
     {
         if (string != null && value != null)
         {
@@ -135,8 +146,8 @@ public class StringUtilsHelper
     public static String toResourceMessageKey(final String string)
     {
         return separate(
-                StringUtils.trimToEmpty(string),
-                ".").toLowerCase();
+            StringUtils.trimToEmpty(string),
+            ".").toLowerCase();
     }
 
     /**
@@ -155,7 +166,9 @@ public class StringUtilsHelper
      * Converts the argument to lowercase, removes all non-word characters, and replaces each of those sequences by the
      * separator.
      */
-    public static String separate(final String string, final String separator)
+    public static String separate(
+        final String string,
+        final String separator)
     {
         if (StringUtils.isBlank(string))
         {
@@ -197,19 +210,21 @@ public class StringUtilsHelper
      * Suffixes each line with the argument suffix.
      *
      * @param multiLines A String, optionally containing many lines
-     * @param suffix     The suffix to append to the end of each line
+     * @param suffix The suffix to append to the end of each line
      * @return String The input String with the suffix appended at the end of each line
      */
-    public static String suffixLines(final String multiLines, final String suffix)
+    public static String suffixLines(
+        final String multiLines,
+        final String suffix)
     {
-        final String[] lines = StringUtils.trimToEmpty(multiLines).split("\n");
+        final String[] lines = StringUtils.trimToEmpty(multiLines).split(LINE_SEPARATOR);
         final StringBuffer linesBuffer = new StringBuffer();
         for (int i = 0; i < lines.length; i++)
         {
             String line = lines[i];
             linesBuffer.append(line);
             linesBuffer.append(suffix);
-            linesBuffer.append("\n");
+            linesBuffer.append(LINE_SEPARATOR);
         }
         return linesBuffer.toString();
     }
@@ -225,7 +240,6 @@ public class StringUtilsHelper
     public static String toResourceMessage(String multiLines)
     {
         String resourceMessage = null;
-
         if (StringUtils.isNotBlank(multiLines))
         {
             final String suffix = "\\";
@@ -238,7 +252,6 @@ public class StringUtilsHelper
             }
             resourceMessage = multiLines;
         }
-
         return resourceMessage;
     }
 
@@ -263,14 +276,13 @@ public class StringUtilsHelper
         char firstChar = word.charAt(0);
         switch (firstChar)
         {
-            case 'a': // fall-through
-            case 'e': // fall-through
-            case 'i': // fall-through
-            case 'o':
-                formattedBuffer.insert(1, 'n');
-                break;
-            default:
-        }
+        case 'a': // fall-through
+        case 'e': // fall-through
+        case 'i': // fall-through
+        case 'o':
+            formattedBuffer.insert(1, 'n');
+            break;
+        default:}
 
         return formattedBuffer.toString();
     }
@@ -321,26 +333,26 @@ public class StringUtilsHelper
             {
                 switch (secondToLastChar)
                 {
-                    case 'a': // fall-through
-                    case 'e': // fall-through
-                    case 'i': // fall-through
-                    case 'o': // fall-through
-                    case 'u':
-                        pluralNoun = pluralNoun + 's';
-                        break;
-                    default:
-                        pluralNoun = pluralNoun.substring(0, nounLength - 1) + "ies";
+                case 'a': // fall-through
+                case 'e': // fall-through
+                case 'i': // fall-through
+                case 'o': // fall-through
+                case 'u':
+                    pluralNoun = pluralNoun + 's';
+                    break;
+                default:
+                    pluralNoun = pluralNoun.substring(0, nounLength - 1) + "ies";
                 }
             }
             else if (pluralNoun.endsWith("s"))
             {
                 switch (secondToLastChar)
                 {
-                    case 's':
-                        pluralNoun = pluralNoun + "es";
-                        break;
-                    default:
-                        pluralNoun = pluralNoun + "ses";
+                case 's':
+                    pluralNoun = pluralNoun + "es";
+                    break;
+                default:
+                    pluralNoun = pluralNoun + "ses";
                 }
             }
             else
@@ -356,7 +368,7 @@ public class StringUtilsHelper
      *
      * @see #format(String, String)
      */
-    public static String format(String plainText)
+    public static String format(final String plainText)
     {
         return format(plainText, "");
     }
@@ -366,7 +378,9 @@ public class StringUtilsHelper
      *
      * @see #format(String, String, int)
      */
-    public static String format(String plainText, String indentation)
+    public static String format(
+        final String plainText,
+        final String indentation)
     {
         return format(plainText, indentation, 64);
     }
@@ -377,41 +391,48 @@ public class StringUtilsHelper
      *
      * @see #format(String, String, int, boolean)
      */
-    public static String format(String plainText, String indentation, int wrapAtColumn)
+    public static String format(
+        final String plainText,
+        final String indentation,
+        final int wrapAtColumn)
     {
         return format(plainText, indentation, wrapAtColumn, true);
     }
 
     /**
-     * <p/>
+     * <p>
      * Formats the given argument with the specified indentation, wrapping the text at the desired column margin.
      * </p>
-     * <p/>
+     * <p>
      * When enabling <em>htmlStyle</em> the returned text will be suitable for display in HTML
      * environments such as JavaDoc, all newlines will be replaced by paragraphs.
      * </p>
-     * <p/>
+     * <p>
      * This method trims the input text: all leading and trailing whitespace will be removed.
      * </p>
      * <p>
      * If for some reason this method would fail it will return the <em>plainText</em> argument.
      * </p>
      *
-     * @param plainText    the text to format, the empty string will be returned in case this argument
-     *                     is <code>null</code>; long words will be placed on a newline but will never be wrapped
-     * @param indentation  the empty string will be used if this argument would be <code>null</code>
+     * @param plainText the text to format, the empty string will be returned in case this argument
+     *                   is <code>null</code>; long words will be placed on a newline but will never be wrapped
+     * @param indentation the empty string will be used if this argument would be <code>null</code>
      * @param wrapAtColumn does not take into account the length of the indentation, needs to be stricly positive
-     * @param htmlStyle    whether or not to make sure the returned string is suited for display in HTML environments
-     *                     such as JavaDoc
+     * @param htmlStyle whether or not to make sure the returned string is suited for display in HTML environments
+     *                  such as JavaDoc
      * @return a String instance which represents the formatted input, never <code>null</code>
      * @throws IllegalArgumentException when the <em>wrapAtColumn</em> argument is not strictly positive
      */
-    public static String format(String plainText, String indentation, int wrapAtColumn, boolean htmlStyle)
+    public static String format(
+        final String plainText,
+        String indentation,
+        final int wrapAtColumn,
+        final boolean htmlStyle)
     {
-        // we cannot wrap at a column index less than 1
+        // - we cannot wrap at a column index less than 1
         if (wrapAtColumn < 1)
         {
-            throw new IllegalArgumentException("Cannot wrap at column: " + wrapAtColumn);
+            throw new IllegalArgumentException("Cannot wrap at column less than 1: " + wrapAtColumn);
         }
 
         // unspecified indentation will use the empty string
@@ -420,31 +441,32 @@ public class StringUtilsHelper
             indentation = "";
         }
 
-        // null plaintext will yield the empty string
+        // - null plaintext will yield the empty string
         if (StringUtils.isBlank(plainText))
         {
             return indentation;
         }
 
-        final String lineSeparator = getLineSeparator();
+        final String lineSeparator = LINE_SEPARATOR;
 
         String format = null;
 
         try
         {
-            // this buffer will contain the formatted text
+            // - this buffer will contain the formatted text
             final StringBuffer formattedText = new StringBuffer();
 
-            // we'll be reading lines from this reader
+            // - we'll be reading lines from this reader
             final BufferedReader reader = new BufferedReader(new StringReader(plainText));
 
             String line = reader.readLine();
-            // test whether or not we reached the end of the stream
+
+            // - test whether or not we reached the end of the stream
             while (line != null)
             {
                 if (StringUtils.isNotBlank(line))
                 {
-                    // in HTML mode we start each new line on a paragraph
+                    // - in HTML mode we start each new line on a paragraph
                     if (htmlStyle)
                     {
                         formattedText.append(indentation);
@@ -452,17 +474,17 @@ public class StringUtilsHelper
                         formattedText.append(lineSeparator);
                     }
 
-                    // WordUtils.wrap never indents the first line so we do it here
+                    // - WordUtils.wrap never indents the first line so we do it here
                     formattedText.append(indentation);
-                    // append the wrapped text, the indentation is prefixed with a newline
-                    formattedText.append(
-                            WordUtils.wrap(
-                                    line.trim(),
-                                    wrapAtColumn,
-                                    lineSeparator + indentation,
-                                    false));
 
-                    // in HTML mode we need to close the paragraph
+                    // - append the wrapped text, the indentation is prefixed with a newline
+                    formattedText.append(WordUtils.wrap(
+                            line.trim(),
+                            wrapAtColumn,
+                            lineSeparator + indentation,
+                            false));
+
+                    // - in HTML mode we need to close the paragraph
                     if (htmlStyle)
                     {
                         formattedText.append(lineSeparator);
@@ -471,25 +493,25 @@ public class StringUtilsHelper
                     }
                 }
 
-                // read the next line
+                // - read the next line
                 line = reader.readLine();
 
-                // only add a newline when the next line is not empty and some string have already been added
+                // - only add a newline when the next line is not empty and some string have already been added
                 if (formattedText.length() > 0 && StringUtils.isNotBlank(line))
                 {
                     formattedText.append(lineSeparator);
                 }
             }
 
-            // close the reader as there is nothing more to read
+            // - close the reader as there is nothing more to read
             reader.close();
 
-            // set the return value
+            // - set the return value
             format = formattedText.toString();
         }
-        catch (IOException ioException)
+        catch (final IOException ioException)
         {
-            Logger.getLogger(StringUtilsHelper.class).error("Could not format text: " + plainText, ioException);
+            logger.error("Could not format text: " + plainText, ioException);
             format = plainText;
         }
 
@@ -497,12 +519,20 @@ public class StringUtilsHelper
     }
 
     /**
-     * @return <code>\n</code>
+     * The line separator.
+     */
+    private static final String LINE_SEPARATOR = "\n";
+
+    /**
+     * Gets the line separator.
+     *
+     * @return the line separator.
      */
     public static final String getLineSeparator()
     {
-        // for reasons of platform compatiblity we do not use the 'line.separator' property
-        // since this will break the build on different platforms when comparing cartridge output zips
-        return "\n";
+        // - for reasons of platform compatiblity we do not use the 'line.separator' property
+        //   since this will break the build on different platforms (for exampele when comparing 
+        //   cartridge output zips)  
+        return LINE_SEPARATOR;
     }
 }

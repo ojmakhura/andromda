@@ -29,13 +29,16 @@ import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
 
+
 /**
  * Metaclass facade implementation.
  */
 public class ModelElementFacadeLogicImpl
-        extends ModelElementFacadeLogic
+    extends ModelElementFacadeLogic
 {
-    public ModelElementFacadeLogicImpl(org.omg.uml.foundation.core.ModelElement metaObject, String context)
+    public ModelElementFacadeLogicImpl(
+        org.omg.uml.foundation.core.ModelElement metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -61,10 +64,15 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackageName(boolean modelName)
     {
-        String packageName = UML14MetafacadeUtils.getPackageName(this.metaObject, this.getNamespaceScope(modelName), modelName);
+        String packageName =
+            UML14MetafacadeUtils.getPackageName(
+                this.metaObject,
+                this.getNamespaceScope(modelName),
+                modelName);
         if (modelName)
         {
-            packageName = StringUtils.replace(
+            packageName =
+                StringUtils.replace(
                     packageName,
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
                     MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);
@@ -89,10 +97,11 @@ public class ModelElementFacadeLogicImpl
             if (this.getLanguageMappings() != null)
             {
                 fullName = StringUtils.deleteWhitespace(this.getLanguageMappings().getTo(fullName));
+
                 // now replace the metafacade scope operators
                 // with the mapped scope operators
-                final String namespaceScopeOperator = String.valueOf(
-                        this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
+                final String namespaceScopeOperator =
+                    String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
                 fullName = StringUtils.replace(fullName, metafacadeNamespaceScopeOperator, namespaceScopeOperator);
             }
         }
@@ -112,7 +121,8 @@ public class ModelElementFacadeLogicImpl
         String namespaceScope = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
         if (!modelName)
         {
-            namespaceScope = ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
+            namespaceScope =
+                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
         }
         return namespaceScope;
     }
@@ -131,16 +141,19 @@ public class ModelElementFacadeLogicImpl
     public Collection handleFindTaggedValues(String name)
     {
         final Collection values = new ArrayList();
+
         // only search a tagged value when it actually has a name
         if (StringUtils.isNotBlank(name))
         {
             // trim the name, we don't want leading/trailing spaces
             name = StringUtils.trimToEmpty(name);
+
             // loop over the tagged values
             final Collection taggedValues = this.getTaggedValues();
             for (final Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
             {
                 TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator.next();
+
                 // does this name match the argument tagged value name ?
                 if (name.equals(taggedValue.getName()))
                 {
@@ -195,12 +208,12 @@ public class ModelElementFacadeLogicImpl
         Collection stereotypes = this.getStereotypes();
 
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName) && stereotypes != null &&
-                !stereotypes.isEmpty();
+            !stereotypes.isEmpty();
 
         if (hasStereotype)
         {
             class StereotypeFilter
-                    implements Predicate
+                implements Predicate
             {
                 public boolean evaluate(Object object)
                 {
@@ -216,7 +229,9 @@ public class ModelElementFacadeLogicImpl
                     return valid;
                 }
             }
-            hasStereotype = CollectionUtils.find(this.getStereotypes(), new StereotypeFilter()) != null;
+            hasStereotype = CollectionUtils.find(
+                    this.getStereotypes(),
+                    new StereotypeFilter()) != null;
         }
         return hasStereotype;
     }
@@ -295,8 +310,10 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetFullyQualifiedNamePath()
     {
-        return StringUtils.replace(this.getFullyQualifiedName(), String.valueOf(this.getConfiguredProperty(
-                UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), "/");
+        return StringUtils.replace(
+            this.getFullyQualifiedName(),
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
+            "/");
     }
 
     /**
@@ -304,8 +321,10 @@ public class ModelElementFacadeLogicImpl
      */
     public String handleGetPackagePath()
     {
-        return StringUtils.replace(this.getPackageName(), String.valueOf(this.getConfiguredProperty(
-                UMLMetafacadeProperties.NAMESPACE_SEPARATOR)), "/");
+        return StringUtils.replace(
+            this.getPackageName(),
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
+            "/");
     }
 
     /**
@@ -319,7 +338,9 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int)
      */
-    protected String handleGetDocumentation(String indent, int lineLength)
+    protected String handleGetDocumentation(
+        String indent,
+        int lineLength)
     {
         return getDocumentation(indent, lineLength, true);
     }
@@ -327,7 +348,10 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
      */
-    protected String handleGetDocumentation(String indent, int lineLength, boolean htmlStyle)
+    protected String handleGetDocumentation(
+        String indent,
+        int lineLength,
+        boolean htmlStyle)
     {
         final StringBuffer documentation = new StringBuffer();
 
@@ -357,12 +381,15 @@ public class ModelElementFacadeLogicImpl
         // if there still isn't anything, try a tagged value
         if (StringUtils.isEmpty(documentation.toString()))
         {
-            documentation.append(StringUtils.trimToEmpty((String)this.findTaggedValue(
-                    UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
+            documentation.append(
+                StringUtils.trimToEmpty((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
 
         return StringUtilsHelper.format(
-                StringUtils.trimToEmpty(documentation.toString()), indent, lineLength, htmlStyle);
+            StringUtils.trimToEmpty(documentation.toString()),
+            indent,
+            lineLength,
+            htmlStyle);
     }
 
     /**
@@ -405,6 +432,7 @@ public class ModelElementFacadeLogicImpl
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(errMsg, th);
+
                 // don't throw the exception
             }
         }
@@ -437,19 +465,21 @@ public class ModelElementFacadeLogicImpl
     protected java.util.Collection handleGetSourceDependencies()
     {
         Collection dependencies = new ArrayList();
-        Collection clientDependencies = UML14MetafacadeUtils.getCorePackage().getAClientClientDependency()
-                .getClientDependency(this.metaObject);
+        Collection clientDependencies =
+            UML14MetafacadeUtils.getCorePackage().getAClientClientDependency().getClientDependency(this.metaObject);
         if (clientDependencies != null)
         {
             dependencies.addAll(clientDependencies);
         }
-        CollectionUtils.filter(dependencies, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            dependencies,
+            new Predicate()
             {
-                return (object instanceof Dependency) && !(object instanceof Abstraction);
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    return (object instanceof Dependency) && !(object instanceof Abstraction);
+                }
+            });
         return dependencies;
     }
 
@@ -459,19 +489,22 @@ public class ModelElementFacadeLogicImpl
     protected Collection handleGetTargetDependencies()
     {
         Collection dependencies = new ArrayList();
-        Collection supplierDependencies = UML14MetafacadeUtils.getCorePackage().getASupplierSupplierDependency()
-                .getSupplierDependency(this.metaObject);
+        Collection supplierDependencies =
+            UML14MetafacadeUtils.getCorePackage().getASupplierSupplierDependency().getSupplierDependency(
+                this.metaObject);
         if (supplierDependencies != null)
         {
             dependencies.addAll(supplierDependencies);
         }
-        CollectionUtils.filter(dependencies, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            dependencies,
+            new Predicate()
             {
-                return (object instanceof Dependency) && !(object instanceof Abstraction);
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    return (object instanceof Dependency) && !(object instanceof Abstraction);
+                }
+            });
         return dependencies;
     }
 
@@ -504,39 +537,47 @@ public class ModelElementFacadeLogicImpl
      */
     protected Collection handleGetConstraints(final String kind)
     {
-        final Collection filteredConstraints = CollectionUtils.select(getConstraints(), new Predicate()
-        {
-            public boolean evaluate(Object object)
-            {
-                if (object instanceof ConstraintFacade)
+        final Collection filteredConstraints =
+            CollectionUtils.select(
+                getConstraints(),
+                new Predicate()
                 {
-                    ConstraintFacade constraint = (ConstraintFacade)object;
-                    return ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) ||
+                    public boolean evaluate(Object object)
+                    {
+                        if (object instanceof ConstraintFacade)
+                        {
+                            ConstraintFacade constraint = (ConstraintFacade)object;
+                            return ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) ||
                             (ExpressionKinds.DEF.equals(kind) && constraint.isDefinition()) ||
                             (ExpressionKinds.INV.equals(kind) && constraint.isInvariant()) ||
                             (ExpressionKinds.PRE.equals(kind) && constraint.isPreCondition()) ||
                             (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()));
-                }
-                return false;
-            }
-        });
+                        }
+                        return false;
+                    }
+                });
         return filteredConstraints;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String, java.lang.String)
      */
-    protected String handleTranslateConstraint(final String name, String translation)
+    protected String handleTranslateConstraint(
+        final String name,
+        String translation)
     {
         String translatedExpression = "";
-        ConstraintFacade constraint = (ConstraintFacade)CollectionUtils.find(this.getConstraints(), new Predicate()
-        {
-            public boolean evaluate(Object object)
-            {
-                ConstraintFacade constraint = (ConstraintFacade)object;
-                return StringUtils.trimToEmpty(constraint.getName()).equals(StringUtils.trimToEmpty(name));
-            }
-        });
+        ConstraintFacade constraint =
+            (ConstraintFacade)CollectionUtils.find(
+                this.getConstraints(),
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        ConstraintFacade constraint = (ConstraintFacade)object;
+                        return StringUtils.trimToEmpty(constraint.getName()).equals(StringUtils.trimToEmpty(name));
+                    }
+                });
 
         if (constraint != null)
         {
@@ -550,7 +591,9 @@ public class ModelElementFacadeLogicImpl
      */
     protected java.lang.String[] handleTranslateConstraints(String translation)
     {
-        return this.translateConstraints(this.getConstraints(), translation);
+        return this.translateConstraints(
+            this.getConstraints(),
+            translation);
     }
 
     /**
@@ -561,7 +604,9 @@ public class ModelElementFacadeLogicImpl
      * @param translation the translation to transate <code>to</code>.
      * @return String[] the translated expressions, or null if no constraints were found
      */
-    private String[] translateConstraints(Collection constraints, String translation)
+    private String[] translateConstraints(
+        Collection constraints,
+        String translation)
     {
         String[] translatedExpressions = null;
         if (constraints != null && !constraints.isEmpty())
@@ -580,17 +625,23 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String, java.lang.String)
      */
-    protected java.lang.String[] handleTranslateConstraints(final String kind, String translation)
+    protected java.lang.String[] handleTranslateConstraints(
+        final String kind,
+        String translation)
     {
         Collection constraints = this.getConstraints();
-        CollectionUtils.filter(constraints, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            constraints,
+            new Predicate()
             {
-                ConstraintFacade constraint = (ConstraintFacade)object;
-                return UMLMetafacadeUtils.isConstraintKind(constraint.getBody(), kind);
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    ConstraintFacade constraint = (ConstraintFacade)object;
+                    return UMLMetafacadeUtils.isConstraintKind(
+                        constraint.getBody(),
+                        kind);
+                }
+            });
         return this.translateConstraints(constraints, translation);
     }
 
@@ -622,7 +673,8 @@ public class ModelElementFacadeLogicImpl
     {
         final StringBuffer validationName = new StringBuffer();
         final Object seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
-        for (ModelElement namespace = metaObject.getNamespace(); namespace != null; namespace = namespace.getNamespace())
+        for (ModelElement namespace = metaObject.getNamespace(); namespace != null;
+            namespace = namespace.getNamespace())
         {
             if (validationName.length() == 0)
             {
@@ -631,7 +683,9 @@ public class ModelElementFacadeLogicImpl
             else
             {
                 validationName.insert(0, seperator);
-                validationName.insert(0, namespace.getName());
+                validationName.insert(
+                    0,
+                    namespace.getName());
             }
         }
         if (validationName.length() > 0)
