@@ -3,6 +3,7 @@ package org.andromda.core.common;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.WordUtils;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -383,70 +384,114 @@ public class StringUtilsHelper
     }
 
     /**
+     * <p/>
      * Formats the given argument with the specified indentation, wrapping the text at the desired column margin.
+     * </p>
      * <p/>
-     * The returned text will be suitable for display in HTML environments such as JavaDoc, all newlines will be
-     * replaced by paragraphs.
+     * When enabling <em>htmlStyle</em> the returned text will be suitable for display in HTML
+     * environments such as JavaDoc, all newlines will be replaced by paragraphs.
+     * </p>
      * <p/>
-     * This method does <em>not</em> trim the input text.
+     * This method trims the input text: all leading and trailing whitespace will be removed.
+     * </p>
+     * <p>
+     * If for some reason this method would fail it will return the <em>plainText</em> argument.
+     * </p>
      *
-     * @param the          text to format, the empty string will be returned in case this argument is <code>null</code>
+     * @param plainText    the text to format, the empty string will be returned in case this argument
+     *                     is <code>null</code>; long words will be placed on a newline but will never be wrapped
      * @param indentation  the empty string will be used if this argument would be <code>null</code>
-     * @param wrapAtColumn does not take into account the length of the indentation
+     * @param wrapAtColumn does not take into account the length of the indentation, needs to be stricly positive
      * @param htmlStyle    whether or not to make sure the returned string is suited for display in HTML environments
      *                     such as JavaDoc
-     * @return a String instance which represents the formatted input
+     * @return a String instance which represents the formatted input, never <code>null</code>
+     * @throws IllegalArgumentException when the <em>wrapAtColumn</em> argument is not strictly positive
      */
     public static String format(String plainText, String indentation, int wrapAtColumn, boolean htmlStyle)
     {
+        // unspecified indentation will use the empty string
+        if (indentation == null)
+        {
+            indentation = "";
+        }
+
+        // null plaintext will yield the empty string
+        if (StringUtils.isBlank(plainText))
+        {
+            return indentation;
+        }
+
+        // we cannot wrap at a column index less than 1
+        if (wrapAtColumn < 1)
+        {
+            throw new IllegalArgumentException("Cannot wrap at column: " + wrapAtColumn);
+        }
+
         String format = null;
 
-        // if the text is blank we do nothing
-        if (StringUtils.isEmpty(plainText))
+        try
         {
-            format = "";
-        }
-        else
-        {
-            if (indentation == null)
-            {
-                indentation = "";
-            }
+            // this buffer will contain the formatted text
+            final StringBuffer formattedText = new StringBuffer();
 
-            final StringBuffer buffer = new StringBuffer();
+            // we'll be reading lines from this reader
+            final BufferedReader reader = new BufferedReader(new StringReader(plainText));
 
-            try
+            String line = reader.readLine();
+            // test whether or not we reached the end of the stream
+            while (line != null)
             {
-                final BufferedReader reader =
-                        new BufferedReader(new StringReader(WordUtils.wrap(plainText, wrapAtColumn, null, false)));
-                String line = reader.readLine();
-                while (line != null)
+                if (StringUtils.isNotBlank(line))
                 {
-                    buffer.append(indentation);
-                    buffer.append(line);
-
-                    line = reader.readLine();
-
-                    // only do a newline when there's actually coming more stuff
-                    if (line != null)
+                    // in HTML mode we start each new line on a paragraph
+                    if (htmlStyle)
                     {
-                        buffer.append(SystemUtils.LINE_SEPARATOR);
-                        if (htmlStyle)
-                        {
-                            buffer.append("<p/>");
-                            buffer.append(SystemUtils.LINE_SEPARATOR);
-                        }
+                        formattedText.append(indentation);
+                        formattedText.append("<p>");
+                        formattedText.append(SystemUtils.LINE_SEPARATOR);
+                    }
+
+                    // WordUtils.wrap never indents the first line so we do it here
+                    formattedText.append(indentation);
+                    // append the wrapped text, the indentation is prefixed with a newline
+                    formattedText.append(
+                            WordUtils.wrap(
+                                    line.trim(),
+                                    wrapAtColumn,
+                                    SystemUtils.LINE_SEPARATOR + indentation,
+                                    false));
+
+                    // in HTML mode we need to close the paragraph
+                    if (htmlStyle)
+                    {
+                        formattedText.append(SystemUtils.LINE_SEPARATOR);
+                        formattedText.append(indentation);
+                        formattedText.append("</p>");
                     }
                 }
-                reader.close();
-            }
-            catch (IOException ioException)
-            {
-                // do nothing, we'll simply return the contents of the buffer
+
+                // read the next line
+                line = reader.readLine();
+
+                // only add a newline when the next line is not empty and some string have already been added
+                if (formattedText.length() > 0 && StringUtils.isNotBlank(line))
+                {
+                    formattedText.append(SystemUtils.LINE_SEPARATOR);
+                }
             }
 
-            format = buffer.toString();
+            // close the reader as there is nothing more to read
+            reader.close();
+
+            // set the return value
+            format = formattedText.toString();
         }
+        catch (IOException ioException)
+        {
+            Logger.getLogger(StringUtilsHelper.class).error("Could not format text: " + plainText, ioException);
+            format = plainText;
+        }
+
         return format;
     }
 }

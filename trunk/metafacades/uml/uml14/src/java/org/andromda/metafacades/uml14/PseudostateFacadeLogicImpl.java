@@ -43,12 +43,12 @@ public class PseudostateFacadeLogicImpl
 
     protected boolean handleIsDecisionPoint()
     {
-        return (isChoice() || isJunction()) && metaObject.getOutgoing().size() > 1;
+        return (this.isChoice() || this.isJunction()) && metaObject.getOutgoing().size() > 1;
     }
 
     protected boolean handleIsMergePoint()
     {
-        return (isChoice() || isJunction()) && metaObject.getIncoming().size() > 1;
+        return (this.isChoice() || this.isJunction()) && metaObject.getIncoming().size() > 1;
     }
 
     protected boolean handleIsDeepHistory()
@@ -63,16 +63,16 @@ public class PseudostateFacadeLogicImpl
 
     protected boolean handleIsSplit()
     {
-        return (isJoin() || isFork()) && metaObject.getOutgoing().size() > 1;
+        return (this.isJoin() || this.isFork()) && metaObject.getOutgoing().size() > 1;
     }
 
     protected boolean handleIsCollect()
     {
-        return (isJoin() || isFork()) && metaObject.getIncoming().size() > 1;
+        return (this.isJoin() || this.isFork()) && metaObject.getIncoming().size() > 1;
     }
 
     public Object getValidationOwner()
     {
-        return getStateMachine();
+        return this.getStateMachine();
     }
 }

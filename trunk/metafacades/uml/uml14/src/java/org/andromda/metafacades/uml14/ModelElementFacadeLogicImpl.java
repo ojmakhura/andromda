@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import org.andromda.core.common.DocumentationAnalyzer;
 import org.andromda.core.common.Paragraph;
+import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ConstraintFacade;
@@ -17,6 +18,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
 import org.omg.uml.foundation.core.Abstraction;
 import org.omg.uml.foundation.core.Comment;
@@ -190,9 +192,8 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(java.lang.String)
      */
-    public boolean handleHasStereotype(String stereotypeName)
+    public boolean handleHasStereotype(final String stereotypeName)
     {
-        final String stereotype = stereotypeName;
         Collection stereotypes = this.getStereotypes();
 
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName) && stereotypes != null &&
@@ -208,11 +209,11 @@ public class ModelElementFacadeLogicImpl
                     boolean valid = false;
                     StereotypeFacade facade = (StereotypeFacade)object;
                     String name = StringUtils.trimToEmpty(facade.getName());
-                    valid = stereotype.equals(name);
+                    valid = stereotypeName.equals(name);
                     while (!valid && facade != null)
                     {
                         facade = (StereotypeFacade)facade.getGeneralization();
-                        valid = facade != null && StringUtils.trimToEmpty(facade.getName()).equals(stereotype);
+                        valid = facade != null && StringUtils.trimToEmpty(facade.getName()).equals(stereotypeName);
                     }
                     return valid;
                 }
@@ -330,79 +331,40 @@ public class ModelElementFacadeLogicImpl
      */
     protected String handleGetDocumentation(String indent, int lineLength, boolean htmlStyle)
     {
-        if (StringUtils.isEmpty(indent))
+        final StringBuffer documentation = new StringBuffer();
+
+        if (lineLength < 1)
         {
-            indent = "";
+            lineLength = Integer.MAX_VALUE;
         }
-        StringBuffer documentation = new StringBuffer();
-        Collection comments = this.metaObject.getComment();
+
+        final Collection comments = this.metaObject.getComment();
         if (comments != null && !comments.isEmpty())
         {
-            Iterator commentIt = comments.iterator();
-            while (commentIt.hasNext())
+            for (final Iterator commentIterator = comments.iterator(); commentIterator.hasNext();)
             {
-                Comment comment = (Comment)commentIt.next();
+                final Comment comment = (Comment)commentIterator.next();
                 String commentString = StringUtils.trimToEmpty(comment.getBody());
+
                 // if there isn't anything in the body, try the name
                 if (StringUtils.isEmpty(commentString))
                 {
                     commentString = StringUtils.trimToEmpty(comment.getName());
                 }
                 documentation.append(StringUtils.trimToEmpty(commentString));
+                documentation.append(SystemUtils.LINE_SEPARATOR);
             }
         }
+
         // if there still isn't anything, try a tagged value
         if (StringUtils.isEmpty(documentation.toString()))
         {
             documentation.append(StringUtils.trimToEmpty((String)this.findTaggedValue(
                     UMLProfile.TAGGEDVALUE_DOCUMENTATION)));
         }
-        try
-        {
-            String newLine = "\n";
-            String startParaTag = (htmlStyle) ? "<p>" : "";
-            String endParaTag = (htmlStyle) ? "</p>" : "";
-            Collection paragraphs = new DocumentationAnalyzer(lineLength).toParagraphs(documentation.toString(),
-                    htmlStyle);
-            if (paragraphs != null && !paragraphs.isEmpty())
-            {
-                documentation = new StringBuffer();
-                for (final Iterator paragraphIt = paragraphs.iterator(); paragraphIt.hasNext();)
-                {
-                    Paragraph paragraph = (Paragraph)paragraphIt.next();
-                    documentation.append(indent + startParaTag + newLine);
-                    Collection lines = paragraph.getLines();
-                    if (lines != null && !lines.isEmpty())
-                    {
-                        Iterator lineIt = lines.iterator();
-                        while (lineIt.hasNext())
-                        {
-                            documentation.append(indent + lineIt.next() + newLine);
-                        }
-                    }
-                    documentation.append(indent + endParaTag);
-                    if (paragraphIt.hasNext())
-                    {
-                        documentation.append(newLine);
-                    }
-                }
-            }
-            else
-            {
-                documentation.append(indent);
-            }
-        }
-        catch (Throwable th)
-        {
-            final String errMsg = "Error performing ModelElementFacadeImpl.getDocumentation";
-            logger.error(errMsg, th);
-        }
-        if (lineLength < 0)
-        {
-            documentation = new StringBuffer(StringUtils.trimToEmpty(documentation.toString()).replaceAll("[$\\s]+",
-                    " "));
-        }
-        return documentation.toString();
+
+        return StringUtilsHelper.format(
+                StringUtils.trimToEmpty(documentation.toString()), indent, lineLength, htmlStyle);
     }
 
     /**
