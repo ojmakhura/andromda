@@ -1,13 +1,13 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.List;
+
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.translation.ocl.ExpressionKinds;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.List;
 
 
 /**
@@ -57,7 +57,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsInvariant()
     {
-        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.INV);
+        return UMLMetafacadeUtils.isConstraintKind(
+            this.getBody(),
+            ExpressionKinds.INV);
     }
 
     /**
@@ -65,7 +67,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPreCondition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.PRE);
+        return UMLMetafacadeUtils.isConstraintKind(
+            this.getBody(),
+            ExpressionKinds.PRE);
     }
 
     /**
@@ -73,7 +77,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPostCondition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.POST);
+        return UMLMetafacadeUtils.isConstraintKind(
+            this.getBody(),
+            ExpressionKinds.POST);
     }
 
     /**
@@ -81,7 +87,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsDefinition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.DEF);
+        return UMLMetafacadeUtils.isConstraintKind(
+            this.getBody(),
+            ExpressionKinds.DEF);
     }
 
     /**
@@ -89,7 +97,9 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsBodyExpression()
     {
-        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.BODY);
+        return UMLMetafacadeUtils.isConstraintKind(
+            this.getBody(),
+            ExpressionKinds.BODY);
     }
 
     /**
@@ -98,8 +108,11 @@ public class ConstraintFacadeLogicImpl
     public String handleGetTranslation(String language)
     {
         final Expression expression =
-                ExpressionTranslator.instance().translate(language, this.getBody(), this.getContextElement());
-        return (expression == null) ? null : expression.getTranslatedExpression();
+            ExpressionTranslator.instance().translate(
+                language,
+                this.getBody(),
+                this.getContextElement());
+        return expression == null ? null : expression.getTranslatedExpression();
     }
 
     /**
