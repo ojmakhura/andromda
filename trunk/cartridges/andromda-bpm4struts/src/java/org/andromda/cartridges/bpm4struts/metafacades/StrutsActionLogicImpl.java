@@ -159,7 +159,7 @@ public class StrutsActionLogicImpl
         final String tableLinkName = getTableLinkName();
         if (tableLinkName != null)
         {
-            final StrutsJsp page = (StrutsJsp)getInput();
+            final StrutsJsp page = this.getInput();
             if (page != null)
             {
                 final List tables = page.getTables();
