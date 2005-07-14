@@ -1,6 +1,5 @@
 #set ($generatedFile = "${controller.fullPath}.java")
 #set ($operations = $controller.operations)
-#if (!$operations.empty)
 ##
 ##  CONSTANTS
 ##
@@ -253,4 +252,3 @@ $operation.getDocumentation("     * ")
 #end
 #end
 }
-#end
