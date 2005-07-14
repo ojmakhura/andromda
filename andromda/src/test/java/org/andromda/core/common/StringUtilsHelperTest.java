@@ -242,7 +242,7 @@ public class StringUtilsHelperTest
             {
                 new String[] {null, ""},
                 new String[] {"", ""},
-                new String[] {"  ", "  "},
+                new String[] {"  ", ""},
                 new String[] {"word", "word"},
                 new String[] {"hottentottententoonstelling", "hottentottententoonstelling"},
                 new String[] {"line1\nline2", "line1"+newline+"line2"},
@@ -254,6 +254,8 @@ public class StringUtilsHelperTest
         for (int i = 0; i < fixture.length; i++)
         {
             String[] strings = fixture[i];
+            System.out.println(StringUtilsHelper.format(strings[0], null, 5, false));
+            System.out.println(strings[1]);
             assertEquals(
                 StringUtilsHelper.format(strings[0], null, 5, false),
                 strings[1]);
@@ -268,26 +270,29 @@ public class StringUtilsHelperTest
         final String[][] fixture =
             new String[][]
             {
-                new String[] {"one two three", indentation+"one"+newline+"two"+newline+"three"},
+                    new String[] {"", indentation},
+                    new String[] {"one two three", indentation+"one two three"},
+                    new String[] {"Sets the <code>thisArgumentIsMissingFromTheActionForm</code> field.\n",
+                                  indentation+"Sets the <code>thisArgumentIsMissingFromTheActionForm</code>"+newline+"field."}
             };
 
         for (int i = 0; i < fixture.length; i++)
         {
             String[] strings = fixture[i];
             assertEquals(
-                StringUtilsHelper.format(strings[0], indentation, 5, false),
+                StringUtilsHelper.format(strings[0], indentation, 64, false),
                 strings[1]);
         }
     }
 
     public void testHtmlFormat()
     {
-        final String newline = SystemUtils.LINE_SEPARATOR + "<p/>" + SystemUtils.LINE_SEPARATOR;
+        final String newline = SystemUtils.LINE_SEPARATOR;
 
         final String[][] fixture =
             new String[][]
             {
-                new String[] {"one two three", "one"+newline+"two"+newline+"three"},
+                new String[] {"one two three", "<p>"+newline+"one"+newline+"two"+newline+"three"+newline+"</p>"}
             };
 
         for (int i = 0; i < fixture.length; i++)

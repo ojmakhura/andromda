@@ -9,7 +9,7 @@ service.port=8080
 #if ($war)
 #set ($deployExploded = "true")
 #end
-# setting this to true will deploy the $projectType exploded
+# set this to true will deploy the $projectType exploded
 deployExploded=$deployExploded
 
 # The datasource for the application

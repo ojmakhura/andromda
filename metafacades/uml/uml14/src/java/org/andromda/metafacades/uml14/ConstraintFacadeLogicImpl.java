@@ -57,9 +57,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsInvariant()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
-            this.getBody(),
-            ExpressionKinds.INV);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.INV);
     }
 
     /**
@@ -67,9 +65,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPreCondition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
-            this.getBody(),
-            ExpressionKinds.PRE);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.PRE);
     }
 
     /**
@@ -77,9 +73,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsPostCondition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
-            this.getBody(),
-            ExpressionKinds.POST);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.POST);
     }
 
     /**
@@ -87,9 +81,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsDefinition()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
-            this.getBody(),
-            ExpressionKinds.DEF);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.DEF);
     }
 
     /**
@@ -97,9 +89,7 @@ public class ConstraintFacadeLogicImpl
      */
     public boolean handleIsBodyExpression()
     {
-        return UMLMetafacadeUtils.isConstraintKind(
-            this.getBody(),
-            ExpressionKinds.BODY);
+        return UMLMetafacadeUtils.isConstraintKind(this.getBody(), ExpressionKinds.BODY);
     }
 
     /**
@@ -107,17 +97,9 @@ public class ConstraintFacadeLogicImpl
      */
     public String handleGetTranslation(String language)
     {
-        String translation = null;
         final Expression expression =
-            ExpressionTranslator.instance().translate(
-                language,
-                this.getBody(),
-                this.getContextElement());
-        if (expression != null)
-        {
-            translation = expression.getTranslatedExpression();
-        }
-        return translation;
+                ExpressionTranslator.instance().translate(language, this.getBody(), this.getContextElement());
+        return (expression == null) ? null : expression.getTranslatedExpression();
     }
 
     /**
