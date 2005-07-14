@@ -82,30 +82,37 @@ public class FrontEndActionLogicImpl
      */
     protected java.util.List handleGetDeferredOperations()
     {
-        final Collection deferredOperations = new LinkedHashSet();
-
-        final FrontEndController controller = this.getController();
-        if (controller != null)
+        try
         {
-            final List actionStates = this.getActionStates();
-            for (int i = 0; i < actionStates.size(); i++)
+            final Collection deferredOperations = new LinkedHashSet();
+            final FrontEndController controller = this.getController();
+            if (controller != null)
             {
-                final FrontEndActionState actionState = (FrontEndActionState)actionStates.get(i);
-                deferredOperations.addAll(actionState.getControllerCalls());
-            }
-
-            final List transitions = this.getDecisionTransitions();
-            for (int i = 0; i < transitions.size(); i++)
-            {
-                final FrontEndForward forward = (FrontEndForward)transitions.get(i);
-                final FrontEndEvent trigger = forward.getDecisionTrigger();
-                if (trigger != null)
+                final List actionStates = this.getActionStates();
+                for (int ctr = 0; ctr < actionStates.size(); ctr++)
                 {
-                    deferredOperations.add(trigger.getControllerCall());
+                    final FrontEndActionState actionState = (FrontEndActionState)actionStates.get(ctr);
+                    deferredOperations.addAll(actionState.getControllerCalls());
+                }
+    
+                final List transitions = this.getDecisionTransitions();
+                for (int ctr = 0; ctr < transitions.size(); ctr++)
+                {
+                    final FrontEndForward forward = (FrontEndForward)transitions.get(ctr);
+                    final FrontEndEvent trigger = forward.getDecisionTrigger();
+                    if (trigger != null)
+                    {
+                        deferredOperations.add(trigger.getControllerCall());
+                    }
                 }
             }
+            return new ArrayList(deferredOperations);
         }
-        return new ArrayList(deferredOperations);
+        catch (Throwable th)
+        {
+            th.printStackTrace();
+            throw new RuntimeException(th);
+        }
     }
     
     /**
@@ -147,9 +154,11 @@ public class FrontEndActionLogicImpl
      */
     private void initializeCollections()
     {
-        actionStates = new HashSet();
-        transitions = new HashSet();
-        collectTransitions(this, transitions);
+        this.actionStates = new HashSet();
+        this.actionForwards = new HashMap();
+        this.decisionTransitions = new HashSet();
+        this.transitions = new HashSet();
+        this.collectTransitions(this, transitions);
     }
     
     /**
@@ -169,14 +178,14 @@ public class FrontEndActionLogicImpl
         final StateVertexFacade target = transition.getTarget();
         if ((target instanceof FrontEndView) || (target instanceof FrontEndFinalState))
         {
-            if (!actionForwards.containsKey(transition.getTarget()))
+            if (!this.actionForwards.containsKey(transition.getTarget()))
             {
-                actionForwards.put(transition.getTarget(), transition);
+                this.actionForwards.put(transition.getTarget(), transition);
             }
         }
-        else if ((target instanceof PseudostateFacade) && ((PseudostateFacade)target).isDecisionPoint())
+        else if (target instanceof PseudostateFacade && ((PseudostateFacade)target).isDecisionPoint())
         {
-            decisionTransitions.add(transition);
+            this.decisionTransitions.add(transition);
             final Collection outcomes = target.getOutgoing();
             for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
@@ -186,7 +195,7 @@ public class FrontEndActionLogicImpl
         }
         else if (target instanceof FrontEndActionState)
         {
-            actionStates.add(target);
+            this.actionStates.add(target);
             final FrontEndForward forward = ((FrontEndActionState)target).getForward();
             if (forward != null)
             {
