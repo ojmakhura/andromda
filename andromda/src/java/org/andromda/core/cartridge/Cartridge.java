@@ -38,14 +38,6 @@ public class Cartridge
     extends BasePlugin
 {
     /**
-     * The default Cartridge constructor.
-     */
-    public Cartridge()
-    {
-        super();
-    }
-
-    /**
      * The prefix to look for when determining whether or not to retrieve the output location from the template engine.
      */
     private static final String TEMPLATE_ENGINE_OUTPUT_PREFIX = "$";
@@ -308,7 +300,7 @@ public class Cartridge
                 if (!outputFile.exists() || template.isOverwrite())
                 {
                     final String outputString = output.toString();
-                    AndroMDALogger.setSuffix(this.getNamespace());
+                    AndroMDALogger.setSuffix(this.getNamespace() + ':' + template.getOutlet());
 
                     // check to see if generateEmptyFiles is true and if
                     // outString is not blank
