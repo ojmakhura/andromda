@@ -535,7 +535,7 @@ public class OperationFacadeLogicImpl
      */
     protected boolean handleIsPreconditionsPresent()
     {
-        final Collection preconditions = this.getPostconditions();
+        final Collection preconditions = this.getPreconditions();
         return preconditions != null && !preconditions.isEmpty();
     }
 
