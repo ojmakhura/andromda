@@ -1,7 +1,9 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.core.common.DocumentationAnalyzer;
-import org.andromda.core.common.Paragraph;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -26,10 +28,6 @@ import org.omg.uml.foundation.core.Dependency;
 import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.VisibilityKind;
 import org.omg.uml.foundation.datatypes.VisibilityKindEnum;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
