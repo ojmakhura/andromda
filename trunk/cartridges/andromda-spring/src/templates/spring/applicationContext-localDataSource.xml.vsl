@@ -22,7 +22,9 @@
 
     <!-- (local) Transaction Manager -->
     <bean id="transactionManager" class="$localTransactionManager">
+#if ($localTransactionManager.indexOf('HibernateTransactionManager') != -1)
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+#end
     </bean>
 
     <!-- ===================== TRANSACTION MANAGER DEFINITION ========================= -->

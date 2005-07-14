@@ -18,11 +18,15 @@
     <!-- ===================== TRANSACTION MANAGER DEFINITION ========================= -->
 
     <bean id="transactionManager" class="$transactionManager">
+#if ($transactionManager.indexOf('HibernateTransactionManager') != -1)
+        <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+#else
 #if ($stringUtils.isNotBlank($userTransactionName))
         <property name="userTransactionName">$springUtils.getSpringPropertyValue($userTransactionName)</property>
 #end
 #if ($stringUtils.isNotBlank($transactionManagerName))
         <property name="transactionManagerName">$springUtils.getSpringPropertyValue($transactionManagerName)</property>
+#end
 #end
     </bean>
 
