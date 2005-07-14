@@ -32,14 +32,6 @@ public class FrontEndControllerLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.FrontEndController#getFullPath()
-     */
-    protected java.lang.String handleGetFullPath()
-    {
-        return '/' + getPackageName().replace('.', '/') + '/' + getName();
-    }
-
-    /**
      * @see org.andromda.metafacades.uml.FrontEndController#getServiceReferences()
      */
     protected java.util.List handleGetServiceReferences()
