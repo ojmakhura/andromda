@@ -130,6 +130,8 @@
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
                     <!-- if this property is not present it's no use generating the controller -->
                     <property name="useCase"/>
+                    <!-- only useful generating if we have at least one operation -->
+                    <property name="operations"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -145,6 +147,8 @@
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
                     <!-- if this property is not present it's no use generating the controller -->
                     <property name="useCase"/>
+                    <!-- only useful generating if we have at least one operation -->
+                    <property name="operations"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -160,6 +164,8 @@
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
                     <!-- if this property is not present it's no use generating the controller -->
                     <property name="useCase"/>
+                    <!-- only useful generating if we have at least one operation -->
+                    <property name="operations"/>
                 </type>
             </modelElement>
         </modelElements>

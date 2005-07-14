@@ -1,6 +1,4 @@
-## Only generate the controller impl if there are operations defined
 #set ($generatedFile = "${controller.fullPath}Impl.java")
-#if (!$controller.operations.empty)
 ##
 ##  CONSTANTS
 ##
@@ -138,4 +136,3 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #end
 #end
 }
-#end
