@@ -90,11 +90,11 @@ public class $criteriaSearchBaseName
                 int direction = parameter.getOrderDirection();
                 if (direction == ${criteriaSearchBaseName}Parameter.ORDER_ASC)
                 {
-                    this.rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.asc(parameter.getParameterName()));
+                    this.rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.asc(parameter.getParameterPattern()));
                 }
                 else
                 {
-                    this.rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.desc(parameter.getParameterName()));
+                    this.rootCriteria.addOrder(${hibernateUtils.criterionPackage}.Order.desc(parameter.getParameterPattern()));
                 }
             }
         }
