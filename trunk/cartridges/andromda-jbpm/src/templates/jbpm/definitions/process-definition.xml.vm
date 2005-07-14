@@ -7,7 +7,7 @@
 ${indent}<start-state#renderName($state)#renderSwimlane($state)>
 ## due to UML limitations it is not possible to have a task here
 #transitions($state "${indent}    " false)
-#events($state "${indent}")
+## events($state "${indent}    ") (unfortunately UML does not support events on an initial state)
 ## exception handlers not supported at this point
 ${indent}</start-state>
 

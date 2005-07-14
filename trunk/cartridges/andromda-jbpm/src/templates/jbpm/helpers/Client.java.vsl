@@ -21,21 +21,19 @@ public final class ProcessManager
 	 */
 	public static void injectAllProcessDefinitions() throws java.lang.Exception
 	{
-	    final org.jbpm.db.JbpmSession jbpmSession = SESSION_FACTORY.openJbpmSession();
-
 #foreach ($processDefinition in $processDefinitions)
 		final org.jbpm.graph.def.ProcessDefinition $stringUtils.lowerCamelCaseName($processDefinition.name)Definition =
 		    org.jbpm.graph.def.ProcessDefinition.parseXmlResource("${processDefinition.descriptorFullPath}");
 #end
 
-        final org.jbpm.db.GraphSession graphSession = jbpmSession.getGraphSession();
-	    jbpmSession.beginTransaction();
+	    final org.jbpm.db.JbpmSession session = SESSION_FACTORY.openJbpmSession();
+        final org.jbpm.db.GraphSession graphSession = session.getGraphSession();
+
+	    session.beginTransaction();
 #foreach ($processDefinition in $processDefinitions)
 	    graphSession.saveProcessDefinition($stringUtils.lowerCamelCaseName($processDefinition.name)Definition);
 #end
-	    jbpmSession.commitTransaction();
-
-	    jbpmSession.close();
+        session.commitTransactionAndClose();
 	}
 
     public static void createProcessSchema() throws java.lang.Exception

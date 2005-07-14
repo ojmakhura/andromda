@@ -1,8 +1,6 @@
 package org.andromda.core.common;
 
 import junit.framework.TestCase;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
 
 
 /**
@@ -189,8 +187,8 @@ public class StringUtilsHelperTest
 
     public void testRemoveLastOccurence()
     {
-        String testString = "This is a test string ending with a comma";
-        String someString = testString + ",  ";
+        final String testString = "This is a test string ending with a comma";
+        final String someString = testString + ",  ";
         assertEquals(
             StringUtilsHelper.removeLastOccurrence(someString, ","),
             testString + "  ");
@@ -235,7 +233,7 @@ public class StringUtilsHelperTest
 
     public void testSimpleFormat()
     {
-        final String newline = SystemUtils.LINE_SEPARATOR;
+        final String newline = StringUtilsHelper.getLineSeparator();
 
         final String[][] fixture =
             new String[][]
@@ -265,7 +263,7 @@ public class StringUtilsHelperTest
     public void testIndentedFormat()
     {
         final String indentation = " * ";
-        final String newline = SystemUtils.LINE_SEPARATOR + indentation;
+        final String newline = StringUtilsHelper.getLineSeparator() + indentation;
 
         final String[][] fixture =
             new String[][]
@@ -287,7 +285,7 @@ public class StringUtilsHelperTest
 
     public void testHtmlFormat()
     {
-        final String newline = SystemUtils.LINE_SEPARATOR;
+        final String newline = StringUtilsHelper.getLineSeparator();
 
         final String[][] fixture =
             new String[][]

@@ -1,7 +1,6 @@
 package org.andromda.core.common;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 
@@ -409,6 +408,12 @@ public class StringUtilsHelper
      */
     public static String format(String plainText, String indentation, int wrapAtColumn, boolean htmlStyle)
     {
+        // we cannot wrap at a column index less than 1
+        if (wrapAtColumn < 1)
+        {
+            throw new IllegalArgumentException("Cannot wrap at column: " + wrapAtColumn);
+        }
+
         // unspecified indentation will use the empty string
         if (indentation == null)
         {
@@ -421,11 +426,7 @@ public class StringUtilsHelper
             return indentation;
         }
 
-        // we cannot wrap at a column index less than 1
-        if (wrapAtColumn < 1)
-        {
-            throw new IllegalArgumentException("Cannot wrap at column: " + wrapAtColumn);
-        }
+        final String lineSeparator = getLineSeparator();
 
         String format = null;
 
@@ -448,7 +449,7 @@ public class StringUtilsHelper
                     {
                         formattedText.append(indentation);
                         formattedText.append("<p>");
-                        formattedText.append(SystemUtils.LINE_SEPARATOR);
+                        formattedText.append(lineSeparator);
                     }
 
                     // WordUtils.wrap never indents the first line so we do it here
@@ -458,13 +459,13 @@ public class StringUtilsHelper
                             WordUtils.wrap(
                                     line.trim(),
                                     wrapAtColumn,
-                                    SystemUtils.LINE_SEPARATOR + indentation,
+                                    lineSeparator + indentation,
                                     false));
 
                     // in HTML mode we need to close the paragraph
                     if (htmlStyle)
                     {
-                        formattedText.append(SystemUtils.LINE_SEPARATOR);
+                        formattedText.append(lineSeparator);
                         formattedText.append(indentation);
                         formattedText.append("</p>");
                     }
@@ -476,7 +477,7 @@ public class StringUtilsHelper
                 // only add a newline when the next line is not empty and some string have already been added
                 if (formattedText.length() > 0 && StringUtils.isNotBlank(line))
                 {
-                    formattedText.append(SystemUtils.LINE_SEPARATOR);
+                    formattedText.append(lineSeparator);
                 }
             }
 
@@ -493,5 +494,15 @@ public class StringUtilsHelper
         }
 
         return format;
+    }
+
+    /**
+     * @return <code>\n</code>
+     */
+    public static final String getLineSeparator()
+    {
+        // for reasons of platform compatiblity we do not use the 'line.separator' property
+        // since this will break the build on different platforms when comparing cartridge output zips
+        return "\n";
     }
 }

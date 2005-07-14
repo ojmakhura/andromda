@@ -28,8 +28,20 @@
 ##
 #macro (renderNodeTest $state)
 #if ($state.name)
-        if ("$state.name".equals(nodeName)) currentNode = new ${state.nodeClassName}(token); else
+        if (#renderNodeName($state.name).equals(nodeName)) node = new ${state.nodeClassName}(token); else
 #end
+#end
+##
+##
+##
+#macro (renderNodeName $name)
+$stringUtils.separate($name,"_").toUpperCase()_NODE_NAME## no newline
+#end
+##
+##
+##
+#macro (renderTaskName $name)
+$stringUtils.separate($name,"_").toUpperCase()_TASK_NAME## no newline
 #end
 ##
 ##
@@ -48,6 +60,37 @@ public class $className
      */
     public static final java.lang.String PROCESS_NAME = "$processDefinition.name";
 
+#foreach ($state in $processDefinition.firstActivityGraph.states)
+#if ($state.name)
+    /**
+     * This constant holds a reference to the name of the
+     * <em>$state.name</em> state, the value corresponds to the one used by jBPM internally.
+     */
+    public static final java.lang.String #renderNodeName($state.name) = "$state.name";
+
+#end
+#end
+#foreach ($state in $processDefinition.firstActivityGraph.pseudostates)
+#if ($state.name)
+    /**
+     * This constant holds a reference to the name of the
+     * <em>$state.name</em> pseudostate, the value corresponds to the one used by jBPM internally.
+     */
+    public static final java.lang.String #renderNodeName($state.name) = "$state.name";
+
+#end
+#end
+#if ($processDefinition.taskNodes)
+#foreach ($task in $processDefinition.tasks)
+#if ($task.name)
+    /**
+     * This constant holds a reference to the name of the
+     * <em>$task.name</em> task, the value corresponds to the one used by jBPM internally.
+     */
+    public static final java.lang.String #renderTaskName($task.name) = "$task.name";
+
+#end
+#end
 #if ($processDefinition.startState)
     /**
      * Creates a new process instance and returns the node representing the start state
@@ -74,6 +117,41 @@ public class $className
 
 #end
     /**
+     * This method takes an intenral jBpm node name and construct a wrapper node class around it
+     * so it is easier to work with for the users.
+     *
+     * @param token the token which will be encapsulated by the returned $processDefinition.nodeInterfaceName instance,
+     *      must <em>not</em> be <code>null</code>
+     * @return an $processDefinition.nodeInterfaceName wrapping the node with the argument name
+     * @throws IllegalArgumentException when no matching node could be found for the argument name
+     */
+    static $processDefinition.nodeInterfaceName createNode(org.jbpm.graph.exe.Token token)
+    {
+        $processDefinition.nodeInterfaceName node = null;
+        final java.lang.String nodeName = token.getNode().getName();
+
+#if ($processDefinition.startState)
+#renderNodeTest($processDefinition.startState)
+#end
+#foreach ($state in $processDefinition.states)
+#renderNodeTest($state)
+#end
+#foreach ($state in $processDefinition.taskNodes)
+#renderNodeTest($state)
+#end
+#foreach ($state in $processDefinition.nodes)
+#renderNodeTest($state)
+#end
+#foreach ($state in $processDefinition.endStates)
+#renderNodeTest($state)
+#end
+            // hmm, apparently we have arrived in an unknown node, this could be a jbpm-cartridge bug
+            throw new IllegalArgumentException("No matching node could be found for the process instance: " + nodeName);
+
+        return node;
+    }
+
+    /**
      * Finds the process instance with the given id and returns the node representing the state in which
      * the process is in.
      *
@@ -92,37 +170,9 @@ public class $className
         // the token for this process instance
         final org.jbpm.graph.exe.Token token = processInstance.getRootToken();
 
-        // find the node we're in
-        $processDefinition.nodeInterfaceName currentNode = null;
-        final String nodeName = token.getNode().getName();
-#if ($processDefinition.startState)
-#renderNodeTest($processDefinition.startState)
-#end
-#foreach ($state in $processDefinition.states)
-#renderNodeTest($state)
-#end
-#foreach ($state in $processDefinition.taskNodes)
-#renderNodeTest($state)
-#end
-#foreach ($state in $processDefinition.nodes)
-#renderNodeTest($state)
-#end
-#foreach ($state in $processDefinition.endStates)
-#renderNodeTest($state)
-#end
-        {
-            throw new IllegalArgumentException("No matching node could be found for the process instance: " + nodeName);
-        }
-
-        return currentNode;
+        // construct the node we're in
+        return createNode(token);
     }
-
-#if ($processDefinition.taskNodes)
-#foreach ($task in $processDefinition.tasks)
-#if ($task.name)
-    public static final String TASK_$stringUtils.separate($task.name,"_").toUpperCase()_NAME = "$task.name";
-#end
-#end
 
 #end
 #if ($processDefinition.startState)
@@ -138,6 +188,9 @@ public class $className
 #renderLocator($state)
 #end
 #foreach ($state in $processDefinition.endStates)
+#renderLocator($state)
+#end
+#foreach ($state in $processDefinition.forks)
 #renderLocator($state)
 #end
 

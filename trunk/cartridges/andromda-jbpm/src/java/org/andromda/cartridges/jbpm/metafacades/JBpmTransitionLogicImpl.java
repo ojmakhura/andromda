@@ -53,7 +53,7 @@ public class JBpmTransitionLogicImpl
     protected java.util.Collection handleGetPossibleTargetNodes()
     {
         final Set targetNodes = new HashSet();
-        this.collectTargetNodes(targetNodes, this);
+        collectTargetNodes(targetNodes, this);
         return targetNodes;
     }
 
@@ -61,23 +61,26 @@ public class JBpmTransitionLogicImpl
      * Recursively collects all nodes that might be a direct or indirect runtime target for this transition.
      * This method steps over pseudostates and analyzes the outgoig transitions.
      */
-    private void collectTargetNodes(Collection nodes, TransitionFacade transition)
+    private static void collectTargetNodes(Collection nodes, TransitionFacade transition)
     {
         final StateVertexFacade target = transition.getTarget();
 
-        if (target instanceof PseudostateFacade)
+        if (!nodes.contains(target))
         {
-            final Collection outgoingTransitions = target.getOutgoing();
-            for (final Iterator outgoingTransitionIterator = outgoingTransitions.iterator();
-                    outgoingTransitionIterator.hasNext();)
+            if (target instanceof PseudostateFacade && !((PseudostateFacade)target).isSplit())
             {
-                final TransitionFacade outgoingTransition = (TransitionFacade)outgoingTransitionIterator.next();
-                this.collectTargetNodes(nodes, outgoingTransition);
+                final Collection outgoingTransitions = target.getOutgoing();
+                for (final Iterator outgoingTransitionIterator = outgoingTransitions.iterator();
+                        outgoingTransitionIterator.hasNext();)
+                {
+                    final TransitionFacade outgoingTransition = (TransitionFacade)outgoingTransitionIterator.next();
+                    collectTargetNodes(nodes, outgoingTransition);
+                }
             }
-        }
-        else
-        {
-            nodes.add(target);
+            else
+            {
+                nodes.add(target);
+            }
         }
     }
 }

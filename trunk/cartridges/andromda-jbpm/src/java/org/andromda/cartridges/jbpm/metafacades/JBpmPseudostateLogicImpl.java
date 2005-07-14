@@ -33,12 +33,6 @@ public class JBpmPseudostateLogicImpl
         return name;
     }
 
-    protected boolean handleIsContainedInBusinessProcess()
-    {
-        return this.getStateMachine() instanceof ActivityGraphFacade
-                && ((ActivityGraphFacade)this.getStateMachine()).getUseCase() instanceof JBpmProcessDefinition;
-    }
-
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getClassName()
      */
@@ -53,48 +47,6 @@ public class JBpmPseudostateLogicImpl
     protected java.lang.Object handleGetSwimlane()
     {
         return this.getPartition();
-    }
-
-    /**
-     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getBeforeSignal()
-     */
-    protected java.util.List handleGetBeforeSignal()
-    {
-        // maybe one day UML will support events on pseudostates
-        return Collections.EMPTY_LIST;
-    }
-
-    /**
-     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getAfterSignal()
-     */
-    protected java.util.List handleGetAfterSignal()
-    {
-        // maybe one day UML will support events on pseudostates
-        return Collections.EMPTY_LIST;
-    }
-
-    /**
-     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getNodeEnter()
-     */
-    protected java.util.List handleGetNodeEnter()
-    {
-        // maybe one day UML will support events on pseudostates
-        return Collections.EMPTY_LIST;
-    }
-
-    /**
-     * @see org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate#getNodeLeave()
-     */
-    protected java.util.List handleGetNodeLeave()
-    {
-        // maybe one day UML will support events on pseudostates
-        return Collections.EMPTY_LIST;
-    }
-
-    protected java.util.List handleGetTimers()
-    {
-        // maybe one day UML will support events on pseudostates
-        return Collections.EMPTY_LIST;
     }
 
     protected String handleGetDecisionHandlerPackageName()
@@ -141,28 +93,5 @@ public class JBpmPseudostateLogicImpl
         }
 
         return decisionHandlerClass;
-    }
-
-    protected String handleGetNodeClassName()
-    {
-        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Node";
-    }
-
-    protected String handleGetNodePackageName()
-    {
-        return (this.getProcessDefinition() == null) ? null : this.getProcessDefinition().getPackageName();
-    }
-
-    protected Object handleGetProcessDefinition()
-    {
-        Object processDefinition = null;
-
-        final StateMachineFacade stateMachine = this.getStateMachine();
-        if (stateMachine instanceof ActivityGraphFacade)
-        {
-            processDefinition = ((ActivityGraphFacade)stateMachine).getUseCase();
-        }
-
-        return (processDefinition instanceof JBpmProcessDefinition) ? processDefinition : null;
     }
 }
