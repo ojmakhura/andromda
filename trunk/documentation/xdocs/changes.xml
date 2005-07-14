@@ -22,7 +22,8 @@
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-77">
                 AndroMDA can now handle more than one repository at a given time.  This means you'll need to make a slight
-                modification to your andromda configuration file (typically found in mda/conf/andromda.xml of your project).
+                modification to your andromda configuration file (typically found in mda/conf/andromda.xml of your project) 
+                by defining the <a href="configuration.html#repositories">repositories</a> element.
             </action>
             <action dev="draftdog" type="add">
                 The <a href="maven-andromdapp-plugin/index.html">andromdapp:generate</a>
