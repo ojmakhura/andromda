@@ -9,10 +9,7 @@ import java.util.Collection;
 public class StateFacadeLogicImpl
     extends StateFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-    public StateFacadeLogicImpl(
-        org.omg.uml.behavioralelements.statemachines.State metaObject,
-        String context)
+    public StateFacadeLogicImpl(org.omg.uml.behavioralelements.statemachines.State metaObject, String context)
     {
         super(metaObject, context);
     }
