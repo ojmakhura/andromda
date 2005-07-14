@@ -1,6 +1,12 @@
 ##
 ##
 ##
+#macro (renderTokenName $name)
+$stringUtils.separate($name,"_").toUpperCase()_TOKEN_NAME## no newline
+#end
+##
+##
+##
 #set ($generatedFile = "${node.nodeClassName}.java")
 #if ($stringUtils.isNotBlank($node.nodePackageName))
 #set ($generatedFile = "$stringUtils.replace($node.nodePackageName,'.','/')/$generatedFile")
@@ -15,6 +21,17 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 {
     private org.jbpm.graph.exe.Token token = null;
 
+#if ($node.split)
+#foreach ($transition in $node.outgoing)
+    /**
+     * The name of one of the child tokens which is created once this node is entered, this particular
+     * token is associated with the branch that is created by following the transition called
+     * <em>$transition.name</em>.
+     */
+    public static final java.lang.String #renderTokenName($transition.name) = "$transition.name";
+
+#end
+#end
     /**
      * Constructs a new node using the specific process instance token. This constructor is package private
      * because it is not supposed to be instantiated by other regular classes.
@@ -130,74 +147,98 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 
 #end
 #end
-#if ($node.outgoing.size() == 1)
-#set ($transition = $node.outgoing.iterator().next())
-#set ($target = $transition.target)
+#if ($node.split)
+#foreach ($transition in $node.outgoing)
     /**
-     * Signals the process to leave this node and proceed to the next one.
+     * Returns the current node for the token found in the branch when following the outgoing
+     * <em>$transition.name</em> transition. Since this token is a child of the token encapsulated by <em>this
+     * node, and since this token can lead a life of its own it cannot be determined which node exactly
+     * will be returned, this depends on the set of possible nodes through which the node can navigate.
+     *
+     * @return the node for this specific child token, or <code>null</code> if this child token does not exist
+     */
+    public $nodeInterfaceName get$stringUtils.upperCamelCaseName($transition.name)Node()
+    {
+        $nodeInterfaceName childNode = null;
+
+        final org.jbpm.graph.exe.Token childToken = this.token.getChild("${transition.name}");
+        if (childToken != null)
+        {
+            childNode = ${stringUtils.upperCamelCaseName($node.processDefinition.name)}.createNode(childToken);
+        }
+
+        return childNode;
+    }
+
+#end
+#else
+##
+## this node can be signalled
+##
+#foreach ($transition in $node.outgoing)
+#if ($node.outgoing.size() == 1)
+#if ($transition.name)
+#set ($signalMethodName = "signal$stringUtils.upperCamelCaseName($transition.name)")
+#else
+#set ($signalMethodName = "signal")
+#end
+#else
+#if ($transition.name)
+#set ($signalMethodName = "signal$stringUtils.upperCamelCaseName($transition.name)")
+#else
+#set ($signalMethodName = "signal$stringUtils.upperCamelCaseName($transition.target.name)")
+#end
+#end
+#if ($transition.possibleTargetNodes.size() == 1)
+#set ($signalReturnType = $transition.possibleTargetNodes.iterator().next().nodeClassName)
+#else
+#set ($signalReturnType = $nodeInterfaceName)
+#end
+    /**
+     * Signals the process to leave this node
+#if ($transition.name)
+     * via the <em>$transition.name</em> transition
+#end
+     * and proceed to the next one.
 #if ($node.initialState)
      * Calling this method will make the process leave the start state and enter the first node.
 #end
-#if ($target.outgoing.size()>1)
+#if ($target.outgoing.size() > 1)
      * Since this transition leads into a node that will split it up into different transitions
      * this method returns the {@link $nodeInterfaceName} instead of a concrete implementing class type.
 #end
      *
      * @return the next node in the process
+#if ($transition.name)
+     *      after following the <em>$transition.name</em> transition
+#end
      */
-#if ($target.outgoing.size()>1)
-    public $nodeInterfaceName signal()
-#else
-    public $target.nodeClassName signal()
-#end
+    public $signalReturnType ${signalMethodName}()
     {
-        this.token.signal();
-#if ($target.outgoing.size()>1)
-        $nodeInterfaceName targetNode = null;
-        final java.lang.String nodeName = this.token.getNode().getName();
-
-#foreach ($targetNode in $transition.possibleTargetNodes)
-        if ("$targetNode.name".equals(nodeName)) targetNode = new ${targetNode.nodeClassName}(this.token); else
-#end
-        throw new IllegalArgumentException("No matching node could be found for target token: " + nodeName);
-
-        return targetNode;
-#else
-        return new ${target.nodeClassName}(this.token);
-#end
-    }
-
-#else
-#foreach ($transition in $node.outgoing)
-#set ($target = $transition.target)
-    /**
-     * Signals the process to leave this node via the <em>$transition.name</em> transition and proceed to the next one.
-#if ($target.outgoing.size()>1)
-     * Since this transition leads into a node that will split it up into different transitions
-     * this method returns the {@link $nodeInterfaceName} instead of a concrete implementing class type.
-#end
-     *
-     * @return the next node in the process after following the <em>$transition.name</em> transition
-     */
-#if ($target.outgoing.size()>1)
-    public $nodeInterfaceName signal$stringUtils.upperCamelCaseName($transition.name)()
-#else
-    public $transition.target.nodeClassName signal$stringUtils.upperCamelCaseName($transition.name)()
-#end
-    {
+        // signal this token to leave its node
+#if ($transition.name)
         this.token.signal("$transition.name");
-#if ($target.outgoing.size()>1)
-        $nodeInterfaceName targetNode = null;
+#else
+        this.token.signal();
+#end
+
+#if ($transition.possibleTargetNodes.size() == 1)
+        // simply return the next node instance
+        return new ${transition.possibleTargetNodes.iterator().next().nodeClassName}(this.token);
+#else
+        // the node we're gonna return
+        $signalReturnType targetNode = null;
+        // get the name of the new node in which we've arrived
         final java.lang.String nodeName = this.token.getNode().getName();
 
+        // we'll need to figure out which node is the next one
 #foreach ($targetNode in $transition.possibleTargetNodes)
         if ("$targetNode.name".equals(nodeName)) targetNode = new ${targetNode.nodeClassName}(this.token); else
 #end
-        throw new IllegalArgumentException("No matching node could be found for target token: " + nodeName);
+            // hmm, apparently we have arrived in an unknown node, this could be a jbpm-cartridge bug
+            throw new IllegalArgumentException("No matching node could be found for target token: " + nodeName);
 
         return targetNode;
-#else
-        return new ${transition.target.nodeClassName}(this.token);
 #end
     }
 

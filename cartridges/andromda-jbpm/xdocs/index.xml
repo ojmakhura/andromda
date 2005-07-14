@@ -182,7 +182,7 @@
                 using a modeling tool such as a UML editor offers a level of abstraction but also makes you lose
                 a certain degree of control over the generated file. For this reason you need to understand some
                 of the decisions behind the cartridge, in jBpm something can be implemented in many different
-                ways but the cartridge consistency applies the same patterns, something humans rarely do.
+                ways but the cartridge consistently applies the same patterns, something humans rarely do.
             </p>
             <subsection name="Patterns">
                 <p>
@@ -354,7 +354,7 @@
 -->
 </source>
             <p>
-                And this is a code snippet how the same thing can be achieved using the generated node classes,
+                And this is a code snippet showing how the same thing can be achieved using the generated node classes,
                 notice how much easier it is to read the code, even for this very simple example.
             </p>
 <source language="java">
@@ -369,7 +369,7 @@
     ArticleSelectedNode selectedNode = readyNode.signal();
 
     // finish the first task
-    if (!selectedNode.isArticleToBasketFinished())
+    if (!selectedNode.isAddArticleToBasketFinished())
     {
         selectedNode.finishAddArticleToBasket();
     }
