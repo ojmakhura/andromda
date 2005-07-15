@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
@@ -113,7 +114,7 @@ public class StrutsJspLogicImpl
 
     protected String handleGetFullPath()
     {
-        return '/' + (getPackageName() + '.' + StringUtilsHelper.toWebFileName(StringUtils.trimToEmpty(getName()))).replace(
+        return '/' + (getPackageName() + '.' + Bpm4StrutsUtils.toWebFileName(StringUtils.trimToEmpty(getName()))).replace(
                 '.', '/');
     }
 

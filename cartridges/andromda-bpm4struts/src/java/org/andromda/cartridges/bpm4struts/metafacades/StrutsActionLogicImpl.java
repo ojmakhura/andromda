@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -261,7 +262,7 @@ public class StrutsActionLogicImpl
 
     protected String handleGetImagePath()
     {
-        return getPackagePath() + '/' + StringUtilsHelper.toWebFileName(getActionClassName()) + ".gif";
+        return getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getActionClassName()) + ".gif";
     }
 
     protected java.lang.String handleGetActionPath()
@@ -472,7 +473,7 @@ public class StrutsActionLogicImpl
     protected String handleGetFullTilePath()
     {
         return isUseCaseStart() ?
-                "empty-file" : getPackagePath() + '/' + StringUtilsHelper.toWebFileName(getActionClassName());
+                "empty-file" : getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getActionClassName());
     }
 
     /**

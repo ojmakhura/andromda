@@ -77,26 +77,6 @@ public class StringUtilsHelperTest
         }
     }
 
-    public void testToWebFileName()
-    {
-        final String[][] fixture =
-            new String[][]
-            {
-                new String[] {"ejb", "ejb"}, new String[] {"EJB", "ejb"}, new String[] {"an EJB class", "an-ejb-class"},
-                new String[] {"an EJB Class", "an-ejb-class"}, new String[] {"HibernateEntity", "hibernate-entity"},
-                new String[] {"Hibernate Entity", "hibernate-entity"},
-                new String[] {"Welcome... to the jungle (Guns \'n\' Roses)", "welcome-to-the-jungle-guns-n-roses"}
-            };
-
-        for (int i = 0; i < fixture.length; i++)
-        {
-            String[] strings = fixture[i];
-            assertEquals(
-                StringUtilsHelper.toWebFileName(strings[0]),
-                strings[1]);
-        }
-    }
-
     public void testToResourceMessageKey()
     {
         final String[][] fixture =

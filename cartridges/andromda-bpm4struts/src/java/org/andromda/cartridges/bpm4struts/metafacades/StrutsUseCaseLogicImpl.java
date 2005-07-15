@@ -15,6 +15,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
@@ -279,7 +280,7 @@ public class StrutsUseCaseLogicImpl
 
     protected String handleGetCssFileName()
     {
-        return getPackagePath() + '/' + StringUtilsHelper.toWebFileName(getName()) + ".css";
+        return getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getName()) + ".css";
     }
 
     protected TreeNode handleGetApplicationHierarchyRoot()

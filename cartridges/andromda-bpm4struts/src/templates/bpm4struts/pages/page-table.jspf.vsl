@@ -14,7 +14,7 @@
         export="$exportable" pagesize="$table.tableMaxRows" sort="list">
 #if ($exportable)
 #set ($exportFileName = "${jsp.name}-${table.name}")
-#set ($exportFileName = "$stringUtils.toWebFileName($exportFileName)")
+#set ($exportFileName = "$bpmUtils.toWebFileName($exportFileName)")
         <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
 #end
 #foreach ($column in $table.tableColumns)
