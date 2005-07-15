@@ -177,10 +177,14 @@ public class SomeClass
                        </source>
                     </li>
                     <li>
-                        <strong>Parameter Names:</strong> Method parameters should not have any
-                        prefix. For example :
+                        <strong>Parameter:</strong> Method parameter names should not have any
+                        prefix indicating the type (<code>strClassName</code> for a <code>String</code>).
+                        When more than one parameter is present in the list we write them on a new line each time
+                        and indent them twice. Where possible we make the parameter <code>final</code>. For example :
                         <source language="java">
-public void someMethod(String className)
+public void someMethod(
+        final String className,
+        final int count)
 {
 }                        
                         </source>
@@ -196,6 +200,31 @@ public void someMethod(String className)
                             <strong>Imports:</strong> Use fully qualified import names when importing classes,
                             this makes it easier for users not familiar with the code base to see where classes
                             are coming from.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Switch/case:</strong> Switch/case constructs look like this (please respect the
+                            indentation). When ever a <code>break</code> keyword would be missing it should be
+                            replaced by a comment indicating the <code>fall-through</code>. If the default action
+                            is to not perform anything then please put this in a comment so people know it's on purpose.
+                            <source language="java">
+switch(myValue)
+{
+    case 1 :
+        doSomething();
+        break;
+    case 2 :
+        doSomething2();
+        break;
+    case 3 :    // fall-through
+    case 4 :
+        doSomethingElse()
+        break;
+    default :
+        // do nothing
+}
+                            </source>
                         </p>
                     </li>
                     <li>
