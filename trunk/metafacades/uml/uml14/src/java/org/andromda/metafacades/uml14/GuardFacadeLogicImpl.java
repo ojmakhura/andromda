@@ -17,8 +17,6 @@ public class GuardFacadeLogicImpl
         super(metaObject, context);
     }
 
-    // ------------- relations ------------------
-
     protected Object handleGetTransition()
     {
         return metaObject.getTransition();
