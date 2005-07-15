@@ -42,9 +42,9 @@ public class StringUtilsHelper
      *         unmodified if the suffix isn't present
      */
     public static String replaceSuffix(
-            final String src,
-            final String suffixOld,
-            final String suffixNew)
+        final String src,
+        final String suffixOld,
+        final String suffixNew)
     {
         if (src.endsWith(suffixOld))
         {
@@ -97,8 +97,8 @@ public class StringUtilsHelper
      * @return String the resulting string.
      */
     public static String removeLastOccurrence(
-            String string,
-            final String value)
+        String string,
+        final String value)
     {
         if (string != null && value != null)
         {
@@ -108,8 +108,8 @@ public class StringUtilsHelper
             {
                 buf.append(string.substring(0, index));
                 buf.append(string.substring(
-                        index + value.length(),
-                        string.length()));
+                    index + value.length(),
+                    string.length()));
                 string = buf.toString();
             }
         }
@@ -144,8 +144,8 @@ public class StringUtilsHelper
     public static String toResourceMessageKey(final String string)
     {
         return separate(
-                StringUtils.trimToEmpty(string),
-                ".").toLowerCase();
+            StringUtils.trimToEmpty(string),
+            ".").toLowerCase();
     }
 
     /**
@@ -167,8 +167,8 @@ public class StringUtilsHelper
      * replaces each of those sequences by the separator.
      */
     public static String separate(
-            final String string,
-            final String separator)
+        final String string,
+        final String separator)
     {
         if (StringUtils.isBlank(string))
         {
@@ -216,8 +216,8 @@ public class StringUtilsHelper
      *         each line
      */
     public static String suffixLines(
-            final String multiLines,
-            final String suffix)
+        final String multiLines,
+        final String suffix)
     {
         final String[] lines = StringUtils.trimToEmpty(multiLines).split(LINE_SEPARATOR);
         final StringBuffer linesBuffer = new StringBuffer();
@@ -249,8 +249,8 @@ public class StringUtilsHelper
             while (multiLines.endsWith(suffix))
             {
                 multiLines = multiLines.substring(
-                        0,
-                        multiLines.lastIndexOf(suffix)).trim();
+                    0,
+                    multiLines.lastIndexOf(suffix)).trim();
             }
             resourceMessage = multiLines;
         }
@@ -390,8 +390,8 @@ public class StringUtilsHelper
      * @see #format(String, String, int)
      */
     public static String format(
-            final String plainText,
-            final String indentation)
+        final String plainText,
+        final String indentation)
     {
         return format(plainText, indentation, 64);
     }
@@ -404,9 +404,9 @@ public class StringUtilsHelper
      * @see #format(String, String, int, boolean)
      */
     public static String format(
-            final String plainText,
-            final String indentation,
-            final int wrapAtColumn)
+        final String plainText,
+        final String indentation,
+        final int wrapAtColumn)
     {
         return format(plainText, indentation, wrapAtColumn, true);
     }
@@ -445,10 +445,10 @@ public class StringUtilsHelper
      *                                  argument is not strictly positive
      */
     public static String format(
-            final String plainText,
-            String indentation,
-            final int wrapAtColumn,
-            final boolean htmlStyle)
+        final String plainText,
+        String indentation,
+        final int wrapAtColumn,
+        final boolean htmlStyle)
     {
         // - we cannot wrap at a column index less than 1
         if (wrapAtColumn < 1)
@@ -502,10 +502,10 @@ public class StringUtilsHelper
                     // - append the wrapped text, the indentation is prefixed
                     // with a newline
                     formattedText.append(WordUtils.wrap(
-                            line.trim(),
-                            wrapAtColumn,
-                            lineSeparator + indentation,
-                            false));
+                        line.trim(),
+                        wrapAtColumn,
+                        lineSeparator + indentation,
+                        false));
 
                     // - in HTML mode we need to close the paragraph
                     if (htmlStyle)

@@ -180,11 +180,11 @@ public class SomeClass
                         <strong>Parameter:</strong> Method parameter names should not have any
                         prefix indicating the type (<code>strClassName</code> for a <code>String</code>).
                         When more than one parameter is present in the list we write them on a new line each time
-                        and indent them twice. Where possible we make the parameter <code>final</code>. For example :
+                        and indent them. Where possible we make the parameter <code>final</code>. For example :
                         <source language="java">
 public void someMethod(
-        final String className,
-        final int count)
+    final String className,
+    final int count)
 {
 }                        
                         </source>
