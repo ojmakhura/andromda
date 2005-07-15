@@ -40,6 +40,7 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 {
     public org.apache.struts.action.ActionForward execute(org.apache.struts.action.ActionMapping mapping, org.apache.struts.action.ActionForm form, javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws java.lang.Exception
     {
+#if (!$action.actionFormFields.empty)
         final $formBeanClassName specificForm = ($formBeanClassName)form;
 
 #if ($action.useCaseStart)
@@ -99,6 +100,9 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 #end
 
         return forward;
+#else
+        return #processTransition($action)
+#end
     }
 
 #foreach ($actionState in $actionStates)
@@ -117,7 +121,13 @@ $actionState.getDocumentation("     * ")
         try
         {
 #foreach ($controllerCall in $controllerCalls)
+#if (!$action.actionFormFields.empty)
             ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
+#else
+            // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
+            // cartridge would have issued a model validation error
+            ${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, new ${controllerCall.interfaceName}(){}, request, response);
+#end
 #end
             forward = #processTransition($actionState.forward)
         }
@@ -143,7 +153,13 @@ $decisionTransition.getDocumentation("     * ")
      */
     private org.apache.struts.action.ActionForward ${decisionMethodName}(org.apache.struts.action.ActionMapping mapping, org.apache.struts.action.ActionForm form, javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws java.lang.Exception
     {
+#if (!$action.actionFormFields.empty)
         final String value = String.valueOf(${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerMethodName}(mapping, ($formBeanClassName)form, request, response));
+#else
+        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
+        // cartridge would have issued a model validation error
+        final String value = String.valueOf(${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerMethodName}(mapping, new ${decisionTransition.operationCall.interfaceName}(){}, request, response));
+#end
 
 #set ($defaultOutcome = false)## keeps track of the last transition
 #foreach ($outcome in $decisionTransition.target.outgoing)

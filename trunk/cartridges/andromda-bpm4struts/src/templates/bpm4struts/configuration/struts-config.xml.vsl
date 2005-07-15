@@ -27,9 +27,11 @@
         <!-- form-beans merge-point -->
 #foreach ($useCase in $useCases)
 #foreach ($action in $useCase.actions)
+#if (!$action.actionFormFields.empty)
         <form-bean
             name="$action.formBeanName"
             type="$action.formBeanType" />
+#end
 #end
 #end
 #foreach ($manageable in $manageables)
@@ -58,7 +60,9 @@
         <action
             path="$action.actionPath"
             type="$action.actionType"
+#if (!$action.actionFormFields.empty)
             name="$action.formBeanName"
+#end
 #set ($roles = $action.actionRoles)
 #if ($stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) && $useCase.secured)
             roles="$roles"

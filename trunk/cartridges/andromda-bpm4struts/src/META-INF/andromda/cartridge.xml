@@ -103,7 +103,9 @@
         overwrite="true">
         <modelElements variable="action">
             <modelElement>
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction"/>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction">
+                    <property name="actionFormFields"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
