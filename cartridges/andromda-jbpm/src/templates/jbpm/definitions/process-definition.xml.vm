@@ -95,7 +95,7 @@ ${indent}</task-node>
 #foreach ($decision in $processDefinition.decisions)
 ${indent}<decision name="$decision.name">
 ${indent}    <handler#renderClass($decision)#renderConfigType($decision)/>
-#transitions($decision "${indent}    " true)
+#transitions($decision "${indent}    " false)## we could actually consider conditions here, not needed at this point
 ${indent}</decision>
 
 #end
@@ -206,19 +206,14 @@ ${indent}<action#renderName($action)#renderClass($action)#renderConfigType($acti
 ##
 #macro (transitions $state $indent $considerConditions)
 #foreach ($transition in $state.outgoing)
-#if($transition.condition || $transition.trigger)
-${indent}<transition#renderName($transition) to="$transition.target.name">
+#if ($state.decisionPoint && $transition.condition)
+${indent}<transition name="$transition.condition" to="$transition.target.name"#if(!$transition.trigger)/#end>
+#else
+${indent}<transition#renderName($transition) to="$transition.target.name"#if(!$transition.trigger)/#end>
+#end
 #if ($transition.trigger)
 ${indent}    <action#renderName($transition.trigger)#renderClass($transition.trigger)#renderConfigType($transition.trigger)/>
-#end
-#if($considerConditions && $transition.condition)
-${indent}    <condition>
-${indent}        <![CDATA[${transition.condition}]]>
-${indent}    </condition>
-#end
 ${indent}</transition>
-#else
-${indent}<transition#renderName($transition) to="$transition.target.name"/>
 #end
 #end
 #end
