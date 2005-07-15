@@ -25,8 +25,8 @@
             <include name="mdrapi-*.jar"/>
             <include name="nbmdr-*.jar"/>
             <include name="openide-*.jar"/>
-            <include name="picocontainer-*.jar"/>
             <include name="andromda-*.jar"/>
+            <exclude name="*freemarker*.jar"/>
             <include name="andromda-profile-*.xml.zip"/>
             <exclude name="andromda-meta-cartridge*"/>
             <exclude name="andromda-spring-cartridge*"/>
