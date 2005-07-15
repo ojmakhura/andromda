@@ -6,28 +6,28 @@ import org.apache.commons.lang.time.DateUtils;
  * Provides additional methods supporting various date-related features
  */
 public class Bpm4StrutsDateUtils
-        extends DateUtils
+    extends DateUtils
 {
     // order is important !
     private static final FormatPattern[] JAVA2PERL_FORMAT_PATTERNS = {new FormatPattern("y{4,}", "%Y"),
-                                                                      new FormatPattern("y{1,3}", "%y"),
-                                                                      new FormatPattern("M{4,}", "%B"),
-                                                                      new FormatPattern("M{3}", "%b"),
-                                                                      new FormatPattern("M{1,2}", "%m"),
-                                                                      new FormatPattern("d{4,}", "%A"),
-                                                                      new FormatPattern("d{3,}", "%a"),
-                                                                      new FormatPattern("d{2}", "%d"),
-                                                                      new FormatPattern("d{1}", "%e"),
-                                                                      new FormatPattern("E{4,}", "%A"),
-                                                                      new FormatPattern("E{1,3}", "%a"),
-                                                                      new FormatPattern("H{2,}", "%H"),
-                                                                      new FormatPattern("H{1}", "%k"),
-                                                                      new FormatPattern("h{2,}", "%I"),
-                                                                      new FormatPattern("h{1}", "%l"),
-                                                                      new FormatPattern("D{3}", "%j"),
-                                                                      new FormatPattern("s{2,}", "%S"),
-                                                                      new FormatPattern("s{1}", "%s"),
-                                                                      new FormatPattern("m{2,}", "%M")};
+        new FormatPattern("y{1,3}", "%y"),
+        new FormatPattern("M{4,}", "%B"),
+        new FormatPattern("M{3}", "%b"),
+        new FormatPattern("M{1,2}", "%m"),
+        new FormatPattern("d{4,}", "%A"),
+        new FormatPattern("d{3,}", "%a"),
+        new FormatPattern("d{2}", "%d"),
+        new FormatPattern("d{1}", "%e"),
+        new FormatPattern("E{4,}", "%A"),
+        new FormatPattern("E{1,3}", "%a"),
+        new FormatPattern("H{2,}", "%H"),
+        new FormatPattern("H{1}", "%k"),
+        new FormatPattern("h{2,}", "%I"),
+        new FormatPattern("h{1}", "%l"),
+        new FormatPattern("D{3}", "%j"),
+        new FormatPattern("s{2,}", "%S"),
+        new FormatPattern("s{1}", "%s"),
+        new FormatPattern("m{2,}", "%M")};
 
     /**
      * Converts a Java SimpleDateFormat into an equivalent String suited for dates used on Perl/PHP platforms.
@@ -81,7 +81,9 @@ public class Bpm4StrutsDateUtils
         private String pattern = null;
         private String replacement = null;
 
-        public FormatPattern(final String formatPattern, final String replacement)
+        public FormatPattern(
+            final String formatPattern,
+            final String replacement)
         {
             this.pattern = formatPattern;
             this.replacement = replacement;

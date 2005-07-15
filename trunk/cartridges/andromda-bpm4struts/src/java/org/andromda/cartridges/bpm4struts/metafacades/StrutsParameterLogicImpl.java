@@ -1,17 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
@@ -25,6 +13,18 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  * MetafacadeLogic implementation.
@@ -32,9 +32,11 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter
  */
 public class StrutsParameterLogicImpl
-        extends StrutsParameterLogic
+    extends StrutsParameterLogic
 {
-    public StrutsParameterLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public StrutsParameterLogicImpl(
+        java.lang.Object metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -73,7 +75,7 @@ public class StrutsParameterLogicImpl
                 if (trigger != null)
                 {
                     styleId = StringUtilsHelper.lowerCamelCaseName(trigger.getName()) +
-                            StringUtilsHelper.upperCamelCaseName(getName());
+                        StringUtilsHelper.upperCamelCaseName(getName());
                 }
             }
         }
@@ -245,13 +247,13 @@ public class StrutsParameterLogicImpl
         if (isDate())
         {
             dateSuffix = (isStrictDateFormat()) ?
-                    " (use this strict format: " + getDateFormat() + ")" :
-                    " (use this lenient format: " + getDateFormat() + ")";
+                " (use this strict format: " + getDateFormat() + ")" :
+                " (use this lenient format: " + getDateFormat() + ")";
         }
 
         String documentation = getDocumentation("", 64, false);
         return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation)) ?
-                super.getName() + requiredSuffix + dateSuffix : documentation.trim().replaceAll("\n", "<br/>"));
+            super.getName() + requiredSuffix + dateSuffix : documentation.trim().replaceAll("\n", "<br/>"));
     }
 
     protected String handleGetDocumentationKey()
@@ -287,14 +289,14 @@ public class StrutsParameterLogicImpl
         if ("password".equals(getWidgetType()))
         {
             buffer.append("This is a password field, it will not show the data you enter, " +
-                    "each character will be masked using an asterisk");
+                "each character will be masked using an asterisk");
             buffer.append(crlf);
         }
 
         if (isCreditCardFormat(format))
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://www.beachnet.com/~hstiles/cardtype.html\" target=\"_blank\">creditcard</a> ");
+                "<a href=\"http://www.beachnet.com/~hstiles/cardtype.html\" target=\"_blank\">creditcard</a> ");
             buffer.append(crlf);
         }
 
@@ -302,33 +304,35 @@ public class StrutsParameterLogicImpl
         {
             String dateFormat = getDateFormat();
             buffer.append("This field represents a date and should be formatted in the matter described here" +
-                    "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" " +
-                    "target=\"_jdk\">");
+                "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" " +
+                "target=\"_jdk\">");
             buffer.append(dateFormat + "</a> ");
 
             if (isStrictDateFormat())
             {
                 buffer.append("This format is strict in the sense that the parser will not use any heuristics in " +
-                        "order to guess the intended date in case the input would not perfectly match the format");
+                    "order to guess the intended date in case the input would not perfectly match the format");
             }
             else
             {
                 buffer.append("This format is lenient in the sense that the parser will attempt to use heuristics in " +
-                        "order to guess the intended date in case the input would not perfectly match the format");
+                    "order to guess the intended date in case the input would not perfectly match the format");
             }
             buffer.append(crlf);
-            buffer.append("A calendar has been foreseen to select a date from, it will automatically convert the date " +
+            buffer
+                .append("A calendar has been foreseen to select a date from, it will automatically convert the date " +
                     "to the appropriate format.");
             buffer.append(crlf);
         }
-        
+
         if (this.isValidatorTime())
         {
             String dateFormat = getDateFormat();
-            buffer.append("This field represents a time and should be formatted in the manner described here (for time) " +
+            buffer.append(
+                "This field represents a time and should be formatted in the manner described here (for time) " +
                     "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" " +
                     "target=\"_jdk\">");
-            buffer.append(dateFormat + "</a> ");            
+            buffer.append(dateFormat + "</a> ");
         }
 
         if (isEmailFormat(format))
@@ -357,7 +361,7 @@ public class StrutsParameterLogicImpl
         {
             buffer.append("The value should match this ");
             buffer.append(
-                    "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html\" target=\"_jdk\">");
+                "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html\" target=\"_jdk\">");
             buffer.append("regular expression</a>: ");
             buffer.append(getPatternValue(format));
             buffer.append(crlf);
@@ -376,7 +380,7 @@ public class StrutsParameterLogicImpl
         if (validWhen != null)
         {
             buffer.append("This field is only valid under specific conditions, more concretely the following " +
-                    "expression must evaluate true: " + validWhen);
+                "expression must evaluate true: " + validWhen);
             buffer.append(crlf);
         }
 
@@ -389,64 +393,64 @@ public class StrutsParameterLogicImpl
         if (isValidatorBoolean())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                    "target=\"_jdk\">boolean</a> value");
+                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                "target=\"_jdk\">boolean</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorByte())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                    "target=\"_jdk\">byte</a> value");
+                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                "target=\"_jdk\">byte</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorChar())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                    "target=\"_jdk\">character</a> value");
+                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                "target=\"_jdk\">character</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorDouble())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                    "target=\"_jdk\">double precision integer</a> value");
+                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                "target=\"_jdk\">double precision integer</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorFloat())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                    "target=\"_jdk\">floating point</a> value");
+                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                "target=\"_jdk\">floating point</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorInteger())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                    "target=\"_jdk\">integer</a> value");
+                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                "target=\"_jdk\">integer</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorLong())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                    "target=\"_jdk\">long integer</a> value");
+                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                "target=\"_jdk\">long integer</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorShort())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                    "target=\"_jdk\">short integer</a> value");
+                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
+                "target=\"_jdk\">short integer</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorUrl())
         {
             buffer.append("The value of this field should reflect a " +
-                    "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/net/URL.html\" " +
-                    "target=\"_jdk\">URL</a> value");
+                "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/net/URL.html\" " +
+                "target=\"_jdk\">URL</a> value");
             buffer.append(crlf);
         }
 
@@ -457,7 +461,7 @@ public class StrutsParameterLogicImpl
     protected boolean handleIsCalendarRequired()
     {
         return isDate() &&
-                String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)).equals("true");
+            String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)).equals("true");
     }
 
     protected boolean handleIsActionParameter()
@@ -681,7 +685,7 @@ public class StrutsParameterLogicImpl
                 {
                     final String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
                     if ("csv".equalsIgnoreCase(exportType) || "pdf".equalsIgnoreCase(exportType) ||
-                            "xml".equalsIgnoreCase(exportType) || "excel".equalsIgnoreCase(exportType))
+                        "xml".equalsIgnoreCase(exportType) || "excel".equalsIgnoreCase(exportType))
                     {
                         buffer.append(exportType);
                         buffer.append(' ');
@@ -703,7 +707,7 @@ public class StrutsParameterLogicImpl
     {
         final Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
         return (taggedValue == null) ?
-                Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE : isTrue(String.valueOf(taggedValue));
+            Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE : isTrue(String.valueOf(taggedValue));
     }
 
     protected boolean handleIsTableHyperlinkColumn()
@@ -759,7 +763,7 @@ public class StrutsParameterLogicImpl
                     // the hyperlink table links working on a real column get priority
                     final StrutsParameter existingParameter = (StrutsParameter)tableColumnsMap.get(parameterName);
                     if (existingParameter == null ||
-                            (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())))
+                        (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())))
                     {
                         tableColumnsMap.put(parameterName, parameter);
                     }
@@ -1025,7 +1029,7 @@ public class StrutsParameterLogicImpl
                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
                             {
                                 selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(
-                                        parameter.getWidgetType());
+                                    parameter.getWidgetType());
                             }
                         }
                     }
@@ -1076,7 +1080,7 @@ public class StrutsParameterLogicImpl
     {
         final String name = getName();
         return "new Object[] {\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" +
-                name + "-5\"}";
+            name + "-5\"}";
     }
 
     /**
@@ -1115,7 +1119,7 @@ public class StrutsParameterLogicImpl
         final String format = this.getValidatorFormat();
         return format == null ? this.getDefaultDateFormat() : this.getDateFormat(format);
     }
-    
+
     /**
      * @return the default date format pattern as defined using the configured property
      */
@@ -1123,7 +1127,7 @@ public class StrutsParameterLogicImpl
     {
         return (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTimeFormat()
      */
@@ -1132,7 +1136,7 @@ public class StrutsParameterLogicImpl
         final String format = this.getValidatorFormat();
         return format == null ? this.getDefaultTimeFormat() : format;
     }
-    
+
     /**
      * @return the default time format pattern as defined using the configured property
      */
@@ -1155,7 +1159,8 @@ public class StrutsParameterLogicImpl
      */
     private boolean isTrue(String string)
     {
-        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) || "1".equalsIgnoreCase(
+        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
+            "1".equalsIgnoreCase(
                 string);
     }
 
@@ -1210,9 +1215,9 @@ public class StrutsParameterLogicImpl
     protected boolean handleIsValidationRequired()
     {
         final String disableValidationForHiddenFormFields =
-                (String)getConfiguredProperty(Bpm4StrutsGlobals.DISABLE_VALIDATION_FOR_HIDDEN_FORM_FIELDS);
+            (String)getConfiguredProperty(Bpm4StrutsGlobals.DISABLE_VALIDATION_FOR_HIDDEN_FORM_FIELDS);
         return "true".equals(disableValidationForHiddenFormFields) && "hidden".equals(getWidgetType())
-                ? false : !getValidatorTypes().isEmpty();
+            ? false : !getValidatorTypes().isEmpty();
     }
 
     protected String getValidatorFormat()
@@ -1314,7 +1319,7 @@ public class StrutsParameterLogicImpl
     {
         final Collection args = new ArrayList();
         if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) ||
-                "doubleRange".equals(validatorType))
+            "doubleRange".equals(validatorType))
         {
             args.add("${var:min}");
             args.add("${var:max}");
@@ -1390,12 +1395,13 @@ public class StrutsParameterLogicImpl
                         final String additionalFormat = String.valueOf(formatIterator.next());
                         if (isMinLengthFormat(additionalFormat))
                             vars.put("minlength",
-                                    Arrays.asList(new Object[]{"minlength", this.getMinLengthValue(additionalFormat)}));
+                                Arrays.asList(new Object[]{"minlength", this.getMinLengthValue(additionalFormat)}));
                         else if (isMaxLengthFormat(additionalFormat))
                             vars.put("maxlength",
-                                    Arrays.asList(new Object[]{"maxlength", this.getMaxLengthValue(additionalFormat)}));
+                                Arrays.asList(new Object[]{"maxlength", this.getMaxLengthValue(additionalFormat)}));
                         else if (isPatternFormat(additionalFormat))
-                            vars.put("mask", Arrays.asList(new Object[]{"mask", this.getPatternValue(additionalFormat)}));
+                            vars.put("mask",
+                                Arrays.asList(new Object[]{"mask", this.getPatternValue(additionalFormat)}));
                     }
                 }
             }
@@ -1403,7 +1409,8 @@ public class StrutsParameterLogicImpl
             {
                 if (format != null && isStrictDateFormat(format))
                 {
-                    vars.put("datePatternStrict", Arrays.asList(new Object[]{"datePatternStrict", this.getDateFormat()}));
+                    vars.put("datePatternStrict",
+                        Arrays.asList(new Object[]{"datePatternStrict", this.getDateFormat()}));
                 }
                 else
                 {
@@ -1412,7 +1419,7 @@ public class StrutsParameterLogicImpl
             }
             if (this.isValidatorTime())
             {
-                vars.put("timePattern", Arrays.asList(new Object[] {"timePattern", this.getTimeFormat()}));
+                vars.put("timePattern", Arrays.asList(new Object[]{"timePattern", this.getTimeFormat()}));
             }
 
             final String validWhen = getValidWhen();
@@ -1616,7 +1623,7 @@ public class StrutsParameterLogicImpl
     {
         return this.getType() != null ? this.getType().isDateType() : false;
     }
-    
+
     /**
      * @return <code>true</code> if the type of this field is a time, <code>false</code> otherwise
      */
@@ -1663,7 +1670,7 @@ public class StrutsParameterLogicImpl
     private boolean isRangeFormat(String format)
     {
         return "range".equalsIgnoreCase(getToken(format, 0, 2)) && (isValidatorInteger() || isValidatorLong() ||
-                isValidatorShort() || isValidatorFloat() || isValidatorDouble());
+            isValidatorShort() || isValidatorFloat() || isValidatorDouble());
 
     }
 
@@ -1750,7 +1757,10 @@ public class StrutsParameterLogicImpl
     /**
      * @return the i-th space delimited token read from the argument String, where i does not exceed the specified limit
      */
-    private String getToken(String string, int index, int limit)
+    private String getToken(
+        String string,
+        int index,
+        int limit)
     {
         if (string == null) return null;
 
@@ -1772,10 +1782,10 @@ public class StrutsParameterLogicImpl
         {
             final String fieldType = value.toString();
             sortableBy = !(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equalsIgnoreCase(fieldType) ||
-                    Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType) ||
-                    Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_RADIO.equalsIgnoreCase(fieldType) ||
-                    Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType) ||
-                    Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType));
+                Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equalsIgnoreCase(fieldType) ||
+                Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_RADIO.equalsIgnoreCase(fieldType) ||
+                Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX.equalsIgnoreCase(fieldType) ||
+                Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_MULTIBOX.equalsIgnoreCase(fieldType));
         }
 
         return sortableBy;

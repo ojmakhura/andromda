@@ -1,5 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,11 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.StateMachineFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
-
 
 /**
  * MetafacadeLogic implementation.
@@ -20,16 +20,18 @@ import org.andromda.metafacades.uml.UseCaseFacade;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState
  */
 public class StrutsActionStateLogicImpl
-        extends StrutsActionStateLogic
+    extends StrutsActionStateLogic
 {
-    public StrutsActionStateLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public StrutsActionStateLogicImpl(
+        java.lang.Object metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
-    
+
     /**
      * Overridden because StrutsAction does not extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndActionState#getContainerActions()
      */
     public List getContainerActions()

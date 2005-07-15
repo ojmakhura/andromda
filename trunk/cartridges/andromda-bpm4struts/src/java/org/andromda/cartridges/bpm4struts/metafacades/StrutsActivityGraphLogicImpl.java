@@ -1,8 +1,8 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.Collection;
-
 import org.andromda.metafacades.uml.PseudostateFacade;
+
+import java.util.Collection;
 
 
 /**
@@ -11,9 +11,11 @@ import org.andromda.metafacades.uml.PseudostateFacade;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraph
  */
 public class StrutsActivityGraphLogicImpl
-        extends StrutsActivityGraphLogic
+    extends StrutsActivityGraphLogic
 {
-    public StrutsActivityGraphLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public StrutsActivityGraphLogicImpl(
+        java.lang.Object metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }

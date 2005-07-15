@@ -4,9 +4,11 @@ import org.andromda.core.common.StringUtilsHelper;
 
 
 public class StrutsSessionObjectLogicImpl
-        extends StrutsSessionObjectLogic
+    extends StrutsSessionObjectLogic
 {
-    public StrutsSessionObjectLogicImpl(Object metaObject, String context)
+    public StrutsSessionObjectLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }

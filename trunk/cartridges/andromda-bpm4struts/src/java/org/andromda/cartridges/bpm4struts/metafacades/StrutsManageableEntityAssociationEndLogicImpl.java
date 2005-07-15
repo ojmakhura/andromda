@@ -16,9 +16,11 @@ public class StrutsManageableEntityAssociationEndLogicImpl
 {
     // ---------------- constructor -------------------------------
 
-    public StrutsManageableEntityAssociationEndLogicImpl (Object metaObject, String context)
+    public StrutsManageableEntityAssociationEndLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**

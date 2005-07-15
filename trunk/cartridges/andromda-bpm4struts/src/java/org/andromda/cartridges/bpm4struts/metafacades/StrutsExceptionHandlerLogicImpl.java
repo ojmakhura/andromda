@@ -12,9 +12,11 @@ import org.andromda.metafacades.uml.UseCaseFacade;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler
  */
 public class StrutsExceptionHandlerLogicImpl
-        extends StrutsExceptionHandlerLogic
+    extends StrutsExceptionHandlerLogic
 {
-    public StrutsExceptionHandlerLogicImpl(Object metaObject, String context)
+    public StrutsExceptionHandlerLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -34,7 +36,7 @@ public class StrutsExceptionHandlerLogicImpl
 
         // the dot may not be the last character
         return StringUtilsHelper.toResourceMessageKey((dotIndex < type.length() - 1)
-                ? type.substring(dotIndex + 1) : type);
+            ? type.substring(dotIndex + 1) : type);
     }
 
     /**

@@ -1,5 +1,15 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.Role;
+import org.andromda.metafacades.uml.UMLProfile;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,26 +21,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.FrontEndActivityGraph;
-import org.andromda.metafacades.uml.Role;
-import org.andromda.metafacades.uml.UMLProfile;
-
 
 /**
  * MetafacadeLogic implementation.
+ *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase
  */
 public class StrutsUseCaseLogicImpl
-        extends StrutsUseCaseLogic
+    extends StrutsUseCaseLogic
 {
-    public StrutsUseCaseLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public StrutsUseCaseLogicImpl(
+        java.lang.Object metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -93,7 +95,7 @@ public class StrutsUseCaseLogicImpl
         }
         return actionPathRoot;
     }
-    
+
     /**
      * @see org.andromda.bpm4struts.metafacades.StrutsUseCase#isCyclic()
      */
@@ -105,7 +107,7 @@ public class StrutsUseCaseLogicImpl
         {
             final Collection finalStates = graph.getFinalStates();
             for (final Iterator finalStateIterator = finalStates.iterator();
-                finalStateIterator.hasNext() && !selfTargetting;)
+                 finalStateIterator.hasNext() && !selfTargetting;)
             {
                 final StrutsFinalState finalState = (StrutsFinalState)finalStateIterator.next();
                 if (this.equals(finalState.getTargetUseCase()))
@@ -155,7 +157,7 @@ public class StrutsUseCaseLogicImpl
         else
         {
             pagesList = new ArrayList(
-                    getModel().getAllActionStatesWithStereotype(graph, UMLProfile.STEREOTYPE_FRONT_END_VIEW));
+                getModel().getAllActionStatesWithStereotype(graph, UMLProfile.STEREOTYPE_FRONT_END_VIEW));
         }
         return pagesList;
     }
@@ -226,7 +228,7 @@ public class StrutsUseCaseLogicImpl
 
     /**
      * Overriden because StrutsAction does not extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getActions()
      */
     public List getActions()
@@ -338,10 +340,12 @@ public class StrutsUseCaseLogicImpl
 
     /**
      * <code>true</code> if the argument ancestor node is actually an ancestor of the first node.
-     *
+     * <p/>
      * <em>Note: DefaultMutableTreeNode's isNodeAncestor does not work because of its specific impl.</em>
      */
-    private boolean isNodeAncestor(UseCaseNode node, UseCaseNode ancestorNode)
+    private boolean isNodeAncestor(
+        UseCaseNode node,
+        UseCaseNode ancestorNode)
     {
         boolean ancestor = false;
 
@@ -363,7 +367,9 @@ public class StrutsUseCaseLogicImpl
     /**
      * Given a root use-case, finds the node in the hierarchy that represent the argument StrutsUseCase node.
      */
-    private UseCaseNode findNode(UseCaseNode root, StrutsUseCase useCase)
+    private UseCaseNode findNode(
+        UseCaseNode root,
+        StrutsUseCase useCase)
     {
         UseCaseNode useCaseNode = null;
 
@@ -380,7 +386,7 @@ public class StrutsUseCaseLogicImpl
     }
 
     public final static class UseCaseNode
-            extends DefaultMutableTreeNode
+        extends DefaultMutableTreeNode
     {
         public UseCaseNode(StrutsUseCase useCase)
         {
@@ -451,11 +457,12 @@ public class StrutsUseCaseLogicImpl
                         if (parameter.isTable())
                         {
                             final Collection columnNames = parameter.getTableColumnNames();
-                            for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+                            for (final Iterator columnNameIterator = columnNames.iterator();
+                                 columnNameIterator.hasNext();)
                             {
                                 final String columnName = (String)columnNameIterator.next();
                                 messages.put(parameter.getTableColumnMessageKey(columnName),
-                                        parameter.getTableColumnMessageValue(columnName));
+                                    parameter.getTableColumnMessageValue(columnName));
                             }
                         }
                     }
@@ -513,13 +520,13 @@ public class StrutsUseCaseLogicImpl
                             {
                                 // this key needs to be fully qualified since the valid when value can be different
                                 final String completeKeyPrefix = (normalize)
-                                        ? useCase.getTitleKey() + '.' +
-                                            page.getMessageKey() + '.' +
-                                            action.getMessageKey() + '.' +
-                                            parameter.getMessageKey()
-                                        : parameter.getMessageKey();
+                                    ? useCase.getTitleKey() + '.' +
+                                    page.getMessageKey() + '.' +
+                                    action.getMessageKey() + '.' +
+                                    parameter.getMessageKey()
+                                    : parameter.getMessageKey();
                                 messages.put(completeKeyPrefix + "_validwhen",
-                                        "{0} is only valid when " + parameter.getValidWhen());
+                                    "{0} is only valid when " + parameter.getValidWhen());
                             }
 
                             if (parameter.getOptionCount() > 0)
@@ -571,7 +578,7 @@ public class StrutsUseCaseLogicImpl
                                     // belong to more than one action (therefore it cannot return the correct value
                                     // in .getExceptionKey())
                                     messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(),
-                                            "{0} (" + exception.getExceptionType() + ")");
+                                        "{0} (" + exception.getExceptionType() + ")");
                                 }
                             }
                         }

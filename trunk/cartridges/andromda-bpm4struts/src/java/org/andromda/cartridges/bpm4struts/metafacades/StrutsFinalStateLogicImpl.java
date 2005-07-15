@@ -1,16 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UseCaseFacade;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import org.andromda.metafacades.uml.FrontEndUseCase;
-import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.UseCaseFacade;
-import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -19,13 +19,15 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalState
  */
 public class StrutsFinalStateLogicImpl
-        extends StrutsFinalStateLogic
+    extends StrutsFinalStateLogic
 {
-    public StrutsFinalStateLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public StrutsFinalStateLogicImpl(
+        java.lang.Object metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacad#getName()
      */
@@ -49,7 +51,7 @@ public class StrutsFinalStateLogicImpl
     {
         String fullPath = null;
 
-        StrutsUseCase useCase = (StrutsUseCase)this.getTargetUseCase();
+        final StrutsUseCase useCase = (StrutsUseCase)this.getTargetUseCase();
         if (useCase == null)
         {
             // perhaps this final state links outside of the UML model
@@ -78,7 +80,7 @@ public class StrutsFinalStateLogicImpl
     /**
      * Overridden for now (@todo need to figure out why it doesn't work correctly when using
      * the one from the FrontEndFinalState).
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndFinalState#getTargetUseCase()
      */
     public FrontEndUseCase getTargetUseCase()
