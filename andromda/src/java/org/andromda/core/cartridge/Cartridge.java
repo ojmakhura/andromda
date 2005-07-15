@@ -300,7 +300,7 @@ public class Cartridge
                 if (!outputFile.exists() || template.isOverwrite())
                 {
                     final String outputString = output.toString();
-                    AndroMDALogger.setSuffix(this.getNamespace() + ':' + template.getOutlet());
+                    AndroMDALogger.setSuffix(this.getNamespace());
 
                     // check to see if generateEmptyFiles is true and if
                     // outString is not blank
