@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -54,7 +53,7 @@ public class StrutsFinalStateLogicImpl
         if (useCase == null)
         {
             // perhaps this final state links outside of the UML model
-            final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_WEBPAGELINK);
+            final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_EXTERNAL_HYPERLINK);
             if (taggedValue == null)
             {
                 String name = getName();
@@ -88,7 +87,7 @@ public class StrutsFinalStateLogicImpl
 
         // first check if there is a hyperlink from this final state to a use-case
         // this works at least in MagicDraw
-        final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_HYPERLINK);
+        final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_MODEL_HYPERLINK);
         if (taggedValue != null)
         {
             if (taggedValue instanceof StrutsActivityGraph)

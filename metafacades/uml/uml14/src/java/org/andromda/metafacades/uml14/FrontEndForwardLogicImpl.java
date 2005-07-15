@@ -57,8 +57,10 @@ public class FrontEndForwardLogicImpl
      * If this forward has a trigger this method returns that trigger's name, otherwise if this forward
      * has a name this method returns that name, otherwise if this forward's target has a name this
      * method returns that name, otherwise simply returns <code>"unknown"</code>
+     * 
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
-    private final String resolveName()
+    protected final String handleGetName()
     {
         String forwardName = null;
 
@@ -72,13 +74,13 @@ public class FrontEndForwardLogicImpl
         // - name
         if (forwardName == null)
         {
-            forwardName = getName();
+            forwardName = super.handleGetName();
         }
 
         // - target
         if (forwardName == null)
         {
-            forwardName = getTarget().getName();
+            forwardName = this.getTarget().getName();
         }
 
         // - else
@@ -94,7 +96,7 @@ public class FrontEndForwardLogicImpl
      */
     protected String handleGetActionMethodName()
     {
-        return StringUtilsHelper.lowerCamelCaseName(resolveName());
+        return StringUtilsHelper.lowerCamelCaseName(this.getName());
     }
 
     /**

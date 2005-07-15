@@ -61,7 +61,7 @@ public class FrontEndFinalStateLogicImpl
 
         // first check if there is a hyperlink from this final state to a use-case
         // this works at least in MagicDraw
-        final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_HYPERLINK);
+        final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_MODEL_HYPERLINK);
         if (taggedValue != null)
         {
             if (taggedValue instanceof FrontEndActivityGraph)
