@@ -117,8 +117,8 @@ public class $className
 
 #end
     /**
-     * This method takes an intenral jBpm node name and construct a wrapper node class around it
-     * so it is easier to work with for the users.
+     * This method takes an internal jBpm node name and construct a wrapper node class around it
+     * so it is easier to work with.
      *
      * @param token the token which will be encapsulated by the returned $processDefinition.nodeInterfaceName instance,
      *      must <em>not</em> be <code>null</code>
