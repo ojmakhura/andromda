@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * @author Wouter Zoons
  */
 public class StringUtilsHelper
-        extends StringUtils
+    extends StringUtils
 {
     /**
      * The logger instance.
@@ -554,11 +554,9 @@ public class StringUtilsHelper
      */
     public static final String getLineSeparator()
     {
-        // - for reasons of platform compatibility we do not use the
-        // 'line.separator' property
-        // since this will break the build on different platforms (for exampele
-        // when comparing
-        // cartridge output zips)
+        // - for reasons of platform compatibility we do not use the 'line.separator' property
+        //   since this will break the build on different platforms (for exampele
+        //   when comparing cartridge output zips)
         return LINE_SEPARATOR;
     }
 }
