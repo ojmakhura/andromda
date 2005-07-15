@@ -1,8 +1,5 @@
 package org.andromda.cartridges.bpm4struts;
 
-import org.andromda.metafacades.uml.ManageableEntity;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,6 +7,10 @@ import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ManageableEntity;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Contains utilities for bpm4struts.
@@ -152,6 +153,19 @@ public final class Bpm4StrutsUtils
         final List sorted = new ArrayList(collection);
         Collections.sort(sorted, new ManageableEntityComparator());
         return sorted;
+    }
+    
+    /**
+     * Converts the argument into a web file name, this means: all lowercase
+     * characters and words are separated with dashes.
+     * 
+     * @param string any string
+     * @return the string converted to a value that would be well-suited for a
+     *         web file name
+     */
+    public static String toWebFileName(final String string)
+    {
+        return StringUtilsHelper.separate(string, "-").toLowerCase();
     }
 
     private final static class ManageableEntityComparator
