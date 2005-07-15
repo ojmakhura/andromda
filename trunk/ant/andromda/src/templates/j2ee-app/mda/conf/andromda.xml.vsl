@@ -4,14 +4,18 @@
         <property name="xmlValidation">${andromda.xmlValidation}</property>
         <property name="cartridgeFilter">${filter}</property>
     </properties>
-    <models>
-        <model>
-            <uri>file:${basedir}/src/uml/model.xmi</uri>
-            <moduleSearchLocations>
-                <location>${maven.repo.local}/andromda/xml.zips</location>
-            </moduleSearchLocations>
-        </model>
-    </models>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>file:${basedir}/src/uml/model.xmi</uri>
+                    <moduleSearchLocations>
+                        <location>${maven.repo.local}/andromda/xml.zips</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>
+        </repository>
+    </repositories>
     <mappingsSearchLocations>
         <location>${basedir}/src/mappings</location>
     </mappingsSearchLocations>
