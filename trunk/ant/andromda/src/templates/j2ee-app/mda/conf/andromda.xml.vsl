@@ -10,7 +10,7 @@
                 <model>
                     <uri>file:${basedir}/src/uml/model.xmi</uri>
                     <moduleSearchLocations>
-                        <location>${maven.repo.local}/andromda/xml.zips</location>
+                        <location patterns="*.xml.zip, *.xmi">${basedir}/../lib</location>
                     </moduleSearchLocations>
                 </model>
             </models>
