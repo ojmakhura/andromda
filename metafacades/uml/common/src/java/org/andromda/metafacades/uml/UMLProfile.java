@@ -26,6 +26,11 @@ public class UMLProfile
      * Represents a persistent entity.
      */
     public static final String STEREOTYPE_ENTITY = profile.get("ENTITY");
+    
+    /**
+     * Represents an embedded value (typically embedded with an entity as an attribute).
+     */
+    public static final String STEREOTYPE_EMBEDDED_VALUE = profile.get("EMBEDDED_VALUE");
 
     /**
      * Represents a finder method on an entity.
