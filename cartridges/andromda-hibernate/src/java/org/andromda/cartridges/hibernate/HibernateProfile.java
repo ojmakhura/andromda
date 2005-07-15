@@ -138,7 +138,7 @@ public class HibernateProfile
      * Defines the association order by columns names.
      */
     public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS =
-        profile.get("TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS");
+        profile.get("HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS");
 
     /**
      * Defines the association where clause.
