@@ -1,15 +1,14 @@
 package org.andromda.core.common;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -22,7 +21,7 @@ import org.apache.log4j.Logger;
  * @author Wouter Zoons
  */
 public class StringUtilsHelper
-    extends StringUtils
+        extends StringUtils
 {
     /**
      * The logger instance.
@@ -34,18 +33,18 @@ public class StringUtilsHelper
      * suffix isn't present, the string is returned unmodified.
      * </p>
      *
-     * @param src the <code>String</code> for which the suffix should be
-     *        replaced
+     * @param src       the <code>String</code> for which the suffix should be
+     *                  replaced
      * @param suffixOld a <code>String</code> with the suffix that should be
-     *        replaced
+     *                  replaced
      * @param suffixNew a <code>String</code> with the new suffix
      * @return a <code>String</code> with the given suffix replaced or
      *         unmodified if the suffix isn't present
      */
     public static String replaceSuffix(
-        final String src,
-        final String suffixOld,
-        final String suffixNew)
+            final String src,
+            final String suffixOld,
+            final String suffixNew)
     {
         if (src.endsWith(suffixOld))
         {
@@ -94,12 +93,12 @@ public class StringUtilsHelper
      * Removes the last occurance of the oldValue found within the string.
      *
      * @param string the String to remove the <code>value</code> from.
-     * @param value the value to remove.
+     * @param value  the value to remove.
      * @return String the resulting string.
      */
     public static String removeLastOccurrence(
-        String string,
-        final String value)
+            String string,
+            final String value)
     {
         if (string != null && value != null)
         {
@@ -145,8 +144,8 @@ public class StringUtilsHelper
     public static String toResourceMessageKey(final String string)
     {
         return separate(
-            StringUtils.trimToEmpty(string),
-            ".").toLowerCase();
+                StringUtils.trimToEmpty(string),
+                ".").toLowerCase();
     }
 
     /**
@@ -168,8 +167,8 @@ public class StringUtilsHelper
      * replaces each of those sequences by the separator.
      */
     public static String separate(
-        final String string,
-        final String separator)
+            final String string,
+            final String separator)
     {
         if (StringUtils.isBlank(string))
         {
@@ -212,13 +211,13 @@ public class StringUtilsHelper
      * Suffixes each line with the argument suffix.
      *
      * @param multiLines A String, optionally containing many lines
-     * @param suffix The suffix to append to the end of each line
+     * @param suffix     The suffix to append to the end of each line
      * @return String The input String with the suffix appended at the end of
      *         each line
      */
     public static String suffixLines(
-        final String multiLines,
-        final String suffix)
+            final String multiLines,
+            final String suffix)
     {
         final String[] lines = StringUtils.trimToEmpty(multiLines).split(LINE_SEPARATOR);
         final StringBuffer linesBuffer = new StringBuffer();
@@ -268,7 +267,7 @@ public class StringUtilsHelper
      * @param word the word needing the predicate
      * @return the argument prefixed with the predicate
      * @todo: this method could be implemented with better logic, for example to
-     *        support 'an r' and 'a rattlesnake'
+     * support 'an r' and 'a rattlesnake'
      */
     public static String prefixWithAPredicate(final String word)
     {
@@ -280,13 +279,14 @@ public class StringUtilsHelper
         char firstChar = word.charAt(0);
         switch (firstChar)
         {
-        case 'a': // fall-through
-        case 'e': // fall-through
-        case 'i': // fall-through
-        case 'o':
-            formattedBuffer.insert(1, 'n');
-            break;
-        default:}
+            case 'a': // fall-through
+            case 'e': // fall-through
+            case 'i': // fall-through
+            case 'o':
+                formattedBuffer.insert(1, 'n');
+                break;
+            default:
+        }
 
         return formattedBuffer.toString();
     }
@@ -342,26 +342,26 @@ public class StringUtilsHelper
             {
                 switch (secondToLastChar)
                 {
-                case 'a': // fall-through
-                case 'e': // fall-through
-                case 'i': // fall-through
-                case 'o': // fall-through
-                case 'u':
-                    pluralNoun = pluralNoun + 's';
-                    break;
-                default:
-                    pluralNoun = pluralNoun.substring(0, nounLength - 1) + "ies";
+                    case 'a': // fall-through
+                    case 'e': // fall-through
+                    case 'i': // fall-through
+                    case 'o': // fall-through
+                    case 'u':
+                        pluralNoun = pluralNoun + 's';
+                        break;
+                    default:
+                        pluralNoun = pluralNoun.substring(0, nounLength - 1) + "ies";
                 }
             }
             else if (pluralNoun.endsWith("s"))
             {
                 switch (secondToLastChar)
                 {
-                case 's':
-                    pluralNoun = pluralNoun + "es";
-                    break;
-                default:
-                    pluralNoun = pluralNoun + "ses";
+                    case 's':
+                        pluralNoun = pluralNoun + "es";
+                        break;
+                    default:
+                        pluralNoun = pluralNoun + "ses";
                 }
             }
             else
@@ -390,8 +390,8 @@ public class StringUtilsHelper
      * @see #format(String, String, int)
      */
     public static String format(
-        final String plainText,
-        final String indentation)
+            final String plainText,
+            final String indentation)
     {
         return format(plainText, indentation, 64);
     }
@@ -404,51 +404,51 @@ public class StringUtilsHelper
      * @see #format(String, String, int, boolean)
      */
     public static String format(
-        final String plainText,
-        final String indentation,
-        final int wrapAtColumn)
+            final String plainText,
+            final String indentation,
+            final int wrapAtColumn)
     {
         return format(plainText, indentation, wrapAtColumn, true);
     }
 
     /**
-     * <p>
+     * <p/>
      * Formats the given argument with the specified indentation, wrapping the
      * text at the desired column margin.
      * </p>
-     * <p>
+     * <p/>
      * When enabling <em>htmlStyle</em> the returned text will be suitable for
      * display in HTML environments such as JavaDoc, all newlines will be
      * replaced by paragraphs.
      * </p>
-     * <p>
+     * <p/>
      * This method trims the input text: all leading and trailing whitespace
      * will be removed.
      * </p>
-     * <p>
+     * <p/>
      * If for some reason this method would fail it will return the
      * <em>plainText</em> argument.
      * </p>
      *
-     * @param plainText the text to format, the empty string will be returned in
-     *        case this argument is <code>null</code>; long words will be
-     *        placed on a newline but will never be wrapped
-     * @param indentation the empty string will be used if this argument would
-     *        be <code>null</code>
+     * @param plainText    the text to format, the empty string will be returned in
+     *                     case this argument is <code>null</code>; long words will be
+     *                     placed on a newline but will never be wrapped
+     * @param indentation  the empty string will be used if this argument would
+     *                     be <code>null</code>
      * @param wrapAtColumn does not take into account the length of the
-     *        indentation, needs to be stricly positive
-     * @param htmlStyle whether or not to make sure the returned string is
-     *        suited for display in HTML environments such as JavaDoc
+     *                     indentation, needs to be stricly positive
+     * @param htmlStyle    whether or not to make sure the returned string is
+     *                     suited for display in HTML environments such as JavaDoc
      * @return a String instance which represents the formatted input, never
      *         <code>null</code>
      * @throws IllegalArgumentException when the <em>wrapAtColumn</em>
-     *         argument is not strictly positive
+     *                                  argument is not strictly positive
      */
     public static String format(
-        final String plainText,
-        String indentation,
-        final int wrapAtColumn,
-        final boolean htmlStyle)
+            final String plainText,
+            String indentation,
+            final int wrapAtColumn,
+            final boolean htmlStyle)
     {
         // - we cannot wrap at a column index less than 1
         if (wrapAtColumn < 1)
@@ -554,7 +554,7 @@ public class StringUtilsHelper
      */
     public static final String getLineSeparator()
     {
-        // - for reasons of platform compatiblity we do not use the
+        // - for reasons of platform compatibility we do not use the
         // 'line.separator' property
         // since this will break the build on different platforms (for exampele
         // when comparing
