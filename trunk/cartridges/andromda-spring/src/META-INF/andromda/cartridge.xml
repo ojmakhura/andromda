@@ -475,9 +475,8 @@
         path="templates/spring/hibernate/HibernateSearch.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="entities">
+        overwrite="true">
+        <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>

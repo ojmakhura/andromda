@@ -3,16 +3,21 @@ package org.andromda.cartridges.spring.metafacades;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringEntity.
@@ -20,10 +25,11 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.spring.metafacades.SpringEntity
  */
 public class SpringEntityLogicImpl
-        extends SpringEntityLogic
+    extends SpringEntityLogic
 {
-    
-    public SpringEntityLogicImpl(Object metaObject, String context)
+    public SpringEntityLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -66,7 +72,9 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetDaoName()
     {
-        return this.getDaoNamePattern().replaceAll("\\{0\\}", this.getName());
+        return this.getDaoNamePattern().replaceAll(
+            "\\{0\\}",
+            this.getName());
     }
 
     /**
@@ -84,7 +92,9 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedDaoName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getDaoName());
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getDaoName());
     }
 
     /**
@@ -92,7 +102,9 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetDaoImplementationName()
     {
-        return this.getDaoImplementationNamePattern().replaceAll("\\{0\\}", this.getName());
+        return this.getDaoImplementationNamePattern().replaceAll(
+            "\\{0\\}",
+            this.getName());
     }
 
     /**
@@ -110,7 +122,9 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedDaoImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getDaoImplementationName());
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getDaoImplementationName());
     }
 
     /**
@@ -118,7 +132,9 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetDaoBaseName()
     {
-        return this.getDaoBaseNamePattern().replaceAll("\\{0\\}", this.getName());
+        return this.getDaoBaseNamePattern().replaceAll(
+            "\\{0\\}",
+            this.getName());
     }
 
     /**
@@ -136,7 +152,9 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedDaoBaseName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getDaoBaseName());
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getDaoBaseName());
     }
 
     /**
@@ -152,8 +170,10 @@ public class SpringEntityLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedEntityImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getEntityName(),
-                SpringGlobals.IMPLEMENTATION_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getEntityName(),
+            SpringGlobals.IMPLEMENTATION_SUFFIX);
     }
 
     /**
@@ -176,7 +196,9 @@ public class SpringEntityLogicImpl
     protected String handleGetEntityName()
     {
         final String entityNamePattern = (String)this.getConfiguredProperty("entityNamePattern");
-        return MessageFormat.format(entityNamePattern, new Object[]{StringUtils.trimToEmpty(this.getName())});
+        return MessageFormat.format(
+            entityNamePattern,
+            new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
 
     /**
@@ -184,7 +206,10 @@ public class SpringEntityLogicImpl
      */
     protected String handleGetFullyQualifiedEntityName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getEntityName(), null);
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getEntityName(),
+            null);
     }
 
     /**
@@ -193,9 +218,9 @@ public class SpringEntityLogicImpl
     protected Object handleGetRoot()
     {
         GeneralizableElementFacade generalization = this;
-        for (;
-             generalization.getGeneralization() != null && generalization instanceof SpringEntity;
-             generalization = generalization.getGeneralization())
+        for (
+            ; generalization.getGeneralization() != null && generalization instanceof SpringEntity;
+            generalization = generalization.getGeneralization())
             ;
         return generalization;
     }
@@ -232,12 +257,12 @@ public class SpringEntityLogicImpl
 
         Collection nonFinders = CollectionUtils.subtract(operations, finders);
         return new FilteredCollection(nonFinders)
-        {
-            public boolean evaluate(Object object)
             {
-                return ((OperationFacade)object).isStatic();
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return ((OperationFacade)object).isStatic();
+                }
+            };
     }
 
     /**
@@ -247,7 +272,7 @@ public class SpringEntityLogicImpl
     {
         return this.getValueObjectReferences(false);
     }
-    
+
     /**
      * Retrieves the values object references for this entity.  If
      * <code>follow</code> is true, then all value object references
@@ -258,27 +283,29 @@ public class SpringEntityLogicImpl
         final Collection sourceDependencies = new ArrayList(this.getSourceDependencies());
         if (follow)
         {
-            for (GeneralizableElementFacade entity = this.getGeneralization(); entity != null; entity = entity.getGeneralization())
+            for (
+                GeneralizableElementFacade entity = this.getGeneralization(); entity != null;
+                entity = entity.getGeneralization())
             {
                 sourceDependencies.addAll(entity.getSourceDependencies());
             }
         }
         return new FilteredCollection(sourceDependencies)
-        {
-            public boolean evaluate(Object object)
             {
-                boolean valid = false;
-                Object targetElement = ((DependencyFacade)object).getTargetElement();
-                if (targetElement instanceof ClassifierFacade)
+                public boolean evaluate(Object object)
                 {
-                    ClassifierFacade element = (ClassifierFacade)targetElement;
-                    valid = element.isDataType() || element instanceof ValueObject;
+                    boolean valid = false;
+                    Object targetElement = ((DependencyFacade)object).getTargetElement();
+                    if (targetElement instanceof ClassifierFacade)
+                    {
+                        ClassifierFacade element = (ClassifierFacade)targetElement;
+                        valid = element.isDataType() || element instanceof ValueObject;
+                    }
+                    return valid;
                 }
-                return valid;
-            }
-        };
+            };
     }
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getAllValueObjectReferences()
      */
@@ -292,8 +319,8 @@ public class SpringEntityLogicImpl
      */
     protected boolean handleIsDaoImplementationRequired()
     {
-        return !this.getValueObjectReferences().isEmpty() || !this.getDaoBusinessOperations().isEmpty() || !this.getQueryOperations(
-                true).isEmpty();
+        return !this.getValueObjectReferences().isEmpty() || !this.getDaoBusinessOperations().isEmpty() ||
+        !this.getQueryOperations(true).isEmpty();
     }
 
     /**
@@ -360,8 +387,7 @@ public class SpringEntityLogicImpl
     protected String handleGetHibernateInheritanceStrategy()
     {
         String inheritance = this.getInheritance(this);
-        for (SpringEntity superEntity = this.getSuperEntity();
-             superEntity != null && StringUtils.isBlank(inheritance);)
+        for (SpringEntity superEntity = this.getSuperEntity(); superEntity != null && StringUtils.isBlank(inheritance);)
         {
             inheritance = superEntity.getHibernateInheritanceStrategy();
         }
@@ -409,8 +435,10 @@ public class SpringEntityLogicImpl
     {
         final SpringEntity superEntity = this.getSuperEntity();
         return this.isRoot() &&
-                (!this.isHibernateInheritanceInterface() ||
-                (superEntity != null && superEntity.isHibernateInheritanceInterface()));
+        (
+            !this.isHibernateInheritanceInterface() ||
+            (superEntity != null && superEntity.isHibernateInheritanceInterface())
+        );
     }
 
     /**
@@ -419,12 +447,12 @@ public class SpringEntityLogicImpl
     private boolean isRoot()
     {
         final SpringEntity superEntity = this.getSuperEntity();
-        boolean abstractConcreteEntity = (this.isHibernateInheritanceConcrete() ||
-                this.isHibernateInheritanceInterface()) &&
-                this.isAbstract();
-        return (this.getSuperEntity() == null ||
-                (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())) &&
-                !abstractConcreteEntity;
+        boolean abstractConcreteEntity =
+            (this.isHibernateInheritanceConcrete() || this.isHibernateInheritanceInterface()) && this.isAbstract();
+        return (
+            this.getSuperEntity() == null ||
+            (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())
+        ) && !abstractConcreteEntity;
     }
 
     /**
@@ -443,4 +471,65 @@ public class SpringEntityLogicImpl
         return superEntity;
     }
 
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getCriteriaSearchName()
+     */
+    protected String handleGetCriteriaSearchName()
+    {
+        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.ENTITY_CRITERIA_SEARCH_PATTERN));
+        return pattern.replaceFirst("\\{0\\}", this.getName());    
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedCriteriaSearchName()
+     */
+    protected String handleGetFullyQualifiedCriteriaSearchName()
+    {
+        final StringBuffer fullyQualifiedName = new StringBuffer();
+        final String packageName = this.getPackageName();
+        if (StringUtils.isNotBlank(packageName))
+        {
+            fullyQualifiedName.append(packageName + '.');
+        }
+        return fullyQualifiedName.append(this.getCriteriaSearchName()).toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedCriteriaSearchName()
+     */
+    protected String handleGetFullyQualifiedCriteriaSearchPath()
+    {
+        return this.getFullyQualifiedCriteriaSearchName().replace('.', '/');
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getAttributeEmbeddedValueList()
+     */
+    protected String handleGetAttributeEmbeddedValueList()
+    {
+        final Collection embeddedValues = new ArrayList();
+        for (final Iterator iterator = this.getAttributes().iterator(); iterator.hasNext();)
+        {
+            final AttributeFacade attribute = (AttributeFacade)iterator.next();
+            final ClassifierFacade type = attribute.getType();
+            if (type != null && type.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE))
+            {
+                embeddedValues.add(attribute.getName());
+            }
+        }
+        final StringBuffer buffer = new StringBuffer();
+        for (final Iterator iterator = embeddedValues.iterator(); iterator.hasNext();)
+        {
+            final String name = (String)iterator.next();
+            if (StringUtils.isNotBlank(name))
+            {
+                buffer.append('\"' + name + '\"');
+                if (iterator.hasNext())
+                {
+                    buffer.append(", ");
+                }
+            }
+        }
+        return buffer.toString();
+    }
 }
