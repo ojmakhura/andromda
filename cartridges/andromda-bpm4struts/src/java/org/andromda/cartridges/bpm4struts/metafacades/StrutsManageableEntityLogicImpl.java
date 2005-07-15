@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity
  */
 public class StrutsManageableEntityLogicImpl
-        extends StrutsManageableEntityLogic
+    extends StrutsManageableEntityLogic
 {
     /**
      * @return the configured property denoting the character sequence to use for the separation of namespaces
@@ -22,7 +22,9 @@ public class StrutsManageableEntityLogicImpl
         return (String)this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
     }
 
-    public StrutsManageableEntityLogicImpl(Object metaObject, String context)
+    public StrutsManageableEntityLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }

@@ -1,5 +1,9 @@
 package org.andromda.cartridges.bpm4struts;
 
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ManageableEntity;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -7,10 +11,6 @@ import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ManageableEntity;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Contains utilities for bpm4struts.
@@ -31,7 +31,7 @@ public final class Bpm4StrutsUtils
     }
 
     private static final Pattern VALIDATOR_TAGGEDVALUE_PATTERN = Pattern.compile(
-            "\\w+(\\(\\w+=[^,)]*(,\\w+=[^,)]*)*\\))?");
+        "\\w+(\\(\\w+=[^,)]*(,\\w+=[^,)]*)*\\))?");
 
     /**
      * Reads the validator arguments from the the given tagged value.
@@ -50,7 +50,7 @@ public final class Bpm4StrutsUtils
         if (!VALIDATOR_TAGGEDVALUE_PATTERN.matcher(validatorTaggedValue).matches())
         {
             throw new IllegalArgumentException(
-                    "Illegal validator tagged value (this tag is used to specify custom validators " +
+                "Illegal validator tagged value (this tag is used to specify custom validators " +
                     "and might look like myValidator(myVar=myArg,myVar2=myArg2), perhaps you wanted to use " +
                     "@andromda.struts.view.field.format?): " + validatorTaggedValue);
         }
@@ -154,11 +154,11 @@ public final class Bpm4StrutsUtils
         Collections.sort(sorted, new ManageableEntityComparator());
         return sorted;
     }
-    
+
     /**
      * Converts the argument into a web file name, this means: all lowercase
      * characters and words are separated with dashes.
-     * 
+     *
      * @param string any string
      * @return the string converted to a value that would be well-suited for a
      *         web file name
@@ -169,14 +169,16 @@ public final class Bpm4StrutsUtils
     }
 
     private final static class ManageableEntityComparator
-            implements Comparator
+        implements Comparator
     {
-        public int compare(Object left, Object right)
+        public int compare(
+            Object left,
+            Object right)
         {
             final ManageableEntity leftEntity = (ManageableEntity)left;
             final ManageableEntity rightEntity = (ManageableEntity)right;
             return StringUtils.trimToEmpty(leftEntity.getName()).compareTo(
-                    StringUtils.trimToEmpty(rightEntity.getName()));
+                StringUtils.trimToEmpty(rightEntity.getName()));
         }
     }
 }

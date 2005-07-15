@@ -1,5 +1,13 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
+import org.andromda.metafacades.uml.GuardFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,14 +17,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.FrontEndControllerOperation;
-import org.andromda.metafacades.uml.GuardFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-
 
 /**
  * MetafacadeLogic implementation.
@@ -24,9 +24,11 @@ import org.andromda.metafacades.uml.StateVertexFacade;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForward
  */
 public class StrutsForwardLogicImpl
-        extends StrutsForwardLogic
+    extends StrutsForwardLogic
 {
-    public StrutsForwardLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public StrutsForwardLogicImpl(
+        java.lang.Object metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -122,10 +124,10 @@ public class StrutsForwardLogicImpl
      * Collects specific messages in a map.
      *
      * @param messageType success or warning
-     * @param messageKey the message resource key to use as a prefix
+     * @param messageKey  the message resource key to use as a prefix
      * @param taggedValue the tagged value from which to read the message
      * @return maps message keys to message values, but only those that match the arguments
-     *  will have been recorded
+     *         will have been recorded
      */
     private Map getMessages(String taggedValue)
     {
@@ -167,7 +169,7 @@ public class StrutsForwardLogicImpl
 
     /**
      * Overridden since StrutsAction doesn't extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndForward#getActions()
      */
     public java.util.List getActions()
@@ -184,10 +186,12 @@ public class StrutsForwardLogicImpl
      * this action state, if the source is the initial state it will collect all actions forwarding to this
      * forward's use-case (please not that those actions most likely are defined in other use-cases).
      *
-     * @param actions the default set of actions, duplicates will not be recorded
+     * @param actions         the default set of actions, duplicates will not be recorded
      * @param handledForwards the forwards already processed
-     */ 
-    private final void findActions(Set actions, Set handledForwards)
+     */
+    private final void findActions(
+        Set actions,
+        Set handledForwards)
     {
         if (!handledForwards.contains(this))
         {

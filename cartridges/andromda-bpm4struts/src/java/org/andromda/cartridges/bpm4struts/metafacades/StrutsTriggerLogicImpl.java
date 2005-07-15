@@ -11,9 +11,11 @@ import org.andromda.metafacades.uml.TransitionFacade;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger
  */
 public class StrutsTriggerLogicImpl
-        extends StrutsTriggerLogic
+    extends StrutsTriggerLogic
 {
-    public StrutsTriggerLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public StrutsTriggerLogicImpl(
+        java.lang.Object metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }

@@ -1,16 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
@@ -32,6 +21,17 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * MetafacadeLogic implementation.
@@ -39,7 +39,7 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction
  */
 public class StrutsActionLogicImpl
-        extends StrutsActionLogic
+    extends StrutsActionLogic
 {
     /**
      * All action states that make up this action, this includes all possible action states traversed
@@ -62,7 +62,9 @@ public class StrutsActionLogicImpl
      */
     private Collection transitions = null;
 
-    public StrutsActionLogicImpl(Object metaObject, String context)
+    public StrutsActionLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -83,10 +85,12 @@ public class StrutsActionLogicImpl
     /**
      * Recursively collects all action states, action forwards, decision transitions and transitions.
      *
-     * @param transition the current transition that is being processed
+     * @param transition           the current transition that is being processed
      * @param processedTransitions the set of transitions already processed
      */
-    private void collectTransitions(TransitionFacade transition, Collection processedTransitions)
+    private void collectTransitions(
+        TransitionFacade transition,
+        Collection processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {
@@ -239,7 +243,7 @@ public class StrutsActionLogicImpl
             {
                 final int columnOffset = tableLink.indexOf('.');
                 tableLink = (columnOffset == -1 || columnOffset == tableLink.length() - 1) ?
-                        null : tableLink.substring(columnOffset + 1);
+                    null : tableLink.substring(columnOffset + 1);
             }
         }
 
@@ -250,14 +254,14 @@ public class StrutsActionLogicImpl
     {
         final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
         return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
-                value == null ? null : value.toString());
+            value == null ? null : value.toString());
     }
 
     protected boolean handleIsImageLink()
     {
         final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
         return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_IMAGE.equalsIgnoreCase(
-                value == null ? null : value.toString());
+            value == null ? null : value.toString());
     }
 
     protected String handleGetImagePath()
@@ -280,7 +284,7 @@ public class StrutsActionLogicImpl
             StringBuffer buffer = new StringBuffer();
 
             final String actionPathPrefix = Bpm4StrutsGlobals.PROPERTY_ACTION_PATH_PREFIX;
-            String prefix = this.isConfiguredProperty(actionPathPrefix) ? 
+            String prefix = this.isConfiguredProperty(actionPathPrefix) ?
                 ObjectUtils.toString(this.getConfiguredProperty(actionPathPrefix)) : "";
 
             ModelElementFacade useCasePackage = useCase.getPackage();
@@ -397,7 +401,8 @@ public class StrutsActionLogicImpl
         if (useCase != null)
         {
             final String useCaseName = useCase.getName();
-            formBeanName = StringUtilsHelper.lowerCamelCaseName(useCaseName) + getActionClassName() + Bpm4StrutsGlobals.FORM_SUFFIX;
+            formBeanName = StringUtilsHelper.lowerCamelCaseName(useCaseName) + getActionClassName() + Bpm4StrutsGlobals
+                .FORM_SUFFIX;
         }
         return formBeanName;
     }
@@ -456,7 +461,7 @@ public class StrutsActionLogicImpl
     private boolean isTrue(String string)
     {
         return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
-                "1".equalsIgnoreCase(string);
+            "1".equalsIgnoreCase(string);
     }
 
     protected boolean handleIsUseCaseStart()
@@ -473,7 +478,7 @@ public class StrutsActionLogicImpl
     protected String handleGetFullTilePath()
     {
         return isUseCaseStart() ?
-                "empty-file" : getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getActionClassName());
+            "empty-file" : getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getActionClassName());
     }
 
     /**
@@ -553,8 +558,8 @@ public class StrutsActionLogicImpl
     {
         final StrutsTrigger trigger = getActionTrigger();
         return ((trigger == null)
-                ? getMessageKey() + ".is.an.action.without.trigger"
-                : trigger.getTriggerKey()) + ".documentation";
+            ? getMessageKey() + ".is.an.action.without.trigger"
+            : trigger.getTriggerKey()) + ".documentation";
     }
 
     protected String handleGetDocumentationValue()
@@ -567,8 +572,8 @@ public class StrutsActionLogicImpl
     {
         final StrutsTrigger trigger = getActionTrigger();
         return ((trigger == null)
-                ? getMessageKey() + ".is.an.action.without.trigger"
-                : trigger.getTriggerKey()) + ".online.help";
+            ? getMessageKey() + ".is.an.action.without.trigger"
+            : trigger.getTriggerKey()) + ".online.help";
     }
 
     protected String handleGetOnlineHelpValue()
@@ -918,7 +923,7 @@ public class StrutsActionLogicImpl
     protected String handleGetFormScope()
     {
         String actionFormScope = String.valueOf(this.getConfiguredProperty(
-                Bpm4StrutsGlobals.PROPERTY_ACTION_FORM_SCOPE));
+            Bpm4StrutsGlobals.PROPERTY_ACTION_FORM_SCOPE));
         Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_SCOPE);
         if (value != null)
         {

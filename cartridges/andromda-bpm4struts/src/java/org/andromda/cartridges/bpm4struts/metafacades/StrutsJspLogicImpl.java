@@ -1,11 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.core.common.StringUtilsHelper;
@@ -16,6 +10,12 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 
 /**
  * MetafacadeLogic implementation.
@@ -23,9 +23,11 @@ import org.apache.commons.lang.StringUtils;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp
  */
 public class StrutsJspLogicImpl
-        extends StrutsJspLogic
+    extends StrutsJspLogic
 {
-    public StrutsJspLogicImpl(Object metaObject, String context)
+    public StrutsJspLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -114,7 +116,8 @@ public class StrutsJspLogicImpl
 
     protected String handleGetFullPath()
     {
-        return '/' + (getPackageName() + '.' + Bpm4StrutsUtils.toWebFileName(StringUtils.trimToEmpty(getName()))).replace(
+        return '/' +
+            (getPackageName() + '.' + Bpm4StrutsUtils.toWebFileName(StringUtils.trimToEmpty(getName()))).replace(
                 '.', '/');
     }
 
@@ -205,7 +208,7 @@ public class StrutsJspLogicImpl
         }
         return actions;
     }
-    
+
     protected List handleGetPageVariables()
     {
         return this.getVariables();
@@ -221,12 +224,14 @@ public class StrutsJspLogicImpl
     /**
      * Collects all actions that are entering the argument state vertex.
      *
-     * @param stateVertex the statevertex to process
+     * @param stateVertex          the statevertex to process
      * @param processedTransitions the transitions that have already been processed
-     * @param actions the actions collected so far
+     * @param actions              the actions collected so far
      */
-    private void collectIncomingActions(StateVertexFacade stateVertex, Collection processedTransitions,
-                                        Collection actions)
+    private void collectIncomingActions(
+        StateVertexFacade stateVertex,
+        Collection processedTransitions,
+        Collection actions)
     {
         final Collection incomingTransitions = stateVertex.getIncoming();
         for (final Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
@@ -239,12 +244,14 @@ public class StrutsJspLogicImpl
     /**
      * Collects all actions that are possibly traversing the argument transitions.
      *
-     * @param transition the transition to process
+     * @param transition           the transition to process
      * @param processedTransitions the transitions that have already been processed
-     * @param actions the actions collected so far
+     * @param actions              the actions collected so far
      */
-    private void collectIncomingActions(TransitionFacade transition, Collection processedTransitions,
-                                        Collection actions)
+    private void collectIncomingActions(
+        TransitionFacade transition,
+        Collection processedTransitions,
+        Collection actions)
     {
         if (!processedTransitions.contains(transition))
         {

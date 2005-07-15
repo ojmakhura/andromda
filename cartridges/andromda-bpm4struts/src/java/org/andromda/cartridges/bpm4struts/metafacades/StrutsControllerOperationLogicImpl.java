@@ -1,14 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -22,6 +13,15 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.StateVertexFacade;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation.
@@ -29,9 +29,11 @@ import org.andromda.metafacades.uml.StateVertexFacade;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation
  */
 public class StrutsControllerOperationLogicImpl
-        extends StrutsControllerOperationLogic
+    extends StrutsControllerOperationLogic
 {
-    public StrutsControllerOperationLogicImpl(Object metaObject, String context)
+    public StrutsControllerOperationLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -58,7 +60,7 @@ public class StrutsControllerOperationLogicImpl
 
     /**
      * Overridden because StrutsAction does not extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getDeferringActions()
      */
     public java.util.List getDeferringActions()
@@ -76,7 +78,8 @@ public class StrutsControllerOperationLogicImpl
                 {
                     final StrutsActionState actionState = (StrutsActionState)actionStateObject;
                     final Collection controllerCalls = actionState.getControllerCalls();
-                    for (final Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
+                    for (final Iterator controllerCallIterator = controllerCalls.iterator();
+                         controllerCallIterator.hasNext();)
                     {
                         final OperationFacade operation = (OperationFacade)controllerCallIterator.next();
                         if (this.equals(operation))
@@ -131,7 +134,7 @@ public class StrutsControllerOperationLogicImpl
 
     /**
      * Overridden since StrutsAction does not extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getFormFields()
      */
     public List getFormFields()
@@ -221,7 +224,8 @@ public class StrutsControllerOperationLogicImpl
                 final Collection actionFormFields = action.getActionFormFields();
 
                 boolean fieldPresent = false;
-                for (final Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext() && !fieldPresent;)
+                for (final Iterator fieldIterator = actionFormFields.iterator();
+                     fieldIterator.hasNext() && !fieldPresent;)
                 {
                     final ModelElementFacade field = (ModelElementFacade)fieldIterator.next();
                     if (parameterName.equals(field.getName()) && parameterType.equals(field.getFullyQualifiedName()))
@@ -257,9 +261,9 @@ public class StrutsControllerOperationLogicImpl
         {
             final ParameterFacade serviceParameter = (ParameterFacade)iterator.next();
             final ClassifierFacade controllerParameterType = (ClassifierFacade)parameterMap.get(
-                    serviceParameter.getName());
+                serviceParameter.getName());
             matches = (controllerParameterType == null) ?
-                    false : controllerParameterType.equals(serviceParameter.getType());
+                false : controllerParameterType.equals(serviceParameter.getType());
         }
 
         return matches;

@@ -12,7 +12,7 @@ public class Bpm4StrutsGlobals
      * Stores the default date format when dates are formatted.
      */
     public static final String PROPERTY_DEFAULT_DATEFORMAT = "defaultDateFormat";
-    
+
     /**
      * Stores the default time format when times are formatted.
      */
@@ -64,7 +64,7 @@ public class Bpm4StrutsGlobals
     public static final String PROPERTY_NORMALIZE_MESSAGES = "normalizeMessages";
 
     /**
-     * Instructs the cartridge not to include hidden fields in the validation process. 
+     * Instructs the cartridge not to include hidden fields in the validation process.
      */
     public static final String DISABLE_VALIDATION_FOR_HIDDEN_FORM_FIELDS = "disableValidationForHiddenFormFields";
 
@@ -72,19 +72,19 @@ public class Bpm4StrutsGlobals
      * The suffix for form names.
      */
     public static final String FORM_SUFFIX = "Form";
-    
+
     /**
      * The suffix for form implementation names.
      */
     public static final String FORM_IMPLEMENTATION_SUFFIX = FORM_SUFFIX + "Impl";
-    
+
     /**
      * The namespace property used to identify the pattern used to construct the backend service's package name.
      */
     public static final String SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
-    
+
     /**
      * The namespace property used to identify the pattern used to construct the backend service's accessor.
      */
-    public static final String SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";   
+    public static final String SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
 }

@@ -1,16 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UseCaseFacade;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
-import org.andromda.core.common.StringUtilsHelper;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
-import org.andromda.metafacades.uml.StateMachineFacade;
 
 
 /**
@@ -19,9 +19,11 @@ import org.andromda.metafacades.uml.StateMachineFacade;
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate
  */
 public class StrutsPseudostateLogicImpl
-        extends StrutsPseudostateLogic
+    extends StrutsPseudostateLogic
 {
-    public StrutsPseudostateLogicImpl(java.lang.Object metaObject, java.lang.String context)
+    public StrutsPseudostateLogicImpl(
+        java.lang.Object metaObject,
+        java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -38,12 +40,12 @@ public class StrutsPseudostateLogicImpl
     {
         final String methodName = getName();
         return (methodName == null) ?
-                "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);
+            "a" + System.currentTimeMillis() : StringUtilsHelper.lowerCamelCaseName(methodName);
     }
 
     /**
      * Overrideen since StrutsAction does not extend FrontEndAction
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndPseudostate#getContainerActions()
      */
     public List getContainerActions()
