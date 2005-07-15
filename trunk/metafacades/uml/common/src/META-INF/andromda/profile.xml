@@ -99,9 +99,13 @@
                 <documentation></documentation>
                 <value>documentation</value>
             </element>
-            <element name="HYPERLINK">
+            <element name="MODEL_HYPERLINK">
                 <documentation>Represents a hyperlink within a model</documentation>
                 <value>hyperlinkModel</value>
+            </element>
+            <element name="EXTERNAL_HYPERLINK">
+                <documentation>Represents an external hyperlink (i.e. to an external website for example).</documentation>
+                <value>hyperlinkTextActive</value>
             </element>
             <element name="PERSISTENCE_TABLE">
                 <documentation></documentation>

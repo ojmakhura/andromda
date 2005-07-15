@@ -135,9 +135,14 @@ public class UMLProfile
     public static final String TAGGEDVALUE_DOCUMENTATION = profile.get("DOCUMENTATION");
     
     /**
-     * Represents a hyperlink stored as a tagged value.
+     * Represents a model hyperlink stored as a tagged value.
      */
-    public static final String TAGGEDVALUE_HYPERLINK = profile.get("HYPERLINK");
+    public static final String TAGGEDVALUE_MODEL_HYPERLINK = profile.get("MODEL_HYPERLINK");
+    
+    /**
+     * Represents an external hyperlink (a website outside of a model).
+     */
+    public static final String TAGGEDVALUE_EXTERNAL_HYPERLINK = profile.get("EXTERNAL_HYPERLINK");
 
     /**
      * Represents a relational table name for entity persistence.
