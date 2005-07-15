@@ -219,7 +219,7 @@ switch(myValue)
         break;
     case 3 :    // fall-through
     case 4 :
-        doSomethingElse()
+        doSomethingElse();
         break;
     default :
         // do nothing
