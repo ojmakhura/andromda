@@ -162,9 +162,7 @@
         overwrite="true">
         <modelElements variable="node">
             <modelElement>
-                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate">
-                    <property name="initialState"/>
-                </type>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate"/>
             </modelElement>
         </modelElements>
     </template>

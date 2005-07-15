@@ -19,6 +19,10 @@ package $node.nodePackageName;
  */
 public final class $node.nodeClassName implements $nodeInterfaceName
 {
+    /**
+     * This is the token encapsulated by this node class. It represents the internal jBpm state of the corresponding
+     * process instance.
+     */
     private org.jbpm.graph.exe.Token token = null;
 
 #if ($node.split)
@@ -161,7 +165,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     {
         $nodeInterfaceName childNode = null;
 
-        final org.jbpm.graph.exe.Token childToken = this.token.getChild("${transition.name}");
+        final org.jbpm.graph.exe.Token childToken = this.token.getChild(#renderTokenName($transition.name));
         if (childToken != null)
         {
             childNode = ${stringUtils.upperCamelCaseName($node.processDefinition.name)}.createNode(childToken);
@@ -171,6 +175,20 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     }
 
 #end
+#elseif ($node.decisionPoint)
+    /**
+     * Returns the node encapsuling the token that was the outcome of this node's decision. The decision was
+     * performed by the {@link $node.decisionHandlerClassName} decision handler. Since the outcome possibly
+     * leads into a different node each time we cannot determine the concrete type of the returned node, therefore
+     * this method returns the shared interface.
+     *
+     * @return the node for the token that was the outcome of this node's decision
+     */
+    public $nodeInterfaceName getDecidedNode()
+    {
+        return ${stringUtils.upperCamelCaseName($node.processDefinition.name)}.createNode(this.token);
+    }
+
 #else
 ##
 ## this node can be signalled
@@ -189,11 +207,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 #set ($signalMethodName = "signal$stringUtils.upperCamelCaseName($transition.target.name)")
 #end
 #end
-#if ($transition.possibleTargetNodes.size() == 1)
-#set ($signalReturnType = $transition.possibleTargetNodes.iterator().next().nodeClassName)
-#else
-#set ($signalReturnType = $nodeInterfaceName)
-#end
+#set ($signalReturnType = $transition.target.nodeClassName)
     /**
      * Signals the process to leave this node
 #if ($transition.name)
@@ -202,10 +216,6 @@ public final class $node.nodeClassName implements $nodeInterfaceName
      * and proceed to the next one.
 #if ($node.initialState)
      * Calling this method will make the process leave the start state and enter the first node.
-#end
-#if ($target.outgoing.size() > 1)
-     * Since this transition leads into a node that will split it up into different transitions
-     * this method returns the {@link $nodeInterfaceName} instead of a concrete implementing class type.
 #end
      *
      * @return the next node in the process
@@ -222,26 +232,15 @@ public final class $node.nodeClassName implements $nodeInterfaceName
         this.token.signal();
 #end
 
-#if ($transition.possibleTargetNodes.size() == 1)
         // simply return the next node instance
-        return new ${transition.possibleTargetNodes.iterator().next().nodeClassName}(this.token);
-#else
-        // the node we're gonna return
-        $signalReturnType targetNode = null;
-        // get the name of the new node in which we've arrived
-        final java.lang.String nodeName = this.token.getNode().getName();
-
-        // we'll need to figure out which node is the next one
-#foreach ($targetNode in $transition.possibleTargetNodes)
-        if ("$targetNode.name".equals(nodeName)) targetNode = new ${targetNode.nodeClassName}(this.token); else
-#end
-            // hmm, apparently we have arrived in an unknown node, this could be a jbpm-cartridge bug
-            throw new IllegalArgumentException("No matching node could be found for target token: " + nodeName);
-
-        return targetNode;
-#end
+        return new ${transition.target.nodeClassName}(this.token);
     }
 
 #end
 #end
+
+    public String toString()
+    {
+        return ${node.nodeClassName}.class + "[" + this.token.getName() + "]";
+    }
 }
