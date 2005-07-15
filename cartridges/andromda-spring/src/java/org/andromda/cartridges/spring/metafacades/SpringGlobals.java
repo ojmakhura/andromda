@@ -8,6 +8,11 @@ package org.andromda.cartridges.spring.metafacades;
 class SpringGlobals
 {
     /**
+     * Stores the pattern for constructing the entity's criteria search class.
+     */
+    static final String ENTITY_CRITERIA_SEARCH_PATTERN = "entityCriteriaSearchPattern";
+    
+    /**
      * POJO implementation class suffix.
      */
     final static String IMPLEMENTATION_SUFFIX = "Impl";
@@ -40,7 +45,7 @@ class SpringGlobals
     /**
      * The suffix given to transformation method names.
      */
-    public static final String TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX = "Collection";
+    static final String TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX = "Collection";
 
     /**
      * Defines the prefix given to the transformation constants.

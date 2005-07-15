@@ -421,7 +421,7 @@ public abstract class $entity.daoBaseName
 #set($criteriaArgumentName = $criteriaArgument.name)
         try
         {
-            ${springTypesPackage}.${criteriaSearchBaseName} criteriaSearch = new ${springTypesPackage}.${criteriaSearchBaseName}(super.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class);
+            $entity.fullyQualifiedCriteriaSearchName criteriaSearch = new ${entity.fullyQualifiedCriteriaSearchName}(super.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class);
             criteriaSearch.getConfiguration().setFirstResult(${criteriaArgumentName}.getFirstResult());
             criteriaSearch.getConfiguration().setFetchSize(${criteriaArgumentName}.getFetchSize());
             criteriaSearch.getConfiguration().setMaximumResultSize(${criteriaArgumentName}.getMaximumResultSize());
