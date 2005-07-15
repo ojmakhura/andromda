@@ -220,7 +220,7 @@ public class JBpmProcessDefinitionLogicImpl
             pathBuffer.append(this.getPackagePath());
             pathBuffer.append('/');
         }
-        pathBuffer.append(StringUtilsHelper.toWebFileName(getName()));
+        pathBuffer.append(StringUtilsHelper.separate(string, "-").toLowerCase());
         pathBuffer.append(".pdl.xml");
 
         return pathBuffer.toString();
