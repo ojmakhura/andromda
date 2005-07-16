@@ -174,7 +174,7 @@
     /**
      * We include our own date validation algorithm
      * because the default one in commons-validator
-     * support a very limited subset of the expected
+     * supports a very limited subset of the expected
      * functionality.
      */
     function validateDate(form)

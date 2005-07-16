@@ -55,6 +55,7 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 
 #foreach ($finalState in $action.useCase.referencingFinalStates)
 #foreach ($finalStateAction in $finalState.actions)
+#if (!$finalStateAction.actionFormFields.empty)
 #set ($formBeanType = $finalStateAction.formBeanType)
         if (previousFormObject instanceof $formBeanType)
         {
@@ -64,6 +65,7 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 #end
         }
         else
+#end
 #end
 #end
 #if (!$action.useCase.referencingFinalStates.empty)
