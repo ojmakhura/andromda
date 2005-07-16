@@ -64,8 +64,8 @@ public class HibernateEntityLogicImpl
     /**
      * Value for one table per concrete class, (with union-subclass)
      */
-    private static final String INHERITANCE_STRATEGY_UNION_SUBCLASS ="union-subclass";
-    
+    private static final String INHERITANCE_STRATEGY_UNION_SUBCLASS = "union-subclass";
+
     /**
      * Stores the valid inheritance strategies.
      */
@@ -286,10 +286,10 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsHibernateInheritanceUnionSubClass()
     {
         String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
-        return (version.equals(HibernateGlobals.HIBERNATE_VERSION_3))
-         && this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_UNION_SUBCLASS);
+        return (version.equals(HibernateGlobals.HIBERNATE_VERSION_3)) &&
+        this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_UNION_SUBCLASS);
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateCacheType()
      */
@@ -577,7 +577,6 @@ public class HibernateEntityLogicImpl
             {
                 mappingClassName = UNION_SUBCLASS_MAPPING_NAME;
             }
-                
         }
 
         return mappingClassName;
@@ -628,7 +627,7 @@ public class HibernateEntityLogicImpl
         return this.isRoot() &&
         (
             !this.isHibernateInheritanceInterface() ||
-            ((superEntity != null) && superEntity.isHibernateInheritanceInterface())
+            (superEntity != null && superEntity.isHibernateInheritanceInterface())
         );
     }
 
@@ -642,10 +641,9 @@ public class HibernateEntityLogicImpl
         boolean abstractConcreteEntity =
             (this.isHibernateInheritanceConcrete() || this.isHibernateInheritanceInterface()) && this.isAbstract();
 
-        return (
-            (this.getSuperEntity() == null) ||
-            (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())
-        ) && !abstractConcreteEntity;
+        return (this.getSuperEntity() == null ||
+            (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())) 
+            && !abstractConcreteEntity;
     }
 
     /**
@@ -654,8 +652,8 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsRequiresSpecializationMapping()
     {
         return this.isRoot() && (this.isHibernateInheritanceSubclass() 
-                || this.isHibernateInheritanceClass()
-                || this.isHibernateInheritanceUnionSubClass());
+            || this.isHibernateInheritanceClass()
+            || this.isHibernateInheritanceUnionSubClass());
     }
 
     /**
