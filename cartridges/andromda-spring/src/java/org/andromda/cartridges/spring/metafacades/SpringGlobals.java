@@ -6,12 +6,7 @@ package org.andromda.cartridges.spring.metafacades;
  * @author Chad Brandon
  */
 class SpringGlobals
-{
-    /**
-     * Stores the pattern for constructing the entity's criteria search class.
-     */
-    static final String ENTITY_CRITERIA_SEARCH_PATTERN = "entityCriteriaSearchPattern";
-    
+{   
     /**
      * POJO implementation class suffix.
      */

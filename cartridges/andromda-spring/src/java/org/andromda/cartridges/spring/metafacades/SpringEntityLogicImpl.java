@@ -15,7 +15,6 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -470,38 +469,7 @@ public class SpringEntityLogicImpl
         }
         return superEntity;
     }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getCriteriaSearchName()
-     */
-    protected String handleGetCriteriaSearchName()
-    {
-        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.ENTITY_CRITERIA_SEARCH_PATTERN));
-        return pattern.replaceFirst("\\{0\\}", this.getName());    
-    }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedCriteriaSearchName()
-     */
-    protected String handleGetFullyQualifiedCriteriaSearchName()
-    {
-        final StringBuffer fullyQualifiedName = new StringBuffer();
-        final String packageName = this.getPackageName();
-        if (StringUtils.isNotBlank(packageName))
-        {
-            fullyQualifiedName.append(packageName + '.');
-        }
-        return fullyQualifiedName.append(this.getCriteriaSearchName()).toString();
-    }
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedCriteriaSearchName()
-     */
-    protected String handleGetFullyQualifiedCriteriaSearchPath()
-    {
-        return this.getFullyQualifiedCriteriaSearchName().replace('.', '/');
-    }
-
+    
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getAttributeEmbeddedValueList()
      */

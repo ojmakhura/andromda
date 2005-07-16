@@ -455,13 +455,6 @@
                     The base name for the hibernate criteria search utility classes.
                 </documentation>
             </property>
-            <property name="entityCriteriaSearchPattern">
-                <default>{0}Criteria</default>
-                <documentation>
-                    The pattern used for constructing the SearchCriteria instance per entity (where
-                    <em>{0}</em> represents the name of the modeled entity).
-                </documentation>
-            </property>
             <property name="principalStoreName">
                 <default>PrincipalStore</default>
                 <documentation>
