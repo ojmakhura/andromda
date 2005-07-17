@@ -22,7 +22,7 @@ public class Constants
      */
     static
     {
-        // initialize the TEMPORARY_DIRECTORY
+        // - initialize the TEMPORARY_DIRECTORY
         final String tmpDir = System.getProperty("java.io.tmpdir");
         final StringBuffer directory = new StringBuffer(tmpDir);
         if (!directory.toString().endsWith("/"))
