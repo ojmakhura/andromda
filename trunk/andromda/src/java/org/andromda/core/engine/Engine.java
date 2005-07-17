@@ -78,7 +78,7 @@ public class Engine
     }
 
     /**
-     * Shuts down Engine.
+     * Shuts down this instance.
      */
     public void shutdown()
     {
