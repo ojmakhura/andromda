@@ -258,7 +258,7 @@ public final class $manageable.manageableDaoBaseName
 #if ($manageable.update)
     public void update($memberList)
     {
-#set ($identifier = $member.manageableIdentifier)
+#set ($identifier = $manageable.identifiers.iterator().next())
         final $manageable.fullyQualifiedEntityName entity = this.getDao().load($identifier.name);
 
 #foreach ($member in $manageable.attributes)
