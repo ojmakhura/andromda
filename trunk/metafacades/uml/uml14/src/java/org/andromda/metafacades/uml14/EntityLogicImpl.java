@@ -92,14 +92,13 @@ public class EntityLogicImpl
     /**
      * @see org.andromda.metafacades.uml.Entity#getQueryOperations(boolean)
      */
-    protected java.util.Collection handleGetQueryOperations(boolean follow)
+    protected java.util.Collection handleGetQueryOperations(final boolean follow)
     {
         final Collection queryOperations = this.getOperations();
 
         MetafacadeUtils.filterByType(queryOperations, EntityQueryOperation.class);
-        for (
-            ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
-            superClass = (ClassifierFacade)superClass.getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+             superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             if (Entity.class.isAssignableFrom(superClass.getClass()))
             {
@@ -151,9 +150,9 @@ public class EntityLogicImpl
      * @param visibility the visibility to give the identifier
      */
     private final void createIdentifier(
-        String name,
-        String type,
-        String visibility)
+        final String name,
+        final String type,
+        final String visibility)
     {
         // only create the identifier if an identifer with the name doesn't
         // already exist
@@ -261,8 +260,8 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.EntityLogic#getAttributeTypeList(boolean, boolean)
      */
     protected String handleGetAttributeTypeList(
-        boolean follow,
-        boolean withIdentifiers)
+        final boolean follow,
+        final boolean withIdentifiers)
     {
         return this.getTypeList(this.getAttributes(follow, withIdentifiers));
     }
@@ -271,8 +270,8 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getAttributeNameList(boolean, boolean)
      */
     protected String handleGetAttributeNameList(
-        boolean follow,
-        boolean withIdentifiers)
+        final boolean follow,
+        final boolean withIdentifiers)
     {
         return this.getNameList(this.getAttributes(follow, withIdentifiers));
     }
@@ -281,8 +280,8 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getRequiredAttributeTypeList(boolean, boolean)
      */
     protected String handleGetRequiredAttributeTypeList(
-        boolean follow,
-        boolean withIdentifiers)
+        final boolean follow,
+        final boolean withIdentifiers)
     {
         return this.getTypeList(this.getRequiredAttributes(follow, withIdentifiers));
     }
@@ -291,8 +290,8 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getRequiredAttributeNameList(boolean, boolean)
      */
     protected String handleGetRequiredAttributeNameList(
-        boolean follow,
-        boolean withIdentifiers)
+        final boolean follow,
+        final boolean withIdentifiers)
     {
         return this.getNameList(this.getRequiredAttributes(follow, withIdentifiers));
     }
@@ -301,8 +300,8 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getRequiredPropertyTypeList(boolean, boolean)
      */
     protected String handleGetRequiredPropertyTypeList(
-        boolean follow,
-        boolean withIdentifiers)
+        final boolean follow,
+        final boolean withIdentifiers)
     {
         return this.getTypeList(this.getRequiredProperties(follow, withIdentifiers));
     }
@@ -311,8 +310,8 @@ public class EntityLogicImpl
      * @see org.andromda.metafacades.uml.Entity#getRequiredPropertyNameList(boolean, boolean)
      */
     protected String handleGetRequiredPropertyNameList(
-        boolean follow,
-        boolean withIdentifiers)
+        final boolean follow,
+        final boolean withIdentifiers)
     {
         return this.getNameList(this.getRequiredProperties(follow, withIdentifiers));
     }
@@ -324,7 +323,7 @@ public class EntityLogicImpl
      * @param attributes the attributes to construct the list from.
      * @return the comma seperated list of attribute types.
      */
-    private String getTypeList(Collection attributes)
+    private final String getTypeList(final Collection attributes)
     {
         final StringBuffer list = new StringBuffer();
         final String comma = ", ";
@@ -332,7 +331,7 @@ public class EntityLogicImpl
             attributes,
             new Closure()
             {
-                public void execute(Object object)
+                public void execute(final Object object)
                 {
                     if (object instanceof AttributeFacade)
                     {
@@ -637,7 +636,7 @@ public class EntityLogicImpl
      *
      * @return true if any identifiers were added, false otherwise
      */
-    private boolean checkForAndAddForeignIdentifiers()
+    private final boolean checkForAndAddForeignIdentifiers()
     {
         boolean identifiersAdded = false;
         final EntityAssociationEnd end = this.getForeignIdentifierEnd();
