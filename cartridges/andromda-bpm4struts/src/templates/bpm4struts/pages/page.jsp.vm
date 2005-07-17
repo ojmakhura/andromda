@@ -86,9 +86,9 @@ ${indent}</html:link>
 ## an unclosed literal
 ${indent}<c:set var="link">'<html:rewrite action="${action.actionPath}"/>${linkParameters}#if($delim!="+'&")'#end</c:set>
 #if ($action.imageLink)
-${indent}<html:link href="javascript:document.location=${link};" styleClass="imageLink"><html:img pageKey="$action.imageMessageKey"/></html:link>
+${indent}<nobr><html:link href="javascript:document.location=${link};" styleClass="imageLink"><html:img pageKey="$action.imageMessageKey"/></html:link></nobr>
 #else
-${indent}<html:link href="javascript:document.location=${link};" styleClass="buttonLink"><bean:message key="$action.messageKey"/></html:link>
+${indent}<nobr><html:link href="javascript:document.location=${link};" styleClass="buttonLink"><bean:message key="$action.messageKey"/></html:link></nobr>
 #end
 #end
 ##
