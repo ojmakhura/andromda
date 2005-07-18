@@ -143,6 +143,7 @@ public abstract class $entity.daoBaseName
         return entities;
     }
 
+#if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
     /**
@@ -206,6 +207,7 @@ public abstract class $entity.daoBaseName
         return this.create(transform, entity);
     }
 
+#end
 #end
 #end
     /**

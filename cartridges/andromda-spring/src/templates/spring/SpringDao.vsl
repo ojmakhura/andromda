@@ -114,6 +114,7 @@ public interface $entity.daoName
      */
     public java.util.Collection create(int transform, java.util.Collection entities);
 
+#if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
     /**
@@ -180,6 +181,7 @@ public interface $entity.daoName
 #end
 #end
 
+#end
 #end
     /**
      * Updates the <code>$argumentName</code> instance in the persistent store.
