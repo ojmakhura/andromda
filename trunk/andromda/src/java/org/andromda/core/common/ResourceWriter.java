@@ -149,11 +149,7 @@ public class ResourceWriter
         }
         ExceptionUtils.checkEmpty(methodName, "fileLocation", fileLocation);
         final File file = new File(fileLocation);
-        final File parent = file.getParentFile();
-        if (parent != null)
-        {
-            parent.mkdirs();
-        }
+        ResourceUtils.makeDirectories(fileLocation);
         final Merger merger = Merger.instance();
         if (merger.requiresMerge(namespace))
         {
@@ -248,7 +244,7 @@ public class ResourceWriter
 
     /**
      * Resets the a history file, to write the history {@link #writeHistory()} must be called.
-     * 
+     *
      * @param used to construct the file name from the modelUri where the history is stored
      */
     public void resetHistory(final String modelUri)
