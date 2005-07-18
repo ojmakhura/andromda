@@ -38,7 +38,7 @@
     <property reference="generateWebXmlIds"/>
     <property reference="manageableFieldMaxLength"/>
     <property reference="manageableReferenceParameterPrefix"/>
-    <property reference="setPageVariablesInPageScope"/> 
+    <property reference="setPageVariablesInPageScope"/>
     <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->
@@ -196,7 +196,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/bpm4struts/pages/page-javascript.jspf.vsl"
         outputPattern="$generatedFile"
@@ -221,7 +221,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/bpm4struts/pages/page-hidden-parameters.jspf.vsl"
         outputPattern="$generatedFile"
