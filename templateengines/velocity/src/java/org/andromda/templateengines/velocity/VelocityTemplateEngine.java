@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -61,8 +63,7 @@ public class VelocityTemplateEngine
     /**
      * The location to which temporary templates are written
      */
-    private static final String TEMPORARY_TEMPLATE_LOCATION =
-        Constants.TEMPORARY_DIRECTORY + "velocity/merged";
+    private static final String TEMPORARY_TEMPLATE_LOCATION = Constants.TEMPORARY_DIRECTORY + "velocity/merged";
 
     /**
      * The location of external templates
@@ -144,8 +145,7 @@ public class VelocityTemplateEngine
         if (this.mergeLocation != null)
         {
             // set the file resource path (to the merge location)
-            velocityEngine.addProperty(
-                VelocityEngine.FILE_RESOURCE_LOADER_PATH, this.mergeLocation);
+            velocityEngine.addProperty(VelocityEngine.FILE_RESOURCE_LOADER_PATH, this.mergeLocation);
         }
 
         // if the namespace requires a merge add the temporary template
@@ -173,8 +173,7 @@ public class VelocityTemplateEngine
         // see if the velocity properties exist for the current
         // plugin
         URL propertiesUri =
-            ResourceUtils.getResource(
-                PROPERTIES_DIR + StringUtils.trimToEmpty(pluginName) + PROPERTIES_SUFFIX);
+            ResourceUtils.getResource(PROPERTIES_DIR + StringUtils.trimToEmpty(pluginName) + PROPERTIES_SUFFIX);
 
         if (propertiesUri != null)
         {
@@ -214,8 +213,8 @@ public class VelocityTemplateEngine
         if (logger.isDebugEnabled())
         {
             logger.debug(
-                "performing " + methodName + " with templateFile '" + templateFile +
-                "' and templateObjects '" + templateObjects + "'");
+                "performing " + methodName + " with templateFile '" + templateFile + "' and templateObjects '" +
+                templateObjects + "'");
         }
 
         ExceptionUtils.checkEmpty(methodName, "templateFile", templateFile);
@@ -225,9 +224,7 @@ public class VelocityTemplateEngine
         // copy the templateObjects to the velocityContext
         if (templateObjects != null)
         {
-            for (
-                final Iterator namesIterator = templateObjects.keySet().iterator();
-                namesIterator.hasNext();)
+            for (final Iterator namesIterator = templateObjects.keySet().iterator(); namesIterator.hasNext();)
             {
                 final String name = (String)namesIterator.next();
                 final Object value = templateObjects.get(name);
@@ -245,8 +242,7 @@ public class VelocityTemplateEngine
             if (merger.requiresMerge(this.namespace))
             {
                 final String mergedTemplateLocation = this.getMergedTemplateLocation(templateFile);
-                final InputStream resource =
-                    template.getResourceLoader().getResourceStream(templateFile);
+                final InputStream resource = template.getResourceLoader().getResourceStream(templateFile);
                 ResourceWriter.instance().writeStringToFile(
                     merger.getMergedString(resource, this.namespace),
                     mergedTemplateLocation);
@@ -282,6 +278,11 @@ public class VelocityTemplateEngine
     }
 
     /**
+     * The log tag used for evaluation (this can be any abitrary name).
+     */
+    private static final String LOG_TAG = "logtag";
+
+    /**
      * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String)
      */
     public String getEvaluatedExpression(String expression)
@@ -292,7 +293,7 @@ public class VelocityTemplateEngine
             try
             {
                 StringWriter writer = new StringWriter();
-                this.velocityEngine.evaluate(this.velocityContext, writer, "logtag", expression);
+                this.velocityEngine.evaluate(this.velocityContext, writer, LOG_TAG, expression);
                 evaluatedExpression = writer.toString();
             }
             catch (Throwable th)
@@ -374,7 +375,7 @@ public class VelocityTemplateEngine
                 true);
         logger.addAppender(appender);
     }
-    
+
     /**
      * <p/>
      * This class receives log messages from VelocityTemplateEngine and forwards them to the concrete logger that is
