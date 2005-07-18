@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="build-products" basedir="." default="all">
+
+    <!-- PROPERTIES ======================================================== -->
+    
+    <property name="storageDir"   value="target"/>
+    <property name="storageFile"  value="mymdr"/>
+    <property name="umlModelFile" value="src/uml/XMLDemoMetamodel.xml.zip" />
+    <property name="xmi-file"     value="XMLDemoMetamodel" />        
+    <property name="model"        value="xmldemo"/>
+    
+    <!-- necessary external files -->
+    
+    <property name="mdrant.jar"         value="lib/mdrant.jar"/>
+    <property name="mof.jar"            value="lib/mof.jar"/>
+    <property name="jmi.jar"            value="lib/jmi.jar"/>
+    <property name="mdrapi.jar"         value="lib/mdrapi.jar"/>
+    <property name="nbmdr.jar"          value="lib/nbmdr.jar"/>
+    <property name="jmiutils.jar"       value="lib/jmiutils.jar"/>
+    <property name="openide-util.jar"   value="lib/openide-util.jar"/>
+
+    <!-- TASK DEFINITIONS ================================================== -->
+
+    <taskdef name="mdr" classname="org.netbeans.mdrant.MdrTask">
+        <classpath>                
+            <pathelement location="${mdrant.jar}"/>                    
+            <pathelement location="${nbmdr.jar}"/>            
+            <pathelement location="${mdrapi.jar}"/>
+            <pathelement location="${jmiutils.jar}"/>
+            <pathelement location="${mof.jar}"/>
+            <pathelement location="${jmi.jar}"/>
+            <pathelement location="${openide-util.jar}"/>
+        </classpath>
+    </taskdef>
+    
+    <!-- PUBLIC TARGETS ==================================================== -->         
+
+    <target name="all" depends="clean,init,uml2mof,load,compile"/>
+    
+    <target name="uml2mof" depends="init">
+        <unzip src="${umlModelFile}" dest="${storageDir}/${model}/umlmodel"/>
+        <java  jar="lib/uml2mof.jar" 
+               fork="true"
+               failonerror="true"
+         >
+             <arg value="${storageDir}/${model}/umlmodel/${xmi-file}.xml"/> 
+             <arg value="${storageDir}/${model}/metamodel/${xmi-file}.xml"/> 
+           </java>
+    </target>
+    
+    <target name="load" depends="init">
+        <mdr storageFile="${storageDir}/${storageFile}">
+            <instantiate name="mof4models"/>
+            <readXMI 
+                file="${storageDir}/${model}/metamodel/${xmi-file}.xml"
+                extent="mof4models"/>
+            <writeXMI 
+                file="${storageDir}/${model}/xmi/${xmi-file}.xml" 
+                extent="mof4models"
+                xmiVersion = "1.2"/>                
+            <writeDTD 
+                file="${storageDir}/${model}/xmi/${xmi-file}.dtd" 
+                extent="mof4models"/>                                    
+            <mapJava
+                dir="${storageDir}/${model}/java/" 
+                extent="mof4models"/>
+            <mapClass
+                dir="${storageDir}/${model}/class/" 
+                extent="mof4models"/>                    
+            <printExtentNames/>
+        </mdr>
+    </target>
+            
+    <target name="compile" depends="init">
+        <javac debug="true" deprecation="true" destdir="${storageDir}/${model}/java/"
+               srcdir="${storageDir}/${model}/java/">
+            <classpath>                                                
+                <fileset dir="lib">
+                    <include name="jmi.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+    
+    <target name="clean">
+        <delete file="${storageDir}/${storageFile}.btd"/>
+        <delete file="${storageDir}/${storageFile}.btx"/>
+        <delete dir="${storageDir}/${model}"/>
+    </target>    
+        
+    <target name="init">        
+        <mkdir dir="${storageDir}"/>
+        <mkdir dir="${storageDir}/${model}/umlmodel"/>
+        <mkdir dir="${storageDir}/${model}/metamodel"/>
+        <mkdir dir="${storageDir}/${model}/java"/>
+        <mkdir dir="${storageDir}/${model}/class"/>
+        <mkdir dir="${storageDir}/${model}/xmi"/>               
+    </target>
+    
+</project>
