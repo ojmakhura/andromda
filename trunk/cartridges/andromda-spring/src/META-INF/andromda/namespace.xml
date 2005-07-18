@@ -80,6 +80,13 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <property name="enableDaoPropertiesCreateMethod">
+                <default>true</default>
+                <documentation>
+                    Whether or not the create methods on the DAOs taking properties
+                    from the entity shall be generated.
+                </documentation>
+            </property>
             <property name="daoNamePattern">
                 <default>{0}Dao</default>
                 <documentation>
