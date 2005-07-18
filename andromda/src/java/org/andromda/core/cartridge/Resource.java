@@ -50,11 +50,13 @@ public class Resource
      *
      * @param argument  any arguments to be inserted into the MessageFormat style messages.
      * @param directory the directory to which output will be written.
+     * @param outputPattern if undefined, the value of {@link #getOutputPattern()} will be used.
      * @return File absolute directory.
      */
     public File getOutputLocation(
         final Object[] arguments,
-        final File directory)
+        final File directory,
+        String outputPattern)
     {
         File file = null;
 
@@ -65,9 +67,11 @@ public class Resource
             {
                 arguments[ctr] = StringUtils.trimToEmpty(String.valueOf(arguments[ctr]));
             }
-            String outputFileName = MessageFormat.format(
-                    this.getOutputPattern(),
-                    arguments);
+            if (outputPattern == null || outputPattern.trim().length() == 0)
+            {
+                outputPattern = this.getOutputPattern();
+            }
+            String outputFileName = MessageFormat.format(outputPattern, arguments);
 
             file = new File(directory, outputFileName);
         }

@@ -63,11 +63,7 @@ public class MockTemplateEngine
     {
     }
 
-    /**
-
-     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String)
-     */
-    public String getEvaluatedExpression(String expression)
+    public String getEvaluatedExpression(String expression, Map templateObjects)
     {
         return null;
     }

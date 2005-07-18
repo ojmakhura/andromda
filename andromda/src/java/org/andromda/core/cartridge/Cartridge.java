@@ -38,11 +38,6 @@ public class Cartridge
     extends BasePlugin
 {
     /**
-     * The prefix to look for when determining whether or not to retrieve the output location from the template engine.
-     */
-    private static final String TEMPLATE_ENGINE_OUTPUT_PREFIX = "$";
-
-    /**
      * Processes all model elements with relevant stereotypes by retrieving the model elements from the model facade
      * contained within the context.
      *
@@ -192,10 +187,10 @@ public class Cartridge
                     }
                     else
                     {
-                        // if outputToSingleFile isn't true, then
-                        // we just place the model element with the default
-                        // variable defined on the <modelElements/> into the
-                        // template.
+                        // - if outputToSingleFile isn't true, then
+                        //   we just place the model element with the default
+                        //   variable defined on the <modelElements/> into the
+                        //   template.
                         for (final Iterator iterator = allMetafacades.iterator(); iterator.hasNext();)
                         {
                             final Map templateContext = new HashMap();
@@ -252,18 +247,18 @@ public class Cartridge
      *        any model elements being made avaiable to the template(s) as well
      *        as properties/template objects.
      * @param outlet the location or pattern defining where output will be written.
-     * @param modelElementName the name of the model element (if we are
+     * @param metafacadeName the name of the model element (if we are
      *        processing a single model element, otherwise this will be
      *        ignored).
-     * @param modelElementPackage the name of the package (if we are processing
+     * @param metafacadePackage the name of the package (if we are processing
      *        a single model element, otherwise this will be ignored).
      */
     private final void processWithTemplate(
         final Template template,
         final Map templateContext,
         final String outlet,
-        final String modelElementName,
-        final String modelElementPackage)
+        final String metafacadeName,
+        final String metafacadePackage)
     {
         final String methodName = "Cartridge.processWithTemplate";
         ExceptionUtils.checkNull(methodName, "template", template);
@@ -285,18 +280,18 @@ public class Cartridge
                 templateContext,
                 output);
 
-            if (template.getOutputPattern().startsWith(TEMPLATE_ENGINE_OUTPUT_PREFIX))
-            {
-                outputFile = this.outputFileFromTemplateEngineContext(template, outlet);
-            }
-            else
-            {
-                outputFile = this.outputFileFromTemplate(modelElementName, modelElementPackage, template, outlet);
-            }
+            outputFile =
+                template.getOutputLocation(
+                    metafacadeName,
+                    metafacadePackage,
+                    new File(outlet),
+                    this.getTemplateEngine().getEvaluatedExpression(
+                        template.getOutputPattern(),
+                        templateContext));
             if (outputFile != null)
             {
-                // only write files that do NOT exist, and
-                // those that have overwrite set to 'true'
+                // - only write files that do NOT exist, and
+                //   those that have overwrite set to 'true'
                 if (!outputFile.exists() || template.isOverwrite())
                 {
                     final String outputString = output.toString();
@@ -352,9 +347,9 @@ public class Cartridge
                 this.getMergeLocation());
         if (resourceUrl == null)
         {
-            // if the resourceUrl is null, the path is probably a regular
-            // expression pattern so we'll see if we can match it against
-            // the contents of the plugin and write any contents that do match
+            // - if the resourceUrl is null, the path is probably a regular
+            //   expression pattern so we'll see if we can match it against
+            //   the contents of the plugin and write any contents that do match
             final List contents = this.getContents();
             if (contents != null)
             {
@@ -418,12 +413,19 @@ public class Cartridge
                     // remove the extra slash
                     outlet = outlet.replaceFirst(FORWARD_SLASH, "");
                 }
-                outFile = resource.getOutputLocation(
-                        new String[] {uriSuffix},
-                        new File(outlet));
 
-                // only write files that do NOT exist, and
-                // those that have overwrite set to 'true'
+                final Map templateContext = new HashMap();
+                this.populateTemplateContext(templateContext);
+                outFile =
+                    resource.getOutputLocation(
+                        new String[] {uriSuffix},
+                        new File(outlet),
+                        this.getTemplateEngine().getEvaluatedExpression(
+                            resource.getOutputPattern(),
+                            templateContext));
+
+                // - only write files that do NOT exist, and
+                //   those that have overwrite set to 'true'
                 if (!outFile.exists() || resource.isOverwrite())
                 {
                     ResourceWriter.instance().writeUrlToFile(
@@ -442,41 +444,6 @@ public class Cartridge
             }
             throw new CartridgeException(throwable);
         }
-    }
-
-    /**
-     * Creates a File object from an output pattern in the template
-     * configuration.
-     *
-     * @param modelElementName the name of the model element
-     * @param packageName the name of the package
-     * @param template the template.
-     * @return File the output file
-     */
-    private final File outputFileFromTemplate(
-        final String modelElementName,
-        final String packageName,
-        final Template template,
-        final String outputLocation)
-    {
-        return template.getOutputLocation(
-            modelElementName,
-            packageName,
-            new File(outputLocation));
-    }
-
-    /**
-     * Creates a File object from a variable in a TemplateEngine context.
-     *
-     * @param resource the Cartridge resource.
-     * @return outputLocation the location to which the file will be output.
-     */
-    private final File outputFileFromTemplateEngineContext(
-        final Resource resource,
-        final String outputLocation)
-    {
-        final String fileName = this.getTemplateEngine().getEvaluatedExpression(resource.getOutputPattern());
-        return new File(outputLocation, fileName);
     }
 
     /**
