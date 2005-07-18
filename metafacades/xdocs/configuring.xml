@@ -565,19 +565,7 @@ private String getDaoNamePattern()
                     <td>
                         Defines the value the property must match in order to be mapped.  For example, this here indicates
                         the query property on the metafacade must evaluate to <em>false</em> in order to be mapped.
-                        <source language="xml"><![CDATA[
-...
-<metafacade class="org.andromda.cartridges.spring.metafacades.BusinessOperationLogicImpl">
-    <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-        <property name="query" value="false"/>
-    </mapping>
-</metafacade>
-...
-                            ]]></source>
-                            <p class="highlight">
-                                Please note that you can also specify the value as the contents of the 
-                                property element, for example this below is equivalent to the previous example:
-                                <source language="xml"><![CDATA[
+<source language="xml"><![CDATA[
 ...
 <metafacade class="org.andromda.cartridges.spring.metafacades.BusinessOperationLogicImpl">
     <mapping class="org.omg.uml.foundation.core.Operation$Impl">
@@ -585,8 +573,7 @@ private String getDaoNamePattern()
     </mapping>
 </metafacade>
 ...
-                            ]]></source>
-                        </p>
+]]></source>
                     </td>
                     <td>
                         No
