@@ -44,7 +44,9 @@ public class ResourceUtils
     {
         final String methodName = "ResourceUtils.getResource";
         if (logger.isDebugEnabled())
+        {
             logger.debug("performing '" + methodName + "' with resourceName '" + resourceName + "'");
+        }
 
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
         final ClassLoader loader = ClassUtils.getClassLoader();
@@ -319,6 +321,21 @@ public class ResourceUtils
             }
         }
         return getResource(resourceName);
+    }
+
+    /**
+     * Makes the directory for the given location if it doesn't exist.
+     *
+     * @param location the location to make the directory.
+     */
+    public static void makeDirectories(final String location)
+    {
+        final File file = new File(location);
+        final File parent = file.getParentFile();
+        if (parent != null)
+        {
+            parent.mkdirs();
+        }
     }
 
     /**
