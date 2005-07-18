@@ -24,6 +24,7 @@ public class $class.name
     {
     }
 #end
+#if ($enablePropertyConstructors.equalsIgnoreCase('true'))
 
 #set ($propertiesNumber = $class.properties.size())
 #if ($propertiesNumber == 0 || $propertiesNumber != 1 || !$class.properties.iterator().next().getterSetterTypeName.equals($class.fullyQualifiedName))
@@ -46,6 +47,7 @@ public class $class.name
 #end
     }
 
+#end
 #end
     /**
      * Copies constructor from other ${class.name}
