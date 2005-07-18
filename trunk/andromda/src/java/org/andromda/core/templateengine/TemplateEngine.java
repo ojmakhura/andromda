@@ -70,12 +70,17 @@ public interface TemplateEngine
      * @param the location of the merge files.
      */
     public void setMergeLocation(String mergeLocation);
-
+    
     /**
      * Evaluates the <code>expression</code> contained within the template
      * being processed and returns the result.
-     *
-     * @return the evaluated expression String.
+     *  
+     * @param expression the expression to evaluate.
+     * @param templateObjects any additional objects we wish to make available
+     *        to the template engine when the expression is evaluted.  It this is null
+     *        there will be nothing to be evaluated and therefore this operation will return
+     *        null.
+     * @return the result of the evaluated expression as a String.
      */
-    public String getEvaluatedExpression(String expression);
+    public String getEvaluatedExpression(String expression, Map templateObjects);
 }

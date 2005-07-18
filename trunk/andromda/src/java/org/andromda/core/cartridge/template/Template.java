@@ -60,27 +60,34 @@ public class Template
      * <li>the output dir name has been prepended</li>
      * </ul>
      *
-     * @param modelElementName name of the element from the model
+     * @param metafacadeName name of the metafacade.
      * @param packageName name of the package from the model in which the class
      *        is contained
      * @param directory the directory as a File.
+     * @param outputPattern if defined, this overrides the value of {@link Resource#getOutputPattern()}.
      * @return File absolute directory.
      */
     public File getOutputLocation(
-        final String modelElementName,
+        final String metafacadeName,
         final String packageName,
-        final File directory)
+        final File directory,
+        String outputPattern)
     {
         File file = null;
 
-        // if singleFileOutput is set to true, then
-        // just use the output pattern as the file to
-        // output to, otherwise we replace using message format.
+        if (outputPattern == null || outputPattern.trim().length() == 0)
+        {
+            outputPattern = this.getOutputPattern();
+        }
+        // - if singleFileOutput is set to true, then
+        //   just use the output pattern as the file to
+        //   output to, otherwise we replace using message format.
         if (this.isOutputToSingleFile())
         {
             file = super.getOutputLocation(
-                    new String[] {this.getOutputPattern()},
-                    directory);
+                    new String[] {outputPattern},
+                    directory,
+                    outputPattern);
         }
         else
         {
@@ -91,9 +98,10 @@ public class Template
                         StringUtils.replace(
                             StringUtils.trimToEmpty(packageName),
                             MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
-                            File.separator), modelElementName
+                            File.separator), metafacadeName
                     },
-                    directory);
+                    directory,
+                    outputPattern);
         }
         return file;
     }

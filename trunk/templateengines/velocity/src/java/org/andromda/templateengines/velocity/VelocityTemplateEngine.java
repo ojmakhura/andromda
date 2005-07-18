@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -85,7 +83,7 @@ public class VelocityTemplateEngine
      * the VelocityEngine instance to use
      */
     private VelocityEngine velocityEngine;
-    private VelocityContext velocityContext = null;
+    private VelocityContext velocityContext;
     private final List macroLibraries = new ArrayList();
 
     /**
@@ -216,21 +214,10 @@ public class VelocityTemplateEngine
                 "performing " + methodName + " with templateFile '" + templateFile + "' and templateObjects '" +
                 templateObjects + "'");
         }
-
         ExceptionUtils.checkEmpty(methodName, "templateFile", templateFile);
         ExceptionUtils.checkNull(methodName, "output", output);
         this.velocityContext = new VelocityContext();
-
-        // copy the templateObjects to the velocityContext
-        if (templateObjects != null)
-        {
-            for (final Iterator namesIterator = templateObjects.keySet().iterator(); namesIterator.hasNext();)
-            {
-                final String name = (String)namesIterator.next();
-                final Object value = templateObjects.get(name);
-                this.velocityContext.put(name, value);
-            }
-        }
+        this.loadVelocityContext(templateObjects);
 
         Template template = (Template)this.discoveredTemplates.get(templateFile);
         if (template == null)
@@ -251,7 +238,30 @@ public class VelocityTemplateEngine
             }
             this.discoveredTemplates.put(templateFile, template);
         }
-        template.merge(this.velocityContext, output);
+        template.merge(velocityContext, output);
+    }
+    
+    /**
+     * Loads the internal {@link #velocityContext} from the 
+     * given Map of template objects.
+     * 
+     * @param a Map containing objects to add to the template context.
+     */
+    private final void loadVelocityContext(final Map templateObjects)
+    {
+        if (templateObjects != null && !templateObjects.isEmpty())
+        {    
+            // copy the templateObjects to the velocityContext
+            if (templateObjects != null)
+            {
+                for (final Iterator namesIterator = templateObjects.keySet().iterator(); namesIterator.hasNext();)
+                {
+                    final String name = (String)namesIterator.next();
+                    final Object value = templateObjects.get(name);
+                    this.velocityContext.put(name, value);
+                }
+            }
+        }
     }
 
     /**
@@ -281,26 +291,31 @@ public class VelocityTemplateEngine
      * The log tag used for evaluation (this can be any abitrary name).
      */
     private static final String LOG_TAG = "logtag";
-
+    
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String, java.util.Map)
      */
-    public String getEvaluatedExpression(String expression)
+    public String getEvaluatedExpression(final String expression, final Map templateObjects)
     {
         String evaluatedExpression = null;
-        if ((this.velocityContext != null) && StringUtils.isNotEmpty(expression))
+        if (StringUtils.isNotEmpty(expression) && templateObjects != null && !templateObjects.isEmpty())
         {
+            if (this.velocityContext == null)
+            {
+                this.velocityContext = new VelocityContext();
+                this.loadVelocityContext(templateObjects);
+            }
             try
             {
-                StringWriter writer = new StringWriter();
+                final StringWriter writer = new StringWriter();
                 this.velocityEngine.evaluate(this.velocityContext, writer, LOG_TAG, expression);
                 evaluatedExpression = writer.toString();
+                // - reset the velocity context
+                this.velocityContext = null;
             }
-            catch (Throwable th)
+            catch (final Throwable throwable)
             {
-                String errMsg = "Error performing VelocityTemplateEngine.getEvaluatedExpression";
-                logger.error(errMsg, th);
-                throw new TemplateEngineException(errMsg, th);
+                throw new TemplateEngineException(throwable);
             }
         }
         return evaluatedExpression;

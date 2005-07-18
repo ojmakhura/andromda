@@ -100,9 +100,9 @@ public class FreeMarkerTemplateEngine
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String, java.util.Map)
      */
-    public String getEvaluatedExpression(String expression)
+    public String getEvaluatedExpression(String expression, Map templateObjects)
     {
         return null;
     }
