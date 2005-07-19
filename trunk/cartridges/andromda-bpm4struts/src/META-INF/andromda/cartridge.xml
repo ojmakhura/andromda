@@ -39,6 +39,7 @@
     <property reference="manageableFieldMaxLength"/>
     <property reference="manageableReferenceParameterPrefix"/>
     <property reference="setPageVariablesInPageScope"/>
+    <property reference="pagePathPrefix"/>
     <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->
@@ -253,7 +254,7 @@
 
     <template
         path="templates/bpm4struts/pages/form-validation.jsp.vsl"
-        outputPattern="form-validation.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false"
@@ -367,13 +368,13 @@
 
     <template
         path="templates/bpm4struts/pages/login-form.jsp.vsl"
-        outputPattern="login/login-form.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"/>
 
     <template
         path="templates/bpm4struts/pages/menu.jsp.vsl"
-        outputPattern="layout/menu.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         outputToSingleFile="true">
@@ -393,7 +394,7 @@
 
     <template
         path="templates/bpm4struts/pages/main-layout.jsp.vsl"
-        outputPattern="layout/main-layout.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"/>
 
@@ -457,7 +458,7 @@
 
     <template
         path="templates/bpm4struts/pages/default-application.css.vsl"
-        outputPattern="layout/default-application.css"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"/>
 
@@ -476,7 +477,7 @@
 
     <template
         path="templates/bpm4struts/pages/messages.jsp.vsl"
-        outputPattern="layout/messages.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         outputToSingleFile="true"/>
@@ -506,21 +507,21 @@
 
     <template
         path="templates/bpm4struts/pages/calendar-js.jsp.vsl"
-        outputPattern="layout/calendar-js.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false"/>
 
     <template
         path="templates/bpm4struts/pages/breadcrumbs.jsp.vsl"
-        outputPattern="layout/breadcrumbs.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false"/>
 
     <template
         path="templates/bpm4struts/pages/taglib-imports.jspf.vsl"
-        outputPattern="taglib-imports.jspf"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="true"/>
@@ -541,7 +542,7 @@
 <!--
     <template
         path="templates/bpm4struts/pages/usecase-help.jsp.vsl"
-        outputPattern="$generatedFile"
+        outputPattern="${pagePathPrefix}$generatedFile"
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false">
@@ -555,7 +556,7 @@
 
     <template
         path="templates/bpm4struts/pages/application-help.jsp.vsl"
-        outputPattern="application-help.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false"
@@ -571,7 +572,7 @@
 
     <template
         path="templates/bpm4struts/pages/help-layout.jsp.vsl"
-        outputPattern="layout/help-layout.jsp"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         generateEmptyFiles="false"/>
@@ -633,7 +634,7 @@
 
     <template
         path="templates/bpm4struts/pages/crud/default-manageable.css.vsl"
-        outputPattern="layout/default-manageable.css"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         outputToSingleFile="true"

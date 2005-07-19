@@ -4,12 +4,20 @@
     <elements>
         <elementGroup name="Stereotypes">
             <element name="XML_SCHEMA_TYPE">
-                <documentation></documentation>
+                <documentation>
+                    Creates an XSD complete type definition.
+                </documentation>
                 <value>XmlSchemaType</value>
+                <appliedOnElement>class</appliedOnElement>
             </element>
             <element name="XML_ATTRIBUTE">
-                <documentation></documentation>
+                <documentation>
+                    By default all attributes on an xml schema type will be generated
+                    as xsd elements, however if you want an attribute to be generated as
+                    an xsd attribute instead, you'd give that attribute this stereotype.
+                </documentation>
                 <value>XmlAttribute</value>
+                <appliedOnElement>attribute</appliedOnElement>
             </element>
         </elementGroup>
     </elements>

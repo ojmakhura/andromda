@@ -1,4 +1,4 @@
-<%@ include file="/taglib-imports.jspf" %>
+<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
 
 #if(!$applicationUseCases.empty)
 #set($applicationUseCase=$applicationUseCases.iterator().next())

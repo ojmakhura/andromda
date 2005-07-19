@@ -36,6 +36,7 @@
                 <property name="controller-impls">${maven.andromda.bpm4struts.generated.dir}</property>
                 <property name="messages">${maven.andromda.bpm4struts.generated.dir}/WEB-INF/classes</property>
                 <property name="configuration">${maven.andromda.bpm4struts.generated.dir}/WEB-INF</property>
+                <property name="pagePathPrefix">/WEB-INF/jsp</property>
             </properties>
         </namespace>
     </namespaces>

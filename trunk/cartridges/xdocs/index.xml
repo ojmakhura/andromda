@@ -170,7 +170,7 @@
      </p>
      <h2>Inside a cartridge</h2>
      <p>
-          An AndroMDA cartridge is a "thing" (directory or jar file) on the classpath that consists of several items:
+          An AndroMDA cartridge is a resource (directory or jar file) on the classpath that consists of several items:
      </p>
      <table>
          <tr>
@@ -390,7 +390,7 @@
       </p>
       <p>
           You can also define property references within your template objects.
-          In order to do this, you'll need to make sure you have a java been setter matching each
+          In order to do this, you'll need to make sure you have a java bean setter matching each
           reference name.  For example:
           <source language="xml">
 <![CDATA[<templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils">

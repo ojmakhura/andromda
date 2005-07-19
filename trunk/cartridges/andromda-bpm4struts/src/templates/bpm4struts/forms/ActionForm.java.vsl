@@ -19,7 +19,6 @@ public class $formBeanClassName
         , $operation.interfaceName
 #end
 {
-
 #foreach ($field in $fields)
 #if ($field.file)
     private org.apache.struts.upload.FormFile $field.name = null;

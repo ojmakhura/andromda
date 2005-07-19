@@ -2,7 +2,13 @@
 ##
 ##
 #macro (renderTokenName $name)
-$stringUtils.separate($name,"_").toUpperCase()_TOKEN_NAME## no newline
+TOKEN_$stringUtils.separate($name,"_").toUpperCase()## no newline
+#end
+##
+##
+##
+#macro (renderTransitionName $name)
+TRANSITION_$stringUtils.separate($name,"_").toUpperCase()## no newline
 #end
 ##
 ##
@@ -69,6 +75,26 @@ public final class $node.nodeClassName implements $nodeInterfaceName
         return new java.lang.Long(this.token.getProcessInstance().getId());
     }
 
+#foreach ($transition in $node.outgoing)
+#if ($transition.name || $transition.condition)
+    /**
+     * The name of one of the transitions exiting this node.
+#if (!$transition.name && $transition.condition)
+     * This particular transition does not have a name but it has a guard, the name used
+     * here is derived from that guard's body content.
+#if ($node.decisionPoint)
+     * <em>Modeling guards is indeed the proper way to distinguish between transitions exiting a decision point.</em>
+#end
+#end
+     */
+#if ($transition.name)
+    public static final java.lang.String #renderTransitionName($transition.name) = "$transition.name";
+#else
+    public static final java.lang.String #renderTransitionName($transition.condition) = "$transition.condition";
+#end
+
+#end
+#end
 #if ($node.finalState)
     /**
      * Ends the process instance.
@@ -213,7 +239,8 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 #if ($transition.name)
      * via the <em>$transition.name</em> transition
 #end
-     * and proceed to the next one.
+     * and proceed to the next one. The transition taken is represented by the
+     * <code>#renderTransitionName($transition.name)</code> constant.
 #if ($node.initialState)
      * Calling this method will make the process leave the start state and enter the first node.
 #end
@@ -222,12 +249,16 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 #if ($transition.name)
      *      after following the <em>$transition.name</em> transition
 #end
+#set ($hash = "#")
+     * @see ${hash}#renderTransitionName($transition.name)
+## we need the next line to allow a proper newline character to be rendered
+
      */
     public $signalReturnType ${signalMethodName}()
     {
         // signal this token to leave its node
 #if ($transition.name)
-        this.token.signal("$transition.name");
+        this.token.signal(#renderTransitionName($transition.name));
 #else
         this.token.signal();
 #end
@@ -238,9 +269,16 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 
 #end
 #end
-
+    /**
+     * Overrides the default behavior of the <code>toString()</code> method in order
+     * to be able to display this node's name as well as the name of the encapsulated token.
+     */
     public String toString()
     {
-        return ${node.nodeClassName}.class + "[" + this.token.getName() + "]";
+#set ($nodeName = "$node.nodeClassName")
+#if ($stringUtils.isNotBlank($node.nodePackageName))
+#set ($nodeName = "${node.nodePackageName}.${nodeName}")
+#end
+        return "${nodeName}[" + this.token.getName() + "]";
     }
 }

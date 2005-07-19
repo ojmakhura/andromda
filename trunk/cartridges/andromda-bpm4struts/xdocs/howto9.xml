@@ -38,7 +38,7 @@ public void renderUserPicture(ActionMapping mapping, ..., HttpServletResponse re
 --></source>
             <p>
                 Calling this action will not forward to any resource anymore, but it will return a different
-                content which is controlled by you. The most interesting way to call this action is by doing
+                content which is controlled by you. The most interesting way of calling this action is by doing
                 something like this:
             </p>
 <source language="xml"><!--

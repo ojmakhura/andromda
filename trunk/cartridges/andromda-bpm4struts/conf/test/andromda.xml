@@ -44,6 +44,7 @@
                 <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
                 <property name="actionPathPrefix">/testPrefix/{0}</property>
                 <property name="decorators">${test.output.dir}</property>
+                <property name="pagePathPrefix">/WEB-INF/jsp</property>
             </properties>
         </namespace>
     </namespaces>
