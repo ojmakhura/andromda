@@ -1,6 +1,6 @@
 #if ($maxBreadCrumbs != "0")
-#set ($generatedFile = "${pagePathPrefix}/layout/breadcrumbs.jsp")
-<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
+#set ($generatedFile = "/layout/breadcrumbs.jsp")
+<%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 <html:xhtml/>

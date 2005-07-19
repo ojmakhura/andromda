@@ -1,6 +1,6 @@
 #set ($generatedFile = "calendar-js.jsp")
 <%@ page contentType="application/x-javascript" %>
-<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
+<%@ include file="/taglib-imports.jspf" %>
 #if ($xhtml == "true")
 <![CDATA[
 #else

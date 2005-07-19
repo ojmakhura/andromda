@@ -1,5 +1,5 @@
-#set ($generatedFile = "${pagePathPrefix}/layout/main-layout.jsp")
-<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
+#set ($generatedFile = "layout/main-layout.jsp")
+<%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 #*

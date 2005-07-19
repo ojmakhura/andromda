@@ -9,12 +9,12 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-RC1-SNAPSHOT" date="2005-07-09" description="First release candidate of version 3.1">
+        <release version="3.1-RC1-SNAPSHOT" date="2005-07-19" description="First release candidate of version 3.1">
             <action dev="draftdog" type="add">
-                Web pages can now be generated into the <code>WEB-INF</code> subdirectory by specifying the
-                <code>pagePathPrefix</code> namespace property. This will enhance security as only the server is allowed
-                to request those pages. For this reason CSS stylesheets, images, JavaScript and some other resources
-                will ignore this feature.
+                Most web pages will no longer be directly accessible, a default security constraint will be generated
+                into the <code>web.xml</code> descriptor, even if security hasn't been enabled. A few exceptions exist
+                such as the calendar popup or a JSP rendering JavaScript, but the most important use-case pages
+                will be protected.
             </action>
             <action dev="draftdog" type="fix">
                 A small fix that might affect your project, the request URI used for displaytag tables in the bpm4struts

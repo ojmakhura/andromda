@@ -69,7 +69,7 @@
 #end
             scope="$action.actionScope"
 #if ($action.useCaseStart == false)
-            input="${pagePathPrefix}${action.input.fullPath}.jsp"
+            input="${action.input.fullPath}.jsp"
 #end
             unknown="false"
 #set ($validate = $action.validationRequired && $validationDesired)
@@ -79,28 +79,20 @@
             <exception
                 type="$actionException.exceptionType"
                 key="${action.messageKey}.$actionException.exceptionKey"
-#if ($actionException.enteringPage)
-                path="${pagePathPrefix}$actionException.exceptionPath"
-#else
                 path="$actionException.exceptionPath"
-#end
                 scope="request" />
 #end
 #if ($actionExceptions.empty && !$action.useCaseStart)
             <exception
                 type="java.lang.Exception"
                 key="${action.messageKey}.exception"
-                path="${pagePathPrefix}${action.input.fullPath}.jsp"
+                path="${action.input.fullPath}.jsp"
                 scope="request" />
 #end
 #foreach ($actionForward in $action.actionForwards)
             <forward
                 name="$actionForward.forwardName"
-#if ($actionForward.enteringPage)
-                path="${pagePathPrefix}$actionForward.forwardPath"
-#else
                 path="$actionForward.forwardPath"
-#end
                 redirect="$action.redirect" />
 #end
         </action>
@@ -108,8 +100,8 @@
 #end
 #foreach ($manageable in $manageables)
         <action path="$manageable.actionPath" type="$manageable.actionType" name="$manageable.formBeanName"
-            scope="request" input="${pagePathPrefix}$manageable.pageFullPath" unknown="false" validate="false" parameter="$manageable.actionParameter">
-            <exception type="java.lang.Throwable" key="$manageable.exceptionKey" path="${pagePathPrefix}$manageable.exceptionPath" scope="request" />
+            scope="request" input="$manageable.pageFullPath" unknown="false" validate="false" parameter="$manageable.actionParameter">
+            <exception type="java.lang.Throwable" key="$manageable.exceptionKey" path="$manageable.exceptionPath" scope="request" />
         </action>
 #end
     </action-mappings>

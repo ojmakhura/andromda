@@ -1,6 +1,6 @@
 #parse("templates/bpm4struts/pages/page.jsp.vm")
 #set ($jsp = $table.jsp)
-#set ($generatedFile = "${pagePathPrefix}${jsp.fullPath}-${table.name}.jspf")
+#set ($generatedFile = "${jsp.fullPath}-${table.name}.jspf")
 #set ($targetColumns = $table.targettedTableColumnNames)
 #set ($sortable = $table.tableSortable)
 #set ($exportable = $table.tableExportable)
