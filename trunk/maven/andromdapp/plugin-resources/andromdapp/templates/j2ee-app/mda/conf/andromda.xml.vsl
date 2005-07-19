@@ -61,7 +61,7 @@
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>
-                <property name="hibernateInheritanceStrategy">subclass</property>
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
                 <property name="customTypesPackage">${application.package}</property>
                 <property name="hibernateJdbcBatchSize">0</property>
