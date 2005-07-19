@@ -1,5 +1,5 @@
 #parse("templates/bpm4struts/pages/page.jsp.vm")
-#set ($generatedFile = "${jsp.fullPath}-javascript.jspf")
+#set ($generatedFile = "${pagePathPrefix}${jsp.fullPath}-javascript.jspf")
 ##
 ##  CONSTANTS
 ##
@@ -10,12 +10,12 @@
     <tiles:put name="javascript" type="string">
 ## only load the calendar javascript when actually needed
 #if ($jsp.calendarRequired)
-        <script type="text/javascript" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
+        <script type="text/javascript" src="<html:rewrite page="/calendar-js.jsp"/>"></script>
 #end
 ## only load the static javascript when it will actually be used
 #set ($validationDesired = ($clientValidation=='true'))
 #if ($jsp.validationRequired && $validationDesired)
-        <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/form-validation.jsp"/>"></script>
+        <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="${pagePathPrefix}/form-validation.jsp"/>"></script>
 #foreach ($action in $jsp.actions)
 #if ($action.validationRequired)
         <html:javascript formName="$action.formBeanName" method="$action.formValidationMethodName" dynamicJavascript="true" staticJavascript="false"#if($xhtml=="true") cdata="true"#else htmlComment="true" cdata="false"#end/>

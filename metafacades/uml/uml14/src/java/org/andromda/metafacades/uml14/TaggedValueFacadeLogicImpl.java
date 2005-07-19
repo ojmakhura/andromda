@@ -12,8 +12,6 @@ import java.util.Collection;
 public class TaggedValueFacadeLogicImpl
         extends TaggedValueFacadeLogic
 {
-    // ---------------- constructor -------------------------------
-
     public TaggedValueFacadeLogicImpl(org.omg.uml.foundation.core.TaggedValue metaObject, String context)
     {
         super(metaObject, context);

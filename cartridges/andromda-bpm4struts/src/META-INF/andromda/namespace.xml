@@ -71,6 +71,27 @@
             <documentation>
                 Properties that directly affect the code generated into the JSPs.
             </documentation>
+            <property name="pagePathPrefix">
+                <default></default>
+                <documentation>
+                    The prefix to render in front of each JSPs path, you can use this property
+                    to have pages emitted under the <code>WEB-INF</code> .war subdirectory,
+                    in doing so these pages will be less susceptible to a user being able
+                    to view their sources. Make sure this property either starts with a forward slash
+                    and does not end with if it is non-empty.
+                    Based on the Servlet specification, <code>WEB-INF</code> is not part of the
+                    public document tree of the Web application. Therefore, no
+                    resource within the <code>WEB-INF</code> directory (nor those beneath it)
+                    may be served directly to a client. We can still use JSPs stored
+                    underneath the <code>WEB-INF</code> to render views for a client; however,
+                    a client may not request one of the JSPs directly. This helps
+                    to protect your site from unwanted access and at the same time,
+                    allows you to render views using JSPs. Please note that sometimes you <em>will</em>
+                    call resources directly from the page, for example when you want to display popup calendar,
+                    when using stylesheets, when displaying images, ... These resources will remain stored
+                    in the root of the .war bundle, they will not be moved.
+                </documentation>
+            </property>
             <property name="defaultDateFormat">
                 <default>dd/MM/yyyy</default>
                 <documentation>
@@ -367,7 +388,7 @@
                 <default>false</default>
                 <documentation>
                     Indicates whether or not to generate <code>id</code>
-                    attributes in the XMl elements of the web.xml
+                    attributes in the elements of the web.xml
                     descriptor. Some application servers such as WebSphere
                     need them, other application servers such as Resin
                     can't handle them.

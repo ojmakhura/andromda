@@ -35,13 +35,13 @@
 ##
 ##
 #macro (renderNodeName $name)
-$stringUtils.separate($name,"_").toUpperCase()_NODE_NAME## no newline
+NODE_$stringUtils.separate($name,"_").toUpperCase()## no newline
 #end
 ##
 ##
 ##
 #macro (renderTaskName $name)
-$stringUtils.separate($name,"_").toUpperCase()_TASK_NAME## no newline
+TASK_$stringUtils.separate($name,"_").toUpperCase()## no newline
 #end
 ##
 ##

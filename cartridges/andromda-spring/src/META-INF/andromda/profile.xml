@@ -37,52 +37,138 @@
                 The tagged values which apply to the Spring namespace.
             </documentation>
             <element name="EJB_TRANSACTION_TYPE">
-                <documentation></documentation>
+                <documentation>
+                    Defines an EJB transaction type for the service operation (when wrapped
+                    by EJBs)
+                </documentation>
                 <value>@andromda.ejb.transaction.type</value>
+                <appliedOnElement>Service Operation</appliedOnElement>
+                <allowedValues>
+                    <value>NotSupported</value>
+                    <value>Supports</value>
+                    <value>Required</value>
+                    <value>RequiresNew</value>
+                    <value>Mandatory</value>
+                    <value>Never</value>
+                </allowedValues>
             </element>
             <element name="TRANSACTION_TYPE">
-                <documentation></documentation>
+                <documentation>
+                    Defines a Spring transaction type for the service operation
+                    (when <strong>NOT</strong> wrapped by EJBs).
+                </documentation>
                 <value>@andromda.spring.transaction.type</value>
-            </element>
-            <element name="HIBERNATE_QUERY">
-                <documentation></documentation>
-                <value>@andromda.hibernate.query</value>
-            </element>
-            <element name="HIBERNATE_INHERITANCE">
-                <documentation></documentation>
-                <value>@andromda.hibernate.inheritance</value>
+                <appliedOnElement>Service Operation</appliedOnElement>
+                <allowedValues>
+                    <value>PROPAGATION_NEVER</value>
+                    <value>PROPAGATION_NESTED</value>
+                    <value>PROPAGATION_MANDATORY</value>
+                    <value>PROPAGATION_REQUIRED</value>
+                    <value>PROPAGATION_REQUIRES_NEW</value>
+                    <value>PROPAGATION_SUPPORTS</value>
+                    <value>PROPAGATION_NOT_SUPPORTED</value>
+                </allowedValues>
             </element>
             <element name="SPRING_SERVICE_REMOTING_TYPE">
-                <documentation></documentation>
+                <documentation>
+                    Services marked with this stereotype will be exported using Spring's remoting
+                    architecture.
+                </documentation>
                 <value>@andromda.spring.service.remoting.type</value>
-            </element>
-            <element name="HIBERNATE_CRITERIA_NULLABLE">
-                <documentation></documentation>
-                <value>@andromda.hibernate.criteria.nullable</value>
-            </element>
-            <element name="HIBERNATE_CRITERIA_ATTRIBUTE">
-                <documentation></documentation>
-                <value>@andromda.hibernate.criteria.attribute</value>
+                <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>none</value>
+                    <value>rmi</value>
+                    <value>httpinvoker</value>
+                    <value>burlap</value>
+                    <value>hessian</value>
+                </allowedValues>
             </element>
             <element name="SPRING_SERVICE_REMOTE_PORT">
-                <documentation></documentation>
+                <documentation>
+                    Sets the port this service will be exported on. You must also tag the
+                    service using <a href="#@andromda.spring.service.remote.port">@andromda.spring.service.remote.port</a>.
+                </documentation>
                 <value>@andromda.spring.service.remote.port</value>
+                <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
+            </element>
+            <element name="HIBERNATE_CRITERIA_NULLABLE">
+                <documentation>
+                    If this tagged value is set to <code>true</code>, the tagged attribute will be considered in the
+                    search even if it is <code>null</code>. Use this feature to query entities that have attributes
+                    that may be <code>NULL</code> (in the sense of SQL).
+                </documentation>
+                <value>@andromda.hibernate.criteria.nullable</value>
+                <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="HIBERNATE_CRITERIA_ATTRIBUTE">
+                <documentation>
+                    Sets the name of the attribute on the hibernate entity that should be added to a criteria
+                    search. If the attribute you want to search for is not in the entity itself, but rather in
+                    an associated class, you can use a fully qualified name here. Assume you have two entites
+                    <code>Person</code> and <code>Address</code>, the address being referenced as a one-to-one
+                    relationship with the role name <code>homeAddress</code> and the address having an attribute
+                    named "city". If you want to retrieve all people living in Hamburg, simply set the value of
+                    this tagged value to <code>homeAddress.city</code>.
+                    If you ommit this tagged value, the name of the attribute in the criteria class will be used.
+                </documentation>
+                <value>@andromda.hibernate.criteria.attribute</value>
+                <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
             </element>
             <element name="HIBERNATE_CRITERIA_COMPARATOR">
-                <documentation></documentation>
+                <documentation>
+                    Using this tagged value to define the logical condition for the underlying attribute in the query is set.
+                </documentation>
                 <value>@andromda.hibernate.criteria.comparator</value>
+                <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
+                <allowedValues>
+                    <value>valueke</value>
+                    <value>insensitive_valueke</value>
+                    <value>equal</value>
+                    <value>greater</value>
+                    <value>greater_equal</value>
+                    <value>less</value>
+                    <value>less_equal</value>
+                </allowedValues>
             </element>
             <element name="HIBERNATE_CRITERIA_MATCHMODE">
-                <documentation></documentation>
+                <documentation>
+                    Use this value to denote the hibernate matchmode to be used for comparing strings.
+                </documentation>
                 <value>@andromda.hibernate.criteria.matchmode</value>
+                <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
+                <allowedValues>
+                    <value>anywhere</value>
+                    <value>start</value>
+                    <value>end</value>
+                    <value>exact</value>
+                </allowedValues>
             </element>
             <element name="HIBERNATE_CRITERIA_ORDER_DIRECTION">
-                <documentation></documentation>
+                <documentation>
+                    Using this tagged value, you can determine the sort order of the result set.
+                </documentation>
                 <value>@andromda.hibernate.criteria.order.direction</value>
+                <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
+                <allowedValues>
+                    <value>ascending</value>
+                    <value>descending</value>
+                </allowedValues>
             </element>
             <element name="HIBERNATE_CRITERIA_ORDER_RELEVANCE">
-                <documentation></documentation>
+                <documentation>
+                    Use this tagged value to determine the relevance of this ordering. You may enter any
+                    integer value. The smaller the value, the more relevant the ordering will be.
+                </documentation>
                 <value>@andromda.hibernate.criteria.order.relevance</value>
+                <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
+                <allowedValues>
+                    <value>an integer</value>
+                </allowedValues>
             </element>
         </elementGroup>
         <elementGroup name="Constants">
@@ -92,54 +178,106 @@
             <element name="LIKE_COMPARATOR">
                 <documentation></documentation>
                 <value>like</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="INSENSITIVE_LIKE_COMPARATOR">
                 <documentation></documentation>
                 <value>insensitive_like</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="EQUAL_COMPARATOR">
                 <documentation></documentation>
                 <value>equal</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="GREATER_THAN_OR_EQUAL_COMPARATOR">
                 <documentation></documentation>
                 <value>greater_equal</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="GREATER_THAN_COMPARATOR">
                 <documentation></documentation>
                 <value>greater</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="LESS_THAN_OR_EQUAL_COMPARATOR">
                 <documentation></documentation>
                 <value>less_equal</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="LESS_THAN_COMPARATOR">
                 <documentation></documentation>
                 <value>less</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="MATCHMODE_ANYWHERE">
                 <documentation></documentation>
                 <value>anywhere</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="MATCHMODE_END">
                 <documentation></documentation>
                 <value>end</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="MATCHMODE_EXACT">
                 <documentation></documentation>
                 <value>exact</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="MATCHMODE_START">
                 <documentation></documentation>
                 <value>start</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="ORDER_ASCENDING">
                 <documentation></documentation>
                 <value>ascending</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
             <element name="ORDER_DESCENDING">
                 <documentation></documentation>
                 <value>descending</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
             </element>
         </elementGroup>
     </elements>

@@ -1,10 +1,10 @@
 #parse("templates/bpm4struts/pages/page.jsp.vm")
-#set ($generatedFile = "${jsp.fullPath}.jsp")
+#set ($generatedFile = "${pagePathPrefix}${jsp.fullPath}.jsp")
 ##
 ##  START TEMPLATE
 ##
 #set ($hasTable = false)
-<%@ include file="/taglib-imports.jspf" %>
+<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
 #foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
 #set ($hasTable = true)
@@ -39,7 +39,7 @@
 #end
     </tiles:put>
 
-    <%@ include file="${jsp.fullPath}-javascript.jspf" %>
+    <%@ include file="${pagePathPrefix}${jsp.fullPath}-javascript.jspf" %>
 
 ##
 ##  SETS THE BODY OF THIS PAGE
@@ -56,16 +56,16 @@
         </div>
 
 #if ($setPageVariablesInPageScope == "true" && $jsp.pageVariables.size() > 0)
-        <%@ include file="${jsp.fullPath}-vars.jspf" %>
+        <%@ include file="${pagePathPrefix}${jsp.fullPath}-vars.jspf" %>
 
 #end
 #foreach ($action in $jsp.nonTableActions)
-        <%@ include file="${action.fullTilePath}.jsp" %>
+        <%@ include file="${pagePathPrefix}${action.fullTilePath}.jsp" %>
 
 #end
 #foreach ($variable in $jsp.pageVariables)
 #if ($variable.table)
-        <%@ include file="${jsp.fullPath}-${variable.name}.jspf" %>
+        <%@ include file="${pagePathPrefix}${jsp.fullPath}-${variable.name}.jspf" %>
 #end
 #end
 

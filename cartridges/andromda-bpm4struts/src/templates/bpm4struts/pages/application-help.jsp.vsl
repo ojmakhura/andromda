@@ -1,9 +1,10 @@
 #if ($onlineHelp == "true")
+#set ($generatedFile = "application-help.jsp")
 #if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 ##
 ##  START TEMPLATE
 ##
-<%@ include file="/taglib-imports.jspf" %>
+<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
 
 <tiles:insert definition="help.layout">
 

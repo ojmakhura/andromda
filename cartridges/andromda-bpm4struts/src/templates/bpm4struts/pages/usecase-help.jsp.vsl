@@ -3,7 +3,7 @@
 ##
 ##  START TEMPLATE
 ##
-<%@ include file="/taglib-imports.jspf" %>
+<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
 
 <tiles:insert definition="help.layout">
 
@@ -25,7 +25,7 @@
             <bean:message key="$jsp.onlineHelpKey"/>
         </p>
 #end
-        <html:link page="/application-help.jsp"><bean:message key="online.help.main"/></a>
+        <html:link page="${pagePathPrefix}/application-help.jsp"><bean:message key="online.help.main"/></a>
     </tiles:put>
 
 </tiles:insert>

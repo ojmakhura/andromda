@@ -1,13 +1,13 @@
 #parse("templates/bpm4struts/pages/page.jsp.vm")
 #set ($jsp = $table.jsp)
-#set ($generatedFile = "${jsp.fullPath}-${table.name}.jspf")
+#set ($generatedFile = "${pagePathPrefix}${jsp.fullPath}-${table.name}.jspf")
 #set ($targetColumns = $table.targettedTableColumnNames)
 #set ($sortable = $table.tableSortable)
 #set ($exportable = $table.tableExportable)
 <div id="${table.name}" class="table">
 #set ($displayTableName = "form.${table.name}")
     <display:table name="${${displayTableName}}" id="row"
-        requestURI="${pageContext.request.requestURI}"
+        requestURI="${pageContext.request.requestURL}"
 #if ($table.tableDecoratorRequired)
         decorator="${table.tableDecoratorFullyQualifiedName}"
 #end

@@ -13,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateServiceOperationLogicImpl
     extends HibernateServiceOperationLogic
 {
-    // ---------------- constructor -------------------------------
     public HibernateServiceOperationLogicImpl(
         Object metaObject,
         String context)

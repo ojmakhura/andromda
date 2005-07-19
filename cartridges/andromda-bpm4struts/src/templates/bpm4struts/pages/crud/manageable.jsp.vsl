@@ -1,5 +1,5 @@
 #parse("templates/bpm4struts/pages/crud/manageable.jsp.vm")
-#set ($generatedFile = "$manageable.pageFullPath")
+#set ($generatedFile = "${pagePathPrefix}$manageable.pageFullPath")
 ##
 #set ($tableVariable = "${manageableFormName}.${manageable.listName}")
 #set ($tablePresentTest = "!empty $tableVariable")
