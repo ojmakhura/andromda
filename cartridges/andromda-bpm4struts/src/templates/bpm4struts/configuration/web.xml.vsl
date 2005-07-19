@@ -95,12 +95,80 @@
     <!-- taglib merge-point -->
     <!-- resource-ref merge-point -->
 
+    <!-- security-constraint merge-point -->
+## we always place the use-case JSPs inside a security-constraint, security or no security
+#if ($generateWebXmlIds=="true")
+#set ($counter = 1)
+    <security-constraint id="security_constraint_$counter">
+#else
+    <security-constraint>
+#end
+        <web-resource-collection>
+            <web-resource-name>Common resources</web-resource-name>
+            <description>
+                This security constraint groups those resources that are common
+                to all use-cases and need to be protected from direct access from
+                a browser.
+            </description>
+            <url-pattern>/layout/menu.jsp</url-pattern>
+            <url-pattern>/layout/main-layout.jsp</url-pattern>
+            <url-pattern>/layout/help-layout.jsp</url-pattern>
+            <url-pattern>/layout/breadcrumbs.jsp</url-pattern>
+            <url-pattern>/taglib-imports.jspf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+#foreach ($applicationUseCase in $applicationUseCases)
+#foreach ($useCase in $applicationUseCase.allUseCases)
+#if ($generateWebXmlIds=="true")
+#set ($counter = $counter + 1)
+    <security-constraint id="security_constraint_$counter">
+#else
+    <security-constraint>
+#end
+        <web-resource-collection>
+            <web-resource-name>$useCase.name resources</web-resource-name>
+            <description>
+                The resources grouped in this collection are all coming from the $useCase.name
+                use-case and a client should never be allowed to request then directly without
+                passing via an action, therefore only the server may access them and possibly
+                forward them to the client.
+            </description>
+#foreach ($page in $useCase.views)
+            <url-pattern>${page.fullPath}.jsp</url-pattern>
+            <url-pattern>${page.fullPath}-javascript.jspf</url-pattern>
+#if ($setPageVariablesInPageScope == "true" && $page.pageVariables.size() > 0)
+            <url-pattern>${page.fullPath}-javascript.jspf</url-pattern>
+#end
+#foreach ($action in $page.actions)
+            <url-pattern>${action.fullTilePath}.jspf</url-pattern>
+#if (!$action.hiddenActionParameters.empty)
+            <url-pattern>${action.fullTilePath}-hidden-params.jspf</url-pattern>
+#end
+#end
+#foreach ($variable in $page.pageVariables)
+#if ($variable.table)
+            <url-pattern>${page.fullPath}-${variable.name}.jspf</url-pattern>
+#end
+#end
+#end
+        </web-resource-collection>
+        <auth-constraint>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+#end
+#end
 #if ($stringUtils.isNotBlank($securityRealm))
 ##
 ## We don't use security-role-refs at this point, maybe in a later step
 ##
-    <!-- security-constraint merge-point -->
-#set ($counter = 0)
 #foreach ($applicationUseCase in $applicationUseCases)
 #foreach ($useCase in $applicationUseCase.allUseCases)
 #if ($generateWebXmlIds=="true")
@@ -115,7 +183,6 @@
                 This collection bundles all pages and resources
                 as well as the actions called in the "$useCase.name" use-case
             </description>
-            <url-pattern>/${useCase.packagePath}/*</url-pattern>
             <url-pattern>${useCase.actionPathRoot}/*</url-pattern>
         </web-resource-collection>
 #if ($useCase.secured)
@@ -164,8 +231,8 @@
         <realm-name>$securityRealm</realm-name>
 #end
         <form-login-config>
-            <form-login-page>${pagePathPrefix}/login/login-form.jsp</form-login-page>
-            <form-error-page>${pagePathPrefix}/login/login-form.jsp?action=error</form-error-page>
+            <form-login-page>/login/login-form.jsp</form-login-page>
+            <form-error-page>/login/login-form.jsp?action=error</form-error-page>
         </form-login-config>
     </login-config>
 

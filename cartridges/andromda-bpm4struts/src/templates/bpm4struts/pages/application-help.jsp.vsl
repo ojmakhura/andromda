@@ -4,7 +4,7 @@
 ##
 ##  START TEMPLATE
 ##
-<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
+<%@ include file="/taglib-imports.jspf" %>
 
 <tiles:insert definition="help.layout">
 

@@ -1,9 +1,9 @@
 #set ($validationDesired = ($clientValidation == 'true'))
 #if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
 #if ($applicationUseCase.applicationValidationRequired && $validationDesired)
-#set ($generatedFile = "${pagePathPrefix}/form-validation.jsp")
+#set ($generatedFile = "form-validation.jsp")
 <%@ page contentType="application/x-javascript" %>
-<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
+<%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 <![CDATA[

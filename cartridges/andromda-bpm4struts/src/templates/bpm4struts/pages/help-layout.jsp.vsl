@@ -1,6 +1,6 @@
 #if ($onlineHelp == "true")
-#set ($generatedFile = "${pagePathPrefix}/layout/help-layout.jsp")
-<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
+#set ($generatedFile = "layout/help-layout.jsp")
+<%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"

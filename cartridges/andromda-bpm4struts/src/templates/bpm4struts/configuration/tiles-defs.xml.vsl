@@ -6,7 +6,7 @@
 
 <tiles-definitions>
 
-    <definition name="main.layout" page="${pagePathPrefix}/layout/main-layout.jsp">
+    <definition name="main.layout" page="/layout/main-layout.jsp">
         <put name="title" type="string" value=""/>
         <put name="style" type="string" value=""/>
         <put name="javascript" type="string" value=""/>
@@ -22,16 +22,16 @@
         <put name="messages" type="string" value=""/>
     </definition>
 
-    <definition name="menu.tile" page="${pagePathPrefix}/layout/menu.jsp"/>
+    <definition name="menu.tile" page="/layout/menu.jsp"/>
 
-    <definition name="messages.tile" page="${pagePathPrefix}/layout/messages.jsp"/>
+    <definition name="messages.tile" page="/layout/messages.jsp"/>
 
 #if ($maxBreadCrumbs != "0")
-    <definition name="breadcrumbs.tile" page="${pagePathPrefix}/layout/breadcrumbs.jsp"/>
+    <definition name="breadcrumbs.tile" page="/layout/breadcrumbs.jsp"/>
 
 #end
 #if ($onlineHelp == "true")
-    <definition name="help.layout" page="${pagePathPrefix}/layout/help-layout.jsp"/>
+    <definition name="help.layout" page="/layout/help-layout.jsp"/>
 
 #end
 </tiles-definitions>

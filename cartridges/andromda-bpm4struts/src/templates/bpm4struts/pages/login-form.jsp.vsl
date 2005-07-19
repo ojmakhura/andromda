@@ -1,5 +1,5 @@
-#set ($generatedFile = "${pagePathPrefix}/login/login-form.jsp")
-<%@ include file="${pagePathPrefix}/taglib-imports.jspf" %>
+#set ($generatedFile = "login/login-form.jsp")
+<%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
 <html:xhtml/>
