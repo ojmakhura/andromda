@@ -385,4 +385,13 @@ public class MetafacadeBase
         }
         return this.metafacadePropertyCachingEnabled.booleanValue();
     }
+
+    /**
+     * This <strong>MUST</strong> be used instead of <em>this<em> in order to access the correct
+     * metafacade instance in the hiearchy.
+     */
+    protected final MetafacadeBase THIS()
+    {
+        return this.shieldedElement(this.metaObject);
+    }
 }
