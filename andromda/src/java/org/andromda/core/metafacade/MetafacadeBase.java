@@ -388,7 +388,7 @@ public class MetafacadeBase
 
     /**
      * This <strong>MUST</strong> be used instead of <em>this<em> in order to access the correct
-     * metafacade instance in the hiearchy (since we delegated inheritance).
+     * metafacade instance in the hiearchy (since we use delegate inheritance).
      */
     protected final MetafacadeBase THIS()
     {
