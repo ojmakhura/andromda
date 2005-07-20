@@ -45,7 +45,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.FrontEndForward#isContainedInFrontEndUseCase()
+     * @see org.andromda.metafacades.uml.FrontEndForward#getFrontEndActivityGraph()
      */
     protected Object handleGetFrontEndActivityGraph()
     {
