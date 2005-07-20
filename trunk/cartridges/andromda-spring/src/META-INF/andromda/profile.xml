@@ -69,6 +69,14 @@
                     <value>PROPAGATION_NOT_SUPPORTED</value>
                 </allowedValues>
             </element>
+            <element name="HIBERNATE_QUERY">
+                <documentation></documentation>
+                <value>@andromda.hibernate.query</value>
+            </element>
+            <element name="HIBERNATE_INHERITANCE">
+                <documentation></documentation>
+                <value>@andromda.hibernate.inheritance</value>
+            </element>
             <element name="SPRING_SERVICE_REMOTING_TYPE">
                 <documentation>
                     Services marked with this stereotype will be exported using Spring's remoting
