@@ -16,9 +16,9 @@ import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndExceptionHandler;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
 
@@ -42,7 +42,7 @@ public class FrontEndActionStateLogicImpl
      */
     protected boolean handleIsServerSide()
     {
-        return !this.hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_VIEW);
+        return !(this.THIS() instanceof FrontEndView);
     }
 
     /**

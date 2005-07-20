@@ -24,7 +24,6 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
 
@@ -60,7 +59,7 @@ public class FrontEndActionLogicImpl
         }
         else
         {
-            if (source.hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_VIEW))
+            if (source instanceof FrontEndView)
             {
                 input = source;
             }
@@ -150,7 +149,7 @@ public class FrontEndActionLogicImpl
         this.actionForwards = new HashMap();
         this.decisionTransitions = new HashSet();
         this.transitions = new HashSet();
-        this.collectTransitions(this, transitions);
+        this.collectTransitions((TransitionFacade)this.THIS(), transitions);
     }
 
     /**
@@ -168,9 +167,8 @@ public class FrontEndActionLogicImpl
             return;
         }
         processedTransitions.add(transition);
-
         final StateVertexFacade target = transition.getTarget();
-        if ((target instanceof FrontEndView) || (target instanceof FrontEndFinalState))
+        if (target instanceof FrontEndView || target instanceof FrontEndFinalState)
         {
             if (!this.actionForwards.containsKey(transition.getTarget()))
             {

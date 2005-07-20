@@ -208,8 +208,8 @@ public class FrontEndUseCaseLogicImpl
         final Collection pages = this.getViews();
         for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
         {
-            final FrontEndView jsp = (FrontEndView)pageIterator.next();
-            actions.addAll(jsp.getActions());
+            final FrontEndView view = (FrontEndView)pageIterator.next();
+            actions.addAll(view.getActions());
         }
 
         final FrontEndActivityGraph graph = this.getActivityGraph();
