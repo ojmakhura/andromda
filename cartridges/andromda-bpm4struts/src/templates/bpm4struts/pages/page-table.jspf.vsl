@@ -32,7 +32,7 @@
             titleKey="$table.getTableColumnMessageKey($columnName)">
 #if ($column.actionParameter)
             <div class="$columnName">
-#renderFormField($column.action $column "                " '${row_rowNum}')
+#renderFormField($column.strutsAction $column "                " '${row_rowNum}')
             </div>
 #else## just render as text since the column is in fact a simple String
 #set ($columnValue = "row.$columnName")

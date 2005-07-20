@@ -112,7 +112,7 @@ public class StrutsTriggerLogicImpl
 
     protected boolean handleIsActionTrigger()
     {
-        return getAction() != null;
+        return this.getStrutsAction() != null;
     }
 
     protected Object handleGetStrutsAction()

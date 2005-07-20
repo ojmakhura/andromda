@@ -279,7 +279,7 @@ ${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints)onm
 #else
 ## we could also test for widget type == 'plaintext', but that would be redundant here
 #set ($plainText = "${beanName}.${fieldName}")
-#if ($field.action.tableLink)
+#if ($field.strutsAction.tableLink)
 ${indent}<html:hidden name="row" property="$fieldName" styleId="$styleId" value="${${plainText}}"/>
 #end
 ${indent}${${plainText}}
