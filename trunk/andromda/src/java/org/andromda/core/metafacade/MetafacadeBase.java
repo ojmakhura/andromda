@@ -387,6 +387,10 @@ public class MetafacadeBase
     }
 
     /**
+     * The metafacade instace of <code>this</code>.  This should be used when 
+     * you'd need to check if <code>this</code> was an instance of a given metafacade
+     * for example: <code>THIS() instanceof SomeMetafacade</code>.
+     * 
      * This <strong>MUST</strong> be used instead of <em>this<em> in order to access the correct
      * metafacade instance in the hiearchy (since we use delegate inheritance).
      */
