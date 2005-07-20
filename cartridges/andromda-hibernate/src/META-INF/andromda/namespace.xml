@@ -83,7 +83,7 @@
                 <documentation>
                     The default query cache usage.
                     Can be overwritten using
-                    <a href="modeling.html#@andromda.hibernate.query.useCache">@andromda.hibernate.query.useCache</a>.
+                    <a href="profile.html#@andromda_hibernate_query_useCache">@andromda.hibernate.query.useCache</a>.
                     Possible values are:
                     <ul>
                        <li>true</li>
@@ -326,7 +326,7 @@
                         <li>Never</li>
                     </ul>
                     <strong>NOTE:</strong> Can be overridden on a per entity basis with the
-                    <a href="modeling.html#andromda.ejb.transaction.type">@andromda.ejb.transaction.type</a>
+                    <a href="profile.html#@andromda_ejb_transaction_type">@andromda.ejb.transaction.type</a>
                     tagged value.
                 </documentation>
             </property>
@@ -370,7 +370,7 @@
                 <documentation>
                     The default class to use for Hibernate ID generation (can be overridden
                     on a per entity basis with the
-                    <a href="modeling.html#andromda.hibernate.generator.class">@andromda.hibernate.generator.class</a>
+                    <a href="profile.html#@andromda_hibernate_generator_class">@andromda.hibernate.generator.class</a>
                     tagged value).
                 </documentation>
             </property>
@@ -446,7 +446,7 @@
                 <documentation>
                     Defines the hibernate inheritance strategy (unless
                     overridden on an entity level by the
-                    <a href="modeling.html#andromda_hibernate_inheritance">@andromda.hibernate.inheritance</a>
+                    <a href="profile.html#@andromda_hibernate_inheritance">@andromda.hibernate.inheritance</a>
                     tagged value, can be the following possible values:
                       <ul>
                           <li>class - table per hierarchy.</li>
@@ -501,7 +501,7 @@
                     for versioning purposes. If this value is not specified or it contains
                     only whitespace characters it will be ignored and the property will
                     not be generated. This value can be overridden with the
-                    <a href="modeling.html#andromda.hibernate.version">@andromda.hibernate.version</a>tagged value.
+                    <a href="profile.html#@andromda_hibernate_version">@andromda.hibernate.version</a>tagged value.
                 </documentation>
             </property>
             <property name="hibernateAssociationEndOuterJoin">
@@ -565,13 +565,13 @@
             <property name="associationEndCollectionIndexName" required="false">
                 <documentation>
                     The default association end collection index name (this can be overridden by the
-                    <a href="modeling.html#andromda_hibernate_collection_index">@andromda.hibernate.collection.index</a>).
+                    <a href="profile.html#@andromda_hibernate_collection_index">@andromda.hibernate.collection.index</a>).
                 </documentation>
             </property>
             <property name="associationEndCollectionIndexType" required="false">
                 <documentation>
                     The default association end collection index type (this can be overridden by the
-                    <a href="modeling.html#andromda_hibernate_collection_index_type">@andromda.hibernate.collection.index.type</a>
+                    <a href="profile.html#@andromda_hibernate_collection_index_type">@andromda.hibernate.collection.index.type</a>
                     (this is applicable when the collection is a map).
                 </documentation>
             </property>

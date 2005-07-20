@@ -20,6 +20,35 @@
                 <ejb.manifest.classpath>true</ejb.manifest.classpath>
             </properties>
         </dependency>
+#if ($workflow)
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-workflow</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>jar</type>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>jbpm</groupId>
+            <artifactId>jbpm</artifactId>
+            <version>${jbpm.version}</version>
+            <type>jar</type>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>jbpm</groupId>
+            <artifactId>jbpm-identity</artifactId>
+            <version>${jbpm.version}</version>
+            <type>jar</type>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+#end
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>

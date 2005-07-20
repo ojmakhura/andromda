@@ -276,7 +276,7 @@
                     The default scope in which the action's <code>form</code> attribute will be placed when the
                     action is executing. Normally it doesn't make sense to change this value from the default,
                     however you may occasionaly need to override this value using the
-                    <a href="modeling.html#andromda.struts.action.form.scope">@andromda.struts.action.form.scope</a>
+                    <a href="profile.html#@andromda_struts_action_form_scope">@andromda.struts.action.form.scope</a>
                     for a given action. The possible values are:
                     <ul>
                         <li>none - doesn't set the form attribute in any scope</li>

@@ -35,7 +35,7 @@
                 The andromda-profile has been broken up into sub-profiles: process, persistence, service, meta, etc.
                 In order to successfully use this new profile with a Magic Draw model, you'll need to do 2 things: First,
                 add several new dependencies to your project.xml (or regenerate a project using the andromdapp plugin), see
-                this <a href="http://forum.andromda.org/viewtopic.php?p=2264">forum thread</a> for more information. 
+                this <a href="http://forum.andromda.org/viewtopic.php?p=2264">forum thread</a> for more information.
                 Second, you must open and save your model once to update all profile references, after that you should be able to successfully build.
             </action>
             <action dev="carloslcuenca" type="add" issue="HIB-115">
@@ -43,7 +43,7 @@
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-77">
                 AndroMDA can now handle more than one repository at a given time.  This means you'll need to make a slight
-                modification to your andromda configuration file (typically found in mda/conf/andromda.xml of your project) 
+                modification to your andromda configuration file (typically found in mda/conf/andromda.xml of your project)
                 by defining the <a href="configuration.html#repositories">repositories</a> element.
             </action>
             <action dev="draftdog" type="add">
@@ -86,15 +86,15 @@
                 Schema2XMI is now able to map to database types with their precision defined.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-72">
-                Property references are now defined in a namespace descriptor in which each namespace component 
+                Property references are now defined in a namespace descriptor in which each namespace component
                 (cartridge, translation-library, and metafacades must be registered within).
                 Unfortunately this change is not backwards compatible with 3.0 cartridges, to upgrade 3.0 cartridges
-                to be 3.1 compatible, you will need to create a META-INF/andromda/namespace.xml descriptor per cartridge 
+                to be 3.1 compatible, you will need to create a META-INF/andromda/namespace.xml descriptor per cartridge
                 and register the cartridge and metafacades (as well as any namespace properties and its defaults) in this file.
             </action>
             <action dev="cwbrandon" type="add">
                 The Spring cartridge can now generate for Hiberante 3 (as well as Hibernate 2 as before).  Version 2
-                is the default, in order to change the version to 3, you must set the <em>hibernateVersion</em> 
+                is the default, in order to change the version to 3, you must set the <em>hibernateVersion</em>
                 namespace property with a value of <em>3</em>.
             </action>
             <action dev="draftdog" type="update">
@@ -109,13 +109,13 @@
                 namespace property with a value of <em>3</em>.
             </action>
             <action dev="cwbrandon" type="add">
-                Major performance improvements have been added to the AndroMDA core, as well as a new feature called 
-                the <a href="configuration/server-howto.html">AndroMDA Server</a> which dramatically enhances the 
+                Major performance improvements have been added to the AndroMDA core, as well as a new feature called
+                the <a href="configuration/server-howto.html">AndroMDA Server</a> which dramatically enhances the
                 performance of AndroMDA.
             </action>
             <action dev="cwbrandon" type="add" issue="CORE-67">
                 AndroMDA is now configured through a single XML configuration file.  This means both the Ant task and Maven
-                plugin just point to this file.  Please see the <a href="configuration.html">configuration</a> documentation 
+                plugin just point to this file.  Please see the <a href="configuration.html">configuration</a> documentation
                 for more information.
             </action>
             <action dev="draftdog" type="add" issue="BPM-186">
@@ -173,9 +173,9 @@
         </release>
         <release version="3.0" date="2005-05-08" description="Version 3.0 final">
             <action dev="cwbrandon" type="update">
-                Package filtering has been changed to use the correct '::' namespace separator instead of the 
+                Package filtering has been changed to use the correct '::' namespace separator instead of the
                 java specific separator; this means that whenever you apply package filtering you'll have to use
-                the '::' seperator between packages instead of '.' 
+                the '::' seperator between packages instead of '.'
                 (see <a href="andromda-ant-task/index.html#modelPackage"><![CDATA[<modelPackage/>]]></a> for
                 Ant or <a href="maven-andromda-plugin/properties.html#maven_andromda_modelPackage">maven.andromda.modelPackage.<em>n</em>.name</a>
                 for Maven).
@@ -193,7 +193,7 @@
         </release>
         <release version="3.0-RC2" date="2005-04-25" description="Second release candidate for version 3.0">
             <action dev="cwbrandon" type="add" issue="MAVEN-23">
-                The <a href="maven-andromdapp-plugin/index.html">AndroMDA App Maven Plugin</a> can now generate 
+                The <a href="maven-andromdapp-plugin/index.html">AndroMDA App Maven Plugin</a> can now generate
                 standalone war files (that can be deployed to <a href="http://jakarta.apache.org/tomcat">Tomcat</a>).
             </action>
             <action dev="freter" type="add" issue="HIB-87">
@@ -412,7 +412,7 @@
                 </p>
             </action>
             <action dev="draftdog" type="add" issue="BPM-110">
-                Added a new <a href="andromda-bpm4struts-cartridge/modeling.html">tagged value</a>
+                Added a new <a href="andromda-bpm4struts-cartridge/profile.html">tagged value</a>
                 for bpm4struts: <code>@andromda.struts.view.field.validators</code>. It allows you to specify your
                 own validators for parameters, just don't forget to use the
                 <a href="andromda-cartridges/index.html#mergeMappingsUri">merge point</a> in
@@ -560,8 +560,8 @@
             </action>
             <action dev="draftdog" type="fix" issue="HIB-15">
                 Implemented enumeration support for the
-                <a href="andromda-hibernate-cartridge/modeling.html#Enumeration">Hibernate</a> and
-                <a href="andromda-spring-cartridge/modeling.html#Enumeration">Spring</a> cartridges.
+                <a href="andromda-hibernate-cartridge/profile.html#Enumeration">Hibernate</a> and
+                <a href="andromda-spring-cartridge/profile.html#Enumeration">Spring</a> cartridges.
             </action>
             <action dev="cwbrandon" type="add" issue="OCL-1">
                 <strong>ALL OCL string operations</strong> are now supported by the
@@ -728,13 +728,13 @@
                 associations.
             </action>
             <action dev="amwest" type="add">
-                The <a href="andromda-hibernate-cartridge/modeling.html">AndroMDA
+                The <a href="andromda-hibernate-cartridge/profile.html">AndroMDA
                 Hibernate</a> cartridge supports hibernate's Three Inheritance
                 Strategies and allows root entities to be generated as
                 interfaces.
                 </action>
             <action dev="cwbrandon" type="add">
-                The <a href="andromda-spring-cartridge/modeling.html">AndroMDA Spring</a>
+                The <a href="andromda-spring-cartridge/profile.html">AndroMDA Spring</a>
                 cartridge can now model (and have generated) full role
                 based security for the optional Session EJB wrappers.
             </action>
@@ -748,7 +748,7 @@
                 for a model element.
             </action>
             <action dev="cwbrandon" type="add">
-                The <a href="andromda-webservice-cartridge/modeling.html">AndroMDA Web Service</a>
+                The <a href="andromda-webservice-cartridge/profile.html">AndroMDA Web Service</a>
                 cartridge can now have web services secured through modeling.
             </action>
             <action dev="draftdog" type="add">
@@ -760,8 +760,8 @@
             </action>
             <action dev="draftdog" type="add">
                 Added support for lazily loaded relationships collections in
-                <a href="andromda-hibernate-cartridge/modeling.html#@andromda.hibernate.lazy">Hibernate</a> and
-                <a href="andromda-spring-cartridge/modeling.html#@andromda.hibernate.lazy">Spring</a>, it is sufficient
+                <a href="andromda-hibernate-cartridge/profile.html#@andromda_hibernate_lazy">Hibernate</a> and
+                <a href="andromda-spring-cartridge/profile.html#@andromda_hibernate_lazy">Spring</a>, it is sufficient
                 to use the aggregation kind of an association end (composite is not lazy, the other kinds are lazy)
                 but you can always override the default values using the newly define
                 <code>@andromda.hibernate.lazy</code> tagged value.

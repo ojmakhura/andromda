@@ -62,7 +62,7 @@
             </p>
             <p>
                 The class we have modeled does not have any properties, however, we notice it having an 'id'
-                attribute, where is that coming from ? Well, by default AndroMDA configures the Spring cartridge
+                attribute, where is it coming from ? Well, by default AndroMDA configures the Spring cartridge
                 to generate an identifier when none have been modeled by the user, this identifier is called
                 <code>id</code>, and it is of type <code>datatype::Long</code>. It is possible to override these
                 settings in the
@@ -110,7 +110,7 @@
                 <p>
                     It's possible to configure the multiplicity of an entity's attribute, by setting it to
                     <code>[0..1]</code> an attribute is not required and is allowed to be set to
-                    <code>null</code>; setting the multiplicity to a value greater than <code>1</code>
+                    <code>null</code>; setting the multiplicity to a value greater than <code>0</code>
                     means the attribute is required.
                 </p>
                 <p>
