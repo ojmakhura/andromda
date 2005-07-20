@@ -43,10 +43,7 @@ public class StrutsJspLogicImpl
             if (graphUseCase instanceof StrutsUseCase)
             {
                 final StrutsUseCase useCase = (StrutsUseCase)graphUseCase;
-                if (useCase != null)
-                {
-                    packageName = useCase.getPackageName();
-                }
+                packageName = useCase.getPackageName();
             }
         }
         return packageName;
@@ -112,6 +109,27 @@ public class StrutsJspLogicImpl
         buffer.append(crlf);
 
         return StringUtilsHelper.toResourceMessage(buffer.toString());
+    }
+
+    protected String handleGetOnlineHelpPagePath()
+    {
+        return this.getFullPath() + "_help";
+    }
+
+    protected String handleGetOnlineHelpActionPath()
+    {
+        final StringBuffer buffer = new StringBuffer();
+
+        if (StringUtils.isNotBlank(this.getPackagePath()))
+        {
+            buffer.append('/');
+            buffer.append(this.getPackagePath());
+        }
+        buffer.append('/');
+        buffer.append(StringUtilsHelper.upperCamelCaseName(this.getName()));
+        buffer.append("Help");
+
+        return buffer.toString();
     }
 
     protected String handleGetFullPath()

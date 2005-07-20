@@ -20,7 +20,7 @@
     </tiles:put>
 
     <tiles:put name="javascript" type="string">
-        <script type="text/javascript" src="<html:rewrite page="/layout/calendar-js.jsp"/>"></script>
+        <script type="text/javascript" src="<html:rewrite action="/calendar"/>"></script>
         <script type="text/javascript">
 #if ($xhtml == "true")
         //<![CDATA[

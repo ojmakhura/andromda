@@ -6,7 +6,7 @@ import org.andromda.core.common.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.Role;
-import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -97,7 +97,7 @@ public class StrutsUseCaseLogicImpl
     }
 
     /**
-     * @see org.andromda.bpm4struts.metafacades.StrutsUseCase#isCyclic()
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase#isCyclic()
      */
     protected boolean handleIsCyclic()
     {
@@ -147,19 +147,7 @@ public class StrutsUseCaseLogicImpl
 
     protected List handleGetPages()
     {
-        List pagesList = null;
-
-        final ActivityGraphFacade graph = getActivityGraph();
-        if (graph == null)
-        {
-            pagesList = Collections.EMPTY_LIST;
-        }
-        else
-        {
-            pagesList = new ArrayList(
-                getModel().getAllActionStatesWithStereotype(graph, UMLProfile.STEREOTYPE_FRONT_END_VIEW));
-        }
-        return pagesList;
+        return this.getViews();
     }
 
     protected List handleGetAllPages()
@@ -328,7 +316,7 @@ public class StrutsUseCaseLogicImpl
                 if (targetUseCase != null)
                 {
                     final UseCaseNode useCaseNode = new UseCaseNode(targetUseCase);
-                    if (isNodeAncestor(root, useCaseNode) == false)
+                    if (!isNodeAncestor(root, useCaseNode))
                     {
                         root.add(useCaseNode);
                         createHierarchy(useCaseNode);
@@ -589,4 +577,37 @@ public class StrutsUseCaseLogicImpl
 
         return messages;
     }
+
+    protected String handleGetOnlineHelpPagePath()
+    {
+        final StringBuffer buffer = new StringBuffer();
+
+        if (StringUtils.isNotBlank(this.getPackagePath()))
+        {
+            buffer.append('/');
+            buffer.append(this.getPackagePath());
+        }
+        buffer.append('/');
+        buffer.append(StringUtilsHelper.separate(this.getName(), "-"));
+        buffer.append("_help");
+
+        return buffer.toString();
+    }
+
+    protected String handleGetOnlineHelpActionPath()
+    {
+        final StringBuffer buffer = new StringBuffer();
+
+        if (StringUtils.isNotBlank(this.getPackagePath()))
+        {
+            buffer.append('/');
+            buffer.append(this.getPackagePath());
+        }
+        buffer.append('/');
+        buffer.append(StringUtilsHelper.upperCamelCaseName(this.getName()));
+        buffer.append("Help");
+
+        return buffer.toString();
+    }
+
 }

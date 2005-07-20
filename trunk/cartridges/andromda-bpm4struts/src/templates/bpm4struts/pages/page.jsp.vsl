@@ -75,7 +75,7 @@
                 <bean:message key="required.fields.asterisk"/>
 #end
 #if ($onlineHelp == "true")
-                <a href="" id="pageHelp" style="display:inline;" onclick="openWindow('<html:rewrite page="${jsp.fullPath}_help.jsp"/>','onlinehelp',true,false,760,540); return false;">
+                <a href="" id="pageHelp" style="display:inline;" onclick="openWindow('<html:rewrite action="${jsp.onlineHelpActionPath}"/>','onlinehelp',true,false,760,540); return false;">
                     <bean:message key="online.help.href"/>
                 </a>
                 <html:img page="/layout/help.gif" style="display:inline;"/>
