@@ -249,9 +249,8 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetAttributes(boolean follow)
     {
         Collection attributes = this.getAttributes();
-        for (
-            ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
-            superClass = (ClassifierFacade)superClass.getGeneralization())
+        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+             superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             attributes.addAll(superClass.getAttributes());
         }
@@ -263,23 +262,22 @@ public class ClassifierFacadeLogicImpl
      */
     protected String handleGetOperationCallFromAttributes()
     {
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer call = new StringBuffer();
         String separator = "";
-        sb.append("(");
-
+        call.append("(");
         for (final Iterator iterator = getAttributes().iterator(); iterator.hasNext();)
         {
             AttributeFacade attribute = (AttributeFacade)iterator.next();
 
-            sb.append(separator);
+            call.append(separator);
             String typeName = attribute.getType().getFullyQualifiedName();
-            sb.append(typeName);
-            sb.append(" ");
-            sb.append(attribute.getName());
+            call.append(typeName);
+            call.append(" ");
+            call.append(attribute.getName());
             separator = ", ";
         }
-        sb.append(")");
-        return sb.toString();
+        call.append(")");
+        return call.toString();
     }
 
     /**
