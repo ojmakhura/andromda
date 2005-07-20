@@ -53,7 +53,7 @@
 #end
     </ul>
 #if ($onlineHelp == "true")
-    <a href="" style="display:inline;" onclick="openWindow('<html:rewrite page="/application-help.jsp"/>','onlinehelp',true,false,760,540); return false;">
+    <a href="" style="display:inline;" onclick="openWindow('<html:rewrite action="/applicationHelp"/>','onlinehelp',true,false,760,540); return false;">
         <bean:message key="online.help.href"/>
     </a>
 #end

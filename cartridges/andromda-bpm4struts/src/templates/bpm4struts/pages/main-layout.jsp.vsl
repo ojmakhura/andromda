@@ -35,9 +35,9 @@
         <link rel="stylesheet" type="text/css" media="screen" href="<html:rewrite page="/layout/default.css"/>"></link>
         <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/layout-common.js"/>"></script>
         <script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/key-events.js"/>"></script>
-<%-- to be uncommented later, when supporting struts-menu
+#* to be uncommented later, when supporting struts-menu
     	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/menu/menu-expandable.js"/>"></script>
---%>
+*#
         <tiles:insert attribute="style" flush="true"/>
         <tiles:insert attribute="javascript" flush="true"/>
     </head>

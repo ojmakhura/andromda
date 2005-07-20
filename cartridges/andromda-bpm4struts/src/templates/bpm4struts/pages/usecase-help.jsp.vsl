@@ -1,5 +1,5 @@
 #if ($onlineHelp == "true")
-#set ($generatedFile = "${useCase.fullyQualifiedNamePath}_help.jsp")
+#set ($generatedFile = "${useCase.onlineHelpPagePath}.jsp")
 ##
 ##  START TEMPLATE
 ##
@@ -19,13 +19,13 @@
         </p>
 #foreach ($jsp in $useCase.pages)
         <h2>
-            <html:link page="${jsp.fullPath}_help.jsp"><bean:message key="$jsp.titleKey"/></html:link>
+            <html:link action="${jsp.onlineHelpActionPath}"><bean:message key="$jsp.titleKey"/></html:link>
 	    </h2>
         <p>
             <bean:message key="$jsp.onlineHelpKey"/>
         </p>
 #end
-        <html:link page="/application-help.jsp"><bean:message key="online.help.main"/></a>
+        <html:link action="/applicationHelp"><bean:message key="online.help.main"/></a>
     </tiles:put>
 
 </tiles:insert>

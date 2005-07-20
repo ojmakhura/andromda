@@ -470,7 +470,7 @@ public class StringUtilsHelper
 
         final String lineSeparator = LINE_SEPARATOR;
 
-        String format = null;
+        String format;
 
         try
         {
@@ -552,7 +552,7 @@ public class StringUtilsHelper
      *
      * @return the line separator.
      */
-    public static final String getLineSeparator()
+    public static String getLineSeparator()
     {
         // - for reasons of platform compatibility we do not use the 'line.separator' property
         //   since this will break the build on different platforms (for exampele

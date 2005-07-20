@@ -130,7 +130,7 @@ public class FrontEndUseCaseLogicImpl
     /**
      * Recursively collects all roles generalizing the argument user, in the specified collection.
      */
-    private final void collectRoles(final Role role, final Collection roles)
+    private void collectRoles(final Role role, final Collection roles)
     {
         if (!roles.contains(role))
         {
@@ -185,7 +185,7 @@ public class FrontEndUseCaseLogicImpl
      */
     protected List handleGetViews()
     {
-        List views = null;
+        List views;
         final ActivityGraphFacade graph = this.getActivityGraph();
         if (graph == null)
         {

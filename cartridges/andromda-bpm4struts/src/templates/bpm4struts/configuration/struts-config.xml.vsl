@@ -97,13 +97,51 @@
 #end
         </action>
 #end
+#if ($onlineHelp == "true")
+        <action
+            path="${useCase.onlineHelpActionPath}"
+            type="org.apache.struts.actions.ForwardAction"
+            scope="request"
+            parameter="${useCase.onlineHelpPagePath}.jsp"/>
+#foreach ($page in $useCase.pages)
+        <action
+            path="${page.onlineHelpActionPath}"
+            type="org.apache.struts.actions.ForwardAction"
+            scope="request"
+            parameter="${page.onlineHelpPagePath}.jsp"/>
+#end
+#end
 #end
 #foreach ($manageable in $manageables)
-        <action path="$manageable.actionPath" type="$manageable.actionType" name="$manageable.formBeanName"
-            scope="request" input="$manageable.pageFullPath" unknown="false" validate="false" parameter="$manageable.actionParameter">
+        <action
+            path="$manageable.actionPath"
+            type="$manageable.actionType"
+            name="$manageable.formBeanName"
+            scope="request"
+            input="$manageable.pageFullPath"
+            unknown="false"
+            validate="false"
+            parameter="$manageable.actionParameter">
             <exception type="java.lang.Throwable" key="$manageable.exceptionKey" path="$manageable.exceptionPath" scope="request" />
         </action>
 #end
+#if ($onlineHelp == "true")
+        <action
+            path="/applicationHelp"
+            type="org.apache.struts.actions.ForwardAction"
+            scope="request"
+            parameter="/application-help.jsp"/>
+#end
+        <action
+            path="/calendar"
+            type="org.apache.struts.actions.ForwardAction"
+            scope="request"
+            parameter="/calendar-js.jsp"/>
+        <action
+            path="/formValidation"
+            type="org.apache.struts.actions.ForwardAction"
+            scope="request"
+            parameter="/form-validation.jsp"/>
     </action-mappings>
 
     <!-- controller merge point -->

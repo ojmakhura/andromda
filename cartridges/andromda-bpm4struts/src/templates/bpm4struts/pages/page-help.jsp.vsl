@@ -1,5 +1,5 @@
 #if ($onlineHelp == "true")
-#set ($generatedFile = "${jsp.fullPath}_help.jsp")
+#set ($generatedFile = "${jsp.onlineHelpPagePath}.jsp")
 ##
 ##  START TEMPLATE
 ##

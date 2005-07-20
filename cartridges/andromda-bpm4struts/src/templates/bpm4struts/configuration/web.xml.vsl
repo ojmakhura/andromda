@@ -115,6 +115,9 @@
             <url-pattern>/layout/help-layout.jsp</url-pattern>
             <url-pattern>/layout/breadcrumbs.jsp</url-pattern>
             <url-pattern>/taglib-imports.jspf</url-pattern>
+            <url-pattern>/applicationHelp.jsp</url-pattern>
+            <url-pattern>/calendar-js.jsp</url-pattern>
+            <url-pattern>/form-validation.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>
         </auth-constraint>
@@ -138,8 +141,10 @@
                 passing via an action, therefore only the server may access them and possibly
                 forward them to the client.
             </description>
-#foreach ($page in $useCase.views)
+            <url-pattern>${useCase.onlineHelpPagePath}.jsp</url-pattern>
+#foreach ($page in $useCase.pages)
             <url-pattern>${page.fullPath}.jsp</url-pattern>
+            <url-pattern>${page.onlineHelpPagePath}.jsp</url-pattern>
             <url-pattern>${page.fullPath}-javascript.jspf</url-pattern>
 #if ($setPageVariablesInPageScope == "true" && $page.pageVariables.size() > 0)
             <url-pattern>${page.fullPath}-javascript.jspf</url-pattern>
