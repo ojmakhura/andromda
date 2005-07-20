@@ -41,7 +41,7 @@ public class StrutsParameterLogicImpl
         super(metaObject, context);
     }
 
-    protected Object handleGetAction()
+    protected Object handleGetStrutsAction()
     {
         Object actionObject = null;
 
@@ -61,7 +61,7 @@ public class StrutsParameterLogicImpl
     {
         String styleId = null;
 
-        final StrutsAction action = getAction();
+        final StrutsAction action = this.getStrutsAction();
         if (action != null)
         {
             // if this parameter's action links to a table we use a specific styleId
@@ -193,7 +193,7 @@ public class StrutsParameterLogicImpl
         {
             if (isActionParameter())
             {
-                final StrutsAction action = getAction();
+                final StrutsAction action = this.getStrutsAction();
                 if (action != null)
                 {
                     messageKey.append(action.getMessageKey());
@@ -464,9 +464,14 @@ public class StrutsParameterLogicImpl
             String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)).equals("true");
     }
 
-    protected boolean handleIsActionParameter()
+    /**
+     * Overridden since StrutsAction does not extend FrontEndAction.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndParameter#isActionParameter()
+     */
+    public boolean isActionParameter()
     {
-        final StrutsAction action = getAction();
+        final StrutsAction action = getStrutsAction();
         return (action == null) ? false : action.getActionParameters().contains(this);
     }
 
@@ -718,7 +723,7 @@ public class StrutsParameterLogicImpl
         if (name != null)
         {
             // this parameter's action must be a table hyperlink
-            final StrutsAction action = getAction();
+            final StrutsAction action = getStrutsAction();
             if (action.isHyperlink() && action.isTableLink())
             {
                 // get the table and check whether this parameter is part of that table's columns
@@ -933,7 +938,7 @@ public class StrutsParameterLogicImpl
             }
             else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_LINK.equalsIgnoreCase(fieldType))
             {
-                final StrutsAction action = getAction();
+                final StrutsAction action = getStrutsAction();
                 if (action != null)
                 {
                     if (action.isTableLink())
@@ -1012,7 +1017,7 @@ public class StrutsParameterLogicImpl
                  * if the parameter is not selectable but on a targetting page it _is_ selectable we must
                  * allow the user to set the backing list too
                  */
-                Collection pages = getAction().getTargetPages();
+                Collection pages = getStrutsAction().getTargetPages();
                 for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext() && !selectable;)
                 {
                     StrutsJsp page = (StrutsJsp)pageIterator.next();

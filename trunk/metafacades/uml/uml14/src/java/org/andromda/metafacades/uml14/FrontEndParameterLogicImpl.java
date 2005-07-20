@@ -73,4 +73,31 @@ public class FrontEndParameterLogicImpl
         }
         return view;
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#isActionParameter()
+     */
+    protected boolean handleIsActionParameter()
+    {
+        final FrontEndAction action = this.getAction();
+        return action == null ? false : action.getParameters().contains(this.THIS());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getAction()
+     */
+    protected Object handleGetAction()
+    {
+        Object actionObject = null;
+        final EventFacade event = this.getEvent();
+        if (event != null)
+        {
+            final TransitionFacade transition = event.getTransition();
+            if (transition instanceof FrontEndAction)
+            {
+                actionObject = transition;
+            }
+        }
+        return actionObject;
+    }
 }
