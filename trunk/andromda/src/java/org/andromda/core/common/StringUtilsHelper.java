@@ -555,7 +555,7 @@ public class StringUtilsHelper
     public static String getLineSeparator()
     {
         // - for reasons of platform compatibility we do not use the 'line.separator' property
-        //   since this will break the build on different platforms (for exampele
+        //   since this will break the build on different platforms (for example
         //   when comparing cartridge output zips)
         return LINE_SEPARATOR;
     }
