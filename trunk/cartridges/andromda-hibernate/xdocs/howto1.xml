@@ -103,7 +103,7 @@
                     This property can be overridden using the following tagged value:
                     <ul>
                         <li>
-                            <a href="modeling.html#@andromda.hibernate.entity.cache">@andromda.hibernate.entity.cache
+                            <a href="profile.html#@andromda_hibernate_entity_cache">@andromda.hibernate.entity.cache
                             </a>
                         </li>
                     </ul>
@@ -138,23 +138,23 @@
                     The corresponding tagged values to overwrite the default values are:
                     <ul>
                         <li>
-                            <a href="modeling.html#@andromda.hibernate.ehcache.maxElementsInMemory">
+                            <a href="profile.html#@andromda_hibernate_ehcache_maxElementsInMemory">
                                 @andromda.hibernate.ehcache.maxElementsInMemory</a>
                         </li>
                         <li>
-                            <a href="modeling.html#@andromda.hibernate.ehcache.eternal">
+                            <a href="profile.html#@andromda_hibernate_ehcache_eternal">
                                 @andromda.hibernate.ehcache.eternal</a>
                         </li>
                         <li>
-                            <a href="modeling.html#@andromda.hibernate.ehcache.timeToIdleSeconds">
+                            <a href="profile.html#@andromda_hibernate_ehcache_timeToIdleSeconds">
                                 @andromda.hibernate.ehcache.timeToIdleSeconds</a>
                         </li>
                         <li>
-                            <a href="modeling.html#@andromda.hibernate.ehcache.timeToLiveSeconds">
+                            <a href="profile.html#@andromda_hibernate_ehcache_timeToLiveSeconds">
                                 @andromda.hibernate.ehcache.timeToLiveSeconds</a>
                         </li>
                         <li>
-                            <a href="modeling.html#@andromda.hibernate.ehcache.overflowToDisk">
+                            <a href="profile.html#@andromda_hibernate_ehcache_overflowToDisk">
                                 @andromda.hibernate.ehcache.overflowToDisk</a>
                         </li>
                     </ul>
@@ -176,7 +176,7 @@
                     Tagged value:
                     <ul>
                         <li>
-                            <a href="modeling.html#@andromda.hibernate.association.cache">
+                            <a href="profile.html#@andromda_hibernate_association_cache">
                                 @andromda.hibernate.association.cache</a>
                         </li>
                     </ul>
@@ -199,7 +199,7 @@
                     This default value will be used for all the queries that are not overridden using the tagged value:
                     <ul>
                         <li>
-                            <a href="modeling.html#@andromda.hibernate.query.useCache">
+                            <a href="profile.html#@andromda_hibernate_query_useCache">
                                 @andromda.hibernate.query.useCache</a>
                         </li>
                     </ul>

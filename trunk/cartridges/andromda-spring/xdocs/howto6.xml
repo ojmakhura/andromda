@@ -32,9 +32,9 @@
             </p>
             <p>
                 The documentation discussing the modeling of queries in UML is found here:
-                <a href="../andromda-ocl-query-library/modeling.html">Query Translation-Library Modeling</a>.
+                <a href="../andromda-ocl-query-library/profile.html">Query Translation-Library Modeling</a>.
                 The tagged value overriding queries using Hibernate QL directly is found here:
-                <a href="../andromda-spring-cartridge/modeling.html#@andromda_hibernate_query">@andromda.hibernate.query</a>.
+                <a href="../andromda-spring-cartridge/profile.html#@andromda_hibernate_query">@andromda.hibernate.query</a>.
             </p>
             <p>
                 <img src="resources/howto/org/andromda/test/6/uml.gif"/>
@@ -87,7 +87,7 @@
                 to be included in the search even if they are <code>null</code>.
                 You can even activate result set ordering (ascending / descending) by just applying two tagged values
                 to one or more criteria search attributes. For more details
-                go here: <a href="modeling.html#Supported_Tagged_Values">Tagged Values</a>.
+                go here: <a href="profile.html#Tagged_Values">Tagged Values</a>.
             </p>
             <p>
                 These criteria objects allow to set the maximum number of elements to fetch, just do something
