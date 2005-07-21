@@ -13,10 +13,12 @@ public class ATLTransformerTest
     {
         ATLTransformer transformer = new ATLTransformer();
         
+        // uml2java test (this transforms a UML to a JAVA metamodel)
+        
         // - the path of the package location of the test resources
-        final URL testResourceUrl = ResourceUtils.getResource("/");
+        final URL testResourceUrl = ResourceUtils.getResource("/uml2java");
         assertNotNull(testResourceUrl);
-        final String testResourcePath = testResourceUrl.toString();
+        final String testResourcePath = testResourceUrl.toString() + '/';
             
         final String atlPath = testResourcePath + "UML2JAVA.atl";
         
