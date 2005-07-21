@@ -1,10 +1,11 @@
-package org.andromda.core.common;
+package org.andromda.utils;
 
 import junit.framework.TestCase;
+import org.andromda.utils.StringUtilsHelper;
 
 
 /**
- * JUnit test for {@link org.andromda.core.common.StringUtilsHelper}
+ * JUnit test for {@link org.andromda.utils.StringUtilsHelper}
  *
  * @author Wouter Zoons
  */

@@ -2,7 +2,6 @@ package org.andromda.core.translation;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
-import org.andromda.core.common.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -143,7 +142,7 @@ public class TranslationUtils
      */
     public static String removeExtraWhitespace(final String string)
     {
-        return StringUtilsHelper.toSingleLine(string);
+        return (string == null) ? "" : string.replaceAll("[$\\s]+", " ").trim();
     }
 
     /**

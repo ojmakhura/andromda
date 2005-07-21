@@ -50,9 +50,9 @@ public class ExceptionUtils
      * @param argument the argument we are checking
      */
     public static void checkEmpty(
-        String methodExecuteName,
-        String argumentName,
-        String argument)
+        final String methodExecuteName,
+        final String argumentName,
+        final String argument)
     {
         final String methodName = "ExceptionUtils.checkEmpty";
         if (StringUtils.isEmpty(methodExecuteName))
@@ -82,10 +82,10 @@ public class ExceptionUtils
      * @param argumentName the name of the argument we are checking
      */
     public static void checkAssignable(
-        String methodExecuteName,
-        Class assignableToClass,
-        String argumentName,
-        Class argumentClass)
+        final String methodExecuteName,
+        final Class assignableToClass,
+        final String argumentName,
+        final Class argumentClass)
     {
         final String methodName = "ExceptionUtils.checkAssignable";
         if (StringUtils.isEmpty(methodExecuteName))
@@ -121,7 +121,7 @@ public class ExceptionUtils
      * @param throwable the exception from which to retrieve the root cause.
      * @return the root cause of the exception
      */
-    public static final Throwable getRootCause(Throwable throwable)
+    public static Throwable getRootCause(Throwable throwable)
     {
         final Throwable root = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
         if (root != null)

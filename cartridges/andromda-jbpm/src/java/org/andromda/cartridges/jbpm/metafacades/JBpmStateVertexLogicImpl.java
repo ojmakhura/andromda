@@ -1,13 +1,8 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 
 /**

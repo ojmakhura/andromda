@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ConstraintFacade;

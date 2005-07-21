@@ -1,0 +1,56 @@
+<project>
+    <extend>../project.xml</extend>
+    <name>AndroMDA Utilities</name>
+    <artifactId>andromda-utils</artifactId>
+    <package>org.andromda.utils</package>
+    <description>
+        This artifact collects the utility classes that are shared
+        between other AndroMDA artifacts.
+    </description>
+    <shortDescription>AndroMDA utility classes</shortDescription>
+<!--
+    <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10003&amp;decorator=none</issueTrackingUrl>
+    <repository>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/andromda</connection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda/</url>
+    </repository>
+-->
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+            <properties/>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+        </unitTest>
+    </build>
+    <reports>
+        <report>maven-jxr-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-faq-plugin</report>
+        <report>maven-tasklist-plugin</report>
+        <report>maven-file-activity-plugin</report>
+        <report>maven-developer-activity-plugin</report>
+        <report>maven-junit-report-plugin</report>
+        <report>maven-changelog-plugin</report>
+        <report>maven-changes-plugin</report>
+    </reports>
+    <properties/>
+</project>

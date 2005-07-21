@@ -1,7 +1,7 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.TransitionFacade;
 
 

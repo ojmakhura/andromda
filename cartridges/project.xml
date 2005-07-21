@@ -27,6 +27,11 @@
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
         </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>

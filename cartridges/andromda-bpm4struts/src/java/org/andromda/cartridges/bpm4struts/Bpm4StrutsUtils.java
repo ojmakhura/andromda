@@ -1,6 +1,6 @@
 package org.andromda.cartridges.bpm4struts;
 
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ManageableEntity;
 import org.apache.commons.lang.StringUtils;
 

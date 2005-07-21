@@ -1,12 +1,10 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.Collections;
 
 
 /**

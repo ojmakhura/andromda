@@ -21,6 +21,11 @@
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
             <artifactId>andromda-spring-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
             <type>jar</type>

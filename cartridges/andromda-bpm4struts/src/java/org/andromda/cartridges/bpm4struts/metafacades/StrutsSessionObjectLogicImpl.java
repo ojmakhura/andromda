@@ -1,6 +1,6 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 
 
 public class StrutsSessionObjectLogicImpl

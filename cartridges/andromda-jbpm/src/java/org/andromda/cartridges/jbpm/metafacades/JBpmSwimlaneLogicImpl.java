@@ -2,7 +2,7 @@ package org.andromda.cartridges.jbpm.metafacades;
 
 import org.andromda.cartridges.jbpm.JBpmProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 

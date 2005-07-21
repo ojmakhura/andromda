@@ -13,7 +13,7 @@
     <!-- define the template objects that are made available to the template -->
     <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils"/>
     <templateObject name="dateUtils" className="org.andromda.cartridges.bpm4struts.Bpm4StrutsDateUtils"/>
-    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <!-- cartridge-templateObject merge-point-->
 
     <property reference="xhtml"/>
