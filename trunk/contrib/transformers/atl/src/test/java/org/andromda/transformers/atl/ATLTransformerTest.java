@@ -13,7 +13,7 @@ public class ATLTransformerTest
     {
         ATLTransformer transformer = new ATLTransformer();
         
-        // - the path of the package location of the test resource
+        // - the path of the package location of the test resources
         final URL testResourceUrl = ResourceUtils.getResource("/");
         assertNotNull(testResourceUrl);
         final String testResourcePath = testResourceUrl.toString();
@@ -22,7 +22,7 @@ public class ATLTransformerTest
         
         final String mdrRepository = "MDR";
         
-        // - set up the UML meta model (this is the input metamodel)
+        // - set up the UML meta model (this is the input model's metamodel)
         final String umlMetamodelName = "UML";
         final Model umlMetamodel = new Model();
         final String umlMetamodelPath = testResourcePath + "UMLDI-20030818.xmi";
@@ -39,7 +39,7 @@ public class ATLTransformerTest
         // - set this first input model's meta model as UML
         sourceModel.setMetamodel(umlMetamodelName);
         
-        // - setup pthe target metamodel (this is the metamodel of the output model)
+        // - setup the target metamodel (this is the output model's metamodel)
         final String javaMetamodelName = "JAVA";
         final Model javaMetamodel = new Model();
         javaMetamodel.setName(javaMetamodelName);
@@ -50,6 +50,7 @@ public class ATLTransformerTest
         final Model targetModel = new Model();
         targetModel.setName("OUT");
         targetModel.setRepository(mdrRepository);
+        // - this is the path of the transformed output model
         final String targetModelPath = testResourcePath + "transformed-output.xmi";
         targetModel.setPath(targetModelPath);
         targetModel.setMetamodel(javaMetamodelName);
@@ -59,6 +60,7 @@ public class ATLTransformerTest
         Model[] sourceModels = new Model[] {sourceModel};
         Model[] targetModels = new Model[] {targetModel};
         
+        // - perform the transformation
         transformer.transform(atlPath, (Library[])null, metamodels, sourceModels, targetModels);
     }
 }
