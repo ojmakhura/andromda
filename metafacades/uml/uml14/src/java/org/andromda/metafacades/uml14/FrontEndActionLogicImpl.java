@@ -385,9 +385,9 @@ public class FrontEndActionLogicImpl
 
         // we do the action parameters in the end because they are allowed to overwrite existing properties
         final Collection actionParameters = this.getParameters();
-        for (final Iterator actionParameterIterator = actionParameters.iterator(); actionParameterIterator.hasNext();)
+        for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
         {
-            final ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
+            final ModelElementFacade facade = (ModelElementFacade)parameterIterator.next();
             formFieldMap.put(
                 facade.getName(),
                 facade);
