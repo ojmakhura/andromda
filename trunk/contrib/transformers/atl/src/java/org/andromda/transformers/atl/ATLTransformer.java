@@ -17,6 +17,7 @@ import org.andromda.transformers.atl.engine.ATLModelHandler;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.atl.engine.vm.nativelib.ASMModel;
 
 
@@ -27,7 +28,7 @@ import org.atl.engine.vm.nativelib.ASMModel;
  * @author Chad Brandon
  */
 public class ATLTransformer
-{
+{   
     /**
      * Performs the transformation.
      *
@@ -107,7 +108,7 @@ public class ATLTransformer
         }
         catch (final Throwable throwable)
         {
-            throwable.printStackTrace();
+            logger.error(throwable);
             throw new TransformerException(throwable);
         }
     }
@@ -306,4 +307,9 @@ public class ATLTransformer
         }
         return asmFile;
     }
+    
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(ATLTransformer.class);
 }
