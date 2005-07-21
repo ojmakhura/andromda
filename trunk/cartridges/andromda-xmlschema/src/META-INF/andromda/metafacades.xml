@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <metafacades>
-	<metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogicImpl">
+    <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
     </metafacade>
-	<metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogicImpl">
+    <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogicImpl">
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl"/>
-	</metafacade>
+    </metafacade>
 </metafacades>
 
