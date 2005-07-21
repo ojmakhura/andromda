@@ -1,6 +1,6 @@
 package org.andromda.metafacades.uml;
 
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 /**

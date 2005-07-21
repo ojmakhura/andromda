@@ -1,1 +1,0 @@
-This component will contain the andromda utilities.

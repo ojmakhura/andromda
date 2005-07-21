@@ -6,7 +6,7 @@
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
-    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <!-- cartridge-templateObject merge-point-->
 
     <!-- cartridge-property merge-point -->

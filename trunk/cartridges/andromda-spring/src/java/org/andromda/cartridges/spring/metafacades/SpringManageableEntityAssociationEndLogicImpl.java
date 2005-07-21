@@ -1,7 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.core.common.StringUtilsHelper;
+import org.andromda.utils.StringUtilsHelper;
 
 
 /**

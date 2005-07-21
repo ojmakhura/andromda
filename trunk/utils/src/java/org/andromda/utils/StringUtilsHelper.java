@@ -1,4 +1,4 @@
-package org.andromda.core.common;
+package org.andromda.utils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -143,9 +143,7 @@ public class StringUtilsHelper
      */
     public static String toResourceMessageKey(final String string)
     {
-        return separate(
-            StringUtils.trimToEmpty(string),
-            ".").toLowerCase();
+        return separate(StringUtils.trimToEmpty(string), ".").toLowerCase();
     }
 
     /**
@@ -555,7 +553,7 @@ public class StringUtilsHelper
     public static String getLineSeparator()
     {
         // - for reasons of platform compatibility we do not use the 'line.separator' property
-        //   since this will break the build on different platforms (for example
+        //   since this will break the build on different platforms (for exampele
         //   when comparing cartridge output zips)
         return LINE_SEPARATOR;
     }

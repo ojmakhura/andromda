@@ -19,6 +19,11 @@
              <version>${pom.currentVersion}</version>
              <type>plugin</type>
         </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
         <!-- Specify and configure our cartridges -->
         <dependency>
             <groupId>andromda</groupId>

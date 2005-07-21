@@ -29,6 +29,11 @@
             <version>${pom.currentVersion}</version>
             <type>xml.zip</type>
         </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
     </dependencies>
     <!-- restrict the reports generated -->
     <reports>
