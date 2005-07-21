@@ -49,11 +49,34 @@
         </p>
     </documentation>
     <elements>
-        <elementGroup name="Tagged Values">
+        <elementGroup name="Stereotypes">
+            <element name="ENTITY">
+                <documentation>
+                    Denotes a class is representing an Hibernate POJO. This will instruct the cartridge to generate
+                    an <code>.hbm.xml</code> descriptor and the corresponding class from it.
+                </documentation>
+                <value>Entity</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="SERVICE">
+                <documentation>
+                    Denotes a class is representing an EJB session bean that is supposed to be used as a facade
+                    for a set of entities.
+                </documentation>
+                <value>Service</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+        </elementGroup>
+        <element name="ENUMERATION">
             <documentation>
-                The tagged values which can be applied in the
-                <em>hibernate</em>namespace.
+                This class will instruct the generation of a type-safe enumeration class. The class implements the
+                required Hibernate interface to be able to be persisted. That way it is possible for Entities to
+                use this enumeration type for their attributes.
             </documentation>
+            <value>Enumeration</value>
+            <appliedOnElement>class</appliedOnElement>
+        </element>
+        <elementGroup name="Tagged Values">
             <element name="HIBERNATE_QUERY">
                 <documentation>
                     Defines a hibernate query expression. Note that it's encouraged
