@@ -69,7 +69,7 @@
                 <column name="$sourceEnd.columnName" sql-type="$sourceEnd.sqlType"/>
             </key>
             <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" foreign-key="$otherEnd.foreignKeyConstraintName">
-                <column name="$otherEnd.columnName" sql-type="$otherEnd.sqlType"/>
+                <column name="$otherEnd.columnName" sql-type="$otherEnd.sqlType"#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end/>
             </many-to-many>
         </set>
 #end
