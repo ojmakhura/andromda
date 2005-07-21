@@ -370,11 +370,9 @@ public class FrontEndActionLogicImpl
             {
                 // only add these if there is no parameter recorded yet with the same name
                 final Collection forwardParameters = forward.getForwardParameters();
-                for (
-                    final Iterator forwardParameterIterator = forwardParameters.iterator();
-                    forwardParameterIterator.hasNext();)
+                for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    final ModelElementFacade facade = (ModelElementFacade)forwardParameterIterator.next();
+                    final ModelElementFacade facade = (ModelElementFacade)parameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(
