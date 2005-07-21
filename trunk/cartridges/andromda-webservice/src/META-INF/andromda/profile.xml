@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <profile>
+    <documentation>
+        Actors represent roles within your model.  To designate that a role has access
+        to a given web service you must draw a dependeny from an Actor to the <![CDATA[<<WebService>>]]>.
+    </documentation>
     <elements>
-        <documentation>
-            Actors represent roles within your model.  To designate that a role has access
-            to a given web service you must draw a dependeny from an Actor to the <![CDATA[<<WebService>>]]>.
-        </documentation>
         <elementGroup name="Stereotypes">
             <element name="SERVICE">
                 <documentation>
@@ -40,7 +40,7 @@
                     Allows the definition of complex types.  These types can be related
                     to each other through associations and if the association multiplicity
                     is greater than 1, then an array reference will be generated (instead
-                    of a Collection)
+                    of a Collection).
                 </documentation>
                 <value>ValueObject</value>
                 <appliedOnElement>class</appliedOnElement>

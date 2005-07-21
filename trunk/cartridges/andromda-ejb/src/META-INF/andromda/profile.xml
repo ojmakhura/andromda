@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <profile>
+    <documentation>
+        Entity query operations (i.e. finders) can be denoted by setting the
+        query flag on the modeled operation to true
+        (they do not require any stereotypes).
+    </documentation>
     <elements>
-        <documentation>
-            Entity query operations (i.e. finders) can be denoted by setting the
-            query flag on the modeled operation to true
-            (they do not require any stereotypes).
-        </documentation>
         <elementGroup name="Stereotypes">
             <element name="ENTITY">
                 <documentation>
