@@ -100,9 +100,9 @@ public class ATLTransformer
                 
                 final ASMModel targetModel = (ASMModel)loadedTargetModels.get(modelName);
                 final ATLModelHandler handler = ATLModelHandler.getInstance(model.getRepository());
-                String targetModelOutputPath = new URL(model.getPath()).getFile();
+                final String targetModelOutputPath = new URL(model.getPath()).getFile();
                 AndroMDALogger.info("Output model: '" + targetModelOutputPath + "'");
-                handler.saveModel(targetModel, targetModelOutputPath);
+                handler.writeModel(targetModel, targetModelOutputPath);
             }
         }
         catch (final Throwable throwable)

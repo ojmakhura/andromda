@@ -20,9 +20,9 @@ public class ATLMDRModelHandler
 {
 
     /**
-     * @see org.andromda.transformers.atl.engine.ATLModelHandler#saveModel(org.atl.engine.vm.nativelib.ASMModel, java.lang.String)
+     * @see org.andromda.transformers.atl.engine.ATLModelHandler#writeModel(org.atl.engine.vm.nativelib.ASMModel, java.lang.String)
      */
-    public void saveModel(
+    public void writeModel(
         final ASMModel model,
         final String path)
     {

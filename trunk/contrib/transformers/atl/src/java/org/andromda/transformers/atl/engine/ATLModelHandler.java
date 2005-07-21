@@ -53,10 +53,10 @@ public abstract class ATLModelHandler
      * Writes the <code>model</code> to the given
      * <code>uri</code>.
      * 
-     * @param model
-     * @param uri
+     * @param model the model to write
+     * @param uri the URI to which the model will be written.
      */
-    public abstract void saveModel(
+    public abstract void writeModel(
         final ASMModel model,
         final String uri);
 
