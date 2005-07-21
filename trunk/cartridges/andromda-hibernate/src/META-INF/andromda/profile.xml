@@ -66,16 +66,16 @@
                 <value>Service</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="ENUMERATION">
+                <documentation>
+                    This class will instruct the generation of a type-safe enumeration class. The class implements the
+                    required Hibernate interface to be able to be persisted. That way it is possible for Entities to
+                    use this enumeration type for their attributes.
+                </documentation>
+                <value>Enumeration</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
         </elementGroup>
-        <element name="ENUMERATION">
-            <documentation>
-                This class will instruct the generation of a type-safe enumeration class. The class implements the
-                required Hibernate interface to be able to be persisted. That way it is possible for Entities to
-                use this enumeration type for their attributes.
-            </documentation>
-            <value>Enumeration</value>
-            <appliedOnElement>class</appliedOnElement>
-        </element>
         <elementGroup name="Tagged Values">
             <element name="HIBERNATE_QUERY">
                 <documentation>
