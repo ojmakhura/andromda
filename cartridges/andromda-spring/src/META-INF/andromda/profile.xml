@@ -32,6 +32,27 @@
          </p>
     </documentation>
     <elements>
+        <elementGroup name="Stereotypes">
+            <element name="ENTITY">
+                <documentation>
+                    See the documentation from the
+                    <a href="../andromda-hibernate-cartridge/profile.html#Entity">Hibernate cartridge</a>.
+                </documentation>
+                <value>Entity</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="SERVICE">
+                <documentation>
+                    Either denotes a class is representing an EJB session bean or a Spring service. This service
+                    is supposed to be used as a facade for a set of entities. If you want to use Spring services
+                    instead of the default EJB session beans then you will need to remove the
+                    <code>session-ejbs</code> outlet from the spring cartridge's namespace in the
+                    <a href="../configuration.html">andromda.xml</a> configuration.
+                </documentation>
+                <value>Service</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+        </elementGroup>
         <elementGroup name="Tagged Values">
             <documentation>
                 The tagged values which apply to the Spring namespace.
