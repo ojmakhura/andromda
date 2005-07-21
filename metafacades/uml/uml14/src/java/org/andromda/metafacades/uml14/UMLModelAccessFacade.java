@@ -36,7 +36,7 @@ public class UMLModelAccessFacade
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(java.lang.Object)
      */
-    public void setModel(Object model)
+    public void setModel(final Object model)
     {
         final String methodName = "UMLModelAccessFacade.setModel";
         ExceptionUtils.checkNull(methodName, "model", model);
@@ -97,7 +97,7 @@ public class UMLModelAccessFacade
                 packageName.append(name);
             }
         }
-        return ((ModelElementFacade)modelElement).getPackageName(true);
+        return packageName.toString();
     }
 
     /**
