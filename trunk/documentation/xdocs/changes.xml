@@ -10,6 +10,11 @@
     </properties>
     <body>
         <release version="3.1-RC1-SNAPSHOT" date="2005-07-20" description="First release candidate of version 3.1">
+            <action dev="draftdog" type="add" issue="CORE-54">
+                Common utility classes have been refactored out of the AndroMDA core, there is now a separate
+                artifact for those called <code>andromda-utils</code>. In order to run andromda on projects
+                created before this change you will need to add a dependency to it in<code>mda/project.xml</code>.
+            </action>
             <action dev="draftdog" type="update">
                 Each <![CDATA[<<FrontEndView>>]]> in the bpm4struts cartridge will result in the generation of a JSP
                 page. This page will use include statements to construct its content from other <code>.jspf</code>
