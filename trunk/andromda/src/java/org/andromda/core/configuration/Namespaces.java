@@ -250,7 +250,7 @@ public class Namespaces
     /**
      * Attempts to get the value of a property from the given
      * <code>namespace</code> with the given <code>name</code> by first attempting
-     * to retreive it from the namespace and if no property is defined
+     * to retrieve it from the namespace and if no property is defined
      * in the namespace we retrieve the default value (if one is defined).
      *
      * @param namespace the namespace for which to retreive the value.
