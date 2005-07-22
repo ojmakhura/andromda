@@ -17,6 +17,11 @@
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-utils</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
             <artifactId>andromda-site-plugin</artifactId>
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
