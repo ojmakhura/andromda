@@ -1,8 +1,10 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import java.text.MessageFormat;
+
 import java.util.Collection;
 
+import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -12,19 +14,21 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * MetafacadeLogic implementation for
  * org.andromda.cartridges.spring.metafacades.SpringService.
- * 
+ *
  * @author Chad Brandon
  * @author Peter Friese
  * @see org.andromda.cartridges.spring.metafacades.SpringService
  */
 public class SpringServiceLogicImpl
-        extends SpringServiceLogic
+    extends SpringServiceLogic
 {
-
-    public SpringServiceLogicImpl(Object metaObject, String context)
+    public SpringServiceLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -67,8 +71,10 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedEjbImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getEjbPackageName(),
-                this.getName(), SpringGlobals.EJB_IMPLEMENTATION_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getEjbPackageName(),
+            this.getName(),
+            SpringGlobals.EJB_IMPLEMENTATION_SUFFIX);
     }
 
     /**
@@ -76,8 +82,10 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedEjbName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getEjbPackageName(),
-                this.getName(), null);
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getEjbPackageName(),
+            this.getName(),
+            null);
     }
 
     /**
@@ -85,8 +93,10 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedImplementationName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getName(),
-                SpringGlobals.IMPLEMENTATION_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getName(),
+            SpringGlobals.IMPLEMENTATION_SUFFIX);
     }
 
     /**
@@ -102,8 +112,10 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetFullyQualifiedBaseName()
     {
-        return SpringMetafacadeUtils.getFullyQualifiedName(this.getPackageName(), this.getName(),
-                SpringGlobals.SERVICE_BASE_SUFFIX);
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getName(),
+            SpringGlobals.SERVICE_BASE_SUFFIX);
     }
 
     /**
@@ -111,8 +123,10 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetEjbPackageName()
     {
-        String ejbPackageName = MessageFormat.format(this.getEjbPackageNamePattern(),
-                new Object[] { StringUtils.trimToEmpty(this.getPackageName()) });
+        String ejbPackageName =
+            MessageFormat.format(
+                this.getEjbPackageNamePattern(),
+                new Object[] {StringUtils.trimToEmpty(this.getPackageName())});
         if (StringUtils.isBlank(this.getPackageName()))
         {
             ejbPackageName = ejbPackageName.replaceAll("^\\.", "");
@@ -141,8 +155,7 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetBeanName(boolean targetSuffix)
     {
-        StringBuffer beanName = new StringBuffer(StringUtils.uncapitalize(StringUtils
-                .trimToEmpty(this.getName())));
+        StringBuffer beanName = new StringBuffer(StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName())));
         if (targetSuffix)
         {
             beanName.append(SpringGlobals.BEAN_NAME_TARGET_SUFFIX);
@@ -152,7 +165,7 @@ public class SpringServiceLogicImpl
 
     /**
      * Gets the <code>ejbPackageNamePattern</code> for this EJB.
-     * 
+     *
      * @return the defined package pattern.
      */
     protected String getEjbPackageNamePattern()
@@ -162,14 +175,13 @@ public class SpringServiceLogicImpl
 
     /**
      * Gets the <code>ejbJndiNamePrefix</code> for this EJB.
-     * 
+     *
      * @return the EJB Jndi name prefix.
      */
     protected String getEjbJndiNamePrefix()
     {
         final String property = "ejbJndiNamePrefix";
-        return this.isConfiguredProperty(property) ? ObjectUtils.toString(this
-                .getConfiguredProperty(property)) : null;
+        return this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : null;
     }
 
     /**
@@ -209,8 +221,8 @@ public class SpringServiceLogicImpl
      */
     private String getRemotingType()
     {
-        String serviceRemotingType = StringUtils.trimToEmpty(String.valueOf(this
-                .getConfiguredProperty("serviceRemotingType")));
+        String serviceRemotingType =
+            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("serviceRemotingType")));
         String result = SpringMetafacadeUtils.getServiceRemotingType(this, serviceRemotingType);
         return result;
     }
@@ -220,8 +232,7 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetRemoteServer()
     {
-        return StringUtils.trimToEmpty(String.valueOf(this
-                .getConfiguredProperty("serviceRemoteServer")));
+        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("serviceRemoteServer")));
     }
 
     /**
@@ -229,8 +240,8 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetRemotePort()
     {
-        String serviceRemotePort = StringUtils.trimToEmpty(String.valueOf(this
-                .getConfiguredProperty("serviceRemotePort")));
+        String serviceRemotePort =
+            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("serviceRemotePort")));
         return SpringMetafacadeUtils.getServiceRemotePort(this, serviceRemotePort);
     }
 
@@ -241,8 +252,7 @@ public class SpringServiceLogicImpl
     {
         final String property = "serviceRemoteContext";
 
-        return this.isConfiguredProperty(property) ? ObjectUtils.toString(this
-                .getConfiguredProperty(property)) : "";
+        return this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : "";
     }
 
     /**
@@ -278,21 +288,23 @@ public class SpringServiceLogicImpl
         {
             // nothing
         }
-        else if (this.isRemotingTypeHttpInvoker() || this.isRemotingTypeHessian()
-                || this.isRemotingTypeBurlap())
+        else if (this.isRemotingTypeHttpInvoker() || this.isRemotingTypeHessian() || this.isRemotingTypeBurlap())
         {
             // server
             result = "http://${remoteServer}";
+
             // port
             if (hasServiceRemotePort())
             {
                 result += ":${remotePort}";
             }
+
             // context
             if (hasServiceRemoteContext())
             {
                 result += "/${remoteContext}";
             }
+
             // service name
             result += "/" + getName();
         }
@@ -300,11 +312,13 @@ public class SpringServiceLogicImpl
         {
             // server
             result = "rmi://${remoteServer}";
+
             // port
             if (hasServiceRemotePort())
             {
                 result += ":${remotePort";
             }
+
             // service name
             result += "/" + getName();
         }
@@ -317,18 +331,18 @@ public class SpringServiceLogicImpl
     protected Collection handleGetWebServiceOperations()
     {
         return new FilteredCollection(this.getOperations())
-        {
-            public boolean evaluate(Object object)
             {
-                return ((SpringServiceOperation)object).isWebserviceExposed();
-            }
-        };
+                public boolean evaluate(Object object)
+                {
+                    return ((SpringServiceOperation)object).isWebserviceExposed();
+                }
+            };
     }
 
     /**
      * Override to retrieve any abstract operations from an abstract
      * generalization.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperations()
      */
     public Collection getOperations()
@@ -336,21 +350,24 @@ public class SpringServiceLogicImpl
         final Collection operations = super.getOperations();
         if (!this.isAbstract())
         {
-            for (ClassifierFacade generalization = (ClassifierFacade)this.getGeneralization(); generalization != null; generalization = (ClassifierFacade)generalization
-                    .getGeneralization())
+            for (
+                ClassifierFacade generalization = (ClassifierFacade)this.getGeneralization(); generalization != null;
+                generalization = (ClassifierFacade)generalization.getGeneralization())
             {
                 if (generalization.isAbstract())
                 {
-                    CollectionUtils.forAllDo(generalization.getOperations(), new Closure()
-                    {
-                        public void execute(Object object)
+                    CollectionUtils.forAllDo(
+                        generalization.getOperations(),
+                        new Closure()
                         {
-                            if (((OperationFacade)object).isAbstract())
+                            public void execute(Object object)
                             {
-                                operations.add(object);
+                                if (((OperationFacade)object).isAbstract())
+                                {
+                                    operations.add(object);
+                                }
                             }
-                        }
-                    });
+                        });
                 }
             }
         }
@@ -362,9 +379,11 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetDefaultExceptionName()
     {
-        String name = StringUtils.trimToEmpty(String.valueOf(this
-                .getConfiguredProperty("defaultServiceExceptionNamePattern")));
-        return name.replaceAll("\\{0\\}", this.getName());
+        String name =
+            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("defaultServiceExceptionNamePattern")));
+        return name.replaceAll(
+            "\\{0\\}",
+            this.getName());
     }
 
     /**
@@ -391,9 +410,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsAllowDefaultServiceException()
     {
-        return Boolean.valueOf(
-                String.valueOf(this.getConfiguredProperty("defaultServiceExceptions")))
-                .booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty("defaultServiceExceptions"))).booleanValue();
     }
 
     /**
@@ -447,9 +464,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsHibernateInterceptorEnabled()
     {
-        return Boolean.valueOf(
-                String.valueOf(this.getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED)))
-                .booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED))).booleanValue();
     }
 
     /**
@@ -458,11 +473,16 @@ public class SpringServiceLogicImpl
     private static final String EJB_VIEW_TYPE = "ejbViewType";
 
     /**
-     * Gets the view for this service (if an EJB).
+     * Gets the view for this service (if wrapped by an EJB).
      */
     private String getEjbViewType()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(EJB_VIEW_TYPE));
+        Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_EJB_VIEW_TYPE);
+        if (value == null)
+        {
+            value = this.getConfiguredProperty(EJB_VIEW_TYPE);
+        }
+        return ObjectUtils.toString(value);
     }
 
     /**
@@ -477,5 +497,4 @@ public class SpringServiceLogicImpl
     {
         return this.getEjbViewType().equalsIgnoreCase(EJB_REMOTE_VIEW);
     }
-
 }

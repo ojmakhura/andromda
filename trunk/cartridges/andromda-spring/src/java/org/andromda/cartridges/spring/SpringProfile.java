@@ -25,6 +25,11 @@ public class SpringProfile
      * Stores the EJB service transaction type.
      */
     public static final String TAGGEDVALUE_EJB_TRANSACTION_TYPE = profile.get("EJB_TRANSACTION_TYPE");
+    
+    /**
+     * Stores the EJB service view type (local/remote). 
+     */
+    public static final String TAGGEDVALUE_EJB_VIEW_TYPE = profile.get("EJB_VIEW_TYPE");
 
     /**
      * Stores the Spring service transaction type.
