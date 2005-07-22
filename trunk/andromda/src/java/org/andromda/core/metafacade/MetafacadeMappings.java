@@ -279,7 +279,7 @@ public class MetafacadeMappings
     }
 
     /**
-     * <p/> Stores the mappings which are currently "in process" (within the
+     * <p> Stores the mappings which are currently "in process" (within the
      * {@link #getMapping(Object, String, Collection)}. This means the mapping
      * is being processed by the {@link #getMapping(Object, String, Collection)}
      * operation. We store these "in process" mappings in order to keep track of
@@ -287,14 +287,15 @@ public class MetafacadeMappings
      * {@link #getMapping(Object, String, Collection)}when finding mappings
      * that are mapped to super metafacade properties.
      * </p>
-     * <p/> Note: visibility is defined as <code>protected</code> in order to
+     * <p> 
+     * Note: visibility is defined as <code>protected</code> in order to
      * improve inner class access performance.
      * </p>
      */
     protected final Collection inProcessMappings = new ArrayList();
 
     /**
-     * <p/> Stores the metafacades which are currently "in process" (within the
+     * <p> Stores the metafacades which are currently "in process" (within the
      * {@link #getMapping(Object, String, Collection)}. This means the
      * metafacade being processed by the {@link #getMapping(Object, String,
      * Collection)}operation. We store these "in process" metafacades in order
@@ -302,14 +303,15 @@ public class MetafacadeMappings
      * stack over flow errors {@link #getMapping(Object, String, Collection)}when
      * finding metafacades that are mapped to super metafacade properties.
      * </p>
-     * <p/> Note: visibility is defined as <code>protected</code> in order to
+     * <p> 
+     * Note: visibility is defined as <code>protected</code> in order to
      * improve inner class access performance.
      * </p>
      */
     protected final Collection inProcessMetafacades = new ArrayList();
 
     /**
-     * <p/> Retrieves the MetafacadeMapping belonging to the unique
+     * <p> Retrieves the MetafacadeMapping belonging to the unique
      * <code>key</code> created from the <code>mappingObject</code>'s
      * class, <code>context</code> and given <code>stereotypes</code>. It's
      * <strong>IMPORTANT </strong> to note that contexts have a higher priority
@@ -324,7 +326,8 @@ public class MetafacadeMappings
      * <li>multiple stereotypes with a context</li>
      * </ul>
      * </p>
-     * <p/> NOTE: mapping properties are inherited from super metafacades.
+     * <p> 
+     * NOTE: mapping properties are inherited from super metafacades.
      * </p>
      *
      * @param mappingClassName the name of the mapping class to use instead of
