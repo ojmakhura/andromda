@@ -116,6 +116,8 @@ public class AndroMDA
                 }
                 catch (final ConnectException exception)
                 {
+                    // - if we can't connect to the server, it means
+                    //   we aren't running in client mode
                     client = false;
                 }
             }
