@@ -3,6 +3,8 @@ package org.andromda.core;
 
 /**
  * The exception thrown when model validation fails.
+ *
+ * @author Chad Brandon
  */
 public class ModelValidationException
     extends RuntimeException
@@ -10,9 +12,9 @@ public class ModelValidationException
     /**
      * Constructs an instance of ModelValidationException.
      *
-     * @param message
+     * @param message the validation message indicating the error.
      */
-    public ModelValidationException(String message)
+    public ModelValidationException(final String message)
     {
         super(message);
     }
