@@ -43,11 +43,6 @@ public class ResourceUtils
     public static URL getResource(final String resourceName)
     {
         final String methodName = "ResourceUtils.getResource";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("performing '" + methodName + "' with resourceName '" + resourceName + "'");
-        }
-
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
         final ClassLoader loader = ClassUtils.getClassLoader();
         return loader != null ? loader.getResource(resourceName) : null;
@@ -65,11 +60,16 @@ public class ResourceUtils
         {
             return getContents(resource != null ? new InputStreamReader(resource.openStream()) : null);
         }
-        catch (Throwable throwable)
+        catch (final Throwable throwable)
         {
             throw new RuntimeException(throwable);
         }
     }
+
+    /**
+     * The line separator.
+     */
+    private static final char LINE_SEPARATOR = '\n';
 
     /**
      * Loads the resource and returns the contents as a String.
@@ -90,14 +90,14 @@ public class ResourceUtils
         {
             if (resource != null)
             {
-                BufferedReader in = new BufferedReader(resource);
+                BufferedReader resourceInput = new BufferedReader(resource);
                 String line;
-                while ((line = in.readLine()) != null)
+                while ((line = resourceInput.readLine()) != null)
                 {
-                    contents.append(line + "\n");
+                    contents.append(line + LINE_SEPARATOR);
                 }
-                in.close();
-                in = null;
+                resourceInput.close();
+                resourceInput = null;
             }
         }
         catch (final Throwable throwable)
@@ -294,13 +294,6 @@ public class ResourceUtils
         final String directory)
     {
         final String methodName = "ResourceUtils.getResource";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug(
-                "performing '" + methodName + "' with resourceName '" + resourceName + "' and directory '" + directory +
-                "'");
-        }
-
         ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
 
         if (directory != null)
@@ -315,7 +308,7 @@ public class ResourceUtils
                 catch (final MalformedURLException exception)
                 {
                     logger.warn(
-                        "'" + file + "' is an invalid resource," + " attempting to find resource '" + resourceName +
+                        "'" + file + "' is an invalid resource, attempting to find resource '" + resourceName +
                         "' on classpath");
                 }
             }
