@@ -13,6 +13,8 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndFinalState;
+import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.Role;
@@ -219,5 +221,38 @@ public class FrontEndUseCaseLogicImpl
             if (action != null) actions.add(action);
         }
         return new ArrayList(actions);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndUseCase#getInitialView()
+     */
+    protected Object handleGetInitialView()
+    {
+        FrontEndView view = null;
+        final FrontEndActivityGraph graph = this.getActivityGraph();
+        final FrontEndAction action = graph != null ? this.getActivityGraph().getInitialAction() : null;
+        final Collection forwards = action != null ? action.getActionForwards() : null;
+        if (forwards != null)
+        {
+            for (final Iterator iterator = forwards.iterator(); iterator.hasNext();)
+            {
+                final FrontEndForward forward = (FrontEndForward)iterator.next();
+                final Object target = forward.getTarget();
+                if (target instanceof FrontEndView)
+                {
+                    view = (FrontEndView)target;
+                }
+                else if (target instanceof FrontEndFinalState)
+                {
+                    final FrontEndFinalState finalState = (FrontEndFinalState)target;
+                    final FrontEndUseCase targetUseCase = finalState.getTargetUseCase();
+                    if (targetUseCase != null && !targetUseCase.equals(this.THIS()))
+                    {
+                        view = targetUseCase.getInitialView();
+                    }
+                }
+            }
+        }
+        return view;
     }
 }
