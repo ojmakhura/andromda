@@ -311,7 +311,7 @@ public class ModelProcessor
                 (Transformer)ComponentContainer.instance().findRequiredComponent(Transformer.class);
             final String[] uris = model.getUris();
             final int uriNumber = uris.length;
-            InputStream[] streams = new InputStream[uriNumber];
+            final InputStream[] streams = new InputStream[uriNumber];
             for (int ctr = 0; ctr < uriNumber; ctr++)
             {
                 streams[ctr] = transformer.transform(
