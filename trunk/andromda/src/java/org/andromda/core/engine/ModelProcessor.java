@@ -247,8 +247,11 @@ public class ModelProcessor
 
     /**
      * Initializes this model processor instance with the given
-     * configuration.  This configuration is overridden (if changed)
-     * when calling {@link #run(Configuration)}.
+     * configuration.  This configuration information is overridden (if changed)
+     * when calling {@link #process(Configuration)}
+     * 
+     * @param configuration the configuration instance by which to initialize this 
+     *        model processor instance.
      */
     public void initialize(final Configuration configuration)
     {
