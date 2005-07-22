@@ -125,6 +125,8 @@ public class AndroMDA
             {
                 client = false;
             }
+            
+            // - since we aren't running in 'client' mode, run the engine as usual
             if (!client)
             {
                 this.engine.initialize(configuration);
