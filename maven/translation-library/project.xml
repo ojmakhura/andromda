@@ -50,6 +50,12 @@
             <properties/>
         </dependency>
         <dependency>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
