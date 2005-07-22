@@ -1,7 +1,3 @@
-/*
- * Created on 1 juin 2004
- *
- */
 package org.andromda.transformers.atl.engine;
 
 import java.io.BufferedInputStream;
