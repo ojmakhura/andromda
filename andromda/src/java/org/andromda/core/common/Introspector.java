@@ -512,7 +512,7 @@ public final class Introspector
     }
 
     /**
-     * The name of the 'valueOf' method.
+     * The prefix of the 'valueOf' method available on wrapper classes.
      */
     private static final String VALUE_OF_METHOD_NAME = "valueOf";
 
