@@ -72,8 +72,8 @@
             <artifactId>andromda-utils</artifactId>
             <version>${andromda.version}</version>
         </dependency>
-#if ($ejb)
         <!-- Specify and configure our cartridges -->
+#if ($ejb)
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ejb-cartridge</artifactId>
@@ -86,11 +86,9 @@
             <artifactId>andromda-spring-cartridge</artifactId>
             <version>${andromda.version}</version>
             <type>jar</type>
-            <type>jar</type>
         </dependency>
 #end
 #if ($hibernate || $spring)
-        <!-- specify and configure our cartridges -->
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-hibernate-cartridge</artifactId>
