@@ -73,6 +73,18 @@
                     <value>Never</value>
                 </allowedValues>
             </element>
+            <element name="EJB_VIEW_TYPE">
+                <documentation>
+                    Defines an EJB service's view type (when Spring services are wrapped by
+                    EJBs).
+                </documentation>
+                <value>@andromda.ejb.viewType</value>
+                <appliedOnElement>Service</appliedOnElement>
+                <allowedValues>
+                    <value>local</value>
+                    <value>remote</value>
+                </allowedValues>
+            </element>
             <element name="TRANSACTION_TYPE">
                 <documentation>
                     Defines a Spring transaction type for the service operation
