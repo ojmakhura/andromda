@@ -1,9 +1,11 @@
 package org.andromda.core.common;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * @deprecated use {@link org.andromda.utils.StringUtilsHelper} instead
  */
-public class StringUtilsHelper
+public class StringUtilsHelper extends StringUtils
 {
     /**
      * @deprecated use {@link org.andromda.utils.StringUtilsHelper#replaceSuffix(String, String, String)} instead
