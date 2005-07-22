@@ -21,7 +21,8 @@ import org.apache.log4j.Logger;
 
 /**
  * Represents the base plugin of AndroMDA. All Plugin instances inherit from this class.
-S * @author Chad Brandon
+ *
+ * @author Chad Brandon
  */
 public abstract class BasePlugin
     extends BaseNamespaceComponent
