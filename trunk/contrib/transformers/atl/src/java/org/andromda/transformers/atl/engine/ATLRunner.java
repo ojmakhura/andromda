@@ -99,7 +99,7 @@ public class ATLRunner
 
             for (final Iterator iterator = models.keySet().iterator(); iterator.hasNext();)
             {
-                String modelName = (String)iterator.next();
+                final String modelName = (String)iterator.next();
                 environment.addModel(modelName, (ASMModel)models.get(modelName));
             }
             environment.registerOperations(asm);
