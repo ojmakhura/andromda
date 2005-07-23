@@ -15,9 +15,10 @@ import org.atl.engine.vm.nativelib.ASMModel;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 
+
 /**
  * The {@link ATLModelHandler} implementation for EMF models.
- * 
+ *
  * @author Frédéric Jouault
  * @author Chad Brandon
  */
@@ -34,7 +35,7 @@ public class ATLEMFModelHandler
         final ASMModel model,
         final String path)
     {
-        saveModel(
+        this.saveModel(
             model,
             URI.createURI(path));
     }
@@ -140,10 +141,7 @@ public class ATLEMFModelHandler
             try
             {
                 final InputStream stream = metaModelUrl.openStream();
-                result = loadModel(
-                        name,
-                        mofMetamodel,
-                        stream);
+                result = this.loadModel(name, mofMetamodel, stream);
                 stream.close();
             }
             catch (final Throwable throwable)
