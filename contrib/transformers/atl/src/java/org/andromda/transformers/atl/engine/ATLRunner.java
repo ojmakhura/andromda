@@ -2,10 +2,13 @@ package org.andromda.transformers.atl.engine;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
+
 import java.net.URL;
-import java.util.ArrayList;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.transformers.atl.TransformerException;
@@ -21,7 +24,7 @@ import org.atl.engine.vm.nativelib.ASMModule;
 
 /**
  * Runs the ATL engine.
- * 
+ *
  * @author Chad Brandon
  */
 public class ATLRunner
@@ -93,8 +96,8 @@ public class ATLRunner
             final ASM asm = new ASMXMLReader().read(new BufferedInputStream(sourceUri.openStream()));
             ASMModule asmModule = new ASMModule(asm);
 
-            final Debugger debugger =
-                new SimpleDebugger(false, new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList(), true);
+            final List emptyList = Collections.EMPTY_LIST;
+            final Debugger debugger = new SimpleDebugger(false, emptyList, emptyList, emptyList, emptyList, true);
             final ASMExecEnv environment = new ASMExecEnv(asmModule, debugger);
 
             for (final Iterator iterator = models.keySet().iterator(); iterator.hasNext();)
