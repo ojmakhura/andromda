@@ -58,13 +58,13 @@ public class ATLCompiler
         ResourceUtils.makeDirectories(outputLocation.toString());
         EObject[] compilationResult = null;
 
-        // Parsing + Semantic Analysis
+        // - parsing + Semantic Analysis
         final ASMModel[] parsed = ATLParser.instance().parseToModelWithProblems(atlSource);
         final ASMModel atlModel = parsed[0];
         final ASMModel problems = parsed[1];
 
-        // Generating code
-        ATLModelHandler handler = ATLModelHandler.getInstance(ATLModelHandler.AMH_EMF);
+        // - generating code
+        final ATLModelHandler handler = ATLModelHandler.getInstance(ATLModelHandler.AMH_EMF);
         final Map models = new HashMap();
         models.put(
             "MOF",
