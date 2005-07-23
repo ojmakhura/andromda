@@ -2,15 +2,14 @@ package org.andromda.transformers.atl.engine;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.core.common.ExceptionUtils;
 import org.andromda.transformers.atl.TransformerException;
 import org.atl.engine.vm.ASM;
 import org.atl.engine.vm.ASMExecEnv;
@@ -89,6 +88,11 @@ public class ATLRunner
         final Map models,
         final Map parameters)
     {
+        final String methodName = "ATLRunner.run";
+        ExceptionUtils.checkNull(methodName, "sourceUri", sourceUri);
+        ExceptionUtils.checkNull(methodName, "libraries", libraries);
+        ExceptionUtils.checkNull(methodName, "models", models);
+        ExceptionUtils.checkNull(methodName, "parameters", parameters);
         Object result = null;
         try
         {
