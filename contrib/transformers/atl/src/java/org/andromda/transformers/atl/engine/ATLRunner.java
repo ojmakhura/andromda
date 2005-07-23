@@ -95,7 +95,7 @@ public class ATLRunner
 
             final Debugger debugger =
                 new SimpleDebugger(false, new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList(), true);
-            ASMExecEnv environment = new ASMExecEnv(asmModule, debugger);
+            final ASMExecEnv environment = new ASMExecEnv(asmModule, debugger);
 
             for (final Iterator iterator = models.keySet().iterator(); iterator.hasNext();)
             {
