@@ -1,5 +1,7 @@
 package org.andromda.core.metafacade;
 
+import java.io.Serializable;
+
 import java.util.List;
 
 import org.andromda.core.common.ClassUtils;
@@ -8,11 +10,12 @@ import org.apache.commons.lang.StringUtils;
 
 
 /**
- * Stores the validation messages that are stored up to be output at the end model processing.
+ * Stores the validation messages that are collected during model validation.
  *
  * @author Chad Brandon
  */
 public class ModelValidationMessage
+    implements Serializable
 {
     /**
      * Constructs a new instance of MetafacadeValidationMessage taking a <code>metafacade</code> instance and a

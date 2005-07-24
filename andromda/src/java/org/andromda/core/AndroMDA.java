@@ -1,7 +1,6 @@
 package org.andromda.core;
 
 import java.io.InputStream;
-
 import java.net.ConnectException;
 import java.net.URL;
 
@@ -9,6 +8,7 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.engine.Engine;
+import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.server.Client;
 import org.apache.log4j.Logger;
 
@@ -99,8 +99,9 @@ public class AndroMDA
      *
      * @param configuration the configuration instance that configures AndroMDA.
      */
-    public void run(final Configuration configuration)
+    public ModelValidationMessage[] run(final Configuration configuration)
     {
+        ModelValidationMessage[] messages = null;
         if (configuration != null)
         {
             final Client serverClient = (Client)ComponentContainer.instance().findRequiredComponent(Client.class);
@@ -130,13 +131,14 @@ public class AndroMDA
             if (!client)
             {
                 this.engine.initialize(configuration);
-                this.engine.run(configuration);
+                messages = this.engine.run(configuration);
             }
         }
         else
         {
             logger.warn("AndroMDA could not run because no configuration was defined");
         }
+        return messages == null ? new ModelValidationMessage[0] : messages;
     }
 
     /**
