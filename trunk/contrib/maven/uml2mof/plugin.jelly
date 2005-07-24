@@ -1,7 +1,6 @@
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
-         xmlns:maven="jelly:maven"
-         xmlns:i="jelly:interaction">
+         xmlns:maven="jelly:maven">
 
     <j:set var="xmiFile" value="testModel"/>
     
@@ -49,7 +48,7 @@
                 file="${uml2mof.output}/xmi/${xmiFile}.dtd" 
                 extent="mof4models"/>                                    
             <ant:mapJava
-                dir="${uml2mof.output}/java/" 
+                dir="${maven.build.src}/java/" 
                 extent="mof4models"/>
             <ant:mapClass
                 dir="${maven.build.dest}" 
@@ -71,15 +70,31 @@ Please define the location of your UML model by setting a value for property "an
     <goal name="uml2mof:init"
           description="private internal goal">
         <j:set var="uml2mof.output" value="${andromda.uml2mof.output.dir}"/>
-        <ant:mkdir dir="${uml2mof.output}"/>
+        <ant:mkdir dir="${uml2mof.output}/umlmodel"/>
         <ant:mkdir dir="${uml2mof.output}/metamodel"/>
-        <ant:mkdir dir="${uml2mof.output}/java"/>
+        <ant:mkdir dir="${maven.build.src}/java"/>
         <ant:mkdir dir="${maven.build.dest}"/>
         <ant:mkdir dir="${uml2mof.output}/xmi"/>   
         <ant:path id="maven.andromda.classpath">
             <ant:pathelement path="${plugin.dependencyClasspath}"/>
             <ant:path refid="maven.dependency.classpath"/>
         </ant:path>
+    </goal>
+    
+    <!-- ================================================================
+           Cleans up the uml2mof resources
+         ================================================================ -->
+    <goal name="uml2mof:clean"
+          description="Removes any resources produced by Uml2Mof">
+        <attainGoal name="clean:clean"/>
+        <!-- cleanup the left over MDR files -->
+        <ant:delete>
+            <ant:fileset dir=".">
+                <ant:include name="*.btd"/>
+                <ant:include name="*.btx"/>
+                <ant:include name="*.btb"/>
+            </ant:fileset>
+        </ant:delete>        
     </goal>
 
 </project>

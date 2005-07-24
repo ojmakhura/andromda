@@ -12,12 +12,7 @@
     </goal>
 
     <goal name="clean">
-        <attainGoal name="clean:clean"/>
-        <!-- cleanup the left over MDR files -->
-        <ant:delete dir=".">
-            <ant:include name="*.btd"/>
-            <ant:include name="*.btx"/>
-        </ant:delete>
+        <attainGoal name="uml2mof:clean"/>
     </goal>
 
 </project>
