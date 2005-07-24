@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <project name="build-products" basedir="." default="all">
 
@@ -84,9 +84,10 @@
     </target>
     
     <target name="clean">
-        <delete file="${storageDir}/${storageFile}.btd"/>
-        <delete file="${storageDir}/${storageFile}.btx"/>
-        <delete dir="${storageDir}/${model}"/>
+        <delete dir="${storageDir}"/>
+        <delete file="mdr.btx"/>
+        <delete file="mdr.btd"/>
+        <delete file="mdr.btb"/>
     </target>    
         
     <target name="init">        
