@@ -1,9 +1,8 @@
 <project xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
-         xmlns:maven="jelly:maven">
+         xmlns:maven="jelly:maven"
+         xmlns:u="jelly:util">
 
-    <j:set var="xmiFile" value="testModel"/>
-    
     <!-- ===================================================================
          Call AndroMDA to generate code from the model
          =================================================================== -->
@@ -37,22 +36,22 @@
         </ant:taskdef>
         <ant:mdr storageFile="${uml2mof.output}/mdrstorage">
             <ant:instantiate name="mof4models"/>
-            <ant:readXMI 
+            <ant:readXMI
                 file="${uml2mof.output}/metamodel/${xmiFile}.xml"
                 extent="mof4models"/>
-            <ant:writeXMI 
-                file="${uml2mof.output}/xmi/${xmiFile}.xml" 
+            <ant:writeXMI
+                file="${uml2mof.output}/xmi/${xmiFile}.xml"
                 extent="mof4models"
-                xmiVersion = "1.2"/>                
-            <ant:writeDTD 
-                file="${uml2mof.output}/xmi/${xmiFile}.dtd" 
-                extent="mof4models"/>                                    
+                xmiVersion = "1.2"/>
+            <ant:writeDTD
+                file="target/xmi/${xmiFile}.dtd"
+                extent="mof4models"/>
             <ant:mapJava
-                dir="${maven.build.src}/java/" 
+                dir="${maven.build.src}/java/"
                 extent="mof4models"/>
             <ant:mapClass
-                dir="${maven.build.dest}" 
-                extent="mof4models"/>                    
+                dir="${maven.build.dest}"
+                extent="mof4models"/>
             <ant:printExtentNames/>
         </ant:mdr>
 
@@ -69,18 +68,23 @@ Please define the location of your UML model by setting a value for property "an
          ================================================================ -->
     <goal name="uml2mof:init"
           description="private internal goal">
+        <j:set var="xmiFile" value="${andromda.uml2mof.metamodel.name}"/>
+        <j:if test="${empty xmiFile}">
+            <u:file var="modelFile" name="${andromda.uml2mof.model.file}"/>
+            <j:set var="xmiFile" value="${modelFile.name.replaceAll('\..*', '')}"/>
+        </j:if>
         <j:set var="uml2mof.output" value="${maven.build.dir}"/>
         <ant:mkdir dir="${uml2mof.output}/umlmodel"/>
         <ant:mkdir dir="${uml2mof.output}/metamodel"/>
         <ant:mkdir dir="${maven.build.src}/java"/>
         <ant:mkdir dir="${maven.build.dest}"/>
-        <ant:mkdir dir="${uml2mof.output}/xmi"/>   
+        <ant:mkdir dir="${uml2mof.output}/xmi"/>
         <ant:path id="maven.andromda.classpath">
             <ant:pathelement path="${plugin.dependencyClasspath}"/>
             <ant:path refid="maven.dependency.classpath"/>
         </ant:path>
     </goal>
-    
+
     <!-- ================================================================
            Cleans up the uml2mof resources
          ================================================================ -->
@@ -94,7 +98,7 @@ Please define the location of your UML model by setting a value for property "an
                 <ant:include name="*.btx"/>
                 <ant:include name="*.btb"/>
             </ant:fileset>
-        </ant:delete>        
+        </ant:delete>
     </goal>
 
 </project>
