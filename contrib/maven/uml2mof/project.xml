@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../../project.xml</extend>
+    <artifactId>andromda-uml2mof-plugin</artifactId>
+    <currentVersion>1.0-SNAPSHOT</currentVersion>
+    <name>AndroMDA Uml2Mof Maven plugin</name>
+    <description>
+        The AndroMDA Uml2Mof Maven plugin.  Generates MOF models
+        from UML models with NetBeans MDR's uml2mof tool.
+    </description>
+    <dependencies>
+        <dependency>
+            <groupId>jmi</groupId>
+            <artifactId>mof</artifactId>
+            <version>20030918</version>
+        </dependency>
+        <dependency>
+            <groupId>jmi</groupId>
+            <artifactId>jmi</artifactId>
+            <version>20030918</version>
+        </dependency>
+        <dependency>
+            <groupId>jmi</groupId>
+            <artifactId>jmiuml</artifactId>
+            <version>1.4di</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>jmiutils</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>mdrapi</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>nbmdr</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>openide-util</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>openide-util</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>uml2mof</artifactId>
+            <version>20040301</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>mdrant</artifactId>
+            <version>20030910</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>plugin.jelly</include>
+                    <include>plugin.properties</include>
+                    <include>project.xml</include>
+                    <include>plugin-resources/**/*</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>

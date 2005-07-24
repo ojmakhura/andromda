@@ -1,0 +1,85 @@
+<project xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven"
+         xmlns:i="jelly:interaction">
+
+    <j:set var="xmiFile" value="testModel"/>
+    
+    <!-- ===================================================================
+         Call AndroMDA to generate code from the model
+         =================================================================== -->
+    <goal name="uml2mof:run"
+          description="Runs MDR's uml2mof tool on a given model">
+
+        <j:choose>
+            <j:otherwise>
+                <ant:echo>+-----------------------------------------+</ant:echo>
+                <ant:echo>|      R u n n i n g    U M L 2 M O F     |</ant:echo>
+                <ant:echo>+-----------------------------------------+</ant:echo>
+            </j:otherwise>
+        </j:choose>
+        <attainGoal name="uml2mof:parameter-check"/>
+        <attainGoal name="uml2mof:init"/>
+        <java classname="org.netbeans.lib.jmi.uml2mof.Main"
+              fork="true"
+              failonerror="true">
+            <ant:classpath>
+                <ant:path refid="maven.andromda.classpath"/>
+            </ant:classpath>
+            <arg value="${andromda.uml2mof.model.file}"/>
+            <arg value="${uml2mof.output}/metamodel/${xmiFile}.xml"/>
+        </java>
+        <ant:taskdef
+            name="mdr"
+            classname="org.netbeans.mdrant.MdrTask">
+            <ant:classpath>
+                <ant:path refid="maven.andromda.classpath"/>
+            </ant:classpath>
+        </ant:taskdef>
+        <ant:mdr storageFile="${uml2mof.output}/mdrstorage">
+            <ant:instantiate name="mof4models"/>
+            <ant:readXMI 
+                file="${uml2mof.output}/metamodel/${xmiFile}.xml"
+                extent="mof4models"/>
+            <ant:writeXMI 
+                file="${uml2mof.output}/xmi/${xmiFile}.xml" 
+                extent="mof4models"
+                xmiVersion = "1.2"/>                
+            <ant:writeDTD 
+                file="${uml2mof.output}/xmi/${xmiFile}.dtd" 
+                extent="mof4models"/>                                    
+            <ant:mapJava
+                dir="${uml2mof.output}/java/" 
+                extent="mof4models"/>
+            <ant:mapClass
+                dir="${maven.build.dest}" 
+                extent="mof4models"/>                    
+            <ant:printExtentNames/>
+        </ant:mdr>
+
+    </goal>
+
+    <goal name="uml2mof:parameter-check">
+        <maven:param-check value="${context.getVariable('andromda.uml2mof.model.file')}" fail="true">
+Please define the location of your UML model by setting a value for property "andromda.uml2mof.model.uri".
+        </maven:param-check>
+    </goal>
+
+    <!-- ================================================================
+           Provides any initialization.
+         ================================================================ -->
+    <goal name="uml2mof:init"
+          description="private internal goal">
+        <j:set var="uml2mof.output" value="${andromda.uml2mof.output.dir}"/>
+        <ant:mkdir dir="${uml2mof.output}"/>
+        <ant:mkdir dir="${uml2mof.output}/metamodel"/>
+        <ant:mkdir dir="${uml2mof.output}/java"/>
+        <ant:mkdir dir="${maven.build.dest}"/>
+        <ant:mkdir dir="${uml2mof.output}/xmi"/>   
+        <ant:path id="maven.andromda.classpath">
+            <ant:pathelement path="${plugin.dependencyClasspath}"/>
+            <ant:path refid="maven.dependency.classpath"/>
+        </ant:path>
+    </goal>
+
+</project>

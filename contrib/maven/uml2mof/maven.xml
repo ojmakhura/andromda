@@ -1,0 +1,20 @@
+<project xmlns:artifact="artifact">
+
+    <!-- Override the default plugin:install to just install
+         the plugin into the local repository (since we don't
+         want this plugin in the $MAVEN_HOME/plugins directory -->
+    <goal name="plugin:install">
+        <attainGoal name="jar:jar"/>
+        <artifact:install
+            artifact="${maven.build.dir}/${maven.final.name}.jar"
+            type="plugin"
+            project="${pom}"/>
+    </goal>
+    
+    <!-- Override plugin:deploy so it implements the 
+         muliproject:deploy interface -->
+    <goal name="plugin:deploy">
+        <attainGoal name="plugin:repository-deploy"/>
+    </goal>
+
+</project>
