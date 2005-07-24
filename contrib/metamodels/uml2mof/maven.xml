@@ -5,6 +5,9 @@
     xmlns:velocity="jelly:velocity">
 
     <goal name="uml2mof" prereqs="clean">
+        <j:set var="uml.output.dir" value="target/uml"/>
+        <ant:unzip src="${model.file}" dest="${uml.output.dir}"/>
+        <j:set var="andromda.uml2mof.model.file" value="${uml.output.dir}/XMLDemoMetamodel.xml"/>
         <attainGoal name="uml2mof:run"/>
     </goal>
 
