@@ -1,6 +1,7 @@
 package org.andromda.core.engine;
 
 import org.andromda.core.configuration.Configuration;
+import org.andromda.core.metafacade.ModelValidationMessage;
 
 
 /**
@@ -52,13 +53,20 @@ public class Engine
      * should be loaded (based on whether or not they've been modified),
      * and if so, performs the load.  This way the
      * models are loaded for the next run of the model processor.
+     *
+     * @param configuration the AndroMDA configuration the contains the repositories containing
+     *        the models to load.
      */
-    public void loadModelsIfNecessary(final Configuration configuration)
+    public ModelValidationMessage[] loadModelsIfNecessary(final Configuration configuration)
     {
+        ModelValidationMessage[] messages = null;
         if (configuration != null)
         {
-            this.modelProcessor.loadIfNecessary(configuration.getRepositories());
+            messages =
+                (ModelValidationMessage[])this.modelProcessor.loadIfNecessary(configuration.getRepositories()).toArray(
+                    new ModelValidationMessage[0]);
         }
+        return messages == null ? new ModelValidationMessage[0] : messages;
     }
 
     /**
@@ -69,12 +77,14 @@ public class Engine
      *
      * @return the new instance of Engine.
      */
-    public void run(final Configuration configuration)
+    public ModelValidationMessage[] run(final Configuration configuration)
     {
+        ModelValidationMessage[] messages = null;
         if (configuration != null)
         {
             this.modelProcessor.process(configuration);
         }
+        return messages == null ? new ModelValidationMessage[0] : messages;
     }
 
     /**

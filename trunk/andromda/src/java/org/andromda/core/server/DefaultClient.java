@@ -71,7 +71,7 @@ public class DefaultClient
                     }
                     catch (final UnknownHostException exception)
                     {
-                        throw new RuntimeException("Can't connect to host '" + host + "'");
+                        throw new ClientException("Can't connect to host '" + host + "'");
                     }
                     out.writeObject(object);
                     if (object instanceof Configuration)
