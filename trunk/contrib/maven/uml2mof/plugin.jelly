@@ -74,7 +74,6 @@ Please define the location of your UML model by setting a value for property "an
             <j:set var="xmiFile" value="${modelFile.name.replaceAll('\..*', '')}"/>
         </j:if>
         <j:set var="uml2mof.output" value="${maven.build.dir}"/>
-        <ant:mkdir dir="${uml2mof.output}/umlmodel"/>
         <ant:mkdir dir="${uml2mof.output}/metamodel"/>
         <ant:mkdir dir="${maven.build.src}/java"/>
         <ant:mkdir dir="${maven.build.dest}"/>
