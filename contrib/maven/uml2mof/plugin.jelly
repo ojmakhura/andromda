@@ -25,7 +25,7 @@
             <ant:classpath>
                 <ant:path refid="maven.andromda.classpath"/>
             </ant:classpath>
-            <arg value="${andromda.uml2mof.model.file}"/>
+            <arg value="${andromda.uml2mof.model.uri}"/>
             <arg value="${uml2mof.output}/metamodel/${xmiFile}.xml"/>
         </java>
         <ant:taskdef
@@ -59,7 +59,7 @@
     </goal>
 
     <goal name="uml2mof:parameter-check">
-        <maven:param-check value="${context.getVariable('andromda.uml2mof.model.file')}" fail="true">
+        <maven:param-check value="${context.getVariable('andromda.uml2mof.model.uri')}" fail="true">
 Please define the location of your UML model by setting a value for property "andromda.uml2mof.model.uri".
         </maven:param-check>
     </goal>
@@ -69,7 +69,7 @@ Please define the location of your UML model by setting a value for property "an
          ================================================================ -->
     <goal name="uml2mof:init"
           description="private internal goal">
-        <j:set var="uml2mof.output" value="${andromda.uml2mof.output.dir}"/>
+        <j:set var="uml2mof.output" value="${maven.build.dir}"/>
         <ant:mkdir dir="${uml2mof.output}/umlmodel"/>
         <ant:mkdir dir="${uml2mof.output}/metamodel"/>
         <ant:mkdir dir="${maven.build.src}/java"/>
