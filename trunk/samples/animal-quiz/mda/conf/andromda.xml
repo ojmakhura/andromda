@@ -69,9 +69,9 @@
                 <property name="defaultProvider">RPC</property>
                 <property name="applicationName">${application.id}</property>
                 <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
-                <property name="wsdls">${maven.andromda.webservice.generated.dir}/wsdl</property>
                 <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
-                <property name="axis-configuration">${maven.andromda.webservice.generated.dir}/axis</property>
+                <property name="wsdls">${maven.andromda.webservice.generated.wsdl.dir}</property>
+                <property name="axis-configuration">${maven.andromda.webservice.generated.dir}</property>
             </properties>
         </namespace>
         <namespace name="java">
