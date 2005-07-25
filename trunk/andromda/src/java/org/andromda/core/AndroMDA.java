@@ -98,6 +98,8 @@ public class AndroMDA
      * contacted.
      *
      * @param configuration the configuration instance that configures AndroMDA.
+     * @return the list of model validation messages (if there have been any collected
+     *         during AndroMDA execution).
      */
     public ModelValidationMessage[] run(final Configuration configuration)
     {
