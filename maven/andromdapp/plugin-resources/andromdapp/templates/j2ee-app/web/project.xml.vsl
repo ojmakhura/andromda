@@ -231,7 +231,7 @@
             <version>${bsh.version}</version>
             <type>jar</type>
             <properties>
-                <war.bundle>true</ear.bundle>
+                <war.bundle>true</war.bundle>
             </properties>
         </dependency>
         <dependency>
@@ -240,7 +240,7 @@
             <version>${c3p0.version}</version>
             <type>jar</type>
             <properties>
-                <war.bundle>true</ear.bundle>
+                <war.bundle>true</war.bundle>
             </properties>
         </dependency>
 #end
