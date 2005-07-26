@@ -293,8 +293,8 @@ public class Cartridge
                     final String outputString = output.toString();
                     AndroMDALogger.setSuffix(this.getNamespace());
 
-                    // check to see if generateEmptyFiles is true and if
-                    // outString is not blank
+                    // - check to see if generateEmptyFiles is true and if
+                    //   outString is not blank
                     if (StringUtils.isNotBlank(outputString) || template.isGenerateEmptyFiles())
                     {
                         ResourceWriter.instance().writeStringToFile(
@@ -398,7 +398,7 @@ public class Cartridge
                     resource.getOutlet());
             if (outlet != null)
             {
-                // make sure we don't have any back slashes
+                // - make sure we don't have any back slashes
                 final String resourceUri = resourceUrl.toString().replaceAll("\\\\", FORWARD_SLASH);
                 final String uriSuffix =
                     resourceUri.substring(
@@ -406,7 +406,7 @@ public class Cartridge
                         resourceUri.length());
                 if (outlet.endsWith(FORWARD_SLASH))
                 {
-                    // remove the extra slash
+                    // - remove the extra slash
                     outlet = outlet.replaceFirst(FORWARD_SLASH, "");
                 }
 
