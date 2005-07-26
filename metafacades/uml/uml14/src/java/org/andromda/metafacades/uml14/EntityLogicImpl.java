@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -24,6 +23,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -97,8 +97,9 @@ public class EntityLogicImpl
         final Collection queryOperations = this.getOperations();
 
         MetafacadeUtils.filterByType(queryOperations, EntityQueryOperation.class);
-        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
-             superClass = (ClassifierFacade)superClass.getGeneralization())
+        for (
+            ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+            superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             if (Entity.class.isAssignableFrom(superClass.getClass()))
             {
@@ -224,8 +225,9 @@ public class EntityLogicImpl
 
         final Collection attributes = this.getAttributes();
 
-        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
-             superClass = (ClassifierFacade)superClass.getGeneralization())
+        for (
+            ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+            superClass = (ClassifierFacade)superClass.getGeneralization())
         {
             if (superClass instanceof Entity)
             {
@@ -514,6 +516,31 @@ public class EntityLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.Entity#getProperties(boolean, boolean)
+     */
+    protected Collection handleGetProperties(
+        boolean follow,
+        final boolean withIdentifiers)
+    {
+        final Collection properties = this.getProperties(follow);
+        CollectionUtils.filter(
+            properties,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean valid = true;
+                    if (!withIdentifiers && object instanceof EntityAttribute)
+                    {
+                        valid = !((EntityAttribute)object).isIdentifier();
+                    }
+                    return valid;
+                }
+            });
+        return properties;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.Entity#getRequiredAttributes(boolean, boolean)
      */
     protected Collection handleGetRequiredAttributes(
@@ -529,7 +556,7 @@ public class EntityLogicImpl
                 {
                     boolean valid = false;
                     valid = ((AttributeFacade)object).isRequired();
-                    if (valid && !withIdentifiers && EntityAttribute.class.isAssignableFrom(object.getClass()))
+                    if (valid && !withIdentifiers && object instanceof EntityAttribute)
                     {
                         valid = !((EntityAttribute)object).isIdentifier();
                     }
@@ -581,6 +608,7 @@ public class EntityLogicImpl
                     return valid;
                 }
             });
+
         List sortedProperties = new ArrayList(properties);
         MetafacadeUtils.sortByFullyQualifiedName(sortedProperties);
         return sortedProperties;

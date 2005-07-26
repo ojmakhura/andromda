@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml14;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -56,7 +57,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getOperations()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getOperations()
      */
     protected java.util.Collection handleGetOperations()
     {
@@ -70,21 +71,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getAttributes()
-     */
-    protected java.util.Collection handleGetAttributes()
-    {
-        return new FilteredCollection(metaObject.getFeature())
-            {
-                public boolean evaluate(Object object)
-                {
-                    return object instanceof Attribute;
-                }
-            };
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getAssociationEnds()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getAssociationEnds()
      */
     protected java.util.Collection handleGetAssociationEnds()
     {
@@ -194,7 +181,7 @@ public class ClassifierFacadeLogicImpl
     {
         return UMLMetafacadeUtils.isType(this, UMLProfile.SET_TYPE_NAME);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isBooleanType()
      */
@@ -244,17 +231,70 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes()
+     */
+    protected java.util.Collection handleGetAttributes()
+    {
+        return new FilteredCollection(metaObject.getFeature())
+            {
+                public boolean evaluate(final Object object)
+                {
+                    return object instanceof Attribute;
+                }
+            };
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
      */
     protected Collection handleGetAttributes(boolean follow)
     {
-        Collection attributes = this.getAttributes();
+        final Collection attributes = this.getAttributes();
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
-             superClass = (ClassifierFacade)superClass.getGeneralization())
+            superClass = (ClassifierFacade)superClass.getGeneralization())
         {
-            attributes.addAll(superClass.getAttributes());
+            attributes.addAll(
+                new FilteredCollection(superClass.getAttributes(follow))
+                {
+                    public boolean evaluate(final Object object)
+                    {
+                        boolean valid = true;
+                        for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
+                        {
+                            final AttributeFacade attribute = (AttributeFacade)iterator.next();
+                            final AttributeFacade superAttribute = (AttributeFacade)object;
+                            if (attribute.getName().equals(superAttribute.getName()))
+                            {
+                                valid = false;
+                                break;
+                            }
+                        }
+                        return valid;
+                    }
+                });
         }
         return attributes;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
+     */
+    protected java.util.Collection handleGetProperties()
+    {
+        final Collection properties = this.getAttributes();
+        properties.addAll(this.getNavigableConnectingEnds());
+        return properties;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties(boolean)
+     */
+    protected Collection handleGetProperties(boolean follow)
+    {
+        final Collection properties = this.getAttributes(follow);
+        // @todo possibly implement getNavigableConnectingEnds(boolean follow)
+        properties.addAll(this.getNavigableConnectingEnds());
+        return properties;
     }
 
     /**
@@ -314,16 +354,6 @@ public class ClassifierFacadeLogicImpl
                     return !((AttributeFacade)object).isStatic();
                 }
             };
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
-     */
-    protected java.util.Collection handleGetProperties()
-    {
-        Collection properties = this.getAttributes();
-        properties.addAll(this.getNavigableConnectingEnds());
-        return properties;
     }
 
     /**
@@ -528,7 +558,7 @@ public class ClassifierFacadeLogicImpl
         }
 
         // declared fields
-        for (final Iterator iterator =  this.getAttributes().iterator(); iterator.hasNext();)
+        for (final Iterator iterator = this.getAttributes().iterator(); iterator.hasNext();)
         {
             AttributeFacade attribute = (AttributeFacade)iterator.next();
             buffer.append(attribute.getName());
@@ -575,7 +605,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacadeLogic#getSerialVersionUID()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getSerialVersionUID()
      */
     protected Long handleGetSerialVersionUID()
     {
