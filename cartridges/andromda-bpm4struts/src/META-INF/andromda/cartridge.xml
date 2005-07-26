@@ -39,6 +39,8 @@
     <property reference="manageableFieldMaxLength"/>
     <property reference="manageableReferenceParameterPrefix"/>
     <property reference="setPageVariablesInPageScope"/>
+    <property reference="preventDirectPageAccess"/>
+
     <!-- cartridge-property merge-point -->
 
     <!-- copy resources -->
@@ -291,7 +293,7 @@
 
     <template
         path="templates/bpm4struts/pages/index.jsp.vsl"
-        outputPattern="$welcomeFileName"
+        outputPattern="$generatedFile"
         outlet="pages"
         overwrite="true"
         outputToSingleFile="true">

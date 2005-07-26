@@ -35,7 +35,7 @@ public class StrutsForwardLogicImpl
 
     protected String handleGetGuardName()
     {
-        final GuardFacade guard = getGuard();
+        final GuardFacade guard = this.getGuard();
         return (guard == null) ? null : guard.getName();
     }
 
@@ -46,14 +46,14 @@ public class StrutsForwardLogicImpl
 
     protected java.lang.String handleGetForwardName()
     {
-        return StringUtilsHelper.toResourceMessageKey(resolveName());
+        return StringUtilsHelper.toResourceMessageKey(this.resolveName());
     }
 
     protected java.lang.String handleGetForwardPath()
     {
         String forwardPath = null;
 
-        final StateVertexFacade target = getTarget();
+        final StateVertexFacade target = this.getTarget();
         if (isEnteringPage())
         {
             forwardPath = ((StrutsJsp)target).getFullPath() + ".jsp";
@@ -68,18 +68,18 @@ public class StrutsForwardLogicImpl
 
     protected String handleGetActionMethodName()
     {
-        return StringUtilsHelper.lowerCamelCaseName(resolveName());
+        return StringUtilsHelper.lowerCamelCaseName(this.resolveName());
     }
 
     protected String handleGetTargetNameKey()
     {
-        if (isEnteringPage())
+        if (this.isEnteringPage())
         {
-            return ((StrutsJsp)getTarget()).getTitleKey();
+            return ((StrutsJsp)this.getTarget()).getTitleKey();
         }
-        else if (isEnteringFinalState())
+        else if (this.isEnteringFinalState())
         {
-            return ((StrutsUseCase)((StrutsFinalState)getTarget()).getTargetUseCase()).getTitleKey();
+            return ((StrutsUseCase)((StrutsFinalState)this.getTarget()).getTargetUseCase()).getTitleKey();
         }
         return null;
     }
@@ -93,12 +93,12 @@ public class StrutsForwardLogicImpl
     {
         String forwardName = null;
         //trigger
-        final EventFacade trigger = getTrigger();
+        final EventFacade trigger = this.getTrigger();
         if (trigger != null) forwardName = trigger.getName();
         //name
-        if (forwardName == null) forwardName = getName();
+        if (forwardName == null) forwardName = this.getName();
         //target
-        if (forwardName == null) forwardName = getTarget().getName();
+        if (forwardName == null) forwardName = this.getTarget().getName();
         // else
         if (forwardName == null) forwardName = "unknown";
         // return
@@ -112,12 +112,12 @@ public class StrutsForwardLogicImpl
 
     protected boolean handleIsSuccessMessagesPresent()
     {
-        return getSuccessMessages().isEmpty() == false;
+        return !this.getSuccessMessages().isEmpty();
     }
 
     protected boolean handleIsWarningMessagesPresent()
     {
-        return getWarningMessages().isEmpty() == false;
+        return !this.getWarningMessages().isEmpty();
     }
 
     /**
@@ -131,9 +131,9 @@ public class StrutsForwardLogicImpl
      */
     private Map getMessages(String taggedValue)
     {
-        Map messages = null;
+        Map messages;
 
-        final Collection taggedValues = findTaggedValues(taggedValue);
+        final Collection taggedValues = this.findTaggedValues(taggedValue);
         if (taggedValues.isEmpty())
         {
             messages = Collections.EMPTY_MAP;
@@ -154,12 +154,12 @@ public class StrutsForwardLogicImpl
 
     protected Map handleGetSuccessMessages()
     {
-        return getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
+        return this.getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_SUCCESS_MESSAGE);
     }
 
     protected Map handleGetWarningMessages()
     {
-        return getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
+        return this.getMessages(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_WARNING_MESSAGE);
     }
 
     protected Object handleGetStrutsActivityGraph()
@@ -189,7 +189,7 @@ public class StrutsForwardLogicImpl
      * @param actions         the default set of actions, duplicates will not be recorded
      * @param handledForwards the forwards already processed
      */
-    private final void findActions(
+    private void findActions(
         Set actions,
         Set handledForwards)
     {

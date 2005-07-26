@@ -142,6 +142,11 @@
             type="org.apache.struts.actions.ForwardAction"
             scope="request"
             parameter="/form-validation.jsp"/>
+        <action
+            path="/login"
+            type="org.apache.struts.actions.ForwardAction"
+            scope="request"
+            parameter="/login/login-form.jsp"/>
     </action-mappings>
 
     <!-- controller merge point -->

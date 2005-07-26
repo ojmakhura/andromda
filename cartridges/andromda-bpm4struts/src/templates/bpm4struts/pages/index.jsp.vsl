@@ -1,3 +1,4 @@
+#set ($generatedFile = "$welcomeFileName")
 <%@ include file="/taglib-imports.jspf" %>
 
 #if(!$applicationUseCases.empty)
