@@ -2,14 +2,12 @@ package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.io.StringWriter;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -79,18 +77,18 @@ public class Cartridge
         ExceptionUtils.checkNull(methodName, "template", template);
         final ModelElements templateModelElements = template.getSupportedModeElements();
 
-        // handle the templates WITH model elements
+        // - handle the templates WITH model elements
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
             for (final Iterator iterator = templateModelElements.getModelElements().iterator(); iterator.hasNext();)
             {
                 final ModelElement templateModelElement = (ModelElement)iterator.next();
 
-                // if the template model element has a stereotype
-                // defined, then we filter the metafacades based
-                // on that stereotype, otherwise we get all metafacades
-                // and let the templateModelElement perform filtering on the
-                // metafacades by type and properties
+                // - if the template model element has a stereotype
+                //   defined, then we filter the metafacades based
+                //   on that stereotype, otherwise we get all metafacades
+                //   and let the templateModelElement perform filtering on the
+                //   metafacades by type and properties
                 if (templateModelElement.hasStereotype())
                 {
                     templateModelElement.setMetafacades(
@@ -105,7 +103,7 @@ public class Cartridge
         }
         else
         {
-            // handle any templates WITHOUT metafacades.
+            // - handle any templates WITHOUT metafacades.
             this.processTemplateWithoutMetafacades(template);
         }
     }
@@ -114,7 +112,7 @@ public class Cartridge
      * Processes all <code>modelElements</code> for this template.
      *
      * @param factory the metafacade factory
-     * @param context  the context for the cartridge
+     * @param context the context for the cartridge
      */
     protected void processTemplateWithMetafacades(
         final MetafacadeFactory factory,
@@ -139,15 +137,14 @@ public class Cartridge
                     // allMetafacades collection, then we collect the template
                     // model elements and place them into the template context
                     // by their variable names.
-                    if (
-                        template.isOutputToSingleFile() &&
+                    if (template.isOutputToSingleFile() &&
                         (template.isOutputOnEmptyElements() || !allMetafacades.isEmpty()))
                     {
                         final Map templateContext = new HashMap();
 
-                        // first place all relevant model elements by the
-                        // <modelElements/> variable name. If the variable
-                        // isn't defined (which is possible), ignore.
+                        // - first place all relevant model elements by the
+                        //   <modelElements/> variable name. If the variable
+                        //   isn't defined (which is possible), ignore.
                         if (StringUtils.isNotBlank(modelElements.getVariable()))
                         {
                             templateContext.put(
@@ -155,20 +152,19 @@ public class Cartridge
                                 allMetafacades);
                         }
 
-                        // now place the collections of elements
-                        // by the given variable names. (skip if the variable
-                        // was NOT defined)
-                        final Iterator modelElementIt = modelElements.getModelElements().iterator();
-                        while (modelElementIt.hasNext())
+                        // - now place the collections of elements
+                        //   by the given variable names. (skip if the variable
+                        //   was NOT defined)
+                        for (final Iterator iterator = modelElements.getModelElements().iterator(); iterator.hasNext();)
                         {
-                            final ModelElement modelElement = (ModelElement)modelElementIt.next();
+                            final ModelElement modelElement = (ModelElement)iterator.next();
                             final String variable = modelElement.getVariable();
                             if (StringUtils.isNotEmpty(variable))
                             {
-                                // if a stereotype has the same variable defined
-                                // more than one time, then get the existing
-                                // model elements added from the last iteration
-                                // and add the new ones to that collection
+                                // - if a stereotype has the same variable defined
+                                //   more than one time, then get the existing
+                                //   model elements added from the last iteration
+                                //   and add the new ones to that collection
                                 Collection metafacades = (Collection)templateContext.get(variable);
                                 if (metafacades != null)
                                 {
@@ -180,7 +176,7 @@ public class Cartridge
                                 }
                                 templateContext.put(
                                     variable,
-                                    new HashSet(metafacades));
+                                    new LinkedHashSet(metafacades));
                             }
                         }
                         this.processWithTemplate(template, templateContext, outlet, null, null);
