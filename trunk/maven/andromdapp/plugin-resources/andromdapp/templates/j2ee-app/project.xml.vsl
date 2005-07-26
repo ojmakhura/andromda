@@ -3,7 +3,7 @@
 <project>
     <artifactId>${application.id}</artifactId>
     <groupId>${application.id}</groupId>
-    <name>The ${projectName}</name>
+    <name>The ${application.name}</name>
     <currentVersion>${application.version}</currentVersion>
     <shortDescription>The ${projectName}</shortDescription>
     <description>
