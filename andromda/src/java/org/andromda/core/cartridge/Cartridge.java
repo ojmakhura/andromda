@@ -132,11 +132,11 @@ public class Cartridge
                 {
                     final Collection allMetafacades = modelElements.getAllMetafacades();
 
-                    // if outputToSingleFile is true AND outputOnEmptyElements
-                    // is true or we have at least one metafacade in the
-                    // allMetafacades collection, then we collect the template
-                    // model elements and place them into the template context
-                    // by their variable names.
+                    // - if outputToSingleFile is true AND outputOnEmptyElements
+                    //   is true or we have at least one metafacade in the
+                    //   allMetafacades collection, then we collect the template
+                    //   model elements and place them into the template context
+                    //   by their variable names.
                     if (template.isOutputToSingleFile() &&
                         (template.isOutputOnEmptyElements() || !allMetafacades.isEmpty()))
                     {
