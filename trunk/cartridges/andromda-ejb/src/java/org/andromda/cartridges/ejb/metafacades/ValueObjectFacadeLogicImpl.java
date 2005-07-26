@@ -1,11 +1,13 @@
 package org.andromda.cartridges.ejb.metafacades;
 
+import java.text.MessageFormat;
+
+import java.util.StringTokenizer;
+
 import org.andromda.cartridges.ejb.EJBProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang.StringUtils;
 
-import java.text.MessageFormat;
-import java.util.StringTokenizer;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb.metafacades.ValueObjectFacade.
@@ -13,11 +15,12 @@ import java.util.StringTokenizer;
  * @see org.andromda.cartridges.ejb.metafacades.ValueObjectFacade
  */
 public class ValueObjectFacadeLogicImpl
-        extends ValueObjectFacadeLogic
+    extends ValueObjectFacadeLogic
 {
     // ---------------- constructor -------------------------------
-
-    public ValueObjectFacadeLogicImpl(Object metaObject, String context)
+    public ValueObjectFacadeLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -30,21 +33,21 @@ public class ValueObjectFacadeLogicImpl
      */
     public String getPackageName()
     {
-        String packageName = MessageFormat.format(this.getConfiguredProperty("valueObjectPackage").toString(), new String[]{
-            StringUtils.trimToEmpty(super.getPackageName())});
-
-        StringTokenizer st = new StringTokenizer(packageName, ".");
-        StringBuffer sb = new StringBuffer();
-        while (st.hasMoreTokens())
+        final String packageName =
+            MessageFormat.format(
+                this.getConfiguredProperty("valueObjectPackage").toString(),
+                new String[] {StringUtils.trimToEmpty(super.getPackageName())});
+        StringBuffer buffer = new StringBuffer();
+        for (final StringTokenizer tokenizer = new StringTokenizer(packageName, "."); tokenizer.hasMoreTokens();)
         {
-            String token = st.nextToken();
+            String token = tokenizer.nextToken();
             if (token.indexOf("/") < 0)
             {
-                sb.append(token).append(".");
+                buffer.append(token).append(".");
             }
         }
-        String pn = sb.toString();
-        return (pn.endsWith(".")) ? pn.substring(0, pn.length() - 1) : pn;
+        final String name = buffer.toString();
+        return name.endsWith(".") ? name.substring(0, name.length() - 1) : name;
     }
 
     /**
@@ -52,14 +55,18 @@ public class ValueObjectFacadeLogicImpl
      */
     public String getName()
     {
-        return MessageFormat.format(this.getConfiguredProperty("valueObjectName").toString(), new Object[]{
-            StringUtils.trimToEmpty(super.getName())});
+        return MessageFormat.format(
+            this.getConfiguredProperty("valueObjectName").toString(),
+            new Object[] {StringUtils.trimToEmpty(super.getName())});
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
+     */
     public String getFullyQualifiedName()
     {
-        String fqn = getPackageName();
-        return (fqn == null || fqn.equalsIgnoreCase("")) ? getName() : fqn + "." + getName();
+        final String name = this.getPackageName();
+        return name == null || name.equalsIgnoreCase("") ? getName() : name + "." + getName();
     }
 
     /**
@@ -68,7 +75,8 @@ public class ValueObjectFacadeLogicImpl
      */
     public GeneralizableElementFacade getGeneralization()
     {
-        GeneralizableElementFacade gef = super.getGeneralization();
-        return (gef == null || gef.hasStereotype(EJBProfile.STEREOTYPE_ENTITY)) ? null : gef;
+        GeneralizableElementFacade generalization = super.getGeneralization();
+        return generalization == null || generalization.hasStereotype(EJBProfile.STEREOTYPE_ENTITY) ? null
+                                                                                                    : generalization;
     }
 }
