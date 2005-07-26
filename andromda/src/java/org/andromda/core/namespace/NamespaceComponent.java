@@ -4,7 +4,7 @@ import java.net.URL;
 
 
 /**
- * This represents a component used within a namespace.
+ * This represents a component that can be discovered/registered within a namespace.
  *
  * @author Chad Brandon
  */
