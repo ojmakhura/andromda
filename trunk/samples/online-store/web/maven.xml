@@ -21,8 +21,7 @@
                 <ant:include name="**/*.png"/>
                 <ant:include name="**/*.jpg"/>
                 <ant:include name="**/*.js"/>
-                <ant:include name="**/*.jsp"/>
-                <ant:include name="**/*.jspf"/>
+                <ant:include name="**/*.jsp*"/>
                 <ant:include name="**/*.css"/>
                 <ant:include name="WEB-INF/**/*"/>
             </ant:fileset>

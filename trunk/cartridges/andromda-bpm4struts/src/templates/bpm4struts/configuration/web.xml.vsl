@@ -29,6 +29,7 @@
         <filter-name>ResponseOverrideFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
+#if ($preventDirectPageAccess != "true")
 #if ($generateWebXmlIds=="true")
     <filter-mapping id="filter_mapping_2">
 #else
@@ -37,7 +38,8 @@
         <filter-name>ResponseOverrideFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
-    
+#end
+
     <!-- listener merge-point -->
 
     <!-- servlet merge-point -->
@@ -63,6 +65,10 @@
         <init-param>
             <param-name>validate</param-name>
             <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -97,6 +103,7 @@
 
     <!-- security-constraint merge-point -->
 ## we always place the use-case JSPs inside a security-constraint, security or no security
+#if ($preventDirectPageAccess == "true")
 #if ($generateWebXmlIds=="true")
 #set ($counter = 1)
     <security-constraint id="security_constraint_$counter">
@@ -104,63 +111,29 @@
     <security-constraint>
 #end
         <web-resource-collection>
-            <web-resource-name>Common resources</web-resource-name>
+            <web-resource-name>JSP resources</web-resource-name>
             <description>
-                This security constraint groups those resources that are common
-                to all use-cases and need to be protected from direct access from
-                a browser.
+                This security constraint prevents JSP files and fragments to be accessed
+                directly by the client. Only the server is able to access the files matching the
+                url patterns below.
             </description>
-            <url-pattern>/layout/menu.jsp</url-pattern>
-            <url-pattern>/layout/main-layout.jsp</url-pattern>
-            <url-pattern>/layout/help-layout.jsp</url-pattern>
-            <url-pattern>/layout/breadcrumbs.jsp</url-pattern>
-            <url-pattern>/taglib-imports.jspf</url-pattern>
-            <url-pattern>/applicationHelp.jsp</url-pattern>
-            <url-pattern>/calendar-js.jsp</url-pattern>
-            <url-pattern>/form-validation.jsp</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-        </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>NONE</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
+            <url-pattern>*.jspf</url-pattern>
 #foreach ($applicationUseCase in $applicationUseCases)
 #foreach ($useCase in $applicationUseCase.allUseCases)
-#if ($generateWebXmlIds=="true")
-#set ($counter = $counter + 1)
-    <security-constraint id="security_constraint_$counter">
-#else
-    <security-constraint>
-#end
-        <web-resource-collection>
-            <web-resource-name>$useCase.name resources</web-resource-name>
-            <description>
-                The resources grouped in this collection are all coming from the $useCase.name
-                use-case and a client should never be allowed to request then directly without
-                passing via an action, therefore only the server may access them and possibly
-                forward them to the client.
-            </description>
-            <url-pattern>${useCase.onlineHelpPagePath}.jsp</url-pattern>
 #foreach ($page in $useCase.pages)
             <url-pattern>${page.fullPath}.jsp</url-pattern>
-            <url-pattern>${page.onlineHelpPagePath}.jsp</url-pattern>
-            <url-pattern>${page.fullPath}-javascript.jspf</url-pattern>
-#if ($setPageVariablesInPageScope == "true" && $page.pageVariables.size() > 0)
-            <url-pattern>${page.fullPath}-javascript.jspf</url-pattern>
-#end
-#foreach ($action in $page.actions)
-            <url-pattern>${action.fullTilePath}.jspf</url-pattern>
-#if (!$action.hiddenActionParameters.empty)
-            <url-pattern>${action.fullTilePath}-hidden-params.jspf</url-pattern>
-#end
-#end
-#foreach ($variable in $page.pageVariables)
-#if ($variable.table)
-            <url-pattern>${page.fullPath}-${variable.name}.jspf</url-pattern>
 #end
 #end
 #end
+            <url-pattern>/form-validation.jsp</url-pattern>
+            <url-pattern>/calendar-js.jsp</url-pattern>
+            <url-pattern>/application-help.jsp</url-pattern>
+            <url-pattern>/login/login-form.jsp</url-pattern>
+            <url-pattern>/layout/menu.jsp</url-pattern>
+            <url-pattern>/layout/messages.jsp</url-pattern>
+            <url-pattern>/layout/breadcrumbs.jsp</url-pattern>
+            <url-pattern>/layout/main-layout.jsp</url-pattern>
+            <url-pattern>/layout/help-layout.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>
         </auth-constraint>
@@ -168,7 +141,6 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-#end
 #end
 #if ($stringUtils.isNotBlank($securityRealm))
 ##
@@ -213,7 +185,6 @@
                 for managing the $manageable.name entity
             </description>
             <url-pattern>${manageable.actionPath}.do</url-pattern>
-            <url-pattern>${manageable.pageFullPath}</url-pattern>
         </web-resource-collection>
         <auth-constraint>
 #foreach ($user in $manageable.users)
@@ -236,8 +207,8 @@
         <realm-name>$securityRealm</realm-name>
 #end
         <form-login-config>
-            <form-login-page>/login/login-form.jsp</form-login-page>
-            <form-error-page>/login/login-form.jsp?action=error</form-error-page>
+            <form-login-page>/login.do</form-login-page>
+            <form-error-page>/login.do?action=error</form-error-page>
         </form-login-config>
     </login-config>
 

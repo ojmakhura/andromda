@@ -67,11 +67,6 @@
             <version>${andromda.version}</version>
             <type>plugin</type>
         </dependency>
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-utils</artifactId>
-            <version>${andromda.version}</version>
-        </dependency>
         <!-- Specify and configure our cartridges -->
 #if ($ejb)
         <dependency>

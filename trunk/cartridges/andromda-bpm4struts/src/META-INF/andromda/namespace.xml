@@ -72,6 +72,16 @@
             <documentation>
                 Properties that directly affect the code generated into the JSPs.
             </documentation>
+            <property name="preventDirectPageAccess">
+                <default>false</default>
+                <documentation>
+                    By enabling this property the cartridge will make sure JSPs are not accessible directly by the
+                    client: only the server can access them this way. It is generally good practice to enable it
+                    since only Struts actions are called
+                    but for some reason behavior is different on different machines, so we allow this feature to be
+                    toggled. Set to <code>true</code> if you want to prevent direct access to pages.
+                </documentation>
+            </property>
             <property name="defaultDateFormat">
                 <default>dd/MM/yyyy</default>
                 <documentation>
