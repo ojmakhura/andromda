@@ -2,7 +2,9 @@ package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.io.StringWriter;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,14 +16,17 @@ import java.util.Map;
 import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.ModelElements;
 import org.andromda.core.cartridge.template.Template;
+import org.andromda.core.cartridge.template.Type;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.BasePlugin;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.Introspector;
 import org.andromda.core.common.PathMatcher;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.core.metafacade.ModelAccessFacade;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -44,7 +49,10 @@ public class Cartridge
     public void processModelElements(final MetafacadeFactory factory)
     {
         final String methodName = "Cartridge.processModelElements";
-        ExceptionUtils.checkNull(methodName, "factory", factory);
+        ExceptionUtils.checkNull(
+            methodName,
+            "factory",
+            factory);
         final Collection resources = this.getResources();
         if (resources != null && !resources.isEmpty())
         {
@@ -53,7 +61,9 @@ public class Cartridge
                 final Resource resource = (Resource)iterator.next();
                 if (resource instanceof Template)
                 {
-                    this.processTemplate(factory, (Template)resource);
+                    this.processTemplate(
+                        factory,
+                        (Template)resource);
                 }
                 else
                 {
@@ -74,7 +84,10 @@ public class Cartridge
         final Template template)
     {
         final String methodName = "Cartridge.processTemplate";
-        ExceptionUtils.checkNull(methodName, "template", template);
+        ExceptionUtils.checkNull(
+            methodName,
+            "template",
+            template);
         final ModelElements templateModelElements = template.getSupportedModeElements();
 
         // - handle the templates WITH model elements
@@ -99,7 +112,9 @@ public class Cartridge
                     templateModelElement.setMetafacades(factory.getAllMetafacades());
                 }
             }
-            this.processTemplateWithMetafacades(factory, template);
+            this.processTemplateWithMetafacades(
+                factory,
+                template);
         }
         else
         {
@@ -119,7 +134,10 @@ public class Cartridge
         final Template template)
     {
         final String methodName = "Cartridge.processTemplateWithMetafacades";
-        ExceptionUtils.checkNull(methodName, "template", template);
+        ExceptionUtils.checkNull(
+            methodName,
+            "template",
+            template);
         final ModelElements modelElements = template.getSupportedModeElements();
         if (modelElements != null && !modelElements.isEmpty())
         {
@@ -152,16 +170,15 @@ public class Cartridge
                                 allMetafacades);
                         }
 
-                        // - now place the collections of elements
-                        //   by the given variable names. (skip if the variable
-                        //   was NOT defined)
+                        // - now place the collections of elements by the given variable names. 
+                        //   (skip if the variable is NOT defined)
                         for (final Iterator iterator = modelElements.getModelElements().iterator(); iterator.hasNext();)
                         {
                             final ModelElement modelElement = (ModelElement)iterator.next();
                             final String variable = modelElement.getVariable();
                             if (StringUtils.isNotEmpty(variable))
                             {
-                                // - if a stereotype has the same variable defined
+                                // - if a modelElement has the same variable defined
                                 //   more than one time, then get the existing
                                 //   model elements added from the last iteration
                                 //   and add the new ones to that collection
@@ -173,13 +190,19 @@ public class Cartridge
                                 else
                                 {
                                     metafacades = modelElement.getMetafacades();
+                                    templateContext.put(
+                                        variable,
+                                        new LinkedHashSet(metafacades));
                                 }
-                                templateContext.put(
-                                    variable,
-                                    new LinkedHashSet(metafacades));
                             }
                         }
-                        this.processWithTemplate(template, templateContext, outlet, null, null);
+
+                        this.processWithTemplate(
+                            template,
+                            templateContext,
+                            outlet,
+                            null,
+                            null);
                     }
                     else
                     {
@@ -191,16 +214,34 @@ public class Cartridge
                         {
                             final Map templateContext = new HashMap();
                             final Object metafacade = iterator.next();
-                            templateContext.put(
-                                modelElements.getVariable(),
-                                metafacade);
 
-                            this.processWithTemplate(
-                                template,
-                                templateContext,
-                                outlet,
-                                factory.getModel().getName(metafacade),
-                                factory.getModel().getPackageName(metafacade));
+                            // - only add the metafacade to the template context if the variable
+                            //   is defined (which is possible)
+                            final String variable = modelElements.getVariable();
+                            if (variable != null && variable.trim().length() > 0)
+                            {
+                                templateContext.put(
+                                    variable,
+                                    metafacade);
+                            }
+
+                            // - now we process any property templates (if any 'variable' attributes are defined on one or
+                            //   more type's given properties), otherwise we process the single metafacade as usual
+                            if (!this.processPropertyTemplates(
+                                    template,
+                                    metafacade,
+                                    templateContext,
+                                    outlet,
+                                    modelElements))
+                            {
+                                final ModelAccessFacade model = factory.getModel();
+                                this.processWithTemplate(
+                                    template,
+                                    templateContext,
+                                    outlet,
+                                    model.getName(metafacade),
+                                    model.getPackageName(metafacade));
+                            }
                         }
                     }
                 }
@@ -213,6 +254,76 @@ public class Cartridge
     }
 
     /**
+     * Determines if any property templates need to be processed (that is templates
+     * that are processed given related <em>properties</em> of a metafacade).
+     *
+     * @param template the template to use for processing.
+     * @param metafacade the metafacade instance (the property value is retrieved from this).
+     * @param templateContext the template context containing the instance to pass to the template.
+     * @param outlet the outlet to which output will be written.
+     * @param modelElements the model elements from which we retrieve the corresponding types and then
+     *        properties to determine if any properties have been mapped for template processing.
+     * @return true if any property templates have been evaluated (false othewise).
+     */
+    private final boolean processPropertyTemplates(
+        final Template template,
+        final Object metafacade,
+        final Map templateContext,
+        final String outlet,
+        final ModelElements modelElements)
+    {
+        boolean propertyTemplatesEvaluated = false;
+        for (final Iterator elements = modelElements.getModelElements().iterator(); elements.hasNext();)
+        {
+            final ModelElement modelElement = (ModelElement)elements.next();
+            for (final Iterator types = modelElement.getTypes().iterator(); types.hasNext();)
+            {
+                final Type type = (Type)types.next();
+                for (final Iterator properties = type.getProperties().iterator(); properties.hasNext();)
+                {
+                    final Type.Property property = (Type.Property)properties.next();
+                    final String variable = property.getVariable();
+                    propertyTemplatesEvaluated = variable != null && variable.trim().length() > 0;
+                    if (propertyTemplatesEvaluated)
+                    {
+                        final Object value = Introspector.instance().getProperty(
+                                metafacade,
+                                property.getName());
+                        if (value instanceof Collection)
+                        {
+                            for (final Iterator values = ((Collection)value).iterator(); values.hasNext();)
+                            {
+                                templateContext.put(
+                                    variable,
+                                    values.next());
+                                this.processWithTemplate(
+                                    template,
+                                    templateContext,
+                                    outlet,
+                                    null,
+                                    null);
+                            }
+                        }
+                        else
+                        {
+                            templateContext.put(
+                                variable,
+                                value);
+                            this.processWithTemplate(
+                                template,
+                                templateContext,
+                                outlet,
+                                null,
+                                null);
+                        }
+                    }
+                }
+            }
+        }
+        return propertyTemplatesEvaluated;
+    }
+
+    /**
      * Processes the <code>template</code> without metafacades. This is useful if you need to generate something that
      * is part of your cartridge, however you only need to use a property passed in from a namespace or a template
      * object defined in your cartridge descriptor.
@@ -222,19 +333,27 @@ public class Cartridge
     protected void processTemplateWithoutMetafacades(final Template template)
     {
         final String methodName = "Cartridge.processTemplateWithoutMetafacades";
-        ExceptionUtils.checkNull(methodName, "template", template);
+        ExceptionUtils.checkNull(
+            methodName,
+            "template",
+            template);
         final String outlet = Namespaces.instance().getPropertyValue(
                 this.getNamespace(),
                 template.getOutlet());
         if (outlet != null)
         {
             final Map templateContext = new HashMap();
-            this.processWithTemplate(template, templateContext, outlet, null, null);
+            this.processWithTemplate(
+                template,
+                templateContext,
+                outlet,
+                null,
+                null);
         }
     }
 
     /**
-     * <p> 
+     * <p>
      * Perform processing with the <code>template</code>.
      * </p>
      *
@@ -258,9 +377,18 @@ public class Cartridge
         final String metafacadePackage)
     {
         final String methodName = "Cartridge.processWithTemplate";
-        ExceptionUtils.checkNull(methodName, "template", template);
-        ExceptionUtils.checkNull(methodName, "templateContext", templateContext);
-        ExceptionUtils.checkNull(methodName, "outlet", outlet);
+        ExceptionUtils.checkNull(
+            methodName,
+            "template",
+            template);
+        ExceptionUtils.checkNull(
+            methodName,
+            "templateContext",
+            templateContext);
+        ExceptionUtils.checkNull(
+            methodName,
+            "outlet",
+            outlet);
 
         File outputFile = null;
         try
@@ -337,7 +465,10 @@ public class Cartridge
     protected void processResource(final Resource resource)
     {
         final String methodName = "Cartridge.processResource";
-        ExceptionUtils.checkNull(methodName, "resource", resource);
+        ExceptionUtils.checkNull(
+            methodName,
+            "resource",
+            resource);
 
         URL resourceUrl = ResourceUtils.getResource(
                 resource.getPath(),
@@ -363,7 +494,9 @@ public class Cartridge
                             resourceUrl = ResourceUtils.getResource(
                                     content,
                                     this.getMergeLocation());
-                            this.writeResource(resource, resourceUrl);
+                            this.writeResource(
+                                resource,
+                                resourceUrl);
                         }
                     }
                 }
@@ -372,7 +505,9 @@ public class Cartridge
         }
         else
         {
-            this.writeResource(resource, resourceUrl);
+            this.writeResource(
+                resource,
+                resourceUrl);
         }
     }
 
@@ -400,7 +535,9 @@ public class Cartridge
             if (outlet != null)
             {
                 // - make sure we don't have any back slashes
-                final String resourceUri = resourceUrl.toString().replaceAll("\\\\", FORWARD_SLASH);
+                final String resourceUri = resourceUrl.toString().replaceAll(
+                        "\\\\",
+                        FORWARD_SLASH);
                 final String uriSuffix =
                     resourceUri.substring(
                         resourceUri.lastIndexOf(FORWARD_SLASH),
@@ -408,7 +545,9 @@ public class Cartridge
                 if (outlet.endsWith(FORWARD_SLASH))
                 {
                     // - remove the extra slash
-                    outlet = outlet.replaceFirst(FORWARD_SLASH, "");
+                    outlet = outlet.replaceFirst(
+                            FORWARD_SLASH,
+                            "");
                 }
 
                 final Map templateContext = new HashMap();
@@ -465,7 +604,10 @@ public class Cartridge
      */
     public void addResource(final Resource resource)
     {
-        ExceptionUtils.checkNull("Cartridge.addResource", "resource", resource);
+        ExceptionUtils.checkNull(
+            "Cartridge.addResource",
+            "resource",
+            resource);
         resource.setCartridge(this);
         resources.add(resource);
     }

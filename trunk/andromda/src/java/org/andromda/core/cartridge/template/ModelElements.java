@@ -62,7 +62,7 @@ public class ModelElements
     /**
      * Gets all metafacade instances from each ModelElement belonging to this ModelElements instance.
      *
-     * @return Collection of all model elements.
+     * @return Collection of all metafacades.
      */
     public Set getAllMetafacades()
     {
