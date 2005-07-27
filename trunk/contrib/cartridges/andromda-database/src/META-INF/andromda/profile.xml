@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<profile>
+    <elements>
+        <elementGroup name="Tagged Values">
+            <element name="DATABASE_DUMMYLOAD_SIZE">
+                <value>@andromda.persistence.dummyload.size</value>
+            </element>
+            <element name="DATABASE_CONSOLE_TABLE_DISPLAYNAME">
+                <value>@andromda.persistence.console.table.displayname</value>
+            </element>
+            <element name="DATABASE_CONSOLE_TABLE_DISPLAYCOLUMN">
+                <value>@andromda.persistence.console.table.displaycolumn</value>
+            </element>
+            <element name="DATABASE_CONSOLE_TABLE_PAGESIZE">
+                <value>@andromda.persistence.console.table.pagesize</value>
+            </element>
+            <element name="DATABASE_CONSOLE_TABLE_MAXLISTSIZE">
+                <value>@andromda.persistence.console.table.maxlistsize</value>
+            </element>
+            <element name="DATABASE_CONSOLE_TABLE_EXPORTABLE">
+                <value>@andromda.persistence.console.table.exportable</value>
+            </element>
+            <element name="DATABASE_CONSOLE_TABLE_INSERTABLE">
+                <value>@andromda.persistence.console.table.insertable</value>
+            </element>
+            <element name="DATABASE_CONSOLE_COLUMN_DISPLAYNAME">
+                <value>@andromda.persistence.console.column.displayname</value>
+            </element>
+            <element name="DATABASE_CONSOLE_COLUMN_RESOLVEFK">
+                <value>@andromda.persistence.console.column.resolvefk</value>
+            </element>
+            <element name="DATABASE_CONSOLE_COLUMN_HIDE">
+                <value>@andromda.persistence.console.column.hide</value>
+            </element>
+            <element name="DATABASE_CONSOLE_COLUMN_SORTABLE">
+                <value>@andromda.persistence.console.column.sortable</value>
+            </element>
+            <element name="DATABASE_CONSOLE_COLUMN_EXPORTABLE">
+                <value>@andromda.persistence.console.column.exportable</value>
+            </element>
+            <element name="DATABASE_CONSOLE_COLUMN_UPDATEABLE">
+                <value>@andromda.persistence.console.column.updateable</value>
+            </element>
+            <element name="DATABASE_CONSOLE_COLUMN_SIZE">
+                <value>@andromda.persistence.console.column.size</value>
+            </element>
+            <element name="DATABASE_CONSOLE_COLUMN_VALUES">
+                <value>@andromda.persistence.console.column.values</value>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>
