@@ -60,7 +60,7 @@ public class Resource
     {
         File file = null;
 
-        // clean any whitespace off the arguments
+        // - clean any whitespace off the arguments
         if (directory != null && arguments != null && arguments.length > 0)
         {
             for (int ctr = 0; ctr < arguments.length; ctr++)
@@ -71,8 +71,7 @@ public class Resource
             {
                 outputPattern = this.getOutputPattern();
             }
-            String outputFileName = MessageFormat.format(outputPattern, arguments);
-
+            final String outputFileName = MessageFormat.format(outputPattern, arguments);
             file = new File(directory, outputFileName);
         }
         return file;
