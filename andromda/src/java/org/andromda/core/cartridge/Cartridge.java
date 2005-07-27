@@ -27,7 +27,6 @@ import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
-import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -163,7 +162,8 @@ public class Cartridge
                         // - first place all relevant model elements by the
                         //   <modelElements/> variable name. If the variable
                         //   isn't defined (which is possible), ignore.
-                        if (StringUtils.isNotBlank(modelElements.getVariable()))
+                        final String modelElementsVariable = modelElements.getVariable();
+                        if (modelElementsVariable != null && modelElementsVariable.trim().length() > 0)
                         {
                             templateContext.put(
                                 modelElements.getVariable(),
@@ -175,14 +175,14 @@ public class Cartridge
                         for (final Iterator iterator = modelElements.getModelElements().iterator(); iterator.hasNext();)
                         {
                             final ModelElement modelElement = (ModelElement)iterator.next();
-                            final String variable = modelElement.getVariable();
-                            if (StringUtils.isNotEmpty(variable))
+                            final String modelElementVariable = modelElement.getVariable();
+                            if (modelElementVariable != null && modelElementVariable.trim().length() > 0)
                             {
                                 // - if a modelElement has the same variable defined
                                 //   more than one time, then get the existing
                                 //   model elements added from the last iteration
                                 //   and add the new ones to that collection
-                                Collection metafacades = (Collection)templateContext.get(variable);
+                                Collection metafacades = (Collection)templateContext.get(modelElementVariable);
                                 if (metafacades != null)
                                 {
                                     metafacades.addAll(modelElement.getMetafacades());
@@ -191,7 +191,7 @@ public class Cartridge
                                 {
                                     metafacades = modelElement.getMetafacades();
                                     templateContext.put(
-                                        variable,
+                                        modelElementVariable,
                                         new LinkedHashSet(metafacades));
                                 }
                             }
@@ -210,6 +210,7 @@ public class Cartridge
                         //   we just place the model element with the default
                         //   variable defined on the <modelElements/> into the
                         //   template.
+                        final String variable = modelElements.getVariable();
                         for (final Iterator iterator = allMetafacades.iterator(); iterator.hasNext();)
                         {
                             final Map templateContext = new HashMap();
@@ -217,7 +218,6 @@ public class Cartridge
 
                             // - only add the metafacade to the template context if the variable
                             //   is defined (which is possible)
-                            final String variable = modelElements.getVariable();
                             if (variable != null && variable.trim().length() > 0)
                             {
                                 templateContext.put(
@@ -424,7 +424,7 @@ public class Cartridge
 
                     // - check to see if generateEmptyFiles is true and if
                     //   outString is not blank
-                    if (StringUtils.isNotBlank(outputString) || template.isGenerateEmptyFiles())
+                    if ((outputString != null && outputString.trim().length() > 0) || template.isGenerateEmptyFiles())
                     {
                         ResourceWriter.instance().writeStringToFile(
                             outputString,
@@ -485,7 +485,7 @@ public class Cartridge
                 for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
                 {
                     final String content = (String)iterator.next();
-                    if (StringUtils.isNotEmpty(content))
+                    if (content != null && content.trim().length() > 0)
                     {
                         if (PathMatcher.wildcardMatch(
                                 content,
