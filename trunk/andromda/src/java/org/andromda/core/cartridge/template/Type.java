@@ -77,8 +77,8 @@ public class Type
         private String value;
 
         Property(
-            String name,
-            String value)
+            final String name,
+            final String value)
         {
             this.name = StringUtils.trimToEmpty(name);
             this.value = value;
