@@ -141,12 +141,16 @@ public class ClassifierFacadeLogicImpl
             try
             {
                 mappings = TypeMappings.getInstance(uri);
-                this.setProperty(propertyName, mappings);
+                this.setProperty(
+                    propertyName,
+                    mappings);
             }
             catch (final Throwable throwable)
             {
                 final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                logger.error(errMsg, throwable);
+                logger.error(
+                    errMsg,
+                    throwable);
 
                 // don't throw the exception
             }
@@ -163,7 +167,9 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsCollectionType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.COLLECTION_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.COLLECTION_TYPE_NAME);
     }
 
     /**
@@ -171,7 +177,9 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsListType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.LIST_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.LIST_TYPE_NAME);
     }
 
     /**
@@ -179,7 +187,9 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsSetType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.SET_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.SET_TYPE_NAME);
     }
 
     /**
@@ -187,7 +197,9 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsBooleanType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.BOOLEAN_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.BOOLEAN_TYPE_NAME);
     }
 
     /**
@@ -195,7 +207,9 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsDateType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.DATE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.DATE_TYPE_NAME);
     }
 
     /**
@@ -203,7 +217,9 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsFileType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.FILE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.FILE_TYPE_NAME);
     }
 
     /**
@@ -211,7 +227,9 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsBlobType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.BLOB_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.BLOB_TYPE_NAME);
     }
 
     /**
@@ -219,7 +237,9 @@ public class ClassifierFacadeLogicImpl
      */
     public boolean handleIsMapType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.MAP_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.MAP_TYPE_NAME);
     }
 
     /**
@@ -227,7 +247,9 @@ public class ClassifierFacadeLogicImpl
      */
     protected boolean handleIsStringType()
     {
-        return UMLMetafacadeUtils.isType(this, UMLProfile.STRING_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.STRING_TYPE_NAME);
     }
 
     /**
@@ -292,8 +314,35 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetProperties(boolean follow)
     {
         final Collection properties = this.getAttributes(follow);
-        // @todo possibly implement getNavigableConnectingEnds(boolean follow)
-        properties.addAll(this.getNavigableConnectingEnds());
+        final Collection associations = this.getNavigableConnectingEnds();
+        if (follow)
+        {
+            for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+                superClass = (ClassifierFacade)superClass.getGeneralization())
+            {
+                // - filter duplicate association ends from each generalization.
+                properties.addAll(
+                    new FilteredCollection(superClass.getNavigableConnectingEnds())
+                    {
+                        public boolean evaluate(final Object object)
+                        {
+                            boolean valid = true;
+                            for (final Iterator iterator = associations.iterator(); iterator.hasNext();)
+                            {
+                                final AssociationEndFacade association = (AssociationEndFacade)iterator.next();
+                                final AssociationEndFacade superAssociation = (AssociationEndFacade)object;
+                                if (association.getName().equals(superAssociation.getName()))
+                                {
+                                    valid = false;
+                                    break;
+                                }
+                            }
+                            return valid;
+                        }
+                    });
+            }
+        }
+        properties.addAll(associations);
         return properties;
     }
 
@@ -451,7 +500,9 @@ public class ClassifierFacadeLogicImpl
         String javaNullString = null;
         if (isPrimitive())
         {
-            if (UMLMetafacadeUtils.isType(this, UMLProfile.BOOLEAN_TYPE_NAME))
+            if (UMLMetafacadeUtils.isType(
+                    this,
+                    UMLProfile.BOOLEAN_TYPE_NAME))
             {
                 javaNullString = "false";
             }
@@ -590,7 +641,9 @@ public class ClassifierFacadeLogicImpl
             byte[] hashBytes = md.digest(signature.getBytes());
 
             long hash = 0;
-            for (int ctr = Math.min(hashBytes.length, 8) - 1; ctr >= 0; ctr--)
+            for (int ctr = Math.min(
+                        hashBytes.length,
+                        8) - 1; ctr >= 0; ctr--)
             {
                 hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
             }
@@ -599,7 +652,9 @@ public class ClassifierFacadeLogicImpl
         catch (final NoSuchAlgorithmException exception)
         {
             final String errMsg = "Error performing ModelElementFacadeImpl.getSerialVersionUID";
-            logger.error(errMsg, exception);
+            logger.error(
+                errMsg,
+                exception);
         }
         return serialVersionUID;
     }
