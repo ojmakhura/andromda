@@ -1,0 +1,74 @@
+<%@ include file="/$jspIncludes" %>
+<html>
+
+<%@include file="/includes/head.jspf" %>
+
+<body>
+
+<f:view>
+
+    <x:panelLayout id="page" layout="#{${layoutOptionsBeanName}.sidebarLayout}"
+            styleClass="pageLayout"
+            headerClass="pageHeader"
+            navigationClass="pageNavigation"
+            bodyClass="pageBody"
+            footerClass="pageFooter" >
+
+        <f:facet name="header">
+            <f:subview id="header">
+                <jsp:include page="/includes/header.jsp" />
+            </f:subview>
+        </f:facet>
+
+        <f:facet name="navigation">
+            <f:subview id="menu">
+                <jsp:include page="/includes/navigation.jsp" />
+            </f:subview>
+        </f:facet>
+
+        <f:facet name="body">
+            <h:panelGroup id="body">
+                <h:messages id="messageList" />
+                <h:outputText value="#{messages['layout.options.title']}" styleClass="actionHeader" />
+                <f:verbatim><br/><br/></f:verbatim>
+                <h:form id="layoutOptions" name="${layoutOptionsBeanName}">
+                    <h:panelGrid columns="1" styleClass="formTable"
+                                 headerClass="formHeader"
+                                 footerClass="formFooter"
+                                 columnClasses="formLabels, formInputs" > 
+                        <h:panelGroup> 
+                            <h:outputLabel for="${layoutOptionsBeanName}:menu" value="#{messages['layout.options.menu']}" /> <f:verbatim>:&nbsp;</f:verbatim>
+                            <h:selectOneMenu id="menu" value="#{${layoutOptionsBeanName}.menuLayout}">
+                                <f:selectItem itemLabel="#{messages['layout.options.menu.side']}" itemValue="vbr" />
+                                <f:selectItem itemLabel="#{messages['layout.options.menu.top']}" itemValue="hbr"/>
+                            </h:selectOneMenu>
+                            <f:verbatim><br/></f:verbatim>
+                            <h:outputLabel for="${layoutOptionsBeanName}:sidebar" value="#{messages['layout.options.sidebar']}" /> <f:verbatim>:&nbsp;</f:verbatim>
+                            <h:selectOneMenu id="sidebar" value="#{${layoutOptionsBeanName}.sidebarLayout}">
+                                <f:selectItem itemLabel="#{messages['layout.options.sidebar.left']}" itemValue="classic" />
+                                <f:selectItem itemLabel="#{messages['layout.options.sidebar.right']}" itemValue="navigationRight"/>
+                            </h:selectOneMenu>
+                            <f:verbatim><br/></f:verbatim>
+                            <h:outputLabel for="${layoutOptionsBeanName}:theme" value="#{messages['layout.options.navigation.theme']}" /> <f:verbatim>:&nbsp;</f:verbatim>
+                            <h:selectOneMenu id="theme" value="#{${layoutOptionsBeanName}.theme}">
+                                <f:selectItem itemLabel="Office" itemValue="ThemeOffice"/>
+                                <f:selectItem itemLabel="Mini Black" itemValue="ThemeMiniBlack"/>
+                                <f:selectItem itemLabel="IE" itemValue="ThemeIE"/>
+                                <f:selectItem itemLabel="Panel" itemValue="ThemePanel"/>
+                            </h:selectOneMenu>
+                            <f:verbatim><br/></f:verbatim>
+                            <h:commandButton id="apply" value="#{messages['button_apply']}" action="ok"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+        </f:facet>
+        <%@include file="/includes/footer.jspf" %>
+
+    </x:panelLayout>
+
+</f:view>
+
+</body>
+
+</html>

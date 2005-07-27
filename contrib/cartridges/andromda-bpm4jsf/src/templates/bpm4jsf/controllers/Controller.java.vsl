@@ -1,0 +1,51 @@
+#set ($generatedFile = "${controller.fullyQualifiedNamePath}.java")
+// license-header java merge-point
+package $controller.packageName;
+
+/**
+$controller.getDocumentation(" * ")
+ */
+public abstract class $controller.name
+    implements java.io.Serializable
+{
+
+#foreach ($operation in $controller.operations)
+    /**
+$operation.getDocumentation("     * ")
+     */
+    $operation.formSignature;
+    
+#end
+#foreach ($action in $controller.useCase.actions)
+    public java.lang.String ${action.triggerName}()
+    {
+#if (!$action.formFields.empty)
+        final javax.faces.context.FacesContext facesContext = 
+            javax.faces.context.FacesContext.getCurrentInstance();
+        final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
+        final $action.fullyQualifiedFormImplementationName form = 
+            ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
+                facesContext, 
+                "$action.formBeanName");
+#end
+#foreach ($deferredOperation in $action.deferredOperations)
+        this.$deferredOperation.formCall;
+#end
+#foreach ($forward in $action.actionForwards)
+        return "$forward.name";
+#end
+    }
+    
+#end
+
+    /**
+     * Gets the current faces context.  This object is the point
+     * from which to retrieve any request, session, etc information.
+     * 
+     * @return the JSF faces context instance.
+     */
+    protected javax.faces.context.FacesContext getContext()
+    {
+        return javax.faces.context.FacesContext.getCurrentInstance();
+    }
+}

@@ -1,0 +1,22 @@
+#set ($generatedFile = "${controller.fullyQualifiedImplementationPath}.java")
+// license-header java merge-point
+package $controller.packageName;
+
+/**
+ * @see $controller.fullyQualifiedName
+ */
+public class $controller.implementationName
+    extends $controller.name
+{
+
+#foreach ($operation in $controller.operations)
+    /**
+     * @see $controller.fullyQualifiedName#$operation.signature
+     */
+    $operation.implementationFormSignature
+    {
+    
+    }
+    
+#end
+}
