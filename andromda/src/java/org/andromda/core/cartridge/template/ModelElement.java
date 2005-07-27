@@ -56,7 +56,7 @@ public class ModelElement
      */
     public Collection getTypes()
     {
-        return types;
+        return this.types;
     }
 
     /**
@@ -178,7 +178,7 @@ public class ModelElement
     private final boolean accept(final Object metafacade)
     {
         boolean accept = true;
-        for (final Iterator iterator = types.iterator(); iterator.hasNext() && accept;)
+        for (final Iterator iterator = this.types.iterator(); iterator.hasNext() && accept;)
         {
             final Type type = (Type)iterator.next();
             if (StringUtils.isNotBlank(type.getName()))
