@@ -711,7 +711,7 @@
 ...
 ]]></source>
             Here's example of the second use (note that the property still must be valid in order to be made available to the template, in the
-            case of this example that would mean the <em>navigableConnectingEnds</em> collection has at least one or moe elements).  
+            case of this example that would mean the <em>navigableConnectingEnds</em> collection has at least one or more elements).  
             The following would process a template for each <em>associationEnd</em> in the collection of <em>navigableConnectingEnds</em>
             on the entity.   It will also make the <em>entity</em> variable (in addition to the <em>associationEnd</em> variable) available
             to each processed template.  This is useful in cases where you have a property on your metafacade that is something other than
