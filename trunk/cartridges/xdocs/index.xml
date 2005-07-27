@@ -684,19 +684,44 @@
        <h3><![CDATA[<property/>]]></h3>
        <p>
             There are <strong>optional</strong> nested <code><![CDATA[<property/>]]></code> elements
-            that may be placed directly within a <a href="#type"><code><![CDATA[<type/>]]></code></a>,
-            they are used to specify what properties the <a href="../andromda-metafacades/index.html">metafacade</a>
-            <em>type</em> must have (meaning non-null in case of a non-collection property or having at least one value
-            in case of a collection property) or be equal to, in order for the model element to be made available to a
-            <a href="#template"><code><![CDATA[<template/>]]></code></a>. For example, the following would make each
-            model element with a metafacade of type <em>org.andromda.core.uml.ClassifierFacade</em> with the property
-            <em>enumeration</em> equal to <code>true</code> available to a template:
+            that may be placed directly within a <a href="#type"><code><![CDATA[<type/>]]></code></a>.  These properties
+            are used for two purposes: 
+            <ol>
+                <li>
+                    They are used to specify what <em>valid</em> properties the <a href="../andromda-metafacades/index.html">metafacade</a>
+                    <em>type</em> must have (meaning non-null in case of a non-collection property or having at least one value
+                    in case of a collection property) or be equal to, in order for the model element to be made available to a
+                    <a href="#template"><code><![CDATA[<template/>]]></code></a>
+               </li>
+               <li>
+                   They're used to define additional elements that should be processed by a template.
+               </li>
+           </ol>
+           Here's an example of the first and most common use, the following would make each model element with a metafacade of 
+           type <em>org.andromda.core.uml.ClassifierFacade</em> with the property <em>enumeration</em> equal to <code>true</code> available to a template:
 <source language="xml"><![CDATA[
 ...
 <modelElements variable="enumeration">
     <modelElement>
         <type name="org.andromda.metafacades.uml.ClassifierFacade">
             <property name="enumeration">true</property>
+        </type>
+    </modelElement>
+</modelElements>
+...
+]]></source>
+            Here's example of the second use (note that the property still must be valid in order to be made available to the template, in the
+            case of this example that would mean the <em>navigableConnectingEnds</em> collection has at least one or moe elements).  
+            The following would process a template for each <em>associationEnd</em> in the collection of <em>navigableConnectingEnds</em>
+            on the entity.   It will also make the <em>entity</em> variable (in addition to the <em>associationEnd</em> variable) available
+            to each processed template.  This is useful in cases where you have a property on your metafacade that is something other than
+            one or more metafacade instances; doing something like this allows you to process those related objects within a template.
+<source language="xml"><![CDATA[
+...
+<modelElements variable="entity">
+    <modelElement>
+        <type name="org.andromda.metafacades.uml.Entity">
+            <property name="navigibleConnectingEnds" variable="associationEnd"/>
         </type>
     </modelElement>
 </modelElements>
