@@ -1,0 +1,252 @@
+<cartridge>
+    
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4jsf.BPM4JSFUtils"/>
+    <!-- cartridge-templateObject merge-point-->
+
+    <property reference="xmlEncoding"/>
+    <property reference="facesConfig"/>
+    <property reference="jspIncludes"/>
+    <property reference="messageResources"/>
+    <property reference="welcomeFileName"/>
+    <property reference="facesServletExtension"/>
+    <property reference="managedBeansPackage"/>
+    <property reference="layoutOptionsName"/>
+    <property reference="layoutOptionsBeanName"/>
+    <property reference="sidebarLayout"/>
+    <property reference="menuLayout"/>
+    <property reference="navigationTheme"/>
+    <property reference="applicationName"/>
+    <!-- cartridge-property merge-point -->
+
+    <!-- cartridge-resource merge-point -->
+    <resource
+        path="resources/views/jsp/css/*.*"
+        outputPattern="css/{0}"
+        outlet="jsps"
+        overwrite="true"/>
+
+    <!-- process templates on model elements -->
+    <template
+        path="templates/bpm4jsf/configuration/web.xml.vsl"
+        outputPattern="web.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>         
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/configuration/faces-config.xml.vsl"
+        outputPattern="$facesConfig"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="controllers">
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                    <property name="operations"/>
+                </type>
+            </modelElement>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>    
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/forms/Form.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndControllerOperation">
+                    <!-- only generate the form if we have any form fields -->
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/forms/FormImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <!-- only generate the form if we have at least one form field -->
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/controllers/ControllerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controller-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                    <property name="operations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4jsf/controllers/Controller.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                    <property name="operations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/messages/messages.properties.vsl"
+        outputPattern="${messageResources}.properties"
+        outlet="messages"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>            
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/includes.jspf.vsl"
+        outputPattern="$jspIncludes"
+        outlet="jsps"
+        overwrite="true"
+        generateEmptyFiles="true"/>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/head.jspf.vsl"
+        outputPattern="includes/head.jspf"
+        outlet="jsps"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/footer.jspf.vsl"
+        outputPattern="includes/footer.jspf"
+        outlet="jsps"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/header.jsp.vsl"
+        outputPattern="includes/header.jsp"
+        outlet="jsps"
+        overwrite="true"
+        outputToSingleFile="true"/>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/navigation.jsp.vsl"
+        outputPattern="includes/navigation.jsp"
+        outlet="jsps"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/layout-options.jsp.vsl"
+        outputPattern="layout/layout-options.jsp"
+        outlet="jsps"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/menu.jspf.vsl"
+        outputPattern="includes/menu.jspf"
+        outlet="jsps"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+        </modelElements>        
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/utils/Messages.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="managed-beans"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/view.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/view-action.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/index.jsp.vsl"
+        outputPattern="$welcomeFileName"
+        outlet="jsps"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/views/rendering/LayoutOptions.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="managed-beans"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/utils/Messages.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="managed-beans"
+        overwrite="true"/>
+    
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

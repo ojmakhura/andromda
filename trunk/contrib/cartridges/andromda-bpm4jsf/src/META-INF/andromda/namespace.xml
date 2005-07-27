@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="bpm4jsf">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <!--
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+         -->
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="configuration">
+                <documentation>
+                    The location to which Struts configuration files are generated. These are the files
+                    that typically appear in WEB-INF, such as validation-rules.xml and tiles-defs.xml.
+                </documentation>
+            </property>
+            <property name="controllers">
+                <documentation>
+                    The location to which any controllers are generated (this outlet
+                    contains classes which are fully generated and should not be
+                    touched).
+                </documentation>
+            </property>
+            <property name="controller-impls">
+                <documentation>
+                    The location to which controller implementations are generated (these
+                    are where your hooks go to your services).
+                </documentation>
+            </property>
+            <property name="managed-beans">
+                <documentation>
+                    The location to which any additional managed beans are generated (including
+                    layout options, etc).
+                </documentation>
+            </property>
+            <property name="messages">
+                <documentation>
+                    The location to which message resource bundles are generated.
+                </documentation>
+            </property>
+            <property name="jsps" required="false">
+                <documentation>
+                    Application JSPs: login pages, stylesheets, etc (basically 
+                    anything in support of JSP view rendering).
+                </documentation>
+            </property>
+            <property name="forms">
+                <documentation>
+                    The forms to which input is stored are output here.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Configuration">
+            <documentation>
+               The properties that provide configuration of the JSF configuration files.
+            </documentation>
+            <property name="facesConfig">
+                <default>faces-config.xml</default>
+                <documentation>
+                    The name of the JSF configuration file (this file stores the JSF managed bean
+                    form information and navigation rules).
+                </documentation>
+            </property>
+            <property name="formScope">
+                <default>request</default>
+                <documentation>
+                    The scope to given the forms.  This value can be overriddem by a tagged value.
+                </documentation>
+            </property>
+            <property name="facesServletExtension">
+                <default>jsf</default>
+                <documentation>
+                    The extension used for the application's handling of JSF pages.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="UI Layout">
+            <documentation>
+                Properties related to the configuration of the user interface layout.
+            </documentation>
+            <property name="layoutOptionsName">
+                <default>LayoutOptions</default>
+                <documentation>
+                    Defines the name of the layout options class (which allows dynamic control
+                    of the UI's view layout).
+                </documentation>
+            </property>
+            <property name="layoutOptionsBeanName">
+                <default>layoutOptions</default>
+                <documentation>
+                    Defines the bean name under which the layout options class will be stored.
+                </documentation>
+            </property>
+            <property name="sidebarLayout">
+                <default>classic</default>
+                <documentation>
+                    The default layout to use for the navigation layout (this is only applicable
+                    when the <a href="#menuLayout">menuLayout</a> is <em>side</em>.
+                </documentation>
+            </property>
+            <property name="menuLayout">
+                <default>vbr</default>
+                <documentation>
+                    The menu layout.  Valid values are:
+                    <ul>
+                        <li>hbr</li>
+                        <li>hur</li>
+                        <li>hul</li>
+                        <li>vbr</li>
+                        <li>vur</li>
+                        <li>vur</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="navigationTheme">
+                <default>ThemeOffice</default>
+                <documentation>
+                    The navigation theme to use (the possible choices are:
+                    ThemeOffice, ThemeMiniBlack, ThemeIE, ThemePanel).
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Messages and i18n">
+            <documentation>
+                Properties related to the configuration of messages and internationalization in general.
+            </documentation>
+            <property name="applicationName" required="true">
+                <documentation>
+                    The name of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>
+            <property name="normalizeMessages">
+                <default>false</default>
+                <documentation>
+                    Denotes the way application resource messages ought to be generated.
+                    When messages are normalized it means that elements with the same name
+                    will reuse the same label, even if they are located in entirely different
+                    use-cases or pages.
+                    This results in resource bundles that are not only smaller in size but
+                    also more straightforward to translate. The downside is that it will be
+                    less evident to customize labels for certain fields (which is rarely the
+                    case anyway).
+                    For backward compatibility reasons this flag is disabled by default.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="JSP pages">
+            <property name="welcomeFileName">
+                <default>index.jsp</default>
+                <documentation>
+                    The path of the JSP that is the welcome file.
+                </documentation>
+            </property>    
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="managedBeansPackage">
+                <default>org.andromda.presentation.bpm4jsf</default>
+                <documentation>
+                    Defines the the package in which any extra managed-beans will 
+                    be generated (such as the layout options class, etc).
+                </documentation>
+            </property>
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    Encoding for generated XML files.
+                </documentation>
+            </property>
+            <property name="formPattern">
+                <default>{0}Form</default>
+                <documentation>
+                    The pattern to use for constructing the form name, where
+                    <em>{0}</em> is the name of the controller operation capitalized.
+                </documentation>
+            </property>
+            <property name="formImplementationPattern">
+                <default>{0}FormImpl</default>
+                <documentation>
+                    The pattern to use for constructing the form implementation name, where
+                    <em>{0}</em> is the name of the controller operation capitalized.                    
+                </documentation>
+            </property>
+            <property name="formBeanPattern">
+                <default>{0}Form</default>
+                <documentation>
+                    The pattern for constructing the name of the bean under which the form is stored,
+                    where <em>{0}</em> is the name of the controller operation.
+                </documentation>
+            </property>
+            <property name="controllerImplementationPattern">
+                <default>{0}Impl</default>
+                <documentation>
+                    The pattern for constructing the name of the controller implementation class name (where <em>{0}</em>
+                    represents the modeled name of the controller).
+                </documentation>
+            </property>
+            <property name="messageResources">
+                <default>message-resources</default>
+                <documentation>
+                    The path of the localized message resources (the <em>.properties</em>
+                    suffix is appended to this value when creating the actual file.).
+                </documentation>
+            </property>
+            <property name="jspIncludes">
+                <default>includes.jspf</default>
+                <documentation>
+                    Defines the name of the default jsp includes file (this contains any 
+                    message resources as well as tag libs.
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

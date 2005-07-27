@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config>
+#if(!$applicationUseCases.empty)
+#set($applicationUseCase = $applicationUseCases.iterator().next())
+#end
+#set ($useCases = $applicationUseCase.allUseCases)
+    <!-- forms -->
+#foreach ($useCase in $useCases)
+#foreach ($action in $useCase.actions)
+#if (!$action.actionFormFields.empty)
+    <managed-bean>
+        <managed-bean-name>$action.formBeanName</managed-bean-name>
+        <managed-bean-class>$action.fullyQualifiedFormImplementationName</managed-bean-class>
+        <managed-bean-scope>$action.formScope</managed-bean-scope>
+    </managed-bean>
+#end
+#end
+#end
+    <!-- controllers -->
+#foreach ($controller in $controllers)
+    <managed-bean>
+        <managed-bean-name>$controller.beanName</managed-bean-name>
+        <managed-bean-class>$controller.fullyQualifiedImplementationName</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+#end
+    <!-- global navigational-rules -->
+#foreach ($useCase in $useCases)
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>$useCase.forwardName</from-outcome>
+            <to-view-id>${useCase.path}.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+#end
+#foreach ($useCase in $useCases)
+#foreach ($view in $useCase.views)
+    <navigation-rule>
+        <from-view-id>${view.path}.jsp</from-view-id>
+#foreach ($forward in $view.forwards)
+        <navigation-case>
+            <from-outcome>$forward.name</from-outcome>
+            <to-view-id>${forward.path}.jsp</to-view-id>
+        </navigation-case>
+#end
+    </navigation-rule>
+#end
+#end
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>layout-options</from-outcome>
+            <to-view-id>/layout/layout-options.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <managed-bean>
+        <managed-bean-name>${layoutOptionsBeanName}</managed-bean-name>
+        <managed-bean-class>${managedBeansPackage}.${layoutOptionsName}</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>sidebarLayout</property-name>
+            <value>$sidebarLayout</value>
+        </managed-property>
+        <managed-property>
+            <property-name>menuLayout</property-name>
+            <value>$menuLayout</value>
+        </managed-property>
+        <managed-property>
+            <property-name>theme</property-name>
+            <value>$navigationTheme</value>
+        </managed-property>
+    </managed-bean>
+
+    <!-- faces-config merge-point -->
+</faces-config>

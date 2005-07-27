@@ -1,0 +1,22 @@
+#set ($generatedFile = "${action.viewFragmentPath}.jspf")
+
+#set($formName = $action.formBeanName)
+    <h:messages id="messageList"/>
+    <h:outputText value="#{messages['$action.messageKey']}" styleClass="actionHeader" />
+    <f:verbatim><br/><br/></f:verbatim>
+    <h:form id="$formName" name="$formName">
+    <h:panelGrid columns="1" styleClass="formTable"
+                 headerClass="formHeader"
+                 footerClass="formFooter"
+                 columnClasses="formLabels, formInputs" >
+        <h:panelGroup>
+#foreach ($field in $action.formFields)
+            <h:outputLabel for="${formName}:${field.name}" value="#{messages['$field.messageKey']}" /><f:verbatim>:</f:verbatim>
+            <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/><f:verbatim></br></f:verbatim>
+#end
+            <h:commandButton id="$action.triggerName"
+                             value="#{messages['$action.messageKey']}"
+                             action="#{${action.controller.beanName}.${action.triggerName}}" />
+        </h:panelGroup>
+   </h:panelGrid>
+</h:form>

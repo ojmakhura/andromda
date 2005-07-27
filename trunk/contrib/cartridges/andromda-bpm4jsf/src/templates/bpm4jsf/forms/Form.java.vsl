@@ -1,0 +1,30 @@
+#set ($generatedFile = "${operation.fullyQualifiedFormPath}.java")
+// license-header java merge-point
+package $operation.packageName;
+
+/**
+ * This form encapsulates the fields that are used in the execution of the
+ * <code>$operation.name</code> method, which is located on the
+ * <code>$operation.owner.fullyQualifiedName</code> controller.
+ *
+$operation.getDocumentation(" * ")
+ *
+ * @see ${operation.owner.fullyQualifiedName}#${operation.signature}
+ */
+public interface $operation.formName
+    extends java.io.Serializable
+{
+#foreach ($field in $operation.formFields)
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public $field.type.fullyQualifiedName ${field.getterName}();
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public void ${field.setterName}($field.type.fullyQualifiedName $field.name);
+#end
+
+}

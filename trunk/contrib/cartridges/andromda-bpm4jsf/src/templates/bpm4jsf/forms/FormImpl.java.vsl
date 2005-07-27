@@ -1,0 +1,32 @@
+#set ($generatedFile = "${action.fullyQualifiedFormImplementationPath}.java")
+// license-header java merge-point
+package $action.packageName;
+
+/**
+$action.getDocumentation(" * ")
+ */
+public class $action.formImplementationName
+    implements $action.formImplementationInterfaceList
+{
+#foreach ($field in $action.formFields)
+
+    private $field.type.fullyQualifiedName $field.name;
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public $field.type.fullyQualifiedName ${field.getterName}()
+    {
+        return this.${field.name};
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public void ${field.setterName}($field.type.fullyQualifiedName $field.name)
+    {
+        this.$field.name = $field.name;
+    }
+#end
+ 
+}

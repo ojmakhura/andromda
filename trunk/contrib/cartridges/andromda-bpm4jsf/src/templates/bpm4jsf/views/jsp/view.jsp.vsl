@@ -1,0 +1,48 @@
+#set ($generatedFile = "${view.path}.jsp")
+<%@ include file="/$jspIncludes" %>
+
+<html>
+
+<%@include file="/includes/head.jspf" %>
+
+<body>
+
+<f:view>
+
+    <x:panelLayout id="page" layout="#{${layoutOptionsBeanName}.sidebarLayout}"
+            styleClass="pageLayout"
+            headerClass="pageHeader"
+            navigationClass="pageNavigation"
+            bodyClass="pageBody"
+            footerClass="pageFooter"
+            width="100%">
+
+        <f:facet name="header">
+            <f:subview id="header">
+                <jsp:include page="/includes/header.jsp" />
+            </f:subview>
+        </f:facet>
+
+        <f:facet name="navigation">
+            <f:subview id="menu" >
+                <jsp:include page="/includes/navigation.jsp" />
+            </f:subview>
+        </f:facet>
+
+        <f:facet name="body">
+            <h:panelGroup id="body">
+#foreach ($action in $view.actions)
+                <%@ include file="${action.viewFragmentPath}.jspf" %>
+#end
+            </h:panelGroup>
+        </f:facet>
+
+        <%@include file="/includes/footer.jspf" %>
+
+    </x:panelLayout>
+
+</f:view>
+
+</body>
+
+</html>
