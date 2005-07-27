@@ -81,7 +81,7 @@ public class Type
             final String value)
         {
             this.name = StringUtils.trimToEmpty(name);
-            this.value = value;
+            this.value = StringUtils.trimToEmpty(value);
         }
 
         /**
@@ -91,7 +91,7 @@ public class Type
          */
         public String getName()
         {
-            return StringUtils.trimToEmpty(this.name);
+            return this.name;
         }
 
         /**
@@ -101,7 +101,7 @@ public class Type
          */
         public String getValue()
         {
-            return StringUtils.trimToEmpty(this.value);
+            return this.value;
         }
     }
 }
