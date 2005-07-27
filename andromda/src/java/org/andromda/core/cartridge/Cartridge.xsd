@@ -99,6 +99,17 @@
                                             </xs:documentation>
                                         </xs:annotation>
                                     </xs:attribute>
+                                    <xs:attribute name="variable" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                This defines the variable name of an element contained within the collection.      
+                                                Only makes sense when the property is a collection type.
+                                                When this attribute is defined, the property is no longer checked
+                                                for validitiy, but instead each element contained within 
+                                                the collection is added to the template context and a new template/file is written.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
