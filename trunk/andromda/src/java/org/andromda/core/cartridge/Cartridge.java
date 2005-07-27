@@ -234,7 +234,8 @@ public class Cartridge
     }
 
     /**
-     * <p/> Perform processing with the <code>template</code>.
+     * <p> 
+     * Perform processing with the <code>template</code>.
      * </p>
      *
      * @param template the Template containing the template path to process.
@@ -383,7 +384,7 @@ public class Cartridge
     /**
      * Writes the contents of <code>resourceUrl</code> to the outlet specified by <code>resource</code>.
      *
-     * @param resource    contains the outlet where the resource is written.
+     * @param resource contains the outlet where the resource is written.
      * @param resourceUrl the URL contents to write.
      */
     private final void writeResource(
@@ -458,7 +459,7 @@ public class Cartridge
     }
 
     /**
-     * Adds an resource to the list of defined resources.
+     * Adds a resource to the list of defined resources.
      *
      * @param resource the new resource to add
      */
