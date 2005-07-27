@@ -67,7 +67,9 @@ public final class Introspector
 
         try
         {
-            final Object propertyValue = this.getProperty(object, name);
+            final Object propertyValue = this.getProperty(
+                    object,
+                    name);
             valid = propertyValue != null;
 
             // if valid is still true, and the propertyValue
@@ -114,7 +116,10 @@ public final class Introspector
         final String name,
         final Object value)
     {
-        this.setNestedProperty(object, name, value);
+        this.setNestedProperty(
+            object,
+            name,
+            value);
     }
 
     /**
@@ -150,25 +155,35 @@ public final class Introspector
                 {
                     break;
                 }
-                objectToPopulate = this.internalGetProperty(objectToPopulate, name);
+                objectToPopulate = this.internalGetProperty(
+                        objectToPopulate,
+                        name);
             }
-            this.internalSetProperty(objectToPopulate, name, value);
+            this.internalSetProperty(
+                objectToPopulate,
+                name,
+                value);
         }
     }
 
     /**
-     * Invokes the given <code>feature</code> on the <code>object</code>. Its expected that the feature is either an
-     * operation or a property.
+     * Attempts to retrieve the property with the given <code>name</code> on the <code>object</code>.
+     *
+     * @param object the object to which the property belongs.
+     * @param the name of the property
+     * @return the value of the property.
      */
     public final Object getProperty(
         final Object object,
-        final String feature)
+        final String name)
     {
         Object result = null;
 
         try
         {
-            result = this.getNestedProperty(object, feature);
+            result = this.getNestedProperty(
+                    object,
+                    name);
         }
         catch (final IntrospectorException throwable)
         {
@@ -210,7 +225,9 @@ public final class Introspector
             int dotIndex = name.indexOf(NESTED_DELIMITER);
             if (dotIndex == -1)
             {
-                property = this.internalGetProperty(object, name);
+                property = this.internalGetProperty(
+                        object,
+                        name);
             }
             else
             {
@@ -220,7 +237,9 @@ public final class Introspector
                 }
                 final Object nextInstance = internalGetProperty(
                         object,
-                        name.substring(0, dotIndex));
+                        name.substring(
+                            0,
+                            dotIndex));
                 property = getNestedProperty(
                         nextInstance,
                         name.substring(dotIndex + 1));
@@ -264,8 +283,12 @@ public final class Introspector
             writeMethod = descriptor != null ? descriptor.getWriteMethod() : null;
             if (writeMethod != null)
             {
-                classWriteMethods.put(name, writeMethod);
-                this.writeMethodsCache.put(objectClass, classWriteMethods);
+                classWriteMethods.put(
+                    name,
+                    writeMethod);
+                this.writeMethodsCache.put(
+                    objectClass,
+                    classWriteMethods);
             }
         }
         return writeMethod;
@@ -282,7 +305,9 @@ public final class Introspector
         final Object object,
         final String name)
     {
-        return this.getReadMethod(object, name) != null;
+        return this.getReadMethod(
+            object,
+            name) != null;
     }
 
     /**
@@ -296,7 +321,9 @@ public final class Introspector
         final Object object,
         final String name)
     {
-        return this.getWriteMethod(object, name) != null;
+        return this.getWriteMethod(
+            object,
+            name) != null;
     }
 
     /**
@@ -334,8 +361,12 @@ public final class Introspector
             readMethod = descriptor != null ? descriptor.getReadMethod() : null;
             if (readMethod != null)
             {
-                classWriteMethods.put(name, readMethod);
-                this.readMethodsCache.put(objectClass, classWriteMethods);
+                classWriteMethods.put(
+                    name,
+                    readMethod);
+                this.readMethodsCache.put(
+                    objectClass,
+                    classWriteMethods);
             }
         }
         return readMethod;
@@ -394,7 +425,9 @@ public final class Introspector
                     final PropertyDescriptor nextInstance =
                         this.getPropertyDescriptor(
                             type,
-                            name.substring(0, dotIndex));
+                            name.substring(
+                                0,
+                                dotIndex));
                     propertyDescriptor =
                         this.getPropertyDescriptor(
                             nextInstance.getPropertyType(),
@@ -405,8 +438,12 @@ public final class Introspector
             {
                 throw new IntrospectorException(exception);
             }
-            classPropertyDescriptors.put(name, propertyDescriptor);
-            this.propertyDescriptorsCache.put(type, classPropertyDescriptors);
+            classPropertyDescriptors.put(
+                name,
+                propertyDescriptor);
+            this.propertyDescriptorsCache.put(
+                type,
+                classPropertyDescriptors);
         }
         return propertyDescriptor;
     }
@@ -438,18 +475,24 @@ public final class Introspector
         final Object value = this.evaluatingObjects.get(object);
         if (value == null || !value.equals(name))
         {
-            this.evaluatingObjects.put(object, name);
+            this.evaluatingObjects.put(
+                object,
+                name);
             if (object != null || name != null || name.length() > 0)
             {
-                final Method method = this.getReadMethod(object, name);
+                final Method method = this.getReadMethod(
+                        object,
+                        name);
                 if (method == null)
                 {
-                    throw new IntrospectorException(
-                        "No readable property named '" + name + "', exists on object '" + object + "'");
+                    throw new IntrospectorException("No readable property named '" + name + "', exists on object '" +
+                        object + "'");
                 }
                 try
                 {
-                    property = method.invoke(object, (Object[])null);
+                    property = method.invoke(
+                            object,
+                            (Object[])null);
                 }
                 catch (final Throwable throwable)
                 {
@@ -489,14 +532,18 @@ public final class Introspector
                     expectedType = this.getPropertyDescriptor(
                             object.getClass(),
                             name).getPropertyType();
-                    value = this.convert(value, expectedType);
+                    value = this.convert(
+                            value,
+                            expectedType);
                 }
             }
-            final Method method = this.getWriteMethod(object, name);
+            final Method method = this.getWriteMethod(
+                    object,
+                    name);
             if (method == null)
             {
-                throw new IntrospectorException(
-                    "No writeable property named '" + name + "', exists on object '" + object + "'");
+                throw new IntrospectorException("No writeable property named '" + name + "', exists on object '" +
+                    object + "'");
             }
             try
             {
@@ -549,8 +596,8 @@ public final class Introspector
                 }
                 catch (final NoSuchMethodException exception)
                 {
-                    throw new IntrospectorException(
-                        "Could not convert '" + object + "' to type '" + expectedType.getName() + "'");
+                    throw new IntrospectorException("Could not convert '" + object + "' to type '" +
+                        expectedType.getName() + "'");
                 }
                 object = valueOfMethod.invoke(
                         expectedType,
@@ -587,13 +634,29 @@ public final class Introspector
      */
     static
     {
-        primitiveWrappers.put(boolean.class, Boolean.class);
-        primitiveWrappers.put(int.class, Integer.class);
-        primitiveWrappers.put(long.class, Long.class);
-        primitiveWrappers.put(short.class, Short.class);
-        primitiveWrappers.put(byte.class, Byte.class);
-        primitiveWrappers.put(float.class, Float.class);
-        primitiveWrappers.put(double.class, Double.class);
-        primitiveWrappers.put(char.class, Character.class);
+        primitiveWrappers.put(
+            boolean.class,
+            Boolean.class);
+        primitiveWrappers.put(
+            int.class,
+            Integer.class);
+        primitiveWrappers.put(
+            long.class,
+            Long.class);
+        primitiveWrappers.put(
+            short.class,
+            Short.class);
+        primitiveWrappers.put(
+            byte.class,
+            Byte.class);
+        primitiveWrappers.put(
+            float.class,
+            Float.class);
+        primitiveWrappers.put(
+            double.class,
+            Double.class);
+        primitiveWrappers.put(
+            char.class,
+            Character.class);
     }
 }
