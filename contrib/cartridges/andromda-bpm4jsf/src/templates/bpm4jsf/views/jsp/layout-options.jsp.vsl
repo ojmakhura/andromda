@@ -57,7 +57,7 @@
                                 <f:selectItem itemLabel="Panel" itemValue="ThemePanel"/>
                             </h:selectOneMenu>
                             <f:verbatim><br/></f:verbatim>
-                            <h:commandButton id="apply" value="#{messages['button_apply']}" action="ok"/>
+                            <h:commandButton id="apply" value="#{messages['layout.options.apply']}" action="ok"/>
                         </h:panelGroup>
                     </h:panelGrid>
                 </h:form>

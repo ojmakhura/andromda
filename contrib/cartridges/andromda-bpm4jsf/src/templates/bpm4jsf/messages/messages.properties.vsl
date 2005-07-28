@@ -123,6 +123,9 @@ errors.creditcard={0} is an invalid credit card number.
 errors.email={0} is an invalid e-mail address.
 errors.url={0} is an invalid URL.
 
+#
+# Messages for layout options
+# 
 navigation.layout=Layout
 layout.options.sidebar=Side Bar
 layout.options.sidebar.left=Left
@@ -132,6 +135,7 @@ layout.options.menu=Menu Placement
 layout.options.menu.top=Top
 layout.options.menu.side=Side
 layout.options.title=Layout Options
+layout.options.apply=Apply
 
 #foreach ($message in $applicationUseCase.allMessages.entrySet())
 $message.key=$message.value
