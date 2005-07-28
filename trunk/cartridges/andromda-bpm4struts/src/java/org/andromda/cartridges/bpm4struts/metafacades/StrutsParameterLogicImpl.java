@@ -533,11 +533,6 @@ public class StrutsParameterLogicImpl
         return required;
     }
 
-    protected boolean handleIsTableLink()
-    {
-        return findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABLELINK) != null;
-    }
-
     protected List handleGetTableFormActions()
     {
         return internalGetTableActions(false);
