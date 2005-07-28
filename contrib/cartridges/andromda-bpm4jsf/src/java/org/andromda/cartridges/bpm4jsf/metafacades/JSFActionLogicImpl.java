@@ -104,7 +104,7 @@ public class JSFActionLogicImpl
      */
     protected String handleGetFormScope()
     {
-        String scope = ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_FORM_SCOPE));
+        String scope = ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_FORM_SCOPE));
         if (StringUtils.isEmpty(scope))
         {
             scope = ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.FORM_SCOPE));

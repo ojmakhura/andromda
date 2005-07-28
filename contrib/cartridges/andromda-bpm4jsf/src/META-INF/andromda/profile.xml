@@ -34,16 +34,127 @@
                 Bpm4Jsf allows you to add tagged values here and there but provides a
                 default value in the event that they are missing.
             </documentation>
-            <element name="FORM_SCOPE">
+            <element name="ACTION_TYPE">
+                <documentation>
+                    Modeled on a transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype.
+                    Indicates the type of trigger causing the action, possible values are hyperlink, image and form. Form
+                    is the default value.
+                </documentation>
+                <value>@andromda.presentation.web.action.type</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">form</value>
+                    <value>hyperlink</value>
+                    <value>image</value>
+                </allowedValues>
+            </element>
+            <element name="ACTION_TABLELINK">
+                <documentation>
+                    Denotes this action applies on the information shown in a tabular format, you will need to specify
+                    the name of the table as the value, optionally suffix with a dot and the name of the column.
+                    If the column is specified the action will be rendered in that specific column, otherwise a new
+                    column will be created for it.
+                </documentation>
+                <value>@andromda.presentation.web.action.tablelink</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+            </element>
+            <element name="ACTION_FORM_SCOPE">
                 <documentation>
                     This allows one to override the action form scope defined
                     by the <a href="namespace.html#formScope">formScope</a> namespace property.
                 </documentation>
-                <value>@andromda.jsf.form.scope</value>
+                <value>@andromda.presentation.web.action.form.scope</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>session</value>
                     <value>request</value>
+                </allowedValues>
+            </element>
+            <element name="ACTION_RESETTABLE">
+                <documentation>
+                    Set this value to <code>true</code> if you want to be able
+                    to reset forms to their initial values (i.e. have a reset button rendered).
+                </documentation>
+                <value>@andromda.presentation.web.action.resettable</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
+            </element>
+            <element name="INPUT_TYPE">
+                <documentation>
+                    Indicates the type of parameter, this information will be used when rendering the views,
+                    possible values are: link, multibox, text, textarea, checkbox, radio, select, password,
+                    hidden and plaintext.
+                </documentation>
+                <value>@andromda.presentation.web.view.field.type</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">text</value>
+                    <value>select</value>
+                    <value>password</value>
+                    <value>hidden</value>
+                    <value>textarea</value>
+                    <value>checkbox</value>
+                    <value>radio</value>
+                    <value>link</value>
+                    <value>multibox</value>
+                </allowedValues>
+            </element>
+            <element name="INPUT_TABLELINK">
+                <documentation>
+                    The value is of the format <code>table.column</code> where
+                    <code>table</code> denotes a parameter coming into
+                    the page of type Collection (and containing a tagged value
+                    to indicate it is to be displayed as a table); the
+                    <code>column</code> part is used to indicate which column of
+                    the corresponding table is to be used for linking.
+                    The result will be that the specified table column will contain
+                    a hyperlink reference to the action on which this parameter
+                    resides, this is useful for example, to display a list of persons and view
+                    their details by simply clicking on their names in the table
+                    (for that to work this parameter's type should be 'link', use the
+                    <code>@andromda.presentation.web.view.field.type=link</code> tagged value for that).
+                    The column name is optional, if you do not specify it the name
+                    of the parameter will be assumed. By setting the parameter type you 
+                    can have any widget rendered into the table.
+                </documentation>
+                <value>@andromda.presentation.web.view.field.tablelink</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>
+                        Any name of a table page-variable that is a collection type followed by a dot
+                        and the name of the target column
+                    </value>
+                </allowedValues>
+            </element>
+            <element name="TABLE_COLUMNS">
+                <documentation>
+                    The collection will be displayed in scrollable tabular format. 
+                    Each column in this table will be mapped to a property of the object
+                    type contained in the collection. So you will need to make sure all objects
+                    have accessor methods for the property you list in this tagged value.
+                    Properties are separated using a comma ','. More than one value maybe be assigned to
+                    this tag, all properties will correctly be resolved.
+                </documentation>
+                <value>@andromda.presentation.view.table.columns</value>
+                <appliedOnElement>
+                    A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>Comma-separated list of column names</value>
+                </allowedValues>
+            </element>
+            <element name="ACTION_REDIRECT">
+                <documentation>
+                    Indicates whether or not HTTP redirection should occur when forwarded on to the next action
+                </documentation>
+                <value>@andromda.presentation.web.action.redirect</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
                 </allowedValues>
             </element>
         </elementGroup>
