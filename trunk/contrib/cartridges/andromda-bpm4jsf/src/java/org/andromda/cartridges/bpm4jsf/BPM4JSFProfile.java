@@ -17,5 +17,12 @@ public class BPM4JSFProfile
 
     /* ----------------- Stereotypes -------------------- */
     /* ----------------- Tagged Values -------------------- */
-    public static final String TAGGEDVALUE_FORM_SCOPE = profile.get("FORM_SCOPE");
+    public static final String TAGGEDVALUE_ACTION_FORM_SCOPE = profile.get("ACTION_FORM_SCOPE");
+    public static final String TAGGEDVALUE_ACTION_TABLELINK = profile.get("ACTION_TABLELINK");
+    public static final String TAGGEDVALUE_ACTION_TYPE = profile.get("ACTION_TYPE");
+    public static final String TAGGEDVALUE_ACTION_RESETTABLE = profile.get("ACTION_RESETTABLE");
+    public static final String TAGGEDVALUE_INPUT_TYPE = profile.get("INPUT_TYPE");
+    public static final String TAGGEDVALUE_INPUT_TABLELINK = profile.get("INPUT_TABLELINK");
+    public static final String TAGGEDVALUE_TABLE_COLUMNS = profile.get("TABLE_COLUMNS");
+    public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
 }
