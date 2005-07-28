@@ -130,4 +130,24 @@ public class JSFViewLogicImpl
         }
         return new ArrayList(forwards);
     }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isTableLink()
+     */
+    protected List handleGetTables()
+    {
+        final List tables = new ArrayList();
+
+        final List variables = this.getVariables();
+        for (int ctr = 0; ctr < variables.size(); ctr++)
+        {
+            final JSFParameter variable = (JSFParameter)variables.get(ctr);
+            if (variable.isTable())
+            {
+                tables.add(variable);
+            }
+        }
+
+        return tables;
+    }
 }

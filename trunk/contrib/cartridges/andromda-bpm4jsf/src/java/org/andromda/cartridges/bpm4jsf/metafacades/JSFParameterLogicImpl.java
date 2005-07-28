@@ -1,7 +1,14 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
+import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -86,6 +93,50 @@ public class JSFParameterLogicImpl
     protected java.lang.String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableColumnNames()
+     */
+    protected Collection handleGetTableColumnNames()
+    {
+        final Collection tableColumnNames = new ArrayList();
+        if (!this.isActionParameter() && !this.isControllerOperationArgument())
+        {
+            final Collection taggedValues = findTaggedValues(BPM4JSFProfile.TAGGEDVALUE_TABLE_COLUMNS);
+            if (!taggedValues.isEmpty())
+            {
+                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                {
+                    final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                    if (taggedValue != null)
+                    {
+                        final String[] properties = taggedValue.split("[,\\s]+");
+                        for (int ctr = 0; ctr < properties.length; ctr++)
+                        {
+                            final String property = properties[ctr];
+                            tableColumnNames.add(property);
+                        }
+                    }
+                }
+            }
+        }
+        return tableColumnNames;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isTable()
+     */
+    protected boolean handleIsTable()
+    {
+        boolean isTable = false;
+
+        final ClassifierFacade type = getType();
+        if (type != null)
+        {
+            isTable = (type.isCollectionType() || type.isArrayType()) && !this.getTableColumnNames().isEmpty();
+        }
+        return isTable;
     }
 
 }
