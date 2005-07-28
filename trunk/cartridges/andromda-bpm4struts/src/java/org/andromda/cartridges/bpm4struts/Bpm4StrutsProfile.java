@@ -61,6 +61,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_ACTION_TYPE_HYPERLINK = "hyperlink";
     public static final String TAGGEDVALUE_ACTION_TYPE_FORM = "form";
     public static final String TAGGEDVALUE_ACTION_TYPE_IMAGE = "image";
+    public static final String TAGGEDVALUE_ACTION_TYPE_TABLE = "table";
     public static final String TAGGEDVALUE_ACTION_DEFAULT_TYPE = TAGGEDVALUE_ACTION_TYPE_FORM;
     public static final String TAGGEDVALUE_INPUT_TYPE_TEXT = "text";
     public static final String TAGGEDVALUE_INPUT_TYPE_PLAINTEXT = "plaintext";

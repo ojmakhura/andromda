@@ -53,7 +53,53 @@ $field.getDocumentation("     * ")
      *
      * @see #${field.getterName}()
      */
-    public Object[] ${field.getterName}AsArray();
+    public java.lang.Object[] ${field.getterName}AsArray();
+
+#elseif (!$field.tableGlobalActions.empty)
+#set ($fieldType = "java.util.List")
+#set ($fieldName = $field.name)
+#set ($accessSuffix = "RowSelection")
+    /**
+     * This field represents a selection of rows from the <em>$field.tableGlobalActionParameter.name</em> table
+     * page-variable, this method allows you to set it into the form.
+     *
+$field.getDocumentation("     * ")
+     *
+     * @see #${field.setterName}${accessSuffix}AsArray(Object[])
+     */
+    public void ${field.setterName}${accessSuffix}($fieldType $fieldName${accessSuffix});
+
+    /**
+     * This field represents a selection of rows from the <em>$field.tableGlobalActionParameter.name</em> table
+     * page-variable, this method allows you to get it from the form.
+     *
+$field.getDocumentation("     * ")
+     *
+     * @see #${field.getterName}${accessSuffix}AsArray()
+     */
+    public $fieldType ${field.getterName}${accessSuffix}();
+
+    /**
+     * This field represents a selection of rows from the <em>$field.tableGlobalActionParameter.name</em> table
+     * page-variable, this method allows you to set it as an array into the form, conversion will be
+     * automatically performed.
+     *
+$field.getDocumentation("     * ")
+     *
+     * @see #${field.setterName}${accessSuffix}($fieldType)
+     */
+    public void ${field.setterName}${accessSuffix}AsArray(Object[] $fieldName${accessSuffix});
+
+    /**
+     * This field represents a selection of rows from the <em>$field.tableGlobalActionParameter.name</em> table
+     * page-variable, this method allows you to get it as an
+     * array from the form, conversion will be automatically performed.
+     *
+$field.getDocumentation("     * ")
+     *
+     * @see #${field.getterName}${accessSuffix}()
+     */
+    public java.lang.Object[] ${field.getterName}${accessSuffix}AsArray();
 
 #elseif ($field.date || $field.time)
 #if ($field.date)
@@ -105,7 +151,7 @@ $field.getDocumentation("     * ")
      *
      * @see #${field.setterName}(java.util.Map)
      */
-    public void ${field.setterName}Value(java.lang.String key, Object value);
+    public void ${field.setterName}Value(java.lang.String key, java.lang.Object value);
 
     /**
      * Gets the argument value for the specified key from the <code>$field.name</code> Map.
@@ -121,7 +167,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}Value(java.lang.String key, Object value)
+     * @see #${field.setterName}Value(java.lang.String key, java.lang.Object value)
      */
     public void ${field.setterName}(java.util.Map $fieldName);
 

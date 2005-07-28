@@ -62,9 +62,8 @@ public class StrutsActionLogicImpl
      */
     private Collection transitions = null;
 
-    public StrutsActionLogicImpl(
-        Object metaObject,
-        String context)
+    public StrutsActionLogicImpl(Object metaObject,
+                                 String context)
     {
         super(metaObject, context);
     }
@@ -88,9 +87,8 @@ public class StrutsActionLogicImpl
      * @param transition           the current transition that is being processed
      * @param processedTransitions the set of transitions already processed
      */
-    private void collectTransitions(
-        TransitionFacade transition,
-        Collection processedTransitions)
+    private void collectTransitions(TransitionFacade transition,
+                                    Collection processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {
@@ -106,31 +104,31 @@ public class StrutsActionLogicImpl
                 actionForwards.put(transition.getTarget(), transition);
             }
         }
-        else if ((target instanceof PseudostateFacade) && ((PseudostateFacade)target).isDecisionPoint())
+        else if ((target instanceof PseudostateFacade) && ((PseudostateFacade) target).isDecisionPoint())
         {
             decisionTransitions.add(transition);
             final Collection outcomes = target.getOutgoing();
             for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
-                final TransitionFacade outcome = (TransitionFacade)iterator.next();
+                final TransitionFacade outcome = (TransitionFacade) iterator.next();
                 collectTransitions(outcome, processedTransitions);
             }
         }
         else if (target instanceof StrutsActionState)
         {
             actionStates.add(target);
-            final FrontEndForward forward = ((StrutsActionState)target).getForward();
+            final FrontEndForward forward = ((StrutsActionState) target).getForward();
             if (forward != null)
             {
                 collectTransitions(forward, processedTransitions);
             }
         }
-        else    // all the rest is ignored but outgoing transitions are further processed
+        else // all the rest is ignored but outgoing transitions are further processed
         {
             final Collection outcomes = target.getOutgoing();
             for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
-                final TransitionFacade outcome = (TransitionFacade)iterator.next();
+                final TransitionFacade outcome = (TransitionFacade) iterator.next();
                 collectTransitions(outcome, processedTransitions);
             }
         }
@@ -144,17 +142,43 @@ public class StrutsActionLogicImpl
     protected String handleGetActionInput()
     {
         final StateVertexFacade source = getSource();
-        return (source instanceof StrutsJsp) ? ((StrutsJsp)source).getFullPath() : "";
+        return (source instanceof StrutsJsp) ? ((StrutsJsp) source).getFullPath() : "";
     }
 
     protected boolean handleIsFormPost()
     {
-        return !isHyperlink();
+        final Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
+        return value == null || Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_FORM.equals(value);
+    }
+
+    protected boolean handleIsHyperlink()
+    {
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
+        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_HYPERLINK
+            .equalsIgnoreCase(value == null ? null : value.toString());
+    }
+
+    protected boolean handleIsImageLink()
+    {
+        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
+        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_IMAGE
+            .equalsIgnoreCase(value == null ? null : value.toString());
+    }
+
+    protected boolean handleIsTableAction()
+    {
+        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_TABLE
+            .equals(this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE));
+    }
+
+    protected boolean handleIsTableRowAction()
+    {
+        return this.isTableLink() && !this.isTableAction();
     }
 
     protected boolean handleIsTableLink()
     {
-        return getTableLinkParameter() != null;
+        return this.getTableLinkParameter() != null;
     }
 
     protected Object handleGetTableLinkParameter()
@@ -170,7 +194,7 @@ public class StrutsActionLogicImpl
                 final List tables = page.getTables();
                 for (int i = 0; i < tables.size() && tableLinkParameter == null; i++)
                 {
-                    StrutsParameter table = (StrutsParameter)tables.get(i);
+                    StrutsParameter table = (StrutsParameter) tables.get(i);
                     if (tableLinkName.equals(table.getName()))
                     {
                         tableLinkParameter = table;
@@ -194,10 +218,10 @@ public class StrutsActionLogicImpl
             final List formActions = table.getTableFormActions();
             for (int i = 0; i < formActions.size(); i++)
             {
-                final StrutsAction action = (StrutsAction)formActions.get(i);
+                final StrutsAction action = (StrutsAction) formActions.get(i);
                 for (int j = 0; j < action.getActionParameters().size(); j++)
                 {
-                    final StrutsParameter parameter = (StrutsParameter)action.getActionParameters().get(j);
+                    final StrutsParameter parameter = (StrutsParameter) action.getActionParameters().get(j);
                     if (!columnNames.contains(parameter.getName()))
                     {
                         tableNonColumnActionParametersMap.put(parameter.getName(), parameter);
@@ -242,26 +266,13 @@ public class StrutsActionLogicImpl
             if (tableLink != null)
             {
                 final int columnOffset = tableLink.indexOf('.');
-                tableLink = (columnOffset == -1 || columnOffset == tableLink.length() - 1) ?
-                    null : tableLink.substring(columnOffset + 1);
+                tableLink = (columnOffset == -1 || columnOffset == tableLink.length() - 1)
+                    ? null
+                    : tableLink.substring(columnOffset + 1);
             }
         }
 
         return tableLink;
-    }
-
-    protected boolean handleIsHyperlink()
-    {
-        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
-        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
-            value == null ? null : value.toString());
-    }
-
-    protected boolean handleIsImageLink()
-    {
-        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE);
-        return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TYPE_IMAGE.equalsIgnoreCase(
-            value == null ? null : value.toString());
     }
 
     protected String handleGetImagePath()
@@ -284,8 +295,8 @@ public class StrutsActionLogicImpl
             StringBuffer buffer = new StringBuffer();
 
             final String actionPathPrefix = Bpm4StrutsGlobals.PROPERTY_ACTION_PATH_PREFIX;
-            String prefix = this.isConfiguredProperty(actionPathPrefix) ?
-                ObjectUtils.toString(this.getConfiguredProperty(actionPathPrefix)) : "";
+            String prefix = this.isConfiguredProperty(actionPathPrefix) ? ObjectUtils
+                .toString(this.getConfiguredProperty(actionPathPrefix)) : "";
 
             ModelElementFacade useCasePackage = useCase.getPackage();
             if (useCasePackage != null)
@@ -316,7 +327,7 @@ public class StrutsActionLogicImpl
         final StringBuffer roles = new StringBuffer();
         for (final Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
-            roles.append(((ModelElementFacade)userIterator.next()).getName());
+            roles.append(((ModelElementFacade) userIterator.next()).getName());
             if (userIterator.hasNext())
             {
                 roles.append(",");
@@ -331,7 +342,7 @@ public class StrutsActionLogicImpl
      * are returned, otherwise it will return the users associated to the use-cases targetted by this
      * action (which may be none at all)
      */
-    private final Collection getRoleUsers()
+    private Collection getRoleUsers()
     {
         final Collection roleUsers = new ArrayList();
 
@@ -347,10 +358,10 @@ public class StrutsActionLogicImpl
         {
             for (final Iterator iterator = getActionForwards().iterator(); iterator.hasNext();)
             {
-                final TransitionFacade transition = (TransitionFacade)iterator.next();
+                final TransitionFacade transition = (TransitionFacade) iterator.next();
                 if (transition.getTarget() instanceof StrutsFinalState)
                 {
-                    final FrontEndUseCase useCase = ((StrutsFinalState)transition.getTarget()).getTargetUseCase();
+                    final FrontEndUseCase useCase = ((StrutsFinalState) transition.getTarget()).getTargetUseCase();
                     if (useCase != null)
                     {
                         roleUsers.addAll(useCase.getRoles());
@@ -460,14 +471,16 @@ public class StrutsActionLogicImpl
      */
     private boolean isTrue(String string)
     {
-        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
+        return "yes".equalsIgnoreCase(string) ||
+            "true".equalsIgnoreCase(string) ||
+            "on".equalsIgnoreCase(string) ||
             "1".equalsIgnoreCase(string);
     }
 
     protected boolean handleIsUseCaseStart()
     {
         StateVertexFacade source = getSource();
-        return source instanceof PseudostateFacade && ((PseudostateFacade)source).isInitialState();
+        return source instanceof PseudostateFacade && ((PseudostateFacade) source).isInitialState();
     }
 
     protected String handleGetFullActionPath()
@@ -477,8 +490,9 @@ public class StrutsActionLogicImpl
 
     protected String handleGetFullTilePath()
     {
-        return isUseCaseStart() ?
-            "empty-file" : getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getActionClassName());
+        return isUseCaseStart()
+            ? "empty-file"
+            : getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getActionClassName());
     }
 
     /**
@@ -507,7 +521,7 @@ public class StrutsActionLogicImpl
         final Collection actionParameters = getActionParameters();
         for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
         {
-            final StrutsParameter parameter = (StrutsParameter)iterator.next();
+            final StrutsParameter parameter = (StrutsParameter) iterator.next();
             if (parameter.isValidationRequired())
             {
                 return true;
@@ -521,7 +535,7 @@ public class StrutsActionLogicImpl
         final Collection actionParameters = getActionParameters();
         for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
         {
-            StrutsParameter parameter = (StrutsParameter)iterator.next();
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
             if (parameter.isDate())
             {
                 return true;
@@ -535,7 +549,7 @@ public class StrutsActionLogicImpl
         final Collection actionParameters = getActionParameters();
         for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
         {
-            StrutsParameter parameter = (StrutsParameter)iterator.next();
+            StrutsParameter parameter = (StrutsParameter) iterator.next();
             if (parameter.isCalendarRequired())
             {
                 return true;
@@ -557,9 +571,8 @@ public class StrutsActionLogicImpl
     protected String handleGetDocumentationKey()
     {
         final StrutsTrigger trigger = getActionTrigger();
-        return ((trigger == null)
-            ? getMessageKey() + ".is.an.action.without.trigger"
-            : trigger.getTriggerKey()) + ".documentation";
+        return ((trigger == null) ? getMessageKey() + ".is.an.action.without.trigger" : trigger.getTriggerKey()) +
+            ".documentation";
     }
 
     protected String handleGetDocumentationValue()
@@ -571,9 +584,8 @@ public class StrutsActionLogicImpl
     protected String handleGetOnlineHelpKey()
     {
         final StrutsTrigger trigger = getActionTrigger();
-        return ((trigger == null)
-            ? getMessageKey() + ".is.an.action.without.trigger"
-            : trigger.getTriggerKey()) + ".online.help";
+        return ((trigger == null) ? getMessageKey() + ".is.an.action.without.trigger" : trigger.getTriggerKey()) +
+            ".online.help";
     }
 
     protected String handleGetOnlineHelpValue()
@@ -612,7 +624,7 @@ public class StrutsActionLogicImpl
         final Collection actionStates = getActionStates();
         for (final Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
-            StrutsActionState actionState = (StrutsActionState)iterator.next();
+            StrutsActionState actionState = (StrutsActionState) iterator.next();
             exceptions.addAll(actionState.getExceptions());
         }
 
@@ -628,7 +640,7 @@ public class StrutsActionLogicImpl
         final ModelElementFacade source = getSource();
         if (source instanceof PseudostateFacade)
         {
-            final PseudostateFacade pseudostate = (PseudostateFacade)source;
+            final PseudostateFacade pseudostate = (PseudostateFacade) source;
             if (pseudostate.isInitialState())
             {
                 input = source;
@@ -677,11 +689,11 @@ public class StrutsActionLogicImpl
                     // for a specific use-case and is not removing the final-state to use-case link(s))
                     if (finalStateObject instanceof StrutsFinalState)
                     {
-                        final StrutsFinalState finalState = (StrutsFinalState)finalStateObject;
+                        final StrutsFinalState finalState = (StrutsFinalState) finalStateObject;
                         final Collection parameters = finalState.getInterUseCaseParameters();
                         for (final Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
                         {
-                            final ParameterFacade parameter = (ParameterFacade)parameterIterator.next();
+                            final ParameterFacade parameter = (ParameterFacade) parameterIterator.next();
                             formFieldMap.put(parameter.getName(), parameter);
                         }
                     }
@@ -694,14 +706,14 @@ public class StrutsActionLogicImpl
         final Collection actionStates = getActionStates();
         for (final Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
-            final StrutsActionState actionState = (StrutsActionState)iterator.next();
-            final StrutsForward forward = (StrutsForward)actionState.getForward();
+            final StrutsActionState actionState = (StrutsActionState) iterator.next();
+            final StrutsForward forward = (StrutsForward) actionState.getForward();
             if (forward != null)
             {
                 final Collection forwardParameters = forward.getForwardParameters();
                 for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    final ModelElementFacade forwardParameter = (ModelElementFacade)parameterIterator.next();
+                    final ModelElementFacade forwardParameter = (ModelElementFacade) parameterIterator.next();
                     formFieldMap.put(forwardParameter.getName(), forwardParameter);
                 }
             }
@@ -712,22 +724,22 @@ public class StrutsActionLogicImpl
         final Collection forwards = getActionForwards();
         for (final Iterator iterator = forwards.iterator(); iterator.hasNext();)
         {
-            final StrutsForward forward = (StrutsForward)iterator.next();
+            final StrutsForward forward = (StrutsForward) iterator.next();
             final StateVertexFacade target = forward.getTarget();
             if (target instanceof StrutsJsp)
             {
-                final StrutsJsp jsp = (StrutsJsp)target;
+                final StrutsJsp jsp = (StrutsJsp) target;
                 final Collection pageVariables = jsp.getPageVariables();
                 for (final Iterator pageVariableIterator = pageVariables.iterator(); pageVariableIterator.hasNext();)
                 {
-                    final ModelElementFacade facade = (ModelElementFacade)pageVariableIterator.next();
+                    final ModelElementFacade facade = (ModelElementFacade) pageVariableIterator.next();
                     formFieldMap.put(facade.getName(), facade);
                 }
                 final Collection allActionParameters = jsp.getAllActionParameters();
                 for (final Iterator actionParameterIterator = allActionParameters.iterator();
                      actionParameterIterator.hasNext();)
                 {
-                    final ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
+                    final ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
                     formFieldMap.put(facade.getName(), facade);
                 }
             }
@@ -738,7 +750,7 @@ public class StrutsActionLogicImpl
                 for (final Iterator forwardParameterIterator = forwardParameters.iterator();
                      forwardParameterIterator.hasNext();)
                 {
-                    final ModelElementFacade facade = (ModelElementFacade)forwardParameterIterator.next();
+                    final ModelElementFacade facade = (ModelElementFacade) forwardParameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(facade.getName(), facade);
@@ -751,7 +763,7 @@ public class StrutsActionLogicImpl
         final Collection actionParameters = getActionParameters();
         for (final Iterator actionParameterIterator = actionParameters.iterator(); actionParameterIterator.hasNext();)
         {
-            final ModelElementFacade facade = (ModelElementFacade)actionParameterIterator.next();
+            final ModelElementFacade facade = (ModelElementFacade) actionParameterIterator.next();
             formFieldMap.put(facade.getName(), facade);
         }
 
@@ -768,14 +780,14 @@ public class StrutsActionLogicImpl
             final List actionStates = getActionStates();
             for (int i = 0; i < actionStates.size(); i++)
             {
-                final StrutsActionState actionState = (StrutsActionState)actionStates.get(i);
+                final StrutsActionState actionState = (StrutsActionState) actionStates.get(i);
                 deferredOperations.addAll(actionState.getControllerCalls());
             }
 
             final List transitions = getDecisionTransitions();
             for (int i = 0; i < transitions.size(); i++)
             {
-                final StrutsForward forward = (StrutsForward)transitions.get(i);
+                final StrutsForward forward = (StrutsForward) transitions.get(i);
                 final FrontEndEvent trigger = forward.getDecisionTrigger();
                 if (trigger != null)
                 {
@@ -794,7 +806,7 @@ public class StrutsActionLogicImpl
 
     protected List handleGetInterUseCaseParameters(StrutsFinalState finalState)
     {
-        List parameters = null;
+        List parameters;
 
         if (finalState == null)
         {
@@ -808,14 +820,14 @@ public class StrutsActionLogicImpl
             final List transitions = getActionForwards();
             for (int i = 0; i < transitions.size(); i++)
             {
-                final StrutsForward forward = (StrutsForward)transitions.get(i);
+                final StrutsForward forward = (StrutsForward) transitions.get(i);
                 // only return those parameters that belong to both this action and the argument final state
                 if (finalState.equals(forward.getTarget()))
                 {
                     final List forwardParameters = forward.getForwardParameters();
                     for (int j = 0; j < forwardParameters.size(); j++)
                     {
-                        final ModelElementFacade parameter = (ModelElementFacade)forwardParameters.get(j);
+                        final ModelElementFacade parameter = (ModelElementFacade) forwardParameters.get(j);
                         parameterMap.put(parameter.getName(), parameter);
                     }
                 }
@@ -836,7 +848,7 @@ public class StrutsActionLogicImpl
         Collection forwards = getActionForwards();
         for (final Iterator forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
         {
-            StrutsForward forward = (StrutsForward)forwardIterator.next();
+            StrutsForward forward = (StrutsForward) forwardIterator.next();
             if (forward.isEnteringPage())
             {
                 targetPages.add(forward.getTarget());
@@ -879,11 +891,11 @@ public class StrutsActionLogicImpl
      */
     protected boolean handleIsRedirect()
     {
-        String redirect = (String)this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);
+        String redirect = (String) this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_ACTION_REDIRECT);
         Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_REDIRECT);
         if (value != null)
         {
-            redirect = (String)value;
+            redirect = (String) value;
         }
         return Boolean.valueOf(StringUtils.trimToEmpty(redirect)).booleanValue();
     }
@@ -897,7 +909,7 @@ public class StrutsActionLogicImpl
         {
             public boolean evaluate(Object object)
             {
-                return object != null && ((StrutsParameter)object).isShouldReset();
+                return object != null && ((StrutsParameter) object).isShouldReset();
             }
         });
     }
@@ -922,8 +934,8 @@ public class StrutsActionLogicImpl
      */
     protected String handleGetFormScope()
     {
-        String actionFormScope = String.valueOf(this.getConfiguredProperty(
-            Bpm4StrutsGlobals.PROPERTY_ACTION_FORM_SCOPE));
+        String actionFormScope = String
+            .valueOf(this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_ACTION_FORM_SCOPE));
         Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_SCOPE);
         if (value != null)
         {
@@ -962,14 +974,13 @@ public class StrutsActionLogicImpl
     protected List handleGetHiddenActionParameters()
     {
         final List hiddenActionParameters = new ArrayList(this.getActionParameters());
-        CollectionUtils.filter(hiddenActionParameters,
-            new Predicate()
+        CollectionUtils.filter(hiddenActionParameters, new Predicate()
+        {
+            public boolean evaluate(final Object object)
             {
-                public boolean evaluate(final Object object)
-                {
-                    return StrutsParameterLogicImpl.HIDDEN_INPUT_TYPE.equals(((StrutsParameter)object).getWidgetType());
-                }
-            });
+                return StrutsParameterLogicImpl.HIDDEN_INPUT_TYPE.equals(((StrutsParameter) object).getWidgetType());
+            }
+        });
         return hiddenActionParameters;
     }
 }
