@@ -214,7 +214,7 @@ public class JSFActionLogicImpl
     protected String handleGetTableLinkName()
     {
         String tableLink = null;
-
+        
         final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
@@ -268,7 +268,7 @@ public class JSFActionLogicImpl
                 final List tables = view.getTables();
                 for (int ctr = 0; ctr < tables.size() && tableLinkParameter == null; ctr++)
                 {
-                    JSFParameter table = (JSFParameter)tables.get(ctr);
+                    final JSFParameter table = (JSFParameter)tables.get(ctr);
                     if (tableLinkName.equals(table.getName()))
                     {
                         tableLinkParameter = table;
@@ -285,5 +285,15 @@ public class JSFActionLogicImpl
     protected boolean handleIsTableLink()
     {
         return this.getTableLinkParameter() != null;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isHyperlink()
+     */
+    protected boolean handleIsHyperlink()
+    {
+        final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TYPE);
+        return BPM4JSFGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
+            value == null ? null : value.toString());
     }
 }    

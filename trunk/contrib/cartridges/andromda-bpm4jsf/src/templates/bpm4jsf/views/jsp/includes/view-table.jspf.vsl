@@ -1,0 +1,124 @@
+#set ($jsp = $table.view)
+#set ($generatedFile = "${jsp.path}-${table.name}.jspf")
+#set ($targetColumns = $table.targettedTableColumnNames)
+#set ($sortable = $table.tableSortable)
+#set ($exportable = $table.tableExportable)
+<div id="${table.name}" class="table">
+#set ($displayTableName = "form.${table.name}")
+    <display:table name="${${displayTableName}}" id="row"
+        requestURI="${pageContext.request.requestURL}"
+#if ($table.tableDecoratorRequired)
+        decorator="${table.tableDecoratorFullyQualifiedName}"
+#end
+        export="$exportable" pagesize="$table.tableMaxRows" sort="list">
+#if ($exportable)
+#set ($exportFileName = "${jsp.name}-${table.name}")
+#set ($exportFileName = "$bpmUtils.toWebFileName($exportFileName)")
+        <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
+#end
+#foreach ($column in $table.tableColumns)
+#if($column.actionParameter)#set($columnName=$column.name)#else#set($columnName=$column)#end
+#if ($exportable)
+        <display:column media="$table.tableExportTypes"
+            titleKey="$table.getTableColumnMessageKey($columnName)"
+            property="$columnName" autolink="true" paramId="$columnName" />
+#end
+        <display:column media="html"
+            headerClass="$columnName" paramId="$columnName"
+#if (!$table.tableDecoratorRequired && $table.tableSortable && (!$column.actionParameter || $column.sortableBy))
+            sortProperty="$columnName" sortable="true"
+#end
+            titleKey="$table.getTableColumnMessageKey($columnName)">
+#if ($column.actionParameter)
+            <div class="$columnName">
+#renderFormField($column.strutsAction $column "                " '${row_rowNum}')
+            </div>
+#else## just render as text since the column is in fact a simple String
+#set ($columnValue = "row.$columnName")
+            <div class="$columnName">${${columnValue}}</div>
+#end
+        </display:column>
+#end
+#foreach ($tableAction in $table.tableHyperlinkActions)
+#if (!$tableAction.tableLinkColumnName)
+        <display:column media="html">
+#renderTableHyperlink($tableAction "            ")
+        </display:column>
+#end
+#end
+#foreach ($tableAction in $table.tableFormActions)
+        <display:column media="html">
+#renderTableButton($tableAction "            " '${row_rowNum}')
+        </display:column>
+#end
+    </display:table>
+</div>
+
+<x:dataTable id="data"
+        styleClass="scrollerTable"
+        headerClass="standardTable_Header"
+        footerClass="standardTable_Header"
+        rowClasses="standardTable_Row1,standardTable_Row2"
+        columnClasses="standardTable_Column,standardTable_ColumnCentered,standardTable_Column"
+        var="user"
+        value="#{manageUsersAddForm.users}"
+        preserveDataModel="false"
+        rows="10">
+#foreach ($column in $table.tableColumns)
+    <h:column>
+        <f:facet name="header">
+           <h:outputText value="#{messages['$table.getTableColumnMessageKey($column.name)']}" />
+        </f:facet>
+        <h:outputText value="#{user.firstName}" />
+    </h:column>
+#end
+</x:dataTable>
+
+<h:panelGrid columns="1" styleClass="scrollerTable2" columnClasses="standardTable_ColumnCentered" >
+    <x:dataScroller id="scroll_1"
+            for="data"
+            fastStep="10"
+            pageCountVar="pageCount"
+            pageIndexVar="pageIndex"
+            styleClass="scroller"
+            paginator="true"
+            paginatorMaxPages="9"
+            paginatorTableClass="paginator"
+            paginatorActiveColumnStyle="font-weight:bold;">
+        <f:facet name="first" >
+            <h:graphicImage url="/images/arrow-first.gif" border="1" />
+        </f:facet>
+        <f:facet name="last">
+            <h:graphicImage url="/images/arrow-last.gif" border="1" />
+        </f:facet>
+        <f:facet name="previous">
+            <h:graphicImage url="/images/arrow-previous.gif" border="1" />
+        </f:facet>
+        <f:facet name="next">
+            <h:graphicImage url="/images/arrow-next.gif" border="1" />
+        </f:facet>
+        <f:facet name="fastforward">
+            <h:graphicImage url="/images/arrow-ff.gif" border="1" />
+        </f:facet>
+        <f:facet name="fastrewind">
+            <h:graphicImage url="/images/arrow-fr.gif" border="1" />
+        </f:facet>
+    </x:dataScroller>
+    <x:dataScroller id="scroll_2"
+            for="data"
+            rowsCountVar="rowsCount"
+            displayedRowsCountVar="displayedRowsCountVar"
+            firstRowIndexVar="firstRowIndex"
+            lastRowIndexVar="lastRowIndex"
+            pageCountVar="pageCount"
+            pageIndexVar="pageIndex">
+        <h:outputFormat value="#{messages['dataScroller_pages']}" styleClass="standard" >
+            <f:param value="#{rowsCount}" />
+            <f:param value="#{displayedRowsCountVar}" />
+            <f:param value="#{firstRowIndex}" />
+            <f:param value="#{lastRowIndex}" />
+            <f:param value="#{pageIndex}" />
+            <f:param value="#{pageCount}" />
+        </h:outputFormat>
+    </x:dataScroller>
+</h:panelGrid>

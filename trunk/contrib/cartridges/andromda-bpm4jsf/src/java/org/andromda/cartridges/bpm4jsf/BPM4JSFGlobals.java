@@ -56,4 +56,14 @@ public class BPM4JSFGlobals
      * The suffix given to the documentation message keys.
      */
     public static final String DOCUMENTATION_MESSAGE_KEY_SUFFIX = "documentation";
+    
+    /**
+     * Represents a hyperlink action type.
+     */
+    public static final String ACTION_TYPE_HYPERLINK = "hyperlink";
+    
+    /**
+     * Represents a form action type.
+     */
+    public static final String ACTION_TYPE_FORM = "form";
 }
