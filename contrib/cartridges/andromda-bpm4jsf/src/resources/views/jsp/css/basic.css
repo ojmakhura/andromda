@@ -161,12 +161,18 @@ a:hover
     text-align: center;
     font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: xx-small;
-    font-style: italic;
-    font-weight: bold;
+    text-decoration: none;
     height:10px;
     overflow:visible;
     background-color: #6392C6;
     color: #FFFFFF;
+}
+
+.pageFooter a
+{
+    text-decoration: none;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .navigation
