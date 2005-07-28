@@ -6,8 +6,8 @@
         */%>
 #set ($sidebarLayoutCount = $useCases.size() + 1)
 #foreach ($useCase in $useCases)
-        <x:navigationMenuItem id="nav_${velocityCount}" itemLabel="#{messages['$useCase.titleKey']}" action="$useCase.forwardName" icon="/images/next.gif" />
+        <x:navigationMenuItem id="nav_${velocityCount}" itemLabel="#{messages['$useCase.titleKey']}" action="$useCase.forwardName" icon="/images/next-yellow.gif" />
 #end
-        <x:navigationMenuItem id="nav_${sidebarLayoutCount}" itemLabel="#{messages['navigation.layout']}" split="true" action="layout-options" icon="/images/next.gif" />
+        <x:navigationMenuItem id="nav_${sidebarLayoutCount}" itemLabel="#{messages['navigation.layout']}" split="true" action="layout-options" icon="/images/next-yellow.gif" />
     </x:jscookMenu>
 </h:panelGrid>
