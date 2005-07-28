@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
@@ -205,5 +206,84 @@ public class JSFActionLogicImpl
     protected String handleGetViewFragmentPath()
     {
         return '/' + this.getPackageName().replace('.', '/') + '/' + BPM4JSFUtils.toWebResourceName(this.getTriggerName());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getTableLinkName()
+     */
+    protected String handleGetTableLinkName()
+    {
+        String tableLink = null;
+
+        final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        if (value != null)
+        {
+            tableLink = StringUtils.trimToNull(value.toString());
+
+            if (tableLink != null)
+            {
+                final int columnOffset = tableLink.indexOf('.');
+                tableLink = columnOffset == -1 ? tableLink : tableLink.substring(0, columnOffset);
+            }
+        }
+
+        return tableLink;
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getTableLinkColumnName()
+     */
+    protected String handleGetTableLinkColumnName()
+    {
+        String tableLink = null;
+
+        final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
+        if (value != null)
+        {
+            tableLink = StringUtils.trimToNull(value.toString());
+
+            if (tableLink != null)
+            {
+                final int columnOffset = tableLink.indexOf('.');
+                tableLink = (columnOffset == -1 || columnOffset == tableLink.length() - 1) ?
+                    null : tableLink.substring(columnOffset + 1);
+            }
+        }
+
+        return tableLink;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isTableLink()
+     */
+    protected Object handleGetTableLinkParameter()
+    {
+        JSFParameter tableLinkParameter = null;
+        final String tableLinkName = this.getTableLinkName();
+        if (tableLinkName != null)
+        {
+            final JSFView view = (JSFView)this.getInput();
+            if (view != null)
+            {
+                final List tables = view.getTables();
+                for (int ctr = 0; ctr < tables.size() && tableLinkParameter == null; ctr++)
+                {
+                    JSFParameter table = (JSFParameter)tables.get(ctr);
+                    if (tableLinkName.equals(table.getName()))
+                    {
+                        tableLinkParameter = table;
+                    }
+                }
+            }
+        }
+        return tableLinkParameter;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isTableLink()
+     */
+    protected boolean handleIsTableLink()
+    {
+        return this.getTableLinkParameter() != null;
     }
 }    
