@@ -47,7 +47,6 @@
     font-size: 12px;
 }
 
-
 .standardTable
 {
     font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -58,7 +57,8 @@
     border-width: 1px;
 }
 
-.standardTable_Header {
+.standardTable_Header 
+{
     color: #000000;
     background-color: #FFDD00;
     padding: 3;
@@ -67,6 +67,7 @@
 }
 
 .standardTable_SortHeader {
+{
     background-color: #FFDD00;
     color: #000000;
     padding: 3;
@@ -75,22 +76,27 @@
     font-weight: bold;
 }
 
-.standardTable_Footer {
+.standardTable_Footer 
+{
     background-color: #FFFFE0;
 }
 
-.standardTable_Row1 {
+.standardTable_Row1 
+{
     background-color: #FFFFE0;
 }
 
-.standardTable_Row2 {
+.standardTable_Row2 
+{
     background-color: #FFFFE0;
 }
 
-.standardTable_Column {
+.standardTable_Column 
+{
 }
 
-.standardTable_ColumnCentered {
+.standardTable_ColumnCentered 
+{
     text-align: center
 }
 
@@ -134,8 +140,10 @@ a:hover
     margin: 0px;
 }
 
-.pageHeader2col1 {
+.pageHeaderColumn
+{
     background-color: #FFFFFF;
+    text-align: left;
 }
 
 .pageNavigation
@@ -194,26 +202,30 @@ a:hover
     text-decoration : none;
 }
 
-a.navitem:hover,active {
+a.navitem:hover,active 
+{
     white-space : nowrap;
     text-decoration: none;
     color: #6392C6;
 }
 
-.navitem_open {
+.navitem_open 
+{
     white-space : nowrap;
     text-decoration: none;
     font-weight : bold;
 }
 
-a.navitem_open:hover,active {
+a.navitem_open:hover,active 
+{
     white-space : nowrap;
     text-decoration: none;
     font-weight : bold;
     color: #6392C6;
 }
 
-.navitem_active {
+.navitem_active 
+{
     white-space : nowrap;
     text-decoration: none;
     font-weight : bold;
