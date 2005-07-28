@@ -227,6 +227,20 @@
     </template>
     
     <template
+        path="templates/bpm4jsf/views/jsp/includes/view-table.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements variable="table">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndParameter">
+                    <property name="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
         path="templates/bpm4jsf/views/jsp/index.jsp.vsl"
         outputPattern="$welcomeFileName"
         outlet="jsps"
