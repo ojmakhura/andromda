@@ -22,6 +22,11 @@ public class $formBeanClassName
 #foreach ($field in $fields)
 #if ($field.file)
     private org.apache.struts.upload.FormFile $field.name = null;
+#elseif ($field.table)
+    private $field.type.fullyQualifiedName $field.name = null;
+#if (!$field.tableGlobalActions.empty)
+    private java.util.List ${field.name}RowSelection = null;
+#end
 #elseif($field.type.mapType)
     private java.util.Map $field.name = new java.util.HashMap();
 #else
@@ -106,6 +111,30 @@ $field.getDocumentation("     * ")
         return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
     
+#elseif (!$field.tableGlobalActions.empty)
+#set ($fieldType = "java.util.List")
+#set ($fieldName = $field.name)
+#set ($accessSuffix = "RowSelection")
+    public void ${field.setterName}${accessSuffix}($fieldType $fieldName${accessSuffix})
+    {
+        this.$fieldName${accessSuffix} = $fieldName${accessSuffix};
+    }
+
+    public $fieldType ${field.getterName}${accessSuffix}()
+    {
+        return this.$fieldName${accessSuffix};
+    }
+
+    public void ${field.setterName}${accessSuffix}AsArray(Object[] $fieldName${accessSuffix})
+    {
+        this.$fieldName${accessSuffix} = ($fieldName${accessSuffix} == null) ? null : java.util.Arrays.asList($fieldName${accessSuffix});
+    }
+
+    public java.lang.Object[] ${field.getterName}${accessSuffix}AsArray()
+    {
+        return ($fieldName${accessSuffix} == null) ? null : ${fieldName}${accessSuffix}.toArray();
+    }
+
 #elseif ($field.date || $field.time)
 #if ($field.date)
 #set ($asType = "Date")
@@ -279,7 +308,7 @@ $field.getDocumentation("     * ")
         }
 
         final int length = Math.min(labels.length, values.length);
-        Object[] backingList = new Object[length];
+        java.lang.Object[] backingList = new java.lang.Object[length];
 
         for (int i=0; i<length; i++)
         {
@@ -321,15 +350,15 @@ $field.getDocumentation("     * ")
 
         if (items != null)
         {
-            this.${valueListName} = new Object[items.size()];
-            this.${labelListName} = new Object[items.size()];
+            this.${valueListName} = new java.lang.Object[items.size()];
+            this.${labelListName} = new java.lang.Object[items.size()];
 
             try
             {
                 int i = 0;
                 for (java.util.Iterator iterator = items.iterator(); iterator.hasNext(); i++)
                 {
-                    final Object item = iterator.next();
+                    final java.lang.Object item = iterator.next();
 
                     this.${valueListName}[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
                     this.${labelListName}[i] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
@@ -354,8 +383,8 @@ $field.getDocumentation("     * ")
         this.$field.name = $field.nullValue;
 #if ($field.selectable && $field.multiple)
 ## multi-select fields need to be reset to an empty array (http://struts.apache.org/userGuide/struts-html.html#select)
-        this.$field.valueListName = new Object[0];
-        this.$field.labelListName = new Object[0];
+        this.$field.valueListName = new java.lang.Object[0];
+        this.$field.labelListName = new java.lang.Object[0];
 #end
 #end
 #end
@@ -408,21 +437,21 @@ $field.getDocumentation("     * ")
 
     public final static class LabelValue
     {
-        private Object label = null;
-        private Object value = null;
+        private java.lang.Object label = null;
+        private java.lang.Object value = null;
 
-        public LabelValue(Object label, Object value)
+        public LabelValue(Object label, java.lang.Object value)
         {
             this.label = label;
             this.value = value;
         }
 
-        public Object getLabel()
+        public java.lang.Object getLabel()
         {
             return this.label;
         }
 
-        public Object getValue()
+        public java.lang.Object getValue()
         {
             return this.value;
         }

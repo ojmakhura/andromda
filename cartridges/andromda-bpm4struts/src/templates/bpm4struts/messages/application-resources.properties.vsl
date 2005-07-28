@@ -1,6 +1,24 @@
 #if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
-main.title=$applicationUseCase.name
+main.title=$stringUtils.capitalize($applicationUseCase.name)
 
+#
+#   Messages for error pages
+#
+error.link.title=Click here to go to the application's home page
+error.link.text=$stringUtils.capitalize($applicationUseCase.name)
+
+error.400.title=Bad request
+error.400.message=The request sent by your browser could not properly be interpreted, please try again.
+error.403.title=Forbidden
+error.403.message=You are not allowed to access this part of the application.
+error.404.title=Not found
+error.404.message=The resource could not be located on the server, please contact your system administrator.
+error.500.title=Server error
+error.500.message=An internal server error occurred, please contact your system administrator.
+error.exception.title=Application error
+error.exception.message=The application encountered an unexpected exception, please contact your system administrator and notify him/her of this problem.
+
+select.deselect.all=Select/Deselect All
 breadcrumbs.error=Error on page
 required.fields.asterisk=Fields marked with an asterisk are required
 online.help.href=Help
@@ -10,7 +28,6 @@ online.help.title=Online Help:
 online.help.inputfield=Field
 online.help.description=Description
 click.to.go.back=Click to go back
-
 form.already.submitted=This form has already been submitted
 
 #

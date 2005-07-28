@@ -5,6 +5,9 @@
 #set ($sortable = $table.tableSortable)
 #set ($exportable = $table.tableExportable)
 <div id="${table.name}" class="table">
+#if (!$table.tableGlobalActions.empty)
+    <form name="" action="" method="post" enctype="multipart/form-data">
+#end
 #set ($displayTableName = "form.${table.name}")
     <display:table name="${${displayTableName}}" id="row"
         requestURI="${pageContext.request.requestURL}"
@@ -16,6 +19,13 @@
 #set ($exportFileName = "${jsp.name}-${table.name}")
 #set ($exportFileName = "$bpmUtils.toWebFileName($exportFileName)")
         <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
+#end
+#if (!$table.tableGlobalActions.empty)
+        <display:column media="html">
+#set ($actionParameter = $table.tableGlobalActionParameter)
+#set ($checkboxValue = "row.$actionParameter.name")
+            <input type="checkbox" name="${actionParameter.name}RowSelectionAsArray" value="${${checkboxValue}}"/>
+        </display:column>
 #end
 #foreach ($column in $table.tableColumns)
 #if($column.actionParameter)#set($columnName=$column.name)#else#set($columnName=$column)#end
@@ -53,4 +63,23 @@
         </display:column>
 #end
     </display:table>
+#if (!$table.tableGlobalActions.empty)
+#foreach ($action in $table.tableGlobalActions)
+#set ($roles = $action.actionRoles)
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
+#if ($securityEnabled)
+        <logic:present role="$roles">
+#end
+            <input type="submit" value="<bean:message key="$action.actionTrigger.triggerKey"/>" onclick="this.form.name='$action.formBeanName';this.form.action='<html:rewrite action="$action.actionPath"/>';" #if($hints)onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end/>
+#if ($securityEnabled)
+        </logic:present>
+        <logic:notPresent role="$roles">
+            <input type="submit" value="<bean:message key="$trigger.triggerKey"/>" #if($hints)onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()"#end disabled="disabled"/>
+        </logic:notPresent>
+#end
+#end
+        <input type="button" value="<bean:message key="select.deselect.all"/>" onclick="var boxes=this.form.elements['${table.tableGlobalActionParameter.name}RowSelectionAsArray'];var setChecked=(boxes.length==0)?false:!boxes[0].checked;for(var i=0;i<boxes.length;i++)boxes[i].checked=setChecked;"/>
+    </form>
+#end
 </div>
+

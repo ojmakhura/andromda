@@ -24,12 +24,14 @@
     <div class="trigger">
 #if ($action.hyperlink)
 #renderHyperlink($action "        ")
+#elseif ($action.tableAction)## this means this action allows rows to be selected and sent
+        <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data">
+            <%@ include file="${action.input.fullPath}-${action.tableLinkParameter.name}.jspf" %>
+#renderFormButtons($action "            ")
+        </html:form>
 #elseif ($action.formPost)
 #if ($clientValidationDesired && $action.validationRequired)
-#set ($onsubmit = "return ${action.formValidationMethodName}(this);")
-#else
-#set ($onsubmit = "")
-#end
+#set($onsubmit="return ${action.formValidationMethodName}(this);")#else#set($onsubmit="")#end
         <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
 #if (!$action.hiddenActionParameters.empty)
             <%@ include file="${action.fullTilePath}-hidden-params.jspf" %>

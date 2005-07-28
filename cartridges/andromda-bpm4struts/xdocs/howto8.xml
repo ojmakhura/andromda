@@ -121,6 +121,30 @@
                     <a href="tips.html">copy-over</a> feature to achieve this.
                 </p>
             </subsection>
+            <subsection name="Submitting selected rows">
+                <p>
+                    In addition to the submittal of a specific row it is also possible to select a couple of rows
+                    and submit them, mind you, this mechanism works a little different than one might expect.
+                </p>
+                <p class="highlight">
+                    This feature is only able to submit <em>one single value</em> per row, it is <em>not</em> possible
+                    to submit the all column values for all selected rows
+                </p>
+                <p>
+                    In order to achieve this we use the table link and action type tagged values as before,
+                    only this time the value is of the action type is <code>table</code>, like this:
+<source><![CDATA[
+    @andromda.struts.action.tablelink=myTable
+    @andromda.struts.action.type=table
+]]></source>
+                </p>
+                <p>
+                    You may model these tagged values on a transition going out of a <![CDATA[<<FrontEndView>>]]>
+                    action state, the only restriction is that there must be one and only one parameter that is
+                    a column from the targetted table. If more than one such action would target the same table then
+                    <em>all these actions must declare a parameter of the same type and with the same name</em>.
+                </p>
+            </subsection>
             <subsection name="Multibox">
                 <p>
                     One very special type of widget, which is a little more complicated to understand at first, is

@@ -24,6 +24,27 @@
 #content { width: 570px; }
 
 ##
+##  This layer will hold the error content
+##
+#error { margin: 10px 12%; }
+#error #title
+{
+    font-size: 150%;
+    font-weight: bold;
+    color: #043DBC;
+    border-bottom: 1px dotted #3D7DC7;
+    margin-bottom: 20px;
+}
+#error .details
+{
+    margin: 12px;
+    padding: 10px;
+    background-color: #ffffdd;
+    border: #333 solid 1px;
+    text-align: left;
+}
+
+##
 ##  This layer contains side information and server as a kind of menu
 ##
 #sidebar { float: right; padding: 30px 5px 0 0; margin-top: 20px; width: 170px; font-size: 86%; }
@@ -55,7 +76,6 @@
 ##  An action is an hyperlink or a form
 ##
 div.action { line-height: 1.7em; margin-bottom: 2.5em; }
-div.action span {display: none;}
 div.action h3
 {
    font-size: 86%; font-weight: bold;
@@ -67,10 +87,8 @@ div.action h3
 
 ## A trigger represents the actual link or button on a form on which one clicks
 div.action div.trigger { border: 0; margin: 0px 20px 15px 0px; }
-div.action div.trigger a:link, .trigger a:visited, .trigger a:hover { border: 1px solid #fff; }
 div.action div.trigger form label { display: inline; }
 div.action div.trigger form field { display: inline; }
-div.action div.trigger form buttons { display: block; }
 ##
 ##  The box of type 1 has a border and is used to take the main attention
 ##
@@ -260,7 +278,7 @@ img.calendar
 
 /* table classes (<display:*> taglib) */
 
-div.exportlinks { margin-top: 15px; }
+div.exportlinks { margin: 15px 0; }
 span.export
 {
     padding: 0 4px 1px 20px;

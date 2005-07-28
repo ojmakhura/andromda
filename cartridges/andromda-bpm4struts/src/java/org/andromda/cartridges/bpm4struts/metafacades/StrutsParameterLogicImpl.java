@@ -3,7 +3,6 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
@@ -11,6 +10,7 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -533,24 +533,82 @@ public class StrutsParameterLogicImpl
         return required;
     }
 
+    protected boolean handleIsTableLink()
+    {
+        return this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABLELINK) != null;
+    }
+
+    protected boolean handleIsAllGlobalTableActionsHaveSameParameter()
+    {
+        boolean sameParameter = true;
+
+        String name = null;
+        String type = null;
+
+        final Collection actions = this.getTableGlobalActions();
+        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext() && sameParameter;)
+        {
+            final StrutsAction action = (StrutsAction)actionIterator.next();
+            final List parameters = action.getActionParameters();
+            if (!parameters.isEmpty())
+            {
+                final StrutsParameter parameter = (StrutsParameter)parameters.iterator().next();
+                if (name == null || type == null)
+                {
+                    name = parameter.getName();
+                    type = parameter.getType().getFullyQualifiedName();
+                }
+                else
+                {
+                    sameParameter =
+                        name.equals(parameter.getName()) && type.equals(parameter.getType().getFullyQualifiedName());
+                }
+            }
+        }
+
+        return sameParameter;
+    }
+
     protected List handleGetTableFormActions()
     {
-        return internalGetTableActions(false);
+        return this.internalGetTableActions(false,true,false);
     }
 
     protected List handleGetTableHyperlinkActions()
     {
-        return internalGetTableActions(true);
+        return this.internalGetTableActions(true,false,false);
+    }
+
+    protected Collection handleGetTableGlobalActions()
+    {
+        return this.internalGetTableActions(false,false,true);
+    }
+
+    protected Object handleGetTableGlobalActionParameter()
+    {
+        Object parameter = null;
+
+        final Collection actions = this.getTableGlobalActions();
+        if (!actions.isEmpty())
+        {
+            final List actionParameters = ((StrutsAction)actions.iterator().next()).getActionParameters();
+            if (!actionParameters.isEmpty())
+            {
+                parameter = actionParameters.iterator().next();
+            }
+        }
+
+        return parameter;
     }
 
     protected boolean handleIsTableHyperlinkActionSharingColumns()
     {
         boolean sharingColumns = false;
 
-        if (isTable())
+        if (this.isTable())
         {
             final Set columnNames = new HashSet();
-            final List hyperlinkActions = getTableHyperlinkActions();
+            final List hyperlinkActions = this.getTableHyperlinkActions();
             for (int i = 0; i < hyperlinkActions.size() && !sharingColumns; i++)
             {
                 final StrutsAction action = (StrutsAction)hyperlinkActions.get(i);
@@ -585,10 +643,8 @@ public class StrutsParameterLogicImpl
     /**
      * If this is a table this method returns all those actions that are declared to work
      * on this table.
-     *
-     * @param hyperlink denotes on which type of actions to filter
      */
-    private List internalGetTableActions(boolean hyperlink)
+    private List internalGetTableActions(boolean hyperlink, boolean formPost, boolean tableAction)
     {
         final String name = StringUtils.trimToNull(getName());
         if (name == null || !isTable())
@@ -618,7 +674,7 @@ public class StrutsParameterLogicImpl
                             final StrutsAction action = (StrutsAction)transition;
                             if (action.isTableLink() && name.equals(action.getTableLinkName()))
                             {
-                                if (hyperlink == action.isHyperlink())
+                                if ( (hyperlink && action.isHyperlink()) || (formPost && action.isFormPost()) || (tableAction && action.isTableAction()))
                                 {
                                     tableActions.add(action);
                                 }

@@ -59,11 +59,14 @@
         <%@ include file="${jsp.fullPath}-vars.jspf" %>
 
 #end
-#foreach ($action in $jsp.nonTableActions)
+#foreach ($action in $jsp.actions)
+#if (!$action.tableLink)
         <%@ include file="${action.fullTilePath}.jspf" %>
 
 #end
+#end
 #foreach ($variable in $jsp.pageVariables)
+## tables that have actions targetting them globally will include them in the corresponding JSP fragment, not here
 #if ($variable.table)
         <%@ include file="${jsp.fullPath}-${variable.name}.jspf" %>
 #end

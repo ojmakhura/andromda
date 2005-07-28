@@ -57,8 +57,7 @@
                 <p>
                     Client-side action states are tagged with the <![CDATA[<<FrontEndView>>]]> stereotype,
                     they represent a JSP and may have multiple outgoing transitions (one per call
-                    to the server). It is not allowed to model a transition between two <![CDATA[<<FrontEndView>>]]>
-                    action states.
+                    to the server).
                 </p>
                 <p>
                     Server-side action states do not need any stereotype but can only have a single outgoing

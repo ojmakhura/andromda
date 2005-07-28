@@ -284,7 +284,7 @@ $operation.getDocumentation("     * ")
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
-        throws $finder.exceptionList;
+        throws $operation.exceptionList;
 #else
     $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
 #end

@@ -47,9 +47,7 @@
             </documentation>
             <element name="ACTION_TYPE">
                 <documentation>
-                    Modeled on a transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype.
-                    Indicates the type of trigger causing the action, possible values are hyperlink, image and form. Form
-                    is the default value.
+                    Indicates the type of trigger causing the action.
                 </documentation>
                 <value>@andromda.struts.action.type</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
@@ -57,6 +55,7 @@
                     <value default="true">form</value>
                     <value>hyperlink</value>
                     <value>image</value>
+                    <value>table</value>
                 </allowedValues>
             </element>
             <element name="ACTION_TABLELINK">
