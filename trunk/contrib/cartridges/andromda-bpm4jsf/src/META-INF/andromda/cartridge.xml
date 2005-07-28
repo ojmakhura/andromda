@@ -26,6 +26,12 @@
         outputPattern="css/{0}"
         outlet="jsps"
         overwrite="true"/>
+    
+    <resource
+        path="resources/views/images/*.*"
+        outputPattern="images/{0}"
+        outlet="jsps"
+        overwrite="true"/>
 
     <!-- process templates on model elements -->
     <template
