@@ -24,7 +24,7 @@
         </f:facet>
 
         <f:facet name="navigation">
-            <f:subview id="menu" >
+            <f:subview id="menu">
                 <jsp:include page="/includes/navigation.jsp" />
             </f:subview>
         </f:facet>
@@ -33,6 +33,11 @@
             <h:panelGroup id="body">
 #foreach ($action in $view.actions)
                 <%@ include file="${action.viewFragmentPath}.jspf" %>
+#end
+#foreach ($variable in $view.variables)
+#if ($variable.table)
+                <%@ include file="${view.path}-${variable.name}.jspf" %>
+#end
 #end
             </h:panelGroup>
         </f:facet>
