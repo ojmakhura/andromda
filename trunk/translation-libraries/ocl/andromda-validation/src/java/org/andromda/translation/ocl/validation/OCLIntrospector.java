@@ -24,7 +24,7 @@ public final class OCLIntrospector
      * operation or a property.
      */
     public static final Object invoke(
-        Object element,
+        final Object element,
         String feature)
     {
         Object result = null;
