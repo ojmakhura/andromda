@@ -57,16 +57,16 @@
     border-width: 1px;
 }
 
-.standardTable_Header 
+.standardTableHeader 
 {
     color: #000000;
-    background-color: #FFDD00;
+    background-color: #6392C6;
     padding: 3;
     text-align: center;
     border: none;
 }
 
-.standardTable_SortHeader
+.standardTableSortHeader
 {
     background-color: #FFDD00;
     color: #000000;
@@ -76,26 +76,26 @@
     font-weight: bold;
 }
 
-.standardTable_Footer 
+.standardTableFooter 
 {
     background-color: #FFFFE0;
 }
 
-.standardTable_Row1 
+.standardTableRow1 
 {
     background-color: #FFFFE0;
 }
 
-.standardTable_Row2 
+.standardTableRow2 
 {
     background-color: #FFFFE0;
 }
 
-.standardTable_Column 
+.standardTableColumn 
 {
 }
 
-.standardTable_ColumnCentered 
+.standardTableColumnCentered 
 {
     text-align: center
 }
@@ -331,7 +331,8 @@ div.titlebar {
     padding: 5px;
 }
 
-.popup table {
+.popup table 
+{
     font-size:smaller;
 }
 
@@ -432,7 +433,8 @@ body, th, td, input, select {
     font-family: Verdana, Helvetica, Arial, sans-serif;
 }
 
-table, th, td {
+table, th, td 
+{
     font-size: small;
     border: none;
 }
@@ -501,12 +503,14 @@ input, .treeFooter {
    font-weight: bold;
 }
 
-table .selectOneRadio {
+table .selectOneRadio 
+{
     font-weight: bold;
 }
 
 
-.standardList {
+.standardList 
+{
     font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 12px;
     color: #000000;
