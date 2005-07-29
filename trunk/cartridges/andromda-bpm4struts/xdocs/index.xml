@@ -95,46 +95,6 @@
             </p>
         </section>
 
-        <section name="Requirements">
-            <p>
-                Bpm4Struts uses the dynamic part of the UML model, more specifically activity graphs
-                and use-cases. Your CASE tool should be able to set an activity graph context class, and
-                it should be possible set the CallEvent of a trigger on a transition.
-            </p>
-            <p>
-                Currently bpm4struts has only been tested to work with MagicDraw 7, which requires
-                a commercial licence, but support for free tools such as ArgoUML and Poseidon is underway.
-            </p>
-            <p>
-                A knowledge of Struts with the Tiles and Validator plugin, CSS, JSP, MVC and Velocity is
-                an advantage if you would like to customize the generation process.
-            </p>
-            <p>
-                <ul>
-                    <li>
-                        <a href="http://www.ibiblio.org/maven/struts/jars/struts-1.2.4.jar">struts-1.2.4.jar</a>
-                    </li>
-                </ul>
-            </p>
-            <p>
-                In order to display tabular data we have chosen to use the 'displaytag' tag libary. This is an open source
-                library that can be used in JSP pages.
-                <ul>
-                    <li>
-                        <a href="http://www.displaytag.org">Examples</a>
-                    </li>
-                    <li>
-                        <a href="http://displaytag.sourceforge.net">Development pages</a>
-                    </li>
-                    <li>
-                        <a href="http://displaytag.sourceforge.net/tagreference-displaytag-12.html">Taglib reference</a>
-                    </li>
-                </ul>
-                We are currently using 'displaytag-1.0b3' so you will need to have this dependency when building your
-                web application with andromda-bpm4struts.
-            </p>
-        </section>
-
         <section name="Features">
             <h3>Generation of the complete set of required Struts files</h3>
             <p>
@@ -148,6 +108,7 @@
                 <ul>
                     <li>struts-config.xml</li>
                     <li>jsp pages</li>
+                    <li>error pages for the most common HTTP error codes as well as for uncaught exceptions</li>
                     <li>action classes</li>
                     <li>form bean classes</li>
                     <li>resource message properties</li>
@@ -242,10 +203,10 @@
             </p>
             <h3>Dummy data</h3>
             <p>
-                We want to have your application deployed as fast as possible. In order to achieve that
+                In order to be able to deploy the generated application without the need for manual editing
                 we made it possible to have a dummy implementation generated. It will make sure that the parameters
                 used between the client and the server are populated with dummy data. This way you can check out
-                your appliacation without needing to code one single letter.
+                your application without needing to code one single letter.
             </p>
             <h3>Dates and calendars</h3>
             <p>

@@ -10,6 +10,11 @@
     </properties>
     <body>
         <release version="3.1-RC1-SNAPSHOT" date="2005-07-29" description="First release candidate of version 3.1">
+            <action dev="draftdog" type="add" issue="BPM-225">
+                Table links in bpm4struts are now allowed to target any arbitrary column, see the online store sample
+                for an implementation (the <code>title</code> column on the second page send the <code>id</code>
+                value for that row when clicked).
+            </action>
             <action dev="draftdog" type="add" issue="BPM-169">
                 With the bpm4struts cartridge it is now possible to submit selected rows, see the new documentation here:
                 <a href="andromda-bpm4struts-cartridge/howto8.html#Submitting_selected_rows">Submitting selected rows</a>.

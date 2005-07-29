@@ -111,12 +111,12 @@ public class StrutsParameterLogicImpl
 
     protected List handleGetFormFields()
     {
-        List formFields = null;
+        List formFields;
         if (isControllerOperationArgument() && getName() != null)
         {
             final String name = getName();
             formFields = new ArrayList();
-            Collection actions = ((StrutsControllerOperation)this.getControllerOperation()).getDeferringActions();
+            Collection actions = this.getControllerOperation().getDeferringActions();
             for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 StrutsAction action = (StrutsAction)actionIterator.next();
@@ -472,7 +472,7 @@ public class StrutsParameterLogicImpl
     public boolean isActionParameter()
     {
         final StrutsAction action = getStrutsAction();
-        return (action == null) ? false : action.getActionParameters().contains(this);
+        return (action != null) && action.getActionParameters().contains(this);
     }
 
     protected String handleGetCollectionImplementationType()
@@ -721,7 +721,7 @@ public class StrutsParameterLogicImpl
 
     protected String handleGetTableExportTypes()
     {
-        String exportTypes = null;
+        String exportTypes;
 
         Collection taggedValues = new HashSet(findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT));
         if (taggedValues.isEmpty())
@@ -761,20 +761,20 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsTableSortable()
     {
-        final Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
+        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
         return (taggedValue == null) ?
-            Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE : isTrue(String.valueOf(taggedValue));
+            Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE : this.isTrue(String.valueOf(taggedValue));
     }
 
     protected boolean handleIsTableHyperlinkColumn()
     {
         boolean tableHyperlinkColumn = false;
 
-        final String name = getName();
+        final String name = this.getName();
         if (name != null)
         {
             // this parameter's action must be a table hyperlink
-            final StrutsAction action = getStrutsAction();
+            final StrutsAction action = this.getStrutsAction();
             if (action.isHyperlink() && action.isTableLink())
             {
                 // get the table and check whether this parameter is part of that table's columns
@@ -789,6 +789,27 @@ public class StrutsParameterLogicImpl
         }
 
         return tableHyperlinkColumn;
+    }
+
+    protected List handleGetTableColumnActions(final String columnName)
+    {
+        final List columnActions = new ArrayList();
+
+        if (columnName != null)
+        {
+            // only hyperlinks can target table columns
+            final List hyperlinkActions = this.getTableHyperlinkActions();
+            for (int i = 0; i < hyperlinkActions.size(); i++)
+            {
+                final StrutsAction action = (StrutsAction)hyperlinkActions.get(i);
+                if (columnName.equals(action.getTableLinkColumnName()))
+                {
+                    columnActions.add(action);
+                }
+            }
+        }
+
+        return columnActions;
     }
 
     protected Collection handleGetTableColumns()
@@ -909,7 +930,7 @@ public class StrutsParameterLogicImpl
     protected int handleGetTableMaxRows()
     {
         Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_MAXROWS);
-        int pageSize = 0;
+        int pageSize;
 
         try
         {
@@ -1095,7 +1116,7 @@ public class StrutsParameterLogicImpl
         else if (isControllerOperationArgument())
         {
             final String name = this.getName();
-            Collection actions = ((StrutsControllerOperation)this.getControllerOperation()).getDeferringActions();
+            Collection actions = this.getControllerOperation().getDeferringActions();
             for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 StrutsAction action = (StrutsAction)actionIterator.next();
@@ -1179,7 +1200,7 @@ public class StrutsParameterLogicImpl
     /**
      * @return the default date format pattern as defined using the configured property
      */
-    private final String getDefaultDateFormat()
+    private String getDefaultDateFormat()
     {
         return (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
     }
@@ -1196,7 +1217,7 @@ public class StrutsParameterLogicImpl
     /**
      * @return the default time format pattern as defined using the configured property
      */
-    private final String getDefaultTimeFormat()
+    private String getDefaultTimeFormat()
     {
         return (String)this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
     }
@@ -1207,7 +1228,7 @@ public class StrutsParameterLogicImpl
     protected boolean handleIsStrictDateFormat()
     {
         final String format = getValidatorFormat();
-        return (format == null) ? false : isStrictDateFormat(format);
+        return (format != null) && isStrictDateFormat(format);
     }
 
     /**
@@ -1272,8 +1293,8 @@ public class StrutsParameterLogicImpl
     {
         final String disableValidationForHiddenFormFields =
             (String)getConfiguredProperty(Bpm4StrutsGlobals.DISABLE_VALIDATION_FOR_HIDDEN_FORM_FIELDS);
-        return "true".equals(disableValidationForHiddenFormFields) && "hidden".equals(getWidgetType())
-            ? false : !getValidatorTypes().isEmpty();
+        return !("true".equals(disableValidationForHiddenFormFields) && "hidden".equals(getWidgetType())) &&
+            !getValidatorTypes().isEmpty();
     }
 
     protected String getValidatorFormat()
@@ -1291,7 +1312,7 @@ public class StrutsParameterLogicImpl
         if (type != null)
         {
             final String format = getValidatorFormat();
-            final boolean isRangeFormat = (format == null) ? false : isRangeFormat(format);
+            final boolean isRangeFormat = (format != null) && isRangeFormat(format);
 
             if (isRequired()) validatorTypesList.add("required");
 
@@ -1550,7 +1571,7 @@ public class StrutsParameterLogicImpl
         {
             String taggedValue = String.valueOf(taggedValueObject).trim();
 
-            int optionCount = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_OPTION_DEFAULT_COUNT;
+            int optionCount;
             try
             {
                 optionCount = Integer.parseInt(taggedValue);
@@ -1677,7 +1698,7 @@ public class StrutsParameterLogicImpl
      */
     private boolean isValidatorDate()
     {
-        return this.getType() != null ? this.getType().isDateType() : false;
+        return this.getType() != null && this.getType().isDateType();
     }
 
     /**
@@ -1701,7 +1722,7 @@ public class StrutsParameterLogicImpl
      */
     private boolean isValidatorString()
     {
-        return this.getType() != null ? this.getType().isStringType() : false;
+        return this.getType() != null && this.getType().isStringType();
     }
 
     /**

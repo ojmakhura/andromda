@@ -8,7 +8,6 @@
 #set ($requiredness = ($clientValidationDesired || $serverValidation=='true'))
 #set ($formBeanName = $action.formBeanName)
 #set ($actionParameters = $action.actionParameters)
-#set ($hints = $hints.equalsIgnoreCase("true"))
 #set ($formBeanType = $action.formBeanType)## this will be the name of the form, as used in this page
 <%@ include file="/taglib-imports.jspf" %>
 
@@ -16,7 +15,6 @@
 <html:xhtml/>
 
 #end
-
 #set ($messageKey = $action.messageKey)
 #set ($actionTrigger = $action.actionTrigger)
 <div id="$action.styleId" class="action">
@@ -30,6 +28,12 @@
 #renderFormButtons($action "            ")
         </html:form>
 #elseif ($action.formPost)
+#if ($action.actionParameters.empty)
+## unfortunately <html:form> cannot handle actions without a form so we need to treat this case separately
+        <form action='<html:rewrite action="${action.actionPath}"/>' method="post">
+#renderFormButtons($action "            ")
+        </form>
+#else
 #if ($clientValidationDesired && $action.validationRequired)
 #set($onsubmit="return ${action.formValidationMethodName}(this);")#else#set($onsubmit="")#end
         <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
@@ -57,6 +61,7 @@
                 </tbody>
             </table>
         </html:form>
+#end
 #end
     </div>
 

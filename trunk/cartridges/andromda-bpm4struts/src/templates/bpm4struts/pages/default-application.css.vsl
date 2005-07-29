@@ -2,7 +2,6 @@
 ##
 ## CONSTANTS
 ##
-#set ($hints = $hints.equalsIgnoreCase("true"))
 #set ($onlineHelp = $onlineHelp.equalsIgnoreCase("true"))
 
 ##
@@ -180,7 +179,7 @@ div.action div.trigger form field { display: inline; }
 .hide { display: none; }
 br.clr { clear: left; }
 
-#if ($hints)
+#if ($hints=="true")
 .hintsClass
 {
     background-color: #ffd;
