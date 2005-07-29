@@ -27,9 +27,23 @@ $operation.getDocumentation("     * ")
             ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
                 facesContext, 
                 "$action.formBeanName");
-#end
 #foreach ($deferredOperation in $action.deferredOperations)
         this.$deferredOperation.formCall;
+#end
+#foreach ($useCaseFormAction in $action.otherUseCaseFormActions)
+        final $useCaseFormAction.fullyQualifiedFormImplementationName $useCaseFormAction.formBeanName = 
+            ($useCaseFormAction.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
+                facesContext, 
+                "$useCaseFormAction.formBeanName");
+        try
+        {
+            org.apache.commons.beanutils.BeanUtils.copyProperties($useCaseFormAction.formBeanName, form);
+        }
+        catch (final Throwable throwable)
+        {
+            throw new RuntimeException(throwable);
+        }
+#end
 #end
 #foreach ($forward in $action.actionForwards)
         return "$forward.name";
