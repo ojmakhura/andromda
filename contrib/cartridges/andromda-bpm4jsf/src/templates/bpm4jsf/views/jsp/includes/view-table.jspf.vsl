@@ -4,10 +4,10 @@
 
 <x:dataTable id="data"
         styleClass="scrollerTable"
-        headerClass="standardTable_Header"
-        footerClass="standardTable_Header"
-        rowClasses="standardTable_Row1,standardTable_Row2"
-        columnClasses="standardTable_Column,standardTable_ColumnCentered,standardTable_Column"
+        headerClass="standardTableHeader"
+        footerClass="standardTableHeader"
+        rowClasses="standardTableRow1,standardTableRow2"
+        columnClasses="standardTableColumn,standardTableColumnCentered,standardTableColumn"
         var="row"
         value="#{manageUsersAddForm.users}"
         preserveDataModel="false"
@@ -22,7 +22,7 @@
 #end
 </x:dataTable>
 
-<h:panelGrid columns="1" styleClass="scrollerTable2" columnClasses="standardTable_ColumnCentered" >
+<h:panelGrid columns="1" styleClass="scrollerTable2" columnClasses="standardTableColumnCentered" >
     <x:dataScroller id="scroll_1"
             for="data"
             fastStep="10"
