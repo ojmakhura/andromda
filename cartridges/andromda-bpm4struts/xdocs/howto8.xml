@@ -128,7 +128,7 @@
                 </p>
                 <p class="highlight">
                     This feature is only able to submit <em>one single value</em> per row, it is <em>not</em> possible
-                    to submit the all column values for all selected rows
+                    to submit all column values for all selected rows.
                 </p>
                 <p>
                     In order to achieve this we use the table link and action type tagged values as before,
@@ -143,6 +143,13 @@
                     action state, the only restriction is that there must be one and only one parameter that is
                     a column from the targetted table. If more than one such action would target the same table then
                     <em>all these actions must declare a parameter of the same type and with the same name</em>.
+                </p>
+                <p>
+                    This will result in the cartridge having generated code that will place a checkbox in front of each
+                    row, the checkbox carries the value of the table column with the same name as the event
+                    <em>event parameter</em> modeled on the transition. Each such action will have a button and there's
+                    also a button to select or deselect all rows. When a checkbox is selected its corresponding value
+                    will be sent to the server when one of the action buttons is clicked.
                 </p>
             </subsection>
             <subsection name="Multibox">
