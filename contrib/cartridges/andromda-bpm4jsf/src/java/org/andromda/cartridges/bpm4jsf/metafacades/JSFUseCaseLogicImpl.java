@@ -1,5 +1,7 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,7 +138,7 @@ public class JSFUseCaseLogicImpl
 
                         // - table
 
-                        /*if (parameter.isTable())
+                        if (parameter.isTable())
                         {
                             final Collection columnNames = parameter.getTableColumnNames();
                             for (final Iterator columnNameIterator = columnNames.iterator();
@@ -147,7 +149,7 @@ public class JSFUseCaseLogicImpl
                                     parameter.getTableColumnMessageKey(columnName),
                                     parameter.getTableColumnMessageValue(columnName));
                             }
-                        }*/
+                        }
                     }
 
                     final List actions = useCase.getActions();
