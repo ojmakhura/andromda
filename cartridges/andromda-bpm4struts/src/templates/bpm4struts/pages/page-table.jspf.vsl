@@ -24,11 +24,12 @@
         <display:column media="html">
 #set ($actionParameter = $table.tableGlobalActionParameter)
 #set ($checkboxValue = "row.$actionParameter.name")
-            <input type="checkbox" name="${actionParameter.name}RowSelectionAsArray" value="${${checkboxValue}}"/>
+            <input type="checkbox" name="${actionParameter.name}RowSelectionAsArray" value="${${checkboxValue}}" title='<bean:message key="select.deselect.this.row"/>'/>
         </display:column>
 #end
 #foreach ($column in $table.tableColumns)
 #if($column.actionParameter)#set($columnName=$column.name)#else#set($columnName=$column)#end
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
 #if ($exportable)
         <display:column media="$table.tableExportTypes"
             titleKey="$table.getTableColumnMessageKey($columnName)"
@@ -44,6 +45,10 @@
             <div class="$columnName">
 #renderFormField($column.strutsAction $column "                " '${row_rowNum}')
             </div>
+#elseif (!$tableColumnActions.empty)
+#foreach ($tableColumnAction in $tableColumnActions)
+#renderTableHyperlink($tableColumnAction $columnName $indent)
+#end
 #else## just render as text since the column is in fact a simple String
 #set ($columnValue = "row.$columnName")
             <div class="$columnName">${${columnValue}}</div>
@@ -53,7 +58,7 @@
 #foreach ($tableAction in $table.tableHyperlinkActions)
 #if (!$tableAction.tableLinkColumnName)
         <display:column media="html">
-#renderTableHyperlink($tableAction "            ")
+#renderTableHyperlink($tableAction false "            ")
         </display:column>
 #end
 #end
@@ -64,21 +69,25 @@
 #end
     </display:table>
 #if (!$table.tableGlobalActions.empty)
+#set ($test = "!empty ${displayTableName}")
+    <c:if test="${${test}}">
 #foreach ($action in $table.tableGlobalActions)
 #set ($roles = $action.actionRoles)
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles))
 #if ($securityEnabled)
         <logic:present role="$roles">
 #end
-            <input type="submit" value="<bean:message key="$action.actionTrigger.triggerKey"/>" onclick="this.form.name='$action.formBeanName';this.form.action='<html:rewrite action="$action.actionPath"/>';" #if($hints)onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end/>
+            <input type="submit" value="<bean:message key="$action.actionTrigger.triggerKey"/>" onclick="this.form.name='$action.formBeanName';this.form.action='<html:rewrite action="$action.actionPath"/>';" #if($hints=="true")onmouseover="hints.show('${action.actionTrigger.name}')" onmouseout="hints.hide()"#end/>
+            <input type="button" value="<bean:message key="select.deselect.all"/>" onclick="var boxes=this.form.elements['${table.tableGlobalActionParameter.name}RowSelectionAsArray'];var setChecked=(boxes.length==0)?false:!boxes[0].checked;for(var i=0;i<boxes.length;i++)boxes[i].checked=setChecked;"/>
 #if ($securityEnabled)
         </logic:present>
         <logic:notPresent role="$roles">
-            <input type="submit" value="<bean:message key="$trigger.triggerKey"/>" #if($hints)onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()"#end disabled="disabled"/>
+            <input type="submit" value="<bean:message key="$action.actionTrigger.triggerKey"/>" #if($hints=="true")onmouseover="hints.show('${action.actionTrigger.name}_no')" onmouseout="hints.hide()"#end disabled="disabled"/>
+            <input type="button" value="<bean:message key="select.deselect.all"/>" disabled="disabled"/>
         </logic:notPresent>
 #end
 #end
-        <input type="button" value="<bean:message key="select.deselect.all"/>" onclick="var boxes=this.form.elements['${table.tableGlobalActionParameter.name}RowSelectionAsArray'];var setChecked=(boxes.length==0)?false:!boxes[0].checked;for(var i=0;i<boxes.length;i++)boxes[i].checked=setChecked;"/>
+    </c:if>
     </form>
 #end
 </div>

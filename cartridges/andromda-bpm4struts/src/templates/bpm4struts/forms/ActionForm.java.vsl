@@ -387,6 +387,9 @@ $field.getDocumentation("     * ")
         this.$field.labelListName = new java.lang.Object[0];
 #end
 #end
+#if (!$field.tableGlobalActions.empty)
+        this.${field.name}RowSelection = null;
+#end
 #end
     }
 
@@ -416,6 +419,9 @@ $field.getDocumentation("     * ")
 #if ($field.selectable)
         this.$field.valueListName = null;
         this.$field.labelListName = null;
+#end
+#if (!$field.tableGlobalActions.empty)
+        this.${field.name}RowSelection = null;
 #end
 #end
     }

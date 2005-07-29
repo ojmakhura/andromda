@@ -22,7 +22,7 @@ ${indent}<logic:present role="$roles">
 #set ($requestPath = "${requestPath}${separator}${parameter.name}=${${propertyName}}")
 #end
 ${indent}    <p>
-${indent}        <html:link action="${requestPath}" #if($hints)onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
+${indent}        <html:link action="${requestPath}" #if($hints=="true")onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
 ${indent}            <bean:message key="$triggerKey"/>
 ${indent}        </html:link>
 ${indent}    </p>
@@ -39,7 +39,7 @@ ${indent}</logic:notPresent>
 ##      HTML hyperlink tags for the argument action in a table
 ##
 ##
-#macro ( renderTableHyperlink $action $indent )
+#macro ( renderTableHyperlink $action $columnName $indent )
 #set($uriQuery='')#set($delim='?')#set($beanName="row")
 #foreach ($parameter in $action.actionParameters)
 ## temporarily commented out, we're taking all parameters from the row since we can't easily check if the row property
@@ -48,9 +48,9 @@ ${indent}</logic:notPresent>
 ##if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#end
 #set($paramValue="${beanName}.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
 #end
-${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints)onmouseover="hints.show('$parameter.titleKey')" onmouseout="hints.hide()"#end>
+${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints=="true")onmouseover="hints.show('$action.actionTrigger.name')" onmouseout="hints.hide()"#end>
 #if ($action.tableLinkColumnName)## the action is targetting a column, so display the table cell value
-#set($linkValue="row.${fieldName}")
+#set($linkValue="${beanName}.${columnName}")
 ${indent}    ${${linkValue}}
 #else
 ${indent}    <bean:message key="$action.actionTrigger.triggerKey"/>
@@ -105,22 +105,22 @@ ${indent}<nobr><html:link href="javascript:document.location=${link};" styleClas
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
 #end
-${indent}   <html:submit #if($hints)onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end styleId="form_submit">
+${indent}   <html:submit #if($hints=="true")onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end styleId="form_submit">
 ${indent}       <bean:message key="$trigger.triggerKey"/>
 ${indent}   </html:submit>
 #if ($action.resettable)
-${indent}   <html:reset #if($hints)onmouseover="hints.show('${trigger.name}_reset')" onmouseout="hints.hide()"#end styleId="form_reset">
+${indent}   <html:reset #if($hints=="true")onmouseover="hints.show('${trigger.name}_reset')" onmouseout="hints.hide()"#end styleId="form_reset">
 ${indent}       <bean:message key="$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
 #if ($securityEnabled)
 ${indent}</logic:present>
 ${indent}<logic:notPresent role="$roles">
-${indent}   <html:submit #if($hints)onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()"#end disabled="true" styleId="form_submit">
+${indent}   <html:submit #if($hints=="true")onmouseover="hints.show('${trigger.name}_no')" onmouseout="hints.hide()"#end disabled="true" styleId="form_submit">
 ${indent}       <bean:message key="$trigger.triggerKey"/>
 ${indent}   </html:submit>
 #if ($action.resettable)
-${indent}   <html:reset #if($hints)onmouseover="hints.show('${trigger.name}_noreset')" onmouseout="hints.hide()"#end disabled="true" styleId="form_reset">
+${indent}   <html:reset #if($hints=="true")onmouseover="hints.show('${trigger.name}_noreset')" onmouseout="hints.hide()"#end disabled="true" styleId="form_reset">
 ${indent}       <bean:message key="$trigger.resetMessageKey"/>
 ${indent}   </html:reset>
 #end
@@ -151,24 +151,17 @@ ${indent}</logic:notPresent>
 #set ($readonly = '')
 #end
 ##
-##
-##  We first check if we're dealing with a special case where an hyperlink action
-##
-##
-#if ($field.tableHyperlinkColumn)
-#renderTableHyperlink($action $indent)
-##
 ##  Depending on the type of the input field we render a different widget
 ##
 ##
 ##      R A D I O B U T T O N
 ##
-#elseif ($widgetType == 'radio')
+#if ($widgetType == 'radio')
 ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <html:$widgetType name="$beanName" property="$fieldName" value="$optionKey" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
+${indent}            <html:$widgetType name="$beanName" property="$fieldName" value="$optionKey" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
 ${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
@@ -178,13 +171,13 @@ ${indent}</table>
 ##      C H E C K B O X
 ##
 #elseif ($widgetType == 'checkbox')
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
+${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
 ##
 ##      M U L T I B O X
 ##
 ## @todo: disable this widget if not used in a row action
 #elseif ($widgetType == 'multibox')
-${indent}<html:$widgetType name="$formBeanName" property="$field.multiboxPropertyName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId">
+${indent}<html:$widgetType name="$formBeanName" property="$field.multiboxPropertyName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId">
 #set ($multiboxBody = "$beanName.${fieldName}")
 ${indent}    ${${multiboxBody}}
 ${indent}</html:$widgetType>
@@ -192,9 +185,9 @@ ${indent}</html:$widgetType>
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
 #elseif ( ($widgetType == 'text') || ($widgetType == 'password') )
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly styleId="$styleId"/>
+${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly styleId="$styleId"/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
-${indent}<html:img page="/layout/calendar/calendar.gif" styleId="$stringUtils.lowerCamelCaseName($action.actionTrigger.name)_${fieldName}_trigger" styleClass="calendar" #if($hints)onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
+${indent}<html:img page="/layout/calendar/calendar.gif" styleId="$stringUtils.lowerCamelCaseName($action.actionTrigger.name)_${fieldName}_trigger" styleClass="calendar" #if($hints=="true")onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
 ${indent}<script type="text/javascript">
 #if ($xhtml == "true")
 ${indent}//<![CDATA[
@@ -221,7 +214,7 @@ ${indent}</script>
 ##      T E X T A R E A
 ##
 #elseif ($widgetType == 'textarea')
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly styleId="$styleId"/>
+${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly styleId="$styleId"/>
 ##
 ##      H I D D E N
 ##
@@ -243,12 +236,12 @@ ${indent}<html:$widgetType name="$beanName" property="$fieldName" styleId="$styl
 #end
 ${indent}<c:choose>
 ${indent}    <c:when test="${!empty ${formBeanName}.${field.backingListName}}">
-${indent}       <html:select name="$beanName" property="$selectProperty" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled $multiple styleId="$styleId">
+${indent}       <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled $multiple styleId="$styleId">
 ${indent}           <html:optionsCollection name="$formBeanName" property="$field.backingListName" label="label" value="value"/>
 ${indent}       </html:select>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
-${indent}        <html:select name="$beanName" property="$selectProperty" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end disabled="true" styleId="$styleId"/>
+${indent}        <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end disabled="true" styleId="$styleId"/>
 ${indent}    </c:otherwise>
 ${indent}</c:choose>
 ##
@@ -264,7 +257,7 @@ ${indent}</c:choose>
 #end
 #end
 #set ($propertyName = "$beanName.${fieldName}")
-${indent}<html:$widgetType action="${requestPath}" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end>${${propertyName}}</html:$widgetType>
+${indent}<html:$widgetType action="${requestPath}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end>${${propertyName}}</html:$widgetType>
 #if ($action.tableLink)
 ${indent}<html:hidden name="$beanName" property="$fieldName" styleId="$styleId"/>
 #end
@@ -272,7 +265,7 @@ ${indent}<html:hidden name="$beanName" property="$fieldName" styleId="$styleId"/
 ##      F I L E
 ##
 #elseif ($widgetType == 'file')
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
+${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
 ##
 ##      P L A I N T E X T
 ##

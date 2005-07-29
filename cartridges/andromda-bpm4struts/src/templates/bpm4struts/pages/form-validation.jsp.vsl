@@ -6,14 +6,7 @@
 <%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
-<![CDATA[
-#else
-<!--
+<html:xhtml/>
 #end
-<html:javascript dynamicJavascript="false" staticJavascript="true" htmlComment="false"/>
-#if ($xhtml == "true")
-]]>
-#else
--->
-#end
+<html:javascript dynamicJavascript="false" staticJavascript="true" cdata="false" htmlComment="false"/>
 #end

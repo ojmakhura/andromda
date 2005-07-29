@@ -2,9 +2,9 @@
 <%@ page contentType="application/x-javascript" %>
 <%@ include file="/taglib-imports.jspf" %>
 #if ($xhtml == "true")
-<![CDATA[
+//<![CDATA[
 #else
-<!--
+//<!--
 #end
 /*  Copyright Mihai Bazon, 2002-2005  |  www.bazon.net/mishoo
  * -----------------------------------------------------------
@@ -2009,3 +2009,8 @@ Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
 Calendar._TT["TT_DATE_FORMAT"] = "%a, %b %e";
 
 Calendar._FD = 0;
+#if ($xhtml == "true")
+//]]>
+#else
+//-->
+#end

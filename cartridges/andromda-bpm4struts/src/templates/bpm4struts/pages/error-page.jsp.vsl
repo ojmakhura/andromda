@@ -39,11 +39,11 @@
             <div id="title"><bean:message key="error.${param.code}.title"/></div>
             <div id="message"><bean:message key="error.${param.code}.message"/></div>
             <div id="link"><html:link page="/$welcomeFileName" titleKey="error.link.title"><bean:message key="error.link.text"/></html:link></div>
-#set ($requestScopePrefix = "requestScope[")
-#set ($requestScopeSuffix = "]")
 #set ($quote = '"')
-#set ($requestUri = "${requestScopePrefix}${quote}javax.servlet.error.request_uri${quote}${requestScopeSuffix}")
-#set ($exception = "${requestScopePrefix}${quote}javax.servlet.error.exception${quote}${requestScopeSuffix}")
+#set ($requestScopePrefix = "requestScope[${quote}")
+#set ($requestScopeSuffix = "${quote}]")
+#set ($requestUri = "${requestScopePrefix}javax.servlet.error.request_uri${requestScopeSuffix}")
+#set ($exception = "${requestScopePrefix}javax.servlet.error.exception${requestScopeSuffix}")
             <c:if test="${param.exception}">
                 <div class="details">
                     <code>${${exception}}</code>

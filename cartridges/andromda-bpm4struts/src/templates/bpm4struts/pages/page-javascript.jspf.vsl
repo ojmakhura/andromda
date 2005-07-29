@@ -1,12 +1,12 @@
 #parse("templates/bpm4struts/pages/page.jsp.vm")
 #set ($generatedFile = "${jsp.fullPath}-javascript.jspf")
 ##
-##  CONSTANTS
-##
-#set ($hints = $hints == "true")
-##
 ##  SETS THE JAVASCRIPT CONTENT
 ##
+#if ($xhtml == "true")
+    <html:xhtml/>
+#end
+
     <tiles:put name="javascript" type="string">
 ## only load the calendar javascript when actually needed
 #if ($jsp.calendarRequired)
@@ -22,7 +22,7 @@
 #end
 #end
 #end
-#if ($hints)
+#if ($hints=="true")
     	<script type="text/javascript" language="Javascript1.1" src="<html:rewrite page="/layout/hints.js"/>"></script>
     	<script type="text/javascript" language="Javascript1.1">
 #if ($xhtml == "true")
