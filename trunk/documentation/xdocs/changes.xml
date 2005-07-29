@@ -18,7 +18,7 @@
                 Support for error pages have been added to the bpm4struts cartridge, by default HTTP error codes
                 400, 403, 404 and 500 are supported, as well as exceptions not caught by Struts.
             </action>
-            <action dev="draftdog" type="add" issue="CORE-54">
+            <action dev="draftdog" type="update" issue="CORE-54">
                 Common utility classes have been refactored out of the AndroMDA core, there is now a separate
                 artifact for those called <code>andromda-utils</code>. In order to run andromda on projects
                 created before this change you will need to add a dependency to it in<code>mda/project.xml</code>.
