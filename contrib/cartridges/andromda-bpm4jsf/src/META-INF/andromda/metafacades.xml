@@ -72,4 +72,11 @@
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFBackendServiceLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+        <property reference="serviceAccessorPattern"/>
+        <property reference="servicePackageNamePattern"/>
+    </metafacade>
 </metafacades>

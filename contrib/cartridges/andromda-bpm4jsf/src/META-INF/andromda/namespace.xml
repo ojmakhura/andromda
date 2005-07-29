@@ -219,6 +219,23 @@
                     message resources as well as tag libs.
                 </documentation>
             </property>
+            <property name="servicePackageNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The name of the package in which to create the service files, <code>{0}</code>
+                    can be used to denote the package in which the service has been modeled.
+                </documentation>
+            </property>
+            <property name="serviceAccessorPattern" required="false">
+                <documentation>
+                    The pattern to use when calling the backend code for <![CDATA[<<Service>>]]> lookups.
+                    For calling services you would use following patterns:
+                    <ul>
+                        <li><strong>Spring</strong>: <code>${application.package}.ServiceLocator.instance().get{1}()</code></li>
+                        <li><strong>EJB</strong>: <code>${myPackage}.{1}Util.getHome().create()</code></li>
+                    </ul>
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>

@@ -58,6 +58,16 @@ public class BPM4JSFGlobals
     public static final String DOCUMENTATION_MESSAGE_KEY_SUFFIX = "documentation";
     
     /**
+     * The namespace property used to identify the pattern used to construct the backend service's accessor.
+     */
+    public static final String SERVICE_ACCESSOR_PATTERN = "serviceAccessorPattern";
+    
+    /**
+     * The namespace property used to identify the pattern used to construct the backend service's package name.
+     */
+    public static final String SERVICE_PACKAGE_NAME_PATTERN = "servicePackageNamePattern";
+    
+    /**
      * Represents a hyperlink action type.
      */
     public static final String ACTION_TYPE_HYPERLINK = "hyperlink";
