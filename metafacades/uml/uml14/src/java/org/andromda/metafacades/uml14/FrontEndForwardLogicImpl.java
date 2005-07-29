@@ -226,7 +226,7 @@ public class FrontEndForwardLogicImpl
      */
     private final void findActions(final Set actions, final Set handledForwards)
     {
-        if (!handledForwards.contains(this))
+        if (!handledForwards.contains(this.THIS()))
         {
             handledForwards.add(this);
 
