@@ -239,8 +239,8 @@ public class FrontEndForwardLogicImpl
                 final StateVertexFacade vertex = getSource();
                 if (vertex instanceof FrontEndView)
                 {
-                    final FrontEndView jsp = (FrontEndView)vertex;
-                    actions.addAll(jsp.getActions());
+                    final FrontEndView view = (FrontEndView)vertex;
+                    actions.addAll(view.getActions());
                 }
                 else if (vertex instanceof FrontEndActionState)
                 {
