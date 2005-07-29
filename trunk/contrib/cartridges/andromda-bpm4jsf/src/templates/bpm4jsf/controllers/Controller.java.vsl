@@ -37,7 +37,19 @@ $operation.getDocumentation("     * ")
     }
     
 #end
+#foreach ($serviceRef in $controller.serviceReferences)
+#if ($stringUtils.isNotBlank($serviceRef.targetElement.accessorImplementation))
+    /**
+     * Returns a reference to the $serviceRef.name back-end service.
+     */
+    protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
+        throws java.lang.Exception
+    {
+        return $serviceRef.targetElement.accessorImplementation;
+    }
 
+#end
+#end
     /**
      * Gets the current faces context.  This object is the point
      * from which to retrieve any request, session, etc information.
