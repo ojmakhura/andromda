@@ -232,7 +232,7 @@ public class FrontEndForwardLogicImpl
 
             if (this instanceof FrontEndAction) // @todo this is not so nice because FrontEndAction extends FrontEndForward, solution would be to override in FrontEndAction
             {
-                actions.add(this);
+                actions.add(this.THIS());
             }
             else
             {
