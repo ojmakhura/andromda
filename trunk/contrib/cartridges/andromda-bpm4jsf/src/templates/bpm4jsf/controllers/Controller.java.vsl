@@ -43,9 +43,15 @@ $operation.getDocumentation("     * ")
      * Returns a reference to the $serviceRef.name back-end service.
      */
     protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
-        throws java.lang.Exception
     {
-        return $serviceRef.targetElement.accessorImplementation;
+        try
+        {
+            return $serviceRef.targetElement.accessorImplementation;
+        }
+        catch (final Throwable throwable)
+        {
+            throw new RuntimeException(throwable);
+        }
     }
 
 #end
