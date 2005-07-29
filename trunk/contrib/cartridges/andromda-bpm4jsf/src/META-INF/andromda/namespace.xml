@@ -205,6 +205,13 @@
                     represents the modeled name of the controller).
                 </documentation>
             </property>
+            <property name="globalFormBeanName">
+                <default>form</default>
+                <documentation>
+                    The name of the global form bean on which information is passed around
+                    throughout the application.
+                </documentation>
+            </property>
             <property name="messageResources">
                 <default>message-resources</default>
                 <documentation>

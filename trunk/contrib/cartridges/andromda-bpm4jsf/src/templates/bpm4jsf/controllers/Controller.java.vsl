@@ -30,20 +30,8 @@ $operation.getDocumentation("     * ")
 #foreach ($deferredOperation in $action.deferredOperations)
         this.$deferredOperation.formCall;
 #end
-#foreach ($useCaseFormAction in $action.otherUseCaseFormActions)
-        final $useCaseFormAction.fullyQualifiedFormImplementationName $useCaseFormAction.formBeanName = 
-            ($useCaseFormAction.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
-                facesContext, 
-                "$useCaseFormAction.formBeanName");
-        try
-        {
-            org.apache.commons.beanutils.BeanUtils.copyProperties($useCaseFormAction.formBeanName, form);
-        }
-        catch (final Throwable throwable)
-        {
-            throw new RuntimeException(throwable);
-        }
-#end
+        javax.servlet.http.HttpSession session = (javax.servlet.http.HttpSession)facesContext.getExternalContext().getSession(true);
+        session.setAttribute("$globalFormBeanName", form);
 #end
 #foreach ($forward in $action.actionForwards)
         return "$forward.name";

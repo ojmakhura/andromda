@@ -298,22 +298,4 @@ public class JSFActionLogicImpl
         return BPM4JSFGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
             value == null ? null : value.toString());
     }
-
-    /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getOtherUseCaseFormActions()
-     */
-    protected List handleGetOtherUseCaseFormActions()
-    {
-        final List otherActions = new ArrayList(this.getUseCase().getActions());
-        for (final Iterator iterator = otherActions.iterator(); iterator.hasNext();)
-        {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
-            // - remove this action and any forms that don't have form fields
-            if (action.equals(this.THIS()) || action.getFormFields().isEmpty())
-            {
-                iterator.remove();    
-            }
-        }
-        return otherActions;
-    }
 }    
