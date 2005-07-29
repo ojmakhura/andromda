@@ -204,7 +204,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.FrontEndAction#getDecisionTrigger()
+     * @see org.andromda.metafacades.uml.FrontEndAction#getActions()
      */
     protected java.util.List handleGetActions()
     {
