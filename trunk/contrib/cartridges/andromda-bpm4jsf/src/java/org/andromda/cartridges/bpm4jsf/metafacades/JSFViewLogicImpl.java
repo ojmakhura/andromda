@@ -150,4 +150,20 @@ public class JSFViewLogicImpl
 
         return tables;
     }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getActionForwards()
+     */
+    protected List handleGetActionForwards()
+    {
+        final List actionForwards = this.getActionForwards();
+        for (final Iterator iterator = actionForwards.iterator(); iterator.hasNext();)
+        {
+            if (!(iterator.next() instanceof JSFAction))
+            {
+                iterator.remove();
+            }
+        }
+        return actionForwards;
+    }
 }

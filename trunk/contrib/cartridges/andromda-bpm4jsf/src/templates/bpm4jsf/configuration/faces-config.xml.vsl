@@ -36,7 +36,7 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>$useCase.forwardName</from-outcome>
-            <to-view-id>${useCase.path}.jsp</to-view-id>
+            <to-view-id>$useCase.path</to-view-id>
         </navigation-case>
     </navigation-rule>
 #end
@@ -47,7 +47,12 @@
 #foreach ($forward in $view.forwards)
         <navigation-case>
             <from-outcome>$forward.name</from-outcome>
+## If it has a trigger name, its an action
+#if ($forward.triggerName)
+            <to-view-id>$forward.path</to-view-id>
+#else
             <to-view-id>${forward.path}.jsp</to-view-id>
+#end
         </navigation-case>
 #end
     </navigation-rule>
@@ -62,7 +67,7 @@
     </navigation-rule>
 
     <managed-bean>
-        <managed-bean-name>${layoutOptionsBeanName}</managed-bean-name>
+        <managed-bean-name>$layoutOptionsBeanName</managed-bean-name>
         <managed-bean-class>${managedBeansPackage}.${layoutOptionsName}</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
