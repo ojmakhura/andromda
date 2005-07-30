@@ -80,7 +80,7 @@ public class FrontEndParameterLogicImpl
     protected boolean handleIsActionParameter()
     {
         final FrontEndAction action = this.getAction();
-        return action == null ? false : action.getParameters().contains(this.THIS());
+        return action != null && action.getParameters().contains(this.THIS());
     }
 
     /**

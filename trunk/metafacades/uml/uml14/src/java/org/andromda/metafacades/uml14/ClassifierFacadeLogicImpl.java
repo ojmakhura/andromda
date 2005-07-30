@@ -102,7 +102,7 @@ public class ClassifierFacadeLogicImpl
      *
      * @return the array suffix.
      */
-    private final String getArraySuffix()
+    private String getArraySuffix()
     {
         return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
@@ -134,7 +134,7 @@ public class ClassifierFacadeLogicImpl
         final String propertyName = UMLMetafacadeProperties.WRAPPER_MAPPINGS_URI;
         final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
-        String uri = null;
+        String uri;
         if (property instanceof String)
         {
             uri = (String)property;
@@ -497,7 +497,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected String handleGetJavaNullString()
     {
-        String javaNullString = null;
+        String javaNullString;
         if (isPrimitive())
         {
             if (UMLMetafacadeUtils.isType(
@@ -591,7 +591,7 @@ public class ClassifierFacadeLogicImpl
      *
      * @return the serial version UID of this classifier.
      */
-    private final Long calculateDefaultSUID()
+    private Long calculateDefaultSUID()
     {
         final StringBuffer buffer = new StringBuffer();
 
@@ -664,7 +664,7 @@ public class ClassifierFacadeLogicImpl
      */
     protected Long handleGetSerialVersionUID()
     {
-        Long serialVersionUID = null;
+        Long serialVersionUID;
         String serialVersionString = UML14MetafacadeUtils.getSerialVersionUID(this);
         if (serialVersionString != null)
         {

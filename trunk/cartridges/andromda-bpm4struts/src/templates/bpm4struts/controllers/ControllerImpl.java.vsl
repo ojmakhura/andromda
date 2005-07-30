@@ -38,13 +38,21 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #if ($formFields.empty)
         // nothing to be done for this operation, there are no properties that can be set
 #else
-        // all properties receive a default value, just to have the application running properly
 #foreach ($field in $formFields)
+#set ($tableActionFound = false)
+#foreach ($action in $operation.deferringActions)
+#if($action.tableAction)#foreach($parameter in $action.actionParameters)#if($parameter.name==$field.name)#set($tableActionFound=true)#end#end#end
+#end
 #if ($field.table)
+        // populating the table with a dummy list
         form.${field.setterName}(${field.name}DummyList);
 #elseif ($field.date)
+        // setting a date
         form.${field.setterName}AsDate($field.resetValue);
+#elseif ($tableActionFound)
+        // we don't set row selection parameters such as ${field.name}RowSelection
 #else
+        // this property receives a default value, just to have the application running on dummy data
         form.${field.setterName}($field.resetValue);
 #end
 #if ($field.selectable)
