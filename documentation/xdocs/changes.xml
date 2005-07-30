@@ -12,7 +12,7 @@
         <release version="3.1-RC1-SNAPSHOT" date="2005-07-29" description="First release candidate of version 3.1">
             <action dev="draftdog" type="add" issue="BPM-225">
                 Table links in bpm4struts are now allowed to target any arbitrary column, see the online store sample
-                for an implementation (the <code>title</code> column on the second page send the <code>id</code>
+                for an implementation (the <code>title</code> column on the second page sends the <code>id</code>
                 value for that row when clicked).
             </action>
             <action dev="draftdog" type="add" issue="BPM-169">
@@ -20,7 +20,7 @@
                 <a href="andromda-bpm4struts-cartridge/howto8.html#Submitting_selected_rows">Submitting selected rows</a>.
             </action>
             <action dev="draftdog" type="add" issue="BPM-213">
-                Support for error pages have been added to the bpm4struts cartridge, by default HTTP error codes
+                Support for error pages has been added to the bpm4struts cartridge, by default HTTP error codes
                 400, 403, 404 and 500 are supported, as well as exceptions not caught by Struts.
             </action>
             <action dev="draftdog" type="update" issue="CORE-54">

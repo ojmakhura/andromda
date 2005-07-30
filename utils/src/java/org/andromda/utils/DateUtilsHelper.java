@@ -1,11 +1,11 @@
-package org.andromda.cartridges.bpm4struts;
+package org.andromda.utils;
 
 import org.apache.commons.lang.time.DateUtils;
 
 /**
  * Provides additional methods supporting various date-related features
  */
-public class Bpm4StrutsDateUtils
+public class DateUtilsHelper
     extends DateUtils
 {
     // order is important !

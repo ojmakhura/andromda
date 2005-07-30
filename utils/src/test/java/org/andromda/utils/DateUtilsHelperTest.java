@@ -1,11 +1,11 @@
-package org.andromda.cartridges.bpm4struts;
+package org.andromda.utils;
 
 import junit.framework.TestCase;
 
-public class Bpm4StrutsDateUtilsTest
-        extends TestCase
+public class DateUtilsHelperTest
+    extends TestCase
 {
-    public Bpm4StrutsDateUtilsTest(String name)
+    public DateUtilsHelperTest(String name)
     {
         super(name);
     }
@@ -19,8 +19,7 @@ public class Bpm4StrutsDateUtilsTest
         for (int i = 0; i < fixture.length; i++)
         {
             String[] strings = fixture[i];
-//            System.out.println(strings[0]+" "+strings[1]+" --> "+Bpm4StrutsDateUtils.formatJavaToPerl(strings[0]));
-            assertEquals(Bpm4StrutsDateUtils.formatJavaToPerl(strings[0]), strings[1]);
+            assertEquals(DateUtilsHelper.formatJavaToPerl(strings[0]), strings[1]);
         }
     }
 
@@ -33,8 +32,7 @@ public class Bpm4StrutsDateUtilsTest
         for (int i = 0; i < fixture.length; i++)
         {
             Object[] objects = fixture[i];
-//            System.out.println(objects[0]+" "+objects[1]+" --> "+Bpm4StrutsDateUtils.containsTimeFormat((String)objects[0]));
-            assertEquals(Boolean.valueOf(Bpm4StrutsDateUtils.containsTimeFormat((String)objects[0])), objects[1]);
+            assertEquals(Boolean.valueOf(DateUtilsHelper.containsTimeFormat((String)objects[0])), objects[1]);
         }
     }
 }
