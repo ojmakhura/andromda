@@ -24,10 +24,9 @@ public class $formBeanClassName
     private org.apache.struts.upload.FormFile $field.name = null;
 #elseif ($field.table)
     private $field.type.fullyQualifiedName $field.name = null;
-#if (!$field.tableGlobalActions.empty)
+#elseif ($action.actionParameters.contains($field) && $action.tableAction)
     private java.util.List ${field.name}RowSelection = null;
-#end
-#elseif($field.type.mapType)
+#elseif ($field.type.mapType)
     private java.util.Map $field.name = new java.util.HashMap();
 #else
     private $field.type.fullyQualifiedName $field.name;
@@ -71,6 +70,15 @@ public class $formBeanClassName
         this.${fieldName}.clear();
     }
     
+#elseif ($action.actionParameters.contains($field) && $action.tableAction)
+    /**
+     * Resets the given <code>${fieldName}RowSelection</code>.
+     */
+    public void ${field.resetName}()
+    {
+        this.${fieldName}RowSelection = null;
+    }
+
 #else
     /**
      * Resets the given <code>$fieldName</code>.
@@ -79,7 +87,7 @@ public class $formBeanClassName
     {
         this.$fieldName = $field.nullValue;
     }
-    
+
 #end
 #if ($field.type.collectionType)
     public void ${field.setterName}($fieldType $fieldName)
@@ -111,28 +119,32 @@ $field.getDocumentation("     * ")
         return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
     
-#elseif (!$field.tableGlobalActions.empty)
-#set ($fieldType = "java.util.List")
+#elseif ($action.actionParameters.contains($field) && $action.tableAction)
 #set ($fieldName = $field.name)
+#if ($field.type.primitive)
+#set ($fieldType = "$field.type.wrapperName")
+#else
+#set ($fieldType = "$field.type.fullyQualifiedName")
+#end
 #set ($accessSuffix = "RowSelection")
-    public void ${field.setterName}${accessSuffix}($fieldType $fieldName${accessSuffix})
+    public void ${field.setterName}${accessSuffix}(java.util.List $fieldName${accessSuffix})
     {
         this.$fieldName${accessSuffix} = $fieldName${accessSuffix};
     }
 
-    public $fieldType ${field.getterName}${accessSuffix}()
+    public java.util.List ${field.getterName}${accessSuffix}()
     {
         return this.$fieldName${accessSuffix};
     }
 
-    public void ${field.setterName}${accessSuffix}AsArray(Object[] $fieldName${accessSuffix})
+    public void ${field.setterName}${accessSuffix}AsArray(${fieldType}[] $fieldName${accessSuffix})
     {
         this.$fieldName${accessSuffix} = ($fieldName${accessSuffix} == null) ? null : java.util.Arrays.asList($fieldName${accessSuffix});
     }
 
-    public java.lang.Object[] ${field.getterName}${accessSuffix}AsArray()
+    public ${fieldType}[] ${field.getterName}${accessSuffix}AsArray()
     {
-        return ($fieldName${accessSuffix} == null) ? null : ${fieldName}${accessSuffix}.toArray();
+        return ($fieldName${accessSuffix} == null) ? null : (${fieldType}[])${fieldName}${accessSuffix}.toArray(new ${fieldType}[${fieldName}${accessSuffix}.size()]);
     }
 
 #elseif ($field.date || $field.time)
@@ -223,7 +235,7 @@ $field.getDocumentation("     * ")
      * @see ${action.formBeanType}${hash}${field.getterName}
      * @see ${action.formBeanType}${hash}${field.getterName}As${asType}
      */
-    public final static java.text.DateFormat ${field.getterName}${asType}Formatter()
+    public static java.text.DateFormat ${field.getterName}${asType}Formatter()
     {
 #if ($field.date)
         return ${formBeanClassName}.${dateFormatter};
@@ -284,7 +296,6 @@ $field.getDocumentation("     * ")
     }
     
 #end
-
 #set ($listType = "Object[]")
 #set ($backingListName = $field.backingListName)
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
@@ -387,7 +398,7 @@ $field.getDocumentation("     * ")
         this.$field.labelListName = new java.lang.Object[0];
 #end
 #end
-#if (!$field.tableGlobalActions.empty)
+#if ($action.actionParameters.contains($field) && $action.tableAction)
         this.${field.name}RowSelection = null;
 #end
 #end
@@ -401,7 +412,11 @@ $field.getDocumentation("     * ")
 #if ($field.password)
         builder.append("$field.name", "***");
 #else
+#if ($action.actionParameters.contains($field) && $action.tableAction)
+        builder.append("${field.name}RowSelection", this.${field.name}RowSelection);
+#else
         builder.append("$field.name", this.$field.name);
+#end
 #end
 #end
         return builder.toString();
@@ -415,13 +430,14 @@ $field.getDocumentation("     * ")
     public void clean()
     {
 #foreach ($field in $fields)
+#if ($action.actionParameters.contains($field) && $action.tableAction)
+        this.${field.name}RowSelection = null;
+#else
         this.$field.name = $field.nullValue;
+#end
 #if ($field.selectable)
         this.$field.valueListName = null;
         this.$field.labelListName = null;
-#end
-#if (!$field.tableGlobalActions.empty)
-        this.${field.name}RowSelection = null;
 #end
 #end
     }

@@ -24,7 +24,7 @@
         <display:column media="html">
 #set ($actionParameter = $table.tableGlobalActionParameter)
 #set ($checkboxValue = "row.$actionParameter.name")
-            <input type="checkbox" name="${actionParameter.name}RowSelectionAsArray" value="${${checkboxValue}}" title='<bean:message key="select.deselect.this.row"/>'/>
+            <input type="checkbox" name="${actionParameter.name}RowSelectionAsArray" value="${${checkboxValue}}"#if($hints=="true") title='<bean:message key="select.deselect.this.row"/>'#end/>
         </display:column>
 #end
 #foreach ($column in $table.tableColumns)
