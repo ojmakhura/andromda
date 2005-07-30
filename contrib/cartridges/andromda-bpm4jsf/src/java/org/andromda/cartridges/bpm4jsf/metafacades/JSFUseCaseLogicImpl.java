@@ -1,15 +1,20 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
+import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -32,13 +37,17 @@ public class JSFUseCaseLogicImpl
      */
     protected java.lang.String handleGetPath()
     {
-        String path = null;
-        final JSFView view = (JSFView)this.getInitialView();
-        if (view != null)
+        String actionPath = null;
+        final FrontEndActivityGraph graph = this.getActivityGraph();
+        if (graph != null)
         {
-            path = view.getPath();
+            final JSFAction action =  (JSFAction)graph.getInitialAction();
+            if (action != null)
+            {
+                actionPath = action.getPath();
+            }
         }
-        return path;
+        return actionPath;
     }
 
     /**
@@ -287,7 +296,55 @@ public class JSFUseCaseLogicImpl
                 }
             }
         }
-
         return messages;
     }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#getActionForwards()
+     */
+    protected List handleGetActionForwards()
+    {
+        final Set actionForwards = new LinkedHashSet();
+        final List views = this.getViews();
+        for (final Iterator iterator = views.iterator(); iterator.hasNext();)
+        {
+            final JSFView view = (JSFView)iterator.next();
+            actionForwards.addAll(view.getActionForwards());
+        }
+        return new ArrayList(actionForwards);
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#getActionClassName()
+     */
+    protected String handleGetActionClassName()
+    {
+        return StringUtilsHelper.upperCamelCaseName(this.getName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#getFullyQualifiedActionClassPath()
+     */
+    protected String handleGetFullyQualifiedActionClassPath()
+    {
+        final StringBuffer path = new StringBuffer();
+        final String packagePath = this.getPackagePath();
+        if (StringUtils.isNotBlank(packagePath))
+        {
+            path.append(packagePath);
+            path.append('/');
+        }
+        path.append(this.getActionClassName() + ".java");
+        return path.toString();
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#getControllerAction()
+     */
+    protected String handleGetControllerAction()
+    {
+        return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    }
+    
+    
 }

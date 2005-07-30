@@ -1,6 +1,5 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,8 +7,6 @@ import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
 import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.FrontEndAction;
-import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -138,18 +135,7 @@ public class JSFActionLogicImpl
      */
     protected String handleGetPath()
     {
-        String path = null;
-        final Object target = this.getTarget();
-        if (target instanceof FrontEndFinalState)
-        {
-            final FrontEndFinalState finalState = (FrontEndFinalState)target;
-            final JSFUseCase useCase = (JSFUseCase)finalState.getTargetUseCase();
-            if (useCase != null)
-            {
-                path = useCase.getPath();
-            }
-        }
-        return path;
+        return this.getPathRoot() + '/' + BPM4JSFUtils.toWebResourceName(this.getTriggerName());
     }
 
     /**
@@ -297,5 +283,48 @@ public class JSFActionLogicImpl
         final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TYPE);
         return BPM4JSFGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
             value == null ? null : value.toString());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getActionClassName()
+     */
+    protected String handleGetActionClassName()
+    {
+        return StringUtilsHelper.upperCamelCaseName(this.getName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFullyQualifiedActionClassPath()
+     */
+    protected String handleGetFullyQualifiedActionClassPath()
+    {
+        final StringBuffer path = new StringBuffer();
+        final JSFUseCase useCase = (JSFUseCase)this.getUseCase();
+        if (useCase != null)
+        {
+            path.append(useCase.getPackagePath());
+            path.append('/');
+        }
+        path.append(this.getActionClassName() + ".java");
+        return path.toString();
+    }
+    
+    /**
+     * Overriddent to provide the owning use case's package name.
+     * 
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
+     */
+    public String getPackageName()
+    {
+        final UseCaseFacade useCase = this.getUseCase();
+        return useCase != null ? useCase.getPackageName() : "";
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getControllerAction()
+     */
+    protected String handleGetControllerAction()
+    {
+        return this.getTriggerName();
     }
 }    

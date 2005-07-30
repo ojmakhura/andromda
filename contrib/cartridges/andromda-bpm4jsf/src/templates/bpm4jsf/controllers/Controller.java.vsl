@@ -27,9 +27,11 @@ $operation.getDocumentation("     * ")
             ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
                 facesContext, 
                 "$action.formBeanName");
+#end
 #foreach ($deferredOperation in $action.deferredOperations)
         this.$deferredOperation.formCall;
 #end
+#if (!$action.formFields.empty)
         javax.servlet.http.HttpSession session = (javax.servlet.http.HttpSession)facesContext.getExternalContext().getSession(true);
         session.setAttribute("$globalFormBeanName", form);
 #end
