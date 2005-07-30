@@ -71,8 +71,22 @@ public class Resource
             {
                 outputPattern = this.getOutputPattern();
             }
-            final String outputFileName = MessageFormat.format(outputPattern, arguments);
-            file = new File(directory, outputFileName);
+            String outputFileName = null;
+            try
+            {
+                outputFileName = MessageFormat.format(
+                        outputPattern,
+                        arguments);
+            }
+            catch (final Exception exception)
+            {
+                // - means the output pattern can't be parsed (but we still 
+                //   want to output the bad path anyway)
+                outputFileName = outputPattern;
+            }
+            file = new File(
+                    directory,
+                    outputFileName);
         }
         return file;
     }
