@@ -208,9 +208,14 @@
         outputPattern="$action.fullyQualifiedActionClassPath"
         outlet="controllers"
         overwrite="true">
-        <modelElements variable="action">
+        <modelElements>
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+            <modelElement variable="action">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="actionForwards" variable="action"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>

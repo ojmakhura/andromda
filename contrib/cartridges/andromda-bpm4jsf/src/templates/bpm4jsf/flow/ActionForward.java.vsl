@@ -27,8 +27,8 @@ public class $action.actionClassName
      * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void doGet(
-        HttpServletRequest request,
-        HttpServletResponse response)
+        final HttpServletRequest request,
+        final HttpServletResponse response)
         throws ServletException, IOException
     {
         // - we need to retrieve the faces context differently since we're outside of the
@@ -57,12 +57,10 @@ public class $action.actionClassName
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void doPost(
-        HttpServletRequest req,
-        HttpServletResponse res)
+        final HttpServletRequest request,
+        final HttpServletResponse response)
         throws ServletException, IOException
     {
-        doGet(
-            req,
-            res);
+        this.doGet(request, response);
     }
 }

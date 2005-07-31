@@ -156,7 +156,7 @@ public class JSFViewLogicImpl
      */
     protected List handleGetActionForwards()
     {
-        final List actionForwards = this.getActionForwards();
+        final List actionForwards = this.getForwards();
         for (final Iterator iterator = actionForwards.iterator(); iterator.hasNext();)
         {
             if (!(iterator.next() instanceof JSFAction))
