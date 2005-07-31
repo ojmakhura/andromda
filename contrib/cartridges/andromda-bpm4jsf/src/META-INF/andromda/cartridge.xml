@@ -47,6 +47,9 @@
                     <property name="entryUseCase"/>
                 </type>
             </modelElement>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
         </modelElements>         
     </template>
     
