@@ -70,4 +70,41 @@ $operation.getDocumentation("     * ")
     {
         return javax.faces.context.FacesContext.getCurrentInstance();
     }
+    
+    /**
+     * Just a helper method that gets the current request from the faces
+     * context.
+     *
+     * @return the current HttpServletRequest instance.
+     */
+    protected javax.servlet.http.HttpServletRequest getRequest()
+    {
+        return (javax.servlet.http.HttpServletRequest)this.getContext().getExternalContext().getRequest();
+    }
+    
+    /**
+     * Just a helper method that gets the current reponse from the faces
+     * context.
+     *
+     * @return the current HttpServletReponse instance.
+     */
+    protected javax.servlet.http.HttpServletResponse getResponse()
+    {
+        return (javax.servlet.http.HttpServletResponse)this.getContext().getExternalContext().getResponse();
+    }
+    
+    /**
+     * Just a helper method that gets the current session from the faces
+     * context.
+     *
+     * @param create If the create parameter is true, create (if necessary) and return a 
+     *        session instance associated with the current request. If the create 
+     *        parameter is false return any existing session instance associated with the 
+     *        current request, or return null if there is no such session.
+     * @return the current HttpSession instance.
+     */
+    protected javax.servlet.http.HttpSession getSession(final boolean create)
+    {
+        return (javax.servlet.http.HttpSession)this.getContext().getExternalContext().getSession(create);
+    }
 }
