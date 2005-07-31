@@ -51,6 +51,12 @@ public class $action.actionClassName
                 facesContext,
                 "$controller.beanName");
         controller.${action.controllerAction}();
+#if ($action.target)
+#set ($forward = $action.target)
+#else
+#set ($forward = $action.initialView)
+#end
+        response.sendRedirect(request.getContextPath() + "${forward.path}.${facesServletExtension}");
     }
 
     /**

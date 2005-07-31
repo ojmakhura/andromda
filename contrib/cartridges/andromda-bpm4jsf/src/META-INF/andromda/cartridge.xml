@@ -246,6 +246,35 @@
     </template>
     
     <template
+        path="templates/bpm4jsf/views/jsp/includes/view-action.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/action-forward.jsp.vsl"
+        outputPattern="${action.path}.jsp"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements>
+            <modelElement variable="action">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="actionForwards" variable="action"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
         path="templates/bpm4jsf/views/jsp/includes/view-table.jspf.vsl"
         outputPattern="$generatedFile"
         outlet="jsps"
