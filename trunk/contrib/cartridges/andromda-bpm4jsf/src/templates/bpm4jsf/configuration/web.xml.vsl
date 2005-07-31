@@ -115,12 +115,23 @@
         <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
     </listener>
 
-    <!-- Faces Servlet -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+#foreach ($useCase in $useCases)
+    <servlet>
+        <servlet-name>$useCase.actionClassName</servlet-name>
+        <servlet-class>$useCase.fullyQualifiedActionClassName</servlet-class>
+    </servlet>
+#foreach ($action in $useCase.actionForwards)
+    <servlet>
+        <servlet-name>$action.actionClassName</servlet-name>
+        <servlet-class>$action.fullyQualifiedActionClassName</servlet-class>
+    </servlet>
+#end
+#end     
 
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>

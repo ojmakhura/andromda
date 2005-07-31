@@ -298,15 +298,7 @@ public class JSFActionLogicImpl
      */
     protected String handleGetFullyQualifiedActionClassPath()
     {
-        final StringBuffer path = new StringBuffer();
-        final JSFUseCase useCase = (JSFUseCase)this.getUseCase();
-        if (useCase != null)
-        {
-            path.append(useCase.getPackagePath());
-            path.append('/');
-        }
-        path.append(this.getActionClassName() + ".java");
-        return path.toString();
+        return this.getFullyQualifiedActionClassName().replace('.', '/') + ".java";
     }
     
     /**
@@ -326,5 +318,25 @@ public class JSFActionLogicImpl
     protected String handleGetControllerAction()
     {
         return this.getTriggerName();
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFullyQualifiedActionClassName()
+     */
+    protected String handleGetFullyQualifiedActionClassName()
+    {
+        final StringBuffer path = new StringBuffer();
+        final JSFUseCase useCase = (JSFUseCase)this.getUseCase();
+        if (useCase != null)
+        {
+            final String packageName = useCase.getPackageName();
+            if (StringUtils.isNotBlank(packageName))
+            {
+                path.append(packageName);
+                path.append('.');
+            }
+        }
+        path.append(this.getActionClassName());
+        return path.toString();
     }
 }    

@@ -327,15 +327,7 @@ public class JSFUseCaseLogicImpl
      */
     protected String handleGetFullyQualifiedActionClassPath()
     {
-        final StringBuffer path = new StringBuffer();
-        final String packagePath = this.getPackagePath();
-        if (StringUtils.isNotBlank(packagePath))
-        {
-            path.append(packagePath);
-            path.append('/');
-        }
-        path.append(this.getActionClassName() + ".java");
-        return path.toString();
+        return this.getFullyQualifiedActionClassName().replace('.', '/') + ".java";
     }
     
     /**
@@ -344,6 +336,22 @@ public class JSFUseCaseLogicImpl
     protected String handleGetControllerAction()
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#getFullyQualifiedActionClassName()
+     */
+    protected String handleGetFullyQualifiedActionClassName()
+    {
+        final StringBuffer path = new StringBuffer();
+        final String packageName = this.getPackageName();
+        if (StringUtils.isNotBlank(packageName))
+        {
+            path.append(packageName);
+            path.append('.');
+        }
+        path.append(this.getActionClassName());
+        return path.toString();
     }
     
     
