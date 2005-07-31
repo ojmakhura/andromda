@@ -137,6 +137,18 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.${facesServletExtension}</url-pattern>
     </servlet-mapping>
+#foreach ($useCase in $useCases)
+    <servlet-mapping>
+        <servlet-name>$useCase.actionClassName</servlet-name>
+        <url-pattern>$useCase.path</url-pattern>
+    </servlet-mapping>
+#foreach ($action in $useCase.actionForwards)
+    <servlet-mapping>
+        <servlet-name>$action.actionClassName</servlet-name>
+        <url-pattern>$action.path</url-pattern>
+    </servlet-mapping>
+#end
+#end   
     <filter-mapping>
         <filter-name>extensionsFilter</filter-name>
         <url-pattern>/faces/*</url-pattern>
