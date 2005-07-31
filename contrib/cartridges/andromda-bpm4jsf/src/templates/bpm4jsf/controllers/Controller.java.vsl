@@ -72,7 +72,7 @@ $operation.getDocumentation("     * ")
     }
     
     /**
-     * Just a helper method that gets the current request from the faces
+     * A helper method that gets the current request from the faces
      * context.
      *
      * @return the current HttpServletRequest instance.
@@ -83,7 +83,7 @@ $operation.getDocumentation("     * ")
     }
     
     /**
-     * Just a helper method that gets the current reponse from the faces
+     * A helper method that gets the current reponse from the faces
      * context.
      *
      * @return the current HttpServletReponse instance.
@@ -94,7 +94,7 @@ $operation.getDocumentation("     * ")
     }
     
     /**
-     * Just a helper method that gets the current session from the faces
+     * A helper method that gets the current session from the faces
      * context.
      *
      * @param create If the create parameter is true, create (if necessary) and return a 
