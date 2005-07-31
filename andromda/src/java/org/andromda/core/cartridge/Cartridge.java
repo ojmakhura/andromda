@@ -210,37 +210,49 @@ public class Cartridge
                         //   we just place the model element with the default
                         //   variable defined on the <modelElements/> into the
                         //   template.
-                        final String variable = modelElements.getVariable();
                         for (final Iterator iterator = allMetafacades.iterator(); iterator.hasNext();)
                         {
                             final Map templateContext = new HashMap();
                             final Object metafacade = iterator.next();
-
-                            // - only add the metafacade to the template context if the variable
-                            //   is defined (which is possible)
-                            if (variable != null && variable.trim().length() > 0)
+                            final ModelAccessFacade model = factory.getModel();
+                            for (final Iterator elements = modelElements.getModelElements().iterator();
+                                elements.hasNext();)
                             {
-                                templateContext.put(
-                                    variable,
-                                    metafacade);
-                            }
+                                final ModelElement modelElement = (ModelElement)elements.next();
+                                String variable = modelElement.getVariable();
 
-                            // - now we process any property templates (if any 'variable' attributes are defined on one or
-                            //   more type's given properties), otherwise we process the single metafacade as usual
-                            if (!this.processPropertyTemplates(
-                                    template,
-                                    metafacade,
-                                    templateContext,
-                                    outlet,
-                                    modelElements))
-                            {
-                                final ModelAccessFacade model = factory.getModel();
-                                this.processWithTemplate(
-                                    template,
-                                    templateContext,
-                                    outlet,
-                                    model.getName(metafacade),
-                                    model.getPackageName(metafacade));
+                                // - if the variable isn't defined on the <modelElement/>, try
+                                //   the <modelElements/>
+                                if (variable == null || variable.trim().length() == 0)
+                                {
+                                    variable = modelElements.getVariable();
+                                }
+
+                                // - only add the metafacade to the template context if the variable
+                                //   is defined (which is possible)
+                                if (variable != null && variable.trim().length() > 0)
+                                {
+                                    templateContext.put(
+                                        variable,
+                                        metafacade);
+                                }
+
+                                // - now we process any property templates (if any 'variable' attributes are defined on one or
+                                //   more type's given properties), otherwise we process the single metafacade as usual
+                                if (!this.processPropertyTemplates(
+                                        template,
+                                        metafacade,
+                                        templateContext,
+                                        outlet,
+                                        modelElement))
+                                {
+                                    this.processWithTemplate(
+                                        template,
+                                        templateContext,
+                                        outlet,
+                                        model.getName(metafacade),
+                                        model.getPackageName(metafacade));
+                                }
                             }
                         }
                     }
@@ -261,7 +273,7 @@ public class Cartridge
      * @param metafacade the metafacade instance (the property value is retrieved from this).
      * @param templateContext the template context containing the instance to pass to the template.
      * @param outlet the outlet to which output will be written.
-     * @param modelElements the model elements from which we retrieve the corresponding types and then
+     * @param modelElement the model element from which we retrieve the corresponding types and then
      *        properties to determine if any properties have been mapped for template processing.
      * @return true if any property templates have been evaluated (false othewise).
      */
@@ -270,45 +282,29 @@ public class Cartridge
         final Object metafacade,
         final Map templateContext,
         final String outlet,
-        final ModelElements modelElements)
+        final ModelElement modelElement)
     {
         boolean propertyTemplatesEvaluated = false;
-        for (final Iterator elements = modelElements.getModelElements().iterator(); elements.hasNext();)
+        for (final Iterator types = modelElement.getTypes().iterator(); types.hasNext();)
         {
-            final ModelElement modelElement = (ModelElement)elements.next();
-            for (final Iterator types = modelElement.getTypes().iterator(); types.hasNext();)
+            final Type type = (Type)types.next();
+            for (final Iterator properties = type.getProperties().iterator(); properties.hasNext();)
             {
-                final Type type = (Type)types.next();
-                for (final Iterator properties = type.getProperties().iterator(); properties.hasNext();)
+                final Type.Property property = (Type.Property)properties.next();
+                final String variable = property.getVariable();
+                propertyTemplatesEvaluated = variable != null && variable.trim().length() > 0;
+                if (propertyTemplatesEvaluated)
                 {
-                    final Type.Property property = (Type.Property)properties.next();
-                    final String variable = property.getVariable();
-                    propertyTemplatesEvaluated = variable != null && variable.trim().length() > 0;
-                    if (propertyTemplatesEvaluated)
+                    final Object value = Introspector.instance().getProperty(
+                            metafacade,
+                            property.getName());
+                    if (value instanceof Collection)
                     {
-                        final Object value = Introspector.instance().getProperty(
-                                metafacade,
-                                property.getName());
-                        if (value instanceof Collection)
-                        {
-                            for (final Iterator values = ((Collection)value).iterator(); values.hasNext();)
-                            {
-                                templateContext.put(
-                                    variable,
-                                    values.next());
-                                this.processWithTemplate(
-                                    template,
-                                    templateContext,
-                                    outlet,
-                                    null,
-                                    null);
-                            }
-                        }
-                        else
+                        for (final Iterator values = ((Collection)value).iterator(); values.hasNext();)
                         {
                             templateContext.put(
                                 variable,
-                                value);
+                                values.next());
                             this.processWithTemplate(
                                 template,
                                 templateContext,
@@ -316,6 +312,18 @@ public class Cartridge
                                 null,
                                 null);
                         }
+                    }
+                    else
+                    {
+                        templateContext.put(
+                            variable,
+                            value);
+                        this.processWithTemplate(
+                            template,
+                            templateContext,
+                            outlet,
+                            null,
+                            null);
                     }
                 }
             }
