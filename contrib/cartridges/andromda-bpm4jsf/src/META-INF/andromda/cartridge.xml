@@ -79,7 +79,6 @@
         <modelElements variable="operation">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndControllerOperation">
-                    <!-- only generate the form if we have any form fields -->
                     <property name="formFields"/>
                 </type>
             </modelElement>
@@ -94,7 +93,6 @@
         <modelElements variable="action">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndAction">
-                    <!-- only generate the form if we have at least one form field -->
                     <property name="formFields"/>
                 </type>
             </modelElement>
@@ -209,10 +207,10 @@
         outlet="controllers"
         overwrite="true">
         <modelElements>
-            <modelElement>
+            <modelElement variable="action">
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
             </modelElement>
-            <modelElement variable="action">
+            <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase">
                     <property name="actionForwards" variable="action"/>
                 </type>
