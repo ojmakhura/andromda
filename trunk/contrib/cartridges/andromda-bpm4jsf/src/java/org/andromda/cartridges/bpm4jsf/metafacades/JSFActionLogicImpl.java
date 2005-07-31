@@ -290,7 +290,7 @@ public class JSFActionLogicImpl
      */
     protected String handleGetActionClassName()
     {
-        return StringUtilsHelper.upperCamelCaseName(this.getName());
+        return StringUtilsHelper.upperCamelCaseName(this.getTriggerName());
     }
 
     /**
