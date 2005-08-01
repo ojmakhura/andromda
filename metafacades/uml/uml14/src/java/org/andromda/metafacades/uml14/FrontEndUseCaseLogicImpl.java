@@ -109,7 +109,7 @@ public class FrontEndUseCaseLogicImpl
         }
         return useCases;
     }
-    
+
     /**
      * Gets those roles directly associated to this use-case.
      */
@@ -128,11 +128,13 @@ public class FrontEndUseCaseLogicImpl
         }
         return usersList;
     }
-    
+
     /**
      * Recursively collects all roles generalizing the argument user, in the specified collection.
      */
-    private void collectRoles(final Role role, final Collection roles)
+    private void collectRoles(
+        final Role role,
+        final Collection roles)
     {
         if (!roles.contains(role))
         {
@@ -141,7 +143,9 @@ public class FrontEndUseCaseLogicImpl
             for (final Iterator iterator = childUsers.iterator(); iterator.hasNext();)
             {
                 final Role childUser = (Role)iterator.next();
-                this.collectRoles(childUser, roles);
+                this.collectRoles(
+                    childUser,
+                    roles);
             }
         }
     }
@@ -156,7 +160,9 @@ public class FrontEndUseCaseLogicImpl
         for (final Iterator iterator = associatedUsers.iterator(); iterator.hasNext();)
         {
             final Role user = (Role)iterator.next();
-            this.collectRoles(user, allRoles);
+            this.collectRoles(
+                user,
+                allRoles);
         }
         return new ArrayList(allRoles);
     }
@@ -173,7 +179,7 @@ public class FrontEndUseCaseLogicImpl
         }
         return new ArrayList(allRoles);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndUseCase#isSecured()
      */
@@ -195,12 +201,14 @@ public class FrontEndUseCaseLogicImpl
         }
         else
         {
-            views = new ArrayList(
-                    getModel().getAllActionStatesWithStereotype(graph, UMLProfile.STEREOTYPE_FRONT_END_VIEW));
+            views =
+                new ArrayList(getModel().getAllActionStatesWithStereotype(
+                        graph,
+                        UMLProfile.STEREOTYPE_FRONT_END_VIEW));
         }
         return views;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getViews()
      */
@@ -218,11 +226,14 @@ public class FrontEndUseCaseLogicImpl
         if (graph != null)
         {
             final FrontEndAction action = graph.getInitialAction();
-            if (action != null) actions.add(action);
+            if (action != null)
+            {
+                actions.add(action);
+            }
         }
         return new ArrayList(actions);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getInitialView()
      */
