@@ -13,7 +13,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4jsf.metafacades.JSFAction.
  *
@@ -22,21 +21,24 @@ import org.apache.commons.lang.StringUtils;
 public class JSFActionLogicImpl
     extends JSFActionLogic
 {
-
-    public JSFActionLogicImpl (Object metaObject, String context)
+    public JSFActionLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFormBeanName()
      */
     protected java.lang.String handleGetFormBeanName()
     {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.FORM_BEAN_PATTERN));
-        return pattern.replaceFirst("\\{0\\}", this.getTriggerName());            
-    }   
-    
+        return pattern.replaceFirst(
+            "\\{0\\}",
+            this.getTriggerName());
+    }
+
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
@@ -44,7 +46,7 @@ public class JSFActionLogicImpl
     {
         return BPM4JSFUtils.toWebResourceName(super.getName());
     }
- 
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getTriggerName()
      */
@@ -67,14 +69,17 @@ public class JSFActionLogicImpl
         }
         return StringUtilsHelper.lowerCamelCaseName(name);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFormImplementationName()
      */
     protected java.lang.String handleGetFormImplementationName()
     {
-        final String pattern = ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.FORM_IMPLEMENTATION_PATTERN));
-        return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getTriggerName()));
+        final String pattern =
+            ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.FORM_IMPLEMENTATION_PATTERN));
+        return pattern.replaceFirst(
+            "\\{0\\}",
+            StringUtils.capitalize(this.getTriggerName()));
     }
 
     /**
@@ -90,13 +95,15 @@ public class JSFActionLogicImpl
         }
         return fullyQualifiedName.append(this.getFormImplementationName()).toString();
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFullyQualifiedFormImplementationPath()
      */
     protected java.lang.String handleGetFullyQualifiedFormImplementationPath()
     {
-        return this.getFullyQualifiedFormImplementationName().replace('.', '/');
+        return this.getFullyQualifiedFormImplementationName().replace(
+            '.',
+            '/');
     }
 
     /**
@@ -129,7 +136,7 @@ public class JSFActionLogicImpl
         }
         return list.toString();
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFActionLogic#handleGetPath()
      */
@@ -151,7 +158,7 @@ public class JSFActionLogicImpl
         }
         return pathRoot.toString();
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getPathRoot()
      */
@@ -167,16 +174,15 @@ public class JSFActionLogicImpl
 
         return messageKey;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getDocumentationKey()
      */
     protected String handleGetDocumentationKey()
     {
         final JSFEvent trigger = (JSFEvent)this.getTrigger();
-        return (trigger == null
-            ? this.getMessageKey() + ".is.an.action.without.trigger"
-            : trigger.getMessageKey()) + '.' + BPM4JSFGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
+        return (trigger == null ? this.getMessageKey() + ".is.an.action.without.trigger" : trigger.getMessageKey()) +
+        '.' + BPM4JSFGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX;
     }
 
     /**
@@ -184,7 +190,10 @@ public class JSFActionLogicImpl
      */
     protected String handleGetDocumentationValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        final String value = StringUtilsHelper.toResourceMessage(getDocumentation(
+                    "",
+                    64,
+                    false));
         return value == null ? "" : value;
     }
 
@@ -193,16 +202,18 @@ public class JSFActionLogicImpl
      */
     protected String handleGetViewFragmentPath()
     {
-        return '/' + this.getPackageName().replace('.', '/') + '/' + BPM4JSFUtils.toWebResourceName(this.getTriggerName());
+        return '/' + this.getPackageName().replace(
+            '.',
+            '/') + '/' + BPM4JSFUtils.toWebResourceName(this.getTriggerName());
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getTableLinkName()
      */
     protected String handleGetTableLinkName()
     {
         String tableLink = null;
-        
+
         final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
@@ -211,7 +222,9 @@ public class JSFActionLogicImpl
             if (tableLink != null)
             {
                 final int columnOffset = tableLink.indexOf('.');
-                tableLink = columnOffset == -1 ? tableLink : tableLink.substring(0, columnOffset);
+                tableLink = columnOffset == -1 ? tableLink : tableLink.substring(
+                        0,
+                        columnOffset);
             }
         }
 
@@ -233,14 +246,16 @@ public class JSFActionLogicImpl
             if (tableLink != null)
             {
                 final int columnOffset = tableLink.indexOf('.');
-                tableLink = (columnOffset == -1 || columnOffset == tableLink.length() - 1) ?
-                    null : tableLink.substring(columnOffset + 1);
+                tableLink =
+                    (columnOffset == -1 || columnOffset == tableLink.length() - 1) ? null
+                                                                                   : tableLink.substring(
+                        columnOffset + 1);
             }
         }
 
         return tableLink;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isTableLink()
      */
@@ -266,7 +281,7 @@ public class JSFActionLogicImpl
         }
         return tableLinkParameter;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isTableLink()
      */
@@ -274,17 +289,16 @@ public class JSFActionLogicImpl
     {
         return this.getTableLinkParameter() != null;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isHyperlink()
      */
     protected boolean handleIsHyperlink()
     {
         final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TYPE);
-        return BPM4JSFGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(
-            value == null ? null : value.toString());
+        return BPM4JSFGlobals.ACTION_TYPE_HYPERLINK.equalsIgnoreCase(value == null ? null : value.toString());
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getActionClassName()
      */
@@ -298,12 +312,14 @@ public class JSFActionLogicImpl
      */
     protected String handleGetFullyQualifiedActionClassPath()
     {
-        return this.getFullyQualifiedActionClassName().replace('.', '/') + ".java";
+        return this.getFullyQualifiedActionClassName().replace(
+            '.',
+            '/') + ".java";
     }
-    
+
     /**
      * Overriddent to provide the owning use case's package name.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
     public String getPackageName()
@@ -339,4 +355,22 @@ public class JSFActionLogicImpl
         path.append(this.getActionClassName());
         return path.toString();
     }
-}    
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.JSFAction#isResettable()
+     */
+    protected boolean handleIsResettable()
+    {
+        Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_RESETTABLE);
+        return isTrue(value == null ? null : value.toString());
+    }
+
+    /**
+     * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
+     */
+    private boolean isTrue(String string)
+    {
+        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
+            "1".equalsIgnoreCase(string);
+    }
+}
