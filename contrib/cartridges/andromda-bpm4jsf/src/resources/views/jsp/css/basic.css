@@ -33,7 +33,7 @@
     padding: 2;
     border-style: solid;
     border-width: 1px;
-    width: 400px;
+    width: 100%;
 }
 
 .scroller
@@ -81,12 +81,12 @@
     background-color: #FFFFE0;
 }
 
-.standardTableRow1
+.standardTableRowOdd
 {
     background-color: #FFFFE0;
 }
 
-.standardTableRow2
+.standardTableRowEven
 {
     background-color: #FFFFE0;
 }
@@ -196,6 +196,36 @@ a:hover
     font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
     font-weight: bold;
     border-bottom: 1px solid black;
+}
+
+/* create a button look for links */
+a:link.buttonLink, a:visited.buttonLink
+{
+    background-color: #0099ff;
+    border-top: #99ccff solid 1px;
+    border-right: #003399 solid 1px;
+    border-bottom: #003399 solid 1px;
+    border-left: #99ccff solid 1px;
+    color: white;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 1px 5px 1px 6px;
+    text-decoration: none;
+    text-align: center;
+}
+a:hover.buttonLink
+{
+    background-color: #9999ff;
+    color: white;
+}
+/* depress effect on click */
+a:active.buttonLink , a:focus.buttonLink
+{
+    border-top: #003399 solid 1px;
+    border-right: #99ccff solid 1px;
+    border-bottom: #99ccff solid 1px;
+    border-left: #003399 solid 2px;
 }
 
 .navitem

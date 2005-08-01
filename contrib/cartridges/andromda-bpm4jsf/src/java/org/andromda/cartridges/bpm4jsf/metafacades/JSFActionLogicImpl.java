@@ -237,7 +237,6 @@ public class JSFActionLogicImpl
     protected String handleGetTableLinkColumnName()
     {
         String tableLink = null;
-
         final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TABLELINK);
         if (value != null)
         {
@@ -252,7 +251,6 @@ public class JSFActionLogicImpl
                         columnOffset + 1);
             }
         }
-
         return tableLink;
     }
 
@@ -361,8 +359,8 @@ public class JSFActionLogicImpl
      */
     protected boolean handleIsResettable()
     {
-        Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_RESETTABLE);
-        return isTrue(value == null ? null : value.toString());
+        final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_RESETTABLE);
+        return this.isTrue(value == null ? null : value.toString());
     }
 
     /**
@@ -371,6 +369,6 @@ public class JSFActionLogicImpl
     private boolean isTrue(String string)
     {
         return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
-            "1".equalsIgnoreCase(string);
+        "1".equalsIgnoreCase(string);
     }
 }
