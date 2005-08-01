@@ -279,7 +279,7 @@ public class ModelProcessor
         //   namespace properties)
         this.configure(configuration);
         
-        // the logger configuration may have changed - re-init the logger.
+        // - the logger configuration may have changed - re-init the logger.
         AndroMDALogger.initialize();       
 
         // - discover all namespace components
