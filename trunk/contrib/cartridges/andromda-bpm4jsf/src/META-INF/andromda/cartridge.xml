@@ -240,19 +240,9 @@
         overwrite="true">
         <modelElements variable="action">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndAction"/>
-            </modelElement>
-        </modelElements>
-    </template>
-    
-    <template
-        path="templates/bpm4jsf/views/jsp/includes/view-action.jspf.vsl"
-        outputPattern="$generatedFile"
-        outlet="jsps"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndAction"/>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>

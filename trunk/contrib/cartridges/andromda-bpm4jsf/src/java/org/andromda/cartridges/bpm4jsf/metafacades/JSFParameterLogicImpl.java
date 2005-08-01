@@ -2,12 +2,12 @@ package org.andromda.cartridges.bpm4jsf.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
@@ -194,37 +194,34 @@ public class JSFParameterLogicImpl
      */
     private final List getTableActions(boolean hyperlink)
     {
+        final Set actions = new LinkedHashSet();
         final String name = StringUtils.trimToNull(getName());
-        if (name == null || !isTable())
+        if (name != null && isTable())
         {
-            return Collections.EMPTY_LIST;
-        }
-
-        final JSFView view = (JSFView)this.getView();
-
-        final Collection tableActions = new HashSet();
-
-        final Collection allUseCases = getModel().getAllUseCases();
-        for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
-        {
-            final UseCaseFacade useCase = (UseCaseFacade)useCaseIterator.next();
-            if (useCase instanceof JSFUseCase)
+            final JSFView view = (JSFView)this.getView();
+    
+            final Collection allUseCases = getModel().getAllUseCases();
+            for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
             {
-                final FrontEndActivityGraph graph = ((JSFUseCase)useCase).getActivityGraph();
-                if (graph != null)
+                final UseCaseFacade useCase = (UseCaseFacade)useCaseIterator.next();
+                if (useCase instanceof JSFUseCase)
                 {
-                    final Collection transitions = graph.getTransitions();
-                    for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+                    final FrontEndActivityGraph graph = ((JSFUseCase)useCase).getActivityGraph();
+                    if (graph != null)
                     {
-                        final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
-                        if (transition.getSource().equals(view) && transition instanceof JSFAction)
+                        final Collection transitions = graph.getTransitions();
+                        for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                         {
-                            final JSFAction action = (JSFAction)transition;
-                            if (action.isTableLink() && name.equals(action.getTableLinkName()))
+                            final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
+                            if (transition.getSource().equals(view) && transition instanceof JSFAction)
                             {
-                                if (hyperlink == action.isHyperlink())
+                                final JSFAction action = (JSFAction)transition;
+                                if (action.isTableLink() && name.equals(action.getTableLinkName()))
                                 {
-                                    tableActions.add(action);
+                                    if (hyperlink == action.isHyperlink())
+                                    {
+                                        actions.add(action);
+                                    }
                                 }
                             }
                         }
@@ -232,7 +229,7 @@ public class JSFParameterLogicImpl
                 }
             }
         }
-        return new ArrayList(tableActions);
+        return new ArrayList(actions);
     }
     
     /**

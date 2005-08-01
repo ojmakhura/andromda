@@ -32,7 +32,9 @@
         <f:facet name="body">
             <h:panelGroup id="body">
 #foreach ($action in $view.actions)
+#if (!$action.tableLink)
                 <%@ include file="${action.viewFragmentPath}.jspf" %>
+#end
 #end
 #foreach ($variable in $view.variables)
 #if ($variable.table)
