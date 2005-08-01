@@ -315,7 +315,7 @@
                     Denotes the parameter of type <code>datatype::Date</code> is to be rendered with a calendar
                     popup next to it.
                 </documentation>
-                <value>@andromda.struts.view.field.calendar</value>
+                <value>@andromda.presentation.web.view.field.calendar</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
