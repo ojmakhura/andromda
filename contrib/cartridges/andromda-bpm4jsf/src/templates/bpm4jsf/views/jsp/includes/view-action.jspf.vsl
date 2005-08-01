@@ -22,9 +22,15 @@
             <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/><f:verbatim></br></f:verbatim>
 #end
 #end
-            <h:commandButton id="$action.triggerName"
+            <h:commandButton id="${action.triggerName}-submit"
                              value="#{messages['$action.messageKey']}"
-                             action="#{${action.controller.beanName}.${action.triggerName}}" />
+                             action="#{${action.controller.beanName}.${action.triggerName}}" 
+                             type="submit"/>
+#if ($action.resettable)
+            <h:commandButton id="${action.triggerName}-reset"
+                             value="#{messages['$action.trigger.resetMessageKey']}"
+                             type="reset"/>
+#end
         </h:panelGroup>
    </h:panelGrid>
 </h:form>
