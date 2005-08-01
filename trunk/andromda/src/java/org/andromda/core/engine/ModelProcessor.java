@@ -278,6 +278,9 @@ public class ModelProcessor
         //   we have all configuration information available (such as the
         //   namespace properties)
         this.configure(configuration);
+        
+        // the logger configuration may have changed - re-init the logger.
+        AndroMDALogger.initialize();       
 
         // - discover all namespace components
         NamespaceComponents.instance().discover();
@@ -673,7 +676,7 @@ public class ModelProcessor
      *
      * @param outputEncoding the encoding.
      */
-    public void setOuputEncoding(final String outputEncoding)
+    public void setOutputEncoding(final String outputEncoding)
     {
         ResourceWriter.instance().setEncoding(outputEncoding);
     }
@@ -809,7 +812,7 @@ public class ModelProcessor
         this.factory.reset();
         this.cartridgeFilter = null;
         this.setXmlValidation(true);
-        this.setOuputEncoding(null);
+        this.setOutputEncoding(null);
         this.setModelValidation(true);
         this.setLoggingConfigurationUri(null);
         this.setFailOnValidationErrors(true);
