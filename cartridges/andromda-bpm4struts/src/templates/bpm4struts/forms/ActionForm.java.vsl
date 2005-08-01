@@ -24,7 +24,7 @@ public class $formBeanClassName
     private org.apache.struts.upload.FormFile $field.name = null;
 #elseif ($field.table)
     private $field.type.fullyQualifiedName $field.name = null;
-#elseif ($action.actionParameters.contains($field) && $action.tableAction)
+#elseif ($field.strutsAction.tableAction)
     private java.util.List ${field.name}RowSelection = null;
 #elseif ($field.type.mapType)
     private java.util.Map $field.name = new java.util.HashMap();
@@ -38,8 +38,8 @@ public class $formBeanClassName
 #set ($timeFormatter = "${field.name}TimeFormatter")
     private final static java.text.DateFormat $timeFormatter = new java.text.SimpleDateFormat("$field.timeFormat");
 #end
-    private Object[] $field.valueListName;
-    private Object[] $field.labelListName;
+    private java.lang.Object[] $field.valueListName;
+    private java.lang.Object[] $field.labelListName;
 #end
 
     public $formBeanClassName()
@@ -70,7 +70,7 @@ public class $formBeanClassName
         this.${fieldName}.clear();
     }
     
-#elseif ($action.actionParameters.contains($field) && $action.tableAction)
+#elseif ($field.strutsAction.tableAction)
     /**
      * Resets the given <code>${fieldName}RowSelection</code>.
      */
@@ -114,12 +114,12 @@ $field.getDocumentation("     * ")
      *
      * @see ${action.formBeanType}${hash}${field.getterName}
      */
-    public Object[] ${field.getterName}AsArray()
+    public java.lang.Object[] ${field.getterName}AsArray()
     {
         return ($fieldName == null) ? null : ${fieldName}.toArray();
     }
     
-#elseif ($action.actionParameters.contains($field) && $action.tableAction)
+#elseif ($field.strutsAction.tableAction)
 #set ($fieldName = $field.name)
 #if ($field.type.primitive)
 #set ($fieldType = "$field.type.wrapperName")
@@ -398,7 +398,7 @@ $field.getDocumentation("     * ")
         this.$field.labelListName = new java.lang.Object[0];
 #end
 #end
-#if ($action.actionParameters.contains($field) && $action.tableAction)
+#if ($field.strutsAction.tableAction)
         this.${field.name}RowSelection = null;
 #end
 #end
@@ -412,7 +412,7 @@ $field.getDocumentation("     * ")
 #if ($field.password)
         builder.append("$field.name", "***");
 #else
-#if ($action.actionParameters.contains($field) && $action.tableAction)
+#if ($field.strutsAction.tableAction)
         builder.append("${field.name}RowSelection", this.${field.name}RowSelection);
 #else
         builder.append("$field.name", this.$field.name);
@@ -430,12 +430,10 @@ $field.getDocumentation("     * ")
     public void clean()
     {
 #foreach ($field in $fields)
-#if ($action.actionParameters.contains($field) && $action.tableAction)
+#if ($field.strutsAction.tableAction)
         this.${field.name}RowSelection = null;
 #else
         this.$field.name = $field.nullValue;
-#end
-#if ($field.selectable)
         this.$field.valueListName = null;
         this.$field.labelListName = null;
 #end

@@ -270,13 +270,13 @@ public class StrutsUseCaseLogicImpl
 
     protected String handleGetCssFileName()
     {
-        return getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getName()) + ".css";
+        return this.getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(this.getName()) + ".css";
     }
 
     protected TreeNode handleGetApplicationHierarchyRoot()
     {
         final UseCaseNode root = new UseCaseNode(this);
-        createHierarchy(root);
+        this.createHierarchy(root);
         return root;
     }
 
@@ -284,14 +284,14 @@ public class StrutsUseCaseLogicImpl
     {
         UseCaseNode hierarchy = null;
 
-        final Collection allUseCases = getAllUseCases();
+        final Collection allUseCases = this.getAllUseCases();
         for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
         {
             final StrutsUseCase useCase = (StrutsUseCase)useCaseIterator.next();
             if (useCase.isApplicationUseCase())
             {
                 final UseCaseNode root = (UseCaseNode)useCase.getApplicationHierarchyRoot();
-                hierarchy = findNode(root, this);
+                hierarchy = this.findNode(root, this);
             }
         }
         return hierarchy;
@@ -344,7 +344,7 @@ public class StrutsUseCaseLogicImpl
         while (!ancestor && node.getParent() != null)
         {
             node = (UseCaseNode)node.getParent();
-            if (isNodeAncestor(node, ancestorNode))
+            if (this.isNodeAncestor(node, ancestorNode))
             {
                 ancestor = true;
             }
@@ -408,6 +408,86 @@ public class StrutsUseCaseLogicImpl
                 messages.put(useCase.getTitleKey(), useCase.getTitleValue());
                 messages.put(useCase.getOnlineHelpKey(), useCase.getOnlineHelpValue());
 
+                final List actions = useCase.getActions();
+                for (int j = 0; j < actions.size(); j++)
+                {
+                    final StrutsAction action = (StrutsAction)actions.get(j);
+
+                    // FORWARDS
+                    final List transitions = action.getTransitions();
+                    for (int l = 0; l < transitions.size(); l++)
+                    {
+                        final StrutsForward forward = (StrutsForward)transitions.get(l);
+                        messages.putAll(forward.getSuccessMessages());
+                        messages.putAll(forward.getWarningMessages());
+                    }
+
+                    // EXCEPTION FORWARDS
+                    final List exceptions = action.getActionExceptions();
+
+                    if (normalize)
+                    {
+                        if (exceptions.isEmpty())
+                        {
+                            messages.put("exception.occurred", "{0}");
+                        }
+                        else
+                        {
+                            for (int l = 0; l < exceptions.size(); l++)
+                            {
+                                final StrutsExceptionHandler exception = (StrutsExceptionHandler)exceptions.get(l);
+                                messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(), "{0}");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (exceptions.isEmpty())
+                        {
+                            if (!action.isUseCaseStart())
+                            {
+                                messages.put(action.getMessageKey() + ".exception", "{0} (java.lang.Exception)");
+                            }
+                        }
+                        else
+                        {
+                            for (int l = 0; l < exceptions.size(); l++)
+                            {
+                                final StrutsExceptionHandler exception = (StrutsExceptionHandler)exceptions.get(l);
+                                // we construct the key using the action message too because the exception can
+                                // belong to more than one action (therefore it cannot return the correct value
+                                // in .getExceptionKey())
+                                messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(),
+                                    "{0} (" + exception.getExceptionType() + ")");
+                            }
+                        }
+                    }
+
+                    // TRIGGER
+                    final StrutsTrigger trigger = action.getActionTrigger();
+                    if (trigger != null)
+                    {
+                        // only add these when a trigger is present, otherwise it's no use having them
+                        messages.put(action.getOnlineHelpKey(), action.getOnlineHelpValue());
+                        messages.put(action.getDocumentationKey(), action.getDocumentationValue());
+
+                        // the regular trigger messages
+                        messages.put(trigger.getTitleKey(), trigger.getTitleValue());
+                        messages.put(trigger.getNotAllowedTitleKey(), trigger.getNotAllowedTitleValue());
+                        messages.put(trigger.getResetMessageKey(), trigger.getResetMessageValue());
+                        messages.put(trigger.getResetNotAllowedTitleKey(), trigger.getResetNotAllowedTitleValue());
+                        messages.put(trigger.getResetTitleKey(), trigger.getResetTitleValue());
+                        // this one is the same as doing: action.getMessageKey()
+                        messages.put(trigger.getTriggerKey(), trigger.getTriggerValue());
+
+                        // IMAGE LINK
+                        if (action.isImageLink())
+                        {
+                            messages.put(action.getImageMessageKey(), action.getImagePath());
+                        }
+                    }
+                }
+
                 final List pages = useCase.getPages();
                 for (int j = 0; j < pages.size(); j++)
                 {
@@ -455,44 +535,10 @@ public class StrutsUseCaseLogicImpl
                         }
                     }
 
-                    final List actions = useCase.getActions();
                     for (int k = 0; k < actions.size(); k++)
                     {
                         // ACTION
                         final StrutsAction action = (StrutsAction)actions.get(k);
-
-                        // TRIGGER
-                        final StrutsTrigger trigger = action.getActionTrigger();
-                        if (trigger != null)
-                        {
-                            // only add these when a trigger is present, otherwise it's no use having them
-                            messages.put(action.getOnlineHelpKey(), action.getOnlineHelpValue());
-                            messages.put(action.getDocumentationKey(), action.getDocumentationValue());
-
-                            // the regular trigger messages
-                            messages.put(trigger.getTitleKey(), trigger.getTitleValue());
-                            messages.put(trigger.getNotAllowedTitleKey(), trigger.getNotAllowedTitleValue());
-                            messages.put(trigger.getResetMessageKey(), trigger.getResetMessageValue());
-                            messages.put(trigger.getResetNotAllowedTitleKey(), trigger.getResetNotAllowedTitleValue());
-                            messages.put(trigger.getResetTitleKey(), trigger.getResetTitleValue());
-                            // this one is the same as doing: action.getMessageKey()
-                            messages.put(trigger.getTriggerKey(), trigger.getTriggerValue());
-
-                            // IMAGE LINK
-                            if (action.isImageLink())
-                            {
-                                messages.put(action.getImageMessageKey(), action.getImagePath());
-                            }
-                        }
-
-                        // FORWARDS
-                        final List transitions = action.getTransitions();
-                        for (int l = 0; l < transitions.size(); l++)
-                        {
-                            final StrutsForward forward = (StrutsForward)transitions.get(l);
-                            messages.putAll(forward.getSuccessMessages());
-                            messages.putAll(forward.getWarningMessages());
-                        }
 
                         // ACTION PARAMETERS
                         final List parameters = action.getActionParameters();
@@ -526,47 +572,6 @@ public class StrutsUseCaseLogicImpl
                                 {
                                     messages.put(optionKeys.get(m), optionValues.get(m));
                                     messages.put(optionKeys.get(m) + ".title", optionValues.get(m));
-                                }
-                            }
-                        }
-
-                        // EXCEPTION FORWARDS
-                        final List exceptions = action.getActionExceptions();
-
-                        if (normalize)
-                        {
-                            if (exceptions.isEmpty())
-                            {
-                                messages.put("exception.occurred", "{0}");
-                            }
-                            else
-                            {
-                                for (int l = 0; l < exceptions.size(); l++)
-                                {
-                                    final StrutsExceptionHandler exception = (StrutsExceptionHandler)exceptions.get(l);
-                                    messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(), "{0}");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (exceptions.isEmpty())
-                            {
-                                if (!action.isUseCaseStart())
-                                {
-                                    messages.put(action.getMessageKey() + ".exception", "{0} (java.lang.Exception)");
-                                }
-                            }
-                            else
-                            {
-                                for (int l = 0; l < exceptions.size(); l++)
-                                {
-                                    final StrutsExceptionHandler exception = (StrutsExceptionHandler)exceptions.get(l);
-                                    // we construct the key using the action message too because the exception can
-                                    // belong to more than one action (therefore it cannot return the correct value
-                                    // in .getExceptionKey())
-                                    messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(),
-                                        "{0} (" + exception.getExceptionType() + ")");
                                 }
                             }
                         }

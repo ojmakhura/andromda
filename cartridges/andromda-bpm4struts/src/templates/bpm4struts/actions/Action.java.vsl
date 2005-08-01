@@ -61,7 +61,11 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
         {
             final $formBeanType previousForm = ($formBeanType)previousFormObject;
 #foreach ($parameter in $finalStateAction.getInterUseCaseParameters($finalState))
+#if ($parameter.strutsAction.tableAction)
+            specificForm.${parameter.setterName}RowSelection(previousForm.${parameter.getterName}RowSelection());
+#else
             specificForm.${parameter.setterName}(previousForm.${parameter.getterName}());
+#end
 #end
         }
         else

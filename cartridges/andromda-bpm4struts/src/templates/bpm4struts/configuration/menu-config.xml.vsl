@@ -10,14 +10,14 @@
 #set ($useCase = $item.useCase)
 #set ($childItems = $bpmUtils.listEnumeration($item.children()))
 #if ($childItems.empty)
-$indent<Item name="$useCase.titleKey" title="$useCase.titleKey" tooltip="$useCase.onlineHelpKey" action="$useCase.actionPath">
+${indent}<Item name="$useCase.titleKey" title="$useCase.titleKey" tooltip="$useCase.onlineHelpKey" action="$useCase.actionPath">
 #else
-$indent<Item name="$useCase.titleKey" title="$useCase.titleKey" tooltip="$useCase.onlineHelpKey">
+${indent}<Item name="$useCase.titleKey" title="$useCase.titleKey" tooltip="$useCase.onlineHelpKey">
 #end
 #foreach ($childItem in $childItems)
-$indent#renderMenuItem($childItem "$indent    ")
+${indent}#renderMenuItem($childItem "${indent}    ")
 #end
-$indent</Item>
+${indent}</Item>
 #end
 ##
 ##  START TEMPLATE
