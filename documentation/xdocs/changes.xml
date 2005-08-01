@@ -10,6 +10,46 @@
     </properties>
     <body>
         <release version="3.1-RC1-SNAPSHOT" date="2005-07-29" description="First release candidate of version 3.1">
+            <action dev="cwbrandon" type="update">
+                In order for the presentation metafacades to be made generic enough for use within other frameworks
+                (besides struts), the following tagged values have been renamed:
+                <table>
+                    <tr>
+                        <th>Old Name</th><th>New Name</th>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.action.type</td><td>@andromda.presentation.web.action.type</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.action.tablelink</td><td>@andromda.presentation.web.action.tablelink</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.action.form.scope</td><td>@andromda.presentation.web.action.form.scope</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.action.resettable</td><td>@andromda.presentation.web.action.resettable</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.type</td><td>@andromda.presentation.web.view.field.type</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.tablelink</td><td>@andromda.presentation.web.view.field.tablelink</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.table.columns</td><td>@andromda.presentation.view.table.columns</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.action.redirect</td><td>@andromda.presentation.web.action.redirect</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.calendar</td><td>@andromda.presentation.web.view.field.calendar</td>
+                    </tr>
+                </table>
+                If you're using Magic Draw, the only thing you'll need to do is open your model and touch it (i.e. make a small
+                change so its ready to be saved), and save it.  If you're using another modeling tool that won't work with the 
+                andromda-profile, the best way to upgrade your model is to just open up the XMI and do a search and replace from the
+                old to new values.
+            </action>
             <action dev="draftdog" type="add" issue="BPM-225">
                 Table links in bpm4struts are now allowed to target any arbitrary column, see the online store sample
                 for an implementation (the <code>title</code> column on the second page sends the <code>id</code>
