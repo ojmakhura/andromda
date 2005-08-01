@@ -49,7 +49,7 @@
                 <documentation>
                     Indicates the type of trigger causing the action.
                 </documentation>
-                <value>@andromda.struts.action.type</value>
+                <value>@andromda.presentation.web.action.type</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">form</value>
@@ -65,7 +65,7 @@
                     If the column is specified the action will be rendered in that specific column, otherwise a new
                     column will be created for it.
                 </documentation>
-                <value>@andromda.struts.action.tablelink</value>
+                <value>@andromda.presentation.web.action.tablelink</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
             </element>
             <element name="ACTION_FORM_SCOPE">
@@ -73,7 +73,7 @@
                     This allows one to override the action form scope defined
                     by the <a href="namespace.html#actionFormScope">actionFormScope</a> namespace property.
                 </documentation>
-                <value>@andromda.struts.action.form.scope</value>
+                <value>@andromda.presentation.web.action.form.scope</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>session</value>
@@ -85,7 +85,7 @@
                     Set this value to <code>true</code> if you want to be able
                     to reset forms to their initial values
                 </documentation>
-                <value>@andromda.struts.action.resettable</value>
+                <value>@andromda.presentation.web.action.resettable</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -134,7 +134,7 @@
                 <documentation>
                     Indicates the parameter is read only, it's value cannot be entered by the user
                 </documentation>
-                <value>@andromda.struts.view.field.readonly</value>
+                <value>@andromda.presentation.web.view.field.readonly</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -231,7 +231,7 @@
                     One of the tables below give some more information about field formats, for a list of
                     possible types see <a href="user-guide.html#Field_Types">this page</a>
                 </documentation>
-                <value>@andromda.struts.view.field.type</value>
+                <value>@andromda.presentation.web.view.field.type</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">text</value>
@@ -340,7 +340,7 @@
                     of the parameter will be assumed.
                     By setting the parameter type you can have any widget rendered into the table.
                 </documentation>
-                <value>@andromda.struts.view.field.tablelink</value>
+                <value>@andromda.presentation.web.view.field.tablelink</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -372,7 +372,7 @@
                     Properties are separated using a comma ','. More than one value maybe be assigned to
                     this tag, all properties will correctly be resolved.
                 </documentation>
-                <value>@andromda.struts.view.table.columns</value>
+                <value>@andromda.presentation.view.table.columns</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -463,7 +463,7 @@
                 <documentation>
                     Indicates whether or not HTTP redirection should occur when forwarded on to the next action
                 </documentation>
-                <value>@andromda.struts.action.redirect</value>
+                <value>@andromda.presentation.web.action.redirect</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
