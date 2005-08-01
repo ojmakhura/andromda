@@ -432,14 +432,13 @@
         </modelElements>
     </template>
 
-<!--
     <template
         path="templates/bpm4struts/configuration/menu-config.xml.vsl"
         outputPattern="menu-config.xml"
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true">
-        <modelElements variable="applicationUseCase">
+        <modelElements variable="applicationUseCases">
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
                     <property name="applicationUseCase"/>
@@ -447,7 +446,6 @@
             </modelElement>
         </modelElements>
     </template>
--->
 
     <template
         path="templates/bpm4struts/configuration/validation.xml.vsl"
