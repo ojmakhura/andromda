@@ -1,9 +1,15 @@
 #set ($generatedFile = "${action.viewFragmentPath}.jspf")
 
-#set($formName = $action.formBeanName)
 <h:messages id="messageList"/>
 <h:outputText value="#{messages['$action.messageKey']}" styleClass="actionHeader" />
 <f:verbatim><br/><br/></f:verbatim>
+#if ($action.hyperlink)
+<h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
+    <h:outputText value="#{messages['$action.messageKey']}"/>
+</h:commandLink>
+<f:verbatim><br/><br/></f:verbatim>
+#else
+#set($formName = $action.formBeanName)
 <h:form id="$formName" name="$formName">
     <h:panelGrid columns="1" styleClass="formTable"
                  headerClass="formHeader"
@@ -22,3 +28,4 @@
         </h:panelGroup>
    </h:panelGrid>
 </h:form>
+#end
