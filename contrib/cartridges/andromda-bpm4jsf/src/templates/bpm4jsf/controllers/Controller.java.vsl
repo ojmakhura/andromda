@@ -19,6 +19,8 @@ $operation.getDocumentation("     * ")
 #foreach ($action in $controller.useCase.actions)
     public java.lang.String ${action.triggerName}()
     {
+        try
+        {
 #if (!$action.formFields.empty)
         final javax.faces.context.FacesContext facesContext =
             javax.faces.context.FacesContext.getCurrentInstance();
@@ -48,6 +50,11 @@ $operation.getDocumentation("     * ")
         javax.servlet.http.HttpSession session = (javax.servlet.http.HttpSession)facesContext.getExternalContext().getSession(true);
         session.setAttribute("$globalFormBeanName", form);
 #end
+        }
+        catch (final Throwable throwable)
+        {
+            this.addExceptionMessage(throwable);
+        }
 #foreach ($forward in $action.actionForwards)
         return "$forward.name";
 #end
@@ -119,5 +126,30 @@ $operation.getDocumentation("     * ")
     protected javax.servlet.http.HttpSession getSession(final boolean create)
     {
         return (javax.servlet.http.HttpSession)this.getContext().getExternalContext().getSession(create);
+    }
+    
+    /**
+     * Finds the root cause of the given <code>throwable</code> and
+     * adds the message taken from that cause to the faces context messages.
+     * 
+     * @param throwable the exception information to add.
+     */
+    private final void addExceptionMessage(
+        Throwable throwable)
+    {
+        String message = null;
+        final Throwable rootCause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
+        if (rootCause != null)
+        {
+            message = rootCause.getMessage();
+        }
+        if (message == null || message.trim().length() == 0)
+        {
+            message = throwable.getMessage();    
+        }
+        final javax.faces.application.FacesMessage facesMessage = new javax.faces.application.FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message, message);
+        javax.faces.context.FacesContext.getCurrentInstance().addMessage(
+            null,
+            facesMessage);
     }
 }
