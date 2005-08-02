@@ -1,7 +1,6 @@
 package org.andromda.core.profile;
 
 import java.net.URL;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -57,7 +56,9 @@ public class Profile
         final String name,
         final String value)
     {
-        this.elements.put(name, value);
+        this.elements.put(
+            name,
+            value);
     }
 
     /**
@@ -69,18 +70,26 @@ public class Profile
      */
     public String get(final String name)
     {
-        String value = null;
-        Map namespaceElements = this.getNamespaceElements(this.getNamespace());
-        if (namespaceElements != null)
+        // - attempt to get the profile value from the profile defined
+        //   by the profile mappings uri first
+        String value = (String)this.elements.get(name);
+
+        // - if we can't get any profile value from an the override profile
+        //   mapping, then we resort to the ones defined in the namespace
+        if (value == null || value.trim().length() == 0)
         {
-            value = (String)namespaceElements.get(name);
-        }
-        if (value == null)
-        {
-            namespaceElements = this.getNamespaceElements(Namespaces.DEFAULT);
+            Map namespaceElements = this.getNamespaceElements(this.getNamespace());
             if (namespaceElements != null)
             {
                 value = (String)namespaceElements.get(name);
+            }
+            if (value == null)
+            {
+                namespaceElements = this.getNamespaceElements(Namespaces.DEFAULT);
+                if (namespaceElements != null)
+                {
+                    value = (String)namespaceElements.get(name);
+                }
             }
         }
         return value != null ? value : name;
@@ -88,7 +97,6 @@ public class Profile
 
     /**
      * Initializes this profile instance.
-     *
      */
     public void initialize()
     {
@@ -105,29 +113,26 @@ public class Profile
      */
     public void refresh()
     {
-        // - only attempt to refresh if we have a namespace set
-        if (this.getNamespace() != null)
+        // - clear out the instance's elements
+        this.elements.clear();
+        try
         {
-            try
+            final Property mappingsUri =
+                Namespaces.instance().getProperty(
+                    Namespaces.DEFAULT,
+                    NamespaceProperties.PROFILE_MAPPINGS_URI,
+                    false);
+            final String mappingsUriValue = mappingsUri != null ? mappingsUri.getValue() : null;
+            if (mappingsUriValue != null)
             {
-                final Property mappingsUri =
-                    Namespaces.instance().getProperty(
-                        this.getNamespace(),
-                        NamespaceProperties.PROFILE_MAPPINGS_URI,
-                        false);
-                final String mappingsUriValue = mappingsUri != null ? mappingsUri.getValue() : null;
-                if (mappingsUriValue != null)
-                {
-                    final XmlObjectFactory factory = XmlObjectFactory.getInstance(Profile.class);
-                    final Profile profile = (Profile)factory.getObject(new URL(mappingsUriValue.trim()));
-                    profile.setNamespace(this.getNamespace());
-                    this.addElements(profile);
-                }
+                final XmlObjectFactory factory = XmlObjectFactory.getInstance(Profile.class);
+                final Profile profile = (Profile)factory.getObject(new URL(mappingsUriValue.trim()));
+                this.elements.putAll(profile.elements);
             }
-            catch (final Throwable throwable)
-            {
-                throw new ProfileException(throwable);
-            }
+        }
+        catch (final Throwable throwable)
+        {
+            throw new ProfileException(throwable);
         }
     }
 
@@ -171,7 +176,9 @@ public class Profile
         final String value)
     {
         final Map namespaceElements = this.getNamespaceElements(namespace);
-        namespaceElements.put(name, value);
+        namespaceElements.put(
+            name,
+            value);
     }
 
     /**
@@ -186,7 +193,9 @@ public class Profile
         if (namespaceElements == null)
         {
             namespaceElements = new HashMap();
-            this.allElements.put(namespace, namespaceElements);
+            this.allElements.put(
+                namespace,
+                namespaceElements);
         }
         return namespaceElements;
     }
