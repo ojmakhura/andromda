@@ -243,6 +243,24 @@
                     </ul>
                 </documentation>
             </property>
+            <property name="exceptionHandlerPattern">
+                <default>(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)</default>
+                <documentation>
+                    Used to define the pattern used for retrieving message resource keys
+                    from exceptions.  This is useful when exceptions are thrown from the business
+                    tier and you want to map these to messages in your presentation.
+                    Normally you won't need to change this pattern, however you may want to
+                    if you want to enable it to handle exceptions you may have no control over
+                    (i.e. SQLExceptions).  Currently the default pattern supports an exception with
+                    an embedded <em>{some.resource.key}</em> type key.
+                </documentation>
+            </property>
+            <property name="patternMatchingExceptionHandler">
+                <default>PatternMatchingExceptionHandler</default>
+                <documentation>
+                    The name to give the pattern matching exception handler.
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>

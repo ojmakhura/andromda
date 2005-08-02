@@ -19,6 +19,8 @@
     <property reference="navigationTheme"/>
     <property reference="applicationName"/>
     <property reference="globalFormBeanName"/>
+    <property reference="exceptionHandlerPattern"/>
+    <property reference="patternMatchingExceptionHandler"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
@@ -301,6 +303,12 @@
     
     <template
         path="templates/bpm4jsf/utils/Messages.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="managed-beans"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/exception/PatternMatchingExceptionHandler.java.vsl"
         outputPattern="$generatedFile"
         outlet="managed-beans"
         overwrite="true"/>
