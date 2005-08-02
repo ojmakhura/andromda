@@ -35,14 +35,13 @@
     <f:verbatim>&nbsp;</f:verbatim>
     <x:dataScroller id="scroll_2"
             for="data"
-            styleClass="scrollerInformation"
             rowsCountVar="rowsCount"
             displayedRowsCountVar="displayedRowsCountVar"
             firstRowIndexVar="firstRowIndex"
             lastRowIndexVar="lastRowIndex"
             pageCountVar="pageCount"
             pageIndexVar="pageIndex">
-        <h:outputFormat value="#{messages['table.results']}" styleClass="standard" >
+        <h:outputFormat value="#{messages['table.results']}" styleClass="scrollerText">
             <f:param value="#{rowsCount}" />
             <f:param value="#{displayedRowsCountVar}" />
             <f:param value="#{firstRowIndex}" />
