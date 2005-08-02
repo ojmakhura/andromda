@@ -46,8 +46,21 @@ $operation.getDocumentation("     * ")
                 // ignore - means we couldn't populate
             }
 #end
+#if (!$deferredOperations.empty)
+            try
+            {
+#end
 #foreach ($deferredOperation in $action.deferredOperations)
-            this.$deferredOperation.formCall;
+                this.$deferredOperation.formCall;
+#end
+#if (!$deferredOperations.empty)
+            }
+            catch (final Throwable throwable)
+            {               
+                final String message = ${managedBeansPackage}.Messages.get(
+                    ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable), null);
+                this.addErrorMessage(message);
+            }
 #end
 #if (!$action.formFields.empty)
             javax.servlet.http.HttpSession session = (javax.servlet.http.HttpSession)facesContext.getExternalContext().getSession(true);
@@ -150,9 +163,61 @@ $operation.getDocumentation("     * ")
         {
             message = throwable.getMessage();    
         }
-        final javax.faces.application.FacesMessage facesMessage = new javax.faces.application.FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message, message);
+        this.addErrorMessage(message);
+    }
+    
+    /**
+     * Adds the given error <code>message</code> to the current faces context.
+     * 
+     * @param message the message to add.
+     */
+    protected void addErrorMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message);   
+    }
+    
+    /**
+     * Adds the given warning <code>message</code> to the current faces context.
+     * 
+     * @param message the message to add.
+     */
+    protected void addWarningMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_WARN, message);      
+    }
+    
+    /**
+     * Adds the given info <code>message</code> to the current faces context.
+     * 
+     * @param message the message to add.
+     */
+    protected void addInfoMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message);      
+    }
+    
+    /**
+     * Adds the given fatal <code>message</code> to the current faces context.
+     * 
+     * @param message the message to add.
+     */
+    protected void addFatalMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_FATAL, message);      
+    }
+    
+    /**
+     * Adds a message to the faces context (which will show up on your view when using the
+     * lt;h:messages/gt; tag).
+     * 
+     * @param severity the severity of the message
+     * @param message the message to add.
+     */
+    protected  void addMessage(final javax.faces.application.FacesMessage.Severity severity, final String message)
+    {
+        final javax.faces.application.FacesMessage facesMessage = new javax.faces.application.FacesMessage(severity, message, message);
         javax.faces.context.FacesContext.getCurrentInstance().addMessage(
             null,
-            facesMessage);
+            facesMessage);                    
     }
 }

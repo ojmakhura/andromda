@@ -1,6 +1,6 @@
 #set ($generatedFile = "${action.viewFragmentPath}.jspf")
 
-<h:messages id="messageList"/>
+<h:messages id="messageList" errorClass="error"/>
 <h:outputText value="#{messages['$action.messageKey']}" styleClass="actionHeader" />
 <f:verbatim><br/><br/></f:verbatim>
 #if ($action.hyperlink)
