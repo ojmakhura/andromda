@@ -36,7 +36,7 @@ $operation.getDocumentation("     * ")
             try
             {          
                 // - populate the form with any parameters from the previous form
-                org.apache.commons.beanutils.BeanUtils.copyProperties(form, previousForm);
+                org.apache.commons.beanutils.PropertyUtils.copyProperties(form, previousForm);
             
                 // - populate the form with any request parameters that may match
                 org.apache.commons.beanutils.BeanUtils.populate(form, this.getContext().getExternalContext().getRequestParameterMap());
