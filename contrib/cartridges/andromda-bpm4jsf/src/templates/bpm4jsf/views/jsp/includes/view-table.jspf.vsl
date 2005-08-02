@@ -23,7 +23,9 @@
 #foreach ($action in $table.tableHyperlinkActions)
 #if (!$action.tableLinkColumnName)
     <h:column>
-        <f:facet name="header"/>
+        <f:facet name="header">
+            <f:verbatim>&nbsp;</f:verbatim>
+        </f:facet>
         <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}" styleClass="buttonLink">
             <h:outputText value="#{messages['$action.trigger.messageKey']}" />
         </h:commandLink>        

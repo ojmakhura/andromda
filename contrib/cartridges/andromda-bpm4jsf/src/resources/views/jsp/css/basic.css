@@ -54,16 +54,19 @@
     color: #000000;
     padding: 2;
     border-style: solid;
+    border-color: #E7EFF7;;
     border-width: 1px;
 }
 
 .standardTableHeader
 {
     color: #000000;
-    background-color: #6392C6;
-    padding: 3;
+    background-color: #E7EFF7;
+    border-color: #E7EFF7;
+    padding: 2px;
+    border-width: 1px;
+    border-style: solid;
     text-align: center;
-    border: none;
 }
 
 .standardTableSortHeader
@@ -379,6 +382,7 @@ div.titlebar {
     color: #000000;
     padding: 2px;
     border-style: dashed;
+    background-color: #E7EFF7;
     border-width: 1px;
 }
 
