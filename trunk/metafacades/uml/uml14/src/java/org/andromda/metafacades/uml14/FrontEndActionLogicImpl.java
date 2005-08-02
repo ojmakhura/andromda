@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -145,10 +144,10 @@ public class FrontEndActionLogicImpl
      */
     private void initializeCollections()
     {
-        this.actionStates = new HashSet();
+        this.actionStates = new LinkedHashSet();
         this.actionForwards = new HashMap();
-        this.decisionTransitions = new HashSet();
-        this.transitions = new HashSet();
+        this.decisionTransitions = new LinkedHashSet();
+        this.transitions = new LinkedHashSet();
         this.collectTransitions((TransitionFacade)this.THIS(), transitions);
     }
 
