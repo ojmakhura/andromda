@@ -19,7 +19,7 @@
 #foreach ($field in $action.formFields)
 #if (!$field.table)
             <h:outputLabel for="${formName}:${field.name}" value="#{messages['$field.messageKey']}" /><f:verbatim>:</f:verbatim>
-            <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/><f:verbatim></br></f:verbatim>
+            <h:inputText id="${field.name}" value="#{${globalFormBeanName}.${field.name}}"/><f:verbatim></br></f:verbatim>
 #end
 #end
             <h:commandButton id="${action.triggerName}-submit"
