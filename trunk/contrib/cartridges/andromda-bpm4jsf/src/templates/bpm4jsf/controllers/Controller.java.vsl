@@ -14,19 +14,28 @@ public abstract class $controller.name
 $operation.getDocumentation("     * ")
      */
     $operation.formSignature;
-    
+
 #end
 #foreach ($action in $controller.useCase.actions)
     public java.lang.String ${action.triggerName}()
     {
 #if (!$action.formFields.empty)
-        final javax.faces.context.FacesContext facesContext = 
+        final javax.faces.context.FacesContext facesContext =
             javax.faces.context.FacesContext.getCurrentInstance();
         final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
-        final $action.fullyQualifiedFormImplementationName form = 
+        final $action.fullyQualifiedFormImplementationName form =
             ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
-                facesContext, 
+                facesContext,
                 "$action.formBeanName");
+        try
+        {
+            // - populate the form with any request parameters that may match
+            org.apache.commons.beanutils.BeanUtils.populate(form, this.getContext().getExternalContext().getRequestParameterMap());
+        }
+        catch (final Exception exception)
+        {
+            // ignore - means we couldn't populate
+        }
 #end
 #foreach ($deferredOperation in $action.deferredOperations)
         this.$deferredOperation.formCall;
@@ -39,7 +48,7 @@ $operation.getDocumentation("     * ")
         return "$forward.name";
 #end
     }
-    
+
 #end
 #foreach ($serviceRef in $controller.serviceReferences)
 #if ($stringUtils.isNotBlank($serviceRef.targetElement.accessorImplementation))
@@ -63,14 +72,14 @@ $operation.getDocumentation("     * ")
     /**
      * Gets the current faces context.  This object is the point
      * from which to retrieve any request, session, etc information.
-     * 
+     *
      * @return the JSF faces context instance.
      */
     protected javax.faces.context.FacesContext getContext()
     {
         return javax.faces.context.FacesContext.getCurrentInstance();
     }
-    
+
     /**
      * A helper method that gets the current request from the faces
      * context.
@@ -81,7 +90,7 @@ $operation.getDocumentation("     * ")
     {
         return (javax.servlet.http.HttpServletRequest)this.getContext().getExternalContext().getRequest();
     }
-    
+
     /**
      * A helper method that gets the current reponse from the faces
      * context.
@@ -92,14 +101,14 @@ $operation.getDocumentation("     * ")
     {
         return (javax.servlet.http.HttpServletResponse)this.getContext().getExternalContext().getResponse();
     }
-    
+
     /**
      * A helper method that gets the current session from the faces
      * context.
      *
-     * @param create If the create parameter is true, create (if necessary) and return a 
-     *        session instance associated with the current request. If the create 
-     *        parameter is false return any existing session instance associated with the 
+     * @param create If the create parameter is true, create (if necessary) and return a
+     *        session instance associated with the current request. If the create
+     *        parameter is false return any existing session instance associated with the
      *        current request, or return null if there is no such session.
      * @return the current HttpSession instance.
      */
