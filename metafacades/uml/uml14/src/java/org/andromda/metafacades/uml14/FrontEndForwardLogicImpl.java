@@ -265,6 +265,23 @@ public class FrontEndForwardLogicImpl
     }
     
     /**
+     * Overriden since a transition doesn't exist in a package.
+     * 
+     * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetPackageName()
+     */
+    protected String handleGetPackageName()
+    {
+        String packageName = null;
+
+        final UseCaseFacade useCase = this.getUseCase();
+        if (useCase != null)
+        {
+            packageName = useCase.getPackageName();
+        }
+        return packageName;
+    }
+    
+    /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getForwardParameters()
      */
     protected java.util.List handleGetForwardParameters()
