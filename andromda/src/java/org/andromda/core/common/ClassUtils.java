@@ -1,8 +1,10 @@
 package org.andromda.core.common;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -34,7 +36,7 @@ public class ClassUtils
             throw new ClassUtilsException(throwable);
         }
     }
-    
+
     /**
      * Creates a new instance of the class given the <code>type</code>.
      *
@@ -50,7 +52,7 @@ public class ClassUtils
         catch (final Throwable throwable)
         {
             throw new ClassUtilsException(throwable);
-        }        
+        }
     }
 
     /**
@@ -64,11 +66,17 @@ public class ClassUtils
     public static Class loadClass(String className)
     {
         final String methodName = "ClassUtils.loadClass";
-        ExceptionUtils.checkEmpty(methodName, "className", className);
+        ExceptionUtils.checkEmpty(
+            methodName,
+            "className",
+            className);
         className = StringUtils.trimToNull(className);
 
         // get rid of any array notation
-        className = StringUtils.replace(className, "[]", "");
+        className = StringUtils.replace(
+                className,
+                "[]",
+                "");
 
         final ClassLoader loader = getClassLoader();
         Class loadedClass = null;
@@ -77,7 +85,9 @@ public class ClassUtils
             // check and see if its a primitive and if so convert it
             if (ClassUtils.isPrimitiveType(className))
             {
-                loadedClass = getPrimitiveClass(className, loader);
+                loadedClass = getPrimitiveClass(
+                        className,
+                        loader);
             }
             else
             {
@@ -122,8 +132,14 @@ public class ClassUtils
         final ClassLoader loader)
     {
         final String methodName = "ClassUtils.getPrimitiveClass";
-        ExceptionUtils.checkEmpty(methodName, "name", name);
-        ExceptionUtils.checkNull(methodName, "loader", loader);
+        ExceptionUtils.checkEmpty(
+            methodName,
+            "name",
+            name);
+        ExceptionUtils.checkNull(
+            methodName,
+            "loader",
+            loader);
 
         Class primitiveClass = null;
         if (isPrimitiveType(name) && !name.equals("void"))
@@ -157,6 +173,52 @@ public class ClassUtils
     }
 
     /**
+     * Returns a collection of all static fields values for the given
+     * <code>clazz</code> and <code>type</code> of field.
+     *
+     * @param clazz  the Class from which to retrieve the static fields
+     * @param type the type of static fields to retrieve, if null all are retrieved
+     * @return Collection the collection of static field values.
+     */
+    public static Collection getStaticFieldValues(
+        final Class clazz,
+        final Class type)
+        throws IllegalAccessException
+    {
+        final String methodName = "ClassUtils.getStaticFieldValues";
+        ExceptionUtils.checkNull(
+            methodName,
+            "clazz",
+            clazz);
+        final Field[] fields = clazz.getFields();
+        int fieldsNum = fields.length;
+
+        final List values = new ArrayList();
+        Field field;
+        int modifiers;
+        for (int ctr = 0; ctr < fieldsNum; ctr++)
+        {
+            field = fields[ctr];
+            modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers))
+            {
+                if (type != null)
+                {
+                    if (type == field.getType())
+                    {
+                        values.add(fields[ctr].get(null));
+                    }
+                }
+                else
+                {
+                    values.add(fields[ctr].get(null));
+                }
+            }
+        }
+        return values;
+    }
+
+    /**
      * Retrieves all interfaces for the given <code>className</code> (including the interface for <code>className</code>
      * itself, assuming it's an interface itself).
      *
@@ -170,7 +232,9 @@ public class ClassUtils
         {
             final Class interfaceClass = ClassUtils.loadClass(className);
             interfaces.addAll(ClassUtils.getAllInterfaces(interfaceClass));
-            interfaces.add(0, interfaceClass);
+            interfaces.add(
+                0,
+                interfaceClass);
         }
         return interfaces;
     }
