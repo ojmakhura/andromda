@@ -16,11 +16,11 @@ import org.apache.commons.collections.comparators.ComparatorChain;
  *
  * <p>
  * Sorts passed in Collections and returns
- * a sorted Lists.  Performs sorting for any
+ * sorted Lists.  Performs sorting for any
  * Class that has an associated Comparator implementation defined.  If
  * the Collection that is passed in, is not an instance of List, it will create
  * a new ArrayList with the contents of the passed in Collection, before
- * sorting occurs.  Since sorting can only be done on a java.util.List.
+ * sorting occurs (since sorting can only be done on a java.util.List).
  * </p>
  *
  * @author Chad Brandon
