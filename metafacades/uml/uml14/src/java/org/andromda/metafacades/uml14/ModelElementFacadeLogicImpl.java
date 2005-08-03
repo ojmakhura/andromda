@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ConstraintFacade;
@@ -16,6 +15,7 @@ import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.translation.ocl.ExpressionKinds;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
@@ -56,7 +56,11 @@ public class ModelElementFacadeLogicImpl
      */
     protected String handleGetPackageName()
     {
-        return this.getPackageName(false);
+        final boolean modelName = false;
+        return UML14MetafacadeUtils.getPackageName(
+            this.metaObject,
+            this.getNamespaceScope(modelName),
+            modelName);
     }
 
     /**
@@ -64,11 +68,7 @@ public class ModelElementFacadeLogicImpl
      */
     protected String handleGetPackageName(boolean modelName)
     {
-        String packageName =
-            UML14MetafacadeUtils.getPackageName(
-                this.metaObject,
-                this.getNamespaceScope(modelName),
-                modelName);
+        String packageName = this.getPackageName();
         if (modelName)
         {
             packageName =
@@ -102,7 +102,10 @@ public class ModelElementFacadeLogicImpl
                 // with the mapped scope operators
                 final String namespaceScopeOperator =
                     String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
-                fullName = StringUtils.replace(fullName, metafacadeNamespaceScopeOperator, namespaceScopeOperator);
+                fullName = StringUtils.replace(
+                        fullName,
+                        metafacadeNamespaceScopeOperator,
+                        namespaceScopeOperator);
             }
         }
         return fullName;
@@ -332,7 +335,9 @@ public class ModelElementFacadeLogicImpl
      */
     protected String handleGetDocumentation(String indent)
     {
-        return getDocumentation(indent, 64);
+        return getDocumentation(
+            indent,
+            64);
     }
 
     /**
@@ -342,7 +347,10 @@ public class ModelElementFacadeLogicImpl
         String indent,
         int lineLength)
     {
-        return getDocumentation(indent, lineLength, true);
+        return getDocumentation(
+            indent,
+            lineLength,
+            true);
     }
 
     /**
@@ -426,12 +434,16 @@ public class ModelElementFacadeLogicImpl
             {
                 mappings = TypeMappings.getInstance(uri);
                 mappings.setArraySuffix(this.getArraySuffix());
-                this.setProperty(propertyName, mappings);
+                this.setProperty(
+                    propertyName,
+                    mappings);
             }
             catch (Throwable th)
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                logger.error(errMsg, th);
+                logger.error(
+                    errMsg,
+                    th);
 
                 // don't throw the exception
             }
@@ -642,7 +654,9 @@ public class ModelElementFacadeLogicImpl
                         kind);
                 }
             });
-        return this.translateConstraints(constraints, translation);
+        return this.translateConstraints(
+            constraints,
+            translation);
     }
 
     /**
@@ -682,7 +696,9 @@ public class ModelElementFacadeLogicImpl
             }
             else
             {
-                validationName.insert(0, seperator);
+                validationName.insert(
+                    0,
+                    seperator);
                 validationName.insert(
                     0,
                     namespace.getName());
