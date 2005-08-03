@@ -2,21 +2,25 @@ package org.andromda.utils.beans.comparators;
 
 
 /**
- * Any unchecked exception when dealing with the comparators
- * will throw this exception
+ * An exception thrown during execution of a comparator.
  */
-public class ComparatorException extends RuntimeException {
+public class ComparatorException
+    extends RuntimeException
+{
+    public ComparatorException(final Throwable throwable)
+    {
+        super(throwable);
+    }
 
-	public ComparatorException(Throwable th){
-		super(th);
-	}
-	
-	public ComparatorException(String msg) {
-		super(msg);	
-	}
-	
-	public ComparatorException(String msg, Throwable th) {
-		super(msg, th);	
-	}
-	
+    public ComparatorException(String msg)
+    {
+        super(msg);
+    }
+
+    public ComparatorException(
+        final String message,
+        final Throwable throwable)
+    {
+        super(message, throwable);
+    }
 }
