@@ -100,7 +100,7 @@ public class BuildInformation
     /**
      * Return the name of the operating system and version.
      *
-     * @return Returns the BUILD SYSTEM.
+     * @return Returns the build version.
      */
     public String getBuildVersion()
     {
