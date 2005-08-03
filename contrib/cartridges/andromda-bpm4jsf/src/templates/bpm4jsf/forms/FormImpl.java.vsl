@@ -17,7 +17,11 @@ $field.getDocumentation("     * ")
      */
     public $field.type.fullyQualifiedName ${field.getterName}()
     {
+#if ($field.table)
+        return ${managedBeansPackage}.CollectionSorter.sort(this.users, this.getUsersSortColumn(), this.isUsersSortAscending());
+#else
         return this.${field.name};
+#end
     }
 
     /**

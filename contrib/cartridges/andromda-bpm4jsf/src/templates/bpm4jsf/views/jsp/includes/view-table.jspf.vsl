@@ -62,7 +62,7 @@
         value="#{${globalFormBeanName}.${table.name}}"
         sortColumn="#{${globalFormBeanName}.${table.name}SortColumn}"
         sortAscending="#{${globalFormBeanName}.${table.name}SortAscending}"
-        preserveDataModel="true"
+        preserveDataModel="false"
         preserveSort="true"
         rows="10">
 #foreach ($column in $table.tableColumns)

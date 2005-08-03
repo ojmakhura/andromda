@@ -131,7 +131,7 @@
         <servlet-class>$action.fullyQualifiedActionClassName</servlet-class>
     </servlet>
 #end
-#end     
+#end
 
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -148,7 +148,7 @@
         <url-pattern>$action.path</url-pattern>
     </servlet-mapping>
 #end
-#end   
+#end
     <filter-mapping>
         <filter-name>extensionsFilter</filter-name>
         <url-pattern>/faces/*</url-pattern>
@@ -160,6 +160,10 @@
         <welcome-file>$welcomeFileName</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <exception-type>javax.faces.FacesException</exception-type>
+        <location>/$welcomeFileName</location>
+    </error-page>
     <!-- error-page merge-point -->
     <!-- taglib merge-point -->
     <!-- resource-ref merge-point -->
