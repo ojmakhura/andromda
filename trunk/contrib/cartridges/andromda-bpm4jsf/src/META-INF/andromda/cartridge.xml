@@ -201,12 +201,6 @@
     </template>
     
     <template
-        path="templates/bpm4jsf/utils/Messages.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="managed-beans"
-        overwrite="true"/>
-    
-    <template
         path="templates/bpm4jsf/flow/ActionForward.java.vsl"
         outputPattern="$action.fullyQualifiedActionClassPath"
         outlet="controllers"
@@ -303,13 +297,19 @@
     
     <template
         path="templates/bpm4jsf/utils/Messages.java.vsl"
-        outputPattern="$generatedFile"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/utils/CollectionSorter.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
         outlet="managed-beans"
         overwrite="true"/>
     
     <template
         path="templates/bpm4jsf/exception/PatternMatchingExceptionHandler.java.vsl"
-        outputPattern="$generatedFile"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${patternMatchingExceptionHandler}.java"
         outlet="managed-beans"
         overwrite="true"/>
     

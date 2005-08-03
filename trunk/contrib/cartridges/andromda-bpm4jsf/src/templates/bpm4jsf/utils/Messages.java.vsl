@@ -1,4 +1,4 @@
-#set ($generatedFile = "$stringUtils.replace($managedBeansPackage, '.', '/')/Messages.java")
+#set ($className = "Messages")
 #if ($stringUtils.isNotEmpty($managedBeansPackage))
 package $managedBeansPackage;
 #end
@@ -11,7 +11,7 @@ import java.text.MessageFormat;
 /**
  * Provides access to the application resource messages.
  */
-public class Messages
+public class ${className}
 {
     /**
      * The messages bundle name.
