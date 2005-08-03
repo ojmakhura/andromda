@@ -46,7 +46,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getTaggedValues()
      */
-    public java.util.Collection handleGetTaggedValues()
+    protected java.util.Collection handleGetTaggedValues()
     {
         return metaObject.getTaggedValue();
     }
@@ -54,7 +54,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
-    public String handleGetPackageName()
+    protected String handleGetPackageName()
     {
         return this.getPackageName(false);
     }
@@ -62,7 +62,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName(boolean)
      */
-    public String handleGetPackageName(boolean modelName)
+    protected String handleGetPackageName(boolean modelName)
     {
         String packageName =
             UML14MetafacadeUtils.getPackageName(
@@ -83,7 +83,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName(boolean)
      */
-    public java.lang.String handleGetFullyQualifiedName(boolean modelName)
+    protected java.lang.String handleGetFullyQualifiedName(boolean modelName)
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
         final String packageName = this.getPackageName(true);
@@ -130,7 +130,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
-    public java.lang.String handleGetFullyQualifiedName()
+    protected java.lang.String handleGetFullyQualifiedName()
     {
         return this.getFullyQualifiedName(false);
     }
@@ -138,7 +138,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValues(java.lang.String)
      */
-    public Collection handleFindTaggedValues(String name)
+    protected Collection handleFindTaggedValues(String name)
     {
         final Collection values = new ArrayList();
 
@@ -194,7 +194,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(java.lang.String)
      */
-    public Object handleFindTaggedValue(String name)
+    protected Object handleFindTaggedValue(String name)
     {
         Collection taggedValues = findTaggedValues(name);
         return taggedValues.isEmpty() ? null : taggedValues.iterator().next();
@@ -203,7 +203,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(java.lang.String)
      */
-    public boolean handleHasStereotype(final String stereotypeName)
+    protected boolean handleHasStereotype(final String stereotypeName)
     {
         Collection stereotypes = this.getStereotypes();
 
@@ -239,7 +239,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getId()
      */
-    public String handleGetId()
+    protected String handleGetId()
     {
         return this.metaObject.refMofId();
     }
@@ -247,7 +247,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#hasExactStereotype(java.lang.String)
      */
-    public boolean handleHasExactStereotype(String stereotypeName)
+    protected boolean handleHasExactStereotype(String stereotypeName)
     {
         return this.getStereotypeNames().contains(StringUtils.trimToEmpty(stereotypeName));
     }
@@ -255,7 +255,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getVisibility()
      */
-    public String handleGetVisibility()
+    protected String handleGetVisibility()
     {
         String visibility = null;
 
@@ -289,7 +289,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypeNames()
      */
-    public java.util.Collection handleGetStereotypeNames()
+    protected java.util.Collection handleGetStereotypeNames()
     {
         Collection stereotypeNames = new ArrayList();
 
@@ -308,7 +308,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedNamePath()
      */
-    public String handleGetFullyQualifiedNamePath()
+    protected String handleGetFullyQualifiedNamePath()
     {
         return StringUtils.replace(
             this.getFullyQualifiedName(),
@@ -319,7 +319,7 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackagePath()
      */
-    public String handleGetPackagePath()
+    protected String handleGetPackagePath()
     {
         return StringUtils.replace(
             this.getPackageName(),
