@@ -90,10 +90,10 @@ public class BuildInformation
             this.buildBuilder = properties.getProperty(builderPropertyName);
             this.buildVersion = properties.getProperty(versionPropertyName);
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            ExceptionRecorder.instance().record(th);
-            throw new IllegalStateException(th.getMessage());
+            ExceptionRecorder.instance().record(throwable);
+            throw new IllegalStateException(throwable.getMessage());
         }
     }
 
