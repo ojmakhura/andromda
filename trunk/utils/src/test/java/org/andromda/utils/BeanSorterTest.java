@@ -1,6 +1,7 @@
 package org.andromda.utils;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -22,11 +23,60 @@ public class BeanSorterTest
     {
         final List persons = Arrays.asList(BeanSorterTest.persons);
 
-        BeanSorter.sort(
+        // - try simple property sorting
+        List sorted = BeanSorter.sort(
             persons,
             new SortCriteria[] {new SortCriteria(
                     "firstName",
                     Ordering.ASCENDING)});
+        Iterator iterator = sorted.iterator();
+        Person billy =  (Person)iterator.next();
+        assertEquals(billy.getFirstName(), "Billy");
+        Person chad = (Person)iterator.next();
+        assertEquals(chad.getFirstName(), "Chad");
+        Person john = (Person)iterator.next();
+        assertEquals(john.getFirstName(), "John");
+
+        sorted = BeanSorter.sort(
+            persons,
+            new SortCriteria[] {new SortCriteria(
+                    "firstName",
+                    Ordering.DESCENDING)});
+        iterator = sorted.iterator();
+        john =  (Person)iterator.next();
+        assertEquals(john.getFirstName(), "John");
+        chad = (Person)iterator.next();
+        assertEquals(chad.getFirstName(), "Chad");
+        billy = (Person)iterator.next();
+        assertEquals(billy.getFirstName(), "Billy");
+        
+        // - try nested property sorting
+        sorted = BeanSorter.sort(
+            persons,
+            new SortCriteria[] {new SortCriteria(
+                    "address.streetNumber",
+                    Ordering.ASCENDING)});      
+        iterator = sorted.iterator();
+        john =  (Person)iterator.next();
+        assertEquals(john.getFirstName(), "John");
+        chad = (Person)iterator.next();
+        assertEquals(chad.getFirstName(), "Chad");
+        billy = (Person)iterator.next();
+        assertEquals(billy.getFirstName(), "Billy");
+        
+        sorted = BeanSorter.sort(
+            persons,
+            new SortCriteria[] {new SortCriteria(
+                    "address.streetNumber",
+                    Ordering.DESCENDING)});      
+        iterator = sorted.iterator();
+        billy =  (Person)iterator.next();
+        assertEquals(billy.getFirstName(), "Billy");
+        chad = (Person)iterator.next();
+        assertEquals(chad.getFirstName(), "Chad");
+        john = (Person)iterator.next();
+        assertEquals(john.getFirstName(), "John");
+        
     }
 
     private static final Person[] persons =
@@ -36,8 +86,8 @@ public class BeanSorterTest
                     1234,
                     "A Street")), new Person("Billy", "Bob", new Address(
                     2323,
-                    "B Street")), new Person("Jon", "Doe", new Address(
-                    66321,
+                    "B Street")), new Person("John", "Doe", new Address(
+                    1,
                     "C Street"))
         };
 
