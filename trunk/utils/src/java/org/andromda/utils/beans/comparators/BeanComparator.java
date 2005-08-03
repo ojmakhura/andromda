@@ -2,8 +2,11 @@ package org.andromda.utils.beans.comparators;
 
 import java.io.InputStream;
 import java.io.Serializable;
+
 import java.lang.reflect.InvocationTargetException;
+
 import java.net.URL;
+
 import java.util.Comparator;
 import java.util.Properties;
 
@@ -202,7 +205,7 @@ public class BeanComparator
     }
 
     /**
-     * Gets the index of the given <code>propertyName</code> if 
+     * Gets the index of the given <code>propertyName</code> if
      * its a nested property (nested meaning names separated by
      * a '.').
      * @param propertyName the name of the nested property.

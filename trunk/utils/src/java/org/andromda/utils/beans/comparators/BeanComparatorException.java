@@ -2,10 +2,11 @@ package org.andromda.utils.beans.comparators;
 
 import org.andromda.utils.beans.BeanSorter;
 
+
 /**
  * Thrown when an unexpected error occurs during {@link BeanSorter}
  * execution.
- * 
+ *
  * @author Chad Brandon
  */
 public class BeanComparatorException
