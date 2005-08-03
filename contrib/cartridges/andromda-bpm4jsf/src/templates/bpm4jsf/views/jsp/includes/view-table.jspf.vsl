@@ -60,12 +60,17 @@
         columnClasses="standardTableColumnCentered"
         var="row"
         value="#{${globalFormBeanName}.${table.name}}"
-        preserveDataModel="false"
+        sortColumn="#{${globalFormBeanName}.${table.name}SortColumn}"
+        sortAscending="#{${globalFormBeanName}.${table.name}SortAscending}"
+        preserveDataModel="true"
+        preserveSort="true"
         rows="10">
 #foreach ($column in $table.tableColumns)
     <h:column>
         <f:facet name="header">
-           <h:outputText value="#{messages['$table.getTableColumnMessageKey($column.name)']}" />
+            <x:commandSortHeader columnName="${column.name}" arrow="true">
+                <h:outputText value="#{messages['$table.getTableColumnMessageKey($column.name)']}" />
+            </x:commandSortHeader>
         </f:facet>
         <h:outputText value="#{row.${column.name}}" />
     </h:column>
