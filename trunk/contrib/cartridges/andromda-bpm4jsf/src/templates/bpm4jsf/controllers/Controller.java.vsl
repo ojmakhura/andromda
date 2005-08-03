@@ -60,6 +60,8 @@ $operation.getDocumentation("     * ")
                 final String message = ${managedBeansPackage}.Messages.get(
                     ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable), null);
                 this.addErrorMessage(message);
+                // -  set the forward to null so that we stay on the current view
+                forward = null;
             }
 #end
 #if (!$action.formFields.empty)
