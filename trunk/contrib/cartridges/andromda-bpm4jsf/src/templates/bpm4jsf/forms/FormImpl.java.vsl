@@ -27,6 +27,61 @@ $field.getDocumentation("     * ")
     {
         this.$field.name = $field.name;
     }
+#if ($field.table)
+    /**
+     * The name of the sort column for the {@link #${field.name}} collection.
+     */
+    private String ${field.name}SortColumn;
+
+#set ($upperCaseFieldName = $stringUtils.capitalize($field.name))
+    /**
+     * Gets the name of the sort column for the {@link #${field.name}} collection.
+     * 
+     * @return the name of the sort column.
+     */
+    public String get${upperCaseFieldName}SortColumn()
+    {
+        return this.${field.name}SortColumn;
+    }
+
+    /**
+     * Sets the name of the {@link #${field.name}} sort column.
+     * 
+     * @param ${field.name}SortColumn the name of the column by which {@link #${field.name}}
+     *        are sorted by.
+     */
+    public void set${upperCaseFieldName}SortColumn(final String ${field.name}SortColumn)
+    {
+        this.${field.name}SortColumn = ${field.name}SortColumn;
+    }
+    
+    /**
+     * The flag indicating whether or not {@link #${field.name}} should be sorted
+     * ascending.
+     */
+    private boolean ${field.name}SortAscending = false;
+
+    /**
+     * Indicates whether or not {@link #${field.name}} should be sorted ascending
+     * or not.
+     * 
+     * @return true/false
+     */
+    public boolean is${upperCaseFieldName}SortAscending()
+    {
+        return this.${field.name}SortAscending;
+    }
+
+    /**
+     * Sets whether or not {@link #${field.name}} should be sorted ascending.
+     * 
+     * @param ${field.name}SortAscending true/false
+     */
+    public void set${upperCaseFieldName}SortAscending(final boolean ${field.name}SortAscending)
+    {
+        this.${field.name}SortAscending = ${field.name}SortAscending;
+    }
+#end
 #end
  
 }
