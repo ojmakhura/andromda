@@ -93,8 +93,8 @@ public class BeanSorter
 
         List sorted = null;
 
-        //if the beans passed in, isn't assignable to List, 
-        //create a new ArrayList
+        // - if the beans passed in, isn't assignable to List, 
+        //   create a new ArrayList
         if (!(beans instanceof List))
         {
             sorted = new ArrayList(beans);
@@ -106,7 +106,7 @@ public class BeanSorter
 
         int sortByNum = sortBy.length;
 
-        //use the Comparator chain to provide SQL like sorting of columns
+        // - use the Comparator chain to provide SQL like sorting of properties
         ComparatorChain chain = new ComparatorChain();
         for (int ctr = 0; ctr < sortByNum; ctr++)
         {
