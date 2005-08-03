@@ -17,7 +17,7 @@ public class SortCriteria
      * Creates a SortCriteria object with the default ascending ordering
      * @param sortBy
      */
-    public SortCriteria(String sortBy)
+    public SortCriteria(final String sortBy)
     {
         this(sortBy, Ordering.ASCENDING);
     }
@@ -45,7 +45,7 @@ public class SortCriteria
             ordering);
         try
         {
-            Collection validOrderings = ClassUtils.getStaticFieldValues(
+            final Collection validOrderings = ClassUtils.getStaticFieldValues(
                     String.class,
                     SortCriteria.class);
             if (validOrderings.contains(ordering))
