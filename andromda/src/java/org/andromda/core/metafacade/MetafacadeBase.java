@@ -398,4 +398,28 @@ public class MetafacadeBase
     {
         return this.shieldedElement(this.metaObject);
     }
+    
+    /**
+     * The property that stores the name of the metafacade.
+     */
+    private static final String NAME_PROPERTY = "name";
+    
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        StringBuffer toString = new StringBuffer(this.getClass().getName());
+        toString.append("[");
+        try
+        {
+            toString.append(org.andromda.core.common.Introspector.instance().getProperty(this.THIS(), NAME_PROPERTY));
+        }
+        catch (Throwable th)
+        {
+            // Just ignore when the metafacade doesn't have a name property
+        }
+        toString.append("]");
+        return toString.toString();
+    }
 }
