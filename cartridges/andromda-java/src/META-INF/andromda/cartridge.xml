@@ -85,7 +85,9 @@
         overwrite="true">
         <modelElements variable="interface">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.InterfaceFacade"/>
+                <type name="org.andromda.metafacades.uml.ClassifierFacade">
+                    <property name="interface"/>
+                </type>
             </modelElement>           
         </modelElements>  
     </template>
