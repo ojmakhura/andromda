@@ -409,15 +409,15 @@ public class MetafacadeBase
      */
     public String toString()
     {
-        StringBuffer toString = new StringBuffer(this.getClass().getName());
+        final StringBuffer toString = new StringBuffer(this.getClass().getName());
         toString.append("[");
         try
         {
             toString.append(org.andromda.core.common.Introspector.instance().getProperty(this.THIS(), NAME_PROPERTY));
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            // Just ignore when the metafacade doesn't have a name property
+            // - just ignore when the metafacade doesn't have a name property
         }
         toString.append("]");
         return toString.toString();
