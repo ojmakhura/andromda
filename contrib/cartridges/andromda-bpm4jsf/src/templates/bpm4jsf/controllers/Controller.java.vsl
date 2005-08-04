@@ -31,9 +31,9 @@ $operation.getDocumentation("     * ")
             final $action.fullyQualifiedFormImplementationName form =
                 ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
                     facesContext,
-                    "$action.formBeanName");                  
+                    "$action.formBeanName");
             // - populate the form with any request parameters that may match
-            org.apache.commons.beanutils.BeanUtils.populate(form, this.getContext().getExternalContext().getRequestParameterMap());
+            this.populateFormFromRequestParameters(form);
 #end
 #if (!$deferredOperations.empty)
             try
@@ -45,7 +45,7 @@ $operation.getDocumentation("     * ")
 #if (!$deferredOperations.empty)
             }
             catch (final Throwable throwable)
-            {               
+            {
                 final String message = ${managedBeansPackage}.Messages.get(
                     ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable), null);
                 this.addErrorMessage(message);
@@ -133,11 +133,11 @@ $operation.getDocumentation("     * ")
     {
         return (javax.servlet.http.HttpSession)this.getContext().getExternalContext().getSession(create);
     }
-    
+
     /**
      * Finds the root cause of the given <code>throwable</code> and
      * adds the message taken from that cause to the faces context messages.
-     * 
+     *
      * @param throwable the exception information to add.
      */
     private final void addExceptionMessage(
@@ -151,63 +151,102 @@ $operation.getDocumentation("     * ")
         }
         if (message == null || message.trim().length() == 0)
         {
-            message = throwable.getMessage();    
+            message = throwable.getMessage();
         }
         this.addErrorMessage(message);
     }
-    
+
     /**
      * Adds the given error <code>message</code> to the current faces context.
-     * 
+     *
      * @param message the message to add.
      */
     protected void addErrorMessage(final String message)
     {
-        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message);   
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message);
     }
-    
+
     /**
      * Adds the given warning <code>message</code> to the current faces context.
-     * 
+     *
      * @param message the message to add.
      */
     protected void addWarningMessage(final String message)
     {
-        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_WARN, message);      
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_WARN, message);
     }
-    
+
     /**
      * Adds the given info <code>message</code> to the current faces context.
-     * 
+     *
      * @param message the message to add.
      */
     protected void addInfoMessage(final String message)
     {
-        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message);      
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message);
     }
-    
+
     /**
      * Adds the given fatal <code>message</code> to the current faces context.
-     * 
+     *
      * @param message the message to add.
      */
     protected void addFatalMessage(final String message)
     {
-        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_FATAL, message);      
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_FATAL, message);
     }
-    
+
     /**
      * Adds a message to the faces context (which will show up on your view when using the
      * lt;h:messages/gt; tag).
-     * 
+     *
      * @param severity the severity of the message
      * @param message the message to add.
      */
-    protected  void addMessage(final javax.faces.application.FacesMessage.Severity severity, final String message)
+    protected void addMessage(final javax.faces.application.FacesMessage.Severity severity, final String message)
     {
         final javax.faces.application.FacesMessage facesMessage = new javax.faces.application.FacesMessage(severity, message, message);
         javax.faces.context.FacesContext.getCurrentInstance().addMessage(
             null,
-            facesMessage);                    
+            facesMessage);
+    }
+
+    /**
+     * Populates the form from the given parameters.  If the request parameter is null or an empty
+     * string, then null is placed on the form.
+     *
+     * @param parameters the parameters from which to populate the form.
+     * @param form the form to populate.
+     */
+    private final void populateFormFromRequestParameters(final Object form)
+    {
+        try
+        {
+            final java.util.Map parameters = this.getContext().getExternalContext().getRequestParameterMap();
+            for (final java.util.Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
+            {
+                final String name = (String)iterator.next();
+                if (org.apache.commons.beanutils.PropertyUtils.isReadable(form, name))
+                {
+                    final java.beans.PropertyDescriptor descriptor =
+                        org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(form, name);
+                    if (descriptor != null)
+                    {
+                        final String parameter = (String)parameters.get(name);
+                        Object value = null;
+                        // - only convert if the string is not empty
+                        if (parameter != null && parameter.trim().length() > 0)
+                        {
+                            value = org.apache.commons.beanutils.ConvertUtils.convert(parameter, descriptor.getPropertyType());
+                        }
+                        org.apache.commons.beanutils.PropertyUtils.setProperty(form, name, value);
+                    }
+                }
+            }
+        }
+        catch (final Throwable throwable)
+        {
+            throw new RuntimeException(throwable);
+        }
     }
 }
