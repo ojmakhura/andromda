@@ -11,22 +11,27 @@
 #else
 #set($formName = $action.formBeanName)
 <h:form id="$formName" name="$formName">
-    <h:panelGrid columns="1" styleClass="formTable"
+    <h:panelGrid columns="3" styleClass="formTable"
                  headerClass="formHeader"
                  footerClass="formFooter"
-                 columnClasses="formLabels, formInputs" >
-        <h:panelGroup>
+                 columnClasses="formLabels,formInputs">
 #foreach ($field in $action.formFields)
 #if (!$field.table)
-            <h:outputLabel for="${formName}:${field.name}" value="#{messages['$field.messageKey']}" /><f:verbatim>:</f:verbatim>
+        <h:outputLabel for="${formName}:${field.name}" value="#{messages['$field.messageKey']}" />
+        <f:verbatim>:</f:verbatim>
+        <h:panelGroup>
 #if ($field.type.dateType)
-            <x:inputDate id="${field.name}" value="#{${globalFormBeanName}.${field.name}}" popupCalendar="true"/>
+            <x:inputCalendar id="${field.name}" monthYearRowClass="yearMonthHeader" weekRowClass="weekHeader" value="#{form.birthdate}" renderAsPopup="true" />
 #else
-            <h:inputText id="${field.name}" value="#{${globalFormBeanName}.${field.name}}"/>
+            <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/>
 #end
-            <f:verbatim></br></f:verbatim>
+            <x:message for="${field.name}" styleClass="error" showDetail="true" showSummary="false" />
+        </h:panelGroup>
 #end
 #end
+        <h:panelGroup/>
+        <h:panelGroup/>
+        <h:panelGroup>
             <h:commandButton id="${action.triggerName}-submit"
                              value="#{messages['$action.messageKey']}"
                              action="#{${action.controller.beanName}.${action.triggerName}}" 
@@ -37,6 +42,6 @@
                              type="reset"/>
 #end
         </h:panelGroup>
-   </h:panelGrid>
+    </h:panelGrid>
 </h:form>
 #end
