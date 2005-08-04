@@ -159,7 +159,6 @@ public class FrontEndControllerOperationLogicImpl
     protected boolean handleIsAllArgumentsHaveFormFields()
     {
         final Collection arguments = this.getArguments();
-        System.out.println("the args: " + arguments);
         final Collection deferringActions = this.getDeferringActions();
 
         boolean allArgumentsHaveFormFields = true;
