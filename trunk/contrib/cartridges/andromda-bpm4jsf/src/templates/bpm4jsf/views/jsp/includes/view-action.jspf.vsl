@@ -24,7 +24,7 @@
             <x:inputCalendar id="${field.name}" 
                              monthYearRowClass="yearMonthHeader" 
                              weekRowClass="weekHeader" 
-                             value="#{form.birthdate}" 
+                             value="#{${formName}.${field.name}}" 
                              renderAsPopup="true" 
                              popupDateFormat="$field.dateFormat"/>
 #else
