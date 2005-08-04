@@ -8,37 +8,33 @@ package $interface.packageName;
 $interface.getDocumentation(" * ")
  */
 public interface $interface.name
-#if ($interface.allGeneralizations.size()>0)    extends ${interface.generalizationList}
+#if (!$interface.allGeneralizations.empty)
+    extends $interface.generalizationList
 #end
 {
-    //
-    // constants
-    //
-#foreach($constant in $interface.attributes)
 
+#foreach($constant in $interface.attributes)
+#if ($constant.visibility == "public")
     /**
 $constant.getDocumentation("     * ")
      */
-    $constant.type.fullyQualifiedName ${constant.name} = ${constant.defaultValue};
+    public $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
+
 #end
-
-    //
-    // methods
-    //
+#end
 #foreach ( $operation in $interface.operations)
-## Only expose public methods
 #if ($operation.visibility == "public")
-
-   /**
-$operation.getDocumentation("    * ")
-    */
+    /**
+$operation.getDocumentation("     * ")
+     */
 #set ($returnType = $operation.returnType.fullyQualifiedName)
 #if ($operation.exceptionsPresent)
-    $returnType $operation.signature
-        throws $operation.getExceptionList();
+    public $returnType $operation.signature
+        throws $operation.exceptionList;
 #else
-    $returnType $operation.signature;
+    public $returnType $operation.signature;
 #end
+
 #end
 #end
 }

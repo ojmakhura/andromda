@@ -28,9 +28,6 @@
         <mapping class="org.omg.uml.foundation.core.Classifier$Impl"/>
         <property reference="classifierNameMask"/>
 	</metafacade>	
-	<metafacade class="org.andromda.metafacades.uml14.InterfaceFacadeLogicImpl">
-		<mapping class="org.omg.uml.foundation.core.Interface$Impl"/>
-    </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.EnumerationLiteralFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.EnumerationLiteral$Impl"/>
     </metafacade>
