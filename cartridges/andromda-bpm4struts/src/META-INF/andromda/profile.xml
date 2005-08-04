@@ -146,6 +146,31 @@
                     <value>true</value>
                 </allowedValues>
             </element>
+            <element name="INPUT_COLUMN_COUNT">
+                <documentation>
+                    Denotes the number of columns an input field should have.
+                </documentation>
+                <value>@andromda.presentation.web.view.field.size</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">browser specific</value>
+                    <value>any strictly positive integer</value>
+                </allowedValues>
+            </element>
+            <element name="INPUT_ROW_COUNT">
+                <documentation>
+                    Denotes the number of rows on a textarea field.
+                </documentation>
+                <value>@andromda.presentation.web.view.field.rows</value>
+                <appliedOnElement>
+                    Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype,
+                    while having <code>@andromda.presentation.web.view.field.textarea</code>
+                </appliedOnElement>
+                <allowedValues>
+                    <value default="true">5</value>
+                    <value>any strictly positive integer</value>
+                </allowedValues>
+            </element>
             <element name="INPUT_READONLY">
                 <documentation>
                     Indicates the parameter is read only, it's value cannot be entered by the user

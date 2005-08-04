@@ -23,20 +23,20 @@
 #if ($action.hyperlink)
 #renderHyperlink($action "        ")
 #elseif ($action.tableAction)## this means this action allows rows to be selected and sent
-        <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data">
+        <html:form styleId="${action.formBeanName}" action="${action.actionPath}" method="post" enctype="multipart/form-data">
             <%@ include file="${action.input.fullPath}-${action.tableLinkParameter.name}.jspf" %>
 #renderFormButtons($action "            ")
         </html:form>
 #elseif ($action.formPost)
 #if ($action.actionParameters.empty)
 ## unfortunately <html:form> cannot handle actions without a form so we need to treat this case separately
-        <form action='<html:rewrite action="${action.actionPath}"/>' method="post">
+        <form id="${action.formBeanName}" action='<html:rewrite action="${action.actionPath}"/>' method="post">
 #renderFormButtons($action "            ")
         </form>
 #else
 #if ($clientValidationDesired && $action.validationRequired)
 #set($onsubmit="return ${action.formValidationMethodName}(this);")#else#set($onsubmit="")#end
-        <html:form action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
+        <html:form styleId="${action.formBeanName}" action="${action.actionPath}" method="post" enctype="multipart/form-data" onsubmit="$onsubmit">
 #if (!$action.hiddenActionParameters.empty)
             <%@ include file="${action.fullTilePath}-hidden-params.jspf" %>
 #end

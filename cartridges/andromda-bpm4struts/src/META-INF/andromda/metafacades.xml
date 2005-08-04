@@ -54,6 +54,8 @@
         <property reference="defaultTableExportTypes"/>
         <property reference="defaultDateFormat"/>
         <property reference="defaultTimeFormat"/>
+        <property reference="defaultInputColumnCount"/>
+        <property reference="defaultInputRowCount"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">

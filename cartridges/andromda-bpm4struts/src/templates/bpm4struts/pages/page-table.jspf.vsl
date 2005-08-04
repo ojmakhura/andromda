@@ -6,7 +6,7 @@
 #set ($exportable = $table.tableExportable)
 <div id="${table.name}" class="table">
 #if (!$table.tableGlobalActions.empty)
-    <form name="" action="" method="post" enctype="multipart/form-data">
+    <form id="${table.name}" name="" action="" method="post" enctype="multipart/form-data">
 #end
 #set ($displayTableName = "form.${table.name}")
     <display:table name="${${displayTableName}}" id="row"

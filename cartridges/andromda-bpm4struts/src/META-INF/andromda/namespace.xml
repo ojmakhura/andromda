@@ -101,6 +101,22 @@
                     to see how to properly construct time formats.
                 </documentation>
             </property>
+            <property name="defaultInputColumnCount" required="false">
+                <documentation>
+                    If specified denotes the default length of text input fields,
+                    the value specifies the <code>size</code> attribute of the corresponding
+                    <code>input</code> or <code>textarea</code> element.
+                    Not speciying any valid value will make the cartridge ignore it and resort
+                    to the default browser value by not rendering any <code>size</code> attribute.
+                </documentation>
+            </property>
+            <property name="defaultInputRowCount" required="false">
+                <documentation>
+                    If specified denotes the default number of rows of <code>textarea</code> elements.
+                    Not speciying any valid value will make the cartridge ignore it and resort
+                    to the default browser value by not rendering any <code>size</code> attribute.
+                </documentation>
+            </property>
             <property name="defaultTableExportTypes">
                 <default>xml csv excel pdf</default>
                 <documentation>

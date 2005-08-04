@@ -134,9 +134,12 @@ ${indent}</logic:notPresent>
 ##
 ##
 #macro ( renderFormField $action $field $indent $rowIndex )
+#set ($quote ='"')
 #set ($fieldName = $field.name)
 #set ($widgetType = $field.widgetType)
 #set ($formBeanName = $action.formKey)## used to denote the request scope form
+#if($field.fieldRowCount)#set($rowCount=" rows=$quote$field.fieldRowCount$quote")#else#set($rowCount='')#end
+#if($field.fieldColumnCount)#set($columnCount=" size=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
 #if($rowIndex=='')
 #set($beanName=$formBeanName)
 #else
@@ -186,7 +189,7 @@ ${indent}</html:$widgetType>
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
 #elseif ( ($widgetType == 'text') || ($widgetType == 'password') )
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly styleId="$styleId"/>
+${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$columnCount styleId="$styleId"/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
 ${indent}<html:img page="/layout/calendar/calendar.gif" styleId="$stringUtils.lowerCamelCaseName($action.actionTrigger.name)_${fieldName}_trigger" styleClass="calendar" #if($hints=="true")onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
 ${indent}<script type="text/javascript">
@@ -215,7 +218,7 @@ ${indent}</script>
 ##      T E X T A R E A
 ##
 #elseif ($widgetType == 'textarea')
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly styleId="$styleId"/>
+${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$rowCount$columnCount styleId="$styleId"/>
 ##
 ##      H I D D E N
 ##
@@ -226,7 +229,7 @@ ${indent}<html:$widgetType name="$beanName" property="$fieldName" styleId="$styl
 ##
 #elseif ($widgetType == 'select')
 #if ($field.multiple)
-#set ($multiple = 'multiple="multiple"')
+#set ($multiple = ' multiple="multiple"')
 #else
 #set ($multiple = '')
 #end
@@ -237,12 +240,12 @@ ${indent}<html:$widgetType name="$beanName" property="$fieldName" styleId="$styl
 #end
 ${indent}<c:choose>
 ${indent}    <c:when test="${!empty ${formBeanName}.${field.backingListName}}">
-${indent}       <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled $multiple styleId="$styleId">
+${indent}       <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled$multiple$columnCount styleId="$styleId">
 ${indent}           <html:optionsCollection name="$formBeanName" property="$field.backingListName" label="label" value="value"/>
 ${indent}       </html:select>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
-${indent}        <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end disabled="true" styleId="$styleId"/>
+${indent}        <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled$columnCount styleId="$styleId"/>
 ${indent}    </c:otherwise>
 ${indent}</c:choose>
 ##
@@ -266,7 +269,7 @@ ${indent}<html:hidden name="$beanName" property="$fieldName" styleId="$styleId"/
 ##      F I L E
 ##
 #elseif ($widgetType == 'file')
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
+${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled$columnCount styleId="$styleId"/>
 ##
 ##      P L A I N T E X T
 ##

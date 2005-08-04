@@ -16,7 +16,7 @@ public class $formBeanClassName
     extends org.apache.struts.validator.ValidatorForm
     implements java.io.Serializable
 #foreach ($operation in $action.deferredOperations)
-        , $operation.interfaceName
+        , $operation.interfaceType
 #end
 {
 #foreach ($field in $fields)
