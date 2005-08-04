@@ -25,6 +25,7 @@
                 <property name="value-objects">${test.output.dir}</property>
                 <property name="exceptions">${test.output.dir}</property>
                 <property name="enumerations">${test.output.dir}</property>
+                <property name="interfaces">${test.output.dir}</property>
                 <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
                 <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
             </properties>
