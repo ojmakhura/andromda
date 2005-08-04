@@ -250,9 +250,12 @@ public class AssociationEndFacadeLogicImpl
         if (this.isMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();
-            name =
-                isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
-                    UMLProfile.COLLECTION_TYPE_NAME);
+            if (mappings != null)
+            {
+                name =
+                    this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
+                        UMLProfile.COLLECTION_TYPE_NAME);
+            }
         }
         if (name == null && this.getType() != null)
         {
