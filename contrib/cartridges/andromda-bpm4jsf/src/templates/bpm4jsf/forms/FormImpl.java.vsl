@@ -8,9 +8,24 @@ $action.getDocumentation(" * ")
 public class $action.formImplementationName
     implements $action.formImplementationInterfaceList
 {
+
+    public ${action.formImplementationName}()
+    {
+#foreach ($field in $action.formFields)
+#if ($field.type.dateType)
+#set ($lenient = !$field.strictDateFormat)
+        ${field.dateFormatter}.setLenient($lenient);
+#end
+#end
+    }
 #foreach ($field in $action.formFields)
 
     private $field.type.fullyQualifiedName $field.name;
+#if ($field.type.dateType)
+    private final static java.text.DateFormat $field.dateFormatter = new java.text.SimpleDateFormat("$field.dateFormat");
+#elseif ($field.type.timeType)
+    private final static java.text.DateFormat $field.timeFormatter = new java.text.SimpleDateFormat("$field.timeFormat");
+#end
 
     /**
 $field.getDocumentation("     * ")

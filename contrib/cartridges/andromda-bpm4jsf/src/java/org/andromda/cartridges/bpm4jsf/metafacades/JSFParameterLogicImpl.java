@@ -399,4 +399,31 @@ public class JSFParameterLogicImpl
         final String format = value == null ? null : String.valueOf(value);
         return format == null ? null : format.trim();
     }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isStrictDateFormat()
+     */
+    protected boolean handleIsStrictDateFormat()
+    {
+        final String format = this.getInputFormat();
+        return format != null && this.isStrictDateFormat(format);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getDateFormatter()
+     */
+    protected String handleGetDateFormatter()
+    {
+        final ClassifierFacade type = this.getType();
+        return type != null && type.isDateType() ? this.getName() + "DateFormatter" : null;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTimeFormatter()
+     */
+    protected String handleGetTimeFormatter()
+    {
+        final ClassifierFacade type = this.getType();
+        return type != null && type.isTimeType() ? this.getName() + "TimeFormatter" : null;
+    }
 }
