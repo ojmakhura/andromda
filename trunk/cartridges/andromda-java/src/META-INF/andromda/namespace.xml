@@ -37,6 +37,11 @@
                     The directory to which enumerations are generated.
                 </documentation>
             </property>
+            <property name="interfaces" required="false">
+                <documentation>
+                    The directory to which interfaces are generated.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Other">
             <property name="serializable">

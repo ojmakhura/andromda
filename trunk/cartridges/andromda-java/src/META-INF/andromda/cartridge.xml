@@ -77,7 +77,19 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
+    <template
+        path="templates/java/Interface.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="interfaces"
+        overwrite="true">
+        <modelElements variable="interface">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.InterfaceFacade"/>
+            </modelElement>           
+        </modelElements>  
+    </template>
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>
