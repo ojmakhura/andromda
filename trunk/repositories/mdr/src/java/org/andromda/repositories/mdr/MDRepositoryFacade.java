@@ -57,7 +57,12 @@ public class MDRepositoryFacade
             "org.netbeans.mdr.storagemodel.StorageFactoryClassName",
             "org.netbeans.mdr.persistence.memoryimpl.StorageFactoryImpl");
 
-        repository = MDRManager.getDefault().getDefaultRepository();
+        final MDRManager mdrManager = MDRManager.getDefault();
+        if (mdrManager == null)
+        {
+            throw new RepositoryFacadeException("Could not retrieve the MDR manager");
+        }
+        repository = mdrManager.getDefaultRepository();
 
         final String metamodelUri = "/M2_DiagramInterchangeModel.xml";
 
