@@ -21,6 +21,8 @@
     <property reference="globalFormBeanName"/>
     <property reference="exceptionHandlerPattern"/>
     <property reference="patternMatchingExceptionHandler"/>
+    <property reference="defaultDateFormat"/>
+    <property reference="defaultTimeFormat"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->

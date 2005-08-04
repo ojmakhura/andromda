@@ -42,9 +42,11 @@
         </mapping>
         <property reference="controllerImplementationPattern"/>
     </metafacade>
+    <!--
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFDataTypeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
     </metafacade>
+    -->
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCaseLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
             <stereotype>FRONT_END_APPLICATION</stereotype>
@@ -74,6 +76,8 @@
         <mapping class="org.omg.uml.foundation.core.Parameter$Impl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFBackendServiceLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
