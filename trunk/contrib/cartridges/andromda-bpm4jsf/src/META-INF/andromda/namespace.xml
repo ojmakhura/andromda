@@ -163,6 +163,30 @@
                 </documentation>
             </property>    
         </propertyGroup>
+        <propertyGroup name="Views">
+            <documentation>
+                Properties that configure view information.
+            </documentation>
+            <property name="defaultDateFormat">
+                <default>MM/dd/yyyy</default>
+                <documentation>
+                    The default date format to use in case it has not been explicitely
+                    specified, for event parameters.
+                    Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct date formats.
+                </documentation>
+            </property>
+            <property name="defaultTimeFormat">
+                <default>HH:mm</default>
+                <documentation>
+                    The default time format to use when it has not been explicitely
+                    specified for event parameters. Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct time formats.
+                </documentation>
+            </property>
+        </propertyGroup>
         <propertyGroup name="Other">
             <property name="managedBeansPackage">
                 <default>org.andromda.presentation.bpm4jsf</default>

@@ -157,6 +157,111 @@
                     <value>true</value>
                 </allowedValues>
             </element>
+            <element name="INPUT_REQUIRED">
+                <documentation>
+                    Denotes whether or not this is a required field. If a field is required its type will always be
+                    checked (you cannot enter a String value when an int is expected)
+                </documentation>
+                <value>@andromda.presentation.web.view.field.required</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
+            </element>
+            <element name="INPUT_READONLY">
+                <documentation>
+                    Indicates the parameter is read only, it's value cannot be entered by the user
+                </documentation>
+                <value>@andromda.presentation.web.view.field.readonly</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
+            </element>
+            <element name="INPUT_FORMAT">
+                <documentation>
+                    The format of this field's value.
+                    <p>
+                        <table cellpadding="5" rules="all">
+                            <tr>
+                                <th>Type</th>
+                                <th>Value</th>
+                                <th>Arguments</th>
+                                <th>Example</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>int, float, double, java.lang.Integer, java.lang.Float, java.lang.Double</td>
+                                <td>range</td>
+                                <td>2 of this type</td>
+                                <td>range 2 12</td>
+                                <td>Specifies in which range the value of this attribute must fall</td>
+                            </tr>
+                            <tr>
+                                <td>java.util.Date, java.sql.Date</td>
+                                <td>N/A</td>
+                                <td>[strict] (format)</td>
+                                <td>strict dd/MM/yyyy </td>
+                                <td>The format in which dates need to be specified (optionally strict) (*)</td>
+                            </tr>
+                            <tr>
+                                <td>java.lang.String</td>
+                                <td>minlength</td>
+                                <td>an integer value</td>
+                                <td>minlength 4</td>
+                                <td>Specifies the minimum number of characters</td>
+                            </tr>
+                            <tr>
+                                <td>java.lang.String</td>
+                                <td>maxlength</td>
+                                <td>an integer value</td>
+                                <td>maxlength 4</td>
+                                <td>Specifies the maximum number of characters</td>
+                            </tr>
+                            <tr>
+                                <td>java.lang.String</td>
+                                <td>pattern</td>
+                                <td>a regular expression</td>
+                                <td>pattern [a-zA-Z]*</td>
+                                <td>Validates format according to a regular expression (**), the leading
+                                    '^' and trailing '$' must not be specified</td>
+                            </tr>
+                            <tr>
+                                <td>java.lang.String</td>
+                                <td>creditcard</td>
+                                <td>N/A</td>
+                                <td>creditcard</td>
+                                <td>Validates the value to be a creditcard number, according to what is known as the Luhn check</td>
+                            </tr>
+                            <tr>
+                                <td>java.lang.String</td>
+                                <td>email</td>
+                                <td>N/A</td>
+                                <td>email</td>
+                                <td>Checks if the specified value is a possible email address, IP addresses are also taken into account</td>
+                            </tr>
+                        </table>
+                    </p>
+                    <p>
+                        (*) The format is specified by the java.text.SimpleDateFormat class from the Java 2 SDK, please
+                        refer to the JavaDoc documentation of that class for more information, this format is case-sensitive
+                        <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">
+                        SimpleDateFormat JavaDoc</a>
+                        <br/>
+                        (**) The pattern expression is a Perl regular expression as you would you use in Javascript,
+                        by convention it requires the ^ and $ to denote respectively the beginning and ending of the pattern
+                        <a href="http://devedge.netscape.com/library/manuals/2000/javascript/1.5/guide/regexp.html#1010689">
+                        Netscape's guide to regular expressions in Javascript</a>
+                    </p>
+                </documentation>
+                <value>@andromda.presentation.web.view.field.format</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>Any of the formats listed above</value>
+                </allowedValues>
+            </element>
         </elementGroup>
     </elements>
 </profile>

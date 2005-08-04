@@ -76,4 +76,14 @@ public class BPM4JSFGlobals
      * Represents a form action type.
      */
     public static final String ACTION_TYPE_FORM = "form";
+    
+    /**
+     * Stores the default date format when dates are formatted.
+     */
+    public static final String PROPERTY_DEFAULT_DATEFORMAT = "defaultDateFormat";
+
+    /**
+     * Stores the default time format when times are formatted.
+     */
+    public static final String PROPERTY_DEFAULT_TIMEFORMAT = "defaultTimeFormat";
 }

@@ -21,7 +21,12 @@
         <f:verbatim>:</f:verbatim>
         <h:panelGroup>
 #if ($field.type.dateType)
-            <x:inputCalendar id="${field.name}" monthYearRowClass="yearMonthHeader" weekRowClass="weekHeader" value="#{form.birthdate}" renderAsPopup="true" />
+            <x:inputCalendar id="${field.name}" 
+                             monthYearRowClass="yearMonthHeader" 
+                             weekRowClass="weekHeader" 
+                             value="#{form.birthdate}" 
+                             renderAsPopup="true" 
+                             popupDateFormat="$field.dateFormat"/>
 #else
             <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/>
 #end

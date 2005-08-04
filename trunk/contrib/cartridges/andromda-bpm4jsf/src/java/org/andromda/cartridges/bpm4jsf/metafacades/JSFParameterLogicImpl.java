@@ -27,10 +27,11 @@ import org.apache.commons.lang.StringUtils;
 public class JSFParameterLogicImpl
     extends JSFParameterLogic
 {
-
-    public JSFParameterLogicImpl (Object metaObject, String context)
+    public JSFParameterLogicImpl(
+        Object metaObject,
+        String context)
     {
-        super (metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -66,7 +67,7 @@ public class JSFParameterLogicImpl
         messageKey.append(StringUtilsHelper.toResourceMessageKey(super.getName()));
         return messageKey.toString();
     }
- 
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getDocumentationKey()
      */
@@ -80,10 +81,13 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetDocumentationValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        final String value = StringUtilsHelper.toResourceMessage(getDocumentation(
+                    "",
+                    64,
+                    false));
         return value == null ? "" : value;
     }
-    
+
     /**
      * Indicates whether or not we should normalize messages.
      *
@@ -94,7 +98,7 @@ public class JSFParameterLogicImpl
         final String normalizeMessages = (String)getConfiguredProperty(BPM4JSFGlobals.NORMALIZE_MESSAGES);
         return Boolean.valueOf(normalizeMessages).booleanValue();
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getMessageValue()
      */
@@ -102,7 +106,7 @@ public class JSFParameterLogicImpl
     {
         return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableColumnNames()
      */
@@ -131,7 +135,7 @@ public class JSFParameterLogicImpl
         }
         return tableColumnNames;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isTable()
      */
@@ -146,7 +150,7 @@ public class JSFParameterLogicImpl
         }
         return isTable;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableColumnMessageKey(String)
      */
@@ -177,7 +181,7 @@ public class JSFParameterLogicImpl
     {
         return this.isTable() ? StringUtilsHelper.toPhrase(columnName) : null;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableHyperlinkActions()
      */
@@ -185,7 +189,7 @@ public class JSFParameterLogicImpl
     {
         return this.getTableActions(true);
     }
-    
+
     /**
      * If this is a table this method returns all those actions that are declared to work
      * on this table.
@@ -199,7 +203,7 @@ public class JSFParameterLogicImpl
         if (name != null && isTable())
         {
             final JSFView view = (JSFView)this.getView();
-    
+
             final Collection allUseCases = getModel().getAllUseCases();
             for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
             {
@@ -231,7 +235,7 @@ public class JSFParameterLogicImpl
         }
         return new ArrayList(actions);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableFormActions()
      */
@@ -239,7 +243,7 @@ public class JSFParameterLogicImpl
     {
         return this.getTableActions(false);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableColumns()
      */
@@ -253,6 +257,7 @@ public class JSFParameterLogicImpl
 
         // all table actions need the exact same parameters, just not always all of them
         actions.addAll(this.getTableFormActions());
+
         // if there are any actions that are hyperlinks then their parameters get priority
         // the user should not have modeled it that way (constraints will warn him/her)
         actions.addAll(this.getTableHyperlinkActions());
@@ -273,7 +278,9 @@ public class JSFParameterLogicImpl
                     if (existingParameter == null ||
                         (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())))
                     {
-                        tableColumnsMap.put(parameterName, parameter);
+                        tableColumnsMap.put(
+                            parameterName,
+                            parameter);
                     }
                 }
             }
@@ -286,7 +293,9 @@ public class JSFParameterLogicImpl
             final String columnName = (String)columnNameIterator.next();
             if (!tableColumnsMap.containsKey(columnName))
             {
-                tableColumnsMap.put(columnName, columnName);
+                tableColumnsMap.put(
+                    columnName,
+                    columnName);
             }
         }
 
@@ -301,9 +310,93 @@ public class JSFParameterLogicImpl
         return tableColumns;
     }
 
-    protected List handleGetUsecaseRelatedParameters()
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getDateFormat()
+     */
+    protected String handleGetDateFormat()
     {
-        // TODO Auto-generated method stub
-        return null;
+        final String format = this.getInputFormat();
+        return format == null ? this.getDefaultDateFormat() : this.getDateFormat(format);
+    }
+
+    /**
+     * @return this field's date format
+     */
+    private String getDateFormat(String format)
+    {
+        return this.isStrictDateFormat(format) ? getToken(
+            format,
+            1,
+            2) : this.getToken(
+            format,
+            0,
+            1);
+    }
+
+    /**
+     * @return <code>true</code> if this field's value needs to conform to a strict date format, <code>false</code> otherwise
+     */
+    private boolean isStrictDateFormat(String format)
+    {
+        return "strict".equalsIgnoreCase(getToken(
+                format,
+                0,
+                2));
+    }
+
+    /**
+     * @return the i-th space delimited token read from the argument String, where i does not exceed the specified limit
+     */
+    private String getToken(
+        String string,
+        int index,
+        int limit)
+    {
+        String token = null;
+        if (string != null && string.length() > 0)
+        {
+            final String[] tokens = string.split(
+                    "[\\s]+",
+                    limit);
+            token = index >= tokens.length ? null : tokens[index];
+        }
+        return token;
+    }
+
+    /**
+     * @return the default date format pattern as defined using the configured property
+     */
+    private String getDefaultDateFormat()
+    {
+        return (String)this.getConfiguredProperty(BPM4JSFGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTimeFormat()
+     */
+    protected String handleGetTimeFormat()
+    {
+        final String format = this.getInputFormat();
+        return format == null ? this.getDefaultTimeFormat() : format;
+    }
+
+    /**
+     * @return the default time format pattern as defined using the configured property
+     */
+    private String getDefaultTimeFormat()
+    {
+        return (String)this.getConfiguredProperty(BPM4JSFGlobals.PROPERTY_DEFAULT_TIMEFORMAT);
+    }
+
+    /**
+     * Retrieves the input format defined by the {@link BPM4JSFProfile#TAGGEDVALUE_INPUT_FORMAT}.
+     *
+     * @return the input format.
+     */
+    private final String getInputFormat()
+    {
+        final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
+        final String format = value == null ? null : String.valueOf(value);
+        return format == null ? null : format.trim();
     }
 }
