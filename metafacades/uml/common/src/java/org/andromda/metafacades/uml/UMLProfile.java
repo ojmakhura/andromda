@@ -277,6 +277,12 @@ public class UMLProfile
      * type.
      */
     public static final String DATE_TYPE_NAME = profile.get("DATE_TYPE");
+    
+    /**
+     * Used to identify time types in the model, any other type that will be identified as a time must specialize this
+     * type.
+     */
+    public static final String TIME_TYPE_NAME = profile.get("TIME_TYPE");
 
     /**
      * Used to identify a boolean type in the model, any other type that will be identified as a boolean type must
