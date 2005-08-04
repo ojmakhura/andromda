@@ -26,6 +26,8 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_ACTION_FORM_SCOPE = profile.get("ACTION_FORM_SCOPE");
     public static final String TAGGEDVALUE_ACTION_FORM_KEY = profile.get("ACTION_FORM_KEY");
     public static final String TAGGEDVALUE_ACTION_TABLELINK = profile.get("ACTION_TABLELINK");
+    public static final String TAGGEDVALUE_INPUT_COLUMN_COUNT = profile.get("INPUT_COLUMN_COUNT");
+    public static final String TAGGEDVALUE_INPUT_ROW_COUNT = profile.get("INPUT_ROW_COUNT");
     public static final String TAGGEDVALUE_INPUT_REQUIRED = profile.get("INPUT_REQUIRED");
     public static final String TAGGEDVALUE_INPUT_READONLY = profile.get("INPUT_READONLY");
     public static final String TAGGEDVALUE_INPUT_FORMAT = profile.get("INPUT_FORMAT");

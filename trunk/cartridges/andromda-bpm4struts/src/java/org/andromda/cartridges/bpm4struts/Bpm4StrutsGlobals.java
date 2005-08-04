@@ -9,6 +9,16 @@ package org.andromda.cartridges.bpm4struts;
 public class Bpm4StrutsGlobals
 {
     /**
+     * The default number of columns to render for input fields.
+     */
+    public static final String PROPERTY_DEFAULT_INPUT_COLUMN_COUNT = "defaultInputColumnCount";
+
+    /**
+     * The default number of rows to render for textarea fields.
+     */
+    public static final String PROPERTY_DEFAULT_INPUT_ROW_COUNT = "defaultInputRowCount";
+
+    /**
      * Stores the default date format when dates are formatted.
      */
     public static final String PROPERTY_DEFAULT_DATEFORMAT = "defaultDateFormat";

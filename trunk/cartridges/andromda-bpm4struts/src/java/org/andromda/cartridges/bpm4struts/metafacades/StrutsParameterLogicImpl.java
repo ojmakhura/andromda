@@ -1876,4 +1876,54 @@ public class StrutsParameterLogicImpl
     {
         return this.isValidatorTime();
     }
+
+    protected Integer handleGetFieldColumnCount()
+    {
+        Integer columnCount = null;
+
+        Object columnCountObject = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_COLUMN_COUNT);
+        if (columnCountObject == null)
+        {
+            columnCountObject = this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_INPUT_COLUMN_COUNT);
+        }
+
+        if (columnCountObject != null)
+        {
+            try
+            {
+                columnCount = Integer.valueOf(columnCountObject.toString());
+            }
+            catch (NumberFormatException e)
+            {
+                // do nothing, we want columnCount to be null in case of an invalid value
+            }
+        }
+
+        return columnCount;
+    }
+
+    protected Integer handleGetFieldRowCount()
+    {
+        Integer rowCount = null;
+
+        Object rowCountObject = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_ROW_COUNT);
+        if (rowCountObject == null)
+        {
+            rowCountObject = this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_INPUT_ROW_COUNT);
+        }
+
+        if (rowCountObject != null)
+        {
+            try
+            {
+                rowCount = Integer.valueOf(rowCountObject.toString());
+            }
+            catch (NumberFormatException e)
+            {
+                // do nothing, we want rowCount to be null in case of an invalid value
+            }
+        }
+
+        return rowCount;
+    }
 }
