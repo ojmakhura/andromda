@@ -128,6 +128,17 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
+<!--    UNCOMMENT THE NEXT DEPENDENCY TO INCLUDE THE STRUTS-MENU TAGLIB
+        <dependency>
+            <groupId>struts-menu</groupId>
+            <artifactId>struts-menu</artifactId>
+            <version>${struts.menu.version}</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+-->
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>

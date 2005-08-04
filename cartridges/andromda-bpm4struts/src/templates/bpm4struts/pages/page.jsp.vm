@@ -9,7 +9,7 @@
 #set ($trigger = $action.actionTrigger)
 #set ($triggerKey = $trigger.triggerKey)
 #set ($parameters = $action.actionParameters)
-#set ($formBeanName = $formName)
+#set ($formBeanName = $action.formKey)
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
@@ -136,7 +136,7 @@ ${indent}</logic:notPresent>
 #macro ( renderFormField $action $field $indent $rowIndex )
 #set ($fieldName = $field.name)
 #set ($widgetType = $field.widgetType)
-#set ($formBeanName = $formName)## used to denote the request scope form
+#set ($formBeanName = $action.formKey)## used to denote the request scope form
 #if($rowIndex=='')
 #set($beanName=$formBeanName)
 #else
@@ -159,9 +159,10 @@ ${indent}</logic:notPresent>
 #if ($widgetType == 'radio')
 ${indent}<table>
 #foreach ($optionKey in $field.optionKeys)
+#set ($optionIndex = $velocityCount - 1)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <html:$widgetType name="$beanName" property="$fieldName" value="$optionKey" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
+${indent}            <html:$widgetType name="$beanName" property="$fieldName" value="$optionIndex" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
 ${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>

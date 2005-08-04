@@ -3,9 +3,6 @@
 <!-- contains the bpm4struts cartridge metafacade mappings -->
 <metafacades>
     <property reference="defaultActionRedirect"/>
-    <!-- should only be used in StrutsAction .. but we don't want to copy it for both element declarations below -->
-    <property reference="actionPathPrefix"/>
-    <property reference="actionFormScope"/>
     <!-- denotes which kind of resource messages should be generated -->
     <property reference="normalizeMessages"/>
     <property reference="disableValidationForHiddenFormFields"/>
@@ -96,12 +93,14 @@
             <property name="exitingInitialState"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
+        <property reference="actionFormScope"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
             <property name="exitingPage"/>
         </mapping>
+        <property reference="actionFormScope"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogicImpl">

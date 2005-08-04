@@ -9,7 +9,14 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-RC1-SNAPSHOT" date="2005-07-29" description="First release candidate of version 3.1">
+        <release version="3.1-RC1-SNAPSHOT" date="2005-08-04" description="First release candidate of version 3.1">
+            <action dev="draftdog" type="update" issue="BPM-230">
+                Handling of
+                <a href="andromda-bpm4struts-cartridge/howto2.html#Event_Parameters">options in bpm4struts</a>
+                has been improved, if you are using this feature please beware
+                that the option values sent from the client to the server are no longer equal to the message keys used.
+                This has been changed to sent the selection index instead 0,1,2,... and so on.
+            </action>
             <action dev="cwbrandon" type="update">
                 In order for the presentation metafacades to be made generic enough for use within other frameworks
                 (besides struts), the following tagged values have been renamed:
@@ -62,11 +69,6 @@
             <action dev="draftdog" type="add" issue="BPM-213">
                 Support for error pages has been added to the bpm4struts cartridge, by default HTTP error codes
                 400, 403, 404 and 500 are supported, as well as exceptions not caught by Struts.
-            </action>
-            <action dev="draftdog" type="update" issue="CORE-54">
-                Common utility classes have been refactored out of the AndroMDA core, there is now a separate
-                artifact for those called <code>andromda-utils</code>. In order to run andromda on projects
-                created before this change you will need to add a dependency to it in<code>mda/project.xml</code>.
             </action>
             <action dev="draftdog" type="update">
                 Each <![CDATA[<<FrontEndView>>]]> in the bpm4struts cartridge will result in the generation of a JSP

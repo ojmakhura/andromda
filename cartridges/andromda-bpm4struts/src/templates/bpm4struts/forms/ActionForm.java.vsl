@@ -69,7 +69,6 @@ public class $formBeanClassName
     {
         this.${fieldName}.clear();
     }
-    
 #elseif ($field.strutsAction.tableAction)
     /**
      * Resets the given <code>${fieldName}RowSelection</code>.
@@ -295,8 +294,32 @@ $field.getDocumentation("     * ")
         return this.$fieldName;
     }
     
+#if ($field.widgetType == "radio")
+    /**
+     * Converts the selected option index to the corresponding value as it was modeled.
+     */
+    public $field.type.fullyQualifiedName ${field.getterName}OptionValue(int optionIndex)
+    {
+        switch(optionIndex)
+        {
+#set ($optionValues = $field.optionValues)
+#foreach ($optionKey in $field.optionKeys)
+#set ($optionIndex = $velocityCount - 1)
+#if ($field.type.fullyQualifiedName == "java.lang.String")
+            case $optionIndex : return "$optionValues[$optionIndex]";
+#else
+            case $optionIndex : return new ${field.type.fullyQualifiedName}("$optionValues.get($optionIndex)");
 #end
-#set ($listType = "Object[]")
+#end
+            default:
+                throw new java.lang.ArrayIndexOutOfBoundsException(
+                    "Cannot access option "+optionIndex+", please specify a value in the range [0-$optionIndex]");
+        }
+    }
+
+#end
+#end
+#set ($listType = "java.lang.Object[]")
 #set ($backingListName = $field.backingListName)
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 #set ($valueListName = $field.valueListName)
@@ -318,7 +341,7 @@ $field.getDocumentation("     * ")
             labels = values;
         }
 
-        final int length = Math.min(labels.length, values.length);
+        final int length = java.lang.Math.min(labels.length, values.length);
         java.lang.Object[] backingList = new java.lang.Object[length];
 
         for (int i=0; i<length; i++)
@@ -349,7 +372,7 @@ $field.getDocumentation("     * ")
         this.$labelListName = $labelListName;
     }
 
-    public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty)
+    public void set${backingListMethod}(java.util.Collection items, java.lang.String valueProperty, java.lang.String labelProperty)
     {
         if (valueProperty == null || labelProperty == null)
         {
@@ -377,7 +400,7 @@ $field.getDocumentation("     * ")
             }
             catch (Exception ex)
             {
-                throw new RuntimeException("${formBeanClassName}.set${backingListMethod} encountered an exception", ex);
+                throw new java.lang.RuntimeException("${formBeanClassName}.set${backingListMethod} encountered an exception", ex);
             }
         }
     }
@@ -404,7 +427,7 @@ $field.getDocumentation("     * ")
 #end
     }
 
-    public String toString()
+    public java.lang.String toString()
     {
         org.apache.commons.lang.builder.ToStringBuilder builder =
             new org.apache.commons.lang.builder.ToStringBuilder(this);
@@ -476,7 +499,7 @@ $field.getDocumentation("     * ")
             return this.value;
         }
 
-        public String toString()
+        public java.lang.String toString()
         {
             return label + "=" + value;
         }

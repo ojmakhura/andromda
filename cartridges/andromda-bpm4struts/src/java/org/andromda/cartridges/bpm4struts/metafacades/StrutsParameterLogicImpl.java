@@ -34,9 +34,8 @@ import java.util.Set;
 public class StrutsParameterLogicImpl
     extends StrutsParameterLogic
 {
-    public StrutsParameterLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+    public StrutsParameterLogicImpl(java.lang.Object metaObject,
+                                    java.lang.String context)
     {
         super(metaObject, context);
     }
@@ -246,14 +245,15 @@ public class StrutsParameterLogicImpl
         String dateSuffix = "";
         if (isDate())
         {
-            dateSuffix = (isStrictDateFormat()) ?
-                " (use this strict format: " + getDateFormat() + ")" :
-                " (use this lenient format: " + getDateFormat() + ")";
+            dateSuffix = (isStrictDateFormat())
+                ? " (use this strict format: " + getDateFormat() + ")"
+                : " (use this lenient format: " + getDateFormat() + ")";
         }
 
         String documentation = getDocumentation("", 64, false);
-        return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation)) ?
-            super.getName() + requiredSuffix + dateSuffix : documentation.trim().replaceAll("\n", "<br/>"));
+        return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation))
+            ? super.getName() + requiredSuffix + dateSuffix
+            : documentation.trim().replaceAll("\n", "<br/>"));
     }
 
     protected String handleGetDocumentationKey()
@@ -288,51 +288,48 @@ public class StrutsParameterLogicImpl
 
         if ("password".equals(getWidgetType()))
         {
-            buffer.append("This is a password field, it will not show the data you enter, " +
-                "each character will be masked using an asterisk");
+            buffer.append("This is a password field, it will not show the data you enter, ")
+                .append("each character will be masked using an asterisk");
             buffer.append(crlf);
         }
 
         if (isCreditCardFormat(format))
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://www.beachnet.com/~hstiles/cardtype.html\" target=\"_blank\">creditcard</a> ");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://www.beachnet.com/~hstiles/cardtype.html\" target=\"_blank\">creditcard</a> ");
             buffer.append(crlf);
         }
 
         if (isDate())
         {
             String dateFormat = getDateFormat();
-            buffer.append("This field represents a date and should be formatted in the matter described here" +
-                "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" " +
-                "target=\"_jdk\">");
-            buffer.append(dateFormat + "</a> ");
+            buffer.append("This field represents a date and should be formatted in the matter described here")
+                .append("<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" ")
+                .append("target=\"_jdk\">");
+            buffer.append(dateFormat).append("</a> ");
 
-            if (isStrictDateFormat())
-            {
-                buffer.append("This format is strict in the sense that the parser will not use any heuristics in " +
-                    "order to guess the intended date in case the input would not perfectly match the format");
-            }
+            if (isStrictDateFormat()) buffer
+                .append("This format is strict in the sense that the parser will not use any heuristics in ")
+                .append("order to guess the intended date in case the input would not perfectly match the format");
             else
             {
-                buffer.append("This format is lenient in the sense that the parser will attempt to use heuristics in " +
-                    "order to guess the intended date in case the input would not perfectly match the format");
+                buffer.append("This format is lenient in the sense that the parser will attempt to use heuristics in ")
+                    .append("order to guess the intended date in case the input would not perfectly match the format");
             }
             buffer.append(crlf);
-            buffer
-                .append("A calendar has been foreseen to select a date from, it will automatically convert the date " +
-                    "to the appropriate format.");
+            buffer.append("A calendar has been foreseen to select a date from, it will automatically convert the date ")
+                .append("to the appropriate format.");
             buffer.append(crlf);
         }
 
         if (this.isValidatorTime())
         {
             String dateFormat = getDateFormat();
-            buffer.append(
-                "This field represents a time and should be formatted in the manner described here (for time) " +
-                    "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" " +
-                    "target=\"_jdk\">");
-            buffer.append(dateFormat + "</a> ");
+            buffer
+                .append("This field represents a time and should be formatted in the manner described here (for time) ")
+                .append("<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html\" ")
+                .append("target=\"_jdk\">");
+            buffer.append(dateFormat).append("</a> ");
         }
 
         if (isEmailFormat(format))
@@ -379,8 +376,8 @@ public class StrutsParameterLogicImpl
         final String validWhen = getValidWhen();
         if (validWhen != null)
         {
-            buffer.append("This field is only valid under specific conditions, more concretely the following " +
-                "expression must evaluate true: " + validWhen);
+            buffer.append("This field is only valid under specific conditions, more concretely the following ")
+                .append("expression must evaluate true: ").append(validWhen);
             buffer.append(crlf);
         }
 
@@ -392,81 +389,79 @@ public class StrutsParameterLogicImpl
 
         if (isValidatorBoolean())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                "target=\"_jdk\">boolean</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" ")
+                .append("target=\"_jdk\">boolean</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorByte())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                "target=\"_jdk\">byte</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" ")
+                .append("target=\"_jdk\">byte</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorChar())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                "target=\"_jdk\">character</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" ")
+                .append("target=\"_jdk\">character</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorDouble())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                "target=\"_jdk\">double precision integer</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" ")
+                .append("target=\"_jdk\">double precision integer</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorFloat())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                "target=\"_jdk\">floating point</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" ")
+                .append("target=\"_jdk\">floating point</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorInteger())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                "target=\"_jdk\">integer</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" ")
+                .append("target=\"_jdk\">integer</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorLong())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                "target=\"_jdk\">long integer</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" ")
+                .append("target=\"_jdk\">long integer</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorShort())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" " +
-                "target=\"_jdk\">short integer</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/docs/books/tutorial/java/nutsandbolts/datatypes.html\" ")
+                .append("target=\"_jdk\">short integer</a> value");
             buffer.append(crlf);
         }
         else if (isValidatorUrl())
         {
-            buffer.append("The value of this field should reflect a " +
-                "<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/net/URL.html\" " +
-                "target=\"_jdk\">URL</a> value");
+            buffer.append("The value of this field should reflect a ")
+                .append("<a href=\"http://java.sun.com/j2se/1.4.2/docs/api/java/net/URL.html\" ")
+                .append("target=\"_jdk\">URL</a> value");
             buffer.append(crlf);
         }
-
 
         return StringUtilsHelper.toResourceMessage(buffer.toString());
     }
 
     protected boolean handleIsCalendarRequired()
     {
-        return isDate() &&
-            String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)).equals("true");
+        return isDate() && String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)).equals("true");
     }
 
     /**
      * Overridden since StrutsAction does not extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndParameter#isActionParameter()
      */
     public boolean isActionParameter()
@@ -560,8 +555,8 @@ public class StrutsParameterLogicImpl
                 }
                 else
                 {
-                    sameParameter =
-                        name.equals(parameter.getName()) && type.equals(parameter.getType().getFullyQualifiedName());
+                    sameParameter = name.equals(parameter.getName()) &&
+                        type.equals(parameter.getType().getFullyQualifiedName());
                 }
             }
         }
@@ -571,17 +566,17 @@ public class StrutsParameterLogicImpl
 
     protected List handleGetTableFormActions()
     {
-        return this.internalGetTableActions(false,true,false);
+        return this.internalGetTableActions(false, true, false);
     }
 
     protected List handleGetTableHyperlinkActions()
     {
-        return this.internalGetTableActions(true,false,false);
+        return this.internalGetTableActions(true, false, false);
     }
 
     protected Collection handleGetTableGlobalActions()
     {
-        return this.internalGetTableActions(false,false,true);
+        return this.internalGetTableActions(false, false, true);
     }
 
     protected Object handleGetTableGlobalActionParameter()
@@ -644,7 +639,9 @@ public class StrutsParameterLogicImpl
      * If this is a table this method returns all those actions that are declared to work
      * on this table.
      */
-    private List internalGetTableActions(boolean hyperlink, boolean formPost, boolean tableAction)
+    private List internalGetTableActions(boolean hyperlink,
+                                         boolean formPost,
+                                         boolean tableAction)
     {
         final String name = StringUtils.trimToNull(getName());
         if (name == null || !isTable())
@@ -674,7 +671,9 @@ public class StrutsParameterLogicImpl
                             final StrutsAction action = (StrutsAction)transition;
                             if (action.isTableLink() && name.equals(action.getTableLinkName()))
                             {
-                                if ( (hyperlink && action.isHyperlink()) || (formPost && action.isFormPost()) || (tableAction && action.isTableAction()))
+                                if ((hyperlink && action.isHyperlink()) ||
+                                    (formPost && action.isFormPost()) ||
+                                    (tableAction && action.isTableAction()))
                                 {
                                     tableActions.add(action);
                                 }
@@ -740,8 +739,10 @@ public class StrutsParameterLogicImpl
                 for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
                 {
                     final String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                    if ("csv".equalsIgnoreCase(exportType) || "pdf".equalsIgnoreCase(exportType) ||
-                        "xml".equalsIgnoreCase(exportType) || "excel".equalsIgnoreCase(exportType))
+                    if ("csv".equalsIgnoreCase(exportType) ||
+                        "pdf".equalsIgnoreCase(exportType) ||
+                        "xml".equalsIgnoreCase(exportType) ||
+                        "excel".equalsIgnoreCase(exportType))
                     {
                         buffer.append(exportType);
                         buffer.append(' ');
@@ -762,8 +763,9 @@ public class StrutsParameterLogicImpl
     protected boolean handleIsTableSortable()
     {
         final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
-        return (taggedValue == null) ?
-            Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE : this.isTrue(String.valueOf(taggedValue));
+        return (taggedValue == null)
+            ? Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
+            : this.isTrue(String.valueOf(taggedValue));
     }
 
     protected boolean handleIsTableHyperlinkColumn()
@@ -959,14 +961,10 @@ public class StrutsParameterLogicImpl
                 final ClassifierFacade type = getType();
                 if (type != null)
                 {
-                    if (type.isFileType())
-                        widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE;
-                    else if (isValidatorBoolean())
-                        widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;
-                    else if (isMultiple())
-                        widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT;
-                    else
-                        widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;
+                    if (type.isFileType()) widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE;
+                    else if (isValidatorBoolean()) widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;
+                    else if (isMultiple()) widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT;
+                    else widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;
                 }
             }
             else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
@@ -1105,8 +1103,8 @@ public class StrutsParameterLogicImpl
                             String parameterTypeName = parameterType.getFullyQualifiedName();
                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
                             {
-                                selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(
-                                    parameter.getWidgetType());
+                                selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT
+                                    .equals(parameter.getWidgetType());
                             }
                         }
                     }
@@ -1156,8 +1154,17 @@ public class StrutsParameterLogicImpl
     private String constructArray()
     {
         final String name = getName();
-        return "new Object[] {\"" + name + "-1\", \"" + name + "-2\", \"" + name + "-3\", \"" + name + "-4\", \"" +
-            name + "-5\"}";
+        return "new Object[] {\"" +
+            name +
+            "-1\", \"" +
+            name +
+            "-2\", \"" +
+            name +
+            "-3\", \"" +
+            name +
+            "-4\", \"" +
+            name +
+            "-5\"}";
     }
 
     /**
@@ -1236,9 +1243,10 @@ public class StrutsParameterLogicImpl
      */
     private boolean isTrue(String string)
     {
-        return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
-            "1".equalsIgnoreCase(
-                string);
+        return "yes".equalsIgnoreCase(string) ||
+            "true".equalsIgnoreCase(string) ||
+            "on".equalsIgnoreCase(string) ||
+            "1".equalsIgnoreCase(string);
     }
 
     /**
@@ -1291,8 +1299,7 @@ public class StrutsParameterLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-        final String disableValidationForHiddenFormFields =
-            (String)getConfiguredProperty(Bpm4StrutsGlobals.DISABLE_VALIDATION_FOR_HIDDEN_FORM_FIELDS);
+        final String disableValidationForHiddenFormFields = (String)getConfiguredProperty(Bpm4StrutsGlobals.DISABLE_VALIDATION_FOR_HIDDEN_FORM_FIELDS);
         return !("true".equals(disableValidationForHiddenFormFields) && "hidden".equals(getWidgetType())) &&
             !getValidatorTypes().isEmpty();
     }
@@ -1316,24 +1323,15 @@ public class StrutsParameterLogicImpl
 
             if (isRequired()) validatorTypesList.add("required");
 
-            if (isValidatorByte())
-                validatorTypesList.add("byte");
-            else if (isValidatorShort())
-                validatorTypesList.add("short");
-            else if (isValidatorInteger())
-                validatorTypesList.add("integer");
-            else if (isValidatorLong())
-                validatorTypesList.add("long");
-            else if (isValidatorFloat())
-                validatorTypesList.add("float");
-            else if (isValidatorDouble())
-                validatorTypesList.add("double");
-            else if (isValidatorDate())
-                validatorTypesList.add("date");
-            else if (isValidatorTime())
-                validatorTypesList.add("time");
-            else if (isValidatorUrl())
-                validatorTypesList.add("url");
+            if (isValidatorByte()) validatorTypesList.add("byte");
+            else if (isValidatorShort()) validatorTypesList.add("short");
+            else if (isValidatorInteger()) validatorTypesList.add("integer");
+            else if (isValidatorLong()) validatorTypesList.add("long");
+            else if (isValidatorFloat()) validatorTypesList.add("float");
+            else if (isValidatorDouble()) validatorTypesList.add("double");
+            else if (isValidatorDate()) validatorTypesList.add("date");
+            else if (isValidatorTime()) validatorTypesList.add("time");
+            else if (isValidatorUrl()) validatorTypesList.add("url");
 
             if (isRangeFormat)
             {
@@ -1344,22 +1342,17 @@ public class StrutsParameterLogicImpl
 
             if (format != null)
             {
-                if (isValidatorString() && isEmailFormat(format))
-                    validatorTypesList.add("email");
-                else if (isValidatorString() && isCreditCardFormat(format))
-                    validatorTypesList.add("creditCard");
+                if (isValidatorString() && isEmailFormat(format)) validatorTypesList.add("email");
+                else if (isValidatorString() && isCreditCardFormat(format)) validatorTypesList.add("creditCard");
                 else
                 {
                     Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
                     for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
                         String additionalFormat = String.valueOf(formatIterator.next());
-                        if (isMinLengthFormat(additionalFormat))
-                            validatorTypesList.add("minlength");
-                        else if (isMaxLengthFormat(additionalFormat))
-                            validatorTypesList.add("maxlength");
-                        else if (isPatternFormat(additionalFormat))
-                            validatorTypesList.add("mask");
+                        if (isMinLengthFormat(additionalFormat)) validatorTypesList.add("minlength");
+                        else if (isMaxLengthFormat(additionalFormat)) validatorTypesList.add("maxlength");
+                        else if (isPatternFormat(additionalFormat)) validatorTypesList.add("mask");
                     }
                 }
             }
@@ -1395,7 +1388,8 @@ public class StrutsParameterLogicImpl
     protected java.util.Collection handleGetValidatorArgs(java.lang.String validatorType)
     {
         final Collection args = new ArrayList();
-        if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) ||
+        if ("intRange".equals(validatorType) ||
+            "floatRange".equals(validatorType) ||
             "doubleRange".equals(validatorType))
         {
             args.add("${var:min}");
@@ -1470,15 +1464,12 @@ public class StrutsParameterLogicImpl
                     for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
                         final String additionalFormat = String.valueOf(formatIterator.next());
-                        if (isMinLengthFormat(additionalFormat))
-                            vars.put("minlength",
-                                Arrays.asList(new Object[]{"minlength", this.getMinLengthValue(additionalFormat)}));
-                        else if (isMaxLengthFormat(additionalFormat))
-                            vars.put("maxlength",
-                                Arrays.asList(new Object[]{"maxlength", this.getMaxLengthValue(additionalFormat)}));
-                        else if (isPatternFormat(additionalFormat))
-                            vars.put("mask",
-                                Arrays.asList(new Object[]{"mask", this.getPatternValue(additionalFormat)}));
+                        if (isMinLengthFormat(additionalFormat)) vars.put("minlength",
+                            Arrays.asList(new Object[]{"minlength", this.getMinLengthValue(additionalFormat)}));
+                        else if (isMaxLengthFormat(additionalFormat)) vars.put("maxlength",
+                            Arrays.asList(new Object[]{"maxlength", this.getMaxLengthValue(additionalFormat)}));
+                        else if (isPatternFormat(additionalFormat)) vars
+                            .put("mask", Arrays.asList(new Object[]{"mask", this.getPatternValue(additionalFormat)}));
                     }
                 }
             }
@@ -1554,8 +1545,9 @@ public class StrutsParameterLogicImpl
     {
         final String key = getMessageKey() + '.';
         final List optionKeys = new ArrayList();
-        final int optionCount = getOptionCount() + 1;
-        for (int i = 1; i < optionCount; i++) optionKeys.add(key + i);
+        final int optionCount = getOptionCount();
+        for (int i = 0; i < optionCount; i++)
+            optionKeys.add(key + i);
         return optionKeys;
     }
 
@@ -1746,8 +1738,12 @@ public class StrutsParameterLogicImpl
      */
     private boolean isRangeFormat(String format)
     {
-        return "range".equalsIgnoreCase(getToken(format, 0, 2)) && (isValidatorInteger() || isValidatorLong() ||
-            isValidatorShort() || isValidatorFloat() || isValidatorDouble());
+        return "range".equalsIgnoreCase(getToken(format, 0, 2)) &&
+            (isValidatorInteger() ||
+                isValidatorLong() ||
+                isValidatorShort() ||
+                isValidatorFloat() ||
+                isValidatorDouble());
 
     }
 
@@ -1834,10 +1830,9 @@ public class StrutsParameterLogicImpl
     /**
      * @return the i-th space delimited token read from the argument String, where i does not exceed the specified limit
      */
-    private String getToken(
-        String string,
-        int index,
-        int limit)
+    private String getToken(String string,
+                            int index,
+                            int limit)
     {
         if (string == null) return null;
 

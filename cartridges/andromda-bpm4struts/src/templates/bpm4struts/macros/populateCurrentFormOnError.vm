@@ -8,11 +8,11 @@
 ##
 #macro (populateCurrentFormOnError)
             // we populate the current form with only the request parameters
-            Object currentForm = request.getSession().getAttribute("$formName");
+            Object currentForm = request.getSession().getAttribute("$action.formKey");
             // if we can't get the 'form' from the session, try from the request
             if (currentForm == null)
             {
-                currentForm = request.getAttribute("$formName");
+                currentForm = request.getAttribute("$action.formKey");
             }
             if (currentForm != null)
             {

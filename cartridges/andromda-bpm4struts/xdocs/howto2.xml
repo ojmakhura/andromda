@@ -239,6 +239,20 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
 @andromda.struts.view.field.radio=cd,dvd,book,hardware
 ]]></source>
                             </p>
+                            <p>
+                                Getting the selected option's value from the form will return the selection index
+                                encapsulated by a class of this field's type. There is also a convenient method
+                                present on the form that is able to convert this index to the modeled selection value.
+                            </p>
+                            <p>
+                                In the example above one would have:
+                                <ul>
+                                    <li>0: cd</li>
+                                    <li>1: dvd</li>
+                                    <li>2: book</li>
+                                    <li>3: hardware</li>
+                                </ul>
+                            </p>
                         </td></tr>
                         <tr><td>
                             <strong>File upload</strong>
