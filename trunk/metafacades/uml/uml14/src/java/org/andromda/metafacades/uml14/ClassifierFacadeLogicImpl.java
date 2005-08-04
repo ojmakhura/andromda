@@ -211,6 +211,16 @@ public class ClassifierFacadeLogicImpl
             this,
             UMLProfile.DATE_TYPE_NAME);
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isTimeType()
+     */
+    protected boolean handleIsTimeType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.TIME_TYPE_NAME);
+    }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isFileType()
