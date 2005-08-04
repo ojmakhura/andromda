@@ -45,7 +45,7 @@
                         for an example).
                     </li>
                 </ul>
-                Properties are grouped logically according to <em>propertyGroup</em> elements each with a <em>required</em> name 
+                Properties are grouped logically according to <em>propertyGroup</em> elements, each with a <em>required</em> name 
                 defining what the group of properties configures, and an <em>optional</em> documentation element that describes in 
                 more detail what this group of properties does.  Each property defines the name of a property that can be configured 
                 through a namespace element in the <a href="configuration.html">AndroMDA Configuration</a>.  Properties defined here 
