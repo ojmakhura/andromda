@@ -31,20 +31,9 @@ $operation.getDocumentation("     * ")
             final $action.fullyQualifiedFormImplementationName form =
                 ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
                     facesContext,
-                    "$action.formBeanName");
-            final Object previousForm = variableResolver.resolveVariable(facesContext, "$globalFormBeanName");
-            try
-            {          
-                // - populate the form with any parameters from the previous form
-                org.apache.commons.beanutils.PropertyUtils.copyProperties(form, previousForm);
-            
-                // - populate the form with any request parameters that may match
-                org.apache.commons.beanutils.BeanUtils.populate(form, this.getContext().getExternalContext().getRequestParameterMap());
-            }
-            catch (final Exception exception)
-            {
-                // ignore - means we couldn't populate
-            }
+                    "$action.formBeanName");                  
+            // - populate the form with any request parameters that may match
+            org.apache.commons.beanutils.BeanUtils.populate(form, this.getContext().getExternalContext().getRequestParameterMap());
 #end
 #if (!$deferredOperations.empty)
             try
@@ -65,8 +54,7 @@ $operation.getDocumentation("     * ")
             }
 #end
 #if (!$action.formFields.empty)
-            javax.servlet.http.HttpSession session = (javax.servlet.http.HttpSession)facesContext.getExternalContext().getSession(true);
-            session.setAttribute("$globalFormBeanName", form);
+            this.getSession(true).setAttribute("$globalFormBeanName", form);
 #end
         }
         catch (final Throwable throwable)

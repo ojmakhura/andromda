@@ -300,4 +300,10 @@ public class JSFParameterLogicImpl
 
         return tableColumns;
     }
+
+    protected List handleGetUsecaseRelatedParameters()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

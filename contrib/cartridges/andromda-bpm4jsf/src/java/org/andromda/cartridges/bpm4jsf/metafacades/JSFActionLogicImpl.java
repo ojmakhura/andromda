@@ -1,5 +1,6 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -370,5 +372,23 @@ public class JSFActionLogicImpl
     {
         return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
         "1".equalsIgnoreCase(string);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getOtherUseCaseFormActions()
+     */
+    protected List handleGetOtherUseCaseFormActions()
+    {
+        final List otherActions = new ArrayList(this.getUseCase().getActions());
+        for (final Iterator iterator = otherActions.iterator(); iterator.hasNext();)
+        {
+            final FrontEndAction action = (FrontEndAction)iterator.next();
+            // - remove this action and any forms that don't have form fields
+            if (action.equals(this.THIS()) || action.getFormFields().isEmpty())
+            {
+                iterator.remove();    
+            }
+        }
+        return otherActions;
     }
 }
