@@ -24,6 +24,7 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_ACTION_SUCCESS_MESSAGE = profile.get("ACTION_SUCCESS_MESSAGE");
     public static final String TAGGEDVALUE_ACTION_WARNING_MESSAGE = profile.get("ACTION_WARNING_MESSAGE");
     public static final String TAGGEDVALUE_ACTION_FORM_SCOPE = profile.get("ACTION_FORM_SCOPE");
+    public static final String TAGGEDVALUE_ACTION_FORM_KEY = profile.get("ACTION_FORM_KEY");
     public static final String TAGGEDVALUE_ACTION_TABLELINK = profile.get("ACTION_TABLELINK");
     public static final String TAGGEDVALUE_INPUT_REQUIRED = profile.get("INPUT_REQUIRED");
     public static final String TAGGEDVALUE_INPUT_READONLY = profile.get("INPUT_READONLY");
@@ -58,6 +59,7 @@ public class Bpm4StrutsProfile
     /* ----------------- Default Values ------------------- */
     public static final String TAGGEDVALUE_INPUT_DEFAULT_REQUIRED = "true";
     public static final String TAGGEDVALUE_EXCEPTION_DEFAULT_TYPE = "java.lang.Exception";
+    public static final String TAGGEDVALUE_ACTION_FORM_DEFAULT_KEY = "form";
     public static final String TAGGEDVALUE_ACTION_TYPE_HYPERLINK = "hyperlink";
     public static final String TAGGEDVALUE_ACTION_TYPE_FORM = "form";
     public static final String TAGGEDVALUE_ACTION_TYPE_IMAGE = "image";

@@ -48,9 +48,9 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 ## survive the trip to this use-case, those parameters will have been put into session scope
 ## and here we move them into the new form
 #if ($action.formScopeRequest)
-        final Object previousFormObject = request.getAttribute("$formName");
+        final Object previousFormObject = request.getAttribute("$action.formKey");
 #else
-        final Object previousFormObject = request.getSession().getAttribute("$formName");
+        final Object previousFormObject = request.getSession().getAttribute("$action.formKey");
 #end
 
 #foreach ($finalState in $action.useCase.referencingFinalStates)
@@ -91,12 +91,11 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
         }
 
 #if ($action.formScopeRequest)
-        request.setAttribute("$formName", form);
-
+        request.setAttribute("$action.formKey", form);
 #else
-        request.getSession().setAttribute("$formName", form);
-
+        request.getSession().setAttribute("$action.formKey", form);
 #end
+
 #saveMessages($action "        ")
 #if (!$resettableActionParameters.empty)
 
@@ -139,7 +138,7 @@ $actionState.getDocumentation("     * ")
         }
         catch (java.lang.Exception exception)
         {
-            final String messageKey = ${exceptionHandlerPackage}.PatternMatchingExceptionHandler.instance().handleException(exception);
+            final java.lang.String messageKey = ${exceptionHandlerPackage}.PatternMatchingExceptionHandler.instance().handleException(exception);
             ${controllerClass.name}Factory.get${controllerClass.name}Instance().saveErrorMessage(request, messageKey);
             throw exception;
         }
@@ -160,11 +159,11 @@ $decisionTransition.getDocumentation("     * ")
     private org.apache.struts.action.ActionForward ${decisionMethodName}(org.apache.struts.action.ActionMapping mapping, org.apache.struts.action.ActionForm form, javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws java.lang.Exception
     {
 #if (!$action.actionFormFields.empty)
-        final String value = String.valueOf(${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerMethodName}(mapping, ($formBeanClassName)form, request, response));
+        final java.lang.String value = java.lang.String.valueOf(${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerMethodName}(mapping, ($formBeanClassName)form, request, response));
 #else
         // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
         // cartridge would have issued a model validation error
-        final String value = String.valueOf(${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerMethodName}(mapping, new ${decisionTransition.operationCall.interfaceName}(){}, request, response));
+        final java.lang.String value = java.lang.String.valueOf(${controllerClass.name}Factory.get${controllerClass.name}Instance().${controllerMethodName}(mapping, new ${decisionTransition.operationCall.interfaceName}(){}, request, response));
 #end
 
 #set ($defaultOutcome = false)## keeps track of the last transition

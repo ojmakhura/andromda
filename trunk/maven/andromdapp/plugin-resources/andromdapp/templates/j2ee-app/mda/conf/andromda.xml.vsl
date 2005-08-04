@@ -197,9 +197,7 @@
                 <property name="decorators">${maven.andromda.web.manual.java.dir}</property>
                 <property name="messages">${maven.andromda.web.generated.dir}/WEB-INF/classes</property>
                 <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
-                <!-- uncomment to enable web tier security
-                <property name="securityRealm">other</property>
-                -->
+                <property name="securityRealm"></property>
 #if ($ejb)
                 <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
 #else

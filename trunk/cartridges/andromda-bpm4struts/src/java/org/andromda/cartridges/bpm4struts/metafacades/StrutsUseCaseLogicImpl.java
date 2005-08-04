@@ -429,7 +429,10 @@ public class StrutsUseCaseLogicImpl
                     {
                         if (exceptions.isEmpty())
                         {
-                            messages.put("exception.occurred", "{0}");
+                            if (!action.isUseCaseStart())
+                            {
+                                messages.put(action.getMessageKey() + ".exception", "{0} (java.lang.Exception)");
+                            }
                         }
                         else
                         {

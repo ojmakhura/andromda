@@ -17,8 +17,15 @@ public interface $operation.interfaceName
 #set ($fieldType = $field.type.fullyQualifiedName)
 #set ($fieldName = $field.name)
 #set ($tableActionFound = false)
+#set ($optionField = false)
 #foreach ($action in $operation.deferringActions)
-#if($action.tableAction)#foreach($parameter in $action.actionParameters)#if($parameter.name==$field.name)#set($tableActionFound=true)#end#end#end
+#foreach($parameter in $action.actionParameters)
+#if($action.tableAction)
+#if($parameter.name==$field.name)#set($tableActionFound=true)#end
+#else
+#if($parameter.name==$field.name && $parameter.widgetType=="radio")#set($optionField=$parameter)#end
+#end
+#end
 #end
 #if ($field.type.collectionType)
     /**
@@ -222,6 +229,15 @@ $field.getDocumentation("     * ")
      */
     public $fieldType ${field.getterName}();
     
+#if ($optionField)
+    /**
+     * Converts the selected option index to the corresponding value as it was modeled.
+     * This method does not take i18n into account so it consistently returns the same value
+     * given the same argument.
+     */
+    public $field.type.fullyQualifiedName ${field.getterName}OptionValue(int optionIndex);
+
+#end
 #end
     /**
      * Resets the <code>$field.name</code> field.
@@ -229,7 +245,7 @@ $field.getDocumentation("     * ")
     public void ${field.resetName}();
 
 #if ($field.selectable)
-#set ($listType = "Object[]")
+#set ($listType = "java.lang.Object[]")
 #set ($backingListName = $field.backingListName)
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 #set ($valueListName = $field.valueListName)
