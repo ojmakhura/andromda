@@ -347,23 +347,4 @@ public abstract class $metafacade.logicName
 #end
 #renderTranslation ($metafacade "inv")
     }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    public String toString()
-    {
-        StringBuffer toString = new StringBuffer(this.getClass().getName());
-        toString.append("[");
-        try
-        {
-            toString.append(org.andromda.core.common.Introspector.instance().getProperty(this, "name"));
-        }
-        catch (Throwable th)
-        {
-            // Just ignore when the metafacade doesn't have a name property
-        }
-        toString.append("]");
-        return toString.toString();
-    }
 }

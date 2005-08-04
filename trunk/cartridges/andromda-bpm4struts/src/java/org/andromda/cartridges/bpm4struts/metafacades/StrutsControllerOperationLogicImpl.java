@@ -203,7 +203,12 @@ public class StrutsControllerOperationLogicImpl
         return new ArrayList(formFieldsMap.values());
     }
 
-    protected boolean handleIsAllArgumentsHaveFormFields()
+    /**
+     * Overridden because StrutsAction does not extend FrontEndAction
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndControllerOperation#isAllArgumentsHaveFormFields()
+     */
+    public boolean isAllArgumentsHaveFormFields()
     {
         final Collection arguments = this.getArguments();
         final Collection deferringActions = this.getDeferringActions();

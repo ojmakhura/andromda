@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndController;
@@ -15,7 +16,9 @@ import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndPseudostate;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 
 
@@ -33,10 +36,10 @@ public class FrontEndControllerOperationLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * Override to return the owner's package as the package name.
-     * 
+     *
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetPackageName()
      */
     public String handleGetPackageName()
@@ -52,7 +55,7 @@ public class FrontEndControllerOperationLogicImpl
     {
         return this.getOwner() instanceof FrontEndController;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getFormFields()
      */
@@ -60,7 +63,7 @@ public class FrontEndControllerOperationLogicImpl
     {
         return new ArrayList(this.getArguments());
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getActivityGraph()
      */
@@ -83,7 +86,7 @@ public class FrontEndControllerOperationLogicImpl
         }
         return graph;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getDeferringActions()
      */
@@ -102,7 +105,8 @@ public class FrontEndControllerOperationLogicImpl
                 {
                     final FrontEndActionState actionState = (FrontEndActionState)actionStateObject;
                     final Collection controllerCalls = actionState.getControllerCalls();
-                    for (final Iterator controllerCallIterator = controllerCalls.iterator(); controllerCallIterator.hasNext();)
+                    for (final Iterator controllerCallIterator = controllerCalls.iterator();
+                        controllerCallIterator.hasNext();)
                     {
                         final OperationFacade operation = (OperationFacade)controllerCallIterator.next();
                         if (this.equals(operation))
@@ -147,5 +151,45 @@ public class FrontEndControllerOperationLogicImpl
             }
         }
         return new ArrayList(deferringActions);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndControllerOperation#isAllArgumentsHaveFormFields()
+     */
+    protected boolean handleIsAllArgumentsHaveFormFields()
+    {
+        final Collection arguments = this.getArguments();
+        System.out.println("the args: " + arguments);
+        final Collection deferringActions = this.getDeferringActions();
+
+        boolean allArgumentsHaveFormFields = true;
+        for (final Iterator iterator = arguments.iterator(); iterator.hasNext() && allArgumentsHaveFormFields;)
+        {
+            final ParameterFacade parameter = (ParameterFacade)iterator.next();
+            final String parameterName = parameter.getName();
+            final String parameterType = parameter.getFullyQualifiedName();
+
+            boolean actionMissingField = false;
+            for (final Iterator actionIterator = deferringActions.iterator();
+                actionIterator.hasNext() && !actionMissingField;)
+            {
+                final FrontEndAction action = (FrontEndAction)actionIterator.next();
+                final Collection actionFormFields = action.getFormFields();
+
+                boolean fieldPresent = false;
+                for (final Iterator fieldIterator = actionFormFields.iterator();
+                    fieldIterator.hasNext() && !fieldPresent;)
+                {
+                    final ModelElementFacade field = (ModelElementFacade)fieldIterator.next();
+                    if (parameterName.equals(field.getName()) && parameterType.equals(field.getFullyQualifiedName()))
+                    {
+                        fieldPresent = true;
+                    }
+                }
+                actionMissingField = !fieldPresent;
+            }
+            allArgumentsHaveFormFields = !actionMissingField;
+        }
+        return allArgumentsHaveFormFields;
     }
 }
