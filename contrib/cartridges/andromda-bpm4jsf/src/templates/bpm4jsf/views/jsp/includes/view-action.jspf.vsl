@@ -27,11 +27,11 @@
             <x:inputCalendar id="${field.name}" 
                              monthYearRowClass="yearMonthHeader" 
                              weekRowClass="weekHeader" 
-                             value="#{${formName}.${field.name}}" 
+                             value="#{${action.formKey}.${field.name}}" 
                              renderAsPopup="true" 
                              popupDateFormat="$field.dateFormat"/>
 #else
-            <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/>
+            <h:inputText id="${field.name}" value="#{${action.formKey}.${field.name}}"/>
 #end
             <x:message for="${field.name}" styleClass="error" showDetail="true" showSummary="false" />
         </h:panelGroup>

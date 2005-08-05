@@ -19,12 +19,6 @@
         <managed-bean-name>$action.formBeanName</managed-bean-name>
         <managed-bean-class>$action.fullyQualifiedFormImplementationName</managed-bean-class>
         <managed-bean-scope>$action.formScope</managed-bean-scope>
-#foreach ($parameter in $action.parameters)
-        <managed-property>
-            <property-name>$parameter.name</property-name>
-            <value>#{${globalFormBeanName}.${parameter.name}}</value>
-        </managed-property> 
-#end
     </managed-bean>
 #end
 #end
@@ -43,6 +37,7 @@
         <navigation-case>
             <from-outcome>$useCase.forwardName</from-outcome>
             <to-view-id>${useCase.path}.jsp</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 #end
@@ -54,6 +49,7 @@
         <navigation-case>
             <from-outcome>$forward.name</from-outcome>
             <to-view-id>${forward.path}.jsp</to-view-id>
+            <redirect/>
         </navigation-case>
 #end
     </navigation-rule>

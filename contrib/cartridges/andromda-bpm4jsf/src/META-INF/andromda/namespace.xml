@@ -188,6 +188,15 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <documentation>
+                Other various properties that couldn't be classified into another category.
+            </documentation>
+            <property name="defaultActionRedirect">
+                <default>false</default>
+                <documentation>
+                    Whether or not redirection should occur on all action forwards.
+                </documentation>
+            </property>
             <property name="managedBeansPackage">
                 <default>org.andromda.presentation.bpm4jsf</default>
                 <documentation>
@@ -229,11 +238,12 @@
                     represents the modeled name of the controller).
                 </documentation>
             </property>
-            <property name="globalFormBeanName">
+            <property name="actionFormKey">
                 <default>form</default>
                 <documentation>
-                    The name of the global form bean on which information is passed around
-                    throughout the application.
+                    The name of the key under which each action for is stored.  This
+                    form is passed along from action to action in order to transfer
+                    all parameters.
                 </documentation>
             </property>
             <property name="messageResources">

@@ -70,6 +70,20 @@
                     <value>request</value>
                 </allowedValues>
             </element>
+            <element name="ACTION_FORM_KEY">
+                <documentation>
+                    Denotes the name of the key under which this action's form is stored under.
+                    Will only be used when the form is not empty, and is ignored otherwise. This feature is useful
+                    when you are doing something that requires more than one action to be executed at the same
+                    time and you don't want form key names colliding.
+                </documentation>
+                <value>@andromda.presentation.web.action.form.key</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">form</value>
+                    <value>any string is allowed</value>
+                </allowedValues>
+            </element>
             <element name="ACTION_RESETTABLE">
                 <documentation>
                     Set this value to <code>true</code> if you want to be able
