@@ -15,7 +15,10 @@ public class $controller.implementationName
      */
     $operation.implementationFormSignature
     {
-    
+        // @todo implement $operation.implementationFormSignature
+#if ($operation.returnTypePresent)
+        return $operation.returnType.javaNullString;
+#end  
     }
     
 #end
