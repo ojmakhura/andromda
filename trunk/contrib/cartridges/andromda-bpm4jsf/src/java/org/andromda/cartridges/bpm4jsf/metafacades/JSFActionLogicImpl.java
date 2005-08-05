@@ -126,8 +126,18 @@ public class JSFActionLogicImpl
      */
     protected String handleGetFormImplementationInterfaceList()
     {
+        final List deferredOperations = this.getDeferredOperations();
+        for (final Iterator iterator = deferredOperations.iterator(); iterator.hasNext();)
+        {
+            // - remove any forms that don't have arguments
+            final JSFControllerOperation operation = (JSFControllerOperation)iterator.next();
+            if (operation.getArguments().isEmpty())
+            {
+                iterator.remove();
+            }
+        }
         final StringBuffer list = new StringBuffer();
-        for (final Iterator iterator = this.getDeferredOperations().iterator(); iterator.hasNext();)
+        for (final Iterator iterator = deferredOperations.iterator(); iterator.hasNext();)
         {
             final JSFControllerOperation operation = (JSFControllerOperation)iterator.next();
             list.append(operation.getFormName());
