@@ -33,7 +33,7 @@ $operation.getDocumentation("     * ")
                     facesContext,
                     "$action.formBeanName");
             // - populate the form with any request parameters that may match
-            this.populateFormFromRequestParameters(form);
+            this.populateFormFromRequestParameters(form, form.getDateTimeFormatters());
 #end
 #if (!$deferredOperations.empty)
             try
@@ -215,10 +215,10 @@ $operation.getDocumentation("     * ")
      * Populates the form from the given parameters.  If the request parameter is null or an empty
      * string, then null is placed on the form.
      *
-     * @param parameters the parameters from which to populate the form.
      * @param form the form to populate.
+     * @param formatters any date or time formatters.
      */
-    private final void populateFormFromRequestParameters(final Object form)
+    private final void populateFormFromRequestParameters(final Object form, final java.util.Map formatters)
     {
         try
         {
@@ -237,7 +237,16 @@ $operation.getDocumentation("     * ")
                         // - only convert if the string is not empty
                         if (parameter != null && parameter.trim().length() > 0)
                         {
-                            value = org.apache.commons.beanutils.ConvertUtils.convert(parameter, descriptor.getPropertyType());
+                            final java.text.DateFormat formatter = (java.text.DateFormat)formatters.get(name);
+                            // - if the formatter is available we use that, otherwise we attempt to convert
+                            if (formatter != null)
+                            {
+                                value = formatter.parse(parameter);
+                            }
+                            else
+                            {
+                                value = org.apache.commons.beanutils.ConvertUtils.convert(parameter, descriptor.getPropertyType());
+                            }
                         }
                         org.apache.commons.beanutils.PropertyUtils.setProperty(form, name, value);
                     }

@@ -9,23 +9,30 @@ public class $action.formImplementationName
     implements $action.formImplementationInterfaceList
 {
 
+    /**
+     * Stores any date or time formatters for this form.
+     */
+    private final java.util.Map dateTimeFormatters = new java.util.HashMap();
+
     public ${action.formImplementationName}()
     {
 #foreach ($field in $action.formFields)
 #if ($field.type.dateType)
 #set ($lenient = !$field.strictDateFormat)
+#if ($field.type.dateType)
+        java.text.DateFormat $field.dateFormatter = new java.text.SimpleDateFormat("$field.dateFormat");
         ${field.dateFormatter}.setLenient($lenient);
+        this.dateTimeFormatters.put("$field.name", $field.dateFormatter);
+#elseif ($field.type.timeType)
+        java.text.DateFormat $field.timeFormatter = new java.text.SimpleDateFormat("$field.timeFormat");
+        this.dateTimeFormatters.put("$field.name", $field.timeFormatter);
+#end
 #end
 #end
     }
 #foreach ($field in $action.formFields)
 
     private $field.type.fullyQualifiedName $field.name;
-#if ($field.type.dateType)
-    private final static java.text.DateFormat $field.dateFormatter = new java.text.SimpleDateFormat("$field.dateFormat");
-#elseif ($field.type.timeType)
-    private final static java.text.DateFormat $field.timeFormatter = new java.text.SimpleDateFormat("$field.timeFormat");
-#end
 
     /**
 $field.getDocumentation("     * ")
@@ -102,5 +109,16 @@ $field.getDocumentation("     * ")
     }
 #end
 #end
- 
+
+    /**
+     * Gets any date and time formatters (keyed by property name)
+     * for this form.
+     *
+     * @return the Map containing any date and time formatters.
+     */
+    public java.util.Map getDateTimeFormatters()
+    {
+        return this.dateTimeFormatters;
+    }
+
 }
