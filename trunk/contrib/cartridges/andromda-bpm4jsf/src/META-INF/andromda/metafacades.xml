@@ -22,6 +22,7 @@
         <property reference="formImplementationPattern"/>
         <property reference="formBeanPattern"/>
         <property reference="formScope"/> 
+        <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
@@ -30,6 +31,7 @@
         <property reference="formImplementationPattern"/>
         <property reference="formBeanPattern"/>
         <property reference="formScope"/> 
+        <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFForwardLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">

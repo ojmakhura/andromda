@@ -59,9 +59,9 @@
         rowClasses="standardTableRow1,standardTableRow2"
         columnClasses="standardTableColumnCentered"
         var="row"
-        value="#{${globalFormBeanName}.${table.name}}"
-        sortColumn="#{${globalFormBeanName}.${table.name}SortColumn}"
-        sortAscending="#{${globalFormBeanName}.${table.name}SortAscending}"
+        value="#{${actionFormKey}.${table.name}}"
+        sortColumn="#{${actionFormKey}.${table.name}SortColumn}"
+        sortAscending="#{${actionFormKey}.${table.name}SortAscending}"
         preserveDataModel="false"
         preserveSort="true"
         rows="10">

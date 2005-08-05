@@ -391,4 +391,15 @@ public class JSFActionLogicImpl
         }
         return otherActions;
     }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getFormKey()
+     */
+    protected String handleGetFormKey()
+    {
+        final Object formKeyValue = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null
+            ? ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.ACTION_FORM_KEY))
+            : String.valueOf(formKeyValue);
+    }
 }

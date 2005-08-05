@@ -28,6 +28,11 @@ public class BPM4JSFGlobals
     public static final String FORM_PATTERN = "formPattern";
     
     /**
+     * Contains the default value for whether or not all forwards should perform a HTTP redirect or not.
+     */
+    public static final String DEFAULT_ACTION_REDIRECT = "defaultActionRedirect";
+    
+    /**
      * The pattern for constructing the form implementation name.
      */
     public static final String FORM_IMPLEMENTATION_PATTERN = "formImplementationPattern";
@@ -86,4 +91,9 @@ public class BPM4JSFGlobals
      * Stores the default time format when times are formatted.
      */
     public static final String PROPERTY_DEFAULT_TIMEFORMAT = "defaultTimeFormat";
+    
+    /**
+     * The default key under which the action form is stored.
+     */
+    public static final String ACTION_FORM_KEY = "actionFormKey";
 }

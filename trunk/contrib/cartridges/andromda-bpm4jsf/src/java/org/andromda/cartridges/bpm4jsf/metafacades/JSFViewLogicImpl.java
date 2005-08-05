@@ -137,7 +137,6 @@ public class JSFViewLogicImpl
     protected List handleGetTables()
     {
         final List tables = new ArrayList();
-
         final List variables = this.getVariables();
         for (int ctr = 0; ctr < variables.size(); ctr++)
         {
@@ -147,7 +146,6 @@ public class JSFViewLogicImpl
                 tables.add(variable);
             }
         }
-
         return tables;
     }
 
