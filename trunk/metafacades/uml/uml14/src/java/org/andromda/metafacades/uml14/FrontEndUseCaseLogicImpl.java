@@ -62,11 +62,11 @@ public class FrontEndUseCaseLogicImpl
 
         // - in case there is a tagged value pointing to an activity graph, and this graph is found,
         //   return it.
-        final Object activity = findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY);
+        final Object activity = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY);
         if (activity != null)
         {
             final String activityName = String.valueOf(activity.toString());
-            activityGraph = getModel().findActivityGraphByName(activityName);
+            activityGraph = this.getModel().findActivityGraphByName(activityName);
         }
 
         // - otherwise just take the first one in this use-case's namespace.
@@ -113,7 +113,7 @@ public class FrontEndUseCaseLogicImpl
     /**
      * Gets those roles directly associated to this use-case.
      */
-    private final Collection getAssociatedRoles()
+    private Collection getAssociatedRoles()
     {
         final Collection usersList = new ArrayList();
         final Collection associationEnds = getAssociationEnds();
