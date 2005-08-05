@@ -5,13 +5,13 @@ import org.andromda.metafacades.uml.ActionStateFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition.
@@ -229,5 +229,27 @@ public class JBpmProcessDefinitionLogicImpl
     protected String handleGetNodeInterfaceName()
     {
         return StringUtilsHelper.upperCamelCaseName(this.getName()) + "Node";
+    }
+
+    /**
+     * Overwritten because we want to be able to make use of the AndroMDA tagged value for use-case
+     * to activity graph linking.
+     */
+    public ActivityGraphFacade getFirstActivityGraph()
+    {
+        ActivityGraphFacade activityGraph;
+
+        final Object activity = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY);
+        if (activity == null)
+        {
+            activityGraph = super.getFirstActivityGraph();
+        }
+        else
+        {
+            final String activityName = String.valueOf(activity.toString());
+            activityGraph = this.getModel().findActivityGraphByName(activityName);
+        }
+
+        return activityGraph;
     }
 }
