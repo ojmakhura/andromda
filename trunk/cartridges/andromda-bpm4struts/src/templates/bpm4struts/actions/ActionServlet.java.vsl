@@ -4,6 +4,8 @@ package $servletPackage;
 /**
  * This servlet is designed to avoid Struts copying zeroes into those form
  * fields that take numerical values.
+ *
+ * It also takes care of properly setting the content type for the returned reponse.
  */
 public final class ActionServlet
     extends org.apache.struts.action.ActionServlet
@@ -12,8 +14,8 @@ public final class ActionServlet
      * Call the parent initializer and configure the converter not to
      * convert <code>null</code> numbers to the corresponding zero value.
      */
-    public void init(javax.servlet.ServletConfig config)
-          throws javax.servlet.ServletException
+    public void init(final javax.servlet.ServletConfig config)
+        throws javax.servlet.ServletException
     {
         super.init(config);
 
@@ -27,5 +29,28 @@ public final class ActionServlet
             new org.apache.commons.beanutils.converters.DoubleConverter(null), java.lang.Double.class);
         org.apache.commons.beanutils.ConvertUtils.register(
             new org.apache.commons.beanutils.converters.FloatConverter(null), java.lang.Float.class);
+    }
+
+#if ($xhtml == "true")
+#set ($contentType = "application/xhtml+xml")
+#else
+#set ($contentType = "text/html")
+#end
+    public void doGet(
+        final javax.servlet.http.HttpServletRequest request,
+        final javax.servlet.http.HttpServletResponse response)
+        throws java.io.IOException, javax.servlet.ServletException
+    {
+        response.setContentType("$contentType; charset=$pageEncoding");
+        super.doGet(request, response);
+    }
+
+    public void doPost(
+        final javax.servlet.http.HttpServletRequest request,
+        final javax.servlet.http.HttpServletResponse response)
+        throws java.io.IOException, javax.servlet.ServletException
+    {
+        response.setContentType("$contentType; charset=$pageEncoding");
+        super.doPost(request, response);
     }
 }

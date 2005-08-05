@@ -390,6 +390,12 @@
                     Encoding for generated XML files.
                 </documentation>
             </property>
+            <property name="pageEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    Encoding for the responses sent back by the server (the pages).
+                </documentation>
+            </property>
             <property name="generateWebXmlIds">
                 <default>false</default>
                 <documentation>

@@ -2,8 +2,8 @@
 <%@ include file="/taglib-imports.jspf" %>
 
 #if ($xhtml == "true")
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+##<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+##     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:xhtml/>
 
 #end
@@ -15,9 +15,9 @@
         </title>
         <html:base/>
 #if ($xhtml == "true")
-        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset:utf-8" />
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset:$pageEncoding" />
 #else
-        <meta http-equiv="Content-Type" content="text/html; charset:utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset:$pageEncoding" />
 #end
 <%-- uncomment this to enable the browser 'favorites' icons
         <link rel="shortcut icon" href="my-custom-image.ico"></link>
