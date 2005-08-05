@@ -8,12 +8,6 @@ $action.getDocumentation(" * ")
 public class $action.formImplementationName
     implements $action.formImplementationInterfaceList
 {
-
-    /**
-     * Stores any date or time formatters for this form.
-     */
-    private final java.util.Map dateTimeFormatters = new java.util.HashMap();
-
     public ${action.formImplementationName}()
     {
 #foreach ($field in $action.formFields)
@@ -111,6 +105,11 @@ $field.getDocumentation("     * ")
 #end
 
     /**
+     * Stores any date or time formatters for this form.
+     */
+    private final java.util.Map dateTimeFormatters = new java.util.HashMap();
+
+    /**
      * Gets any date and time formatters (keyed by property name)
      * for this form.
      *
@@ -120,5 +119,4 @@ $field.getDocumentation("     * ")
     {
         return this.dateTimeFormatters;
     }
-
 }

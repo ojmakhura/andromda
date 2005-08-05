@@ -241,7 +241,15 @@ $operation.getDocumentation("     * ")
                             // - if the formatter is available we use that, otherwise we attempt to convert
                             if (formatter != null)
                             {
-                                value = formatter.parse(parameter);
+                                try
+                                {
+                                    value = formatter.parse(parameter);
+                                }
+                                catch (java.text.ParseException exception)
+                                {
+                                    // -  since parsing failed, try the default formatter.
+                                    value = this.formatWithDefaultDateFormatter(parameter);
+                                }
                             }
                             else
                             {
@@ -257,5 +265,28 @@ $operation.getDocumentation("     * ")
         {
             throw new RuntimeException(throwable);
         }
+    }
+
+    /**
+    * The default date formatter (for some reason this date format is hard
+    * coded when passing dates as parameters, so we use this to attempt to
+    * format if the first formatter fails), this hopefully will be fixed
+    * at some point.
+    */
+    public static final java.text.DateFormat defaultDateFormatter = new java.text.SimpleDateFormat("MM-dd-yyyy");
+
+    /**
+     * Attempts to format the given <code>dateString</code> with the
+     * default date formatter.
+     *
+     * @param dateString the date string to format.
+     * @return the resulting date.
+     */
+    private final java.util.Date formatWithDefaultDateFormatter(final String dateString)
+        throws java.text.ParseException
+    {
+        return dateString != null && dateString.trim().length() > 0 ?
+            defaultDateFormatter.parse(dateString) :
+            null;
     }
 }

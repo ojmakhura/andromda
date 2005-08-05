@@ -3,13 +3,16 @@
 <h:messages id="messageList" errorClass="error"/>
 <h:outputText value="#{messages['$action.messageKey']}" styleClass="actionHeader" />
 <f:verbatim><br/><br/></f:verbatim>
+#set($formName = $action.formBeanName)
 #if ($action.hyperlink)
 <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
     <h:outputText value="#{messages['$action.messageKey']}"/>
+#foreach ($parameter in $action.parameters)
+    <f:param name="$parameter.name" value="#{${formName}.${parameter.name}}"/>
+#end
 </h:commandLink>
 <f:verbatim><br/><br/></f:verbatim>
 #else
-#set($formName = $action.formBeanName)
 <h:form id="$formName" name="$formName">
     <h:panelGrid columns="3" styleClass="formTable"
                  headerClass="formHeader"

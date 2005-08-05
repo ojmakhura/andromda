@@ -72,7 +72,11 @@
                 <h:outputText value="#{messages['$table.getTableColumnMessageKey($column.name)']}" />
             </x:commandSortHeader>
         </f:facet>
-        <h:outputText value="#{row.${column.name}}" />
+        <h:outputText value="#{row.${column.name}}">
+#if ($column.type.dateType)
+            <f:convertDateTime pattern="$defaultDateFormat"/>
+#end
+        </h:outputText>
     </h:column>
 #end
 #foreach ($action in $table.tableHyperlinkActions)
@@ -84,7 +88,7 @@
         <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}" styleClass="buttonLink">
             <h:outputText value="#{messages['$action.trigger.messageKey']}" />
 #foreach ($parameter in $action.parameters)
-            <f:param name="${parameter.name}" value="#{row.${parameter.name}}"/>
+            <f:param name="$parameter.name" value="#{row.${parameter.name}}"/>
 #end
         </h:commandLink>
     </h:column>
