@@ -160,6 +160,7 @@
                     <value>Comma-separated list of column names</value>
                 </allowedValues>
             </element>
+            <!--
             <element name="ACTION_REDIRECT">
                 <documentation>
                     Indicates whether or not HTTP redirection should occur when forwarded on to the next action
@@ -171,6 +172,7 @@
                     <value>true</value>
                 </allowedValues>
             </element>
+             -->
             <element name="INPUT_REQUIRED">
                 <documentation>
                     Denotes whether or not this is a required field. If a field is required its type will always be
