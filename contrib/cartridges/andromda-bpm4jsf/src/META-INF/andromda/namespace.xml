@@ -191,12 +191,14 @@
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
+            <!--
             <property name="defaultActionRedirect">
                 <default>false</default>
                 <documentation>
                     Whether or not redirection should occur on all action forwards.
                 </documentation>
             </property>
+            -->
             <property name="managedBeansPackage">
                 <default>org.andromda.presentation.bpm4jsf</default>
                 <documentation>

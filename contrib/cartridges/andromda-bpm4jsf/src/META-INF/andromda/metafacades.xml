@@ -44,11 +44,6 @@
         </mapping>
         <property reference="controllerImplementationPattern"/>
     </metafacade>
-    <!--
-    <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFDataTypeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
-    </metafacade>
-    -->
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCaseLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
             <stereotype>FRONT_END_APPLICATION</stereotype>
