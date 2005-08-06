@@ -164,7 +164,9 @@ ${indent}</logic:notPresent>
 #set ($disabled = '')
 #set ($readonly = '')
 #end
+#if (!$field.type.collectionType && !$field.type.arrayType)
 #setPropertyByTypeInValueVariable($beanName $fieldName $indent)
+#end
 ##
 ##  Depending on the type of the input field we render a different widget
 ##
@@ -194,7 +196,7 @@ ${indent}<input type="$widgetType" name="$fieldName" value="${value}" #if($hints
 ## @todo: disable this widget if not used in a row action
 #elseif ($widgetType == 'multibox')
 ${indent}<html:$widgetType name="$formBeanName" property="$field.multiboxPropertyName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId">
-${indent}    ${${value}}
+${indent}    ${value}
 ${indent}</html:$widgetType>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
@@ -248,7 +250,7 @@ ${indent}           <html:optionsCollection name="$formBeanName" property="$fiel
 ${indent}       </html:select>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
-${indent}        <select name="$selectProperty" value="${value}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled$columnCount id="$styleId"/>
+${indent}        <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled$columnCount styleId="$styleId"/>
 ${indent}    </c:otherwise>
 ${indent}</c:choose>
 ##
@@ -277,6 +279,6 @@ ${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="t
 #if ($field.strutsAction.tableLink)
 ${indent}<input type="hidden" name="$fieldName" value="${value}" id="$styleId"/>
 #end
-${indent}<c:out value="${value}"/>
+${indent}${value}
 #end
 #end
