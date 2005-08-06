@@ -35,7 +35,7 @@
         <display:column media="$table.tableExportTypes"
             titleKey="$table.getTableColumnMessageKey($columnName)"
             autolink="true" paramId="$columnName">
-            <c:out value="${value}"/>
+            ${value}
         </display:column>
 #end
         <display:column media="html"
@@ -50,10 +50,10 @@
             </div>
 #elseif (!$tableColumnActions.empty)
 #foreach ($tableColumnAction in $tableColumnActions)
-#renderTableHyperlink($tableColumnAction $columnName $indent)
+#renderTableHyperlink($tableColumnAction $columnName "            ")
 #end
 #else## just render as text since the column is in fact a simple String
-            <div class="$columnName"><c:out value="${value}"/></div>
+            <div class="$columnName">${value}</div>
 #end
         </display:column>
 #end
