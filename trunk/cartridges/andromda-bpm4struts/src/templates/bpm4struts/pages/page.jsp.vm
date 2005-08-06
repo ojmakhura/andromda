@@ -1,5 +1,20 @@
 ##
 ##
+##      What we're doing here is making sure the field value is rendered in the appropriate format (eg. dates)
+##      when using a form field this is fine, the form takes care of it; but when the field is coming from a table
+##      (thus representing a column) it cannot be formatted and we must test for the date instance.
+##
+##
+#macro (setPropertyByTypeInValueVariable $bean $property $indent)
+#set ($propertyValue = "${bean}.${property}")
+#set ($test = "${propertyValue}.class.name eq 'java.util.Date'")
+${indent}<c:choose>
+${indent}    <c:when test="${${test}}"><fmt:formatDate var="value" value="${${propertyValue}}" pattern="$defaultDateFormat $defaultTimeFormat"/></c:when>
+${indent}    <c:otherwise><c:set var="value" value="${${propertyValue}}"/></c:otherwise>
+${indent}</c:choose>
+#end
+##
+##
 ##      This macro takes care of rendering the appropriate Struts
 ##      HTML hyperlink tags for the argument action
 ##
@@ -140,19 +155,16 @@ ${indent}</logic:notPresent>
 #set ($formBeanName = $action.formKey)## used to denote the request scope form
 #if($field.fieldRowCount)#set($rowCount=" rows=$quote$field.fieldRowCount$quote")#else#set($rowCount='')#end
 #if($field.fieldColumnCount)#set($columnCount=" size=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
-#if($rowIndex=='')
-#set($beanName=$formBeanName)
-#else
-#set($beanName="row")## used to denote the bean representing a row if in a table, equals $formBeanName otherwise
-#end
+#if($rowIndex=='')#set($beanName=$formBeanName)#else#set($beanName="row")#end
 #set ($styleId = "$field.styleId$rowIndex")
 #if ($field.readOnly)
-#set ($disabled = 'disabled="true"')
-#set ($readonly = 'readonly="true"')
+#set ($disabled = 'disabled="disabled"')
+#set ($readonly = 'readonly="readonly"')
 #else
 #set ($disabled = '')
 #set ($readonly = '')
 #end
+#setPropertyByTypeInValueVariable($beanName $fieldName $indent)
 ##
 ##  Depending on the type of the input field we render a different widget
 ##
@@ -165,7 +177,7 @@ ${indent}<table>
 #set ($optionIndex = $velocityCount - 1)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <html:$widgetType name="$beanName" property="$fieldName" value="$optionIndex" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
+${indent}            <input type="$widgetType" name="$fieldName" value="$optionIndex" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled id="$styleId"/>
 ${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
@@ -175,21 +187,20 @@ ${indent}</table>
 ##      C H E C K B O X
 ##
 #elseif ($widgetType == 'checkbox')
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
+${indent}<input type="$widgetType" name="$fieldName" value="${value}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled id="$styleId"/>
 ##
 ##      M U L T I B O X
 ##
 ## @todo: disable this widget if not used in a row action
 #elseif ($widgetType == 'multibox')
 ${indent}<html:$widgetType name="$formBeanName" property="$field.multiboxPropertyName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId">
-#set ($multiboxBody = "$beanName.${fieldName}")
-${indent}    ${${multiboxBody}}
+${indent}    ${${value}}
 ${indent}</html:$widgetType>
 ##
 ##      T E X T F I E L D       &       P A S S W O R D
 ##
 #elseif ( ($widgetType == 'text') || ($widgetType == 'password') )
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$columnCount styleId="$styleId"/>
+${indent}<input type="$widgetType" name="$fieldName" value="${value}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$columnCount id="$styleId"/>
 #if ( ($widgetType == 'text') && $field.calendarRequired )
 ${indent}<html:img page="/layout/calendar/calendar.gif" styleId="$stringUtils.lowerCamelCaseName($action.actionTrigger.name)_${fieldName}_trigger" styleClass="calendar" #if($hints=="true")onmouseover="hints.show('calendar.popup')" onmouseout="hints.hide()"#end/>
 ${indent}<script type="text/javascript">
@@ -218,26 +229,18 @@ ${indent}</script>
 ##      T E X T A R E A
 ##
 #elseif ($widgetType == 'textarea')
-${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$rowCount$columnCount styleId="$styleId"/>
+${indent}<$widgetType name="$fieldName" value="${value}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$rowCount$columnCount id="$styleId"/>
 ##
 ##      H I D D E N
 ##
 #elseif ($widgetType == 'hidden')
-${indent}<html:$widgetType name="$beanName" property="$fieldName" styleId="$styleId"/>
+${indent}<input type="$widgetType" name="$fieldName" value="${value}" id="$styleId"/>
 ##
 ##      C O M B O B O X     &      L I S T
 ##
 #elseif ($widgetType == 'select')
-#if ($field.multiple)
-#set ($multiple = ' multiple="multiple"')
-#else
-#set ($multiple = '')
-#end
-#if ($field.type.collectionType)
-#set ($selectProperty = "${fieldName}AsArray")
-#else
-#set ($selectProperty = "$fieldName")
-#end
+#if($field.multiple)#set($multiple=' multiple="multiple"')#else#set($multiple='')#end
+#if($field.type.collectionType)#set($selectProperty="${fieldName}AsArray")#else#set($selectProperty="$fieldName")#end
 ${indent}<c:choose>
 ${indent}    <c:when test="${!empty ${formBeanName}.${field.backingListName}}">
 ${indent}       <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled$multiple$columnCount styleId="$styleId">
@@ -245,7 +248,7 @@ ${indent}           <html:optionsCollection name="$formBeanName" property="$fiel
 ${indent}       </html:select>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
-${indent}        <html:select name="$beanName" property="$selectProperty" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled$columnCount styleId="$styleId"/>
+${indent}        <select name="$selectProperty" value="${value}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled$columnCount id="$styleId"/>
 ${indent}    </c:otherwise>
 ${indent}</c:choose>
 ##
@@ -254,16 +257,12 @@ ${indent}</c:choose>
 #elseif ($widgetType == 'link')
 #foreach ($parameter in $action.actionParameters)
 #set ($propertyName = "$beanName.${parameter.name}")
-#if ($velocityCount == 1)
-#set ($requestPath = "${action.actionPath}?${parameter.name}=${${propertyName}}")
-#else
-#set ($requestPath = "${requestPath}&${parameter.name}=${${propertyName}}")
-#end
+#if($velocityCount==1)#set($requestPath="${action.actionPath}?${parameter.name}=${${propertyName}}")#else#set($requestPath="${requestPath}&${parameter.name}=${${propertyName}}")#end
 #end
 #set ($propertyName = "$beanName.${fieldName}")
 ${indent}<html:$widgetType action="${requestPath}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end>${${propertyName}}</html:$widgetType>
 #if ($action.tableLink)
-${indent}<html:hidden name="$beanName" property="$fieldName" styleId="$styleId"/>
+${indent}<input type="hidden" name="$fieldName" value="${value}" id="$styleId"/>
 #end
 ##
 ##      F I L E
@@ -275,10 +274,9 @@ ${indent}<html:$widgetType name="$beanName" property="$fieldName" #if($hints=="t
 ##
 #else
 ## we could also test for widget type == 'plaintext', but that would be redundant here
-#set ($plainText = "${beanName}.${fieldName}")
 #if ($field.strutsAction.tableLink)
-${indent}<html:hidden name="row" property="$fieldName" styleId="$styleId" value="${${plainText}}"/>
+${indent}<input type="hidden" name="$fieldName" value="${value}" id="$styleId"/>
 #end
-${indent}${${plainText}}
+${indent}<c:out value="${value}"/>
 #end
 #end
