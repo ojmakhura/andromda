@@ -21,8 +21,15 @@ public class ${criteriaSearchBaseName}Properties
     private static final java.util.Map embeddedValuesByType = new java.util.HashMap();
     private static final java.util.Map navigableAssociationEndsByType = new java.util.HashMap();
     
-#foreach ($entity in $entities)
     static
+    {
+#foreach ($entity in $entities)
+        initialize${velocityCount}();
+#end    
+    }
+    
+#foreach ($entity in $entities)
+    private static final void initialize${velocityCount}()
     {
 #set ($embeddedValueListDefinition = "null")
 #if ($stringUtils.isNotBlank($entity.attributeEmbeddedValueList))  
