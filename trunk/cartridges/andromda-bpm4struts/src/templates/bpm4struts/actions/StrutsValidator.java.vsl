@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.validator.Field;
 import org.apache.commons.validator.GenericValidator;
+import org.apache.commons.validator.Validator;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.util.ValidatorUtils;
 import org.apache.struts.action.ActionMessages;
@@ -46,6 +47,7 @@ public class $className
         ValidatorAction validatorAction,
         Field field,
         ActionMessages errors,
+        Validator validator,
         HttpServletRequest request)
     {
         boolean valid = true;
@@ -108,6 +110,7 @@ public class $className
         ValidatorAction validatorAction,
         Field field,
         ActionMessages errors,
+        Validator validator,
         HttpServletRequest request)
     {
         boolean valid = true;
@@ -161,6 +164,7 @@ public class $className
         ValidatorAction validatorAction,
         Field field,
         ActionMessages errors,
+        Validator validator,
         HttpServletRequest request)
     {
         boolean valid = true;

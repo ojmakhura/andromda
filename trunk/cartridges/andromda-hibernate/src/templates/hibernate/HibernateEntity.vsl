@@ -166,7 +166,7 @@ $operation.getDocumentation("     * ")
         /**
          * Constructs a new instance of {@link ${entity.fullyQualifiedName}}.
          */
-        public static final $entity.fullyQualifiedName newInstance()
+        public static $entity.fullyQualifiedName newInstance()
         {
             return new ${entity.fullyQualifiedEntityImplementationName}();
         }
