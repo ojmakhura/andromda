@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "AndroMDA XMI Exporter"
-!define PRODUCT_VERSION "1.1"
+!define PRODUCT_VERSION "1.3"
 !define PRODUCT_PUBLISHER "The AndroMDA Team"
 !define PRODUCT_WEB_SITE "http://www.andromda.org"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -34,7 +34,7 @@
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "Setup.exe"
+OutFile "AndroMDATogetherSupport.exe"
 InstallDir "$PROGRAMFILES\TogetherDesigner2005\"
 ShowInstDetails show
 ShowUnInstDetails show
