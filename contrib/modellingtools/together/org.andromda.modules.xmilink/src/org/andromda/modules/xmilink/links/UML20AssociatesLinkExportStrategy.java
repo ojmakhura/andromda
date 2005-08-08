@@ -6,6 +6,7 @@ import org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy;
 import org.apache.commons.lang.StringUtils;
 
 import com.togethersoft.openapi.model.elements.Entity;
+import com.togethersoft.openapi.model.elements.Property;
 import com.togethersoft.openapi.model.elements.UniqueName;
 
 /**
@@ -35,7 +36,7 @@ public class UML20AssociatesLinkExportStrategy
      * 
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#getEntityName()
      */
-    protected String getEntityName()
+    protected String getEntityName(Entity entity)
     {
         return "UML:Association";
     }
@@ -112,6 +113,7 @@ public class UML20AssociatesLinkExportStrategy
         // ExportContext.getWriter().writeProperty("xmi.idref", id);
         // }
         exportRoleName(entity, kind);
+        exportVisibility(entity, kind);
         exportNavigability(entity, kind);
         exportAggregation(entity, kind);
         ExportContext.getWriter().writeOpeningElementEnd(false);
@@ -136,7 +138,6 @@ public class UML20AssociatesLinkExportStrategy
     protected boolean doExportTaggedValue(String key,
         String value)
     {
-        System.out.println("key: " + key);
         if (key.startsWith("@supplier."))
         {
             return (kind == TARGET);
@@ -219,6 +220,69 @@ public class UML20AssociatesLinkExportStrategy
         {
             ExportContext.getWriter().writeProperty("name", roleName);
         }
+    }
+
+    /**
+     * @param entity
+     * @param kind
+     */
+    private void exportVisibility(Entity entity,
+        int kind)
+    {
+        Property visibilityProperty;
+        if (kind == TARGET)
+        {
+            if (entity.hasProperty("clientVisibility"))
+            {
+                visibilityProperty = entity.getProperty("clientVisibility");
+                ExportContext.getWriter().writeProperty("visibility", translateVisibility(visibilityProperty));
+            }
+        }
+        else if (kind == SOURCE)
+        {
+            if (entity.hasProperty("supplierVisibility"))
+            {
+                visibilityProperty = entity.getProperty("supplierVisibility");
+                ExportContext.getWriter().writeProperty("visibility", translateVisibility(visibilityProperty));
+            }
+        }
+    }
+
+    /**
+     * Translates the visbility property into the correct XMI representation.
+     *
+     * @param property The property to translate.
+     * @return <code>public</code>, <code>protected</code>, <code>private</code>
+     */
+    private String translateVisibility(Property property)
+    {
+        String value = property.getValue();
+        String result = "";
+        if ("$supplierPublic".equalsIgnoreCase(value))
+        {
+            result = "public";
+        }
+        else if ("$supplierProtected".equalsIgnoreCase(value))
+        {
+            result = "protected";
+        }
+        else if ("$supplierPrivate".equalsIgnoreCase(value))
+        {
+            result = "private";
+        }
+        else if ("$clientPublic".equalsIgnoreCase(value))
+        {
+            result = "public";
+        }
+        else if ("$clientProtected".equalsIgnoreCase(value))
+        {
+            result = "protected";
+        }
+        else if ("$clientPrivate".equalsIgnoreCase(value))
+        {
+            result = "private";
+        }
+        return result;
     }
 
     /**
