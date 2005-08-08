@@ -131,6 +131,8 @@ public final class ExportContext
 
             // UML 2.0
             Class.forName("org.andromda.modules.xmilink.uml20.UML20ClassExportStrategy");
+            Class.forName("org.andromda.modules.xmilink.uml20.UML20PropertyExportStrategy");
+            Class.forName("org.andromda.modules.xmilink.uml20.UML20OperationExportStrategy");
 
             // Links
             Class.forName("org.andromda.modules.xmilink.links.UML20DependencyExportStrategy");

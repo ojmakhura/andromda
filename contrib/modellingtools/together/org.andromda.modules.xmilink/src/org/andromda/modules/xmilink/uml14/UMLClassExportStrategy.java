@@ -26,9 +26,16 @@ public class UMLClassExportStrategy
      * 
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#getEntityName()
      */
-    protected String getEntityName()
+    protected String getEntityName(Entity entity)
     {
-        return "UML:Class";
+        if (entity.hasProperty("$interface"))
+        {
+            return "UML:Interface";
+        }
+        else
+        {
+            return "UML:Class";
+        }
     }
 
     /*
