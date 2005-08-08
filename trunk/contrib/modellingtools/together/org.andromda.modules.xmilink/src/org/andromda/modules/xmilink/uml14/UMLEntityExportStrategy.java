@@ -57,15 +57,15 @@ public abstract class UMLEntityExportStrategy
      * 
      * <pre>
      * 
-     *     &lt;UML:Class ...&gt;
+     *     &lt;UML:Class20 ...&gt;
      *       ...
-     *     &lt;/UML:Class&gt;
+     *     &lt;/UML:Class20&gt;
      *  
      * </pre>
-     * 
+     * @param entity The entity to export.
      * @return The name of the UML entity.
      */
-    protected abstract String getEntityName();
+    protected abstract String getEntityName(Entity entity);
 
     /*
      * (non-Javadoc)
@@ -74,7 +74,7 @@ public abstract class UMLEntityExportStrategy
      */
     protected void exportEntityPrologue(Entity entity)
     {
-        ExportContext.getWriter().writeOpeningElementStart(getEntityName());
+        ExportContext.getWriter().writeOpeningElementStart(getEntityName(entity));
     }
 
     /*
@@ -124,7 +124,7 @@ public abstract class UMLEntityExportStrategy
      */
     protected void exportEntityEpilogue(Entity entity)
     {
-        ExportContext.getWriter().writeClosingElement(getEntityName());
+        ExportContext.getWriter().writeClosingElement(getEntityName(entity));
     }
 
     /*

@@ -13,6 +13,9 @@ package org.andromda.modules.xmilink.uml14;
 
 import org.andromda.modules.xmilink.ExportStrategyFactory;
 
+import com.togethersoft.openapi.model.elements.Entity;
+
+
 /**
  * TODO Specify purpose, please.
  * 
@@ -35,7 +38,7 @@ public class UMLDataTypeExportStrategy
      * 
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#getEntityName()
      */
-    protected String getEntityName()
+    protected String getEntityName(Entity entity)
     {
         return "UML:DataType";
     }

@@ -27,7 +27,7 @@ public class UMLPackageExportStrategy
      * 
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#getEntityName()
      */
-    protected String getEntityName()
+    protected String getEntityName(Entity entity)
     {
         return "UML:Package";
     }
