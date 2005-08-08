@@ -557,11 +557,11 @@ public class StrutsUseCaseLogicImpl
                             {
                                 // this key needs to be fully qualified since the valid when value can be different
                                 final String completeKeyPrefix = (normalize)
-                                    ? useCase.getTitleKey() + '.' +
+                                    ? parameter.getMessageKey()
+                                    : useCase.getTitleKey() + '.' +
                                     page.getMessageKey() + '.' +
                                     action.getMessageKey() + '.' +
-                                    parameter.getMessageKey()
-                                    : parameter.getMessageKey();
+                                    parameter.getMessageKey();
                                 messages.put(completeKeyPrefix + "_validwhen",
                                     "{0} is only valid when " + parameter.getValidWhen());
                             }
