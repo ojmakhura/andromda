@@ -48,9 +48,9 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
 ## survive the trip to this use-case, those parameters will have been put into session scope
 ## and here we move them into the new form
 #if ($action.formScopeRequest)
-        final Object previousFormObject = request.getAttribute("$action.formKey");
+        final Object previousFormObject = request.getAttribute("$action.useCase.formKey");
 #else
-        final Object previousFormObject = request.getSession().getAttribute("$action.formKey");
+        final Object previousFormObject = request.getSession().getAttribute("$action.useCase.formKey");
 #end
 
 #foreach ($finalState in $action.useCase.referencingFinalStates)
@@ -91,9 +91,9 @@ public final class $action.actionClassName extends org.apache.struts.action.Acti
         }
 
 #if ($action.formScopeRequest)
-        request.setAttribute("$action.formKey", form);
+        request.setAttribute("$action.useCase.formKey", form);
 #else
-        request.getSession().setAttribute("$action.formKey", form);
+        request.getSession().setAttribute("$action.useCase.formKey", form);
 #end
 
 #saveMessages($action "        ")

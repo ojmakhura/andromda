@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
@@ -616,6 +617,17 @@ public class StrutsUseCaseLogicImpl
         buffer.append("Help");
 
         return buffer.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase#getFormKey()
+     */
+    protected String handleGetFormKey()
+    {
+        final Object formKeyValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null
+            ? Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_DEFAULT_KEY
+            : String.valueOf(formKeyValue);
     }
 
 }

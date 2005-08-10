@@ -82,15 +82,16 @@
             </element>
             <element name="ACTION_FORM_KEY">
                 <documentation>
-                    Denotes the key used to store this action's form under.
-                    Will only be used when the form is not empty, and is ignored otherwise. This feature is useful
-                    when you are using Struts Tiles to execute more than one action at the same time;
-                    an example would be a sidebar such as a menu
+                    Denotes the key used to store this use-case's action forms under.
+                    This feature is useful when you are using Struts Tiles to execute more than one action at the
+                    same time; an example would be a sidebar such as a menu
                     that automatically reloads on each request, you will not want this sidebar's action to collide
                     with the form from the other 'real' action.
+                    <em>Please note that using this feature in combination with passing parameters across use-cases
+                    will not work, only use this feature for use-cases that stand on their own.</em>
                 </documentation>
                 <value>@andromda.presentation.web.action.form.key</value>
-                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <appliedOnElement>A <![CDATA[<<FrontEndUseCase>>]]></appliedOnElement>
                 <allowedValues>
                     <value default="true">form</value>
                     <value>any string is allowed</value>

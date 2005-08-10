@@ -1,5 +1,10 @@
-<project default="clean-dist" xmlns:maven="jelly:maven" xmlns:j="jelly:core"
-    xmlns:ant="jelly:ant" xmlns:util="jelly:util" xmlns:artifact="artifact">
+<project default="clean-dist"
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:util="jelly:util"
+         xmlns:i="jelly:interaction"
+         xmlns:artifact="artifact">
 
     <!-- ==================================================================
                Installs all component libraries into the local repository
@@ -454,8 +459,8 @@
         This goal processes each .xml.zip it can find and performs a token replacement
         on the content of the XMI file contained inside.
 
-        This goal takes two arguments, if either of them is missing or blank this goal
-        does nothing.
+        This goal takes two arguments, the latter one is optional and if you do not
+        specify the other two this script will prompt you for them.
 
             - xmiToken = the token to replace
             - xmiValue = the value by which to replace the tokens found
@@ -467,50 +472,187 @@
 
     -->
     <goal name="update-xmi">
-        <j:if test="${!empty xmiToken &amp;&amp; !empty xmiValue}">
-            <j:if test="${directory == null}">
-                <j:set var="directory" value="${basedir}"/>
-            </j:if>
-            <util:tokenize var="xmiExtensions" delim=",">${xmi.model.extensions}</util:tokenize>
-            <ant:fileScanner var="models">
-                <ant:fileset dir="${directory}">
-                    <j:forEach var="xmiExtension" items="${xmiExtensions}">
-                        <ant:include name="**/*.${xmiExtension}"/>
-                    </j:forEach>
-                </ant:fileset>
-            </ant:fileScanner>
-            <j:forEach var="model" items="${models.iterator()}">
-                <!-- set a few properties for this model -->
-                <j:set var="workingDir" value="${model.parent}"/>
-                <j:choose>
-                    <j:when test="${model.name.endsWith('.zip')}">
-                        <j:set var="xmiName" value="${model.name.replaceAll('.zip','')}"/>
-                        <!-- unzip the model to have access to the XMI inside it -->
-                        <ant:unzip src="${model}" dest="${workingDir}"/>
-                        <!-- replace the occurrences in the XMI file -->
-                        <ant:replace dir="${workingDir}" token="${xmiToken}" value="${xmiValue}">
-                            <ant:include name="${xmiName}"/>
-                        </ant:replace>
-                        <!-- zip it up again, only updating the XMI inside the zip, this allows us not to touch
-                             the file when nothing is changed, and it will not remove any other files present
-                             in the zip -->
-                        <ant:zip destfile="${model}" update="true">
-                            <ant:fileset dir="${workingDir}">
-                                <ant:include name="${xmiName}"/>
-                            </ant:fileset>
-                        </ant:zip>
-                        <!-- delete the XMI file, it is not needed anymore -->
-                        <ant:delete file="${workingDir}/${xmiName}"/>
-                    </j:when>
-                    <j:otherwise>
-                        <!-- replace the occurrences in the XMI file -->
-                        <ant:replace dir="${workingDir}" token="${xmiToken}" value="${xmiValue}">
-                            <ant:include name="${model.name}"/>
-                        </ant:replace>
-                    </j:otherwise>
-                </j:choose>
-            </j:forEach>
+        <j:while test="${empty(xmiToken)}">
+            <i:ask question="Which token do you want to replace ?" answer="xmiToken"/>
+        </j:while>
+        <j:while test="${empty(xmiValue)}">
+            <i:ask question="Which value should replace the '${xmiToken}' token ?" answer="xmiValue"/>
+        </j:while>
+        <j:if test="${empty(directory)}">
+            <ant:echo>Setting working directory to default location: ${basedir}</ant:echo>
+            <j:set var="directory" value="${basedir}"/>
         </j:if>
+        <util:tokenize var="xmiExtensions" delim=",">${xmi.model.extensions}</util:tokenize>
+        <ant:fileScanner var="models">
+            <ant:fileset dir="${directory}">
+                <j:forEach var="xmiExtension" items="${xmiExtensions}">
+                    <ant:include name="**/*.${xmiExtension}"/>
+                </j:forEach>
+            </ant:fileset>
+        </ant:fileScanner>
+        <j:forEach var="model" items="${models.iterator()}">
+            <!-- set a few properties for this model -->
+            <j:set var="workingDir" value="${model.parent}"/>
+            <j:choose>
+                <j:when test="${model.name.endsWith('.zip')}">
+                    <j:set var="xmiName" value="${model.name.replaceAll('.zip','')}"/>
+                    <!-- unzip the model to have access to the XMI inside it -->
+                    <ant:unzip src="${model}" dest="${workingDir}"/>
+                    <!-- replace the occurrences in the XMI file -->
+                    <ant:replace dir="${workingDir}" token="${xmiToken}" value="${xmiValue}">
+                        <ant:include name="${xmiName}"/>
+                    </ant:replace>
+                    <!-- zip it up again, only updating the XMI inside the zip, this allows us not to touch
+                         the file when nothing is changed, and it will not remove any other files present
+                         in the zip -->
+                    <ant:zip destfile="${model}" update="true">
+                        <ant:fileset dir="${workingDir}">
+                            <ant:include name="${xmiName}"/>
+                        </ant:fileset>
+                    </ant:zip>
+                    <!-- delete the XMI file, it is not needed anymore -->
+                    <ant:delete file="${workingDir}/${xmiName}"/>
+                </j:when>
+                <j:otherwise>
+                    <!-- replace the occurrences in the XMI file -->
+                    <ant:replace dir="${workingDir}" token="${xmiToken}" value="${xmiValue}">
+                        <ant:include name="${model.name}"/>
+                    </ant:replace>
+                </j:otherwise>
+            </j:choose>
+        </j:forEach>
     </goal>
-    
+
+    <!--
+            This goal takes an argument:
+
+                - newVersion = the new version to set into models and references
+    -->
+    <goal name="updateProjectVersion">
+        <j:while test="${empty(newVersion)}">
+            <i:ask question="The current AndroMDA version is ${pom.currentVersion}, please enter the new version:" answer="newVersion"/>
+        </j:while>
+        <!-- change the currentVersion property in the root project.xml -->
+        <ant:echo>Updating the project's root project.xml file ...</ant:echo>
+        <!-- store the previous version in this variable -->
+        <j:set var="oldVersion" value="${pom.currentVersion}"/>
+        <!-- mke the physical replacement in the root project.xml -->
+        <ant:replace
+            file="${basedir}/project.xml"
+            token="&lt;currentVersion&gt;${oldVersion}&lt;/currentVersion&gt;"
+            value="&lt;currentVersion&gt;${newVersion}&lt;/currentVersion&gt;"/>
+        <!-- set the new version in the POM -->
+        <j:set var="dummy" value="${pom.setCurrentVersion(newVersion)}"/>
+        <!-- update all models to take this version change into account -->
+        <ant:echo>Updating all model XMI files ...</ant:echo>
+        <ant:property name="xmiToken" value="${oldVersion}"/>
+        <ant:property name="xmiValue" value="${newVersion}"/>
+        <attainGoal name="update-xmi"/>
+        <!-- replace all occurrences of this version in the documentation and in documentation/changes.xml -->
+        <ant:echo>Updating all references to this version found in the documentation ...</ant:echo>
+        <ant:replace dir="${basedir}" token="${oldVersion}" value="${newVersion}">
+            <ant:fileset dir="${basedir}">
+                <ant:include name="**/xdocs/**/*.xml"/>
+                <ant:include name="${basedir}/documentation/changes.xml"/>
+            </ant:fileset>
+        </ant:replace>
+        <ant:echo>Finished updating the project version from ${oldVersion} to ${newVersion}</ant:echo>
+    </goal>
+
+    <!--
+            This goal is used to prepare a release on SourceForge.net, if this goal fails it will
+            not be rolledback, meaning that any changes to the local sources will remain in place.
+
+                this goal optionally takes arguments:
+
+                  - newVersion = the new version string, for example: 4.1-RC1
+                  - newSnapshotVersion = the new version string, for example: 3.1-RC3-SNAPSHOT
+                  - ftpUser = the user to login as when uploading to the FTP host
+                  - ftpPassword = the password to use when uploading to the FTP host
+
+            This goal should be called with maven running online
+    -->
+    <goal name="release">
+        <j:set var="ftpHost" value="upload.sourceforge.net"/>
+        <j:while test="${empty(newVersion)}">
+            <!-- construct/guess the next version -->
+            <j:invoke var="snapshotOffset" method="lastIndexOf" on="${pom.currentVersion}">
+                <j:arg type="java.lang.String" value="-SNAPSHOT"/>
+            </j:invoke>
+            <j:choose>
+                <!-- if the current version ends with -SNAPSHOT we use the prefix as the next version proposal -->
+                <j:when test="${snapshotOffset ne '-1'}">
+                    <j:invoke var="proposedVersion" method="substring" on="${pom.currentVersion}">
+                        <j:arg type="int" value="0"/>
+                        <j:arg type="int" value="${snapshotOffset}"/>
+                    </j:invoke>
+                    <i:ask question="The current AndroMDA version is ${pom.currentVersion}, please enter the next version (press ENTER to use '${proposedVersion}'):" answer="newVersion"/>
+                    <j:if test="${empty(newVersion)}">
+                        <j:set var="newVersion" value="${proposedVersion}"/>
+                    </j:if>
+                </j:when>
+                <!-- otherwise just ask for the version, don't propose anything -->
+                <j:otherwise>
+                    <i:ask question="The current AndroMDA version is ${pom.currentVersion}, please enter the next version:" answer="newVersion"/>
+                </j:otherwise>
+            </j:choose>
+        </j:while>
+        <j:while test="${empty(newSnapshotVersion)}">
+            <i:ask question="The next AndroMDA version will be ${newVersion}, what will be the next snapshot version ?" answer="newSnapshotVersion"/>
+        </j:while>
+        <j:choose>
+            <j:when test="${empty(ftpUser)}">
+                <i:ask question="Please enter a username in case you want to login into ${ftpHost}:" answer="ftpUser"/>
+            </j:when>
+            <j:when test="${!empty(ftpUser)}">
+                <i:ask question="Please enter a password for ${ftpHost}:" answer="ftpPassword"/>
+            </j:when>
+        </j:choose>
+        <!-- update this project's version with the release version -->
+        <ant:echo>Updating project to next stable release: replacing ${pom.currentVersion} with ${newVersion}</ant:echo>
+        <attainGoal name="updateProjectVersion"/>
+        <!-- make sure we can build online -->
+<!--
+        <attainGoal name="install"/>
+        <attainGoal name="bootstrap-install"/>
+        <attainGoal name="docs"/>
+-->
+        <!-- make sure we can unzip both distributions -->
+<!--
+        <ant:unzip src="${basedir}/target/distributions/${pom.groupId}-bin-${newVersion}.zip" dest="${basedir}/target/test"/>
+        <ant:unzip src="${basedir}/target/distributions/${pom.groupId}-src-${newVersion}.zip" dest="${basedir}/target/test"/>
+-->
+        <!-- make sure we can build the samples from the binary distribution -->
+<!--
+        <maven:maven descriptor="${basedir}/target/test/${pom.groupId}-bin-${newVersion}/samples/project.xml"/>
+-->
+        <!-- commit all the changes with the new version and -->
+        <ant:cvs command='commit -m "Changes for release ${newVersion}"' compressionLevel="9" failOnError="true"/>
+        <!-- tag this release (we construct the tag label here first) -->
+        <j:set var="cvsTag" value="V${newVersion}"/>
+        <j:invoke var="cvsTag" on="${cvsTag}" method="replaceAll"><j:arg value="-"/><j:arg value=""/></j:invoke>
+        <j:invoke var="cvsTag" on="${cvsTag}" method="replaceAll"><j:arg value="\."/><j:arg value="_"/></j:invoke>
+        <ant:cvs command="tag ${cvsTag}" compressionLevel="9" failOnError="true"/>
+        <!-- update this project's version with the next snapshot version -->
+        <ant:echo>Updating project to next snapshot release: replacing ${newVersion} with ${newSnapshotVersion}</ant:echo>
+        <j:set var="newVersion" value="${newSnapshotVersion}"/>
+        <attainGoal name="updateProjectVersion"/>
+        <!-- commit all the changes with the new version -->
+        <ant:cvs command='commit -m "Changes for release ${newVersion}"' compressionLevel="9" failOnError="true"/>
+        <!-- upload the binaries to SourceForge.net -->
+        <j:if test="${!empty(ftpUser)}">
+            <ant:echo>Uploading binaries to ${ftpHost}</ant:echo>
+            <ant:taskdef name="ftp" classname="org.apache.tools.ant.taskdefs.optional.net.FTP"/>
+            <ant:ftp server="${ftpHost}" userid="${ftpUser}" password="${ftpPassword}">
+                <ant:fileset dir="${basedir}/target/distributions">
+                    <ant:include name="${pom.groupId}-bin-${newVersion}.zip"/>
+                    <ant:include name="${pom.groupId}-src-${newVersion}.zip"/>
+                </ant:fileset>
+            </ant:ftp>
+            <ant:echo>YOU WILL NOW NEED TO PUBLISH THE UPLOADED FILES THROUGH THE SOURCEFORGE.NET RELEASE INTERFACE</ant:echo>
+        </j:if>
+        <!-- ? update the docs on www.andromda.org with the new documentation ? -->
+        <ant:echo>ALL WENT FINE, ANNOUNCE THE NEW RELEASE (and publish the docs if this is a stable release)</ant:echo>
+    </goal>
+
 </project>

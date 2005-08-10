@@ -19,8 +19,7 @@
             <p>
                 In order to successfully generate a single entity it is sufficient to simply
                 model a single class and assign it the <![CDATA[<<Entity>>]]> stereotype, this stereotype tells
-                the Spring cartridge to treat this class as a entity (you will need to enable the 
-                <a href="../andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a> for this to work).
+                the Spring cartridge to treat this class as an entity.
             </p>
             <p>
                 Let's start by modeling a package <code>org.andromda.test</code> and putting a class
