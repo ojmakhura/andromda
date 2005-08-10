@@ -45,7 +45,7 @@
                 <p>An excellent explanation/demonstration of AndroMDA’s capabilities can be found in the HowTo guide
                     explaining how to model using the Spring Cartridge.  There, you can see examples of a UML model, and
                     the resulting Java source code (very valuable to study).  For more details, see
-                    <a href="andromda-spring-cartridge/howto1.html">the Spring howto documentation</a>.
+                    <a href="../andromda-spring-cartridge/howto1.html">the Spring howto documentation</a>.
                 </p>
                 <p>Maven is actually an optional component.  The AndroMDA engine could be called directly from the
                     command line, from within an IDE, or from a build script (such as from within Ant).  However, a
@@ -60,7 +60,7 @@
                     <a href="http://maven.apache.org/reference/articles.html">Maven articles</a>.
                 </p>
                 <p>For instructions on how to install the necessary components to get AndroMDA up and running see
-                    <a href="starting.html">Getting started</a>.
+                    <a href="../starting.html">Getting started</a>.
                 </p>
             </subsection>
             <subsection name="Project development cycle">
@@ -134,8 +134,8 @@
                     <b>/myProjects/myDemo</b>.
                 </p>
                 <p>For more information, see
-                    <a href="starting.html#My_first_AndroMDA_project">My first AndroMDA project</a> as well as
-                    <a href="maven-andromdapp-plugin/index.html">the andromdapp plugin</a>
+                    <a href="../starting.html#My_first_AndroMDA_project">My first AndroMDA project</a> as well as
+                    <a href="../maven-andromdapp-plugin/index.html">the andromdapp plugin</a>
                 </p>
             </subsection>
             <subsection name="Project Directory Structure">
@@ -193,10 +193,10 @@
                     project (these settings are segregated from each other in sections called namespaces).
                 </p>
                 <p>For general information about the configuration information found in
-                    <b>andromda.xml</b>, see <a href="configuration.html">the configuration page</a>
+                    <b>andromda.xml</b>, see <a href="../configuration.html">the configuration page</a>
                 </p>
                 <p>For information about cartridge specific configuration options, first go to the
-                    <a href="andromda-cartridges/index.html">AndroMDA Cartridge page</a>
+                    <a href="../andromda-cartridges/index.html">AndroMDA Cartridge page</a>
                     , select the desired cartridge from the Available Cartridges menu on the left, then select the
                     Namespace option under the Documentation menu.
                 </p>
@@ -277,7 +277,7 @@
                     types, stereotypes, and tagged values that are known to work with AndroMDA and all of its
                     Cartridges.  Any new UML model should begin by importing this file into your project (with
                     MagicDraw, this is done by using the File_Use Profile/Module menu option). See the
-                    <a href="faq.html#profile-import">Frequently Asked Questions</a>
+                    <a href="../faq.html#profile-import">Frequently Asked Questions</a>
                     for more information.
                 </p>
                 <p>If your project was generated using the Maven app generation plug-in, the pre-created project model
@@ -302,14 +302,14 @@
                     on a Windows XP installation) will allow MagicDraw to find the profile file on its own.
                 </p>
                 <p>For general information on AndroMDA modeling, see
-                    <a href="modeling.html">Modeling in AndroMDA</a>
+                    <a href="../modeling.html">Modeling in AndroMDA</a>
                 </p>
                 <p>For a tutorial on creating models that work with the Spring cartridge (the most popular AndroMDA
                     plug-in), see
-                    <a href="andromda-spring-cartridge/howto.html">the AndroMDA Spring cartridge howto</a>
+                    <a href="../andromda-spring-cartridge/howto.html">the AndroMDA Spring cartridge howto</a>
                 </p>
                 <p>For information about cartridge specific stereotypes and tagged values, first go to
-                    <a href="andromda-cartridges/index.html">the AndroMDA
+                    <a href="../andromda-cartridges/index.html">the AndroMDA
                     Cartridge page</a>, select the desired cartridge from the Available
                     Cartridges menu on the left, and then select the
                     Profile option on the left hand menu.
@@ -353,7 +353,7 @@
                     </b>
                     file and add a &lt;dependency&gt; for the cartridge to the &lt;dependencies&gt; section.  For more
                     information, see Using a cartridge at
-                    <a href="andromda-cartridges/index.html">the cartridges index page</a>
+                    <a href="../andromda-cartridges/index.html">the cartridges index page</a>
                 </p>
                 <p>If using the Maven plug-in, the
                     <b>andromda.xml</b>
@@ -365,7 +365,7 @@
                     directory.  This file contains one or more &lt;namespace&gt; tags to activate the cartridge(s).
                 </p>
                 <p>For more information on configuring a cartridge’s namespace, see
-                    <a href="configuration.html#namespace">configuring AndroMDA namespaces</a>
+                    <a href="../configuration.html#namespace">configuring AndroMDA namespaces</a>
                 </p>
                 <h3>Loading the UML model</h3>
                 <p>Just as there is a standardized object model to represent a parsed XML file (The Document Object
@@ -388,7 +388,7 @@
                     specific code generation.  It is the engine’s responsibility to instantiate these Metafacades for
                     use by the source code templates.</p>
                 <p>For more information about Metafacades, see
-                    <a href="andromda-metafacades/index.html">the metafacades documentation</a>
+                    <a href="../andromda-metafacades/index.html">the metafacades documentation</a>
                 </p>
                 <h3>Matching Stereotypes to Cartridges</h3>
                 <p>After initializing, the AndroMDA engine traverses the UML model, looking for classes marked with a
@@ -437,11 +437,11 @@
                     </li>
                 </ol>
                 <p>For more information on the Cartridge Descriptor, see The Cartridge Descriptor at
-                    <a href="andromda-cartridges/index.html">the cartridge index page</a>
+                    <a href="../andromda-cartridges/index.html">the cartridge index page</a>
                     .
                 </p>
                 <p>For more information on the Metafacade Descriptor, see
-                    <a href="andromda-metafacades/configuring.html">configuring metafacades</a>
+                    <a href="../andromda-metafacades/configuring.html">configuring metafacades</a>
                 </p>
                 <h3>Generating code from templates</h3>
                 <p>Once the AndroMDA engine has identified a class from the UML model and matched it to a cartridge, the
@@ -531,7 +531,7 @@
                     determine if code should be generated at run-time.
                 </p>
                 <p>For more information on how cartridges work in general, see
-                    <a href="andromda-cartridges/index.html">the cartridge index page</a>
+                    <a href="../andromda-cartridges/index.html">the cartridge index page</a>
                 </p>
                 <p>The Velocity Template Language reference guide can be found here
                     <a href="http://jakarta.apache.org/velocity/docs/vtl-reference-guide.html">
@@ -614,7 +614,7 @@
                     directory when looking for a particular template file.  If it does not find it, it will fall back on
                     the cartridge’s .JAR file.</p>
                 <p>See Overriding cartridge resources at
-                    <a href="andromda-cartridges/index.html#mergeLocation">overriding cartridge resources</a>
+                    <a href="../andromda-cartridges/index.html#mergeLocation">overriding cartridge resources</a>
                     for more details.
                 </p>
                 <h3>Customizing existing cartridges</h3>
@@ -633,7 +633,7 @@
                     will re-build and re-package the cartridge.
                 </p>
                 <p>For more details on developing cartridges, see
-                    <a href="andromda-cartridges/developing.html">developing cartridges</a>
+                    <a href="../andromda-cartridges/developing.html">developing cartridges</a>
                 </p>
                 <h3>Writing cartridges from scratch</h3>
                 <p>Entire cartridges can also be developed.  The most difficult aspect of cartridge development is the
@@ -641,7 +641,7 @@
                     metafacades.  You can model your metafacade with MagicDraw, then have AndroMDA generate the
                     metafacade code.</p>
                 <p>For more details on developing metafacades, see
-                    <a href="andromda-metafacades/developing.html">developing metafacades</a>
+                    <a href="../andromda-metafacades/developing.html">developing metafacades</a>
                 </p>
             </subsection>
         </section>
