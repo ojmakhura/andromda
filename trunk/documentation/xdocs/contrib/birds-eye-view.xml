@@ -45,8 +45,7 @@
                 <p>An excellent explanation/demonstration of AndroMDA’s capabilities can be found in the HowTo guide
                     explaining how to model using the Spring Cartridge.  There, you can see examples of a UML model, and
                     the resulting Java source code (very valuable to study).  For more details, see
-                    <a href="andromda-spring-cartridge/howto1.html">the Spring howto documentation</a>
-                    .
+                    <a href="andromda-spring-cartridge/howto1.html">the Spring howto documentation</a>.
                 </p>
                 <p>Maven is actually an optional component.  The AndroMDA engine could be called directly from the
                     command line, from within an IDE, or from a build script (such as from within Ant).  However, a
@@ -58,12 +57,10 @@
                     <a href="http://www.devx.com/java/Article/17204">http://www.devx.com/java/Article/17204</a>
                 </p>
                 <p>For a complete list of articles you can use to familiarize yourself with Maven, see
-                    <a href="http://maven.apache.org/reference/articles.html">Maven articles</a>
-                    .
+                    <a href="http://maven.apache.org/reference/articles.html">Maven articles</a>.
                 </p>
                 <p>For instructions on how to install the necessary components to get AndroMDA up and running see
-                    <a href="starting.html">Getting started</a>
-                    .
+                    <a href="starting.html">Getting started</a>.
                 </p>
             </subsection>
             <subsection name="Project development cycle">
@@ -134,16 +131,11 @@
                     sub-directory’s name.  For example, if in the
                     <b>\myProjects</b>
                     directory you generate a project with the ID myDemo, your project’s root directory will be
-                    <b>/myProjects/myDemo</b>
-                    .
+                    <b>/myProjects/myDemo</b>.
                 </p>
                 <p>For more information, see
-                    <a href="starting.html#My_first_AndroMDA_project">My first AndroMDA project</a>
-                </p>
-                <p>as well as</p>
-                <p>
-                    <a href="maven-andromdapp-plugin/index.html">
-                        the andromdapp plugin</a>
+                    <a href="starting.html#My_first_AndroMDA_project">My first AndroMDA project</a> as well as
+                    <a href="maven-andromdapp-plugin/index.html">the andromdapp plugin</a>
                 </p>
             </subsection>
             <subsection name="Project Directory Structure">
@@ -201,9 +193,7 @@
                     project (these settings are segregated from each other in sections called namespaces).
                 </p>
                 <p>For general information about the configuration information found in
-                    <b>andromda.xml</b>
-                    , see
-                    <a href="configuration.html">the configuration page</a>
+                    <b>andromda.xml</b>, see <a href="configuration.html">the configuration page</a>
                 </p>
                 <p>For information about cartridge specific configuration options, first go to the
                     <a href="andromda-cartridges/index.html">AndroMDA Cartridge page</a>
@@ -245,11 +235,9 @@
                     generation, provided the UML modeling tool can output to the Object Management Group’s industry
                     standard XML Metadata Interchange (XMI) file format (see
                     <a href="http://www.omg.org/technology/documents/formal/xmi.htm">
-                        http://www.omg.org/technology/documents/formal/xmi.htm</a>
-                    ).
+                        http://www.omg.org/technology/documents/formal/xmi.htm</a>).
                 </p>
-                <p>In
-                    <i>practice</i>
+                <p>In <i>practice</i>
                     , you will save yourself a LOT of headache if you simply use MagicDraw as your UML tool (a free
                     community edition is available at
                     <a href="http://www.magicdraw.com/">http://www.magicdraw.com</a>
