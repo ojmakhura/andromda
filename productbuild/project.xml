@@ -20,8 +20,10 @@
     <siteDirectory>/team.andromda.org/</siteDirectory>
     <distributionDirectory>/team.andromda.org/maven/andromda/distributions</distributionDirectory>
     <repository>
-        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
-        <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
+        <connection>
+            scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
+        <developerConnection>
+            scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url>
     </repository>
     <versions>
@@ -194,5 +196,21 @@
         <report>maven-license-plugin</report>
         <report>maven-changes-plugin</report>
     </reports>
+    <dependencies>
+        <!-- for the goals in maven.xml -->
+        <dependency>
+            <groupId>oro</groupId>
+            <artifactId>NetComponents</artifactId>
+            <version>1.3.8a</version>
+            <properties>
+                <classloader>root</classloader>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly-tags-interaction</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
     <properties/>
 </project>

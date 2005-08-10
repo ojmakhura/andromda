@@ -24,7 +24,7 @@ ${indent}</c:choose>
 #set ($trigger = $action.actionTrigger)
 #set ($triggerKey = $trigger.triggerKey)
 #set ($parameters = $action.actionParameters)
-#set ($formBeanName = $action.formKey)
+#set ($formBeanName = $action.useCase.formKey)
 #set ($securityEnabled = $stringUtils.isNotBlank($securityRealm) && $stringUtils.isNotBlank($roles) )
 #if ($securityEnabled)
 ${indent}<logic:present role="$roles">
@@ -152,7 +152,7 @@ ${indent}</logic:notPresent>
 #set ($quote ='"')
 #set ($fieldName = $field.name)
 #set ($widgetType = $field.widgetType)
-#set ($formBeanName = $action.formKey)## used to denote the request scope form
+#set ($formBeanName = $action.useCase.formKey)## used to denote the request scope form
 #if($field.fieldRowCount)#set($rowCount=" rows=$quote$field.fieldRowCount$quote")#else#set($rowCount='')#end
 #if($field.fieldColumnCount)#set($columnCount=" size=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
 #if($rowIndex=='')#set($beanName=$formBeanName)#else#set($beanName="row")#end
