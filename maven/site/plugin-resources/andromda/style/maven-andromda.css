@@ -217,6 +217,13 @@ div.screenshot tr.a td, div.screenshot tr.b td
 
 .indented { padding: 25px; }
 
+.new
+{
+    margin: 10px 40px;
+    padding: 20px;
+    border: 1px dotted #666;
+};
+
 /* syntax highlighting */
 div.source { font-size: 92%; }
 div.jk, div.vk { color: #008; display: inline; font-size: 92%; font-weight: bold;  } /* java,velocity reserved keyword */
