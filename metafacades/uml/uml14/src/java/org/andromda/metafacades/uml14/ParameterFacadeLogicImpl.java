@@ -85,9 +85,9 @@ public class ParameterFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#isDefaultValuePresent()
      */
-    public boolean isDefaultValuePresent()
+    public boolean handleIsDefaultValuePresent()
     {
-        return StringUtils.isBlank(this.getDefaultValue());
+        return StringUtils.isNotBlank(this.getDefaultValue());
     }
 
     /**
