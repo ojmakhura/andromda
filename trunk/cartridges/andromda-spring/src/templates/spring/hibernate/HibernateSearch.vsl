@@ -189,7 +189,7 @@ public class $criteriaSearchBaseName
             String parameterName = path[path.length - 1];
             ${hibernateUtils.basePackage}.Criteria parameterCriteria = this.rootCriteria;
 
-            ${hibernateUtils.basePackage}.Criteria childEntityCriteria = null;
+            ${hibernateUtils.basePackage}.Criteria childEntityCriteria;
             if (path.length > 1)
             {
                 // We have a parameter affecting an attribute of an inner childEntity object so we need
@@ -258,7 +258,6 @@ public class $criteriaSearchBaseName
      * @param criteria
      * @param parameterName
      * @param parameterValue
-     * @param searchIfNull
      * @param comparatorID
      * @param matchMode
      */
@@ -329,12 +328,6 @@ public class $criteriaSearchBaseName
                     break;
                 }
             }
-        }
-        else if (parameterValue instanceof String)
-        {
-            criteria.add(${hibernateUtils.criterionPackage}.Expression.or(
-                ${hibernateUtils.criterionPackage}.Expression.isNull(parameterName),
-                ${hibernateUtils.criterionPackage}.Expression.like(parameterName, new String())));
         }
         else
         {
