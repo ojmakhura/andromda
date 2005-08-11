@@ -77,8 +77,8 @@ public class ParameterFacadeLogicImpl
      */
     public String handleGetDefaultValue()
     {
-        final Expression expression = metaObject.getDefaultValue();
-        return (expression == null) ? "" : expression.getBody();
+        final Expression expression = this.metaObject.getDefaultValue();
+        return expression == null ? "" : expression.getBody();
     }
 
     /**
