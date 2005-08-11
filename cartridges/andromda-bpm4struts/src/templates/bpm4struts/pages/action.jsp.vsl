@@ -48,7 +48,7 @@
                     <tr class="$field.name">
                         <td class="label">#if ($requiredness && $field.required)<nobr><bean:message key="$field.messageKey"/> <div class="important">*</div></nobr>#else<bean:message key="$field.messageKey"/>#end</td>
                         <td class="field">
-#renderFormField($action $field "                           " '')
+#renderFormField($action $field '' false "                           ")
                         </td>
                     </tr>
 #end

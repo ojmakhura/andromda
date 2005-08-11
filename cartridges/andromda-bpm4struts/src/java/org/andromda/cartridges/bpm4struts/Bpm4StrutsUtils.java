@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts;
 
 import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ManageableEntity;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -166,6 +167,35 @@ public final class Bpm4StrutsUtils
     public static String toWebFileName(final String string)
     {
         return StringUtilsHelper.separate(string, "-").toLowerCase();
+    }
+
+    /**
+     * Given a specific type and format patterns for both date and time, this method returns the pattern
+     * to use for the argument type.
+     *
+     * @param type can be <code>null</code>, should be the fully qualified model name
+     * @param dateFormat can be <code>null</code>
+     * @param timeFormat can be <code>null</code>
+     * @return <code>null</code> if the argument type is not a date nor a time type
+     */
+    public static String getFormatPattern(String type, String dateFormat, String timeFormat)
+    {
+        String formatPattern = null;
+
+        if (UMLProfile.DATETIME_TYPE_NAME.equals(type))
+        {
+            formatPattern = StringUtils.trimToEmpty(dateFormat + " " + timeFormat);
+        }
+        else if (UMLProfile.DATE_TYPE_NAME.equals(type))
+        {
+            formatPattern = StringUtils.trimToEmpty(dateFormat);
+        }
+        else if (UMLProfile.TIME_TYPE_NAME.equals(type))
+        {
+            formatPattern = StringUtils.trimToEmpty(timeFormat);
+        }
+
+        return formatPattern;
     }
 
     private final static class ManageableEntityComparator

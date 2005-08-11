@@ -132,7 +132,7 @@ public class EntityLogicImpl
     /**
      * Creates an identifier from the default identifier properties specified within a namespace.
      */
-    private final void createIdentifier()
+    private void createIdentifier()
     {
         // first check if the foreign identifier flag is set, and
         // let those taken precedence if so
@@ -153,16 +153,14 @@ public class EntityLogicImpl
      * @param type the type to give the identifier
      * @param visibility the visibility to give the identifier
      */
-    private final void createIdentifier(
+    private void createIdentifier(
         final String name,
         final String type,
         final String visibility)
     {
         // only create the identifier if an identifer with the name doesn't
         // already exist
-        if (!UML14MetafacadeUtils.attributeExists(
-                this.metaObject,
-                name))
+        if (!UML14MetafacadeUtils.attributeExists(this.metaObject, name))
         {
             final Attribute identifier =
                 UML14MetafacadeUtils.createAttribute(

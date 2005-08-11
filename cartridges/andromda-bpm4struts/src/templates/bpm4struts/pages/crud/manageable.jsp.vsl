@@ -197,11 +197,11 @@ form)
         <bean:message key="select.other.entity"/>
         <select onchange="document.location=this.options[this.selectedIndex].value+'?$manageableReferenceParameterPrefix$manageable.name='+this.form.elements['$manageable.identifiers.iterator().next().name'].value;">
 #foreach ($manageableEntry in $manageable.allManageables)
-#if ($stringUtils.isNotBlank($securityRealm))
+#if ($stringUtils.isNotBlank($securityRealm) && !$manageableEntry.users.empty)
         <logic:present role="#commaSeparatedNames($manageableEntry.users)">
 #end
             <option#if($manageable.name.equals($manageableEntry.name)) selected="selected"#end value="<html:rewrite page="${manageableEntry.actionPath}.do"/>"><bean:message key="$manageableEntry.messageKey"/>#if($referencingManageables.contains($manageableEntry))<bean:message key="referencing.entity.marker"/>#end</option>
-#if ($stringUtils.isNotBlank($securityRealm))
+#if ($stringUtils.isNotBlank($securityRealm) && !$manageableEntry.users.empty)
         </logic:present>
 #end
 #end

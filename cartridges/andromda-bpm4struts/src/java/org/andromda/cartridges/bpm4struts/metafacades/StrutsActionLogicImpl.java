@@ -292,13 +292,13 @@ public class StrutsActionLogicImpl
         final FrontEndUseCase useCase = this.getUseCase();
         if (useCase != null)
         {
-            StringBuffer buffer = new StringBuffer();
+            final StringBuffer buffer = new StringBuffer();
 
             final String actionPathPrefix = Bpm4StrutsGlobals.PROPERTY_ACTION_PATH_PREFIX;
             String prefix = this.isConfiguredProperty(actionPathPrefix) ? ObjectUtils
                 .toString(this.getConfiguredProperty(actionPathPrefix)) : "";
 
-            ModelElementFacade useCasePackage = useCase.getPackage();
+            final ModelElementFacade useCasePackage = useCase.getPackage();
             if (useCasePackage != null)
             {
                 prefix = prefix.replaceAll("\\{0\\}", useCasePackage.getPackagePath());

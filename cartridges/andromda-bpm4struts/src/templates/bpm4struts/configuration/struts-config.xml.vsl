@@ -92,7 +92,17 @@
 #foreach ($actionForward in $action.actionForwards)
             <forward
                 name="$actionForward.forwardName"
+##
+##  when direct page access is prevented we cannot redirect to pages,
+##  so we need to redirect to a page forward actioninstead
+##  (they are declared a bit further down the template)
+##
+#if ($preventDirectPageAccess == "true" && $actionForward.enteringPage)
+#set ($pageActionName = "$stringUtils.upperCamelCaseName($actionForward.target.name)")
+                path="${useCase.actionPathRoot}/${pageActionName}PageForward.do"
+#else
                 path="$actionForward.forwardPath"
+#end
                 redirect="$action.redirect" />
 #end
         </action>
@@ -109,6 +119,20 @@
             type="org.apache.struts.actions.ForwardAction"
             scope="request"
             parameter="${page.onlineHelpPagePath}.jsp"/>
+#end
+#end
+#if ($preventDirectPageAccess == "true")
+##
+##  these actions merely forward to pages because the pages aren't to be accessed directly by the client
+##  (eg. via a redirect)
+##
+#foreach ($page in $useCase.pages)
+        <action
+#set ($pageActionName = "$stringUtils.upperCamelCaseName($page.name)")
+            path="${useCase.actionPathRoot}/${pageActionName}PageForward"
+            type="org.apache.struts.actions.ForwardAction"
+            scope="request"
+            parameter="${page.fullPath}.jsp"/>
 #end
 #end
 #end

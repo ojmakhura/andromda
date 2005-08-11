@@ -208,11 +208,13 @@
             </description>
             <url-pattern>${manageable.actionPath}.do</url-pattern>
         </web-resource-collection>
+#if (!$manageable.users.empty)
         <auth-constraint>
 #foreach ($user in $manageable.users)
             <role-name>$user.name</role-name>
 #end
         </auth-constraint>
+#end
         <user-data-constraint>
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
