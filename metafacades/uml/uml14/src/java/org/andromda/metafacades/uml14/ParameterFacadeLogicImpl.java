@@ -5,6 +5,7 @@ import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.StringUtils;
 import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.datatypes.Expression;
@@ -80,13 +81,21 @@ public class ParameterFacadeLogicImpl
         final Expression expression = this.metaObject.getDefaultValue();
         return expression == null ? "" : expression.getBody();
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#isDefaultValuePresent()
+     */
+    public boolean isDefaultValuePresent()
+    {
+        return StringUtils.isBlank(this.getDefaultValue());
+    }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getType()
      */
     protected Object handleGetType()
     {
-        return metaObject.getType();
+        return this.metaObject.getType();
     }
 
     /**
@@ -94,12 +103,12 @@ public class ParameterFacadeLogicImpl
      */
     public boolean handleIsReturn()
     {
-        final ParameterDirectionKind kind = metaObject.getKind();
+        final ParameterDirectionKind kind = this.metaObject.getKind();
         return kind == null ? false : kind.equals(ParameterDirectionKindEnum.PDK_RETURN);
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ParameterFacade#isRequired()
+     * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
      */
     protected boolean handleIsRequired()
     {
@@ -116,7 +125,7 @@ public class ParameterFacadeLogicImpl
         for (final Iterator iterator = allOperations.iterator(); iterator.hasNext() && parameterOperation == null;)
         {
             final Operation operation = (Operation)iterator.next();
-            if (operation.getParameter().contains(metaObject))
+            if (operation.getParameter().contains(this.metaObject))
             {
                 parameterOperation = operation;
             }
@@ -142,6 +151,9 @@ public class ParameterFacadeLogicImpl
         return parameterEvent;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#isReadable()
+     */
     protected boolean handleIsReadable()
     {
         final ParameterDirectionKind kind = metaObject.getKind();
@@ -149,6 +161,9 @@ public class ParameterFacadeLogicImpl
                 kind.equals(ParameterDirectionKindEnum.PDK_IN) || kind.equals(ParameterDirectionKindEnum.PDK_INOUT);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#isWritable()
+     */
     protected boolean handleIsWritable()
     {
         final ParameterDirectionKind kind = metaObject.getKind();
