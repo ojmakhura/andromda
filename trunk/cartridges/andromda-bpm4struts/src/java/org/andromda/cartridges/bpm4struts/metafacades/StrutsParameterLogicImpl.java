@@ -872,6 +872,18 @@ public class StrutsParameterLogicImpl
         return tableColumns;
     }
 
+    protected String handleGetTableColumnType(final String columnName)
+    {
+        String columnType = null;
+
+        if (this.isTable())
+        {
+            columnType = UMLProfile.OBJECT_TYPE_NAME; // todo : implement
+        }
+
+        return columnType;
+    }
+
     protected Collection handleGetTableColumnNames()
     {
         final Collection tableColumnNames = new ArrayList();
@@ -1557,25 +1569,24 @@ public class StrutsParameterLogicImpl
     protected List handleGetOptionValues()
     {
         final List optionValues = new ArrayList();
-        Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RADIO);
+        final Object taggedValueObject = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RADIO);
 
         if (taggedValueObject != null)
         {
-            String taggedValue = String.valueOf(taggedValueObject).trim();
+            final String taggedValue = String.valueOf(taggedValueObject).trim();
 
             int optionCount;
             try
             {
                 optionCount = Integer.parseInt(taggedValue);
-                String name = getName();
-                for (int i = 1; i <= optionCount; i++)
+                for (int i = 0; i < optionCount; i++)
                 {
-                    optionValues.add(name + '-' + i);
+                    optionValues.add(String.valueOf(i));
                 }
             }
             catch (Exception exception)
             {
-                String[] options = taggedValue.replaceAll("[\\s]+", "").split("[,]");
+                final String[] options = taggedValue.replaceAll("[\\s]+", "").split("[,]");
                 for (int i = 0; i < options.length; i++)
                 {
                     optionValues.add(options[i].trim());

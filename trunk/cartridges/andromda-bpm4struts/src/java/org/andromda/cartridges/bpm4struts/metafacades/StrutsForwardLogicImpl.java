@@ -1,12 +1,12 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.GuardFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.utils.StringUtilsHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -123,8 +123,6 @@ public class StrutsForwardLogicImpl
     /**
      * Collects specific messages in a map.
      *
-     * @param messageType success or warning
-     * @param messageKey  the message resource key to use as a prefix
      * @param taggedValue the tagged value from which to read the message
      * @return maps message keys to message values, but only those that match the arguments
      *         will have been recorded

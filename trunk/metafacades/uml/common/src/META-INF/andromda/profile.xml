@@ -232,6 +232,10 @@
             </element>
         </elementGroup>
         <elementGroup name="Data Types">
+            <element name="OBJECT_TYPE">
+                <documentation></documentation>
+                <value>datatype::Object</value>
+            </element>
             <element name="COLLECTION_TYPE">
                 <documentation></documentation>
                 <value>datatype::Collection</value>
@@ -251,6 +255,10 @@
             <element name="TIME_TYPE">
                 <documentation></documentation>
                 <value>datatype::Time</value>
+            </element>
+            <element name="DATETIME_TYPE">
+                <documentation></documentation>
+                <value>datatype::DateTime</value>
             </element>
             <element name="BOOLEAN_TYPE">
                 <documentation></documentation>

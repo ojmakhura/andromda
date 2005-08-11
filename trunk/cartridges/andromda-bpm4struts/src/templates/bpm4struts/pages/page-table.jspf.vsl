@@ -31,11 +31,11 @@
 #if($column.actionParameter)#set($columnName=$column.name)#else#set($columnName=$column)#end
 #set ($tableColumnActions = $table.getTableColumnActions($columnName))
 #if ($exportable)
-#setPropertyByTypeInValueVariable("row" $columnName "        ")
         <display:column media="$table.tableExportTypes"
             titleKey="$table.getTableColumnMessageKey($columnName)"
             autolink="true" paramId="$columnName">
-            ${value}
+#set ($valueProperty = "row.$columnName")
+            ${${valueProperty}}
         </display:column>
 #end
         <display:column media="html"
@@ -46,7 +46,7 @@
             titleKey="$table.getTableColumnMessageKey($columnName)">
 #if ($column.actionParameter)
             <div class="$columnName">
-#renderFormField($column.strutsAction $column "                " '${row_rowNum}')
+#renderFormField($column.strutsAction $column '${row_rowNum}' $table "                ")
             </div>
 #elseif (!$tableColumnActions.empty)
 #foreach ($tableColumnAction in $tableColumnActions)

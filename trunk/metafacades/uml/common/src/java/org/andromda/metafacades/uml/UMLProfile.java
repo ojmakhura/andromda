@@ -255,6 +255,12 @@ public class UMLProfile
     /* ----------------- Data Types -------------------- */
 
     /**
+     * Used to identify object types in the model, any other type that will be identified as an object must
+     * specialize this type.
+     */
+    public static final String OBJECT_TYPE_NAME = profile.get("OBJECT_TYPE");
+
+    /**
      * Used to identify collection types in the model, any other type that will be identified as a collection must
      * specialize this type.
      */
@@ -283,6 +289,11 @@ public class UMLProfile
      * type.
      */
     public static final String TIME_TYPE_NAME = profile.get("TIME_TYPE");
+
+    /**
+     * Used to identify datetime types in the model.
+     */
+    public static final String DATETIME_TYPE_NAME = profile.get("DATETIME_TYPE");
 
     /**
      * Used to identify a boolean type in the model, any other type that will be identified as a boolean type must

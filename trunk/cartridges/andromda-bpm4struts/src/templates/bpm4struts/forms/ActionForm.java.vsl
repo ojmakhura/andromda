@@ -300,13 +300,16 @@ $field.getDocumentation("     * ")
      */
     public $field.type.fullyQualifiedName ${field.getterName}OptionValue(int optionIndex)
     {
+#if ($field.type.primitive)
+        return ($field.type.fullyQualifiedName)optionIndex;
+#else
         switch(optionIndex)
         {
 #set ($optionValues = $field.optionValues)
 #foreach ($optionKey in $field.optionKeys)
 #set ($optionIndex = $velocityCount - 1)
 #if ($field.type.fullyQualifiedName == "java.lang.String")
-            case $optionIndex : return "$optionValues[$optionIndex]";
+            case $optionIndex : return "$optionValues.get($optionIndex)";
 #else
             case $optionIndex : return new ${field.type.fullyQualifiedName}("$optionValues.get($optionIndex)");
 #end
@@ -315,6 +318,7 @@ $field.getDocumentation("     * ")
                 throw new java.lang.ArrayIndexOutOfBoundsException(
                     "Cannot access option "+optionIndex+", please specify a value in the range [0-$optionIndex]");
         }
+#end
     }
 
 #end

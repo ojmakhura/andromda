@@ -1,20 +1,5 @@
 ##
 ##
-##      What we're doing here is making sure the field value is rendered in the appropriate format (eg. dates)
-##      when using a form field this is fine, the form takes care of it; but when the field is coming from a table
-##      (thus representing a column) it cannot be formatted and we must test for the date instance.
-##
-##
-#macro (setPropertyByTypeInValueVariable $bean $property $indent)
-#set ($propertyValue = "${bean}.${property}")
-#set ($test = "${propertyValue}.class.name eq 'java.util.Date'")
-${indent}<c:choose>
-${indent}    <c:when test="${${test}}"><fmt:formatDate var="value" value="${${propertyValue}}" pattern="$defaultDateFormat $defaultTimeFormat"/></c:when>
-${indent}    <c:otherwise><c:set var="value" value="${${propertyValue}}"/></c:otherwise>
-${indent}</c:choose>
-#end
-##
-##
 ##      This macro takes care of rendering the appropriate Struts
 ##      HTML hyperlink tags for the argument action
 ##
@@ -148,7 +133,7 @@ ${indent}</logic:notPresent>
 ##      for the argument form field
 ##
 ##
-#macro ( renderFormField $action $field $indent $rowIndex )
+#macro ( renderFormField $action $field $rowIndex $table $indent)
 #set ($quote ='"')
 #set ($fieldName = $field.name)
 #set ($widgetType = $field.widgetType)
@@ -164,8 +149,17 @@ ${indent}</logic:notPresent>
 #set ($disabled = '')
 #set ($readonly = '')
 #end
-#if (!$field.type.collectionType && !$field.type.arrayType)
-#setPropertyByTypeInValueVariable($beanName $fieldName $indent)
+#set ($propertyValue = "${beanName}.${fieldName}")
+#if ($table)
+#set ($columnPattern = false)##resetting any previous value
+#set ($columnPattern = $bpmUtils.getFormatPattern($table.getTableColumnType($property),$defaultDateFormat,$defaultTimeFormat))
+#if ($columnPattern)
+${indent}<fmt:formatDate var="value" value="${${propertyValue}}" pattern="$columnPattern"/>
+#else
+${indent}<c:set var="value" value="${${propertyValue}}"/>
+#end
+#else
+${indent}<c:set var="value" value="${${propertyValue}}"/>
 #end
 ##
 ##  Depending on the type of the input field we render a different widget
@@ -231,7 +225,9 @@ ${indent}</script>
 ##      T E X T A R E A
 ##
 #elseif ($widgetType == 'textarea')
-${indent}<$widgetType name="$fieldName" value="${value}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$rowCount$columnCount id="$styleId"/>
+${indent}<${widgetType} name="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$rowCount$columnCount id="$styleId">
+${indent}    ${value}
+${indent}</${widgetType}>
 ##
 ##      H I D D E N
 ##
