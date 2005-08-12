@@ -7,11 +7,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
+import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
@@ -19,6 +20,7 @@ import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.utils.StringUtilsHelper;
 
 
 /**
@@ -57,7 +59,7 @@ public class FrontEndForwardLogicImpl
      * If this forward has a trigger this method returns that trigger's name, otherwise if this forward
      * has a name this method returns that name, otherwise if this forward's target has a name this
      * method returns that name, otherwise simply returns <code>"unknown"</code>
-     * 
+     *
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetName()
      */
     protected final String handleGetName()
@@ -159,7 +161,9 @@ public class FrontEndForwardLogicImpl
     {
         this.actionStates = new HashSet();
         this.transitions = new HashSet();
-        this.collectTransitions(this, transitions);
+        this.collectTransitions(
+            this,
+            transitions);
     }
 
     /**
@@ -190,7 +194,9 @@ public class FrontEndForwardLogicImpl
             final FrontEndForward forward = ((FrontEndActionState)target).getForward();
             if (forward != null)
             {
-                collectTransitions(forward, processedTransitions);
+                collectTransitions(
+                    forward,
+                    processedTransitions);
             }
         }
     }
@@ -209,11 +215,12 @@ public class FrontEndForwardLogicImpl
     protected java.util.List handleGetActions()
     {
         final Set actions = new HashSet();
-        this.findActions(actions, new HashSet());
+        this.findActions(
+            actions,
+            new HashSet());
         return new ArrayList(actions);
     }
-    
-    
+
     /**
      * Recursively finds all actions for this forward, what this means depends on the context in which
      * this forward is used: if the source is a page action state it will collect all actions going out
@@ -224,7 +231,9 @@ public class FrontEndForwardLogicImpl
      * @param actions the default set of actions, duplicates will not be recorded
      * @param handledForwards the forwards already processed
      */
-    private final void findActions(final Set actions, final Set handledForwards)
+    private final void findActions(
+        final Set actions,
+        final Set handledForwards)
     {
         if (!handledForwards.contains(this.THIS()))
         {
@@ -263,10 +272,10 @@ public class FrontEndForwardLogicImpl
             }
         }
     }
-    
+
     /**
      * Overriden since a transition doesn't exist in a package.
-     * 
+     *
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetPackageName()
      */
     protected String handleGetPackageName()
@@ -280,7 +289,7 @@ public class FrontEndForwardLogicImpl
         }
         return packageName;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getForwardParameters()
      */
@@ -288,5 +297,20 @@ public class FrontEndForwardLogicImpl
     {
         final EventFacade trigger = this.getTrigger();
         return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndAction#getOperationCall()
+     */
+    protected Object handleGetOperationCall()
+    {
+        FrontEndControllerOperation operation = null;
+        final EventFacade triggerEvent = getTrigger();
+        if (triggerEvent instanceof FrontEndEvent)
+        {
+            final FrontEndEvent trigger = (FrontEndEvent)triggerEvent;
+            operation = trigger.getControllerCall();
+        }
+        return operation;
     }
 }
