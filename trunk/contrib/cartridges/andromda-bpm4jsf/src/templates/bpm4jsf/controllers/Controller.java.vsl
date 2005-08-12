@@ -19,9 +19,7 @@ $operation.getDocumentation("     * ")
 #foreach ($action in $controller.useCase.actions)
     public java.lang.String ${action.triggerName}()
     {
-#foreach ($forward in $action.actionForwards)
-        String forward = "$forward.name";
-#end
+        String forward = null;
         try
         {
 #if (!$action.formFields.empty)
@@ -46,8 +44,24 @@ $operation.getDocumentation("     * ")
             try
             {
 #end
-#foreach ($deferredOperation in $action.deferredOperations)
+#foreach ($actionState in $action.actionStates)
+#set ($actionStateForward = $actionState.forward.name)
+#foreach ($deferredOperation in $actionState.controllerCalls)
                 this.$deferredOperation.formCall;
+#end
+#end
+                forward = "$actionStateForward";
+#foreach ($decisionTransition in $action.decisionTransitions)
+                final String value = java.lang.String.valueOf(this.${decisionTransition.operationCall.formCall});
+#foreach ($outcome in $decisionTransition.target.outgoing)
+#set ($defaultOutcome = $outcome)
+                if (value.equals("$outcome.guard.name"))
+                {
+                    return "$outcome.name";
+                }
+#end
+                // - if we have invalid return value from the controller we take the last forward
+                forward = "$defaultOutcome.name";
 #end
 #if (!$deferredOperations.empty)
             }
@@ -276,9 +290,9 @@ $operation.getDocumentation("     * ")
 
     /**
     * The default date formatter (for some reason this date format is hard
-    * coded when passing dates as parameters, so we use this to attempt to
-    * format if the first formatter fails), this hopefully will be fixed
-    * at some point.
+    * coded (in myfaces) when passing dates as parameters, so we use this to 
+    * attempt to format if the first formatter fails), this hopefully will be 
+    * fixed at some point.
     */
     public static final java.text.DateFormat defaultDateFormatter = new java.text.SimpleDateFormat("MM-dd-yyyy");
 
