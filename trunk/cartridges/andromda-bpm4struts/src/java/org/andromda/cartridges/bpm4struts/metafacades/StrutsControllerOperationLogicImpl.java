@@ -214,26 +214,28 @@ public class StrutsControllerOperationLogicImpl
         final Collection deferringActions = this.getDeferringActions();
 
         boolean allArgumentsHaveFormFields = true;
-        for (final Iterator argumentIterator = arguments.iterator();
-             argumentIterator.hasNext() && allArgumentsHaveFormFields;)
+        for (final Iterator iterator = arguments.iterator(); iterator.hasNext() && allArgumentsHaveFormFields;)
         {
-            final StrutsParameter parameter = (StrutsParameter)argumentIterator.next();
+            final ParameterFacade parameter = (ParameterFacade)iterator.next();
             final String parameterName = parameter.getName();
-            final String parameterType = parameter.getFullyQualifiedName();
+            final ClassifierFacade parameterType = parameter.getType();
+            final String parameterTypeName = parameterType != null ? parameterType.getFullyQualifiedName() : "";
 
             boolean actionMissingField = false;
             for (final Iterator actionIterator = deferringActions.iterator();
-                 actionIterator.hasNext() && !actionMissingField;)
+                actionIterator.hasNext() && !actionMissingField;)
             {
                 final StrutsAction action = (StrutsAction)actionIterator.next();
                 final Collection actionFormFields = action.getActionFormFields();
 
                 boolean fieldPresent = false;
                 for (final Iterator fieldIterator = actionFormFields.iterator();
-                     fieldIterator.hasNext() && !fieldPresent;)
+                    fieldIterator.hasNext() && !fieldPresent;)
                 {
-                    final ModelElementFacade field = (ModelElementFacade)fieldIterator.next();
-                    if (parameterName.equals(field.getName()) && parameterType.equals(field.getFullyQualifiedName()))
+                    final ParameterFacade field = (ParameterFacade)fieldIterator.next();
+                    final ClassifierFacade fieldType = field.getType();
+                    final String fieldTypeName = fieldType != null ? fieldType.getFullyQualifiedName() : "";
+                    if (parameterName.equals(field.getName()) && parameterTypeName.equals(fieldTypeName))
                     {
                         fieldPresent = true;
                     }
