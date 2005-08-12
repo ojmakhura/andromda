@@ -173,7 +173,7 @@ ${indent}<table>
 #set ($optionIndex = $velocityCount - 1)
 ${indent}    <tr>
 ${indent}        <td>
-${indent}            <input type="$widgetType" name="$fieldName" value="$optionIndex" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled id="$styleId"/>
+${indent}            <html:$widgetType name="$beanName" property="$fieldName" value="$optionIndex" #if($hints)onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled styleId="$styleId"/>
 ${indent}            <bean:message key="$optionKey"/>
 ${indent}        </td>
 ${indent}    </tr>
