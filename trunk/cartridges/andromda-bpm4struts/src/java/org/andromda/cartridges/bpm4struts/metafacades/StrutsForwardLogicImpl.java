@@ -1,13 +1,5 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.metafacades.uml.EventFacade;
-import org.andromda.metafacades.uml.FrontEndControllerOperation;
-import org.andromda.metafacades.uml.GuardFacade;
-import org.andromda.metafacades.uml.PseudostateFacade;
-import org.andromda.metafacades.uml.StateVertexFacade;
-import org.andromda.utils.StringUtilsHelper;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,6 +8,13 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.GuardFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.utils.StringUtilsHelper;
 
 
 /**
@@ -187,9 +186,9 @@ public class StrutsForwardLogicImpl
      * @param actions         the default set of actions, duplicates will not be recorded
      * @param handledForwards the forwards already processed
      */
-    private void findActions(
-        Set actions,
-        Set handledForwards)
+    private final void findActions(
+        final Set actions,
+        final Set handledForwards)
     {
         if (!handledForwards.contains(this))
         {
@@ -227,19 +226,5 @@ public class StrutsForwardLogicImpl
                 }
             }
         }
-    }
-
-    protected Object handleGetOperationCall()
-    {
-        FrontEndControllerOperation operation = null;
-
-        final EventFacade triggerEvent = getTrigger();
-        if (triggerEvent instanceof StrutsTrigger)
-        {
-            final StrutsTrigger trigger = (StrutsTrigger)triggerEvent;
-            operation = trigger.getControllerCall();
-        }
-
-        return operation;
     }
 }
