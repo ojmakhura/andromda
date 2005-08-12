@@ -78,7 +78,11 @@ ${indent}</html:link>
 #set($linkParameters="${linkParameters}${${beanName}.${parameter.name}}")
 #set ($delim = '&')
 #else
+#if ($parameter.defaultValuePresent)
+#set($linkParameters="${linkParameters}${parameter.defaultValue}'")
+#else
 #set($linkParameters="${linkParameters}'+getDiv('$parameter.styleId$rowIndex').value")
+#end
 #set ($delim = "+'&")
 #end
 #end
