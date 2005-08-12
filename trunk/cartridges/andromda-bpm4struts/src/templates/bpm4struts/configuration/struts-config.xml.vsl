@@ -41,6 +41,12 @@
 
     <global-exceptions>
         <!-- global-exceptions merge point -->
+        <exception
+            handler="${exceptionHandlerPackage}.PatternMatchingExceptionHandler"
+            type="java.lang.Throwable"
+            key="error.exception.message"
+            path="/error-page.jsp?code=exception&amp;exception=true"
+            scope="request" />
     </global-exceptions>
 
     <global-forwards>
