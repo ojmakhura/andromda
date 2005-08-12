@@ -6,5 +6,5 @@
 #set ($generatedFile = "${action.fullTilePath}-hidden-params.jspf")
 #set ($formKey = $action.useCase.formKey)
 #foreach ($field in $action.hiddenActionParameters)
-<html:hidden name="$formKey" property="$field.name" styleId="$field.styleId"/>
+<html:hidden name="$formKey" property="$field.name" styleId="$field.styleId"#if ($field.defaultValuePresent) value="$field.defaultValue"#end/>
 #end 
