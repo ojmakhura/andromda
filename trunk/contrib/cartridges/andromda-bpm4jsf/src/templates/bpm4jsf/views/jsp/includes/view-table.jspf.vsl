@@ -66,13 +66,18 @@
         preserveSort="true"
         rows="10">
 #foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
     <h:column>
         <f:facet name="header">
-            <x:commandSortHeader columnName="${column.name}" arrow="true">
-                <h:outputText value="#{messages['$table.getTableColumnMessageKey($column.name)']}" />
+            <x:commandSortHeader columnName="${columnName}" arrow="true">
+                <h:outputText value="#{messages['$table.getTableColumnMessageKey($columnName)']}" />
             </x:commandSortHeader>
         </f:facet>
-        <h:outputText value="#{row.${column.name}}">
+        <h:outputText value="#{row.${columnName}}">
 #if ($column.type.dateType)
             <f:convertDateTime pattern="$defaultDateFormat"/>
 #end
