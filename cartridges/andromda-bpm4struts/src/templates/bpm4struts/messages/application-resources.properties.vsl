@@ -1,11 +1,17 @@
 #if(!$applicationUseCases.empty)#set($applicationUseCase=$applicationUseCases.iterator().next())#end
+#if ($applicationUseCase)
 main.title=$stringUtils.capitalize($applicationUseCase.name)
+#elseif (!$manageables.empty)
+main.title=Entity Management
+#else
+main.title=AndroMDA generated WebApp
+#end
 
 #
 #   Messages for error pages
 #
 error.link.title=Click here to go to the application's home page
-error.link.text=$stringUtils.capitalize($applicationUseCase.name)
+error.link.text=Application Home
 
 error.400.title=Bad request
 error.400.message=The request sent by your browser could not properly be interpreted, please try again.

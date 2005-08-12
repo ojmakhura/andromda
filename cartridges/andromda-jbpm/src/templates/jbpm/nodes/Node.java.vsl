@@ -158,6 +158,9 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 #set ($taskField = "task${taskName}")
     private org.jbpm.taskmgmt.exe.TaskInstance $taskField = null;
 
+    /**
+     * Returns the first unfinished <em>${taskName}</em> task that can be found.
+     */
     org.jbpm.taskmgmt.exe.TaskInstance get${taskName}Task()
     {
         if (this.$taskField == null)
@@ -166,7 +169,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
             for (final java.util.Iterator taskIterator = tasks.iterator(); taskIterator.hasNext() && this.$taskField == null;)
             {
                 final org.jbpm.taskmgmt.exe.TaskInstance taskInstance = (org.jbpm.taskmgmt.exe.TaskInstance)taskIterator.next();
-                if ("$task.name".equals(taskInstance.getName()))
+                if ("$task.name".equals(taskInstance.getName()) && taskInstance.getEnd() == null)
                 {
                     this.$taskField = taskInstance;
                 }

@@ -22,9 +22,9 @@ public class EscapeTag extends BodyTagSupport
 
     public int doAfterBody() throws JspException
     {
-        final String bodyText = getBodyContent().getString();
+        final String bodyText = this.getBodyContent().getString();
 
-        String escapedString = null;
+        String escapedString;
 
         if ("html".equalsIgnoreCase(language))
         {

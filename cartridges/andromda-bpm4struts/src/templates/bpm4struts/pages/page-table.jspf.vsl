@@ -53,7 +53,7 @@
 #renderTableHyperlink($tableColumnAction $columnName "            ")
 #end
 #else## just render as text since the column is in fact a simple String
-            <div class="$columnName">${value}</div>
+            <div class="$columnName">${${valueProperty}}</div>
 #end
         </display:column>
 #end

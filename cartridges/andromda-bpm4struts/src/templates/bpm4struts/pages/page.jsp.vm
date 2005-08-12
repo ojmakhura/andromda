@@ -17,13 +17,9 @@ ${indent}<logic:present role="$roles">
 #set ($requestPath = "${action.actionPath}")
 #set ($separator = "?")
 #foreach ($parameter in $parameters)
-#if ($parameter.defaultValuePresent)
-#set ($parameterValue = "$parameter.defaultValue")
-#else
-#set ($parameterValue = "${${formBeanName}.${parameter.name}}")
-#end
+#set ($propertyName = "${formBeanName}.${parameter.name}")
 #if($velocityCount > 1)#set($separator = "&")#end
-#set ($requestPath = "${requestPath}${separator}${parameter.name}=${parameterValue}")
+#set ($requestPath = "${requestPath}${separator}${parameter.name}=${${propertyName}}")
 #end
 ${indent}    <p>
 ${indent}        <html:link action="${requestPath}" #if($hints=="true")onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
@@ -50,12 +46,7 @@ ${indent}</logic:notPresent>
 ## is missing the property (reflection is not supported in taglibs nor JSTL EL)
 ## the idea was to take a property from the action form when it is not defined on the row class
 ##if(!$action.tableLinkParameter.tableColumnNames.contains($parameter.name))#set($beanName=$formName)#end
-#if ($parameter.defaultValuePresent)
-#set($paramValue="$parameter.defaultValue")
-#else
-#set($paramValue="${${beanName}.${parameter.name}}")
-#end
-#set($uriQuery="${uriQuery}${delim}${parameter.name}=${paramValue}")#set($delim='&')
+#set($paramValue="${beanName}.${parameter.name}")#set($uriQuery="${uriQuery}${delim}${parameter.name}=${${paramValue}}")#set($delim='&')
 #end
 ${indent}<html:link action="${action.actionPath}${uriQuery}" #if($hints=="true")onmouseover="hints.show('$action.actionTrigger.name')" onmouseout="hints.hide()"#end>
 #if ($action.tableLinkColumnName)## the action is targetting a column, so display the table cell value
@@ -87,11 +78,7 @@ ${indent}</html:link>
 #set($linkParameters="${linkParameters}${${beanName}.${parameter.name}}")
 #set ($delim = '&')
 #else
-#if ($parameter.defaultValuePresent)
-#set($linkParameters="${linkParameters}${parameter.defaultValue}'")
-#else
 #set($linkParameters="${linkParameters}'+getDiv('$parameter.styleId$rowIndex').value")
-#end
 #set ($delim = "+'&")
 #end
 #end
@@ -196,7 +183,7 @@ ${indent}</table>
 ##      C H E C K B O X
 ##
 #elseif ($widgetType == 'checkbox')
-${indent}<input type="$widgetType" name="$fieldName" value="${value}" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled id="$styleId"/>
+${indent}<input type="$widgetType" name="$fieldName" value="on" <c:if test="${value}">checked="checked" </c:if>#if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $disabled id="$styleId"/>
 ##
 ##      M U L T I B O X
 ##
