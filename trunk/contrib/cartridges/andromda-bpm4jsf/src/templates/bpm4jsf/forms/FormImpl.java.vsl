@@ -34,7 +34,8 @@ $field.getDocumentation("     * ")
     public $field.type.fullyQualifiedName ${field.getterName}()
     {
 #if ($field.table)
-        return ${managedBeansPackage}.CollectionSorter.sort(this.users, this.getUsersSortColumn(), this.isUsersSortAscending());
+#set ($upperCaseFieldName = $stringUtils.capitalize($field.name))
+        return ${managedBeansPackage}.CollectionSorter.sort(this.$field.name, this.get${upperCaseFieldName}SortColumn(), this.is${upperCaseFieldName}SortAscending());
 #else
         return this.${field.name};
 #end
@@ -53,7 +54,6 @@ $field.getDocumentation("     * ")
      */
     private String ${field.name}SortColumn;
 
-#set ($upperCaseFieldName = $stringUtils.capitalize($field.name))
     /**
      * Gets the name of the sort column for the {@link #${field.name}} collection.
      * 
