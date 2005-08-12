@@ -16,7 +16,6 @@ import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndPseudostate;
 import org.andromda.metafacades.uml.FrontEndUseCase;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
@@ -166,7 +165,8 @@ public class FrontEndControllerOperationLogicImpl
         {
             final ParameterFacade parameter = (ParameterFacade)iterator.next();
             final String parameterName = parameter.getName();
-            final String parameterType = parameter.getFullyQualifiedName();
+            final ClassifierFacade parameterType = parameter.getType();
+            final String parameterTypeName = parameterType != null ? parameterType.getFullyQualifiedName() : "";
 
             boolean actionMissingField = false;
             for (final Iterator actionIterator = deferringActions.iterator();
@@ -179,8 +179,10 @@ public class FrontEndControllerOperationLogicImpl
                 for (final Iterator fieldIterator = actionFormFields.iterator();
                     fieldIterator.hasNext() && !fieldPresent;)
                 {
-                    final ModelElementFacade field = (ModelElementFacade)fieldIterator.next();
-                    if (parameterName.equals(field.getName()) && parameterType.equals(field.getFullyQualifiedName()))
+                    final ParameterFacade field = (ParameterFacade)fieldIterator.next();
+                    final ClassifierFacade fieldType = field.getType();
+                    final String fieldTypeName = fieldType != null ? fieldType.getFullyQualifiedName() : "";
+                    if (parameterName.equals(field.getName()) && parameterTypeName.equals(fieldTypeName))
                     {
                         fieldPresent = true;
                     }
