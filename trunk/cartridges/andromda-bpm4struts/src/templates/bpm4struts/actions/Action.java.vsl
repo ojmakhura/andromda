@@ -123,25 +123,16 @@ $actionState.getDocumentation("     * ")
         forward = #processTransition($actionState.forward)
 #else
 
-        try
-        {
 #foreach ($controllerCall in $controllerCalls)
 #if (!$action.actionFormFields.empty)
-            ${controllerClass.fullyQualifiedName}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
+        ${controllerClass.fullyQualifiedName}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, ($formBeanClassName)form, request, response);
 #else
-            // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
-            // cartridge would have issued a model validation error
-            ${controllerClass.fullyQualifiedName}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, new ${controllerCall.interfaceName}(){}, request, response);
+        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
+        // cartridge would have issued a model validation error
+        ${controllerClass.fullyQualifiedName}Factory.get${controllerClass.name}Instance().${controllerCall.name}(mapping, new ${controllerCall.interfaceName}(){}, request, response);
 #end
 #end
-            forward = #processTransition($actionState.forward)
-        }
-        catch (java.lang.Exception exception)
-        {
-            final java.lang.String messageKey = ${exceptionHandlerPackage}.PatternMatchingExceptionHandler.instance().handleException(exception);
-            ${controllerClass.fullyQualifiedName}Factory.get${controllerClass.name}Instance().saveErrorMessage(request, messageKey);
-            throw exception;
-        }
+        forward = #processTransition($actionState.forward)
 
 #saveMessages($actionState.forward "        ")
 
