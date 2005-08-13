@@ -22,7 +22,7 @@ public class StrutsManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttribute#getTitleKey()
+     * @see StrutsManageableEntityAttribute#getMessageKey()
      */
     protected java.lang.String handleGetMessageKey()
     {
@@ -38,36 +38,63 @@ public class StrutsManageableEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttribute#getTitleValue()
+     * @see StrutsManageableEntityAttribute#getMessageValue()
      */
     protected java.lang.String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
-    protected java.lang.String handleGetDateFormat()
+    private String internalGetDateFormat()
     {
-        String defaultDateFormat = null;
+        String dateFormat = null;
 
-        if (getType() != null && getType().isDateType())
+        if (this.getType() != null && this.getType().isDateType())
         {
-            final Object taggedValueObject = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_DATE_FORMAT);
+            final Object taggedValueObject = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
             if (taggedValueObject == null)
             {
-                defaultDateFormat = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
+                dateFormat = (String)this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_DATEFORMAT);
             }
             else
             {
-                defaultDateFormat = taggedValueObject.toString();
+                dateFormat = taggedValueObject.toString();
             }
         }
 
-        return defaultDateFormat;
+        return dateFormat;
     }
 
+    protected java.lang.String handleGetDateFormat()
+    {
+        String dateFormat = this.internalGetDateFormat();
+
+        if (dateFormat != null)
+        {
+            final String[] tokens = dateFormat.split("[\\s]+");
+            int tokenIndex = 0;
+            if (tokenIndex < tokens.length && tokens[tokenIndex].trim().equals("strict"))
+            {
+                tokenIndex++;
+            }
+            if (tokenIndex < tokens.length)
+            {
+                dateFormat = tokens[tokenIndex].trim();
+            }
+        }
+
+        return dateFormat;
+    }
+
+    protected boolean handleIsStrictDateFormat()
+    {
+        final String dateFormat = this.internalGetDateFormat();
+        return (dateFormat != null && dateFormat.trim().startsWith("strict"));
+    }
+    
     protected boolean handleIsNeedsFileUpload()
     {
-        return this.getType() != null ? this.getType().isBlobType() : false;
+        return this.getType() != null && this.getType().isBlobType();
     }
 
     protected boolean handleIsHidden()

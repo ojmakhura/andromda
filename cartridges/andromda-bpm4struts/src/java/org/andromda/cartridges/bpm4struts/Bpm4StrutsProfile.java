@@ -45,7 +45,6 @@ public class Bpm4StrutsProfile
     public static final String TAGGEDVALUE_TABLE_DECORATOR = profile.get("TABLE_DECORATOR");
     public static final String TAGGEDVALUE_EXCEPTION_TYPE = profile.get("EXCEPTION_TYPE");
     public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
-    public static final String TAGGEDVALUE_DATE_FORMAT = profile.get("DATE_FORMAT");
 
     /* ----------------- Data Types -------------------- */
     public static final String CHARACTER_TYPE_NAME = profile.get("CHARACTER_TYPE");

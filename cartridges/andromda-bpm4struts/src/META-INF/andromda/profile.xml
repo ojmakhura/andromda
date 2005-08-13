@@ -512,29 +512,6 @@
                     <value>true</value>
                 </allowedValues>
             </element>
-            <element name="DATE_FORMAT">
-                <documentation>
-                    The format to use when converting a parameter of type <code>datatype::Date</code> to a String
-                    and back. The format is specified by the java.text.SimpleDateFormat class from
-                    the Java 2 SDK, please refer to the JavaDoc documentation of that class for more information,
-                    this format is case-sensitive
-                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">
-                    SimpleDateFormat JavaDoc</a>
-                </documentation>
-                <value>@andromda.struts.view.field.dateformat</value>
-                <appliedOnElement>
-                    Parameter of type <code>datatype::Collection</code>
-                    going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
-                </appliedOnElement>
-                <allowedValues>
-                    <value>
-                        any format accepted by java.text.SimpleDateFormat
-                    </value>
-                    <value default="true">
-                        the value specified by the 'defaultDateFormat' namespace property
-                    </value>
-                </allowedValues>
-            </element>
             <element name="MANAGEABLE_MAXIMUM_LIST_SIZE">
                 <documentation>
                     The maximum number of rows to fetch from the database in a single operation. Tune this parameter

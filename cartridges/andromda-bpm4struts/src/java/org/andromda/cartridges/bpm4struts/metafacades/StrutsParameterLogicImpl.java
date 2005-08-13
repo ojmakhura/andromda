@@ -1088,31 +1088,31 @@ public class StrutsParameterLogicImpl
         if (isActionParameter())
         {
             selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equals(getWidgetType());
-            ClassifierFacade type = getType();
+            final ClassifierFacade type = getType();
 
             if (!selectable && type != null)
             {
-                String name = getName();
-                String typeName = type.getFullyQualifiedName();
+                final String name = getName();
+                final String typeName = type.getFullyQualifiedName();
 
                 /**
                  * if the parameter is not selectable but on a targetting page it _is_ selectable we must
                  * allow the user to set the backing list too
                  */
-                Collection pages = getStrutsAction().getTargetPages();
+                final Collection pages = getStrutsAction().getTargetPages();
                 for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext() && !selectable;)
                 {
-                    StrutsJsp page = (StrutsJsp)pageIterator.next();
-                    Collection parameters = page.getAllActionParameters();
+                    final StrutsJsp page = (StrutsJsp)pageIterator.next();
+                    final Collection parameters = page.getAllActionParameters();
                     for (final Iterator parameterIterator = parameters.iterator();
                          parameterIterator.hasNext() && !selectable;)
                     {
-                        StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
-                        String parameterName = parameter.getName();
-                        ClassifierFacade parameterType = parameter.getType();
+                        final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
+                        final String parameterName = parameter.getName();
+                        final ClassifierFacade parameterType = parameter.getType();
                         if (parameterType != null)
                         {
-                            String parameterTypeName = parameterType.getFullyQualifiedName();
+                            final String parameterTypeName = parameterType.getFullyQualifiedName();
                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
                             {
                                 selectable = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT
@@ -1126,14 +1126,14 @@ public class StrutsParameterLogicImpl
         else if (isControllerOperationArgument())
         {
             final String name = this.getName();
-            Collection actions = this.getControllerOperation().getDeferringActions();
+            final Collection actions = this.getControllerOperation().getDeferringActions();
             for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
-                StrutsAction action = (StrutsAction)actionIterator.next();
-                Collection formFields = action.getActionFormFields();
+                final StrutsAction action = (StrutsAction)actionIterator.next();
+                final Collection formFields = action.getActionFormFields();
                 for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
                 {
-                    StrutsParameter parameter = (StrutsParameter)fieldIterator.next();
+                    final StrutsParameter parameter = (StrutsParameter)fieldIterator.next();
                     if (name.equals(parameter.getName()))
                     {
                         selectable = parameter.isSelectable();
