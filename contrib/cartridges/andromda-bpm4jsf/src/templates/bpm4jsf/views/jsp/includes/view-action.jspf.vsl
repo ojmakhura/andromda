@@ -1,5 +1,3 @@
-#set ($generatedFile = "${action.viewFragmentPath}.jspf")
-
 <h:messages id="messageList" errorClass="error" globalOnly="true"/>
 <h:outputText value="#{messages['$action.messageKey']}" styleClass="actionHeader" />
 <f:verbatim><br/><br/></f:verbatim>
@@ -14,12 +12,15 @@
 <f:verbatim><br/><br/></f:verbatim>
 #else
 <h:form id="$formName" name="$formName">
+#if (!$action.hiddenParameters.empty)
+    <%@ include file="${action.viewFragmentPath}-hidden-params.jspf" %>
+#end
     <h:panelGrid columns="3" styleClass="formTable"
                  headerClass="formHeader"
                  footerClass="formFooter"
                  columnClasses="formLabels,formInputs">
 #foreach ($field in $action.formFields)
-#if (!$field.table)
+#if (!$field.table && !$field.inputHidden)
         <h:outputLabel for="${formName}:${field.name}" value="#{messages['$field.messageKey']}" />
         <f:verbatim>:</f:verbatim>
         <h:panelGroup>
@@ -31,7 +32,7 @@
                              renderAsPopup="true" 
                              popupDateFormat="$field.dateFormat"/>
 #elseif ($field.inputCheckbox)
-            <h:selectBooleanCheckbox value="#{${formName}.${field.name}}"/>
+            <h:selectBooleanCheckbox id="${field.name}" value="#{${formName}.${field.name}}"/>
 #else
             <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/>
 #end

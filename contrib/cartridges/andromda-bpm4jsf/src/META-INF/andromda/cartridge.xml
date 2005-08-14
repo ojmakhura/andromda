@@ -221,7 +221,7 @@
     
     <template
         path="templates/bpm4jsf/views/jsp/view.jsp.vsl"
-        outputPattern="$generatedFile"
+        outputPattern="${view.path}.jsp"
         outlet="jsps"
         overwrite="true">
         <modelElements variable="view">
@@ -233,7 +233,7 @@
     
     <template
         path="templates/bpm4jsf/views/jsp/includes/view-action.jspf.vsl"
-        outputPattern="$generatedFile"
+        outputPattern="${action.viewFragmentPath}.jspf"
         outlet="jsps"
         overwrite="true">
         <modelElements variable="action">
@@ -264,13 +264,28 @@
     
     <template
         path="templates/bpm4jsf/views/jsp/includes/view-table.jspf.vsl"
-        outputPattern="$generatedFile"
+        outputPattern="${table.view.path}-${table.name}.jspf"
         outlet="jsps"
         overwrite="true">
         <modelElements variable="table">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndParameter">
                     <property name="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/view-hidden-parameters.jspf.vsl"
+        outputPattern="${action.viewFragmentPath}-hidden-params.jspf"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="hiddenParameters"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -314,7 +329,7 @@
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${patternMatchingExceptionHandler}.java"
         outlet="managed-beans"
         overwrite="true"/>
-    
+
     <!-- cartridge-template merge-point -->
 
 </cartridge>
