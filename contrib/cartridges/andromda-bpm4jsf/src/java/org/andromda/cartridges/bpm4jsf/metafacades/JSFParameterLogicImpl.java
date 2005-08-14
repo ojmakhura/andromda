@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -425,5 +426,97 @@ public class JSFParameterLogicImpl
     {
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getName() + "TimeFormatter" : null;
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputCheckbox()
+     */
+    protected boolean handleIsInputCheckbox()
+    {
+        boolean checkbox = this.isInputType("checkbox");
+        if (!checkbox && this.getInputType().length() == 0)
+        {
+            final ClassifierFacade type = this.getType();
+            checkbox = type != null ? type.isBooleanType() : false;
+        }
+        return checkbox;
+    }
+    
+    /**
+     * Gets the current value of the specified input type (or an empty string
+     * if one isn't specified).
+     * 
+     * @return the input type name.
+     */
+    private final String getInputType()
+    {
+        return ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+    }
+    
+    /**
+     * Indicates whether or not this parameter is of the given input type.
+     * 
+     * @param inputType the name of the input type to check for.
+     * @return true/false
+     */
+    private final boolean isInputType(final String inputType)
+    {
+        return inputType.equalsIgnoreCase(this.getInputType());   
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputTextarea()
+     */
+    protected boolean handleIsInputTextarea()
+    {
+        return this.isInputType("textarea");
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputSelect()
+     */
+    protected boolean handleIsInputSelect()
+    {
+        return this.isInputType("select");
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputSecret()
+     */
+    protected boolean handleIsInputSecret()
+    {
+        return this.isInputType("password");
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputHidden()
+     */
+    protected boolean handleIsInputHidden()
+    {
+        return this.isInputType("hidden");
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isPlaintext()
+     */
+    protected boolean handleIsPlaintext()
+    {
+        return this.isInputType("plaintext");
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputRadio()
+     */
+    protected boolean handleIsInputRadio()
+    {
+        return this.isInputType("radio");
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputText()
+     */
+    protected boolean handleIsInputText()
+    {
+        return this.isInputType("text");
     }
 }
