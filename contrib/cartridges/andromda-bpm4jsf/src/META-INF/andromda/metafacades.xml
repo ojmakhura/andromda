@@ -13,6 +13,7 @@
             <property name="frontEndView"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
+        <property reference="viewFormPopulatorPattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">

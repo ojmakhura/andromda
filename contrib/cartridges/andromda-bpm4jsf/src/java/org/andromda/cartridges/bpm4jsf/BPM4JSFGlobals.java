@@ -96,4 +96,9 @@ public class BPM4JSFGlobals
      * The default key under which the action form is stored.
      */
     public static final String ACTION_FORM_KEY = "actionFormKey";
+    
+    /**
+     * The pattern used for constructing the name of the filter that performs view form population.
+     */
+    public static final String VIEW_FORM_POPULATOR_PATTERN = "viewFormPopulatorPattern";
 }

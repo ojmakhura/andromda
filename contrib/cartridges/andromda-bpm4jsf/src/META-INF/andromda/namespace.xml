@@ -199,6 +199,13 @@
                 </documentation>
             </property>
             -->
+            <property name="viewFormPopulatorPattern">
+                <default>{0}FormPopulator</default>
+                <documentation>
+                    The pattern used to cosntruct the view form populator filter, where <em>{0}</em>
+                    is the name of the view.  
+                </documentation>
+            </property>
             <property name="managedBeansPackage">
                 <default>org.andromda.presentation.bpm4jsf</default>
                 <documentation>

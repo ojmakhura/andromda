@@ -1,0 +1,5 @@
+<c:if test="${!empty form}">
+#foreach ($field in $action.formFields)
+    <jsp:setProperty name="$action.formBeanName" property="$field.name" value="${${action.formKey}.${field.name}}" /> 
+#end
+</c:if>

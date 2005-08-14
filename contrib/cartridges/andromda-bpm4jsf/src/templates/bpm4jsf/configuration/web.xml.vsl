@@ -104,12 +104,31 @@
         </init-param>
         -->
     </filter>
+#foreach ($useCase in $useCases)
+#foreach ($view in $useCase.views)
+#if (!$view.formActions.empty)
+    <filter>
+        <filter-name>$view.fullyQualifiedFormPopulator</filter-name>
+        <filter-class>$view.fullyQualifiedFormPopulator</filter-class>
+    </filter>
+#end
+#end
+#end
 
     <filter-mapping>
         <filter-name>extensionsFilter</filter-name>
         <url-pattern>*.${facesServletExtension}</url-pattern>
     </filter-mapping>
-
+#foreach ($useCase in $useCases)
+#foreach ($view in $useCase.views)
+#if (!$view.formActions.empty)
+    <filter-mapping>
+        <filter-name>$view.fullyQualifiedFormPopulator</filter-name>
+        <url-pattern>${view.path}.${facesServletExtension}</url-pattern>
+    </filter-mapping>
+#end
+#end
+#end
     <!-- Listener, that does all the startup work (configuration, init). -->
     <listener>
         <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
