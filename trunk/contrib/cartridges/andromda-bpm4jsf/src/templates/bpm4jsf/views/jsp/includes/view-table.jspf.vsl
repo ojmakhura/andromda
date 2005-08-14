@@ -1,5 +1,3 @@
-#set ($jsp = $table.view)
-#set ($generatedFile = "${jsp.path}-${table.name}.jspf")
 #set ($targetColumns = $table.targettedTableColumnNames)
 
 <h:panelGrid columns="3" styleClass="scrollerTable2" columnClasses="standardTableColumnCentered" >

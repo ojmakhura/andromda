@@ -11,6 +11,8 @@ import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -403,7 +405,7 @@ public class JSFActionLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getFormKey()
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFormKey()
      */
     protected String handleGetFormKey()
     {
@@ -411,5 +413,21 @@ public class JSFActionLogicImpl
         return formKeyValue == null
             ? ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.ACTION_FORM_KEY))
             : String.valueOf(formKeyValue);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#handleGetHiddenParameters()
+     */
+    protected List handleGetHiddenParameters()
+    {
+        final List hiddenParameters = new ArrayList(this.getParameters());
+        CollectionUtils.filter(hiddenParameters, new Predicate()
+        {
+            public boolean evaluate(final Object object)
+            {
+                return ((JSFParameter)object).isInputHidden();
+            }
+        });
+        return hiddenParameters;
     }
 }
