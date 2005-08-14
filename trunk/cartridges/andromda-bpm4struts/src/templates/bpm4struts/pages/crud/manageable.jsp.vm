@@ -8,10 +8,13 @@ ${indent}<html:hidden name="$manageableFormName" property="$field.name"/>
 ##
 ##
 #macro ( renderAttribute $field $indent )
+#set ($quote ='"')
+#if($field.fieldRowCount)#set($rowCount=" rows=$quote$field.fieldRowCount$quote")#else#set($rowCount='')#end
+#if($field.fieldColumnCount)#set($columnCount=" size=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
 #if ($field.type.fullyQualifiedName == 'boolean' || $field.type.fullyQualifiedName == 'java.lang.Boolean')
 ${indent}<html:checkbox name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
 #elseif ($field.type.enumeration)
-${indent}<html:select name="$manageableFormName" property="$field.name">
+${indent}<html:select name="$manageableFormName" property="$field.name"$columnCount>
 ${indent}    <option value=""><bean:message key="select.option.blank"/></option>
 #foreach ($literal in $field.type.literals)
 #if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
@@ -19,7 +22,7 @@ ${indent}    <html:option value=${quote}${literal.enumerationValue}${quote}>$lit
 #end
 ${indent}</html:select>
 #elseif ($field.type.dateType)
-${indent}<html:text name="$manageableFormName" property="${field.name}AsString" styleClass="criteriaField" styleId="$field.name"/>
+${indent}<html:text name="$manageableFormName" property="${field.name}AsString" styleClass="criteriaField"$columnCount styleId="$field.name"/>
 ${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.name}_trigger" styleClass="calendar"/>
 ${indent}<script type="text/javascript">
 #if ($xhtml == "true")
@@ -43,9 +46,11 @@ ${indent}//-->
 #end
 ${indent}</script>
 #elseif ($field.needsFileUpload)
-${indent}<html:file name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
+${indent}<html:file name="$manageableFormName" property="$field.name" styleClass="criteriaField"$columnCount styleId="$field.name"/>
+#elseif ($field.widgetType == "textarea")
+${indent}<html:$field.widgetType name="$manageableFormName" property="$field.name" styleClass="criteriaField"$columnCount$rowCount styleId="$field.name"/>
 #else
-${indent}<html:$field.widgetType name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
+${indent}<html:$field.widgetType name="$manageableFormName" property="$field.name" styleClass="criteriaField"$columnCount styleId="$field.name"/>
 #end
 #end
 ##
@@ -56,11 +61,11 @@ ${indent}<c:choose>
 #set ($list = "${manageableFormName}.${field.name}BackingList")
 #set ($test = "empty $list")
 ${indent}    <c:when test="${${test}}">
-${indent}        <select name="$field.name" disabled="disabled"/>
+${indent}        <select name="$field.name" disabled="disabled"$columnCount/>
 ${indent}    </c:when>
 ${indent}    <c:otherwise>
 #if ($field.type.resolveable)
-${indent}        <select name="$field.name"#if($field.many) multiple="multiple"#end>
+${indent}        <select name="$field.name"$columnCount#if($field.many) multiple="multiple"#end>
 #if (!$field.many)
 ${indent}            <option value=""><bean:message key="select.option.blank"/></option>
 #end
@@ -84,7 +89,7 @@ ${indent}                </c:choose>
 ${indent}            </c:forEach>
 ${indent}        </select>
 #else
-${indent}        <html:text name="$manageableFormName" property="$field.name"/>
+${indent}        <html:text name="$manageableFormName" property="$field.name"$columnCount/>
 #end
 ${indent}    </c:otherwise>
 ${indent}</c:choose>
