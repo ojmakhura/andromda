@@ -220,6 +220,20 @@
     </template>
     
     <template
+        path="templates/bpm4jsf/flow/ViewFormPopulator.java.vsl"
+        outputPattern="${view.formPopulatorPath}.java"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="formActions"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
         path="templates/bpm4jsf/views/jsp/view.jsp.vsl"
         outputPattern="${view.path}.jsp"
         outlet="jsps"
@@ -290,6 +304,23 @@
             </modelElement>
         </modelElements>
     </template>
+    
+    <!--
+    <template
+        path="templates/bpm4jsf/views/jsp/includes/view-action-form-population.jspf.vsl"
+        outputPattern="${action.viewFragmentPath}-form-population.jspf"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    -->
     
     <template
         path="templates/bpm4jsf/views/jsp/index.jsp.vsl"

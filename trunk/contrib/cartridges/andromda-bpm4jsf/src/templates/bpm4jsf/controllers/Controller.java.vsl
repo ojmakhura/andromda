@@ -44,11 +44,15 @@ $operation.getDocumentation("     * ")
             try
             {
 #end
+#if (!$action.actionStates.empty)
 #foreach ($actionState in $action.actionStates)
 #set ($actionStateForward = $actionState.forward.name)
 #foreach ($deferredOperation in $actionState.controllerCalls)
                 this.$deferredOperation.formCall;
 #end
+#end
+#elseif (!$action.actionForwards.empty)
+#set ($actionStateForward = $action.actionForwards.iterator().next().name)
 #end
                 forward = "$actionStateForward";
 #foreach ($decisionTransition in $action.decisionTransitions)

@@ -11,6 +11,7 @@ import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -110,8 +111,12 @@ public class JSFViewLogicImpl
         {
             path.append(packageName + '.');
         }
-        path.append(BPM4JSFUtils.toWebResourceName(StringUtils.trimToEmpty(this.getName())).replace('.', '/'));
-        return '/' + path.toString().replace('.', '/');
+        path.append(BPM4JSFUtils.toWebResourceName(StringUtils.trimToEmpty(this.getName())).replace(
+                '.',
+                '/'));
+        return '/' + path.toString().replace(
+            '.',
+            '/');
     }
 
     /**
@@ -130,7 +135,7 @@ public class JSFViewLogicImpl
         }
         return new ArrayList(forwards);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isTableLink()
      */
@@ -163,5 +168,58 @@ public class JSFViewLogicImpl
             }
         }
         return actionForwards;
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFullyQuailifiedFormPopulator()
+     */
+    protected String handleGetFullyQualifiedFormPopulator()
+    {
+        final StringBuffer name = new StringBuffer();
+        final String packageName = this.getPackageName();
+        if (StringUtils.isNotBlank(packageName))
+        {
+            name.append(packageName);
+            name.append('.');
+        }
+        name.append(this.getFormPopulator());
+        return name.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFormPopulator()
+     */
+    protected String handleGetFormPopulator()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.VIEW_FORM_POPULATOR_PATTERN)).replaceAll(
+            "\\{0\\}",
+            StringUtilsHelper.upperCamelCaseName(this.getName()));
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFormActions()
+     */
+    protected List handleGetFormActions()
+    {
+        final List actions = new ArrayList(this.getActions());
+        for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+        {
+            final JSFAction action = (JSFAction)iterator.next();
+            if (action.getFormFields().isEmpty())
+            {
+                iterator.remove();
+            }
+        }
+        return actions;
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFView#getFormPopulatorPath()
+     */
+    protected String handleGetFormPopulatorPath()
+    {
+        return this.getFullyQualifiedFormPopulator().replace(
+            '.',
+            '/');
     }
 }
