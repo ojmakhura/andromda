@@ -27,11 +27,13 @@
             <x:inputCalendar id="${field.name}" 
                              monthYearRowClass="yearMonthHeader" 
                              weekRowClass="weekHeader" 
-                             value="#{${action.formKey}.${field.name}}" 
+                             value="#{${formName}.${field.name}}" 
                              renderAsPopup="true" 
                              popupDateFormat="$field.dateFormat"/>
+#elseif ($field.inputCheckbox)
+            <h:selectBooleanCheckbox value="#{${formName}.${field.name}}"/>
 #else
-            <h:inputText id="${field.name}" value="#{${action.formKey}.${field.name}}"/>
+            <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/>
 #end
             <x:message for="${field.name}" styleClass="error" showDetail="true" showSummary="false" />
         </h:panelGroup>
