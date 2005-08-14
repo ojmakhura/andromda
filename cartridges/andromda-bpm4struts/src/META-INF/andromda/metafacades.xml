@@ -142,6 +142,9 @@
             <context>org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity</context>
         </mapping>
         <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
+        <property reference="defaultInputColumnCount"/>
+        <property reference="defaultInputRowCount"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogicImpl">
