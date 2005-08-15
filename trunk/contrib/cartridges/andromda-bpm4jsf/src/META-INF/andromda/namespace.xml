@@ -199,10 +199,32 @@
                 </documentation>
             </property>
             -->
+            <property name="backingListPattern">
+                <default>{0}BackingList</default>
+                <documentation>
+                    The pattern used for constructing a parameter's backing list name.  A backing list 
+                    is used when you want to select the value of the parameter from a list (typically 
+                    used for drop-down select input types).
+                </documentation>
+            </property>
+            <property name="labelListPattern">
+                <default>{0}LabelList</default>
+                <documentation>
+                    The pattern used for constructing the label list name (stores the list
+                    of possible parameter value labels). 
+                </documentation>
+            </property>
+            <property name="valueListPattern">
+                <default>{0}ValueList</default>
+                <documentation>
+                    The pattern used for constructing the values list name (stores the list of
+                    possible parameter values when selecting from a list).
+                </documentation>
+            </property>
             <property name="viewFormPopulatorPattern">
                 <default>{0}FormPopulator</default>
                 <documentation>
-                    The pattern used to cosntruct the view form populator filter, where <em>{0}</em>
+                    The pattern used to construct the view form populator filter, where <em>{0}</em>
                     is the name of the view.  
                 </documentation>
             </property>

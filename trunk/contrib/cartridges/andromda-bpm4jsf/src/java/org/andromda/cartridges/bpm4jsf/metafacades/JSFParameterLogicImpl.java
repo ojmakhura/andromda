@@ -400,7 +400,7 @@ public class JSFParameterLogicImpl
         final String format = value == null ? null : String.valueOf(value);
         return format == null ? null : format.trim();
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isStrictDateFormat()
      */
@@ -409,7 +409,7 @@ public class JSFParameterLogicImpl
         final String format = this.getInputFormat();
         return format != null && this.isStrictDateFormat(format);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getDateFormatter()
      */
@@ -418,7 +418,7 @@ public class JSFParameterLogicImpl
         final ClassifierFacade type = this.getType();
         return type != null && type.isDateType() ? this.getName() + "DateFormatter" : null;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTimeFormatter()
      */
@@ -441,27 +441,27 @@ public class JSFParameterLogicImpl
         }
         return checkbox;
     }
-    
+
     /**
      * Gets the current value of the specified input type (or an empty string
      * if one isn't specified).
-     * 
+     *
      * @return the input type name.
      */
     private final String getInputType()
     {
         return ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
     }
-    
+
     /**
      * Indicates whether or not this parameter is of the given input type.
-     * 
+     *
      * @param inputType the name of the input type to check for.
      * @return true/false
      */
     private final boolean isInputType(final String inputType)
     {
-        return inputType.equalsIgnoreCase(this.getInputType());   
+        return inputType.equalsIgnoreCase(this.getInputType());
     }
 
     /**
@@ -518,5 +518,35 @@ public class JSFParameterLogicImpl
     protected boolean handleIsInputText()
     {
         return this.isInputType("text");
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getBackingListName()
+     */
+    protected String handleGetBackingListName()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.BACKING_LIST_PATTERN)).replaceAll(
+            "\\{0\\}",
+            this.getName());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValueListName()
+     */
+    protected String handleGetValueListName()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.VALUE_LIST_PATTERN)).replaceAll(
+            "\\{0\\}",
+            this.getName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getLabelListName()
+     */
+    protected String handleGetLabelListName()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.LABEL_LIST_PATTERN)).replaceAll(
+            "\\{0\\}",
+            this.getName());
     }
 }

@@ -76,6 +76,9 @@
         </mapping>
         <property reference="defaultDateFormat"/>
         <property reference="defaultTimeFormat"/>
+        <property reference="backingListPattern"/>
+        <property reference="labelListPattern"/>
+        <property reference="valueListPattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFBackendServiceLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">

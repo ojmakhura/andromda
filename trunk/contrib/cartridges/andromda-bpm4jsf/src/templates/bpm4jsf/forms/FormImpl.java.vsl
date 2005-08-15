@@ -101,6 +101,100 @@ $field.getDocumentation("     * ")
     {
         this.${field.name}SortAscending = ${field.name}SortAscending;
     }
+#else
+    /**
+     * Stores the values.
+     */
+    private java.lang.Object[] $field.valueListName;
+    
+    /**
+     * Stores the labels
+     */
+    private java.lang.Object[] $field.labelListName;
+#set ($listType = "java.lang.Object[]")
+#set ($backingListName = $field.backingListName)
+#set ($backingListMethod = $stringUtils.capitalize($backingListName))
+#set ($valueListName = $field.valueListName)
+#set ($valueListMethod = $stringUtils.capitalize($valueListName))
+#set ($labelListName = $field.labelListName)
+#set ($labelListMethod = $stringUtils.capitalize($labelListName))
+    public $listType get${backingListMethod}()
+    {
+        $listType values = this.${valueListName};
+        $listType labels = this.${labelListName};
+
+        if (values == null || values.length == 0)
+        {
+            return values;
+        }
+
+        if (labels == null || labels.length == 0)
+        {
+            labels = values;
+        }
+
+        final int length = java.lang.Math.min(labels.length, values.length);
+        java.lang.Object[] backingList = new java.lang.Object[length];
+
+        for (int ctr = 0; ctr < length; ctr++)
+        {
+            backingList[ctr] = new LabelValue(labels[ctr], values[ctr]);
+        }
+        return backingList;
+    }
+
+    public $listType get${valueListMethod}()
+    {
+        return this.$valueListName;
+    }
+
+    public void set${valueListMethod}($listType $valueListName)
+    {
+        this.$valueListName = $valueListName;
+    }
+
+    public $listType get${labelListMethod}()
+    {
+        return this.$labelListName;
+    }
+
+    public void set${labelListMethod}($listType $labelListName)
+    {
+        this.$labelListName = $labelListName;
+    }
+
+#set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection items, java.lang.String valueProperty, java.lang.String labelProperty)")
+    public void $setBackingListMethodSignature
+    {
+        if (valueProperty == null || labelProperty == null)
+        {
+            throw new IllegalArgumentException("${action.formImplementationName}.${setBackingListMethodSignature} requires non-null arguments");
+        }
+        this.${valueListName} = null;
+        this.${labelListName} = null;
+        if (items != null)
+        {
+            this.${valueListName} = new java.lang.Object[items.size()];
+            this.${labelListName} = new java.lang.Object[items.size()];
+
+            try
+            {
+                int ctr = 0;
+                for (final java.util.Iterator iterator = items.iterator(); iterator.hasNext(); ctr++)
+                {
+                    final java.lang.Object item = iterator.next();
+
+                    this.${valueListName}[ctr] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
+                    this.${labelListName}[ctr] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
+                }
+            }
+            catch (final Throwable throwable)
+            {
+                throw new java.lang.RuntimeException(throwable);
+            }
+        }
+    }
+
 #end
 #end
 
@@ -118,5 +212,35 @@ $field.getDocumentation("     * ")
     public java.util.Map getDateTimeFormatters()
     {
         return this.dateTimeFormatters;
+    }
+    
+    /**
+     * Stores the label and value for each instance in a backing list.
+     */
+    public final static class LabelValue
+    {
+        private java.lang.Object label = null;
+        private java.lang.Object value = null;
+
+        public LabelValue(Object label, java.lang.Object value)
+        {
+            this.label = label;
+            this.value = value;
+        }
+
+        public java.lang.Object getLabel()
+        {
+            return this.label;
+        }
+
+        public java.lang.Object getValue()
+        {
+            return this.value;
+        }
+
+        public java.lang.String toString()
+        {
+            return label + "=" + value;
+        }
     }
 }
