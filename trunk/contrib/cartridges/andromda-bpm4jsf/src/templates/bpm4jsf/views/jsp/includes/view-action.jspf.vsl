@@ -35,8 +35,8 @@
             <h:selectBooleanCheckbox id="${field.name}" value="#{${formName}.${field.name}}"/>
 #elseif ($field.inputSelect)
             <h:selectOneMenu id="${field.name}" value="#{${formName}.${field.name}}" styleClass="selectOneMenu" required="false" >
+                <f:selectItem itemValue="" itemLabel="#{messages['select.value.text']}" />
                 <c:if test="${!empty ${formName}.${field.backingListName}}">
-                    <f:selectItem itemValue="" itemLabel="#{messages['empty_selitem']}" />
                     <f:selectItems value="#{${formName}.${field.backingListName}}" />
                 </c:if>
             </h:selectOneMenu>
