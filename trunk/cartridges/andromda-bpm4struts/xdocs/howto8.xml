@@ -17,11 +17,21 @@
             <p>
                 In order to have these tables rendered for you you will need to model a
                 <a href="howto2.html#Page_Variables">page variable</a> that maps onto a descendant of
-                <code>java.util.Collection</code> (for example <code>datatype::Collection</code>).
+                <code>java.util.Collection</code> (for example <code>datatype::Collection</code>) or use
+                an array of a custom type.
+            </p>
+            <p>
+                Using arrays is interesting when you
+                are using dates in columns and you want to specify a custom format, in this case you'll just need to add
+                a tagged value to the corresponding attribute of the array's type. This feature elegantly integrates
+                with the use of value objects and POJO entities such as found in Hibernate.
             </p>
             <p class="highlight">
-                Do not specify type <code>java.util.Collection</code> directly, but use use
-                <code>datatype::Collection</code> instead.
+                Do not specify type <code>java.util.Collection</code> directly, but use
+                <code>datatype::Collection</code> instead. When specifying an array you must not use an array
+                of datatypes, but define your own class instead, add attributes to it
+                and model another class representing the array by adding the array suffix to its name, eg.
+                <code>[]</code> (see the online store for an example).
             </p>
             <p>
                 Next you will simply need
@@ -79,7 +89,7 @@
                     only when none of the row values are updateable, but in order to not overly complicate the usage
                     of the bpm4struts cartridge by adding more/complex modeling constraints we prefer to simply
                     restrict sending a row's value using the <code>@andromda.struts.action.type=form</code> tagged
-                    value. 
+                    value.
                 </p>
                 <p>
                     Model an event going out of the page showing the table, add one or more parameters to this

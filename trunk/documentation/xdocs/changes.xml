@@ -10,6 +10,12 @@
     </properties>
     <body>
         <release version="3.1-RC1-SNAPSHOT" date="2005-08-04" description="First release candidate of version 3.1">
+            <action dev="draftdog" type="update" issue="BPM-238">
+                The bpm4struts cartridge now supports arrays of custom types for tables, this is interesting when you
+                are using dates in columns and you want to specify a custom format, in this case you'll just need to add
+                a tagged value to the corresponding attribute of the array's type. This feature elegantly integrates
+                with the use of value objects and POJO entities such as found in Hibernate.
+            </action>
             <action dev="draftdog" type="update" issue="BPM-230">
                 Handling of
                 <a href="andromda-bpm4struts-cartridge/howto2.html#Event_Parameters">options in bpm4struts</a>
