@@ -121,6 +121,21 @@ public class FrontEndViewLogicImpl
     }
     
     /**
+     * @see org.andromda.metafacades.uml.FrontEndView#getAllActionParameters()
+     */
+    protected List handleGetAllActionParameters()
+    {
+        final List actionParameters = new ArrayList();
+        final Collection actions = this.getActions();
+        for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+        {
+            final FrontEndAction action = (FrontEndAction)iterator.next();
+            actionParameters.addAll(action.getParameters());
+        }
+        return actionParameters;
+    }
+    
+    /**
      * Iterates over the model elements and maps their name on their instance in the argument map.
      */
     private final void collectByName(final Collection modelElements, final Map elementMap)

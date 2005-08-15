@@ -181,7 +181,12 @@ public class StrutsJspLogicImpl
         return false;
     }
 
-    protected List handleGetAllActionParameters()
+    /**
+     * Overridden since StrutsAction does not extend FrontEndAction.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndView#getAllActionParameters()
+     */
+    public List getAllActionParameters()
     {
         final List actionParameters = new ArrayList();
         final Collection actions = getActions();
