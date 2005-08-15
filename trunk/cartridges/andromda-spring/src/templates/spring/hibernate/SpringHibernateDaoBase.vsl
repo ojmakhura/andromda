@@ -76,6 +76,25 @@ public abstract class $entity.daoBaseName
     {
         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
     }
+    
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#loadAll()
+     */
+    public java.util.Collection loadAll()
+    {
+        return this.loadAll(TRANSFORM_NONE);
+    }
+    
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#loadAll(int)
+     */
+    public java.util.Collection loadAll(final int transform)
+    {
+        final java.util.Collection results = this.getHibernateTemplate().loadAll(${entity.fullyQualifiedEntityImplementationName}.class);
+        this.transformEntities(transform, results);
+        return results;
+    }
+    
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
 
@@ -562,7 +581,6 @@ public abstract class $entity.daoBaseName
         return target;
     }
 
-#if (!$finders.empty)
     /**
      * Transforms a collection of entities using the
      * {@link #transformEntity(int,$entity.fullyQualifiedName)}
@@ -590,7 +608,6 @@ public abstract class $entity.daoBaseName
         }
     }
 
-#end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
      * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
