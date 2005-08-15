@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -129,7 +130,9 @@ public class SpringServiceLogicImpl
                 new Object[] {StringUtils.trimToEmpty(this.getPackageName())});
         if (StringUtils.isBlank(this.getPackageName()))
         {
-            ejbPackageName = ejbPackageName.replaceAll("^\\.", "");
+            ejbPackageName = ejbPackageName.replaceAll(
+                    "^\\.",
+                    "");
         }
         return ejbPackageName;
     }
@@ -139,7 +142,9 @@ public class SpringServiceLogicImpl
      */
     protected java.lang.String handleGetEjbPackageNamePath()
     {
-        return this.getEjbPackageName().replace('.', '/');
+        return this.getEjbPackageName().replace(
+            '.',
+            '/');
     }
 
     /**
@@ -223,7 +228,9 @@ public class SpringServiceLogicImpl
     {
         String serviceRemotingType =
             StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("serviceRemotingType")));
-        String result = SpringMetafacadeUtils.getServiceRemotingType(this, serviceRemotingType);
+        String result = SpringMetafacadeUtils.getServiceRemotingType(
+                this,
+                serviceRemotingType);
         return result;
     }
 
@@ -242,7 +249,9 @@ public class SpringServiceLogicImpl
     {
         String serviceRemotePort =
             StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("serviceRemotePort")));
-        return SpringMetafacadeUtils.getServiceRemotePort(this, serviceRemotePort);
+        return SpringMetafacadeUtils.getServiceRemotePort(
+            this,
+            serviceRemotePort);
     }
 
     /**
@@ -350,8 +359,7 @@ public class SpringServiceLogicImpl
         final Collection operations = super.getOperations();
         if (!this.isAbstract())
         {
-            for (
-                ClassifierFacade generalization = (ClassifierFacade)this.getGeneralization(); generalization != null;
+            for (ClassifierFacade generalization = (ClassifierFacade)this.getGeneralization(); generalization != null;
                 generalization = (ClassifierFacade)generalization.getGeneralization())
             {
                 if (generalization.isAbstract())
@@ -496,5 +504,25 @@ public class SpringServiceLogicImpl
     protected boolean handleIsEjbRemoteView()
     {
         return this.getEjbViewType().equalsIgnoreCase(EJB_REMOTE_VIEW);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbTransactionType()
+     */
+    protected String handleGetEjbTransactionType()
+    {
+        String transactionType;
+        final boolean ejbTransactionsEnabled =
+            BooleanUtils.toBoolean(
+                ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.PROPERTY_EJB_TRANSACTIONS_ENABLED)));
+        if (ejbTransactionsEnabled)
+        {
+            transactionType = "Container";
+        }
+        else
+        {
+            transactionType = "Bean";
+        }
+        return transactionType;
     }
 }

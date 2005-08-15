@@ -66,5 +66,10 @@ class SpringGlobals
      * The pattern used to construct the DAO implementation name.
      */
     static final String PROPERTY_DAO_IMPLEMENTATION_PATTERN = "daoImplementationNamePattern";
+    
+    /**
+     * The pattern used to indicate whether or not ejb transactions are enabled.
+     */
+    static final String PROPERTY_EJB_TRANSACTIONS_ENABLED = "ejbTransactionsEnabled";
 
 }
