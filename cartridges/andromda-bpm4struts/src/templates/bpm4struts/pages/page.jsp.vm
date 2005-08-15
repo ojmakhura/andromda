@@ -17,9 +17,13 @@ ${indent}<logic:present role="$roles">
 #set ($requestPath = "${action.actionPath}")
 #set ($separator = "?")
 #foreach ($parameter in $parameters)
-#set ($propertyName = "${formBeanName}.${parameter.name}")
+#if ($parameter.defaultValuePresent)
+#set ($parameterValue = "$parameter.defaultValue")
+#else
+#set ($parameterValue = "${${formBeanName}.${parameter.name}}")
+#end
 #if($velocityCount > 1)#set($separator = "&")#end
-#set ($requestPath = "${requestPath}${separator}${parameter.name}=${${propertyName}}")
+#set ($requestPath = "${requestPath}${separator}${parameter.name}=${parameterValue}")
 #end
 ${indent}    <p>
 ${indent}        <html:link action="${requestPath}" #if($hints=="true")onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
@@ -78,7 +82,11 @@ ${indent}</html:link>
 #set($linkParameters="${linkParameters}${${beanName}.${parameter.name}}")
 #set ($delim = '&')
 #else
+#if ($parameter.defaultValuePresent)
+#set($linkParameters="${linkParameters}${parameter.defaultValue}'")
+#else
 #set($linkParameters="${linkParameters}'+getDiv('$parameter.styleId$rowIndex').value")
+#end
 #set ($delim = "+'&")
 #end
 #end
