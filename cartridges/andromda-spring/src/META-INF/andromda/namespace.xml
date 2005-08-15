@@ -130,6 +130,14 @@
                     then only EJB transaction support is generated.
                 </documentation>
             </property>
+            <property name="ejbTransactionsEnabled">
+                <default>true</default>
+                <documentation>
+                    Whether or not EJB transactions should be enabled.  This is sometimes useful to turn off 
+                    when you're using EJB wrapped spring services but want to turn off EJB transaction management
+                    so that Spring alone handles the transactions (note that this property only make sense when EJBs are enabled).
+                </documentation>
+            </property>
             <property name="ejbRemoteProxyFactoryBean">
                 <default>org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean</default>
                 <documentation>
