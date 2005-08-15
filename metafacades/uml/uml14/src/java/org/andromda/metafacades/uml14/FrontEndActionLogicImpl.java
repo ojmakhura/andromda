@@ -116,6 +116,24 @@ public class FrontEndActionLogicImpl
         }
         return new ArrayList(decisionTransitions);
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndAction#getTargetViews()
+     */
+    protected List handleGetTargetViews()
+    {
+        final Collection targetViews = new LinkedHashSet();
+        final Collection forwards = this.getActionForwards();
+        for (final Iterator iterator = forwards.iterator(); iterator.hasNext();)
+        {
+            final FrontEndForward forward = (FrontEndForward) iterator.next();
+            if (forward.isEnteringView())
+            {
+                targetViews.add(forward.getTarget());
+            }
+        }
+        return new ArrayList(targetViews);
+    }
 
     /**
      * All action states that make up this action, this includes all possible action states traversed
