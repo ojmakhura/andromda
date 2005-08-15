@@ -100,7 +100,6 @@ public class $className
      *
      * @param exception the Exception containing the message to retrieve, should not be <code>null</code>
      * @return the retrieved string matching the pattern.
-     * @throws Exception the argument exception in case a pattern is absent
      */
     private static String parseExceptionMessage(Exception exception)
     {

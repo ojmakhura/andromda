@@ -6,6 +6,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -23,7 +24,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -474,7 +474,7 @@ public class StrutsParameterLogicImpl
     {
         String typeName = null;
 
-        final ClassifierFacade type = getType();
+        final ClassifierFacade type = this.getType();
         if (type != null)
         {
             if (type.isCollectionType() || type.isListType())
@@ -497,10 +497,10 @@ public class StrutsParameterLogicImpl
     {
         boolean isTable = false;
 
-        final ClassifierFacade type = getType();
+        final ClassifierFacade type = this.getType();
         if (type != null)
         {
-            isTable = (type.isCollectionType() || type.isArrayType()) && !getTableColumnNames().isEmpty();
+            isTable = (type.isCollectionType() || type.isArrayType()) && !this.getTableColumnNames().isEmpty();
         }
         return isTable;
     }
@@ -526,11 +526,6 @@ public class StrutsParameterLogicImpl
         }
 
         return required;
-    }
-
-    protected boolean handleIsTableLink()
-    {
-        return this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_ACTION_TABLELINK) != null;
     }
 
     protected boolean handleIsAllGlobalTableActionsHaveSameParameter()
@@ -594,39 +589,6 @@ public class StrutsParameterLogicImpl
         }
 
         return parameter;
-    }
-
-    protected boolean handleIsTableHyperlinkActionSharingColumns()
-    {
-        boolean sharingColumns = false;
-
-        if (this.isTable())
-        {
-            final Set columnNames = new HashSet();
-            final List hyperlinkActions = this.getTableHyperlinkActions();
-            for (int i = 0; i < hyperlinkActions.size() && !sharingColumns; i++)
-            {
-                final StrutsAction action = (StrutsAction)hyperlinkActions.get(i);
-                if (action.isTableLink())
-                {
-                    final List parameters = action.getActionParameters();
-                    for (int j = 0; j < parameters.size() && !sharingColumns; j++)
-                    {
-                        final StrutsParameter parameter = (StrutsParameter)parameters.get(j);
-                        if (columnNames.contains(parameter.getName()))
-                        {
-                            sharingColumns = true;
-                        }
-                        else
-                        {
-                            columnNames.add(parameter.getName());
-                        }
-                    }
-                }
-            }
-        }
-
-        return sharingColumns;
     }
 
     protected boolean handleIsTableFormActionSharingWidgets()
@@ -814,8 +776,23 @@ public class StrutsParameterLogicImpl
         return columnActions;
     }
 
+    /**
+     * @return true if this parameter represents a table and is an array of custom types (no datatype)
+     */
+    private boolean isCustomArrayTable()
+    {
+        final ClassifierFacade type = this.getType();
+        return type != null && this.isTable() && type.isArrayType() && !type.isDataType();
+    }
+
     protected Collection handleGetTableColumns()
     {
+        // in this method we collect the elements that represent the columns of a table
+        // if no specific element (parameter, attribute) can be found a simple String instance
+        // is used
+        // the event parameters have priority to be included in the collection because
+        // they contain additional information such as validation constraint and widget type, ...
+
         // try to preserve the order of the elements encountered
         final Map tableColumnsMap = new LinkedHashMap();
 
@@ -823,10 +800,10 @@ public class StrutsParameterLogicImpl
         final List actions = new ArrayList();
 
         // all table actions need the exact same parameters, just not always all of them
-        actions.addAll(getTableFormActions());
+        actions.addAll(this.getTableFormActions());
         // if there are any actions that are hyperlinks then their parameters get priority
         // the user should not have modeled it that way (constraints will warn him/her)
-        actions.addAll(getTableHyperlinkActions());
+        actions.addAll(this.getTableHyperlinkActions());
 
         for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
@@ -850,47 +827,53 @@ public class StrutsParameterLogicImpl
             }
         }
 
-        // for any missing parameters we just add the name of the column
-        final Collection columnNames = getTableColumnNames();
-        for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+        final Collection columnNames = this.getTableColumnNames();
+
+        // in case of a custom array just add the attributes
+        if (this.isCustomArrayTable())
         {
-            final String columnName = (String)columnNameIterator.next();
-            if (!tableColumnsMap.containsKey(columnName))
+            final Collection attributes = this.getType().getNonArray().getAttributes();
+            for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
             {
-                tableColumnsMap.put(columnName, columnName);
+                final ModelElementFacade attribute = (ModelElementFacade)attributeIterator.next();
+                // don't override
+                if (!tableColumnsMap.containsKey(attribute.getName()))
+                {
+                    tableColumnsMap.put(attribute.getName(), attribute);
+                }
+            }
+        }
+        else
+        {
+            for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+            {
+                final String columnName = (String)columnNameIterator.next();
+                // don't override
+                if (!tableColumnsMap.containsKey(columnName))
+                {
+                    tableColumnsMap.put(columnName, columnName);
+                }
             }
         }
 
         // return everything in the same order as it has been modeled (using the table tagged value)
+        // note that only those columns mentioned in the tagged value are returned
         final Collection tableColumns = new ArrayList();
         for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
         {
             final Object columnObject = columnNameIterator.next();
             tableColumns.add(tableColumnsMap.get(columnObject));
         }
-
         return tableColumns;
-    }
-
-    protected String handleGetTableColumnType(final String columnName)
-    {
-        String columnType = null;
-
-        if (this.isTable())
-        {
-            columnType = UMLProfile.OBJECT_TYPE_NAME; // todo : implement
-        }
-
-        return columnType;
     }
 
     protected Collection handleGetTableColumnNames()
     {
         final Collection tableColumnNames = new ArrayList();
 
-        if (!isActionParameter() && !isControllerOperationArgument())
+        if (!this.isActionParameter() && !this.isControllerOperationArgument())
         {
-            final Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
+            final Collection taggedValues = this.findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
             if (!taggedValues.isEmpty())
             {
                 for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
@@ -943,7 +926,7 @@ public class StrutsParameterLogicImpl
 
     protected int handleGetTableMaxRows()
     {
-        Object taggedValue = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_MAXROWS);
+        Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_MAXROWS);
         int pageSize;
 
         try
@@ -1069,11 +1052,6 @@ public class StrutsParameterLogicImpl
     protected String handleGetBackingListName()
     {
         return getName() + "BackingList";
-    }
-
-    protected String handleGetBackingListType()
-    {
-        return "Object[]";
     }
 
     protected String handleGetValueListResetValue()
@@ -1316,7 +1294,7 @@ public class StrutsParameterLogicImpl
             !getValidatorTypes().isEmpty();
     }
 
-    protected String getValidatorFormat()
+    private String getValidatorFormat()
     {
         Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
         final String format = value == null ? null : String.valueOf(value);

@@ -141,7 +141,7 @@ ${indent}</logic:notPresent>
 ##      for the argument form field
 ##
 ##
-#macro ( renderFormField $action $field $rowIndex $table $indent)
+#macro ( renderFormField $action $field $rowIndex $indent)
 #set ($quote ='"')
 #set ($fieldName = $field.name)
 #set ($widgetType = $field.widgetType)
@@ -158,14 +158,8 @@ ${indent}</logic:notPresent>
 #set ($readonly = '')
 #end
 #set ($propertyValue = "${beanName}.${fieldName}")
-#if ($table)
-#set ($columnPattern = false)##resetting any previous value
-#set ($columnPattern = $bpmUtils.getFormatPattern($table.getTableColumnType($property),$defaultDateFormat,$defaultTimeFormat))
-#if ($columnPattern)
-${indent}<fmt:formatDate var="value" value="${${propertyValue}}" pattern="$columnPattern"/>
-#else
-${indent}<c:set var="value" value="${${propertyValue}}"/>
-#end
+#if ($field.type.dateType)
+${indent}<fmt:formatDate var="value" value="${${propertyValue}}" pattern="$field.dateFormat"/>
 #else
 ${indent}<c:set var="value" value="${${propertyValue}}"/>
 #end
