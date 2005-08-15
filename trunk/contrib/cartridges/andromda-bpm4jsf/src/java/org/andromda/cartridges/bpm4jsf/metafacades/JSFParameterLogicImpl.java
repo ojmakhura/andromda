@@ -13,6 +13,7 @@ import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
@@ -548,5 +549,68 @@ public class JSFParameterLogicImpl
         return ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.LABEL_LIST_PATTERN)).replaceAll(
             "\\{0\\}",
             this.getName());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isSelectable()
+     */
+    protected boolean handleIsSelectable()
+    {
+        boolean selectable = false;
+
+        if (this.isActionParameter())
+        {
+            selectable = this.isInputSelect();
+            final ClassifierFacade type = getType();
+
+            if (!selectable && type != null)
+            {
+                final String name = this.getName();
+                final String typeName = type.getFullyQualifiedName();
+
+                 // - if the parameter is not selectable but on a targetting page it IS selectable we must
+                 //   allow the user to set the backing list too                 
+                final Collection views = this.getAction().getTargetViews();
+                for (final Iterator iterator = views.iterator(); iterator.hasNext() && !selectable;)
+                {
+                    final FrontEndView view = (FrontEndView)iterator.next();
+                    final Collection parameters = view.getAllActionParameters();
+                    for (final Iterator parameterIterator = parameters.iterator();
+                         parameterIterator.hasNext() && !selectable;)
+                    {
+                        final JSFParameter parameter = (JSFParameter)parameterIterator.next();
+                        final String parameterName = parameter.getName();
+                        final ClassifierFacade parameterType = parameter.getType();
+                        if (parameterType != null)
+                        {
+                            final String parameterTypeName = parameterType.getFullyQualifiedName();
+                            if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                            {
+                                selectable = parameter.isInputSelect();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (this.isControllerOperationArgument())
+        {
+            final String name = this.getName();
+            final Collection actions = this.getControllerOperation().getDeferringActions();
+            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            {
+                final JSFAction action = (JSFAction)actionIterator.next();
+                final Collection formFields = action.getFormFields();
+                for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
+                {
+                    final JSFParameter parameter = (JSFParameter)fieldIterator.next();
+                    if (name.equals(parameter.getName()))
+                    {
+                        selectable = parameter.isSelectable();
+                    }
+                }
+            }
+        }
+        return selectable;
     }
 }
