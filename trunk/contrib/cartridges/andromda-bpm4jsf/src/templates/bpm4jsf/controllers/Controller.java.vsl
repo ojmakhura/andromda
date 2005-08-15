@@ -251,7 +251,7 @@ $operation.getDocumentation("     * ")
             for (final java.util.Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
             {
                 final String name = (String)iterator.next();
-                if (org.apache.commons.beanutils.PropertyUtils.isReadable(form, name))
+                if (org.apache.commons.beanutils.PropertyUtils.isWriteable(form, name))
                 {
                     final java.beans.PropertyDescriptor descriptor =
                         org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(form, name);
