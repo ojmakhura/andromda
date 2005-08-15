@@ -108,6 +108,7 @@
 
 #end
 #end
+#if ($ejbTransactionsEnabled.equalsIgnoreCase("true"))
 #foreach ($service in $services)
 #foreach ($operation in $service.operations)
         <container-transaction>
@@ -123,6 +124,7 @@
             <trans-attribute>$operation.ejbTransactionType</trans-attribute>
         </container-transaction>
 
+#end
 #end
 #end
     </assembly-descriptor>

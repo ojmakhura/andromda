@@ -74,6 +74,7 @@
     <property reference="ejbRemoteProviderUrl"/>
     <property reference="ejbRemoteInitialContextFactory"/>
     <property reference="enableSpringTransactionsWhenEjbsEnabled"/>
+    <property reference="ejbTransactionsEnabled"/>
     <property reference="springRemotingType"/>
     <property reference="serviceRemotePort"/>
     <property reference="serviceRemoteContext"/>
