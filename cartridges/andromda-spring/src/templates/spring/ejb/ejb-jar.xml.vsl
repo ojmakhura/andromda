@@ -28,7 +28,7 @@
 #end
             <ejb-class>$service.fullyQualifiedEjbImplementationName</ejb-class>
             <session-type>Stateless</session-type>
-            <transaction-type>Container</transaction-type>
+            <transaction-type>$service.ejbTransactionType</transaction-type>
         </session>
 
 #end
