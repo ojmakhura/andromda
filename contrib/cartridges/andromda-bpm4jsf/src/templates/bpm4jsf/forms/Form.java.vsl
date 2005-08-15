@@ -25,6 +25,102 @@ $field.getDocumentation("     * ")
 $field.getDocumentation("     * ")
      */
     public void ${field.setterName}($field.type.fullyQualifiedName $field.name);
-#end
+#if ($field.selectable)
+#set ($listType = "java.lang.Object[]")
+#set ($backingListName = $field.backingListName)
+#set ($backingListMethod = $stringUtils.capitalize($backingListName))
+#set ($valueListName = $field.valueListName)
+#set ($valueListMethod = $stringUtils.capitalize($valueListName))
+#set ($labelListName = $field.labelListName)
+#set ($labelListMethod = $stringUtils.capitalize($labelListName))
 
+    /**
+     * The <code>$field.name</code> field can be selected from a list,
+     * this method allows you to retrieve the current elements from that list.
+     * <p/>
+     * <i>Please note that the elements from that list are key value pairs, so you will
+     * need to call <code>getLabel()</code> and <code>getValue()</code> to get the label and
+     * value for this entry respectively.</i>
+     *
+     * @see #${field.getterName}()
+     * @see #get${valueListMethod}()
+     * @see #get${labelListMethod}()
+     * @see #set${labelListMethod}(java.util.Collection,java.lang.String,java.lang.String)
+     */
+    public $listType get${backingListMethod}();
+
+    /**
+     * Convenient method to quickly set the value and label backing list for the
+     * $field.name property. This method takes a collection of objects, as well as
+     * the property names to query these objects in order to find the corresponding
+     * values and labels.
+     * <p/>
+     * Let's say you have a set of value objects with the following properties:
+     * <ul>
+     *  <li><code>id</code></li>
+     *  <li><code>code</code></li>
+     *  <li><code>name</code></li>
+     *  <li><code>description</code></li>
+     * </ul>
+     * But you need to populate the $field.name backing list with the <code>id</code> properties as the values and the
+     * <code>name</code> properties as the labels then you would make a call like this:
+     * <code>set${backingListMethod}(valueObjects, "id", "name")</code>
+     * <p/>
+     * This method knows how to handle primitive property types as it simply delegates to
+     * <code>org.apache.commons.beanutils.PropertyUtils.getProperty(Object, String)</code>.
+     *
+     * @param items The items from which to read the properties, if this argument is <code>null</code> this method
+     *        will simply clear the existing values and labels
+     * @param valueProperty the name of the property to query on each object to retrieve
+     *        the corresponding value, cannot be <code>null</code>
+     * @throws java.lang.IllegalArgumentException if the valueProperty or labelProperty is <code>null</code>
+     * @throws java.lang.RuntimeException if one of the items in the collection is <code>null</code>, or
+     *         if the caller does not have access one of the object's properties, if an exception was thrown while
+     *         accessing a property or if the property does not exist on at least one of the items
+     *
+     * @see #${field.getterName}()
+     * @see #get${valueListMethod}()
+     * @see #get${labelListMethod}()
+     * @see #get${labelListMethod}()
+     */
+    public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty);
+
+    /**
+     * The <code>$field.name</code> field can be selected from a list,
+     * this method allows you to retrieve the values from that list.
+     *
+     * @see #${field.getterName}()
+     * @see #get${backingListMethod}()
+     */
+    public $listType get${valueListMethod}();
+
+    /**
+     * The <code>$field.name</code> field can be selected from a list,
+     * this method allows you to set the values for that list.
+     *
+     * @see #${field.getterName}()
+     * @see #get${backingListMethod}()
+     */
+    public void set${valueListMethod}($listType $valueListName);
+
+    /**
+     * The <code>$field.name</code> field can be selected from a list,
+     * this method allows you to retrieve the labels from that list.
+     *
+     * @see #${field.getterName}()
+     * @see #get${backingListMethod}()
+     */
+    public $listType get${labelListMethod}();
+
+    /**
+     * The <code>$field.name</code> field can be selected from a list,
+     * this method allows you to set the labels for that list.
+     *
+     * @see #${field.getterName}()
+     * @see #get${backingListMethod}()
+     */
+    public void set${labelListMethod}($listType $labelListName);
+#end
+    
+#end
 }
