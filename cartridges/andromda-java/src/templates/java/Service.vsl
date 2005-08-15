@@ -12,7 +12,7 @@ $service.getDocumentation(" * ")
  */
 public interface $service.name
 #if($service.generalization)
-    extends ${service.generalization.fullyQualifiedName}
+    extends $service.generalization.fullyQualifiedName
 #end
 {
 
