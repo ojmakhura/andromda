@@ -20,6 +20,9 @@
 #set ($exportFileName = "$bpmUtils.toWebFileName($exportFileName)")
         <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
 #end
+##
+##  rendering a checkbox in the first column in case we need to allow the selection of rows
+##
 #if (!$table.tableGlobalActions.empty)
         <display:column media="html">
 #set ($actionParameter = $table.tableGlobalActionParameter)
@@ -27,17 +30,29 @@
             <input type="checkbox" name="${actionParameter.name}RowSelectionAsArray" value="${${checkboxValue}}"#if($hints=="true") title='<bean:message key="select.deselect.this.row"/>'#end/>
         </display:column>
 #end
+##
+##  loop over each column we need to render
+##
 #foreach ($column in $table.tableColumns)
-#if($column.actionParameter)#set($columnName=$column.name)#else#set($columnName=$column)#end
+#if($column.name)#set($columnName=$column.name)#else#set($columnName=$column)#end
 #set ($tableColumnActions = $table.getTableColumnActions($columnName))
+#set ($valueProperty = "row.$columnName")
+#if ($column.type.dateType)
+        <fmt:formatDate var="value" value="${${valueProperty}}" pattern="$column.dateFormat"/>
+#end
+## this column element will make sure the column is properly rendered outside the browser (Excel, XML, ...)
 #if ($exportable)
         <display:column media="$table.tableExportTypes"
             titleKey="$table.getTableColumnMessageKey($columnName)"
             autolink="true" paramId="$columnName">
-#set ($valueProperty = "row.$columnName")
+#if ($column.type.dateType)
+            ${value}
+#else
             ${${valueProperty}}
+#end
         </display:column>
 #end
+## this column is the HTML representation of the value
         <display:column media="html"
             headerClass="$columnName" paramId="$columnName"
 #if (!$table.tableDecoratorRequired && $table.tableSortable && (!$column.actionParameter || $column.sortableBy))
@@ -46,17 +61,24 @@
             titleKey="$table.getTableColumnMessageKey($columnName)">
 #if ($column.actionParameter)
             <div class="$columnName">
-#renderFormField($column.strutsAction $column '${row_rowNum}' $table "                ")
+#renderFormField($column.strutsAction $column '${row_rowNum}' "                ")
             </div>
 #elseif (!$tableColumnActions.empty)
 #foreach ($tableColumnAction in $tableColumnActions)
 #renderTableHyperlink($tableColumnAction $columnName "            ")
 #end
-#else## just render as text since the column is in fact a simple String
+#else
+#if ($column.type.dateType)
+            <div class="$columnName">${value}</div>
+#else
             <div class="$columnName">${${valueProperty}}</div>
+#end
 #end
         </display:column>
 #end
+##
+##  any hyperlink actions ?
+##
 #foreach ($tableAction in $table.tableHyperlinkActions)
 #if (!$tableAction.tableLinkColumnName)
         <display:column media="html">
@@ -64,6 +86,9 @@
         </display:column>
 #end
 #end
+##
+##  any button actions ?
+##
 #foreach ($tableAction in $table.tableFormActions)
         <display:column media="html">
 #renderTableButton($tableAction "            " '${row_rowNum}')

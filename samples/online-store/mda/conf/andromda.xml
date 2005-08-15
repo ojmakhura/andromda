@@ -16,11 +16,20 @@
         </repository>
     </repositories>
     <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+            </properties>
+        </namespace>
+        <namespace name="java">
+            <properties>
+                <property name="value-objects">${maven.andromda.bpm4struts.generated.dir}</property>
+            </properties>
+        </namespace>
         <namespace name="bpm4struts">
             <properties>
                 <property name="preventDirectPageAccess">true</property>
-                <property name="languageMappingsUri">Java</property>
-                <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="xhtml">false</property>
                 <property name="maxBreadCrumbs">5</property>
                 <property name="normalizeMessages">true</property>

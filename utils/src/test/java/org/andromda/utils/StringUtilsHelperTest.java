@@ -233,8 +233,6 @@ public class StringUtilsHelperTest
         for (int i = 0; i < fixture.length; i++)
         {
             String[] strings = fixture[i];
-            System.out.println(StringUtilsHelper.format(strings[0], null, 5, false));
-            System.out.println(strings[1]);
             assertEquals(
                 StringUtilsHelper.format(strings[0], null, 5, false),
                 strings[1]);

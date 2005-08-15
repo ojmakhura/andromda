@@ -25,6 +25,11 @@
         <!-- specify and configure our cartridges -->
         <dependency>
             <groupId>andromda</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>

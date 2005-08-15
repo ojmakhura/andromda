@@ -2,6 +2,7 @@
 ##
 ##  CONSTANTS
 ##
+#set ($quote = '"')
 #set ($controllerPackageName = $controller.packageName)
 #set ($controllerClassName = $controller.name)
 #set ($useCase = $controller.useCase)
@@ -79,14 +80,14 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #end
 #if ($allowDummyData)
 ## here we populate tabular data with dummy values
-#set ($quote = '"')
 #foreach ($field in $useCase.pageVariables)
 #if ($field.table)
     /**
      * This dummy variable is used to populate the "$field.name" table.
      * You may delete it when you add you own code in this controller.
      */
-    private final java.util.Collection ${field.name}DummyList =
+#if ($field.type.collectionType)
+    private static final java.util.Collection ${field.name}DummyList =
         java.util.Arrays.asList( new Object[] {
 #set ($count = 0)
 #foreach ($itemSeparator in [",", ",", ",", ",", ""])
@@ -106,7 +107,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
      * running without any manual programming.
      * You may delete this class when you add you own code in this controller.
      */
-    public final class $stringUtils.capitalize($field.name)Dummy implements java.io.Serializable
+    public static final class $stringUtils.capitalize($field.name)Dummy implements java.io.Serializable
     {
 #set ($constructor = '')
 #set ($paramSeparator = '')
@@ -139,8 +140,34 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
         
 #end
     }
+#else
+    private static final $field.type.fullyQualifiedName ${field.name}DummyList =
+        new $field.type.fullyQualifiedName
+        {
+#set ($dummyItemType = $field.type.nonArray.fullyQualifiedName)
+#foreach ($itemSeparator in [",", ",", ",", ",", ""])
+#set ($count = $velocityCount)
+            new ${dummyItemType}(## no newline
+#set ($comma = "")
+#foreach ($attribute in $field.type.nonArray.attributes)
+#if ($attribute.type.booleanType)
+#set ($dummyValue = false)
+#elseif ($attribute.type.primitive)
+#set ($dummyValue = $velocityCount)
+#elseif ($attribute.type.stringType)
+#set ($dummyValue = "${quote}${attribute.name}-${count}${quote}")
+#elseif ($attribute.type.dateType)
+#set ($dummyValue = "new java.util.Date()")
+#else
+#set ($dummyValue = "null")
 #end
-
+${comma}${dummyValue}#set ($comma = ", ")
+#end
+)$itemSeparator
+#end
+        };
+#end
+#end
 #end
 #end
 }

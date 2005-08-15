@@ -58,6 +58,14 @@
         <property reference="defaultInputRowCount"/>
     </metafacade>
 
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
+        <property reference="defaultInputColumnCount"/>
+        <property reference="defaultInputRowCount"/>
+    </metafacade>
+
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl">
             <property name="containedInFrontEndUseCase"/>
