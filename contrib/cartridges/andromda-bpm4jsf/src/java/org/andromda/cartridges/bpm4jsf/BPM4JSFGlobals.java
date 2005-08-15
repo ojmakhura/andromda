@@ -101,4 +101,23 @@ public class BPM4JSFGlobals
      * The pattern used for constructing the name of the filter that performs view form population.
      */
     public static final String VIEW_FORM_POPULATOR_PATTERN = "viewFormPopulatorPattern";
+    
+    /**
+     * The pattern used for constructing a parameter's backing list name.  A backing list
+     * is used when you want to select the value of the parameter from a list (typically 
+     * used for drop-down select input types).
+     */
+    public static final String BACKING_LIST_PATTERN = "backingListPattern";
+    
+    /**
+     * The pattern used for constructing the label list name (stores the list
+     * of possible parameter value labels).
+     */
+    public static final String LABEL_LIST_PATTERN = "labelListPattern";
+    
+    /**
+     * The pattern used for constructing the values list name (stores the list of
+     * possible parameter values when selecting from a list).
+     */
+    public static final String VALUE_LIST_PATTERN = "valueListPattern";
 }

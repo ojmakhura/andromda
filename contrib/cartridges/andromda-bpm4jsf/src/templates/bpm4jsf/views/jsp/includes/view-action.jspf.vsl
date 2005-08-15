@@ -33,6 +33,13 @@
                              popupDateFormat="$field.dateFormat"/>
 #elseif ($field.inputCheckbox)
             <h:selectBooleanCheckbox id="${field.name}" value="#{${formName}.${field.name}}"/>
+#elseif ($field.inputSelect)
+            <h:selectOneMenu id="${field.name}" value="#{${formName}.${field.name}}" styleClass="selectOneMenu" required="false" >
+                <c:if test="${!empty ${formName}.${field.backingListName}}">
+                    <f:selectItem itemValue="" itemLabel="#{messages['empty_selitem']}" />
+                    <f:selectItems value="#{${formName}.${field.backingListName}}" />
+                </c:if>
+            </h:selectOneMenu>
 #else
             <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/>
 #end
