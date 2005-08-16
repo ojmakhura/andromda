@@ -58,8 +58,8 @@
         columnClasses="standardTableColumnCentered"
         var="row"
         value="#{${table.name}}"
-        sortColumn="#{${actionFormKey}.${table.name}SortColumn}"
-        sortAscending="#{${actionFormKey}.${table.name}SortAscending}"
+        sortColumn="#{${actionFormKey}.${table.tableSortColumnProperty}}"
+        sortAscending="#{${actionFormKey}.${table.tableSortAscendingProperty}}"
         preserveDataModel="false"
         preserveSort="true"
         rows="10">

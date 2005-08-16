@@ -35,7 +35,7 @@ $field.getDocumentation("     * ")
     {
 #if ($field.table)
 #set ($upperCaseFieldName = $stringUtils.capitalize($field.name))
-        return ${managedBeansPackage}.CollectionSorter.sort(this.$field.name, this.get${upperCaseFieldName}SortColumn(), this.is${upperCaseFieldName}SortAscending());
+        return ${managedBeansPackage}.CollectionSorter.sort(this.$field.name, this.get${stringUtils.capitalize($field.tableSortColumnProperty)}(), this.is${upperCaseFieldName}SortAscending());
 #else
         return this.${field.name};
 #end
@@ -52,34 +52,34 @@ $field.getDocumentation("     * ")
     /**
      * The name of the sort column for the {@link #${field.name}} collection.
      */
-    private String ${field.name}SortColumn;
+    private String $field.tableSortColumnProperty;
 
     /**
      * Gets the name of the sort column for the {@link #${field.name}} collection.
      * 
      * @return the name of the sort column.
      */
-    public String get${upperCaseFieldName}SortColumn()
+    public String get${stringUtils.capitalize($field.tableSortColumnProperty)}()
     {
-        return this.${field.name}SortColumn;
+        return this.$field.tableSortColumnProperty;
     }
 
     /**
      * Sets the name of the {@link #${field.name}} sort column.
      * 
-     * @param ${field.name}SortColumn the name of the column by which {@link #${field.name}}
+     * @param $field.tableSortColumnProperty the name of the column by which {@link #${field.name}}
      *        are sorted by.
      */
-    public void set${upperCaseFieldName}SortColumn(final String ${field.name}SortColumn)
+    public void set${stringUtils.capitalize($field.tableSortColumnProperty)}(final String $field.tableSortColumnProperty)
     {
-        this.${field.name}SortColumn = ${field.name}SortColumn;
+        this.$field.tableSortColumnProperty = $field.tableSortColumnProperty;
     }
     
     /**
      * The flag indicating whether or not {@link #${field.name}} should be sorted
      * ascending.
      */
-    private boolean ${field.name}SortAscending = false;
+    private boolean $field.tableSortAscendingProperty = false;
 
     /**
      * Indicates whether or not {@link #${field.name}} should be sorted ascending
@@ -87,19 +87,19 @@ $field.getDocumentation("     * ")
      * 
      * @return true/false
      */
-    public boolean is${upperCaseFieldName}SortAscending()
+    public boolean is${stringUtils.capitalize($field.tableSortAscendingProperty)}()
     {
-        return this.${field.name}SortAscending;
+        return this.$field.tableSortAscendingProperty;
     }
 
     /**
      * Sets whether or not {@link #${field.name}} should be sorted ascending.
      * 
-     * @param ${field.name}SortAscending true/false
+     * @param $field.tableSortAscendingProperty true/false
      */
-    public void set${upperCaseFieldName}SortAscending(final boolean ${field.name}SortAscending)
+    public void set${stringUtils.capitalize($field.tableSortAscendingProperty)}(final boolean $field.tableSortAscendingProperty)
     {
-        this.${field.name}SortAscending = ${field.name}SortAscending;
+        this.$field.tableSortAscendingProperty = $field.tableSortAscendingProperty;
     }
 #else
     /**
