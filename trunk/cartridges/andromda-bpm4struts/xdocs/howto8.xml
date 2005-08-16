@@ -60,14 +60,14 @@
                 </p>
                 <p>
                     Second, you will need to make sure the event will be rendered as an hyperlink and not as a regular
-                    form post, you can do that by using the <code>@andromda.presentation.action.type=hyperlink</code>
+                    form post, you can do that by using the <code>@andromda.presentation.web.action.type=hyperlink</code>
                     tagged value on the transition itself.
                 </p>
                 <p>
                     Finally link this event to the table page-variable and specify the column in which the hyperlink is
                     to be rendered, this is particularly important since there
                     might be more than a single table from which to choose. In order to achieve this we will be using
-                    the <code>@andromda.presentation.action.tablelink=myTable.myColumn</code> tagged value on the transition
+                    the <code>@andromda.presentation.web.action.tablelink=myTable.myColumn</code> tagged value on the transition
                     (replace <code>myTable</code> with the name of your table, and notice how to dot separates both
                     fields).
                 </p>
@@ -81,14 +81,14 @@
                     Not only hyperlinks can be modeled this way, also events that work on individual rows. This is
                     very similar to the modeling of hyperlink events, except that here the tagged value should not be
                     set to <code>hyperlink</code>, but to <code>form</code>, like this:
-                    <code>@andromda.presentation.action.type=form</code> (which is the default value
+                    <code>@andromda.presentation.web.action.type=form</code> (which is the default value
                     if it has not been specified, so you don't actually need to set it).
                 </p>
                 <p class="highlight">
                     Please note that it is not possible to use a hyperlink when submitting a row. It would be possible
                     only when none of the row values are updateable, but in order to not overly complicate the usage
                     of the bpm4struts cartridge by adding more/complex modeling constraints we prefer to simply
-                    restrict sending a row's value using the <code>@andromda.presentation.action.type=form</code> tagged
+                    restrict sending a row's value using the <code>@andromda.presentation.web.action.type=form</code> tagged
                     value.
                 </p>
                 <p>
@@ -100,14 +100,14 @@
                 </p>
                 <p>
                     Don't forget to add the tagged value, but it's not needed to specify any column this time:
-                    <code>@andromda.presentation.action.tablelink=myTable</code> No need to specify a column name in this
+                    <code>@andromda.presentation.web.action.tablelink=myTable</code> No need to specify a column name in this
                     tagged value as these buttons will always be put in their own column.
                 </p>
                 <p>
                     Any widget is allowed, but if you still prefer to have plain text rendered instead of a widget
                     then simply use the <code>plaintext</code> field type, like this:
 <source><![CDATA[
-    @andromda.presentation.view.field.type=plaintext
+    @andromda.presentation.web.view.field.type=plaintext
 ]]></source>
                 </p>
                 <p class="highlight">
@@ -117,7 +117,7 @@
                 </p>
                 <p>
                     It's possible to have an image instead of an hyperlink or button, for this you'll have to
-                    use the <code>@andromda.presentation.action.type=image</code> tagged value on the event transition.
+                    use the <code>@andromda.presentation.web.action.type=image</code> tagged value on the event transition.
                     An entry in the resource bundle will be generated for the image, and the value will be resolved
                     against the current contextPath (much like the struts tags taking a <code>page</code> attribute).
                 </p>
@@ -144,8 +144,8 @@
                     In order to achieve this we use the table link and action type tagged values as before,
                     only this time the value is of the action type is <code>table</code>, like this:
 <source><![CDATA[
-    @andromda.presentation.action.tablelink=myTable
-    @andromda.presentation.action.type=table
+    @andromda.presentation.web.action.tablelink=myTable
+    @andromda.presentation.web.action.type=table
 ]]></source>
                 </p>
                 <p>
@@ -178,8 +178,8 @@
                     The <code>available</code> column of the table in the image above has the following tagged values:
                 </p>
 <source><![CDATA[
-@andromda.presentation.view.field.tablelink=itemList
-@andromda.presentation.view.field.type=multibox
+@andromda.presentation.web.view.field.tablelink=itemList
+@andromda.presentation.web.view.field.type=multibox
 @andromda.struts.view.field.multibox=availableItems
 ]]></source>
                 <p>
@@ -210,12 +210,12 @@
                     <ul>
                         <li>model an event going out of the page</li>
                         <li>add a parameter to this event's trigger, give it the name <code>id</code></li>
-                        <li>add the <code>@andromda.presentation.action.tablelink</code> tag to the event, the value should
+                        <li>add the <code>@andromda.presentation.web.action.tablelink</code> tag to the event, the value should
                             be the name of the table separated from the column name using a dot, ie.
                             <code>itemList.id</code>. Not specifying the column name will make put this link in
                             a separate column on the right.
                         </li>
-                        <li>add the <code>@andromda.presentation.action.type=hyperlink</code> tag to the event, this denotes
+                        <li>add the <code>@andromda.presentation.web.action.type=hyperlink</code> tag to the event, this denotes
                             this action to be rendered as an hyperlink pointing to the target Struts action.
                         </li>
                     </ul>
@@ -231,7 +231,7 @@
                 </p>
                 <p>
                     Make sure to have the hyperlink point to the <code>publisher</code> column, like this:
-                    <code>@andromda.presentation.action.tablelink=itemList.publisher</code>.
+                    <code>@andromda.presentation.web.action.tablelink=itemList.publisher</code>.
                 </p>
                 <p>
                     This feature is interesting when you want to see information on a related property, in this case
@@ -250,14 +250,14 @@
                             how to do that), in this example <code>edition</code> is a 'select' and
                             <code>available</code> is a 'multibox'
                         </li>
-                        <li>add the <code>@andromda.presentation.action.tablelink</code> tag to the event, the value should
+                        <li>add the <code>@andromda.presentation.web.action.tablelink</code> tag to the event, the value should
                             be the name of the table
                         </li>
                     </ul>
                 </p>
                 <p class="highlight">
                     If you wish to include the <code>title</code> parameter but you don't want to have it rendered
-                    as an input field, then simply use the <code>@andromda.presentation.view.field.type=plaintext</code>
+                    as an input field, then simply use the <code>@andromda.presentation.web.view.field.type=plaintext</code>
                     tagged value on that parameter.
                 </p>
             </subsection>
