@@ -6,7 +6,13 @@
 <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
     <h:outputText value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
-    <f:param name="$parameter.name" value="#{${formName}.${parameter.name}}"/>
+#if ($parameter.type.dateType)
+#set ($parameterValue = "${parameter.name}Formatted")
+    <fmt:formatDate var="$parameterValue" value="${${formName}.${parameter.name}}" pattern="$parameter.dateFormat" scope="request"/>
+#else
+#set ($parameterValue = "${formName}.${parameter.name}")
+#end
+    <f:param name="$parameter.name" value="#{${parameterValue}}"/>
 #end
 </h:commandLink>
 <f:verbatim><br/><br/></f:verbatim>
