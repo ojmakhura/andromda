@@ -227,8 +227,8 @@
                     possible parameter values when selecting from a list).
                 </documentation>
             </property>
-            <property name="viewFormPopulatorPattern">
-                <default>{0}FormPopulator</default>
+            <property name="viewPopulatorPattern">
+                <default>{0}Populator</default>
                 <documentation>
                     The pattern used to construct the view form populator filter, where <em>{0}</em>
                     is the name of the view.  

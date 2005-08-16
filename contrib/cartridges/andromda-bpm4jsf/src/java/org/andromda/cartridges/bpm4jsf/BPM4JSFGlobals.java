@@ -110,7 +110,7 @@ public class BPM4JSFGlobals
     /**
      * The pattern used for constructing the name of the filter that performs view form population.
      */
-    public static final String VIEW_FORM_POPULATOR_PATTERN = "viewFormPopulatorPattern";
+    public static final String VIEW_POPULATOR_PATTERN = "viewPopulatorPattern";
     
     /**
      * The pattern used for constructing a parameter's backing list name.  A backing list

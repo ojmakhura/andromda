@@ -106,10 +106,10 @@
     </filter>
 #foreach ($useCase in $useCases)
 #foreach ($view in $useCase.views)
-#if (!$view.formActions.empty)
+#if ($view.populatorRequired)
     <filter>
-        <filter-name>$view.fullyQualifiedFormPopulator</filter-name>
-        <filter-class>$view.fullyQualifiedFormPopulator</filter-class>
+        <filter-name>$view.fullyQualifiedPopulator</filter-name>
+        <filter-class>$view.fullyQualifiedPopulator</filter-class>
     </filter>
 #end
 #end
@@ -121,9 +121,9 @@
     </filter-mapping>
 #foreach ($useCase in $useCases)
 #foreach ($view in $useCase.views)
-#if (!$view.formActions.empty)
+#if ($view.populatorRequired)
     <filter-mapping>
-        <filter-name>$view.fullyQualifiedFormPopulator</filter-name>
+        <filter-name>$view.fullyQualifiedPopulator</filter-name>
         <url-pattern>${view.path}.${facesServletExtension}</url-pattern>
     </filter-mapping>
 #end
