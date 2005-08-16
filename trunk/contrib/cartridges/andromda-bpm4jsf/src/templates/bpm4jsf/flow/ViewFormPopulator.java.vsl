@@ -17,8 +17,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * This filter handles setting request attributes that determine what will be
- * displayed on a user's page.
+ * This filter handles the population of forms for the <em>$view.name</code>
+ * view.
  */
 public class $view.formPopulator
     implements Filter
