@@ -274,8 +274,8 @@ $operation.getDocumentation("     * ")
                             {
                                 value = org.apache.commons.beanutils.ConvertUtils.convert(parameter, descriptor.getPropertyType());
                             }
+                            org.apache.commons.beanutils.PropertyUtils.setProperty(form, name, value);
                         }
-                        org.apache.commons.beanutils.PropertyUtils.setProperty(form, name, value);
                     }
                 }
             }
