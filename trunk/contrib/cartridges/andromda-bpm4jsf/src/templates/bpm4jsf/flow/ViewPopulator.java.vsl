@@ -20,7 +20,7 @@ import javax.servlet.ServletResponse;
  * This filter handles the population of forms for the <em>$view.name</code>
  * view.
  */
-public class $view.formPopulator
+public class $view.populator
     implements Filter
 {
 
@@ -60,9 +60,11 @@ public class $view.formPopulator
                 response,
                 lifecycle);
         final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
-        java.lang.Object previousForm = null;
         try
         {
+#if (!$view.formActions.empty)
+            java.lang.Object previousForm = null;
+            // - populate the forms
 #foreach ($action in $view.formActions)
             previousForm = variableResolver.resolveVariable(facesContext, "$action.formKey");
             if (previousForm != null)
@@ -75,6 +77,20 @@ public class $view.formPopulator
                 this.populateForm(previousForm, $action.formBeanName);
                 request.setAttribute("$action.formBeanName", $action.formBeanName);
             }
+#end
+#end
+#if (!$view.variables.empty)
+            // - populate the view variables   
+            final java.lang.Object form = variableResolver.resolveVariable(facesContext, "$view.useCase.formKey");
+            if (form != null)
+            {    
+#foreach ($variable in $view.variables)
+                if (org.apache.commons.beanutils.PropertyUtils.isReadable(form, "$variable.name"))
+                {
+                    request.setAttribute("$variable.name", org.apache.commons.beanutils.PropertyUtils.getProperty(form, "${variable.name}"));
+                }
+#end
+            } 
 #end
         }
         catch (final Throwable throwable)

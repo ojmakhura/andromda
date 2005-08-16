@@ -221,14 +221,14 @@
     </template>
     
     <template
-        path="templates/bpm4jsf/flow/ViewFormPopulator.java.vsl"
-        outputPattern="${view.formPopulatorPath}.java"
+        path="templates/bpm4jsf/flow/ViewPopulator.java.vsl"
+        outputPattern="${view.populatorPath}.java"
         outlet="controllers"
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
                 <type name="org.andromda.metafacades.uml.FrontEndView">
-                    <property name="formActions"/>
+                    <property name="populatorRequired"/>
                 </type>
             </modelElement>
         </modelElements>

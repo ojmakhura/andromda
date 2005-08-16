@@ -171,9 +171,9 @@ public class JSFViewLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFullyQuailifiedFormPopulator()
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFullyQuailifiedPopulator()
      */
-    protected String handleGetFullyQualifiedFormPopulator()
+    protected String handleGetFullyQualifiedPopulator()
     {
         final StringBuffer name = new StringBuffer();
         final String packageName = this.getPackageName();
@@ -182,16 +182,16 @@ public class JSFViewLogicImpl
             name.append(packageName);
             name.append('.');
         }
-        name.append(this.getFormPopulator());
+        name.append(this.getPopulator());
         return name.toString();
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFormPopulator()
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getPopulator()
      */
-    protected String handleGetFormPopulator()
+    protected String handleGetPopulator()
     {
-        return ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.VIEW_FORM_POPULATOR_PATTERN)).replaceAll(
+        return ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
             "\\{0\\}",
             StringUtilsHelper.upperCamelCaseName(this.getName()));
     }
@@ -214,12 +214,20 @@ public class JSFViewLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFView#getFormPopulatorPath()
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFView#getPopulatorPath()
      */
-    protected String handleGetFormPopulatorPath()
+    protected String handleGetPopulatorPath()
     {
-        return this.getFullyQualifiedFormPopulator().replace(
+        return this.getFullyQualifiedPopulator().replace(
             '.',
             '/');
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFView#isPopulatorRequired()
+     */
+    protected boolean handleIsPopulatorRequired()
+    {
+        return !this.getFormActions().isEmpty() || !this.getVariables().isEmpty();
     }
 }

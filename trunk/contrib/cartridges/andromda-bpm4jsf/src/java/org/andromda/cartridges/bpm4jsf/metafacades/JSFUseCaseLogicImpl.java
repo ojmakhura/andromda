@@ -11,9 +11,11 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
+import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -354,5 +356,13 @@ public class JSFUseCaseLogicImpl
         return path.toString();
     }
     
-    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#getFormKey()
+     */
+    protected String handleGetFormKey()
+    {
+        final Object formKeyValue = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.ACTION_FORM_KEY))
+                                    : String.valueOf(formKeyValue);
+    }    
 }

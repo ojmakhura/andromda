@@ -13,7 +13,7 @@
             <property name="frontEndView"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
-        <property reference="viewFormPopulatorPattern"/>
+        <property reference="viewPopulatorPattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
@@ -49,6 +49,7 @@
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
             <stereotype>FRONT_END_APPLICATION</stereotype>
         </mapping>
+        <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCaseLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">

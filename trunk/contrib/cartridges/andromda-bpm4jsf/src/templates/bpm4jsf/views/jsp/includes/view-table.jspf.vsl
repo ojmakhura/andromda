@@ -57,7 +57,7 @@
         rowClasses="standardTableRow1,standardTableRow2"
         columnClasses="standardTableColumnCentered"
         var="row"
-        value="#{${actionFormKey}.${table.name}}"
+        value="#{${table.name}}"
         sortColumn="#{${actionFormKey}.${table.name}SortColumn}"
         sortAscending="#{${actionFormKey}.${table.name}SortAscending}"
         preserveDataModel="false"
