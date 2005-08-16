@@ -1567,7 +1567,47 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsPassword()
     {
-        return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(getWidgetType());
+        return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_PASSWORD.equals(this.getWidgetType());
+    }
+
+    protected boolean handleIsCombobox()
+    {
+        return "select".equals(this.getWidgetType());
+    }
+
+    protected boolean handleIsCheckbox()
+    {
+        return "checkbox".equals(this.getWidgetType());
+    }
+
+    protected boolean handleIsTextField()
+    {
+        return "text".equals(this.getWidgetType());
+    }
+
+    protected boolean handleIsTextArea()
+    {
+        return "textarea".equals(this.getWidgetType());
+    }
+
+    protected boolean handleIsMultibox()
+    {
+        return "multibox".equals(this.getWidgetType());
+    }
+
+    protected boolean handleIsRadioButton()
+    {
+        return "radio".equals(this.getWidgetType());
+    }
+
+    protected boolean handleIsHiddenField()
+    {
+        return "hidden".equals(this.getWidgetType());
+    }
+
+    protected boolean handleIsHyperlink()
+    {
+        return "link".equals(this.getWidgetType());
     }
 
     /**
