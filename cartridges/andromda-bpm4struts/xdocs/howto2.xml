@@ -17,7 +17,7 @@
             <p>
                 Your activity graph should be modeled as a child element of the use-case. In case your modeling
                 tool does not support that you can add a tagged value to the use-case, making it point to the
-                activity graph, like this: <code>@andromda.presentation.usecase.activity=My Activity Graph</code>
+                activity graph, like this: <code>@andromda.presentation.web.usecase.activity=My Activity Graph</code>
             </p>
             <p>
                 On this page you will see how to use the different states, and how to express the flow from one
@@ -150,7 +150,7 @@
                                 The event parameter you model should represent the one that is sent to the server,
                                 this typically is a String but could also be a Collection, List, int, etc...
                                 Add the following tagged value to this parameter:
-                                <code>@andromda.presentation.view.field.type=select</code>.
+                                <code>@andromda.presentation.web.view.field.type=select</code>.
                             </p>
                             <p class="highlight">
                                 A collection-type parameter (Collection, List, Set, ...) will result in the rendering
@@ -210,7 +210,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         </td></tr>
                         <tr><td>
                             <p>
-                                Simply add the <code>@andromda.presentation.view.field.type=password</code> tagged value to the
+                                Simply add the <code>@andromda.presentation.web.view.field.type=password</code> tagged value to the
                                 event parameter. This will render a regular text input field in which the characters
                                 are masked behind asterisks.
                             </p>
@@ -220,7 +220,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         </td></tr>
                         <tr><td>
                             <p>
-                                Simply add the <code>@andromda.presentation.view.field.type=textarea</code> tagged value to the
+                                Simply add the <code>@andromda.presentation.web.view.field.type=textarea</code> tagged value to the
                                 event parameter. The generated input field will allow more than a single row.
                             </p>
                         </td></tr>
@@ -229,7 +229,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         </td></tr>
                         <tr><td>
                             <p>
-                                Simply add the <code>@andromda.presentation.view.field.type=radio</code> tagged value to the
+                                Simply add the <code>@andromda.presentation.web.view.field.type=radio</code> tagged value to the
                                 event parameter. This will render a set of radiobuttons from which the user may choose
                                 one. By default 3 radiobuttons are rendered, but this number can be changed by using the
                                 <code>@andromda.struts.view.field.radio</code> tagged value, which either takes
@@ -271,7 +271,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                         </td></tr>
                         <tr><td>
                             <p>
-                                Simply add the <code>@andromda.presentation.view.field.type=multibox</code> tagged value to
+                                Simply add the <code>@andromda.presentation.web.view.field.type=multibox</code> tagged value to
                                 the event parameter. An additional tagged value must be set:
                                 <code>@andromda.struts.view.field.multibox</code>, the value must match a variable
                                 which holds a collection or array.
