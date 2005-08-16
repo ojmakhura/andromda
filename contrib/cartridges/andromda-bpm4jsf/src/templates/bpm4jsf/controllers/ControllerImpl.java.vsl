@@ -18,9 +18,7 @@ public class $controller.implementationName
 #set($allowDummyData = $dummyData.equalsIgnoreCase("true"))
 #if ($allowDummyData)
 #set ($formFields = $operation.formFields)
-#if ($operation.formFields.empty)
-        // nothing to be done for this operation, there are no properties that can be set
-#else
+#if (!$operation.formFields.empty)
 #foreach ($field in $operation.formFields)
 #set ($tableActionFound = false)
 #foreach ($action in $operation.deferringActions)
@@ -37,9 +35,6 @@ public class $controller.implementationName
         form.${field.setterName}($field.name);
 #elseif ($tableActionFound)
         // we don't set row selection parameters such as ${field.name}RowSelection
-#else
-        // this property receives a default value, just to have the application running on dummy data
-        form.${field.setterName}($field.dummyValue);
 #end
 #if ($field.selectable)
 #set ($valueListMethod = $stringUtils.capitalize($field.valueListName))
