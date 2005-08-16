@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4jsf.metafacades;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -107,50 +108,6 @@ public class JSFParameterLogicImpl
     protected java.lang.String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableColumnNames()
-     */
-    protected Collection handleGetTableColumnNames()
-    {
-        final Collection tableColumnNames = new ArrayList();
-        if (!this.isActionParameter() && !this.isControllerOperationArgument())
-        {
-            final Collection taggedValues = this.findTaggedValues(BPM4JSFProfile.TAGGEDVALUE_TABLE_COLUMNS);
-            if (!taggedValues.isEmpty())
-            {
-                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-                {
-                    final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                    if (taggedValue != null)
-                    {
-                        final String[] properties = taggedValue.split("[,\\s]+");
-                        for (int ctr = 0; ctr < properties.length; ctr++)
-                        {
-                            final String property = properties[ctr];
-                            tableColumnNames.add(property);
-                        }
-                    }
-                }
-            }
-        }
-        return tableColumnNames;
-    }
-
-    /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isTable()
-     */
-    protected boolean handleIsTable()
-    {
-        boolean isTable = false;
-
-        final ClassifierFacade type = this.getType();
-        if (type != null)
-        {
-            isTable = (type.isCollectionType() || type.isArrayType()) && !this.getTableColumnNames().isEmpty();
-        }
-        return isTable;
     }
 
     /**
@@ -612,5 +569,141 @@ public class JSFParameterLogicImpl
             }
         }
         return selectable;
+    }
+    
+    /**
+     * Stores the initial value of each type.
+     */
+    private final Map initialValues = new HashMap();
+    
+    private final int arrayCount = 5;
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValueListDummyValue()
+     */
+    protected String handleGetValueListDummyValue()
+    {
+        return this.constructArray(arrayCount);
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getDummyValue()
+     */
+    protected String handleGetDummyValue()
+    {
+        final ClassifierFacade type = this.getType();
+        final String typeName = type != null ? type.getFullyQualifiedName() : "";
+        String initialValue = null;
+        if (type != null)
+        {
+            if (type.isSetType())
+            {
+                initialValue = "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructArray(arrayCount) + "))";
+            }
+            else if (type.isCollectionType())
+            {
+                initialValue = "java.util.Arrays.asList(" + this.constructArray(arrayCount) + ")";
+            }
+            else if (type.isArrayType())
+            {
+                initialValue = this.constructArray(arrayCount);
+            }
+            final String name = this.getName() != null ? this.getName() : "";
+            if (this.initialValues.isEmpty())
+            {
+                initialValues.put(
+                    boolean.class.getName(),
+                    "false");
+                initialValues.put(
+                    int.class.getName(),
+                    "(int)" + name.hashCode());
+                initialValues.put(
+                    long.class.getName(),
+                    "(long)" + name.hashCode());
+                initialValues.put(
+                    short.class.getName(),
+                    "(short)" + name.hashCode());
+                initialValues.put(
+                    byte.class.getName(),
+                    "(byte)" + name.hashCode());
+                initialValues.put(
+                    float.class.getName(),
+                    "(float)" + name.hashCode());
+                initialValues.put(
+                    double.class.getName(),
+                    "(double)" + name.hashCode());
+                initialValues.put(
+                    char.class.getName(),
+                    "(char)" + name.hashCode());
+     
+                initialValues.put(
+                    String.class.getName(),
+                    "\"" + name + "-test" + "\"");
+                initialValues.put(
+                    java.util.Date.class.getName(),
+                    "new java.util.Date()");
+                 initialValues.put(
+                     java.sql.Date.class.getName(), 
+                     "new java.util.Date()");
+                 initialValues.put(
+                     java.sql.Timestamp.class.getName(),
+                     "new java.util.Date()");
+
+                initialValues.put(
+                    Integer.class.getName(),
+                    "new Integer((int)" + name.hashCode() + ")");
+                initialValues.put(
+                    Boolean.class.getName(),
+                    "Boolean.FALSE");
+                initialValues.put(
+                    Long.class.getName(),
+                    "new Long((long)" + name.hashCode() + ")");
+                initialValues.put(
+                    Character.class.getName(),
+                    "new Character(char)" + name.hashCode() + ")");
+                initialValues.put(
+                    Float.class.getName(),
+                    "new Float((float)" + name.hashCode() / hashCode() + ")");
+                initialValues.put(
+                    Double.class.getName(),
+                    "new Double((double)" + name.hashCode() / hashCode() + ")");
+                initialValues.put(
+                    Short.class.getName(),
+                    "new Short((short)" + name.hashCode() + ")");
+                initialValues.put(
+                    Byte.class.getName(),
+                    "new Byte((byte)" + name.hashCode() + ")");
+            }
+            if (initialValue == null)
+            {
+                initialValue = (String)this.initialValues.get(typeName);
+            }
+        }
+        if (initialValue == null)
+        {
+            initialValue = "null";
+        }
+        return initialValue;
+    }
+    
+    /**
+     * Constructs a string representing an array initialization in Java.
+     * 
+     * @return A String representing Java code for the initialization of an array using 5 elements.
+     */
+    private final String constructArray(final int count)
+    {
+        final StringBuffer array = new StringBuffer("new Object[] {");
+        final String name = this.getName();
+        for (int ctr = 0; ctr < count; ctr++)
+        {
+            array.append("\"" + name + "-" + ctr + "\"");
+            if (ctr != count -1)
+            {
+                array.append(", ");
+            }
+        }
+        array.append("}");
+        return array.toString();
     }
 }
