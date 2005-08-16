@@ -2,8 +2,12 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -14,8 +18,10 @@ import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndPseudostate;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
@@ -60,7 +66,67 @@ public class FrontEndControllerOperationLogicImpl
      */
     protected java.util.List handleGetFormFields()
     {
-        return new ArrayList(this.getArguments());
+        final Map formFieldsMap = new HashMap();
+
+        // for quick lookup we use a hashset for the argument names, we only consider parameters with a name
+        // which is also present in this set
+        final Set argumentNames = new HashSet();
+        final Collection arguments = this.getArguments();
+        for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+        {
+            final ModelElementFacade element = (ModelElementFacade)argumentIterator.next();
+            argumentNames.add(element.getName());
+        }
+
+        // get all actions deferring to this operation
+        final List deferringActions = this.getDeferringActions();
+        for (int i = 0; i < deferringActions.size(); i++)
+        {
+            final FrontEndAction action = (FrontEndAction)deferringActions.get(i);
+            // store the action parameters
+            final List actionFormFields = action.getFormFields();
+            for (int j = 0; j < actionFormFields.size(); j++)
+            {
+                final ModelElementFacade parameter = (ModelElementFacade)actionFormFields.get(j);
+                if (argumentNames.contains(parameter.getName()))
+                {
+                    formFieldsMap.put(parameter.getName(), parameter);
+                }
+            }
+            // get all forwards and overwrite when we find a table (or add when not yet present)
+            final List forwards = action.getActionForwards();
+            for (int j = 0; j < forwards.size(); j++)
+            {
+                final FrontEndForward forward = (FrontEndForward)forwards.get(j);
+                // only consider forwards directly entering a page
+                if (forward.isEnteringView())
+                {
+                    final List pageVariables = forward.getForwardParameters();
+                    for (int k = 0; k < pageVariables.size(); k++)
+                    {
+                        final FrontEndParameter pageVariable = (FrontEndParameter)pageVariables.get(k);
+                        if (argumentNames.contains(pageVariable.getName()))
+                        {
+                            if (!formFieldsMap.containsKey(pageVariable.getName()) || pageVariable.isTable())
+                            {
+                                formFieldsMap.put(pageVariable.getName(), pageVariable);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // since all arguments need to be present we add those that haven't yet been stored in the map
+        for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+        {
+            final FrontEndParameter argument = (FrontEndParameter)argumentIterator.next();
+            if (!formFieldsMap.containsKey(argument.getName()))
+            {
+                formFieldsMap.put(argument.getName(), argument);
+            }
+        }
+        return new ArrayList(formFieldsMap.values());
     }
 
     /**

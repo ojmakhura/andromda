@@ -200,6 +200,11 @@ public class UMLProfile
     public static final String TAGGEDVALUE_PRESENTATION_CONTROLLER_USECASE = profile.get("PRESENTATION_CONTROLLER_USECASE");
     
     /**
+     * Used to assign the table columns to a collection/array type parameter representing a table.
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS = profile.get("PRESENTATION_TABLE_COLUMNS");
+    
+    /**
      * Used to associate an activity to a use case (when it can not be assigned explicitly).
      */
     public static final String TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY = profile.get("PRESENTATION_USECASE_ACTIVITY");

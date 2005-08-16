@@ -1,11 +1,18 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -99,5 +106,49 @@ public class FrontEndParameterLogicImpl
             }
         }
         return actionObject;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#isTable()
+     */
+    protected boolean handleIsTable()
+    {
+        boolean isTable = false;
+
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            isTable = (type.isCollectionType() || type.isArrayType()) && !this.getTableColumnNames().isEmpty();
+        }
+        return isTable;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumnNames()
+     */
+    protected Collection handleGetTableColumnNames()
+    {
+        final Collection tableColumnNames = new ArrayList();
+        if (!this.isActionParameter() && !this.isControllerOperationArgument())
+        {
+            final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
+            if (!taggedValues.isEmpty())
+            {
+                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                {
+                    final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                    if (taggedValue != null)
+                    {
+                        final String[] properties = taggedValue.split("[,\\s]+");
+                        for (int ctr = 0; ctr < properties.length; ctr++)
+                        {
+                            final String property = properties[ctr];
+                            tableColumnNames.add(property);
+                        }
+                    }
+                }
+            }
+        }
+        return tableColumnNames;
     }
 }

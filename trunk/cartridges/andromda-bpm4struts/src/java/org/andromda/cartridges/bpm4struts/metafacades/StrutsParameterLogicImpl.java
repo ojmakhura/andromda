@@ -493,18 +493,6 @@ public class StrutsParameterLogicImpl
         return typeName;
     }
 
-    protected boolean handleIsTable()
-    {
-        boolean isTable = false;
-
-        final ClassifierFacade type = this.getType();
-        if (type != null)
-        {
-            isTable = (type.isCollectionType() || type.isArrayType()) && !this.getTableColumnNames().isEmpty();
-        }
-        return isTable;
-    }
-
     protected boolean handleIsTableDecoratorRequired()
     {
         boolean required = false;
@@ -865,34 +853,6 @@ public class StrutsParameterLogicImpl
             tableColumns.add(tableColumnsMap.get(columnObject));
         }
         return tableColumns;
-    }
-
-    protected Collection handleGetTableColumnNames()
-    {
-        final Collection tableColumnNames = new ArrayList();
-
-        if (!this.isActionParameter() && !this.isControllerOperationArgument())
-        {
-            final Collection taggedValues = this.findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_COLUMNS);
-            if (!taggedValues.isEmpty())
-            {
-                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-                {
-                    final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                    if (taggedValue != null)
-                    {
-                        final String[] properties = taggedValue.split("[,\\s]+");
-                        for (int i = 0; i < properties.length; i++)
-                        {
-                            final String property = properties[i];
-                            tableColumnNames.add(property);
-                        }
-                    }
-                }
-            }
-        }
-
-        return tableColumnNames;
     }
 
     protected String handleGetTableColumnMessageKey(String columnName)
