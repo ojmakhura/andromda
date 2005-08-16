@@ -76,10 +76,10 @@ public class $className
             {
                 error = new ActionMessage(parseExceptionMessage(exception));
             }
-            catch (Exception patternMatchingException)
+            catch (Throwable patternMatchingException)
             {
                 // no pattern was found, so just continue as usual
-                error = new ActionMessage(exceptionConfig.getKey(), exception.getMessage());
+                error = new ActionMessage(exceptionConfig.getKey(), patternMatchingException.getMessage());
             }
             property = error.getKey();
         }
@@ -100,8 +100,10 @@ public class $className
      *
      * @param exception the Exception containing the message to retrieve, should not be <code>null</code>
      * @return the retrieved string matching the pattern.
+     * @throws Throwable rethrows the cause of the argument exception (which might be the exception itself)
+     *      in case no pattern was found in its message
      */
-    private static String parseExceptionMessage(Exception exception)
+    private static String parseExceptionMessage(Exception exception) throws Throwable
     {
         String exceptionMessage = null;
 
@@ -118,13 +120,18 @@ public class $className
             }
             catch (IllegalStateException ex)
             {
-                // no match was found, take the original message
-                exceptionMessage = cause.getMessage();
+                // no match was found, let the code below handle everything
             }
         }
         else
         {
             exceptionMessage = exception.getMessage();
+        }
+
+        // no pattern could be found and the cause exception is something worth throwing
+        if (exceptionMessage == null && cause != null)
+        {
+            throw cause;
         }
 
         return exceptionMessage;

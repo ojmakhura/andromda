@@ -23,6 +23,17 @@
                 that the option values sent from the client to the server are no longer equal to the message keys used.
                 This has been changed to sent the selection index instead 0,1,2,... and so on.
             </action>
+            <action dev="draftdog" type="update">
+                The validation framework used in bpm4struts has been updated, it is now required to use
+                <a href="http://www.ibiblio.org/maven/struts/jars/struts-1.2.7.jar">Struts 1.2.7</a>
+                and
+                <a href="http://www.ibiblio.org/maven/commons-validator/jars/commons-validator-1.1.4.jar">commons-validator 1.1.4</a>
+                (later versions are also fine). Older projects using the latest bpm4struts
+                cartridge will need to update these dependencies. The andromdapp:generate tool has been updated
+                to take this change into account, so generating a new project will also solve this problem.
+                Not updating these dependencies will break validation support in the presentation layer, you'll
+                also see an exception stacktrace in the server output.
+            </action>
             <action dev="cwbrandon" type="update">
                 In order for the presentation metafacades to be made generic enough for use within other frameworks
                 (besides struts), the following tagged values have been renamed:
