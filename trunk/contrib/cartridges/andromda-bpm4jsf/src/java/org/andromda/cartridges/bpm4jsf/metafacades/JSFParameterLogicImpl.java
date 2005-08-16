@@ -695,7 +695,7 @@ public class JSFParameterLogicImpl
     {
         final StringBuffer array = new StringBuffer("new Object[] {");
         final String name = this.getName();
-        for (int ctr = 0; ctr < count; ctr++)
+        for (int ctr = 1; ctr <= count; ctr++)
         {
             array.append("\"" + name + "-" + ctr + "\"");
             if (ctr != count -1)
