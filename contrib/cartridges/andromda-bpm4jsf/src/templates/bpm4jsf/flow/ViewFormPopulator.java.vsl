@@ -109,7 +109,7 @@ public class $view.formPopulator
                         // - only convert if the string is not empty
                         if (value != null)
                         {
-                            org.apache.commons.beanutils.PropertyUtils.setProperty(toForm, name, value);
+                            org.apache.commons.beanutils.BeanUtils.setProperty(toForm, name, value);
                         }
                     }
                 }

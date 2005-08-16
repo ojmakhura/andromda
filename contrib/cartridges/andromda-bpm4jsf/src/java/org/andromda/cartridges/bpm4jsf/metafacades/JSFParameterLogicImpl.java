@@ -583,7 +583,7 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetValueListDummyValue()
     {
-        return this.constructArray(arrayCount);
+        return this.constructDummyArray(arrayCount);
     }
 
     /**
@@ -598,15 +598,15 @@ public class JSFParameterLogicImpl
         {
             if (type.isSetType())
             {
-                initialValue = "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructArray(arrayCount) + "))";
+                initialValue = "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray(arrayCount) + "))";
             }
             else if (type.isCollectionType())
             {
-                initialValue = "java.util.Arrays.asList(" + this.constructArray(arrayCount) + ")";
+                initialValue = "java.util.Arrays.asList(" + this.constructDummyArray(arrayCount) + ")";
             }
             else if (type.isArrayType())
             {
-                initialValue = this.constructArray(arrayCount);
+                initialValue = this.constructDummyArray(arrayCount);
             }
             final String name = this.getName() != null ? this.getName() : "";
             if (this.initialValues.isEmpty())
@@ -691,14 +691,14 @@ public class JSFParameterLogicImpl
      * 
      * @return A String representing Java code for the initialization of an array using 5 elements.
      */
-    private final String constructArray(final int count)
+    private final String constructDummyArray(final int count)
     {
         final StringBuffer array = new StringBuffer("new Object[] {");
         final String name = this.getName();
         for (int ctr = 1; ctr <= count; ctr++)
         {
             array.append("\"" + name + "-" + ctr + "\"");
-            if (ctr != count -1)
+            if (ctr != count)
             {
                 array.append(", ");
             }
