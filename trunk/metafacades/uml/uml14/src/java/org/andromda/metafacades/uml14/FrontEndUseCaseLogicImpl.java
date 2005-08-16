@@ -3,10 +3,12 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -17,6 +19,7 @@ import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
 
@@ -265,5 +268,28 @@ public class FrontEndUseCaseLogicImpl
             }
         }
         return view;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndUseCase#getViewVariables()
+     */
+    protected List handleGetViewVariables()
+    {
+        final Map pageVariableMap = new HashMap();
+        // - page variables can occur twice or more in the usecase in case their
+        //   names are the same for different forms, storing them in a map
+        //   solves this issue because those names do not have the action-name prefix
+        final Collection views = this.getViews();
+        for (final Iterator pageIterator = views.iterator(); pageIterator.hasNext();)
+        {
+            final FrontEndView view = (FrontEndView)pageIterator.next();
+            final Collection variables = view.getVariables();
+            for (final Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
+            {
+                final ModelElementFacade variable = (ModelElementFacade)variableIterator.next();
+                pageVariableMap.put(variable.getName(), variable);
+            }
+        }
+        return new ArrayList(pageVariableMap.values());
     }
 }
