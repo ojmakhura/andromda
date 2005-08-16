@@ -706,4 +706,20 @@ public class JSFParameterLogicImpl
         array.append("}");
         return array.toString();
     }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableSortColumnProperty()
+     */
+    protected String handleGetTableSortColumnProperty()
+    {
+        return this.getName() + "SortColumn";
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTableSortAscendingProperty()
+     */
+    protected String handleGetTableSortAscendingProperty()
+    {
+        return this.getName() + "SortAscending";
+    }
 }

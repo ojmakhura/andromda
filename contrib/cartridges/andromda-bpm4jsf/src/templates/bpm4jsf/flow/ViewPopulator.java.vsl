@@ -87,7 +87,7 @@ public class $view.populator
 #foreach ($variable in $view.variables)
                 if (org.apache.commons.beanutils.PropertyUtils.isReadable(form, "$variable.name"))
                 {
-                    request.setAttribute("$variable.name", org.apache.commons.beanutils.PropertyUtils.getProperty(form, "${variable.name}"));
+                    request.setAttribute("$variable.name", org.apache.commons.beanutils.PropertyUtils.getProperty(form, "$variable.name"));
                 }
 #end
             } 
