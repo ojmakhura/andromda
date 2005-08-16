@@ -210,6 +210,23 @@
                 </documentation>
                 <value>@andromda.presentation.usecase.activity</value>
             </element>
+            <element name="PRESENTATION_TABLE_COLUMNS">
+                <documentation>
+                    The collection will be displayed in scrollable tabular format. 
+                    Each column in this table will be mapped to a property of the object
+                    type contained in the collection. So you will need to make sure all objects
+                    have accessor methods for the property you list in this tagged value.
+                    Properties are separated using a comma ','. More than one value maybe be assigned to
+                    this tag, all properties will correctly be resolved.
+                </documentation>
+                <value>@andromda.presentation.view.table.columns</value>
+                <appliedOnElement>
+                    A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>Comma-separated list of column names</value>
+                </allowedValues>
+            </element>
             <element name="WEBSERVICE_STYLE">
                 <documentation></documentation>
                 <value>@andromda.webservice.style</value>
