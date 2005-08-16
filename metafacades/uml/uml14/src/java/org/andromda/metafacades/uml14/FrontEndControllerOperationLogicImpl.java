@@ -101,15 +101,15 @@ public class FrontEndControllerOperationLogicImpl
                 // only consider forwards directly entering a page
                 if (forward.isEnteringView())
                 {
-                    final List pageVariables = forward.getForwardParameters();
-                    for (int k = 0; k < pageVariables.size(); k++)
+                    final List viewVariables = forward.getForwardParameters();
+                    for (int k = 0; k < viewVariables.size(); k++)
                     {
-                        final FrontEndParameter pageVariable = (FrontEndParameter)pageVariables.get(k);
-                        if (argumentNames.contains(pageVariable.getName()))
+                        final FrontEndParameter viewVariable = (FrontEndParameter)viewVariables.get(k);
+                        if (argumentNames.contains(viewVariable.getName()))
                         {
-                            if (!formFieldsMap.containsKey(pageVariable.getName()) || pageVariable.isTable())
+                            if (!formFieldsMap.containsKey(viewVariable.getName()) || viewVariable.isTable())
                             {
-                                formFieldsMap.put(pageVariable.getName(), pageVariable);
+                                formFieldsMap.put(viewVariable.getName(), viewVariable);
                             }
                         }
                     }

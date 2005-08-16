@@ -364,8 +364,8 @@ public class FrontEndActionLogicImpl
             if (target instanceof FrontEndView)
             {
                 final FrontEndView view = (FrontEndView)target;
-                final Collection pageVariables = view.getVariables();
-                for (final Iterator pageVariableIterator = pageVariables.iterator(); pageVariableIterator.hasNext();)
+                final Collection viewVariables = view.getVariables();
+                for (final Iterator pageVariableIterator = viewVariables.iterator(); pageVariableIterator.hasNext();)
                 {
                     final ModelElementFacade facade = (ModelElementFacade)pageVariableIterator.next();
                     formFieldMap.put(
