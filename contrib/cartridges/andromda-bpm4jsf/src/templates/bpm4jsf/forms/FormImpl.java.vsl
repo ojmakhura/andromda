@@ -134,11 +134,11 @@ $field.getDocumentation("     * ")
         }
 
         final int length = java.lang.Math.min(labels.length, values.length);
-        java.lang.Object[] backingList = new java.lang.Object[length];
+        javax.faces.model.SelectItem[] backingList = new javax.faces.model.SelectItem[length];
 
         for (int ctr = 0; ctr < length; ctr++)
         {
-            backingList[ctr] = new LabelValue(labels[ctr], values[ctr]);
+            backingList[ctr] = new javax.faces.model.SelectItem(java.lang.String.valueOf(labels[ctr]), java.lang.String.valueOf(values[ctr]));
         }
         return backingList;
     }
@@ -212,35 +212,5 @@ $field.getDocumentation("     * ")
     public java.util.Map getDateTimeFormatters()
     {
         return this.dateTimeFormatters;
-    }
-    
-    /**
-     * Stores the label and value for each instance in a backing list.
-     */
-    public final static class LabelValue
-    {
-        private java.lang.Object label = null;
-        private java.lang.Object value = null;
-
-        public LabelValue(Object label, java.lang.Object value)
-        {
-            this.label = label;
-            this.value = value;
-        }
-
-        public java.lang.Object getLabel()
-        {
-            return this.label;
-        }
-
-        public java.lang.Object getValue()
-        {
-            return this.value;
-        }
-
-        public java.lang.String toString()
-        {
-            return label + "=" + value;
-        }
     }
 }
