@@ -1,26 +1,26 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.utils.StringUtilsHelper;
-import org.andromda.metafacades.uml.ActivityGraphFacade;
-import org.andromda.metafacades.uml.FrontEndActivityGraph;
-import org.andromda.metafacades.uml.Role;
-import org.apache.commons.lang.StringUtils;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.Role;
+import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -243,25 +243,7 @@ public class StrutsUseCaseLogicImpl
 
     protected List handleGetPageVariables()
     {
-        final Map pageVariableMap = new HashMap();
-
-        /**
-         * page variables can occur twice or more in the usecase in case their
-         * names are the same for different forms, storing them in a map
-         * solves this issue because those names do not have the action-name prefix
-         */
-        final Collection pages = getPages();
-        for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
-        {
-            final StrutsJsp jsp = (StrutsJsp)pageIterator.next();
-            final Collection variables = jsp.getPageVariables();
-            for (final Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
-            {
-                final StrutsParameter variable = (StrutsParameter)variableIterator.next();
-                pageVariableMap.put(variable.getName(), variable);
-            }
-        }
-        return new ArrayList(pageVariableMap.values());
+        return this.getViewVariables();
     }
 
     protected boolean handleIsApplicationUseCase()
