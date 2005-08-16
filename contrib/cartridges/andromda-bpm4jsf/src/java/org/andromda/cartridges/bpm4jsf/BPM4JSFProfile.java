@@ -24,7 +24,6 @@ public class BPM4JSFProfile
     public static final String TAGGEDVALUE_ACTION_RESETTABLE = profile.get("ACTION_RESETTABLE");
     public static final String TAGGEDVALUE_INPUT_TYPE = profile.get("INPUT_TYPE");
     public static final String TAGGEDVALUE_INPUT_TABLELINK = profile.get("INPUT_TABLELINK");
-    public static final String TAGGEDVALUE_TABLE_COLUMNS = profile.get("TABLE_COLUMNS");
     public static final String TAGGEDVALUE_ACTION_REDIRECT = profile.get("ACTION_REDIRECT");
     public static final String TAGGEDVALUE_INPUT_REQUIRED = profile.get("INPUT_REQUIRED");
     public static final String TAGGEDVALUE_INPUT_READONLY = profile.get("INPUT_READONLY");

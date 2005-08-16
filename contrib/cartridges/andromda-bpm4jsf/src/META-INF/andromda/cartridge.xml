@@ -23,6 +23,7 @@
     <property reference="patternMatchingExceptionHandler"/>
     <property reference="defaultDateFormat"/>
     <property reference="defaultTimeFormat"/>
+    <property reference="dummyData"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
@@ -304,23 +305,6 @@
             </modelElement>
         </modelElements>
     </template>
-    
-    <!--
-    <template
-        path="templates/bpm4jsf/views/jsp/includes/view-action-form-population.jspf.vsl"
-        outputPattern="${action.viewFragmentPath}-form-population.jspf"
-        outlet="jsps"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndAction">
-                    <property name="tableLink">false</property>
-                    <property name="formFields"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-    -->
     
     <template
         path="templates/bpm4jsf/views/jsp/index.jsp.vsl"

@@ -83,6 +83,16 @@ public class BPM4JSFGlobals
     public static final String ACTION_TYPE_FORM = "form";
     
     /**
+     * Represents a table action type.
+     */
+    public static final String ACTION_TYPE_TABLE = "table";
+    
+    /**
+     * Represents an image action type.
+     */
+    public static final String ACTION_TYPE_IMAGE = "image";
+    
+    /**
      * Stores the default date format when dates are formatted.
      */
     public static final String PROPERTY_DEFAULT_DATEFORMAT = "defaultDateFormat";

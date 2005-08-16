@@ -89,6 +89,14 @@ public class JSFActionLogicImpl
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFullyQualifiedFormImplementationName()
      */
+    protected boolean handleIsTableAction()
+    {
+        return BPM4JSFGlobals.ACTION_TYPE_TABLE.equals(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TYPE));
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFullyQualifiedFormImplementationName()
+     */
     protected java.lang.String handleGetFullyQualifiedFormImplementationName()
     {
         final StringBuffer fullyQualifiedName = new StringBuffer();
@@ -385,7 +393,7 @@ public class JSFActionLogicImpl
         return "yes".equalsIgnoreCase(string) || "true".equalsIgnoreCase(string) || "on".equalsIgnoreCase(string) ||
         "1".equalsIgnoreCase(string);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getOtherUseCaseFormActions()
      */
@@ -395,39 +403,41 @@ public class JSFActionLogicImpl
         for (final Iterator iterator = otherActions.iterator(); iterator.hasNext();)
         {
             final FrontEndAction action = (FrontEndAction)iterator.next();
+
             // - remove this action and any forms that don't have form fields
             if (action.equals(this.THIS()) || action.getFormFields().isEmpty())
             {
-                iterator.remove();    
+                iterator.remove();
             }
         }
         return otherActions;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#getFormKey()
      */
     protected String handleGetFormKey()
     {
         final Object formKeyValue = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
-        return formKeyValue == null
-            ? ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.ACTION_FORM_KEY))
-            : String.valueOf(formKeyValue);
+        return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.ACTION_FORM_KEY))
+                                    : String.valueOf(formKeyValue);
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#handleGetHiddenParameters()
      */
     protected List handleGetHiddenParameters()
     {
         final List hiddenParameters = new ArrayList(this.getParameters());
-        CollectionUtils.filter(hiddenParameters, new Predicate()
-        {
-            public boolean evaluate(final Object object)
+        CollectionUtils.filter(
+            hiddenParameters,
+            new Predicate()
             {
-                return ((JSFParameter)object).isInputHidden();
-            }
-        });
+                public boolean evaluate(final Object object)
+                {
+                    return ((JSFParameter)object).isInputHidden();
+                }
+            });
         return hiddenParameters;
     }
 }

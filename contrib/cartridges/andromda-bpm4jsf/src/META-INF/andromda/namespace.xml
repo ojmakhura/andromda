@@ -191,6 +191,12 @@
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
+            <property name="dummyData">
+                <default>true</default>
+                <documentation>
+                    Indicates whether or not dummy data should be rendered (in places like controllers).
+                </documentation>
+            </property>
             <!--
             <property name="defaultActionRedirect">
                 <default>false</default>

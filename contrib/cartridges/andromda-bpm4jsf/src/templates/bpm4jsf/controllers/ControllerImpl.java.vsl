@@ -15,7 +15,41 @@ public class $controller.implementationName
      */
     $operation.implementationFormSignature
     {
-        // @todo implement $operation.implementationFormSignature
+#set($allowDummyData = $dummyData.equalsIgnoreCase("true"))
+#if ($allowDummyData)
+#set ($formFields = $operation.formFields)
+#if ($operation.formFields.empty)
+        // nothing to be done for this operation, there are no properties that can be set
+#else
+#foreach ($field in $operation.formFields)
+#set ($tableActionFound = false)
+#foreach ($action in $operation.deferringActions)
+#if($action.tableAction)
+#foreach($parameter in $action.parameters)
+#if($parameter.name == $field.name)
+#set($tableActionFound = true)
+#end
+#end
+#end
+#end
+#if ($field.table)
+        // populating the table with a dummy list
+        form.${field.setterName}(${field.name}DummyList);
+#elseif ($tableActionFound)
+        // we don't set row selection parameters such as ${field.name}RowSelection
+#else
+        // this property receives a default value, just to have the application running on dummy data
+        form.${field.setterName}($field.dummyValue);
+#end
+#if ($field.selectable)
+#set ($valueListMethod = $stringUtils.capitalize($field.valueListName))
+#set ($labelListMethod = $stringUtils.capitalize($field.labelListName))
+        form.set${valueListMethod}($field.valueListDummyValue);
+        form.set${labelListMethod}(form.get${valueListMethod}());
+#end
+#end
+#end
+#end
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #end  
