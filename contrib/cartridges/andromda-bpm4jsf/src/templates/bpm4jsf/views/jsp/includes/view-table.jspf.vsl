@@ -82,7 +82,36 @@
         </h:outputText>
     </h:column>
 #end
+## - render any table hyperlink actions
 #foreach ($action in $table.tableHyperlinkActions)
+#if (!$action.tableLinkColumnName)
+    <h:column>
+        <f:facet name="header">
+            <f:verbatim>&nbsp;</f:verbatim>
+        </f:facet>
+        <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
+            <h:outputText value="#{messages['$action.trigger.messageKey']}" />
+#foreach ($parameter in $action.parameters)
+#if ($table.tableColumnNames.contains($parameter.name))
+#set ($parameterValue = "row.${parameter.name}")
+#elseif ($parameter.defaultValuePresent)
+#set ($parameterValue = $parameter.defaultValue)
+#else
+#set ($parameterValue = "${actionFormKey}.${parameter.name}")       
+#end
+#if ($parameter.type.dateType)
+#set ($formattedParameterValue = "${parameter.name}Formatted")
+            <fmt:formatDate var="$formattedParameterValue" value="${${parameterValue}}" pattern="$parameter.dateFormat" scope="request"/>
+#set ($parameterValue = $formattedParameterValue)
+#end
+            <f:param name="$parameter.name" value="#{${parameterValue}}"/>  
+#end
+        </h:commandLink>
+    </h:column>
+#end
+#end
+## - render any table button actions
+#foreach ($action in $table.tableFormActions)
 #if (!$action.tableLinkColumnName)
     <h:column>
         <f:facet name="header">
@@ -91,7 +120,19 @@
         <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}" styleClass="buttonLink">
             <h:outputText value="#{messages['$action.trigger.messageKey']}" />
 #foreach ($parameter in $action.parameters)
-            <f:param name="$parameter.name" value="#{row.${parameter.name}}"/>
+#if ($table.tableColumnNames.contains($parameter.name))
+#set ($parameterValue = "row.${parameter.name}")
+#elseif ($parameter.defaultValuePresent)
+#set ($parameterValue = $parameter.defaultValue)
+#else
+#set ($parameterValue = "${actionFormKey}.${parameter.name}")       
+#end
+#if ($parameter.type.dateType)
+#set ($formattedParameterValue = "${parameter.name}Formatted")
+            <fmt:formatDate var="$formattedParameterValue" value="${${parameterValue}}" pattern="$parameter.dateFormat" scope="request"/>
+#set ($parameterValue = $formattedParameterValue)
+#end
+            <f:param name="$parameter.name" value="#{${parameterValue}}"/>  
 #end
         </h:commandLink>
     </h:column>
