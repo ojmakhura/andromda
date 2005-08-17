@@ -25,31 +25,31 @@
                  headerClass="formHeader"
                  footerClass="formFooter"
                  columnClasses="formLabels,formInputs">
-#foreach ($field in $action.formFields)
-#if (!$field.table && !$field.inputHidden)
-        <h:outputLabel for="${formName}:${field.name}" value="#{messages['$field.messageKey']}" />
+#foreach ($parameter in $action.parameters)
+#if (!$parameter.table && !$parameter.inputHidden)
+        <h:outputLabel for="${formName}:${parameter.name}" value="#{messages['$parameter.messageKey']}" />
         <f:verbatim>:</f:verbatim>
         <h:panelGroup>
-#if ($field.type.dateType)
-            <x:inputCalendar id="${field.name}" 
+#if ($parameter.type.dateType)
+            <x:inputCalendar id="${parameter.name}" 
                              monthYearRowClass="yearMonthHeader" 
                              weekRowClass="weekHeader" 
-                             value="#{${formName}.${field.name}}" 
+                             value="#{${formName}.${parameter.name}}" 
                              renderAsPopup="true" 
-                             popupDateFormat="$field.dateFormat"/>
-#elseif ($field.inputCheckbox)
-            <h:selectBooleanCheckbox id="${field.name}" value="#{${formName}.${field.name}}"/>
-#elseif ($field.inputSelect)
-            <h:selectOneMenu id="${field.name}" value="#{${formName}.${field.name}}" styleClass="selectOneMenu" required="false" >
+                             popupDateFormat="$parameter.dateFormat"/>
+#elseif ($parameter.inputCheckbox)
+            <h:selectBooleanCheckbox id="${parameter.name}" value="#{${formName}.${parameter.name}}"/>
+#elseif ($parameter.inputSelect)
+            <h:selectOneMenu id="${parameter.name}" value="#{${formName}.${parameter.name}}" styleClass="selectOneMenu" required="false" >
                 <f:selectItem itemValue="" itemLabel="#{messages['select.value.text']}" />
-                <c:if test="${!empty ${formName}.${field.backingListName}}">
-                    <f:selectItems value="#{${formName}.${field.backingListName}}" />
+                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
+                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
                 </c:if>
             </h:selectOneMenu>
 #else
-            <h:inputText id="${field.name}" value="#{${formName}.${field.name}}"/>
+            <h:inputText id="${parameter.name}" value="#{${formName}.${parameter.name}}"/>
 #end
-            <x:message for="${field.name}" styleClass="error" showDetail="true" showSummary="false" />
+            <x:message for="${parameter.name}" styleClass="error" showDetail="true" showSummary="false" />
         </h:panelGroup>
 #end
 #end
