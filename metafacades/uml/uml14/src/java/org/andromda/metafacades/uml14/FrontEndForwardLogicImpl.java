@@ -305,7 +305,7 @@ public class FrontEndForwardLogicImpl
     protected Object handleGetOperationCall()
     {
         FrontEndControllerOperation operation = null;
-        final EventFacade triggerEvent = getTrigger();
+        final EventFacade triggerEvent = this.getTrigger();
         if (triggerEvent instanceof FrontEndEvent)
         {
             final FrontEndEvent trigger = (FrontEndEvent)triggerEvent;
