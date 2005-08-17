@@ -20,7 +20,7 @@ public class DefaultClient
     implements Client
 {
     /**
-     * @see org.andromda.core.server.Client#run(org.andromda.core.configuration.Configuration)
+     * @see org.andromda.core.server.Client#start(org.andromda.core.configuration.Configuration)
      */
     public void start(final Configuration configuration)
         throws ConnectException
@@ -29,7 +29,7 @@ public class DefaultClient
     }
 
     /**
-     * @see org.andromda.core.server.Client#stop()
+     * @see org.andromda.core.server.Client#stop(org.andromda.core.configuration.Configuration) 
      */
     public void stop(final Configuration configuration)
         throws ConnectException
@@ -57,9 +57,9 @@ public class DefaultClient
             {
                 try
                 {
-                    Socket server = null;
-                    ObjectInputStream objectInput = null;
-                    ObjectOutputStream out = null;
+                    Socket server;
+                    ObjectInputStream objectInput;
+                    ObjectOutputStream out;
                     final String host = serverConfiguration.getHost();
                     try
                     {

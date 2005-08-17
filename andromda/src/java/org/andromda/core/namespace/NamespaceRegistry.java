@@ -74,7 +74,7 @@ public class NamespaceRegistry
      * Registers the component with the
      * give name in this registry.
      *
-     * @param name the name of the component of the registry.
+     * @param component the component of the registry.
      */
     public void registerComponent(final Component component)
     {
@@ -147,7 +147,7 @@ public class NamespaceRegistry
     /**
      * Adds a property definition to the group of defintions.
      *
-     * @param definition the property definition.
+     * @param propertyDefinition the property definition.
      */
     public void addPropertyDefinition(final PropertyDefinition propertyDefinition)
     {

@@ -44,7 +44,7 @@ public class DefaultServer
     private Engine engine = Engine.newInstance();
 
     /**
-     * @see org.andromda.core.server.Server#start(org.andromda.core.configuration.Server)
+     * @see org.andromda.core.server.Server#start(org.andromda.core.configuration.Configuration)
      */
     public void start(final Configuration configuration)
     {

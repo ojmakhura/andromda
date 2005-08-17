@@ -33,7 +33,7 @@ public class Profile
      *
      * @return the shared instance.
      */
-    public static final Profile instance()
+    public static Profile instance()
     {
         if (instance == null)
         {
@@ -49,8 +49,6 @@ public class Profile
 
     /**
      * Adds a new element to this namespace registry.
-     *
-     * @param element the element to add to this namespace registry.
      */
     public void addElement(
         final String name,
@@ -143,10 +141,8 @@ public class Profile
 
     /**
      * Adds the elements to the interal elements map.
-     *
-     * @param elements the elements to add.
      */
-    private final void addElements(final Profile profile)
+    private void addElements(final Profile profile)
     {
         final Collection elements = profile != null ? profile.elements.keySet() : null;
         if (elements != null)
@@ -187,7 +183,7 @@ public class Profile
      * @param namespace the namespace for which to retrieve the namespace elements
      * @return the namespace element map
      */
-    private final Map getNamespaceElements(final String namespace)
+    private Map getNamespaceElements(final String namespace)
     {
         Map namespaceElements = (Map)this.allElements.get(namespace);
         if (namespaceElements == null)
