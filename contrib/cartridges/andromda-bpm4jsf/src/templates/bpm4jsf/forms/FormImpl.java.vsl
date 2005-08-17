@@ -6,7 +6,9 @@ package $action.packageName;
 $action.getDocumentation(" * ")
  */
 public class $action.formImplementationName
+#if ($stringUtils.isNotBlank($action.formImplementationInterfaceList))
     implements $action.formImplementationInterfaceList
+#end
 {
     public ${action.formImplementationName}()
     {
