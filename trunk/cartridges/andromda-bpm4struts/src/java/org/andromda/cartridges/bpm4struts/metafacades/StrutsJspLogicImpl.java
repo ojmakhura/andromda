@@ -199,12 +199,14 @@ public class StrutsJspLogicImpl
     }
 
     /**
+     * Overridden because StrutsAction does not extend FrontEndAction.
+     * 
      * @see org.andromda.metafacades.uml.FrontEndView#getActions()
      */
     public List getActions()
     {
         final List actions = new ArrayList();
-        final Collection outgoing = getOutgoing();
+        final Collection outgoing = this.getOutgoing();
 
         for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {
