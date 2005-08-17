@@ -246,6 +246,21 @@
                     code that are based on MagicDraw (and its capabilities). For all intents and purposes, AndroMDA only
                     works with MagicDraw.
                 </p>
+                <p class="highlight">
+                    <em>
+                        <p>
+                            Note from the editor: While it is true that AndroMDA works best with MagicDraw there is
+                            no dependency what-so-ever, not in the code, not in any of the transformations. AndroMDA
+                            works fine with other tools such as Poseidon, Aris UML, etc.. Sometimes there's a
+                            restriction due to the poor UML support in certain areas such as activity graphs, but
+                            that's not an AndroMDA problem, it's the tool not properly supporting UML and/or XMI.
+                        </p>
+                        <p>
+                            The AndroMDA team is more than willing to make sure users can use their UML tool
+                            or preference, escpecially when that tool is open-source or free.
+                        </p>
+                    </em>
+                </p>
                 <p>AndroMDA code generation is driven by UML
                     <i>stereotypes</i>
                     .  In a nutshell, the engine traverses your UML model, looking for classes tagged with a specific
