@@ -77,8 +77,6 @@ public class DefaultClient
                     if (object instanceof Configuration)
                     {
                         final Object input = objectInput.readObject();
-                        while (input == null)
-                            ;
                         if (input instanceof Throwable)
                         {
                             throw new ClientException((Throwable)input);
