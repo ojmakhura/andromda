@@ -210,13 +210,18 @@
                     <ul>
                         <li>model an event going out of the page</li>
                         <li>add a parameter to this event's trigger, give it the name <code>id</code></li>
-                        <li>add the <code>@andromda.presentation.web.action.tablelink</code> tag to the event, the value should
-                            be the name of the table separated from the column name using a dot, ie.
+                        <li>add the <code>@andromda.presentation.web.action.tablelink</code> tag to the event,
+                            the value should be the name of the table separated from the column name using a dot, ie.
                             <code>itemList.id</code>. Not specifying the column name will make put this link in
                             a separate column on the right.
                         </li>
-                        <li>add the <code>@andromda.presentation.web.action.type=hyperlink</code> tag to the event, this denotes
-                            this action to be rendered as an hyperlink pointing to the target Struts action.
+                        <li>add the <code>@andromda.presentation.web.action.type=hyperlink</code> tag to the event,
+                            this denotes this action to be rendered as an hyperlink pointing to the target
+                            Struts action.
+                        </li>
+                        <li>add the <code>@andromda.presentation.web.view.field.type=link</code> tagged
+                            value to the 'id' event trigger parameter. Unless you do this the
+                            field will be rendered using the default widget which will be a text-input field.
                         </li>
                     </ul>
                 </p>
