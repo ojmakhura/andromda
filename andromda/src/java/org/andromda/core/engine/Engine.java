@@ -82,7 +82,7 @@ public class Engine
         ModelValidationMessage[] messages = null;
         if (configuration != null)
         {
-            this.modelProcessor.process(configuration);
+            messages = this.modelProcessor.process(configuration);
         }
         return messages == null ? new ModelValidationMessage[0] : messages;
     }
