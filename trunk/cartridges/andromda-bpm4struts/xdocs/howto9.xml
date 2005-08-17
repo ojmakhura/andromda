@@ -29,7 +29,7 @@
 <source language="java"><!--
 public void renderUserPicture(ActionMapping mapping, ..., HttpServletResponse response) throws Exception
 {
-    final byte[] imageBytes = getUserService().getPicture(form.getId());
+    final byte[] imageBytes = getUserService().getPicture(form.getUserId());
 
     response.setContentType("image/jpeg");
     response.setContentLength(imageBytes.length);
