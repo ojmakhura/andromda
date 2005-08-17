@@ -31,7 +31,8 @@ $operation.getDocumentation("     * ")
                     facesContext,
                     "$action.formBeanName");
 
-            this.populateForm(variableResolver.resolveVariable(facesContext, "form"), form);
+            // - pass any parameters from the previous form along
+            ${managedBeansPackage}.${formPopulatorName}.populateForm(variableResolver.resolveVariable(facesContext, "$action.formKey"), form);
             // - populate the form with any request parameters that may match
             this.populateFormFromRequestParameters(form, form.getDateTimeFormatters());
 #end
@@ -276,59 +277,6 @@ $operation.getDocumentation("     * ")
         catch (final Throwable throwable)
         {
             throw new RuntimeException(throwable);
-        }
-    }
-
-    /**
-     * Populates the form from the given parameters.  If the request parameter is null or an empty
-     * string, then null is placed on the form.
-     *
-     * @param fromForm the form from which we're populating
-     * @param toForm the form to which we're populating
-     */
-    private final void populateForm(final Object fromForm, final Object toForm)
-    {
-        if (fromForm != null && toForm != null)
-        {
-            try
-            {
-                final java.util.Map parameters = org.apache.commons.beanutils.PropertyUtils.describe(fromForm);
-                for (final java.util.Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
-                {
-                    final String name = (java.lang.String)iterator.next();
-                    if (org.apache.commons.beanutils.PropertyUtils.isWriteable(toForm, name) &&
-                        org.apache.commons.beanutils.PropertyUtils.isReadable(toForm, name))
-                    {
-                        // - only attempt to populate from the 'fromForm' if the to form's property is null
-                        final java.lang.Object toProperty = org.apache.commons.beanutils.PropertyUtils.getProperty(toForm, name);
-                        if (toProperty == null)
-                        {
-                            final java.beans.PropertyDescriptor toDescriptor =
-                                org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(toForm, name);
-                            if (toDescriptor != null)
-                            {
-                                java.lang.Object fromValue = parameters.get(name);
-                                // - only convert if the string is not empty
-                                if (fromValue != null)
-                                {
-                                    final java.beans.PropertyDescriptor fromDescriptor =
-                                        org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(fromForm, name);
-                                    // - only attempt to convert, if the types don't match
-                                    if (fromDescriptor.getPropertyType() != toDescriptor.getPropertyType())
-                                    {
-                                        fromValue = org.apache.commons.beanutils.ConvertUtils.convert(String.valueOf(fromValue), toDescriptor.getPropertyType());
-                                    }
-                                    org.apache.commons.beanutils.PropertyUtils.setProperty(toForm, name, fromValue);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (final Throwable throwable)
-            {
-                throw new RuntimeException(throwable);
-            }
         }
     }
 }

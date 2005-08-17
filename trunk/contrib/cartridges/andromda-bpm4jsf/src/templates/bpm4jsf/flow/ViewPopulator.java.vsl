@@ -74,7 +74,7 @@ public class $view.populator
                     facesContext,
                     "$action.formBeanName");
                 // - populate the $action.formBeanName with any parameters from the previous form
-                this.populateForm(previousForm, $action.formBeanName);
+                ${managedBeansPackage}.${formPopulatorName}.populateForm(previousForm, $action.formBeanName);
                 request.setAttribute("$action.formBeanName", $action.formBeanName);
             }
 #end
@@ -98,50 +98,6 @@ public class $view.populator
             throw new ServletException(throwable);
         }
         chain.doFilter(request, response);
-    }
-    
-    /**
-     * Populates the form from the given parameters.  If the request parameter is null or an empty
-     * string, then null is placed on the form.
-     *
-     * @param fromForm the form from which we're populating
-     * @param toForm the form to which we're populating
-     */
-    private final void populateForm(final Object fromForm, final Object toForm)
-    {
-        try
-        {
-            final java.util.Map parameters = org.apache.commons.beanutils.PropertyUtils.describe(fromForm);
-            for (final java.util.Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
-            {
-                final String name = (java.lang.String)iterator.next();
-                if (org.apache.commons.beanutils.PropertyUtils.isWriteable(toForm, name))
-                {
-                    final java.beans.PropertyDescriptor toDescriptor =
-                        org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(toForm, name);
-                    if (toDescriptor != null)
-                    {
-                        Object value = parameters.get(name);
-                        // - only convert if the string is not empty
-                        if (value != null)
-                        {
-                            final java.beans.PropertyDescriptor fromDescriptor =
-                                org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(fromForm, name);                            
-                            // - only attempt to convert, if the types don't match
-                            if (fromDescriptor.getPropertyType() != toDescriptor.getPropertyType())
-                            {
-                                value = org.apache.commons.beanutils.ConvertUtils.convert(String.valueOf(value), toDescriptor.getPropertyType());
-                            }
-                            org.apache.commons.beanutils.PropertyUtils.setProperty(toForm, name, value);
-                        }
-                    }
-                }
-            }
-        }
-        catch (final Throwable throwable)
-        {
-            throw new RuntimeException(throwable);
-        }
     }
 
     /**
