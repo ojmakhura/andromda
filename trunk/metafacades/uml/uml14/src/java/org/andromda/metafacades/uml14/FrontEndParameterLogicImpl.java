@@ -114,7 +114,6 @@ public class FrontEndParameterLogicImpl
     protected boolean handleIsTable()
     {
         boolean isTable = false;
-
         final ClassifierFacade type = this.getType();
         if (type != null)
         {
@@ -129,7 +128,7 @@ public class FrontEndParameterLogicImpl
     protected Collection handleGetTableColumnNames()
     {
         final Collection tableColumnNames = new ArrayList();
-        if (!this.isActionParameter() && !this.isControllerOperationArgument())
+        if (!this.isControllerOperationArgument())
         {
             final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
             if (!taggedValues.isEmpty())
