@@ -18,6 +18,7 @@
     <property reference="menuLayout"/>
     <property reference="navigationTheme"/>
     <property reference="applicationName"/>
+    <property reference="formPopulatorName"/>
     <property reference="exceptionHandlerPattern"/>
     <property reference="actionFormKey"/>
     <property reference="patternMatchingExceptionHandler"/>
@@ -330,6 +331,12 @@
     <template
         path="templates/bpm4jsf/utils/Messages.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+    
+    <template
+        path="templates/bpm4jsf/utils/FormPopulator.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${formPopulatorName}.java"
         outlet="managed-beans"
         overwrite="true"/>
     

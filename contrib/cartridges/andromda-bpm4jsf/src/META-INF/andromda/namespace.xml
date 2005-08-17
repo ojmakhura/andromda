@@ -197,6 +197,14 @@
                     Indicates whether or not dummy data should be rendered (in places like controllers).
                 </documentation>
             </property>
+            <property name="formPopulatorName">
+                <default>FormPopulator</default>
+                <documentation>
+                    The name to give the form populator utility class. This utility class provides
+                    BPM4JSF's form population when transfering information from one form to another
+                    during application flow.
+                </documentation>
+            </property>
             <!--
             <property name="defaultActionRedirect">
                 <default>false</default>
