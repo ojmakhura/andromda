@@ -13,6 +13,7 @@ TRANSITION_$stringUtils.separate($name,"_").toUpperCase()## no newline
 ##
 ##
 ##
+#set ($hash = "#")
 #set ($generatedFile = "${node.nodeClassName}.java")
 #if ($stringUtils.isNotBlank($node.nodePackageName))
 #set ($generatedFile = "$stringUtils.replace($node.nodePackageName,'.','/')/$generatedFile")
@@ -152,7 +153,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     public boolean is${taskName}Finished()
     {
         final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
-        return task == null ? true : task.hasEnded();
+        return task == null || task.hasEnded();
     }
 
 #set ($taskField = "task${taskName}")
@@ -241,9 +242,11 @@ public final class $node.nodeClassName implements $nodeInterfaceName
      * Signals the process to leave this node
 #if ($transition.name)
      * via the <em>$transition.name</em> transition
-#end
      * and proceed to the next one. The transition taken is represented by the
      * <code>#renderTransitionName($transition.name)</code> constant.
+#else
+     * and proceed to the next one.
+#end
 #if ($node.initialState)
      * Calling this method will make the process leave the start state and enter the first node.
 #end
@@ -251,11 +254,8 @@ public final class $node.nodeClassName implements $nodeInterfaceName
      * @return the next node in the process
 #if ($transition.name)
      *      after following the <em>$transition.name</em> transition
-#end
-#set ($hash = "#")
      * @see ${hash}#renderTransitionName($transition.name)
-## we need the next line to allow a proper newline character to be rendered
-
+#end
      */
     public $signalReturnType ${signalMethodName}()
     {
