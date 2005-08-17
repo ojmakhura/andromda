@@ -87,7 +87,7 @@ public class Component
     /**
      * Sets the type class  that defines this component.
      *
-     * @param interfaceName the name of the interface.
+     * @param typeClass the name of the type.
      */
     public void setTypeClass(final String typeClass)
     {
