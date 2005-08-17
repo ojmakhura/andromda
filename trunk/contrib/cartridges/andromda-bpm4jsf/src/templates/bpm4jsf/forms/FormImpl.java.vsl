@@ -42,6 +42,23 @@ $field.getDocumentation("     * ")
         return this.${field.name};
 #end
     }
+    
+    /**
+     * Keeps track of whether or not the value of $field.name has
+     * be populated at least once.
+     */
+    private boolean $field.formAttributeSetProperty = false;
+    
+    /**
+     * Indicates whether or not the value for $field.name has been set at least
+     * once.
+     * 
+     * @return true/false
+     */
+    public boolean is${stringUtils.capitalize($field.formAttributeSetProperty)}()
+    {
+        return this.$field.formAttributeSetProperty;
+    }
 
     /**
 $field.getDocumentation("     * ")
@@ -49,6 +66,7 @@ $field.getDocumentation("     * ")
     public void ${field.setterName}($field.type.fullyQualifiedName $field.name)
     {
         this.$field.name = $field.name;
+        this.$field.formAttributeSetProperty = true;
     }
 #if ($field.table)
     /**

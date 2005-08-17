@@ -722,4 +722,12 @@ public class JSFParameterLogicImpl
     {
         return this.getName() + "SortAscending";
     }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getFormAttributeSetProperty()
+     */
+    protected String handleGetFormAttributeSetProperty()
+    {
+        return this.getName() + "Set";
+    }
 }
