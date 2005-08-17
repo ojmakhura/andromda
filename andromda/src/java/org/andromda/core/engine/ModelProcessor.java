@@ -469,10 +469,10 @@ public class ModelProcessor
                 AndroMDALogger.error(ctr + ") " + message);
             }
             AndroMDALogger.reset();
-        }
-        if (this.failOnValidationErrors && !messages.isEmpty())
-        {
-            throw new ModelValidationException("Model validation failed!");
+            if (this.failOnValidationErrors)
+            {
+                throw new ModelValidationException("Model validation failed!");                
+            }
         }
     }
 
