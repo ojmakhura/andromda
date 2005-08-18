@@ -17,7 +17,7 @@
             <p>
                 Your activity graph should be modeled as a child element of the use-case. In case your modeling
                 tool does not support that you can add a tagged value to the use-case, making it point to the
-                activity graph, like this: <code>@andromda.presentation.web.usecase.activity=My Activity Graph</code>
+                activity graph, like this: <code>@andromda.presentation.usecase.activity=My Activity Graph</code>
             </p>
             <p>
                 On this page you will see how to use the different states, and how to express the flow from one

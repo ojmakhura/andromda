@@ -30,7 +30,7 @@
                         this is a standard UML feature that, unfortunately, is often overlooked by CASE tools vendors.
                     </li>
                     <li>Add a tagged value to the controller, pointing to the use-case, like this:
-                        <code>@andromda.presentation.web.controller.usecase=My UseCase</code> (the value is the name
+                        <code>@andromda.presentation.controller.usecase=My UseCase</code> (the value is the name
                         of the use-case).
                     </li>
                 </ul>

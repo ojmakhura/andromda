@@ -102,7 +102,7 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getType()
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#getType()
      */
     protected Object handleGetType()
     {

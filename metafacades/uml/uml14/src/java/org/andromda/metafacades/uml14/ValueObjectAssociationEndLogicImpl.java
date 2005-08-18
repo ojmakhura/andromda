@@ -12,8 +12,6 @@ import org.andromda.metafacades.uml.ValueObject;
 public class ValueObjectAssociationEndLogicImpl
         extends ValueObjectAssociationEndLogic
 {
-    // ---------------- constructor -------------------------------
-
     public ValueObjectAssociationEndLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
