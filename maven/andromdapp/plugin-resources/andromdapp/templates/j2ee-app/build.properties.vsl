@@ -54,6 +54,8 @@ c3p0.version=0.8.5.2
 xerces.version=2.4.0
 
 #end
+#if ($web || $hibernate)
+antlr.version=2.7.2
 #if ($web)
 # web dependency versions
 commons.digester.version=1.7
@@ -67,7 +69,6 @@ displaytag.version=1.0
 itext.version=0.99
 taglibs.version=1.1.1
 jstl.version=1.1.1
-antlr.version=2.7.2
 oro.version=2.0.8
 tomcat.version=5.0.18
 ant.version=1.6.2
