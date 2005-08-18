@@ -17,7 +17,7 @@
 
     <tag>
         <name>validator</name>
-        <tag-class>org.apache.shale.taglib.ValidatorTag</tag-class>
+        <tag-class>${jsfComponentsPackage}.BPM4JSFValidatorTag</tag-class>
         <body-content>empty</body-content>
         <display-name>Commons Validator</display-name>
         <description>
@@ -115,7 +115,7 @@
 
     <tag>
         <name>validatorScript</name>
-        <tag-class>org.apache.shale.taglib.ValidatorScriptTag</tag-class>
+        <tag-class>${jsfComponentsPackage}.BPM4JSFValidatorScriptTag</tag-class>
         <body-content>empty</body-content>
         <display-name>Validator Script</display-name>
         <description>
