@@ -25,6 +25,7 @@
     <property reference="defaultDateFormat"/>
     <property reference="defaultTimeFormat"/>
     <property reference="dummyData"/>
+    <property reference="taglibDescriptorName"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
@@ -43,7 +44,7 @@
     <!-- process templates on model elements -->
     <template
         path="templates/bpm4jsf/configuration/web.xml.vsl"
-        outputPattern="web.xml"
+        outputPattern="WEB-INF/web.xml"
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true">
@@ -61,7 +62,7 @@
     
     <template
         path="templates/bpm4jsf/configuration/faces-config.xml.vsl"
-        outputPattern="$facesConfig"
+        outputPattern="WEB-INF/$facesConfig"
         outlet="configuration"
         overwrite="true"
         outputToSingleFile="true">
@@ -79,6 +80,12 @@
             </modelElement>
         </modelElements>    
     </template>
+    
+    <template
+        path="templates/bpm4jsf/configuration/taglib.tld.vsl"
+        outputPattern="META-INF/$taglibDescriptorName"
+        outlet="configuration"
+        overwrite="true"/>
     
     <template
         path="templates/bpm4jsf/forms/Form.java.vsl"
@@ -140,7 +147,7 @@
     
     <template
         path="templates/bpm4jsf/messages/messages.properties.vsl"
-        outputPattern="${messageResources}.properties"
+        outputPattern="WEB-INF/classes/${messageResources}.properties"
         outlet="messages"
         overwrite="true"
         outputToSingleFile="true">
