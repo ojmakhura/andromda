@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 
 
@@ -75,15 +76,6 @@ public class StrutsAttributeLogicImpl
 
     protected boolean handleIsSafeNamePresent()
     {
-        boolean safe = true;
-
-        final String name = this.getName();
-
-        if (name != null && name.length() > 1)
-        {
-            safe = !(Character.isLowerCase(name.charAt(0)) && Character.isUpperCase(name.charAt(1)));
-        }
-
-        return safe;
+        return Bpm4StrutsUtils.isSafeName(this.getName());
     }
 }

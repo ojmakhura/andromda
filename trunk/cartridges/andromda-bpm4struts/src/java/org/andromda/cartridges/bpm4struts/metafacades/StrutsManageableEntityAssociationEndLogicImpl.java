@@ -4,6 +4,7 @@ import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.ManageableEntity;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 
 
 /**
@@ -14,8 +15,6 @@ import org.andromda.metafacades.uml.ManageableEntity;
 public class StrutsManageableEntityAssociationEndLogicImpl
     extends StrutsManageableEntityAssociationEndLogic
 {
-    // ---------------- constructor -------------------------------
-
     public StrutsManageableEntityAssociationEndLogicImpl(
         Object metaObject,
         String context)
@@ -60,5 +59,10 @@ public class StrutsManageableEntityAssociationEndLogicImpl
         }
 
         return StringUtilsHelper.toPhrase(messageValue);
+    }
+
+    protected boolean handleIsSafeNamePresent()
+    {
+        return Bpm4StrutsUtils.isSafeName(this.getName());
     }
 }
