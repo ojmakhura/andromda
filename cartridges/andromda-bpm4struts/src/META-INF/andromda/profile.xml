@@ -290,7 +290,7 @@
             <element name="INPUT_MULTIBOX">
                 <documentation>
                     Can only be used in combination with
-                    <code>@andromda.struts.view.field.type=multibox</code> in a table. This tagged value
+                    <code>@andromda.presentation.web.view.field.type=multibox</code> in a table. This tagged value
                     specified the incoming page-variable that is holding the values to match against. If
                     a match is found the checkbox will be checked for the corresponding row.
                 </documentation>
@@ -302,7 +302,7 @@
             </element>
             <element name="INPUT_RADIO">
                 <documentation>
-                    Can be used in combination with the <code>@andromda.struts.view.field.type=radio</code>
+                    Can be used in combination with the <code>@andromda.presentation.web.view.field.type=radio</code>
                     tagged value. Use it to specify the number of options to render, the values of these
                     options will always be the same, alternatively
                     you can specify a comma-separated list of runtime properties if you prefer the values
@@ -377,7 +377,7 @@
                     resides, this is useful to eg. display a list of persons and view
                     their details by simply clicking on their names in the table
                     (for that to work this parameter's type should be 'link', use the
-                    <code>@andromda.struts.view.field.type=link</code> tagged value for that).
+                    <code>@andromda.presentation.web.view.field.type=link</code> tagged value for that).
                     The column name is optional, if you do not specify it the name
                     of the parameter will be assumed.
                     By setting the parameter type you can have any widget rendered into the table.
