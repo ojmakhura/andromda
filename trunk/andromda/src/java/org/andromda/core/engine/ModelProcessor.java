@@ -97,7 +97,7 @@ public class ModelProcessor
      *
      * @param configuration the AndroMDA configuration instance.
      */
-    private final void configure(final Configuration configuration)
+    private void configure(final Configuration configuration)
     {
         if (this.requiresConfiguration(configuration))
         {
@@ -134,7 +134,7 @@ public class ModelProcessor
      * @param models an array of URLs to models.
      * @return any model validation messages that may have been collected during model loading/validation.
      */
-    private final List process(org.andromda.core.configuration.Repository[] repositories)
+    private List process(org.andromda.core.configuration.Repository[] repositories)
     {
         List messages = null;
         final long startTime = System.currentTimeMillis();
@@ -150,7 +150,9 @@ public class ModelProcessor
                 final Model[] models = this.filterInvalidModels(repository.getModels());
                 if (models.length > 0)
                 {
-                    messages = this.processModels(repositoryName, models);
+                    messages = this.processModels(
+                            repositoryName,
+                            models);
                     AndroMDALogger.info(
                         "completed model processing --> TIME: " + this.getDurationInSeconds(startTime) +
                         "[s], RESOURCES WRITTEN: " + ResourceWriter.instance().getWrittenCount());
@@ -182,7 +184,7 @@ public class ModelProcessor
      * @return any model validation messages that may have been collected during validation/loading of
      *         the <code>models</code>.
      */
-    private final List processModels(
+    private List processModels(
         final String repositoryName,
         final Model[] models)
     {
@@ -217,7 +219,9 @@ public class ModelProcessor
                 }
 
                 // - pre-load the models
-                messages = this.loadIfNecessary(repositoryName, models);
+                messages = this.loadIfNecessary(
+                        repositoryName,
+                        models);
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
@@ -249,9 +253,14 @@ public class ModelProcessor
         catch (final Throwable throwable)
         {
             final String messsage =
-                "Error performing ModelProcessor.process with model(s) --> '" + StringUtils.join(models, ",") + "'";
+                "Error performing ModelProcessor.process with model(s) --> '" + StringUtils.join(
+                    models,
+                    ",") + "'";
             logger.error(messsage);
-            ExceptionRecorder.instance().record(messsage, throwable, cartridgeName);
+            ExceptionRecorder.instance().record(
+                messsage,
+                throwable,
+                cartridgeName);
             throw new ModelProcessorException(messsage, throwable);
         }
         return messages == null ? Collections.EMPTY_LIST : messages;
@@ -278,9 +287,9 @@ public class ModelProcessor
         //   we have all configuration information available (such as the
         //   namespace properties)
         this.configure(configuration);
-        
+
         // - the logger configuration may have changed - re-init the logger.
-        AndroMDALogger.initialize();       
+        AndroMDALogger.initialize();
 
         // - discover all namespace components
         NamespaceComponents.instance().discover();
@@ -305,7 +314,9 @@ public class ModelProcessor
 
         // - finally initialize the metafacade factory
         this.factory.initialize();
-        this.printWorkCompleteMessage("core initialization", startTime);
+        this.printWorkCompleteMessage(
+            "core initialization",
+            startTime);
     }
 
     /**
@@ -367,7 +378,9 @@ public class ModelProcessor
             {
                 // ignore since the stream just couldn't be closed
             }
-            this.printWorkCompleteMessage("loading", startTime);
+            this.printWorkCompleteMessage(
+                "loading",
+                startTime);
 
             // - validate the model since loading has successfully occurred
             validationMessages.addAll(this.validateModel(repositoryName));
@@ -384,7 +397,7 @@ public class ModelProcessor
      * @return any {@link ModelValidationMessage} instances that may have been collected
      *         during validation.
      */
-    private final List validateModel(final String repositoryName)
+    private List validateModel(final String repositoryName)
     {
         final List validationMessages = new ArrayList();
         if (this.modelValidation)
@@ -412,7 +425,9 @@ public class ModelProcessor
             final List messages = this.factory.getValidationMessages();
             this.sortValidationMessages(messages);
             this.printValidationMessages(messages);
-            this.printWorkCompleteMessage("validation", startTime);
+            this.printWorkCompleteMessage(
+                "validation",
+                startTime);
             if (messages != null && !messages.isEmpty())
             {
                 validationMessages.addAll(messages);
@@ -427,7 +442,7 @@ public class ModelProcessor
      * @param unitOfWork the type of unit of work that was completed
      * @param startTime the time the unit of work was started.
      */
-    private final void printWorkCompleteMessage(
+    private void printWorkCompleteMessage(
         final String unitOfWork,
         final long startTime)
     {
@@ -440,7 +455,7 @@ public class ModelProcessor
      * @param startTime the time to compare against.
      * @return the duration of time in seconds.
      */
-    private final double getDurationInSeconds(final long startTime)
+    private double getDurationInSeconds(final long startTime)
     {
         return ((System.currentTimeMillis() - startTime) / 1000.0);
     }
@@ -450,7 +465,7 @@ public class ModelProcessor
      *
      * @param factory the metafacade factory (used to manage the metafacades).
      */
-    private final void printValidationMessages(final List messages)
+    private void printValidationMessages(final List messages)
     {
         // - log all error messages
         if (messages != null && !messages.isEmpty())
@@ -471,7 +486,7 @@ public class ModelProcessor
             AndroMDALogger.reset();
             if (this.failOnValidationErrors)
             {
-                throw new ModelValidationException("Model validation failed!");                
+                throw new ModelValidationException("Model validation failed!");
             }
         }
     }
@@ -491,7 +506,7 @@ public class ModelProcessor
      * @param configuration the configuration to compare to the lastConfiguration.
      * @return true/false
      */
-    private final boolean requiresConfiguration(final Configuration configuration)
+    private boolean requiresConfiguration(final Configuration configuration)
     {
         boolean requiresConfiguration =
             this.currentConfiguration == null || this.currentConfiguration.getContents() == null ||
@@ -537,7 +552,7 @@ public class ModelProcessor
      * @param the models that will be loaded (if necessary).
      * @param any model validation messages that may have been collected during model loading/validation.
      */
-    private final List loadIfNecessary(
+    private List loadIfNecessary(
         final String repositoryName,
         final Model[] models)
     {
@@ -547,7 +562,9 @@ public class ModelProcessor
             final int modelNumber = models.length;
             for (int modelCtr = 0; modelCtr < modelNumber; modelCtr++)
             {
-                messages.addAll(this.loadModelIfNecessary(repositoryName, models[modelCtr]));
+                messages.addAll(this.loadModelIfNecessary(
+                        repositoryName,
+                        models[modelCtr]));
             }
         }
         return messages;
@@ -715,7 +732,7 @@ public class ModelProcessor
      * @param models the models to filter.
      * @return the array of valid models
      */
-    private final Model[] filterInvalidModels(final Model[] models)
+    private Model[] filterInvalidModels(final Model[] models)
     {
         final Collection validModels = new ArrayList(Arrays.asList(models));
         for (final Iterator iterator = validModels.iterator(); iterator.hasNext();)
@@ -740,7 +757,7 @@ public class ModelProcessor
      * @param name the name of the repository implementation to retrieve.
      * @return the repository implementation.
      */
-    private final RepositoryFacade getRepositoryImplementation(final String name)
+    private RepositoryFacade getRepositoryImplementation(final String name)
     {
         final RepositoryFacade implementation = (RepositoryFacade)this.repositories.get(name);
         if (implementation == null)
@@ -806,7 +823,7 @@ public class ModelProcessor
     /**
      * Reinitializes the model processor's resources.
      */
-    private final void reset()
+    private void reset()
     {
         this.profile.refresh();
         this.factory.reset();
@@ -832,7 +849,9 @@ public class ModelProcessor
             final ComparatorChain chain = new ComparatorChain();
             chain.addComparator(new ValidationMessageTypeComparator());
             chain.addComparator(new ValidationMessageNameComparator());
-            Collections.sort(messages, chain);
+            Collections.sort(
+                messages,
+                chain);
         }
     }
 
