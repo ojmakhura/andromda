@@ -168,6 +168,27 @@ public final class Bpm4StrutsUtils
         return StringUtilsHelper.separate(string, "-").toLowerCase();
     }
 
+    /**
+     * Returns <code>true</code> if the argument name will not cause any troubles with the Jakarta commons-beanutils
+     * library, which basically means it does not start with an lowercase characters followed by an uppercase character.
+     * This means there's a bug in that specific library that causes an incompatibility with the Java Beans
+     * specification as implemented in the JDK.
+     *
+     * @param name the name to test, may be <code>null</code>
+     * @return <code>true</code> if the name is safe to use with the Jakarta libraries, <code>false</code> otherwise
+     */
+    public static boolean isSafeName(final String name)
+    {
+        boolean safe = true;
+
+        if (name != null && name.length() > 1)
+        {
+            safe = !(Character.isLowerCase(name.charAt(0)) && Character.isUpperCase(name.charAt(1)));
+        }
+
+        return safe;
+    }
+
     private final static class ManageableEntityComparator
         implements Comparator
     {

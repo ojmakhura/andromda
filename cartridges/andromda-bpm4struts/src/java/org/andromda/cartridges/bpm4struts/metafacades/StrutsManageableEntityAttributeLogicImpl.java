@@ -2,6 +2,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 
@@ -156,6 +157,10 @@ public class StrutsManageableEntityAttributeLogicImpl
         }
 
         return rowCount;
+    }
 
+    protected boolean handleIsSafeNamePresent()
+    {
+        return Bpm4StrutsUtils.isSafeName(this.getName());
     }
 }
