@@ -52,11 +52,15 @@ public class $action.actionClassName
                 "$controller.beanName");
         controller.${action.controllerAction}();
 #if ($action.target)
-#set ($forward = $action.target)
+#set ($forwardPath  = "${action.target.path}.${facesServletExtension}")
 #else
-#set ($forward = $action.initialView)
+#if ($action.initialTargetView)
+#set ($forwardPath = "${action.initialTargetPath}.${facesServletExtension}")
+#else
+#set ($forwardPath = "$action.initialTargetPath")
 #end
-        response.sendRedirect(request.getContextPath() + "${forward.path}.${facesServletExtension}");
+#end
+        response.sendRedirect(request.getContextPath() + "$forwardPath");
     }
 
     /**

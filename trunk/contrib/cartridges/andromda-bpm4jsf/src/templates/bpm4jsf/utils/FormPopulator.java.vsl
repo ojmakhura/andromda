@@ -27,14 +27,16 @@ public class $formPopulatorName
                 for (final java.util.Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
                 {
                     final String name = (java.lang.String)iterator.next();
-                    // - the property name used for checking whether or not the property value has been set
-                    final String isSetPropertyName = name + "Set";
-                    if (org.apache.commons.beanutils.PropertyUtils.isWriteable(toForm, name) &&
-                        org.apache.commons.beanutils.PropertyUtils.isReadable(toForm, isSetPropertyName))
+                    if (org.apache.commons.beanutils.PropertyUtils.isWriteable(toForm, name))
                     {
-                        final java.lang.Boolean isPropertySet = 
-                            (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(toForm, isSetPropertyName);
-                        if (isPropertySet != null && !isPropertySet.booleanValue())
+                        // - the property name used for checking whether or not the property value has been set
+                        final String isSetPropertyName = name + "Set";
+                        java.lang.Boolean isPropertySet = null;
+                        if (org.apache.commons.beanutils.PropertyUtils.isReadable(toForm, isSetPropertyName))
+                        {
+                            isPropertySet = (java.lang.Boolean)org.apache.commons.beanutils.PropertyUtils.getProperty(toForm, isSetPropertyName);
+                        }
+                        if (isPropertySet == null || !isPropertySet.booleanValue())
                         {
                             final java.beans.PropertyDescriptor toDescriptor =
                                 org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(toForm, name);

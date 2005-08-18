@@ -13,7 +13,12 @@ import java.util.TreeMap;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndFinalState;
+import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -364,5 +369,63 @@ public class JSFUseCaseLogicImpl
         final Object formKeyValue = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
         return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(BPM4JSFGlobals.ACTION_FORM_KEY))
                                     : String.valueOf(formKeyValue);
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#getInitialTargetPath()
+     */
+    protected String handleGetInitialTargetPath()
+    {
+        String path = null;
+        final Object target = this.getInitialTarget();
+        if (target instanceof JSFView)
+        {
+            path = ((JSFView)target).getPath();
+        }
+        else if (target instanceof JSFUseCase)
+        {
+            path = ((JSFUseCase)target).getPath();
+        }
+        return path;
+    }
+    
+    /**
+     * Gets the initial target when this use case is entered.
+     * 
+     * @return the initial target.
+     */
+    private final Object getInitialTarget()
+    {
+        Object initialTarget = null;
+        final FrontEndActivityGraph graph = this.getActivityGraph();
+        final FrontEndAction action = graph != null ? this.getActivityGraph().getInitialAction() : null;
+        final Collection forwards = action != null ? action.getActionForwards() : null;
+        if (forwards != null && !forwards.isEmpty())
+        {
+            final FrontEndForward forward = (FrontEndForward)forwards.iterator().next();
+            final Object target = forward.getTarget();
+            if (target instanceof FrontEndView)
+            {
+                initialTarget = target;
+            }
+            else if (target instanceof FrontEndFinalState)
+            {
+                final FrontEndFinalState finalState = (FrontEndFinalState)target;
+                final FrontEndUseCase targetUseCase = finalState.getTargetUseCase();
+                if (targetUseCase != null && !targetUseCase.equals(this.THIS()))
+                {
+                    initialTarget = targetUseCase;
+                }
+            }
+        }
+        return initialTarget;        
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#isInitialTargetView()
+     */
+    protected boolean handleIsInitialTargetView()
+    {
+        return this.getInitialTarget() instanceof JSFView;
     }    
 }
