@@ -90,7 +90,7 @@ public class BPM4JSFValidatorScript
      * @param component The component at the root of the component tree
      * @param context The FacesContext for this request
      */
-    private final void findBpm4JsfValidators(
+    private void findBpm4JsfValidators(
         final UIComponent component,
         final FacesContext context)
     {
