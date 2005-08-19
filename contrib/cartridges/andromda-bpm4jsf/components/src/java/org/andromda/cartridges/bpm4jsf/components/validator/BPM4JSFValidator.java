@@ -2,12 +2,9 @@ package org.andromda.cartridges.bpm4jsf.components.validator;
 
 import java.io.InputStream;
 import java.io.Serializable;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-
 import java.text.MessageFormat;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -362,7 +359,6 @@ public class BPM4JSFValidator
                 throw new RuntimeException(throwable);
             }
         }
-        System.out.println("the action name!!!!!:  " + validatorResources.getValidatorAction(name));
         return validatorResources.getValidatorAction(name);
     }
 
@@ -414,25 +410,25 @@ public class BPM4JSFValidator
         if (!Boolean.FALSE.equals(this.server))
         {
             this.initValidation();
-            Object[] parameters = this.getParams();
-            Object[] params = new Object[parameters.length + 1];
+            final Object[] parameters = this.getParams();
+            final Object[] params = new Object[parameters.length + 1];
 
             params[0] = BPM4JSFValidator.convert(
                     value,
-                    parameterTypes[0],
+                    this.parameterTypes[0],
                     component);
             for (int ctr = 1; ctr < params.length; ctr++)
             {
-                params[ctr] = convert(
+                params[ctr] = BPM4JSFValidator.convert(
                         parameters[ctr - 1],
-                        parameterTypes[ctr],
+                        this.parameterTypes[ctr],
                         null);
             }
 
             try
             {
-                final Boolean validatorResult = (Boolean)validatorMethod.invoke(
-                        validator,
+                final Boolean validatorResult = (Boolean)this.validatorMethod.invoke(
+                        this.validator,
                         params);
                 if (validatorResult.equals(Boolean.FALSE))
                 {
@@ -443,7 +439,7 @@ public class BPM4JSFValidator
                     }
                     throw new ValidatorException(new FacesMessage(
                             FacesMessage.SEVERITY_ERROR,
-                            getErrorMessage(
+                            this.getErrorMessage(
                                 errorValue,
                                 context),
                             null));
@@ -489,7 +485,7 @@ public class BPM4JSFValidator
                     }
                     parameterTypes[ctr] = paramType;
                 }
-                Class type = classLoader.loadClass(validatorAction.getClassname());
+                final Class type = classLoader.loadClass(validatorAction.getClassname());
 
                 this.validatorMethod = type.getMethod(
                         validatorAction.getMethod(),
@@ -524,7 +520,7 @@ public class BPM4JSFValidator
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             if (loader == null)
             {
-                loader = getClass().getClassLoader();
+                loader = this.getClass().getClassLoader();
             }
             final Application application = context.getApplication();
             final String applicationBundleName = application.getMessageBundle();
@@ -540,8 +536,9 @@ public class BPM4JSFValidator
                     {
                         message = bundle.getString(messageKey);
                     }
-                    catch (MissingResourceException ex)
+                    catch (final MissingResourceException exception)
                     {
+                        message = messageKey;
                     }
                 }
             }
@@ -559,7 +556,7 @@ public class BPM4JSFValidator
                     }
                     catch (final MissingResourceException exception)
                     {
-                        // - ignore
+                        message = messageKey;
                     }
                 }
             }
