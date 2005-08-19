@@ -73,6 +73,16 @@ public class ModelPackages
             this.modelPackages.putAll(modelPackages.modelPackages);
         }
     }
+    
+    /**
+     * Gets the actual packages that belong to this model packages instance.
+     *
+     * @return the packages to retrieve.
+     */
+    public ModelPackage[] getPackages()
+    {
+        return (ModelPackage[])this.packages.toArray(new ModelPackage[0]);
+    }
 
     /**
      * Determines whether or not the <code>packageName</code> should be processed. If
