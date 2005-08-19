@@ -25,7 +25,6 @@
     <property reference="defaultDateFormat"/>
     <property reference="defaultTimeFormat"/>
     <property reference="dummyData"/>
-    <property reference="taglibDescriptorName"/>
     <property reference="jsfComponentsPackage"/>
     <!-- cartridge-property merge-point -->
 
@@ -83,8 +82,14 @@
     </template>
     
     <template
+        path="templates/bpm4jsf/configuration/validator-rules.xml.vsl"
+        outputPattern="WEB-INF/validator-rules.xml"
+        outlet="configuration"
+        overwrite="true"/>
+    
+    <template
         path="templates/bpm4jsf/configuration/taglib.tld.vsl"
-        outputPattern="META-INF/$taglibDescriptorName"
+        outputPattern="META-INF/taglib.tld"
         outlet="configuration"
         overwrite="true"/>
     
