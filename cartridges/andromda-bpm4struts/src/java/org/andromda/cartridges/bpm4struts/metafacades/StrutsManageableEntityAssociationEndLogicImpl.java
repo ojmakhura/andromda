@@ -29,10 +29,10 @@ public class StrutsManageableEntityAssociationEndLogicImpl
     {
         final StringBuffer messageKeyBuffer = new StringBuffer();
 
-        final ClassifierFacade ownerType = getOtherEnd().getType();
+        final ClassifierFacade ownerType = this.getOtherEnd().getType();
         if (ownerType instanceof ManageableEntity)
         {
-            messageKeyBuffer.append(((ManageableEntity)ownerType).getName());
+            messageKeyBuffer.append(ownerType.getName());
         }
         else
         {
@@ -40,7 +40,7 @@ public class StrutsManageableEntityAssociationEndLogicImpl
         }
 
         messageKeyBuffer.append('.');
-        messageKeyBuffer.append(getName());
+        messageKeyBuffer.append(this.getName());
 
         return StringUtilsHelper.toResourceMessageKey(messageKeyBuffer.toString());
     }
@@ -52,10 +52,10 @@ public class StrutsManageableEntityAssociationEndLogicImpl
     {
         String messageValue = null;
 
-        final ClassifierFacade type = getType();
+        final ClassifierFacade type = this.getType();
         if (type instanceof Entity)
         {
-            messageValue = getName();
+            messageValue = this.getName();
         }
 
         return StringUtilsHelper.toPhrase(messageValue);
@@ -64,5 +64,16 @@ public class StrutsManageableEntityAssociationEndLogicImpl
     protected boolean handleIsSafeNamePresent()
     {
         return Bpm4StrutsUtils.isSafeName(this.getName());
+    }
+
+    protected String handleGetOnlineHelpKey()
+    {
+        return this.getMessageKey() + ".online.help";
+    }
+
+    protected String handleGetOnlineHelpValue()
+    {
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
+        return (value == null) ? "No field documentation has been specified" : value;
     }
 }

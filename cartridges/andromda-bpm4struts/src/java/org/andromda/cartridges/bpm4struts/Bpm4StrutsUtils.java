@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -187,6 +188,62 @@ public final class Bpm4StrutsUtils
         }
 
         return safe;
+    }
+
+    /**
+     * Returns a sequence of file formats representing the desired export types for the display tag tables
+     * used for the argument element.
+     *
+     * @param taggedValues the collection of tagged values representing the export types, should only contain
+     *  <code>java.lang.String</code> instances and must never be <code>null</code>
+     * @param defaultValue the default value to use in case the tagged values are empty
+     * @return a space separated list of formats, never <code>null</code>
+     */
+    public static String getDisplayTagExportTypes(final Collection taggedValues, final String defaultValue)
+    {
+        String exportTypes;
+
+        if (taggedValues.isEmpty())
+        {
+            exportTypes = defaultValue;
+        }
+        else
+        {
+            if (taggedValues.contains("none"))
+            {
+                exportTypes = "none";
+            }
+            else
+            {
+                final StringBuffer buffer = new StringBuffer();
+                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                {
+                    final String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                    if ("csv".equalsIgnoreCase(exportType) ||
+                        "pdf".equalsIgnoreCase(exportType) ||
+                        "xml".equalsIgnoreCase(exportType) ||
+                        "excel".equalsIgnoreCase(exportType))
+                    {
+                        buffer.append(exportType);
+                        buffer.append(' ');
+                    }
+                }
+                exportTypes = buffer.toString().trim();
+            }
+        }
+
+        return exportTypes;
+    }
+
+    /**
+     * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
+     */
+    public static boolean isTrue(String string)
+    {
+        return "yes".equalsIgnoreCase(string) ||
+            "true".equalsIgnoreCase(string) ||
+            "on".equalsIgnoreCase(string) ||
+            "1".equalsIgnoreCase(string);
     }
 
     private final static class ManageableEntityComparator

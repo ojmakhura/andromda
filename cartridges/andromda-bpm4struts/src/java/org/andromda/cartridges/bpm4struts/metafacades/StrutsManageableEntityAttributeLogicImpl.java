@@ -100,7 +100,7 @@ public class StrutsManageableEntityAttributeLogicImpl
 
     protected boolean handleIsHidden()
     {
-        return !isDisplay() || Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equals(getWidgetType());
+        return !this.isDisplay() || Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_HIDDEN.equals(this.getWidgetType());
     }
 
     protected String handleGetWidgetType()
@@ -162,5 +162,16 @@ public class StrutsManageableEntityAttributeLogicImpl
     protected boolean handleIsSafeNamePresent()
     {
         return Bpm4StrutsUtils.isSafeName(this.getName());
+    }
+
+    protected String handleGetOnlineHelpKey()
+    {
+        return this.getMessageKey() + ".online.help";
+    }
+
+    protected String handleGetOnlineHelpValue()
+    {
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
+        return (value == null) ? "No field documentation has been specified" : value;
     }
 }
