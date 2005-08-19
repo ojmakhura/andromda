@@ -124,7 +124,7 @@ public class Configuration
      *
      * @return the array of {@link Namespace} instances.
      */
-    private Namespace[] getNamespaces()
+    public Namespace[] getNamespaces()
     {
         return (Namespace[])this.namespaces.toArray(new Namespace[0]);
     }
