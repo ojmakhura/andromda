@@ -126,7 +126,7 @@ public class Cartridge
      * Processes all <code>modelElements</code> for this template.
      *
      * @param factory the metafacade factory
-     * @param context the context for the cartridge
+     * @param template the template to process
      */
     protected void processTemplateWithMetafacades(
         final MetafacadeFactory factory,
