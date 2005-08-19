@@ -447,8 +447,12 @@ public class BPM4JSFValidator
                         null));
             }
         }
-        catch (Throwable throwable)
+        catch (final Throwable throwable)
         {
+            if (throwable instanceof ValidatorException)
+            {
+                throw (ValidatorException)throwable;
+            }
             throw new RuntimeException(throwable);
         }
     }
@@ -508,7 +512,7 @@ public class BPM4JSFValidator
         final Object value,
         final FacesContext context)
     {
-        final String DEFAULT_BUNDLE_NAME = "$messageResources";
+        final String DEFAULT_BUNDLE_NAME = "message-resources";
         final Locale locale = context.getViewRoot().getLocale();
         String message = this.message;
         if (message == null)
