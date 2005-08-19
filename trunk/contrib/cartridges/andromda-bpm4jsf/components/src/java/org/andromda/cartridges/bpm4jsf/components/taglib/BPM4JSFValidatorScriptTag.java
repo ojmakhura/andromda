@@ -9,7 +9,7 @@ import javax.faces.webapp.UIComponentTag;
 import org.andromda.cartridges.bpm4jsf.components.BPM4JSFValidatorScript;
 
 /**
- * The tag class for the <code>s:validatorScript</code> tag. $Id: BPM4JSFValidatorScriptTag.java,v 1.1 2005-08-19 14:05:28 cwbrandon Exp $
+ * The tag class for the <code>s:validatorScript</code> tag.
  */
 public class BPM4JSFValidatorScriptTag
     extends UIComponentTag
