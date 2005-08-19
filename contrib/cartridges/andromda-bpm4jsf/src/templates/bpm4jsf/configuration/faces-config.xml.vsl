@@ -81,5 +81,19 @@
         </managed-property>
     </managed-bean>
 
+    <component>
+        <description>
+            This component renders client-side Javascript validation.
+        </description>
+        <display-name>BPM4JValidatorScript</display-name>
+        <component-type>${jsfComponentsPackage}.BPM4JSFValidatorScript</component-type>
+        <component-class>${jsfComponentsPackage}.BPM4JSFValidatorScript</component-class>
+    </component>
+
+    <validator>
+        <validator-id>${jsfComponentsPackage}.BPM4JSFValidator</validator-id>
+        <validator-class>${jsfComponentsPackage}.BPM4JSFValidator</validator-class>
+    </validator>
+
     <!-- faces-config merge-point -->
 </faces-config>
