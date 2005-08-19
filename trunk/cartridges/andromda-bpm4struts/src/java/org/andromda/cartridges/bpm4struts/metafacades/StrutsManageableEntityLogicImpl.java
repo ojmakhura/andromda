@@ -1,6 +1,8 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
@@ -31,12 +33,12 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetFormBeanType()
     {
-        return getManageablePackageName() + this.getNamespaceProperty() + getFormBeanClassName();
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getFormBeanClassName();
     }
 
     protected String handleGetFormBeanClassName()
     {
-        return getName() + Bpm4StrutsGlobals.FORM_SUFFIX;
+        return this.getName() + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
     protected String handleGetFormBeanFullPath()
@@ -46,17 +48,17 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetMessageKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getName());
+        return StringUtilsHelper.toResourceMessageKey(this.getName());
     }
 
     protected java.lang.String handleGetMessageValue()
     {
-        return StringUtilsHelper.toPhrase(getName());
+        return StringUtilsHelper.toPhrase(this.getName());
     }
 
     protected java.lang.String handleGetPageTitleKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getName()) + ".page.title";
+        return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".page.title";
     }
 
     protected java.lang.String handleGetPageTitleValue()
@@ -81,17 +83,17 @@ public class StrutsManageableEntityLogicImpl
 
     protected String handleGetPageName()
     {
-        return getName().toLowerCase() + "-crud.jsp";
+        return this.getName().toLowerCase() + "-crud.jsp";
     }
 
     protected String handleGetPageFullPath()
     {
-        return '/' + getManageablePackagePath() + '/' + getPageName();
+        return '/' + this.getManageablePackagePath() + '/' + this.getPageName();
     }
 
     protected java.lang.String handleGetActionPath()
     {
-        return '/' + getName() + "/Manage";
+        return '/' + this.getName() + "/Manage";
     }
 
     protected java.lang.String handleGetActionParameter()
@@ -101,22 +103,22 @@ public class StrutsManageableEntityLogicImpl
 
     protected java.lang.String handleGetFormBeanName()
     {
-        return "manage" + getName() + Bpm4StrutsGlobals.FORM_SUFFIX;
+        return "manage" + this.getName() + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
     protected java.lang.String handleGetActionType()
     {
-        return getManageablePackageName() + this.getNamespaceProperty() + getActionClassName();
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getActionClassName();
     }
 
     protected java.lang.String handleGetExceptionKey()
     {
-        return StringUtilsHelper.toResourceMessageKey(getName()) + ".exception";
+        return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".exception";
     }
 
     protected java.lang.String handleGetExceptionPath()
     {
-        return getPageFullPath();
+        return this.getPageFullPath();
     }
 
     protected java.lang.String handleGetActionFullPath()
@@ -131,6 +133,64 @@ public class StrutsManageableEntityLogicImpl
 
     protected boolean handleIsPreload()
     {
-        return isCreate() || isRead() || isUpdate() || isDelete();
+        return this.isCreate() || this.isRead() || this.isUpdate() || this.isDelete();
+    }
+
+    protected String handleGetOnlineHelpKey()
+    {
+        return this.getMessageKey() + ".online.help";
+    }
+
+    protected String handleGetOnlineHelpValue()
+    {
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
+        return (value == null) ? "No entity documentation has been specified" : value;
+    }
+
+    protected String handleGetOnlineHelpActionPath()
+    {
+        return this.getActionPath() + "Help";
+    }
+
+    protected String handleGetOnlineHelpPagePath()
+    {
+        return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase() + "_help";
+    }
+
+    protected boolean handleIsTableExportable()
+    {
+        return this.getTableExportTypes().indexOf("none") == -1;
+    }
+
+    protected String handleGetTableExportTypes()
+    {
+        return Bpm4StrutsUtils.getDisplayTagExportTypes(
+            this.findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT),
+            (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES) );
+    }
+
+    protected boolean handleIsTableSortable()
+    {
+        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
+        return (taggedValue == null)
+            ? Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
+            : Bpm4StrutsUtils.isTrue(String.valueOf(taggedValue));
+    }
+
+    protected int handleGetTableMaxRows()
+    {
+        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_MAXROWS);
+        int pageSize;
+
+        try
+        {
+            pageSize = Integer.parseInt(String.valueOf(taggedValue));
+        }
+        catch (Exception e)
+        {
+            pageSize = Bpm4StrutsProfile.TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT;
+        }
+
+        return pageSize;
     }
 }

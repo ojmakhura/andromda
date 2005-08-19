@@ -173,9 +173,14 @@ $manageable.messageKey=$manageable.messageValue
 $manageable.pageTitleKey=$manageable.pageTitleValue
 $manageable.exceptionKey=Problem managing $manageable.name: {0}
 #foreach ($member in $manageable.manageableMembers)
-$member.messageKey=<nobr>$member.messageValue</nobr>
+$member.messageKey=$member.messageValue
 #end
-
+#if ($onlineHelp == "true")
+$manageable.onlineHelpKey=$manageable.onlineHelpValue
+#foreach ($member in $manageable.manageableMembers)
+$member.onlineHelpKey=$member.onlineHelpValue
+#end
+#end
 #end
 #end
 

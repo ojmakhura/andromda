@@ -5,6 +5,7 @@
 #set ($tablePresentTest = "!empty $tableVariable")
 #set ($tablePresentTest = "${${tablePresentTest}}")
 #set ($referencingManageables = $manageable.referencingManageables)
+#set ($manageableFieldMaxLength = $manageableFieldMaxLength+11)## we do this to allow the <nobr> tag to be rendered too
 ##
 <%@ include file="/taglib-imports.jspf" %>
 ##
@@ -215,7 +216,7 @@ form)
                 <c:if test="$tablePresentTest">
 #set ($listBean = "${manageableFormName}.${manageable.listName}")
                     <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
-                            export="true" pagesize="$manageable.pageSize" sort="list">
+                            export="$manageable.tableExportable" pagesize="$manageable.tableMaxRows" sort="list">
                         <display:column media="html" sortable="false">
 #set ($identifier = $manageable.identifiers.iterator().next())
 #set ($identifierValue = "row.${identifier.name}")
@@ -245,16 +246,15 @@ form)
                                 <c:otherwise><input type="checkbox" disabled="disabled"/></c:otherwise>
                             </c:choose>
                         </display:column>
-                        <display:column media="xml csv excel pdf" property="$member.name"
-                            headerClass="$member.name" paramId="$member.name"
-                            sortProperty="$member.name" sortable="true" titleKey="$member.messageKey"/>
+                        <display:column media="$manageable.tableExportTypes"
+                            property="$member.name" titleKey="$member.messageKey"/>
 #elseif ($member.type.dateType)
-                        <display:column media="all"
-                            headerClass="$member.name" paramId="$member.name"
-                            sortProperty="$member.name" sortable="true" titleKey="$member.messageKey">
 #set ($dateValue = "${member.name}Formatted")
-                            ${${dateValue}}
-                        </display:column>
+                        <display:column media="$manageable.tableExportTypes" titleKey="$member.messageKey">${${dateValue}}</display:column>
+                        <display:column media="html"
+                            headerClass="$member.name" paramId="$member.name" maxLength="$manageableFieldMaxLength"
+                            sortProperty="$member.name" sortable="$manageable.tableSortable"
+                            titleKey="$member.messageKey"><nobr>${${dateValue}}</nobr></display:column>
 #elseif ($member.needsFileUpload)
                         <display:column media="html" headerClass="$member.name" paramId="$member.name" titleKey="$member.messageKey">
 #set ($test = "!empty row.${member.name}")
@@ -263,17 +263,15 @@ form)
                         </display:column>
 #else
 #if($member.type.displayAttribute.name!=$member.manageableIdentifier.name)
-#if ($member.many)
-#set($propertySuffix='Labels')
-#else
-#set($propertySuffix='Label')
-#end
-#else
-#set($propertySuffix='')
-#end
-                        <display:column media="all" property="${member.name}${propertySuffix}"
+#if($member.many)#set($propertySuffix='Labels')#else#set($propertySuffix='Label')#end#else#set($propertySuffix='')#end
+#set ($rowValue = "row.${member.name}${propertySuffix}")
+                        <display:column media="$manageable.tableExportTypes"
+                            property="${member.name}${propertySuffix}"
+                            titleKey="$member.messageKey"/>
+                        <display:column media="html"
                             headerClass="$member.name" paramId="$member.name" maxLength="$manageableFieldMaxLength"
-                            sortProperty="${member.name}${propertySuffix}" sortable="true" titleKey="$member.messageKey"/>
+                            sortProperty="${member.name}${propertySuffix}" sortable="$manageable.tableSortable"
+                            titleKey="$member.messageKey"><nobr>${${rowValue}}</nobr></display:column>
 #end
 #end
 #end
@@ -283,6 +281,17 @@ form)
 
         </html:form>
 
+#if ($onlineHelp == "true")
+        <div id="pageHelpSection">
+            <blockquote>
+                <a href="" id="pageHelp" style="display:inline;" onclick="openWindow('<html:rewrite action="${manageable.onlineHelpActionPath}"/>','onlinehelp',true,false,760,540); return false;">
+                    <bean:message key="online.help.href"/>
+                </a>
+                <html:img page="/layout/help.gif" style="display:inline;"/>
+            </blockquote>
+        </div>
+
+#end
     </tiles:put>
 
 </tiles:insert>

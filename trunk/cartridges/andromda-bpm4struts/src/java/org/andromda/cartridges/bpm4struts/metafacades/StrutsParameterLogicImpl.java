@@ -258,27 +258,27 @@ public class StrutsParameterLogicImpl
 
     protected String handleGetDocumentationKey()
     {
-        return getMessageKey() + ".documentation";
+        return this.getMessageKey() + ".documentation";
     }
 
     protected String handleGetDocumentationValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
         return (value == null) ? "" : value;
     }
 
     protected String handleGetOnlineHelpKey()
     {
-        return getMessageKey() + ".online.help";
+        return this.getMessageKey() + ".online.help";
     }
 
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
         final String format = getValidatorFormat();
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
 
-        String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
         buffer.append((value == null) ? "No field documentation has been specified" : value);
         buffer.append(crlf);
         buffer.append(crlf);
@@ -670,44 +670,14 @@ public class StrutsParameterLogicImpl
 
     protected String handleGetTableExportTypes()
     {
-        String exportTypes;
-
-        Collection taggedValues = new HashSet(findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT));
-        if (taggedValues.isEmpty())
-        {
-            exportTypes = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES);
-        }
-        else
-        {
-            if (taggedValues.contains("none"))
-            {
-                exportTypes = "none";
-            }
-            else
-            {
-                StringBuffer buffer = new StringBuffer();
-                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-                {
-                    final String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                    if ("csv".equalsIgnoreCase(exportType) ||
-                        "pdf".equalsIgnoreCase(exportType) ||
-                        "xml".equalsIgnoreCase(exportType) ||
-                        "excel".equalsIgnoreCase(exportType))
-                    {
-                        buffer.append(exportType);
-                        buffer.append(' ');
-                    }
-                }
-                exportTypes = buffer.toString().trim();
-            }
-        }
-
-        return exportTypes;
+        return Bpm4StrutsUtils.getDisplayTagExportTypes(
+            this.findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_EXPORT),
+            (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES) );
     }
 
     protected boolean handleIsTableExportable()
     {
-        return getTableExportTypes().indexOf("none") == -1;
+        return this.getTableExportTypes().indexOf("none") == -1;
     }
 
     protected boolean handleIsTableSortable()
@@ -715,7 +685,7 @@ public class StrutsParameterLogicImpl
         final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE);
         return (taggedValue == null)
             ? Bpm4StrutsProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
-            : this.isTrue(String.valueOf(taggedValue));
+            : Bpm4StrutsUtils.isTrue(String.valueOf(taggedValue));
     }
 
     protected boolean handleIsTableHyperlinkColumn()
@@ -886,7 +856,7 @@ public class StrutsParameterLogicImpl
 
     protected int handleGetTableMaxRows()
     {
-        Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_MAXROWS);
+        final Object taggedValue = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_TABLE_MAXROWS);
         int pageSize;
 
         try
@@ -1124,8 +1094,8 @@ public class StrutsParameterLogicImpl
      */
     public boolean isRequired()
     {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_REQUIRED);
-        return isTrue(value == null ? null : String.valueOf(value));
+        final Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_REQUIRED);
+        return Bpm4StrutsUtils.isTrue(value == null ? null : String.valueOf(value));
     }
 
     /**
@@ -1133,8 +1103,8 @@ public class StrutsParameterLogicImpl
      */
     protected boolean handleIsReadOnly()
     {
-        Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_READONLY);
-        return isTrue(value == null ? null : String.valueOf(value));
+        final Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_READONLY);
+        return Bpm4StrutsUtils.isTrue(value == null ? null : String.valueOf(value));
     }
 
     /**
@@ -1186,17 +1156,6 @@ public class StrutsParameterLogicImpl
     {
         final String format = getValidatorFormat();
         return (format != null) && isStrictDateFormat(format);
-    }
-
-    /**
-     * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
-     */
-    private boolean isTrue(String string)
-    {
-        return "yes".equalsIgnoreCase(string) ||
-            "true".equalsIgnoreCase(string) ||
-            "on".equalsIgnoreCase(string) ||
-            "1".equalsIgnoreCase(string);
     }
 
     /**
@@ -1509,7 +1468,14 @@ public class StrutsParameterLogicImpl
         final List optionValues = new ArrayList();
         final Object taggedValueObject = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RADIO);
 
-        if (taggedValueObject != null)
+        if (taggedValueObject == null)
+        {
+            // we resort to the default values
+            optionValues.add("0");
+            optionValues.add("1");
+            optionValues.add("2");
+        }
+        else
         {
             final String taggedValue = String.valueOf(taggedValueObject).trim();
 
@@ -1524,12 +1490,13 @@ public class StrutsParameterLogicImpl
             }
             catch (Exception exception)
             {
+                // this means the value wasn't a valid integer, we'll interpret it is a comma-separated
+                // list of option-values
                 final String[] options = taggedValue.replaceAll("[\\s]+", "").split("[,]");
                 for (int i = 0; i < options.length; i++)
                 {
                     optionValues.add(options[i].trim());
                 }
-                return optionValues;
             }
         }
         return optionValues;
@@ -1540,7 +1507,7 @@ public class StrutsParameterLogicImpl
      */
     protected int handleGetOptionCount()
     {
-        return getOptionValues().size();
+        return this.getOptionValues().size();
     }
 
     /**

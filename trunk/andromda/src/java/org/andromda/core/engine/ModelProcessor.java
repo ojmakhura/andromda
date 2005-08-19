@@ -62,7 +62,7 @@ public class ModelProcessor
      *
      * @return the shared ModelProcessor instance.
      */
-    public static final ModelProcessor newInstance()
+    public static ModelProcessor newInstance()
     {
         return new ModelProcessor();
     }
@@ -131,7 +131,6 @@ public class ModelProcessor
      * Processes all models contained within the <code>repositories</code>
      * with the discovered cartridges.
      *
-     * @param models an array of URLs to models.
      * @return any model validation messages that may have been collected during model loading/validation.
      */
     private List process(org.andromda.core.configuration.Repository[] repositories)
@@ -210,7 +209,7 @@ public class ModelProcessor
                 }
             }
 
-            if (lastModifiedCheck ? writer.isHistoryBefore(lastModified) : true)
+            if (!lastModifiedCheck || writer.isHistoryBefore(lastModified))
             {
                 final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
                 if (cartridges.isEmpty())
@@ -325,7 +324,6 @@ public class ModelProcessor
      *
      * @param repositoryName the name of the repository that will load/read the model.
      * @param model the model to be loaded.
-     * @param any validation messages that might of occured during modeling validation/loading.
      */
     protected final List loadModelIfNecessary(
         final String repositoryName,
@@ -462,8 +460,6 @@ public class ModelProcessor
 
     /**
      * Prints any model validation errors stored within the <code>factory</code>.
-     *
-     * @param factory the metafacade factory (used to manage the metafacades).
      */
     private void printValidationMessages(final List messages)
     {
@@ -523,7 +519,6 @@ public class ModelProcessor
      * that need to be reloaded, and if so, re-loads them.
      *
      * @param repositories the repositories from which to load the model(s).
-     * @param any model validation message instances collected during model validation/loading.
      */
     final List loadIfNecessary(final org.andromda.core.configuration.Repository[] repositories)
     {
@@ -549,8 +544,7 @@ public class ModelProcessor
      * Checks to see if <em>any</em> of the models need to be reloaded, and if so, re-loads them.
      *
      * @param repositoryName the name of the repository used to load/read the models
-     * @param the models that will be loaded (if necessary).
-     * @param any model validation messages that may have been collected during model loading/validation.
+     * @param models that will be loaded (if necessary).
      */
     private List loadIfNecessary(
         final String repositoryName,
@@ -762,7 +756,7 @@ public class ModelProcessor
         final RepositoryFacade implementation = (RepositoryFacade)this.repositories.get(name);
         if (implementation == null)
         {
-            String message = null;
+            String message;
             if (this.repositories.isEmpty())
             {
                 message =
@@ -840,7 +834,6 @@ public class ModelProcessor
      * <code>name</code> of the model element to which the validation message applies.
      *
      * @param messages the collection of messages to sort.
-     * @return the sorted <code>messages</code> collection.
      */
     protected void sortValidationMessages(final List messages)
     {

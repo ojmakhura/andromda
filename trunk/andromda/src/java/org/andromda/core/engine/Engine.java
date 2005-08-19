@@ -17,12 +17,9 @@ public class Engine
     /**
      * Create a new Engine instance.
      *
-     * @param configurationUri the URI to the configuration file
-     *        that configures Engine.
-     *
      * @return the new instance of Engine.
      */
-    public static final Engine newInstance()
+    public static Engine newInstance()
     {
         return new Engine();
     }

@@ -146,6 +146,12 @@
 #end
 #end
 #end
+#foreach ($manageable in $manageables)
+            <url-pattern>$manageable.pageFullPath</url-pattern>
+#if ($onlineHelp == "true")
+            <url-pattern>${manageable.onlineHelpPagePath}.jsp</url-pattern>
+#end
+#end
             <url-pattern>/error-page.jsp</url-pattern>
             <url-pattern>/form-validation.jsp</url-pattern>
             <url-pattern>/calendar-js.jsp</url-pattern>
@@ -207,6 +213,7 @@
                 for managing the $manageable.name entity
             </description>
             <url-pattern>${manageable.actionPath}.do</url-pattern>
+            <url-pattern>${manageable.onlineHelpActionPath}.do</url-pattern>
         </web-resource-collection>
 #if (!$manageable.users.empty)
         <auth-constraint>

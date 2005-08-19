@@ -161,6 +161,14 @@
                 path="$manageable.exceptionPath"
                 scope="request" />
         </action>
+#if ($onlineHelp == "true")
+        <action
+            path="$manageable.onlineHelpActionPath"
+            type="org.apache.struts.actions.ForwardAction"
+            scope="request"
+            input="${manageable.actionPath}.do"
+            parameter="${manageable.onlineHelpPagePath}.jsp"/>
+#end
 #end
 #if ($onlineHelp == "true")
         <action

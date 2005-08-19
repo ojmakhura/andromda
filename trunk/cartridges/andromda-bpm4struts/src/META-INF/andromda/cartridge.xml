@@ -642,6 +642,18 @@
     </template>
 
     <template
+        path="templates/bpm4struts/pages/crud/manageable-help.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/bpm4struts/pages/crud/default-manageable.css.vsl"
         outputPattern="$generatedFile"
         outlet="pages"
