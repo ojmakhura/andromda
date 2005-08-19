@@ -214,10 +214,10 @@ public class BPM4JSFValidatorScript
         // - for each validator type, write "&& fun(form);
         for (final Iterator iterator = this.validators.keySet().iterator(); iterator.hasNext();)
         {
-            String type = (String)iterator.next();
-            ValidatorAction a = BPM4JSFValidator.getValidatorAction(type);
+            final String type = (String)iterator.next();
+            final ValidatorAction action = BPM4JSFValidator.getValidatorAction(type);
             writer.write("&& ");
-            writer.write(getJavaScriptFunctionName(a));
+            writer.write(getJavaScriptFunctionName(action));
             writer.write("(form)\n");
         }
         writer.write(";}\n");
@@ -226,9 +226,9 @@ public class BPM4JSFValidatorScript
         for(final Iterator iterator = this.validators.keySet().iterator(); iterator.hasNext();)
         {
             final String type = (String)iterator.next();
-            ValidatorAction a = BPM4JSFValidator.getValidatorAction(type);
+            final ValidatorAction action = BPM4JSFValidator.getValidatorAction(type);
             writer.write("function ");
-            String callback = a.getJsFunctionName();
+            String callback = action.getJsFunctionName();
             if (callback == null)
             {
                 callback = type;
@@ -244,7 +244,7 @@ public class BPM4JSFValidatorScript
                 final String id = (String)idIterator.next();
                 final BPM4JSFValidator validator = (BPM4JSFValidator)map.get(id);
                 writer.write("this[" + ctr + "] = ");
-                writeJavaScriptParams(
+                this.writeJavaScriptParams(
                     writer,
                     context,
                     id,
@@ -282,7 +282,7 @@ public class BPM4JSFValidatorScript
      * @param context The FacesContext for this request
      * @param validator The Commons validator
      */
-    public void writeJavaScriptParams(
+    private void writeJavaScriptParams(
         final ResponseWriter writer,
         final FacesContext context,
         final String id,
@@ -343,13 +343,13 @@ public class BPM4JSFValidatorScript
     {
         final ResponseWriter writer = context.getResponseWriter();
         this.validators.clear();
-        findBpm4JsfValidators(
+        this.findBpm4JsfValidators(
             context.getViewRoot(),
             context);
-        writeScriptStart(writer);
-        writeValidationFunctions(
+        this.writeScriptStart(writer);
+        this.writeValidationFunctions(
             writer,
             context);
-        writeScriptEnd(writer);
+        this.writeScriptEnd(writer);
     }
 }
