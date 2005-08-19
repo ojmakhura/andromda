@@ -2,12 +2,14 @@ package org.andromda.cartridges.bpm4jsf.components.validator;
 
 import java.io.InputStream;
 import java.io.Serializable;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+
 import java.text.MessageFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -21,6 +23,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
+import org.andromda.cartridges.bpm4jsf.components.taglib.BPM4JSFValidatorTag;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.ValidatorResources;
@@ -33,12 +36,12 @@ import org.apache.commons.validator.ValidatorResources;
 public class BPM4JSFValidator
     implements javax.faces.validator.Validator,
         Serializable
-{    
+{
     /**
      * Validator type.
      */
     private String type;
-    
+
     /**
      * The setter method for the <code>type</code> property. This property is
      * passed through to the commons-validator.
@@ -58,7 +61,7 @@ public class BPM4JSFValidator
     {
         return this.type;
     }
-    
+
     /**
      * Enable client-side validation?
      */
@@ -83,7 +86,7 @@ public class BPM4JSFValidator
     {
         return this.client;
     }
-    
+
     /**
      * Enable server-side validation?
      */
@@ -108,7 +111,7 @@ public class BPM4JSFValidator
     {
         return this.server;
     }
-    
+
     /**
      * The <code>validate</code> method uses this as the text of an error
      * message it stores on the FacesContext when validation fails.
@@ -125,7 +128,7 @@ public class BPM4JSFValidator
     {
         this.message = message;
     }
-    
+
     /**
      * Parameter for the error message. This parameter is passed through to the
      * commons-validator.
@@ -151,7 +154,7 @@ public class BPM4JSFValidator
     {
         return this.arg;
     }
-    
+
     /**
      * <p>
      * Minimum value.
@@ -169,7 +172,7 @@ public class BPM4JSFValidator
     {
         this.min = min;
     }
-    
+
     /**
      * The maximum value.
      */
@@ -185,7 +188,7 @@ public class BPM4JSFValidator
     {
         this.max = max;
     }
-    
+
     /**
      * Minimum length, in characters. Use with type="minlength".
      */
@@ -201,7 +204,7 @@ public class BPM4JSFValidator
     {
         this.minlength = minlength;
     }
-    
+
     /**
      * Maximum length, in characters. Use with type="minlength".
      */
@@ -217,7 +220,7 @@ public class BPM4JSFValidator
     {
         this.maxlength = maxlength;
     }
-    
+
     /**
      * A regular expression that's applied to the value.
      */
@@ -233,7 +236,7 @@ public class BPM4JSFValidator
     {
         this.mask = mask;
     }
-    
+
     /**
      * Is date validation strict?
      */
@@ -260,7 +263,7 @@ public class BPM4JSFValidator
      */
     public Object[] getParams()
     {
-        ArrayList parameters = new ArrayList();
+        final ArrayList parameters = new ArrayList();
         if (this.min != null)
         {
             parameters.add(this.min);
@@ -332,7 +335,7 @@ public class BPM4JSFValidator
      *
      * @param name The name of the validator
      */
-    public static ValidatorAction getValidatorAction(String name)
+    public static ValidatorAction getValidatorAction(final String name)
     {
         final String VALIDATOR_RESOURCES_KEY = "org.andromda.bpm4jsf.validator.resources";
         FacesContext context = FacesContext.getCurrentInstance();
@@ -359,6 +362,7 @@ public class BPM4JSFValidator
                 throw new RuntimeException(throwable);
             }
         }
+        System.out.println("the action name!!!!!:  " + validatorResources.getValidatorAction(name));
         return validatorResources.getValidatorAction(name);
     }
 
@@ -366,7 +370,7 @@ public class BPM4JSFValidator
      * The commons-validator action, that carries out the actual validation.
      */
     private transient ValidatorAction validatorAction;
-    
+
     /**
      * Returns the commons-validator action that's appropriate for this
      * validator.
@@ -379,17 +383,17 @@ public class BPM4JSFValidator
         }
         return this.validatorAction;
     }
-    
+
     /**
      * The commons-validator method.
      */
     private transient Method validatorMethod;
-    
+
     /**
-     * An array of validator classes.
+     * An array of validator parameter types.
      */
-    private transient Class[] paramTypes;
-    
+    private transient Class[] parameterTypes;
+
     /**
      * The commons-validator instance.
      */
@@ -403,57 +407,56 @@ public class BPM4JSFValidator
      * @param component The component to validate
      */
     public void validate(
-        FacesContext context,
-        UIComponent component,
-        Object value)
+        final FacesContext context,
+        final UIComponent component,
+        final Object value)
     {
-        if (Boolean.FALSE.equals(this.server))
+        if (!Boolean.FALSE.equals(this.server))
         {
-            return;
-        }
-        initValidation();
-        Object[] p = getParams();
-        Object[] params = new Object[p.length + 1];
+            this.initValidation();
+            Object[] parameters = this.getParams();
+            Object[] params = new Object[parameters.length + 1];
 
-        params[0] = convert(
-                value,
-                paramTypes[0],
-                component);
-        for (int ctr = 1; ctr < params.length; ctr++)
-        {
-            params[ctr] = convert(
-                    p[ctr - 1],
-                    paramTypes[ctr],
-                    null);
-        }
-
-        try
-        {
-            final Boolean validatorResult = (Boolean)validatorMethod.invoke(
-                    validator,
-                    params);
-            if (validatorResult.equals(Boolean.FALSE))
+            params[0] = BPM4JSFValidator.convert(
+                    value,
+                    parameterTypes[0],
+                    component);
+            for (int ctr = 1; ctr < params.length; ctr++)
             {
-                Object errorValue = value;
-                if (component instanceof EditableValueHolder)
+                params[ctr] = convert(
+                        parameters[ctr - 1],
+                        parameterTypes[ctr],
+                        null);
+            }
+
+            try
+            {
+                final Boolean validatorResult = (Boolean)validatorMethod.invoke(
+                        validator,
+                        params);
+                if (validatorResult.equals(Boolean.FALSE))
                 {
-                    errorValue = ((EditableValueHolder)component).getSubmittedValue();
+                    Object errorValue = value;
+                    if (component instanceof EditableValueHolder)
+                    {
+                        errorValue = ((EditableValueHolder)component).getSubmittedValue();
+                    }
+                    throw new ValidatorException(new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            getErrorMessage(
+                                errorValue,
+                                context),
+                            null));
                 }
-                throw new ValidatorException(new FacesMessage(
-                        FacesMessage.SEVERITY_ERROR,
-                        getErrorMessage(
-                            errorValue,
-                            context),
-                        null));
             }
-        }
-        catch (final Throwable throwable)
-        {
-            if (throwable instanceof ValidatorException)
+            catch (final Throwable throwable)
             {
-                throw (ValidatorException)throwable;
+                if (throwable instanceof ValidatorException)
+                {
+                    throw (ValidatorException)throwable;
+                }
+                throw new RuntimeException(throwable);
             }
-            throw new RuntimeException(throwable);
         }
     }
 
@@ -464,42 +467,42 @@ public class BPM4JSFValidator
      */
     public void initValidation()
     {
-        if (validatorMethod != null)
+        if (this.validatorMethod == null)
         {
-            return;
-        }
-        getValidatorAction();
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        if (classLoader == null)
-        {
-            classLoader = getClass().getClassLoader();
-        }
-        try
-        {
-            List params = validatorAction.getMethodParamsList();
-            paramTypes = new Class[params.size()];
-            for (int ctr = 0; ctr < paramTypes.length; ctr++)
+            this.getValidatorAction();
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            if (classLoader == null)
             {
-                String paramTypeName = (String)params.get(ctr);
-                paramTypes[ctr] = (Class)standardTypes.get(paramTypeName);
-                if (paramTypes[ctr] == null)
+                classLoader = getClass().getClassLoader();
+            }
+            try
+            {
+                final String[] parameterTypeNames = this.validatorAction.getMethodParams().split(",");
+                this.parameterTypes = new Class[parameterTypeNames.length];
+                for (int ctr = 0; ctr < parameterTypeNames.length; ctr++)
                 {
-                    paramTypes[ctr] = classLoader.loadClass(paramTypeName);
+                    final String typeName = parameterTypeNames[ctr];
+                    Class paramType = (Class)standardTypes.get(typeName);
+                    if (paramType == null)
+                    {
+                        paramType = classLoader.loadClass(typeName);
+                    }
+                    parameterTypes[ctr] = paramType;
+                }
+                Class type = classLoader.loadClass(validatorAction.getClassname());
+
+                this.validatorMethod = type.getMethod(
+                        validatorAction.getMethod(),
+                        parameterTypes);
+                if (!Modifier.isStatic(validatorMethod.getModifiers()))
+                {
+                    validator = type.newInstance();
                 }
             }
-            Class type = classLoader.loadClass(validatorAction.getClassname());
-
-            this.validatorMethod = type.getMethod(
-                    validatorAction.getMethod(),
-                    paramTypes);
-            if (!Modifier.isStatic(validatorMethod.getModifiers()))
+            catch (final Throwable throwable)
             {
-                validator = type.newInstance();
+                throw new RuntimeException(throwable);
             }
-        }
-        catch (final Throwable throwable)
-        {
-            throw new RuntimeException(throwable);
         }
     }
 
@@ -675,7 +678,7 @@ public class BPM4JSFValidator
     }
 
     // these two methods are referenced in validator-utils.xml
-    
+
     /**
      * A utility method that returns <code>true</code> if the supplied string
      * has a length greater than zero.
