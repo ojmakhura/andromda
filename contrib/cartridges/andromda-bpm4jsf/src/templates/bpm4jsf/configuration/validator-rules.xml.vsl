@@ -6,7 +6,7 @@
    <global>
 
       <validator name="required"
-            classname="${jsfComponentsPackage}.BPM4JSFValidator"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator"
                method="isSupplied"
          methodParams="java.lang.String"
                   msg="errors.required">
@@ -485,7 +485,7 @@
       </validator>
 
       <validator name="date"
-            classname="${jsfComponentsPackage}.BPM4JSFValidator"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator"
                method="isDate"
          methodParams="java.lang.String,java.lang.String"
               depends=""

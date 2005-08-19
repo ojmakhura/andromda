@@ -15,7 +15,8 @@
     <postGoal name="java:compile">
         <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/lib"/>
         <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/${pom.groupId}-bpm4jsf-components-${pom.currentVersion}.jar"
-            tofile="${maven.build.dest}/resources/WEB-INF/lib/${pom.groupId}-bpm4jsf-components.jar"/>
+            tofile="${maven.build.dest}/resources/WEB-INF/lib/${pom.groupId}-bpm4jsf-components.jar"
+            overwrite="true"/>
     </postGoal>
 
 </project>

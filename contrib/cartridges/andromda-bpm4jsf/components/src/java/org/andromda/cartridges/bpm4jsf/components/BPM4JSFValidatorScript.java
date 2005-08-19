@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -66,7 +65,7 @@ public class BPM4JSFValidatorScript
         if (map == null)
         {
             map = new LinkedHashMap();
-            validators.put(
+            this.validators.put(
                 type,
                 map);
         }
@@ -106,7 +105,7 @@ public class BPM4JSFValidatorScript
                     if (Boolean.TRUE.equals(validator.getClient()))
                     {
                         final String id = component.getClientId(context);
-                        addValidator(
+                        this.addValidator(
                             validator.getType(),
                             id,
                             validator);
@@ -134,13 +133,11 @@ public class BPM4JSFValidatorScript
                 }
             }
         }
-
-        final List children = component.getChildren();
-        for (int ctr = 0; ctr < children.size(); ctr++)
+        for (final Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
         {
-            final UIComponent child = (UIComponent)children.get(ctr);
+            final UIComponent childComponent = (UIComponent)iterator.next();
             this.findBpm4JsfValidators(
-                child,
+                childComponent,
                 context);
         }
     }
@@ -180,8 +177,7 @@ public class BPM4JSFValidatorScript
     }
 
     /**
-     * Returns the name of the JavaScript function, specified in the JSP page
-     * (presumably), that validates this JSP page's form.
+     * Returns the name of the JavaScript function, specified in the JSP page that validates this JSP page's form.
      *
      * @param action the validation action from which to retrieve the function name.
      */
@@ -195,8 +191,7 @@ public class BPM4JSFValidatorScript
     }
 
     /**
-     * Returns the name of the JavaScript function, specified in the JSP page
-     * (presumably), that validates this JSP page's form.
+     * writes the javascript functions to the response.
      *
      * @param writer A response writer
      * @param context The FacesContext for this request
@@ -223,7 +218,7 @@ public class BPM4JSFValidatorScript
         writer.write(";}\n");
 
         // - for each validator type, write callback
-        for(final Iterator iterator = this.validators.keySet().iterator(); iterator.hasNext();)
+        for (final Iterator iterator = this.validators.keySet().iterator(); iterator.hasNext();)
         {
             final String type = (String)iterator.next();
             final ValidatorAction action = BPM4JSFValidator.getValidatorAction(type);

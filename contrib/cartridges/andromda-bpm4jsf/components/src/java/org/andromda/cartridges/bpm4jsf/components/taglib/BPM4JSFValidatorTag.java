@@ -176,17 +176,17 @@ public class BPM4JSFValidatorTag
         throws JspException
     {
         final BPM4JSFValidator validator = (BPM4JSFValidator)super.createValidator();
-        validator.setType(this.eval(type));
-        validator.setMin(this.evalDouble(min));
-        validator.setMax(this.evalDouble(max));
-        validator.setMinlength(this.evalInteger(minlength));
-        validator.setMaxlength(this.evalInteger(maxlength));
-        validator.setDatePatternStrict(this.eval(datePatternStrict));
-        validator.setMask(this.eval(mask));
-        validator.setMessage(this.eval(message));
-        validator.setArg(this.eval(arg));
-        validator.setClient(this.evalBoolean(client));
-        validator.setServer(this.evalBoolean(server));
+        validator.setType(this.evaluate(this.type));
+        validator.setMin(this.evaluateDouble(this.min));
+        validator.setMax(this.evaluateDouble(this.max));
+        validator.setMinlength(this.evaluateInteger(this.minlength));
+        validator.setMaxlength(this.evaluateInteger(this.maxlength));
+        validator.setDatePatternStrict(this.evaluate(this.datePatternStrict));
+        validator.setMask(this.evaluate(this.mask));
+        validator.setMessage(this.evaluate(this.message));
+        validator.setArg(this.evaluate(this.arg));
+        validator.setClient(this.evaluateBoolean(this.client));
+        validator.setServer(this.evaluateBoolean(this.server));
         return validator;
     }
 
@@ -196,7 +196,7 @@ public class BPM4JSFValidatorTag
      *
      * @param expression The expression
      */
-    public String eval(String expression)
+    public String evaluate(String expression)
     {
         if (expression != null)
         {
@@ -215,7 +215,7 @@ public class BPM4JSFValidatorTag
      *
      * @param expression The expression
      */
-    public Integer evalInteger(String expression)
+    public Integer evaluateInteger(final String expression)
     {
         Integer result = null;
         if (expression != null)
@@ -250,7 +250,7 @@ public class BPM4JSFValidatorTag
      *
      * @param expression The expression
      */
-    public Double evalDouble(String expression)
+    public Double evaluateDouble(final String expression)
     {
         Double result = null;
         if (expression != null)
@@ -285,7 +285,7 @@ public class BPM4JSFValidatorTag
      *
      * @param expression The expression
      */
-    public Boolean evalBoolean(final String expression)
+    public Boolean evaluateBoolean(final String expression)
     {
         Boolean result = null;
         if (expression != null)
