@@ -377,7 +377,7 @@ public class Cartridge
      * @param metafacadePackage the name of the package (if we are processing
      *        a single model element, otherwise this will be ignored).
      */
-    private final void processWithTemplate(
+    private void processWithTemplate(
         final Template template,
         final Map templateContext,
         final String outlet,
@@ -401,8 +401,8 @@ public class Cartridge
         File outputFile = null;
         try
         {
-            // populate the template context will cartridge descriptor
-            // properties and template objects
+            // - populate the template context will cartridge descriptor
+            //   properties and template objects
             this.populateTemplateContext(templateContext);
 
             final StringWriter output = new StringWriter();
@@ -530,7 +530,7 @@ public class Cartridge
      * @param resource contains the outlet where the resource is written.
      * @param resourceUrl the URL contents to write.
      */
-    private final void writeResource(
+    private void writeResource(
         final Resource resource,
         final URL resourceUrl)
     {
