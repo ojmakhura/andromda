@@ -24,7 +24,7 @@ public class BPM4JSFValidatorScriptTag
      *
      * @param functionName The new value for the function name.
      */
-    public void setFunctionName(String functionName)
+    public void setFunctionName(final String functionName)
     {
         this.functionName = functionName;
     }

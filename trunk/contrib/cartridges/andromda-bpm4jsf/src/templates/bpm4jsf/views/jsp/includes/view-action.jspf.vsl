@@ -17,7 +17,7 @@
 </h:commandLink>
 <f:verbatim><br/><br/></f:verbatim>
 #else
-<h:form id="$formName" name="$formName">
+<h:form id="$formName" name="$formName" onsubmit="return validateForm(this);">
 #if (!$action.hiddenParameters.empty)
     <%@ include file="${action.viewFragmentPath}-hidden-params.jspf" %>
 #end
@@ -51,7 +51,25 @@
 #elseif ($parameter.inputSecret)
             <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}"/>
 #else
-            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}"/>
+            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}">
+                <bpm4jsf:validator
+                    type="required"
+                    arg="#{messages['$parameter.messageKey']}"
+                    server="true"
+                    client="true"/>
+    
+                <bpm4jsf:validator
+                    type="creditCard"
+                    arg="#{messages['$parameter.messageKey']}"
+                    server="true"
+                    client="true"/>
+    
+                <bpm4jsf:validator type="mask"
+                    mask="[4-6].*"
+                    message="#{messages['$parameter.messageKey']}"
+                    server="true"
+                    client="true"/>
+            </h:inputText>
 #end
             <x:message for="$parameter.name" styleClass="error" showDetail="true" showSummary="false"/>
         </h:panelGroup>
@@ -71,5 +89,6 @@
 #end
         </h:panelGroup>
     </h:panelGrid>
+    <bpm4jsf:validatorScript functionName="validateForm"/>
 </h:form>
 #end
