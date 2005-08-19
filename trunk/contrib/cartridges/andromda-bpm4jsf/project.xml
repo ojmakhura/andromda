@@ -35,9 +35,6 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>andromda-java-cartridge</artifactId>
             <version>${andromda.version}</version>
-            <properties>
-                <value-objects>${basedir}/target/src</value-objects>
-            </properties>
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
