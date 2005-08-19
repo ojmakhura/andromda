@@ -255,7 +255,7 @@ public class Model
      *
      * @return all module search location files.
      */
-    private final File[] getModuleSearchLocationFiles()
+    public File[] getModuleSearchLocationFiles()
     {
         if (this.moduleSearchLocationFiles == null)
         {
