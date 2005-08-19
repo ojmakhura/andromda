@@ -1,0 +1,14 @@
+##
+## A shared macro that performs population of the previous form with 
+## the request parameters
+##
+## We populate the current form with only request parameters (we don't want the new
+## form set within the request, because we'll lose things like select lists, and any other
+## collections on the form)
+##
+#macro (renderValidation)
+#set ($clientValidation = $clientValidation.equalsIgnoreCase("true"))
+#if ($clientValidation && $parameter.required)
+                <bpm4jsf:validator type="required" arg="#{messages['$parameter.messageKey']}" server="false" client="$clientValidation"/>
+#end
+#end

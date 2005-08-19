@@ -187,6 +187,28 @@
                 </documentation>
             </property>
         </propertyGroup>
+        <propertyGroup name="Validation and Security">
+            <documentation>
+                These properties configure the validation of user input as well as the security.
+            </documentation>
+            <property name="securityRealm" required="false">
+                <documentation>
+                    The security realm to use when security is enabled.
+                </documentation>
+            </property>
+            <property name="clientValidation">
+                <default>true</default>
+                <documentation>
+                    Indicates whether or not validation should occur on the client side.
+                </documentation>
+            </property>
+            <property name="serverValidation">
+                <default>true</default>
+                <documentation>
+                    Indicates whether or not validation should occur on the server side.
+                </documentation>
+            </property>
+        </propertyGroup>
         <propertyGroup name="Other">
             <documentation>
                 Other various properties that couldn't be classified into another category.
@@ -205,14 +227,6 @@
                     during application flow.
                 </documentation>
             </property>
-            <!--
-            <property name="defaultActionRedirect">
-                <default>false</default>
-                <documentation>
-                    Whether or not redirection should occur on all action forwards.
-                </documentation>
-            </property>
-            -->
             <property name="backingListPattern">
                 <default>{0}BackingList</default>
                 <documentation>
