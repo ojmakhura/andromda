@@ -1,0 +1,32 @@
+#if ($onlineHelp == "true")
+#set ($generatedFile = "${manageable.onlineHelpPagePath}.jsp")
+##
+##  START TEMPLATE
+##
+<%@ include file="/taglib-imports.jspf" %>
+
+<tiles:insert definition="help.layout">
+
+    <tiles:put name="title" type="string">
+        <bean:message key="online.help.title"/>
+        <bean:message key="$manageable.messageKey"/>
+    </tiles:put>
+
+    <tiles:put name="body" type="string">
+        <h1><bean:message key="$manageable.messageKey"/></h1>
+        <p>
+            <bean:message key="$manageable.onlineHelpKey"/>
+        </p>
+#foreach ($member in $manageable.manageableMembers)
+#if (!$member.hidden)
+        <h2><bean:message key="$member.messageKey"/></h2>
+        <p>
+            <bean:message key="$member.onlineHelpKey"/>
+        </p>
+#end
+#end
+    </tiles:put>
+
+</tiles:insert>
+
+#end
