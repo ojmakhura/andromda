@@ -4,19 +4,19 @@
 
 <beans>
 
-    <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
+    <!-- ==================== Start of REMOTE SERVICE DEFINITIONS ===================== -->
 
 #foreach($service in $services)
 #if($service.remotable)
     <!-- $service.name Remote Service exporter  -->
 #if($service.remotingTypeHttpInvoker)
-    <bean class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter" name="/$service.name">
+    <bean name="/$service.name" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
 #elseif($service.remotingTypeHessian)
-    <bean class="org.springframework.remoting.caucho.HessianServiceExporter" name="/$service.name">
+    <bean name="/$service.name" class="org.springframework.remoting.caucho.HessianServiceExporter">
 #elseif($service.remotingTypeBurlap)
-    <bean class="org.springframework.remoting.caucho.BurlapServiceExporter" name="/$service.name">
+    <bean name="/$service.name" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 #elseif ($service.remotingTypeRmi)
-    <bean class="org.springframework.remoting.rmi.RmiServiceExporter" name="$service.name">
+    <bean name="$service.name"class="org.springframework.remoting.rmi.RmiServiceExporter">
         <property name="serviceName"><value>$service.name</value></property>
         <property name="registryPort"><value>$service.remotePort</value></property>
 #end
@@ -26,6 +26,6 @@
 
 #end
 #end
-    <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
+    <!-- ==================== End of REMOTE SERVICE DEFINITIONS ======================= -->
 
 </beans>

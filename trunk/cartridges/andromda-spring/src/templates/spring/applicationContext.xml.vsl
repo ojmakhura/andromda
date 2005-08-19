@@ -97,48 +97,47 @@
     </bean>
 
 #foreach($entity in $entities)
-     <!-- $entity.name Entity Proxy -->
-     <bean id="$entity.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
-         <property name="target"><ref bean="$entity.getBeanName(true)"/></property>
-         <property name="proxyInterfaces">
-             <value>$entity.fullyQualifiedDaoName</value>
-         </property>
-         <property name="interceptorNames">
-             <list>
-                 <value>hibernateInterceptor</value>
-             </list>
-         </property>
-     </bean>
-
-    <!-- $entity.name Entity Implementation  -->
-    <bean id="$entity.getBeanName(true)" class="$entity.fullyQualifiedDaoImplementationName">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+    <!-- $entity.name Entity Proxy with inner $entity.name Entity implementation -->
+    <bean id="$entity.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="$entity.fullyQualifiedDaoImplementationName">
+                <property name="sessionFactory"><ref local="sessionFactory"/></property>
 ## Because of a bug in Spring with circular references (and using AOP proxies),
 ## we need to use the lookup-method as a work-a-round for dependencies
 ## which represent circular references
 #foreach($entityRef in $entity.entityReferences)
 #if (!$entityRef.circularReference)
-        <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
+                <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
 #end
 #foreach($entityRef in $entity.entityReferences)
 #if ($entityRef.circularReference)
-        <lookup-method name="$entityRef.daoGetterName" bean="$entityRef.targetElement.getBeanName(false)"/>
+                <lookup-method name="$entityRef.daoGetterName" bean="$entityRef.targetElement.getBeanName(false)"/>
 #end
 #end
 ## also initialize daos of parent dao
 #if($entity.generalization)
 #foreach($entityRef in $entity.generalization.entityReferences)
 #if (!$entityRef.circularReference)
-        <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
+                <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
 #end
 #foreach($entityRef in $entity.generalization.entityReferences)
 #if ($entityRef.circularReference)
-        <lookup-method name="$entityRef.daoGetterName" bean="$entityRef.targetElement.getBeanName(false)"/>
+                <lookup-method name="$entityRef.daoGetterName" bean="$entityRef.targetElement.getBeanName(false)"/>
 #end
 #end
 #end
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <value>$entity.fullyQualifiedDaoName</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>hibernateInterceptor</value>
+            </list>
+        </property>
     </bean>
 
 #end
@@ -163,16 +162,18 @@
 
 #end
 #foreach($service in $services)
-    <!-- $service.name Service Implementation  -->
-    <bean id="$service.getBeanName(true)" class="$service.fullyQualifiedImplementationName">
+    <!-- $service.name Service Proxy with inner $service.name Service Implementation -->
+    <bean id="$service.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <bean class="$service.fullyQualifiedImplementationName">
 #if ($daosEnabled)
 #foreach($entityRef in $service.entityReferences)
-        <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
+                <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
 ## also initialize daos of parent services
 #if($service.generalization)
 #foreach($entityRef in $service.generalization.entityReferences)
-        <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
+                <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
 #end
 #end
@@ -181,36 +182,33 @@
 ## which represent circular references
 #foreach($serviceRef in $service.serviceReferences)
 #if (!$serviceRef.circularReference)
-        <property name="$serviceRef.name"><ref bean="$serviceRef.targetElement.beanName"/></property>
+                <property name="$serviceRef.name"><ref bean="$serviceRef.targetElement.beanName"/></property>
 #end
 #end
 #foreach($serviceRef in $service.serviceReferences)
 #if ($serviceRef.circularReference)
-        <lookup-method name="$serviceRef.getterName" bean="$serviceRef.targetElement.beanName"/>
+                <lookup-method name="$serviceRef.getterName" bean="$serviceRef.targetElement.beanName"/>
 #end
 #end
-    </bean>
-
-    <!-- $service.name Service Proxy  -->
-    <bean id="$service.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
-         <property name="target"><ref bean="$service.getBeanName(true)"/></property>
-         <property name="proxyInterfaces">
-             <value>$service.fullyQualifiedName</value>
-         </property>
-         <property name="interceptorNames">
-             <list>
+            </bean>
+        </property>
+        <property name="proxyInterfaces">
+            <value>$service.fullyQualifiedName</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
 #if ($acegiServiceSecurityEnabled)
-                 <value>serviceSecurityInterceptor</value>
+                <value>serviceSecurityInterceptor</value>
 #end
 #if ($enableSpringTransactions)
-                 <value>serviceTransactionInterceptor</value>
+                <value>serviceTransactionInterceptor</value>
 #end
 #if ($daosEnabled && $service.hibernateInterceptorEnabled)
-                 <value>hibernateInterceptor</value>
+                <value>hibernateInterceptor</value>
 #end
-             </list>
-         </property>
-     </bean>
+            </list>
+        </property>
+    </bean>
 
 #end
     <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
