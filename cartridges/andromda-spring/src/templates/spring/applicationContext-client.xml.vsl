@@ -3,7 +3,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	
+
     <!-- ========================= Start of BEAN POSTPROCESSORS ======================== -->
 
     <bean id="propertyPlaceholderConfigurer"
@@ -44,24 +44,23 @@
 
 #foreach($service in $services)
 #if($service.remotable)
-    <!-- $service.name Remote Service invoker  -->
-#if($service.remotingTypeHttpInvoker)
-    <bean id="$service.getBeanName(true)" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-#elseif($service.remotingTypeHessian)
-    <bean id="$service.getBeanName(true)" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
-#elseif($service.remotingTypeBurlap)
-    <bean id="$service.getBeanName(true)" class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">
-#elseif($service.remotingTypeRmi)
-    <bean id="$service.getBeanName(true)" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-#end
-        <property name="serviceUrl"><value>$service.remoteUrl</value></property>
-        <property name="serviceInterface"><value>$service.fullyQualifiedName</value></property>
-    </bean>
-
-    <!-- $service.name Remote Service Local Proxy -->
+    <!-- $service.name Remote Service Local Proxy with inner $service.name Remote Service invoker -->
     <bean id="$service.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+#if($service.remotingTypeHttpInvoker)
+            <bean class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+#elseif($service.remotingTypeHessian)
+            <bean class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+#elseif($service.remotingTypeBurlap)
+            <bean class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">
+#elseif($service.remotingTypeRmi)
+            <bean class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+#end
+                <property name="serviceUrl"><value>$service.remoteUrl</value></property>
+                <property name="serviceInterface"><value>$service.fullyQualifiedName</value></property>
+            </bean>
+        </property>
         <property name="proxyInterfaces"><value>$service.fullyQualifiedName</value></property>
-        <property name="target"><ref local="$service.getBeanName(true)"/></property>
         <property name="interceptorNames">
             <list>
                 <value>exceptionHandlingAdvice</value>
