@@ -40,6 +40,12 @@
         outputPattern="images/{0}"
         outlet="jsps"
         overwrite="true"/>
+    
+    <resource
+        path="resources/WEB-INF/lib/*.jar"
+        outputPattern="WEB-INF/lib/{0}"
+        outlet="configuration"
+        overwrite="true"/>
 
     <!-- process templates on model elements -->
     <template
@@ -84,12 +90,6 @@
     <template
         path="templates/bpm4jsf/configuration/validator-rules.xml.vsl"
         outputPattern="WEB-INF/validator-rules.xml"
-        outlet="configuration"
-        overwrite="true"/>
-    
-    <template
-        path="templates/bpm4jsf/configuration/taglib.tld.vsl"
-        outputPattern="META-INF/taglib.tld"
         outlet="configuration"
         overwrite="true"/>
     
@@ -362,30 +362,6 @@
     <template
         path="templates/bpm4jsf/exception/PatternMatchingExceptionHandler.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${patternMatchingExceptionHandler}.java"
-        outlet="managed-beans"
-        overwrite="true"/>
-    
-    <template
-        path="templates/bpm4jsf/components/validation/BPM4JSFValidator.java.vsl"
-        outputPattern="$stringUtils.replace($jsfComponentsPackage, '.', '/')/BPM4JSFValidator.java"
-        outlet="managed-beans"
-        overwrite="true"/>
-        
-    <template
-        path="templates/bpm4jsf/components/validation/BPM4JSFValidatorScript.java.vsl"
-        outputPattern="$stringUtils.replace($jsfComponentsPackage, '.', '/')/BPM4JSFValidatorScript.java"
-        outlet="managed-beans"
-        overwrite="true"/>
-   
-    <template
-        path="templates/bpm4jsf/components/validation/BPM4JSFValidatorTag.java.vsl"
-        outputPattern="$stringUtils.replace($jsfComponentsPackage, '.', '/')/BPM4JSFValidatorTag.java"
-        outlet="managed-beans"
-        overwrite="true"/>
-    
-    <template
-        path="templates/bpm4jsf/components/validation/BPMJSFValidatorScriptTag.java.vsl"
-        outputPattern="$stringUtils.replace($jsfComponentsPackage, '.', '/')/BPMJSFValidatorScriptTag.java"
         outlet="managed-beans"
         overwrite="true"/>
 
