@@ -266,7 +266,7 @@ public class Configuration
      * Initializes the namespaces with the namespaces from
      * this configuration.
      */
-    private final void initializeNamespaces()
+    private void initializeNamespaces()
     {
         final Namespaces namespaces = Namespaces.instance();
         namespaces.clear();
@@ -277,7 +277,7 @@ public class Configuration
      * Loads all mappings from the specified mapping search locations If the location points to a directory the directory
      * contents will be loaded, otherwise just the mapping itself will be loaded.
      */
-    private final void initializeMappings()
+    private void initializeMappings()
     {
         final Collection mappingsLocations = new ArrayList();
         if (mappingsLocations != null)
