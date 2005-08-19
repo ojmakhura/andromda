@@ -220,11 +220,11 @@ public class Configuration
     }
 
     /**
-     * Gets the mappings searach location for this configuration instance.
+     * Gets the mappings search locations for this configuration instance.
      *
      * @return the mappings search locations.
      */
-    Location[] getMappingsSearchLocations()
+    public Location[] getMappingsSearchLocations()
     {
         return (Location[])this.mappingsSearchLocations.toArray(new Location[0]);
     }
@@ -296,8 +296,8 @@ public class Configuration
                 }
                 catch (final Throwable throwable)
                 {
-                    // ignore the exception (probably means its a file
-                    // other than a mapping and in that case we don't care
+                    // - ignore the exception (probably means its a file
+                    //   other than a mapping and in that case we don't care
                 }
             }
         }
