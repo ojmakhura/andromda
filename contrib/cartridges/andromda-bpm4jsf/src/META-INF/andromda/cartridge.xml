@@ -1,5 +1,10 @@
 <cartridge>
     
+    <templateEngine>
+        <macrolibrary name="templates/bpm4jsf/macros/renderValidation.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+    
     <!-- define the template objects that are made available to the template -->
     <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
     <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4jsf.BPM4JSFUtils"/>
@@ -26,6 +31,7 @@
     <property reference="defaultTimeFormat"/>
     <property reference="dummyData"/>
     <property reference="jsfComponentsPackage"/>
+    <property reference="clientValidation"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->

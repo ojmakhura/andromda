@@ -31,44 +31,40 @@
         <f:verbatim>:</f:verbatim>
         <h:panelGroup>
 #if ($parameter.type.dateType)
+#if ($parameter.readOnly)
+            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" readonly="true">
+#else
             <x:inputCalendar id="$parameter.name"
                              monthYearRowClass="yearMonthHeader"
                              weekRowClass="weekHeader"
                              value="#{${formName}.${parameter.name}}"
                              renderAsPopup="true"
-                             popupDateFormat="$parameter.dateFormat"/>
+                             popupDateFormat="$parameter.dateFormat"
+                             required="$parameter.required"/>
+#end
 #elseif ($parameter.inputCheckbox)
-            <h:selectBooleanCheckbox id="${parameter.name}" value="#{${formName}.${parameter.name}}"/>
+            <h:selectBooleanCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
+#renderValidation()
+            </h:selectBooleanCheckbox>
 #elseif ($parameter.inputSelect)
-            <h:selectOneMenu id="$parameter.name" value="#{${formName}.${parameter.name}}" styleClass="selectOneMenu" required="false">
+            <h:selectOneMenu id="$parameter.name" value="#{${formName}.${parameter.name}}" styleClass="selectOneMenu" required="$parameter.required" readonly="$parameter.readOnly">
                 <f:selectItem itemValue="" itemLabel="#{messages['select.value.text']}" />
                 <c:if test="${!empty ${formName}.${parameter.backingListName}}">
                     <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
-                </c:if>
+                </c:if>                  
+#renderValidation()
             </h:selectOneMenu>
 #elseif ($parameter.inputTextarea)
-            <h:inputTextarea id="$parameter.name" rows="5" value="#{${formName}.${parameter.name}}"/>
+            <h:inputTextarea id="$parameter.name" rows="5" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
+#renderValidation()
+            </h:inputTextarea>
 #elseif ($parameter.inputSecret)
-            <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}"/>
+            <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
+#renderValidation()
+            </h:inputSecret>
 #else
-            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}">
-                <bpm4jsf:validator
-                    type="required"
-                    arg="#{messages['$parameter.messageKey']}"
-                    server="true"
-                    client="true"/>
-    
-                <bpm4jsf:validator
-                    type="creditCard"
-                    arg="#{messages['$parameter.messageKey']}"
-                    server="true"
-                    client="true"/>
-    
-                <bpm4jsf:validator type="mask"
-                    mask="[4-6].*"
-                    message="#{messages['$parameter.messageKey']}"
-                    server="true"
-                    client="true"/>
+            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
+#renderValidation()
             </h:inputText>
 #end
             <x:message for="$parameter.name" styleClass="error" showDetail="true" showSummary="false"/>

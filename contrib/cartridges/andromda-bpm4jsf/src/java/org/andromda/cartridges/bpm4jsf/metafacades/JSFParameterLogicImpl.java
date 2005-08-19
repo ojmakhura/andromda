@@ -730,4 +730,24 @@ public class JSFParameterLogicImpl
     {
         return this.getName() + "Set";
     }
+
+    /**
+     * Overridden to have the same behavior as bpm4struts.
+     * 
+     * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
+     */
+    public boolean isRequired()
+    {
+        final Object value = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_REQUIRED);
+        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isReadOnly()
+     */
+    protected boolean handleIsReadOnly()
+    {
+        final Object value = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_READONLY);
+        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+    }
 }
