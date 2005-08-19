@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-    <extend>../project.xml</extend>
+    <extend>../../project.xml</extend>
     <artifactId>andromda-bpm4jsf-components</artifactId>
+    <currentVersion>1.0-SNAPSHOT</currentVersion>
     <name>AndroMDA BPM4JSF Components</name>
     <shortDescription>Constains custom JSF components used by the BPM4JSF cartridge</shortDescription>
     <description>${pom.shortDescription}</description>
