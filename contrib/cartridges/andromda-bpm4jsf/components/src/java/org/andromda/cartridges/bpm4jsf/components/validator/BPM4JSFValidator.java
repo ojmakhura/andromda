@@ -41,7 +41,7 @@ public class BPM4JSFValidator
     
     /**
      * The setter method for the <code>type</code> property. This property is
-     * passed through to the Commons Validator.
+     * passed through to the commons-validator.
      *
      * @param type The new value for the <code>type</code> property.
      */
@@ -52,7 +52,7 @@ public class BPM4JSFValidator
 
     /**
      * The getter method for the <code>type</code> property. This property is
-     * passed through to the Commons Validator.
+     * passed through to the commons-validator.
      */
     public String getType()
     {
@@ -66,7 +66,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>client</code> property. This property
-     * is passed through to the Commons Validator.
+     * is passed through to the commons-validator.
      *
      * @param client The new value for the <code>client</code> property.
      */
@@ -77,7 +77,7 @@ public class BPM4JSFValidator
 
     /**
      * The getter method for the <code>client</code> property. This property
-     * is passed through to the Commons Validator.
+     * is passed through to the commons-validator.
      */
     public Boolean getClient()
     {
@@ -91,7 +91,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>server</code> property. This property
-     * is passed through to the Commons Validator.
+     * is passed through to the commons-validator.
      *
      * @param server The new value for the <code>server</code> property.
      */
@@ -102,7 +102,7 @@ public class BPM4JSFValidator
 
     /**
      * The getter method for the <code>server</code> property. This property
-     * is passed through to the Commons Validator.
+     * is passed through to the commons-validator.
      */
     public Boolean getServer()
     {
@@ -117,7 +117,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>message</code> property. This property
-     * is passed through to the Commons Validator.
+     * is passed through to the commons-validator.
      *
      * @param message The new value for the <code>message</code> property.
      */
@@ -128,13 +128,13 @@ public class BPM4JSFValidator
     
     /**
      * Parameter for the error message. This parameter is passed through to the
-     * Commons validator.
+     * commons-validator.
      */
     private String arg;
 
     /**
      * The setter method for the <code>arg</code> property. This property is
-     * passed through to the Commons Validator.
+     * passed through to the commons-validator..
      *
      * @param arg The new value for the <code>arg</code> property.
      */
@@ -145,7 +145,7 @@ public class BPM4JSFValidator
 
     /**
      * The getter method for the <code>arg</code> property. This property is
-     * passed through to the Commons Validator.
+     * passed through to the commons-validator.
      */
     public String getArg()
     {
@@ -161,7 +161,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>min</code> property. This property is
-     * passed through to the Commons Validator.
+     * passed through to the commons-validator.
      *
      * @param min The new value for the <code>min</code> property.
      */
@@ -177,7 +177,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>max</code> property. This property is
-     * passed through to the Commons Validator.
+     * passed through to the commons-validator.
      *
      * @param max The new value for the <code>max</code> property.
      */
@@ -193,7 +193,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>minlength</code> property. This
-     * property is passed through to the Commons Validator.
+     * property is passed through to the commons-validator.
      *
      * @param minlength The new value for the <code>minlength</code> property.
      */
@@ -209,7 +209,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>maxlength</code> property. This
-     * property is passed through to the Commons Validator.
+     * property is passed through to the commons-validator.
      *
      * @param maxlength The new value for the <code>maxlength</code> property.
      */
@@ -225,7 +225,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>mask</code> property. This property is
-     * passed through to the Commons Validator.
+     * passed through to the commons-validator.
      *
      * @param mask The new value for the <code>mask</code> property.
      */
@@ -241,7 +241,7 @@ public class BPM4JSFValidator
 
     /**
      * The setter method for the <code>datePatternStrict</code> property. This
-     * property is passed through to the Commons Validator.
+     * property is passed through to the commons-validator.
      *
      * @param datePatternStrict The new value for the <code>datePatternStrict</code>
      *        property.
@@ -254,8 +254,8 @@ public class BPM4JSFValidator
     /**
      * The <code>Object[]</code> returned from this method represents
      * parameters that were explicitly set for this validator. Typically, that
-     * happens in the <code>bpm4jsf:validator</code> tag. See the
-     * <code>CommonsValidatorTag</code> class for more information about those
+     * happens in the <code>bpm4jsf:validator</code> tag. See
+     * {@link BPM4JSFValidatorTag} for more information about those
      * parameters.
      */
     public Object[] getParams()
@@ -326,7 +326,7 @@ public class BPM4JSFValidator
     }
 
     /**
-     * Returns the Commons validator action that's appropriate for the validator
+     * Returns the commons-validator action that's appropriate for the validator
      * with the given <code>name</code>. This method lazily configures
      * validator resources by reading <code>/WEB-INF/validator-rules.xml</code>.
      *
@@ -368,7 +368,7 @@ public class BPM4JSFValidator
     private transient ValidatorAction validatorAction;
     
     /**
-     * Returns the Commons validator action that's appropriate for this
+     * Returns the commons-validator action that's appropriate for this
      * validator.
      */
     public ValidatorAction getValidatorAction()
@@ -692,7 +692,7 @@ public class BPM4JSFValidator
      * represents a date.
      *
      * @param date The string representation of the date.
-     * @param datePatternStrict Commons validator property
+     * @param datePatternStrict commons-validator property
      */
     public static boolean isDate(
         final String date,
