@@ -16,15 +16,20 @@ public interface $operation.formName
 {
 #foreach ($field in $operation.formFields)
 
+#if ($field.inputField)
+#set ($fieldTypeName = "$fileTypeName")
+#else
+#set ($fieldTypeName = $field.type.fullyQualifiedName)
+#end
     /**
 $field.getDocumentation("     * ")
      */
-    public $field.type.fullyQualifiedName ${field.getterName}();
+    public $fieldTypeName ${field.getterName}();
 
     /**
 $field.getDocumentation("     * ")
      */
-    public void ${field.setterName}($field.type.fullyQualifiedName $field.name);
+    public void ${field.setterName}($fieldTypeName $field.name);
 #if ($field.selectable)
 #set ($listType = "java.lang.Object[]")
 #set ($backingListName = $field.backingListName)

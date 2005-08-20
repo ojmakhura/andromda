@@ -480,6 +480,20 @@ public class JSFParameterLogicImpl
     {
         return this.isInputType("text");
     }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputText()
+     */
+    protected boolean handleIsInputFile()
+    {
+        boolean file = false;
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            file = type.isFileType();
+        }
+        return file;
+    }
 
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getBackingListName()

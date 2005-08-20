@@ -207,6 +207,13 @@
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
+            <property name="fileTypeName">
+                <default>org.apache.myfaces.custom.fileupload.UploadedFile</default>
+                <documentation>
+                    The fully qualified type name to use when file types are modeled for parameters (used for
+                    for file uploads).
+                </documentation>
+            </property>
             <property name="dummyData">
                 <default>true</default>
                 <documentation>
