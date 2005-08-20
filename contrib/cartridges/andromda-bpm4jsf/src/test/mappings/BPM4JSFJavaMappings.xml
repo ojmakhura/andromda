@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  This is used to map the model types to Java types
+  for the generated code.
+-->
+<mappings name="BPM4JSFJavaMappings">
+    <extends>Java</extends>
+	<mapping>
+	  	<from>datatype::File</from>
+	  	<to>org.apache.myfaces.custom.fileupload.UploadedFile</to>
+	</mapping>
+</mappings>
