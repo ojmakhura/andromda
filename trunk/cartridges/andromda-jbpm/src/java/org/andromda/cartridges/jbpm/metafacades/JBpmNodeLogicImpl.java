@@ -25,7 +25,7 @@ public class JBpmNodeLogicImpl
      */
     protected boolean handleIsTaskNode()
     {
-        return !getTasks().isEmpty();
+        return !this.getTasks().isEmpty();
     }
 
     /**
