@@ -116,6 +116,42 @@
                     <value>multibox</value>
                 </allowedValues>
             </element>
+            <element name="INPUT_VALIDWHEN">
+                <documentation>
+                    Additional validation to be performed, specify a
+                    commons-validator condition here, see
+                    <a href="http://struts.apache.org/userGuide/dev_validator.html"
+                        target="_blank">Struts-Validator</a> and go to the section labeled
+                    <code>http://struts.apache.org/userGuide/dev_validator.html</code>. The required
+                    parentheses will automatically be placed around your condition.
+                </documentation>
+                <value>@andromda.presentation.web.view.field.validwhen</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a Struts 'validwhen' condition</value>
+                </allowedValues>
+            </element>
+            <element name="INPUT_VALIDATORS">
+                <documentation>
+                    Custom validation to be performed, you can add one or more of your own validators here.
+                    Make sure you add your validator definitions in <code>validator-rules.xml</code>,
+                    there is a <a href="../andromda-cartridges/index.html#mergeMappingsUri">merge point</a>
+                    that can be used to have them automatically inserted.
+                    Validator values look like this: <code>myValidator</code>,
+                    <code>myValidator(myVar=myArg)</code>,
+                    <code>myValidator(myVar=myArg,myVar2=myArg2)</code>, etc...
+                    Specify each validator using a new value, don't specify all of them in a single value.
+                    Be careful when using multiple validators with the same 'var' name, the last one
+                    found will be used! Normally speaking this should not happen, so try to avoid it
+                    (I recommend against using names used by known validators: minlength,
+                    test, datePattern, ...)
+                </documentation>
+                <value>@andromda.presentation.web.view.field.validators</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a call to one of your custom validators</value>
+                </allowedValues>
+            </element>
             <element name="INPUT_TABLELINK">
                 <documentation>
                     The value is of the format <code>table.column</code> where
@@ -264,6 +300,53 @@
                 <allowedValues>
                     <value>Any of the formats listed above</value>
                 </allowedValues>
+            </element>
+        </elementGroup>
+        <elementGroup name="Data Types">
+            <element name="CHARACTER_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::char</value>
+            </element>   
+            <element name="BYTE_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::byte</value>
+            </element>   
+            <element name="SHORT_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::short</value>
+            </element>   
+            <element name="INTEGER_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::int</value>
+            </element>  
+            <element name="LONG_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::long</value>
+            </element>   
+            <element name="FLOAT_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::float</value>
+            </element> 
+            <element name="DOUBLE_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::double</value>
+            </element>  
+            <element name="URL_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::URL</value>
+            </element>   
+            <element name="TIME_TYPE">
+                <documentation>
+                </documentation>
+                <value>datatype::Time</value>
             </element>
         </elementGroup>
     </elements>

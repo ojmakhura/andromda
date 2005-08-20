@@ -11,4 +11,7 @@
 #if ($clientValidation && $parameter.required)
                 <bpm4jsf:validator type="required" arg="#{messages['$parameter.messageKey']}" server="false" client="$clientValidation"/>
 #end
+#foreach ($validatorType in $parameter.validatorTypes)
+                <bpm4jsf:validator type="$validatorType" arg="#{messages['$parameter.messageKey']}" server="true" client="$clientValidation"/>
+#end
 #end

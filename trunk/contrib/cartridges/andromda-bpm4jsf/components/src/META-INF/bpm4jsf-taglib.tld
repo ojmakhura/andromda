@@ -36,7 +36,7 @@
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
             <description>
-              A value that's plugged into the message
+              An argument that's substituted into the message
             </description>
         </attribute>
         <attribute>
@@ -121,8 +121,6 @@
         <description>
           Generates JavaScript for client-side validation
         </description>
-
-        <!-- Custom -->
         <attribute>
             <name>functionName</name>
             <required>true</required>

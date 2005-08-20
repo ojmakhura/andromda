@@ -12,10 +12,13 @@ import java.util.Set;
 
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
+import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -487,7 +490,7 @@ public class JSFParameterLogicImpl
             "\\{0\\}",
             this.getName());
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValueListName()
      */
@@ -507,7 +510,7 @@ public class JSFParameterLogicImpl
             "\\{0\\}",
             this.getName());
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isSelectable()
      */
@@ -525,15 +528,15 @@ public class JSFParameterLogicImpl
                 final String name = this.getName();
                 final String typeName = type.getFullyQualifiedName();
 
-                 // - if the parameter is not selectable but on a targetting page it IS selectable we must
-                 //   allow the user to set the backing list too                 
+                // - if the parameter is not selectable but on a targetting page it IS selectable we must
+                //   allow the user to set the backing list too                 
                 final Collection views = this.getAction().getTargetViews();
                 for (final Iterator iterator = views.iterator(); iterator.hasNext() && !selectable;)
                 {
                     final FrontEndView view = (FrontEndView)iterator.next();
                     final Collection parameters = view.getAllActionParameters();
                     for (final Iterator parameterIterator = parameters.iterator();
-                         parameterIterator.hasNext() && !selectable;)
+                        parameterIterator.hasNext() && !selectable;)
                     {
                         final JSFParameter parameter = (JSFParameter)parameterIterator.next();
                         final String parameterName = parameter.getName();
@@ -570,14 +573,13 @@ public class JSFParameterLogicImpl
         }
         return selectable;
     }
-    
+
     /**
      * Stores the initial value of each type.
      */
     private final Map initialValues = new HashMap();
-    
     private final int arrayCount = 5;
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValueListDummyValue()
      */
@@ -598,7 +600,9 @@ public class JSFParameterLogicImpl
         {
             if (type.isSetType())
             {
-                initialValue = "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray(arrayCount) + "))";
+                initialValue =
+                    "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray(arrayCount) +
+                    "))";
             }
             else if (type.isCollectionType())
             {
@@ -635,19 +639,19 @@ public class JSFParameterLogicImpl
                 initialValues.put(
                     char.class.getName(),
                     "(char)" + name.hashCode());
-     
+
                 initialValues.put(
                     String.class.getName(),
                     "\"" + name + "-test" + "\"");
                 initialValues.put(
                     java.util.Date.class.getName(),
                     "new java.util.Date()");
-                 initialValues.put(
-                     java.sql.Date.class.getName(), 
-                     "new java.util.Date()");
-                 initialValues.put(
-                     java.sql.Timestamp.class.getName(),
-                     "new java.util.Date()");
+                initialValues.put(
+                    java.sql.Date.class.getName(),
+                    "new java.util.Date()");
+                initialValues.put(
+                    java.sql.Timestamp.class.getName(),
+                    "new java.util.Date()");
 
                 initialValues.put(
                     Integer.class.getName(),
@@ -685,10 +689,10 @@ public class JSFParameterLogicImpl
         }
         return initialValue;
     }
-    
+
     /**
      * Constructs a string representing an array initialization in Java.
-     * 
+     *
      * @return A String representing Java code for the initialization of an array using 5 elements.
      */
     private final String constructDummyArray(final int count)
@@ -732,8 +736,137 @@ public class JSFParameterLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isValidationRequired()
+     */
+    protected boolean handleIsValidationRequired()
+    {
+        return !this.getValidatorTypes().isEmpty();
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorTypes()
+     */
+    protected java.util.Collection handleGetValidatorTypes()
+    {
+        final Collection validatorTypesList = new ArrayList();
+        final ClassifierFacade type = getType();
+        if (type != null)
+        {
+            final String format = this.getInputFormat();
+            final boolean isRangeFormat = format != null && isRangeFormat(format);
+            if (this.isByte())
+            {
+                validatorTypesList.add("byte");
+            }
+            else if (this.isShort())
+            {
+                validatorTypesList.add("short");
+            }
+            else if (this.isInteger())
+            {
+                validatorTypesList.add("integer");
+            }
+            else if (this.isLong())
+            {
+                validatorTypesList.add("long");
+            }
+            else if (this.isFloat())
+            {
+                validatorTypesList.add("float");
+            }
+            else if (this.isDouble())
+            {
+                validatorTypesList.add("double");
+            }
+            else if (this.isDate())
+            {
+                validatorTypesList.add("date");
+            }
+            else if (this.isTime())
+            {
+                validatorTypesList.add("time");
+            }
+            else if (this.isUrl())
+            {
+                validatorTypesList.add("url");
+            }
+
+            if (isRangeFormat)
+            {
+                if (this.isInteger() || this.isShort() || this.isLong())
+                {
+                    validatorTypesList.add("intRange");
+                }
+                if (this.isFloat())
+                {
+                    validatorTypesList.add("floatRange");
+                }
+                if (this.isDouble())
+                {
+                    validatorTypesList.add("doubleRange");
+                }
+            }
+
+            if (format != null)
+            {
+                if (this.isString() && this.isEmailFormat(format))
+                {
+                    validatorTypesList.add("email");
+                }
+                else if (this.isString() && this.isCreditCardFormat(format))
+                {
+                    validatorTypesList.add("creditCard");
+                }
+                else
+                {
+                    Collection formats = findTaggedValues(BPM4JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
+                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                    {
+                        String additionalFormat = String.valueOf(formatIterator.next());
+                        if (isMinLengthFormat(additionalFormat))
+                        {
+                            validatorTypesList.add("minlength");
+                        }
+                        else if (isMaxLengthFormat(additionalFormat))
+                        {
+                            validatorTypesList.add("maxlength");
+                        }
+                        else if (isPatternFormat(additionalFormat))
+                        {
+                            validatorTypesList.add("mask");
+                        }
+                    }
+                }
+            }
+
+            if (getValidWhen() != null)
+            {
+                validatorTypesList.add("validwhen");
+            }
+        }
+
+        // - custom (paramterized) validators are allowed here
+        final Collection taggedValues = findTaggedValues(BPM4JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            String validator = String.valueOf(iterator.next());
+            validatorTypesList.add(BPM4JSFUtils.parseValidatorName(validator));
+        }
+        return validatorTypesList;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#getValidWhen()
+     */
+    protected java.lang.String handleGetValidWhen()
+    {
+        final Object value = findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_VALIDWHEN);
+        return value == null ? null : '(' + value.toString() + ')';
+    }
+
+    /**
      * Overridden to have the same behavior as bpm4struts.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
      */
     public boolean isRequired()
@@ -749,5 +882,195 @@ public class JSFParameterLogicImpl
     {
         final Object value = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_READONLY);
         return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+    }
+    
+    /**
+     * @return <code>true</code> if the type of this field is a boolean, <code>false</code> otherwise
+     */
+    private boolean isBoolean()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), UMLProfile.BOOLEAN_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a character, <code>false</code> otherwise
+     */
+    private boolean isChar()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.CHARACTER_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a byte, <code>false</code> otherwise
+     */
+    private boolean isByte()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.BYTE_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a short, <code>false</code> otherwise
+     */
+    private boolean isShort()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.SHORT_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is an integer, <code>false</code> otherwise
+     */
+    private boolean isInteger()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.INTEGER_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a long integer, <code>false</code> otherwise
+     */
+    private boolean isLong()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.LONG_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a floating point, <code>false</code> otherwise
+     */
+    private boolean isFloat()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.FLOAT_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a double precision floating point, <code>false</code> otherwise
+     */
+    private boolean isDouble()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.DOUBLE_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a date, <code>false</code> otherwise
+     */
+    private boolean isDate()
+    {
+        return this.getType() != null && this.getType().isDateType();
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a time, <code>false</code> otherwise
+     */
+    private boolean isTime()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.TIME_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a URL, <code>false</code> otherwise
+     */
+    private boolean isUrl()
+    {
+        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.URL_TYPE_NAME);
+    }
+
+    /**
+     * @return <code>true</code> if the type of this field is a String, <code>false</code> otherwise
+     */
+    private boolean isString()
+    {
+        return this.getType() != null && this.getType().isStringType();
+    }
+
+    /**
+     * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
+     */
+    private boolean isEmailFormat(String format)
+    {
+        return "email".equalsIgnoreCase(getToken(format, 0, 2));
+    }
+
+    /**
+     * @return <code>true</code> if this field is to be formatted as a credit card, <code>false</code> otherwise
+     */
+    private boolean isCreditCardFormat(final String format)
+    {
+        return "creditcard".equalsIgnoreCase(getToken(format, 0, 2));
+    }
+
+    /**
+     * @return <code>true</code> if this field's value needs to be in a specific range, <code>false</code> otherwise
+     */
+    private boolean isRangeFormat(final String format)
+    {
+        return "range".equalsIgnoreCase(this.getToken(format, 0, 2)) &&
+            (this.isInteger() ||
+                this.isLong() ||
+                this.isShort() ||
+                this.isFloat() ||
+                this.isDouble());
+
+    }
+
+    /**
+     * @return <code>true</code> if this field's value needs to respect a certain pattern, <code>false</code> otherwise
+     */
+    private boolean isPatternFormat(final String format)
+    {
+        return "pattern".equalsIgnoreCase(this.getToken(format, 0, 2));
+    }
+
+    /**
+     * @return <code>true</code> if this field's value needs to consist of at least a certain number of characters, <code>false</code> otherwise
+     */
+    private boolean isMinLengthFormat(final String format)
+    {
+        return "minlength".equalsIgnoreCase(this.getToken(format, 0, 2));
+    }
+
+    /**
+     * @return <code>true</code> if this field's value needs to consist of at maximum a certain number of characters, <code>false</code> otherwise
+     */
+    private boolean isMaxLengthFormat(String format)
+    {
+        return "maxlength".equalsIgnoreCase(this.getToken(format, 0, 2));
+    }
+
+    /**
+     * @return the lower limit for this field's value's range
+     */
+    private String getRangeStart(final String format)
+    {
+        return this.getToken(format, 1, 3);
+    }
+
+    /**
+     * @return the upper limit for this field's value's range
+     */
+    private String getRangeEnd(final String format)
+    {
+        return this.getToken(format, 2, 3);
+    }
+
+    /**
+     * @return the minimum number of characters this field's value must consist of
+     */
+    private String getMinLengthValue(final String format)
+    {
+        return this.getToken(format, 1, 2);
+    }
+
+    /**
+     * @return the maximum number of characters this field's value must consist of
+     */
+    private String getMaxLengthValue(final String format)
+    {
+        return this.getToken(format, 1, 2);
+    }
+
+    /**
+     * @return the pattern this field's value must respect
+     */
+    private String getPatternValue(final String format)
+    {
+        return '^' + this.getToken(format, 1, 2) + '$';
     }
 }
