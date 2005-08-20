@@ -17,7 +17,9 @@
 </h:commandLink>
 <f:verbatim><br/><br/></f:verbatim>
 #else
-<h:form id="$formName" name="$formName" onsubmit="return validateForm(this);" enctype="multipart/form-data">
+#set ($clientValidation = $clientValidation.equalsIgnoreCase("true"))
+#set ($formValidateName = "validate$stringUtils.capitalize($formName)")
+<h:form id="$formName" name="$formName"#if($clientValidation) onsubmit="return $formValidateName(this);"#end enctype="multipart/form-data">
 #if (!$action.hiddenParameters.empty)
     <%@ include file="${action.viewFragmentPath}-hidden-params.jspf" %>
 #end
@@ -85,6 +87,8 @@
 #end
         </h:panelGroup>
     </h:panelGrid>
-    <bpm4jsf:validatorScript functionName="validateForm"/>
+#if ($clientValidation)
+    <bpm4jsf:validatorScript functionName="$formValidateName"/>
+#end
 </h:form>
 #end
