@@ -7,7 +7,6 @@
 ## collections on the form)
 ##
 #macro (renderValidation)
-#set ($clientValidation = $clientValidation.equalsIgnoreCase("true"))
 #if ($clientValidation && $parameter.required)
                 <bpm4jsf:validator type="required" arg="#{messages['$parameter.messageKey']}" server="false" client="$clientValidation"/>
 #end
