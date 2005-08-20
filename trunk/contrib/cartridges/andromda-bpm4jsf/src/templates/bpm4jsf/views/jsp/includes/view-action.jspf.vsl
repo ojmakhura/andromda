@@ -67,7 +67,7 @@
 #renderValidation()
             </h:inputSecret>
 #elseif ($parameter.inputFile)
-            <x:inputFileUpload id="$parameter.name" value="#{${formName}.${parameter.name}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly">
+            <x:inputFileUpload id="$parameter.name" value="#{${formName}.${parameter.name}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput">
 #renderValidation()
             </x:inputFileUpload>
 #else
