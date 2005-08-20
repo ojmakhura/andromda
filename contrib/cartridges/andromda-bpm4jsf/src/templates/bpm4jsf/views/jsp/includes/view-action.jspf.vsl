@@ -17,7 +17,7 @@
 </h:commandLink>
 <f:verbatim><br/><br/></f:verbatim>
 #else
-<h:form id="$formName" name="$formName" onsubmit="return validateForm(this);">
+<h:form id="$formName" name="$formName" onsubmit="return validateForm(this);" enctype="multipart/form-data">
 #if (!$action.hiddenParameters.empty)
     <%@ include file="${action.viewFragmentPath}-hidden-params.jspf" %>
 #end
