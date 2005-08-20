@@ -54,7 +54,7 @@ c3p0.version=0.8.5.2
 xerces.version=2.4.0
 
 #end
-#if ($web || $hibernate)
+#if ($web || $hibernate || $jbpm)
 antlr.version=2.7.2
 #if ($web)
 # web dependency versions
