@@ -28,12 +28,17 @@ public class $action.formImplementationName
     }
 #foreach ($field in $action.formFields)
 
-    private $field.type.fullyQualifiedName $field.name;
+#if ($field.inputField)
+#set ($fieldTypeName = "$fileTypeName")
+#else
+#set ($fieldTypeName = $field.type.fullyQualifiedName)
+#end
+    private $fieldTypeName $field.name;
 
     /**
 $field.getDocumentation("     * ")
      */
-    public $field.type.fullyQualifiedName ${field.getterName}()
+    public $fieldTypeName ${field.getterName}()
     {
 #if ($field.table)
 #set ($upperCaseFieldName = $stringUtils.capitalize($field.name))
@@ -63,7 +68,7 @@ $field.getDocumentation("     * ")
     /**
 $field.getDocumentation("     * ")
      */
-    public void ${field.setterName}($field.type.fullyQualifiedName $field.name)
+    public void ${field.setterName}($fieldTypeName $field.name)
     {
         this.$field.name = $field.name;
         this.$field.formAttributeSetProperty = true;

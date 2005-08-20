@@ -42,7 +42,9 @@
                              value="#{${formName}.${parameter.name}}"
                              renderAsPopup="true"
                              popupDateFormat="$parameter.dateFormat"
-                             required="$parameter.required"/>
+                             required="$parameter.required">
+#renderValidation()
+            </x:inputCalendar>
 #end
 #elseif ($parameter.inputCheckbox)
             <h:selectBooleanCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
@@ -64,6 +66,10 @@
             <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
 #renderValidation()
             </h:inputSecret>
+#elseif ($parameter.inputFile)
+            <x:inputFileUpload id="$parameter.name" value="#{${formName}.${parameter.name}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly">
+#renderValidation()
+            </x:inputFileUpload>
 #else
             <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
 #renderValidation()
