@@ -36,7 +36,7 @@ public class HibernateAssociationLogicImpl
         {
             cacheType = String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_CACHE));
         }
-        return cacheType;
+        return StringUtils.trimToEmpty(cacheType);
     }
 
     /**
