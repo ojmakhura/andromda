@@ -1,7 +1,7 @@
 package org.andromda.cartridges.database;
 
+import org.andromda.core.profile.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.core.common.Profile;
 
 public final class DatabaseProfile extends UMLProfile
 {
