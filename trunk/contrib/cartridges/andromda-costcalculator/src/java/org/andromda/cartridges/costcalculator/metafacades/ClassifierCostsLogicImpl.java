@@ -6,7 +6,6 @@ import java.util.Iterator;
 import org.andromda.cartridges.costcalculator.CostCalculatorGlobals;
 import org.andromda.cartridges.costcalculator.psm.CompositeCostPosition;
 import org.andromda.metafacades.uml.AssociationEndFacade;
-import org.apache.log4j.Priority;
 
 /**
  * MetafacadeLogic implementation for
