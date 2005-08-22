@@ -4,7 +4,6 @@ import java.net.URL;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.common.ResourceUtils;
 import org.apache.log4j.BasicConfigurator;
 
 public class ATLTransformerTest
@@ -19,7 +18,7 @@ public class ATLTransformerTest
         // uml2java test (this transforms a UML to a JAVA metamodel)
         
         // - the path of the package location of the test resources
-        final URL testResourceUrl = ResourceUtils.getResource("/uml2java");
+        final URL testResourceUrl = ATLTransformerTest.class.getResource("/uml2java");
         assertNotNull(testResourceUrl);
         final String testResourcePath = testResourceUrl.toString() + '/';
             

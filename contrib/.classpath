@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="cartridges/andromda-database/src/java"/>
 	<classpathentry kind="src" path="transformers/atl/conf/test"/>
+	<classpathentry excluding="java/|test/java/" kind="src" path="transformers/atl/src"/>
 	<classpathentry kind="src" path="transformers/atl/src/java"/>
 	<classpathentry kind="src" path="transformers/atl/src/test/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-costcalculator/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-costcalculator/target/src/java"/>
-	<classpathentry kind="src" path="cartridges/andromda-database/target/src/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-metafacades-uml-3.1-RC1-SNAPSHOT.jar"/>
