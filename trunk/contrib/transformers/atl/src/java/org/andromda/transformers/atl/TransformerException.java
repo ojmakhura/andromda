@@ -9,6 +9,11 @@ public class TransformerException
     extends RuntimeException
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4967882487328202064L;
+
+	/**
      * Constructs an instance of TransformerException.
      *
      * @param parent the parent throwable
