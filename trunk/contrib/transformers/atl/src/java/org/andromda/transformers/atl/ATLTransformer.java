@@ -123,7 +123,7 @@ public class ATLTransformer
      * @return the loaded models as a Map keyed by name.
      * @throws Exception if any error occurs during the loading process.
      */
-    private final Map loadSourceModels(
+    private Map loadSourceModels(
         final Model[] metamodels,
         final Model[] sourceModels)
         throws Exception
@@ -178,7 +178,7 @@ public class ATLTransformer
      * @return the loaded models as a Map keyed by name.
      * @throws Exception if any error occurs during the loading process.
      */
-    private final Map loadTargetModels(
+    private Map loadTargetModels(
         final Model[] metamodels,
         final Model[] targetModels,
         final Map loadedSourceModels)
@@ -227,7 +227,7 @@ public class ATLTransformer
      * @param name the name of the model.
      * @return the model or null if one doesn't exist with the given name.
      */
-    private final Model getModelByName(
+    private Model getModelByName(
         final Model[] models,
         final String name)
     {
@@ -248,7 +248,7 @@ public class ATLTransformer
         return model;
     }
 
-    private final InputStream getInputStream(final String path)
+    private InputStream getInputStream(final String path)
         throws Exception
     {
         URL url = new URL(path);
@@ -284,7 +284,7 @@ public class ATLTransformer
      * @param atlSourceUri the URI to the ATL file
      * @return ASM File corresponding to the ATL File
      */
-    private final File getASMFile(final String atlSourceUri)
+    private File getASMFile(final String atlSourceUri)
         throws Exception
     {
         final URL atlUrl = new URL(StringUtils.trimToEmpty(atlSourceUri).replace('\\', '/'));
