@@ -484,12 +484,6 @@
                     pattern).
                 </documentation>
             </property>
-            <property name="springRemotingType">
-                <default>none</default>
-                <documentation>
-                    The kind of remoting to use for a spring service
-                </documentation>
-            </property>
             <property name="securityRealm" required="false">
                 <documentation>
                     The name of the security realm (i.e. animal-quiz, other, etc).
