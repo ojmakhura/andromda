@@ -5,12 +5,15 @@ import java.net.URL;
 import junit.framework.TestCase;
 
 import org.andromda.core.common.ResourceUtils;
+import org.apache.log4j.BasicConfigurator;
 
 public class ATLTransformerTest
     extends TestCase
 {
     public void testTransform()
     {
+    	BasicConfigurator.configure();
+    	
         ATLTransformer transformer = new ATLTransformer();
         
         // uml2java test (this transforms a UML to a JAVA metamodel)
