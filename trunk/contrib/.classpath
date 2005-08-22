@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="cartridges/andromda-database/src/java"/>
+	<classpathentry kind="src" path="transformers/atl/conf/test"/>
+	<classpathentry kind="src" path="transformers/atl/src/java"/>
+	<classpathentry kind="src" path="transformers/atl/src/test/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-costcalculator/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-costcalculator/target/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-database/target/src/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="MAVEN_REPO/log4j/jars/log4j-1.2.8.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-3.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-core-3.1-RC1-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-metafacades-uml-3.1-RC1-SNAPSHOT.jar"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/atl/jars/atl-20050421.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/atl/jars/ATL-importer-20050225.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/atl/jars/ebnfinjector-20050501.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/atl/jars/emf4atl-20050520.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/atl/jars/mdr4atl-20050520.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/antlr/jars/antlr-2.7.5.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-common-2.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-ecore-2.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-ecore.xmi-2.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/mof-20030918.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/jmi-20030918.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/jmiutils-20050630.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/mdrapi-20050630.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/nbmdr-20050630.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/openide-util-20050630.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-core-3.1-RC1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/log4j/jars/log4j-1.2.8.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-3.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
+	<classpathentry kind="output" path="eclipse-build"/>
 </classpath>
