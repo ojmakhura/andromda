@@ -325,7 +325,7 @@ public class SpringServiceLogicImpl
             // port
             if (hasServiceRemotePort())
             {
-                result += ":${remotePort";
+                result += ":${remotePort}";
             }
 
             // service name
