@@ -62,6 +62,10 @@ public class ATLTransformer
             throw new TransformerException(
                 methodName + " - 'targetModels' can not be null or empty, you must have at least one defined");
         }
+        
+        // - set the context class loader
+        Thread.currentThread().setContextClassLoader(ATLTransformer.class.getClassLoader());
+        
         try
         {
             // - create the asm URL from the ASM file
