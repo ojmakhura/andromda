@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="costcalculator">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="spreadsheet">
+                <documentation>
+                    The location where the spreadsheet with the project costs
+                    will be written.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Default costs">
+            <property name="classifierPrice">
+                <default>5.0</default>
+                <documentation>
+                    The default price for a classifier.
+                </documentation>
+            </property>
+            <property name="attributePrice">
+                <default>1.0</default>
+                <documentation>
+                    The default price for an attribute.
+                </documentation>
+            </property>
+            <property name="operationPrice">
+                <default>10.0</default>
+                <documentation>
+                    The default price for an operation.
+                </documentation>
+            </property>
+            <property name="parameterPrice">
+                <default>1.0</default>
+                <documentation>
+                    The default price for a parameter.
+                </documentation>
+            </property>
+            <property name="associationPrice">
+                <default>20.0</default>
+                <documentation>
+                    The default price for an association.
+                </documentation>
+            </property>
+            <property name="dependencyPrice">
+                <default>10.0</default>
+                <documentation>
+                    The default price for a dependency.
+                </documentation>
+            </property>
+            <property name="packagePrice">
+                <default>5.0</default>
+                <documentation>
+                    The default price for a package.
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>
