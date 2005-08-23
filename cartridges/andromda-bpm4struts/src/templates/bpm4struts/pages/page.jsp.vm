@@ -157,7 +157,7 @@ ${indent}</logic:notPresent>
 #set ($readonly = '')
 #end
 #set ($propertyValue = "${beanName}.${fieldName}")
-#if ($field.type.dateType)
+#if ($field.type.dateType && $beanName=="row")
 ${indent}<fmt:formatDate var="value" value="${${propertyValue}}" pattern="$field.dateFormat"/>
 #else
 ${indent}<c:set var="value" value="${${propertyValue}}"/>

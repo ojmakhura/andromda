@@ -378,12 +378,12 @@ public class StrutsUseCaseLogicImpl
 
     protected Map handleGetAllMessages()
     {
-        final boolean normalize = normalizeMessages();
+        final boolean normalize = this.normalizeMessages();
         final Map messages = (normalize) ? (Map)new TreeMap() : (Map)new LinkedHashMap();
 
-        if (isApplicationUseCase())
+        if (this.isApplicationUseCase())
         {
-            final List useCases = getAllUseCases();
+            final List useCases = this.getAllUseCases();
             for (int i = 0; i < useCases.size(); i++)
             {
                 // USECASE
