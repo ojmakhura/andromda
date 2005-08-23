@@ -11,11 +11,10 @@
     </properties>
     <body>
         <release version="3.1-RC1-SNAPSHOT" date="2005-08-04" description="First release candidate of version 3.1">
-            <action dev="mattes3" type="add" issue="JAVA-23">
-                The Java cartridge now generates Java interfaces from UML interfaces. Operations
-                are generated as methods, instance attributes are generated as getters/setters,
-                classifier attributes are generated as static final constants with
-                default values.
+            <action dev="mattes3" type="add" issue="JAVA-23"> The Java cartridge now generates Java interfaces
+                from UML interfaces. Operations are generated as method signatures, instance attributes are
+                generated as getter/setter signatures, classifier attributes are generated as static final
+                constants with default values. Association ends are generated as getter/setter signatures.
             </action>
             <action dev="draftdog" type="update" issue="BPM-238">
                 The bpm4struts cartridge now supports arrays of custom types for tables, this is interesting when you
