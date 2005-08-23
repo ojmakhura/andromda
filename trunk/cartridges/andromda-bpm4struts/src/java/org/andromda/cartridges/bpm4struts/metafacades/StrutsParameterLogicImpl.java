@@ -1794,14 +1794,14 @@ public class StrutsParameterLogicImpl
 
     public Object getValidationOwner()
     {
-        return (isTable() && getJsp() != null) ? getJsp() : super.getValidationOwner();
+        return (this.isTable() && this.getJsp() != null) ? this.getJsp() : super.getValidationOwner();
     }
 
     protected boolean handleIsSortableBy()
     {
         boolean sortableBy = true;
 
-        final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
+        final Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE);
         if (value != null)
         {
             final String fieldType = value.toString();

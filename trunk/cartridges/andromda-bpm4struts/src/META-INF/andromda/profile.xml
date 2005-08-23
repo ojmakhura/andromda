@@ -243,7 +243,10 @@
                                 <td>email</td>
                                 <td>N/A</td>
                                 <td>email</td>
-                                <td>Checks if the specified value is a possible email address, IP addresses are also taken into account</td>
+                                <td>Checks if the specified value is a possible email address, IP addresses are also taken into account,
+                                    you may specify this format in combination with other validator format, the only requirement is
+                                    that when you specify 'email' it should be the last sequence of characters;
+                                    delimit those validators using a space</td>
                             </tr>
                         </table>
                     </p>
