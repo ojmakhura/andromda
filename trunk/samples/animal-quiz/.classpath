@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="common/target/src"/>
+	<classpathentry kind="src" path="core/src/java"/>
+	<classpathentry kind="src" path="core/target/src"/>
 	<classpathentry kind="src" path="web/src/java"/>
 	<classpathentry kind="src" path="web/target/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
@@ -16,5 +18,7 @@
 	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-wsdl4j-1.2-RC1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-validator/jars/commons-validator-1.1.3.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/axis/jars/axis-1.2-RC2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-3.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-1.2.3.jar"/>
 	<classpathentry kind="output" path="target/casses"/>
 </classpath>
