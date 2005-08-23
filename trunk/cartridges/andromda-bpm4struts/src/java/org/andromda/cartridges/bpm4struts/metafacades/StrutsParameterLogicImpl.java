@@ -1342,11 +1342,7 @@ public class StrutsParameterLogicImpl
 
         return args;
     }
-
-    /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
-     */
-
+    
     /**
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
      */
