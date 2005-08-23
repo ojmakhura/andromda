@@ -500,7 +500,7 @@
                var fields = new Array();
                var formName = form.getAttributeNode("name");
         
-               oDate = new DateValidations();;
+               oDate = new DateValidations();
         
                for (x in oDate)
                {
