@@ -493,133 +493,122 @@
        jsFunctionName="DateValidations">
 
          <javascript><![CDATA[
-            function validateDate(form) {
-               var bValid = true;
+            function validateDate(form)
+            {
                var focusField = null;
-               var i = 0;
+               var fieldIndex = 0;
                var fields = new Array();
-               oDate = new DateValidations();
-               for (x in oDate) {
-                   var value = form[oDate[x][0]].value;
+               var formName = form.getAttributeNode("name");
+        
+               oDate = new DateValidations();;
+        
+               for (x in oDate)
+               {
+                   var field = form[oDate[x][0]];
+                   var value = field.value;
                    var datePattern = oDate[x][2]("datePatternStrict");
-                   if ((form[oDate[x][0]].type == 'text' ||
-                        form[oDate[x][0]].type == 'textarea') &&
-                       (value.length > 0) &&
-                       (datePattern.length > 0)) {
-                     var MONTH = "MM";
-                     var DAY = "dd";
-                     var YEAR = "yyyy";
-                     var orderMonth = datePattern.indexOf(MONTH);
-                     var orderDay = datePattern.indexOf(DAY);
-                     var orderYear = datePattern.indexOf(YEAR);
-                     if ((orderDay < orderYear && orderDay > orderMonth)) {
-                         var iDelim1 = orderMonth + MONTH.length;
-                         var iDelim2 = orderDay + DAY.length;
-                         var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
-                         var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
-                         if (iDelim1 == orderDay && iDelim2 == orderYear) {
-                            dateRegexp = new RegExp("^(\\d{2})(\\d{2})(\\d{4})$");
-                         } else if (iDelim1 == orderDay) {
-                            dateRegexp = new RegExp("^(\\d{2})(\\d{2})[" + delim2 + "](\\d{4})$");
-                         } else if (iDelim2 == orderYear) {
-                            dateRegexp = new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})(\\d{4})$");
-                         } else {
-                            dateRegexp = new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{4})$");
-                         }
-                         var matched = dateRegexp.exec(value);
-                         if(matched != null) {
-                            if (!isValidDate(matched[2], matched[1], matched[3])) {
-                               if (i == 0) {
-                                   focusField = form[oDate[x][0]];
-                               }
-                               fields[i++] = oDate[x][1];
-                               bValid =  false;
+                   var strict = (datePattern!=null);
+                   // try loose pattern
+                   if (!strict) datePattern = oDate[x][2]("datePattern");
+        
+                   if ((field.type == 'hidden' || field.type == 'text' || field.type == 'textarea') &&
+                       (value.length > 0) && (datePattern.length > 0) && field.disabled == false)
+                   {
+                        // all possible date/time character sequences
+                        var matches = datePattern.match( /(y+|M+|d+|H+|m+|s+)*/g );
+                        var matchedTokens = new Array();    // we will keep track of the matches
+        
+                        var datePatternSub = datePattern;   // keeps track of the remaining pattern to process
+                        var datePatternRegExp = "^";        // keeps track of the constructed regular expression
+        
+                        for (var i=0; i<matches.length; i++)
+                        {
+                            var match = matches[i];
+                            var matchLength = match.length;
+        
+                            // JavaScript returns empty matches too (ie. the delimiters that could not be matched)
+                            if (matchLength > 0)
+                            {
+                                // store this token
+                                matchedTokens.push(match);
+        
+                                // locate the match in the remaining pattern
+                                var matchSubIndex = datePatternSub.indexOf(match);
+        
+                                // if there are characters before the match was found
+                                if (matchSubIndex > 0)
+                                {
+                                    // append those characters to the resulting regular expression too
+                                    datePatternRegExp = datePatternRegExp.concat("[",datePatternSub.substring(0,matchSubIndex),"]");
+                                }
+        
+                                // append the regular expression fragment for this match
+                                datePatternRegExp = datePatternRegExp.concat("(\\d{",(strict)?matchLength:("1,"+matchLength),"})");
+        
+                                // substring the remaining fragment
+                                datePatternSub = datePatternSub.substring(matchSubIndex+matchLength);
                             }
-                         } else {
-                            if (i == 0) {
-                                focusField = form[oDate[x][0]];
+                        }
+        
+                        // close the regular expression
+                        datePatternRegExp = datePatternRegExp.concat("$");
+        
+                        // construct an actual regular expression instance
+                        datePatternRegExp = new RegExp(datePatternRegExp);
+        
+                        var valid = datePatternRegExp.test(value);
+                        // attempt to match the user value
+                        if (valid)
+                        {
+                            // attempt to check for a valid date and time
+                            var matched = datePatternRegExp.exec(value);
+        
+                            var year = 0;
+                            var month = 1;
+                            var day = 1;
+                            var hour = 0;
+                            var minute = 0;
+                            var second = 0;
+        
+                            for (var i=0; i<matchedTokens.length; i++)
+                            {
+                                var match = matchedTokens[i];
+                                switch (match.charAt(0))
+                                {
+                                    case 'y' : year = matched[i+1]; break;
+                                    case 'M' : month = matched[i+1]; break;
+                                    case 'd' : day = matched[i+1]; break;
+                                    case 'H' : hour = matched[i+1]; break;
+                                    case 'm' : minute = matched[i+1]; break;
+                                    case 's' : second = matched[i+1]; break;
+                                }
                             }
-                            fields[i++] = oDate[x][1];
-                            bValid =  false;
-                         }
-                     } else if ((orderMonth < orderYear && orderMonth > orderDay)) {
-                         var iDelim1 = orderDay + DAY.length;
-                         var iDelim2 = orderMonth + MONTH.length;
-                         var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
-                         var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
-                         if (iDelim1 == orderMonth && iDelim2 == orderYear) {
-                             dateRegexp = new RegExp("^(\\d{2})(\\d{2})(\\d{4})$");
-                         } else if (iDelim1 == orderMonth) {
-                             dateRegexp = new RegExp("^(\\d{2})(\\d{2})[" + delim2 + "](\\d{4})$");
-                         } else if (iDelim2 == orderYear) {
-                             dateRegexp = new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})(\\d{4})$");
-                         } else {
-                             dateRegexp = new RegExp("^(\\d{2})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{4})$");
-                         }
-                         var matched = dateRegexp.exec(value);
-                         if(matched != null) {
-                             if (!isValidDate(matched[1], matched[2], matched[3])) {
-                                 if (i == 0) {
-                                     focusField = form[oDate[x][0]];
-                                 }
-                                 fields[i++] = oDate[x][1];
-                                 bValid =  false;
-                              }
-                         } else {
-                             if (i == 0) {
-                                 focusField = form[oDate[x][0]];
-                             }
-                             fields[i++] = oDate[x][1];
-                             bValid =  false;
-                         }
-                     } else if ((orderMonth > orderYear && orderMonth < orderDay)) {
-                         var iDelim1 = orderYear + YEAR.length;
-                         var iDelim2 = orderMonth + MONTH.length;
-                         var delim1 = datePattern.substring(iDelim1, iDelim1 + 1);
-                         var delim2 = datePattern.substring(iDelim2, iDelim2 + 1);
-                         if (iDelim1 == orderMonth && iDelim2 == orderDay) {
-                             dateRegexp = new RegExp("^(\\d{4})(\\d{2})(\\d{2})$");
-                         } else if (iDelim1 == orderMonth) {
-                             dateRegexp = new RegExp("^(\\d{4})(\\d{2})[" + delim2 + "](\\d{2})$");
-                         } else if (iDelim2 == orderDay) {
-                             dateRegexp = new RegExp("^(\\d{4})[" + delim1 + "](\\d{2})(\\d{2})$");
-                         } else {
-                             dateRegexp = new RegExp("^(\\d{4})[" + delim1 + "](\\d{2})[" + delim2 + "](\\d{2})$");
-                         }
-                         var matched = dateRegexp.exec(value);
-                         if(matched != null) {
-                             if (!isValidDate(matched[3], matched[2], matched[1])) {
-                                 if (i == 0) {
-                                     focusField = form[oDate[x][0]];
-                                  }
-                                  fields[i++] = oDate[x][1];
-                                  bValid =  false;
-                              }
-                          } else {
-                              if (i == 0) {
-                                  focusField = form[oDate[x][0]];
-                              }
-                              fields[i++] = oDate[x][1];
-                              bValid =  false;
-                          }
-                     } else {
-                         if (i == 0) {
-                             focusField = form[oDate[x][0]];
-                         }
-                         fields[i++] = oDate[x][1];
-                         bValid =  false;
-                     }
-                  }
-               }
-               if (fields.length > 0) {
-                  focusField.focus();
-                  alert(fields.join('\n'));
-               }
-               return bValid;
+        
+                            valid = isValidDate(day,month,year) && isValidTime(second,minute,hour);
+                        }
+        
+                        if (!valid)
+                        {
+                            fields[fieldIndex] = oDate[x][1];           // record this field as invalid
+                            if (fieldIndex == 0) focusField = field;    // the first invalid field is the one getting focus
+                            fieldIndex++;                               // increment the field counter
+                        }
+                    }
+                }
+                
+                var bValid = true;
+                if (fields.length > 0)
+                {
+                    bValid = false;
+                    focusField.focus();
+                    alert(fields.join('\n'));
+                }
+        
+                return bValid;
             }
-
-       function isValidDate(day, month, year) {
-           if (month < 1 || month > 12) {
+        
+            function isValidDate(day, month, year) {
+                if (month < 1 || month > 12) {
                     return false;
                 }
                 if (day < 1 || day > 31) {
@@ -631,12 +620,16 @@
                 }
                 if (month == 2) {
                     var leap = (year % 4 == 0 &&
-                               (year % 100 != 0 || year % 400 == 0));
+                       (year % 100 != 0 || year % 400 == 0));
                     if (day>29 || (day == 29 && !leap)) {
                         return false;
                     }
                 }
                 return true;
+            }
+        
+            function isValidTime(second, minute, hour) {
+                return (0<=hour && hour<24 && 0<=minute && minute<60 && 0<=second && second<60);
             }]]>
          </javascript>
 
