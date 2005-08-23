@@ -34,6 +34,23 @@ $attribute.getDocumentation("     * ")
 
 #end
 #end
+#foreach ($associationEnd in $interface.associationEnds)
+#set ($target = $associationEnd.otherEnd)
+#if ($target.navigable)
+    /**
+     * Get the $target.name
+$target.getDocumentation("     * ")
+     */
+    public $target.getterSetterTypeName ${target.getterName}();
+
+    /**
+     * Set the $target.name
+     */
+    public void ${target.setterName}($target.getterSetterTypeName $target.name);
+
+#end
+#end
+
 #foreach ( $operation in $interface.operations)
 #if ($operation.visibility == "public")
     /**
