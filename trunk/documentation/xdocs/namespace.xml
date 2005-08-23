@@ -29,7 +29,7 @@
             <p>
                 Take a look at how a typlical namespace descriptor is structured in the <a href="#Namespace_Descriptor_Example">example below</a>.  
                 You'll notice from this example that both the cartridge and metafacades components are defined
-                for the <em>webservice</em> namespace.  What this means, is that when AndroMDA <em>"discovers"</em> this namepsace,
+                for the <em>webservice</em> namespace.  What this means, is that when AndroMDA <em>"discovers"</em> this namespace,
                 it will know that it needs to register both a cartridge and a set of metafacades under the namespace of <em>webservice</em> 
                 (the descriptors for both the cartridge and metafacades will be need to be present in the webservice cartridge jar in order
                 for these to be correctly registered).
