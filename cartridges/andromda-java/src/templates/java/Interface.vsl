@@ -13,12 +13,24 @@ public interface $interface.name
 #end
 {
 
-#foreach($constant in $interface.attributes)
-#if ($constant.visibility == "public")
+#foreach($attribute in $interface.attributes)
+#if ($attribute.visibility == "public")
+#if ($attribute.static)
     /**
-$constant.getDocumentation("     * ")
+$attribute.getDocumentation("     * ")
      */
-    public $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
+    public static final $attribute.type.fullyQualifiedName $attribute.name = $attribute.defaultValue;
+#else
+    /**
+$attribute.getDocumentation("     * ")
+     */
+    public $attribute.getterSetterTypeName ${attribute.getterName}();
+
+    /**
+$attribute.getDocumentation("     * ")
+     */
+    public void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name);
+#end
 
 #end
 #end
