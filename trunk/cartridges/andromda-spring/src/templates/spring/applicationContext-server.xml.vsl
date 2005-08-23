@@ -16,7 +16,7 @@
 #elseif($service.remotingTypeBurlap)
     <bean name="/$service.name" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 #elseif ($service.remotingTypeRmi)
-    <bean name="$service.name"class="org.springframework.remoting.rmi.RmiServiceExporter">
+    <bean name="$service.name" class="org.springframework.remoting.rmi.RmiServiceExporter">
         <property name="serviceName"><value>$service.name</value></property>
         <property name="registryPort"><value>$service.remotePort</value></property>
 #end
