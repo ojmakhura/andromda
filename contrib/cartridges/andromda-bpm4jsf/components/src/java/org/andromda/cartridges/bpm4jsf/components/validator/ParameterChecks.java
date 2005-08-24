@@ -54,7 +54,7 @@ public class ParameterChecks
      * @param request Current request object.
      * @return true if meets stated requirements, false otherwise.
      */
-    public static boolean validateRequired(
+    public static void validateRequired(
         FacesContext context,
         Object object,
         Map parameters,
@@ -62,7 +62,7 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        boolean valid = false;
+        System.out.println("the value>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + object);
         String value = null;
         if (object instanceof String)
         {
@@ -70,16 +70,10 @@ public class ParameterChecks
         }
         if (object == null || StringUtils.isBlank(value))
         {
-            System.out.println("The errors!!!!!!: " + errors);
             errors.add(ValidatorMessages.getMessage(
                     action,
                     field));
         }
-        else
-        {
-            valid = true;
-        }
-        return valid;
     }
 
     /**
