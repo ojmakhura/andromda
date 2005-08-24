@@ -197,7 +197,7 @@
                     will handle unexpected exceptions occuring within the implemented operations.
                 </documentation>
             </property>
-            <property name="serviceInterceptors">
+            <property name="serviceInterceptors" required="false">
                 <documentation>
                     Sets a list of default additional interceptors to be applied to service ProxyBeanFactory
                     declarations. They will be listed after the serviceSecurityInterceptor,
