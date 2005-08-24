@@ -90,5 +90,29 @@ public class $serviceLocatorName
         }
     }
 
+#if ($service.ejbRemoteView)
+    /**
+     * Gets an instance of <code>$service.fullyQualifiedName</code>
+     *
+     * @param environment the environment for InitialContext
+     * @return an instance of $service.fullyQualifiedName
+     */
+    public final $service.fullyQualifiedName get${service.name}(java.util.Hashtable environment)
+    {
+        try
+        {
+            $home = ($homeClassName)lookupHome(
+                    environment,
+                    ${homeClassName}.JNDI_NAME,
+                    ${homeClassName}.class);
+            return ${home}.create();
+        }
+        catch (Exception ex)
+        {
+            throw new javax.ejb.EJBException(ex);
+        }
+    }
+
+#end
 #end
 }
