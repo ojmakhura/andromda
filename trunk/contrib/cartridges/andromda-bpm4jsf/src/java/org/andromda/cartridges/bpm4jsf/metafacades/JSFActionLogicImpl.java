@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -439,5 +440,24 @@ public class JSFActionLogicImpl
                 }
             });
         return hiddenParameters;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#handleGetHiddenParameters()
+     */
+    protected boolean handleIsValidationRequired()
+    {
+        boolean required = false;
+        final Collection actionParameters = this.getParameters();
+        for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        {
+            final JSFParameter parameter = (JSFParameter)iterator.next();
+            if (parameter.isValidationRequired())
+            {
+                required = true;
+                break;
+            }
+        }
+        return required;
     }
 }

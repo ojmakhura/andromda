@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -229,5 +230,24 @@ public class JSFViewLogicImpl
     protected boolean handleIsPopulatorRequired()
     {
         return !this.getFormActions().isEmpty() || !this.getVariables().isEmpty();
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFView#isPopulatorRequired()
+     */
+    protected boolean handleIsValidationRequired()
+    {
+        boolean required = false;
+        final Collection actions = getActions();
+        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        {
+            final JSFAction action = (JSFAction)actionIterator.next();
+            if (action.isValidationRequired())
+            {
+                required = true;
+                break;
+            }
+        }
+        return required;
     }
 }

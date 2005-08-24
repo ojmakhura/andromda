@@ -42,38 +42,25 @@
                              value="#{${formName}.${parameter.name}}"
                              renderAsPopup="true"
                              popupDateFormat="$parameter.dateFormat"
-                             required="$parameter.required">
-#renderValidation()
-            </x:inputCalendar>
+                             required="$parameter.required"/>
 #end
 #elseif ($parameter.inputCheckbox)
-            <h:selectBooleanCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
-#renderValidation()
-            </h:selectBooleanCheckbox>
+            <h:selectBooleanCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputSelect)
             <h:selectOneMenu id="$parameter.name" value="#{${formName}.${parameter.name}}" styleClass="selectOneMenu" required="$parameter.required" readonly="$parameter.readOnly">
                 <f:selectItem itemValue="" itemLabel="#{messages['select.value.text']}" />
                 <c:if test="${!empty ${formName}.${parameter.backingListName}}">
                     <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
                 </c:if>                  
-#renderValidation()
             </h:selectOneMenu>
 #elseif ($parameter.inputTextarea)
-            <h:inputTextarea id="$parameter.name" rows="5" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
-#renderValidation()
-            </h:inputTextarea>
+            <h:inputTextarea id="$parameter.name" rows="5" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputSecret)
-            <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
-#renderValidation()
-            </h:inputSecret>
+            <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputFile)
-            <x:inputFileUpload id="$parameter.name" value="#{${formName}.${parameter.name}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput">
-#renderValidation()
-            </x:inputFileUpload>
+            <x:inputFileUpload id="$parameter.name" value="#{${formName}.${parameter.name}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput"/>
 #else
-            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
-#renderValidation()
-            </h:inputText>
+            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #end
             <x:message for="$parameter.name" styleClass="error" showDetail="true" showSummary="false"/>
         </h:panelGroup>
