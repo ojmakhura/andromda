@@ -218,13 +218,15 @@ public class SpringServiceLogicImpl
      */
     protected String[] handleGetInterceptors()
     {
-        String serviceInterceptorString = String.valueOf(this.getConfiguredProperty("serviceInterceptors"));
-        String[] serviceInterceptors = null;
+        final String property = "serviceInterceptors";
+        String serviceInterceptorString = this.isConfiguredProperty(property) ? ObjectUtils.toString(this
+                .getConfiguredProperty(property)) : null;
+        String[] interceptors = null;
         if (StringUtils.isNotEmpty(serviceInterceptorString))
         {
-            serviceInterceptors = serviceInterceptorString.split(",");
+            interceptors = serviceInterceptorString.split(",");
         }
-        return SpringMetafacadeUtils.getServiceInterceptors(this, serviceInterceptors);
+        return SpringMetafacadeUtils.getServiceInterceptors(this, interceptors);
     }
 
     /**
