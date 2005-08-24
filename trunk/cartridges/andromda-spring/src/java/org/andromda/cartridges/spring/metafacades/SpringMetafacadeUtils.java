@@ -94,7 +94,52 @@ class SpringMetafacadeUtils
     }
 
     /**
-     * Gets the remote service port for the passed in <code>classifier</code>. If the remote service 
+     * Get the interceptors for the passed in <code>classifier</code>. If the interceptors can be retrieved from the
+     * <code>classifier</code>, then these will be used, otherwise the <code>defaultInterceptors</code> are
+     * returned.
+     *
+     * @param classifier the classifier whose interceptors we are looking for.
+     * @param defaultInterceptors a list of interceptors to use if the classifier itself has no explicit interceptors.
+     *
+     * @return String[] the interceptors.
+     */
+    static String[] getServiceInterceptors(ClassifierFacade classifier,
+        String[] defaultInterceptors)
+    {
+        final String methodName = "SpringMetafacadeUtils.getServiceInterceptors";
+        ExceptionUtils.checkNull(methodName, "classifier", classifier);
+        String[] interceptors = null;
+        if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
+        {
+            String interceptorsValue = (String)classifier.findTaggedValue(
+                    SpringProfile.TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS);
+            // if the interceptors weren't found, search all super classes
+            if (StringUtils.isEmpty(interceptorsValue))
+            {
+                interceptorsValue = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        return ((ModelElementFacade)object).findTaggedValue(
+                                SpringProfile.TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS) != null;
+                    }
+                });
+            }
+            // interceptors are a comma-separated list of strings, go and split the list
+            if (StringUtils.isNotEmpty(interceptorsValue))
+            {
+                interceptors = interceptorsValue.split(",");
+            }
+        }
+        if (interceptors == null || interceptors.length == 0)
+        {
+            interceptors = defaultInterceptors;
+        }
+        return interceptors;
+    }
+
+    /**
+     * Gets the remote service port for the passed in <code>classifier</code>. If the remote service
      * port can be retrieved from the <code>classifier</code>, then that is used, otherwise the
      * <code>defaultRemoteServicePort</code> is returned.
      *

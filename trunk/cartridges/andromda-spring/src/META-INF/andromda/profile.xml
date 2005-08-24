@@ -133,6 +133,15 @@
                 <value>@andromda.spring.service.remote.port</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
             </element>
+            <element name="SPRING_SERVICE_INTERCEPTORS">
+                <documentation>
+                    Sets a list of additional interceptors to be applied to the service's ProxyBeanFactory declaration.
+                    They will be listed after the serviceSecurityInterceptor, serviceTransactionInterceptor and
+                    hibernateInterceptor if present.
+                </documentation>
+                <value>@andromda.spring.service.interceptors</value>
+                <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
+            </element>
             <element name="HIBERNATE_CRITERIA_NULLABLE">
                 <documentation>
                     If this tagged value is set to <code>true</code>, the tagged attribute will be considered in the

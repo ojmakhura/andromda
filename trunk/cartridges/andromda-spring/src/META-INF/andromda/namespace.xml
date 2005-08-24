@@ -133,7 +133,7 @@
             <property name="ejbTransactionsEnabled">
                 <default>true</default>
                 <documentation>
-                    Whether or not EJB transactions should be enabled.  This is sometimes useful to turn off 
+                    Whether or not EJB transactions should be enabled.  This is sometimes useful to turn off
                     when you're using EJB wrapped spring services but want to turn off EJB transaction management
                     so that Spring alone handles the transactions (note that this property only make sense when EJBs are enabled).
                 </documentation>
@@ -195,6 +195,13 @@
                 <documentation>
                     Whether or not to generate a default exception for each service.  This exception
                     will handle unexpected exceptions occuring within the implemented operations.
+                </documentation>
+            </property>
+            <property name="serviceInterceptors">
+                <documentation>
+                    Sets a list of default additional interceptors to be applied to service ProxyBeanFactory
+                    declarations. They will be listed after the serviceSecurityInterceptor,
+                    serviceTransactionInterceptor and hibernateInterceptor if present.
                 </documentation>
             </property>
             <property name="serviceRemotingType">
@@ -414,7 +421,7 @@
             <property name="transactionManagerName" required="false">
                 <documentation>
                     The (JNDI-) transaction manager of the J2EE container if using JTA transactions (via spring).
-                </documentation>                
+                </documentation>
             </property>
             <property name="sessionFactory">
                 <default>org.springframework.orm.hibernate.LocalSessionFactoryBean</default>

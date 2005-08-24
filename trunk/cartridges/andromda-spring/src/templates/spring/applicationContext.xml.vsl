@@ -206,6 +206,9 @@
 #if ($daosEnabled && $service.hibernateInterceptorEnabled)
                 <value>hibernateInterceptor</value>
 #end
+#foreach($interceptor in $service.interceptors)
+                <value>$interceptor</value>
+#end
             </list>
         </property>
     </bean>

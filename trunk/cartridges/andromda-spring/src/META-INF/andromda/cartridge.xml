@@ -75,6 +75,7 @@
     <property reference="ejbRemoteInitialContextFactory"/>
     <property reference="enableSpringTransactionsWhenEjbsEnabled"/>
     <property reference="ejbTransactionsEnabled"/>
+    <property reference="serviceInterceptors"/>
     <property reference="serviceRemotePort"/>
     <property reference="serviceRemoteContext"/>
     <property reference="serviceRemoteServer"/>
@@ -484,7 +485,7 @@
             </modelElement>
         </modelElements>
     </template>
-    
+
     <template
         path="templates/spring/hibernate/HibernateSearchProperties.vsl"
         outputPattern="$generatedFile"

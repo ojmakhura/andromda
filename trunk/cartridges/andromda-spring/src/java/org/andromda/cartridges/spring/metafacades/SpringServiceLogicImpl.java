@@ -214,6 +214,20 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#handleGetInterceptors()
+     */
+    protected String[] handleGetInterceptors()
+    {
+        String serviceInterceptorString = String.valueOf(this.getConfiguredProperty("serviceInterceptors"));
+        String[] serviceInterceptors = null;
+        if (StringUtils.isNotEmpty(serviceInterceptorString))
+        {
+            serviceInterceptors = serviceInterceptorString.split(",");
+        }
+        return SpringMetafacadeUtils.getServiceInterceptors(this, serviceInterceptors);
+    }
+
+    /**
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotable()
      */
     protected boolean handleIsRemotable()
