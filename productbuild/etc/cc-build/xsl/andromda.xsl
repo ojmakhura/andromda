@@ -166,7 +166,7 @@
 
                 <span class="header-label">Full Build Results:&#160;</span>
 
-                <a href="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-all">Build results</a>
+                <a href="http://team.andromda.org:8080/cruisecontrol/buildresults/andromda-all">Build results</a>
 
             </td></tr>
 
