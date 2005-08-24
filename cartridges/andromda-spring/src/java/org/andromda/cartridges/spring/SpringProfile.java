@@ -94,6 +94,11 @@ public class SpringProfile
      */
     public static final String TAGGEDVALUE_SPRING_SERVICE_REMOTE_PORT = profile.get("SPRING_SERVICE_REMOTE_PORT");
 
+    /**
+     * Define additional spring interceptors
+     */
+    public static final String TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS = profile.get("SPRING_SERVICE_INTERCEPTORS");
+    
     /* ----------------- Tagged Value Values ------------- */
 
     /**
