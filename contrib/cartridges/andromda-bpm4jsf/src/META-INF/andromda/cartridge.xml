@@ -101,6 +101,21 @@
         overwrite="true"/>
     
     <template
+        path="templates/bpm4jsf/configuration/validation.xml.vsl"
+        outputPattern="WEB-INF/validation.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
         path="templates/bpm4jsf/forms/Form.java.vsl"
         outputPattern="$generatedFile"
         outlet="forms"

@@ -4,11 +4,20 @@
 <form-validation>
 
    <global>
-
+        FacesContext context,
+        Object object,
+        Map parameters,
+        Collection errors,
+        ValidatorAction action,
+        Field field)
       <validator name="required"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator"
-               method="isSupplied"
-         methodParams="java.lang.String"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateRequired"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
                   msg="errors.required">
 
          <javascript><![CDATA[
@@ -67,9 +76,13 @@
       </validator>
 
       <validator name="minlength"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="minLength"
-         methodParams="java.lang.String,int"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateMinLength"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.minlength">
 
@@ -108,9 +121,13 @@
 
 
       <validator name="maxlength"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="maxLength"
-         methodParams="java.lang.String,int"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateMaxLength"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.maxlength">
 
@@ -149,9 +166,13 @@
 
 
       <validator name="mask"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="matchRegexp"
-         methodParams="java.lang.String,java.lang.String"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateMask"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.invalid">
 
@@ -195,9 +216,13 @@
 
 
       <validator name="byte"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="isByte"
-         methodParams="java.lang.String"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateByte"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.byte"
        jsFunctionName="ByteValidations">
@@ -263,9 +288,13 @@
 
 
       <validator name="short"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="isShort"
-         methodParams="java.lang.String"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateShort"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.short"
        jsFunctionName="ShortValidations">
@@ -330,9 +359,13 @@
 
 
       <validator name="integer"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="isInt"
-         methodParams="java.lang.String"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateInt"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.integer"
        jsFunctionName="IntegerValidations">
@@ -416,9 +449,13 @@
       </validator>
 
       <validator name="float"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="isDouble"
-         methodParams="double"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateDouble"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.float"
        jsFunctionName="FloatValidations">
@@ -485,9 +522,13 @@
       </validator>
 
       <validator name="date"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator"
-               method="isDate"
-         methodParams="java.lang.String,java.lang.String"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateDate"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.date"
        jsFunctionName="DateValidations">
@@ -636,9 +677,13 @@
       </validator>
 
       <validator name="intRange"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="isInRange"
-         methodParams="int,int,int"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateLongRange"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends="integer"
                   msg="errors.range">
 
@@ -679,9 +724,13 @@
       </validator>
 
       <validator name="floatRange"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="isInRange"
-         methodParams="double,double,double"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateDoubleRange"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends="float"
                   msg="errors.range">
 
@@ -722,9 +771,13 @@
       </validator>
 
       <validator name="creditCard"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="isCreditCard"
-         methodParams="java.lang.String"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateCreditCard"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.creditcard">
 
@@ -796,9 +849,13 @@
 
 
       <validator name="email"
-            classname="org.apache.commons.validator.GenericValidator"
-               method="isEmail"
-         methodParams="java.lang.String"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateEmail"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Collection,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
               depends=""
                   msg="errors.email">
 

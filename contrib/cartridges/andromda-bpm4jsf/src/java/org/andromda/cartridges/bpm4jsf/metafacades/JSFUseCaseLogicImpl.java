@@ -420,6 +420,25 @@ public class JSFUseCaseLogicImpl
         }
         return initialTarget;        
     }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#isValidationRequired()
+     */
+    protected boolean handleIsValidationRequired()
+    {
+        boolean required = false;
+        final Collection views = this.getViews();
+        for (final Iterator iterator = views.iterator(); iterator.hasNext();)
+        {
+            final JSFView view = (JSFView)iterator.next();
+            if (view.isValidationRequired())
+            {
+                required = true;
+                break;
+            }
+        }
+        return required;
+    }
 
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#isInitialTargetView()
@@ -428,4 +447,23 @@ public class JSFUseCaseLogicImpl
     {
         return this.getInitialTarget() instanceof JSFView;
     }    
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#isInitialTargetView()
+     */
+    protected boolean handleIsApplicationValidationRequired()
+    {
+        boolean required = false;
+        final Collection useCases = this.getAllUseCases();
+        for (final Iterator iterator = useCases.iterator(); iterator.hasNext();)
+        {
+            final JSFUseCase useCase = (JSFUseCase)iterator.next();
+            if (useCase.isValidationRequired())
+            {
+                required = true;
+                break;
+            }
+        }
+        return required;
+    }
 }

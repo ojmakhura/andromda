@@ -1,6 +1,7 @@
 package org.andromda.cartridges.bpm4jsf.metafacades;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -480,7 +481,7 @@ public class JSFParameterLogicImpl
     {
         return this.isInputType("text");
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputText()
      */
@@ -768,6 +769,10 @@ public class JSFParameterLogicImpl
         {
             final String format = this.getInputFormat();
             final boolean isRangeFormat = format != null && isRangeFormat(format);
+            if (this.isRequired())
+            {
+                validatorTypesList.add("required");
+            }
             if (this.isByte())
             {
                 validatorTypesList.add("byte");
@@ -853,7 +858,7 @@ public class JSFParameterLogicImpl
                 }
             }
 
-            if (getValidWhen() != null)
+            if (this.getValidWhen() != null)
             {
                 validatorTypesList.add("validwhen");
             }
@@ -868,7 +873,7 @@ public class JSFParameterLogicImpl
         }
         return validatorTypesList;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ParameterFacade#getValidWhen()
      */
@@ -897,13 +902,15 @@ public class JSFParameterLogicImpl
         final Object value = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_READONLY);
         return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
     }
-    
+
     /**
      * @return <code>true</code> if the type of this field is a boolean, <code>false</code> otherwise
      */
     private boolean isBoolean()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), UMLProfile.BOOLEAN_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            UMLProfile.BOOLEAN_TYPE_NAME);
     }
 
     /**
@@ -911,7 +918,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isChar()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.CHARACTER_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.CHARACTER_TYPE_NAME);
     }
 
     /**
@@ -919,7 +928,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isByte()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.BYTE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.BYTE_TYPE_NAME);
     }
 
     /**
@@ -927,7 +938,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isShort()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.SHORT_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.SHORT_TYPE_NAME);
     }
 
     /**
@@ -935,7 +948,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isInteger()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.INTEGER_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.INTEGER_TYPE_NAME);
     }
 
     /**
@@ -943,7 +958,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isLong()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.LONG_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.LONG_TYPE_NAME);
     }
 
     /**
@@ -951,7 +968,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isFloat()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.FLOAT_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.FLOAT_TYPE_NAME);
     }
 
     /**
@@ -959,7 +978,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isDouble()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.DOUBLE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.DOUBLE_TYPE_NAME);
     }
 
     /**
@@ -975,7 +996,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isTime()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.TIME_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.TIME_TYPE_NAME);
     }
 
     /**
@@ -983,7 +1006,9 @@ public class JSFParameterLogicImpl
      */
     private boolean isUrl()
     {
-        return UMLMetafacadeUtils.isType(this.getType(), BPM4JSFProfile.URL_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(
+            this.getType(),
+            BPM4JSFProfile.URL_TYPE_NAME);
     }
 
     /**
@@ -999,7 +1024,10 @@ public class JSFParameterLogicImpl
      */
     private boolean isEmailFormat(String format)
     {
-        return "email".equalsIgnoreCase(getToken(format, 0, 2));
+        return "email".equalsIgnoreCase(getToken(
+                format,
+                0,
+                2));
     }
 
     /**
@@ -1007,7 +1035,10 @@ public class JSFParameterLogicImpl
      */
     private boolean isCreditCardFormat(final String format)
     {
-        return "creditcard".equalsIgnoreCase(getToken(format, 0, 2));
+        return "creditcard".equalsIgnoreCase(getToken(
+                format,
+                0,
+                2));
     }
 
     /**
@@ -1015,13 +1046,10 @@ public class JSFParameterLogicImpl
      */
     private boolean isRangeFormat(final String format)
     {
-        return "range".equalsIgnoreCase(this.getToken(format, 0, 2)) &&
-            (this.isInteger() ||
-                this.isLong() ||
-                this.isShort() ||
-                this.isFloat() ||
-                this.isDouble());
-
+        return "range".equalsIgnoreCase(this.getToken(
+                format,
+                0,
+                2)) && (this.isInteger() || this.isLong() || this.isShort() || this.isFloat() || this.isDouble());
     }
 
     /**
@@ -1029,7 +1057,10 @@ public class JSFParameterLogicImpl
      */
     private boolean isPatternFormat(final String format)
     {
-        return "pattern".equalsIgnoreCase(this.getToken(format, 0, 2));
+        return "pattern".equalsIgnoreCase(this.getToken(
+                format,
+                0,
+                2));
     }
 
     /**
@@ -1037,7 +1068,10 @@ public class JSFParameterLogicImpl
      */
     private boolean isMinLengthFormat(final String format)
     {
-        return "minlength".equalsIgnoreCase(this.getToken(format, 0, 2));
+        return "minlength".equalsIgnoreCase(this.getToken(
+                format,
+                0,
+                2));
     }
 
     /**
@@ -1045,7 +1079,10 @@ public class JSFParameterLogicImpl
      */
     private boolean isMaxLengthFormat(String format)
     {
-        return "maxlength".equalsIgnoreCase(this.getToken(format, 0, 2));
+        return "maxlength".equalsIgnoreCase(this.getToken(
+                format,
+                0,
+                2));
     }
 
     /**
@@ -1053,7 +1090,10 @@ public class JSFParameterLogicImpl
      */
     private String getRangeStart(final String format)
     {
-        return this.getToken(format, 1, 3);
+        return this.getToken(
+            format,
+            1,
+            3);
     }
 
     /**
@@ -1061,7 +1101,10 @@ public class JSFParameterLogicImpl
      */
     private String getRangeEnd(final String format)
     {
-        return this.getToken(format, 2, 3);
+        return this.getToken(
+            format,
+            2,
+            3);
     }
 
     /**
@@ -1069,7 +1112,10 @@ public class JSFParameterLogicImpl
      */
     private String getMinLengthValue(final String format)
     {
-        return this.getToken(format, 1, 2);
+        return this.getToken(
+            format,
+            1,
+            2);
     }
 
     /**
@@ -1077,7 +1123,10 @@ public class JSFParameterLogicImpl
      */
     private String getMaxLengthValue(final String format)
     {
-        return this.getToken(format, 1, 2);
+        return this.getToken(
+            format,
+            1,
+            2);
     }
 
     /**
@@ -1085,6 +1134,142 @@ public class JSFParameterLogicImpl
      */
     private String getPatternValue(final String format)
     {
-        return '^' + this.getToken(format, 1, 2) + '$';
+        return '^' + this.getToken(
+            format,
+            1,
+            2) + '$';
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorArgs(java.lang.String)
+     */
+    protected java.util.Collection handleGetValidatorArgs(final java.lang.String validatorType)
+    {
+        final Collection args = new ArrayList();
+        if ("intRange".equals(validatorType) ||
+            "floatRange".equals(validatorType) ||
+            "doubleRange".equals(validatorType))
+        {
+            args.add("${var:min}");
+            args.add("${var:max}");
+        }
+        else if ("minlength".equals(validatorType))
+        {
+            args.add("${var:minlength}");
+        }
+        else if ("maxlength".equals(validatorType))
+        {
+            args.add("${var:maxlength}");
+        }
+        else if ("date".equals(validatorType))
+        {
+            final String validatorFormat = this.getInputFormat();
+            if (validatorFormat != null && this.isStrictDateFormat(validatorFormat))
+            {
+                args.add("${var:datePatternStrict}");
+            }
+            else
+            {
+                args.add("${var:datePattern}");
+            }
+        }
+        else if ("time".equals(validatorType))
+        {
+            args.add("${var:timePattern}");
+        }
+
+        // custom (paramterized) validators are allowed here
+        Collection taggedValues = findTaggedValues(BPM4JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            String validator = String.valueOf(iterator.next());
+            if (validatorType.equals(BPM4JSFUtils.parseValidatorName(validator)))
+            {
+                args.addAll(BPM4JSFUtils.parseValidatorArgs(validator));
+            }
+        }
+        return args;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
+     */
+    protected java.util.Collection handleGetValidatorVars()
+    {
+        final Map vars = new HashMap();
+
+        final ClassifierFacade type = getType();
+        if (type != null)
+        {
+            final String format = this.getInputFormat();
+            if (format != null)
+            {
+                final boolean isRangeFormat = this.isRangeFormat(format);
+
+                if (isRangeFormat)
+                {
+                    vars.put("min", Arrays.asList(new Object[]{"min", getRangeStart(format)}));
+                    vars.put("max", Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+                }
+                else
+                {
+                    final Collection formats = findTaggedValues(BPM4JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
+                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                    {
+                        final String additionalFormat = String.valueOf(formatIterator.next());
+                        if (isMinLengthFormat(additionalFormat)) vars.put("minlength",
+                            Arrays.asList(new Object[]{"minlength", this.getMinLengthValue(additionalFormat)}));
+                        else if (isMaxLengthFormat(additionalFormat)) vars.put("maxlength",
+                            Arrays.asList(new Object[]{"maxlength", this.getMaxLengthValue(additionalFormat)}));
+                        else if (isPatternFormat(additionalFormat)) vars
+                            .put("mask", Arrays.asList(new Object[]{"mask", this.getPatternValue(additionalFormat)}));
+                    }
+                }
+            }
+            if (this.isDate())
+            {
+                if (format != null && isStrictDateFormat(format))
+                {
+                    vars.put("datePatternStrict",
+                        Arrays.asList(new Object[]{"datePatternStrict", this.getDateFormat()}));
+                }
+                else
+                {
+                    vars.put("datePattern", Arrays.asList(new Object[]{"datePattern", this.getDateFormat()}));
+                }
+            }
+            if (this.isTime())
+            {
+                vars.put("timePattern", Arrays.asList(new Object[]{"timePattern", this.getTimeFormat()}));
+            }
+
+            final String validWhen = getValidWhen();
+            if (validWhen != null)
+            {
+                vars.put("test", Arrays.asList(new Object[]{"test", validWhen}));
+            }
+        }
+
+        // - custom (parameterized) validators are allowed here
+        //   in this case we will reuse the validator arg values
+        final Collection taggedValues = findTaggedValues(BPM4JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            String validator = String.valueOf(iterator.next());
+
+            // - guaranteed to be of the same length
+            final List validatorVars = BPM4JSFUtils.parseValidatorVars(validator);
+            final List validatorArgs = BPM4JSFUtils.parseValidatorArgs(validator);
+
+            for (int ctr = 0; ctr < validatorVars.size(); ctr++)
+            {
+                String validatorVar = (String)validatorVars.get(ctr);
+                String validatorArg = (String)validatorArgs.get(ctr);
+
+                vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar, validatorArg}));
+            }
+        }
+
+        return vars.values();
     }
 }

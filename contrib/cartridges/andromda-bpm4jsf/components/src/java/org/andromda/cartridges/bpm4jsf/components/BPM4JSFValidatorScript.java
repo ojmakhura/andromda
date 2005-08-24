@@ -1,20 +1,25 @@
 package org.andromda.cartridges.bpm4jsf.components;
 
 import java.io.IOException;
-
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
+import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator;
+import org.apache.commons.validator.Arg;
+import org.apache.commons.validator.Field;
+import org.apache.commons.validator.Form;
 import org.apache.commons.validator.ValidatorAction;
+import org.apache.commons.validator.Var;
 
 
 /**
@@ -96,7 +101,73 @@ public class BPM4JSFValidatorScript
         if (component instanceof EditableValueHolder)
         {
             final EditableValueHolder valueHolder = (EditableValueHolder)component;
-            final javax.faces.validator.Validator[] validators = valueHolder.getValidators();
+            System.out.println("the value holder!!!!!: " + component.getId());
+            System.out.println("the form!!!!: " + component.getParent());
+            final UIForm form = BPM4JSFValidator.findForm(component);
+            if (form != null)
+            {
+                System.out.println("the form>>>:" + form);
+                System.out.println("the form id!!!!: form.getId() :" + form.getId());
+                final String componentId = component.getId();
+                final Form validatorForm =
+                    BPM4JSFValidator.getValidatorResources().getForm(
+                        Locale.getDefault(),
+                        form.getId());
+                final java.util.List validatorFields = validatorForm.getFields();
+                for (final Iterator iterator = validatorFields.iterator(); iterator.hasNext();)
+                {
+                    final Field field = (Field)iterator.next();
+                    if (componentId.equals(field.getProperty()))
+                    {
+                        for (final Iterator dependencyIterator = field.getDependencyList().iterator();
+                            dependencyIterator.hasNext();)
+                        {
+                            final String dependency = (String)dependencyIterator.next();
+                            final ValidatorAction action = BPM4JSFValidator.getValidatorAction(dependency);
+                            System.out.println(
+                                "adding validator action : " + action + " for field: " + field);
+                            BPM4JSFValidator validator = new BPM4JSFValidator(action);
+                            final Arg[] args = field.getArgs(dependency);
+                            System.out.println("the number of args!!!!!: " + args.length);
+                            System.out.println("the date pattern!!!!!: " + field.getVarValue("datePattern"));
+                            if (args != null)
+                            {
+                                /*final String[] messages = new String[args.length];
+                                for (int ctr = 0; ctr < args.length; ctr++)
+                                {
+                                    final Arg arg = args[ctr];
+                                    System.out.println("the arg!!!!: " + arg);
+                                    String message;
+                                    if (arg.isResource())
+                                    {
+                                        message = Messages.get(arg.getKey(), null);
+                                    }
+                                    else
+                                    {
+                                        message = arg.getKey();
+                                    }
+                                    messages[ctr] = message;
+                                }*/
+                                for (final Iterator varIterator = field.getVars().keySet().iterator(); varIterator.hasNext();)
+                                {
+                                    final String name = (String)varIterator.next();
+                                    validator.addParameter(name, field.getVarValue(name));
+                                }
+                                validator.setArgs(this.getArgs(
+                                        dependency,
+                                        field));
+                                valueHolder.addValidator(validator);
+                                this.addValidator(
+                                    dependency,
+                                    component.getClientId(context),
+                                    validator);
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*final javax.faces.validator.Validator[] validators = valueHolder.getValidators();
             for (int ctr = 0; ctr < validators.length; ctr++)
             {
                 if (validators[ctr] instanceof BPM4JSFValidator)
@@ -113,8 +184,8 @@ public class BPM4JSFValidatorScript
                         final ValidatorAction action = validator.getValidatorAction();
                         for (final Iterator iterator = action.getDependencyList().iterator(); iterator.hasNext();)
                         {
-                            String type = (String)iterator.next();
-                            addValidator(
+                            final String type = (String)iterator.next();
+                            this.addValidator(
                                 type,
                                 id,
                                 validator);
@@ -131,7 +202,7 @@ public class BPM4JSFValidatorScript
                         }
                     }
                 }
-            }
+            }*/
         }
         for (final Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
         {
@@ -140,6 +211,38 @@ public class BPM4JSFValidatorScript
                 childComponent,
                 context);
         }
+    }
+
+    /**
+     * Gets the message arguments based on the given
+     * validator <code>action</code> and <code>cield</code>.
+     * @param action action name
+     * @param field the validator field
+     */
+    private String[] getArgs(
+        final String action,
+        final Field field)
+    {
+        final Arg[] args = field.getArgs(action);
+        final String[] argMessages = new String[args.length];
+        for (int ctr = 0; ctr < args.length; ctr++)
+        {
+            final Arg arg = args[ctr];
+            if (arg != null)
+            {
+                if (arg.isResource())
+                {
+                    argMessages[ctr] = Messages.get(
+                        arg.getKey(),
+                        null);
+                }
+                else
+                {
+                    argMessages[ctr] = arg.getKey();
+                }
+            }
+        }
+        return argMessages;
     }
 
     /**
@@ -288,24 +391,24 @@ public class BPM4JSFValidatorScript
         writer.write(id);
         writer.write("\", \"");
         writer.write(validator.getErrorMessage(
-                validator.getArg(),
+                null,
                 context));
         writer.write("\", new Function(\"x\", \"return {");
 
-        final String[] names = validator.getParamNames();
-        final Object[] params = validator.getParams();
-
-        for (int ctr = 0; ctr < names.length; ctr++)
+        final Map parameters = validator.getParameters();
+        for (final Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
         {
-            if (ctr > 0)
+            final String name = (String)iterator.next();   
+            if (iterator.hasNext())
             {
                 writer.write(",");
             }
-            writer.write(names[ctr]);
+            writer.write(name);
             writer.write(":");
 
+            boolean mask = name.equals("mask");
             // - mask validator does not construct regular expression
-            if (names[ctr].equals("mask"))
+            if (mask)
             {
                 writer.write("/");
             }
@@ -313,8 +416,9 @@ public class BPM4JSFValidatorScript
             {
                 writer.write("'");
             }
-            writer.write(params[ctr].toString());
-            if (names[ctr].equals("mask"))
+            final Object parameter = parameters.get(name);
+            writer.write(parameter.toString());
+            if (mask)
             {
                 writer.write("/");
             }
