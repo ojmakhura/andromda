@@ -4,12 +4,7 @@
 <form-validation>
 
    <global>
-        FacesContext context,
-        Object object,
-        Map parameters,
-        Collection errors,
-        ValidatorAction action,
-        Field field)
+
       <validator name="required"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
                method="validateRequired"
