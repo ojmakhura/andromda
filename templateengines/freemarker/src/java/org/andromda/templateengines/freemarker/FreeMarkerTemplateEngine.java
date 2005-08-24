@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import freemarker.template.Configuration;
+import freemarker.template.ObjectWrapper;
 import freemarker.template.Template;
 
 /**
@@ -54,7 +55,14 @@ public class FreeMarkerTemplateEngine
         if (this.configuration == null)
         {
             this.configuration = new Configuration();
-        }
+            final Class mainClass = org.andromda.core.AndroMDA.class;
+       
+            // - tell FreeMarker it should use the classpath when searching for templates
+            configuration.setClassForTemplateLoading(mainClass, "/");
+
+            // - use Bean Wrapper, in order to get maximal reflection capabilities
+            configuration.setObjectWrapper(ObjectWrapper.BEANS_WRAPPER);
+        } 
 
         // create the template
         final Template template = configuration.getTemplate(templateFile);
