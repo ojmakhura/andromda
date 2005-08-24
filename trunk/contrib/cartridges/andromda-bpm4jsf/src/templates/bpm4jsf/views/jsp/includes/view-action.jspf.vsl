@@ -80,8 +80,6 @@
 #end
         </h:panelGroup>
     </h:panelGrid>
-#if ($clientValidation)
-    <bpm4jsf:validatorScript functionName="$formValidateName"/>
-#end
+    <bpm4jsf:validator#if($clientValidation) functionName="$formValidateName"#end/>
 </h:form>
 #end

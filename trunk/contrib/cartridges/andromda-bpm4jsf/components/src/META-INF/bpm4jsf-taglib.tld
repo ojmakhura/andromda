@@ -16,19 +16,20 @@
     </description>
 
     <tag>
-        <name>validatorScript</name>
-        <tag-class>org.andromda.cartridges.bpm4jsf.components.taglib.BPM4JSFValidatorScriptTag</tag-class>
+        <name>validator</name>
+        <tag-class>org.andromda.cartridges.bpm4jsf.components.taglib.BPM4JSFValidatorTag</tag-class>
         <body-content>empty</body-content>
-        <display-name>Validator Script</display-name>
+        <display-name>Validator</display-name>
         <description>
-          Generates JavaScript for client-side validation
+           Enables the BPM 4 JSF validator (which uses the commons-validator).
         </description>
         <attribute>
             <name>functionName</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>false</rtexprvalue>
             <description>
-              The name of the function to generate.
+                The name of the function to generate, if this isn't
+                present then client side validation will not be rendered.
             </description>
         </attribute>
     </tag>

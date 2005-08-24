@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.Validator;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.ValidatorResources;
+import org.apache.commons.validator.ValidatorResults;
 
 
 /**
@@ -140,6 +141,42 @@ public class BPM4JSFValidator
     private transient ValidatorAction validatorAction;
     
     /**
+     * Initializes the validator.
+     */
+    public static void initialize()
+    {
+        final FacesContext context = FacesContext.getCurrentInstance();
+        final ExternalContext external = context.getExternalContext();
+        final String rulesResource = "/WEB-INF/validator-rules.xml";
+        final String validationResource = "/WEB-INF/validation.xml";
+        final InputStream rulesInput = external.getResourceAsStream(rulesResource);
+        if (rulesInput == null)
+        {
+            throw new RuntimeException("Could not find rules file '" + rulesResource + "'");
+        }
+        final InputStream validationInput = external.getResourceAsStream(validationResource);
+        if (validationInput == null)
+        {
+            throw new RuntimeException("Could not find validation file '" + validationResource + "'");
+        }
+        final InputStream[] inputs = new InputStream[] {rulesInput, validationInput};
+        try
+        {
+            ValidatorResources validatorResources = new ValidatorResources(inputs);
+            final Map applicationMap = external.getApplicationMap();
+            applicationMap.put(
+                VALIDATOR_RESOURCES_KEY,
+                validatorResources);
+        }
+        catch (final Throwable throwable)
+        {
+            throw new RuntimeException(throwable);
+        }     
+    }
+    
+    private static final String VALIDATOR_RESOURCES_KEY = "org.andromda.bpm4jsf.validator.resources";
+    
+    /**
      * Returns the commons-validator resources. This method lazily configures
      * validator resources by reading <code>/WEB-INF/validator-rules.xml</code>
      * and <code>/WEB-INF/validation.xml</code>.
@@ -148,39 +185,10 @@ public class BPM4JSFValidator
      */
     public static ValidatorResources getValidatorResources()
     {
-        final String VALIDATOR_RESOURCES_KEY = "org.andromda.bpm4jsf.validator.resources";
         final FacesContext context = FacesContext.getCurrentInstance();
         final ExternalContext external = context.getExternalContext();
         final Map applicationMap = external.getApplicationMap();
-        ValidatorResources validatorResources = (ValidatorResources)applicationMap.get(VALIDATOR_RESOURCES_KEY);
-        if (validatorResources == null)
-        {
-            final String rulesResource = "/WEB-INF/validator-rules.xml";
-            final String validationResource = "/WEB-INF/validation.xml";
-            final InputStream rulesInput = external.getResourceAsStream(rulesResource);
-            if (rulesInput == null)
-            {
-                throw new RuntimeException("Could not find rules file '" + rulesResource + "'");
-            }
-            final InputStream validationInput = external.getResourceAsStream(validationResource);
-            if (validationInput == null)
-            {
-                throw new RuntimeException("Could not find validation file '" + validationResource + "'");
-            }
-            final InputStream[] inputs = new InputStream[] {rulesInput, validationInput};
-            try
-            {
-                validatorResources = new ValidatorResources(inputs);
-                applicationMap.put(
-                    VALIDATOR_RESOURCES_KEY,
-                    validatorResources);
-            }
-            catch (final Throwable throwable)
-            {
-                throw new RuntimeException(throwable);
-            }
-        }
-        return validatorResources;
+        return (ValidatorResources)applicationMap.get(VALIDATOR_RESOURCES_KEY);
     }
 
     /**
@@ -209,7 +217,9 @@ public class BPM4JSFValidator
             validator.setParameter("java.util.Collection", errors);
                 try
                 {
-                    validator.validate();
+                    ValidatorResults results = validator.validate();
+                    System.out.println("the result values!!!!: " + results.getPropertyNames());
+                    System.out.println("the errors after validion!!!!: " + errors);
                     if (!errors.isEmpty())
                     {
                         throw new ValidatorException(new FacesMessage(
@@ -220,7 +230,6 @@ public class BPM4JSFValidator
                 }
                 catch (final org.apache.commons.validator.ValidatorException exception)
                 {
-                    exception.printStackTrace();
                     logger.error(exception.getMessage(), exception);
                 }
         }
@@ -241,11 +250,6 @@ public class BPM4JSFValidator
         final Locale locale = context.getViewRoot().getLocale();
         String message = null;
         final String messageKey = this.validatorAction.getMsg();
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        if (loader == null)
-        {
-            loader = this.getClass().getClassLoader();
-        }
         if (message == null)
         {
             try

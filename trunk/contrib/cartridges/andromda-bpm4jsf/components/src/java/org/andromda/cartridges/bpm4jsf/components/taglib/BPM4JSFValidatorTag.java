@@ -6,12 +6,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 
-import org.andromda.cartridges.bpm4jsf.components.BPM4JSFValidatorScript;
+import org.andromda.cartridges.bpm4jsf.components.BPM4JSFValidatorComponent;
+
 
 /**
  * The tag class for the <code>s:validatorScript</code> tag.
  */
-public class BPM4JSFValidatorScriptTag
+public class BPM4JSFValidatorTag
     extends UIComponentTag
 {
     /**
@@ -47,11 +48,15 @@ public class BPM4JSFValidatorScriptTag
                 final FacesContext context = FacesContext.getCurrentInstance();
                 final Application application = context.getApplication();
                 final ValueBinding binding = application.createValueBinding(attributeValue);
-                component.setValueBinding(attributeName, binding);
+                component.setValueBinding(
+                    attributeName,
+                    binding);
             }
             else
             {
-                component.getAttributes().put(attributeName, attributeValue);
+                component.getAttributes().put(
+                    attributeName,
+                    attributeValue);
             }
         }
     }
@@ -75,7 +80,7 @@ public class BPM4JSFValidatorScriptTag
     /**
      * The component type.
      */
-    private static final String COMPONENT_TYPE = BPM4JSFValidatorScript.class.getName();
+    private static final String COMPONENT_TYPE = BPM4JSFValidatorComponent.class.getName();
 
     /**
      * Returns the component type, which is
