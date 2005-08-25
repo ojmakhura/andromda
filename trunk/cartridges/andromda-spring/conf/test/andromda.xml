@@ -11,7 +11,7 @@
                         <location>${basedir}/../../etc/profile/src/uml</location>
                     </moduleSearchLocations>
                 </model>
-            </models>            
+            </models>
         </repository>
     </repositories>
     <namespaces>
@@ -41,6 +41,7 @@
                 <property name="open-session-in-view">${test.output.dir}</property>
                 <property name="userTransactionName">null</property>
                 <property name="transactionManagerName">java:/TransactionManager</property>
+                <property name="acegiServiceSecurity">true</property>
             </properties>
         </namespace>
     </namespaces>
