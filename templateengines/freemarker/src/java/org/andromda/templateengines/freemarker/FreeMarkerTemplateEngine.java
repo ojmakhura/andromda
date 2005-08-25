@@ -1,28 +1,35 @@
 package org.andromda.templateengines.freemarker;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
+
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import freemarker.template.Configuration;
+import freemarker.template.ObjectWrapper;
+import freemarker.template.Template;
+
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.templateengine.TemplateEngine;
+import org.andromda.core.templateengine.TemplateEngineException;
 import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import freemarker.template.Configuration;
-import freemarker.template.ObjectWrapper;
-import freemarker.template.Template;
 
 /**
  * The TemplateEngine implementation for FreeMarker template processor.
- * 
+ *
  * @author Chad Brandon
+ * @author Olaf Muliawan
  * @see http://www.freemarker.org
  */
 public class FreeMarkerTemplateEngine
@@ -31,7 +38,8 @@ public class FreeMarkerTemplateEngine
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#init(java.lang.String)
      */
-    public void initialize(String namespace) throws Exception
+    public void initialize(String namespace)
+        throws Exception
     {
         this.initLogger(namespace);
     }
@@ -45,23 +53,34 @@ public class FreeMarkerTemplateEngine
      * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(java.lang.String,
      *      java.util.Map, java.io.Writer)
      */
-    public void processTemplate(String templateFile, Map templateObjects, Writer output)
+    public void processTemplate(
+        String templateFile,
+        Map templateObjects,
+        Writer output)
         throws Exception
     {
         final String methodName = "processTranslation";
-        ExceptionUtils.checkEmpty(methodName, "templateFile", templateFile);
-        ExceptionUtils.checkNull(methodName, "output", output);
+        ExceptionUtils.checkEmpty(
+            methodName,
+            "templateFile",
+            templateFile);
+        ExceptionUtils.checkNull(
+            methodName,
+            "output",
+            output);
 
         if (this.configuration == null)
         {
             this.configuration = new Configuration();
-            
+
             // - tell FreeMarker it should use the classpath when searching for templates
-            this.configuration.setClassForTemplateLoading(org.andromda.core.AndroMDA.class, "/");
+            this.configuration.setClassForTemplateLoading(
+                org.andromda.core.AndroMDA.class,
+                "/");
 
             // - use Bean Wrapper, in order to get maximal reflection capabilities
             this.configuration.setObjectWrapper(ObjectWrapper.BEANS_WRAPPER);
-        } 
+        }
 
         // - create the template
         final Template template = this.configuration.getTemplate(templateFile);
@@ -72,7 +91,9 @@ public class FreeMarkerTemplateEngine
         }
 
         // - merge data model with template
-        template.process(templateObjects, output);
+        template.process(
+            templateObjects,
+            output);
     }
 
     /**
@@ -85,11 +106,16 @@ public class FreeMarkerTemplateEngine
     }
 
     /**
+     * Stores the macro libraries the template.
+     */
+    private List macroLibraries = new ArrayList();
+
+    /**
      * @see org.andromda.core.templateengine.TemplateEngine#getMacroLibraries()
      */
     public List getMacroLibraries()
     {
-        return null;
+        return this.macroLibraries;
     }
 
     /**
@@ -97,6 +123,7 @@ public class FreeMarkerTemplateEngine
      */
     public void addMacroLibrary(String macroLibrary)
     {
+        this.macroLibraries.add(macroLibrary);
     }
 
     /**
@@ -105,33 +132,62 @@ public class FreeMarkerTemplateEngine
     public void setMergeLocation(String mergeLocation)
     {
     }
+    
+    /**
+     * The name of the temporary string template.
+     */
+    private static final String STRING_TEMPLATE = "stringTemplate";
 
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String, java.util.Map)
      */
-    public String getEvaluatedExpression(String expression, Map templateObjects)
+    public String getEvaluatedExpression(
+        final String expression,
+        Map templateObjects)
     {
-        return null;
+        try
+        {
+            // - create the template
+            final Template template = new Template(STRING_TEMPLATE, new StringReader(expression), new Configuration());
+
+            if (templateObjects == null)
+            {
+                templateObjects = new HashMap();
+            }
+
+            final StringWriter output = new StringWriter();
+
+            // - merge data model with template
+            template.process(
+                templateObjects,
+                output);
+
+            return output.toString();
+        }
+        catch (final Throwable throwable)
+        {
+            throw new TemplateEngineException(throwable);
+        }
     }
 
     protected static Logger logger = null;
 
     /**
      * Opens a log file for this plugin.
-     * 
+     *
      * @throws IOException if the file cannot be opened
      */
-    private void initLogger(String pluginName) throws IOException
+    private void initLogger(String pluginName)
+        throws IOException
     {
         logger = AndroMDALogger.getNamespaceLogger(pluginName);
         logger.setAdditivity(false);
-        FileAppender appender = new FileAppender(
-            new PatternLayout("%-5p %d - %m%n"),
-            AndroMDALogger.getNamespaceLogFileName(pluginName),
-            true);
+        FileAppender appender =
+            new FileAppender(new PatternLayout("%-5p %d - %m%n"),
+                AndroMDALogger.getNamespaceLogFileName(pluginName), true);
         logger.addAppender(appender);
     }
-    
+
     /**
      * Shutdown the associated logger.
      */
