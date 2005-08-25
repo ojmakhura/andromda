@@ -10,7 +10,62 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-RC1-SNAPSHOT" date="2005-08-04" description="First release candidate of version 3.1">
+        <release version="3.1-RC1-SNAPSHOT" date="2005-08-25" description="First release candidate of version 3.1">
+            <action dev="cwbrandon" type="update">
+                In order for the presentation metafacades to be made generic enough for use within other frameworks
+                (such as JSF), the following additional tagged values have been renamed:
+                <table>
+                    <tr>
+                        <th>Old Name</th><th>New Name</th>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.action.success.message</td><td>@andromda.presentation.action.success.message</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.action.warning.message</td><td>@andromda.presentation.action.warning.message</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.required</td><td>@andromda.presentation.view.field.required</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.presentation.web.view.field.readonly</td><td>@andromda.presentation.view.field.readonly</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.format</td><td>@andromda.presentation.view.field.format</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.multibox</td><td>@andromda.presentation.view.field.multibox</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.radio</td><td>@andromda.presentation.view.field.radio</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.validwhen</td><td>@andromda.presentation.web.view.field.validwhen</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.validators</td><td>@andromda.presentation.web.view.field.validators</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.field.reset</td><td>@andromda.struts.view.field.reset</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.table.maxrows</td><td>@andromda.struts.view.table.maxrows</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.table.export</td><td>@andromda.presentation.view.table.export</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.view.table.sortable</td><td>@andromda.presentation.view.table.sortable</td>
+                    </tr>
+                    <tr>
+                        <td>@andromda.struts.exception.type</td><td>@andromda.presentation.exception.type</td>
+                    </tr>
+                </table>
+                If you're using Magic Draw, the only thing you'll need to do is open your model and touch it (i.e. make a small
+                change so its ready to be saved), and save it.  If you're using another modeling tool that won't work with the 
+                andromda-profile, the best way to upgrade your model is to just open up the XMI and do a search and replace from the
+                old to new values.
+            </action>
             <action dev="mattes3" type="add" issue="JAVA-23"> The Java cartridge now generates Java interfaces
                 from UML interfaces. Operations are generated as method signatures, instance attributes are
                 generated as getter/setter signatures, classifier attributes are generated as static final
