@@ -2,13 +2,14 @@ package org.andromda.cartridges.bpm4jsf.components.validator;
 
 import java.io.InputStream;
 import java.io.Serializable;
-import java.text.MessageFormat;
+
+import java.lang.reflect.Method;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.MissingResourceException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -17,13 +18,12 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
-import org.andromda.cartridges.bpm4jsf.components.Messages;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.validator.Validator;
+import org.apache.commons.validator.Field;
+import org.apache.commons.validator.Form;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.ValidatorResources;
-import org.apache.commons.validator.ValidatorResults;
 
 
 /**
@@ -34,9 +34,8 @@ public class BPM4JSFValidator
     implements javax.faces.validator.Validator,
         Serializable
 {
-    
     private static final Log logger = LogFactory.getLog(BPM4JSFValidator.class);
-    
+
     /**
      * Constructs a new instance of this class with the given
      * <code>validatorAction</code>.
@@ -99,27 +98,31 @@ public class BPM4JSFValidator
      * The parameters for this validator.
      */
     private final Map parameters = new HashMap();
-    
+
     /**
      * Gets the parameters for this validator (keyed by name).
-     * 
+     *
      * @return a map containing all parameters.
      */
     public Map getParameters()
     {
         return this.parameters;
     }
-    
+
     /**
      * Adds the parameter with the given <code>name</code> and the given
      * <code>value</code>.
-     * 
+     *
      * @param name the name of the parameter.
      * @param value the parameter's value
      */
-    public void addParameter(final String name, final Object value)
+    public void addParameter(
+        final String name,
+        final Object value)
     {
-        this.parameters.put(name, value);
+        this.parameters.put(
+            name,
+            value);
     }
 
     /**
@@ -138,8 +141,8 @@ public class BPM4JSFValidator
     /**
      * The commons-validator action, that carries out the actual validation.
      */
-    private transient ValidatorAction validatorAction;
-    
+    private ValidatorAction validatorAction;
+
     /**
      * Initializes the validator.
      */
@@ -171,11 +174,11 @@ public class BPM4JSFValidator
         catch (final Throwable throwable)
         {
             throw new RuntimeException(throwable);
-        }     
+        }
     }
-    
+
     private static final String VALIDATOR_RESOURCES_KEY = "org.andromda.bpm4jsf.validator.resources";
-    
+
     /**
      * Returns the commons-validator resources. This method lazily configures
      * validator resources by reading <code>/WEB-INF/validator-rules.xml</code>
@@ -203,73 +206,127 @@ public class BPM4JSFValidator
         final UIComponent component,
         final Object value)
     {
-        System.out.println("validating component>>>>>>>>>>>>>>>: " + component.getId() + "this: " +this);
         UIForm form = findForm(component);
         if (form != null)
         {
-            System.out.println("Validating form: " + form);
-            Validator validator = new Validator(getValidatorResources(), form.getId());
-            validator.setUseContextClassLoader(true);
-            validator.setParameter("javax.faces.context.FacesContext", context);
-            validator.setParameter("java.lang.Object", value);
-            validator.setParameter("java.util.Map", this.parameters);
-            final Collection errors = new ArrayList();
-            validator.setParameter("java.util.Collection", errors);
-                try
-                {
-                    ValidatorResults results = validator.validate();
-                    System.out.println("the result values!!!!: " + results.getPropertyNames());
-                    System.out.println("the errors after validion!!!!: " + errors);
-                    if (!errors.isEmpty())
+            try
+            {
+                final Collection errors = new ArrayList();
+                this.getValidatorMethod().invoke(
+                    this.getValidatorClass(),
+                    new Object[]
                     {
-                        throw new ValidatorException(new FacesMessage(
-                            FacesMessage.SEVERITY_ERROR,
-                            ((String)errors.iterator().next()),
-                            null));
-                    }
-                }
-                catch (final org.apache.commons.validator.ValidatorException exception)
+                        context, value, this.getParameters(), errors, this.validatorAction,
+                        this.getFormField(
+                            form.getId(),
+                            component.getId())
+                    });
+                if (!errors.isEmpty())
                 {
-                    logger.error(exception.getMessage(), exception);
+                    throw new ValidatorException(new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            (String)errors.iterator().next(),
+                            null));
                 }
+            }
+            catch (final ValidatorException exception)
+            {
+                throw exception;
+            }
+            catch (final Exception exception)
+            {
+                logger.error(
+                    exception.getMessage(),
+                    exception);
+            }
         }
+    }
+
+    /**
+     * Gets the validator class from the underlying <code>validatorAction</code>.
+     * @return the validator class
+     * @throws ClassNotFoundException
+     */
+    private Class getValidatorClass()
+        throws ClassNotFoundException
+    {
+        final FacesContext context = FacesContext.getCurrentInstance();
+        final ExternalContext external = context.getExternalContext();
+        final Map applicationMap = external.getApplicationMap();
+        final String validatorClassName = this.validatorAction.getClassname();
+        Class validatorClass = (Class)applicationMap.get(validatorClassName);
+        if (validatorClass == null)
+        {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            if (classLoader == null)
+            {
+                classLoader = getClass().getClassLoader();
+            }
+            validatorClass = classLoader.loadClass(validatorClassName);
+            applicationMap.put(
+                validatorClassName,
+                validatorClass);
+        }
+        return validatorClass;
+    }
+
+    /**
+     * Gets the validator method for the underlying <code>validatorAction</code>.
+     *
+     * @return the validator method.
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     */
+    private Method getValidatorMethod()
+        throws ClassNotFoundException, NoSuchMethodException
+    {
+        Class[] parameterTypes =
+            new Class[]
+            {
+                javax.faces.context.FacesContext.class, java.lang.Object.class, java.util.Map.class,
+                java.util.Collection.class, org.apache.commons.validator.ValidatorAction.class,
+                org.apache.commons.validator.Field.class
+            };
+        return this.getValidatorClass().getMethod(
+            this.validatorAction.getMethod(),
+            parameterTypes);
+    }
+
+    /**
+     * Attempts to retrieve the form field from the form with the given <code>formName</code>
+     * and the field with the given <code>fieldName</code>.  If it can't be retrieved, null
+     * is returned.
+     * @param formName the name of the form.
+     * @param fieldName the name of the field.
+     * @return the found field or null if it could not be found.
+     */
+    private Field getFormField(
+        final String formName,
+        final String fieldName)
+    {
+        Field field = null;
+        final Form form = getValidatorResources().getForm(
+                Locale.getDefault(),
+                formName);
+        if (form != null)
+        {
+            field = form.getField(fieldName);
+        }
+        return field;
     }
 
     /**
      * Retrieves an error message, using the validator's message combined with
      * the errant value.
      */
-    public String getErrorMessage(
-        Object[] args,
-        final FacesContext context)
+    public String getErrorMessage(final FacesContext context)
     {
-        if (args == null)
-        {
-            args = this.args;
-        }
-        final Locale locale = context.getViewRoot().getLocale();
-        String message = null;
-        final String messageKey = this.validatorAction.getMsg();
-        if (message == null)
-        {
-            try
-            {
-                message = Messages.get(
-                        messageKey,
-                        args);
-            }
-            catch (final MissingResourceException exception)
-            {
-                message = messageKey;
-            }
-        }
-        message = new MessageFormat(
-                message,
-                locale).format(args);
-        System.out.println("the message!!!!!!!!!!!!!!!!!!!!!: " + message);
-        return message;
+        return ValidatorMessages.getMessage(
+            this.validatorAction,
+            this.args,
+            context);
     }
-    
+
     /**
      * Recursively finds the valueHolder's form (if the valueHolder is nested within a form).
      *

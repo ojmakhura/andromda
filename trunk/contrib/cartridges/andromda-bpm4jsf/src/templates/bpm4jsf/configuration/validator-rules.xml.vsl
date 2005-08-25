@@ -10,7 +10,7 @@
                method="validateRequired"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
                   msg="errors.required">
@@ -75,7 +75,7 @@
                method="validateMinLength"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -120,7 +120,7 @@
                method="validateMaxLength"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -165,7 +165,7 @@
                method="validateMask"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -215,7 +215,7 @@
                method="validateByte"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -287,7 +287,7 @@
                method="validateShort"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -358,7 +358,7 @@
                method="validateInt"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -448,7 +448,7 @@
                method="validateDouble"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -521,7 +521,7 @@
                method="validateDate"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -670,13 +670,143 @@
          </javascript>
 
       </validator>
+      
+      <validator name="time"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateTime"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Map,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
+              depends=""
+                  msg="errors.time"
+                  jsFunctionName="TimeValidations">
+        <javascript><![CDATA[
+    /**
+     * Provides validation of time without a date.
+     */
+    function validateTime(form)
+    {
+       var bValid = true;
+       var focusField = null;
+       var fieldIndex = 0;
+       var fields = new Array();
+       var formName = form.getAttributeNode("name");
+
+       oTime = new TimeValidations();
+
+       for (x in oTime)
+       {
+           var field = form[oTime[x][0]];
+           var value = field.value;
+           var timePattern = oTime[x][2]("timePattern");
+
+           if ((field.type == 'hidden' || field.type == 'text' || field.type == 'textarea') &&
+               (value.length > 0) && (timePattern.length > 0) && field.disabled == false)
+           {
+                // all possible time character sequences
+                var matches = timePattern.match( /(y+|H+|m+|s+|S+)*/g );
+                var matchedTokens = new Array();    // we will keep track of the matches
+
+                var timePatternSub = timePattern;   // keeps track of the remaining pattern to process
+                var timePatternRegExp = "^";        // keeps track of the constructed regular expression
+
+                for (var i=0; i < matches.length; i++)
+                {
+                    var match = matches[i];
+                    var matchLength = match.length;
+
+                    // JavaScript returns empty matches too (ie. the delimiters that could not be matched)
+                    if (matchLength > 0)
+                    {
+                        // store this token
+                        matchedTokens.push(match);
+
+                        // locate the match in the remaining pattern
+                        var matchSubIndex = timePatternSub.indexOf(match);
+
+                        // if there are characters before the match was found
+                        if (matchSubIndex > 0)
+                        {
+                            // append those characters to the resulting regular expression too
+                            timePatternRegExp = timePatternRegExp.concat("[",timePatternSub.substring(0,matchSubIndex),"]");
+                        }
+
+                        // append the regular expression fragment for this match
+                        timePatternRegExp = timePatternRegExp.concat("(\\d{",("1,"+matchLength),"})");
+
+                        // substring the remaining fragment
+                        timePatternSub = timePatternSub.substring(matchSubIndex+matchLength);
+                    }
+                }
+
+                // close the regular expression
+                timePatternRegExp = timePatternRegExp.concat("$");
+
+                // construct an actual regular expression instance
+                timePatternRegExp = new RegExp(timePatternRegExp);
+
+                var valid = timePatternRegExp.test(value);
+                // attempt to match the user value since validation failed
+                if (valid)
+                {
+                    // attempt to check for a valid time
+                    var matched = timePatternRegExp.exec(value);
+
+                    var hour = 0;
+                    var minute = 0;
+                    var second = 0;
+                    var millisecond = 0;
+
+                    for (var i = 0; i < matchedTokens.length; i++)
+                    {
+                        var match = matchedTokens[i];
+                        switch (match.charAt(0))
+                        {
+                            case 'H' : hour = matched[i+1]; break;
+                            case 'm' : minute = matched[i+1]; break;
+                            case 's' : second = matched[i+1]; break;
+                            case 'M' : millisecond = matched[i+1]; break;
+                        }
+                    }
+
+                    valid = isValidTime(second,minute,hour,millisecond);
+                }
+
+                if (!valid)
+                {
+                    fields[fieldIndex] = oTime[x][1];           // record this field as invalid
+                    if (fieldIndex == 0) focusField = field;    // the first invalid field is the one getting focus
+                    fieldIndex++;                               // increment the field counter
+                }
+            }
+        }
+
+        if (fields.length > 0)
+        {
+            bValid = false;
+            focusField.focus();
+            alert(fields.join('\n'));
+        }
+
+        return bValid;
+    }
+
+    function isValidTime(second, minute, hour, millisecond)
+    {
+        return (0 <= hour && hour < 24 && 0 <= minute && minute < 60 && 0 <= second && second < 60 && 0 <= millisecond && millisecond < 1000);
+    }
+]]>
+        </javascript>
+      </validator>
 
       <validator name="intRange"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
                method="validateLongRange"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends="integer"
@@ -723,7 +853,7 @@
                method="validateDoubleRange"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends="float"
@@ -770,7 +900,7 @@
                method="validateCreditCard"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -848,7 +978,7 @@
                method="validateEmail"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Collection,
+                       java.util.Map,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -935,6 +1065,19 @@
          </javascript>
 
       </validator>
+      
+      <validator name="url"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateUrl"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Map,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
+              depends=""
+                  msg="errors.url"/>
+
+     <!-- validator-rules merge-point -->
 
    </global>
 

@@ -2,48 +2,80 @@ package org.andromda.cartridges.bpm4jsf.components.validator;
 
 import java.text.MessageFormat;
 
+import java.util.Locale;
+import java.util.MissingResourceException;
+
+import javax.faces.context.FacesContext;
+
 import org.andromda.cartridges.bpm4jsf.components.Messages;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.Arg;
 import org.apache.commons.validator.Field;
 import org.apache.commons.validator.ValidatorAction;
 
+
 /**
  * Retrieves and formats the validation messages.
- * 
+ *
  * @author Chad Brandon
  */
 public class ValidatorMessages
 {
-
     /**
      * Gets the <code>message</code> based on the <code<action</code>
      * message and the <code>field</code>'s arg objects.
-     * 
-     * @param report the servlet report
+     *
      * @param action Validator action
-     * @param field the validator Field
+     * @param args any message arguments to be substituted.
+     * @param context the faces context
      */
     public static String getMessage(
-        ValidatorAction action,
-        Field field)
+        final ValidatorAction action,
+        final String[] args,
+        final FacesContext context)
     {
-        String args[] = getArgs(action.getName(), field);
-
-        String message = field.getMsg(action.getName()) != null
-            ? field.getMsg(action.getName())
-            : action.getMsg();
-
-        String resourceMessage = Messages.get(message, null); 
-        if (StringUtils.isNotBlank(resourceMessage))
+        final Locale locale = context.getViewRoot().getLocale();
+        String message = null;
+        final String messageKey = action.getMsg();
+        if (message == null)
         {
-            resourceMessage = MessageFormat.format(resourceMessage, args);
-            message = resourceMessage;
+            try
+            {
+                message = Messages.get(
+                        messageKey,
+                        args);
+            }
+            catch (final MissingResourceException exception)
+            {
+                message = messageKey;
+            }
         }
-
+        message = new MessageFormat(
+                message,
+                locale).format(args);
         return message;
     }
-    
+
+    /**
+     * Gets the message given the action, field and faces context.
+     *
+     * @param action the validator action instance.
+     * @param field the field.
+     * @param context the faces context.
+     * @return the message
+     */
+    public static String getMessage(
+        final ValidatorAction action,
+        final Field field,
+        final FacesContext context)
+    {
+        return getMessage(
+            action,
+            getArgs(
+                action.getName(),
+                field),
+            context);
+    }
+
     /**
      * Gets the message arguments based on the given
      * validator <code>action</code> and <code>cield</code>.
@@ -64,8 +96,8 @@ public class ValidatorMessages
                 if (arg.isResource())
                 {
                     argMessages[ctr] = Messages.get(
-                        arg.getKey(),
-                        null);
+                            arg.getKey(),
+                            null);
                 }
                 else
                 {
@@ -75,5 +107,4 @@ public class ValidatorMessages
         }
         return argMessages;
     }
-
 }
