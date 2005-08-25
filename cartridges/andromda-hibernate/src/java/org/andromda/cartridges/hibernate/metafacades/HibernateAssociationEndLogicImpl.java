@@ -89,12 +89,12 @@ public class HibernateAssociationEndLogicImpl
      * Stores the default collection index type.
      */
     private static final String COLLECTION_INDEX_TYPE = "associationEndCollectionIndexType";
-    
+
     /**
      * Stores the value of the cascade behavior when modeling an aggregation.
      */
     private static final String HIBERNATE_AGGREGATION_CASCADE = "hibernateAggregationCascade";
-    
+
     /**
      * Stores the value of the cascade behavior when modeling a composition.
      */
@@ -223,8 +223,7 @@ public class HibernateAssociationEndLogicImpl
         Object type = this.getType();
         Object otherType = this.getOtherEnd().getType();
 
-        if (
-            (type != null) && HibernateEntity.class.isAssignableFrom(type.getClass()) && (otherType != null) &&
+        if ((type != null) && HibernateEntity.class.isAssignableFrom(type.getClass()) && (otherType != null) &&
             HibernateEntity.class.isAssignableFrom(otherType.getClass()))
         {
             HibernateEntity entity = (HibernateEntity)type;
@@ -266,8 +265,7 @@ public class HibernateAssociationEndLogicImpl
                     HibernateEntity entity = (HibernateEntity)type;
                     final String defaultCascade = entity.getHibernateDefaultCascade();
 
-                    if (
-                        defaultCascade.equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE) ||
+                    if (defaultCascade.equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_SAVE_UPDATE) ||
                         defaultCascade.equalsIgnoreCase(HibernateGlobals.HIBERNATE_CASCADE_ALL))
                     {
                         if (this.isMany())
@@ -480,8 +478,7 @@ public class HibernateAssociationEndLogicImpl
 
         if (this.isOrdered())
         {
-            if (
-                (
+            if ((
                     this.getCollectionType().equals(COLLECTION_TYPE_LIST) ||
                     this.getCollectionType().equals(COLLECTION_TYPE_MAP)
                 ) && StringUtils.isNotBlank(this.getCollectionIndexName()))
@@ -506,19 +503,21 @@ public class HibernateAssociationEndLogicImpl
 
             if (StringUtils.isBlank(ObjectUtils.toString(value)))
             {
-            	value = null;
+                value = null;
             }
         }
 
-        if(value != null) {
+        if (value != null)
+        {
             return ObjectUtils.toString(value);
-        } else {
-        	String otherEntityName = ((HibernateEntity) this.getOtherEnd().getType()).getEntityName();
-            Object sep = this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR);
-            return EntityMetafacadeUtils.toSqlName(otherEntityName, sep) + sep +
-            		EntityMetafacadeUtils.toSqlName(this.getName(), sep) +
-            		sep + "IDX";
         }
+        final String otherEntityName = ((HibernateEntity)this.getOtherEnd().getType()).getEntityName();
+        final Object separator = this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR);
+        return EntityMetafacadeUtils.toSqlName(
+            otherEntityName,
+            separator) + separator + EntityMetafacadeUtils.toSqlName(
+            this.getName(),
+            separator) + separator + "IDX";
     }
 
     /**
