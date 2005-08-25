@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator;
-import org.apache.commons.lang.ObjectUtils;
+import org.andromda.cartridges.bpm4jsf.components.validator.ValidatorMessages;
 import org.apache.commons.validator.Arg;
 import org.apache.commons.validator.Field;
 import org.apache.commons.validator.Form;
@@ -136,7 +136,7 @@ public class BPM4JSFValidatorComponent
                                             name,
                                             field.getVarValue(name));
                                     }
-                                    validator.setArgs(this.getArgs(
+                                    validator.setArgs(ValidatorMessages.getArgs(
                                             dependency,
                                             field));
                                     valueHolder.addValidator(validator);
@@ -158,38 +158,6 @@ public class BPM4JSFValidatorComponent
                 childComponent,
                 context);
         }
-    }
-
-    /**
-     * Gets the message arguments based on the given
-     * validator <code>action</code> and <code>cield</code>.
-     * @param action action name
-     * @param field the validator field
-     */
-    private String[] getArgs(
-        final String action,
-        final Field field)
-    {
-        final Arg[] args = field.getArgs(action);
-        final String[] argMessages = new String[args.length];
-        for (int ctr = 0; ctr < args.length; ctr++)
-        {
-            final Arg arg = args[ctr];
-            if (arg != null)
-            {
-                if (arg.isResource())
-                {
-                    argMessages[ctr] = Messages.get(
-                            arg.getKey(),
-                            null);
-                }
-                else
-                {
-                    argMessages[ctr] = arg.getKey();
-                }
-            }
-        }
-        return argMessages;
     }
 
     /**
@@ -345,7 +313,6 @@ public class BPM4JSFValidatorComponent
         writer.write(id);
         writer.write("\", \"");
         writer.write(validator.getErrorMessage(
-                null,
                 context));
         writer.write("\", new Function(\"x\", \"return {");
 
@@ -401,7 +368,7 @@ public class BPM4JSFValidatorComponent
         this.findBpm4JsfValidators(
             context.getViewRoot(),
             context);
-        if (Boolean.valueOf(ObjectUtils.toString(this.getAttributes().get(FUNCTION_NAME))).booleanValue())
+        if (this.getAttributes().get(FUNCTION_NAME) != null)
         {
             this.writeScriptStart(writer);
             this.writeValidationFunctions(

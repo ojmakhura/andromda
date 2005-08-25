@@ -1,6 +1,10 @@
 package org.andromda.cartridges.bpm4jsf.components.validator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.net.URL;
+import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
@@ -8,6 +12,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,16 +48,15 @@ public class ParameterChecks
      * Checks if the field isn't null and length of the field is greater than
      * zero not including whitespace.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters validation is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @param request Current request object.
-     * @return true if meets stated requirements, false otherwise.
      */
     public static void validateRequired(
         FacesContext context,
@@ -62,34 +66,36 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        System.out.println("the value>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + object);
         String value = null;
         if (object instanceof String)
         {
             value = (String)object;
         }
-        if (object == null || StringUtils.isBlank(value))
+        else
+        {
+            value = ObjectUtils.toString(object);
+        }
+        if (StringUtils.isBlank(value))
         {
             errors.add(ValidatorMessages.getMessage(
                     action,
-                    field));
+                    field,
+                    context));
         }
     }
 
     /**
      * Checks if the parameter isn't null based on the values of other fields.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters validation is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @param validator The <code>Validator</code> instance, used to access
-     *        other field values.
-     * @return true if meets stated requirements, false otherwise.
      */
     public static void validateRequiredIf(
         FacesContext context,
@@ -107,7 +113,7 @@ public class ParameterChecks
             value = String.valueOf(parameters.get(field.getProperty()));
         }
 
-        int i = 0;
+        int ctr = 0;
         String fieldJoin = "AND";
         if (!StringUtils.isBlank(field.getVarValue("fieldJoin")))
         {
@@ -119,12 +125,12 @@ public class ParameterChecks
             required = true;
         }
 
-        while (!StringUtils.isBlank(field.getVarValue("field[" + i + "]")))
+        while (!StringUtils.isBlank(field.getVarValue("field[" + ctr + "]")))
         {
-            String dependProp = field.getVarValue("field[" + i + "]");
-            String dependTest = field.getVarValue("fieldTest[" + i + "]");
-            String dependTestValue = field.getVarValue("fieldValue[" + i + "]");
-            String dependIndexed = field.getVarValue("fieldIndexed[" + i + "]");
+            String dependProp = field.getVarValue("field[" + ctr + "]");
+            String dependTest = field.getVarValue("fieldTest[" + ctr + "]");
+            String dependTestValue = field.getVarValue("fieldValue[" + ctr + "]");
+            String dependIndexed = field.getVarValue("fieldIndexed[" + ctr + "]");
 
             if (dependIndexed == null)
             {
@@ -184,7 +190,7 @@ public class ParameterChecks
                 required = required || thisRequired;
             }
 
-            i++;
+            ctr++;
         }
 
         if (required)
@@ -193,7 +199,8 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -202,14 +209,15 @@ public class ParameterChecks
      * Checks if the parameter matches the regular expression in the field's
      * mask attribute.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters validation is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur. lse otherwise.
      */
     public static void validateMask(
         FacesContext context,
@@ -234,29 +242,30 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
             logger.error(
-                e.getMessage(),
-                e);
+                exception.getMessage(),
+                exception);
         }
     }
 
     /**
      * Checks if the field can safely be converted to a byte primitive.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters validation is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return true if valid, false otherwise.
      */
     public static void validateByte(
         FacesContext context,
@@ -280,7 +289,8 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -288,15 +298,15 @@ public class ParameterChecks
     /**
      * Checks if the field can safely be converted to a short primitive.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters validation is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return true if valid, false otherwise.
      */
     public static void validateShort(
         FacesContext context,
@@ -320,7 +330,8 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -328,15 +339,15 @@ public class ParameterChecks
     /**
      * Checks if the field can safely be converted to an int primitive.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return true if valid, false otherwise.
      */
     public static void validateInteger(
         FacesContext context,
@@ -360,7 +371,8 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -368,15 +380,15 @@ public class ParameterChecks
     /**
      * Checks if the field can safely be converted to a long primitive.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return true if valid, false otherwise.
      */
     public static void validateLong(
         FacesContext context,
@@ -401,7 +413,8 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -409,15 +422,15 @@ public class ParameterChecks
     /**
      * Checks if the field can safely be converted to a float primitive.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return true if valid, false otherwise.
      */
     public static void validateFloat(
         FacesContext context,
@@ -441,7 +454,8 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -449,15 +463,15 @@ public class ParameterChecks
     /**
      * Checks if the field can safely be converted to a double primitive.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return true if valid, false otherwise.
      */
     public static void validateDouble(
         FacesContext context,
@@ -481,7 +495,8 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -496,17 +511,17 @@ public class ParameterChecks
      * because the month isn't two digits. If no datePattern variable is
      * specified, then the field gets the DateFormat.SHORT format for the
      * locale. The setLenient method is set to <code>false</code> for all
-     * variations.
+     * variations.  If the <code>object</code> is a date instance, then validation is not performed.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return true if valid, false otherwise.
      */
     public static void validateDate(
         FacesContext context,
@@ -516,54 +531,59 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        Date result = null;
-        String value = null;
-        if (object != null)
+        // - only validate if the object is not already a date
+        if (!(object instanceof java.util.Date))
         {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
-        String datePattern = field.getVarValue("datePattern");
-        String datePatternStrict = field.getVarValue("datePatternStrict");
-        Locale locale = Locale.getDefault();
-
-        if (StringUtils.isNotBlank(value))
-        {
-            try
+            Date result = null;
+            String value = null;
+            if (object != null)
             {
-                if (datePattern != null && datePattern.length() > 0)
-                {
-                    result = GenericTypeValidator.formatDate(
-                            value,
-                            datePattern,
-                            false);
-                }
-                else if (datePatternStrict != null && datePatternStrict.length() > 0)
-                {
-                    result = GenericTypeValidator.formatDate(
-                            value,
-                            datePatternStrict,
-                            true);
-                }
-                else
-                {
-                    result = GenericTypeValidator.formatDate(
-                            value,
-                            locale);
-                }
-            }
-            catch (Exception exception)
-            {
-                logger.error(
-                    exception.getMessage(),
-                    exception);
+                value = String.valueOf(parameters.get(field.getProperty()));
             }
 
-            if (result == null)
+            String datePattern = field.getVarValue("datePattern");
+            String datePatternStrict = field.getVarValue("datePatternStrict");
+            Locale locale = Locale.getDefault();
+
+            if (StringUtils.isNotBlank(value))
             {
-                errors.add(ValidatorMessages.getMessage(
-                        action,
-                        field));
+                try
+                {
+                    if (datePattern != null && datePattern.length() > 0)
+                    {
+                        result = GenericTypeValidator.formatDate(
+                                value,
+                                datePattern,
+                                false);
+                    }
+                    else if (datePatternStrict != null && datePatternStrict.length() > 0)
+                    {
+                        result = GenericTypeValidator.formatDate(
+                                value,
+                                datePatternStrict,
+                                true);
+                    }
+                    else
+                    {
+                        result = GenericTypeValidator.formatDate(
+                                value,
+                                locale);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    logger.error(
+                        exception.getMessage(),
+                        exception);
+                }
+
+                if (result == null)
+                {
+                    errors.add(ValidatorMessages.getMessage(
+                            action,
+                            field,
+                            context));
+                }
             }
         }
     }
@@ -572,15 +592,15 @@ public class ParameterChecks
      * Checks if a fields value is within a range (min &amp; max specified in
      * the vars attribute).
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return True if in range, false otherwise.
      */
     public static void validateLongRange(
         FacesContext context,
@@ -611,14 +631,16 @@ public class ParameterChecks
                 {
                     errors.add(ValidatorMessages.getMessage(
                             action,
-                            field));
+                            field,
+                            context));
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -627,15 +649,15 @@ public class ParameterChecks
      * Checks if a fields value is within a range (min &amp; max specified in
      * the vars attribute).
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return True if in range, false otherwise.
      */
     public static void validateDoubleRange(
         FacesContext context,
@@ -666,14 +688,16 @@ public class ParameterChecks
                 {
                     errors.add(ValidatorMessages.getMessage(
                             action,
-                            field));
+                            field,
+                            context));
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -682,15 +706,15 @@ public class ParameterChecks
      * Checks if a fields value is within a range (min &amp; max specified in
      * the vars attribute).
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return True if in range, false otherwise.
      */
     public static void validateFloatRange(
         FacesContext context,
@@ -721,14 +745,16 @@ public class ParameterChecks
                 {
                     errors.add(ValidatorMessages.getMessage(
                             action,
-                            field));
+                            field,
+                            context));
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -736,15 +762,15 @@ public class ParameterChecks
     /**
      * Checks if the field is a valid credit card number.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return true if valid, false otherwise.
      */
     public static void validateCreditCard(
         FacesContext context,
@@ -769,23 +795,24 @@ public class ParameterChecks
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
 
     /**
-     * Checks if a field has a valid e-mail address.
+     * Checks if a field has a valid exception-mail address.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return True if valid, false otherwise.
      */
     public static void validateEmail(
         FacesContext context,
@@ -804,7 +831,8 @@ public class ParameterChecks
         {
             errors.add(ValidatorMessages.getMessage(
                     action,
-                    field));
+                    field,
+                    context));
         }
     }
 
@@ -812,16 +840,15 @@ public class ParameterChecks
      * Checks if the field's length is less than or equal to the maximum value.
      * A <code>Null</code> will be considered an error.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @param request Current request object.
-     * @return True if stated conditions met.
      */
     public static void validateMaxLength(
         FacesContext context,
@@ -849,14 +876,16 @@ public class ParameterChecks
                 {
                     errors.add(ValidatorMessages.getMessage(
                             action,
-                            field));
+                            field,
+                            context));
                 }
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
@@ -865,15 +894,15 @@ public class ParameterChecks
      * Checks if the field's length is greater than or equal to the minimum
      * value. A <code>Null</code> will be considered an error.
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return True if stated conditions met.
      */
     public static void validateMinLength(
         FacesContext context,
@@ -901,30 +930,36 @@ public class ParameterChecks
                 {
                     errors.add(ValidatorMessages.getMessage(
                             action,
-                            field));
+                            field,
+                            context));
                 }
             }
             catch (Exception exception)
             {
                 errors.add(ValidatorMessages.getMessage(
                         action,
-                        field));
+                        field,
+                        context));
             }
         }
     }
 
     /**
-     * Checks if a field has a valid url.
+     * <p>
+     * Validates whether the URL string passed in is a valid URL or not. Does
+     * this by attempting to construct a java.net.URL instance and checking
+     * whether or not, it's valid.
+     * </p>
      *
-     * @param report the ReportConfig were're validating against.
-     * @param parameters The report parameters is being performed on.
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
      * @param action The <code>ValidatorAction</code> that is currently being
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
-     * @param errors The <code>Map</code> object to add errors to if any
-     *        validation errors occur.
-     * @return True if valid, false otherwise.
      */
     public static void validateUrl(
         FacesContext context,
@@ -934,29 +969,97 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        String value = null;
-        if (object != null)
+        boolean valid = true;
+        String urlString = ObjectUtils.toString(object);
+        try
         {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
+            URL url = new URL(urlString);
 
-        if (!StringUtils.isBlank(value) && !GenericValidator.isUrl(value))
+            // first check to see if it can be used as a File
+            File file = new File(url.getFile());
+            valid = file.exists();
+
+            // if the file doesn't exist, check to see if we can get the
+            // contents
+            // as a URL
+            try
+            {
+                url.openStream();
+                valid = true;
+            }
+            catch (FileNotFoundException ex)
+            {
+                // if the flag isn't valid it means it
+                // failed the existence
+                if (!valid)
+                {
+                    valid = false;
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            valid = false;
+        }
+        if (!valid)
         {
             errors.add(ValidatorMessages.getMessage(
                     action,
-                    field));
+                    field,
+                    context));
         }
     }
 
     /**
-     * Return <code>true</code> if the specified object is a String or a
-     * <code>null</code> value.
+     *  Checks if the field is a valid time. If the field has a timePattern variable,
+     *  that will be used to format <code>java.text.SimpleDateFormat</code>.
      *
-     * @param object Object to be tested
-     * @return The string value
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
+     * @param action The <code>ValidatorAction</code> that is currently being
+     *        performed.
+     * @param field The <code>Field</code> object associated with the current
+     *        field being validated.
      */
-    protected static boolean isString(Object object)
+    public static void validateTime(
+        FacesContext context,
+        Object object,
+        Map parameters,
+        Collection errors,
+        ValidatorAction action,
+        Field field)
     {
-        return object == null ? true : String.class.isInstance(object);
+        // - only validate if the object is not already a date
+        if (!(object instanceof java.util.Date))
+        {
+            String value = ObjectUtils.toString(object);
+            final String timePattern = field.getVarValue("timePattern");
+
+            if (StringUtils.isNotBlank(value))
+            {
+                try
+                {
+                    if (timePattern != null && timePattern.length() > 0)
+                    {
+                        final java.text.DateFormat timeFormatter = new java.text.SimpleDateFormat(timePattern);
+                        timeFormatter.parse(value);
+                    }
+                    else
+                    {
+                        DateFormat.getTimeInstance().parse(value);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    errors.add(ValidatorMessages.getMessage(
+                            action,
+                            field,
+                            context));
+                }
+            }
+        }
     }
 }
