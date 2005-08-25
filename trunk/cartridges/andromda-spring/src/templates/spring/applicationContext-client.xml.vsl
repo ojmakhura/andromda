@@ -26,7 +26,6 @@
 
 
 #if ($adviceEnabled)
-
     <!-- ========================= Start of INTERCEPTOR DEFINITIONS ==================== -->
 
 #set ($exceptionHandlingAdviceName = "$clientExceptionHandlingAdviceName")
@@ -37,9 +36,9 @@
     <bean id="exceptionHandlingAdvice" class="$exceptionHandlingAdviceName" />
 
     <!-- ========================= End of INTERCEPTOR DEFINITIONS ======================= -->
+
+
 #end
-
-
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
 
 #foreach($service in $services)
@@ -61,11 +60,13 @@
             </bean>
         </property>
         <property name="proxyInterfaces"><value>$service.fullyQualifiedName</value></property>
+#if ($adviceEnabled)
         <property name="interceptorNames">
             <list>
                 <value>exceptionHandlingAdvice</value>
             </list>
         </property>
+#end
     </bean>
 
 #end
