@@ -570,6 +570,7 @@
                 </documentation>
             </property>
             <property name="associationEndCollectionIndexType" required="false">
+                <default>datatype::String</default>
                 <documentation>
                     The default association end collection index type (this can be overridden by the
                     <a href="profile.html#@andromda_hibernate_collection_index_type">@andromda.hibernate.collection.index.type</a>

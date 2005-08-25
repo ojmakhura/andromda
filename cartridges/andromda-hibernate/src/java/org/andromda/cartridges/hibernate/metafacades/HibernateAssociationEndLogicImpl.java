@@ -6,7 +6,9 @@ import java.util.Collection;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.TypeMappings;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -149,20 +151,28 @@ public class HibernateAssociationEndLogicImpl
                     ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.SPECIFIC_COLLECTION_INTERFACES)))
                        .booleanValue();
 
-            if (specificInterfaces)
+            final TypeMappings mappings = this.getLanguageMappings();
+            if (mappings != null)
             {
-                final TypeMappings mappings = this.getLanguageMappings();
-
-                if (mappings != null)
+                if (this.isMap())
+                {
+                    getterSetterTypeName = mappings.getTo(UMLProfile.MAP_TYPE_NAME);
+                }
+                else if (specificInterfaces)
                 {
                     if (this.isSet())
                     {
                         getterSetterTypeName = mappings.getTo(UMLProfile.SET_TYPE_NAME);
                     }
-                    else if (this.isMap())
+                    else if (this.isList())
                     {
-                        getterSetterTypeName = mappings.getTo(UMLProfile.MAP_TYPE_NAME);
+                        getterSetterTypeName = mappings.getTo(UMLProfile.LIST_TYPE_NAME);
                     }
+                }
+                else
+                {
+                    getterSetterTypeName =
+                        ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.DEFAULT_COLLECTION_INTERFACE));
                 }
             }
             else
@@ -496,11 +506,19 @@ public class HibernateAssociationEndLogicImpl
 
             if (StringUtils.isBlank(ObjectUtils.toString(value)))
             {
-                value = null;
+            	value = null;
             }
         }
 
-        return (value != null) ? ObjectUtils.toString(value) : null;
+        if(value != null) {
+            return ObjectUtils.toString(value);
+        } else {
+        	String otherEntityName = ((HibernateEntity) this.getOtherEnd().getType()).getEntityName();
+            Object sep = this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR);
+            return EntityMetafacadeUtils.toSqlName(otherEntityName, sep) + sep +
+            		EntityMetafacadeUtils.toSqlName(this.getName(), sep) +
+            		sep + "IDX";
+        }
     }
 
     /**
@@ -526,7 +544,7 @@ public class HibernateAssociationEndLogicImpl
             {
                 value = this.getRootPackage().findModelElement((String)value);
             }
-            else if (value instanceof HibernateType)
+            if (value instanceof HibernateType)
             {
                 value = ((HibernateType)value).getFullyQualifiedHibernateType();
             }
