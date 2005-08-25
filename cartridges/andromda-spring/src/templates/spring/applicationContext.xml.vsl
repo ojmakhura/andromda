@@ -232,9 +232,8 @@
 #foreach($service in $services)
 #foreach ($operation in $service.operations)
 #if (!$operation.roles.empty)
-                ${service.fullyQualifiedName}.${operation.name}=#foreach ($role in $operation.roles)$role.name#if($velocityCount != $roles.size()), #else
+                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $operation.roles)$role.name#if($velocityCount != $operation.roles.size()), #end#end
 
-#end#end
 #end
 #end
 #end
