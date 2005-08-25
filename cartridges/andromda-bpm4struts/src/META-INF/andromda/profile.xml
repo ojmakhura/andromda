@@ -113,7 +113,7 @@
                 <documentation>
                     On action completion will have a success message rendered on screen
                 </documentation>
-                <value>@andromda.struts.action.success.message</value>
+                <value>@andromda.presentation.action.success.message</value>
                 <appliedOnElement>Transition</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -126,7 +126,7 @@
                 <documentation>
                     On action completion will have a warning message rendered on screen
                 </documentation>
-                <value>@andromda.struts.action.warning.message</value>
+                <value>@andromda.presentation.action.warning.message</value>
                 <appliedOnElement>Transition</appliedOnElement>
                 <allowedValues>
                     <value>
@@ -140,7 +140,7 @@
                     Denotes whether or not this is a required field. If a field is required its type will always be
                     checked (you cannot enter a String value when an int is expected)
                 </documentation>
-                <value>@andromda.struts.view.field.required</value>
+                <value>@andromda.presentation.view.field.required</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -176,7 +176,7 @@
                 <documentation>
                     Indicates the parameter is read only, it's value cannot be entered by the user
                 </documentation>
-                <value>@andromda.presentation.web.view.field.readonly</value>
+                <value>@andromda.presentation.view.field.readonly</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -262,7 +262,7 @@
                         Netscape's guide to regular expressions in Javascript</a>
                     </p>
                 </documentation>
-                <value>@andromda.struts.view.field.format</value>
+                <value>@andromda.presentation.view.field.format</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>Any of the formats listed above</value>
@@ -297,7 +297,7 @@
                     specified the incoming page-variable that is holding the values to match against. If
                     a match is found the checkbox will be checked for the corresponding row.
                 </documentation>
-                <value>@andromda.struts.view.field.multibox</value>
+                <value>@andromda.presentation.view.field.multibox</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>any name of a page-variable that is a datatype::Collection type</value>
@@ -312,7 +312,7 @@
                     to be updateable at runtime. If this tagged value is not specified the cartridge will
                     assume it to have value '3'.
                 </documentation>
-                <value>@andromda.struts.view.field.radio</value>
+                <value>@andromda.presentation.view.field.radio</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a strictly positive integer</value>
@@ -328,7 +328,7 @@
                     <code>http://struts.apache.org/userGuide/dev_validator.html</code>. The required
                     parentheses will automatically be placed around your condition.
                 </documentation>
-                <value>@andromda.struts.view.field.validwhen</value>
+                <value>@andromda.presentation.web.view.field.validwhen</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a Struts 'validwhen' condition</value>
@@ -349,7 +349,7 @@
                     (I recommend against using names used by known validators: minlength,
                     test, datePattern, ...)
                 </documentation>
-                <value>@andromda.struts.view.field.validators</value>
+                <value>@andromda.presentation.web.view.field.validators</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>a call to one of your custom validators</value>
@@ -400,7 +400,7 @@
                     after the execution of the action.  This is useful when you want only
                     some of the parameters reset on the form but not all of them.
                 </documentation>
-                <value>@andromda.struts.view.field.reset</value>
+                <value>@andromda.presentation.web.view.field.reset</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value default="true">false</value>
@@ -432,7 +432,7 @@
                     also known as the 'page size'. If the number of entries is a number greater
                     than this value then a list of pages will be displayed to jump to the other values.
                 </documentation>
-                <value>@andromda.struts.view.table.maxrows</value>
+                <value>@andromda.presentation.view.table.maxrows</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -451,7 +451,7 @@
                     <code>none</code> value to disable exporting for this table, this value will take
                     priority over any other ones if specified.
                 </documentation>
-                <value>@andromda.struts.view.table.export</value>
+                <value>@andromda.presentation.view.table.export</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -468,7 +468,7 @@
                     Indicates whether or not it should be possible to sort the columns by clicking
                     on the header.
                 </documentation>
-                <value>@andromda.struts.view.table.sortable</value>
+                <value>@andromda.presentation.view.table.sortable</value>
                 <appliedOnElement>
                     Parameter of type <code>datatype::Collection</code>
                     going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
@@ -497,7 +497,7 @@
                 <documentation>
                     Indicates which exception this handler takes care of
                 </documentation>
-                <value>@andromda.struts.exception.type</value>
+                <value>@andromda.presentation.exception.type</value>
                 <appliedOnElement>Transition</appliedOnElement>
                 <allowedValues>
                     <value>the fully qualified name of a Java java.lang.Exception type</value>
