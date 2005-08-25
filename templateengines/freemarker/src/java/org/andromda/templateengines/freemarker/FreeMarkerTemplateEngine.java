@@ -26,7 +26,7 @@ import org.apache.log4j.PatternLayout;
 
 
 /**
- * The TemplateEngine implementation for FreeMarker template processor.
+ * The TemplateEngine implementation for the FreeMarker template processor.
  *
  * @author Chad Brandon
  * @author Olaf Muliawan
