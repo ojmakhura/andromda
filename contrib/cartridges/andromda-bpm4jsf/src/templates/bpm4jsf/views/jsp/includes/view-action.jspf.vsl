@@ -42,7 +42,9 @@
                              value="#{${formName}.${parameter.name}}"
                              renderAsPopup="true"
                              popupDateFormat="$parameter.dateFormat"
-                             required="$parameter.required"/>
+                             required="$parameter.required">
+                <f:convertDateTime pattern="$parameter.dateFormat"/>
+            </x:inputCalendar>
 #end
 #elseif ($parameter.inputCheckbox)
             <h:selectBooleanCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
