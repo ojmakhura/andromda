@@ -162,7 +162,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     /**
      * Returns the first unfinished <em>${taskName}</em> task that can be found.
      */
-    org.jbpm.taskmgmt.exe.TaskInstance get${taskName}Task()
+    public org.jbpm.taskmgmt.exe.TaskInstance get${taskName}Task()
     {
         if (this.$taskField == null)
         {
