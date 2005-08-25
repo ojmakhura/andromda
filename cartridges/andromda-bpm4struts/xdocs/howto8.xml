@@ -149,14 +149,23 @@
 ]]></source>
                 </p>
                 <p>
-                    You may model these tagged values on a transition going out of a <![CDATA[<<FrontEndView>>]]>
-                    action state, the only restriction is that there must be one and only one parameter that is
-                    a column from the targetted table. If more than one such action would target the same table then
-                    <em>all these actions must declare a parameter of the same type and with the same name</em>.
+                    Let's list the things to do in order to successfully make use of this feature:
                 </p>
                 <p>
-                    This will result in the cartridge having generated code that will place a checkbox in front of each
-                    row, the checkbox carries the value of the table column with the same name as the
+                    <ol>
+                        <li>make sure you have a table page-variable</li>
+                        <li>have an action with a single event parameter, make sure this parameter carries the same
+                            name as one of the table columns, it will be that column's value that will be sent when the
+                            checkbox for the row is checked</li>
+                        <li>add the <code>@andromda.presentation.web.action.tablelink</code> tagged value on
+                            the action transition</li>
+                        <li>add the <code>@andromda.presentation.web.action.type=table</code> tagged value on
+                            the action transition</li>
+                    </ol>
+                </p>
+                <p>
+                    In summary: this will result in the cartridge having generated code that will place a checkbox in
+                    front of each row, the checkbox carries the value of the table column with the same name as the
                     <em>event parameter</em> modeled on the transition. Each such action will have a button and there's
                     also a button to select or deselect all rows. When a checkbox is selected its corresponding value
                     will be sent to the server when one of the action buttons is clicked.
@@ -175,7 +184,8 @@
                     when a value for a specific row matches at least one of the elements the checkbox will be checked.
                 </p>
                 <p>
-                    The <code>available</code> column of the table in the image above has the following tagged values:
+                    The <code>available</code> column of the table in the example image below has the following
+                    tagged values:
                 </p>
 <source><![CDATA[
 @andromda.presentation.web.view.field.tablelink=itemList

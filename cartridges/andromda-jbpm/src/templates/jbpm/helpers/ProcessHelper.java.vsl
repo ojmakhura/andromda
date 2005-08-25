@@ -11,7 +11,7 @@
 #if ($state.name)
 #set ($methodName = "is$stringUtils.upperCamelCaseName($state.nodeClassName)")
     /**
-     * Checks whether or not the argument node represent the $state.name state in this process.
+     * Checks whether or not the argument node represents the <em>$state.name</em> state in this process.
      *
      * @param node the node instance to check
      * @return true if the argument is an instance of {@link ${packageName}.${state.nodeClassName}}

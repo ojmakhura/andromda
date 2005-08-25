@@ -25,7 +25,7 @@ public class TaggedValueFacadeLogicImpl
         String name = super.handleGetName();
         if (StringUtils.isEmpty(name))
         {
-            TagDefinition type = this.metaObject.getType();
+            final TagDefinition type = this.metaObject.getType();
             if (type != null)
             {
                 name = type.getName();
@@ -44,9 +44,9 @@ public class TaggedValueFacadeLogicImpl
      */
     public Collection handleGetValues()
     {
-        Collection values = new ArrayList();
+        final Collection values = new ArrayList();
         values.addAll(metaObject.getDataValue());
-        values.addAll(shieldedElements(metaObject.getReferenceValue()));
+        values.addAll(this.shieldedElements(metaObject.getReferenceValue()));
         return values;
     }
 
@@ -55,7 +55,7 @@ public class TaggedValueFacadeLogicImpl
      */
     public java.lang.Object handleGetValue()
     {
-        Collection values = getValues();
+        final Collection values = this.getValues();
         return (values.isEmpty()) ? null : values.iterator().next();
     }
 
