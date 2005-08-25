@@ -1,15 +1,14 @@
 package org.andromda.metafacades.uml14;
 
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.behavioralelements.statemachines.Event;
 import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.datatypes.Expression;
-import org.omg.uml.foundation.datatypes.ParameterDirectionKind;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 
 import java.util.Collection;
@@ -37,9 +36,7 @@ public class ParameterFacadeLogicImpl
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.PARAMETER_NAME_MASK));
-        return NameMasker.mask(
-                super.handleGetName(),
-                nameMask);
+        return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
     /**
@@ -63,11 +60,11 @@ public class ParameterFacadeLogicImpl
      */
     public Object getValidationOwner()
     {
-        Object owner = getOperation();
+        Object owner = this.getOperation();
 
         if (owner == null)
         {
-            owner = getEvent();
+            owner = this.getEvent();
         }
 
         return owner;
@@ -91,7 +88,7 @@ public class ParameterFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getType()
+     * @see org.andromda.metafacades.uml.ParameterFacade#getType()
      */
     protected Object handleGetType()
     {
@@ -99,12 +96,11 @@ public class ParameterFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ParameterFacade#sReturn()
+     * @see org.andromda.metafacades.uml.ParameterFacade#isReturn()
      */
     public boolean handleIsReturn()
     {
-        final ParameterDirectionKind kind = this.metaObject.getKind();
-        return kind == null ? false : kind.equals(ParameterDirectionKindEnum.PDK_RETURN);
+        return ParameterDirectionKindEnum.PDK_RETURN.equals(this.metaObject.getKind());
     }
 
     /**
@@ -143,7 +139,7 @@ public class ParameterFacadeLogicImpl
         for (final Iterator iterator = allEvents.iterator(); iterator.hasNext() && parameterEvent == null;)
         {
             final Event event = (Event)iterator.next();
-            if (event.getParameter().contains(metaObject))
+            if (event.getParameter().contains(this.metaObject))
             {
                 parameterEvent = event;
             }
@@ -156,9 +152,7 @@ public class ParameterFacadeLogicImpl
      */
     protected boolean handleIsReadable()
     {
-        final ParameterDirectionKind kind = metaObject.getKind();
-        return kind == null ? true :
-                kind.equals(ParameterDirectionKindEnum.PDK_IN) || kind.equals(ParameterDirectionKindEnum.PDK_INOUT);
+        return this.isInParameter() || this.isInoutParameter();
     }
 
     /**
@@ -166,8 +160,30 @@ public class ParameterFacadeLogicImpl
      */
     protected boolean handleIsWritable()
     {
-        final ParameterDirectionKind kind = metaObject.getKind();
-        return kind == null ? true :
-                kind.equals(ParameterDirectionKindEnum.PDK_OUT) || kind.equals(ParameterDirectionKindEnum.PDK_INOUT);
+        return this.isOutParameter() || this.isInoutParameter();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#isInParameter()
+     */
+    protected boolean handleIsInParameter()
+    {
+        return ParameterDirectionKindEnum.PDK_IN.equals(this.metaObject.getKind());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#isOutParameter()
+     */
+    protected boolean handleIsOutParameter()
+    {
+        return ParameterDirectionKindEnum.PDK_OUT.equals(this.metaObject.getKind());
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ParameterFacade#isInoutParameter()
+     */
+    protected boolean handleIsInoutParameter()
+    {
+        return ParameterDirectionKindEnum.PDK_INOUT.equals(this.metaObject.getKind());
     }
 }
