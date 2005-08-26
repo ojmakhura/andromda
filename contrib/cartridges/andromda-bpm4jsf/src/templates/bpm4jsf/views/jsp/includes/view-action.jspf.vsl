@@ -6,9 +6,9 @@
 <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
     <h:outputText value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
-#if ($parameter.type.dateType)
+#if ($parameter.type.dateType || $parameter.type.timeType)
 #set ($parameterValue = "${parameter.name}Formatted")
-    <fmt:formatDate var="$parameterValue" value="${${formName}.${parameter.name}}" pattern="$parameter.dateFormat" scope="request"/>
+    <fmt:formatDate var="$parameterValue" value="${${formName}.${parameter.name}}" pattern="$parameter.format" scope="request"/>
 #else
 #set ($parameterValue = "${formName}.${parameter.name}")
 #end
@@ -41,9 +41,9 @@
                              weekRowClass="weekHeader"
                              value="#{${formName}.${parameter.name}}"
                              renderAsPopup="true"
-                             popupDateFormat="$parameter.dateFormat"
+                             popupDateFormat="$parameter.format"
                              required="$parameter.required">
-                <f:convertDateTime pattern="$parameter.dateFormat"/>
+                <f:convertDateTime pattern="$parameter.format"/>
             </x:inputCalendar>
 #end
 #elseif ($parameter.inputCheckbox)
@@ -64,7 +64,7 @@
 #else
             <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
 #if ($parameter.type.timeType)
-                <f:convertDateTime pattern="$parameter.timeFormat"/>
+                <f:convertDateTime pattern="$parameter.format"/>
 #end
             </h:inputText>
 #end

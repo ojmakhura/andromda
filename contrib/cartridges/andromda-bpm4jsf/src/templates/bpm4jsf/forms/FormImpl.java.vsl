@@ -13,16 +13,14 @@ public class $action.formImplementationName
     public ${action.formImplementationName}()
     {
 #foreach ($field in $action.formFields)
-#if ($field.type.dateType)
 #set ($lenient = !$field.strictDateFormat)
 #if ($field.type.dateType)
-        java.text.DateFormat $field.dateFormatter = new java.text.SimpleDateFormat("$field.dateFormat");
+        java.text.DateFormat $field.dateFormatter = new java.text.SimpleDateFormat("$field.format");
         ${field.dateFormatter}.setLenient($lenient);
         this.dateTimeFormatters.put("$field.name", $field.dateFormatter);
 #elseif ($field.type.timeType)
-        java.text.DateFormat $field.timeFormatter = new java.text.SimpleDateFormat("$field.timeFormat");
+        java.text.DateFormat $field.timeFormatter = new java.text.SimpleDateFormat("$field.format");
         this.dateTimeFormatters.put("$field.name", $field.timeFormatter);
-#end
 #end
 #end
     }
