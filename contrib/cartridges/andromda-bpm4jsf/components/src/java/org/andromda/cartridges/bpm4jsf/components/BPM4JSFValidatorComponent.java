@@ -403,7 +403,6 @@ public class BPM4JSFValidatorComponent
         {
             final ResponseWriter writer = context.getResponseWriter();
             this.validators.clear();
-            BPM4JSFValidator.initialize();
             this.findBpm4JsfValidators(
                 context.getViewRoot(),
                 context);

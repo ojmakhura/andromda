@@ -147,39 +147,8 @@ public class BPM4JSFValidator
     public static final String RULES_LOCATION = "/WEB-INF/validator-rules.xml";
 
     /**
-     * Initializes the validator.
+     * The key that stores the validator resources
      */
-    public static void initialize()
-    {
-        final FacesContext context = FacesContext.getCurrentInstance();
-        final ExternalContext external = context.getExternalContext();
-        final String rulesResource = RULES_LOCATION;
-        final String validationResource = "/WEB-INF/validation.xml";
-        final InputStream rulesInput = external.getResourceAsStream(rulesResource);
-        if (rulesInput == null)
-        {
-            throw new BPM4JSFValidatorException("Could not find rules file '" + rulesResource + "'");
-        }
-        final InputStream validationInput = external.getResourceAsStream(validationResource);
-        if (validationInput == null)
-        {
-            throw new BPM4JSFValidatorException("Could not find validation file '" + validationResource + "'");
-        }
-        final InputStream[] inputs = new InputStream[] {rulesInput, validationInput};
-        try
-        {
-            ValidatorResources validatorResources = new ValidatorResources(inputs);
-            final Map applicationMap = external.getApplicationMap();
-            applicationMap.put(
-                VALIDATOR_RESOURCES_KEY,
-                validatorResources);
-        }
-        catch (final Throwable throwable)
-        {
-            throw new BPM4JSFValidatorException(throwable);
-        }
-    }
-
     private static final String VALIDATOR_RESOURCES_KEY = "org.andromda.bpm4jsf.validator.resources";
 
     /**
@@ -194,7 +163,35 @@ public class BPM4JSFValidator
         final FacesContext context = FacesContext.getCurrentInstance();
         final ExternalContext external = context.getExternalContext();
         final Map applicationMap = external.getApplicationMap();
-        return (ValidatorResources)applicationMap.get(VALIDATOR_RESOURCES_KEY);
+        ValidatorResources validatorResources = (ValidatorResources)applicationMap.get(VALIDATOR_RESOURCES_KEY);
+        if (validatorResources == null)
+        {
+            final String rulesResource = RULES_LOCATION;
+            final String validationResource = "/WEB-INF/validation.xml";
+            final InputStream rulesInput = external.getResourceAsStream(rulesResource);
+            if (rulesInput == null)
+            {
+                throw new BPM4JSFValidatorException("Could not find rules file '" + rulesResource + "'");
+            }
+            final InputStream validationInput = external.getResourceAsStream(validationResource);
+            if (validationInput == null)
+            {
+                throw new BPM4JSFValidatorException("Could not find validation file '" + validationResource + "'");
+            }
+            final InputStream[] inputs = new InputStream[] {rulesInput, validationInput};
+            try
+            {
+                validatorResources = new ValidatorResources(inputs);
+                applicationMap.put(
+                    VALIDATOR_RESOURCES_KEY,
+                    validatorResources);
+            }
+            catch (final Throwable throwable)
+            {
+                throw new BPM4JSFValidatorException(throwable);
+            }
+        }
+        return validatorResources;
     }
 
     /**
@@ -360,4 +357,6 @@ public class BPM4JSFValidator
     {
         return super.toString() + "[" + this.validatorAction != null ? this.validatorAction.getName() : null + "]";
     }
+    
+    private static final long serialVersionUID = -5627108517488240081L;
 }
