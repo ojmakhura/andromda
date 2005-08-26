@@ -15,7 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator;
+import org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidatorException;
 import org.andromda.cartridges.bpm4jsf.components.validator.ValidatorMessages;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.Arg;
 import org.apache.commons.validator.Field;
 import org.apache.commons.validator.Form;
@@ -30,6 +33,8 @@ import org.apache.commons.validator.ValidatorResources;
 public class BPM4JSFValidatorComponent
     extends UIComponentBase
 {    
+    private static final Log logger = LogFactory.getLog(BPM4JSFValidatorComponent.class);
+    
     /**
      * A map of validators, representing all of the Commons Validators attached
      * to components in the current component hierarchy. The keys of the map are
@@ -362,19 +367,26 @@ public class BPM4JSFValidatorComponent
     public void encodeBegin(final FacesContext context)
         throws IOException
     {
-        final ResponseWriter writer = context.getResponseWriter();
-        this.validators.clear();
-        BPM4JSFValidator.initialize();
-        this.findBpm4JsfValidators(
-            context.getViewRoot(),
-            context);
-        if (this.getAttributes().get(FUNCTION_NAME) != null)
+        try
         {
-            this.writeScriptStart(writer);
-            this.writeValidationFunctions(
-                writer,
+            final ResponseWriter writer = context.getResponseWriter();
+            this.validators.clear();
+            BPM4JSFValidator.initialize();
+            this.findBpm4JsfValidators(
+                context.getViewRoot(),
                 context);
-            this.writeScriptEnd(writer);
+            if (this.getAttributes().get(FUNCTION_NAME) != null)
+            {
+                this.writeScriptStart(writer);
+                this.writeValidationFunctions(
+                    writer,
+                    context);
+                this.writeScriptEnd(writer);
+            }
+        }
+        catch (final BPM4JSFValidatorException exception)
+        {
+            logger.error(exception);
         }
     }
 }
