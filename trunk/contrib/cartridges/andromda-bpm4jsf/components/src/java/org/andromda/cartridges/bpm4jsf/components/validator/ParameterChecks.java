@@ -14,8 +14,6 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.Field;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
@@ -36,10 +34,6 @@ import org.apache.commons.validator.ValidatorAction;
 public class ParameterChecks
     implements Serializable
 {
-    /**
-     * Commons Logging instance.
-     */
-    private static final Log logger = LogFactory.getLog(ParameterChecks.class);
     public static final String FIELD_TEST_NULL = "NULL";
     public static final String FIELD_TEST_NOTNULL = "NOTNULL";
     public static final String FIELD_TEST_EQUAL = "EQUAL";
@@ -107,11 +101,7 @@ public class ParameterChecks
     {
         boolean required = false;
 
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
+        final String value = ObjectUtils.toString(object);
 
         int ctr = 0;
         String fieldJoin = "AND";
@@ -228,29 +218,15 @@ public class ParameterChecks
         Field field)
     {
         String mask = field.getVarValue("mask");
-        String value = null;
-        if (object != null)
+        final String value = ObjectUtils.toString(object);
+        if (!StringUtils.isBlank(value) && !GenericValidator.matchRegexp(
+                value,
+                mask))
         {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
-        try
-        {
-            if (!StringUtils.isBlank(value) && !GenericValidator.matchRegexp(
-                    value,
-                    mask))
-            {
-                errors.add(ValidatorMessages.getMessage(
-                        action,
-                        field,
-                        context));
-            }
-        }
-        catch (Exception exception)
-        {
-            logger.error(
-                exception.getMessage(),
-                exception);
+            errors.add(ValidatorMessages.getMessage(
+                    action,
+                    field,
+                    context));
         }
     }
 
@@ -276,11 +252,7 @@ public class ParameterChecks
         Field field)
     {
         Byte result = null;
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
+        String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             result = GenericTypeValidator.formatByte(value);
@@ -317,11 +289,7 @@ public class ParameterChecks
         Field field)
     {
         Short result = null;
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
+        String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             result = GenericTypeValidator.formatShort(value);
@@ -358,12 +326,7 @@ public class ParameterChecks
         Field field)
     {
         Integer result = null;
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
+        String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             result = GenericTypeValidator.formatInt(value);
@@ -399,16 +362,10 @@ public class ParameterChecks
         Field field)
     {
         Long result = null;
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
+        String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             result = GenericTypeValidator.formatLong(value);
-
             if (result == null)
             {
                 errors.add(ValidatorMessages.getMessage(
@@ -441,11 +398,7 @@ public class ParameterChecks
         Field field)
     {
         Float result = null;
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
+        String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             result = GenericTypeValidator.formatFloat(value);
@@ -482,11 +435,7 @@ public class ParameterChecks
         Field field)
     {
         Double result = null;
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
+        String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             result = GenericTypeValidator.formatDouble(value);
@@ -535,48 +484,33 @@ public class ParameterChecks
         if (!(object instanceof java.util.Date))
         {
             Date result = null;
-            String value = null;
-            if (object != null)
-            {
-                value = String.valueOf(parameters.get(field.getProperty()));
-            }
-
+            String value = ObjectUtils.toString(object);
             String datePattern = field.getVarValue("datePattern");
             String datePatternStrict = field.getVarValue("datePatternStrict");
             Locale locale = Locale.getDefault();
 
             if (StringUtils.isNotBlank(value))
             {
-                try
+                if (datePattern != null && datePattern.length() > 0)
                 {
-                    if (datePattern != null && datePattern.length() > 0)
-                    {
-                        result = GenericTypeValidator.formatDate(
-                                value,
-                                datePattern,
-                                false);
-                    }
-                    else if (datePatternStrict != null && datePatternStrict.length() > 0)
-                    {
-                        result = GenericTypeValidator.formatDate(
-                                value,
-                                datePatternStrict,
-                                true);
-                    }
-                    else
-                    {
-                        result = GenericTypeValidator.formatDate(
-                                value,
-                                locale);
-                    }
+                    result = GenericTypeValidator.formatDate(
+                            value,
+                            datePattern,
+                            false);
                 }
-                catch (Exception exception)
+                else if (datePatternStrict != null && datePatternStrict.length() > 0)
                 {
-                    logger.error(
-                        exception.getMessage(),
-                        exception);
+                    result = GenericTypeValidator.formatDate(
+                            value,
+                            datePatternStrict,
+                            true);
                 }
-
+                else
+                {
+                    result = GenericTypeValidator.formatDate(
+                            value,
+                            locale);
+                }
                 if (result == null)
                 {
                     errors.add(ValidatorMessages.getMessage(
@@ -610,12 +544,7 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
+        final String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             try
@@ -667,12 +596,7 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
+        final String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             try
@@ -724,12 +648,7 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
+        final String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             try
@@ -781,12 +700,7 @@ public class ParameterChecks
         Field field)
     {
         Long result = null;
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
+        final String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             result = GenericTypeValidator.formatCreditCard(value);
@@ -822,11 +736,7 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
+        final String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value) && !GenericValidator.isEmail(value))
         {
             errors.add(ValidatorMessages.getMessage(
@@ -858,13 +768,8 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
-        if (value != null)
+        final String value = ObjectUtils.toString(object);
+        if (StringUtils.isNotBlank(value))
         {
             try
             {
@@ -1035,7 +940,7 @@ public class ParameterChecks
         // - only validate if the object is not already a date
         if (!(object instanceof java.util.Date))
         {
-            String value = ObjectUtils.toString(object);
+            final String value = ObjectUtils.toString(object);
             final String timePattern = field.getVarValue("timePattern");
 
             if (StringUtils.isNotBlank(value))

@@ -10,7 +10,7 @@
                method="validateRequired"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
                   msg="errors.required">
@@ -75,7 +75,7 @@
                method="validateMinLength"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -119,7 +119,7 @@
                method="validateMaxLength"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -163,7 +163,7 @@
                method="validateMask"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -212,7 +212,7 @@
                method="validateByte"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -283,7 +283,7 @@
                method="validateShort"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -350,10 +350,10 @@
 
       <validator name="integer"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
-               method="validateInt"
+               method="validateInteger"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -443,18 +443,76 @@
                method="validateLong"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
-                  msg="errors.long"/>
+                  msg="errors.long"
+       jsFunctionName="LongValidations">
+
+         <javascript><![CDATA[
+            function validateLong(form) {
+                var bValid = true;
+                var focusField = null;
+                var i = 0;
+                var fields = new Array();
+                oLong = new LongValidations();
+                for (x in oLong) {
+                   var field = form[oLong[x][0]];
+
+                    if (field.type == 'text' ||
+                        field.type == 'textarea' ||
+                        field.type == 'select-one' ||
+                        field.type == 'radio') {
+
+                        var value = '';
+                  // get field's value
+                  if (field.type == "select-one") {
+                     var si = field.selectedIndex;
+                     if (si >= 0) {
+                        value = field.options[si].value;
+                     }
+                  } else {
+                     value = field.value;
+                  }
+
+                        if (value.length > 0) {
+                            if (!isAllDigits(value)) {
+                                bValid = false;
+                                if (i == 0) {
+                                    focusField = field;
+                                }
+                                fields[i++] = oLong[x][1];
+
+                            } else {
+                               var iValue = parseInt(value);
+                               if (isNaN(iValue) || !(iValue >= -9223372036854775808 && iValue <= 9223372036854775807)) {
+                                   if (i == 0) {
+                                       focusField = field;
+                                   }
+                                   fields[i++] = oShort[x][1];
+                                   bValid = false;
+                               }
+                          }
+                       }
+                    }
+                }
+                if (fields.length > 0) {
+                   focusField.focus();
+                   alert(fields.join('\n'));
+                }
+                return bValid;
+            }]]>
+         </javascript>
+          
+      </validator>
 
       <validator name="float"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
                method="validateDouble"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -527,7 +585,7 @@
                method="validateDate"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -682,7 +740,7 @@
                method="validateTime"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -812,7 +870,7 @@
                method="validateLongRange"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends="integer"
@@ -859,7 +917,7 @@
                method="validateDoubleRange"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends="float"
@@ -906,7 +964,7 @@
                method="validateCreditCard"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -984,7 +1042,7 @@
                method="validateEmail"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
@@ -1077,7 +1135,7 @@
                method="validateUrl"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
-                       java.util.Map,
+                       java.util.Collection,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field"
               depends=""
