@@ -2,9 +2,7 @@ package org.andromda.cartridges.bpm4jsf.components.validator;
 
 import java.io.InputStream;
 import java.io.Serializable;
-
 import java.lang.reflect.Method;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -138,7 +136,7 @@ public class BPM4JSFValidator
         final ValidatorAction action = getValidatorResources().getValidatorAction(name);
         if (action == null)
         {
-            throw new RuntimeException("No validator action with name '" + name + "' registered in rules files '" + RULES_LOCATION + "'");
+            throw new BPM4JSFValidatorException("No validator action with name '" + name + "' registered in rules files '" + RULES_LOCATION + "'");
         }
         return action;
     }
@@ -165,12 +163,12 @@ public class BPM4JSFValidator
         final InputStream rulesInput = external.getResourceAsStream(rulesResource);
         if (rulesInput == null)
         {
-            throw new RuntimeException("Could not find rules file '" + rulesResource + "'");
+            throw new BPM4JSFValidatorException("Could not find rules file '" + rulesResource + "'");
         }
         final InputStream validationInput = external.getResourceAsStream(validationResource);
         if (validationInput == null)
         {
-            throw new RuntimeException("Could not find validation file '" + validationResource + "'");
+            throw new BPM4JSFValidatorException("Could not find validation file '" + validationResource + "'");
         }
         final InputStream[] inputs = new InputStream[] {rulesInput, validationInput};
         try
@@ -183,7 +181,7 @@ public class BPM4JSFValidator
         }
         catch (final Throwable throwable)
         {
-            throw new RuntimeException(throwable);
+            throw new BPM4JSFValidatorException(throwable);
         }
     }
 
