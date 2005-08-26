@@ -541,4 +541,13 @@ public class SpringServiceLogicImpl
         }
         return transactionType;
     }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringServiceLogic#handleIsConfigonly()
+     */
+    protected boolean handleIsConfigonly()
+    {
+        String value = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_SERVICE_CONFIG_ONLY);
+        return BooleanUtils.toBoolean(value);
+    }
 }

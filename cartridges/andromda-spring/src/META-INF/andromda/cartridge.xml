@@ -152,7 +152,9 @@
         overwrite="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -183,7 +185,9 @@
         overwrite="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -202,7 +206,9 @@
         overwrite="false">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -215,6 +221,7 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
                     <property name="allowDefaultServiceException"/>
                 </type>
             </modelElement>
@@ -280,7 +287,9 @@
         overwrite="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -292,7 +301,9 @@
         overwrite="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -304,7 +315,9 @@
         overwrite="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>

@@ -25,9 +25,9 @@ public class SpringProfile
      * Stores the EJB service transaction type.
      */
     public static final String TAGGEDVALUE_EJB_TRANSACTION_TYPE = profile.get("EJB_TRANSACTION_TYPE");
-    
+
     /**
-     * Stores the EJB service view type (local/remote). 
+     * Stores the EJB service view type (local/remote).
      */
     public static final String TAGGEDVALUE_EJB_VIEW_TYPE = profile.get("EJB_VIEW_TYPE");
 
@@ -98,7 +98,12 @@ public class SpringProfile
      * Define additional spring interceptors
      */
     public static final String TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS = profile.get("SPRING_SERVICE_INTERCEPTORS");
-    
+
+    /**
+     * Define whether the we will render only the configuration, but not the service itself.
+     */
+    public static final String TAGGEDVALUE_SERVICE_CONFIG_ONLY = profile.get("SPRING_SERVICE_CONFIG_ONLY");
+
     /* ----------------- Tagged Value Values ------------- */
 
     /**
