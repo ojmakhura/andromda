@@ -274,15 +274,6 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getDateFormat()
-     */
-    protected String handleGetDateFormat()
-    {
-        final String format = this.getInputFormat();
-        return format == null ? this.getDefaultDateFormat() : this.getDateFormat(format);
-    }
-
-    /**
      * @return this field's date format
      */
     private String getDateFormat(String format)
@@ -335,12 +326,32 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getTimeFormat()
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getFormat()
      */
-    protected String handleGetTimeFormat()
+    protected String handleGetFormat()
     {
-        final String format = this.getInputFormat();
-        return format == null ? this.getDefaultTimeFormat() : format;
+        String format = null;
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            format = this.getInputFormat();
+            if (format == null)
+            {
+                if (type.isTimeType())
+                {
+                    format = this.getDefaultTimeFormat();
+                }
+                else if (type.isDateType())
+                {
+                    format = this.getDefaultDateFormat();                    
+                }
+            }
+            else if (type.isDateType())
+            {
+                format = this.getDateFormat(format);
+            }
+        }
+        return format;
     }
 
     /**
@@ -1208,8 +1219,10 @@ public class JSFParameterLogicImpl
 
                 if (isRangeFormat)
                 {
-                    vars.put("min", Arrays.asList(new Object[]{"min", getRangeStart(format)}));
-                    vars.put("max", Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+                    final String min = "min";
+                    final String max = "max";
+                    vars.put(min, Arrays.asList(new Object[]{min, getRangeStart(format)}));
+                    vars.put(max, Arrays.asList(new Object[]{max, getRangeEnd(format)}));
                 }
                 else
                 {
@@ -1217,36 +1230,43 @@ public class JSFParameterLogicImpl
                     for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
                         final String additionalFormat = String.valueOf(formatIterator.next());
-                        if (isMinLengthFormat(additionalFormat)) vars.put("minlength",
-                            Arrays.asList(new Object[]{"minlength", this.getMinLengthValue(additionalFormat)}));
-                        else if (isMaxLengthFormat(additionalFormat)) vars.put("maxlength",
-                            Arrays.asList(new Object[]{"maxlength", this.getMaxLengthValue(additionalFormat)}));
+                        final String minlength = "minlength";
+                        final String maxlength = "maxlength";
+                        final String mask = "mask";
+                        if (isMinLengthFormat(additionalFormat)) vars.put(minlength,
+                            Arrays.asList(new Object[]{minlength, this.getMinLengthValue(additionalFormat)}));
+                        else if (isMaxLengthFormat(additionalFormat)) vars.put(maxlength,
+                            Arrays.asList(new Object[]{maxlength, this.getMaxLengthValue(additionalFormat)}));
                         else if (isPatternFormat(additionalFormat)) vars
-                            .put("mask", Arrays.asList(new Object[]{"mask", this.getPatternValue(additionalFormat)}));
+                            .put(mask, Arrays.asList(new Object[]{mask, this.getPatternValue(additionalFormat)}));
                     }
                 }
             }
             if (this.isDate())
             {
-                if (format != null && isStrictDateFormat(format))
+                final String datePatternStrict = "datePatternStrict";
+                if (format != null && this.isStrictDateFormat(format))
                 {
-                    vars.put("datePatternStrict",
-                        Arrays.asList(new Object[]{"datePatternStrict", this.getDateFormat()}));
+                    vars.put(datePatternStrict,
+                        Arrays.asList(new Object[]{datePatternStrict, this.getFormat()}));
                 }
                 else
                 {
-                    vars.put("datePattern", Arrays.asList(new Object[]{"datePattern", this.getDateFormat()}));
+                    final String datePattern = "datePattern";
+                    vars.put(datePattern, Arrays.asList(new Object[]{datePattern, this.getFormat()}));
                 }
             }
             if (this.isTime())
             {
-                vars.put("timePattern", Arrays.asList(new Object[]{"timePattern", this.getTimeFormat()}));
+                final String timePattern = "timePattern";
+                vars.put(timePattern, Arrays.asList(new Object[]{timePattern, this.getFormat()}));
             }
 
             final String validWhen = getValidWhen();
             if (validWhen != null)
             {
-                vars.put("test", Arrays.asList(new Object[]{"test", validWhen}));
+                final String test = "test";
+                vars.put(test, Arrays.asList(new Object[]{test, validWhen}));
             }
         }
 
