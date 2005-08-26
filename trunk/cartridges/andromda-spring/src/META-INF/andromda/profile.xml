@@ -142,6 +142,20 @@
                 <value>@andromda.spring.service.interceptors</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
             </element>
+            <element name="SPRING_SERVICE_CONFIG_ONLY">
+                <documentation>
+                    Set this tagged value to true in order to suppress generation of the bean class. The bean will be
+                    listed in the applicationContext.xml files, however. The idea behind this tagged value is to enable
+                    users to use Spring beans that are contained in Jar files,
+                    e.g. <code>net.sf.acegisecurity.providers.rcp.RemoteAuthenticationManager</code>.
+                </documentation>
+                <value>@andromda.spring.service.config.only</value>
+                <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
             <element name="HIBERNATE_CRITERIA_NULLABLE">
                 <documentation>
                     If this tagged value is set to <code>true</code>, the tagged attribute will be considered in the
