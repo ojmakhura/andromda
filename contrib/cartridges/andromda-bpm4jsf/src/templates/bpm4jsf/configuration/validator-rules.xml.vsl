@@ -726,10 +726,6 @@
                     }
                 }
                 return true;
-            }
-        
-            function isValidTime(second, minute, hour) {
-                return (0<=hour && hour<24 && 0<=minute && minute<60 && 0<=second && second<60);
             }]]>
          </javascript>
 
@@ -859,7 +855,12 @@
 
     function isValidTime(second, minute, hour, millisecond)
     {
-        return (0 <= hour && hour < 24 && 0 <= minute && minute < 60 && 0 <= second && second < 60 && 0 <= millisecond && millisecond < 1000);
+        var valid = 0 <= hour && hour < 24 && 0 <= minute && minute < 60 && 0 <= second && second < 60;
+        if (millisecond)
+        {
+            valid = valid && 0 <= millisecond && millisecond < 1000;
+        }
+        return valid;
     }
 ]]>
         </javascript>
