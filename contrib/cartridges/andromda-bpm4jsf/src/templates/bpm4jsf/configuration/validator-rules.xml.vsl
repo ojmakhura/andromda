@@ -114,7 +114,6 @@
 
       </validator>
 
-
       <validator name="maxlength"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
                method="validateMaxLength"
@@ -158,7 +157,6 @@
          </javascript>
 
       </validator>
-
 
       <validator name="mask"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
@@ -208,7 +206,6 @@
          </javascript>
 
       </validator>
-
 
       <validator name="byte"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
@@ -281,7 +278,6 @@
 
       </validator>
 
-
       <validator name="short"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
                method="validateShort"
@@ -351,7 +347,6 @@
          </javascript>
 
       </validator>
-
 
       <validator name="integer"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
@@ -442,6 +437,17 @@
          </javascript>
 
       </validator>
+      
+      <validator name="long"
+            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+               method="validateLong"
+         methodParams="javax.faces.context.FacesContext,
+                       java.lang.Object,java.util.Map,
+                       java.util.Map,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field"
+              depends=""
+                  msg="errors.long"/>
 
       <validator name="float"
             classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
