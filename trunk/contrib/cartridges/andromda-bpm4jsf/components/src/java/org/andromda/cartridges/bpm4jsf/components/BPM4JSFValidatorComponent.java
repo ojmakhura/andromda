@@ -29,7 +29,7 @@ import org.apache.commons.validator.ValidatorResources;
  */
 public class BPM4JSFValidatorComponent
     extends UIComponentBase
-{
+{    
     /**
      * A map of validators, representing all of the Commons Validators attached
      * to components in the current component hierarchy. The keys of the map are
