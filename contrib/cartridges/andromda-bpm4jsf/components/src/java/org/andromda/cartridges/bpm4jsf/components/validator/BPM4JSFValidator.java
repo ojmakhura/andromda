@@ -133,23 +133,18 @@ public class BPM4JSFValidator
      */
     public static ValidatorAction getValidatorAction(final String name)
     {
-        final ValidatorAction action = getValidatorResources().getValidatorAction(name);
-        if (action == null)
-        {
-            throw new BPM4JSFValidatorException("No validator action with name '" + name + "' registered in rules files '" + RULES_LOCATION + "'");
-        }
-        return action;
+        return getValidatorResources().getValidatorAction(name);
     }
 
     /**
      * The commons-validator action, that carries out the actual validation.
      */
     private ValidatorAction validatorAction;
-    
+
     /**
      * The location of the validator rules.
      */
-    private static final String RULES_LOCATION = "/WEB-INF/validator-rules.xml";
+    public static final String RULES_LOCATION = "/WEB-INF/validator-rules.xml";
 
     /**
      * Initializes the validator.
@@ -356,5 +351,13 @@ public class BPM4JSFValidator
             }
         }
         return form;
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return super.toString() + "[" + this.validatorAction != null ? this.validatorAction.getName() : null + "]";
     }
 }
