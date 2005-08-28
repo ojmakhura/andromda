@@ -43,7 +43,7 @@ public class PathMatcher
         {
             matches = path.matches(pattern);
         }
-        catch (PatternSyntaxException ex)
+        catch (final PatternSyntaxException exception)
         {
             matches = false;
         }
