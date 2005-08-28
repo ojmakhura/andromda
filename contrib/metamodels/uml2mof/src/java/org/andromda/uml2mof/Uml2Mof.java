@@ -18,11 +18,14 @@ import java.util.Iterator;
 
 import javax.jmi.model.ModelPackage;
 import javax.jmi.model.MofPackage;
+import javax.jmi.reflect.RefPackage;
 import javax.jmi.xmi.XmiReader;
 import javax.jmi.xmi.XmiWriter;
 
+import org.andromda.repositories.mdr.MDRXmiReferenceResolver;
 import org.netbeans.api.mdr.MDRManager;
 import org.netbeans.api.mdr.MDRepository;
+import org.netbeans.api.xmi.XMIReaderFactory;
 import org.netbeans.lib.jmi.uml2mof.Transformer;
 import org.omg.uml.UmlPackage;
 import org.openide.ErrorManager;
@@ -72,9 +75,17 @@ public class Uml2Mof
             // opens an output stream for the file name passed as the second commandline parameter
             // (name of file to be used to save the resulting MOF metamodel)
             final FileOutputStream out = new FileOutputStream(args[1]);
+            
+            final String arg3 = args.length > 2 ? args[3] : "";
+            final String[] moduleSearchPath = arg3.trim().length() == 0 ? new String[0] : arg3.split(",");
 
+            reader =
+                XMIReaderFactory.getDefault().createXMIReader(
+                    new MDRXmiReferenceResolver(
+                        new RefPackage[] {uml},
+                        moduleSearchPath));
             // look up an implementation of XmiReader interface
-            reader = (XmiReader)Lookup.getDefault().lookup(XmiReader.class);
+           // reader = (XmiReader)Lookup.getDefault().lookup(XmiReader.class);
 
             // look up an implementation of XmiWriter interface
             XmiWriter writer = (XmiWriter)Lookup.getDefault().lookup(XmiWriter.class);
@@ -117,7 +128,7 @@ public class Uml2Mof
                 out.close();
             }
         }
-        catch (Exception exception)
+        catch (final Exception exception)
         {
             ErrorManager.getDefault().notify(
                 ErrorManager.ERROR,
@@ -125,7 +136,9 @@ public class Uml2Mof
         }
     }
 
-    /** Makes sure UML and MOF extents are created. */
+    /** 
+     * Makes sure UML and MOF extents are created. 
+     */
     private static void init()
         throws Exception
     {
@@ -189,12 +202,12 @@ public class Uml2Mof
     }
 
     /** Finds "UML" package in a given extent
-     * @param umlMM MOF extent that should be searched for "UML" package.
+     * @param umlMetamodel MOF extent that should be searched for "UML" package.
      */
-    private static MofPackage getUmlPackage(ModelPackage umlMM)
+    private static MofPackage getUmlPackage(final ModelPackage umlMetamodel)
     {
         // iterate through all instances of package
-        for (final Iterator iterator = umlMM.getMofPackage().refAllOfClass().iterator(); iterator.hasNext();)
+        for (final Iterator iterator = umlMetamodel.getMofPackage().refAllOfClass().iterator(); iterator.hasNext();)
         {
             MofPackage pkg = (MofPackage)iterator.next();
 
