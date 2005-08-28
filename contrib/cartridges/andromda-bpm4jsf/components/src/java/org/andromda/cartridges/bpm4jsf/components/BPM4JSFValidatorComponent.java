@@ -420,8 +420,8 @@ public class BPM4JSFValidatorComponent
             logger.error(exception);
         }
     }
-    
-    public static void main(String args[])
+
+    public static void main(String[] args)
     {
         System.out.println("maxi value: " + Long.MAX_VALUE);
         System.out.println("min value: " + Long.MIN_VALUE);
