@@ -18,7 +18,7 @@
         </j:choose>
         <attainGoal name="uml2mof:parameter-check"/>
         <attainGoal name="uml2mof:init"/>
-        <java classname="org.netbeans.lib.jmi.uml2mof.Main"
+        <java classname="org.andromda.uml2mof.Uml2Mof"
               fork="true"
               failonerror="true">
             <ant:classpath>

@@ -10,10 +10,54 @@
     </description>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-uml2mof-plugin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>plugin</type>
+            <groupId>jmi</groupId>
+            <artifactId>mof</artifactId>
+            <version>20030918</version>
+        </dependency>
+        <dependency>
+            <groupId>jmi</groupId>
+            <artifactId>jmi</artifactId>
+            <version>20030918</version>
+        </dependency>
+        <dependency>
+            <groupId>jmi</groupId>
+            <artifactId>uml</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>jmiutils</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>mdrapi</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>nbmdr</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>openide-util</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>openide-util</artifactId>
+            <version>20050630</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>uml2mof</artifactId>
+            <version>20050724</version>
+        </dependency>
+        <dependency>
+            <groupId>mdr</groupId>
+            <artifactId>mdrant</artifactId>
+            <version>20030910</version>
         </dependency>
     </dependencies>
     <build>
