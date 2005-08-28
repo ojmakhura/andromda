@@ -13,6 +13,7 @@
 package org.andromda.uml2mof;
 
 import java.io.FileOutputStream;
+import java.net.URL;
 import java.util.Iterator;
 
 import javax.jmi.model.ModelPackage;
@@ -43,7 +44,7 @@ public class Uml2Mof
     private static final String UML_INSTANCE = "UMLInstance";
 
     // name of a MOF extent that will contain definition of UML metamodel
-    private static final String UML_MM = "UML";
+    private static final String UML_META_MODEL = "UML";
 
     // repository
     private static MDRepository repository;
@@ -151,31 +152,38 @@ public class Uml2Mof
         }
     }
 
-    /** Finds "UML" package -> this is the topmost package of UML metamodel - that's the
+    /** 
+     * Finds "UML" package -> this is the topmost package of UML metamodel - that's the
      * package that needs to be instantiated in order to create a UML extent
      */
     private static MofPackage getUmlPackage()
         throws Exception
     {
         // get the MOF extent containing definition of UML metamodel
-        ModelPackage umlMM = (ModelPackage)repository.getExtent(UML_MM);
-        if (umlMM == null)
+        ModelPackage umlMetamodel = (ModelPackage)repository.getExtent(UML_META_MODEL);
+        if (umlMetamodel == null)
         {
             // it is not present -> create it
-            umlMM = (ModelPackage)repository.createExtent(UML_MM);
+            umlMetamodel = (ModelPackage)repository.createExtent(UML_META_MODEL);
         }
 
         // find package named "UML" in this extent
-        MofPackage result = getUmlPackage(umlMM);
+        MofPackage result = getUmlPackage(umlMetamodel);
         if (result == null)
         {
             // it cannot be found -> UML metamodel is not loaded -> load it from XMI
+            final String umlMetamodelPath = "/M2_DiagramInterchangeModel.xml";
+            final URL metamodelUrl = UmlPackage.class.getResource(umlMetamodelPath);
+            if (metamodelUrl == null)
+            {
+                throw new RuntimeException("The UML metamodel could not be loaded from '" + umlMetamodelPath + "'");
+            }
             reader.read(
-                UmlPackage.class.getResource("resources/01-02-15_Diff.xml").toString(),
-                umlMM);
+                metamodelUrl.toString(),
+                umlMetamodel);
 
             // try to find the "UML" package again
-            result = getUmlPackage(umlMM);
+            result = getUmlPackage(umlMetamodel);
         }
         return result;
     }
