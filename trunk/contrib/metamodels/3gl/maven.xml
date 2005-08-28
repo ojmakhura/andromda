@@ -48,9 +48,6 @@
 
     <preGoal name="jar:jar">
         <attainGoal name="clean"/>
-        <j:set var="uml.output.dir" value="target/uml"/>
-        <ant:unzip src="${model.file}" dest="${uml.output.dir}"/>
-        <j:set var="andromda.uml2mof.model.file" value="${uml.output.dir}/3GLMetamodel.xml"/>
         <attainGoal name="uml2mof:run"/>
     </preGoal>
 
