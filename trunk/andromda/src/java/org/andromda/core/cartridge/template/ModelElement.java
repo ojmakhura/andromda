@@ -153,7 +153,7 @@ public class ModelElement
      *
      * @param metafacades the metafacades to filter
      */
-    private final void applyTypeFiltering()
+    private void applyTypeFiltering()
     {
         if (this.hasTypes())
         {
@@ -175,7 +175,7 @@ public class ModelElement
      * @param metafacade the metafacade to check
      * @return true/false
      */
-    private final boolean accept(final Object metafacade)
+    private boolean accept(final Object metafacade)
     {
         boolean accept = true;
         for (final Iterator iterator = this.types.iterator(); iterator.hasNext() && accept;)
