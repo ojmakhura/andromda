@@ -30,7 +30,8 @@ import org.apache.commons.validator.ValidatorResources;
 
 
 /**
- * A JSF component that encodes JavaScript for all client-side validations
+ * A JSF component that enabled the commons-validator server side validation, as well
+ * as encodes JavaScript for all client-side validations
  * specified in the same JSP page (with <code>bpm4jsf:validator</code>.
  */
 public class BPM4JSFValidatorComponent
