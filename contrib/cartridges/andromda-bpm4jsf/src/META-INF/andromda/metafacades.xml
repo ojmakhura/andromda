@@ -88,4 +88,9 @@
         <property reference="serviceAccessorPattern"/>
         <property reference="servicePackageNamePattern"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.bpm4jsf.metafacades.JSFActivityGraphLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
 </metafacades>
