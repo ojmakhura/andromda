@@ -76,7 +76,7 @@ public class Uml2Mof
             // (name of file to be used to save the resulting MOF metamodel)
             final FileOutputStream out = new FileOutputStream(args[1]);
             
-            final String arg3 = args.length > 2 ? args[3] : "";
+            final String arg3 = args.length > 2 ? args[2] : "";
             final String[] moduleSearchPath = arg3.trim().length() == 0 ? new String[0] : arg3.split(",");
 
             reader =
