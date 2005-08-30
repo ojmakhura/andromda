@@ -343,7 +343,7 @@ public class JSFParameterLogicImpl
                 }
                 else if (type.isDateType())
                 {
-                    format = this.getDefaultDateFormat();                    
+                    format = this.getDefaultDateFormat();
                 }
             }
             else if (type.isDateType())
@@ -400,7 +400,7 @@ public class JSFParameterLogicImpl
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getName() + "TimeFormatter" : null;
     }
-    
+
     /**
      * Gets the current value of the specified input type (or an empty string
      * if one isn't specified).
@@ -478,7 +478,7 @@ public class JSFParameterLogicImpl
     {
         return this.isInputType("text");
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputMultibox()
      */
@@ -486,7 +486,7 @@ public class JSFParameterLogicImpl
     {
         return this.isInputType("multibox");
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputCheckbox()
      */
@@ -500,7 +500,6 @@ public class JSFParameterLogicImpl
         }
         return checkbox;
     }
-
 
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputText()
@@ -545,7 +544,7 @@ public class JSFParameterLogicImpl
             "\\{0\\}",
             this.getName());
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isSelectable()
      */
@@ -555,7 +554,7 @@ public class JSFParameterLogicImpl
 
         if (this.isActionParameter())
         {
-            selectable = this.isInputMultibox() || this.isInputSelect();
+            selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
             final ClassifierFacade type = this.getType();
 
             if (!selectable && type != null)
@@ -581,7 +580,9 @@ public class JSFParameterLogicImpl
                             final String parameterTypeName = parameterType.getFullyQualifiedName();
                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
                             {
-                                selectable = parameter.isInputMultibox() || parameter.isInputSelect();
+                                selectable =
+                                    parameter.isInputMultibox() || parameter.isInputSelect() ||
+                                    parameter.isInputRadio();
                             }
                         }
                     }
@@ -1159,15 +1160,14 @@ public class JSFParameterLogicImpl
             1,
             2) + '$';
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValidatorArgs(java.lang.String)
      */
     protected java.util.Collection handleGetValidatorArgs(final java.lang.String validatorType)
     {
         final Collection args = new ArrayList();
-        if ("intRange".equals(validatorType) ||
-            "floatRange".equals(validatorType) ||
+        if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) ||
             "doubleRange".equals(validatorType))
         {
             args.add("${var:min}");
@@ -1210,7 +1210,7 @@ public class JSFParameterLogicImpl
         }
         return args;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValidatorVars()
      */
@@ -1230,8 +1230,12 @@ public class JSFParameterLogicImpl
                 {
                     final String min = "min";
                     final String max = "max";
-                    vars.put(min, Arrays.asList(new Object[]{min, getRangeStart(format)}));
-                    vars.put(max, Arrays.asList(new Object[]{max, getRangeEnd(format)}));
+                    vars.put(
+                        min,
+                        Arrays.asList(new Object[] {min, getRangeStart(format)}));
+                    vars.put(
+                        max,
+                        Arrays.asList(new Object[] {max, getRangeEnd(format)}));
                 }
                 else
                 {
@@ -1242,12 +1246,24 @@ public class JSFParameterLogicImpl
                         final String minlength = "minlength";
                         final String maxlength = "maxlength";
                         final String mask = "mask";
-                        if (isMinLengthFormat(additionalFormat)) vars.put(minlength,
-                            Arrays.asList(new Object[]{minlength, this.getMinLengthValue(additionalFormat)}));
-                        else if (isMaxLengthFormat(additionalFormat)) vars.put(maxlength,
-                            Arrays.asList(new Object[]{maxlength, this.getMaxLengthValue(additionalFormat)}));
-                        else if (isPatternFormat(additionalFormat)) vars
-                            .put(mask, Arrays.asList(new Object[]{mask, this.getPatternValue(additionalFormat)}));
+                        if (isMinLengthFormat(additionalFormat))
+                        {
+                            vars.put(
+                                minlength,
+                                Arrays.asList(new Object[] {minlength, this.getMinLengthValue(additionalFormat)}));
+                        }
+                        else if (isMaxLengthFormat(additionalFormat))
+                        {
+                            vars.put(
+                                maxlength,
+                                Arrays.asList(new Object[] {maxlength, this.getMaxLengthValue(additionalFormat)}));
+                        }
+                        else if (isPatternFormat(additionalFormat))
+                        {
+                            vars.put(
+                                mask,
+                                Arrays.asList(new Object[] {mask, this.getPatternValue(additionalFormat)}));
+                        }
                     }
                 }
             }
@@ -1256,26 +1272,33 @@ public class JSFParameterLogicImpl
                 final String datePatternStrict = "datePatternStrict";
                 if (format != null && this.isStrictDateFormat(format))
                 {
-                    vars.put(datePatternStrict,
-                        Arrays.asList(new Object[]{datePatternStrict, this.getFormat()}));
+                    vars.put(
+                        datePatternStrict,
+                        Arrays.asList(new Object[] {datePatternStrict, this.getFormat()}));
                 }
                 else
                 {
                     final String datePattern = "datePattern";
-                    vars.put(datePattern, Arrays.asList(new Object[]{datePattern, this.getFormat()}));
+                    vars.put(
+                        datePattern,
+                        Arrays.asList(new Object[] {datePattern, this.getFormat()}));
                 }
             }
             if (this.isTime())
             {
                 final String timePattern = "timePattern";
-                vars.put(timePattern, Arrays.asList(new Object[]{timePattern, this.getFormat()}));
+                vars.put(
+                    timePattern,
+                    Arrays.asList(new Object[] {timePattern, this.getFormat()}));
             }
 
             final String validWhen = getValidWhen();
             if (validWhen != null)
             {
                 final String test = "test";
-                vars.put(test, Arrays.asList(new Object[]{test, validWhen}));
+                vars.put(
+                    test,
+                    Arrays.asList(new Object[] {test, validWhen}));
             }
         }
 
@@ -1294,7 +1317,9 @@ public class JSFParameterLogicImpl
             {
                 final String validatorVar = (String)validatorVars.get(ctr);
                 final String validatorArg = (String)validatorArgs.get(ctr);
-                vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar, validatorArg}));
+                vars.put(
+                    validatorVar,
+                    Arrays.asList(new Object[] {validatorVar, validatorArg}));
             }
         }
 
