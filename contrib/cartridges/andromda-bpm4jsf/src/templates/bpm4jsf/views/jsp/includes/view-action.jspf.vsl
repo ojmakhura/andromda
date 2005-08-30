@@ -61,6 +61,12 @@
             <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputFile)
             <x:inputFileUpload id="$parameter.name" value="#{${formName}.${parameter.name}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput"/>
+#elseif ($parameter.inputMultibox)
+            <h:selectManyCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" layout="pageDirection" styleClass="selectManyCheckbox">
+                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
+                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
+                </c:if>   
+            </h:selectManyCheckbox>
 #else
             <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
 #if ($parameter.type.timeType)
