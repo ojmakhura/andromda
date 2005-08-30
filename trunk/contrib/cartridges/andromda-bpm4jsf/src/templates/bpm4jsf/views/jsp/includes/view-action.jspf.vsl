@@ -67,6 +67,12 @@
                     <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
                 </c:if>   
             </h:selectManyCheckbox>
+#elseif ($parameter.inputRadio)
+            <h:selectOneRadio id="$parameter.name" value="#{${formName}.${parameter.name}}" layout="pageDirection" styleClass="selectOneRadio">
+                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
+                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
+                </c:if>  
+            </h:selectOneRadio>
 #else
             <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
 #if ($parameter.type.timeType)
