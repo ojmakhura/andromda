@@ -11,6 +11,11 @@
     </properties>
     <body>
         <release version="3.1-RC1-SNAPSHOT" date="2005-08-25" description="First release candidate of version 3.1">
+            <action dev="draftdog" type="fix" issue="SITE-30">
+                The generated Javadoc information for the generic facades as well as the cartridge facades is not
+                correctly presenting the interfaces instead of the implementation classes, in doing so the documentation
+                available in the respective meta-models is present.
+            </action>
             <action dev="freter" type="add" issue="SPRING-112">
                 The Spring cartridge now supports generating bean configuration for beans that do already exist (e.g. in
                 a third-party library).
