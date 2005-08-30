@@ -400,21 +400,7 @@ public class JSFParameterLogicImpl
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getName() + "TimeFormatter" : null;
     }
-
-    /**
-     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputCheckbox()
-     */
-    protected boolean handleIsInputCheckbox()
-    {
-        boolean checkbox = this.isInputType("checkbox");
-        if (!checkbox && this.getInputType().length() == 0)
-        {
-            final ClassifierFacade type = this.getType();
-            checkbox = type != null ? type.isBooleanType() : false;
-        }
-        return checkbox;
-    }
-
+    
     /**
      * Gets the current value of the specified input type (or an empty string
      * if one isn't specified).
@@ -492,6 +478,29 @@ public class JSFParameterLogicImpl
     {
         return this.isInputType("text");
     }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputMultibox()
+     */
+    protected boolean handleIsInputMultibox()
+    {
+        return this.isInputType("multibox");
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputCheckbox()
+     */
+    protected boolean handleIsInputCheckbox()
+    {
+        boolean checkbox = this.isInputType("checkbox");
+        if (!checkbox && this.getInputType().length() == 0)
+        {
+            final ClassifierFacade type = this.getType();
+            checkbox = type != null ? type.isBooleanType() : false;
+        }
+        return checkbox;
+    }
+
 
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isInputText()
@@ -536,7 +545,7 @@ public class JSFParameterLogicImpl
             "\\{0\\}",
             this.getName());
     }
-
+    
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isSelectable()
      */
@@ -546,8 +555,8 @@ public class JSFParameterLogicImpl
 
         if (this.isActionParameter())
         {
-            selectable = this.isInputSelect();
-            final ClassifierFacade type = getType();
+            selectable = this.isInputMultibox() || this.isInputSelect();
+            final ClassifierFacade type = this.getType();
 
             if (!selectable && type != null)
             {
@@ -572,7 +581,7 @@ public class JSFParameterLogicImpl
                             final String parameterTypeName = parameterType.getFullyQualifiedName();
                             if (name.equals(parameterName) && typeName.equals(parameterTypeName))
                             {
-                                selectable = parameter.isInputSelect();
+                                selectable = parameter.isInputMultibox() || parameter.isInputSelect();
                             }
                         }
                     }
@@ -762,7 +771,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isValidationRequired()
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
     {
@@ -770,7 +779,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorTypes()
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValidatorTypes()
      */
     protected java.util.Collection handleGetValidatorTypes()
     {
@@ -895,7 +904,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * Overridden to have the same behavior as bpm4struts.
+     * Overridden to have the same behavior as bpm4jsf.
      *
      * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
      */
@@ -1152,7 +1161,7 @@ public class JSFParameterLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorArgs(java.lang.String)
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValidatorArgs(java.lang.String)
      */
     protected java.util.Collection handleGetValidatorArgs(final java.lang.String validatorType)
     {
@@ -1203,7 +1212,7 @@ public class JSFParameterLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValidatorVars()
      */
     protected java.util.Collection handleGetValidatorVars()
     {
@@ -1275,7 +1284,7 @@ public class JSFParameterLogicImpl
         final Collection taggedValues = findTaggedValues(BPM4JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
         for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
         {
-            String validator = String.valueOf(iterator.next());
+            final String validator = String.valueOf(iterator.next());
 
             // - guaranteed to be of the same length
             final List validatorVars = BPM4JSFUtils.parseValidatorVars(validator);
@@ -1283,9 +1292,8 @@ public class JSFParameterLogicImpl
 
             for (int ctr = 0; ctr < validatorVars.size(); ctr++)
             {
-                String validatorVar = (String)validatorVars.get(ctr);
-                String validatorArg = (String)validatorArgs.get(ctr);
-
+                final String validatorVar = (String)validatorVars.get(ctr);
+                final String validatorArg = (String)validatorArgs.get(ctr);
                 vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar, validatorArg}));
             }
         }
