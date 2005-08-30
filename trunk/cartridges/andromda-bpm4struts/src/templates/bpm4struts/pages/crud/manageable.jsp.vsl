@@ -138,6 +138,10 @@ form)
 
     <tiles:put name="body" type="string">
 
+        <div>
+            <h1><bean:message key="$manageable.pageTitleKey"/></h1>
+        </div>
+		
         <html:form styleId="$manageable.formBeanName" action="$manageable.actionPath" method="post" enctype="multipart/form-data">
             <input type="hidden" name="$manageable.actionParameter" value=""/>
             <div id="criteria">
