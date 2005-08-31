@@ -26,7 +26,7 @@
             <h:panelGroup id="body">
                 <h:outputText value="#{messages['login.title']}" styleClass="actionHeader"/>
                 <f:verbatim><br/><br/></f:verbatim>
-                <h:outputText value="#{messages['login.text']}" style="font-style: italic" escape="false"/>
+                <h:outputText value="#{messages['login.text']}" styleClass="loginText" escape="false"/>
                 <f:verbatim><br/><br/></f:verbatim>
                 <f:verbatim><form id="login" name="login" action="j_security_check" method="post"></f:verbatim>
                 <h:panelGrid columns="3" styleClass="formTable"
