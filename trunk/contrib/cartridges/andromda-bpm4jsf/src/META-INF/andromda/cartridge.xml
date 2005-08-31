@@ -35,6 +35,7 @@
     <property reference="fileTypeName"/>
     <property reference="securityRealm"/>
     <property reference="loginFileName"/>
+    <property reference="logoutFileName"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
@@ -358,10 +359,32 @@
             </modelElement>
         </modelElements>
     </template>
+    
+    <template
+        path="templates/bpm4jsf/flow/LogOutServlet.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/LogOutServlet.java"
+        outlet="controllers"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
    
     <template
         path="templates/bpm4jsf/views/jsp/login.jsp.vsl"
         outputPattern="$loginFileName"
+        outlet="jsps"
+        overwrite="true"
+        outputToSingleFile="true"/>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/logout.jsp.vsl"
+        outputPattern="$logoutFileName"
         outlet="jsps"
         overwrite="true"
         outputToSingleFile="true"/>

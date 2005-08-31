@@ -62,6 +62,15 @@
             <to-view-id>/layout/layout-options.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+#if ($stringUtils.isNotBlank($securityRealm))
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/logout.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+#end
 
     <managed-bean>
         <managed-bean-name>$layoutOptionsBeanName</managed-bean-name>

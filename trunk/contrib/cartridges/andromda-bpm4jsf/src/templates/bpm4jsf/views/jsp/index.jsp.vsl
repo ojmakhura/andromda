@@ -1,4 +1,2 @@
-#if(!$applicationUseCases.empty)
 #set($useCase = $applicationUseCases.iterator().next())
-<%response.sendRedirect(request.getContextPath() + "${useCase.path}");%>
-#end
+<%response.sendRedirect(request.getContextPath() + "$useCase.path");%>
