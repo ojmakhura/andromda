@@ -13,7 +13,9 @@
 #if ($stringUtils.isNotBlank($securityRealm))
     <h:panelGrid id="header_group3" styleClass="logoutPanel" columns="#{${layoutOptionsBeanName}.menuColumns}" width="100%">
         <c:set var="remoteUser" value="${pageContext.request.remoteUser}" scope="request"/>
-        <h:outputText value="#{messages['logged.in.message']} #{remoteUser}"/>
+        <c:if test="${!empty remoteUser}">
+            <h:outputText value="#{messages['logged.in.message']} #{remoteUser}" styleClass="signedInAsText"/>
+        </c:if>
         <h:commandLink action="logout" styleClass="logout">
             <h:outputText value="#{messages['logout.action']}"/>
         </h:commandLink>
