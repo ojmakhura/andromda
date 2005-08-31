@@ -26,7 +26,7 @@
     <h:panelGrid columns="3" styleClass="formTable"
                  headerClass="formHeader"
                  footerClass="formFooter"
-                 columnClasses="formLabels,formInputs">
+                 columnClasses="formLabels,,formInputs">
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.table && !$parameter.inputHidden)
         <h:outputLabel for="${formName}:${parameter.name}" value="#{messages['$parameter.messageKey']}"/>

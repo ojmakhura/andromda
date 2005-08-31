@@ -161,7 +161,13 @@
                 <documentation>
                     The path of the JSP that is the welcome file.
                 </documentation>
-            </property>    
+            </property>   
+            <property name="loginFileName">
+                <default>login.jsp</default>
+                <documentation>
+                    The path of the JSP that provides the login page.
+                </documentation>
+            </property> 
         </propertyGroup>
         <propertyGroup name="Views">
             <documentation>
