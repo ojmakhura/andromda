@@ -77,6 +77,12 @@
     </template>
     
     <template
+        path="templates/bpm4jsf/configuration/jboss-web.xml.vsl"
+        outputPattern="WEB-INF/jboss-web.xml"
+        outlet="configuration"
+        overwrite="true"/>
+    
+    <template
         path="templates/bpm4jsf/configuration/faces-config.xml.vsl"
         outputPattern="WEB-INF/$facesConfig"
         outlet="configuration"
