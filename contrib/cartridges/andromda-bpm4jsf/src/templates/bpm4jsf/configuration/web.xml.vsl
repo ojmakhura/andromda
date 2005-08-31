@@ -141,6 +141,14 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+#set ($securityEnabled = $stringUtils.isNotBlank($securityRealm))
+#if ($securityEnabled)
+#set ($logOutServlet = "${managedBeansPackage}.LogOutServlet")
+    <servlet>
+        <servlet-name>$logOutServlet</servlet-name>
+        <servlet-class>$logOutServlet</servlet-class>
+    </servlet>
+#end
 #foreach ($useCase in $useCases)
     <servlet>
         <servlet-name>$useCase.actionClassName</servlet-name>
@@ -158,6 +166,12 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.${facesServletExtension}</url-pattern>
     </servlet-mapping>
+#if ($securityEnabled)
+    <servlet-mapping>
+        <servlet-name>$logOutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+#end)
 #foreach ($useCase in $useCases)
     <servlet-mapping>
         <servlet-name>$useCase.actionClassName</servlet-name>
@@ -212,7 +226,7 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-#if ($stringUtils.isNotBlank($securityRealm))
+#if ($securityEnabled)
 #foreach ($applicationUseCase in $applicationUseCases)
 #foreach ($useCase in $applicationUseCase.allUseCases)
     <security-constraint>

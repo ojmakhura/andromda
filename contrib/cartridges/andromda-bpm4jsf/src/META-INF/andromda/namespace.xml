@@ -165,7 +165,13 @@
             <property name="loginFileName">
                 <default>login.jsp</default>
                 <documentation>
-                    The path of the JSP that provides the login page.
+                    The path to the JSP that provides the login page.
+                </documentation>
+            </property> 
+            <property name="logoutFileName">
+                <default>logout.jsp</default>
+                <documentation>
+                    The path to the JSP that provides application logout.
                 </documentation>
             </property> 
         </propertyGroup>

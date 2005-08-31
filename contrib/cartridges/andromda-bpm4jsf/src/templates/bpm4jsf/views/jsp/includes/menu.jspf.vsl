@@ -4,9 +4,13 @@
              Availaible jscookMenu layout: hbr, hbl, hur, hul, vbr, vbl, vur, vul
              respect to Heng Yuan http://www.cs.ucla.edu/~heng/JSCookMenu
         */%>
-#set ($sidebarLayoutCount = $useCases.size() + 1)
+#set ($sidebarLogoutCount = $useCases.size() + 1)
+#set ($sidebarLayoutCount = $useCases.size() + 2)
 #foreach ($useCase in $useCases)
         <x:navigationMenuItem id="nav_${velocityCount}" itemLabel="#{messages['$useCase.titleKey']}" action="$useCase.forwardName" icon="/images/next-yellow.gif" />
+#end
+#if ($stringUtils.isNotBlank($securityRealm))
+        <x:navigationMenuItem id="nav_${sidebarLogoutCount}" itemLabel="#{messages['navigation.logout']}" action="logout" icon="/images/next-yellow.gif" />
 #end
         <x:navigationMenuItem id="nav_${sidebarLayoutCount}" itemLabel="#{messages['navigation.layout']}" split="true" action="layout-options" icon="/images/next-yellow.gif" />
     </x:jscookMenu>
