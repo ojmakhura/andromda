@@ -226,9 +226,7 @@ ${indent}</script>
 ##      T E X T A R E A
 ##
 #elseif ($field.textArea)
-${indent}<textarea name="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$rowCount$columnCount id="$styleId">
-${indent}    ${value}
-${indent}</textarea>
+${indent}<textarea name="$fieldName" #if($hints=="true")onmouseover="hints.show('$field.titleKey')" onmouseout="hints.hide()"#end $readonly$rowCount$columnCount id="$styleId">${value}</textarea>
 ##
 ##      H I D D E N
 ##
