@@ -39,6 +39,22 @@ public class $layoutOptionsName
     {
         return this.menuLayout;
     }
+    
+    /**
+     * Gets the number of columns to be rendered on the menu.
+     */
+    public int getMenuColumns()
+    { 
+        int columns = 2;
+        if (this.menuLayout != null)
+        {
+            if (this.menuLayout.startsWith("v"))
+            {
+                columns = 1;
+            }
+        }
+        return columns;
+    }
 
     private String theme;
     
