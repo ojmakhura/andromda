@@ -45,15 +45,23 @@ public class $layoutOptionsName
      */
     public int getMenuColumns()
     { 
-        int columns = 2;
-        if (this.menuLayout != null)
-        {
-            if (this.menuLayout.startsWith("v"))
-            {
-                columns = 1;
-            }
-        }
-        return columns;
+        return this.isMenuLayoutVertical() ? 1 : 2;
+    }
+    
+    /**
+     * Indicates whether or not the menu layout is veritical.
+     */
+    private boolean isMenuLayoutVertical()
+    {
+        return this.menuLayout != null && this.menuLayout.startsWith("v");  
+    }
+    
+    /**
+     * Gets the css page navigation class name.
+     */ 
+    public String getPageNavigationClass()
+    {
+        return this.isMenuLayoutVertical() ? "pageNavigation"  : "";
     }
 
     private String theme;
