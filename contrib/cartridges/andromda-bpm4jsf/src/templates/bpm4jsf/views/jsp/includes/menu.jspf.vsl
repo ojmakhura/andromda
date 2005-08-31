@@ -11,7 +11,7 @@
         <x:navigationMenuItem id="nav_${sidebarLayoutCount}" itemLabel="#{messages['navigation.layout']}" split="true" action="layout-options" icon="/images/next-yellow.gif" />
     </x:jscookMenu>
 #if ($stringUtils.isNotBlank($securityRealm))
-    <h:panelGrid id="header_group3" styleClass="logoutPanel" columns="1" width="100%">
+    <h:panelGrid id="header_group3" styleClass="logoutPanel" columns="#{${layoutOptionsBeanName}.menuColumns}" width="100%">
         <c:set var="remoteUser" value="${pageContext.request.remoteUser}" scope="request"/>
         <h:outputText value="#{messages['logged.in.message']} #{remoteUser}"/>
         <h:commandLink action="logout" styleClass="logout">

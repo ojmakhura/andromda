@@ -129,7 +129,7 @@
    text-align: center;
    color: #FFFFE0;
    font-weight: none;
-   font-size: 10px;
+   font-size: 9px;
    font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
@@ -181,6 +181,18 @@ a:hover
     margin: 0px;
 }
 
+.signedInHeader
+{
+    background-color: #6392C6;
+    text-align: left;
+    vertical-align: middle;
+    height:1px;
+    overflow:visible;
+    color: #FFFFFF;
+    padding: 0px;
+    margin: 0px;
+}
+
 .pageMenuHeader
 {
     background-color: #6392C6;
@@ -202,7 +214,7 @@ a:hover
 {
     text-align: left;
     vertical-align: top;
-    width: 5%;
+    width: 1px;
     padding: 10px;
 }
 
