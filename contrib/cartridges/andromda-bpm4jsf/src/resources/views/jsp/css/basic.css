@@ -117,6 +117,7 @@
 
 .logout
 {
+   text-align: center;
    color: #FFFFE0;
    font-weight: none;
    text-decoration: underline;  
@@ -163,6 +164,17 @@ a:hover
 {
     background-color: #6392C6;
     text-align: center;
+    vertical-align: middle;
+    height:1px;
+    overflow:visible;
+    color: #FFFFFF;
+    padding: 0px;
+    margin: 0px;
+}
+
+.pageMenuHeader
+{
+    background-color: #6392C6;
     vertical-align: middle;
     height:1px;
     overflow:visible;
