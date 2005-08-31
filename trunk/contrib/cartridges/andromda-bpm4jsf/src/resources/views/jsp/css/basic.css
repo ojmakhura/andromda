@@ -110,8 +110,9 @@
 
 .loginText
 {
-   font-size: 14px;
+   font-size: 13px;
    font-style: italic;
+   font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
 .standardTableColumnCentered
@@ -133,7 +134,7 @@ a:hover
     color: #CCCCFF;
 }
 
-.error 
+.error
 {
     color: #FF0000;
 }
@@ -392,7 +393,7 @@ div.titlebar {
 */
 
 
-.formTable 
+.formTable
 {
     font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 12px;
@@ -404,7 +405,7 @@ div.titlebar {
     border-width: 1px;
 }
 
-.formHeader 
+.formHeader
 {
     font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 12px;
@@ -417,7 +418,7 @@ div.titlebar {
     font-weight : normal;
 }
 
-.formFooter 
+.formFooter
 {
     font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 12px;
