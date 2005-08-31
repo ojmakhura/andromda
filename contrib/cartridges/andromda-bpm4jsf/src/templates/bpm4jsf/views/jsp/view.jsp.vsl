@@ -11,7 +11,7 @@
     <x:panelLayout id="page" layout="#{${layoutOptionsBeanName}.sidebarLayout}"
             styleClass="pageLayout"
             headerClass="pageHeader"
-            navigationClass="pageNavigation"
+            navigationClass="#{${layoutOptionsBeanName}.pageNavigationClass}"
             bodyClass="pageBody"
             footerClass="pageFooter"
             width="100%">
