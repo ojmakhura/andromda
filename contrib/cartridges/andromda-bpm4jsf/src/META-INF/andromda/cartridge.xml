@@ -33,6 +33,8 @@
     <property reference="jsfComponentsPackage"/>
     <property reference="clientValidation"/>
     <property reference="fileTypeName"/>
+    <property reference="securityRealm"/>
+    <property reference="loginFileName"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
@@ -356,6 +358,13 @@
             </modelElement>
         </modelElements>
     </template>
+   
+    <template
+        path="templates/bpm4jsf/views/jsp/login.jsp.vsl"
+        outputPattern="$loginFileName"
+        outlet="jsps"
+        overwrite="true"
+        outputToSingleFile="true"/>
     
     <template
         path="templates/bpm4jsf/views/rendering/LayoutOptions.java.vsl"

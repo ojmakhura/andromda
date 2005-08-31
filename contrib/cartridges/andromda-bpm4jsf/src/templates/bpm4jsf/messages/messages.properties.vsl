@@ -2,7 +2,7 @@
 #set($applicationUseCase=$applicationUseCases.iterator().next())
 #end
 
-application.name=${applicationName}
+application.name=$applicationName 
 
 required.fields.asterisk=Fields marked with an asterisk are required
 online.help.href=Help
@@ -80,14 +80,13 @@ day.6=Sunday
 #
 #   Messages for the login page
 #
-login.title=Login
-login.username=User
-login.password=Password
-login.failed=Login failed, please try again
+login.text=Please enter your username and password below and click the Login button to continue.<br/>If you have reached this page unexpectedly, your session has expired and you need to re-login to the system.
 login.submit=Login
-login.submit.title=Click to submit these credentials
 login.reset=Reset
-login.reset.title=Click to reset these credentials
+login.title=Please Log-In
+login.username=Username
+login.password=Password
+login.error=You have either entered an invalid login/password or you do not have access or this system. <br/>Please try again.
 
 login.error=Login failed, please try again or register as a new user.
 

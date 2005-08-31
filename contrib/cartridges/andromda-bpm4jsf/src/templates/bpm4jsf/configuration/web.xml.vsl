@@ -212,5 +212,47 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+#if ($stringUtils.isNotBlank($securityRealm))
+#foreach ($applicationUseCase in $applicationUseCases)
+#foreach ($useCase in $applicationUseCase.allUseCases)
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>$useCase.name resources</web-resource-name>
+            <description>
+                This collection secures all views and resources
+                as well as the actions called in the "$useCase.name" use-case
+            </description>
+            <url-pattern>${useCase.pathRoot}/*</url-pattern>
+        </web-resource-collection>
+#if ($useCase.secured)
+        <auth-constraint>
+#foreach ($user in $useCase.roles)
+            <role-name>$user.name</role-name>
+#end
+        </auth-constraint>
+#end
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 
+#end
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>$securityRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.${facesServletExtension}</form-login-page>
+            <form-error-page>/login.${facesServletExtension}?action=error</form-error-page>
+        </form-login-config>
+    </login-config>
+
+#foreach ($user in $applicationUseCase.allRoles)
+    <security-role>
+        <role-name>$user.name</role-name>
+    </security-role>
+#end
+    <!-- security-role merge-point -->
+    
+#end
+#end
 </web-app>
