@@ -1,17 +1,18 @@
-<h:panelGrid id="header_group2" columns="1" styleClass="pageHeader" columnClasses="pageHeaderColumn" width="100%">
+<h:panelGrid id="header_group2" columns="1" styleClass="pageHeader" width="100%">
     <x:jscookMenu layout="#{layoutOptions.menuLayout}" theme="#{layoutOptions.theme}" >
         <%/* Availaible jscookMenu themes: ThemeIE, ThemeMiniBlack, ThemeOffice, ThemePanel
              Availaible jscookMenu layout: hbr, hbl, hur, hul, vbr, vbl, vur, vul
              respect to Heng Yuan http://www.cs.ucla.edu/~heng/JSCookMenu
         */%>
-#set ($sidebarLogoutCount = $useCases.size() + 1)
-#set ($sidebarLayoutCount = $useCases.size() + 2)
+#set ($sidebarLayoutCount = $useCases.size() + 1)
 #foreach ($useCase in $useCases)
         <x:navigationMenuItem id="nav_${velocityCount}" itemLabel="#{messages['$useCase.titleKey']}" action="$useCase.forwardName" icon="/images/next-yellow.gif" />
 #end
-#if ($stringUtils.isNotBlank($securityRealm))
-        <x:navigationMenuItem id="nav_${sidebarLogoutCount}" itemLabel="#{messages['navigation.logout']}" action="logout" icon="/images/next-yellow.gif" />
-#end
         <x:navigationMenuItem id="nav_${sidebarLayoutCount}" itemLabel="#{messages['navigation.layout']}" split="true" action="layout-options" icon="/images/next-yellow.gif" />
     </x:jscookMenu>
+#if ($stringUtils.isNotBlank($securityRealm))
+    <h:commandLink action="logout" styleClass="logout">
+        <h:outputText value="#{messages['logout.action']}"/>
+    </h:commandLink>
+#end
 </h:panelGrid>
