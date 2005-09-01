@@ -209,13 +209,13 @@ public class Uml2Mof
         // iterate through all instances of package
         for (final Iterator iterator = umlMetamodel.getMofPackage().refAllOfClass().iterator(); iterator.hasNext();)
         {
-            MofPackage pkg = (MofPackage)iterator.next();
+            MofPackage mofPackage = (MofPackage)iterator.next();
 
             // is the package topmost and is it named "UML"?
-            if (pkg.getContainer() == null && "UML".equals(pkg.getName()))
+            if (mofPackage.getContainer() == null && "UML".equals(mofPackage.getName()))
             {
                 // yes -> return it
-                return pkg;
+                return mofPackage;
             }
         }
 
