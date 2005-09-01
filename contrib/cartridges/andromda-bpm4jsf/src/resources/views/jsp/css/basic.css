@@ -399,12 +399,18 @@ div.titlebar {
    ------------------------------------------------------------
 */
 
-.popup {
+.popupHeader 
+{
+    width: 100%;
+    text-align: right;
+}
+
+.popup
+{
     background-color:rgb(255,255,255);
     color: #000000;
-    border: 1px solid #CCCCCC;
     font-size:smaller;
-    padding: 5px;
+    padding: 0px;
 }
 
 .popup table

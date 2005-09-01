@@ -78,6 +78,11 @@ public class BPM4JSFGlobals
     public static final String ACTION_TYPE_HYPERLINK = "hyperlink";
     
     /**
+     * Represents a popup action type.
+     */
+    public static final String ACTION_TYPE_POPUP = "popup";
+    
+    /**
      * Represents a form action type.
      */
     public static final String ACTION_TYPE_FORM = "form";
