@@ -42,7 +42,7 @@
                     <h:outputLabel for="j_password" value="#{messages['login.password']}"/>
                     <f:verbatim>:</f:verbatim>
                     <h:panelGroup>
-                        <h:inputText id="j_password"/>
+                        <h:inputSecret id="j_password"/>
                     </h:panelGroup>
                     <h:panelGroup/>
                     <h:panelGroup/>
