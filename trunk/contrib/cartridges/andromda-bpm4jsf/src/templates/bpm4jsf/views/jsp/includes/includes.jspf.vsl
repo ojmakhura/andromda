@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="xm" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.andromda.org/cartridges/bpm4jsf" prefix="bpm4jsf" %>
+<%@ taglib uri="http://www.jenia.org/jsf/popup" prefix="jp" %>
 
 <fmt:setBundle basename="$messageResources"/>
 <f:loadBundle basename="$messageResources" var="messages"/>

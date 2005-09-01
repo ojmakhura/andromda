@@ -441,7 +441,7 @@ public class JSFActionLogicImpl
             });
         return hiddenParameters;
     }
-    
+
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#handleGetHiddenParameters()
      */
@@ -459,5 +459,14 @@ public class JSFActionLogicImpl
             }
         }
         return required;
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isPopup()
+     */
+    protected boolean handleIsPopup()
+    {
+        return ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+            BPM4JSFGlobals.ACTION_TYPE_POPUP);
     }
 }

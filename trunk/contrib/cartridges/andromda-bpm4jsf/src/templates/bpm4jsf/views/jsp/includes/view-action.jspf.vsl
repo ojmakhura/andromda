@@ -2,8 +2,13 @@
 <h:outputText value="#{messages['$action.messageKey']}" styleClass="actionHeader" />
 <f:verbatim><br/><br/></f:verbatim>
 #set($formName = $action.formBeanName)
+#if ($action.hyperlink || $action.popup)
 #if ($action.hyperlink)
 <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
+#else
+<h:form>
+    <jp:popupFrame scrolling="yes" height="350px" width="550px" actionOpen="#{${action.controller.beanName}.${action.triggerName}}" center="false">
+#end
     <h:outputText value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
 #if ($parameter.type.dateType || $parameter.type.timeType)
@@ -14,7 +19,12 @@
 #end
     <f:param name="$parameter.name" value="#{${parameterValue}}"/>
 #end
+#if ($action.hyperlink)
 </h:commandLink>
+#else
+    </jp:popupFrame> 
+</h:form>
+#end
 <f:verbatim><br/><br/></f:verbatim>
 #else
 #set ($clientValidation = $clientValidation.equalsIgnoreCase("true"))

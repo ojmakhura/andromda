@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
+import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.UseCaseFacade;
