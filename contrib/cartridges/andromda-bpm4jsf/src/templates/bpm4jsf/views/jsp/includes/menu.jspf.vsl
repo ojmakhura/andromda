@@ -14,7 +14,7 @@
     <h:panelGrid id="header_group3" styleClass="logoutPanel" columns="#{${layoutOptionsBeanName}.menuColumns}" width="100%">
         <c:set var="remoteUser" value="${pageContext.request.remoteUser}" scope="request"/>
         <c:if test="${!empty remoteUser}">
-            <h:outputText value="#{messages['logged.in.message']} #{remoteUser}" styleClass="signedInAsText"/>
+            <h:outputText value="#{messages['logged.in.message']} <em>#{remoteUser}</em>" escape="false"/>
         </c:if>
         <h:commandLink action="logout" styleClass="logout">
             <h:outputText value="#{messages['logout.action']}"/>
