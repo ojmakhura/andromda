@@ -5,11 +5,12 @@ import org.andromda.modules.xmilink.ExportStrategyFactory;
 import org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy;
 
 import com.togethersoft.openapi.model.elements.Entity;
+import com.togethersoft.openapi.model.elements.Property;
 import com.togethersoft.openapi.model.elements.UniqueName;
 
 /**
  * TODO Specify purpose, please.
- * 
+ *
  * @author Peter Friese
  * @version 1.0
  * @since 01.11.2004
@@ -20,13 +21,10 @@ public class UML20DependencyExportStrategy
 
     static
     {
-        ExportStrategyFactory.getInstance().registerStrategy("Dependency20",
-                UML20DependencyExportStrategy.class);
+        ExportStrategyFactory.getInstance().registerStrategy("Dependency20", UML20DependencyExportStrategy.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#getEntityName()
      */
     protected String getEntityName(Entity entity)
@@ -34,9 +32,7 @@ public class UML20DependencyExportStrategy
         return "UML:Dependency";
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#doExportChildNodes()
      */
     protected boolean doExportChildNodes()
@@ -44,9 +40,7 @@ public class UML20DependencyExportStrategy
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#doExportDependencies()
      */
     protected boolean doExportDependencies()
@@ -54,9 +48,33 @@ public class UML20DependencyExportStrategy
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
+     * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#doExportProperty(java.lang.String,
+     *      java.lang.String)
+     */
+    protected boolean doExportProperty(String name,
+        String value)
+    {
+        if (name.equalsIgnoreCase("label"))
+        {
+            return true;
+        }
+        return super.doExportProperty(name, value);
+    }
+
+    /**
+     * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#translatePropertyName(com.togethersoft.openapi.model.elements.Property)
+     */
+    protected String translatePropertyName(Property property)
+    {
+        if (property.getName().equalsIgnoreCase("label"))
+        {
+            return "name";
+        }
+        return super.translatePropertyName(property);
+    }
+
+    /**
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#exportEntityBody(com.togethersoft.openapi.model.elements.Entity)
      */
     protected void exportEntityBody(Entity entity)
@@ -76,7 +94,8 @@ public class UML20DependencyExportStrategy
      * @param participant
      * @param participantType
      */
-    private void exportDependencyParticipant(Entity participant, String participantType)
+    private void exportDependencyParticipant(Entity participant,
+        String participantType)
     {
         if (participant != null)
         {

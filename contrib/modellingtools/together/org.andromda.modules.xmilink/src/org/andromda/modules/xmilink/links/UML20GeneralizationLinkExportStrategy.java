@@ -10,7 +10,7 @@ import com.togethersoft.openapi.model.elements.UniqueName;
 /**
  * TODO Specify purpose, please. REFACTOR Introduce superclass for links. Pay
  * attention to exportParticipant()!
- * 
+ *
  * @author Peter Friese
  * @version 1.0
  * @since 01.11.2004
@@ -25,11 +25,15 @@ public class UML20GeneralizationLinkExportStrategy
                 UML20GeneralizationLinkExportStrategy.class);
         ExportStrategyFactory.getInstance().registerStrategy("Generalization20",
                 UML20GeneralizationLinkExportStrategy.class);
+        ExportStrategyFactory.getInstance().registerStrategy("ImplementationLink",
+                UML20GeneralizationLinkExportStrategy.class);
+        ExportStrategyFactory.getInstance().registerStrategy("Implementation20",
+                UML20GeneralizationLinkExportStrategy.class);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#getEntityName()
      */
     protected String getEntityName(Entity entity)
@@ -39,7 +43,7 @@ public class UML20GeneralizationLinkExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#doExportChildNodes()
      */
     protected boolean doExportChildNodes()
@@ -49,7 +53,7 @@ public class UML20GeneralizationLinkExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#doExportDependencies()
      */
     protected boolean doExportDependencies()
@@ -59,7 +63,7 @@ public class UML20GeneralizationLinkExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#exportEntityBody(com.togethersoft.openapi.model.elements.Entity)
      */
     protected void exportEntityBody(Entity entity)
