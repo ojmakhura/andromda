@@ -10,7 +10,7 @@ import com.togethersoft.openapi.model.elements.Model;
 
 /**
  * TODO Specify purpose, please.
- * 
+ *
  * @author Peter Friese
  * @version 1.0
  * @since 17.09.2004
@@ -101,7 +101,7 @@ public final class ExportContext
     }
 
     /**
-     * 
+     *
      */
     private static void init()
     {
@@ -113,7 +113,7 @@ public final class ExportContext
     }
 
     /**
-     * 
+     *
      */
     private static void registerStrategies()
     {
@@ -134,10 +134,12 @@ public final class ExportContext
             Class.forName("org.andromda.modules.xmilink.uml20.UML20PropertyExportStrategy");
             Class.forName("org.andromda.modules.xmilink.uml20.UML20OperationExportStrategy");
 
+            // Use Cases
+            Class.forName("org.andromda.modules.xmilink.uml20.UML20ActorExportStrategy");
+
             // Links
             Class.forName("org.andromda.modules.xmilink.links.UML20DependencyExportStrategy");
-            Class
-                    .forName("org.andromda.modules.xmilink.links.UML20GeneralizationLinkExportStrategy");
+            Class.forName("org.andromda.modules.xmilink.links.UML20GeneralizationLinkExportStrategy");
             Class.forName("org.andromda.modules.xmilink.links.UML20AssociatesLinkExportStrategy");
         }
         catch (ClassNotFoundException e)
