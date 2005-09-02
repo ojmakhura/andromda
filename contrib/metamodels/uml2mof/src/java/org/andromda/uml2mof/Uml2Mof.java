@@ -77,7 +77,7 @@ public class Uml2Mof
             final FileOutputStream out = new FileOutputStream(args[1]);
             
             final String arg3 = args.length > 2 ? args[2] : "";
-            final String[] moduleSearchPath = arg3.trim().length() == 0 ? new String[0] : arg3.split(",");
+            final String[] moduleSearchPath = arg3.trim().length() == 0 ? new String[0] : arg3.split(",\\s*");
 
             reader =
                 XMIReaderFactory.getDefault().createXMIReader(
