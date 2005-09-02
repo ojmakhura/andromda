@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../../project.xml</extend>
+    <artifactId>andromda-metamodels-configuration</artifactId>
+    <currentVersion>1.0-SNAPSHOT</currentVersion>
+    <name>AndroMDA Metamodel for AndroMDA configuration settings</name>
+    <description>
+        Contains the metamodel for configuration settings
+		(namespace properties) that have to be transferred
+		from the core to the model transformation engine.
+    </description>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-uml2mof-plugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>plugin</type>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+
+        <!-- Unit test classes -->
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+            <resources>
+                <resource>
+                    <directory>conf/test</directory>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <filtering>false</filtering>
+                </resource>
+            </resources>
+        </unitTest>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+</project>
