@@ -548,6 +548,6 @@ public class SpringServiceLogicImpl
     protected boolean handleIsConfigonly()
     {
         String value = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_SERVICE_CONFIG_ONLY);
-        return BooleanUtils.toBoolean(value);
+        return BooleanUtils.toBoolean(StringUtils.trimToEmpty(value));
     }
 }
