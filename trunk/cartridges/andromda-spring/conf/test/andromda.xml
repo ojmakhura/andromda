@@ -42,6 +42,7 @@
                 <property name="userTransactionName">null</property>
                 <property name="transactionManagerName">java:/TransactionManager</property>
                 <property name="acegiServiceSecurity">true</property>
+                <property name="acegiAuthenticationManager">authenticationManager</property>
             </properties>
         </namespace>
     </namespaces>
