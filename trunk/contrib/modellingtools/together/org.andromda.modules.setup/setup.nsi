@@ -2,9 +2,13 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "AndroMDA XMI Exporter"
-!define PRODUCT_VERSION "1.3"
+!define PRODUCT_VERSION "1.5"
 !define PRODUCT_PUBLISHER "The AndroMDA Team"
 !define PRODUCT_WEB_SITE "http://www.andromda.org"
+
+!define PRODUCT_INST_KEY "Software\${PRODUCT_NAME}"
+!define PRODUCT_INST_ROOT_KEY "HKLM"
+
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -34,8 +38,9 @@
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "AndroMDATogetherSupport.exe"
-InstallDir "$PROGRAMFILES\TogetherDesigner2005\"
+OutFile "AndroMDATogetherSupport-${PRODUCT_VERSION}.exe"
+InstallDir "$PROGRAMFILES\TogetherDesigner\"
+InstallDirRegKey ${PRODUCT_INST_ROOT_KEY} "${PRODUCT_INST_KEY}" "InstallDir"
 ShowInstDetails show
 ShowUnInstDetails show
 
@@ -63,7 +68,8 @@ Section "Spring Profile" SEC02
 SectionEnd
 
 Section -Post
-  WriteUninstaller "$INSTDIR\uninst.exe"
+  WriteUninstaller "$INSTDIR\uninst-andromdaxmi.exe"
+  WriteRegStr ${PRODUCT_INST_ROOT_KEY} "${PRODUCT_INST_KEY}" "InstallDir" "$INSTDIR"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
@@ -83,20 +89,22 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
-  Delete "$INSTDIR\uninst.exe"
-  Delete "$INSTDIR\profile-spring.jar"
-  Delete "$INSTDIR\profile\spring\viewmap.config"
-  Delete "$INSTDIR\profile\spring\profile.config"
-  Delete "$INSTDIR\profile\spring\diagram.config"
-  Delete "$INSTDIR\module.xml"
-  Delete "$INSTDIR\XMIExport.config"
-  Delete "$INSTDIR\xmilink.jar"
-  Delete "$INSTDIR\module.xml"
-  Delete "$INSTDIR\commons-lang-2.0.jar"
+  Delete "$INSTDIR\uninst-andromdaxmi.exe"
+  Delete "$INSTDIR\modules\org.andromda.modules.profiles.spring\profile-spring.jar"
+  Delete "$INSTDIR\modules\org.andromda.modules.profiles.spring\profile\spring\viewmap.config"
+  Delete "$INSTDIR\modules\org.andromda.modules.profiles.spring\profile\spring\profile.config"
+  Delete "$INSTDIR\modules\org.andromda.modules.profiles.spring\profile\spring\diagram.config"
+  Delete "$INSTDIR\modules\org.andromda.modules.profiles.spring\module.xml"
+  Delete "$INSTDIR\bin\XMIExport.config"
+  Delete "$INSTDIR\bin\XMIExport.exe"
+  Delete "$INSTDIR\modules\org.andromda.modules.xmilink\xmilink.jar"
+  Delete "$INSTDIR\modules\org.andromda.modules.xmilink\module.xml"
+  Delete "$INSTDIR\modules\org.andromda.modules.xmilink\commons-lang-2.0.jar"
 
-  RMDir "$INSTDIR\profile\spring"
-  RMDir "$INSTDIR"
+  RMDir /r "$INSTDIR\modules\org.andromda.modules.profiles.spring"
+  RMDir /r "$INSTDIR\modules\org.andromda.modules.xmilink"
 
+  DeleteRegKey ${PRODUCT_INST_ROOT_KEY} "${PRODUCT_INST_KEY}"
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   SetAutoClose true
 SectionEnd
