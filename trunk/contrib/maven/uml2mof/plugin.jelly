@@ -26,9 +26,9 @@
             </ant:classpath>
             <arg value="${andromda.uml2mof.model.file}"/>
             <arg value="${uml2mof.output}/metamodel/${xmiFile}.xml"/>
-            <j:set var="moduleSearchPath" value="${andromda.uml2mof.module.search.path}"/>
-            <j:if test="${moduleSearchPath != null}">
-                <arg value="${moduleSearchPath}"/>
+            <j:set var="moduleSearchPaths" value="${andromda.uml2mof.module.search.paths}"/>
+            <j:if test="${moduleSearchPaths != null}">
+                <arg value="${moduleSearchPaths}"/>
             </j:if>
         </java>
         <ant:taskdef
