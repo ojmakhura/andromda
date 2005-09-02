@@ -12,10 +12,9 @@ import com.togethersoft.openapi.model.elements.Entity;
 import com.togethersoft.openapi.model.elements.Property;
 
 /**
- * The <code>UMLEntityExportStrategy</code> class is the base class for
- * exporting UML entities like <code>class</code>, <code>interface</code>,
- * <code>association</code> and so on.
- * 
+ * The <code>UMLEntityExportStrategy</code> class is the base class for exporting UML entities like <code>class</code>,
+ * <code>interface</code>, <code>association</code> and so on.
+ *
  * @author Peter Friese
  * @version 1.0
  * @since 22.09.2004
@@ -31,14 +30,13 @@ public abstract class UMLEntityExportStrategy
     private Properties taggedValues = new Properties();
 
     /**
-     * The super class reference. <b>NOTE</b>: this is the <i>LINK</i> to the
-     * superclass, not the superclass itself!
+     * The super class reference. <b>NOTE</b>: this is the <i>LINK</i> to the superclass, not the superclass itself!
      */
     private Entity superClassReference = null;
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#reset()
      */
     protected void reset()
@@ -50,18 +48,18 @@ public abstract class UMLEntityExportStrategy
     }
 
     /**
-     * Returns the name of the UML entity. Concrete subclasses are required to
-     * implement this method. The returned string is used in the output, e.g. if
-     * a class returns <code>"Class20"</code>, then the XMI file will contain
+     * Returns the name of the UML entity. Concrete subclasses are required to implement this method. The returned
+     * string is used in the output, e.g. if a class returns <code>"Class20"</code>, then the XMI file will contain
      * something like:
-     * 
+     *
      * <pre>
-     * 
-     *     &lt;UML:Class20 ...&gt;
-     *       ...
-     *     &lt;/UML:Class20&gt;
-     *  
+     *
+     *      &lt;UML:Class20 ...&gt;
+     *        ...
+     *      &lt;/UML:Class20&gt;
+     *
      * </pre>
+     *
      * @param entity The entity to export.
      * @return The name of the UML entity.
      */
@@ -69,7 +67,7 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#exportEntityPrologue(com.togethersoft.openapi.model.elements.Entity)
      */
     protected void exportEntityPrologue(Entity entity)
@@ -79,7 +77,7 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#exportEntityPrologueEnd(com.togethersoft.openapi.model.elements.Entity)
      */
     protected void exportEntityPrologueEnd(Entity entity)
@@ -89,7 +87,7 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#doExportChildNodes()
      */
     protected boolean doExportChildNodes()
@@ -99,7 +97,7 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#doExportDependencies()
      */
     protected boolean doExportDependencies()
@@ -109,7 +107,7 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#doExportEntity(com.togethersoft.openapi.model.elements.Entity)
      */
     protected boolean doExportEntity(Entity entity)
@@ -119,7 +117,7 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#exportEntityEpilogue(com.togethersoft.openapi.model.elements.Entity)
      */
     protected void exportEntityEpilogue(Entity entity)
@@ -129,21 +127,19 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#exportProperty(com.togethersoft.openapi.model.elements.Property)
      */
     protected void exportProperty(Property property)
     {
         if (property != null)
         {
-            Logger.info("Will we export property " + property.getName() + "(value: "
-                    + property.getValue() + ") ?");
+            Logger.info("Will we export property " + property.getName() + "(value: " + property.getValue() + ") ?");
             if (doExportProperty(property.getName(), property.getValue()))
             {
                 String propName = translatePropertyName(property);
                 String propValue = translatePropertyValue(property);
-                Logger.info("Yes, we will export property " + propName + " with value " + propValue
-                        + "!");
+                Logger.info("Yes, we will export property " + propName + " with value " + propValue + "!");
                 ExportContext.getWriter().writeProperty(propName, propValue);
             }
             else
@@ -160,15 +156,13 @@ public abstract class UMLEntityExportStrategy
 
     /**
      * Check whether a name / value pair is a tagged value or not.
-     * 
-     * @param name
-     *            The name of the property.
-     * @param value
-     *            The value of the property.
-     * @return <code>true</code> if it is a tagged value, <code>false</code>
-     *         if not.
+     *
+     * @param name The name of the property.
+     * @param value The value of the property.
+     * @return <code>true</code> if it is a tagged value, <code>false</code> if not.
      */
-    private boolean isTaggedValue(String name, String value)
+    private boolean isTaggedValue(String name,
+        String value)
     {
         // $doc is the documentation for the entity
         if ("$doc".equalsIgnoreCase(name))
@@ -194,9 +188,8 @@ public abstract class UMLEntityExportStrategy
 
     /**
      * Translates some property names.
-     * 
-     * @param property
-     *            The property whose name is to be translated.
+     *
+     * @param property The property whose name is to be translated.
      * @return A translated property name.
      */
     protected String translatePropertyName(Property property)
@@ -228,6 +221,10 @@ public abstract class UMLEntityExportStrategy
             {
                 result = "ordering";
             }
+            else if (result.equalsIgnoreCase("mod__abstract"))
+            {
+                result = "isAbstract";
+            }
             else if (result.charAt(0) == '$')
             {
                 result = result.substring(1);
@@ -238,9 +235,8 @@ public abstract class UMLEntityExportStrategy
 
     /**
      * Translates property values.
-     * 
-     * @param property
-     *            The property whose value is to be translated.
+     *
+     * @param property The property whose value is to be translated.
      * @return A translated property value.
      */
     protected String translatePropertyValue(Property property)
@@ -275,12 +271,16 @@ public abstract class UMLEntityExportStrategy
         {
             result = StringEscapeUtils.escapeHtml(result);
         }
+        else if ("mod__abstract".equalsIgnoreCase(name))
+        {
+            result = "true";
+        }
         return result;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#exportEntityBody(com.togethersoft.openapi.model.elements.Entity)
      */
     protected void exportEntityBody(Entity entity)
@@ -290,11 +290,11 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
-     * @see org.andromda.modules.xmilink.BaseExportStrategy#doExportProperty(java.lang.String,
-     *      java.lang.String)
+     *
+     * @see org.andromda.modules.xmilink.BaseExportStrategy#doExportProperty(java.lang.String, java.lang.String)
      */
-    protected boolean doExportProperty(String name, String value)
+    protected boolean doExportProperty(String name,
+        String value)
     {
         if ("stereotype".equalsIgnoreCase(name))
         {
@@ -329,6 +329,10 @@ public abstract class UMLEntityExportStrategy
         {
             return true;
         }
+        else if ("mod__abstract".equalsIgnoreCase(name))
+        {
+            return true;
+        }
         return false;
     }
 
@@ -353,7 +357,7 @@ public abstract class UMLEntityExportStrategy
     }
 
     /**
-     * Expotrs the tagged values of the model element.
+     * Exports the tagged values of the model element.
      */
     protected void exportTaggedValues()
     {
@@ -409,14 +413,12 @@ public abstract class UMLEntityExportStrategy
     /**
      * Determines whether to export the given tagged value.
      *
-     * @param key
-     *            The name of the tagged value.
-     * @param value
-     *            The value of the tagged value.
-     * @return <code>true</code> if the tagged value should be exported,
-     *         <code>false</code> otherwise.
+     * @param key The name of the tagged value.
+     * @param value The value of the tagged value.
+     * @return <code>true</code> if the tagged value should be exported, <code>false</code> otherwise.
      */
-    protected boolean doExportTaggedValue(String key, String value)
+    protected boolean doExportTaggedValue(String key,
+        String value)
     {
         if (key.indexOf("mod_") > -1)
         {
@@ -427,13 +429,12 @@ public abstract class UMLEntityExportStrategy
 
     /**
      * Writes a single tagged value.
-     * 
-     * @param key
-     *            The name of the tagged value.
-     * @param value
-     *            The value of the tagged value.
+     *
+     * @param key The name of the tagged value.
+     * @param value The value of the tagged value.
      */
-    private void writeTaggedValue(String key, String value)
+    private void writeTaggedValue(String key,
+        String value)
     {
 
         // <UML:TaggedValue xmi.id = 'sm$19ecd80:1001cda5985:-7ef3'
@@ -464,13 +465,17 @@ public abstract class UMLEntityExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.BaseExportStrategy#doExportDependencyLink(com.togethersoft.openapi.model.elements.Entity)
      */
     protected boolean doExportDependencyLink(Entity link)
     {
         Logger.info("Link metaclass name: " + getMetaClass(link));
         if (getMetaClass(link).indexOf("Dependency") > -1)
+        {
+            return true;
+        }
+        else if (getMetaClass(link).indexOf("Implementation") > -1)
         {
             return true;
         }
