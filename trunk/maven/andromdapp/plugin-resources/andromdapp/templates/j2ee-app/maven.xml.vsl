@@ -50,6 +50,11 @@
                     <fileset dir="web/src/java">
                         <include name="**/*Impl.java"/>
                     </fileset>
+#if ($workflow)
+                    <fileset dir="workflow/src/java">
+                        <include name="**/*Impl.java"/>
+                    </fileset>
+#end
                 </ant:delete>
                 <ant:echo>Finished nuke.</ant:echo>
             </j:when>
@@ -119,6 +124,7 @@
             goals="pom:install"/>
     </goal>
 
+#if ($workflow)
     <!-- ==================================================================
             Builds the Workflow component
          ================================================================== -->
@@ -128,6 +134,7 @@
             goals="jar:install"/>
     </goal>
 
+#end
     <!-- ==================================================================
             Starts the AndroMDA server
          ================================================================== -->
