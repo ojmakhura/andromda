@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.andromda.cartridges.bpm4jsf.BPM4JSFGlobals;
+import org.andromda.cartridges.bpm4jsf.BPM4JSFProfile;
 import org.andromda.cartridges.bpm4jsf.BPM4JSFUtils;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -249,5 +250,14 @@ public class JSFViewLogicImpl
             }
         }
         return required;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFView#isPopup()
+     */
+    protected boolean handleIsPopup()
+    {
+        return ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_VIEW_TYPE)).equalsIgnoreCase(
+            BPM4JSFGlobals.VIEW_TYPE_POPUP);
     }
 }

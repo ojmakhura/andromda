@@ -286,7 +286,23 @@
         overwrite="true">
         <modelElements variable="view">
             <modelElement>
-                <type name="org.andromda.metafacades.uml.FrontEndView"/>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/bpm4jsf/views/jsp/view-popup.jsp.vsl"
+        outputPattern="${view.path}.jsp"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>

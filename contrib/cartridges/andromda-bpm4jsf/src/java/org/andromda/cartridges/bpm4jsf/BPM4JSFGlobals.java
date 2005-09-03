@@ -80,7 +80,7 @@ public class BPM4JSFGlobals
     /**
      * Represents a popup action type.
      */
-    public static final String ACTION_TYPE_POPUP = "popup";
+    public static final String VIEW_TYPE_POPUP = "popup";
     
     /**
      * Represents a form action type.
