@@ -81,7 +81,7 @@
            the don't so we do this to get around it.
          =================================================================== -->
     <preGoal name="site">
-        <!-- because of some retarted reason this goal is executed twice if we don't include this condition-->
+        <!-- because of some retarded reason this goal is executed twice if we don't include this condition-->
         <j:if test="${!context.getAntProject().getReferences().containsKey('copied.src.path')}">
             <ant:echo>START</ant:echo>
             <!-- the temp directory to copy all the source -->
