@@ -7,7 +7,7 @@
 <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
 #else
 <h:form>
-    <jp:popupFrame scrolling="yes" height="350px" width="550px" actionOpen="#{${action.controller.beanName}.${action.triggerName}}" center="false">
+    <bpm4jsf:popup scrolling="yes" height="350px" width="550px" actionOpen="#{${action.controller.beanName}.${action.triggerName}}" center="false">
 #end
     <h:outputText value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
@@ -22,7 +22,7 @@
 #if ($action.hyperlink)
 </h:commandLink>
 #else
-    </jp:popupFrame> 
+    </bpm4jsf:popup> 
 </h:form>
 #end
 <f:verbatim><br/><br/></f:verbatim>

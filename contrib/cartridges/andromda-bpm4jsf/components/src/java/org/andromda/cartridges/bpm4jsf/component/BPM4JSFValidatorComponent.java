@@ -1,4 +1,4 @@
-package org.andromda.cartridges.bpm4jsf.components;
+package org.andromda.cartridges.bpm4jsf.component;
 
 import java.io.IOException;
 
@@ -16,9 +16,9 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator;
-import org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidatorException;
-import org.andromda.cartridges.bpm4jsf.components.validator.ValidatorMessages;
+import org.andromda.cartridges.bpm4jsf.validator.BPM4JSFValidator;
+import org.andromda.cartridges.bpm4jsf.validator.BPM4JSFValidatorException;
+import org.andromda.cartridges.bpm4jsf.validator.ValidatorMessages;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

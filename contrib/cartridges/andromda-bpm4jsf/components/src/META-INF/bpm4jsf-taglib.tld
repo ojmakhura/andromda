@@ -17,7 +17,7 @@
 
     <tag>
         <name>validator</name>
-        <tag-class>org.andromda.cartridges.bpm4jsf.components.taglib.BPM4JSFValidatorTag</tag-class>
+        <tag-class>org.andromda.cartridges.bpm4jsf.taglib.BPM4JSFValidatorTag</tag-class>
         <body-content>empty</body-content>
         <display-name>Validator</display-name>
         <description>
@@ -31,6 +31,226 @@
                 The name of the function to generate, if this isn't
                 present then client side validation will not be rendered.
             </description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>popup</name>
+        <tag-class>org.andromda.cartridges.bpm4jsf.taglib.PopupFrameTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Render a popup frame. The result of the actionFrame action will be displayed 
+            inside an IFrame of the current page. At the closing of the popupFrame (the iframe) another action could be invoked.
+        </description>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The component identifier for this component. This value
+                must be unique within the closest parent component that
+                is a naming container.
+            </description>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Flag indicating whether or not this component should be
+                rendered (during Render Response Phase), or processed on
+                any subsequent form submit.
+            </description>
+        </attribute>
+        <attribute>
+            <name>binding</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The value binding expression linking this component to a
+                property in a backing bean
+            </description>
+        </attribute>
+        <attribute>
+          <name>immediate</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              Flag indicating that, if this component is activated by the user,
+              notifications should be delivered to interested actions
+              immediately (that is, during Apply Request Values phase) rather than
+              waiting until Invoke Application phase.
+          </description>
+        </attribute>
+        <attribute>
+          <name>actionOpen</name>
+          <required>true</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              MethodBinding representing the application action to invoke inside popup frame when
+              this component is activated by the user.  The expression must
+              evaluate to a public method that takes no parameters, and returns
+              a String (the logical outcome) which is passed to the
+              NavigationHandler for this application.
+          </description>
+        </attribute>
+        <attribute>
+          <name>actionClose</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              MethodBinding representing the application action to invoke when the popup frame
+              is closed and refresh requested.  The expression must
+              evaluate to a public method that takes no parameters, and returns
+              a String (the logical outcome) which is passed to the
+              NavigationHandler for this application.
+          </description>
+        </attribute>
+        <attribute>
+            <name>height</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                height of the popup IFRAME
+            </description>
+        </attribute>
+        <attribute>
+            <name>width</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                width of the popup IFRAME
+            </description>
+        </attribute>
+        <attribute>
+            <name>mouseHorizPos</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                horizontal offset of the calendar respect mouse position
+            </description>
+        </attribute>
+        <attribute>
+            <name>mouseVertPos</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                vertical offset of the calendar respect mouse position
+            </description>
+        </attribute>
+        <attribute>
+            <name>absolute</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                if mouse coords are absolute respect the browser or relative to mouse position
+            </description>
+        </attribute>
+        <attribute>
+            <name>center</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                do not consider mouse coords and put the frame at the center of the browser
+            </description>
+        </attribute>
+        <attribute>
+            <name>scrolling</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                scrolling attribute of the iframe tag (valid values are yes, no, auto)
+            </description>
+        </attribute>
+        <attribute>
+          <name>value</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              The current value of this component.
+          </description>
+        </attribute>
+        <attribute>
+          <name>accesskey</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              Access key that, when pressed, transfers focus
+              to this element.
+          </description>
+        </attribute>
+        <attribute>
+          <name>dir</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              Direction indication for text that does not inherit directionality.
+              Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
+          </description>
+        </attribute>
+        <attribute>
+          <name>lang</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              Code describing the language used in the generated markup
+              for this component.
+          </description>
+        </attribute>
+        <attribute>
+          <name>style</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              CSS style(s) to be applied when this component is rendered.
+          </description>
+        </attribute>
+        <attribute>
+          <name>styleFrame</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              CSS style(s) to be applied to the table that will contain tha IFRAME html tag.
+          </description>
+        </attribute>
+        <attribute>
+          <name>styleClass</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              Space-separated list of CSS style class(es) to be applied when
+              this element is rendered.  This value must be passed through
+              as the "class" attribute on generated markup.
+          </description>
+        </attribute>
+        <attribute>
+          <name>styleClassFrame</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              Space-separated list of CSS style class(es) to be applied to the table that
+              will contain tha IFRAME html tag. This value must be passed through
+              as the "class" attribute on generated box.
+          </description>
+        </attribute>
+        <attribute>
+          <name>tabindex</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              Position of this element in the tabbing order
+              for the current document.  This value must be
+              an integer between 0 and 32767.
+          </description>
+        </attribute>
+        <attribute>
+          <name>title</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+              Advisory title information about markup elements generated
+              for this component.
+          </description>
         </attribute>
     </tag>
 

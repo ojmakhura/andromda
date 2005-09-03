@@ -1,4 +1,4 @@
-package org.andromda.cartridges.bpm4jsf.components.validator;
+package org.andromda.cartridges.bpm4jsf.validator;
 
 import java.text.MessageFormat;
 
@@ -7,7 +7,7 @@ import java.util.MissingResourceException;
 
 import javax.faces.context.FacesContext;
 
-import org.andromda.cartridges.bpm4jsf.components.Messages;
+import org.andromda.cartridges.bpm4jsf.Messages;
 import org.apache.commons.validator.Arg;
 import org.apache.commons.validator.Field;
 import org.apache.commons.validator.ValidatorAction;
