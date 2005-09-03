@@ -5,17 +5,48 @@
   "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
+
     <component>
         <description>
             This component renders client-side Javascript validation.
         </description>
         <display-name>BPM4JValidatorScript</display-name>
-        <component-type>org.andromda.cartridges.bpm4jsf.components.BPM4JSFValidatorComponent</component-type>
-        <component-class>org.andromda.cartridges.bpm4jsf.components.BPM4JSFValidatorComponent</component-class>
+        <component-type>org.andromda.cartridges.bpm4jsf.component.BPM4JSFValidatorComponent</component-type>
+        <component-class>org.andromda.cartridges.bpm4jsf.component.BPM4JSFValidatorComponent</component-class>
+    </component>
+
+    <component>
+        <description>
+            This component renders the HTML popup frame.
+        </description>
+        <component-type>org.andromda.cartridges.bpm4jsf.HtmlPopupFrame</component-type>
+        <component-class>org.andromda.cartridges.bpm4jsf.component.html.HtmlPopupFrame</component-class>
     </component>
 
     <validator>
-        <validator-id>org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator</validator-id>
-        <validator-class>org.andromda.cartridges.bpm4jsf.components.validator.BPM4JSFValidator</validator-class>
+        <validator-id>org.andromda.cartridges.bpm4jsf.validator.BPM4JSFValidator</validator-id>
+        <validator-class>org.andromda.cartridges.bpm4jsf.validator.BPM4JSFValidator</validator-class>
     </validator>
+
+    <render-kit>
+        <renderer>
+            <component-family>org.andromda.cartridges.bpm4jsf.Popup</component-family>
+            <renderer-type>org.andromda.cartridges.bpm4jsf.Popup</renderer-type>
+            <renderer-class>org.andromda.cartridges.bpm4jsf.renderkit.html.PopupRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>closePopup</from-outcome>
+            <to-view-id>/bpm4jsf/popup/html/closePopup.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>closePopupRefresh</from-outcome>
+            <to-view-id>/bpm4jsf/popup/html/closePopupRefresh.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>

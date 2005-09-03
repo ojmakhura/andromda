@@ -1,4 +1,4 @@
-package org.andromda.cartridges.bpm4jsf.components;
+package org.andromda.cartridges.bpm4jsf;
 
 import java.text.MessageFormat;
 
@@ -19,8 +19,8 @@ public class Messages
     private static final String BUNDLE_NAME = "message-resources";
 
     /**
-     * Gets the message given the <code>key</code> by substituting
-     * any required <code>arguments</code>.
+     * Gets the message given the <code>key</code> by substituting any
+     * required <code>arguments</code>.
      *
      * @param key the message key.
      * @param arguments any message arguments to substitute.

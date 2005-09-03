@@ -6,7 +6,7 @@
    <global>
 
       <validator name="required"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateRequired"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -71,7 +71,7 @@
       </validator>
 
       <validator name="minlength"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateMinLength"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -115,7 +115,7 @@
       </validator>
 
       <validator name="maxlength"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateMaxLength"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -159,7 +159,7 @@
       </validator>
 
       <validator name="mask"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateMask"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -208,7 +208,7 @@
       </validator>
 
       <validator name="byte"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateByte"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -279,7 +279,7 @@
       </validator>
 
       <validator name="short"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateShort"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -349,7 +349,7 @@
       </validator>
 
       <validator name="integer"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateInteger"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -439,7 +439,7 @@
       </validator>
       
       <validator name="long"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateLong"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -508,7 +508,7 @@
       </validator>
 
       <validator name="float"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateDouble"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -581,7 +581,7 @@
       </validator>
 
       <validator name="date"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateDate"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -732,7 +732,7 @@
       </validator>
       
       <validator name="time"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateTime"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -867,7 +867,7 @@
       </validator>
 
       <validator name="intRange"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateLongRange"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -914,7 +914,7 @@
       </validator>
 
       <validator name="floatRange"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateDoubleRange"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -961,7 +961,7 @@
       </validator>
 
       <validator name="creditCard"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateCreditCard"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -1039,7 +1039,7 @@
 
 
       <validator name="email"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateEmail"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,
@@ -1132,7 +1132,7 @@
       </validator>
       
       <validator name="url"
-            classname="org.andromda.cartridges.bpm4jsf.components.validator.ParameterChecks"
+            classname="org.andromda.cartridges.bpm4jsf.validator.ParameterChecks"
                method="validateUrl"
          methodParams="javax.faces.context.FacesContext,
                        java.lang.Object,java.util.Map,

@@ -162,6 +162,16 @@
 #end
 #end
 
+    <servlet> 
+        <servlet-name>BPM4JSF Servlet</servlet-name>
+        <servlet-class>org.andromda.cartridges.bpm4jsf.BPM4JSFServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BPM4JSF Servlet</servlet-name>
+        <url-pattern>/bpm4jsf/*</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.${facesServletExtension}</url-pattern>

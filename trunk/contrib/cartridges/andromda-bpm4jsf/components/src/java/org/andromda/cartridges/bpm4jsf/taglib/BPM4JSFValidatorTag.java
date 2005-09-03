@@ -1,4 +1,4 @@
-package org.andromda.cartridges.bpm4jsf.components.taglib;
+package org.andromda.cartridges.bpm4jsf.taglib;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -6,7 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 
-import org.andromda.cartridges.bpm4jsf.components.BPM4JSFValidatorComponent;
+import org.andromda.cartridges.bpm4jsf.component.BPM4JSFValidatorComponent;
 
 
 /**
@@ -84,7 +84,7 @@ public class BPM4JSFValidatorTag
 
     /**
      * Returns the component type, which is
-     * <code>${jsfComponentsPackage}.BPM4JSFValidatorScript</code>.
+     * <code>org.andromda.cartridges.bpm4jsf.component.BPM4JSFValidatorScript</code>.
      */
     public String getComponentType()
     {

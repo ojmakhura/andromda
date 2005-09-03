@@ -1,4 +1,4 @@
-package org.andromda.cartridges.bpm4jsf.components.validator;
+package org.andromda.cartridges.bpm4jsf.validator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
