@@ -8,17 +8,17 @@
 
 <f:view>
     <h:panelGrid id="popupView" columns="1" styleClass="popup">
-            <h:panelGrid id="popupViewHeader" columns="1" styleClass="popupHeader">
-                <h:commandLink action="closePopup"><f:verbatim><img src="${pageContext.request.contextPath}/images/x.gif" border="0"/></f:verbatim></h:commandLink>  
-            </h:panelGrid>
+        <h:panelGrid id="popupViewHeader" columns="1" styleClass="popupHeader">
+            <h:commandLink action="closePopup"><f:verbatim><img src="${pageContext.request.contextPath}/images/x.gif" border="0"/></f:verbatim></h:commandLink>  
+        </h:panelGrid>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-                <%@ include file="${action.viewFragmentPath}.jspf" %>
+        <%@ include file="${action.viewFragmentPath}.jspf" %>
 #end
 #end
 #foreach ($variable in $view.variables)
 #if ($variable.table)
-                <%@ include file="${view.path}-${variable.name}.jspf" %>
+        <%@ include file="${view.path}-${variable.name}.jspf" %>
 #end
 #end        
     </h:panelGrid>
