@@ -20,21 +20,6 @@
             </answer>
         </faq>
 
-        <faq id="model-validation">
-            <question>Is there a way to validate the correctness of my model ?</question>
-            <answer>
-                <p>
-                    Yes, and doing so will avoid problems with the code-generation process. Validating
-                    the model is not enabled yet in the cartridge code, but it should happen soon enough.
-                    What will happen is that when the model is loaded by AndroMDA each element
-                    will have its own validation routine to check if its preconditions and
-                    invariants are met. For each error or warning a message will be displayed to the user.
-                    Model validation will be enabled by default and it will be possible to
-                    switch it off using a property.
-                </p>
-            </answer>
-        </faq>
-
         <faq id="tools">
             <question>What tools can I use to model ?</question>
             <answer>
@@ -160,7 +145,7 @@
                     Let's get over the things to do for a single use-case with a single page:
                     <ol>
                         <li>create a use-case</li>
-                        <li>give this use-case the FrontEndApplication and FrontEndUseCase stereotypes</li>
+                        <li>give this use-case the FrontEndApplication stereotype</li>
                         <li>create an activity graph in this use-case</li>
                         <li>add an initial state</li>
                         <li>add an action state "Action1"</li>
@@ -232,6 +217,8 @@
                     Sure you can, openup the cartridge and go into the 'templates' directory.
                     You will find a bunch of templates, how they map onto files can be found
                     in the deployment-descriptor in the 'META-INF' subdirectory (next to 'templates').
+                    You can override cartridge resources, this is all explained
+                    <a href="../andromda-cartridges/index.html#mergeLocation">here</a>.
                 </p>
             </answer>
         </faq>
@@ -243,9 +230,10 @@
                     Sure it can, just put the compiled JSPs in your WAR bundle under WEB-INF/classes.
                 </p>
                 <p>
-                    If you have set up your environment using the andromda:genapp goal you can go into
-                    the 'web' directory and open the maven.xml file. Somewhere you'll find a goal called
-                    'ignore::war:war', simply rename it to 'war::war'. Doing so will enable precompilation.
+                    If you have set up your environment using the andromdapp:generate plugin you can go into
+                    the 'web' component and open the <code>project.properties</code> file.
+                    In this file make sure you have the following property set:
+                    <code>precompileJsps=true</code>. Doing so will enable precompilation.
                 </p>
             </answer>
         </faq>
@@ -258,7 +246,7 @@
                     long for the Windows filesystem when it is read from the ear bundle.
                     In that case it is sufficient to explode
                     you ear or war when you deploy, this will cause the path to the file to be shortened.
-                    This problem manifests itself by means of a java.lang.ClassNotFoundException.
+                    This problem manifests itself by means of a <code>java.lang.ClassNotFoundException</code>.
                 </p>
             </answer>
         </faq>
@@ -282,30 +270,33 @@
                 <p>
                     Using maven you will need to open up <code>andromda.xml</code> and in the bpm4struts
                     namespace set 'security' to true.
-                    <source>
-                        &lt;forms&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/forms&gt;
-                        &lt;pages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/pages&gt;
-                        &lt;actions&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/actions&gt;
-                        &lt;controllers&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/controllers&gt;
-                        &lt;controller-impls&gt;${maven.andromda.bpm4struts.manual.java.dir}&lt;/controller-impls&gt;
-                        &lt;messages&gt;${maven.andromda.bpm4struts.generated.dir}&lt;/messages&gt;
-                        &lt;configuration&gt;${maven.andromda.bpm4struts.generated.dir}/WEB-INF&lt;/configuration&gt;
-                        &lt;securityRealm&gt;other&lt;/securityRealm&gt;
+                    <source language="xml">
+<![CDATA[
+    <forms>${maven.andromda.bpm4struts.generated.dir}</forms>
+    <pages>${maven.andromda.bpm4struts.generated.dir}</pages>
+    <actions>${maven.andromda.bpm4struts.generated.dir}</actions>
+    <controllers>${maven.andromda.bpm4struts.generated.dir}</controllers>
+    <controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
+    <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
+    <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
+    <securityRealm>other</securityRealm>
+]]>
                     </source>
                 </p>
                 <p>
                     Using the Ant build it is a property in the
                     MDA build.xml script.
-                    <source>
-                        &lt;property name="security" value="false"/&gt;    &lt;---- set to true to enable security
-                        &lt;property name="securityRealm" value="other"/&gt;
-                        &lt;property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/&gt;
-                        &lt;property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-                        &lt;property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-                        &lt;property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
-                        &lt;property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/&gt;
-                        &lt;property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/&gt;
-                        &lt;property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/&gt;
+                    <source language="xml">
+<![CDATA[
+    <property name="securityRealm" value="other"/>
+    <property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/>
+    <property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+    <property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+    <property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+    <property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/>
+    <property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/>
+    <property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+]]>
                     </source>
                 </p>
                 <p>
@@ -338,6 +329,9 @@
                 <p>
                     No, JSF is not Struts. For more information go here:
                     <a href="http://jakarta.apache.org/struts/faqs/kickstart.html#jsf">Apache Struts JSF Faq</a>
+                </p>
+                <p>
+                    <em>At the time of this writing a cartridge for JSF is under development</em>
                 </p>
             </answer>
         </faq>
