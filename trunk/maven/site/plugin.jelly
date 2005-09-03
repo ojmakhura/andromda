@@ -73,53 +73,45 @@
 
 
     <!-- ===================================================================
-           Intercept the 'site' goal so that we can fake out the reports
+           Intercept the 'site:run-reports' goal so that we can fake out the reports
            by copying our real source to a temp directory and then setting the
            pom's source directory to point to that one (since the reports only
-           handle one source directory per project).  The report plugins
+           handle one source directory per project). The report plugins
            really should support multiple source directories but right now
            the don't so we do this to get around it.
          =================================================================== -->
     <preGoal name="site">
-        <j:set var="filterFacades" value="${maven.andromda.javadoc.facades}"/>
-        <!-- the temp directory to copy all the source -->
-        <j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
-        <ant:delete dir="${reportBuildSrcDir}"/>
-        <ant:mkdir dir="${reportBuildSrcDir}"/>
-        <j:set var="buildSrcDir" value="${maven.build.src}"/>
-        <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
-        <ant:available property="sourceDirectoryPresent" file="${sourceDirectory}"/>
-        <j:if test="${sourceDirectoryPresent}">
-            <ant:copy todir="${reportBuildSrcDir}">
-                <ant:fileset dir="${sourceDirectory}">
-                    <j:if test="${filterFacades eq 'true'}">
-                        <ant:include name="**/*.*"/>
-                        <ant:exclude name="**/*Logic.java"/>
-                        <ant:exclude name="**/*LogicImpl.java"/>
-                    </j:if>
-                </ant:fileset>
-            </ant:copy>
+        <!-- because of some retarted reason this goal is executed twice if we don't include this condition-->
+        <j:if test="${!context.getAntProject().getReferences().containsKey('copied.src.path')}">
+            <ant:echo>START</ant:echo>
+            <!-- the temp directory to copy all the source -->
+            <j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
+            <ant:mkdir dir="${reportBuildSrcDir}"/>
+            <ant:echo>CREATED</ant:echo>
+            <j:set var="buildSrcDir" value="${maven.build.src}"/>
+            <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
+            <u:available file="${sourceDirectory}">
+                <ant:copy todir="${reportBuildSrcDir}">
+                    <ant:fileset dir="${sourceDirectory}"/>
+                </ant:copy>
+            </u:available>
+            <u:available file="${buildSrcDir}">
+                <ant:copy todir="${reportBuildSrcDir}">
+                    <ant:fileset dir="${buildSrcDir}"/>
+                </ant:copy>
+            </u:available>
+            <j:set var="dummy" value="${pom.build.setSourceDirectory(reportBuildSrcDir)}"/>
+            <!-- the javadoc plugin requires the following property to be set to the proper path -->
+            <ant:echo>SETTING MAVING COMPILE SRC PATH</ant:echo>
+            <j:set var="mavenCompileSrcPath" value="${context.getAntProject().getReferences().get('maven.compile.src.set')}"/>
+            <ant:path id="copied.src.path">
+                <ant:pathelement location="${reportBuildSrcDir}"/>
+            </ant:path>
+            <ant:echo>SETTING COPIED SRC PATH</ant:echo>
+            <j:set var="copiedSrcPath" value="${context.getAntProject().getReferences().get('copied.src.path')}"/>
+            <ant:echo>SETTING POM SRC DIR</ant:echo>
+            <j:set var="dummy" value="${context.getAntProject().getReferences().put('maven.compile.src.set',copiedSrcPath)}"/>
         </j:if>
-        <ant:available property="buildSrcDirPresent" file="${buildSrcDir}"/>
-        <j:if test="${buildSrcDirPresent}">
-            <ant:copy todir="${reportBuildSrcDir}">
-                <ant:fileset dir="${buildSrcDir}">
-                    <j:if test="${filterFacades eq 'true'}">
-                        <ant:include name="**/*.*"/>
-                        <ant:exclude name="**/*Logic.java"/>
-                        <ant:exclude name="**/*LogicImpl.java"/>
-                    </j:if>
-                </ant:fileset>
-            </ant:copy>
-        </j:if>
-        <j:set var="dummy" value="${pom.build.setSourceDirectory(reportBuildSrcDir)}"/>
-        <!-- the javadoc plugin requires the following property to be set to the proper path -->
-        <j:set var="mavenCompileSrcPath" value="${context.getAntProject().getReferences().get('maven.compile.src.set')}"/>
-        <ant:path id="copied.src.path">
-            <ant:pathelement location="${reportBuildSrcDir}"/>
-        </ant:path>
-        <j:set var="copiedSrcPath" value="${context.getAntProject().getReferences().get('copied.src.path')}"/>
-        <j:set var="dummy" value="${context.getAntProject().getReferences().put('maven.compile.src.set',copiedSrcPath)}"/>
     </preGoal>
 
     <!-- ===================================================================
@@ -127,8 +119,12 @@
            that we're done with the reports
          =================================================================== -->
     <postGoal name="site">
-        <j:set var="dummy" value="${pom.build.setSourceDirectory(sourceDirectory)}"/>
-        <j:set var="dummy" value="${context.getAntProject().getReferences().put('maven.compile.src.set',mavenCompileSrcPath)}"/>
+        <j:if test="${!context.getAntProject().getReferences().containsKey('copied.src.path')}">
+            <ant:echo>RESTORING POM SRC DIR</ant:echo>
+            <j:set var="dummy" value="${pom.build.setSourceDirectory(sourceDirectory)}"/>
+            <ant:echo>RESTORING MAVEN COMP SRC PATH</ant:echo>
+            <j:set var="dummy" value="${context.getAntProject().getReferences().put('maven.compile.src.set',mavenCompileSrcPath)}"/>
+        </j:if>
     </postGoal>
 
 </project>
