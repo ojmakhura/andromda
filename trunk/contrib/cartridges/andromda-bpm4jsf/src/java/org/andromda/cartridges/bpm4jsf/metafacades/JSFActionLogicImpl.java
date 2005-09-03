@@ -466,7 +466,20 @@ public class JSFActionLogicImpl
      */
     protected boolean handleIsPopup()
     {
-        return ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
-            BPM4JSFGlobals.ACTION_TYPE_POPUP);
+        boolean popup = ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
+            BPM4JSFGlobals.VIEW_TYPE_POPUP);
+        if (!popup)
+        {
+            for (final Iterator iterator = this.getTargetViews().iterator(); iterator.hasNext();)
+            {
+                final JSFView view = (JSFView)iterator.next();
+                popup = view.isPopup();
+                if (!popup)
+                {
+                    break;
+                }
+            }
+        }
+        return popup;
     }
 }

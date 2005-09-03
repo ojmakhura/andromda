@@ -97,6 +97,13 @@
                     <value>true</value>
                 </allowedValues>
             </element>
+            <element name="VIEW_TYPE">
+                <documentation>
+                    Represents the type of view (regular, popup, etc).
+                </documentation>
+                <value>@andromda.presentation.web.view.type</value>
+                <appliedOnElement>A <![CDATA[<<FrontEndView>>]]></appliedOnElement>
+            </element>
             <element name="INPUT_TYPE">
                 <documentation>
                     Indicates the type of parameter, this information will be used when rendering the views,
