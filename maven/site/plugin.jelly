@@ -83,11 +83,9 @@
     <preGoal name="site">
         <!-- because of some retarded reason this goal is executed twice if we don't include this condition-->
         <j:if test="${!context.getAntProject().getReferences().containsKey('copied.src.path')}">
-            <ant:echo>START</ant:echo>
             <!-- the temp directory to copy all the source -->
             <j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
             <ant:mkdir dir="${reportBuildSrcDir}"/>
-            <ant:echo>CREATED</ant:echo>
             <j:set var="buildSrcDir" value="${maven.build.src}"/>
             <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
             <u:available file="${sourceDirectory}">
@@ -102,14 +100,11 @@
             </u:available>
             <j:set var="dummy" value="${pom.build.setSourceDirectory(reportBuildSrcDir)}"/>
             <!-- the javadoc plugin requires the following property to be set to the proper path -->
-            <ant:echo>SETTING MAVING COMPILE SRC PATH</ant:echo>
             <j:set var="mavenCompileSrcPath" value="${context.getAntProject().getReferences().get('maven.compile.src.set')}"/>
             <ant:path id="copied.src.path">
                 <ant:pathelement location="${reportBuildSrcDir}"/>
             </ant:path>
-            <ant:echo>SETTING COPIED SRC PATH</ant:echo>
             <j:set var="copiedSrcPath" value="${context.getAntProject().getReferences().get('copied.src.path')}"/>
-            <ant:echo>SETTING POM SRC DIR</ant:echo>
             <j:set var="dummy" value="${context.getAntProject().getReferences().put('maven.compile.src.set',copiedSrcPath)}"/>
         </j:if>
     </preGoal>
@@ -120,9 +115,7 @@
          =================================================================== -->
     <postGoal name="site">
         <j:if test="${!context.getAntProject().getReferences().containsKey('copied.src.path')}">
-            <ant:echo>RESTORING POM SRC DIR</ant:echo>
             <j:set var="dummy" value="${pom.build.setSourceDirectory(sourceDirectory)}"/>
-            <ant:echo>RESTORING MAVEN COMP SRC PATH</ant:echo>
             <j:set var="dummy" value="${context.getAntProject().getReferences().put('maven.compile.src.set',mavenCompileSrcPath)}"/>
         </j:if>
     </postGoal>
