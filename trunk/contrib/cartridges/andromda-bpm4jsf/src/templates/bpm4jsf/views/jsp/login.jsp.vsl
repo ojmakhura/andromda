@@ -67,7 +67,13 @@
     </x:panelLayout>
 
 </f:view>
-
+<script type="text/javascript" language="Javascript1.1">
+//<!--
+var field = document.forms["login"].elements["j_username"];
+field.focus();
+field.select();
+//-->
+</script>
 </body>
 
 </html>
