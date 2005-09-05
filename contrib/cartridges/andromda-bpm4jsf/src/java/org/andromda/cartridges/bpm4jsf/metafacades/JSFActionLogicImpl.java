@@ -482,4 +482,22 @@ public class JSFActionLogicImpl
         }
         return popup;
     }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isFormResetRequired()
+     */
+    protected boolean handleIsFormResetRequired()
+    {
+        boolean resetRequired = false;
+        for (final Iterator iterator = this.getFormFields().iterator(); iterator.hasNext();)
+        {
+            final JSFParameter parameter = (JSFParameter)iterator.next();
+            resetRequired = parameter.isReset();
+            if (resetRequired)
+            {
+                break;
+            }
+        }
+        return resetRequired;
+    }
 }

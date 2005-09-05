@@ -220,7 +220,21 @@ $field.getDocumentation("     * ")
 
 #end
 #end
+#if ($action.formResetRequired)
 
+    /**
+     * Resets any fields of the form that need to be reset.
+     */
+    public void reset()
+    {
+#foreach($field in $action.formFields)
+#if ($field.reset)
+        this.$field.name = $field.type.javaNullString; 
+#end
+#end
+    }
+
+#end
     /**
      * Stores any date or time formatters for this form.
      */

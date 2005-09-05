@@ -30,6 +30,7 @@ public class BPM4JSFProfile
     public static final String TAGGEDVALUE_INPUT_VALIDWHEN = profile.get("INPUT_VALIDWHEN");
     public static final String TAGGEDVALUE_INPUT_VALIDATORS = profile.get("INPUT_VALIDATORS");
     public static final String TAGGEDVALUE_INPUT_FORMAT = profile.get("INPUT_FORMAT");
+    public static final String TAGGEDVALUE_INPUT_RESET = profile.get("INPUT_RESET");
     public static final String TAGGEDVALUE_VIEW_TYPE = profile.get("VIEW_TYPE");
 
     /* ----------------- Data Types -------------------- */
