@@ -491,7 +491,7 @@ public class JSFActionLogicImpl
         boolean resetRequired = this.isFormReset();
         if (!resetRequired)
         {
-            for (final Iterator iterator = this.getFormFields().iterator(); iterator.hasNext();)
+            for (final Iterator iterator = this.getParameters().iterator(); iterator.hasNext();)
             {
                 final JSFParameter parameter = (JSFParameter)iterator.next();
                 resetRequired = parameter.isReset();
