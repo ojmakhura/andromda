@@ -192,17 +192,17 @@ public class StringUtilsHelper
      */
     private static String[] splitAtNonWordCharacters(final String string)
     {
-        Pattern capitalSequencePattern = Pattern.compile("[A-Z]+");
-        Matcher matcher = capitalSequencePattern.matcher(StringUtils.trimToEmpty(string));
-        StringBuffer sb = new StringBuffer();
+        final Pattern capitalSequencePattern = Pattern.compile("[A-Z]+");
+        final Matcher matcher = capitalSequencePattern.matcher(StringUtils.trimToEmpty(string));
+        final StringBuffer buffer = new StringBuffer();
         while (matcher.find())
         {
-            matcher.appendReplacement(sb, ' ' + matcher.group());
+            matcher.appendReplacement(buffer, ' ' + matcher.group());
         }
-        matcher.appendTail(sb);
+        matcher.appendTail(buffer);
 
         // split on all non-word characters: make sure we send the good parts
-        return sb.toString().split("[\\W+]");
+        return buffer.toString().split("[^A-Za-z0-9]+");
     }
 
     /**
