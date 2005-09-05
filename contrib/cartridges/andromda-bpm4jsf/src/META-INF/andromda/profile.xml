@@ -71,6 +71,20 @@
                     <value>request</value>
                 </allowedValues>
             </element>
+            <element name="ACTION_FORM_RESET">
+                <documentation>
+                    This allows one to reset all parameter values on the form after
+                    the action is invoked (this is useful when you have an action transition
+                    coming back to the same page and want the form variables reset to their original
+                    values before the action was submitted).
+                </documentation>
+                <value>@andromda.presentation.web.action.form.reset</value>
+                <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>session</value>
+                    <value>request</value>
+                </allowedValues>
+            </element>
             <element name="ACTION_FORM_KEY">
                 <documentation>
                     Denotes the name of the key under which this action's form is stored under.
