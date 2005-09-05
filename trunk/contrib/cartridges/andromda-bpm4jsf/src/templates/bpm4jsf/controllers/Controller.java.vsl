@@ -75,6 +75,9 @@ $operation.getDocumentation("     * ")
             }
 #end
 #if (!$action.formFields.empty)
+#if ($action.formResetRequired)
+            form.reset();
+#end
             this.getSession(true).setAttribute("$action.formKey", form);
 #end
         }

@@ -124,6 +124,19 @@
                     <value>multibox</value>
                 </allowedValues>
             </element>
+            <element name="INPUT_RESET">
+                <documentation>
+                    Indicates whether or not the field should be reset (to its orginal value)
+                    after the execution of the action.  This is useful when you want only
+                    some of the parameters reset on the form but not all of them.
+                </documentation>
+                <value>@andromda.presentation.web.view.field.reset</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value default="true">false</value>
+                    <value>true</value>
+                </allowedValues>
+            </element>
             <element name="INPUT_VALIDWHEN">
                 <documentation>
                     Additional validation to be performed, specify a

@@ -1325,4 +1325,13 @@ public class JSFParameterLogicImpl
 
         return vars.values();
     }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#isReset()
+     */
+    protected boolean handleIsReset()
+    {
+        return Boolean.valueOf(
+            ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_RESET))).booleanValue();
+    }
 }
