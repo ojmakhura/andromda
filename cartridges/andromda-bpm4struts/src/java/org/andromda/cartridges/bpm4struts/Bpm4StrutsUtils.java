@@ -175,7 +175,7 @@ public final class Bpm4StrutsUtils
      */
     public static String toWebFileName(final String string)
     {
-        return StringUtilsHelper.separate(string, "-").toLowerCase();
+        return StringUtilsHelper.toPhrase(string).replace(' ', '-').toLowerCase();
     }
 
     /**

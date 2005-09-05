@@ -200,7 +200,8 @@ public class StringUtilsHelperTest
         final String[][] fixture =
             new String[][]
             {
-                new String[] {"Transfer from a Critical Access Hospital", "Transfer_from_a_Critical_Access_Hospital"}
+                new String[] {"Transfer from a Critical Access Hospital", "Transfer_from_a_Critical_Access_Hospital"},
+                new String[] {"UNDERSCORE_TEST", "UNDERSCORE_TEST"}
             };
 
         for (int i = 0; i < fixture.length; i++)

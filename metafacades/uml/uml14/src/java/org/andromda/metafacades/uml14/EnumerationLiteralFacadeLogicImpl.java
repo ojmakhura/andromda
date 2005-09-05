@@ -24,9 +24,7 @@ public class EnumerationLiteralFacadeLogicImpl
      */
     protected String handleGetName()
     {
-        return StringUtilsHelper.separate(
-            super.handleGetName(),
-            "_").toUpperCase();
+        return StringUtilsHelper.separate(super.handleGetName(), "_").toUpperCase();
     }
 
     /**

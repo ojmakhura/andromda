@@ -33,7 +33,7 @@ public class Constants
         final String userName = System.getProperty("user.name");
         if (StringUtils.isNotBlank(userName))
         {
-            directory.append(userName + "/");
+            directory.append(userName).append("/");
         }
         TEMPORARY_DIRECTORY = directory.toString();
     }

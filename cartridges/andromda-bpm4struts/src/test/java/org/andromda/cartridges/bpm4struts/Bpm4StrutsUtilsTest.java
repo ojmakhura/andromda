@@ -54,4 +54,18 @@ public class Bpm4StrutsUtilsTest
             assertEquals(Bpm4StrutsUtils.parseValidatorName(strings[0]), strings[1]);
         }
     }
+
+    public void testToWebFileName() throws Exception
+    {
+        final String[][] fixture = new String[][]{
+            new String[]{"singleword", "singleword"},
+            new String[]{"two words", "two-words"},
+            new String[]{" stuff   with whitespace  ", "stuff-with-whitespace"}};
+
+        for (int i = 0; i < fixture.length; i++)
+        {
+            String[] strings = fixture[i];
+            assertEquals(Bpm4StrutsUtils.toWebFileName(strings[0]), strings[1]);
+        }
+    }
 }
