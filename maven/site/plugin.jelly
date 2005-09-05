@@ -7,13 +7,8 @@
          xmlns:maven="jelly:maven">
          
     <j:set var="pluginResources" value="${plugin.resources}/andromda"/>
-    <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.jsl" value="file:${maven.build.dir}/jsl/site.jsl"/>
-    <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.date" value="left"/> 
-    <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.date.format" value="dd MMMM yyyy HH:mm z"/>
-    <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.version" value="${pom.currentVersion}"/> 
-    <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.includeProjectDocumentation" value="yes"/>
-    <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.theme.url" value="style/maven-andromda.css"/>  
-         
+    <j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
+
     <!-- ===================================================================
           Add both the custom JSL style sheet, and the custom CSS files.
          =================================================================== -->
@@ -71,20 +66,26 @@
         </u:available>
     </goal>
 
+    <preGoal name="xdoc:init">
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.jsl" value="file:${maven.build.dir}/jsl/site.jsl"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.date" value="left"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.date.format" value="dd MMMM yyyy HH:mm z"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.version" value="${pom.currentVersion}"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.includeProjectDocumentation" value="yes"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.theme.url" value="style/maven-andromda.css"/>
+    </preGoal>
 
     <!-- ===================================================================
-           Intercept the 'site:run-reports' goal so that we can fake out the reports
-           by copying our real source to a temp directory and then setting the
-           pom's source directory to point to that one (since the reports only
-           handle one source directory per project). The report plugins
-           really should support multiple source directories but right now
-           the don't so we do this to get around it.
-         =================================================================== -->
+     Intercept the 'site' goal so that we can fake out the reports
+     by copying our real source to a temp directory and then setting the
+     pom's source directory to point to that one (since the reports only
+     handle one source directory per project). The report plugins
+     really should support multiple source directories but right now
+     the don't so we do this to get around it.
+   =================================================================== -->
     <preGoal name="site">
         <!-- because of some retarded reason this goal is executed twice if we don't include this condition-->
         <j:if test="${!context.getAntProject().getReferences().containsKey('copied.src.path')}">
-            <!-- the temp directory to copy all the source -->
-            <j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
             <ant:mkdir dir="${reportBuildSrcDir}"/>
             <j:set var="buildSrcDir" value="${maven.build.src}"/>
             <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
