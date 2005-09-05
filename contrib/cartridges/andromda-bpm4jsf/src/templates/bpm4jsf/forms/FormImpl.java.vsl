@@ -227,7 +227,7 @@ $field.getDocumentation("     * ")
      */
     public void reset()
     {
-#foreach($field in $action.formFields)
+#foreach($field in $action.parameters)
 #if ($field.reset)
         this.$field.name = $field.type.javaNullString; 
 #end
