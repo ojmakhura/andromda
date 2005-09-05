@@ -488,16 +488,27 @@ public class JSFActionLogicImpl
      */
     protected boolean handleIsFormResetRequired()
     {
-        boolean resetRequired = false;
-        for (final Iterator iterator = this.getFormFields().iterator(); iterator.hasNext();)
+        boolean resetRequired = this.isFormReset();
+        if (!resetRequired)
         {
-            final JSFParameter parameter = (JSFParameter)iterator.next();
-            resetRequired = parameter.isReset();
-            if (resetRequired)
+            for (final Iterator iterator = this.getFormFields().iterator(); iterator.hasNext();)
             {
-                break;
+                final JSFParameter parameter = (JSFParameter)iterator.next();
+                resetRequired = parameter.isReset();
+                if (resetRequired)
+                {
+                    break;
+                }
             }
         }
         return resetRequired;
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFAction#isFormRequired()
+     */
+    protected boolean handleIsFormReset()
+    {
+        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
     }
 }

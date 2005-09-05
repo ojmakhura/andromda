@@ -63,6 +63,9 @@ $operation.getDocumentation("     * ")
                 // - if we have invalid return value from the controller we take the last forward
                 forward = "$defaultOutcome.name";
 #end
+#if (!$action.formFields.empty && $action.formResetRequired)
+                form.reset();
+#end
 #if (!$deferredOperations.empty)
             }
             catch (final Throwable throwable)
@@ -75,9 +78,6 @@ $operation.getDocumentation("     * ")
             }
 #end
 #if (!$action.formFields.empty)
-#if ($action.formResetRequired)
-            form.reset();
-#end
             this.getSession(true).setAttribute("$action.formKey", form);
 #end
         }

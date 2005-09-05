@@ -1331,7 +1331,13 @@ public class JSFParameterLogicImpl
      */
     protected boolean handleIsReset()
     {
-        return Boolean.valueOf(
+        boolean reset = Boolean.valueOf(
             ObjectUtils.toString(this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_RESET))).booleanValue();
+        if (!reset)
+        {
+            final JSFAction action = (JSFAction)this.getAction();
+            reset = action != null && action.isFormReset();
+        }
+        return reset;
     }
 }

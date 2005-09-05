@@ -32,6 +32,7 @@ public class BPM4JSFProfile
     public static final String TAGGEDVALUE_INPUT_FORMAT = profile.get("INPUT_FORMAT");
     public static final String TAGGEDVALUE_INPUT_RESET = profile.get("INPUT_RESET");
     public static final String TAGGEDVALUE_VIEW_TYPE = profile.get("VIEW_TYPE");
+    public static final String TAGGEDVALUE_ACTION_FORM_RESET = profile.get("ACTION_FORM_RESET");
 
     /* ----------------- Data Types -------------------- */
     public static final String CHARACTER_TYPE_NAME = profile.get("CHARACTER_TYPE");
