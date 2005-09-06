@@ -397,7 +397,11 @@ public abstract class $entity.daoBaseName
             queryObject.${setParameterOperation}($count, $argumentValue);
 #end
 #end
+#if ($finder.returnType.setType)
+            java.util.Set results = new java.util.LinkedHashSet(queryObject.list());
+#else
             java.util.List results = queryObject.list();
+#end
 #if (!$finder.returnType.collectionType)
             Object result = null;
             if (results != null)
@@ -417,11 +421,7 @@ public abstract class $entity.daoBaseName
             return result;
 #else
             transformEntities(transform, results);
-#set ($returnValue = "results")
-#if ($finder.returnType.setType)
-#set ($returnValue = "new java.util.LinkedHashSet($returnValue)")
-#end
-            return $returnValue;
+            return results;
 #end
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
