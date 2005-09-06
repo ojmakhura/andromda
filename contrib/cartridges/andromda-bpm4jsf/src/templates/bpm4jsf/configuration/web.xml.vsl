@@ -151,12 +151,12 @@
 #end
 #foreach ($useCase in $useCases)
     <servlet>
-        <servlet-name>$useCase.actionClassName</servlet-name>
+        <servlet-name>$useCase.fullyQualifiedActionClassName</servlet-name>
         <servlet-class>$useCase.fullyQualifiedActionClassName</servlet-class>
     </servlet>
 #foreach ($action in $useCase.actionForwards)
     <servlet>
-        <servlet-name>$action.actionClassName</servlet-name>
+        <servlet-name>$action.fullyQualifiedActionClassName</servlet-name>
         <servlet-class>$action.fullyQualifiedActionClassName</servlet-class>
     </servlet>
 #end
@@ -184,12 +184,12 @@
 #end
 #foreach ($useCase in $useCases)
     <servlet-mapping>
-        <servlet-name>$useCase.actionClassName</servlet-name>
+        <servlet-name>$useCase.fullyQualifiedActionClassName</servlet-name>
         <url-pattern>$useCase.path</url-pattern>
     </servlet-mapping>
 #foreach ($action in $useCase.actionForwards)
     <servlet-mapping>
-        <servlet-name>$action.actionClassName</servlet-name>
+        <servlet-name>$action.fullyQualifiedActionClassName</servlet-name>
         <url-pattern>$action.path</url-pattern>
     </servlet-mapping>
 #end
@@ -205,10 +205,6 @@
         <welcome-file>$welcomeFileName</welcome-file>
     </welcome-file-list>
 
-    <error-page>
-        <exception-type>javax.faces.FacesException</exception-type>
-        <location>/$welcomeFileName</location>
-    </error-page>
     <!-- error-page merge-point -->
     <!-- taglib merge-point -->
     <!-- resource-ref merge-point -->
