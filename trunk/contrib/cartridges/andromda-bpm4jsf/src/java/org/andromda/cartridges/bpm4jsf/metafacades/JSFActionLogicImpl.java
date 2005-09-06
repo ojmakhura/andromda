@@ -60,7 +60,7 @@ public class JSFActionLogicImpl
         String name = null;
         if (this.isExitingInitialState())
         {
-            final UseCaseFacade useCase = this.getUseCase();
+            final JSFUseCase useCase = (JSFUseCase)this.getUseCase();
             if (useCase != null)
             {
                 name = useCase.getName();
@@ -165,7 +165,19 @@ public class JSFActionLogicImpl
      */
     protected String handleGetPath()
     {
-        return this.getPathRoot() + '/' + BPM4JSFUtils.toWebResourceName(this.getTriggerName());
+        String path = this.getPathRoot() + '/' + BPM4JSFUtils.toWebResourceName(this.getTriggerName());
+        if (this.isExitingInitialState())
+        {
+            final JSFUseCase useCase = (JSFUseCase)this.getUseCase();
+            if (useCase != null && useCase.isViewHasNameOfUseCase())
+            {
+                // - add the uc prefix to make the trigger name unique
+                //   when a view contained within the use case has the same name 
+                //   as the use case
+                path = path + "uc";
+            } 
+        }
+        return path;
     }
 
     /**

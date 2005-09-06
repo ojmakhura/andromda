@@ -19,6 +19,7 @@ import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -465,5 +466,24 @@ public class JSFUseCaseLogicImpl
             }
         }
         return required;
+    }
+
+    /**
+     * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFUseCase#isViewHasNameOfUseCase()
+     */
+    protected boolean handleIsViewHasNameOfUseCase()
+    {
+        boolean sameName = false;
+        for (final Iterator iterator = this.getViews().iterator(); iterator.hasNext();)
+        {
+            final ModelElementFacade view = (ModelElementFacade)iterator.next();
+            final String name = view.getName();
+            if (name != null && name.equalsIgnoreCase(this.getName()))
+            {
+                sameName = true;
+                break;
+            }
+        }
+        return sameName;
     }
 }
