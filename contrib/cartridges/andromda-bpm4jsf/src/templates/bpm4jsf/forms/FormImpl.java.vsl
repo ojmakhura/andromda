@@ -26,7 +26,7 @@ public class $action.formImplementationName
     }
 #foreach ($field in $action.formFields)
 
-#if ($field.inputMultibox)
+#if ($field.type.collectionType)
 #set ($fieldTypeName = "java.util.List")
 #else
 #set ($fieldTypeName = $field.type.fullyQualifiedName)

@@ -16,7 +16,7 @@ public interface $operation.formName
 {
 #foreach ($field in $operation.formFields)
 
-#if ($field.inputMultibox)
+#if ($field.type.collectionType)
 #set ($fieldTypeName = "java.util.List")
 #else
 #set ($fieldTypeName = $field.type.fullyQualifiedName)
