@@ -175,6 +175,11 @@ public class BPM4JSFValidatorComponent
                 childComponent,
                 context);
         }
+        // - include the javascript utilities
+        this.addValidator(
+            "javascriptUtilities",
+            null,
+            null);
     }
 
     /**
@@ -312,19 +317,7 @@ public class BPM4JSFValidatorComponent
             }
             writer.write("}\n");
         }
-
         // - for each validator type, write code
-        //   Must always include integer and required because
-        //   they contain shared helper functions
-        this.addValidator(
-            "integer",
-            null,
-            null);
-        this.addValidator(
-            "required",
-            null,
-            null);
-
         for (final Iterator iterator = validatorTypes.iterator(); iterator.hasNext();)
         {
             final String type = (String)iterator.next();
@@ -420,11 +413,5 @@ public class BPM4JSFValidatorComponent
         {
             logger.error(exception);
         }
-    }
-
-    public static void main(String[] args)
-    {
-        System.out.println("maxi value: " + Long.MAX_VALUE);
-        System.out.println("min value: " + Long.MIN_VALUE);
     }
 }
