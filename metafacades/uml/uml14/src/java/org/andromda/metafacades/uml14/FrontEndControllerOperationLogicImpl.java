@@ -78,38 +78,41 @@ public class FrontEndControllerOperationLogicImpl
             argumentNames.add(element.getName());
         }
 
-        // get all actions deferring to this operation
+        // - get all actions deferring to this operation
         final List deferringActions = this.getDeferringActions();
-        for (int i = 0; i < deferringActions.size(); i++)
+        for (final Iterator iterator = deferringActions.iterator(); iterator.hasNext();)
         {
-            final FrontEndAction action = (FrontEndAction)deferringActions.get(i);
+            final FrontEndAction action = (FrontEndAction)iterator.next();
             // store the action parameters
             final List actionFormFields = action.getFormFields();
-            for (int j = 0; j < actionFormFields.size(); j++)
+            for (final Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext();)
             {
-                final ModelElementFacade parameter = (ModelElementFacade)actionFormFields.get(j);
-                if (argumentNames.contains(parameter.getName()))
+                final FrontEndParameter parameter = (FrontEndParameter)fieldIterator.next();
+                final String name = parameter.getName();
+                // - only add if the parameter is an action parameter and its an argument of this operation
+                if (parameter.getAction() != null && argumentNames.contains(name))
                 {
-                    formFieldsMap.put(parameter.getName(), parameter);
+                    formFieldsMap.put(name, parameter);
                 }
             }
             // get all forwards and overwrite when we find a table (or add when not yet present)
             final List forwards = action.getActionForwards();
-            for (int j = 0; j < forwards.size(); j++)
+            for (final Iterator forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
             {
-                final FrontEndForward forward = (FrontEndForward)forwards.get(j);
-                // only consider forwards directly entering a page
+                final FrontEndForward forward = (FrontEndForward)forwardIterator.next();
+                // - only consider forwards directly entering a view
                 if (forward.isEnteringView())
                 {
                     final List viewVariables = forward.getForwardParameters();
-                    for (int k = 0; k < viewVariables.size(); k++)
+                    for (final Iterator variableIterator = viewVariables.iterator(); variableIterator.hasNext();)
                     {
-                        final FrontEndParameter viewVariable = (FrontEndParameter)viewVariables.get(k);
-                        if (argumentNames.contains(viewVariable.getName()))
+                        final FrontEndParameter viewVariable = (FrontEndParameter)variableIterator.next();
+                        final String name = viewVariable.getName();
+                        if (argumentNames.contains(name))
                         {
-                            if (!formFieldsMap.containsKey(viewVariable.getName()) || viewVariable.isTable())
+                            if (!formFieldsMap.containsKey(name) || viewVariable.isTable())
                             {
-                                formFieldsMap.put(viewVariable.getName(), viewVariable);
+                                formFieldsMap.put(name, viewVariable);
                             }
                         }
                     }
@@ -121,9 +124,10 @@ public class FrontEndControllerOperationLogicImpl
         for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
         {
             final FrontEndParameter argument = (FrontEndParameter)argumentIterator.next();
-            if (!formFieldsMap.containsKey(argument.getName()))
+            final String name = argument.getName();
+            if (!formFieldsMap.containsKey(name))
             {
-                formFieldsMap.put(argument.getName(), argument);
+                formFieldsMap.put(name, argument);
             }
         }
         return new ArrayList(formFieldsMap.values());
