@@ -256,6 +256,7 @@ public class BPM4JSFValidatorComponent
      * @param context The FacesContext for this request
      */
     private final void writeValidationFunctions(
+        final UIForm form,
         final ResponseWriter writer,
         final FacesContext context)
         throws IOException
@@ -304,7 +305,7 @@ public class BPM4JSFValidatorComponent
                 callback = type;    
             }
             writer.write("function ");
-            writer.write(callback);
+            writer.write(form.getId() + "_" + callback);
             writer.write("() { \n");
 
             // for each field validated by this type, add configuration object
@@ -438,17 +439,22 @@ public class BPM4JSFValidatorComponent
                     "present");
             }
             final String functionName = (String)this.getAttributes().get(FUNCTION_NAME);
-            if (this.getAttributes().get(FUNCTION_NAME) != null)
+            final UIForm form = this.findForm(functionName);
+            if (form != null)
             {
-                final ResponseWriter writer = context.getResponseWriter();
-                this.findBpm4JsfValidators(
-                    this.findForm(functionName),
-                    context);
-                this.writeScriptStart(writer);
-                this.writeValidationFunctions(
-                    writer,
-                    context);
-                this.writeScriptEnd(writer);
+                if (this.getAttributes().get(FUNCTION_NAME) != null)
+                {
+                    final ResponseWriter writer = context.getResponseWriter();
+                    this.findBpm4JsfValidators(
+                        form,
+                        context);
+                    this.writeScriptStart(writer);
+                    this.writeValidationFunctions(
+                        form,
+                        writer,
+                        context);
+                    this.writeScriptEnd(writer);
+                }
             }
         }
         catch (final BPM4JSFValidatorException exception)

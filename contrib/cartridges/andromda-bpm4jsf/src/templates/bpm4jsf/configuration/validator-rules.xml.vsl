@@ -21,7 +21,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oRequired = new required();
+                var formName = form.getAttributeNode("name");
+                oRequired = eval('new ' + formName.value + '_required()');
                 for (x in oRequired) {
                    var field = form[oRequired[x][0]];
 
@@ -81,7 +82,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oMinLength = new minlength();
+                var formName = form.getAttributeNode("name");
+                oMinLength = eval('new ' + formName.value + '_minlength()');
                 for (x in oMinLength) {
                     var field = form[oMinLength[x][0]];
 
@@ -125,7 +127,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oMaxLength = new maxlength();
+                var formName = form.getAttributeNode("name");
+                oMaxLength = eval('new ' + formName.value + '_maxlength()');
                 for (x in oMaxLength) {
                     var field = form[oMaxLength[x][0]];
 
@@ -169,7 +172,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oMasked = new mask();
+                var formName = form.getAttributeNode("name");
+                oMasked = eval('new ' + formName.value + '_mask()');
                 for (x in oMasked) {
                     var field = form[oMasked[x][0]];
 
@@ -219,7 +223,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oByte = new ByteValidations();
+                var formName = form.getAttributeNode("name");
+                oByte = eval('new ' + formName.value + '_ByteValidations()');
                 for (x in oByte) {
                    var field = form[oByte[x][0]];
 
@@ -290,7 +295,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oShort = new ShortValidations();
+                var formName = form.getAttributeNode("name");
+                oShort = eval('new ' + formName.value + '_ShortValidations()');
                 for (x in oShort) {
                    var field = form[oShort[x][0]];
 
@@ -360,7 +366,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oInteger = new IntegerValidations();
+                var formName = form.getAttributeNode("name");
+                oInteger = eval('new ' + formName.value + '_IntegerValidations()');
                 for (x in oInteger) {
                    var field = form[oInteger[x][0]];
 
@@ -430,7 +437,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oLong = new LongValidations();
+                var formName = form.getAttributeNode("name");
+                oLong = eval('new ' + formName.value + '_LongValidations()');
                 for (x in oLong) {
                    var field = form[oLong[x][0]];
 
@@ -499,7 +507,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oFloat = new FloatValidations();
+                var formName = form.getAttributeNode("name");
+                oFloat = eval('new ' + formName.value + '_FloatValidations()');
                 for (x in oFloat) {
                    var field = form[oFloat[x][0]];
 
@@ -573,8 +582,7 @@
                var fieldIndex = 0;
                var fields = new Array();
                var formName = form.getAttributeNode("name");
-        
-               oDate = new DateValidations();
+               oDate = eval('new ' + formName.value + '_DateValidations()');;
         
                for (x in oDate)
                {
@@ -727,8 +735,7 @@
        var fieldIndex = 0;
        var fields = new Array();
        var formName = form.getAttributeNode("name");
-
-       oTime = new TimeValidations();
+       oTime = eval('new ' + formName.value + '_TimeValidations()');;
 
        for (x in oTime)
        {
@@ -857,7 +864,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oRange = new intRange();
+                var formName = form.getAttributeNode("name");
+                oRange = eval('new ' + formName.value + '_intRange()');;
                 for (x in oRange) {
                     var field = form[oRange[x][0]];
 
@@ -904,7 +912,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oRange = new floatRange();
+                var formName = form.getAttributeNode("name");
+                oRange = eval('new ' + formName.value + '_floatRange()');;
                 for (x in oRange) {
                     var field = form[oRange[x][0]];
 
@@ -951,7 +960,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oCreditCard = new creditCard();
+                var formName = form.getAttributeNode("name");
+                oCreditCard = eval('new ' + formName.value + '_creditCard()');;
                 for (x in oCreditCard) {
                     if ((form[oCreditCard[x][0]].type == 'text' ||
                          form[oCreditCard[x][0]].type == 'textarea') &&
@@ -1029,7 +1039,8 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oEmail = new email();
+                var formName = form.getAttributeNode("name");
+                oEmail = eval('new ' + formName.value + '_email()');;
                 for (x in oEmail) {
                     if ((form[oEmail[x][0]].type == 'text' ||
                          form[oEmail[x][0]].type == 'textarea') &&
