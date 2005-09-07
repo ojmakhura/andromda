@@ -128,46 +128,49 @@ public class BPM4JSFValidatorComponent
                     final Form validatorForm = resources.getForm(
                             Locale.getDefault(),
                             form.getId());
-                    final java.util.List validatorFields = validatorForm.getFields();
-                    for (final Iterator iterator = validatorFields.iterator(); iterator.hasNext();)
+                    if (validatorForm != null)
                     {
-                        final Field field = (Field)iterator.next();
-                        if (componentId.equals(field.getProperty()))
+                        final java.util.List validatorFields = validatorForm.getFields();
+                        for (final Iterator iterator = validatorFields.iterator(); iterator.hasNext();)
                         {
-                            for (final Iterator dependencyIterator = field.getDependencyList().iterator();
-                                dependencyIterator.hasNext();)
+                            final Field field = (Field)iterator.next();
+                            if (componentId.equals(field.getProperty()))
                             {
-                                final String dependency = (String)dependencyIterator.next();
-                                final ValidatorAction action = BPM4JSFValidator.getValidatorAction(dependency);
-                                if (action != null)
+                                for (final Iterator dependencyIterator = field.getDependencyList().iterator();
+                                    dependencyIterator.hasNext();)
                                 {
-                                    final BPM4JSFValidator validator = new BPM4JSFValidator(action);
-                                    final Arg[] args = field.getArgs(dependency);
-                                    if (args != null)
+                                    final String dependency = (String)dependencyIterator.next();
+                                    final ValidatorAction action = BPM4JSFValidator.getValidatorAction(dependency);
+                                    if (action != null)
                                     {
-                                        for (final Iterator varIterator = field.getVars().keySet().iterator();
-                                            varIterator.hasNext();)
+                                        final BPM4JSFValidator validator = new BPM4JSFValidator(action);
+                                        final Arg[] args = field.getArgs(dependency);
+                                        if (args != null)
                                         {
-                                            final String name = (String)varIterator.next();
-                                            validator.addParameter(
-                                                name,
-                                                field.getVarValue(name));
-                                        }
-                                        validator.setArgs(ValidatorMessages.getArgs(
+                                            for (final Iterator varIterator = field.getVars().keySet().iterator();
+                                                varIterator.hasNext();)
+                                            {
+                                                final String name = (String)varIterator.next();
+                                                validator.addParameter(
+                                                    name,
+                                                    field.getVarValue(name));
+                                            }
+                                            validator.setArgs(ValidatorMessages.getArgs(
+                                                    dependency,
+                                                    field));
+                                            valueHolder.addValidator(validator);
+                                            this.addValidator(
                                                 dependency,
-                                                field));
-                                        valueHolder.addValidator(validator);
-                                        this.addValidator(
-                                            dependency,
-                                            component.getClientId(context),
-                                            validator);
+                                                component.getClientId(context),
+                                                validator);
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    logger.error(
-                                        "No validator action with name '" + dependency +
-                                        "' registered in rules files '" + BPM4JSFValidator.RULES_LOCATION + "'");
+                                    else
+                                    {
+                                        logger.error(
+                                            "No validator action with name '" + dependency +
+                                            "' registered in rules files '" + BPM4JSFValidator.RULES_LOCATION + "'");
+                                    }
                                 }
                             }
                         }
@@ -302,7 +305,7 @@ public class BPM4JSFValidatorComponent
             String callback = action.getJsFunctionName();
             if (StringUtils.isBlank(callback))
             {
-                callback = type;    
+                callback = type;
             }
             writer.write("function ");
             writer.write(form.getId() + "_" + callback);
