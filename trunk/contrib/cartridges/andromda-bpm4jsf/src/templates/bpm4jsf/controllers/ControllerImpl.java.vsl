@@ -64,7 +64,7 @@ public class $controller.implementationName
     private static final java.util.List ${field.name} =
         java.util.Arrays.asList(new Object[] {
 #set ($count = 0)
-#foreach ($itemSeparator in [",", ",", ",", ",", ""])
+#foreach ($itemSeparator in [",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ",", ""])
 #set ($count = $count + 1)
 #set ($constructor = '')
 #set ($paramSeparator = '')

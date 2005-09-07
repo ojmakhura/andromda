@@ -612,7 +612,7 @@ public class JSFParameterLogicImpl
      * Stores the initial value of each type.
      */
     private final Map initialValues = new HashMap();
-    private final int arrayCount = 25;
+    private final int arrayCount = 5;
 
     /**
      * @see org.andromda.cartridges.bpm4jsf.metafacades.JSFParameter#getValueListDummyValue()
@@ -727,7 +727,7 @@ public class JSFParameterLogicImpl
     /**
      * Constructs a string representing an array initialization in Java.
      *
-     * @return A String representing Java code for the initialization of an array using 5 elements.
+     * @return A String representing Java code for the initialization of an array.
      */
     private final String constructDummyArray(final int count)
     {
