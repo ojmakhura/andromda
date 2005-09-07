@@ -298,30 +298,31 @@ public class BPM4JSFValidatorComponent
         {
             final String type = (String)iterator.next();
             final ValidatorAction action = BPM4JSFValidator.getValidatorAction(type);
-            final String callback = action.getJsFunctionName();
-            if (StringUtils.isNotBlank(callback))
+            String callback = action.getJsFunctionName();
+            if (StringUtils.isBlank(callback))
             {
-                writer.write("function ");
-                writer.write(callback);
-                writer.write("() { \n");
-
-                // for each field validated by this type, add configuration object
-                final Map map = (Map)this.validators.get(type);
-                int ctr = 0;
-                for (final Iterator idIterator = map.keySet().iterator(); idIterator.hasNext(); ctr++)
-                {
-                    final String id = (String)idIterator.next();
-                    final BPM4JSFValidator validator = (BPM4JSFValidator)map.get(id);
-                    writer.write("this[" + ctr + "] = ");
-                    this.writeJavaScriptParams(
-                        writer,
-                        context,
-                        id,
-                        validator);
-                    writer.write(";\n");
-                }
-                writer.write("}\n");
+                callback = type;    
             }
+            writer.write("function ");
+            writer.write(callback);
+            writer.write("() { \n");
+
+            // for each field validated by this type, add configuration object
+            final Map map = (Map)this.validators.get(type);
+            int ctr = 0;
+            for (final Iterator idIterator = map.keySet().iterator(); idIterator.hasNext(); ctr++)
+            {
+                final String id = (String)idIterator.next();
+                final BPM4JSFValidator validator = (BPM4JSFValidator)map.get(id);
+                writer.write("this[" + ctr + "] = ");
+                this.writeJavaScriptParams(
+                    writer,
+                    context,
+                    id,
+                    validator);
+                writer.write(";\n");
+            }
+            writer.write("}\n");
         }
 
         // - for each validator type, write code
