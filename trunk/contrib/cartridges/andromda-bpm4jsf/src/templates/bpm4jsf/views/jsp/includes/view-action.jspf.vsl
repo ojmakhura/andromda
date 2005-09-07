@@ -1,6 +1,4 @@
 <h:messages id="messageList" errorClass="error" globalOnly="true"/>
-<h:outputText value="#{messages['$action.messageKey']}" styleClass="actionHeader" />
-<f:verbatim><br/><br/></f:verbatim>
 #set($formName = $action.formBeanName)
 #if ($action.hyperlink || $action.popup)
 #if ($action.hyperlink)
