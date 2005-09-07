@@ -66,7 +66,7 @@
                 <ant:include name="**/target/**"/>
                 <ant:include name="**/*.log*"/>
                 <ant:include name="**/*.exc"/>
-                <ant:exclude name="maven.log"/>
+                <ant:exclude name="*.log"/>
             </ant:fileset>
         </ant:delete>
     </goal>
@@ -96,7 +96,7 @@
         <attainGoal name="dist-src"/>
         <attainGoal name="dist-bin"/>
     </goal>
-    
+
     <!-- ==================================================================
              Cleans and creates the AndroMDA distributions
          ================================================================== -->
@@ -378,7 +378,7 @@
 	      <j:if test="${andromda_distribution_mode != 'remote'}">
                 <ant:fail>
                    andromda.distribution.mode(${andromda.distribution.mode}) must be local or remote.
-                </ant:fail> 
+                </ant:fail>
 	      </j:if>
 	   </j:if>
 	   <j:if test="${andromda_distribution_mode == 'remote'}">
@@ -529,14 +529,11 @@
                 - newVersion = the new version to set into models and references
     -->
     <goal name="updateProjectVersion">
-        <j:while test="${empty(newVersion)}">
-            <i:ask question="The current AndroMDA version is ${pom.currentVersion}, please enter the new version:" answer="newVersion"/>
-        </j:while>
+        <j:set var="oldVersion" value="${pom.currentVersion}"/>
         <!-- change the currentVersion property in the root project.xml -->
         <ant:echo>Updating the project's root project.xml file ...</ant:echo>
         <!-- store the previous version in this variable -->
-        <j:set var="oldVersion" value="${pom.currentVersion}"/>
-        <!-- mke the physical replacement in the root project.xml -->
+        <!-- do the physical replacement in the root project.xml -->
         <ant:replace
             file="${basedir}/project.xml"
             token="&lt;currentVersion&gt;${oldVersion}&lt;/currentVersion&gt;"
@@ -550,12 +547,7 @@
         <attainGoal name="update-xmi"/>
         <!-- replace all occurrences of this version in the documentation and in documentation/changes.xml -->
         <ant:echo>Updating all references to this version found in the documentation ...</ant:echo>
-        <ant:replace dir="${basedir}" token="${oldVersion}" value="${newVersion}">
-            <ant:fileset dir="${basedir}">
-                <ant:include name="**/xdocs/**/*.xml"/>
-                <ant:include name="${basedir}/documentation/changes.xml"/>
-            </ant:fileset>
-        </ant:replace>
+        <ant:replace dir="${basedir}" token="${oldVersion}" value="${newVersion}" includes="**/xdocs/**/*.xml" excludes="**/target/**/*.*"/>
         <ant:echo>Finished updating the project version from ${oldVersion} to ${newVersion}</ant:echo>
     </goal>
 
@@ -570,7 +562,10 @@
                   - ftpUser = the user to login as when uploading to the FTP host
                   - ftpPassword = the password to use when uploading to the FTP host
 
-            This goal should be called with maven running online
+            Notes:
+                * this goal should be called with maven running online
+                * when branching we hardcoded the name of the 'andromda-all' module
+                * not entering a user name will omit the upload to SourceForge.net
     -->
     <goal name="release">
         <j:set var="ftpHost" value="upload.sourceforge.net"/>
@@ -612,7 +607,8 @@
         <ant:echo>Updating project to next stable release: replacing ${pom.currentVersion} with ${newVersion}</ant:echo>
         <attainGoal name="updateProjectVersion"/>
         <!-- make sure we can build online -->
-<!--
+<!-- WE WILL NEED TO DO THIS MANUALLY AS IT EATS TOO MUCH MEOMORY DURING THE BUILD, FOR THIS REASON
+     IT IS RECOMMENDED TO APPLY POSSIBLE FIXES TO THE BRANCH THAT WILL BE CREATED
         <attainGoal name="install"/>
         <attainGoal name="bootstrap-install"/>
         <attainGoal name="docs"/>
@@ -621,18 +617,14 @@
 <!--
         <ant:unzip src="${basedir}/target/distributions/${pom.groupId}-bin-${newVersion}.zip" dest="${basedir}/target/test"/>
         <ant:unzip src="${basedir}/target/distributions/${pom.groupId}-src-${newVersion}.zip" dest="${basedir}/target/test"/>
--->
-        <!-- make sure we can build the samples from the binary distribution -->
-<!--
         <maven:maven descriptor="${basedir}/target/test/${pom.groupId}-bin-${newVersion}/samples/project.xml"/>
 -->
-        <!-- commit all the changes with the new version and -->
         <ant:cvs command='commit -m "Changes for release ${newVersion}"' compressionLevel="9" failOnError="true"/>
         <!-- tag this release (we construct the tag label here first) -->
         <j:set var="cvsTag" value="V${newVersion}"/>
         <j:invoke var="cvsTag" on="${cvsTag}" method="replaceAll"><j:arg value="-"/><j:arg value=""/></j:invoke>
         <j:invoke var="cvsTag" on="${cvsTag}" method="replaceAll"><j:arg value="\."/><j:arg value="_"/></j:invoke>
-        <ant:cvs command="tag ${cvsTag}" compressionLevel="9" failOnError="true"/>
+        <ant:cvs command="tag -b ${cvsTag}" compressionLevel="9" failOnError="true"/>
         <!-- update this project's version with the next snapshot version -->
         <ant:echo>Updating project to next snapshot release: replacing ${newVersion} with ${newSnapshotVersion}</ant:echo>
         <j:set var="newVersion" value="${newSnapshotVersion}"/>

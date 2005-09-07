@@ -59,6 +59,7 @@
          the plugin into the local repository (since we don't
          want this plugin in the $MAVEN_HOME/plugins directory -->
     <goal name="plugin:install">
+        <attainGoal name="clean:clean"/>
         <attainGoal name="jar:jar"/>
         <artifact:install
             artifact="${maven.build.dir}/${maven.final.name}.jar"
