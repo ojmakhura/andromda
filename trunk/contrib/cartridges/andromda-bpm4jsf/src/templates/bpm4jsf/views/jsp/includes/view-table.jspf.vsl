@@ -1,6 +1,6 @@
 #set ($targetColumns = $table.targettedTableColumnNames)
 
-<h:panelGrid columns="3" styleClass="scrollerTable2" columnClasses="standardTableColumnCentered" >
+<h:panelGrid columns="3" columnClasses="standardTableColumnCentered" >
     <x:dataScroller id="scroll_1"
             for="data"
             fastStep="10"
