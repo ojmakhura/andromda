@@ -1,6 +1,6 @@
 <!DOCTYPE form-validation PUBLIC
           "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN"
-          "http://jakarta.apache.org/commons/dtds/validator_1_0.dtd">
+          "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
 <form-validation>
 
    <global>
@@ -59,12 +59,6 @@
                 }
                 return isValid;
             }
-
-            // Trim whitespace from left and right sides of s.
-            function trim(s) {
-                return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
-            }
-
             ]]>
          </javascript>
 
@@ -413,26 +407,6 @@
                    alert(fields.join('\n'));
                 }
                 return bValid;
-            }
-
-            function isAllDigits(argvalue) {
-                argvalue = argvalue.toString();
-                var validChars = "0123456789";
-                var startFrom = 0;
-                if (argvalue.substring(0, 2) == "0x") {
-                   validChars = "0123456789abcdefABCDEF";
-                   startFrom = 2;
-                } else if (argvalue.charAt(0) == "0") {
-                   validChars = "01234567";
-                   startFrom = 1;
-                } else if (argvalue.charAt(0) == "-") {
-                    startFrom = 1;
-                }
-
-                for (var n = startFrom; n < argvalue.length; n++) {
-                    if (validChars.indexOf(argvalue.substring(n, n+1)) == -1) return false;
-                }
-                return true;
             }]]>
          </javascript>
 
@@ -1141,6 +1115,47 @@
                        org.apache.commons.validator.Field"
               depends=""
                   msg="errors.url"/>
+                  
+     <!-- 
+         This simply allows us to include javascript helper functions, its not a
+         real validator action 
+       -->
+     <validator name="javascriptUtilities"
+            classname=""
+               method=""
+         methodParams=""
+              depends=""
+                  msg="">
+           
+         <javascript><![CDATA[
+            function isAllDigits(argvalue) 
+            {
+                argvalue = argvalue.toString();
+                var validChars = "0123456789";
+                var startFrom = 0;
+                if (argvalue.substring(0, 2) == "0x") {
+                   validChars = "0123456789abcdefABCDEF";
+                   startFrom = 2;
+                } else if (argvalue.charAt(0) == "0") {
+                   validChars = "01234567";
+                   startFrom = 1;
+                } else if (argvalue.charAt(0) == "-") {
+                    startFrom = 1;
+                }
+
+                for (var n = startFrom; n < argvalue.length; n++) {
+                    if (validChars.indexOf(argvalue.substring(n, n+1)) == -1) return false;
+                }
+                return true;
+            }          
+            // Trim whitespace from left and right sides of s.
+            function trim(s) 
+            {
+                return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
+            }]]>
+         </javascript>
+           
+     </validator>
 
      <!-- validator-rules merge-point -->
 
