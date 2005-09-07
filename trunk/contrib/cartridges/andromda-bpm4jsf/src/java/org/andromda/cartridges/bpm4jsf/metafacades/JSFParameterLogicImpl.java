@@ -551,7 +551,6 @@ public class JSFParameterLogicImpl
     protected boolean handleIsSelectable()
     {
         boolean selectable = false;
-
         if (this.isActionParameter())
         {
             selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
