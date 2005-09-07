@@ -28,9 +28,9 @@
 
         <f:facet name="body">
             <h:panelGroup id="body">
-                <h:messages id="messageList" />
-                <h:outputText value="#{messages['layout.options.title']}" styleClass="actionHeader" />
-                <f:verbatim><br/><br/></f:verbatim>
+                <h:outputText value="#{messages['layout.options.title']}" styleClass="viewHeader"/>
+                <f:verbatim></br></br></f:verbatim>
+                <h:messages id="messageList" errorClass="error" globalOnly="true"/>
                 <h:form id="layoutOptions" name="${layoutOptionsBeanName}">
                     <h:panelGrid columns="1" styleClass="formTable"
                                  headerClass="formHeader"
