@@ -30,8 +30,9 @@
 
         <f:facet name="body">
             <h:panelGroup id="body">
-                <h:outputText value="#{messages['${view.titleKey}']}" styleClass="viewHeader"/>
-                <f:verbatim></br></br></f:verbatim>
+                <h:panelGrid columns="1" styleClass="viewHeader">
+                    <h:outputText value="#{messages['${view.titleKey}']}"/>
+                </h:panelGrid>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
                 <%@ include file="${action.viewFragmentPath}.jspf" %>
