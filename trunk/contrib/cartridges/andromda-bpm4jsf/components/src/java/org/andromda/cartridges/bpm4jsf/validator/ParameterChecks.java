@@ -219,7 +219,7 @@ public class ParameterChecks
     {
         String mask = field.getVarValue("mask");
         final String value = ObjectUtils.toString(object);
-        if (!StringUtils.isBlank(value) && !GenericValidator.matchRegexp(
+        if (StringUtils.isNotBlank(value) && !GenericValidator.matchRegexp(
                 value,
                 mask))
         {
