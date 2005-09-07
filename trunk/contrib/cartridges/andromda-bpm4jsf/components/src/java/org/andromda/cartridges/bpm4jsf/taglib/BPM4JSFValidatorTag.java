@@ -58,6 +58,7 @@ public class BPM4JSFValidatorTag
                     attributeName,
                     attributeValue);
             }
+            component.setId(attributeValue);
         }
     }
 

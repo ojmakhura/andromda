@@ -16,6 +16,8 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.andromda.cartridges.bpm4jsf.validator.BPM4JSFValidator;
 import org.andromda.cartridges.bpm4jsf.validator.BPM4JSFValidatorException;
 import org.andromda.cartridges.bpm4jsf.validator.ValidatorMessages;
@@ -90,6 +92,11 @@ public class BPM4JSFValidatorComponent
                 id,
                 validator);
         }
+    }
+
+    private HttpServletRequest getRequest()
+    {
+        return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
     }
 
     /**
@@ -175,12 +182,9 @@ public class BPM4JSFValidatorComponent
                 childComponent,
                 context);
         }
-        // - include the javascript utilities
-        this.addValidator(
-            "javascriptUtilities",
-            null,
-            null);
     }
+
+    private static final String JAVASCRIPT_UTILITIES = "javascriptUtilities";
 
     /**
      * Write the start of the script for client-side validation.
@@ -280,9 +284,12 @@ public class BPM4JSFValidatorComponent
         {
             final String type = (String)iterator.next();
             final ValidatorAction action = BPM4JSFValidator.getValidatorAction(type);
-            writer.write("&& ");
-            writer.write(this.getJavaScriptFunctionName(action));
-            writer.write("(form)\n");
+            if (!JAVASCRIPT_UTILITIES.equals(type))
+            {
+                writer.write("&& ");
+                writer.write(this.getJavaScriptFunctionName(action));
+                writer.write("(form)\n");
+            }
         }
         writer.write(";}\n");
 
@@ -291,32 +298,32 @@ public class BPM4JSFValidatorComponent
         {
             final String type = (String)iterator.next();
             final ValidatorAction action = BPM4JSFValidator.getValidatorAction(type);
-            writer.write("function ");
-            String callback = action.getJsFunctionName();
-            if (callback == null)
+            final String callback = action.getJsFunctionName();
+            if (StringUtils.isNotBlank(callback))
             {
-                callback = type;
-            }
-            writer.write(callback);
-            writer.write("() { \n");
+                writer.write("function ");
+                writer.write(callback);
+                writer.write("() { \n");
 
-            // for each field validated by this type, add configuration object
-            final Map map = (Map)this.validators.get(type);
-            int ctr = 0;
-            for (final Iterator idIterator = map.keySet().iterator(); idIterator.hasNext(); ctr++)
-            {
-                final String id = (String)idIterator.next();
-                final BPM4JSFValidator validator = (BPM4JSFValidator)map.get(id);
-                writer.write("this[" + ctr + "] = ");
-                this.writeJavaScriptParams(
-                    writer,
-                    context,
-                    id,
-                    validator);
-                writer.write(";\n");
+                // for each field validated by this type, add configuration object
+                final Map map = (Map)this.validators.get(type);
+                int ctr = 0;
+                for (final Iterator idIterator = map.keySet().iterator(); idIterator.hasNext(); ctr++)
+                {
+                    final String id = (String)idIterator.next();
+                    final BPM4JSFValidator validator = (BPM4JSFValidator)map.get(id);
+                    writer.write("this[" + ctr + "] = ");
+                    this.writeJavaScriptParams(
+                        writer,
+                        context,
+                        id,
+                        validator);
+                    writer.write(";\n");
+                }
+                writer.write("}\n");
             }
-            writer.write("}\n");
         }
+
         // - for each validator type, write code
         for (final Iterator iterator = validatorTypes.iterator(); iterator.hasNext();)
         {
@@ -384,6 +391,26 @@ public class BPM4JSFValidatorComponent
     }
 
     /**
+     * Stores all forms found within this view.
+     */
+    private final Collection forms = new ArrayList();
+
+    private UIForm findForm(final String id)
+    {
+        UIForm form = null;
+        final UIComponent validator = this.findComponent(id);
+        if (validator instanceof BPM4JSFValidatorComponent)
+        {
+            final UIComponent parent = validator.getParent();
+            if (parent instanceof UIForm)
+            {
+                form = (UIForm)parent;
+            }
+        }
+        return form;
+    }
+
+    /**
      * Begin encoding for this component. This method finds all Commons
      * validators attached to components in the current component hierarchy and
      * writes out JavaScript code to invoke those validators, in turn.
@@ -395,13 +422,27 @@ public class BPM4JSFValidatorComponent
     {
         try
         {
-            final ResponseWriter writer = context.getResponseWriter();
             this.validators.clear();
-            this.findBpm4JsfValidators(
-                context.getViewRoot(),
-                context);
+            this.forms.clear();
+
+            // - include the javascript utilities (only once per request)
+            if (this.getRequest().getAttribute(JAVASCRIPT_UTILITIES) == null)
+            {
+                this.addValidator(
+                    JAVASCRIPT_UTILITIES,
+                    null,
+                    null);
+                this.getRequest().setAttribute(
+                    JAVASCRIPT_UTILITIES,
+                    "present");
+            }
+            final String functionName = (String)this.getAttributes().get(FUNCTION_NAME);
             if (this.getAttributes().get(FUNCTION_NAME) != null)
             {
+                final ResponseWriter writer = context.getResponseWriter();
+                this.findBpm4JsfValidators(
+                    this.findForm(functionName),
+                    context);
                 this.writeScriptStart(writer);
                 this.writeValidationFunctions(
                     writer,
