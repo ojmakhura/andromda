@@ -167,14 +167,13 @@ a:hover
     text-decoration: none;
 }
 
-
 .pageLayout
 {
     width:100%;
     height:100%;
 }
 
-.pageHeader
+.applicationHeader
 {
     background-color: #6392C6;
     text-align: center;
@@ -184,6 +183,18 @@ a:hover
     color: #FFFFFF;
     padding: 0px;
     margin: 0px;
+}
+
+.viewHeader
+{
+   width: 100%;
+   font-size: 170%;
+   color: #222;
+   letter-spacing: -1px;
+   border-bottom: 1px solid black;
+   padding: 27px 0 5px 0;
+   margin: 0 0 25px 0;
+   font-family : verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
 .pageMenuHeader

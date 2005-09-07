@@ -10,7 +10,7 @@
 
     <x:panelLayout id="page" layout="#{${layoutOptionsBeanName}.sidebarLayout}"
             styleClass="pageLayout"
-            headerClass="pageHeader"
+            headerClass="applicationHeader"
             navigationClass="#{${layoutOptionsBeanName}.pageNavigationClass}"
             bodyClass="pageBody"
             footerClass="pageFooter"
@@ -30,6 +30,8 @@
 
         <f:facet name="body">
             <h:panelGroup id="body">
+                <h:outputText value="#{messages['${view.titleKey}']}" styleClass="viewHeader"/>
+                <f:verbatim></br></br></f:verbatim>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
                 <%@ include file="${action.viewFragmentPath}.jspf" %>
