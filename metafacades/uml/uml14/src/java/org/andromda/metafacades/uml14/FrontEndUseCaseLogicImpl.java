@@ -17,9 +17,9 @@ import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
 
@@ -269,14 +269,15 @@ public class FrontEndUseCaseLogicImpl
         }
         return view;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getViewVariables()
      */
     protected List handleGetViewVariables()
     {
         final Map pageVariableMap = new HashMap();
-        // - page variables can occur twice or more in the usecase in case their
+
+        // - page variables can occur twice or more in the usecase if their
         //   names are the same for different forms, storing them in a map
         //   solves this issue because those names do not have the action-name prefix
         final Collection views = this.getViews();
@@ -286,8 +287,22 @@ public class FrontEndUseCaseLogicImpl
             final Collection variables = view.getVariables();
             for (final Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
             {
-                final ModelElementFacade variable = (ModelElementFacade)variableIterator.next();
-                pageVariableMap.put(variable.getName(), variable);
+                FrontEndParameter variable = (FrontEndParameter)variableIterator.next();
+                final String name = variable.getName();
+                if (name != null && name.trim().length() > 0)
+                {
+                    final FrontEndParameter existingVariable = (FrontEndParameter)pageVariableMap.get(name);
+                    if (existingVariable != null)
+                    {
+                        if (existingVariable.isTable())
+                        {
+                            variable = existingVariable;
+                        }
+                    }
+                    pageVariableMap.put(
+                        name,
+                        variable);
+                }
             }
         }
         return new ArrayList(pageVariableMap.values());
