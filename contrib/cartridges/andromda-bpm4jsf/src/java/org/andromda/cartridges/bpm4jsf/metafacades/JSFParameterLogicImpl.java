@@ -19,7 +19,6 @@ import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -921,26 +920,6 @@ public class JSFParameterLogicImpl
     {
         final Object value = this.findTaggedValue(BPM4JSFProfile.TAGGEDVALUE_INPUT_READONLY);
         return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a boolean, <code>false</code> otherwise
-     */
-    private boolean isBoolean()
-    {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            UMLProfile.BOOLEAN_TYPE_NAME);
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a character, <code>false</code> otherwise
-     */
-    private boolean isChar()
-    {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            BPM4JSFProfile.CHARACTER_TYPE_NAME);
     }
 
     /**
