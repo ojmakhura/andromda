@@ -74,13 +74,13 @@ public class $criteriaSearchBaseName
 
     /**
      * Executes a <code>HibernateQuery</code> using the currently defined
-     * <code>CriteriaSearchParameter</code>s, and returns a java.util.List
+     * <code>CriteriaSearchParameter</code>s, and returns a java.util.Set
      * containing the query results.
      *
      * @return result The result of the query.
      * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    public final java.util.List executeAsList()
+    public final java.util.Set executeAsSet()
         throws ${hibernateUtils.basePackage}.HibernateException
     {
         // add ordering
@@ -123,24 +123,20 @@ public class $criteriaSearchBaseName
         // Hibernate does not support a 'unique' identifier. As a search may contain outer joins,
         // duplicates in the resultList are possible. We eliminate any duplicates here, creating a
         // distinctified resultSet (Suggestion from Hibernate itself; see www.hibernate.org's FAQ's).
-        final java.util.List result = this.rootCriteria.list();
-        org.apache.commons.collections.CollectionUtils.filter(
-            result,
-            org.apache.commons.collections.functors.UniquePredicate.getInstance());
-        return result;
+        return new java.util.LinkedHashSet(this.rootCriteria.list());
     }
 
     /**
      * Executes a <code>HibernateQuery</code> using the currently defined
-     * <code>CriteriaSearchParameter</code>s, and returns a java.util.Set
+     * <code>CriteriaSearchParameter</code>s, and returns a java.util.List
      * containing the query results.
      *
      * @return result The result of the query.
-     * @throws ${hibernateUtils.basePackage}.HibernateException
+     * @throws net.sf.hibernate.HibernateException
      */
-    public java.util.Set executeAsSet() throws ${hibernateUtils.basePackage}.HibernateException
+    public java.util.List executeAsList() throws net.sf.hibernate.HibernateException
     {
-        return new java.util.LinkedHashSet(this.executeAsList());
+        return new java.util.ArrayList(this.executeAsSet());
     }
 
     /**
