@@ -1,6 +1,7 @@
 <%@ include file="/$jspIncludes" %>
 <html>
 
+<fmt:message var="viewTitle" key="layout.options.title" scope="request"/>
 <%@include file="/includes/head.jspf" %>
 
 <body>
@@ -29,7 +30,7 @@
         <f:facet name="body">
             <h:panelGroup id="body">
                 <h:panelGrid columns="1" styleClass="viewHeader">
-                    <h:outputText value="#{messages['layout.options.title']}"/>
+                    <h:outputText value="#{viewTitle}"/>
                 </h:panelGrid>
                 <h:messages id="messageList" errorClass="error" globalOnly="true"/>
                 <h:form id="layoutOptions" name="${layoutOptionsBeanName}">
