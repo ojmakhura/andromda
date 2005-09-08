@@ -81,8 +81,8 @@
                 <value>@andromda.presentation.web.action.form.reset</value>
                 <appliedOnElement>Transition coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
-                    <value>session</value>
-                    <value>request</value>
+                    <value>true</value>
+                    <value default="true">false</value>
                 </allowedValues>
             </element>
             <element name="ACTION_FORM_KEY">
