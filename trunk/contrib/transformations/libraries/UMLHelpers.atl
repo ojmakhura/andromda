@@ -1,0 +1,5 @@
+library UMLHelpers;
+
+-- tells whether an UML model element has a certain stereotype
+helper context UML!ModelElement def: hasStereotype(name : String) : Boolean =
+    self.stereotype->exists(e | e.name = name);
