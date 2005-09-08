@@ -124,7 +124,7 @@ $field.getDocumentation("     * ")
     {
         this.$field.tableSortAscendingProperty = $field.tableSortAscendingProperty;
     }
-#else
+#end
     /**
      * Stores the values.
      */
@@ -218,7 +218,6 @@ $field.getDocumentation("     * ")
         }
     }
 
-#end
 #end
 #if ($action.formResetRequired)
 
