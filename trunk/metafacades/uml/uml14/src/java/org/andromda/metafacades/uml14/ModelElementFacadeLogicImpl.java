@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.EnumerationLiteralFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.TypeMappings;
@@ -725,5 +727,23 @@ public class ModelElementFacadeLogicImpl
     protected boolean handleIsConstraintsPresent()
     {
         return this.getConstraints() != null && !this.getConstraints().isEmpty();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.ModelElementFacade#copyTaggedValues(org.andromda.metafacades.uml.ModelElementFacade)
+     */
+    protected void handleCopyTaggedValues(ModelElementFacade element)
+    {
+        org.omg.uml.foundation.core.ModelElement elementMetaObject = null;
+        if (element instanceof MetafacadeBase)
+        {
+            final MetafacadeBase metafacade = (MetafacadeBase)element;
+            final Object metaObject = metafacade.getMetaObject();
+            if (metaObject instanceof ModelElement)
+            {
+                elementMetaObject = (ModelElement)metaObject;
+                this.metaObject.getTaggedValue().addAll(elementMetaObject.getTaggedValue());
+            }
+        }
     }
 }

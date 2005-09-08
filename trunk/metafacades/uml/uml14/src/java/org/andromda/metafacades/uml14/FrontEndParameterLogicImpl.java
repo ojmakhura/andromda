@@ -1,8 +1,8 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -107,7 +107,7 @@ public class FrontEndParameterLogicImpl
         }
         return actionObject;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#isTable()
      */
@@ -121,29 +121,26 @@ public class FrontEndParameterLogicImpl
         }
         return isTable;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumnNames()
      */
     protected Collection handleGetTableColumnNames()
     {
-        final Collection tableColumnNames = new HashSet();
-        if (!this.isControllerOperationArgument())
+        final Collection tableColumnNames = new LinkedHashSet();
+        final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
+        if (!taggedValues.isEmpty())
         {
-            final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
-            if (!taggedValues.isEmpty())
+            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
-                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                if (taggedValue != null)
                 {
-                    final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                    if (taggedValue != null)
+                    final String[] properties = taggedValue.split("[,\\s]+");
+                    for (int ctr = 0; ctr < properties.length; ctr++)
                     {
-                        final String[] properties = taggedValue.split("[,\\s]+");
-                        for (int ctr = 0; ctr < properties.length; ctr++)
-                        {
-                            final String property = properties[ctr];
-                            tableColumnNames.add(property);
-                        }
+                        final String property = properties[ctr];
+                        tableColumnNames.add(property);
                     }
                 }
             }

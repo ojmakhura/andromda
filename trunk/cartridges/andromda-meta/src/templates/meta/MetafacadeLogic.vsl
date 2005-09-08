@@ -275,7 +275,11 @@ public abstract class $metafacade.logicName
     // from $method.metafacadeName
     $method.buildMethodDeclaration(true)
     {
+#if ($method.returnTypePresent)
         return this.${link.getterName}().${method.buildMethodCall()};
+#else
+        this.${link.getterName}().${method.buildMethodCall()};
+#end
     }
 
 #end
