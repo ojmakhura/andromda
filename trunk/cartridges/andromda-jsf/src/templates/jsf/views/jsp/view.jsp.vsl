@@ -2,6 +2,7 @@
 
 <html>
 
+<fmt:message var="viewTitle" key="${view.titleKey}" scope="request"/>
 <%@include file="/includes/head.jspf" %>
 
 <body>
@@ -31,7 +32,7 @@
         <f:facet name="body">
             <h:panelGroup id="body">
                 <h:panelGrid columns="1" styleClass="viewHeader">
-                    <h:outputText value="#{messages['${view.titleKey}']}"/>
+                    <h:outputText value="#{viewTitle}"/>
                 </h:panelGrid>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
