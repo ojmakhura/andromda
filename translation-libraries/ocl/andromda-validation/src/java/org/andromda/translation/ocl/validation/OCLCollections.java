@@ -109,6 +109,10 @@ public final class OCLCollections
             {
                 isEmpty = isEmpty((String)object);
             }
+            else if (object.getClass().isArray())
+            {
+                isEmpty = ((Object[])object).length == 0;
+            }
         }
         return isEmpty;
     }
@@ -145,6 +149,10 @@ public final class OCLCollections
             else if (object instanceof String)
             {
                 notEmpty = notEmpty((String)object);
+            }
+            else if (object.getClass().isArray())
+            {
+                notEmpty = ((Object[])object).length > 0;
             }
         }
         return notEmpty;
