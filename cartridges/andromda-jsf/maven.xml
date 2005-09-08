@@ -17,9 +17,6 @@
         <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/${pom.groupId}-jsf-components-${pom.currentVersion}.jar"
             tofile="${maven.build.dest}/resources/WEB-INF/lib/${pom.groupId}-jsf-components.jar"
             overwrite="true"/>
-        <ant:copy file="${maven.repo.local}/myfaces/jars/myfaces-${myfaces.version}.jar"
-            tofile="${maven.build.dest}/resources/WEB-INF/lib/myfaces.jar"
-            overwrite="true"/>
     </postGoal>
 
 </project>
