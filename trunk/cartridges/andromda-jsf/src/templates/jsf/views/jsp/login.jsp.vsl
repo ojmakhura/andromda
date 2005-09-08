@@ -48,8 +48,8 @@
                     <h:panelGroup/>
                     <h:panelGroup>
                         <f:verbatim>
-                            <input type="submit" value="<fmt:message key="login.submit"/>"/>
-                            <input type="reset" value="<fmt:message key="login.reset"/>"/>
+                            <input type="submit" value="<fmt:message key="login.submit"/>" class="actionButton"/>
+                            <input type="reset" value="<fmt:message key="login.reset"/>" class="actionButton"/>
                         </f:verbatim>
                     </h:panelGroup>
                 </h:panelGrid>
