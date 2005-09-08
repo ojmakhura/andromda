@@ -2,13 +2,16 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -103,7 +106,7 @@ public class FrontEndViewLogicImpl
      */
     protected List handleGetVariables()
     {
-        final Collection parameters = new ArrayList();
+        final Map variablesMap = new HashMap();
         final Collection incoming = getIncoming();
         for (final Iterator iterator = incoming.iterator(); iterator.hasNext();)
         {
@@ -111,10 +114,14 @@ public class FrontEndViewLogicImpl
             final EventFacade trigger = transition.getTrigger();
             if (trigger != null)
             {
-                parameters.addAll(trigger.getParameters());             
+                for (final Iterator parameterIterator = trigger.getParameters().iterator(); parameterIterator.hasNext();)
+                {
+                    final ModelElementFacade modelElement = (ModelElementFacade)parameterIterator.next();
+                    variablesMap.put(modelElement.getName(), modelElement);
+                }                
             }
         }
-        return UML14MetafacadeUtils.removeDuplicatesAndCopyTaggedValues(parameters);
+        return new ArrayList(variablesMap.values());
     }
     
     /**
