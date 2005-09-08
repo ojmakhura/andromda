@@ -132,9 +132,9 @@ public class $criteriaSearchBaseName
      * containing the query results.
      *
      * @return result The result of the query.
-     * @throws net.sf.hibernate.HibernateException
+     * @throws ${hibernateUtils.basePackage}.HibernateException
      */
-    public java.util.List executeAsList() throws net.sf.hibernate.HibernateException
+    public java.util.List executeAsList() throws ${hibernateUtils.basePackage}.HibernateException
     {
         return new java.util.ArrayList(this.executeAsSet());
     }
