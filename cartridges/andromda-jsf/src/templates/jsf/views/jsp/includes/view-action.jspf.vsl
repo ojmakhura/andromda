@@ -98,11 +98,13 @@
             <h:commandButton id="${action.triggerName}-submit"
                              value="#{messages['$action.messageKey']}"
                              action="#{${action.controller.beanName}.${action.triggerName}}"
-                             type="submit"/>
+                             type="submit"
+                             styleClass="actionButton"/>
 #if ($action.resettable)
             <h:commandButton id="${action.triggerName}-reset"
                              value="#{messages['$action.trigger.resetMessageKey']}"
-                             type="reset"/>
+                             type="reset"
+                             styleClass="actionButton"/>
 #end
         </h:panelGroup>
     </h:panelGrid>
