@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -127,7 +127,7 @@ public class FrontEndParameterLogicImpl
      */
     protected Collection handleGetTableColumnNames()
     {
-        final Collection tableColumnNames = new ArrayList();
+        final Collection tableColumnNames = new HashSet();
         if (!this.isControllerOperationArgument())
         {
             final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
