@@ -1,3 +1,0 @@
-#if($stringUtils.isNotBlank($securityRealm))
-<%response.sendRedirect(request.getContextPath() + "/logout");%>
-#end
