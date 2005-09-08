@@ -17,7 +17,6 @@ public class $controller.implementationName
     {
 #set($allowDummyData = $dummyData.equalsIgnoreCase("true"))
 #if ($allowDummyData)
-#set ($formFields = $operation.formFields)
 #if (!$operation.formFields.empty)
 #foreach ($field in $operation.formFields)
 #set ($tableActionFound = false)
