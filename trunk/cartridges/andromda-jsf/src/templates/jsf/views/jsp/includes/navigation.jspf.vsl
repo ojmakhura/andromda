@@ -1,4 +1,3 @@
-<%@ include file="/$jspIncludes" %>
 <c:choose>
     <c:when test="${!empty ${layoutOptionsBeanName}}">
         <c:if test="${${layoutOptionsBeanName}.menuLayout == 'vbr'}">
