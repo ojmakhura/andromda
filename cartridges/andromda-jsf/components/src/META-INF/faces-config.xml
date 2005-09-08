@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+
+    <component>
+        <description>
+            This component renders client-side Javascript validation.
+        </description>
+        <display-name>JSFValidatorScript</display-name>
+        <component-type>org.andromda.cartridges.jsf.component.JSFValidatorComponent</component-type>
+        <component-class>org.andromda.cartridges.jsf.component.JSFValidatorComponent</component-class>
+    </component>
+
+    <component>
+        <description>
+            This component renders the HTML popup frame.
+        </description>
+        <component-type>org.andromda.cartridges.jsf.HtmlPopupFrame</component-type>
+        <component-class>org.andromda.cartridges.jsf.component.html.HtmlPopupFrame</component-class>
+    </component>
+
+    <validator>
+        <validator-id>org.andromda.cartridges.jsf.validator.JSFValidator</validator-id>
+        <validator-class>org.andromda.cartridges.jsf.validator.JSFValidator</validator-class>
+    </validator>
+
+    <render-kit>
+        <renderer>
+            <component-family>org.andromda.cartridges.jsf.Popup</component-family>
+            <renderer-type>org.andromda.cartridges.jsf.Popup</renderer-type>
+            <renderer-class>org.andromda.cartridges.jsf.renderkit.html.PopupRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>closePopup</from-outcome>
+            <to-view-id>/jsf/popup/html/closePopup.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>closePopupRefresh</from-outcome>
+            <to-view-id>/jsf/popup/html/closePopupRefresh.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

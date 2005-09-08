@@ -1,0 +1,81 @@
+#set ($generatedFile = "$stringUtils.replace($managedBeansPackage, '.', '/')/${layoutOptionsName}.java")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end;
+
+/**
+ * Provides dynamically changeable options for changing the application 
+ * layout.
+ */
+public class $layoutOptionsName
+{
+    private String sidebarLayout;
+
+    /**
+     * The layout of the navigation
+     */ 
+    public String getSidebarLayout()
+    {
+        return this.sidebarLayout;
+    }
+
+    public void setSidebarLayout(final String sidebarLayout)
+    {
+        this.sidebarLayout = sidebarLayout;
+    }
+    
+    private String menuLayout;
+
+    public void setMenuLayout(final String menuLayout)
+    {
+        this.menuLayout = menuLayout;
+    }
+    
+    /**
+     * Gets the JSCook specific layout of the menu given the <code>menuLayout</code>
+     * parameter.
+     */
+    public String getMenuLayout()
+    {
+        return this.menuLayout;
+    }
+    
+    /**
+     * Gets the number of columns to be rendered on the menu.
+     */
+    public int getMenuColumns()
+    { 
+        return this.isMenuLayoutVertical() ? 1 : 2;
+    }
+    
+    /**
+     * Indicates whether or not the menu layout is veritical.
+     */
+    private boolean isMenuLayoutVertical()
+    {
+        return this.menuLayout != null && this.menuLayout.startsWith("v");  
+    }
+    
+    /**
+     * Gets the css page navigation class name.
+     */ 
+    public String getPageNavigationClass()
+    {
+        return this.isMenuLayoutVertical() ? "pageNavigation"  : "";
+    }
+
+    private String theme;
+    
+    /**
+     * The theme to use for the JSCookMenu.
+     */
+    public String getTheme()
+    {
+        return this.theme;
+    }
+    
+    public void setTheme(final String theme)
+    {
+        this.theme = theme;
+    }
+}

@@ -1,0 +1,5 @@
+<f:facet name="footer">
+    <h:panelGroup id="footer">
+        <h:outputText value="#{messages['footer.message']}" escape="false"/>
+    </h:panelGroup>
+</f:facet>
