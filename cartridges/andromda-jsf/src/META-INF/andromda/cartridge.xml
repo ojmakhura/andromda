@@ -217,15 +217,15 @@
         overwrite="true"/>
     
     <template
-        path="templates/jsf/views/jsp/includes/header.jsp.vsl"
-        outputPattern="includes/header.jsp"
+        path="templates/jsf/views/jsp/includes/header.jspf.vsl"
+        outputPattern="includes/header.jspf"
         outlet="jsps"
         overwrite="true"
         outputToSingleFile="true"/>
     
     <template
-        path="templates/jsf/views/jsp/includes/navigation.jsp.vsl"
-        outputPattern="includes/navigation.jsp"
+        path="templates/jsf/views/jsp/includes/navigation.jspf.vsl"
+        outputPattern="includes/navigation.jspf"
         outlet="jsps"
         overwrite="true"/>
     

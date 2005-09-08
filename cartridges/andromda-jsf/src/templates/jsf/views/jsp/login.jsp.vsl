@@ -17,9 +17,9 @@
             width="100%">
 
         <f:facet name="header">
-            <f:subview id="header">
-                <jsp:include page="/includes/header.jsp"/>
-            </f:subview>
+            <h:panelGroup id="header">
+                <%@include file="/includes/header.jspf" %>
+            </h:panelGroup>
         </f:facet>
 
         <f:facet name="body">
