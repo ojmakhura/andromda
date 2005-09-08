@@ -11,14 +11,19 @@
         <x:navigationMenuItem id="nav_${sidebarLayoutCount}" itemLabel="#{messages['navigation.layout']}" split="true" action="layout-options" icon="/images/next-yellow.gif" />
     </x:jscookMenu>
 #if ($stringUtils.isNotBlank($securityRealm))
-    <h:panelGrid id="header_group3" styleClass="logoutPanel" columns="#{${layoutOptionsBeanName}.menuColumns}" width="100%">
+    <h:panelGrid columns="3" styleClass="logoutPanel" width="100%">
         <c:set var="remoteUser" value="${pageContext.request.remoteUser}" scope="request"/>
         <c:if test="${!empty remoteUser}">
-            <h:outputText value="#{messages['logged.in.message']} <em>#{remoteUser}</em>" escape="false"/>
+            <h:panelGrid columns="1" style="text-align:right" width="100%">
+                <h:outputText value="<em>#{remoteUser}</em>" escape="false" styleClass="logoutPanel"/>
+            </h:panelGrid>
         </c:if>
-        <h:commandLink action="logout" styleClass="logout">
-            <h:outputText value="#{messages['logout.action']}"/>
-        </h:commandLink>
+            <h:outputText value="~"/>
+        <h:panelGrid columns="1" style="text-align:left" width="100%">
+            <h:commandLink action="logout" styleClass="logout">
+                <h:outputText value="#{messages['logout.action']}" style="text-align:left"/>            
+            </h:commandLink> 
+        </h:panelGrid>   
     </h:panelGrid>
 #end
 </h:panelGrid>
