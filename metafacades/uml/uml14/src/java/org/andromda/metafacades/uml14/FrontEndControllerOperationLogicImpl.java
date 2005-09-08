@@ -2,11 +2,9 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -18,7 +16,6 @@ import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
-import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndPseudostate;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -66,8 +63,7 @@ public class FrontEndControllerOperationLogicImpl
      */
     protected java.util.List handleGetFormFields()
     {
-        final Map formFieldsMap = new HashMap();
-
+        final Collection parameters = new ArrayList();
         // for quick lookup we use a hashset for the argument names, we only consider parameters with a name
         // which is also present in this set
         final Set argumentNames = new HashSet();
@@ -77,24 +73,13 @@ public class FrontEndControllerOperationLogicImpl
             final ModelElementFacade element = (ModelElementFacade)argumentIterator.next();
             argumentNames.add(element.getName());
         }
-
         // - get all actions deferring to this operation
         final List deferringActions = this.getDeferringActions();
         for (final Iterator iterator = deferringActions.iterator(); iterator.hasNext();)
         {
             final FrontEndAction action = (FrontEndAction)iterator.next();
             // store the action parameters
-            final List actionFormFields = action.getFormFields();
-            for (final Iterator fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext();)
-            {
-                final FrontEndParameter parameter = (FrontEndParameter)fieldIterator.next();
-                final String name = parameter.getName();
-                // - only add if the parameter is an action parameter and its an argument of this operation
-                if (parameter.getAction() != null && argumentNames.contains(name))
-                {
-                    formFieldsMap.put(name, parameter);
-                }
-            }
+            parameters.addAll(action.getFormFields());
             // get all forwards and overwrite when we find a table (or add when not yet present)
             final List forwards = action.getActionForwards();
             for (final Iterator forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
@@ -103,34 +88,27 @@ public class FrontEndControllerOperationLogicImpl
                 // - only consider forwards directly entering a view
                 if (forward.isEnteringView())
                 {
-                    final List viewVariables = forward.getForwardParameters();
-                    for (final Iterator variableIterator = viewVariables.iterator(); variableIterator.hasNext();)
-                    {
-                        final FrontEndParameter viewVariable = (FrontEndParameter)variableIterator.next();
-                        final String name = viewVariable.getName();
-                        if (argumentNames.contains(name))
-                        {
-                            if (!formFieldsMap.containsKey(name) || viewVariable.isTable())
-                            {
-                                formFieldsMap.put(name, viewVariable);
-                            }
-                        }
-                    }
+                    parameters.addAll(forward.getForwardParameters());
                 }
             }
         }
 
-        // since all arguments need to be present we add those that haven't yet been stored in the map
-        for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
+        parameters.addAll(arguments);
+        final List uniqueParameters = UML14MetafacadeUtils.removeDuplicatesAndCopyTaggedValues(parameters);
+        // - remove any parameters that are not arguments
+        for (final Iterator iterator = uniqueParameters.iterator(); iterator.hasNext();)
         {
-            final FrontEndParameter argument = (FrontEndParameter)argumentIterator.next();
-            final String name = argument.getName();
-            if (!formFieldsMap.containsKey(name))
+            final ModelElementFacade parameter = (ModelElementFacade)iterator.next();
+            final String name = parameter.getName();
+            if (name != null)
             {
-                formFieldsMap.put(name, argument);
+                if (!argumentNames.contains(parameter.getName()))
+                {
+                    iterator.remove();
+                }
             }
         }
-        return new ArrayList(formFieldsMap.values());
+        return uniqueParameters;
     }
 
     /**

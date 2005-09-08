@@ -212,9 +212,9 @@ public class MethodData
      *
      * @return boolean
      */
-    public boolean hasReturnType()
+    public boolean isReturnTypePresent()
     {
-        return (returnTypeName != null) && !returnTypeName.equals("void");
+        return returnTypeName != null && !returnTypeName.equals("void");
     }
 
     /**

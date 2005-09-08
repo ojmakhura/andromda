@@ -16,11 +16,9 @@ import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
-import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
@@ -309,8 +307,7 @@ public class FrontEndActionLogicImpl
      */
     protected List handleGetFormFields()
     {
-        final Map formFieldMap = new HashMap();
-
+        final Collection parameters = new ArrayList();
         // - For an action that starts the use case, we need to detect all usecases forwarding to the one 
         //   belonging to this action if there are any parameters in those transitions we need to have 
         //   them included in this action's form
@@ -330,14 +327,7 @@ public class FrontEndActionLogicImpl
                     if (finalStateObject instanceof FrontEndFinalState)
                     {
                         final FrontEndFinalState finalState = (FrontEndFinalState)finalStateObject;
-                        final Collection parameters = finalState.getInterUseCaseParameters();
-                        for (final Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
-                        {
-                            final ParameterFacade parameter = (ParameterFacade)parameterIterator.next();
-                            formFieldMap.put(
-                                parameter.getName(),
-                                parameter);
-                        }
+                        parameters.addAll(finalState.getInterUseCaseParameters());
                     }
                 }
             }
@@ -353,13 +343,7 @@ public class FrontEndActionLogicImpl
             if (forward != null)
             {
                 final Collection forwardParameters = forward.getForwardParameters();
-                for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
-                {
-                    final ModelElementFacade forwardParameter = (ModelElementFacade)parameterIterator.next();
-                    formFieldMap.put(
-                        forwardParameter.getName(),
-                        forwardParameter);
-                }
+                parameters.addAll(forwardParameters);
             }
         }
 
@@ -373,61 +357,15 @@ public class FrontEndActionLogicImpl
             if (target instanceof FrontEndView)
             {
                 final FrontEndView view = (FrontEndView)target;
-                final Collection viewVariables = view.getVariables();
-                for (final Iterator pageVariableIterator = viewVariables.iterator(); pageVariableIterator.hasNext();)
-                {
-                    final ModelElementFacade facade = (ModelElementFacade)pageVariableIterator.next();
-                    formFieldMap.put(
-                        facade.getName(),
-                        facade);
-                }
-                final Collection allActionParameters = view.getAllFormFields();
-                for (final Iterator actionParameterIterator = allActionParameters.iterator();
-                    actionParameterIterator.hasNext();)
-                {
-                    // - don't allow existing parameters that are tables be overwritten (since they take
-                    //   precedence
-                    FrontEndParameter variable = (FrontEndParameter)actionParameterIterator.next();
-                    final String name = variable.getName();
-                    final FrontEndParameter existingVariable = (FrontEndParameter)formFieldMap.get(name);
-                    if (existingVariable != null)
-                    {
-                        if (existingVariable.isTable())
-                        {
-                            variable = existingVariable;
-                        }
-                    }
-                    formFieldMap.put(
-                        name,
-                        variable);
-                }
+                parameters.addAll(view.getVariables());
+                parameters.addAll(view.getAllFormFields());
             }
             else if (target instanceof FrontEndFinalState)
             {
-                // only add these if there is no parameter recorded yet with the same name
-                final Collection forwardParameters = forward.getForwardParameters();
-                for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
-                {
-                    final ModelElementFacade facade = (ModelElementFacade)parameterIterator.next();
-                    if (!formFieldMap.containsKey(facade.getName()))
-                    {
-                        formFieldMap.put(
-                            facade.getName(),
-                            facade);
-                    }
-                }
+                parameters.addAll(forward.getForwardParameters());
             }
         }
-
-        // we do the action parameters in the end because they are allowed to overwrite existing properties
-        final Collection actionParameters = this.getParameters();
-        for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
-        {
-            FrontEndParameter variable = (FrontEndParameter)parameterIterator.next();
-            formFieldMap.put(
-                variable.getName(),
-                variable);
-        }
-        return new ArrayList(formFieldMap.values());
+        parameters.addAll(this.getParameters());
+        return UML14MetafacadeUtils.removeDuplicatesAndCopyTaggedValues(parameters);
     }
 }

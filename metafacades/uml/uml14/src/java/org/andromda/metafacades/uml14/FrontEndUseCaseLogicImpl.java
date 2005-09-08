@@ -3,12 +3,10 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -17,7 +15,6 @@ import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
-import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.Role;
@@ -275,36 +272,14 @@ public class FrontEndUseCaseLogicImpl
      */
     protected List handleGetViewVariables()
     {
-        final Map pageVariableMap = new HashMap();
-
+        final Collection parameters = new ArrayList();
         // - page variables can occur twice or more in the usecase if their
         //   names are the same for different forms, storing them in a map
         //   solves this issue because those names do not have the action-name prefix
-        final Collection views = this.getViews();
-        for (final Iterator pageIterator = views.iterator(); pageIterator.hasNext();)
+        for (final Iterator pageIterator = this.getViews().iterator(); pageIterator.hasNext();)
         {
-            final FrontEndView view = (FrontEndView)pageIterator.next();
-            final Collection variables = view.getVariables();
-            for (final Iterator variableIterator = variables.iterator(); variableIterator.hasNext();)
-            {
-                FrontEndParameter variable = (FrontEndParameter)variableIterator.next();
-                final String name = variable.getName();
-                if (name != null && name.trim().length() > 0)
-                {
-                    final FrontEndParameter existingVariable = (FrontEndParameter)pageVariableMap.get(name);
-                    if (existingVariable != null)
-                    {
-                        if (existingVariable.isTable())
-                        {
-                            variable = existingVariable;
-                        }
-                    }
-                    pageVariableMap.put(
-                        name,
-                        variable);
-                }
-            }
+            parameters.addAll(((FrontEndView)pageIterator.next()).getVariables());
         }
-        return new ArrayList(pageVariableMap.values());
+        return UML14MetafacadeUtils.removeDuplicatesAndCopyTaggedValues(parameters);
     }
 }

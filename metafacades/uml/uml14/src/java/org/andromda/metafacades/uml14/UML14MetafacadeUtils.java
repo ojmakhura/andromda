@@ -2,8 +2,10 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeConstants;
@@ -633,5 +635,35 @@ public class UML14MetafacadeUtils
         String serialVersionString = (String)classifier
                 .findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
         return StringUtils.trimToNull(serialVersionString);
+    }
+    
+    /**
+     * This method removes all duplicates within the <code>elements</code> collection while at the same
+     * time copying tagged values from duplicates to the one remaining element with the given name.
+     * 
+     * @param elements the elements to remove duplicates and copy tagged values to.
+     * @return the elements with duplicates removed.
+     */
+    public static List removeDuplicatesAndCopyTaggedValues(final Collection elements)
+    {
+        final Map map = new HashMap();
+        if (elements != null)
+        {
+            for (final Iterator iterator = elements.iterator(); iterator.hasNext();)
+            {
+                ModelElementFacade element = (ModelElementFacade)iterator.next();
+                final String name = element.getName();
+                final ModelElementFacade existingVariable = (ModelElementFacade)map.get(name);
+                // - copy over any tagged values from the existing variable to the new one.
+                if (existingVariable != null)
+                {
+                    element.copyTaggedValues(existingVariable);
+                }
+                map.put(
+                    name,
+                    element);
+            }   
+        }
+        return new ArrayList(map.values());
     }
 }
