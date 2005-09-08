@@ -114,7 +114,11 @@ public class FrontEndViewLogicImpl
             final EventFacade trigger = transition.getTrigger();
             if (trigger != null)
             {
-                this.collectByName(trigger.getParameters(), variablesMap);
+                for (final Iterator parameterIterator = trigger.getParameters().iterator(); parameterIterator.hasNext();)
+                {
+                    final ModelElementFacade modelElement = (ModelElementFacade)parameterIterator.next();
+                    variablesMap.put(modelElement.getName(), modelElement);
+                }                
             }
         }
         return new ArrayList(variablesMap.values());
@@ -133,18 +137,6 @@ public class FrontEndViewLogicImpl
             actionParameters.addAll(action.getParameters());
         }
         return actionParameters;
-    }
-    
-    /**
-     * Iterates over the model elements and maps their name on their instance in the argument map.
-     */
-    private final void collectByName(final Collection modelElements, final Map elementMap)
-    {
-        for (final Iterator iterator = modelElements.iterator(); iterator.hasNext();)
-        {
-            final ModelElementFacade modelElement = (ModelElementFacade)iterator.next();
-            elementMap.put(modelElement.getName(), modelElement);
-        }
     }
     
     /**
