@@ -271,7 +271,7 @@ public class MetafacadeBase
      *
      * @return the underlying model's meta object instance.
      */
-    final Object getMetaObject()
+    protected final Object getMetaObject()
     {
         return this.metaObject;
     }
