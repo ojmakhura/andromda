@@ -1,0 +1,285 @@
+#set ($generatedFile = "${controller.fullyQualifiedNamePath}.java")
+// license-header java merge-point
+package $controller.packageName;
+
+/**
+$controller.getDocumentation(" * ")
+ */
+public abstract class $controller.name
+    implements java.io.Serializable
+{
+
+#foreach ($operation in $controller.operations)
+    /**
+$operation.getDocumentation("     * ")
+     */
+    $operation.formSignature;
+
+#end
+#foreach ($action in $controller.useCase.actions)
+    public java.lang.String ${action.triggerName}()
+    {
+        String forward = null;
+        try
+        {
+#if (!$action.formFields.empty)
+            final javax.faces.context.FacesContext facesContext =
+                javax.faces.context.FacesContext.getCurrentInstance();
+            final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
+            final $action.fullyQualifiedFormImplementationName form =
+                ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
+                    facesContext,
+                    "$action.formBeanName");
+
+            // - pass any parameters from the previous form along
+            ${managedBeansPackage}.${formPopulatorName}.populateForm(variableResolver.resolveVariable(facesContext, "$action.formKey"), form);
+            // - populate the form with any request parameters that may match
+            this.populateFormFromRequestParameters(form, form.getDateTimeFormatters());
+#end
+#if (!$deferredOperations.empty)
+            try
+            {
+#end
+#if (!$action.actionStates.empty)
+#foreach ($actionState in $action.actionStates)
+#set ($actionStateForward = $actionState.forward.name)
+#foreach ($deferredOperation in $actionState.controllerCalls)
+                this.$deferredOperation.formCall;
+#end
+#end
+#elseif (!$action.actionForwards.empty)
+#set ($actionStateForward = $action.actionForwards.iterator().next().name)
+#end
+                forward = "$actionStateForward";
+#foreach ($decisionTransition in $action.decisionTransitions)
+                final String value = java.lang.String.valueOf(this.${decisionTransition.operationCall.formCall});
+#foreach ($outcome in $decisionTransition.target.outgoing)
+#set ($defaultOutcome = $outcome)
+                if (value.equals("$outcome.guard.name"))
+                {
+                    return "$outcome.name";
+                }
+#end
+                // - if we have invalid return value from the controller we take the last forward
+                forward = "$defaultOutcome.name";
+#end
+#if (!$action.formFields.empty && $action.formResetRequired)
+                form.reset();
+#end
+#if (!$deferredOperations.empty)
+            }
+            catch (final Throwable throwable)
+            {
+                final String message = ${managedBeansPackage}.Messages.get(
+                    ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable), null);
+                this.addErrorMessage(message);
+                // - set the forward to null so that we stay on the current view
+                forward = null;
+            }
+#end
+#if (!$action.formFields.empty)
+            this.getSession(true).setAttribute("$action.formKey", form);
+#end
+        }
+        catch (final Throwable throwable)
+        {
+            this.addExceptionMessage(throwable);
+            // - set the forward to null so that we stay on the current view
+            forward = null;
+        }
+        return forward;
+    }
+
+#end
+#foreach ($serviceRef in $controller.serviceReferences)
+#if ($stringUtils.isNotBlank($serviceRef.targetElement.accessorImplementation))
+    /**
+     * Returns a reference to the $serviceRef.name back-end service.
+     */
+    protected final $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
+    {
+        try
+        {
+            return $serviceRef.targetElement.accessorImplementation;
+        }
+        catch (final Throwable throwable)
+        {
+            throw new RuntimeException(throwable);
+        }
+    }
+
+#end
+#end
+    /**
+     * Gets the current faces context.  This object is the point
+     * from which to retrieve any request, session, etc information.
+     *
+     * @return the JSF faces context instance.
+     */
+    protected javax.faces.context.FacesContext getContext()
+    {
+        return javax.faces.context.FacesContext.getCurrentInstance();
+    }
+
+    /**
+     * A helper method that gets the current request from the faces
+     * context.
+     *
+     * @return the current HttpServletRequest instance.
+     */
+    protected javax.servlet.http.HttpServletRequest getRequest()
+    {
+        return (javax.servlet.http.HttpServletRequest)this.getContext().getExternalContext().getRequest();
+    }
+
+    /**
+     * A helper method that gets the current reponse from the faces
+     * context.
+     *
+     * @return the current HttpServletReponse instance.
+     */
+    protected javax.servlet.http.HttpServletResponse getResponse()
+    {
+        return (javax.servlet.http.HttpServletResponse)this.getContext().getExternalContext().getResponse();
+    }
+
+    /**
+     * A helper method that gets the current session from the faces
+     * context.
+     *
+     * @param create If the create parameter is true, create (if necessary) and return a
+     *        session instance associated with the current request. If the create
+     *        parameter is false return any existing session instance associated with the
+     *        current request, or return null if there is no such session.
+     * @return the current HttpSession instance.
+     */
+    protected javax.servlet.http.HttpSession getSession(final boolean create)
+    {
+        return (javax.servlet.http.HttpSession)this.getContext().getExternalContext().getSession(create);
+    }
+
+    /**
+     * Finds the root cause of the given <code>throwable</code> and
+     * adds the message taken from that cause to the faces context messages.
+     *
+     * @param throwable the exception information to add.
+     */
+    private final void addExceptionMessage(
+        Throwable throwable)
+    {
+        String message = null;
+        final Throwable rootCause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
+        if (rootCause != null)
+        {
+            message = rootCause.getMessage();
+        }
+        if (message == null || message.trim().length() == 0)
+        {
+            message = throwable.getMessage();
+        }
+        this.addErrorMessage(message);
+    }
+
+    /**
+     * Adds the given error <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addErrorMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message);
+    }
+
+    /**
+     * Adds the given warning <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addWarningMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_WARN, message);
+    }
+
+    /**
+     * Adds the given info <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addInfoMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message);
+    }
+
+    /**
+     * Adds the given fatal <code>message</code> to the current faces context.
+     *
+     * @param message the message to add.
+     */
+    protected void addFatalMessage(final String message)
+    {
+        this.addMessage(javax.faces.application.FacesMessage.SEVERITY_FATAL, message);
+    }
+
+    /**
+     * Adds a message to the faces context (which will show up on your view when using the
+     * lt;h:messages/gt; tag).
+     *
+     * @param severity the severity of the message
+     * @param message the message to add.
+     */
+    protected void addMessage(final javax.faces.application.FacesMessage.Severity severity, final String message)
+    {
+        final javax.faces.application.FacesMessage facesMessage = new javax.faces.application.FacesMessage(severity, message, message);
+        javax.faces.context.FacesContext.getCurrentInstance().addMessage(
+            null,
+            facesMessage);
+    }
+
+    /**
+     * Populates the form from the given parameters.  If the request parameter is null or an empty
+     * string, then null is placed on the form.
+     *
+     * @param form the form to populate.
+     * @param formatters any date or time formatters.
+     */
+    private final void populateFormFromRequestParameters(final Object form, final java.util.Map formatters)
+    {
+        try
+        {
+            final java.util.Map parameters = this.getContext().getExternalContext().getRequestParameterMap();
+            for (final java.util.Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();)
+            {
+                final String name = (String)iterator.next();
+                if (org.apache.commons.beanutils.PropertyUtils.isWriteable(form, name))
+                {
+                    final java.beans.PropertyDescriptor descriptor =
+                        org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(form, name);
+                    if (descriptor != null)
+                    {
+                        final String parameter = (String)parameters.get(name);
+                        Object value = null;
+                        // - only convert if the string is not empty
+                        if (parameter != null && parameter.trim().length() > 0)
+                        {
+                            final java.text.DateFormat formatter = (java.text.DateFormat)formatters.get(name);
+                            // - if the formatter is available we use that, otherwise we attempt to convert
+                            if (formatter != null)
+                            {
+                                value = formatter.parse(parameter);
+                            }
+                            else
+                            {
+                                value = org.apache.commons.beanutils.ConvertUtils.convert(parameter, descriptor.getPropertyType());
+                            }
+                            org.apache.commons.beanutils.PropertyUtils.setProperty(form, name, value);
+                        }
+                    }
+                }
+            }
+        }
+        catch (final Throwable throwable)
+        {
+            throw new RuntimeException(throwable);
+        }
+    }
+}
