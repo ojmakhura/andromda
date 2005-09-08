@@ -24,19 +24,29 @@ import org.andromda.cartridges.jsf.component.html.HtmlPopupFrame;
 
 /**
  * A custom renderer for rendering a popup frame.
- *
- * @author Chad Brandon
  */
 public class PopupRenderer
     extends Renderer
 {
     public static final String POPUP_FRAME_HIDDEN = "hiddenPopupFrame";
 
+    /**
+     * Retrieves the current request instance.
+     *
+     * @return the current request.
+     */
     private HttpServletRequest getRequest()
     {
         return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
     }
 
+    /**
+     * Retrieve the popup resource path (the path within the
+     * deployed web application) given the relative <code>path</code>
+     *
+     * @param path the relative path.
+     * @return the complete path including the context path of the application.
+     */
     private String getPopupResourcePath(final String path)
     {
         return getRequest().getContextPath() + Constants.RESOURCE_CONTEXT + path;
@@ -106,9 +116,9 @@ public class PopupRenderer
                     command,
                     context)))
         {
-            MethodBinding binding = command.getActionOpen();
+            final MethodBinding binding = command.getActionOpen();
             command.setAction(binding);
-            ActionEvent actionEvent = new ActionEvent(command);
+            final ActionEvent actionEvent = new ActionEvent(command);
             if (command.isImmediate())
             {
                 command.queueEventImmediate(actionEvent);
@@ -132,6 +142,9 @@ public class PopupRenderer
         }
     }
 
+    /**
+     * @see javax.faces.render.Renderer#getRendersChildren()
+     */
     public boolean getRendersChildren()
     {
         return true;
@@ -334,8 +347,8 @@ public class PopupRenderer
      * @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     public void encodeChildren(
-        FacesContext context,
-        UIComponent component)
+        final FacesContext context,
+        final UIComponent component)
         throws IOException
     {
         // - only render if rendered is true
@@ -379,8 +392,8 @@ public class PopupRenderer
      * @see javax.faces.render.Renderer#convertClientId(javax.faces.context.FacesContext, java.lang.String)
      */
     public String convertClientId(
-        FacesContext context,
-        String clientId)
+        final FacesContext context,
+        final String clientId)
     {
         return clientId;
     }
