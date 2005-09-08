@@ -14,8 +14,8 @@
          ================================================================== -->
     <postGoal name="java:compile">
         <ant:mkdir dir="${maven.build.dest}/resources/WEB-INF/lib"/>
-        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/${pom.groupId}-jsf-components-${pom.currentVersion}.jar"
-            tofile="${maven.build.dest}/resources/WEB-INF/lib/${pom.groupId}-jsf-components.jar"
+        <ant:copy file="${maven.repo.local}/${pom.groupId}/jars/${pom.artifactId}-components-${pom.currentVersion}.jar"
+            tofile="${maven.build.dest}/resources/WEB-INF/lib/${pom.artifactId}-components.jar"
             overwrite="true"/>
     </postGoal>
 
