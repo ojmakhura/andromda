@@ -237,7 +237,9 @@ public class MetafacadeBase
      */
     protected boolean isConfiguredProperty(final String property)
     {
-        return MetafacadeFactory.getInstance().isPropertyRegistered(this, property);
+        return MetafacadeFactory.getInstance().isPropertyRegistered(
+            this,
+            property);
     }
 
     /**
@@ -248,7 +250,9 @@ public class MetafacadeBase
      */
     protected Object getConfiguredProperty(final String property)
     {
-        return MetafacadeFactory.getInstance().getRegisteredProperty(this, property);
+        return MetafacadeFactory.getInstance().getRegisteredProperty(
+            this,
+            property);
     }
 
     /**
@@ -271,7 +275,7 @@ public class MetafacadeBase
      *
      * @return the underlying model's meta object instance.
      */
-    protected final Object getMetaObject()
+    public final Object getMetaObject()
     {
         return this.metaObject;
     }
@@ -387,10 +391,10 @@ public class MetafacadeBase
     }
 
     /**
-     * The metafacade instace of <code>this</code>.  This should be used when 
+     * The metafacade instace of <code>this</code>.  This should be used when
      * you'd need to check if <code>this</code> was an instance of a given metafacade.
      * For example: <code>THIS() instanceof SomeMetafacade</code>.
-     * 
+     *
      * This <strong>MUST</strong> be used instead of <em>this<em> in order to access the correct
      * metafacade instance in the hiearchy (since we use delegate inheritance).
      */
