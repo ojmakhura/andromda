@@ -23,7 +23,7 @@ import org.andromda.cartridges.jsf.component.html.HtmlPopupFrame;
 
 
 /**
- * A customer render for rendering a popup frame.
+ * A custom renderer for rendering a popup frame.
  *
  * @author Chad Brandon
  */
