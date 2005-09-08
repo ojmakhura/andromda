@@ -1,7 +1,0 @@
-#if ($stringUtils.isNotBlank($securityRealm))
-<?xml version="1.0" encoding="$xmlEncoding" ?>
-
-<jboss-web>
-    <security-domain>java:/jaas/${securityRealm}</security-domain>
-</jboss-web>
-#end
