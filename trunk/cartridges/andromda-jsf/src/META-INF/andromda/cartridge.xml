@@ -369,6 +369,21 @@
     </template>
     
     <template
+        path="templates/jsf/views/jsp/includes/view-variables.jspf.vsl"
+        outputPattern="${view.path}-vars.jspf"
+        outlet="jsps"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>    
+    
+    
+    <template
         path="templates/jsf/views/jsp/index.jsp.vsl"
         outputPattern="$welcomeFileName"
         outlet="jsps"

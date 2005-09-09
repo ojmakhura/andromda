@@ -3,6 +3,7 @@ package org.andromda.cartridges.jsf.metafacades;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -11,11 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.andromda.cartridges.jsf.metafacades.JSFAction;
-import org.andromda.cartridges.jsf.metafacades.JSFParameter;
-import org.andromda.cartridges.jsf.metafacades.JSFParameterLogic;
-import org.andromda.cartridges.jsf.metafacades.JSFUseCase;
-import org.andromda.cartridges.jsf.metafacades.JSFView;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
@@ -1322,5 +1318,51 @@ public class JSFParameterLogicImpl
             reset = action != null && action.isFormReset();
         }
         return reset;
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isComplex()
+     */
+    protected boolean handleIsComplex()
+    {
+        boolean complex = false;
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            complex = !type.getAttributes().isEmpty();
+            if (!complex)
+            {
+                complex = !type.getAssociationEnds().isEmpty();
+            }
+        }
+        return complex;
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getAttributes()
+     */
+    protected Collection handleGetAttributes()
+    {
+        Collection attributes = null;
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            attributes = type.getAttributes();
+        }
+        return attributes == null ? Collections.EMPTY_LIST : attributes;
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getNavigableAssociationEnds()
+     */
+    protected Collection handleGetNavigableAssociationEnds()
+    {
+        Collection associationEnds = null;
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            associationEnds = type.getNavigableConnectingEnds();
+        }
+        return associationEnds == null ? Collections.EMPTY_LIST : associationEnds;
     }
 }

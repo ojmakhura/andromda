@@ -7,13 +7,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.andromda.cartridges.jsf.metafacades.JSFAction;
-import org.andromda.cartridges.jsf.metafacades.JSFParameter;
-import org.andromda.cartridges.jsf.metafacades.JSFViewLogic;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -262,5 +260,20 @@ public class JSFViewLogicImpl
     {
         return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_VIEW_TYPE)).equalsIgnoreCase(
             JSFGlobals.VIEW_TYPE_POPUP);
+    }
+
+    protected boolean handleIsNonTableVariablesPresent()
+    {
+        boolean present = false;
+        for (final Iterator iterator = this.getVariables().iterator(); iterator.hasNext();)
+        {
+            final FrontEndParameter variable = (FrontEndParameter)iterator.next();
+            if (!variable.isTable())
+            {
+                present = true;
+                break;
+            }
+        }
+        return present;
     }
 }

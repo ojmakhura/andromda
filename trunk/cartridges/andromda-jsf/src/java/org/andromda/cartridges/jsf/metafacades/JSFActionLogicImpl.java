@@ -201,7 +201,7 @@ public class JSFActionLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getPathRoot()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
