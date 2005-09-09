@@ -18,15 +18,15 @@
             width="100%">
 
         <f:facet name="header">
-            <h:panelGroup id="header">
-                <%@include file="/includes/header.jspf" %>
-            </h:panelGroup>
+            <f:subview id="header">
+                <jsp:include page="/includes/header.jsp" />
+            </f:subview>
         </f:facet>
 
         <f:facet name="navigation">
-            <h:panelGroup id="menu">
-                <%@include file="/includes/navigation.jspf" %>
-            </h:panelGroup>
+            <f:subview id="menu">
+                <jsp:include page="/includes/navigation.jsp" />
+            </f:subview>
         </f:facet>
 
         <f:facet name="body">
