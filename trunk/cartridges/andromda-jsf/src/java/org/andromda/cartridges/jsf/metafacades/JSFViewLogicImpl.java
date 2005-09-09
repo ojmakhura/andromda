@@ -12,6 +12,7 @@ import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -275,5 +276,20 @@ public class JSFViewLogicImpl
             }
         }
         return present;
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView#isHasNameOfUseCase()
+     */
+    protected boolean handleIsHasNameOfUseCase()
+    {
+        boolean sameName = false;
+        final ModelElementFacade useCase = this.getUseCase();
+        final String useCaseName = useCase != null ? useCase.getName() : null;
+        if (useCaseName != null && useCaseName.equalsIgnoreCase(this.getName()))
+        {
+            sameName = true;
+        }
+        return sameName;
     }
 }
