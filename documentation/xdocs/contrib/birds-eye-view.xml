@@ -232,17 +232,15 @@
             </subsection>
             <subsection name="Creating your UML Model">
                 <p>In theory, AndroMDA can use the output of any UML modeling tool as its starting point for code
-                    generation, provided the UML modeling tool can output to the Object Management Group’s industry
+                    generation, provided the UML modeling tool can output to the Object Management Group's industry
                     standard XML Metadata Interchange (XMI) file format (see
                     <a href="http://www.omg.org/technology/documents/formal/xmi.htm">
                         http://www.omg.org/technology/documents/formal/xmi.htm</a>).
                 </p>
-                <p>In <i>practice</i>
-                    , you will save yourself a LOT of headache if you simply use MagicDraw as your UML tool (a free
-                    community edition is available at
-                    <a href="http://www.magicdraw.com/">http://www.magicdraw.com</a>
-                    ).  All of the developers on the AndroMDA team use MagicDraw. and all of the testing of cartridges
-                    is based on MagicDraw files.
+                <p>In <i>practice</i>, you will save yourself a LOT of headache if you simply use MagicDraw as your UML tool (a free
+                    community edition is available at <a href="http://www.magicdraw.com/">http://www.magicdraw.com</a>
+                    ).  All of the developers on the AndroMDA team use MagicDraw (so obviously there will be better 
+                    out of the box support for that particular tool).
                 </p>
                 <p class="highlight">
                     <em>
