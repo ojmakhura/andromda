@@ -3,11 +3,17 @@
 #foreach ($variable in $view.variables)
 #if ($variable.attributes.empty)
         <h:outputText value="#{messages['$variable.messageKey']} :"/>
+#if ($variable.type.collectionType)
+        <c:forEach var="item" items="$variable.name">
+            <h:outputText value="#{item}"/>
+        </c:forEach>
+#else
         <h:outputText value="#{${variable.name}}">
 #if ($variable.type.dateType)
             <jsf:convertDateTime pattern="$variable.format"/>
 #end
         </h:outputText>
+#end
 #else
 #foreach ($attribute in $variable.attributes)
         <h:outputText value="#{messages['$attribute.messageKey']} :"/>
@@ -16,6 +22,28 @@
             <jsf:convertDateTime pattern="$attribute.format"/>
 #end
         </h:outputText>
+#end
+#foreach ($associationEnd in $variable.navigableAssociationEnds)
+#if ($associationEnd.many)
+        <c:forEach var="item" items="${${variable.name}.${associationEnd.name}}">
+#foreach ($itemAttribute in $associationEnd.type.attributes)
+            <h:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
+            <h:outputText value="#{item.${itemAttribute.name}}">
+#if ($itemAttribute.type.dateType)
+                <jsf:convertDateTime pattern="$itemAttribute.format"/>
+#end
+            </h:outputText>
+#end
+        </c:forEach>
+#else
+#foreach ($itemAttribute in $associationEnd.type.attributes)
+            <h:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
+            <h:outputText value="#{item.${itemAttribute.name}}">
+#if ($itemAttribute.type.dateType)
+                <jsf:convertDateTime pattern="$itemAttribute.format"/>
+#end
+#end
+#end
 #end
 #end
 #end
