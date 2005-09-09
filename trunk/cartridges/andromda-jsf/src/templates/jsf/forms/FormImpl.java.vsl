@@ -28,6 +28,8 @@ public class $action.formImplementationName
 
 #if ($field.type.collectionType)
 #set ($fieldTypeName = "java.util.List")
+#elseif ($field.type.fileType)
+#set ($fieldTypeName = "$fileTypeName")
 #else
 #set ($fieldTypeName = $field.type.fullyQualifiedName)
 #end
