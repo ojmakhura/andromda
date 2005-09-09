@@ -17,8 +17,8 @@
             <h:panelGrid columns="1" style="text-align:right" width="100%">
                 <h:outputText value="<em>#{remoteUser}</em>" escape="false" styleClass="logoutPanel"/>
             </h:panelGrid>
-        </c:if>
             <h:outputText value="~"/>
+        </c:if>
         <h:panelGrid columns="1" style="text-align:left" width="100%">
             <h:commandLink action="logout" styleClass="logout">
                 <h:outputText value="#{messages['logout.action']}" style="text-align:left"/>            
