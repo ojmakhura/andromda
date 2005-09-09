@@ -151,4 +151,70 @@ public class JSFUtils
             0,
             leftParen);
     }
+    
+    /**
+     * Constructs a string representing an array initialization in Java.
+     *
+     * @param name the name to give the array.
+     * @param count the number of items to give the array.
+     * @return A String representing Java code for the initialization of an array.
+     */
+    public static String constructDummyArrayDeclaration(final String name, final int count)
+    {
+        final StringBuffer array = new StringBuffer("new Object[] {");
+        for (int ctr = 1; ctr <= count; ctr++)
+        {
+            array.append("\"" + name + "-" + ctr + "\"");
+            if (ctr != count)
+            {
+                array.append(", ");
+            }
+        }
+        array.append("}");
+        return array.toString();
+    }
+    
+    /**
+     * @return this field's date format
+     */
+    public static String getDateFormat(String format)
+    {
+        return isStrictDateFormat(format) ? getToken(
+            format,
+            1,
+            2) : getToken(
+            format,
+            0,
+            1);
+    }
+    
+    /**
+     * @return <code>true</code> if this field's value needs to conform to a strict date format, <code>false</code> otherwise
+     */
+    public static boolean isStrictDateFormat(String format)
+    {
+        return "strict".equalsIgnoreCase(getToken(
+                format,
+                0,
+                2));
+    }
+    
+    /**
+     * @return the i-th space delimited token read from the argument String, where i does not exceed the specified limit
+     */
+    public static String getToken(
+        String string,
+        int index,
+        int limit)
+    {
+        String token = null;
+        if (string != null && string.length() > 0)
+        {
+            final String[] tokens = string.split(
+                    "[\\s]+",
+                    limit);
+            token = index >= tokens.length ? null : tokens[index];
+        }
+        return token;
+    }
 }

@@ -48,5 +48,27 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <!-- custom converters -->
+
+    <converter>
+        <converter-id>andromda.faces.DateTime</converter-id>
+        <converter-class>org.andromda.cartridges.jsf.converters.DateTimeConverter</converter-class>
+    </converter>
+
+    <!-- custom converters by class -->
+
+    <converter>
+        <converter-for-class>java.util.Date</converter-for-class>
+        <converter-class>org.andromda.cartridges.jsf.converters.DateTimeConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-for-class>java.util.Calendar</converter-for-class>
+        <converter-class>org.andromda.cartridges.jsf.converters.DateTimeConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-for-class>java.util.GregorianCalendar</converter-for-class>
+        <converter-class>org.andromda.cartridges.jsf.converters.DateTimeConverter</converter-class>
+    </converter>    
 
 </faces-config>

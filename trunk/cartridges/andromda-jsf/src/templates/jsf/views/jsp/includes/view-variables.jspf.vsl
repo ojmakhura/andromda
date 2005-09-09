@@ -1,14 +1,21 @@
 <h:panelGrid columns="1" id="viewVariables" width="100%">
     <h:panelGrid columns="2" columnClasses="viewVariableLabel,,viewVariableText">
 #foreach ($variable in $view.variables)
-#if (!$variable.table)
-#if (!$variable.complex)
-        <h:outputText value="#{messages['$variable.messageKey']} :"/><h:outputText value="#{${variable.name}}"/>
-#else
-
-#foreach ($attribute in $variable.attributes)
-        <h:outputText value="#{messages['$attribute.messageKey']} :"/><h:outputText value="#{${variable.name}.${attribute.name}}"/>
+#if ($variable.attributes.empty)
+        <h:outputText value="#{messages['$variable.messageKey']} :"/>
+        <h:outputText value="#{${variable.name}}">
+#if ($variable.type.dateType)
+            <jsf:convertDateTime pattern="$variable.format"/>
 #end
+        </h:outputText>
+#else
+#foreach ($attribute in $variable.attributes)
+        <h:outputText value="#{messages['$attribute.messageKey']} :"/>
+        <h:outputText value="#{${variable.name}.${attribute.name}}">
+#if ($attribute.type.dateType)
+            <jsf:convertDateTime pattern="$attribute.format"/>
+#end
+        </h:outputText>
 #end
 #end
 #end

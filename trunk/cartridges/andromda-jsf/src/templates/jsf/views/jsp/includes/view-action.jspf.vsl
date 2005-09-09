@@ -51,7 +51,7 @@
                              renderAsPopup="true"
                              popupDateFormat="$parameter.format"
                              required="$parameter.required">
-                <f:convertDateTime pattern="$parameter.format"/>
+                <jsf:convertDateTime pattern="$parameter.format"/>
             </x:inputCalendar>
 #end
 #elseif ($parameter.inputCheckbox)
@@ -84,7 +84,7 @@
 #else
             <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
 #if ($parameter.type.timeType)
-                <f:convertDateTime pattern="$parameter.format"/>
+                <jsf:convertDateTime pattern="$parameter.format"/>
 #end
             </h:inputText>
 #end

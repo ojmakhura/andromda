@@ -135,4 +135,9 @@ public class JSFGlobals
      * possible parameter values when selecting from a list).
      */
     public static final String VALUE_LIST_PATTERN = "valueListPattern";
+    
+    /**
+     * The item count for dummy arrays.
+     */
+    public static final int DUMMY_ARRAY_COUNT = 5;
 }

@@ -77,7 +77,7 @@
         </f:facet>
         <h:outputText value="#{row.${columnName}}">
 #if ($column.type.dateType)
-            <f:convertDateTime pattern="$defaultDateFormat"/>
+            <jsf:convertDateTime pattern="$defaultDateFormat"/>
 #end
         </h:outputText>
     </h:column>
