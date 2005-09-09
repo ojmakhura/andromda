@@ -10,12 +10,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.andromda.cartridges.jsf.metafacades.JSFAction;
-import org.andromda.cartridges.jsf.metafacades.JSFEvent;
-import org.andromda.cartridges.jsf.metafacades.JSFParameter;
-import org.andromda.cartridges.jsf.metafacades.JSFUseCase;
-import org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogic;
-import org.andromda.cartridges.jsf.metafacades.JSFView;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
@@ -25,7 +19,6 @@ import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -75,13 +68,18 @@ public class JSFUseCaseLogicImpl
         pathRoot.append(prefix);
         return pathRoot.toString();
     }
+    
+    /**
+     * The suffix to append to the forward name.
+     */
+    private static final String FORWARD_NAME_SUFFIX = "-usecase";
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getPathRoot()
      */
     protected String handleGetForwardName()
     {
-        return JSFUtils.toWebResourceName(this.getName());
+        return JSFUtils.toWebResourceName(this.getName()) + FORWARD_NAME_SUFFIX;
     }
 
     /**
@@ -492,11 +490,10 @@ public class JSFUseCaseLogicImpl
         boolean sameName = false;
         for (final Iterator iterator = this.getViews().iterator(); iterator.hasNext();)
         {
-            final ModelElementFacade view = (ModelElementFacade)iterator.next();
-            final String name = view.getName();
-            if (name != null && name.equalsIgnoreCase(this.getName()))
+            final JSFView view = (JSFView)iterator.next();
+            sameName = view.isHasNameOfUseCase();
+            if (sameName)
             {
-                sameName = true;
                 break;
             }
         }
